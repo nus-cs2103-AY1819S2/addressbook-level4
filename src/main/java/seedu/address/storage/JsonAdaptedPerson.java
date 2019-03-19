@@ -17,7 +17,7 @@ import seedu.address.model.person.GPA;
 import seedu.address.model.person.Education;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.SkillsTag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -73,7 +73,7 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<SkillsTag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
@@ -125,8 +125,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
-
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<SkillsTag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelEducation, modelGPA, modelAddress, modelTags);
     }
 

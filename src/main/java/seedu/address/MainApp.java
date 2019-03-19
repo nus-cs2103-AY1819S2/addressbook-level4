@@ -15,6 +15,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -173,7 +174,15 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
+
+        try {
+            if(AddressBook.filterExist) logic.removeFilterWhileExiting();
+        } catch (CommandException e) {
+            logger.severe("Failed to clear the existing filter before closing the application.");
+        }
+
         logger.info("============================ [ Stopping Address Book ] =============================");
+
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

@@ -13,9 +13,11 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+
+import seedu.address.model.tag.SkillsTag;
 import seedu.address.model.person.GPA;
 import seedu.address.model.person.Education;
+
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
@@ -97,18 +99,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
+     * Parses a {@code String tag} into a {@code SkillsTag}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
-    public static Tag parseTag(String tag) throws ParseException {
+    public static SkillsTag parseTag(String tag, String color) throws ParseException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        if (!SkillsTag.isValidTagName(trimmedTag)) {
+            throw new ParseException(SkillsTag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return new SkillsTag(trimmedTag, color);
     }
 
     public static GPA parseGPA(String gpa) throws ParseException {
@@ -130,14 +132,31 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> tags} into a {@code Set<SkillsTag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    public static Set<SkillsTag> parseTags(Collection<String> tags, String type) throws ParseException {
         requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
+        final Set<SkillsTag> tagSet = new HashSet<>();
+        final String color;
+        if(type.equals("skill")){
+            color = "yellow";
+        }else{
+            color = "pink";
+        }
         for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+            tagSet.add(parseTag(tagName, color));
         }
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String sortWord} into a {@code SortWord}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static SortWord parseSortWord(String sortWord) throws ParseException {
+        requireNonNull(sortWord);
+        String trimmedSortWord = sortWord.trim();
+        return new SortWord(trimmedSortWord);
+    }
+
 }

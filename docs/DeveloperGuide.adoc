@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Recruit Me - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,17 +14,17 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `RecruitMe`      Since: `January 2019`      Licence: `MIT`
 
 == Setting up
 
 === Prerequisites
 
-. *JDK `8`* (revision `1.8.0_201` or later)
+. *JDK `9`* (revision `1.9.4` or later)
 +
 [NOTE]
-Only JDK 8 is supported. +
-This app will not work with later major JDK releases such as JDK 9, 10, 11, etc.
+Only JDK 9 is supported. +
+This app will not work with later major JDK releases such as JDK 10, 11, etc.
 +
 . *IntelliJ* IDE
 +
@@ -308,6 +308,115 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::filter[]
+=== Filter or/and/clear feature
+==== Current Implementation
+
+image::filterDiagram.png[width="800"]
+.Sequence Diagram of the Filtering Command
+
+Filtering mechanism is facilitated by `AddressBook`.
+In the AddressBook class, we have added a new `UniquePersonsList` parameter called `allPersonsStorage` and this parameter stores also the persons in the application.
+When the filtering method is used, the `persons` parameter in the class is updated according to the filtering criterion (the persons that are not matching the conditions are removed)
+but the list in the new parameter `allPersonsStorage` are not changed. At the end, when the filtering is cleared, the `persons` parameter is updated with the information in `allPersonsStorage`.
+If user exits the program when filtering is active, in the `stop` method of `MainApp` class, a new method is called that clears the filtering and saves all the persons to the `JSON` file, rather than filtered contacts.
+In filtering system, important processes are as follows:
+
+* `filter or [CRITERION]` -- Filters the persons and includes the ones that has at least one match from the criterion.
+
+Every single one of the persons in the `persons` parameter is traversed.
+There is a flag that returns true for each person, if a criteria matches. For each criteria,
+the persons are investigated with contains method in a case insensitive manner. With case insensitivity,
+if one of the criterion is `Ale` for the name parameter, every person that contains `Ale` in their names are
+selected.
+
+* `filter and [CRITERION]` -- Filters the persons and removes the ones that does not match even one of the criterion.
+
+Every single one of the persons in the `persons` parameter is traversed.
+There is a flag that returns false for each person, if a criteria does not match. For each criteria,
+the persons are investigated with contains method in a case insensitive manner. With case insensitivity,
+if one of the criterion is `Ale` for the name parameter, every person that contains `Ale` in their names are
+passed successfully from the name criteria.
+
+* `filter clear` -- Clears all the filtering that are active in current case
+
+As explained in the beginning part of the filtering method, the filter is cleared with restoring all the persons
+who are not in `persons` parameter but included in `allPersonsStorage` parameter
+
+==== Working Principle of `FilterCommandParser` Class
+
+Filtering command is taken from the user as follows:
+
+* `filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [a/ADDRESS/a] [skill/ SKILL1, SKILL2, …​ /skill`]
+* `filter clear`
+
+To process the input from user, these steps are followed in the code:
+
+* first the input is cleared from multiple spaces or any unwanted additional forms.
+* after that according to the first couple of the characters, the exact process is determined (If it is `add` or `or` or `clear`)
+* if it is clear, the FilterCommand function is called fo that method. If it is not, followings take place.
+* following that, the prefixes are searched. 5 flags are stored in `String` form for 5 different filtering conditions and
+if the prefix itself exists and the reverse version also exist and the prefix itself is before the reverse one the flag is turned
+to `available`
+* for the available parameters, the input is trimmed and separated from the prefixes.
+* FilterCommand function is called. In the parameters passed to the function, the process type, criterion flags and criterion contexts are included.
+
+==== Alternative Approaches
+
+In this title, both Command implementation and Parser implementation will be discussed in 2 parts:
+
+===== Command Implementation
+
+Instead of adding another parameter in `AddressBook` called `allPersonsStorage`, another approach would be letting `persons` parameter to hold
+all the unfiltered information and updating `filteredPersons` parameter in the `ModelManager` class. However, in order to implement that approach
+we had to update the list in every time user uses filtering with a `Predicate` approach. Because, `FilteredList` class (the type of the `filteredPersons`
+parameter) uses these in very crucial parts of its implementation.
+
+* **Pros of this approach:**
+** Does not need any additional parameter to be created in AddressBook class.
+** Decreases the number of changes made in each list changing method of the AddressBook class. Because, if any additional
+parameter is added to AddressBook class, all the functions have to be changed considering the new parameter.
+
+* **Cons of this approach:**
+** It is hard and time consuming to implement this approach. Actually that's why we did not choose that approach.
+** It may require some changes in the `Model` class.
+
+===== Parser Implementation
+
+Instead of putting the criterion contents between both prefixes and reverse prefixes, like the addition process we
+could only add the content after the prefix (without any reverse prefix usage).
+
+* **Pros of this approach:**
+** User would need to write less number of characters
+
+* **Cons of this approach:**
+** Using also reverse prefix makes the job much easier, because it simply marks also the end of the content.
+** In currently implemented version, no order of the criterion is necessary. So, first phone number and then name etc. can be added for filtering condition.
+However in the alternative approach, implementing the input taking with no order is harder.
+
+==== Combining the Command With Other Commands
+
+Since a new parameter is added to the `AddressBook` class, some changes should have done to adjust the existing processes to
+be used at the same time with filtering commands.
+
+===== Undo/Redo Command
+
+* To save the filtering information at each step, a new list is created to hold the filtering information at current stage (active or not)
+whenever the current AddressBook is pushed to the list.
+* `resetData` method is modified in order to reset the `allPersonsStorage` parameter if needed.
+
+===== Add, Edit and Delete Commands
+
+* `commit` method is modified for transferring the filtering information to the stage after committing is made and also the filtering information is pushed to the list here
+* `delete` and `edit` processes are working without clearing the filter.
+* `add` method clears the filter when a new person is added. Because, all the previous filtering are not saved in anywhere, so we cannot control if the newly added person matches
+with the filtering criterion. Thus, all the filtering is cleared.
+
+===== Other Commands
+
+These are the ones that requires almost no changes or only small amount of changes to be compatible with filtering.
+// end::filter[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -334,6 +443,23 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+[[Implementation-Sort Commands]]
+=== Sort Commands
+
+When writing sort commands, there were two approaches considered: modify the indices of all persons and then refresh the left-hand GUI panel with this new list; or temporarily delete the list of persons and then add a new list of correctly ordered persons.
+
+Elements of lists in Java are ordered by when they were added. Sorting is possible using Collections, however this requires them to be strings. Since the Recruit Me application contains lists of various types, typically Person, there is no immediate compatibility with Collections. Furthermore it was suspected that to simply modify the indices of persons, a lot of duplicate code would be need to be written since this aspect of addressbooklevel4 was not easily modifiable. Because of this the second method was opted for.
+
+Despite the risk of slightly increasing the coupling, the aim was to use methods already written and rely on good cohesion. For example, once a sort command has correctly written the correctly ordered persons to a `List<Person>`, rather than duplicating large amounts of code by modifying the already listed persons, it shall use the already written delete person and add person commands.
+
+It is of note that the temporary deletion of persons from the addressbook should be foolproof and there should be no way that the sort command ever permenantly deltes the addressbook. Furthermore, ensuring the command works with the already implemented undo/redo command should ensure the user still has full control over all the persons in the contact book.
+
+To add a new sort command, the following should be taken into account... (INSERT CLASS DIAGRAM)
+
+Two sorting methods are currently present: `alphabetical` and `skills`...
+
+NOT COMPLETE.
 
 == Documentation
 
@@ -802,15 +928,20 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
-== Product Scope
+== Product Scope - Target user profile
 
-*Target user profile*:
+*General Needs*:
 
 * has a need to manage a significant number of contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+
+*Special Needs*:
+
+* this is an application for recruitment agency specifically
+* the commands (filtering, sorting, deleting, adding etc.) and tags (education, experience etc.) are designed for applicants
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
@@ -832,7 +963,20 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`* *` |user with many persons in the address book |filter persons by any of the multiple properties at the same time |see which persons are fit into the criterion
+
+|`* *` |user with many persons in the address book |use all the other operations when filtering is active |locate the searched persons more easily
+
+|`* *` |user with many persons in the address book |disable the active filtering |see all the list when the job is done
+
+|`* *` |user with many persons in the address book |undo the operation what he/she just did |prevent false updates in the address book
+
+|`* *` |user with many persons in the address book |redo the operation what he/she just did |prevent false undo operations in the address book
+
+|`* *` |user with many persons in the address book |see the education level, technical skills and experience of the persons |choose persons regarding more information given.
+
 |=======================================================================
 
 _{More to be added}_
@@ -844,8 +988,6 @@ _{More to be added}_
 
 [discrete]
 === Use case: Delete person
-
-*MSS*
 
 1.  User requests to list persons
 2.  AddressBook shows a list of persons
@@ -868,12 +1010,102 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: Add person
+
+1.  User requests to add a new person with entering information about the new person
+2.  AddressBook adds the person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given information format is invalid
++
+
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
+
+[none]
+* 2b. All the necessary information is not given.
+
++
+
+[none]
+** 2b1. AddressBook shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Filter person with and
+
+1.  User requests to filter address book with entering conditions to filter
+2.  AddressBook filters the persons that passes with all the conditions and prints those.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given information format is invalid
++
+
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
 
 [appendix]
+
+[discrete]
+=== Use case: Filter person with or
+
+1.  User requests to filter address book with entering conditions to filter
+2.  AddressBook filters the persons that passes with at least one of the conditions and prints those.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given information format is invalid
++
+
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case ends.
+
+[appendix]
+
+[discrete]
+=== Use case: Filter clearing
+
+1.  User requests to clear all the filtering in the address book.
+2.  Filtering is cleared and all the people in the book is printed.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort address book by name
+
+1.  User requests to sort address book by name
+2.  The address book is printed in a sorted order with respect to the names.
++
+Use case ends.
+
+
+[appendix]
+
+
+[appendix]
+
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `8` (revision `1.8.0_201` or higher) installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` (revision `1.9.4` or higher) installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 

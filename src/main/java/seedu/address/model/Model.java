@@ -65,10 +65,21 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
+     * Deletes all persons existing in the address book.
+     */
+    void deleteAllPerson();
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given person without clearing the filter.
+     * {@code person} must not already exist in the address book.
+     */
+    void addPersonWithFilter(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -110,6 +121,22 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Clears the filter and makes the printed address book equal to
+     * the whole storage address book
+     */
+    void clearFilter();
+
+    /**
+     * Applies filtering and chooses the persons that pass all the conditions
+     */
+    void filterAnd(String name, String phone, String email, String address, String[] tagList);
+
+    /**
+     * Applies filtering and chooses the persons that pass at least one of the conditions
+     */
+    void filterOr(String name, String phone, String email, String address, String[] tagList);
 
     /**
      * Selected person in the filtered person list.

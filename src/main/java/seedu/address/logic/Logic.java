@@ -69,4 +69,11 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * It is called in the stop function of main. And clears all the filters if there
+     * is any.
+     * @throws CommandException
+     */
+    void removeFilterWhileExiting() throws CommandException;
 }

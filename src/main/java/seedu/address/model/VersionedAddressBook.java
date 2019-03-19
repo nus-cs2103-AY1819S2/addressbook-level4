@@ -9,13 +9,16 @@ import java.util.List;
 public class VersionedAddressBook extends AddressBook {
 
     private final List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<Integer> filterStateList;
     private int currentStatePointer;
 
     public VersionedAddressBook(ReadOnlyAddressBook initialState) {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
+        filterStateList  = new ArrayList<>();
         addressBookStateList.add(new AddressBook(initialState));
+        filterStateList.add(0);
         currentStatePointer = 0;
     }
 
@@ -24,36 +27,51 @@ public class VersionedAddressBook extends AddressBook {
      * Undone states are removed from the state list.
      */
     public void commit() {
+
         removeStatesAfterCurrentPointer();
         addressBookStateList.add(new AddressBook(this));
+        if(AddressBook.filterExist) filterStateList.add(1);
+        else filterStateList.add(0);
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        filterStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
     }
 
     /**
      * Restores the address book to its previous state.
      */
     public void undo() {
+
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
+
         currentStatePointer--;
         resetData(addressBookStateList.get(currentStatePointer));
+        if(filterStateList.get(currentStatePointer) == 0) AddressBook.filterExist = false;
+        else AddressBook.filterExist = true;
+
+//        String temp = "FALSE";
+//        if(AddressBook.filterExist) temp = "TRUE";
+//        System.out.println("Undo --- All: " + this.getAllPersonsStorageList().size() + " - Persons: " + this.getPersonList().size() + " - Filter: "  + temp);
     }
 
     /**
      * Restores the address book to its previously undone state.
      */
     public void redo() {
+
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
         resetData(addressBookStateList.get(currentStatePointer));
+        if(filterStateList.get(currentStatePointer) == 0) AddressBook.filterExist = false;
+        else  AddressBook.filterExist = true;
     }
 
     /**

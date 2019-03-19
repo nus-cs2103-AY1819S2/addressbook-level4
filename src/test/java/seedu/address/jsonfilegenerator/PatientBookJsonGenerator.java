@@ -10,8 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import seedu.address.model.PatientBook;
-import seedu.address.storage.PatientBookStorage;
 import seedu.address.storage.JsonPatientBookStorage;
+import seedu.address.storage.PatientBookStorage;
 import seedu.address.testutil.TypicalPatients;
 
 //import java.util.Arrays;

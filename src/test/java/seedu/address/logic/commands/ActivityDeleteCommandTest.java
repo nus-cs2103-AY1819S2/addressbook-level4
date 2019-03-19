@@ -1,9 +1,14 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.*;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.logic.commands.CommandTestUtil.showActivityAtIndex;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ACTIVITY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ACTIVITY;
+
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -27,8 +32,8 @@ public class ActivityDeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Activity activityToDelete = model.getFilteredActivityList().get(INDEX_FIRST_PERSON.getZeroBased());
-        ActivityDeleteCommand activityDeleteCommand = new ActivityDeleteCommand(INDEX_FIRST_PERSON);
+        Activity activityToDelete = model.getFilteredActivityList().get(INDEX_FIRST_ACTIVITY.getZeroBased());
+        ActivityDeleteCommand activityDeleteCommand = new ActivityDeleteCommand(INDEX_FIRST_ACTIVITY);
 
         String expectedMessage = String.format(ActivityDeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete);
 

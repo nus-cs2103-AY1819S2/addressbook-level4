@@ -11,10 +11,10 @@ import org.junit.Test;
 public class PrescriptionTest {
     @Test
 
-    public void equals(){
-        Prescription p1 = new Prescription(null,null,new Description("Testing"));
-        Prescription p2 = new Prescription(null,null,new Description("Testing"));
-        Prescription p3 = new Prescription(null,null,new Description("NotTheSame"));
+    public void equals() {
+        Prescription p1 = new Prescription(null, null, new Description("Testing"));
+        Prescription p2 = new Prescription(null, null, new Description("Testing"));
+        Prescription p3 = new Prescription(null, null, new Description("NotTheSame"));
 
 
 

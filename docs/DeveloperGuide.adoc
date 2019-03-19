@@ -313,6 +313,47 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::tablemode[]
+=== Changing to Table Mode
+
+==== Modes
+
+The modes of the application are defined using a `Mode` enum instead of declaring integer constants. This is to make the code more readable as the enum values explicitly state the name of the mode (eg. `TABLE_MODE`, `MENU_MODE`) and to easily identify incorrect modes since the set of valid modes is restricted to the enum values.
+
+The current mode of the application is stored as a private attribute `Mode mode` in `LogicManager`. It is stored in the `Logic` component rather than the `Model` component because modes are used to organise the available commands into their respective features, and the check for which a command is valid in a particular mode is done in `Logic`. With this implementation, `Model` does not need to know what the current mode is at all and this reduces coupling.
+
+==== Changing mode
+
+When the mode of the application is changed, we need to update the: 
+
+* `Logic` component so that the `mode` attribute in `LogicManager` reflects the new current mode, since this is used to check if a command can be executed,
+* `UI` component so that the panels display the information that is relevant to the mode.
+
+When the user wants to perform order-related operations (eg. add an item to the table's order), the user will first have to switch to Table Mode by typing the `tableMode` command (or its shortcut command `TM`) followed by the table number of the table that the user wants to update. 
+
+[NOTE]
+The `tableMode` command can be used from any mode, even in Table Mode of a different table number. If the application is already in Table Mode of the same table number, an error message will be shown to the user.
+
+The following sequence diagram shows the relevant parts of what happens when a user executes the `tableMode 3` command:
+
+image::TableModeSequenceDiagram.png[width="800"]
+
+The `LogicManager` will receive the command from the UI and parse the command to obtain the `TableModeCommand` object to be executed. The `TableModeCommand` contains a `TableNumber` attribute that indicates the table number of the target table to switch to. In this case, it will represent table number 3.
+
+The `TableModeCommand` is then executed. It first retrieves the `Table` that corresponds to its `TableNumber` attribute. This is done by going through `Model#getRestOrRant()` to obtain the `ReadOnlyRestOrRant`, whose `getTables()` method can be called to retrieve `ReadOnlyTables` that contains the list of all the tables in the restaurant. The `Table` can then be retrieved by passing `TableNumber` into `ReadOnlyTables#getTableFromNumber()`.
+
+The `Table` is then set as the selected table in `Model` using `Model#setSelectedTable()`. This is to keep track of the current table so that the Table Mode commands like `addToOrder` and `bill` can easily perform their operations by getting the table from `Model#getSelectedTable()`.
+
+After which, `Model#updateFilteredOrderItemList()` is called to update the filtered list such that it only contains order items ordered by the chosen table. This will then update the item list panel in the UI to display only the order items that were ordered by the chosen table, since the UI retrieves its information from the filtered list. 
+
+`TableModeCommand` then calls `Model#updateMode()` to trigger the listener so that `LogicManager` knows that there has been a change in mode. When that is done, it generates a `CommandResult` whose `toMode` attribute is set to `TABLE_MODE` and this is returned to the `LogicManager`. Since the listener has set `modeModified` to true, `LogicManager` calls `changeMode()` to update its `mode` attribute to `TABLE_MODE`.
+
+Finally, the `CommandResult` is returned to `MainWindow` in the UI and since the `CommandResult` contains a non-null `toMode` attribute, it will call `handleChangeMode()` to update the panels on display.
+
+
+
+// end::tablemode[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

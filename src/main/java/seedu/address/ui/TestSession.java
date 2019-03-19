@@ -38,5 +38,9 @@ public class TestSession extends UiPart<Region> {
         testCard.setText(cardToTest.getQuestion().fullQuestion);
         testSessionPage.getChildren().add(testCard);
     }
+
+    public void handleCorrectAnswer() {
+        testSessionPage.setStyle("-fx-background-color: #47AB6C;");
+    }
 }
 

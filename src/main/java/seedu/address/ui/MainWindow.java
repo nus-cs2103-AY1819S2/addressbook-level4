@@ -201,6 +201,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleCorrectAnswer() {
         //TODO: Change UI to display correct answer
+        assert testSession != null;
+        testSession.handleCorrectAnswer();
     }
 
     /**

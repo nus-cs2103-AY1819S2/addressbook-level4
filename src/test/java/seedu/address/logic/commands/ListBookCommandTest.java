@@ -51,7 +51,7 @@ public class ListBookCommandTest {
 
         // same values -> returns true
         ListBookCommand listFirstCommandCopy = new ListBookCommand(firstPredicate);
-        assertTrue(listFirstCommand.equals(listFirstCommand));
+        assertTrue(listFirstCommand.equals(listFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(listFirstCommand.equals(1));

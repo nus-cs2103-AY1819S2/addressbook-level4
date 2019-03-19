@@ -4,11 +4,11 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/CS2103-AY1819S2-W17-1/main[image:https://travis-ci.org/CS2103-AY1819S2-W17-1/main.svg?branch=master["Build Status", link="https://travis-ci.org/CS2103-AY1819S2-W17-1/main"]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/UiUpdated.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::images/UiUpdated.png[width="600"]
 endif::[]
 
 * This is a desktop Food Diary application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).

@@ -132,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         questionPanel = new QuestionPanel();
-        questionPanelPlaceholder.getChildren().add(questionPanel.getRoot());
+//        questionPanelPlaceholder.getChildren().add(questionPanel.getRoot());
 
     }
 

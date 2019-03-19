@@ -31,6 +31,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
@@ -42,7 +43,7 @@ import seedu.address.testutil.CardUtil;
 public class EditCommandSystemTest extends CardFolderSystemTest {
 
     @Test
-    public void edit() {
+    public void edit() throws CommandException {
         Model model = getModel();
 
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
@@ -197,7 +198,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Card, Index)
      */
-    private void assertCommandSuccess(String command, Index toEdit, Card editedCard) {
+    private void assertCommandSuccess(String command, Index toEdit, Card editedCard) throws CommandException {
         assertCommandSuccess(command, toEdit, editedCard, null);
     }
 
@@ -211,7 +212,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Card editedCard,
-                                      Index expectedSelectedCardIndex) {
+                                      Index expectedSelectedCardIndex) throws CommandException {
         Model expectedModel = getModel();
         expectedModel.setCard(expectedModel.getFilteredCards().get(toEdit.getZeroBased()), editedCard);
         expectedModel.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);

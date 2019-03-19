@@ -137,7 +137,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setCardFolder(ReadOnlyCardFolder newData) {
+        public void resetCardFolder(ReadOnlyCardFolder newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -243,6 +243,11 @@ public class AddCommandTest {
 
         @Override
         public void setActiveCardFolderIndex(int newIndex) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void exitFoldersToHome() throws CommandException {
             throw new AssertionError("This method should not be called.");
         }
 

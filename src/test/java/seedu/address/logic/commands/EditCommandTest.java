@@ -23,6 +23,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditCardDescriptor;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -40,7 +41,7 @@ public class EditCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedUnfilteredList_success() throws CommandException {
         Card editedCard = new CardBuilder().build();
         EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD, descriptor);
@@ -56,7 +57,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedUnfilteredList_success() throws CommandException {
         Index indexLastCard = Index.fromOneBased(model.getFilteredCards().size());
         Card lastCard = model.getFilteredCards().get(indexLastCard.getZeroBased());
 
@@ -93,7 +94,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_filteredList_success() throws CommandException {
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
         Card cardInFilteredList = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());

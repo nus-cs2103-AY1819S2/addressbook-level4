@@ -24,6 +24,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
@@ -35,6 +36,9 @@ import seedu.address.storage.csvmanager.CsvManager;
  * Represents the in-memory model of the card folder data.
  */
 public class ModelManager implements Model {
+    private static final String ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE = "Command can only be executed in folder";
+    private static final String ILLEGAL_COMMAND_NOT_IN_HOME_MESSAGE = "Command can only be executed in home directory";
+
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -80,19 +84,10 @@ public class ModelManager implements Model {
             filteredCards.addListener(this::ensureSelectedCardIsValid);
         }
 
-        // TODO: Address the following hardcoded line
+
+        // ModelManager initialises to homepage
         activeCardFolderIndex = 0;
-    }
-
-    public ModelManager(ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireNonNull(userPrefs);
-
-        logger.fine("Initialising user prefs without folder: " + userPrefs);
-
-        filteredFolders = new FilteredList<>(FXCollections.observableArrayList());
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredCardsList = new ArrayList<>();
+        inFolder = true;
     }
 
     public ModelManager(String newFolderName) {
@@ -104,9 +99,7 @@ public class ModelManager implements Model {
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
-        return filteredCardsList.get(activeCardFolderIndex);
-    }
-    private ObservableList<Card> getActiveObservableCards() {
+        // TODO: Only return if inFolder
         return filteredCardsList.get(activeCardFolderIndex);
     }
 
@@ -148,7 +141,10 @@ public class ModelManager implements Model {
     //=========== CardFolder ================================================================================
 
     @Override
-    public void setCardFolder(ReadOnlyCardFolder cardFolder) {
+    public void resetCardFolder(ReadOnlyCardFolder cardFolder) throws CommandException {
+        if (!inFolder) {
+            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
+        }
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.resetData(cardFolder);
     }
@@ -172,20 +168,30 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteCard(Card target) {
+    public void deleteCard(Card target) throws CommandException {
+        if (!inFolder) {
+            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
+        }
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.removeCard(target);
     }
 
     @Override
-    public void addCard(Card card) {
+    public void addCard(Card card) throws CommandException {
+        if (!inFolder) {
+            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
+        }
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.addCard(card);
         updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
-    public void setCard(Card target, Card editedCard) {
+    public void setCard(Card target, Card editedCard) throws CommandException {
+        if (!inFolder) {
+            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
+        }
+
         requireAllNonNull(target, editedCard);
 
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
@@ -206,14 +212,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteFolder(int index) {
+    public void deleteFolder(int index) throws CommandException {
+        if (inFolder) {
+            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_HOME_MESSAGE);
+        }
         folders.remove(index);
         filteredCardsList.remove(index);
         indicateModified();
     }
 
     @Override
-    public void addFolder(CardFolder cardFolder) {
+    public void addFolder(CardFolder cardFolder) throws CommandException {
+        if (inFolder) {
+            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_HOME_MESSAGE);
+        }
         VersionedCardFolder versionedCardFolder = new VersionedCardFolder(cardFolder);
         folders.add(versionedCardFolder);
         FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
@@ -228,8 +240,20 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setActiveCardFolderIndex(int newIndex) {
+    public void setActiveCardFolderIndex(int newIndex) throws CommandException {
+        if (inFolder) {
+            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_HOME_MESSAGE);
+        }
+        inFolder = true;
         activeCardFolderIndex = newIndex;
+    }
+
+    @Override
+    public void exitFoldersToHome() throws CommandException {
+        if (!inFolder) {
+            throw new CommandException(ILLEGAL_COMMAND_NOT_IN_FOLDER_MESSAGE);
+        }
+        inFolder = false;
     }
 
     @Override
@@ -245,7 +269,7 @@ public class ModelManager implements Model {
     /**
      * Notifies listeners that the list of card folders has been modified.
      */
-    protected void indicateModified() {
+    private void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
 

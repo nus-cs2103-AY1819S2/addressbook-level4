@@ -13,9 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/cs2103-ay1819s2-w10-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -74,9 +74,11 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the
+`cs2103-ay1819s2-w10-4/main` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `cs2103-ay1819s2-w10-4/main`)
+, you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -966,13 +968,16 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* medicine students who need to rote memorisation of information
+* finds carrying physical flashcards around troublesome and prefers an application to help them store and organize
+their learning material
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: flashcards that are able to test the user instead of simply having them recall the answer. The
+user experience is more engaging and scoring is more accurate as it is based on actual performance rather than reported performance.
 
 [appendix]
 == User Stories

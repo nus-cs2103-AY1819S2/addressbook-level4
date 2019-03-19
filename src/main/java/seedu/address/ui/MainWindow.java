@@ -41,9 +41,6 @@ public class MainWindow extends UiPart<Stage> {
     private QuestionPanel questionPanel;
 
     @FXML
-    private StackPane browserPlaceholder;
-
-    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML

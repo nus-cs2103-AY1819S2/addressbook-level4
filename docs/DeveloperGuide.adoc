@@ -355,13 +355,16 @@ The following features are implemented or will be implemented for users of docX:
 ===== Current(Proposed) Implementation
 
 When a user executes 'add-med-hist n/patientName n/doctorName sw/shortWriteUp'
-Step1: LogicManager calls parseCommand("add-med-hist") in AddressBookParser.
-Step2: Based on the COMMAND_WORD, AddressBookParser builds a new AddMedHistCommandParser() and call function parse(arguments) of AddMedHistCommandParser;
-Step3: AddMedHistCommandParser parses the argument and get patient name, doctor name, time and a short write up.
-AddMedHistCommandParser calls constructors of Patient, Doctor, Date and WriteUp and then calls the constructor of MedicalHistory.
-Then, AddMedHistCommandParser calls AddMedHistCommand(medicalHistory).
-Step4: LogicManager calls execute() of AddMedHistCommand.
-Step5: execute() calls hasMedHist() of Model. If medical history doesn't exist, call addMedHist() of Model.
+
+Step1. LogicManager calls parseCommand("add-med-hist") in AddressBookParser.
+
+Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddMedHistCommandParser() and call function parse(arguments) of AddMedHistCommandParser;
+
+Step3. AddMedHistCommandParser parses the argument and get patient name, doctor name, time and a short write up. AddMedHistCommandParser calls constructors of Patient, Doctor, Date and WriteUp and then calls the constructor of MedicalHistory. Then, AddMedHistCommandParser calls AddMedHistCommand(medicalHistory).
+
+Step4. LogicManager calls execute() of AddMedHistCommand.
+
+Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, call addMedHist() of Model.
 
 ==== List Medical History feature
 

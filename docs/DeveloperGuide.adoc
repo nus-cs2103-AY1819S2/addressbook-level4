@@ -188,16 +188,16 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `QuickDocsParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a patient).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("statistics finances 0119")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `statistics finances 0119` Command
+image::StatisticsCommandSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -376,6 +376,28 @@ Doctor is unable to perform other related actions (such as listing past records)
 Unable to differentiate between editing an existing value and adding a new value
 
 |===
+
+=== Statistics feature ===
+==== Current implementation ====
+*Command* +
+The statistics command is started through the command `stats TOPIC START_MMYY [END_MMYY]`.
+Current available topics are: `finances`, `consultation`, and `all`. Future topics: `symptoms` and `medicine`
+will be added in future milestone v1.3. The two MMYY corresponds to a range of dates. The end range is optional,
+and is defaulted to the start range. +
+
+*Storage* +
+Behind the scenes, the Statistics objects are retrieved from Record objects, sorted by months with RecordMonth objects in
+the RecordManager class.
+
+*Process* +
+The command is first entered, e.g. `stats finances 0119`. LogicManager will execute
+
+==== Design considerations ====
+The records are stored in months as the design only allows the doctor to query with a minimum timespan of 1 month. Hence,
+it was decided to store the records in months for ease of access and calculation.
+
+==== Alternatives considered ====
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

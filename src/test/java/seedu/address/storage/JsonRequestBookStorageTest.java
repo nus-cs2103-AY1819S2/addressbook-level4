@@ -1,10 +1,7 @@
 package seedu.address.storage;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-//import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
-//import static seedu.address.testutil.TypicalRequests.HOON_REQUEST;
-//import static seedu.address.testutil.TypicalRequests.IDA_REQUEST;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.io.IOException;
@@ -84,22 +81,8 @@ public class JsonRequestBookStorageTest {
         // Save in new file and read back
         jsonRequestBookStorage.saveRequestBook(original, filePath);
         ReadOnlyRequestBook readBack = jsonRequestBookStorage.readRequestBook(filePath).get();
-        assertEquals(original, new RequestBook(readBack));
 
-        /*
-        // Modify data, overwrite exiting file, and read back
-        original.addRequest(HOON_REQUEST);
-        original.removeRequest(ALICE_REQUEST);
-        jsonRequestBookStorage.saveRequestBook(original, filePath);
-        readBack = jsonRequestBookStorage.readRequestBook(filePath).get();
-        assertEquals(original, new RequestBook(readBack));
-
-        // Save and read without specifying file path
-        original.addRequest(IDA_REQUEST);
-        jsonRequestBookStorage.saveRequestBook(original); // file path not specified
-        readBack = jsonRequestBookStorage.readRequestBook().get(); // file path not specified
-        assertEquals(original, new RequestBook(readBack));
-        */
+        assertTrue(original.areRequestsSame(new RequestBook(readBack)));
 
     }
 

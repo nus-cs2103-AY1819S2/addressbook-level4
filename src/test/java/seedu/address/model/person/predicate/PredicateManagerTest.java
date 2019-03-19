@@ -12,7 +12,7 @@ public class PredicateManagerTest {
     @Test
     public void test_returnsTrue() {
         // always return true
-        PredicateManager predicate = new  PredicateManager();
+        PredicateManager predicate = new PredicateManager();
         assertTrue(predicate.test(new PersonBuilder().build()));
     }
 }

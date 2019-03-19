@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -583,7 +583,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 *Target user profile*:
 
-* Food lovers who want to record their personal food reviews and at the same time obtain personalised food recommendations based on their food review
+* Food lovers who want to record their personal food reviews and at the same time obtain personalised food recommendations based on their food review, as well as decide quickly where to eat with personalised food recommendations.
 
 *Value proposition*: Allow all food lovers to have a centralised platform to document their food adventures and experience at each restaurant
 
@@ -591,6 +591,8 @@ A project often depends on third-party libraries. For example, Address Book depe
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+"Food lover" refers to the intended users of our application.
 
 [cols="1%,<13%,<25%,<30%",options="header",]
 |=======================================================================
@@ -663,7 +665,7 @@ Use case resumes at step 3 if name and location are valid else repeat step 2a1.
 1. FoodLover enters command to add restaurant by Google Search
 2. FoodDiary asks user to enter name of restaurant
 3. FoodLover enters name
-4. FoodDiary retrieves data from Google, asks User whether details retrieved are correct.
+4. FoodDiary retrieves data from Google, displays retrieved data to User. FoodDiary asks User to verify displayed information as correct.
 5. FoodLover confirms
 6. FoodDiary adds restaurant
 +
@@ -959,7 +961,7 @@ Use case ends.
 *MSS*
 
 1. FoodLover enters command and index of restaurant
-2. FoodDiary opens up website on one side of the UI
+2. FoodDiary displays website to User.
 +
 Use case ends
 
@@ -976,13 +978,19 @@ Use case ends.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Food Lovers with fast typing speed should be able to accomplish tasks with commands faster than with a mouse or GUI.
+.  Food Lovers with fast typing speed should be able to accomplish tasks (such as adding, editing or deleting Restaurants or Reviews) with commands faster than with a mouse or GUI.
 .  All application data should be stored in a human editable text file locally
 .  Primary mode of input should be CLI.
 .  Should not require installation to use the application
 
 [appendix]
 == Glossary
+
+[[fooddiary]] FoodDiary::
+The application that users interact with.
+
+[[foodlover]] FoodLover::
+The intended users of this application
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X

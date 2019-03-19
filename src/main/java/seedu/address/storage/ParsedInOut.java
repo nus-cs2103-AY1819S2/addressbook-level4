@@ -9,10 +9,17 @@ import java.util.HashSet;
 public class ParsedInOut {
     private File file;
     private HashSet<Integer> parsedIndex;
+    private boolean isAll;
 
     public ParsedInOut(File file, HashSet<Integer> parsedIndex) {
         this.file = file;
         this.parsedIndex = parsedIndex;
+        this.isAll = false;
+    }
+
+    public ParsedInOut(File file) {
+        this.file = file;
+        this.isAll = true;
     }
 
     public File getFile() {
@@ -21,5 +28,9 @@ public class ParsedInOut {
 
     public HashSet<Integer> getParsedIndex() {
         return parsedIndex;
+    }
+
+    public boolean getArgIsAll() {
+        return isAll;
     }
 }

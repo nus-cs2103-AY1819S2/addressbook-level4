@@ -7,14 +7,18 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Age;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code docX} with sample data.
  */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
@@ -40,6 +44,23 @@ public class SampleDataUtil {
         };
     }
 
+    public static Doctor[] getSampleDoctors() {
+        return new Doctor[] {
+                new Doctor(new Name("Alex Yeoh"), new Phone("87438807"), new Gender("m"), new Age("21"),
+                        getSpecSet("acupuncture")),
+                new Doctor(new Name("Bernice Yu"), new Phone("99272758"), new Gender("F"), new Age("32"),
+                        getSpecSet("acupuncture, general")),
+                new Doctor(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Gender("f"), new Age("41"),
+                        getSpecSet("massage")),
+                new Doctor(new Name("David Li"), new Phone("91031282"), new Gender("M"), new Age("43"),
+                        getSpecSet("massage, acupuncture")),
+                new Doctor(new Name("Ivan Teo"), new Phone("92492021"), new Gender("M"), new Age("37"),
+                        getSpecSet("acupuncture")),
+                new Doctor(new Name("Roy Balakrishnan"), new Phone("92624417"), new Gender("m"), new Age("28"),
+                        getSpecSet("general"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -54,6 +75,12 @@ public class SampleDataUtil {
     public static Set<Tag> getTagSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Tag::new)
+                .collect(Collectors.toSet());
+    }
+
+    public static Set<Specialisation> getSpecSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Specialisation::new)
                 .collect(Collectors.toSet());
     }
 

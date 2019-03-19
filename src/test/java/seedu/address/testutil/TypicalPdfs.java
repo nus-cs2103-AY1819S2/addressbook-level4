@@ -25,6 +25,8 @@ import seedu.address.model.pdf.Pdf;
  */
 public class TypicalPdfs {
 
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
     // Original Pdfs
     private static final Path a_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "a.pdf");
     private static final Path b_path = Paths.get("test", "data", "JsonAdaptedPdfTest", "b.pdf");
@@ -155,8 +157,6 @@ public class TypicalPdfs {
             .withLocation(k_dup_path.toString())
             .withTags("moduleK", "tutorial", "w7")
             .withSize(Long.toString(k_dup_path.toFile().length())).build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     /*public static final Pdf ALICE = new PdfBuilder().withName("Alice Pauline")
             .withLocation("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")

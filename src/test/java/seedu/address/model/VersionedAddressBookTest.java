@@ -1,23 +1,23 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPdfs.AMY;
-import static seedu.address.testutil.TypicalPdfs.BOB;
-import static seedu.address.testutil.TypicalPdfs.CARL;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import org.junit.Test;
-
-import seedu.address.testutil.AddressBookBuilder;
+//import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertFalse;
+//import static org.junit.Assert.assertTrue;
+//import static org.junit.jupiter.api.Assertions.assertThrows;
+//import static seedu.address.testutil.TypicalPdfs.AMY;
+//import static seedu.address.testutil.TypicalPdfs.BOB;
+//import static seedu.address.testutil.TypicalPdfs.CARL;
+//
+//import java.util.Arrays;
+//import java.util.Collections;
+//import java.util.List;
+//
+//import org.junit.Test;
+//
+//import seedu.address.testutil.AddressBookBuilder;
 
 public class VersionedAddressBookTest {
-
+    /*
     private final ReadOnlyPdfBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
     private final ReadOnlyPdfBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
     private final ReadOnlyPdfBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
@@ -235,11 +235,11 @@ public class VersionedAddressBookTest {
         assertFalse(versionedAddressBook.equals(differentCurrentStatePointer));
     }
 
-    /**
+    *//**
      * Asserts that {@code versionedAddressBook} is currently pointing at {@code expectedCurrentState},
      * states before {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesBeforePointer},
      * and states after {@code versionedAddressBook#currentStatePointer} is equal to {@code expectedStatesAfterPointer}.
-     */
+     *//*
     private void assertAddressBookListStatus(VersionedPdfBook versionedAddressBook,
                                              List<ReadOnlyPdfBook> expectedStatesBeforePointer,
                                              ReadOnlyPdfBook expectedCurrentState,
@@ -271,10 +271,10 @@ public class VersionedAddressBookTest {
         expectedStatesAfterPointer.forEach(unused -> versionedAddressBook.undo());
     }
 
-    /**
+    *//**
      * Creates and returns a {@code VersionedPdfBook} with the {@code addressBookStates} added into it, and the
      * {@code VersionedPdfBook#currentStatePointer} at the end of list.
-     */
+     *//*
     private VersionedPdfBook prepareAddressBookList(ReadOnlyPdfBook... addressBookStates) {
         assertFalse(addressBookStates.length == 0);
 
@@ -287,12 +287,12 @@ public class VersionedAddressBookTest {
         return versionedAddressBook;
     }
 
-    /**
+    *//**
      * Shifts the {@code versionedAddressBook#currentStatePointer} by {@code count} to the left of its list.
-     */
+     *//*
     private void shiftCurrentStatePointerLeftwards(VersionedPdfBook versionedAddressBook, int count) {
         for (int i = 0; i < count; i++) {
             versionedAddressBook.undo();
         }
-    }
+    }*/
 }

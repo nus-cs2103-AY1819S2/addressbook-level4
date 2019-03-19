@@ -2,7 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPdfs.*;
+import static seedu.address.testutil.TypicalPdfs.A_PDF;
+import static seedu.address.testutil.TypicalPdfs.B_PDF;
+import static seedu.address.testutil.TypicalPdfs.C_PDF;
+import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;

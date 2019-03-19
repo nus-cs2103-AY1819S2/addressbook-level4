@@ -16,10 +16,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.pdf.Address;
-import seedu.address.model.pdf.Email;
+//import seedu.address.model.pdf.Address;
+//import seedu.address.model.pdf.Email;
 import seedu.address.model.pdf.Name;
-import seedu.address.model.pdf.Phone;
+//import seedu.address.model.pdf.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
@@ -86,7 +86,7 @@ public class ParserUtilTest {
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
     }
-
+    /*
     @Test
     public void parsePhone_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
@@ -154,7 +154,7 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
-    }
+    }*/
 
     @Test
     public void parseTag_null_throwsNullPointerException() throws Exception {

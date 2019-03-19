@@ -395,7 +395,7 @@ Lists all doctors' available blocks of timing for each 1-hour time slot on 26th 
 === Adding a remedy: `add-remedy`
 
 Adds a remedy in docX database. +
-Format: `add-remedy MEDICINE`
+Format: `add-remedy REMEDY`
 
 ****
 * A unique identification number (ID) will be generated for the new remedy.

@@ -330,6 +330,7 @@ If the user input does not match, then an error message will be prompted to the 
 === MemberExport
 
 ==== Current Implementation
+image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
 * The `memberExport` command extends from command and retrieves the Person object from the Model based on the specified index
 
 * Then it uses export utilities to create the file and write the Person's information to it

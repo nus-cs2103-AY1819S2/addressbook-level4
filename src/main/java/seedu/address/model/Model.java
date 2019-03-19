@@ -137,6 +137,12 @@ public interface Model {
      */
     void setSelectedPerson(Person person);
 
+    /**
+     * Sets the selected person in the filtered person list.
+     * Returns the filtered person, for export
+     */
+    Person generateExportedPerson(Person person);
+
     /** Returns an unmodifiable view of the filtered activity list */
     ObservableList<Activity> getFilteredActivityList();
 
@@ -187,4 +193,5 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedActivity(Activity activity);
+
 }

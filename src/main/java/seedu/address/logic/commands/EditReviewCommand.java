@@ -97,7 +97,7 @@ public class EditReviewCommand extends Command {
                 restaurantSelected.getEmail(),
                 restaurantSelected.getAddress(), restaurantSelected.getTags(),
                 restaurantSelected.getWeblink(), restaurantSelected.getOpeningHours(),
-                restaurantSelected.getCuisine(), editedReviews);
+                restaurantSelected.getCategories(), editedReviews);
     }
 
     @Override

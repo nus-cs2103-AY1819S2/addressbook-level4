@@ -372,7 +372,7 @@ The `bill` or `b` command is executed in 2 simple steps. Given below is an examp
 
 Step 1. Users are only allowed to use the `bill/b` command in *TableMode*. When they enter the `TableMode 1` command, the program calls for `Model#setselectedTable()` to set the current table to Table 1 and change the UI display to the menu and the table’s list of orders as shown below:
 
-image::TableModeDiagram.png[width="800"]
+image::TableMode.png[width="800"]
 
 Step 2. The user executes `bill` command to bill the orders of the current Table. The `bill` command gets the details of the current table using `Model#getSelectedTable()` and checks that the table exists. If it is true that the table exists, it calls both `Model#getFilteredOrderItemList` and `ReadOnlyRestOrRant#geMenu()` to obtain the table’s list of orders and the restaurant’s menu to pass into `BillCommand#calculateBill()`.
 
@@ -383,17 +383,16 @@ Step 2. The user executes `bill` command to bill the orders of the current Table
 
 After the iterating through the `orderItemList`, the receipt will append the final calculation of the total bill and the function will return a new Bill that contains the updated `tableNumber`, `totalBill` and `receipt`. This new Bill will be assigned as the recent bill that was created via `Model#setRecentBill()`. Format of the receipt should be as follows:
 
-image::ReceiptFormatDiagram.png[width="800"]
+image::BillReceipt.png[width="300"]
 
 Now that the bill is calculated, the `BillCommand` has to store the calculated data in the `Statistics` storage. If a `DailyRevenue` with the same `Day`, `Month` and `Year` exists in the `DailyRevenueList`, the program calls `BillCommand#updateDailyRevenue()` to add the total bill to the recorded total daily revenue. On the other hand, if no matching Daily Revenue is found, the program will create a new Daily Revenue from the details o the new bill and store it in the statistics storage using `Model#addDailyRevenue`.
 
 `BillCommand#updateStatusOfTable()` takes in the `Model` as an argument and creates a new Table with the updated `TableStatus`. This is done by calling `TableStatus#changeOccupancy(). After which, `Model#setTable()` is called to replace the current `Table` with the new `Table` that has the updated `TableStatus`.
 
-image::BillTableStatusDiagram.png[width="800"]
 
 Lastly, `BillCommand#updateOrderList` is called to empty the order list of the current `Table`. Below is illustrates the final result that derived from executing the `bill` command.
 
-image::BillFinalResultDiagram.png[width="650"]
+image::BillMode.png[width="650"]
 
 
 Step 3. Once the user is in BillMode, they can change their execute any commands that are related to StatisticsMode or manually change their mode to `RestaurantMode`, `TableMode` and `MenuMode`.
@@ -406,7 +405,7 @@ The command will not execute the functions stated above until it has confirmed t
 
 The following activity diagram summarizes what happens when a user executes a the `bill` command:
 
-image::BillActivityDiagram.png[width="650"]
+To add: BillActivityDiagram.png[width="650"]
 
 // end: :bill[]
 // tag::dataencryption[]

@@ -29,9 +29,11 @@ public class ExportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Exports specific patients by index to text file in the \"data\" folder, "
             + "overwriting if filename exists \n"
-            + "Parameters: FILENAME INDEX_RANGE(must be a positive integer)\n"
+            + "Parameters: FILENAME [INDEX_RANGE(must be a positive integer) OR all]\n"
             + "Example: " + COMMAND_WORD + " records1.json + 1-5"
-            + "Example: " + COMMAND_WORD + " records1.json + 1,3,5";
+            + "Example: " + COMMAND_WORD + " records1.json + 1,3,5"
+            + "Example: " + COMMAND_WORD + " records1.json + 1,3-5"
+            + "Example: " + COMMAND_WORD + " records1.json + all";
 
     public static final String MESSAGE_SUCCESS = "Exported the records!";
     private static final String MESSAGE_FAILURE = "Problem while writing to the file.";
@@ -45,8 +47,12 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        writeFile(createTempAddressBook(model, parsedInput.getParsedIndex()));
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        if (parsedInput.getArgIsAll()) {
+            new SaveCommand(parsedInput.getFile()).execute(model, history);
+        } else {
+            writeFile(createTempAddressBook(model, parsedInput.getParsedIndex()));
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

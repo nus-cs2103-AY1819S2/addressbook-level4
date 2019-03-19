@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.patient.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.person.Address;
@@ -19,6 +20,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Title;
 import seedu.address.storage.ParsedInOut;
 
 /**
@@ -143,6 +145,53 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String title} into an {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(title)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseStartDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateCustom.isValidDate(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        if (DateCustom.isDateBeforeToday(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        return new DateCustom(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseEndDate(String endDate, String startDate) throws ParseException {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        String trimmedStartDate = startDate.trim();
+        String trimmedEndDate = endDate.trim();
+        if (!DateCustom.isValidDate(trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        if (DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        return new DateCustom(trimmedEndDate);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
@@ -155,29 +204,31 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String file}.
-     *
+     * Parses a {@code String filePath} into a {@code ParsedIO}.
      * @throws ParseException if the given {@code file} is invalid.
      */
-    public static File parseOpenSave(String filePath) throws ParseException {
+    public static ParsedInOut parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        final String validationRegex = "^([\\w\\-\\\\\\s\\.\\(\\)]+)+\\.(txt|xml|json)$";
-
-        if (!filePath.matches(validationRegex)) {
-            throw new ParseException("File name is invalid");
-        }
-
         String newPath = "data\\";
-
         File file = new File(newPath.concat(filePath));
 
-        return file;
+        final String jsonRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)$";
+        final String pdfRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(pdf)$";
+
+        if (filePath.matches(jsonRegex)) {
+            return new ParsedInOut(file, "json");
+        } else {
+            if (filePath.matches(pdfRegex)) {
+                return new ParsedInOut(file, "pdf");
+            } else {
+                throw new ParseException("Input file type is not a .json or .pdf");
+            }
+        }
     }
 
     /**
-     * Parses a {@code String file} and {@code Index} into a {@code ParsedIO}.
-     *
+     * Parses a {@code String input} into a {@code ParsedIO}.
      * @throws ParseException if the given {@code file} is invalid.
      */
     public static ParsedInOut parseImportExport(String input) throws ParseException {
@@ -185,30 +236,32 @@ public class ParserUtil {
         input = input.trim();
         String newPath = "data\\";
         String filepath = "";
+        String fileType = "";
 
-        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s?([0-9,-]*)?$";
-        final String allRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s(all)$";
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s?([0-9,-]*)?$";
+        final String allRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s(all)$";
 
         if (!input.matches(validationRegex)) {
             if (input.matches(allRegex)) {
-                final Pattern splitRegex = Pattern.compile("^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s(all)$");
+                final Pattern splitRegex = Pattern.compile("^([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s(all)$");
                 Matcher splitMatcher = splitRegex.matcher(input);
 
                 if (splitMatcher.find()) {
                     filepath = splitMatcher.group(1).concat(".");
                     filepath = filepath.concat(splitMatcher.group(2));
                     filepath = newPath.concat(filepath);
-                    return new ParsedInOut(new File(filepath));
+                    fileType = splitMatcher.group(2);
+                    return new ParsedInOut(new File(filepath), fileType);
                 } else {
                     // This shouldn't be possible after validationRegex
-                    throw new ParseException("Input file type is not a .json");
+                    throw new ParseException("Input file type is not a .json or .pdf");
                 }
             } else {
-                throw new ParseException("Input file type is not a .json");
+                throw new ParseException("Input file type is not a .json or .pdf");
             }
         }
 
-        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s?([0-9,-]*)?");
+        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s?([0-9,-]*)?");
         Matcher splitMatcher = splitRegex.matcher(input);
         String indexRange = "";
 
@@ -216,10 +269,11 @@ public class ParserUtil {
             filepath = splitMatcher.group(1).concat(".");
             filepath = filepath.concat(splitMatcher.group(2));
             filepath = newPath.concat(filepath);
+            fileType = splitMatcher.group(2);
             indexRange = splitMatcher.group(3);
         } else {
             // This shouldn't be possible after validationRegex
-            throw new ParseException("Input file type is not a .json");
+            throw new ParseException("Input file type is not a .json or .pdf");
         }
 
         HashSet<Integer> parsedIndex = new HashSet<>();
@@ -244,6 +298,6 @@ public class ParserUtil {
             }
         }
 
-        return new ParsedInOut(new File(filepath), parsedIndex);
+        return new ParsedInOut(new File(filepath), fileType, parsedIndex);
     }
 }

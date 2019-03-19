@@ -18,9 +18,21 @@ public class SaveCommandParser implements Parser<SaveCommand> {
     public SaveCommand parse(String args) throws ParseException {
         try {
             File file = ParserUtil.parseOpenSave(args);
+            saveValidation(file);
             return new SaveCommand(file);
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage());
+        }
+    }
+
+    /**
+     * saveValidation() checks if the file is writable if it exists.
+     * @param file
+     * @throws ParseException
+     */
+    private void saveValidation(File file) throws ParseException {
+        if (file.exists() && !file.canWrite()) {
+            throw new ParseException("File is read only!");
         }
     }
 }

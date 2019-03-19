@@ -344,6 +344,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 Medical History is used to track a patient's history of coming to the clinic and seeing doctors.
 The following features are implemented or will be implemented for users of docX:
+
 * Add medical history of patient: the medical history contains information of patient, doctor, time and a prescription
 * List all medical history of a specified patient
 * Edit medical history
@@ -381,6 +382,53 @@ Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, 
 ==== View Medical History feature
 
 {Explain here how view medical history will be implemented}
+
+=== Appointments
+
+Appointments are created to facilitate future appointments between patients and doctors. A patient can have none or multiple appointments, a doctor can have none or multiple appointments. An appointment cannot overlap with a patient's or doctor's existing appointments. This is determined if the date and time overlaps. An appointment must specify a date, time, patient, doctor, and short write-up.
+
+The following features are implemented or will be implemented:
+
+* Add appointment
+* Complete appointment
+* Cancel appointment
+* List all appointments of a doctor
+* List available timings of a doctor
+* List available appointments of all doctors
+
+==== Add Appointment
+
+===== Current (partial) Implementation
+
+The user types 'add-appt p/patientID d/doctorID t/dateAndTime /w writeUp'
+
+Step 1. The command is parsed by AddAppointmentCommandParser and a AddAppointmentCommand is returned.
+
+Step 2. The AddAppointmentCommand contains an appointment object. The appointment object is an entity object that holds the details for that particular appointment. i.e. patient, doctor, dateAndTime, writeUp.
+
+Step 3. Within execute(), the actual logic of the AddAppointment operation is being performed. Firstly, it will retrieve the list of existing appointments of the patient and the doctor. Secondly, it will create a new appointment object, check if the dateAndTime overlaps with the patient's existing appointments, and check if the dateAndTime overlaps with the doctor's existing appointments. If the appointment is not overlapping, the appointment object will be added to the list of appointments in both the patient and doctor object.
+
+Step 4. Once the above logic is successfully executed, the UI is updated by the UI layer and the save file is updated by the Storage layer. The storage layer will convert the appointments in the patient and doctor objects into JSON and saves it to file. (to be further explained when implemented)
+
+==== Complete Appointment
+
+{todo}
+
+==== Cancel Appointment
+
+{todo}
+
+==== List all appointments of a doctor
+
+{todo}
+
+==== List available timings of a doctor
+
+{todo}
+
+==== List available appointments of all doctors
+
+{todo}
 
 == Documentation
 

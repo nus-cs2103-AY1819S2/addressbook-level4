@@ -14,7 +14,8 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-
+import seedu.address.model.person.GPA;
+import seedu.address.model.person.Education;
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
@@ -108,6 +109,24 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    public static GPA parseGPA(String gpa) throws ParseException {
+        requireNonNull(gpa);
+        String trimmedGPA = gpa.trim();
+        if (!GPA.isValidGpa(trimmedGPA)) {
+            throw new ParseException(GPA.MESSAGE_CONSTRAINTS);
+        }
+        return new GPA(trimmedGPA);
+    }
+
+    public static Education parseEducation(String education) throws ParseException {
+        requireNonNull(education);
+        String trimmedEducation = education.trim();
+        if (!Education.isValidEducation(trimmedEducation)) {
+            throw new ParseException(Education.MESSAGE_CONSTRAINTS);
+        }
+        return new Education(trimmedEducation);
     }
 
     /**

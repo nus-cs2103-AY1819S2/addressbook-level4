@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
-import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
@@ -81,7 +80,7 @@ public class BillCommand extends Command {
         }
 
         updateStatusOfTable(model);
-        model.updateFilteredOrderItemList(orderItem -> ! orderItem.getTableNumber().equals(tableToBill.getTableNumber
+        model.updateFilteredOrderItemList(orderItem -> !orderItem.getTableNumber().equals(tableToBill.getTableNumber
                 ()));
 
         //model.billUpdateOrders(model.getFilteredOrderItemList());

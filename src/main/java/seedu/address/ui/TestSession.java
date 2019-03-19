@@ -18,7 +18,7 @@ public class TestSession extends UiPart<Region> {
     @FXML
     private StackPane testSessionPage;
     @FXML
-    private Label testCard;
+    private Label testCardQuestion;
 
     public TestSession() {
         super(FXML);
@@ -35,8 +35,8 @@ public class TestSession extends UiPart<Region> {
      */
     public void displayCard(Card cardToTest) {
         testSessionPage.getChildren().clear();
-        testCard.setText(cardToTest.getQuestion().fullQuestion);
-        testSessionPage.getChildren().add(testCard);
+        testCardQuestion.setText(cardToTest.getQuestion().fullQuestion);
+        testSessionPage.getChildren().add(testCardQuestion);
     }
 
     public void handleCorrectAnswer() {

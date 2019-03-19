@@ -340,6 +340,43 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+=== Prescriptions
+Prescriptions are used to keep track of what kind of medicine a doctor suggest a particular patient to take. they
+are useful because sometimes patients may want to know what medicine they took before. There are three functionalities
+related to prescriptions, which are add a new prescription, edit an existing prescription and delete an existing
+prescription respectively.
+
+===== Add a New Prescription
+Current proposed implementation
+
+A user specifies the id of the patient, the id of the doctor and a description of the prescription in command line. And
+then the command processing procedure is roughly as follows:
+
+Step1. LogicManager calls parseCommand("add-prescription") in AddressBookParser.
+
+Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddMedHistCommandParser()
+and call function parse(arguments) of AddMedHistCommandParser;
+
+Step3. AddPrescriptionCommandParser parses patient id, doctor id as well as the description of the prescription.
+Then it searches for the corresponding patient and doctor in the database. If both exist, then we invoke the constructor
+of Patient class and Doctor Class to create the corresponding patient and doctor. Otherwise, we throw an exception indicating
+that the patient id or the doctor id is not valid here.
+
+Step4. After the patient and doctor objects are created, the constructor of Prescription class is invoked. Then
+AddPrescriptionCommandParser will invoke AddPrescriptionCommand with the newly created prescription as the input.
+
+Step5. LogicManager calls execute() of AddPrescriptionCommand.
+
+Step6. execute() calls hasPrescription() of Model. If the prescription does not exist, call addPrescription() of Model
+
+===== Edit an Existing Prescription
+
+To be updated later
+
+----- Delete an Existing Prescription
+
+To be updated later
+
 === CRUD of patients
 
 Patients is one of the two valid types of Persons to store in the docX record.

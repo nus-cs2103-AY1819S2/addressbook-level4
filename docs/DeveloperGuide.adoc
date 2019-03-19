@@ -235,11 +235,16 @@ This section describes some noteworthy details on how certain features are imple
 
 === Export/Import/Open 
 
+{dummy things}
+
 === Image Filters 
+
+{dummy things}
 
 === Image Manipulation 
 
 This segment involves manipulating the physical image itself, such as rotating, cropping and resizing. The implementations of these features are facilitated by https://github.com/rkalla/imgscalr[`ImgScalr Library`], which is an external API Library that helps process the target image. 
+
 // tag::undoredo[]
 
 === Undo/Redo feature

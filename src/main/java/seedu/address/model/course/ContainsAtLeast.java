@@ -11,15 +11,16 @@ import java.util.stream.Stream;
 import seedu.address.model.moduleinfo.ModuleInfo;
 
 /**
- * Checks from list of modules that contains at least
- * a certain threshold
+ * Checks number of modules that
  */
 public class ContainsAtLeast extends CourseRequirement {
 
-    private static final String MESSAGE_CONSTRAINTS = "Number of modules must be at least 0!";
+    private static final String NUMBER_CONSTRAINTS = "Number of modules must be at least 0!";
+    private static final String REGEX_CONSTRAINTS = "Regex cannot contain space!";
+    private static final String TYPE = "ContainsAtLeast";
 
     public ContainsAtLeast(String description, int number, String... regexes) {
-        super(description,
+        super(description, TYPE + number + Stream.of(regexes).reduce((x, y) -> x + " " + y),
             new Predicate<List<ModuleInfo>>() {
                 @Override
                 public boolean test(List<ModuleInfo> moduleInfos) {
@@ -31,13 +32,14 @@ public class ContainsAtLeast extends CourseRequirement {
             new Function<List<ModuleInfo>, String>() {
                 @Override
                 public String apply(List<ModuleInfo> moduleInfos) {
+                    //TODO: find out a good way to do this;
                     StringBuilder sb = new StringBuilder();
                     return sb.toString();
                 }
             }
         );
-        checkArgument(isValidNumber(number), MESSAGE_CONSTRAINTS);
-
+        checkArgument(isValidNumber(number), NUMBER_CONSTRAINTS);
+        checkArgument(isValidRegex(regexes), REGEX_CONSTRAINTS);
         requireAllNonNull(regexes);
         requireAllNonNull(number, description, regexes);
 
@@ -45,5 +47,9 @@ public class ContainsAtLeast extends CourseRequirement {
 
     public static boolean isValidNumber(int number) {
         return number >= 0;
+    }
+
+    public static boolean isValidRegex(String... regexes) {
+        return Stream.of(regexes).allMatch(x -> x.matches("\\S*"));
     }
 }

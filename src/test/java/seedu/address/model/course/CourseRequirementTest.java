@@ -9,10 +9,10 @@ public class CourseRequirementTest {
     @Test
     public void constructor_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, ()
-            -> new CourseRequirement(null, x -> true, x -> "String"));
+            -> new CourseRequirement(null, "blank", x -> true, x -> "String"));
         Assert.assertThrows(NullPointerException.class, ()
-            -> new CourseRequirement("Lorem ipsum dolor sit amet", null, x -> "String"));
+            -> new CourseRequirement("Lorem ipsum dolor sit amet", null, null, x -> "String"));
         Assert.assertThrows(NullPointerException.class, ()
-            -> new CourseRequirement("Lorem ipsum dolor sit amet", x -> false, null));
+            -> new CourseRequirement("Lorem ipsum dolor sit amet", "something", x -> false, null));
     }
 }

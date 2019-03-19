@@ -14,14 +14,19 @@ import seedu.address.model.moduleinfo.ModuleInfo;
 public class CourseRequirement {
 
     protected final String description;
+    protected final String identifier;
     protected final Predicate<List<ModuleInfo>> isFulfilled;
     protected final Function<List<ModuleInfo>, String> getUnfulfilled;
 
-    public CourseRequirement (String description,
+    /* Protected because we only want an instance of this class to be constructed via its
+       subclasses such as ContainsAll, or ContainsAtLeast
+     */
+    protected CourseRequirement (String description, String identifier,
                               Predicate<List<ModuleInfo>> isFulfilled,
                               Function<List<ModuleInfo>, String> getUnfulfilled) {
         requireAllNonNull(description, isFulfilled, getUnfulfilled);
         this.description = description;
+        this.identifier = identifier;
         this.isFulfilled = isFulfilled;
         this.getUnfulfilled = getUnfulfilled;
     }
@@ -53,6 +58,7 @@ public class CourseRequirement {
      */
     public CourseRequirement and(CourseRequirement other) {
         return new CourseRequirement(description + "\n AND \n" + other.description,
+            "(" + identifier + ") && (" + other.identifier + ")",
             isFulfilled.and(other.isFulfilled), (
                     List<ModuleInfo> x) -> getUnfulfilled(x) + "\n AND \n" + other.getUnfulfilled(x));
     }
@@ -67,6 +73,7 @@ public class CourseRequirement {
      */
     public CourseRequirement or(CourseRequirement other) {
         return new CourseRequirement(description + "\n OR \n" + other.description,
+            "(" + identifier + ") || (" + other.identifier + ")",
             isFulfilled.or(other.isFulfilled), (
                     List<ModuleInfo> x) -> getUnfulfilled(x) + "\n OR \n" + other.getUnfulfilled(x));
     }

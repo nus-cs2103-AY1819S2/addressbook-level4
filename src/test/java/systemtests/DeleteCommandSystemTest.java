@@ -2,7 +2,6 @@ package systemtests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_RECORD_DISPLAYED_INDEX;
-import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.finance.logic.commands.DeleteCommand.MESSAGE_DELETE_RECORD_SUCCESS;
 import static seedu.finance.testutil.TestUtil.getLastIndex;
 import static seedu.finance.testutil.TestUtil.getMidIndex;
@@ -56,6 +55,12 @@ public class DeleteCommandSystemTest extends FinanceTrackerSystemTest {
         Index middleRecordIndex = getMidIndex(getModel());
         assertCommandSuccess(middleRecordIndex);
 
+        /* Case: mixed case command word -> deleted */
+        expectedModel = getModel();
+        deletedRecord = removeRecord(expectedModel, INDEX_FIRST_RECORD);
+        expectedResultMessage = String.format(MESSAGE_DELETE_RECORD_SUCCESS, deletedRecord);
+        assertCommandSuccess("DelETE 1", expectedModel, expectedResultMessage);
+
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered record list, delete index within bounds of finance tracker and record list -> deleted */
@@ -106,9 +111,6 @@ public class DeleteCommandSystemTest extends FinanceTrackerSystemTest {
 
         /* Case: invalid arguments (extra argument) -> rejected */
         assertCommandFailure(DeleteCommand.COMMAND_WORD + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
-
-        /* Case: mixed case command word -> rejected */
-        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**

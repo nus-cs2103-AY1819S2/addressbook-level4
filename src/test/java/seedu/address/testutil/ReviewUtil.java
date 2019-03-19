@@ -2,14 +2,25 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
+import static seedu.address.testutil.RestaurantUtil.getRestaurantDetails;
 
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.commands.EditReviewCommand.EditReviewDescriptor;
+import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.review.Review;
 
 /**
  * A utility class for Reviews.
  */
 public class ReviewUtil {
+
+    /**
+     * Returns an addReview command string for adding the {@code Review} with a default {@code Index} of value 1.
+     */
+    public static String getAddReviewCommand(Review review) {
+        return AddReviewCommand.COMMAND_WORD + " 1 " + getReviewDetails(review);
+    }
 
     /**
      * Returns the part of command string for the given {@code review}'s details.

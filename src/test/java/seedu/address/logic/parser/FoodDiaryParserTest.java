@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
 
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +15,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -54,6 +57,18 @@ public class FoodDiaryParserTest {
     }
 
     @Test
+    public void parseCommand_addReview() throws Exception {
+        ReviewBuilder reviewBuilder = new ReviewBuilder();
+        Review review = reviewBuilder.build();
+        AddReviewCommand command = (AddReviewCommand) parser.parseCommand(ReviewUtil.getAddReviewCommand(review));
+        Timestamp tsCommandReview = command.getReviewToAdd().getTimeStamp();
+        //Ensures that both commands have reviews with the same timestamp, so that comparison can be done properly.
+        reviewBuilder.withTimestamp(tsCommandReview);
+        Review review2 = reviewBuilder.build();
+        assertEquals(new AddReviewCommand(INDEX_FIRST_RESTAURANT, review2), command);
+    }
+
+    @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
@@ -78,7 +93,6 @@ public class FoodDiaryParserTest {
 
     @Test
     public void parseCommand_editReview() throws Exception {
-        Restaurant restaurant = new RestaurantBuilder().build();
         Review review = new ReviewBuilder().build();
         EditReviewDescriptor descriptor = new EditReviewDescriptorBuilder(review).build();
         EditReviewCommand command = (EditReviewCommand) parser.parseCommand(EditReviewCommand.COMMAND_WORD

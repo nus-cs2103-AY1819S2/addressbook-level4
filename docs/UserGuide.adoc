@@ -443,11 +443,13 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 * *<<help>>* : `help` +
 
 *Patient Management* +
+
 * *<<padd>>* : `padd` +
 * *<<pedit>>* : `pedit` +
 * *<<plist>>* : `plist` +
 
 *Consultation Management* +
+
 * *<<consult>>* : `consult` +
 * *<<diagnose>>* : `diagnose` +
 * *<<prescribe>>* : `prescribe` +
@@ -455,6 +457,7 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 * *<<listconsult>>* : `listconsult` +
 
 *Medicine Management* +
+
 * *<<addMed>>* : `addMed` +
 * *<<viewMed>>* : `viewMed` +
 * *<<setalert>>* : `setalert` +
@@ -462,6 +465,7 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 * *<<purchaserecord>>* : `purchaserecord` +
 
 *Appointment and Reminders* +
+
 * *<<appadd>>* : `appadd` +
 * *<<applist>>* : `applist` +
 * *<<appdelete>>* : `appdelete` +
@@ -472,5 +476,6 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 * *<<ntime>>* : `ntime` +
 
 *Administration and Statistics* +
+
 * *<<statistics>>* : `statistics` +
 * *<<setconsultfee>>* : `setconsultfee` +

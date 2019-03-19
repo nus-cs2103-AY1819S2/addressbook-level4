@@ -392,45 +392,45 @@ Examples:
 * `list-time 26022019` +
 Lists all doctors' available blocks of timing for each 1-hour time slot on 26th February 2019.
 
-=== Adding a remedy: `add-remedy`
+=== Adding a medicine: `add-med`
 
-Adds a remedy in docX database. +
-Format: `add-remedy REMEDY`
+Adds a medicine in docX database. +
+Format: `add-med MEDICINE`
 
 ****
-* A unique identification number (ID) will be generated for the new remedy.
-* Adding a pre-existing remedy will result in an error.
-* Remedies must be quoted in quotation marks.
+* A unique identification number (ID) will be generated for the new medicine.
+* Adding a pre-existing medicine will result in an error.
+* Medicines must be quoted in quotation marks.
 ****
 
 Examples:
 
-* `add-remedy 'coughing tablets'` +
-Adds 'coughing syrup' into docX's available lists of remedies.
-* `add-remedy 'muscle patch'` +
-Adds 'muscle patch' into docX's available lists of remedies.
+* `add-med 'coughing tablets'` +
+Adds 'coughing syrup' into docX's available lists of medicines.
+* `add-med 'muscle patch'` +
+Adds 'muscle patch' into docX's available lists of medicines.
 
-=== Listing all remedies : `list-remedy`
+=== Listing all medicines : `list-med`
 
-Shows a list of all remedies in docX. +
-Format: `list-remedy`
+Shows a list of all medicines in docX. +
+Format: `list-med`
 
 === Adding a prescription: `add-presc`
 
 Adds a prescription and the prescribing doctor under the patient involved. +
-Format: `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/REMEDY_ID w/SHORT_WRITEUP`
+Format: `add-presc pid/PATIENT_ID did/DOCTOR_ID rid/MED_ID w/SHORT_WRITEUP`
 
 ****
-* Remedies can only be added based on their unique identification number (ID).
+* Medicines can only be added based on their unique identification number (ID).
 ****
 
 Examples:
 
 * `add-presc pid/1 did/1 rid/1 w/heaty cough` +
-Adds the prescribing doctor with ID of '1', the remedy with ID of '1',
+Adds the prescribing doctor with ID of '1', the medicine with ID of '1',
 and a short write up of 'heaty cough' under the patient with ID of '1'.
 * `add-presc pid/5 did/2 rid/3 w/constipation for 3 days` +
-Adds the prescribing doctor with ID of '2', the remedy with ID of '3',
+Adds the prescribing doctor with ID of '2', the medicine with ID of '3',
 and a short write up of 'constipation for 3 days' under the patient with ID of '5'.
 
 === Listing all prescriptions of a patient : `list-presc`
@@ -467,10 +467,10 @@ Finds prescription(s) whose write up contain any of the given keywords. +
 Format: `search-presc KEYWORD`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Write ups of the prescription matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case insensitive. e.g `flu` will match `Flu`
+* The order of the keywords does not matter. e.g. `heaty cough` will match `cough heaty`
+* Only full words will be matched e.g. `cough` will not match `coughs`
+* Write ups of the prescription matching at least one keyword will be returned (i.e. `OR` search). e.g. `cough` will return `dry cough`, `heaty cough`
 * Each keyword is to be quoted in quotation marks.
 ****
 

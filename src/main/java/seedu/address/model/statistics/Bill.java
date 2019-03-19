@@ -111,9 +111,10 @@ public class Bill {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Day // instanceof handles nulls
-                && this.getDay().equals(((Day) other).day) && this.getMonth().equals(((Month) other).month)
-                && this.getYear().equals(((Year) other).year) && this.getTotalBill() == ((Bill) other).getTotalBill());
+                || (other instanceof Bill // instanceof handles nulls
+                && this.getDay().equals(((Bill) other).day) && this.getMonth().equals(((Bill) other).month)
+                && this.getYear().equals(((Bill) other).year) && this.getTotalBill() == ((Bill) other).getTotalBill()
+                && this.getTableNumber().equals(((Bill) other).tableNumber));
         // state check
     }
 

@@ -397,6 +397,7 @@ Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 ==== current implementation
 
 * Restaurants has a field `Weblink` which contains the URL of the restaurant website.
+* Weblink have to be valid https or http link before browser can display the website.
 * Upon `visitWeb` command, `Parser` in the `Logic` component will call `VisitWebCommandParser` to parse index into
 `VisitWebCommand`.
 * `Model` will then set Restaurant of the input index as selected Restaurant.
@@ -405,6 +406,7 @@ Website can be displayed on the `BrowserPanel` with `visitWeb` command.
 
 The following sequence diagram shows how the visitWeb operation works:
 
+image::VisitWebSequenceDiagram.png[width="800"]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

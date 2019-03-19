@@ -31,24 +31,30 @@ public class ModelManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
+    private final VersionedPatientBook versionedPatientBook;
+
 
     private final VersionedRequestBook versionedRequestBook;
     private final UserPrefs userPrefs;
 
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<HealthWorker> filteredHealthWorkers;
+    private final FilteredList<Patient> filteredPatients;
+
     // TODO make the relevant changes to the model manager
     // TODO get versionedAddressBook tests to pass
     private final FilteredList<Request> filteredRequests;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<HealthWorker> selectedHealthWorker = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Patient> selectedPatient = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Request> selectedRequest = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook,
-                        ReadOnlyHealthWorkerBook healthWorkerBook, ReadOnlyPatientBook patientbook,
+                        ReadOnlyHealthWorkerBook healthWorkerBook,
+                        ReadOnlyPatientBook patientBook,
                         ReadOnlyRequestBook requestBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
@@ -58,13 +64,16 @@ public class ModelManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedHealthWorkerBook = new VersionedHealthWorkerBook(healthWorkerBook);
+        versionedPatientBook = new VersionedPatientBook(patientBook);
         versionedRequestBook = new VersionedRequestBook(requestBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredHealthWorkers = new FilteredList<>(versionedHealthWorkerBook.getHealthWorkerList());
+        filteredPatients = new FilteredList<>(versionedPatientBook.getPatientList());
         filteredRequests = new FilteredList<>(versionedRequestBook.getRequestList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredHealthWorkers.addListener(this::ensureSelectedHealthWorkerIsValid);
+        filteredPatients.addListener(this::ensureSelectedPatientIsValid);
         filteredRequests.addListener(this::ensureSelectedRequestIsValid);
     }
 
@@ -181,20 +190,27 @@ public class ModelManager implements Model {
         this.filteredHealthWorkers.setPredicate(predicate);
     }
 
+    // ======================== Implemented methods for Patient through Model Interface =========================
+    // @author: Rohan
+
     @Override
     public boolean hasPatient(Patient patient) {
-        return false;
-    }
+        requireNonNull(patient);
+        return this.versionedPatientBook.hasPatient(patient);    }
 
     @Override
     public void addPatient(Patient patient) {
-
+        this.versionedPatientBook.addPatient(patient);
+        updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
     }
 
     @Override
     public void updateFilteredPatientList(Predicate<Patient> predicate) {
-
+        requireNonNull(predicate);
+        this.filteredPatients.setPredicate(predicate);
     }
+
+    //  ============================================================================================
 
     @Override
     public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() { return selectedHealthWorker; }
@@ -214,7 +230,7 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyPatientBook getPatientBook() {
-        return null;
+        return this.versionedPatientBook;
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -450,6 +466,36 @@ public class ModelManager implements Model {
                             .isSameHealthWorker(removedHealthWorker));
             if (wasSelectedHealthWorkerRemoved) {
                 selectedHealthWorker.setValue(change.getFrom() > 0
+                        ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    /**
+     * Ensures {@code selectedHealthWorker} is a valid request in {@code filteredHealthWorkers}.
+     */
+    private void ensureSelectedPatientIsValid(ListChangeListener.Change<? extends Patient> change) {
+        while (change.next()) {
+            if (selectedPatient.getValue() == null) {
+                return;
+            }
+
+            boolean wasSelectedPatientReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                            && change.getRemoved().contains(selectedPatient.getValue());
+
+            if (wasSelectedPatientReplaced) {
+                // Update selectedPatient to its new value
+                int index = change.getRemoved().indexOf(selectedPatient.getValue());
+                selectedPatient.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedPatientRemoved =
+                    change.getRemoved().stream().anyMatch(removedPatient -> selectedPatient.getValue()
+                            .isSamePatient(removedPatient));
+            if (wasSelectedPatientRemoved) {
+                selectedPatient.setValue(change.getFrom() > 0
                         ? change.getList().get(change.getFrom() - 1) : null);
             }
         }

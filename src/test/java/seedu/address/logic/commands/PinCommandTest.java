@@ -4,7 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -19,6 +18,9 @@ public class PinCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+    
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,9 +35,6 @@ public class PinCommandTest {
 
         assertCommandSuccess(pinCommand, model, commandHistory, expectedMessage, expectedModel);
     }
-    // put before
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {

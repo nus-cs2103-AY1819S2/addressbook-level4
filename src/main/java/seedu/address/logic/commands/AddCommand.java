@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -40,6 +41,7 @@ public class AddCommand extends Command {
             + PREFIX_MAJOR + "MAJOR "
             + PREFIX_GRADE + "GRADE "
             + PREFIX_JOBSAPPLY + "JOBSAPPLY "
+            + PREFIX_INTERVIEWSCORES + "INTERVIEWSCORES "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
@@ -53,6 +55,7 @@ public class AddCommand extends Command {
             + PREFIX_MAJOR + "Computer Science "
             + PREFIX_GRADE + "4.76"
             + PREFIX_JOBSAPPLY + "Software Engineer"
+            + PREFIX_INTERVIEWSCORES + "1,2,3,4,5"
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney\n"
             + "The alias \"a\" can be used instead.\n"

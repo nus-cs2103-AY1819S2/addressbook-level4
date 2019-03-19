@@ -103,8 +103,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + NRIC_DESC_AMY + "   " + GENDER_DESC_AMY + "   " + RACE_DESC_AMY + "   "
                 + ADDRESS_DESC_AMY + "   " + SCHOOL_DESC_AMY + "  " + MAJOR_DESC_AMY + "   " + GRADE_DESC_AMY + "   "
-                + TAG_DESC_FRIEND + " " + JOBSAPPLY_DESC_TRADER + "   " + INTERVIEWSCORES_DESC_AMY + "   "
-                + PASTJOB_DESC_PROFESSOR + " " + KNOWNPROGLANG_DESC_PYTHON + " ";
+                + TAG_DESC_FRIEND + " " + JOBSAPPLY_DESC_TRADER + "   " + PASTJOB_DESC_PROFESSOR + " "
+                + KNOWNPROGLANG_DESC_PYTHON + " " + INTERVIEWSCORES_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -122,8 +122,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         toAdd = new PersonBuilder(AMY).withNric(VALID_NRIC_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
                 + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + TAG_DESC_FRIEND + GENDER_DESC_AMY
-                + NRIC_DESC_BOB + JOBSAPPLY_DESC_TRADER + GRADE_DESC_AMY + INTERVIEWSCORES_DESC_AMY
-                + PASTJOB_DESC_PROFESSOR + KNOWNPROGLANG_DESC_PYTHON;
+                + NRIC_DESC_BOB + JOBSAPPLY_DESC_TRADER + GRADE_DESC_AMY + PASTJOB_DESC_PROFESSOR
+                + KNOWNPROGLANG_DESC_PYTHON + INTERVIEWSCORES_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
 
@@ -136,7 +136,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB
             + NAME_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + RACE_DESC_BOB + SCHOOL_DESC_BOB + MAJOR_DESC_BOB
             + PASTJOB_DESC_PROFESSOR + KNOWNPROGLANG_DESC_PYTHON + GENDER_DESC_BOB + GRADE_DESC_BOB
-            + NRIC_DESC_BOB + INTERVIEWSCORES_DESC_BOB + JOBSAPPLY_DESC_ENGINEER;
+            + NRIC_DESC_BOB + JOBSAPPLY_DESC_ENGINEER + INTERVIEWSCORES_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person, missing tags -> added */
@@ -240,19 +240,19 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: missing school -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
             + ADDRESS_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY
-            + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;;
+            + JOBSAPPLY_DESC_TRADER;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing major -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
             + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY
-            + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
+            + JOBSAPPLY_DESC_TRADER;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing race -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
             + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY
-            + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
+            + JOBSAPPLY_DESC_TRADER;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing gender -> rejected */
@@ -271,12 +271,6 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
                 + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY
                 + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
-        /* Case: missing interview scores -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + RACE_DESC_AMY
-                + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY + NRIC_DESC_AMY
-                + JOBSAPPLY_DESC_TRADER;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing jobs apply -> rejected */
@@ -304,7 +298,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: invalid email -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + RACE_DESC_AMY
             + ADDRESS_DESC_AMY + SCHOOL_DESC_AMY + MAJOR_DESC_AMY + GENDER_DESC_AMY + GRADE_DESC_AMY
-            + NRIC_DESC_AMY + JOBSAPPLY_DESC_TRADER + INTERVIEWSCORES_DESC_AMY;
+            + NRIC_DESC_AMY + JOBSAPPLY_DESC_TRADER;
         assertCommandFailure(command, Email.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid race -> rejected */

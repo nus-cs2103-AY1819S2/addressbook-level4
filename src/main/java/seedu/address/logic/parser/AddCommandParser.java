@@ -57,8 +57,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                         PREFIX_KNOWNPROGLANG, PREFIX_PASTJOB, PREFIX_JOBSAPPLY, PREFIX_INTERVIEWSCORES, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_NRIC,
-                PREFIX_GENDER, PREFIX_RACE, PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_GRADE, PREFIX_JOBSAPPLY,
-                PREFIX_INTERVIEWSCORES)
+                PREFIX_GENDER, PREFIX_RACE, PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_GRADE, PREFIX_JOBSAPPLY)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -73,8 +72,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         School school = ParserUtil.parseSchool(argMultimap.getValue(PREFIX_SCHOOL).get());
         Major major = ParserUtil.parseMajor(argMultimap.getValue(PREFIX_MAJOR).get());
         Grade grade = ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get());
-        InterviewScores interviewScores = ParserUtil.parseInterviewScores(argMultimap
-                .getValue(PREFIX_INTERVIEWSCORES).get());
+        InterviewScores interviewScores;
+        if (arePrefixesPresent(argMultimap, PREFIX_INTERVIEWSCORES)) {
+            interviewScores = ParserUtil.parseInterviewScores(argMultimap
+                    .getValue(PREFIX_INTERVIEWSCORES).get());
+        }
+        else {
+            interviewScores = new InterviewScores(InterviewScores.NO_RECORD);
+        }
         Set<KnownProgLang> knownProgLangsList = ParserUtil.parseKnownProgLangs(argMultimap
                 .getAllValues(PREFIX_KNOWNPROGLANG));
         Set<PastJob> pastjobList = ParserUtil.parsePastJobs(argMultimap.getAllValues(PREFIX_PASTJOB));

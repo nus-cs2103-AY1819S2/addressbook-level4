@@ -14,6 +14,7 @@ public class InterviewScores {
             "Interview Scores should only exactly 5 set of numbers, each number separated by a comma";
     public static final String VALIDATION_REGEX = "\\d+" + "," + "\\d+" + "," + "\\d+" + "," + "\\d+"
             + "," + "\\d+";
+    public static final String NO_RECORD = "No Record";
     public final String value;
 
     /**
@@ -31,7 +32,8 @@ public class InterviewScores {
      * Returns true if a given string is a valid set of interview scores.
      */
     public static boolean isValidInterviewScores(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return
+                test.matches(VALIDATION_REGEX) || test.matches(NO_RECORD);
     }
 
     @Override

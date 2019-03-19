@@ -1,8 +1,13 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
+
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.FileName;
 import seedu.address.logic.commands.LabelCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -17,12 +22,23 @@ public class LabelCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public LabelCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FILE);
+        Index index;
+        FileName fileName;
         try {
-            Index index = ParserUtil.parseIndex(args);
-            return new LabelCommand(index);
+            if (argMultimap.getValue(PREFIX_FILE).isPresent()){
+                fileName = ParserUtil.parseFileName(argMultimap.getValue(PREFIX_FILE).get(), true);
+            } else {
+                fileName = new FileName(DEFAULT_FILENAME);
+            }
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, LabelCommand.MESSAGE_USAGE), pe);
         }
+
+        return new LabelCommand(index, fileName);
+
     }
 }

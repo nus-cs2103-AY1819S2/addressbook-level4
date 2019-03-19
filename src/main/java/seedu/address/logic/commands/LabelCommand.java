@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.FileName;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -25,6 +27,7 @@ import seedu.address.model.medicine.Medicine;
 public class LabelCommand extends Command {
 
     public static final String COMMAND_WORD = "label";
+    public static final String DEFAULT_FILENAME = "to_print";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Prints the Medicine name and description in PDF format using its index.\n"
@@ -35,17 +38,19 @@ public class LabelCommand extends Command {
             + " in PDF format";
 
     private final Index targetIndex;
+    private final FileName fileName;
 
     /**
      * Creates an LabelCommand to add the specified {@code Medicine}
      */
-    public LabelCommand(Index targetIndex) {
+    public LabelCommand(Index targetIndex, FileName fileName) {
         this.targetIndex = targetIndex;
+        this.fileName = fileName;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        String filename = "to_print";
+        String filename = this.fileName.toString();
         requireNonNull(model);
 
         List<Medicine> filteredMedicineList = model.getFilteredMedicineList();
@@ -56,12 +61,7 @@ public class LabelCommand extends Command {
         Medicine medicineToPrint = filteredMedicineList.get(targetIndex.getZeroBased());
         model.setSelectedMedicine(filteredMedicineList.get(targetIndex.getZeroBased()));
 
-        String medicineName = medicineToPrint.getName().toString();
-        String medicineExpiry = medicineToPrint.getNextExpiry().toString();
-        String medicineCompany = medicineToPrint.getCompany().toString();
-        String medicineTags = medicineToPrint.getTags().toString();
-        String textNextLine = (medicineName + "\n" + medicineCompany + "\n"
-                + medicineExpiry + "\n" + medicineTags);
+        String textNextLine = getMedicineInformationToString(medicineToPrint);
 
         try (PDDocument doc = new PDDocument()) {
             PDPage page = new PDPage();
@@ -87,19 +87,16 @@ public class LabelCommand extends Command {
                     }
                     String subString = text.substring(0, spaceIndex);
                     float size = fontSize * font.getStringWidth(subString) / 1000;
-                    System.out.printf("'%s' - %f of %f\n", subString, size, width);
                     if (size > width) {
                         if (lastSpace < 0) {
                             lastSpace = spaceIndex;
                             subString = text.substring(0, lastSpace);
                             lines.add(subString);
                             text = text.substring(lastSpace).trim();
-                            System.out.printf("'%s' is line\n", subString);
                             lastSpace = -1;
                         }
                     } else if (spaceIndex == text.length()) {
                         lines.add(text);
-                        System.out.printf("'%s' is line\n", text);
                         text = "";
                     } else {
                         lastSpace = spaceIndex;
@@ -125,6 +122,16 @@ public class LabelCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_SELECT_MEDICINE_SUCCESS, targetIndex.getOneBased()));
 
+    }
+
+    private String getMedicineInformationToString(Medicine medicineToPrint) {
+        String medicineName = medicineToPrint.getName().toString();
+        String medicineExpiry = medicineToPrint.getNextExpiry().toString();
+        String medicineCompany = medicineToPrint.getCompany().toString();
+        String medicineTags = medicineToPrint.getTags().toString();
+
+        return (medicineName + "\n" + medicineCompany + "\n"
+                + medicineExpiry + "\n" + medicineTags);
     }
 
     @Override

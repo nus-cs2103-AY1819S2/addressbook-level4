@@ -1,6 +1,5 @@
 package systemtests;
 
-import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.finance.testutil.TypicalRecords.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -52,8 +51,8 @@ public class ClearCommandSystemTest extends FinanceTrackerSystemTest {
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
-        /* Case: mixed case command word -> rejected */
-        assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
+        /* Case: mixed case command word -> cleared */
+        assertCommandSuccess("ClEaR");
     }
 
     /**

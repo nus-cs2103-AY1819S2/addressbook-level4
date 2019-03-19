@@ -24,7 +24,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.Review;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BookBuilder;
@@ -99,9 +98,6 @@ public class AddBookCommandTest {
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
-
-        @Override
-        public void addReview(Review toAdd, Book bookForReview) {}
 
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {

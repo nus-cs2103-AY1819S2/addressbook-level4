@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddBookCommand;
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteBookCommand;
@@ -70,6 +71,9 @@ public class BookShelfParser {
 
         case DeleteBookCommand.COMMAND_WORD:
             return new DeleteBookCommandParser().parse(arguments);
+
+        case AddReviewCommand.COMMAND_WORD:
+            return new AddReviewCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

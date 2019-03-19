@@ -125,6 +125,7 @@ public class BookShelfParserTest {
         ListBookCommand command = (ListBookCommand) parser.parseCommand(BookUtil.getListBookCommand(book));
         BookListFilterPredicate predicate = new BookListFilterPredicate(
                 Arrays.asList(book.getBookName().fullName),
+                Arrays.asList(book.getAuthor().fullName),
                 book.getTags().stream().map(x -> x.tagName).collect(Collectors.toList()),
                 Arrays.asList(book.getRating().value)
             );

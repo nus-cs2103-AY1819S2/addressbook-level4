@@ -340,8 +340,9 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+
 // tag::addBook[]
-=== addBook feature
+=== AddBook feature
 ==== Current Implementation
 
 The addBook mechanism is facilitated by `BookShelf`.
@@ -376,6 +377,46 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 ** Pros: Easier to obtain statistics regarding each component.
 ** Cons: It is hard to manage book object as we need to find a way to connect all components together.
 // end::addBook[]
+
+
+// tag::addReview[]
+=== addReview Feature
+
+==== Current Implementation
+
+Given below is an example usage and how addReview feature behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedBookShelf` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+Step 2. The user executes `addReview n/Alice in Wonderland rt/Carroll has depicted a unique world I hadn't seen before r/Alice's Adventures in Wonderland by Lewis Carroll is a story about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, wonderful people and animals.`
+
+Step 3. The `AddReviewCommandParser` parses this command, and returns an `AddReviewCommand`. Exception will be thrown if the command is invalid.
+
+Step 4. The `AddReviewCommand` creates a `Review` object based on the parameter the user keyed in.
+
+Step 5. The `AddReviewCommand` executes. The command checks if the book to which the review is added exists in the `BookShelf`, based on `BookNameContainsExactKeywordPredicate`. If the book does not exist, an exception is thrown. If the book exists, the `Review` object is added to the set of reviews of the book.
+
+==== Design Considerations
+
+===== Aspect: Data structure to store Reviews
+
+* **Alternative 1 (current choice):** Use a Set to store all Reviews, just like tags.
+** Pros: Easy to code and manage because it is the same implementation as tags.
+** Cons: Set does not allow duplicate reviews. Need to check for duplicate reviews added.
+* **Alternative 2:** Use a List to store Reviews
+** Pros: There will be an order for the reviews added based on time created. More clear to users.
+** Cons: May have unforeseen bugs or implications.
+
+===== Aspect: Where to store Reviews
+
+* **Alternative 1 (current choice):** Use a Set within a Book, just like tags.
+** Pros: Easy to code and manage because it is the same implementation as tags. The design makes sense because Reviews belong to Books.
+** Cons: It is not known whether this design is compatible with the UI component.
+* **Alternative 2:** Have another ObservableList for Reviews.
+** Pros: Maybe makes it easier for the UI to implement.
+** Cons: Harder to implement.
+
+// end::addReview[]
 
 == Documentation
 

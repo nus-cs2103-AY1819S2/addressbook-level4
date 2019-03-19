@@ -46,18 +46,18 @@ public class SampleDataUtil {
 
     public static Doctor[] getSampleDoctors() {
         return new Doctor[] {
-                new Doctor(new Name("Alex Yeoh"), new Phone("87438807"), new Gender("m"), new Age("21"),
-                        getSpecSet("acupuncture")),
-                new Doctor(new Name("Bernice Yu"), new Phone("99272758"), new Gender("F"), new Age("32"),
-                        getSpecSet("acupuncture, general")),
-                new Doctor(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Gender("f"), new Age("41"),
-                        getSpecSet("massage")),
-                new Doctor(new Name("David Li"), new Phone("91031282"), new Gender("M"), new Age("43"),
-                        getSpecSet("massage, acupuncture")),
-                new Doctor(new Name("Ivan Teo"), new Phone("92492021"), new Gender("M"), new Age("37"),
-                        getSpecSet("acupuncture")),
-                new Doctor(new Name("Roy Balakrishnan"), new Phone("92624417"), new Gender("m"), new Age("28"),
-                        getSpecSet("general"))
+            new Doctor(new Name("Alex Yeoh"), new Phone("87438807"), new Gender("m"), new Age("21"),
+                    getSpecSet("acupuncture")),
+            new Doctor(new Name("Bernice Yu"), new Phone("99272758"), new Gender("F"), new Age("32"),
+                    getSpecSet("acupuncture, general")),
+            new Doctor(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Gender("f"), new Age("41"),
+                    getSpecSet("massage")),
+            new Doctor(new Name("David Li"), new Phone("91031282"), new Gender("M"), new Age("43"),
+                    getSpecSet("massage, acupuncture")),
+            new Doctor(new Name("Ivan Teo"), new Phone("92492021"), new Gender("M"), new Age("37"),
+                    getSpecSet("acupuncture")),
+            new Doctor(new Name("Roy Balakrishnan"), new Phone("92624417"), new Gender("m"), new Age("28"),
+                    getSpecSet("general"))
         };
     }
 

@@ -3,15 +3,9 @@ package seedu.address.logic;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.CloseDeckCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.OpenDeckCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.parser.AddDeckCommandParser;
-import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;

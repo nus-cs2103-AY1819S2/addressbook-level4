@@ -404,7 +404,7 @@ The user types 'add-appt p/patientID d/doctorID t/dateAndTime /w writeUp'
 
 Step 1. The command is parsed by AddAppointmentCommandParser and a AddAppointmentCommand is returned.
 
-Step 2. The AddAppointmentCommand contains an appointment object. The appointment object is an entity object that holds the details for that particular appointment. i.e. patient, doctor, dateAndTime, writeUp. 
+Step 2. The AddAppointmentCommand contains an appointment object. The appointment object is an entity object that holds the details for that particular appointment. i.e. patient, doctor, dateAndTime, writeUp.
 
 Step 3. Within execute(), the actual logic of the AddAppointment operation is being performed. Firstly, it will retrieve the list of existing appointments of the patient and the doctor. Secondly, it will create a new appointment object, check if the dateAndTime overlaps with the patient's existing appointments, and check if the dateAndTime overlaps with the doctor's existing appointments. If the appointment is not overlapping, the appointment object will be added to the list of appointments in both the patient and doctor object.
 

@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Place in the address book.
+ * Represents a Place in TravelBuddy.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Place {

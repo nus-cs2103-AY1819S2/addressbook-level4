@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -7,31 +8,117 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.5999755859375" minWidth="10.0" prefWidth="71.59998779296875" />
+         <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.60000381469723" minWidth="10.0" prefWidth="230.80001220703122" />
     </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+    <VBox alignment="CENTER_LEFT" minHeight="105" prefWidth="158.0" GridPane.rowIndex="1">
       <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </padding>
-      <HBox spacing="5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
-      </HBox>
-      <FlowPane fx:id="tags" />
-      <Label fx:id="countryCode" styleClass="cell_small_label" text="\$countryCode" />
-      <Label fx:id="rating" styleClass="cell_small_label" text="\$rating" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="description" styleClass="cell_small_label" text="\$description" />
+      <Label text="Country">
+            <padding>
+               <Insets bottom="1.0" top="1.0" />
+            </padding>
+            <styleClass>
+               <String fx:value="cell_small_label" />
+               <String fx:value="label-field-header" />
+            </styleClass></Label>
+      <Label text="Rating">
+            <padding>
+               <Insets bottom="1.0" top="1.0" />
+            </padding>
+            <styleClass>
+               <String fx:value="cell_small_label" />
+               <String fx:value="label-field-header" />
+            </styleClass></Label>
+      <Label text="Address">
+            <padding>
+               <Insets bottom="1.0" top="1.0" />
+            </padding>
+            <styleClass>
+               <String fx:value="cell_small_label" />
+               <String fx:value="label-field-header" />
+            </styleClass></Label>
+      <Label text="Description">
+            <padding>
+               <Insets bottom="1.0" top="1.0" />
+            </padding>
+            <styleClass>
+               <String fx:value="cell_small_label" />
+               <String fx:value="label-field-header" />
+            </styleClass></Label>
+         <Label text="Tags">
+            <padding>
+               <Insets bottom="1.0" top="1.0" />
+            </padding>
+            <styleClass>
+               <String fx:value="cell_small_label" />
+               <String fx:value="label-field-header" />
+            </styleClass>
+         </Label>
     </VBox>
+  <Label fx:id="name" styleClass="cell_big_label" text="\$first" GridPane.columnIndex="1">
+         <padding>
+            <Insets bottom="5.0" left="15.0" right="5.0" top="5.0" />
+         </padding>
+      </Label>
+  <Label fx:id="id" styleClass="cell_big_label" textFill="WHITE" GridPane.valignment="CENTER">
+    <minWidth>
+      <!-- Ensures that the label text is never truncated -->
+      <Region fx:constant="USE_PREF_SIZE" />
+    </minWidth>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <font>
+            <Font size="16.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+  </Label>
+      <VBox alignment="CENTER_LEFT" minHeight="105" prefWidth="158.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <padding>
+            <Insets bottom="5" left="15" right="5" top="5" />
+         </padding>
+         <children>
+            <Label fx:id="countryCode" styleClass="cell_small_label" text="\$countryCode">
+               <padding>
+                  <Insets bottom="1.0" top="1.0" />
+               </padding>
+            </Label>
+            <Label fx:id="rating" styleClass="cell_small_label" text="\$rating">
+               <padding>
+                  <Insets bottom="1.0" top="1.0" />
+               </padding>
+            </Label>
+            <Label fx:id="address" styleClass="cell_small_label" text="\$address">
+               <padding>
+                  <Insets bottom="1.0" top="1.0" />
+               </padding>
+            </Label>
+            <Label fx:id="description" styleClass="cell_small_label" text="\$description">
+               <padding>
+                  <Insets bottom="1.0" top="1.0" />
+               </padding>
+            </Label>
+         <FlowPane fx:id="tags" maxHeight="-Infinity" prefHeight="19.0" prefWidth="211.0">
+               <padding>
+                  <Insets bottom="1.0" top="1.0" />
+               </padding>
+            </FlowPane>
+         </children>
+      </VBox>
+      <rowConstraints>
+         <RowConstraints maxHeight="99.99998779296875" minHeight="27.999993896484376" prefHeight="34.00001831054688" />
+         <RowConstraints maxHeight="108.00000610351563" minHeight="10.0" prefHeight="102.79998168945313" />
+      </rowConstraints>
   </GridPane>
 </HBox>

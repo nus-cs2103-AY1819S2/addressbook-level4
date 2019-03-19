@@ -320,12 +320,172 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::search[]
+=== Search Feature
+==== Current Implementation
 
-_{Explain here how the data encryption feature will be implemented}_
+The following diagram shows how the search feature works:
 
-// end::dataencryption[]
+image::SearchCommandSequenceDiagram.png[width="800"]
+
+The user enters a command with the command word `search` followed by argument(s). This is processed by the UI component, which will then
+call `LogicManager#execute()` in the Logic component. `AddressBookParser#parseCommand()` is then called, which is also in the Logic component.
+
+The appropriate search command is then called depending on the command word used. It will then update the visible list based on the predicate through `ModelManager#updateFilteredList(p)` where p represents the predicate derived from the user input argument(s).
+
+
+===== Search Name Feature
+The search name mechanism is facilitated by `SearchCommand`.
+It extends `Command` with a predicate that specifies the conditions of the name of the entry to be chosen.
+The command is executed when the arguments parsed from the user input matches the command word of `SearchCommand`, which is `search`.
+
+The arguments entered by the user are stored in a list of keywords and passed into `NameContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to each entry in the address book.
+
+Given below is an example usage scenario and how the search mechanism behaves at each step.
+
+Step 1. The user launches the application and sees the GUI with the user's list of places.
+
+image::UIsearch.png[width="800"]
+
+Step 2. The user executes `search Singapore` command to search for all entries in TravelBuddy with `Singapore` in its name.
+The `search` command will call `LogicManager#execute()`, which in turn uses `AddressBookParser#parseCommand()`. Since the argument is `search`, `SearchCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchCommand`.
+The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
+
+[NOTE]
+The command `search` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
+
+Step 3. The filtered list is now displayed according to the requirements set by the user input.
+
+image::UIsearchresults.png[width="800"]
+
+===== Search Rating Feature
+The search rating mechanism is facilitated by `SearchRatingCommand`.
+It extends `Command` with a predicate that specifies the conditions of the rating of the entry to be chosen.
+The valid ratings range from integers of 1 to 5. Any value outside this range will throw an exception.
+The command is executed when the arguments parsed from the user input matches the command word of `SearchRatingCommand`, which is `searchr`.
+
+The arguments entered by the user are stored in a list of keywords and passed into `RatingContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to each entry in the address book.
+
+Given below is an example usage scenario and how the search rating mechanism behaves at each step.
+
+Step 1. The user launches the application and sees the GUI with the user's list of places.
+
+image::UIsearchrating.png[width="800"]
+
+Step 2. The user executes `searchr 4` command to search for all entries in TravelBuddy with `4` as its rating.
+The `searchr` command will call `LogicManager#execute()`, which in turn uses `AddressBookParser#parseCommand()`. Since the argument is `searchr`, `SearchRatingCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchRatingCommand`.
+The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
+
+[NOTE]
+The command `searchr` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
+
+Step 3. The filtered list is now displayed according to the requirements set by the user input.
+
+image::UIsearchratingresults.png[width="800"]
+
+===== Search Tags Feature
+The search tags mechanism is facilitated by `SearchTagsCommand`.
+It extends `Command` with a predicate that specifies the conditions of the tags of the entry to be chosen.
+The command is executed when the arguments parsed from the user input matches the command word of `SearchTagsCommand`, which is `searcht`.
+
+The arguments entered by the user are stored in a list of keywords and passed into `TagContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to each entry in the address book.
+
+Given below is an example usage scenario and how the search tags mechanism behaves at each step.
+
+Step 1. The user launches the application and sees the GUI with the user's list of places.
+
+image::UIsearchtags.png[width="800"]
+
+Step 2. The user executes `searcht shoppingMall` command to search for all entries in TravelBuddy with `shoppingMall` as its tag.
+The `searcht` command will call `LogicManager#execute()`, which in turn uses `AddressBookParser#parseCommand()`. Since the argument is `searcht`, `SearchTagsCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchTagsCommand`.
+The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
+
+[NOTE]
+The command `searcht` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
+
+Step 3. The filtered list is now displayed according to the requirements set by the user input.
+
+image::UIsearchtagsresults.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How search executes
+* **Alternative 1 (current choice):** Matches entire keyword.
+** Pros: Easy to implement, searching is fast.
+** Cons: Unable to search partial keyword
+** Example: `search Singapore` will return `National University of Singapore` but `search Singapor` will not.
+* **Alternative 2:** Remove whitespaces and check if the place contains the argument string.
+** Pros: Can match partial keywords.
+** Cons: Uses more processing power and time during checking.
+
+===== Aspect: Data structure to support search commands
+* **Alternative 1 (current choice):** Use a list to store the user input keywords and places.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Inefficient as the entire list needs to be searched through.
+* **Alternative 2:** Use `HashMap` to map keywords to each place
+** Pros: Faster searching as HashMap lookup runs in O(1) time.
+** Cons: Requires more memory as a separate HashMap needs to be stored.
+// end::search[]
+
+// tag::countrycode[]
+=== Add Country Code, Rating & Description
+The `add` command is used to add a place to the application. Apart from being able to add the name of the place,
+address of the place and tag. The user can also add the place's country code, rating and description.
+
+==== Current Implementation
+
+The `add` command requires the AddCommandParser class to parse user input and add a place with the details
+specified by the user. Currently, the details that are required by the user is Name, Country Code (3 letters), Rating,
+Description and Address. Tag is optional.
+
+AddCommandParser implements the Parser class which has the Parser#parse() operation. This operation will throw an error if the user input does not match the command format.
+
+The add command updates the context in ModelManager through addCommand.
+
+The following sequence diagram shows how the add feature works:
+
+image::AddCommandSequenceDiagram.png[width="800"]
+
+The user enters the command with the command word `add` followed by the arguments. This is processed by the Logic
+component, which will then call `LogicManager#execute()` in the Logic component. `AddressBookParser#parseCommand()`
+is then called, which is also in the Logic component.
+
+
+===== Add Feature
+Given below is an example usage scenario and how the add mechanism behaves at each step.
+
+Step 1. The user launches the application and sees the GUI with no places.
+
+image::AddCommandStep1.png[width="800"]
+
+Step 2. The user types the full add command `add n/NUS Computing cc/SGP r/5 d/No description a/NUS School of
+Computing, COM1, 13 Computing Drive, 117417 t/school` to add the place to TravelBuddy and presses enter.
+
+image::AddCommandStep2.png[width="800"]
+
+Once the user enters the command with the arguments. It is then processed by the Logic
+component, which will then call `LogicManager#execute()` in the Logic component. `AddressBookParser#parseCommand()`
+is then called, which is also in the Logic component. Finally, the added place is displayed.
+
+[NOTE]
+The command `add` is in lower-case. Mixed-case or upper-case commands are not recognised by the TravelBuddy.
+
+Step 3. Selecting the specific place allows the user to see more information in the placeholder.
+
+image::AddCommandStep3.png[width="800"]
+
+// end::countrycode[]
+
+==== Design Considerations
+
+===== Aspect: Data structure to store Country Codes
+* **Alternative 1 (current choice):** Use java.util.Locales.
+** Pros: Easy to implement and contains all country codes specified in ISO-3166.
+** Cons: Slightly slow in locating country code.
+
+* **Alternative 2:** Create own data structure containing most commonly traveled countries in the world.
+** Pros: Locating country code in data structure would be fast.
+** Cons: Tedious process of typing out country codes in the data structure.
 
 === Logging
 

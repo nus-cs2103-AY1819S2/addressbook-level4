@@ -20,7 +20,6 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPlaceDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.GenerateCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -133,16 +132,6 @@ public class AddressBookParserTest {
                 SearchRatingCommand.COMMAND_WORD + " "
                         + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchRatingCommand(new RatingContainsKeywordsPredicate(keywords)), command);
-    }
-
-    @Test
-    public void parseCommand_generate() throws Exception {
-        assertTrue(parser.parseCommand(GenerateCommand.COMMAND_WORD) instanceof GenerateCommand);
-    }
-
-    @Test
-    public void parseCommand_generateAlias() throws Exception {
-        assertTrue(parser.parseCommand(GenerateCommand.COMMAND_ALIAS) instanceof GenerateCommand);
     }
 
     @Test

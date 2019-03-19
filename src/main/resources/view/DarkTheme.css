@@ -17,6 +17,12 @@
     -fx-opacity: 1;
 }
 
+.label-field-header {
+    -fx-font-family: "Segoe UI Semibold" !important;
+    -fx-text-fill: white !important;
+    -fx-opacity: 1 !important;
+}
+
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
@@ -127,9 +133,10 @@
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 13px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #efefef;
+    -fx-opacity: 0.8;
 }
 
 .stack-pane {

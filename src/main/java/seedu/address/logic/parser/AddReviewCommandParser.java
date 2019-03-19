@@ -14,13 +14,13 @@ import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddReviewCommand object
  */
 public class AddReviewCommandParser implements Parser<AddReviewCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddReviewCommand
+     * and returns an AddReviewCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddReviewCommand parse(String args) throws ParseException {

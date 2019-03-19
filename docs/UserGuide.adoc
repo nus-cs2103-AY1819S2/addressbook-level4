@@ -164,7 +164,7 @@ Format: `ans ANSWER`
 Examples:
 
 * `ans Mitochondrion` +
-In response to the card question: What is the powerhouse of the cell?
+in response to the card question: What is the powerhouse of the cell?
 
 [TIP]
 Answer matching is case insensitive. +

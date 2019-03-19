@@ -1,5 +1,6 @@
 {
-  "healthWorkers" : [ {
+  "healthWorkers": [
+    {
     "name" : "Andy Tan",
     "phone" : "94358253",
     "email" : "andye@example.com",
@@ -8,8 +9,8 @@
     "tagged" : [ ],
     "organization" : "NUH",
     "skills" : "GENERAL_PRACTICE PHYSIOTHERAPY "
-  }, 
-  {
+    },
+    {
     "name" : "Andy Tan",
     "phone" : "94358253",
     "email" : "andye@example.com",
@@ -18,5 +19,6 @@
     "tagged" : [ ],
     "organization" : "NUH",
     "skills" : "GENERAL_PRACTICE PHYSIOTHERAPY "
-  }]
+    }
+  ]
 }

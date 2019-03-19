@@ -25,7 +25,7 @@ import seedu.address.model.order.exceptions.DuplicateOrderItemException;
 import seedu.address.testutil.TableBuilder;
 
 public class TablesTest {
-    
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 

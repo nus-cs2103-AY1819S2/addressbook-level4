@@ -35,9 +35,6 @@ import seedu.address.ui.testutil.OrdersGuiTestAssert;
  * for test verification.
  */
 public abstract class RestOrRantSystemTest {
-    private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
-    private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
@@ -67,6 +64,10 @@ public abstract class RestOrRantSystemTest {
     public void tearDown() {
         setupHelper.tearDownStage();
     }
+
+    private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
+    private static final List<String> COMMAND_BOX_ERROR_STYLE =
+            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
     /**
      * Returns the data to be loaded into the given files.

@@ -5,6 +5,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.REQ_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.REQ_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION_PHYSIO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
@@ -40,10 +43,11 @@ class EditRequestCommandTest {
     @Test
     void execute_allFieldsSpecifiedUnfilteredList_success() {
         Request editedRequest =
-            new RequestBuilder().withAddress(defaultAddress).withHealthStaff(ANDY).build();
+            new RequestBuilder().withAddress(defaultAddress).withHealthStaff(ANDY).withEmail(Email.DEFAULT_EMAIL).withNric(Nric.DEFAULT_NRIC).build();
         EditRequestCommand.EditRequestDescriptor descriptor =
             new EditRequestDescriptorBuilder(editedRequest).build();
         EditRequestCommand editRequestCommand = new EditRequestCommand(INDEX_FIRST, descriptor);
+
 
         String expectedMessage = String.format(EditRequestCommand.MESSAGE_EDIT_REQUEST_SUCCESS,
             editedRequest);

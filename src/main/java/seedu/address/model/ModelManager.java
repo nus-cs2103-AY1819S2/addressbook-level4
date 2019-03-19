@@ -48,7 +48,8 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook,
-                        ReadOnlyHealthWorkerBook healthWorkerBook, ReadOnlyRequestBook requestBook,
+                        ReadOnlyHealthWorkerBook healthWorkerBook, ReadOnlyPatientBook patientbook,
+                        ReadOnlyRequestBook requestBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
@@ -68,7 +69,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new AddressBook(), new HealthWorkerBook(), new RequestBook(), new UserPrefs());
+        this(new AddressBook(), new HealthWorkerBook(), new PatientBook(), new RequestBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================

@@ -1,0 +1,12 @@
+{
+  "healthWorkers" : [ {
+    "name" : "Andy Tan",
+    "phone" : "not a phone number",
+    "email" : "andye@example.com",
+    "nric" : "S8312942G",
+    "address" : "125, Jurong West Ave 6, #08-111",
+    "tagged" : [ ],
+    "organization" : "NUH",
+    "skills" : "GENERAL_PRACTICE PHYSIOTHERAPY "
+  }]
+}

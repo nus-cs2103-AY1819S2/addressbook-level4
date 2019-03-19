@@ -283,12 +283,51 @@ This feature can be implemented in different ways in terms of how the records ar
 ** Pros: Easy to implement without changing original architecture.
 ** Cons: Slow. Tend to take a long time to search through large number of records.
 
-* *Alternative 2* : Each time a new tag is created, create a new list. Each of these list will whole
+* *Alternative 2* : Each time a new tag is created, create a new list. Each of these list will hold
 all the records of a particular tag.
 
 ** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted tag.
 ** Cons: Need to change the original architecture of storage to introduce storing of different list corresponding to
 each tag. Will take up more space if there is many different tags.
+
+
+=== Sort feature
+
+By default, the list of entries is ordered according to the time the entry is entered into the application,
+where the entry entered first will be at the top of the list, and the entry entered last is at the bottom of the list.
+The sort mechanism allows users to view their expense records in a different way.
+
+
+==== Current Implementation
+
+*_Details of implementation will be added next time._*
+
+.Commands that I am planning to implement:
+|===
+|Commands |Description
+
+|`sort expenses` (alias: `sort expenses desc`) | Sort according to the amount stated in each entry.
+By default, the entry with the largest amount will be at the top,
+while the entry with the smallest amount will be at the bottom.
+
+|`sort expenses asc` | Entries will be sorted according to amount stated, but in the opposite order from the default,
+with the entry containing the smallest amount at the top,
+and the one with the largest amount at the bottom.
+|`sort cat budget` (alias: `sort cat budget desc`) |Sorts categories with an assigned budget according to the
+remaining budget left. By default, the category with the largest remaining budget will be at the top of the list,
+and the one with the smallest remaining budget will be at the bottom.
+|`sort cat budget asc` |Similar to sort cat budget, but the category with the smallest remaining budget will be
+at the top, and the one with the largest remaining budget will be at the bottom.
+|`sort date` (alias: `sort date desc`) |sorts entries according to date stated in each entry, with the latest one on
+top, and the earliest one at the bottom.
+|`sort date asc` |Similar to sort date, but the entry with the earliest date will be at the top, and the one with the
+latest date will be at the bottom.
+
+|===
+
+==== Design Considerations
+
+*_Design considerations will be added next time._*
 
 // tag::undoredo[]
 === Undo/Redo feature

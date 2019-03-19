@@ -25,7 +25,8 @@ public class MajorContainsKeywordsPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        MajorContainsKeywordsPredicate firstPredicateCopy = new MajorContainsKeywordsPredicate(firstPredicateKeywordList);
+        MajorContainsKeywordsPredicate firstPredicateCopy =
+            new MajorContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -61,9 +62,9 @@ public class MajorContainsKeywordsPredicateTest {
 
         // Keywords match other fields, but does not match Major
         predicate = new MajorContainsKeywordsPredicate(Arrays.asList("Alice", "12345", "alice@email.com",
-                "Chinese", "Main", "Street", "NUS"));
+            "Chinese", "Main", "Street", "NUS"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345").withEmail("alice@email.com")
-                .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
-                .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
+            .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
+            .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
     }
 }

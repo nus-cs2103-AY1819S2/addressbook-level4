@@ -62,9 +62,9 @@ public class RaceContainsKeywordsPredicateTest {
 
         // Keywords match other fields, but does not match Race
         predicate = new RaceContainsKeywordsPredicate(Arrays.asList("Alice", "12345", "alice@email.com",
-                "Main", "Street", "NUS", "CS"));
+            "Main", "Street", "NUS", "CS"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345").withEmail("alice@email.com")
-                .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
-                .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
+            .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
+            .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
     }
 }

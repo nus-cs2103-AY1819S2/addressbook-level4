@@ -70,9 +70,9 @@ public class NameContainsKeywordsPredicateTest {
 
         // Keywords match phone, email and address, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com",
-                "Chinese", "Main", "Street", "NUS", "CS"));
+            "Chinese", "Main", "Street", "NUS", "CS"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345").withEmail("alice@email.com")
-                .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
-                .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
+            .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
+            .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
     }
 }

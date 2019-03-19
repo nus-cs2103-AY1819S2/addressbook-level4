@@ -25,7 +25,8 @@ public class EmailContainsKeywordsPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        EmailContainsKeywordsPredicate firstPredicateCopy = new EmailContainsKeywordsPredicate(firstPredicateKeywordList);
+        EmailContainsKeywordsPredicate firstPredicateCopy =
+            new EmailContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -62,9 +63,9 @@ public class EmailContainsKeywordsPredicateTest {
 
         // Keywords match other fields, but does not match Email
         predicate = new EmailContainsKeywordsPredicate(Arrays.asList("Alice",
-                 "Main", "Street", "NUS", "CS"));
+            "Main", "Street", "NUS", "CS"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345").withEmail("alice@email.com")
-                .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
-                .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
+            .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
+            .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
     }
 }

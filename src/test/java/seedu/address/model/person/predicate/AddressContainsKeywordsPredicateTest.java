@@ -18,14 +18,17 @@ public class AddressContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        AddressContainsKeywordsPredicate firstPredicate = new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
-        AddressContainsKeywordsPredicate secondPredicate = new AddressContainsKeywordsPredicate(secondPredicateKeywordList);
+        AddressContainsKeywordsPredicate firstPredicate =
+            new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
+        AddressContainsKeywordsPredicate secondPredicate =
+            new AddressContainsKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        AddressContainsKeywordsPredicate firstPredicateCopy = new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
+        AddressContainsKeywordsPredicate firstPredicateCopy =
+            new AddressContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -69,10 +72,10 @@ public class AddressContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new PersonBuilder().withAddress("Alice Bob").build()));
 
         // Keywords match phone, email and address, but does not match Address
-        predicate = new AddressContainsKeywordsPredicate(Arrays.asList("Alice","12345", "alice@email.com",
-                "Chinese", "NUS", "CS"));
+        predicate = new AddressContainsKeywordsPredicate(Arrays.asList("Alice", "12345", "alice@email.com",
+            "Chinese", "NUS", "CS"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345").withEmail("alice@email.com")
-                .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
-                .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
+            .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
+            .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
     }
 }

@@ -25,7 +25,8 @@ public class PhoneContainsKeywordsPredicateTest {
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        PhoneContainsKeywordsPredicate firstPredicateCopy = new PhoneContainsKeywordsPredicate(firstPredicateKeywordList);
+        PhoneContainsKeywordsPredicate firstPredicateCopy =
+            new PhoneContainsKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,7 +42,8 @@ public class PhoneContainsKeywordsPredicateTest {
     @Test
     public void test_phoneContainsKeywords_returnsTrue() {
         // One keyword
-        PhoneContainsKeywordsPredicate predicate = new PhoneContainsKeywordsPredicate(Collections.singletonList("12345"));
+        PhoneContainsKeywordsPredicate predicate =
+            new PhoneContainsKeywordsPredicate(Collections.singletonList("12345"));
         assertTrue(predicate.test(new PersonBuilder().withPhone("12345").build()));
     }
 
@@ -57,9 +59,9 @@ public class PhoneContainsKeywordsPredicateTest {
 
         // Keywords match other fields, but does not match Phone
         predicate = new PhoneContainsKeywordsPredicate(Arrays.asList("Alice", "alice@email.com",
-                 "Main", "Street", "NUS", "CS"));
+            "Main", "Street", "NUS", "CS"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345").withEmail("alice@email.com")
-                .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
-                .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
+            .withNric("S9091209Q").withGender("Female").withRace("Chinese").withAddress("Main Street")
+            .withSchool("NUS").withMajor("CS").withGrade("2.35").build()));
     }
 }

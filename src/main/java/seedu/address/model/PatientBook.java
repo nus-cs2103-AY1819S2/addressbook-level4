@@ -127,6 +127,13 @@ public class PatientBook implements ReadOnlyPatientBook {
             .equals(((PatientBook) other).uniquePatientList);
     }
 
+    /**
+     * Returns true if this book has the same patient identities of the patients in {@code other}
+     */
+    public boolean arePatientsSame(PatientBook other) {
+        return this.uniquePatientList.arePatientsSame(other.uniquePatientList);
+    }
+
     @Override
     public int hashCode() {
         return this.uniquePatientList.hashCode();

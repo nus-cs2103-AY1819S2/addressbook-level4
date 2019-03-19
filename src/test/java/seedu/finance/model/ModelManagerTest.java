@@ -153,7 +153,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        FinanceTracker financeTracker = new FinanceTrackerBuilder().withRecord(APPLE).withRecord(BENSON).build();
+        FinanceTracker financeTracker = new FinanceTrackerBuilder().withRecord(APPLE).withRecord(BANANA).build();
         FinanceTracker differentFinanceTracker = new FinanceTracker();
         UserPrefs userPrefs = new UserPrefs();
 

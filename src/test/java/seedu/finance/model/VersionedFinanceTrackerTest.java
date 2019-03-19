@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.finance.testutil.TypicalRecords.AMY;
 import static seedu.finance.testutil.TypicalRecords.BOB;
+import static seedu.finance.testutil.TypicalRecords.CAP;
 
 import java.util.Arrays;
 import java.util.Collections;

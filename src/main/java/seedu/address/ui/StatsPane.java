@@ -27,16 +27,16 @@ public class StatsPane extends UiPart<Region> {
     @FXML
     private Label saveLocationStatus;
 
-    private Timer myTimer = new Timer();
-    private TimerTask task = new TimerTask() {
-
-        @Override
-        public void run() {
-            Platform.runLater(()-> {
-                updateSyncStatus();
-            });
-        }
-    };
+//    private Timer myTimer = new Timer();
+//    private TimerTask task = new TimerTask() {
+//
+//        @Override
+//        public void run() {
+//            Platform.runLater(()-> {
+//                updateSyncStatus();
+//            });
+//        }
+//    };
 
     public StatsPane() {
         super(FXML);
@@ -48,16 +48,16 @@ public class StatsPane extends UiPart<Region> {
     /**
      * Stops the internal Timer that increments the time display.
      */
-    public void stopTimer() {
-        myTimer.cancel();
-    }
+  //  public void stopTimer() {
+  //      myTimer.cancel();
+  //  }
 
     /**
      * Updates elapsed time
      */
     private void updateSyncStatus() {
-        String elapsedTime = convert(getElapsedTime(System.nanoTime()));
-        syncStatus.setText(String.format(SYNC_STATUS_UPDATED, elapsedTime));
+       // String elapsedTime = convert(getElapsedTime(System.nanoTime()));
+       // syncStatus.setText(String.format(SYNC_STATUS_UPDATED, elapsedTime));
     }
 
     /**
@@ -65,24 +65,24 @@ public class StatsPane extends UiPart<Region> {
      * @param endTime
      * @return
      */
-    public long getElapsedTime(long endTime) {
-        long elapsedTimeSeconds = (endTime - this.startTime) / (1000000000);
-        return elapsedTimeSeconds;
-    }
+//    public long getElapsedTime(long endTime) {
+//        long elapsedTimeSeconds = (endTime - this.startTime) / (1000000000);
+//        return elapsedTimeSeconds;
+//    }
 
     /**
      * @param secondsToConvert in seconds to convert
      */
-    private String convert(long secondsToConvert) {
-        long millis = secondsToConvert * 1000;
-        long hours = TimeUnit.MILLISECONDS.toHours(millis);
-        long minutes = TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1);
-        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1);
-
-        String format = String.format("%02d:%02d:%02d", Math.abs(hours), Math.abs(minutes), Math.abs(seconds));
-
-        return format;
-    }
+//    private String convert(long secondsToConvert) {
+//        long millis = secondsToConvert * 1000;
+//        long hours = TimeUnit.MILLISECONDS.toHours(millis);
+//        long minutes = TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1);
+//        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1);
+//
+//        String format = String.format("%02d:%02d:%02d", Math.abs(hours), Math.abs(minutes), Math.abs(seconds));
+//
+//        return format;
+//    }
 
 
 }

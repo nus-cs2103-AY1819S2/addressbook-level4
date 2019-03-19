@@ -232,16 +232,33 @@ public class ParserUtil {
     public static ParsedInOut parseImportExport(String input) throws ParseException {
         requireNonNull(input);
         input = input.trim();
-        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?$";
+        String newPath = "data\\";
+        String filepath = "";
+
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s?([0-9,-]*)?$";
+        final String allRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s(all)$";
 
         if (!input.matches(validationRegex)) {
-            throw new ParseException("File name is invalid or no index given");
+            if (input.matches(allRegex)) {
+                final Pattern splitRegex = Pattern.compile("^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s(all)$");
+                Matcher splitMatcher = splitRegex.matcher(input);
+
+                if (splitMatcher.find()) {
+                    filepath = splitMatcher.group(1).concat(".");
+                    filepath = filepath.concat(splitMatcher.group(2));
+                    filepath = newPath.concat(filepath);
+                    return new ParsedInOut(new File(filepath));
+                } else {
+                    // This shouldn't be possible after validationRegex
+                    throw new ParseException("File name is invalid or no index given");
+                }
+            } else {
+                throw new ParseException("File name is invalid or no index given");
+            }
         }
 
-        String newPath = "data\\";
-        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?");
+        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s?([0-9,-]*)?");
         Matcher splitMatcher = splitRegex.matcher(input);
-        String filepath = "";
         String indexRange = "";
 
         if (splitMatcher.find()) {

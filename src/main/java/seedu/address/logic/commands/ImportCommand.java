@@ -31,9 +31,11 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Imports specific patients by index to text file in the \"data\" folder, "
             + "overwriting if filename exists \n"
-            + "Parameters: FILENAME INDEX_RANGE(must be a positive integer)\n"
+            + "Parameters: FILENAME [INDEX_RANGE(must be a positive integer) OR all]\n"
             + "Example: " + COMMAND_WORD + " records1.json + 1-5"
-            + "Example: " + COMMAND_WORD + " records1.json + 1,3,5";
+            + "Example: " + COMMAND_WORD + " records1.json + 1,3,5"
+            + "Example: " + COMMAND_WORD + " records1.json + 1,3-5"
+            + "Example: " + COMMAND_WORD + " records1.json + all";
 
     public static final String MESSAGE_SUCCESS = "Imported the records!";
 
@@ -46,7 +48,7 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        readFile(model, parsedInput.getParsedIndex());
+        readFile(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
@@ -55,7 +57,7 @@ public class ImportCommand extends Command {
     /**
      * readFile() appends the current address book with the contents of the file.
      */
-    private void readFile(Model model, HashSet<Integer> parsedIndex) {
+    private void readFile(Model model) {
         AddressBookStorage importStorage = new JsonAddressBookStorage(parsedInput.getFile().toPath());
 
         StorageManager importStorageManager = new StorageManager(importStorage, null);
@@ -79,9 +81,15 @@ public class ImportCommand extends Command {
             importData = new AddressBook();
         }
 
-        for (int i = 0; i < importData.getPersonList().size(); i++) {
-            if (parsedIndex.contains(i) && !model.hasPerson(importData.getPersonList().get(i))) {
+        if (parsedInput.getArgIsAll()) {
+            for (int i = 0; i < importData.getPersonList().size(); i++) {
                 model.addPerson(importData.getPersonList().get(i));
+            }
+        } else {
+            for (int i = 0; i < importData.getPersonList().size(); i++) {
+                if (parsedInput.getParsedIndex().contains(i) && !model.hasPerson(importData.getPersonList().get(i))) {
+                    model.addPerson(importData.getPersonList().get(i));
+                }
             }
         }
     }

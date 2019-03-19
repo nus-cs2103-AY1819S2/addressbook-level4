@@ -64,7 +64,7 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user pref's menu file path.
+     * Returns the user pref's RestOrRant menu file path.
      */
     Path getMenuFilePath();
 
@@ -95,7 +95,7 @@ public interface Logic {
 
     /**
      * Selected menu item in the filtered menu item list.
-     * null if no person is selected.
+     * null if no menu item is selected.
      *
      * @see Model#selectedMenuItemProperty()
      */
@@ -148,7 +148,7 @@ public interface Logic {
     void setSelectedOrderItem(OrderItem orderItem);
 
     /**
-     * Sets the selected order item in the filtered table list.
+     * Sets the selected table in the filtered table list.
      *
      * @see seedu.address.model.Model#setSelectedTable(Table)
      */

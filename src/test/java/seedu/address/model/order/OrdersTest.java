@@ -24,9 +24,10 @@ import seedu.address.testutil.OrderItemBuilder;
 
 public class OrdersTest {
 
-    private final Orders orders = new Orders();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private final Orders orders = new Orders();
 
     @Test
     public void constructor() {

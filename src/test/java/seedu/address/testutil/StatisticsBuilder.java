@@ -7,6 +7,9 @@ import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.Year;
 import seedu.address.model.table.TableNumber;
 
+/**
+ * A utility class to help with building Statistics objects.
+ */
 // TODO: do this class after storage is ok
 public class StatisticsBuilder {
 
@@ -94,16 +97,25 @@ public class StatisticsBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code TableNumber} of the {@code DailyRevenue} that we are building.
+     */
     public StatisticsBuilder withTableNumber(String tableNumber) {
         this.tableNumber = new TableNumber(tableNumber);
         return this;
     }
 
+    /**
+     * Sets the {@code totalBill} of the {@code DailyRevenue} that we are building.
+     */
     public StatisticsBuilder withTotalBill(String totalBill) {
         this.totalBill = Float.parseFloat(totalBill);
         return this;
     }
 
+    /**
+     * Sets the {@code receipt} of the {@code DailyRevenue} that we are building.
+     */
     public StatisticsBuilder withReceipt(String receipt) {
         this.receipt = receipt;
         return this;

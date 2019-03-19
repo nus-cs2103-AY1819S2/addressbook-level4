@@ -18,7 +18,6 @@ public class ClearCommandSystemTest extends RestOrRantSystemTest {
          * spaces -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
-        assertSelectedCardUnchanged();
 
         /*
          * TODO: Update the tests below. The following tests no longer work due to the removal of undo/redo.
@@ -37,7 +36,6 @@ public class ClearCommandSystemTest extends RestOrRantSystemTest {
 
         /* Case: clear empty address book -> cleared */
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
@@ -81,7 +79,6 @@ public class ClearCommandSystemTest extends RestOrRantSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

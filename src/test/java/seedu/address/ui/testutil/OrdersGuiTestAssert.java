@@ -7,7 +7,9 @@ import java.util.List;
 import guitests.guihandles.OrderItemCardHandle;
 import guitests.guihandles.OrderItemListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.TableCardHandle;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.table.Table;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -30,6 +32,14 @@ public class OrdersGuiTestAssert {
         assertEquals(expectedOrderItem.getTableNumber().tableNumber, actualCard.getTableNumber());
         assertEquals(expectedOrderItem.getMenuItemCode().itemCode, actualCard.getMenuItemCode());
         assertEquals(Integer.toString(expectedOrderItem.getQuantity()), actualCard.getQuantity());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedOrderItem}.
+     */
+    public static void assertCardDisplaysTable(Table expecteedTable, TableCardHandle actualCard) {
+        assertEquals(expecteedTable.getTableNumber().toString(), actualCard.getTableNumber());
+        assertEquals(expecteedTable.getTableStatus().toString(), actualCard.getTableStatus());
     }
 
     /**

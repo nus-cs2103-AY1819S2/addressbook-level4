@@ -16,7 +16,7 @@ public class Month {
      * The first character of the item code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[0-9][0-9]";
+    public static final String VALIDATION_REGEX = "[0-9][0-9]{0,1}";
 
     private static boolean isInvalid = false;
 
@@ -37,6 +37,7 @@ public class Month {
      * Returns true if a given string is a valid code.
      */
     public static boolean isValidMonth(String test) {
+        requireNonNull(test);
         if (Integer.parseInt(test) < 1 || Integer.parseInt(test) > 12) {
             return isInvalid;
         }

@@ -53,7 +53,7 @@ class JsonAdaptedDailyRevenue {
      */
     public DailyRevenue toModelType() throws IllegalValueException {
         if (day == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "day"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Day"));
         }
 
         if (!Day.isValidDay(day)) {
@@ -61,7 +61,7 @@ class JsonAdaptedDailyRevenue {
         }
 
         if (month == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "month"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Month"));
         }
 
         if (!Month.isValidMonth(month)) {
@@ -69,7 +69,7 @@ class JsonAdaptedDailyRevenue {
         }
 
         if (year == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "year"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Year"));
         }
 
         if (!Year.isValidYear(year)) {

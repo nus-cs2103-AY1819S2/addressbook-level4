@@ -16,12 +16,11 @@ public class Day {
      * The first character of the item code must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[0-9][0-9]";
+    public static final String VALIDATION_REGEX = "[0-9][0-9]{0,1}";
 
     private static boolean isInvalid = false;
 
     public final String day;
-
 
     /**
      * Constructs a {@code Day}.
@@ -38,6 +37,7 @@ public class Day {
      * Returns true if a given string is a valid code.
      */
     public static boolean isValidDay(String test) {
+        requireNonNull(test);
         if (Integer.parseInt(test) < 1 || Integer.parseInt(test) > 31) {
             return isInvalid;
         }

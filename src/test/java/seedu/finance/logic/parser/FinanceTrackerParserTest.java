@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 
@@ -16,6 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.finance.logic.commands.AllocateCommand;
 import seedu.finance.logic.commands.ClearCommand;
 import seedu.finance.logic.commands.DeleteCommand;
 import seedu.finance.logic.commands.DescriptionCommand;
@@ -57,6 +59,12 @@ public class FinanceTrackerParserTest {
         SpendCommand command = (SpendCommand) parser.parseCommand(
                 SpendCommand.COMMAND_ALIAS + " " + RecordUtil.getRecordDetails(record));
         assertEquals(new SpendCommand(record), command);
+    }
+
+    @Test
+    public void parseCommand_allocate() throws Exception {
+        assertTrue((parser.parseCommand(AllocateCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123 "
+                + PREFIX_CATEGORY + "Friends") instanceof AllocateCommand));
     }
 
     @Test

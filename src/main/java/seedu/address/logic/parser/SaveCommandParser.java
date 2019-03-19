@@ -4,6 +4,7 @@ import java.io.File;
 
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.storage.ParsedInOut;
 
 /**
  * Parses input arguments and creates a new SaveCommand object.
@@ -17,10 +18,22 @@ public class SaveCommandParser implements Parser<SaveCommand> {
      */
     public SaveCommand parse(String args) throws ParseException {
         try {
-            File file = ParserUtil.parseOpenSave(args);
-            return new SaveCommand(file);
+            ParsedInOut parsedInOut = ParserUtil.parseOpenSave(args);
+            saveValidation(parsedInOut.getFile());
+            return new SaveCommand(parsedInOut);
         } catch (ParseException pe) {
             throw new ParseException(pe.getMessage());
+        }
+    }
+
+    /**
+     * saveValidation() checks if the file is writable if it exists.
+     * @param file
+     * @throws ParseException
+     */
+    private void saveValidation(File file) throws ParseException {
+        if (file.exists() && !file.canWrite()) {
+            throw new ParseException("File is read only!");
         }
     }
 }

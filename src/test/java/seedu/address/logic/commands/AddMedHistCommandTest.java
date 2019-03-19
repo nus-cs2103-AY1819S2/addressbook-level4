@@ -21,7 +21,7 @@ public class AddMedHistCommandTest {
     @Test
     public void testThrowException() throws CommandException {
         thrown.expect(CommandException.class);
-        new AddMedHistCommand(new MedicalHistory(null, null,  new Name("t"), new WriteUp("t")))
+        new AddMedHistCommand(new MedicalHistory(null, null, new Name("t"), new WriteUp("t")))
                 .execute(null, commandHistory);
     }
 }

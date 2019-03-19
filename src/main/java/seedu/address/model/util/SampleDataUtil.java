@@ -1,11 +1,13 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Doctor;
@@ -84,4 +86,9 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
+    public static List<Appointment> getAppointments(String... strings) {
+        return Arrays.stream(strings)
+                .map(Appointment::new)
+                .collect(Collectors.toList());
+    }
 }

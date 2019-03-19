@@ -49,7 +49,13 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        addAppointment.setText("addAppointment");
+
+        StringBuilder sb = new StringBuilder();
+        person.getAppointments().forEach(appointment -> {
+            sb.append(appointment.value);
+            sb.append(", ");
+        });
+        addAppointment.setText(sb.toString());
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

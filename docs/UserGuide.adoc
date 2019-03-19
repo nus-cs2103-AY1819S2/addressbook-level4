@@ -60,7 +60,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Adding a member: `memberAdd`
 
 You can add members to ClubManager. +
-Format: `memberAdd n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
+Format: `memberAdd n/NAME an/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
 ****
 * YEAR_OF_STUDY refers to the academic level (in years) in which the member is currently studying in YYYY format.
 * MAJOR refers to the field of discipline in which member is currently enrolled in.

@@ -22,35 +22,52 @@ public class Person {
 
     // Data fields
     private final Address address;
+    private final Gender gender;
+    private final Major major;
+    private final MatricNumber matricNumber;
+    private final YearOfStudy yearOfStudy;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Address address, Gender gender, Name name, Phone phone, Email email, Major major,
+                  MatricNumber matricNumber, YearOfStudy yearOfStudy, Set<Tag> tags) {
+        requireAllNonNull(address, gender, name, phone, email, major, matricNumber, yearOfStudy, tags);
+        this.address = address;
         this.name = name;
+        this.gender = gender;
         this.phone = phone;
         this.email = email;
-        this.address = address;
+        this.major = major;
+        this.matricNumber = matricNumber;
+        this.yearOfStudy = yearOfStudy;
         this.tags.addAll(tags);
+    }
+
+    public Address getAddress() {
+        return address;
     }
 
     public Name getName() {
         return name;
     }
 
+    public Gender getGender() { return gender; }
+
     public Phone getPhone() {
         return phone;
     }
 
-    public Email getEmail() {
-        return email;
+    public Email getEmail() { return email; }
+
+    public Major getMajor() {
+        return major;
     }
 
-    public Address getAddress() {
-        return address;
-    }
+    public MatricNumber getMatricNumber() { return matricNumber; }
+
+    public YearOfStudy getYearOfStudy() { return yearOfStudy; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -90,31 +107,36 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+                && otherPerson.getGender().equals(getGender())
+                && otherPerson.getMatricNumber().equals(getMatricNumber());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(address, name, phone, email, gender, major, matricNumber, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Address: ")
+                .append(getAddress())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Gender: ")
+                .append(getGender())
+                .append(" Major: ")
+                .append(getMajor())
+                .append(" Matric Number: ")
+                .append(getMatricNumber())
+                .append(" Year of Study: ")
+                .append(getYearOfStudy())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

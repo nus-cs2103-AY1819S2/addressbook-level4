@@ -32,7 +32,11 @@ public class AttackCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        model.getMapGrid().attackCell(coord);
+        try {
+            model.getMapGrid().attackCell(coord);
+        } catch (ArrayIndexOutOfBoundsException aiobe) {
+            throw new CommandException("Coordinates are out of bounds: " + aiobe.getMessage());
+        }
 
         model.updateUi();
 

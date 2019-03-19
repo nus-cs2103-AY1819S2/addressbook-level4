@@ -314,23 +314,6 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::membersort[]
-=== MemberSetActive
-
-==== Current Implementation
-* The `MemberSetActive` command sets the member status to active. The member's personCard will then be updated based on
-the colour allocated to the active status. Active status denotes that is still an active member of the CCA.
-
-* If a member is already active, `MemberSetActive` will inform user that the user is already active. No action taken.
-
-=== MemberSetInactive
-
-==== Current Implementation
-* The `MemberSetInactive` command sets the member status to inactive. The member's personCard will then be updated based on
-the colour allocated to the inactive status. Inactive status denotes that the member has graduated from school.
-
-* If a member is already inactive, `MemberSetActive` will inform user that the user is already active. No action taken.
-
-
 === MemberSort
 
 ==== Current Implementation

@@ -127,4 +127,9 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Generates an interview list.
+     */
+    void generateInterviews();
 }

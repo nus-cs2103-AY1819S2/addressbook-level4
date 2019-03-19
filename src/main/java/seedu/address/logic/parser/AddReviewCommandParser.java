@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_ENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_RATING;
 
 import java.util.stream.Stream;
 
@@ -25,9 +25,9 @@ public class AddReviewCommandParser implements Parser<AddReviewCommand> {
      */
     public AddReviewCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_REVIEWENTRY, PREFIX_REVIEWRATING);
+                ArgumentTokenizer.tokenize(args, PREFIX_REVIEW_ENTRY, PREFIX_REVIEW_RATING);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_REVIEWENTRY, PREFIX_REVIEWRATING)
+        if (!arePrefixesPresent(argMultimap, PREFIX_REVIEW_ENTRY, PREFIX_REVIEW_RATING)
                 || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE));
         }
@@ -40,8 +40,8 @@ public class AddReviewCommandParser implements Parser<AddReviewCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE), pe);
         }
 
-        Entry entry = ParserUtil.parseEntry(argMultimap.getValue(PREFIX_REVIEWENTRY).get());
-        Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_REVIEWRATING).get());
+        Entry entry = ParserUtil.parseEntry(argMultimap.getValue(PREFIX_REVIEW_ENTRY).get());
+        Rating rating = ParserUtil.parseRating(argMultimap.getValue(PREFIX_REVIEW_RATING).get());
 
 
         Review review = new Review(entry, rating);

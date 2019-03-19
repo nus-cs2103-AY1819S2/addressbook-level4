@@ -361,6 +361,7 @@ The `filter` command is implemented as follows:
 tests if a restaurant matches any of the keywords.
 * Inside `FilterCommand#execute()`, `Model#updateFilteredRestaurantList()` is called with the predicate to update the
 list of restaurants that matches the keywords.
+// end::categorisation[]
 
 === Adding a Review to a selected Restaurant
 

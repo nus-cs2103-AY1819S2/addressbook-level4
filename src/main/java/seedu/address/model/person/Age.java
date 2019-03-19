@@ -11,7 +11,7 @@ public class Age {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Age should only contain numbers, and it should be at most 3 digits long";
-    public static final String VALIDATION_REGEX = "\\d{1,3}";
+    public static final String VALIDATION_REGEX = "\\d{1,3}"; // 0-999
     public final String value;
 
     /**

@@ -25,7 +25,7 @@ public class AddNameCommandParser implements Parser<AddNameCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNameCommand.MESSAGE_USAGE));
         }
 
         String name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString();

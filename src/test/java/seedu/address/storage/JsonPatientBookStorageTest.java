@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -86,6 +86,7 @@ public class JsonPatientBookStorageTest {
         ReadOnlyPatientBook readBack = jsonPatientBookStorage.readPatientBook(filePath).get();
         assertTrue(original.arePatientsSame(new PatientBook(readBack)));
 
+
         // Modify data, overwrite exiting file, and read back
         original.addPatient(HARRY);
         original.removePatient(ALICE);
@@ -94,11 +95,13 @@ public class JsonPatientBookStorageTest {
         assertTrue(original.arePatientsSame(new PatientBook(readBack)));
 
 
+
         // Save and read without specifying file path
         original.addPatient(IGRIS);
         jsonPatientBookStorage.savePatientBook(original); // file path not specified
         readBack = jsonPatientBookStorage.readPatientBook().get(); // file path not specified
         assertTrue(original.arePatientsSame(new PatientBook(readBack)));
+
     }
 
     @Test

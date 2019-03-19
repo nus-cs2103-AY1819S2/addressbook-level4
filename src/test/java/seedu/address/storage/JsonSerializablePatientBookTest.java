@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,6 +34,7 @@ public class JsonSerializablePatientBookTest {
         assertTrue(patientBookFromFile.arePatientsSame(typicalPatientsPatientBook));
 
     }
+
 
     @Test
     public void toModelType_invalidPatientFile_throwsIllegalValueException() throws Exception {

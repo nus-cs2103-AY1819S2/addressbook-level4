@@ -27,30 +27,35 @@ image::Ui.png[width="790"]
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the jar file and put it into a directory you desire.
-.  Launch the application and set a password
-.  Type command into command box and press enter to execute it
+//.  Launch the application and set a password
+.  Type a command into the command box and press enter to execute it.
+[NOTE]
+For the full list of commands, you can head to <<Command Summary>>
 .  Click on the buttons if you want to use the GUI to perform the actions instead.
+
+[[Legends]]
+== Legends
+[TIP]
+This is a tip
+[NOTE]
+This is a note +
+
+`command` This is a user input to the application. It is formatted with a gray background. Example: `help`
 
 [[Features]]
 == Features
+*Command Format* +
 
-*Legends* +
-[TIP]
-This is a tip.
-[NOTE]
-This is a note. +
-
-Words formatted with a `gray box` are the user input to the application. Example: `help`
-
-*QuickDocs features command sequences to perform actions, in the following format:* +
-
-`command VALUE prefix/VALUE [OPTIONAL_VALUE]...`
+`command VALUE prefix/VALUE [OPTIONAL_VALUE] ...`
 
 * Commands are in lowercase, you can view all of them using the help command
-* Some commands have an alias, which can be used to execute the same command e.g. `statistics` can be replace by `stats`.
 * Values are the user input, which the user intend to store or manipulate data with
 * Prefix are used to complement certain commands such as adding or editing of records
-* Optional values can be placed after the command, and can be added multiple times after the command, value and prefix
+* Optional values can be placed after the command, and can be added multiple times after the command, value and prefix, depending on the command
+
+[TIP]
+Some commands have an alias, which can be used to execute the same command e.g. `statistics` can be replaced by `stats`
+
 
 === Viewing help : `help`
 
@@ -293,7 +298,7 @@ View the financial statistics from January 2019 to February 2019. +
 
 ==== Setting consultation fee: `setconsultfee`
 Sets the consultation fee to the specified amount. +
-Format: `setconsultfee [AMOUNT]`
+Format: `setconsultfee AMOUNT`
 
 Examples: +
 
@@ -341,10 +346,13 @@ Example: +
 Purchase of medicine can be recorded and the storage amount will be consequently updated +
 Format: `buyMed [MEDICINE_NAME] [AMOUNT] [EXPENDITURE]` +
 Alternative Format: `buyMed [PATH_OF_MEDICINE] [AMOUNT] [EXPENDITURE]`
+[NOTE]
+The first input after the command name can either be the name of the medicine itself `MEDICINE_NAME` or path of the medicine `PATH_OF_MEDICINE`
 
 Example: +
-* `buyMed panadol 10 400`
-* `buyMed root\panadol 10 400`
+
+* `buyMed panadol 10 400` +
+* `buyMed root\panadol 10 400` +
 
 ==== View past record of medicine purchase: `purchaserecord`
 View the past record of medicine purchase +
@@ -362,5 +370,9 @@ After each prescription, if the medicine in storage is insufficient for the pres
 After each successful prescription, the updated storage amount of affected medicine will automatically be reflected.
 
 == Frequently Asked Questions (FAQ)
+*Q:* How do I save the data after I add or change something? +
+*A:*
 
 == Command Summary
+[NOTE]
+This is the summary of all the possible commands for QuickDocs. For detailed explanations of each command, you should head to <<Features>>, or click on the link on each of the following commands

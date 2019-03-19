@@ -2,8 +2,8 @@ package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalWorkloads.CS1010Workload;
-import static seedu.address.testutil.TypicalWorkloads.CS2040Workload;
+import static seedu.address.testutil.TypicalWorkloads.CS1010_WORKLOAD;
+import static seedu.address.testutil.TypicalWorkloads.CS2040_WORKLOAD;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,70 +18,70 @@ class WorkloadTest {
     @Test
     public void equals() {
         // same object -> returns true
-        assertTrue(CS2040Workload.equals(CS2040Workload));
+        assertTrue(CS2040_WORKLOAD.equals(CS2040_WORKLOAD));
 
         // different type -> returns false
-        assertFalse(CS2040Workload.equals(5));
+        assertFalse(CS2040_WORKLOAD.equals(5));
 
-        // different CS2040Workload -> returns false
-        assertFalse(CS2040Workload.equals(CS1010Workload));
+        // different CS2040_WORKLOAD -> returns false
+        assertFalse(CS2040_WORKLOAD.equals(CS1010_WORKLOAD));
 
         // same values -> returns true
         Workload modifiedCS2040Workload = new WorkloadBuilder()
-                .withLectureHour(CS2040Workload.getLectureHour().toString())
-                .withTutorialHour(CS2040Workload.getTutorialHour().toString())
-                .withLabHour(CS2040Workload.getLabHour().toString())
-                .withProjectHour(CS2040Workload.getProjectHour().toString())
-                .withPreparationHour(CS2040Workload.getPreparationHour().toString()).build();
-        assertFalse(CS2040Workload.equals(modifiedCS2040Workload));
+                .withLectureHour(CS2040_WORKLOAD.getLectureHour().toString())
+                .withTutorialHour(CS2040_WORKLOAD.getTutorialHour().toString())
+                .withLabHour(CS2040_WORKLOAD.getLabHour().toString())
+                .withProjectHour(CS2040_WORKLOAD.getProjectHour().toString())
+                .withPreparationHour(CS2040_WORKLOAD.getPreparationHour().toString()).build();
+        assertFalse(CS2040_WORKLOAD.equals(modifiedCS2040Workload));
 
         //different lecture hours -> return false
         modifiedCS2040Workload = new WorkloadBuilder().withLectureHour("2")
-                .withTutorialHour(CS2040Workload.getTutorialHour().toString())
-                .withLabHour(CS2040Workload.getLabHour().toString())
-                .withProjectHour(CS2040Workload.getProjectHour().toString())
-                .withPreparationHour(CS2040Workload.getPreparationHour().toString()).build();
-        assertFalse(CS2040Workload.equals(modifiedCS2040Workload));
+                .withTutorialHour(CS2040_WORKLOAD.getTutorialHour().toString())
+                .withLabHour(CS2040_WORKLOAD.getLabHour().toString())
+                .withProjectHour(CS2040_WORKLOAD.getProjectHour().toString())
+                .withPreparationHour(CS2040_WORKLOAD.getPreparationHour().toString()).build();
+        assertFalse(CS2040_WORKLOAD.equals(modifiedCS2040Workload));
 
         //different tutorial hours -> return false
-        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040Workload.getLectureHour().toString())
-                .withTutorialHour(CS2040Workload.getTutorialHour().toString())
-                .withLabHour(CS2040Workload.getLabHour().toString())
-                .withProjectHour(CS2040Workload.getProjectHour().toString())
-                .withPreparationHour(CS2040Workload.getPreparationHour().toString()).build();
-        assertFalse(CS2040Workload.equals(modifiedCS2040Workload));
+        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040_WORKLOAD.getLectureHour().toString())
+                .withTutorialHour(CS2040_WORKLOAD.getTutorialHour().toString())
+                .withLabHour(CS2040_WORKLOAD.getLabHour().toString())
+                .withProjectHour(CS2040_WORKLOAD.getProjectHour().toString())
+                .withPreparationHour(CS2040_WORKLOAD.getPreparationHour().toString()).build();
+        assertFalse(CS2040_WORKLOAD.equals(modifiedCS2040Workload));
 
         //different tutorial hours -> return false
-        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040Workload.getLectureHour().toString())
+        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040_WORKLOAD.getLectureHour().toString())
                 .withTutorialHour("2")
-                .withLabHour(CS2040Workload.getLabHour().toString())
-                .withProjectHour(CS2040Workload.getProjectHour().toString())
-                .withPreparationHour(CS2040Workload.getPreparationHour().toString()).build();
-        assertFalse(CS2040Workload.equals(modifiedCS2040Workload));
+                .withLabHour(CS2040_WORKLOAD.getLabHour().toString())
+                .withProjectHour(CS2040_WORKLOAD.getProjectHour().toString())
+                .withPreparationHour(CS2040_WORKLOAD.getPreparationHour().toString()).build();
+        assertFalse(CS2040_WORKLOAD.equals(modifiedCS2040Workload));
 
         //different lab hours -> return false
-        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040Workload.getLectureHour().toString())
-                .withTutorialHour(CS2040Workload.getTutorialHour().toString())
+        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040_WORKLOAD.getLectureHour().toString())
+                .withTutorialHour(CS2040_WORKLOAD.getTutorialHour().toString())
                 .withLabHour("2")
-                .withProjectHour(CS2040Workload.getProjectHour().toString())
-                .withPreparationHour(CS2040Workload.getPreparationHour().toString()).build();
-        assertFalse(CS2040Workload.equals(modifiedCS2040Workload));
+                .withProjectHour(CS2040_WORKLOAD.getProjectHour().toString())
+                .withPreparationHour(CS2040_WORKLOAD.getPreparationHour().toString()).build();
+        assertFalse(CS2040_WORKLOAD.equals(modifiedCS2040Workload));
 
         //different project hours -> return false
-        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040Workload.getLectureHour().toString())
-                .withTutorialHour(CS2040Workload.getTutorialHour().toString())
-                .withLabHour(CS2040Workload.getLabHour().toString())
+        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040_WORKLOAD.getLectureHour().toString())
+                .withTutorialHour(CS2040_WORKLOAD.getTutorialHour().toString())
+                .withLabHour(CS2040_WORKLOAD.getLabHour().toString())
                 .withProjectHour("2")
-                .withPreparationHour(CS2040Workload.getPreparationHour().toString()).build();
-        assertFalse(CS2040Workload.equals(modifiedCS2040Workload));
+                .withPreparationHour(CS2040_WORKLOAD.getPreparationHour().toString()).build();
+        assertFalse(CS2040_WORKLOAD.equals(modifiedCS2040Workload));
 
         //different preparation hours -> return false
-        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040Workload.getLectureHour().toString())
-                .withTutorialHour(CS2040Workload.getTutorialHour().toString())
-                .withLabHour(CS2040Workload.getLabHour().toString())
-                .withProjectHour(CS2040Workload.getProjectHour().toString())
+        modifiedCS2040Workload = new WorkloadBuilder().withLectureHour(CS2040_WORKLOAD.getLectureHour().toString())
+                .withTutorialHour(CS2040_WORKLOAD.getTutorialHour().toString())
+                .withLabHour(CS2040_WORKLOAD.getLabHour().toString())
+                .withProjectHour(CS2040_WORKLOAD.getProjectHour().toString())
                 .withPreparationHour("2").build();
-        assertFalse(CS2040Workload.equals(modifiedCS2040Workload));
+        assertFalse(CS2040_WORKLOAD.equals(modifiedCS2040Workload));
     }
 
 }

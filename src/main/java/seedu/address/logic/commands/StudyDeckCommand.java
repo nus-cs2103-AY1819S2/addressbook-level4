@@ -24,7 +24,7 @@ public class StudyDeckCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    private static final String MESSAGE_OPEN_DECK_SUCCESS = "Entered study mode";
+    private static final String MESSAGE_STUDY_DECK_SUCCESS = "Entered study mode";
 
     private Index targetIndex;
     private DecksView viewState;
@@ -44,9 +44,9 @@ public class StudyDeckCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
-        model.changeDeck(filteredDeckList.get(targetIndex.getZeroBased()));
+        model.studyDeck(filteredDeckList.get(targetIndex.getZeroBased()));
 
-        return new UpdatePanelCommandResult(String.format(MESSAGE_OPEN_DECK_SUCCESS, targetIndex.getOneBased()));
+        return new UpdatePanelCommandResult(String.format(MESSAGE_STUDY_DECK_SUCCESS, targetIndex.getOneBased()));
     }
 
     @Override

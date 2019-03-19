@@ -151,6 +151,13 @@ public interface Model {
 
     void changeDeck(Deck deck);
 
+
+    /**
+     * Changes view state to show a single card at a time
+     * @param deck
+     */
+    void studyDeck(Deck deck);
+
     void goToDecksView();
 
     boolean isAtDecksView();

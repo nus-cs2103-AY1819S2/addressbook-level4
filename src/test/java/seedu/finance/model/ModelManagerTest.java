@@ -25,8 +25,6 @@ import seedu.finance.model.record.exceptions.RecordNotFoundException;
 import seedu.finance.testutil.FinanceTrackerBuilder;
 import seedu.finance.testutil.RecordBuilder;
 
-import javax.management.InvalidApplicationException;
-
 public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();

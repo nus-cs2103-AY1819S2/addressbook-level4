@@ -15,7 +15,7 @@ public class RecordCard extends UiPart<Region> {
     private static final String FXML = "RecordListCard.fxml";
     private static final String[] CATEGORY_COLOR_STYLES =
         { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey", "purple",
-                "coral", "tan", "turquoise" };
+            "coral", "tan", "turquoise" };
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.

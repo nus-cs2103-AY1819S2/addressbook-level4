@@ -30,7 +30,7 @@ public class OpenCommandParser implements Parser<OpenCommand> {
      * @throws ParseException
      */
     private void openValidation(ParsedInOut parsedInOut) throws ParseException {
-        if (parsedInOut.getType().equals("json")) {
+        if (!parsedInOut.getType().equals("json")) {
             throw new ParseException("Only .json file type can be opened!");
         } else {
             if (!parsedInOut.getFile().exists()) {

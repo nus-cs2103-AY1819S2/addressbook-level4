@@ -419,6 +419,15 @@ accidentally decides on an invalid timing, as there will be an office hour const
 
 Step 4. The list of slots will then be printed onto the results display, with each row representing one day.
 
+==== Design Considerations
+
+1. This feature is implemented for the convenience of the user in choosing a valid appointment slot with his/her patient. They can decide
+on an appointment slot based on all the empty slots shown, rather than listing out all created appointments and figuring out what slots are
+available from there.
+
+2. Searching for empty slots only when the command is given allows the user the flexibility in specifying the given search range that
+he/she desires, rather than only providing a fixed period (e.g. next three months) of empty slots.
+
 ==== Alternatives Considered
 [cols="1,2a,1, 1", options="header"]
 |===

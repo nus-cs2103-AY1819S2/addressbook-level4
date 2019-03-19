@@ -5,9 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
+import static seedu.address.testutil.TypicalIndexes.*;
 import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -31,8 +30,8 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PDF);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PDF_SUCCESS, pdfToDelete);
 
@@ -53,10 +52,10 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPdfAtIndex(model, INDEX_FIRST_PDF);
 
-        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PDF);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PDF_SUCCESS, pdfToDelete);
 
@@ -70,9 +69,9 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        showPdfAtIndex(model, INDEX_FIRST_PDF);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_PDF;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPdfBook().getPdfList().size());
 
@@ -83,8 +82,8 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PDF);
         Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
         expectedModel.deletePdf(pdfToDelete);
         expectedModel.commitPdfBook();
@@ -123,11 +122,11 @@ public class DeleteCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PDF);
         Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
 
-        showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased());
+        showPdfAtIndex(model, INDEX_SECOND_PDF);
+        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
         expectedModel.deletePdf(pdfToDelete);
         expectedModel.commitPdfBook();
 
@@ -138,7 +137,7 @@ public class DeleteCommandTest {
         expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(pdfToDelete, model.getFilteredPdfList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        assertNotEquals(pdfToDelete, model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased()));
         // redo -> deletes same second pdf in unfiltered pdf list
         expectedModel.redoPdfBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -146,14 +145,14 @@ public class DeleteCommandTest {
 
     @Test
     public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PDF);
+        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PDF);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PDF);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

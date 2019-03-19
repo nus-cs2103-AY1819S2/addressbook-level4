@@ -45,6 +45,11 @@ public class DeleteCommand extends Command {
 
     private final DeleteType deleteType;
 
+    public DeleteCommand(Index targetIndex){
+        this.targetIndex = targetIndex;
+        this.deleteType = DeleteType.Soft;
+    }
+
     public DeleteCommand(Index targetIndex, DeleteType type) {
         this.targetIndex = targetIndex;
         this.deleteType = type;

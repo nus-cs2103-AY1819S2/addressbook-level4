@@ -2,11 +2,10 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.nio.file.Paths;
@@ -58,16 +57,16 @@ public class CommandTestUtil {
     public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
     public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;
 
-    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
+    public static final String NAME_DESC_A = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
-    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
+    /*public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;*/
 
 
     public static final String INVALID_FILE_PATH_DESC = " " + PREFIX_FILE + "DefinitelyNotAFilePath"; // not valid path
@@ -162,7 +161,7 @@ public class CommandTestUtil {
      * Updates {@code model}'s filtered list to show only the pdf at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
+    public static void showPdfAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPdfList().size());
 
         Pdf pdf = model.getFilteredPdfList().get(targetIndex.getZeroBased());
@@ -175,7 +174,7 @@ public class CommandTestUtil {
     /**
      * Deletes the first pdf in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) {
+    public static void deleteFirstPdf(Model model) {
         Pdf firstPdf = model.getFilteredPdfList().get(0);
         model.deletePdf(firstPdf);
         model.commitPdfBook();

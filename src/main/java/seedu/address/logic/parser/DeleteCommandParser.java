@@ -24,7 +24,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             String[] parseArgs = args.trim().split(" ");
             if (parseArgs.length == 1) {
                 index = ParserUtil.parseIndex(args);
-                return new DeleteCommand(index, DeleteCommand.DeleteType.Soft);
+                return new DeleteCommand(index);
             } else if (parseArgs.length == 2) {
                 index = ParserUtil.parseIndex(parseArgs[0]);
                 if (parseArgs[1].toLowerCase().equals(deleteHard)) {

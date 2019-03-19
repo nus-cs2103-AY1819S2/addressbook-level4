@@ -251,6 +251,12 @@ public class MemberAddCommandTest {
         public void setSelectedPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Person generateExportedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.nio.file.Paths;

@@ -33,6 +33,8 @@ public class Lesson {
     public static final String EXCEPTION_INVALID_NAME = "Invalid name supplied.";
     public static final String EXCEPTION_INVALID_INDEX = "Invalid index: ";
     public static final String EXCEPTION_INVALID_CORE_SIZE = "Invalid number of core headers supplied.";
+    public static final String EXCEPTION_INVALID_CORE = "Invalid core header supplied.";
+    public static final String EXCEPTION_INVALID_OPT = "Invalid optional header supplied.";
     public static final String EXCEPTION_CORE_SIZE_MISMATCH =
         "The cores of the card to be added do not match the core headers of this lesson.";
 
@@ -212,6 +214,11 @@ public class Lesson {
      *                        to these headers
      */
     public void setOptionalHeaders(List<String> optionalHeaders) {
+        if (optionalHeaders == null) {
+            this.optionalHeaders = new ArrayList<>();
+            return;
+        }
+
         this.optionalHeaders = optionalHeaders;
 
         if (optionalHeaders.size() > 0) {
@@ -398,13 +405,17 @@ public class Lesson {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder().append("Name: ")
-                .append(name)
-                .append(", Hashcode: ")
-                .append(hashCode())
-                .append(", Cards: ")
-                .append(getCardCount());
-        return sb.toString();
+        StringBuilder builder = new StringBuilder();
+        builder.append(name)
+                .append(": Cores [").append(String.join(", ", coreHeaders))
+                .append("], Optionals [");
+        if (optionalHeaders.size() > 0) {
+            builder.append(String.join(", ", optionalHeaders));
+        }
+
+        builder.append("], Cards [").append(getCardCount()).append("]");
+
+        return builder.toString();
     }
 
     @Override

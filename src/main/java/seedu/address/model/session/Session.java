@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.card.SrsCard;
-import seedu.address.model.card.exceptions.MissingCoreException;
-import seedu.address.quiz.Quiz;
-import seedu.address.quiz.QuizCard;
+import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.modelmanager.quiz.QuizCard;
 
 
 /**
@@ -60,7 +59,7 @@ public class Session {
     /**
      * Generate a list of quizCards that will pass to quiz system.
      */
-    public List<QuizCard> generateSession() throws MissingCoreException {
+    public List<QuizCard> generateSession() {
         SrsCard currentCard;
         for (int i = 0; i < cardCount; i++) {
             currentCard = srsCards.get(i);

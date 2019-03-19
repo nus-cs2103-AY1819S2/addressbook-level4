@@ -2,7 +2,6 @@ package seedu.address.model.card;
 
 import java.time.Instant;
 
-import seedu.address.model.card.exceptions.MissingCoreException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.user.CardSrsData;
 
@@ -29,11 +28,11 @@ public class SrsCard {
 
     }
 
-    public String getQuestion() throws MissingCoreException {
+    public String getQuestion() {
         return card.getCore(questionIndex);
     }
 
-    public String getAnswer() throws MissingCoreException {
+    public String getAnswer() {
         return card.getCore(answerIndex);
     }
 

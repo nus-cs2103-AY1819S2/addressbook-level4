@@ -11,6 +11,9 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    /** Quiz UI should be shown to the user. */
+    private final boolean showQuiz;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
@@ -20,8 +23,9 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showQuiz, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = showQuiz;
         this.showHelp = showHelp;
         this.exit = exit;
     }
@@ -31,11 +35,15 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
+    }
+
+    public boolean isShowQuiz() {
+        return showQuiz;
     }
 
     public boolean isShowHelp() {

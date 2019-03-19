@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Lessons;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 
@@ -46,10 +46,10 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the model.
+     * Returns a defensive copy of the management.
      */
-    public Model getModel() {
-        Model copy = new ModelManager(new UserPrefs(), new Lessons());
+    public ManagementModel getModel() {
+        ManagementModel copy = new ManagementModelManager(new UserPrefs(), new Lessons());
         return copy;
     }
 

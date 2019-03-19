@@ -3,28 +3,50 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
+== PROJECT: BrainTrain
 
----
+This project portfolio highlights my key contributions to the https://cs2103-ay1819s2-w14-1.github.io/main/[BrainTrain] project.
 
 == Overview
 
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+BrainTrain is an open-source spaced repetition flashcard application which makes *memorizing easy and efficient*. Research has shown that the Spaced-Repetition System (SRS) is *much more effective* than traditional memorization techniques. By using BrainTrain, users will be able to *learn more with less time*.
+
+BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an *offline* application which can be used anywhere, even in places with limited or no Internet availability. It can be navigated and used via *easy-to-use* commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides *helpful but non-distracting visual aid*. Together, the CLI and GUI provides an *effective and straightforward* way to use BrainTrain.
 
 == Summary of contributions
 
-* *Major enhancement*:
-** What it does:
-** Justification:
-** Highlights:
+* *Major enhancement*: Implemented a Card Management System
+** What it does: Allows users to manage lessons' cards.
+*** Allows users to view all cards in a lesson
+*** Allows users to add a card to a lesson
+*** Allows users to modify an existing card in a lesson
+*** Allows users to delete a card in a lesson
+** Justification: // To do
+** Highlights: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/34[#34], https://github.com/CS2103-AY1819S2-W14-1/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-1/main/pull/77[#77], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85]
 
-* *Minor enhancement*:
-
+* *Minor enhancement*: // To do
+** // To do
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
-
 ** Project management:
+*** // To do
+*** Closed milestone // To do
+** Enhancements to existing features:
+*** Major overhaul of `package seedu.address.logic` design and implementation (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85])
+** Documentation:
+*** Wrote the User Guide's Introduction and Quick Start sections (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/15[#15], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85])
+*** Updated User Guide with management mode commands (Pull request
+,
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85])
+*** Updated Developer Guide with management mode implementation (Pull request // To do)
+** Community:
+*** Fix a bug in teammate's pull request (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/33[#33])
+*** Reviewed pull requests with constructive feedback (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/30#pullrequestreview-209863095[#30],
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/36#pullrequestreview-209862756[#36], https://github.com/CS2103-AY1819S2-W14-1/main/pull/36#pullrequestreview-209862756[#36] and  https://github.com/CS2103-AY1819S2-W14-1/main/pull/37#pullrequestreview-209866595[#37])
+*** Reported bugs for other teams in the class (// To do)
+** Tools:
+*** // To do
 
 == Contributions to the User Guide
 

@@ -4,16 +4,7 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 public class FilterCommandParser implements Parser<FilterCommand> {
 
@@ -100,14 +91,23 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[3] = null;
         }
 
-        if(args.contains(PREFIX_TAG.toString()) && args.contains(PREFIX_TAG_REVERSE.toString())
-                && args.indexOf(PREFIX_TAG.toString()) < args.indexOf(PREFIX_TAG_REVERSE.toString())) {
+        if(args.contains(PREFIX_SKILL.toString()) && args.contains(PREFIX_SKILL_REVERSE.toString())
+                && args.indexOf(PREFIX_SKILL.toString()) < args.indexOf(PREFIX_SKILL_REVERSE.toString())) {
             criterion[4] = "available";
             totalNumOfCriterion++;
         }
         else {
             criterion[4] = null;
         }
+
+//        if(args.contains(PREFIX_POS.toString()) && args.contains(PREFIX_POS_REVERSE.toString())
+//                && args.indexOf(PREFIX_POS.toString()) < args.indexOf(PREFIX_POS_REVERSE.toString())) {
+//            criterion[4] = "available";
+//            totalNumOfCriterion++;
+//        }
+//        else {
+//            criterion[4] = null;
+//        }
 
         if(totalNumOfCriterion == 0) {
             typeOfProcess.set(-1);
@@ -132,7 +132,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             }
 
             if(criterion[4] != null) {
-                criterion[4] = InfoBetweenPrefixes(args, PREFIX_TAG.toString(), PREFIX_TAG_REVERSE.toString(), typeOfProcess);
+                criterion[4] = InfoBetweenPrefixes(args, PREFIX_SKILL.toString(), PREFIX_SKILL_REVERSE.toString(), typeOfProcess);
             }
         }
 

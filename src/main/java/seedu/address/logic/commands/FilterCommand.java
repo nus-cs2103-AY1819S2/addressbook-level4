@@ -6,11 +6,11 @@ import seedu.address.model.Model;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_REVERSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_REVERSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL_REVERSE;
 import static java.util.Objects.requireNonNull;
 
 public class FilterCommand extends Command{
@@ -34,7 +34,7 @@ public class FilterCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " clear/or/and " + "[prefix/text/prefix] \n"
             + "Examples: \n"
-            + COMMAND_WORD + " or  " + PREFIX_PHONE + "91234567" + PREFIX_PHONE_REVERSE + " "  + PREFIX_TAG + "C++, MS-Excel" + PREFIX_TAG_REVERSE
+            + COMMAND_WORD + " or  " + PREFIX_PHONE + "91234567" + PREFIX_PHONE_REVERSE + " "  + PREFIX_SKILL + "C++, MS-Excel" + PREFIX_SKILL_REVERSE
                     + " --> SAVES THE FILTER. IF ONE OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"
             + COMMAND_WORD + " and " + PREFIX_NAME + "Alex" + PREFIX_NAME_REVERSE + " "  + PREFIX_EMAIL +"johndoe@example.com" + PREFIX_EMAIL_REVERSE
                     + " --> SAVES THE FILTER. IF ALL OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"

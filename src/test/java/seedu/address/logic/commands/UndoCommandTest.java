@@ -5,8 +5,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
+import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import org.junit.Before;
 import org.junit.Test;

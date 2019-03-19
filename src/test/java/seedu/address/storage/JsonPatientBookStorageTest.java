@@ -1,15 +1,15 @@
 package seedu.address.storage;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPatients.ALICE;
 import static seedu.address.testutil.TypicalPatients.HARRY;
 import static seedu.address.testutil.TypicalPatients.IGRIS;
 import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.Rule;
 import org.junit.Test;

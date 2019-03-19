@@ -15,6 +15,7 @@ import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -72,9 +73,15 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Activity> getFilteredActivityList() {
+        return model.getFilteredActivityList();
+    }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
+
 
     @Override
     public ObservableList<String> getHistory() {
@@ -96,6 +103,7 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+
     @Override
     public ReadOnlyProperty<Person> selectedPersonProperty() {
         return model.selectedPersonProperty();
@@ -104,5 +112,15 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
+    }
+
+    @Override
+    public ReadOnlyProperty<Activity> selectedActivityProperty() {
+        return model.selectedActivityProperty();
+    }
+
+    @Override
+    public void setSelectedActivity(Activity activity) {
+        model.setSelectedActivity(activity);
     }
 }

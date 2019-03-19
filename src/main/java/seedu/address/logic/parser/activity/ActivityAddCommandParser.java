@@ -2,7 +2,10 @@ package seedu.address.logic.parser.activity;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITYNAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_IC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 
 import java.util.stream.Stream;
 
@@ -16,6 +19,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ActivityDateTime;
+import seedu.address.model.activity.ActivityDescription;
+import seedu.address.model.activity.ActivityLocation;
 import seedu.address.model.activity.ActivityName;
 
 /**
@@ -30,17 +35,27 @@ public class ActivityAddCommandParser implements Parser<ActivityAddCommand> {
      */
     public ActivityAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_ACTIVITYNAME, PREFIX_DATETIME);
+                ArgumentTokenizer.tokenize(args, PREFIX_ACTIVITYNAME, PREFIX_DATETIME, PREFIX_LOCATION,
+                        PREFIX_ADESCRIPTION, PREFIX_IC);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_ACTIVITYNAME, PREFIX_DATETIME)
+        if (!arePrefixesPresent(argMultimap, PREFIX_ACTIVITYNAME, PREFIX_DATETIME, PREFIX_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ActivityAddCommand.MESSAGE_USAGE));
         }
 
         ActivityName name = ParserUtil.parseActivityName(argMultimap.getValue(PREFIX_ACTIVITYNAME).get());
         ActivityDateTime datetime = ParserUtil.parseActivityDateTime(argMultimap.getValue(PREFIX_DATETIME).get());
+        ActivityLocation location = ParserUtil.parseActivityLocation(argMultimap.getValue(PREFIX_LOCATION).get());
 
-        Activity activity = new Activity(name, datetime);
+        if (argMultimap.getValue(PREFIX_ADESCRIPTION).isPresent()){
+            ActivityDescription description =
+                    ParserUtil.parseActivityDescription(argMultimap.getValue(PREFIX_ADESCRIPTION).get());
+            Activity activity = new Activity(name, datetime, location, description);
+
+            return new ActivityAddCommand(activity);
+        }
+
+        Activity activity = new Activity(name, datetime, location);
 
         return new ActivityAddCommand(activity);
     }

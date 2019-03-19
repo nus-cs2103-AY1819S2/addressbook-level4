@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ActivityDateTime;
+import seedu.address.model.activity.ActivityDescription;
+import seedu.address.model.activity.ActivityLocation;
 import seedu.address.model.activity.ActivityName;
 
 
@@ -17,14 +19,20 @@ public class JsonAdaptedActivity {
 
     private final String name;
     private final String time;
+    private final String location;
+    private final String description;
 
     /**
      * Constructs a {@code JsonAdaptedActivity} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedActivity(@JsonProperty("name") String name, @JsonProperty("time") String time) {
+    public JsonAdaptedActivity(@JsonProperty("name") String name, @JsonProperty("time") String time,
+                               @JsonProperty("location") String location,
+                               @JsonProperty("description") String description) {
         this.name = name;
         this.time = time;
+        this.location = location;
+        this.description = description;
     }
 
     /**
@@ -33,6 +41,8 @@ public class JsonAdaptedActivity {
     public JsonAdaptedActivity(Activity source) {
         name = source.getName().fullActivityName;
         time = source.getDateTime().fullDateTime;
+        location = source.getLocation().value;
+        description = source.getDescription().value;
     }
 
     /**
@@ -60,7 +70,27 @@ public class JsonAdaptedActivity {
 
         final ActivityDateTime modelDateTime = new ActivityDateTime(time);
 
-        return new Activity(modelName, modelDateTime);
+        if (location == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ActivityLocation.class.getSimpleName()));
+        }
+        if (!ActivityLocation.isValidLocation(location)) {
+            throw new IllegalValueException(ActivityLocation.MESSAGE_CONSTRAINTS);
+        }
+
+        final ActivityLocation modelLocation = new ActivityLocation(location);
+
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    ActivityDescription.class.getSimpleName()));
+        }
+        if (!ActivityDescription.isValidDescription(description)) {
+            throw new IllegalValueException(ActivityDescription.MESSAGE_CONSTRAINTS);
+        }
+
+        final ActivityDescription modelDescription = new ActivityDescription(description);
+
+        return new Activity(modelName, modelDateTime, modelLocation, modelDescription);
     }
 
 }

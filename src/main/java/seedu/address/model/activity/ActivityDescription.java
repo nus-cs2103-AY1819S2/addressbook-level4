@@ -18,18 +18,29 @@ public class ActivityDescription {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
+    public static final String DEFAULT_VALUE = "More details to be added.";
+
     public final String value;
 
     /**
      * Constructs an {@code ActivityDescription}.
      *
-     * @param description A valid location.
+     * @param description A valid description.
      */
     public ActivityDescription(String description) {
         requireNonNull(description);
         checkArgument(isValidDescription(description), MESSAGE_CONSTRAINTS);
         value = description;
     }
+
+    /**
+     * Constructs an {@code ActivityDescription}.
+     *
+     */
+    public ActivityDescription() {
+        value = DEFAULT_VALUE;
+    }
+
 
     /**
      * Returns true if a given string is a valid email.

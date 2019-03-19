@@ -27,15 +27,25 @@ public class Activity {
     /**
      * Every field must be present and not null.
      */
-    public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location, ActivityDescription description) {
-        requireAllNonNull(name, dateTime);
+    public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location,
+                    ActivityDescription description) {
+        requireAllNonNull(name, dateTime, location, description);
         this.name = name;
         this.dateTime = dateTime;
         this.location = location;
         this.description = description;
     }
 
-    public ActivityName getName() {
+    public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location) {
+        requireAllNonNull(name, dateTime, location);
+        this.name = name;
+        this.dateTime = dateTime;
+        this.location = location;
+        this.description = new ActivityDescription();
+    }
+
+
+        public ActivityName getName() {
         return name;
     }
 

@@ -228,6 +228,61 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Card Management
+==== Data Structure Implementation
+
+A Card consists of a question, an answer and the respective tags associated with it.
+Card's are deemed as equal if they have the same question to prevent the user from
+creating same question twice or to have 2 different answer for the same question.
+Within the Model, `Card` is encapsulated by the following data structure:
+
+* `Model`
+* `VersionedTopDeck`
+* `TopDeck`
+* `UniqueDeckList`
+* `Deck`
+* `UniqueCardList`
+* `Card`
+
+The Create, Read, Update and Delete(CRUD) operation will trickle down the encapsulations
+and be executed in `UniqueCardList`. One of the repercussion of having this data structure
+is the need to find the respective deck that the user wants to edit the `UniqueCardList` from.
+Currently, this is done by passing the activeDeck in the `CardView` object in
+model into `UniqueDeckList` to find the deck that we want to edit.
+
+==== Current Implementation
+
+Card Management is currently facilitated by `Deck` which implements the following operations:
+
+* hasCard(Card card)
+* addCard(Card card)
+* removeCard(Card target)
+* editCard(Card newCard)
+* selectCard(Card toSelect)
+
+The CRUD operations are exposed in the Model interface as `Model#addCard(Card card)`,
+`Model#deleteCard(Card toDelete)` and `Model#setCard(Card newCard)`. For each card operation,
+there are 2 main updates that need to be done. The first update will be on the model
+and the second will be on the `ViewState`.
+
+Given below is an example usage scenario and how the addCard(Card) mechanism behaves at each step:
+
+1. The user starts up the application and is in the `DecksView`. The user then
+executes the `select 1` command to select the first deck. This should change the
+`ViewState` in the `ModelManager` from `DeckView` to `CardView`. For more information, refer to
+Deck's feature.
+
+2. The user executes `add q/question a/answer` to add the new card into the current deck.
+The `add` command is parsed and calls `Model#addCard(Card card)`.
+
+3. `Model#addCard(Card card)` first checks if the current state is a
+CardsView. Following, it will pass the current activeDeck and the card to
+be added into `VersionedTopDeck.addCard(Card card, Deck ActiveDeck)`. This will search for the
+currently active deck, add the card into the deck and replace it with the current deck.
+
+4. Once that is done, the filteredItems list is being updated to reflect the change.
+
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

@@ -222,7 +222,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the RestOrRant data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -319,7 +319,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 The update table mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:
 
-* `UniqueTableList#contains(targetTable)` -- Checks if the target table exists within the unique list of tables. 
+* `UniqueTableList#contains(targetTable)` -- Checks if the target table exists within the unique list of tables.
 * `UniqueTableList#setTable(targetTable, editedTable)` -- Replaces the target table in the list with the new table with the updated `TableStatus`.
 
 These operations are exposed in the Model interface as `Model#setTable(targetTable, editedTable)` and `Model#hasTable(targetTable)`.
@@ -399,9 +399,8 @@ After which, `Model#updateFilteredOrderItemList()` is called to update the filte
 
 Finally, the `CommandResult` is returned to `MainWindow` in the UI and since the `CommandResult` contains a non-null `toMode` attribute, it will call `handleChangeMode()` to update the panels on display.
 
-
-
 // end::tablemode[]
+
 // tag::bill[]
 === Bill feature
 ==== Current Implementation
@@ -456,7 +455,51 @@ The following activity diagram summarizes what happens when a user executes a th
 
 To add: BillActivityDiagram.png[width="650"]
 
-// end: :bill[]
+// end::bill[]
+
+// tag::addtomenu[]
+=== `AddToMenu` feature
+==== Current Implementation
+
+The menu items in the menu are stored as a list. Adding a new menu item to the menu is done by adding to the existing list.
+
+
+The command is read as a text string from the command box and then is executed by calling `executeCommand`, which passes this string to the Logic component by calling `execute`.
+
+The `execute` method in the logic component then creates a command from the text string input by parsing the string to identify the command word (done by the `parse` method in the `RestOrRantParser` class) and other parameters, in this case the details of the menu item (done by the `parse` method in the `AddToMenuCommandParser` class). The text string is then converted to Name, Code, and Price after parsing and then passed to Model component.
+
+In the model component, the validity of the name, code and price of the menu item is checked, and the menu item is only added to the current menu items list if all three parameters are valid (i.e. in the specified format). The new menu item is added to the list in the Model component after ensuring that the menu item does not already exist in the list and that it does not have the same name and code as another menu item already in the list.
+
+After adding to the list in the Model component, the `indicateModified` method is called, which then triggers the Logic component to save the menu, by calling `saveMenu` in the Storage Component.
+
+The User Interface also updated by adding the new menu item to the list panel.
+
+[NOTE]
+This action can only be done in Menu Mode. If not in Menu Mode currently , users can first change mode by typing `MenuMode` or `MM` in the command box.
+
+Given below is an example usage scenario and how the `addToMenu` mechanism behaves at each step.
+
+Step 1. The user executes the `addToMenu` command by typing the name, code and price of the menu item (e.g.: `addToMenu n/French Fries c/W12 p/2.50`).
+
+Step 2. After ensuring that all parameters is valid and that the new menu item is unique, the change is reflected in the User Interface, where the list panel displays the newly added menu item. A success message is also displayed to the users at the result display box.
+
+==== Design Considerations
+
+===== Aspect: Saving changes from `AddToMenu` command
+
+* **Alternative 1 (current choice):** Saves only the menu.
+** Pros: Uses less memory as any update to the menu will only save the menu. This is implemented by adding a listener to menu, which detects any changes to the menu when the `indicateModified` method is called. This then triggers Storage component to save the state of the menu.
+** Cons: An increase in the number of variables during runtime, as every feature will need a listener and a boolean (for instance, menu feature would have a listener and a boolean `menuModified` to trigger call storage#saveMenu() when the boolean evaluates to true).
+
+* **Alternative 2:** Save the whole restaurant instance.
+** Pros: Fewer variables during runtime, easier to call just one boolean upon any change to restaurant features.
+** Cons: There is no need to save another feature if only menu is being updated, may cause lagging instead of improving performance.
+
+The pros outweighs the cons as despite the number of variables during runtime, in the long run saving every instance of the restaurant would cause bigger performance issues such as lagging especially if there are constant and multiple changes to every feature of the restaurant. This implementation is also more scalable for future developments.
+
+
+// end::addtomenu[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

@@ -1,7 +1,9 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
@@ -21,22 +23,22 @@ public class SampleDataUtil {
         return new Person[] {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
-                getTagSet("friends")),
+                getTagSet(Arrays.asList("PHP", "Java"), Arrays.asList("UI Developer", "Graphics"))),
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
-                getTagSet("colleagues", "friends")),
+                    getTagSet(Arrays.asList("HTML/CSS", "JavaScript"), Arrays.asList("Front End", "WebDev"))),
             new Person(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
                 new Address("Blk 11 Ang Mo Kio Street 74, #11-04"),
-                getTagSet("neighbours")),
+                    getTagSet(Arrays.asList("C++", "Java"), Arrays.asList("Security"))),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
-                getTagSet("family")),
+                    getTagSet(Arrays.asList("Python", "SQL"), Arrays.asList("Databases", "Systems Analyst"))),
             new Person(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
                 new Address("Blk 47 Tampines Street 20, #17-35"),
-                getTagSet("classmates")),
+                    getTagSet(Arrays.asList("Java", "JavaScript"), Arrays.asList("Software Engineer"))),
             new Person(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
                 new Address("Blk 45 Aljunied Street 85, #11-31"),
-                getTagSet("colleagues"))
+                    getTagSet(Arrays.asList("Swift", "Java", "Linux"), Arrays.asList("OS Developer")))
         };
     }
 
@@ -51,10 +53,16 @@ public class SampleDataUtil {
     /**
      * Returns a tag set containing the list of strings given.
      */
-    public static Set<SkillsTag> getTagSet(String... strings) {
-        return Arrays.stream(strings)
-                .map(SkillsTag::new)
-                .collect(Collectors.toSet());
+    public static Set<SkillsTag> getTagSet(List<String> skills, List<String> positions) {
+        final Set<SkillsTag> tagSet = new HashSet<>();
+        for (String skill : skills) {
+            tagSet.add(new SkillsTag(skill, "yellow"));
+        }
+        for (String pos : positions) {
+            tagSet.add(new SkillsTag(pos, "pink"));
+        }
+
+        return tagSet;
     }
 
 }

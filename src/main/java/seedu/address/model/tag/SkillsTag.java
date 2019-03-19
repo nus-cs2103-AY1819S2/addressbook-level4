@@ -13,17 +13,27 @@ public class SkillsTag {
     public static final String VALIDATION_REGEX = "\\p{Alnum}+";
 
     public final String tagName;
+    public final String tagColor;
 
     /**
      * Constructs a {@code SkillsTag}.
      *
      * @param tagName A valid tag name.
      */
-    public SkillsTag(String tagName) {
+    public SkillsTag(String tagName, String color) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
+        this.tagColor = color;
     }
+
+    public SkillsTag(String tagName){
+        requireNonNull(tagName);
+        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+        this.tagName = tagName;
+        this.tagColor = "yellow";
+    }
+
 
     /**
      * Returns true if a given string is a valid tag name.

@@ -6,5 +6,5 @@
 
 <StackPane xmlns:fx="http://javafx.com/fxml/1">
   <WebView fx:id="browser"/>
-  <Label fx:id="budget" styleClass="cell_small_label" text="\$budget" />
+  <!--<Label fx:id="budget" styleClass="cell_small_label" text="\$budget" />-->
 </StackPane>

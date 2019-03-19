@@ -43,10 +43,10 @@ public class BrowserPanel extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        this.budget.textProperty().setValue("No Budget Yet");
-        budgetData.addListener((observable, oldValue, newValue) -> {
+        //this.budget.textProperty().setValue("No Budget Yet");
+        /*budgetData.addListener((observable, oldValue, newValue) -> {
             this.budget.textProperty().setValue(newValue.toString());
-        });
+        });*/
 
         // Load record page when selected record changes.
         selectedRecord.addListener((observable, oldValue, newValue) -> {

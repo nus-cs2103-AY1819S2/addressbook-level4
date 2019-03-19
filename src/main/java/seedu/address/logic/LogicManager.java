@@ -115,7 +115,9 @@ public class LogicManager implements Logic {
         return model.selectedHealthWorkerProperty(); }
 
     @Override
-    public ReadOnlyProperty<Request> selectedRequestProperty() { return model.selectedRequestProperty(); }
+    public ReadOnlyProperty<Request> selectedRequestProperty() {
+        return model.selectedRequestProperty();
+    }
 
     @Override
     public void setSelectedPerson(Person person) {
@@ -123,8 +125,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedHealthWorker(HealthWorker worker) { model.setSelectedHealthWorker(worker); }
+    public void setSelectedHealthWorker(HealthWorker worker) {
+        model.setSelectedHealthWorker(worker);
+    }
 
     @Override
-    public void setSelectedRequest(Request request) { model.setSelectedRequest(request); }
+    public void setSelectedRequest(Request request) {
+        model.setSelectedRequest(request);
+    }
 }

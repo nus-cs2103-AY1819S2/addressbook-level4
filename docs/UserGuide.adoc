@@ -252,6 +252,22 @@ Examples:
 `view` +
 'View personalised statistics for IAMAwesome. You have a total of 0 reviews and a total of 1 restaurants.'
 
+=== Display website of selected restaurant : `visitWeb`
+
+Display the website of a restaurant identified by the index number used in the listRestaurants based on its weblink. +
+Format: `visitWeb INDEX`
+
+****
+* The index refers to the index number shown in the displayed restaurants list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `listRestaurants` +
+`visitWeb 1` +
+Displays webpage of Restaurant at index 1 of listRestaurants.
+
 === Exiting the program : `exit`
 
 Exits the program. +

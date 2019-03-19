@@ -53,31 +53,31 @@ public class OpenCommand extends Command {
      * readFile() overwrites the current address book with the contents of the file.
      */
     private void readFile(Model model) {
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
+        AddressBookStorage openStorage = new JsonAddressBookStorage(file.toPath());
 
-        StorageManager storage = new StorageManager(addressBookStorage, null);
+        StorageManager openStorageManager = new StorageManager(openStorage, null);
 
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook openData;
 
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = openStorageManager.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            openData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. "
                                + "Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            openData = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. "
                                + "Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            openData = new AddressBook();
         }
 
-        model.setAddressBook(initialData);
+        model.setAddressBook(openData);
     }
 }

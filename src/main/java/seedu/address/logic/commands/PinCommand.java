@@ -28,18 +28,27 @@ public class PinCommand extends Command {
 
     public static final String MESSAGE_PIN_PERSON_SUCCESS = "Pinned Person: %1$s";
     public static final String MESSAGE_PIN_PERSON_ALREADY = "Person %1$s is already in the pin list\n";
-    public static final String MESSAGE_PINLIST_FULL = "Unable to pin person: %1$s. \nThe pin list contains up to 5 people\n";
+    public static final String MESSAGE_PINLIST_FULL = "Unable to pin person: %1$s. \n" +
+            "The pin list contains up to 5 people\n";
     public static final int MAX_SIZE = 5;
+    private  static FilteredList<Person> pinnedPersonList = null;
 
     private final Index targetIndex;
-    public static FilteredList<Person> pinnedPersonList=null;
+
+    public static FilteredList<Person> getPinnedPersonList() {
+        return pinnedPersonList;
+    }
+
+    public static FilteredList<Person> editPinnedPersonList(Person person) {
+        return pinnedPersonList;
+    }
 
     public PinCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException{
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         List<Person> lastShownList = model.getFilteredPersonList();
@@ -48,11 +57,11 @@ public class PinCommand extends Command {
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }else if(pinnedPersonList!=null && pinnedPersonList.size()==5){
-            return new CommandResult(String.format(MESSAGE_PINLIST_FULL,personToPin));
-        }else if(pinnedPersonList!=null && pinnedPersonList.contains(personToPin)){
-            return new CommandResult(String.format(MESSAGE_PIN_PERSON_ALREADY,personToPin));
-        }else{
+        } else if (pinnedPersonList != null && pinnedPersonList.size() == MAX_SIZE) {
+            return new CommandResult(String.format(MESSAGE_PINLIST_FULL, personToPin));
+        } else if (pinnedPersonList != null && pinnedPersonList.contains(personToPin)) {
+            return new CommandResult(String.format(MESSAGE_PIN_PERSON_ALREADY, personToPin));
+        } else {
             //pinnedPersonList.add(personToPin);
             //model.pinPerson(personToPin);
             model.deletePerson(personToPin);

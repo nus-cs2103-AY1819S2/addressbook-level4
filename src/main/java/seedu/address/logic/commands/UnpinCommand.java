@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -37,15 +36,18 @@ public class UnpinCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> pinnedPersonList = PinCommand.getPinnedPersonList();
 
-        if (targetIndex.getZeroBased() >= PinCommand.pinnedPersonList.size()) {
+        if (targetIndex.getZeroBased() >= pinnedPersonList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         Person personToUnpin = lastShownList.get(targetIndex.getZeroBased());
 
-        if (PinCommand.pinnedPersonList.contains(personToUnpin)) {
-            PinCommand.pinnedPersonList.remove(personToUnpin);
+        if (pinnedPersonList.contains(personToUnpin)) {
+            pinnedPersonList.remove(personToUnpin);
+            PinCommand.editPinnedPersonList(personToUnpin);
+            model.addPerson(personToUnpin);
             model.commitAddressBook();
         } else {
             return new CommandResult(String.format(MESSAGE_UNPIN_PERSON_ALREADY, personToUnpin));

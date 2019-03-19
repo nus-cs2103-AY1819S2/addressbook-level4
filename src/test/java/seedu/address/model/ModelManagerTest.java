@@ -8,10 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalEquipments.ALICE;
+import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.AMY;
-import static seedu.address.testutil.TypicalEquipments.BENSON;
 import static seedu.address.testutil.TypicalEquipments.BOB;
+import static seedu.address.testutil.TypicalEquipments.HWIYOHCC;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -98,39 +98,39 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+        assertFalse(modelManager.hasPerson(ACHORVALECC));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+        modelManager.addPerson(ACHORVALECC);
+        assertTrue(modelManager.hasPerson(ACHORVALECC));
     }
 
     @Test
     public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        modelManager.deletePerson(ALICE);
+        modelManager.addPerson(ACHORVALECC);
+        modelManager.setSelectedPerson(ACHORVALECC);
+        modelManager.deletePerson(ACHORVALECC);
         assertEquals(null, modelManager.getSelectedPerson());
     }
 
     @Test
     public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
-        modelManager.addPerson(ALICE);
+        modelManager.addPerson(ACHORVALECC);
         modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
+        assertEquals(Arrays.asList(ACHORVALECC, BOB), modelManager.getFilteredPersonList());
         modelManager.setSelectedPerson(BOB);
         modelManager.deletePerson(BOB);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+        assertEquals(ACHORVALECC, modelManager.getSelectedPerson());
     }
 
     @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        Equipment updatedAlice = new EquipmentBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        modelManager.setPerson(ALICE, updatedAlice);
+        modelManager.addPerson(ACHORVALECC);
+        modelManager.setSelectedPerson(ACHORVALECC);
+        Equipment updatedAlice = new EquipmentBuilder(ACHORVALECC).withEmail(VALID_EMAIL_BOB).build();
+        modelManager.setPerson(ACHORVALECC, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPerson());
     }
 
@@ -143,20 +143,21 @@ public class ModelManagerTest {
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
         thrown.expect(EquipmentNotFoundException.class);
-        modelManager.setSelectedPerson(ALICE);
+        modelManager.setSelectedPerson(ACHORVALECC);
     }
 
     @Test
     public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
-        modelManager.addPerson(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(ALICE);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+        modelManager.addPerson(ACHORVALECC);
+        assertEquals(Collections.singletonList(ACHORVALECC), modelManager.getFilteredPersonList());
+        modelManager.setSelectedPerson(ACHORVALECC);
+        assertEquals(ACHORVALECC, modelManager.getSelectedPerson());
     }
 
     @Test
     public void equals() {
-        EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        EquipmentManager equipmentManager = new EquipmentManagerBuilder().withPerson(ACHORVALECC)
+                .withPerson(HWIYOHCC).build();
         EquipmentManager differentEquipmentManager = new EquipmentManager();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -177,10 +178,10 @@ public class ModelManagerTest {
         // different equipmentManager -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentEquipmentManager, userPrefs)));
 
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().name.split("\\s+");
+        // different filteredList -> returns True
+        String[] keywords = ACHORVALECC.getName().name.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(equipmentManager, userPrefs)));
+        assertTrue(modelManager.equals(new ModelManager(equipmentManager, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

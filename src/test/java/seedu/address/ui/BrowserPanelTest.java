@@ -2,7 +2,7 @@ package seedu.address.ui;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalEquipments.ALICE;
+import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,7 +40,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(BrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a equipment
-        guiRobot.interact(() -> selectedPerson.set(ALICE));
+        guiRobot.interact(() -> selectedPerson.set(ACHORVALECC));
         GeoApiContext context = new GeoApiContext.Builder()
                 .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
                 .build();
@@ -48,14 +48,14 @@ public class BrowserPanelTest extends GuiUnitTest {
         URL expectedUrl;
         try {
             GeocodingResult[] results = GeocodingApi.geocode(context,
-                    ALICE.getAddress().toString()).await();
+                    ACHORVALECC.getAddress().toString()).await();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             if (results.length > 0) {
                 System.out.println();
                 expectedUrlString = BrowserPanel.MAP_PAGE_BASE_URL + "?coordinates=[["
                         + results[0].geometry.location.lng + ","
                         + results[0].geometry.location.lat + "]]&title=[\""
-                        + ALICE.getName()
+                        + ACHORVALECC.getName()
                         + "\"]&icon=[\"monument\"]";
             }
         } catch (ApiException e) {

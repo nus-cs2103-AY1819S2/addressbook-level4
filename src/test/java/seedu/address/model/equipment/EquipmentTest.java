@@ -9,7 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalEquipments.ALICE;
+import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.BOB;
 
 import org.junit.Rule;
@@ -32,67 +32,67 @@ public class EquipmentTest {
     @Test
     public void isSameEquipment() {
         // same object -> returns true
-        assertTrue(ALICE.isSameEquipment(ALICE));
+        assertTrue(ACHORVALECC.isSameEquipment(ACHORVALECC));
 
         // null -> returns false
-        assertFalse(ALICE.isSameEquipment(null));
+        assertFalse(ACHORVALECC.isSameEquipment(null));
 
         // same name and other attributes except serial number -> return False
-        Equipment editedAlice = new EquipmentBuilder(ALICE).withSerialNumber(VALID_SERIAL_NUMBER_BOB).build();
-        assertFalse(ALICE.isSameEquipment(editedAlice));
+        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withSerialNumber(VALID_SERIAL_NUMBER_BOB).build();
+        assertFalse(ACHORVALECC.isSameEquipment(editedAlice));
 
         // same serial number, same name, different attributes -> return true
-        editedAlice = new EquipmentBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new EquipmentBuilder(ACHORVALECC).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameEquipment(editedAlice));
+        assertTrue(ACHORVALECC.isSameEquipment(editedAlice));
 
         // same serial number, same email, different attributes -> return true
-        editedAlice = new EquipmentBuilder(ALICE).withName(VALID_NAME_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new EquipmentBuilder(ACHORVALECC).withName(VALID_NAME_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameEquipment(editedAlice));
+        assertTrue(ACHORVALECC.isSameEquipment(editedAlice));
 
         // same serial number, same address, different attributes -> return true
-        editedAlice = new EquipmentBuilder(ALICE).withName(VALID_NAME_BOB).withEmail(VALID_EMAIL_BOB)
+        editedAlice = new EquipmentBuilder(ACHORVALECC).withName(VALID_NAME_BOB).withEmail(VALID_EMAIL_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSameEquipment(editedAlice));
+        assertTrue(ACHORVALECC.isSameEquipment(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Equipment aliceCopy = new EquipmentBuilder(ALICE).build();
-        assertTrue(ALICE.equals(aliceCopy));
+        Equipment aliceCopy = new EquipmentBuilder(ACHORVALECC).build();
+        assertTrue(ACHORVALECC.equals(aliceCopy));
 
         // same object -> returns true
-        assertTrue(ALICE.equals(ALICE));
+        assertTrue(ACHORVALECC.equals(ACHORVALECC));
 
         // null -> returns false
-        assertFalse(ALICE.equals(null));
+        assertFalse(ACHORVALECC.equals(null));
 
         // different type -> returns false
-        assertFalse(ALICE.equals(5));
+        assertFalse(ACHORVALECC.equals(5));
 
         // different equipment -> returns false
-        assertFalse(ALICE.equals(BOB));
+        assertFalse(ACHORVALECC.equals(BOB));
 
         // different name -> returns false
-        Equipment editedAlice = new EquipmentBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withName(VALID_NAME_BOB).build();
+        assertFalse(ACHORVALECC.equals(editedAlice));
 
         // different phone -> returns false
-        editedAlice = new EquipmentBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new EquipmentBuilder(ACHORVALECC).withPhone(VALID_PHONE_BOB).build();
+        assertFalse(ACHORVALECC.equals(editedAlice));
 
         // different email -> returns false
-        editedAlice = new EquipmentBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new EquipmentBuilder(ACHORVALECC).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ACHORVALECC.equals(editedAlice));
 
         // different address -> returns false
-        editedAlice = new EquipmentBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(ACHORVALECC.equals(editedAlice));
 
         // different tags -> returns false
-        editedAlice = new EquipmentBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
-        assertFalse(ALICE.equals(editedAlice));
+        editedAlice = new EquipmentBuilder(ACHORVALECC).withTags(VALID_TAG_HUSBAND).build();
+        assertFalse(ACHORVALECC.equals(editedAlice));
     }
 }

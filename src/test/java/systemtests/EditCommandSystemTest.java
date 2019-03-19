@@ -31,7 +31,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalEquipments.AMY;
 import static seedu.address.testutil.TypicalEquipments.BOB;
-import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 
@@ -118,7 +118,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered equipment list, edit index within bounds of address book and equipment list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_CC);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
@@ -129,7 +129,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: filtered equipment list, edit index within bounds of address book but out of bounds of equipment list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_CC);
         int invalidIndex = getModel().getAddressBook().getPersonList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);

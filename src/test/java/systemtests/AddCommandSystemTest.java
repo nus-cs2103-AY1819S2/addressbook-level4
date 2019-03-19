@@ -25,13 +25,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalEquipments.ALICE;
+import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.AMY;
 import static seedu.address.testutil.TypicalEquipments.BOB;
-import static seedu.address.testutil.TypicalEquipments.CARL;
 import static seedu.address.testutil.TypicalEquipments.HOON;
 import static seedu.address.testutil.TypicalEquipments.IDA;
-import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
+import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
 
 import org.junit.Test;
 
@@ -87,7 +87,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
-        assertCommandSuccess(ALICE);
+        assertCommandSuccess(ACHORVALECC);
 
         /* Case: add a equipment with tags, command with parameters in random order -> added */
         toAdd = BOB;
@@ -101,14 +101,14 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the equipment list before adding -> added */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_CC);
         assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a equipment card is selected ------------------------ */
 
         /* Case: selects first card in the equipment list, add a equipment -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
-        assertCommandSuccess(CARL);
+        assertCommandSuccess(TECKGHEECC);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 

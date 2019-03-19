@@ -21,8 +21,8 @@ public class UpdateTableCommandParser implements Parser<UpdateTableCommand> {
     public UpdateTableCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         String[] splitArgs = trimmedArgs.split("\\s+");
-        if (trimmedArgs.isEmpty() || splitArgs.length != 2 || !TableStatus.isValidNumberOfSeats(splitArgs[1]) ||
-                !TableNumber.isValidTableNumber(splitArgs[0])) {
+        if (trimmedArgs.isEmpty() || splitArgs.length != 2 || !TableStatus.isValidNumberOfSeats(splitArgs[1])
+                || !TableNumber.isValidTableNumber(splitArgs[0])) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateTableCommand.MESSAGE_USAGE));
         }

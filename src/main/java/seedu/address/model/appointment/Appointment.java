@@ -10,11 +10,11 @@ import seedu.address.model.patient.Patient;
  * Represents an appointment created in QuickDocs.
  */
 public class Appointment {
-    private final Patient patient;
-    private final LocalDate date;
-    private final LocalTime startTime;
-    private final LocalTime endTime;
-    private final String comment;
+    private Patient patient;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private String comment;
 
     public Appointment(Patient patient, LocalDate date, LocalTime startTime, LocalTime endTime, String comment) {
         this.patient = patient;
@@ -22,6 +22,9 @@ public class Appointment {
         this.startTime = startTime;
         this.endTime = endTime;
         this.comment = comment;
+    }
+
+    public Appointment() {
     }
 
     public Patient getPatient() {

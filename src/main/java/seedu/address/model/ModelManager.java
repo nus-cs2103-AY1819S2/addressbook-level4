@@ -6,6 +6,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -111,8 +113,8 @@ public class ModelManager implements Model {
         //this.patientManager = new PatientManager(addressBook.getPatients());
         this.patientManager = quickDocs.getPatientManager();
         this.consultationManager = quickDocs.getConsultationManager();
-        this.appointmentManager = new AppointmentManager();
-        this.reminderManager = new ReminderManager();
+        this.appointmentManager = quickDocs.getAppointmentManager();
+        this.reminderManager = quickDocs.getReminderManager();
         this.recordManager = new RecordManager();
 
 
@@ -130,16 +132,16 @@ public class ModelManager implements Model {
     public void iniQuickDocs() {
         Patient[] samplePatients = SamplePatientsUtil.getSamplePatients();
         //for (Patient patient : samplePatients) {
-        //   addPatient(patient);
+        //    addPatient(patient);
         //}
         Appointment[] sampleAppointments = SampleAppUtil.getSampleAppointments(samplePatients);
-        for (Appointment app : sampleAppointments) {
-            addApp(app);
-        }
+        //for (Appointment app : sampleAppointments) {
+        //    addApp(app);
+        //}
         Reminder[] sampleReminders = SampleRemUtil.getSampleReminders();
-        for (Reminder rem : sampleReminders) {
-            addRem(rem);
-        }
+        //for (Reminder rem : sampleReminders) {
+        //    addRem(rem);
+        //}
     }
 
     /**
@@ -524,18 +526,36 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Adds an {@code Appointment} and its {@code Reminder} to their corresponding managers
+     * Adds an {@code Appointment} and its {@code Reminder} to QuickDocs
      *
      * @param app the {@code Appointment} to add
      */
     public void addApp(Appointment app) {
-        appointmentManager.add(app);
+        appointmentManager.addAppointment(app);
         Reminder remToAdd = new Reminder(app);
         addRem((remToAdd));
+        quickDocs.indicateModification(true);
     }
 
     public String listApp() {
         return appointmentManager.list();
+    }
+
+    public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
+        return appointmentManager.getAppointment(date, start);
+    }
+
+    /**
+     * Deletes an {@code Appointment} from QuickDocs
+     * @param appointment the {@code Appointment} to delete
+     */
+    public void deleteAppointment(Appointment appointment) {
+        Optional<Reminder> reminder = reminderManager.getReminder(appointment);
+        if (reminder.isPresent()) {
+            reminderManager.delete(reminder.get());
+        }
+        appointmentManager.delete(appointment);
+        quickDocs.indicateModification(true);
     }
 
     //==========Reminder module==============================================================================
@@ -543,12 +563,30 @@ public class ModelManager implements Model {
         return reminderManager.duplicateReminder(rem);
     }
 
+    /**
+     * Adds a {@code Reminder} to QuickDocs
+     * @param rem the {@code Reminder} to add
+     */
     public void addRem(Reminder rem) {
         reminderManager.addReminder(rem);
+        //quickDocs.indicateModification(true);
     }
 
     public String listRem() {
         return reminderManager.list();
+    }
+
+    public Optional<Reminder> getReminder(Appointment appointment) {
+        return reminderManager.getReminder(appointment);
+    }
+
+    /**
+     * Deletes a {@code Reminder} from QuickDocs
+     * @param reminder the {@code Reminder} to be deleted
+     */
+    public void deleteReminder(Reminder reminder) {
+        reminderManager.delete(reminder);
+        quickDocs.indicateModification(true);
     }
 
     //==========Record module================================================================================

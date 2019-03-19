@@ -3,6 +3,8 @@ package seedu.address.model;
 import java.math.BigDecimal;
 import java.nio.file.Path;
 import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -240,12 +242,20 @@ public interface Model {
 
     String listApp();
 
+    Optional<Appointment> getAppointment(LocalDate date, LocalTime start);
+
+    void deleteAppointment(Appointment appointment);
+
     //===========Reminder module operations===========================
     boolean duplicateRem(Reminder rem);
 
     void addRem(Reminder rem);
 
     String listRem();
+
+    Optional<Reminder> getReminder(Appointment appointment);
+
+    void deleteReminder(Reminder reminder);
 
     //===========Record module operations=============================
     Statistics getStatistics(String topic, YearMonth from, YearMonth to);

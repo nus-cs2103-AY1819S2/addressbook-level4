@@ -10,11 +10,14 @@ import seedu.address.model.appointment.Appointment;
  * Represents a Reminder created in quickdocs.
  */
 public class Reminder {
-    private final String title;
-    private final String comment;
-    private final LocalDate date;
-    private final LocalTime startTime;
-    private final LocalTime endTime;
+    private String title;
+    private String comment;
+    private LocalDate date;
+    private LocalTime startTime;
+    private LocalTime endTime;
+
+    public Reminder() {
+    }
 
     public Reminder(String title, String comment, LocalDate date, LocalTime startTime, LocalTime endTime) {
         this.title = title;
@@ -35,7 +38,7 @@ public class Reminder {
     /**
      * Returns a {@code String} title given an {@code Appointment}
      */
-    private String createTitle(Appointment app) {
+    public static String createTitle(Appointment app) {
         StringBuilder sb = new StringBuilder();
         sb.append("Appointment with ")
                 .append(app.getPatient().getName());

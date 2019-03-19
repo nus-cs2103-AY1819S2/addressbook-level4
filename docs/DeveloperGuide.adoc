@@ -231,7 +231,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save all the QuickDocs data in json format into a single file and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -388,6 +388,64 @@ Doctor is unable to perform other related actions (such as listing past records)
 | Not feasible because both classes feature a list of symptoms and medicine respectively.
 
 Unable to differentiate between editing an existing value and adding a new value
+
+|===
+
+=== Listing free appointment slots
+==== Current Implementation
+The user enters the `appfree` command to list out all the timings available for a new appointment booking. This mechanism is facilitated
+by `AppointmentManager` which stores all created `Appointments` in an `ArrayList`. It has the method `listFreeSlots()` which is the
+main method that implements `appfree`.
+
+Given below is the steps taken when `listFreeApp()` is called.
+
+Step 1. `listFreeApp()` takes in two arguments, `LocalDate` `start` and `end`, representing the range of dates to search for
+free appointment slots.
+
+Step 2. The list of appointments is searched through from the start until the first appointment is found that has a date and start time
+within the given search range.
+
+[NOTE]
+The list of appointments are already sorted in increasing order of date and start time. Whenever an appointment is added to the list, it
+is placed in its correct position. This is done to prevent the high cost of sorting the appointments whenever we need to search through them.
+
+Step 3. A `Slot` is created for each empty 'gap' in the list of appointments, within the given search range. It has three attributes,
+`LocalDate` `date` and `LocalTime` `start` and `end`, representing a period of time on a given date where no appointments have been created.
+These slots will then be added into a list of `slots`.
+
+[NOTE]
+Slots will only be created for timings during office hours (08:00 to 18:00). This is to prevent any inconvenience caused when the user
+accidentally decides on an invalid timing, as there will be an office hour constraint when he/she eventually creates the appointment.
+
+Step 4. The list of slots will then be printed onto the results display, with each row representing one day.
+
+==== Design Considerations
+
+1. This feature is implemented for the convenience of the user in choosing a valid appointment slot with his/her patient. They can decide
+on an appointment slot based on all the empty slots shown, rather than listing out all created appointments and figuring out what slots are
+available from there.
+
+2. Searching for empty slots only when the command is given allows the user the flexibility in specifying the given search range that
+he/she desires, rather than only providing a fixed period (e.g. next three months) of empty slots.
+
+==== Alternatives Considered
+[cols="1,2a,1, 1", options="header"]
+|===
+|Alternative |Description |Pros | Cons
+// row 1
+|*Consistent list of free slots*
+|Maintain a list of free slots for a given range (e.g. next three months) instead of creating a new list for every time `appfree` is called.
+|Quicker to search for free slots as the list is already created.
+|More work done to maintain the list as it has to be modified whenever an appointment is created or deleted.
+
+If search range is not within the range of the maintained list of free slots, the list will still have to be created from scratch.
+// row 2
+|*Using Appointment Class instead of Slot Class*
+|We can use the existing `Appointment` Class to represent a period of time, as it has the required attributes, `date`, `start` time and `end` time.
+|We do not need to create a new `Slot` Class just to implement `appfree` feature as we can just reuse the existing `Appointment` Class.
+|`Appointment` also has compulsory `patient` and `comment` attributes which we would need to fill them with dummy values to represent a `Slot`.
+
+Violates Single Responsibility Principle and Separation of Concerns as `Appointment` can now represent either an appointment or an empty slot.
 
 |===
 

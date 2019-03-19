@@ -3,8 +3,8 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileName;
@@ -27,7 +27,7 @@ public class LabelCommandParser {
         Index index;
         FileName fileName;
         try {
-            if (argMultimap.getValue(PREFIX_FILE).isPresent()){
+            if (argMultimap.getValue(PREFIX_FILE).isPresent()) {
                 fileName = ParserUtil.parseFileName(argMultimap.getValue(PREFIX_FILE).get(), true);
             } else {
                 fileName = new FileName(DEFAULT_FILENAME);

@@ -55,7 +55,7 @@ public class StorageManagerTest {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonBookShelfStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonBookShelfStorageTest} class.
          */
         BookShelf original = getTypicalBookShelf();
         storageManager.saveBookShelf(original);

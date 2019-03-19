@@ -1,0 +1,12 @@
+{
+  "books": [ {
+    "bookname": "Alice in Wonderland",
+    "author": "Lewis Carroll",
+    "rating": "5",
+    "tagged": [ "fantasy" ]
+  }, {
+    "bookname": "Alice in Wonderland",
+    "author": "Hal Abelson Jerry Sussman",
+    "rating": "4"
+  } ]
+}

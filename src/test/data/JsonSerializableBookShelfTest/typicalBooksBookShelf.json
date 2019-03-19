@@ -1,0 +1,34 @@
+{
+  "_comment": "BookShelf save file which contains the same Book values as in TypicalBooks#getTypicalBookShelf()",
+  "books" : [ {
+    "bookname" : "The Book Thief",
+    "author" : "Markus Zusak",
+    "rating" : "7",
+    "tagged" : [ "popular" ]
+  }, {
+    "bookname" : "The Hunger Games",
+    "author" : "Suzanne Collins",
+    "rating" : "6",
+    "tagged" : [ "fantasy" ]
+  }, {
+    "bookname" : "The Kite Runner",
+    "author" : "Khaled Hosseini",
+    "rating" : "8",
+    "tagged" : [ ]
+  }, {
+    "bookname" : "Life of Pi",
+    "author" : "Yann Martel",
+    "rating" : "9",
+    "tagged" : [ "fantasy" ]
+  }, {
+    "bookname" : "The Brief Wondrous Life of Oscar Wao",
+    "author" : "Junot Diaz",
+    "rating" : "4",
+    "tagged" : [ ]
+  }, {
+    "bookname" : "Middlesex",
+    "author" : "Jeffrey Eugenides",
+    "rating" : "6",
+    "tagged" : [ ]
+  } ]
+}

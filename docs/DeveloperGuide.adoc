@@ -250,6 +250,46 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Searching by tag feature
+
+This feature allows the user to filter out specific expenses by entering a certain tag (eg food).
+
+This implementation is under `Logic` and `Model` Component.
+
+_Sequence diagram to be done soon_
+
+==== To be implemented
+
+1. User enters command `findTag food`. The command is received by `FinanceTrackerParser`,
+which then creates a `FindTagCommandParser` Object and calls `FindCommandParser#parse()` method.
+
+2.  `FindTagCommandParser#parse()` method then calls `ParserUtil#ensureKeywordsAreValid()` method. If any
+of the keywords does not follow the correct format, `ParseException` will be thrown.
+
+3. A `FindTagCommand` Object is created and returned to the `LogicManager`.
+
+4. `LogicManager` then calls `FindTagCommand#execute()`, which calls Mode#updateFilteredExpenseList() method
+to update a filterList based on the given predicate.
+
+5. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
+and returned to `Logic Manager`.
+
+==== Design Consideration
+
+This feature can be implemented in different ways in terms of how the records are found.
+
+* *Alternative 1* : Check through all records and select those with the matched `tag`
+
+** Pros: Easy to implement without changing original architecture.
+** Cons: Slow. Tend to take a long time to search through large number of records.
+
+* *Alternative 2* : Each time a new tag is created, create a new list. Each of these list will whole
+all the records of a particular tag.
+
+** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted tag.
+** Cons: Need to change the original architecture of storage to introduce storing of different list corresponding to
+each tag. Will take up more space if there is many different tags.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

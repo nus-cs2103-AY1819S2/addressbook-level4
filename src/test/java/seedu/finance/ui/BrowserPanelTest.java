@@ -10,17 +10,20 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 
 public class BrowserPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Record> selectedRecord = new SimpleObjectProperty<>();
     private BrowserPanel browserPanel;
+    private ObjectProperty<Amount> budgetData = new SimpleObjectProperty<>();
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
-        guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedRecord));
+        guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedRecord, budgetData));
         uiPartRule.setUiPart(browserPanel);
 
         browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
@@ -28,9 +31,6 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     @Test
     public void display() throws Exception {
-        // default web page
-        assertEquals(BrowserPanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
-
         // associated web page of a record
         guiRobot.interact(() -> selectedRecord.set(ALICE));
         URL expectedRecordUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + ALICE.getName().fullName.replaceAll(" ", "%20"));

@@ -17,7 +17,7 @@ import seedu.address.model.person.UniquePersonList;
 public class Job {
 
     private static final int NUMBER_OF_LISTS = 4;
-    private static final String[] LIST_NAMES = {"List1", "List2", "List3", "List4"};
+    private static final String[] LIST_NAMES = {"All Applicants", "KIV", "Interview", "Shortlist"};
     // Identity fields
     private final JobName name;
 

@@ -32,6 +32,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListBookCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.BookShelf;
@@ -150,6 +151,14 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showBooksWithName(String keyword) {
+        executeCommand(ListBookCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredPersonList().size() < getModel().getBookShelf().getPersonList().size());
+    }
+
+    /**
      * Selects the person at {@code index} of the displayed list.
      */
     protected void selectPerson(Index index) {
@@ -163,6 +172,14 @@ public abstract class AddressBookSystemTest {
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getBookShelf().getPersonList().size());
+    }
+
+    /**
+     * Deletes all books in the book shelf.
+     */
+    protected void deleteAllBooks() {
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getBookShelf().getBookList().size());
     }
 
     /**

@@ -23,10 +23,12 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyPatientBook;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.testutil.PersonBuilder;
 
@@ -181,6 +183,16 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public void setSelectedHealthWorker(HealthWorker healthWorker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -196,6 +208,31 @@ public class AddPersonCommandTest {
         }
 
         // ===================================================================
+
+        // =========== Implemented methods supporting Patient ===========
+        // @author Rohan
+
+        @Override
+        public boolean hasPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPatientList(Predicate<Patient> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyPatientBook getPatientBook() {
+            return null;
+        }
+        // ===================================================================
+
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
@@ -283,6 +320,11 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public ObservableList<Request> getFilteredRequestList() {
+            return null;
+        }
+
         /**
          * Returns true if a request with the same identity as {@code request} exists in the address
          * book.
@@ -291,6 +333,11 @@ public class AddPersonCommandTest {
          */
         @Override
         public boolean hasRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateRequest(Request target, Request editedRequest) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -305,11 +352,14 @@ public class AddPersonCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateFilteredRequestList(Predicate<Request> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         /**
          * Adds the given request.
          * {@code request} must not already exist in the request book.
-         *
-         * @param request
          */
         @Override
         public void addRequest(Request request) {
@@ -327,6 +377,16 @@ public class AddPersonCommandTest {
          */
         @Override
         public void setRequest(Request target, Request editedRequest) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Request> selectedRequestProperty() {
             throw new AssertionError("This method should not be called.");
         }
 

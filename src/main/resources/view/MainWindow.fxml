@@ -58,29 +58,26 @@
 
           <VBox>
             <SplitPane id="splitPaneTwo" fx:id="splitPaneTwo" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-              <StackPane fx:id="mapPanelPlaceholder" minWidth="700" prefWidth="700">
-                <padding>
-                  <Insets top="10" right="10" bottom="10" left="10"/>
-                </padding>
+              <StackPane fx:id="mapPanelPlaceholder" minWidth="425" prefWidth="640">
               </StackPane>
               <StackPane>
                 <VBox>
-                  <TabPane fx:id="tabPane" minHeight="300">
+                  <TabPane fx:id="tabPane" minHeight="300" minWidth="400">
                     <Tab fx:id="requestTab" text="Requests" closable="false">
                       <StackPane fx:id="requestListPlaceholder" VBox.vgrow="ALWAYS"/>
                     </Tab>
-                    <Tab fx:id="locationTab" text="Locations">
+                    <Tab fx:id="locationTab" text="Locations" closable="false">
                       <StackPane fx:id="locationListPlaceholder" VBox.vgrow="ALWAYS"/>
                     </Tab>
                   </TabPane>
                 </VBox>
               </StackPane>
             </SplitPane>
-            <StackPane VBox.vgrow="NEVER" fx:id="healthworkerList" minHeight="125" styleClass="pane-with-border">
+            <StackPane VBox.vgrow="NEVER" fx:id="healthworkerList" minHeight="150" styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10"/>
               </padding>
-              <StackPane fx:id="healthworkerListPlaceholder" VBox.vgrow="ALWAYS"/>
+              <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="ALWAYS"/>
             </StackPane>
           </VBox>
         </SplitPane>

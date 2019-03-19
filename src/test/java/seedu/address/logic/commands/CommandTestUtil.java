@@ -20,6 +20,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.request.EditRequestCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -28,6 +29,7 @@ import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditRequestDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -38,6 +40,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_DATE_AMY = "01-10-2018 10:00:00";
+    public static final String VALID_DATE_BOB = "02-10-2018 10:00:00";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_NRIC_BOB = "S1234567A";
@@ -59,6 +63,19 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BETTY = "Block 456, NUS";
     public static final String VALID_ORGANIZATION_ANDY = "NUH";
     public static final String VALID_ORGANIZATION_BETTY = "Clinic B";
+    // Default strings for Patient objects
+    public static final String VALID_NAME_ALICE = "Alice Pauline";
+    public static final String VALID_NAME_BENSON = "Benson Meier";
+    public static final String VALID_NRIC_ALICE = "S9670515H";
+    public static final String VALID_NRIC_BENSON = "S9274100D";
+    public static final String VALID_PHONE_ALICE = "94351253";
+    public static final String VALID_PHONE_BENSON = "98765432";
+    public static final String VALID_EMAIL_ALICE = "alice@example.com";
+    public static final String VALID_EMAIL_BENSON = "johnd@example.com";
+    public static final String VALID_ADDRESS_ALICE = "125, Jurong West Ave 6, #08-111";
+    public static final String VALID_ADDRESS_BENSON = "311, Clementi Ave 2, #02-25";
+    public static final String VALID_CONDITION_PHYSIO = "Physiotherapy";
+    public static final String VALID_CONDITION_DIALYSIS = "Dialysis";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -105,8 +122,18 @@ public class CommandTestUtil {
     public static final EditPersonCommand.EditPersonDescriptor DESC_BOB;
     public static final EditHealthWorkerCommand.EditHealthWorkerDescriptor DESC_ANDY;
     public static final EditHealthWorkerCommand.EditHealthWorkerDescriptor DESC_BETTY;
+    public static final EditRequestCommand.EditRequestDescriptor REQ_DESC_ALICE;
+    public static final EditRequestCommand.EditRequestDescriptor REQ_DESC_BOB;
 
     static {
+        REQ_DESC_ALICE =
+            new EditRequestDescriptorBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+                .withDate(VALID_DATE_AMY).withAddress(VALID_ADDRESS_AMY).withConditions(VALID_CONDITION_PHYSIO)
+                .build();
+        REQ_DESC_BOB =
+            new EditRequestDescriptorBuilder().withAddress(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withDate(VALID_DATE_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withConditions(VALID_CONDITION_PHYSIO).build();
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withNric(VALID_NRIC_AMY)

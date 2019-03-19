@@ -16,9 +16,12 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.request.RequestDate;
+import seedu.address.model.tag.ConditionTag;
+import seedu.address.model.tag.Conditions;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
+
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -200,6 +203,37 @@ public class ParserUtil {
             skills.addSpecialisation(parseSpecialisation(specialisation));
         }
         return skills;
+    }
+
+    /**
+     * Parses a {@code String conditionTag} into a {@code ConditionTag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code conditionTag} is invalid.
+     */
+    public static ConditionTag parseConditionTag(String conditionTag)
+        throws ParseException {
+        requireNonNull(conditionTag);
+        String trimmedConditionTag = conditionTag.trim();
+        if (!ConditionTag.isValidConditionTagName(trimmedConditionTag)) {
+            throw new ParseException(ConditionTag.MESSAGE_CONSTRAINTS);
+        }
+
+        return ConditionTag.parseString(trimmedConditionTag);
+    }
+
+    /**
+     * Parses {@code Collection<String> conditionTag} into a {@code
+     * Conditions}.
+     */
+    public static Conditions parseConditions(Collection<String> conditionTags)
+        throws ParseException {
+        requireNonNull(conditionTags);
+        final Conditions conditions = new Conditions();
+        for (String conditionTag : conditionTags) {
+            conditions.addConditionTag(parseConditionTag(conditionTag));
+        }
+        return conditions;
     }
 
     /**

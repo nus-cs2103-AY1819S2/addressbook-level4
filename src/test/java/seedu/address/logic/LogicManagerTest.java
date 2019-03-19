@@ -32,6 +32,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonHealthWorkerBookStorage;
+import seedu.address.storage.JsonPatientBookStorage;
 import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -58,8 +59,10 @@ public class LogicManagerTest {
             new JsonRequestBookStorage(temporaryFolder.newFile().toPath());
         JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage =
             new JsonHealthWorkerBookStorage(temporaryFolder.newFile().toPath());
+        JsonPatientBookStorage jsonPatientBookStorage =
+                new JsonPatientBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
-            requestBookStorage, jsonHealthWorkerBookStorage);
+            requestBookStorage, jsonHealthWorkerBookStorage, jsonPatientBookStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -94,8 +97,10 @@ public class LogicManagerTest {
             new JsonRequestBookStorage(temporaryFolder.newFile().toPath());
         JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage =
             new JsonHealthWorkerBookStorage(temporaryFolder.newFile().toPath());
+        JsonPatientBookStorage jsonPatientBookStorage =
+                new JsonPatientBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
-            requestBookStorage, jsonHealthWorkerBookStorage);
+            requestBookStorage, jsonHealthWorkerBookStorage, jsonPatientBookStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -146,8 +151,8 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(),
-            model.getHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getHealthWorkerBook(),
+            model.getPatientBook(), getTypicalRequestBook(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

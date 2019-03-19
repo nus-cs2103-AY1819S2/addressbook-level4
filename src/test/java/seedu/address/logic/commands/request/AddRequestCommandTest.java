@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -23,17 +23,19 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyPatientBook;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RequestBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.RequestBuilder;
 import seedu.address.testutil.TypicalRequests;
 
-class CreateRequestCommandTest {
+class AddRequestCommandTest {
 
     protected static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -44,7 +46,7 @@ class CreateRequestCommandTest {
 
     @Test
     public void constructor_nullRequest_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new CreateRequestCommand(null));
+        Assert.assertThrows(NullPointerException.class, () -> new AddRequestCommand(null));
     }
 
     @Test
@@ -52,38 +54,38 @@ class CreateRequestCommandTest {
         ModelStubAcceptingRequestAdded modelStub = new ModelStubAcceptingRequestAdded();
         Request validRequest = new RequestBuilder().build();
 
-        CommandResult commandResult = new CreateRequestCommand(validRequest).execute(modelStub,
+        CommandResult commandResult = new AddRequestCommand(validRequest).execute(modelStub,
             commandHistory);
 
-        assertEquals(String.format(CreateRequestCommand.MESSAGE_SUCCESS, validRequest),
+        assertEquals(String.format(AddRequestCommand.MESSAGE_SUCCESS, validRequest),
             commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validRequest), modelStub.requestsAdded);
+        assertEquals(Collections.singletonList(validRequest), modelStub.requestsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_duplicateRequest_throwsCommandException() {
         Request validRequest = new RequestBuilder().build();
-        CreateRequestCommand createRequestCommand = new CreateRequestCommand(validRequest);
+        AddRequestCommand addRequestCommand = new AddRequestCommand(validRequest);
         ModelStub modelStub = new ModelStubWithRequest(validRequest);
 
         Assert.assertThrows(CommandException.class,
-            CreateRequestCommand.MESSAGE_DUPLICATE_REQUEST, () -> createRequestCommand.execute
+            AddRequestCommand.MESSAGE_DUPLICATE_REQUEST, () -> addRequestCommand.execute
                 (modelStub, commandHistory));
     }
 
     @Test
     public void equals() {
 
-        CreateRequestCommand addAliceRequest = new CreateRequestCommand(TypicalRequests.ALICE_REQUEST);
-        CreateRequestCommand addBensonRequest = new CreateRequestCommand(TypicalRequests.BENSON_REQUEST);
+        AddRequestCommand addAliceRequest = new AddRequestCommand(TypicalRequests.ALICE_REQUEST);
+        AddRequestCommand addBensonRequest = new AddRequestCommand(TypicalRequests.BENSON_REQUEST);
 
         // same object -> returns true
         assertTrue(addAliceRequest.equals(addAliceRequest));
 
         // same values -> returns true
-        CreateRequestCommand addAliceRequestCopy =
-            new CreateRequestCommand(TypicalRequests.ALICE_REQUEST);
+        AddRequestCommand addAliceRequestCopy =
+            new AddRequestCommand(TypicalRequests.ALICE_REQUEST);
         assertTrue(addAliceRequest.equals(addAliceRequestCopy));
 
         // different types -> returns false
@@ -94,6 +96,10 @@ class CreateRequestCommandTest {
 
         // differnt request -> returns false
         assertFalse(addAliceRequest.equals(addBensonRequest));
+    }
+
+    @Test
+    void execute() {
     }
 
     protected class ModelStub implements Model {
@@ -144,6 +150,11 @@ class CreateRequestCommandTest {
         }
 
         @Override
+        public ReadOnlyPatientBook getPatientBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -184,12 +195,37 @@ class CreateRequestCommandTest {
         }
 
         @Override
+        public void setSelectedHealthWorker(HealthWorker healthWorker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPatientList(Predicate<Patient> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -264,7 +300,17 @@ class CreateRequestCommandTest {
         }
 
         @Override
+        public ObservableList<Request> getFilteredRequestList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateRequest(Request target, Request editedRequest) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -274,12 +320,27 @@ class CreateRequestCommandTest {
         }
 
         @Override
+        public void updateFilteredRequestList(Predicate<Request> predicate) {
+
+        }
+
+        @Override
         public void addRequest(Request request) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void setRequest(Request target, Request editedRequest) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedRequest(Request request) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Request> selectedRequestProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -321,7 +382,7 @@ class CreateRequestCommandTest {
 
         @Override
         public void commitRequestBook() {
-            // called by {@code CreateRequestCommand#execute()}
+            // called by {@code AddRequestCommand#execute()}
         }
 
         @Override

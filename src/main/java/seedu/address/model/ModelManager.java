@@ -18,7 +18,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.person.healthworker.exceptions.HealthWorkerNotFoundException;
+import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
+import seedu.address.model.request.exceptions.RequestNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -38,14 +41,15 @@ public class ModelManager implements Model {
     // TODO get versionedAddressBook tests to pass
     private final FilteredList<Request> filteredRequests;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
-
+    private final SimpleObjectProperty<HealthWorker> selectedHealthWorker = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Request> selectedRequest = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook,
-                        ReadOnlyHealthWorkerBook healthWorkerBook, ReadOnlyRequestBook requestBook,
+                        ReadOnlyHealthWorkerBook healthWorkerBook, ReadOnlyPatientBook patientbook,
+                        ReadOnlyRequestBook requestBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
@@ -60,13 +64,12 @@ public class ModelManager implements Model {
         filteredHealthWorkers = new FilteredList<>(versionedHealthWorkerBook.getHealthWorkerList());
         filteredRequests = new FilteredList<>(versionedRequestBook.getRequestList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        // TODO: listener for healthworker
-        filteredHealthWorkers.addListener(this::ensureSelectedPersonIsValid);
+        filteredHealthWorkers.addListener(this::ensureSelectedHealthWorkerIsValid);
         filteredRequests.addListener(this::ensureSelectedRequestIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new HealthWorkerBook(), new RequestBook(), new UserPrefs());
+        this(new AddressBook(), new HealthWorkerBook(), new PatientBook(), new RequestBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -179,8 +182,39 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasPatient(Patient patient) {
+        return false;
+    }
+
+    @Override
+    public void addPatient(Patient patient) {
+
+    }
+
+    @Override
+    public void updateFilteredPatientList(Predicate<Patient> predicate) {
+
+    }
+
+    @Override
+    public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() { return selectedHealthWorker; }
+
+    @Override
+    public void setSelectedHealthWorker(HealthWorker worker) {
+        if (worker != null && !filteredHealthWorkers.contains(worker)) {
+            throw new HealthWorkerNotFoundException();
+        }
+        selectedHealthWorker.setValue(worker);
+    }
+
+    @Override
     public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
         return this.versionedHealthWorkerBook;
+    }
+
+    @Override
+    public ReadOnlyPatientBook getPatientBook() {
+        return null;
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -229,7 +263,7 @@ public class ModelManager implements Model {
         versionedHealthWorkerBook.commit();
     }
 
-    //=========== Selected person ===========================================================================
+    //=========== Selected Person ===========================================================================
 
     @Override
     public ReadOnlyProperty<Person> selectedPersonProperty() {
@@ -248,6 +282,9 @@ public class ModelManager implements Model {
         }
         selectedPerson.setValue(person);
     }
+
+    @Override
+    public ObservableList<Request> getFilteredRequestList() { return filteredRequests; }
 
     /**
      * Returns the user prefs' request book file path.
@@ -296,6 +333,13 @@ public class ModelManager implements Model {
         return false;
     }
 
+    @Override
+    public void updateRequest(Request target, Request editedRequest) {
+        requireAllNonNull(target, editedRequest);
+
+        versionedRequestBook.setRequest(target, editedRequest);
+    }
+
     /**
      * Deletes the given request.
      * The request must exist in the request book.
@@ -307,15 +351,19 @@ public class ModelManager implements Model {
 
     }
 
+    @Override
+    public void updateFilteredRequestList(Predicate<Request> predicate) {
+        requireNonNull(predicate);
+        filteredRequests.setPredicate(predicate);
+    }
+
     /**
-     * Adds the given request.
-     * {@code request} must not already exist in the request book.
-     *
-     * @param request
+     * Adds the given request to the request book
      */
     @Override
     public void addRequest(Request request) {
-
+        versionedRequestBook.addRequest(request);
+        updateFilteredRequestList(PREDICATE_SHOW_ALL_REQUESTS);
     }
 
     /**
@@ -335,6 +383,76 @@ public class ModelManager implements Model {
     @Override
     public void commitRequestBook() {
         versionedRequestBook.commit();
+    }
+
+    @Override
+    public ReadOnlyProperty<Request> selectedRequestProperty() { return selectedRequest; }
+
+    @Override
+    public void setSelectedRequest(Request request) {
+        if (request != null && !filteredRequests.contains(request)) {
+            throw new RequestNotFoundException();
+        }
+        selectedRequest.setValue(request);
+    }
+
+    /**
+     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
+     */
+    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
+        while (change.next()) {
+            if (selectedPerson.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedPerson.getValue());
+            if (wasSelectedPersonReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedPerson.getValue());
+                selectedPerson.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+            if (wasSelectedPersonRemoved) {
+                // Select the person that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    /**
+     * Ensures {@code selectedHealthWorker} is a valid request in {@code filteredHealthWorkers}.
+     */
+    private void ensureSelectedHealthWorkerIsValid(ListChangeListener.Change<? extends HealthWorker> change) {
+        while (change.next()) {
+            if (selectedHealthWorker.getValue() == null) {
+                return;
+            }
+
+            boolean wasSelectedHealthWorkerReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                            && change.getRemoved().contains(selectedHealthWorker.getValue());
+
+            if (wasSelectedHealthWorkerReplaced) {
+                // Update selectedHealthWorker to its new value
+                int index = change.getRemoved().indexOf(selectedHealthWorker.getValue());
+                selectedHealthWorker.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedHealthWorkerRemoved =
+                    change.getRemoved().stream().anyMatch(removedHealthWorker -> selectedHealthWorker.getValue()
+                            .isSameHealthWorker(removedHealthWorker));
+            if (wasSelectedHealthWorkerRemoved) {
+                selectedHealthWorker.setValue(change.getFrom() > 0
+                        ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
     }
 
     /**
@@ -363,35 +481,6 @@ public class ModelManager implements Model {
             if (wasSelectedRequestRemoved) {
                 selectedRequest.setValue(change.getFrom() > 0
                     ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
-    }
-
-    /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
-     */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
-        while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
-                return;
-            }
-
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
-
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

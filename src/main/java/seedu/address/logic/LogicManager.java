@@ -73,7 +73,7 @@ public class LogicManager implements Logic {
         if (modelModified) {
             logger.info("model is modified, saving to file");
             try {
-                storage.saveCardFolders(model.getCardFolders());
+                storage.saveCardFolders(model.getCardFolders(), model.getcardFolderFilesPath());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }

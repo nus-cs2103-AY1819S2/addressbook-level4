@@ -24,5 +24,5 @@ public interface Storage {
 
     void saveCardFolder(ReadOnlyCardFolder cardFolder, int index) throws IOException;
 
-    void saveCardFolders(List<ReadOnlyCardFolder> cardFolders) throws IOException;
+    void saveCardFolders(List<ReadOnlyCardFolder> cardFolders, Path cardFolderFilesPath) throws IOException;
 }

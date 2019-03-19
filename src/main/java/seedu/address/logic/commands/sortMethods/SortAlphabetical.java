@@ -9,27 +9,14 @@ import seedu.address.model.person.Person;
  */
 public class SortAlphabetical {
 
-    private final List<Person> lastShownList;
-    private List<Person> newList = new ArrayList<>();
-    private final List<String> correctOrder = new ArrayList<>();
+    private List<Person> newList;
 
     public List<Person> getList() {
         return this.newList;
     }
 
     public SortAlphabetical(List<Person> lastShownList) {
-        this.lastShownList = lastShownList;
-        for (int i=0; i<lastShownList.size(); i++) {
-            correctOrder.add(lastShownList.get(i).getName().toString());
-        }
-        Collections.sort(correctOrder); //Case sensitive
-        for (int i=0; i<correctOrder.size(); i++) {
-            for (Person person : lastShownList) {
-                if (person.getName().toString() == correctOrder.get(i)) {
-                    newList.add(person);
-                }
-            }
-        }
+        List<Person> newList = SortUtil.sortPersonsByNames(lastShownList);
         this.newList = newList;
     }
 }

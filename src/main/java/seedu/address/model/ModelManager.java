@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -108,8 +107,19 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void deleteAllPerson() {
+        versionedAddressBook.removeAllPerson();
+    }
+
+    @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addPersonWithFilter(Person person) {
+        versionedAddressBook.addPersonWithFilter(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -142,16 +152,19 @@ public class ModelManager implements Model {
     @Override
     public void clearFilter() {
         versionedAddressBook.clearFilter();
+        logger.info("All the filters are cleared.");
     }
 
     @Override
     public void filterAnd(String name, String phone, String email, String address, String[] tagList) {
         versionedAddressBook.filterAnd(name, phone, email, address, tagList);
+        logger.info("Persons are filtered according to 'AND' condition.");
     }
 
     @Override
     public void filterOr(String name, String phone, String email, String address, String[] tagList) {
         versionedAddressBook.filterOr(name, phone, email, address, tagList);
+        logger.info("Persons are filtered according to 'OR' condition.");
     }
 
     //=========== Undo/Redo =================================================================================

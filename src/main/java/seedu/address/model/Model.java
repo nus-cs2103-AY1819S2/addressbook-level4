@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -66,10 +65,21 @@ public interface Model {
     void deletePerson(Person target);
 
     /**
+     * Deletes all persons existing in the address book.
+     */
+    void deleteAllPerson();
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given person without clearing the filter.
+     * {@code person} must not already exist in the address book.
+     */
+    void addPersonWithFilter(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -127,7 +137,6 @@ public interface Model {
      * Applies filtering and chooses the persons that pass at least one of the conditions
      */
     void filterOr(String name, String phone, String email, String address, String[] tagList);
-
 
     /**
      * Selected person in the filtered person list.

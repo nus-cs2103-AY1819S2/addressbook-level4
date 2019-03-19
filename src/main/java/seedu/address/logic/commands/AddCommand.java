@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -54,6 +55,10 @@ public class AddCommand extends Command {
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
+
+//        else if(AddressBook.filterExist) {
+//            return new CommandResult("Filtering is active right now. Please clear the filter before adding a new person.");
+//        }
 
         model.addPerson(toAdd);
         model.commitAddressBook();

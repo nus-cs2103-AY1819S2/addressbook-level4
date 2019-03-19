@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w16-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `RecruitMe`      Since: `January 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -105,30 +105,32 @@ Format: `filter clear`
 
 === Filtering Recruit Me: `filter`
 It filters the current applicant pool regarding the existing entities of every single person (name, phone, email, address or skills). +
-Format: `filter or/and [n/NAME/n] [p/PHONE/p] ...`
+Format: `filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [a/ADDRESS/a] [skill/ SKILL1, SKILL2, ... /skill]`
 
 ****
 * The filtering is case insensitive. e.g `hans` will match `Hans`
+* If more than one skills are added to the filter, they should be separated by ','
 * Filtering does not check if the written condition passes totally. It only checks, if the written condition is contained in the person properties.
 e.g if there is someone named Alex, in the filtering conditions `n/ale/n` or `n/le/n` or `n/lex/n`, Alex will be included.
-* or Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
-* and Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+* 'OR' Usage: According to the conditions written, if at least one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
+* 'AND' Usage: According to the conditions written, if every single one of them passes with the regarding person in the applicant pool, the person is included in the filtered version.
 * All the people that are included in the filtering will be returned.
 * All the operations, that change the content of the address book also clears every single filter.
 * After one filtering, the filtered address book can be filtered again.
-****
 
-TO DO:
-* filtering is not redone or undone with undo and redo commands, this will be implemented in v1.2
-* filtering is not implemented for tag criteria. This will also be added in v1.2
+* Filtering is compatible with all the other commands:
+1- clear : since the persons list changes, the filtering is automatically cleared
+2- add : when filtering is active, adding is not allowed. To add someone, filtering should be cleared.
+3- sort / select / delete / edit / list / undo / redo / help / exit / history : can be used without clearing the filter
 
 ****
 
 Examples:
-* `filter or p/91234567/p e/johndoe@example.com/e`
-Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com
-* `filter and n/ale/n a/abcd/a`
-Returns the people, whose name contains ale or whose address contains abcd
+
+* `filter or p/91234567/p e/johndoe@example.com/e skill/C++, Java/skill` +
+Returns the people, whose numbers include 91234567 or whose email includes johndoe@example.com or who has (contains) at least C++ or Java in the skills
+* `filter and n/ale/n a/abcd/a skill/C++, Java/skill` +
+Returns the people, whose name contains ale and whose address contains abcd and who has (contains) C++ and Java both in the skills
 
 === Locating persons by name: `find`
 
@@ -156,16 +158,26 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 Sorts persons by method described by the given keywords. +
 Format: `sort KEYWORD`
 
+Accepted KEYWORDs:
+
+* alphabetical
+* skills
+
 ****
-* The Alphabetical Sort is case sensitive. e.g `Alex` will come before `adam`
-* The Alphabetical Sort is by first name. e.g. `Adam Smith` will come before `Shaun Adams`
-* Only the name is searched.
+* The sort method is compatible with both the `find` and `filter` method.
+* The Alphabetical Sort compares first name first and then surname. e.g. `Adam Smith` will come before `Shaun Adams`; +
+`Adam Blacksmith` will come before `Adam Smith`
+* The Skills Sort arranges each person's skills alphabetically and then arranges the people based on their skills in +
+alphabetical order. e.g. `Adam Smith` with skills `mathematics` and `economics` shall come before `Mother Theresa` +
+with skill `faith` since `economics` comes before `faith`.
 ****
 
 Examples:
 
 * `sort alphabetical` +
 Returns the people in order alphabetical order of their names with new index numbers.
+* `sort skills` +
+Returns the people in order of their skills with new index numbers.
 
 
 === Deleting a person : `delete`

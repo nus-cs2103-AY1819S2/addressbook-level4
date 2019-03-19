@@ -4,26 +4,40 @@ import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REVERSE;
 
 public class FilterCommandParser implements Parser<FilterCommand> {
 
     private final int TOTAL_NUMBER_OF_INFO = 5;
 
+    /**
+     * Since there are multiple options in filtering: and, or , clear
+     * Decides which type of the filtering process will be executed from above
+     */
     private String FilterTypeDivider(String args, AtomicInteger typeOfProcess) {
 
         typeOfProcess.set(-1);
 
-        if (args.length() > 3 && args.substring(1, 4).equals("or ")) {
+        if (args.length() > 3 && args.substring(0, 3).equals("or ")) {
              typeOfProcess.set(1);
+             args = args.substring(3);
+        }
+
+        else if (args.length() > 4 && args.substring(0, 4).equals("and ")) {
+             typeOfProcess.set(2);
              args = args.substring(4);
         }
 
-        else if (args.length() > 4 && args.substring(1, 5).equals("and ")) {
-             typeOfProcess.set(2);
-             args = args.substring(5);
-        }
-
-        else if(args.length() > 5 && args.substring(1, 6).equals("clear")) {
+        else if(args.length() > 4 && args.substring(0, 5).equals("clear")) {
             typeOfProcess.set(0);
         }
 
@@ -41,12 +55,17 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      *  !!! If some of the above ones are not given, then their value will be null
      */
 
-    private String[] DivideFilterCriterion(String args, AtomicInteger typeOfProcess) throws ParseException
+    /**
+     * Since there can be multiple filtering criterion at once, this function detects which criteron exist and
+     * Places evey criteria text into a String array
+     */
+    private String[] DivideFilterCriterion(String args, AtomicInteger typeOfProcess)
     {
         String[] criterion = new String[TOTAL_NUMBER_OF_INFO];
         int totalNumOfCriterion = 0;
 
-        if(args.contains("n/") && args.contains("/n")) {
+        if(args.contains(PREFIX_NAME.toString()) && args.contains(PREFIX_NAME_REVERSE.toString())
+                && args.indexOf(PREFIX_NAME.toString()) < args.indexOf(PREFIX_NAME_REVERSE.toString())) {
             criterion[0] = "available";
             totalNumOfCriterion++;
         }
@@ -54,7 +73,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[0] = null;
         }
 
-        if(args.contains("p/") && args.contains("/p")) {
+        if(args.contains(PREFIX_PHONE.toString()) && args.contains(PREFIX_PHONE_REVERSE.toString())
+                && args.indexOf(PREFIX_PHONE.toString()) < args.indexOf(PREFIX_PHONE_REVERSE.toString())) {
             criterion[1] = "available";
             totalNumOfCriterion++;
         }
@@ -62,7 +82,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[1] = null;
         }
 
-        if(args.contains("e/") && args.contains("/e")) {
+        if(args.contains(PREFIX_EMAIL.toString()) && args.contains(PREFIX_EMAIL_REVERSE.toString())
+                && args.indexOf(PREFIX_EMAIL.toString()) < args.indexOf(PREFIX_EMAIL_REVERSE.toString())) {
             criterion[2] = "available";
             totalNumOfCriterion++;
         }
@@ -70,7 +91,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[2] = null;
         }
 
-        if(args.contains("a/") && args.contains("/a")) {
+        if(args.contains(PREFIX_ADDRESS.toString()) && args.contains(PREFIX_ADDRESS_REVERSE.toString())
+                && args.indexOf(PREFIX_ADDRESS.toString()) < args.indexOf(PREFIX_ADDRESS_REVERSE.toString())) {
             criterion[3] = "available";
             totalNumOfCriterion++;
         }
@@ -78,7 +100,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[3] = null;
         }
 
-        if(args.contains("t/") && args.contains("/t")) {
+        if(args.contains(PREFIX_TAG.toString()) && args.contains(PREFIX_TAG_REVERSE.toString())
+                && args.indexOf(PREFIX_TAG.toString()) < args.indexOf(PREFIX_TAG_REVERSE.toString())) {
             criterion[4] = "available";
             totalNumOfCriterion++;
         }
@@ -93,23 +116,23 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         else {
 
             if(criterion[0] != null) {
-                criterion[0] = InfoBetweenPrefixes(args, "n/", "/n", typeOfProcess);
+                criterion[0] = InfoBetweenPrefixes(args, PREFIX_NAME.toString(), PREFIX_NAME_REVERSE.toString(), typeOfProcess);
             }
 
             if(criterion[1] != null) {
-                criterion[1] = InfoBetweenPrefixes(args, "p/", "/p", typeOfProcess);
+                criterion[1] = InfoBetweenPrefixes(args, PREFIX_PHONE.toString(), PREFIX_PHONE_REVERSE.toString(), typeOfProcess);
             }
 
             if(criterion[2] != null) {
-                criterion[2] = InfoBetweenPrefixes(args, "e/", "/e", typeOfProcess);
+                criterion[2] = InfoBetweenPrefixes(args, PREFIX_EMAIL.toString(), PREFIX_EMAIL_REVERSE.toString(), typeOfProcess);
             }
 
             if(criterion[3] != null) {
-                criterion[3] = InfoBetweenPrefixes(args, "a/", "/a", typeOfProcess);
+                criterion[3] = InfoBetweenPrefixes(args, PREFIX_ADDRESS.toString(), PREFIX_ADDRESS_REVERSE.toString(), typeOfProcess);
             }
 
             if(criterion[4] != null) {
-                criterion[4] = InfoBetweenPrefixes(args, "t/", "/t", typeOfProcess);
+                criterion[4] = InfoBetweenPrefixes(args, PREFIX_TAG.toString(), PREFIX_TAG_REVERSE.toString(), typeOfProcess);
             }
         }
 
@@ -117,13 +140,11 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     }
 
     /**
-     * Since filter form is like prefix/ text /prefix, this function returns the text between given prefixes.
+     * Since filter form is like prefix/text/prefix, this function returns the text between given prefixes.
      */
-
-
     private String InfoBetweenPrefixes(String args, String prefixBegin, String prefixEnd, AtomicInteger typeOfProcess) {
 
-        int beginLoc = args.indexOf(prefixBegin);
+        int beginLoc = args.indexOf(prefixBegin) + prefixBegin.length();
         int endLoc = args.indexOf(prefixEnd);
 
         if(beginLoc >= endLoc) {
@@ -131,12 +152,29 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             return null;
         }
 
-        return args.substring(beginLoc + 2, endLoc).toLowerCase();
+        for(int i = beginLoc; i < endLoc; i++) {
+
+            if(args.charAt(i) == ' ')
+                beginLoc++;
+
+            else break;
+        }
+
+        for(int j = endLoc - 1; j > beginLoc; j--) {
+
+            if(args.charAt(j) == ' ')
+                endLoc--;
+
+            else break;
+        }
+
+        return args.substring(beginLoc, endLoc).toLowerCase();
     }
 
     @Override
     public FilterCommand parse(String args) throws ParseException {
 
+        args = args.trim().replaceAll(" +", " ");
         AtomicInteger typeOfProcess = new AtomicInteger(-1);
         args = FilterTypeDivider(args, typeOfProcess);
 

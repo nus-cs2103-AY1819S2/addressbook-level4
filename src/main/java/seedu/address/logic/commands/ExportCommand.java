@@ -4,16 +4,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOLDERNAME;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolderNotFoundException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.storage.csvmanager.CardFolderExport;
-import seedu.address.storage.csvmanager.CsvCardExport;
 import seedu.address.storage.csvmanager.CsvFile;
 
 /**
@@ -49,9 +46,7 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         // check whether model contains the card folders desired. Catch exception thrown
         try {
-            List<ReadOnlyCardFolder> cardFolderObject = model.returnValidCardFolders(this.cardFolders);
-            CsvCardExport cardExportManager = new CsvCardExport(cardFolderObject, filename);
-            cardExportManager.writeFoldersToCsv();
+            model.exportCardFolders(cardFolders, filename);
         } catch (CardFolderNotFoundException e) {
             throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS + e.getMessage());
         } catch (IOException e) {

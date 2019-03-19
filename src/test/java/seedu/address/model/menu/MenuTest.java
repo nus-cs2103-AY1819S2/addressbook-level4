@@ -51,7 +51,7 @@ public class MenuTest {
     public void resetData_withValidReadOnlyMenu_replacesData() {
         List<MenuItem> newData = getTypicalMenuItems();
         menu.setMenuItems(newData);
-        assertEquals(newData, menu);
+        assertEquals(newData, menu.getMenuItemList());
     }
 
     @Test

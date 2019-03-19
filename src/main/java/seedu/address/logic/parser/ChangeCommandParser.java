@@ -18,6 +18,9 @@ public class ChangeCommandParser implements Parser<ChangeCommand> {
      */
     public ChangeCommand parse(String args) throws ParseException {
         try {
+            if (ParserUtil.parseHomeSymbol(args)) {
+                return new ChangeCommand();
+            }
             Index index = ParserUtil.parseIndex(args);
             return new ChangeCommand(index);
         } catch (ParseException pe) {

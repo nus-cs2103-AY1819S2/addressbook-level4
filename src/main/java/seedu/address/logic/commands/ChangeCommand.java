@@ -24,12 +24,19 @@ public class ChangeCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_FOLDER_SUCCESS = "Entered Card Folder: %1$s";
+    private static final String MESSAGE_EXIT_FOLDER_SUCCESS = "Returned to home";
+    private static final String MESSAGE_ENTER_FOLDER_SUCCESS = "Entered Card Folder: %1$s";
 
-    private final Index targetIndex;
+    private Index targetIndex;
+    private final boolean toHome;
 
     public ChangeCommand(Index targetIndex) {
+        toHome = false;
         this.targetIndex = targetIndex;
+    }
+
+    public ChangeCommand() {
+        toHome = true;
     }
 
     @Override
@@ -38,13 +45,25 @@ public class ChangeCommand extends Command {
 
         List<ReadOnlyCardFolder> cardFolderList = model.getCardFolders();
 
-        if (targetIndex.getZeroBased() >= cardFolderList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX);
-        }
+        if (toHome) {
+            if (!model.isInFolder()) {
+                throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER);
+            }
+            model.exitFoldersToHome();
+            return new CommandResult(MESSAGE_EXIT_FOLDER_SUCCESS,
+                    false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        } else {
+            if (model.isInFolder()) {
+                throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
+            }
 
-        model.setActiveCardFolderIndex(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_SELECT_FOLDER_SUCCESS, targetIndex.getOneBased()),
-                false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+            if (targetIndex.getZeroBased() >= cardFolderList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX);
+            }
+            model.setActiveCardFolderIndex(targetIndex.getZeroBased());
+            return new CommandResult(String.format(MESSAGE_ENTER_FOLDER_SUCCESS, targetIndex.getOneBased()),
+                    false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        }
     }
 
     @Override

@@ -10,7 +10,7 @@
       "tagged" : [ ],
       "conditions" : "Physiotherapy Dialysis "
     },
-    "conditions" : [ ],
+    "conditions" : "Physiotherapy ",
     "requestStatus" : "PENDING",
     "requestDate" : "01-01-2019 10:00:00",
     "healthWorker" : {
@@ -34,7 +34,7 @@
       "tagged" : [ ],
       "conditions" : "Stroke Eldercare "
     },
-    "conditions" : [ ],
+    "conditions" : "Palliative ",
     "requestStatus" : "PENDING",
     "requestDate" : "02-01-2919 08:00:00",
     "healthWorker" : {
@@ -58,7 +58,7 @@
       "tagged" : [ ],
       "conditions" : "Palliative "
     },
-    "conditions" : [ ],
+    "conditions" : "Palliative ",
     "requestStatus" : "PENDING",
     "requestDate" : "02-01-2919 08:00:00",
     "healthWorker" : {
@@ -82,7 +82,7 @@
       "tagged" : [ ],
       "conditions" : ""
     },
-    "conditions" : [ ],
+    "conditions" : "Palliative ",
     "requestStatus" : "COMPLETED",
     "requestDate" : "02-01-2919 08:00:00",
     "healthWorker" : {

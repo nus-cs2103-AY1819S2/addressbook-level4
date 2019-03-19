@@ -86,7 +86,6 @@ public class JsonRequestBookStorageTest {
         ReadOnlyRequestBook readBack = jsonRequestBookStorage.readRequestBook(filePath).get();
         assertEquals(original, new RequestBook(readBack));
 
-        // please review the following chunk, i do not know what Hoon and Ida are for -Rohan
         /*
         // Modify data, overwrite exiting file, and read back
         original.addRequest(HOON_REQUEST);

@@ -190,7 +190,7 @@ public class MainWindow extends UiPart<Stage> {
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
             } else if (commandResult instanceof StudyPanelCommand) {
-                questionPanel = new QuestionPanel();
+                questionPanel = new QuestionPanel(logic.getCurrentCard().getQuestion());
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(questionPanel.getRoot());
             } else if (commandResult instanceof HelpCommandResult) {

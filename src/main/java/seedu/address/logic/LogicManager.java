@@ -106,4 +106,10 @@ public class LogicManager implements Logic {
     public ReadOnlyProperty<ListItem> selectedItemProperty() {
         return model.selectedItemProperty();
     }
+
+    @Override
+    public Card getCurrentCard() {
+        return model.getCurrentCard();
+    }
+
 }

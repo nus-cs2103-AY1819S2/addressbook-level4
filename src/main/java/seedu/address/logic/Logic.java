@@ -66,4 +66,9 @@ public interface Logic {
      * null if no item is selected.
      */
     ReadOnlyProperty<ListItem> selectedItemProperty();
+
+    /**
+     * Gets the current card to be displayed during study state.
+     */
+    Card getCurrentCard();
 }

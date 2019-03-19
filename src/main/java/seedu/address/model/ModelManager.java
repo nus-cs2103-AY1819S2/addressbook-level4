@@ -28,7 +28,7 @@ import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of top deck data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -38,6 +38,8 @@ public class ModelManager implements Model {
     private FilteredList<? extends ListItem> filteredItems;
     private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
     private ViewState viewState;
+    private Card currentCard;
+    private final int StudyState = 0; //0 - shows question //1 shows answer
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -55,6 +57,8 @@ public class ModelManager implements Model {
         // TODO: move filteredItems into viewState
         filteredItems = ((DecksView) viewState).filteredDecks;
         // filteredItems = ((CardsView) viewState).filteredCards;
+
+        currentCard = null;
     }
 
     public ModelManager() {
@@ -76,11 +80,7 @@ public class ModelManager implements Model {
 
     public void studyDeck(Deck deck) {
         viewState = new StudyView(this, deck);
-        // TODO: change this to above after migrating global cards list
-        //viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
-
-        filteredItems = ((StudyView) viewState).filteredCards;
-        setSelectedItem(null);
+        setCurrentCard(deck.generateCard());
     }
 
     @Override
@@ -275,6 +275,18 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredItems.equals(other.filteredItems)
                 && Objects.equals(selectedItem.get(), other.selectedItem.get());
+    }
+
+    //=========== Handling current card ===========================================================================
+
+    @Override
+    public void setCurrentCard(Card card) {
+        currentCard = card;
+    }
+
+    @Override
+    public Card getCurrentCard() {
+        return currentCard;
     }
 
 }

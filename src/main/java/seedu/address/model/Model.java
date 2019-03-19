@@ -158,6 +158,10 @@ public interface Model {
      */
     void studyDeck(Deck deck);
 
+    void setCurrentCard(Card card);
+
+    Card getCurrentCard();
+
     void goToDecksView();
 
     boolean isAtDecksView();

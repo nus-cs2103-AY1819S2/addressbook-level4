@@ -36,10 +36,10 @@ public class QuestionPanel extends UiPart<Region> {
     private Label id;
 
 
-    public QuestionPanel() {
+    public QuestionPanel(String textShown) {
         super(FXML);
 
-        question.setText("Some question");
+        question.setText(textShown);
     }
 
 }

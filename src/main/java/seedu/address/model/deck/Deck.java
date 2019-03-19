@@ -40,6 +40,10 @@ public class Deck implements ListItem {
         return cards;
     }
 
+    public Card generateCard() {
+        return cards.iterator().next();
+    }
+
     /**
      * Checks if a card is already in a deck.
      */

@@ -5,6 +5,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.sortMethods.SortAlphabetical;
 import seedu.address.logic.commands.sortMethods.SortSkills;
 import seedu.address.model.Model;
+import seedu.address.model.AddressBook;
 import seedu.address.model.person.*;
 import seedu.address.logic.parser.SortWord;
 
@@ -34,10 +35,11 @@ public class SortCommand extends Command {
 
     public SortCommand(SortWord method) {
         this.method = method;
+        AddressBook.sortingExist = true;
     }
 
     private void ProcessCommand(Model model) {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Person> lastShownList = model.getAddressBook().getPersonList();
 
         //Maybe use switch statement here?
         if (this.method.getSortWord().equals("alphabetical")) {
@@ -62,6 +64,7 @@ public class SortCommand extends Command {
             ProcessCommand(model);
             String MESSAGE_SUCCESS = "Sorted all persons by " + method.toString();
             model.commitAddressBook();
+            AddressBook.sortingExist = false;
             return new CommandResult(MESSAGE_SUCCESS);
         }
         catch(Exception e) {

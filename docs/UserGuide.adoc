@@ -13,7 +13,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W14-1/main
 
 By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
@@ -329,15 +329,17 @@ There is no need to save manually.
 == Troubleshooting TODO
 
 *Q*: Why are my card values shown as `?????` or question marks? +
-*A*: If your lesson contains non-ASCII characters such as :
+*A*: If your lesson contains non-ASCII characters such as:
 
 * Characters with accents: `à`
 * Non-English words : `こんにちは` `السلام عليكم` `你好`
 
-You need to save it as a UTF-8 encoded csv. This can be done in Excel by going into the Save As dialog, and saving as `CSV UTF-8 (Comma delimited) (*.csv)`. For other csv file editors, you may need to look up relevant documentation on how save in UTF-8 encoding.
+This can be fixed in Excel by going into the Save As dialog, and saving as `CSV UTF-8 (Comma delimited) (*.csv)`. For other csv file editors, you may need to look up relevant documentation on how save in UTF-8 encoding. +
 ****
+The default encoding setting is unable to process special characters. As a result, you will need to save it as a UTF-8 encoded csv file.
+
 Note that the files have to be saved as a UTF-8 encoded csv file before the first save. +
-If the file is saved without UTF-8 encoding, the data may have already been saved as `?????`, and all non-ASCII characters are lost.
+If the file is saved without UTF-8 encoding, the data may have already been saved as ?????, and all non-ASCII characters are lost.
 ****
 
 == FAQ

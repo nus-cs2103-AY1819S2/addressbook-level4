@@ -358,8 +358,8 @@
 }
 
 .tab-pane {
-  -fx-tab-min-width:130px;
-  -fx-tab-max-width:130px;
+  -fx-tab-min-width: 200px;
+  -fx-tab-max-width: 200px;
   -fx-tab-min-height:35px;
   -fx-tab-max-height:35px;
 }
@@ -371,5 +371,6 @@
 }
 
 .tab:selected {
-    -fx-background-color: white;
+  -fx-background-color: white;
+  -fx-focus-color: transparent;
 }

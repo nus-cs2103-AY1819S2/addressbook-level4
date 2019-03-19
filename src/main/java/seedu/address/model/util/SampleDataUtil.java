@@ -25,13 +25,13 @@ public class SampleDataUtil {
     public static Patient[] getSamplePatients() {
         return new Patient[] {
             new Patient(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Nric("S9772466D"), new Address("Blk 30 Geylang Street 29, #06-40"),
+                new Nric("S9772466D"), new Address("108 McNair Road, #06-40"),
                 getTagSet("diabetic", "hbp")),
             new Patient(new Name("Toh Boon Hwa"), new Phone("91725543"), new Email("boonhwa@example.com"),
-                    new Nric("S8661274A"), new Address("Blk 162 Tampines Street 61, #02-17"),
+                    new Nric("S8661274A"), new Address("27 Lim Liak Street, #02-17"),
                     getTagSet("diabetic", "handicapped")),
             new Patient(new Name("Quek Siu Toh"), new Phone("87724331"), new Email("siutoh1978@example.com"),
-                    new Nric("S8238951C"), new Address("Blk 20 Ghim Moh Terrace, #01-70"),
+                    new Nric("S8238951C"), new Address("4 Leng Kee Road, #01-70"),
                     getTagSet("dailycare", "alone")),
         };
     }

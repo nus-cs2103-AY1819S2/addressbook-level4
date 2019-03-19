@@ -128,7 +128,7 @@ public interface Model {
      */
     void setHealthWorker(HealthWorker target, HealthWorker editedWorker);
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /** Returns an unmodifiable view of the filtered health worker list */
     ObservableList<HealthWorker> getFilteredHealthWorkerList();
 
     /**
@@ -137,7 +137,16 @@ public interface Model {
      */
     void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate);
 
-    // =======================================================================
+    /**
+     * Selected health worker in the filtered health worker list.
+     * null if no health worker is selected.
+     */
+    ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty();
+
+    /**
+     * Sets the selected health worker in the filtered health worker list.
+     */
+    void setSelectedHealthWorker(HealthWorker worker);
 
     // ============== Added methods for AddPatientCommand ===============
     // @author: Rohan
@@ -214,6 +223,9 @@ public interface Model {
      */
     void setSelectedPerson(Person person);
 
+    // ================== Request related code =========================================
+    // @author David, Hui Chun
+
     /**
      * Returns the user prefs' request book file path.
      */
@@ -236,6 +248,17 @@ public interface Model {
      * Returns an unmodifiable view of the request list.
      */
     ObservableList<Request> getFilteredRequestList();
+
+    /**
+     * Selected request in the filtered request list.
+     * null if no request is selected.
+     */
+    ReadOnlyProperty<Request> selectedRequestProperty();
+
+    /**
+     * Sets the selected request in the filtered request list.
+     */
+    void setSelectedRequest(Request request);
 
     /**
      * Returns true if a request with the same identity as {@code request} exists in the address

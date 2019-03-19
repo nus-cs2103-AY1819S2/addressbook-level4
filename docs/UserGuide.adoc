@@ -14,12 +14,12 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S2-W09-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is a application that allows users to add, manage and close requests from patients for health services. AB4 provides a *Graphical User Interface* for administrative staff of health organization and hospitals to manage requests from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
-Looking to improve and ease management of requests from cusomters and patients? Look no further, AB4 provides all the utility and functions you need to streamline your workflow. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+HealthHub is a application that allows users to add, manage and close requests from patients for health services. AB4 provides a *Graphical User Interface* for administrative staff of health organisations and hospitals to manage requests from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
+Looking to improve and ease management of requests from cusomters and patients? Look no further, HealthHub provides all the utility and functions you need to streamline your workflow. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 

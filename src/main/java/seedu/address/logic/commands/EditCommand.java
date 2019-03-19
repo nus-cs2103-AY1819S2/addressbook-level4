@@ -47,21 +47,21 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Equipment: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This equipment already exists in the Equipment Manager.";
+    public static final String MESSAGE_DUPLICATE_EQUIPMENT = "This equipment already exists in the Equipment Manager.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditEquipmentDescriptor editEquipmentDescriptor;
 
     /**
      * @param index of the equipment in the filtered equipment list to edit
-     * @param editPersonDescriptor details to edit the equipment with
+     * @param editEquipmentDescriptor details to edit the equipment with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditEquipmentDescriptor editEquipmentDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editEquipmentDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editEquipmentDescriptor = new EditEquipmentDescriptor(editEquipmentDescriptor);
     }
 
     @Override
@@ -74,10 +74,10 @@ public class EditCommand extends Command {
         }
 
         Equipment equipmentToEdit = lastShownList.get(index.getZeroBased());
-        Equipment editedEquipment = createEditedPerson(equipmentToEdit, editPersonDescriptor);
+        Equipment editedEquipment = createEditedPerson(equipmentToEdit, editEquipmentDescriptor);
 
         if (!equipmentToEdit.isSameEquipment(editedEquipment) && model.hasPerson(editedEquipment)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_EQUIPMENT);
         }
 
         model.setPerson(equipmentToEdit, editedEquipment);
@@ -88,18 +88,19 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Equipment} with the details of {@code equipmentToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editEquipmentDescriptor}.
      */
-    private static Equipment createEditedPerson(Equipment equipmentToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Equipment createEditedPerson(Equipment equipmentToEdit, EditEquipmentDescriptor
+            editEquipmentDescriptor) {
         assert equipmentToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(equipmentToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(equipmentToEdit.getPhone());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(equipmentToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(equipmentToEdit.getAddress());
-        SerialNumber updatedSerialNumber = editPersonDescriptor.getSerialNumber()
+        Name updatedName = editEquipmentDescriptor.getName().orElse(equipmentToEdit.getName());
+        Phone updatedPhone = editEquipmentDescriptor.getPhone().orElse(equipmentToEdit.getPhone());
+        Email updatedEmail = editEquipmentDescriptor.getEmail().orElse(equipmentToEdit.getEmail());
+        Address updatedAddress = editEquipmentDescriptor.getAddress().orElse(equipmentToEdit.getAddress());
+        SerialNumber updatedSerialNumber = editEquipmentDescriptor.getSerialNumber()
                 .orElse(equipmentToEdit.getSerialNumber());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(equipmentToEdit.getTags());
+        Set<Tag> updatedTags = editEquipmentDescriptor.getTags().orElse(equipmentToEdit.getTags());
 
         return new Equipment(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedSerialNumber, updatedTags);
     }
@@ -119,14 +120,14 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editEquipmentDescriptor.equals(e.editEquipmentDescriptor);
     }
 
     /**
      * Stores the details to edit the equipment with. Each non-empty field value will replace the
      * corresponding field value of the equipment.
      */
-    public static class EditPersonDescriptor {
+    public static class EditEquipmentDescriptor {
         private Name name;
         private Phone phone;
         private Email email;
@@ -134,13 +135,13 @@ public class EditCommand extends Command {
         private SerialNumber serialNumber;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditEquipmentDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditEquipmentDescriptor(EditEquipmentDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
@@ -221,12 +222,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditEquipmentDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditEquipmentDescriptor e = (EditEquipmentDescriptor) other;
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())

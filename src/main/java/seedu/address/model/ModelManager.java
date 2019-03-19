@@ -31,15 +31,15 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Equipment> selectedPerson = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given equipmentManager and userPrefs.
      */
-    public ModelManager(ReadOnlyEquipmentManager addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyEquipmentManager equipmentManager, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(equipmentManager, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with equipment manager: " + equipmentManager + " and user prefs " + userPrefs);
 
-        versionedEquipmentManager = new VersionedEquipmentManager(addressBook);
+        versionedEquipmentManager = new VersionedEquipmentManager(equipmentManager);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredEquipments = new FilteredList<>(versionedEquipmentManager.getPersonList());
         filteredEquipments.addListener(this::ensureSelectedPersonIsValid);

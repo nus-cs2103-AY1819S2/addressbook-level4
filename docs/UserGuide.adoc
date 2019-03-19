@@ -196,16 +196,19 @@ Makes an exact copy of a person’s data and adds it to the personnel data
 records. This is implemented in the case that multiple people share
 similar details.
 
-Format: `copy INDEX`
+Format: `copy INDEX [Count]`
 
 Note: If the copied entry is not modified before exiting the program,
-there will be a notification.
+there will be a confirmation.
 
 Example:
 
-
 * `copy 3` +
 Makes a copy of the person at index 3 and inserts it at the bottom of
+the current personnel records with a copy tag.
+
+* `copy 3 4` +
+Makes 4 copies of the person at index 3 and inserts them at the bottom of 
 the current personnel records with a copy tag.
 
 === Record: Access a person’s dental records
@@ -507,10 +510,14 @@ Clears all personnel data and records from the application
 Format: `clear`
 
 === Exit
-Exits the program
+Exits the program. You won't be able to exit if copies exist
 
 Format: `exit`
 
+=== Exit anyway
+Exits the program. You can exit under no circumstances
+
+Format: `exit!`
 
 === Appointments [Coming in v2.0]
 Schedule patient appointments.

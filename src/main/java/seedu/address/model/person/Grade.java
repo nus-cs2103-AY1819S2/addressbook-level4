@@ -122,7 +122,16 @@ public enum Grade {
     /**
      * Returns if this gradepoint is no more than another gradepoint.
      */
-    public boolean isWithin(Grade limit) {
+    public boolean isLowerOrEqualTo(Grade limit) {
         return this.gradePoint <= limit.gradePoint;
+    }
+
+    /**
+     * Checks if this grade is within the given grade range.
+     * @param range The grade range to be checked against.
+     * @return true if this grade is within this grade range, false otherwise.
+     */
+    public boolean isWithin(GradeRange range) {
+        return isLowerOrEqualTo(range.getMax()) && range.getMin().isLowerOrEqualTo(this);
     }
 }

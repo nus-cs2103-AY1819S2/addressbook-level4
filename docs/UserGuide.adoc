@@ -122,6 +122,7 @@ Format: `edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
 
 ****
 * Parameters can be in any order, but the index must be entered first.
+* Parameters are case-insensitive.
 * At least one field to be edited must be given.
 ****
 
@@ -153,15 +154,14 @@ Deletes the first module on the most recently displayed list.
 
 === Find module: `find`
 
-Finds a module in the module plan based on module code, module title, semester taken or grade obtained. +
-Format: `find [c/MODULE_CODE] [t/MODULE_TITLE] [s/SEMESTER] [g/GRADE_OBTAINED]`
+Finds module(s) in the module plan based on module code, semester taken or grade obtained. +
+Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE_OBTAINED]`
 
 ****
 * Parameters can be in any order.
+* Parameters are case-insensitive.
+* Module code can be entered partially, but semester taken and grade obtained must be exact.
 * Modules matching ALL of the above parameters will be listed.
-* Module code and title can be entered partially, but semester taken and grade obtained must be exact.
-* If no parameters are given, the entire module plan will be listed.
-
 ****
 
 Examples:

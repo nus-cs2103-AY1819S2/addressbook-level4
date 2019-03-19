@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -71,6 +73,21 @@ public class PersonUtil {
                 tags.forEach(s -> sb.append(PREFIX_TAG).append(s.tagName).append(" "));
             }
         }
+        return sb.toString();
+    }
+
+    public static String getFindModuleDescriptorDetails(FindModuleDescriptor descriptor) {
+        StringBuilder sb = new StringBuilder();
+        descriptor.getCode().ifPresent(code -> sb.append(PREFIX_NAME).append(code).append(" "));
+        descriptor.getSemester().ifPresent(semester ->
+                sb.append(PREFIX_SEMESTER)
+                        .append(semester.name())
+                        .append(" "));
+        descriptor.getGrade().ifPresent(grade ->
+                sb.append(PREFIX_GRADE)
+                        .append(grade.name())
+                        .append(" "));
+
         return sb.toString();
     }
 }

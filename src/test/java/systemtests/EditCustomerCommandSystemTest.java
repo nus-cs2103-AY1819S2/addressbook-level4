@@ -249,7 +249,7 @@ public class EditCustomerCommandSystemTest extends HotelManagementSystemSystemTe
 //        command = EditCustomerCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
 //            + DATE_OF_BIRTH_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_AMY + ADDRESS_DESC_BOB
 //            + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-//      assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
+        //        assertCommandFailure(command, EditCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
     }
 
     /**

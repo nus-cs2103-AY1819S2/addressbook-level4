@@ -28,7 +28,7 @@ public class GenderTest {
 
         // invalid genders
         assertFalse(Gender.isValidGender("hi")); // text other than "f" or "m"
-        assertFalse(Gender.isValidGender("female")); // text other than "f" or "m"
+        assertFalse(Gender.isValidGender("femal")); // text other than "f" or "m"
         assertFalse(Gender.isValidGender("happy")); // text other than "f" or "m"
         assertFalse(Gender.isValidGender("p")); // text other than "f" or "m"
         assertFalse(Gender.isValidGender(" ")); // spaces only
@@ -36,6 +36,6 @@ public class GenderTest {
         // valid genders
         assertTrue(Gender.isValidGender("F")); // upper case
         assertTrue(Gender.isValidGender("f")); // lower case
-        assertTrue(Gender.isValidGender("M"));
+        assertTrue(Gender.isValidGender("m"));
     }
 }

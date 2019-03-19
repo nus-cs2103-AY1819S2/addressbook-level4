@@ -255,6 +255,27 @@ A map grid is a 2D array made up of `Cell` objects. This 2D array is encapsulate
 ** Pros: Easier to implement from the original AB4 codebase.
 ** Cons: May have worse performance than a simpler 2D array.
 
+=== Battleship Feature
+==== Current Implementation
+A battleship is a basic class representing a battleship that can be placed on the map grid. The battleship must be variable in length, depending on the type of battleship.
+
+==== Design Considerations
+===== Aspect: How a battleship is placed on the map
+* **Alternative 1 (current choice):** The same `Battleship` object is put in multiple cells.
+** Pros: This allows any cell that is hit to access the same `Battleship` object without having to separately find the `Battleship` object.
+** Cons: Difficult to keep track of each `Battleship` position.
+* **Alternative 2:** Have a separate `Battleship` object and `BattleshipPart` object that points to the main `Battleship` object.
+** Pros: Clearer separation between the "body" of the Battleship and the Battleship itself.
+** Cons: Difficult to handle being hit on a cell.
+
+===== Aspect: Data structure to record battleships in player
+* **Alternative 1 (current choice):** `ArrayList` of `FleetEntry`, where `FleetEntry` contains a reference to the `Battleship`, its `Orientation` and `Coordinates` of the head.
+** Pros: Can identify `Battleship` by position.
+** Cons: Harder to implement.
+* **Alternative 2:** `ArrayList` of `Battleship`.
+** Pros: Cleaner and easier to implement.
+** Cons: Cannot check position of `Battleship` on the map grid.
+
 // end::initmap[]
 
 // tag::undoredo[]

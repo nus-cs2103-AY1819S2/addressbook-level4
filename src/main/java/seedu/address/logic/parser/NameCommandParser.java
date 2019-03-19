@@ -5,33 +5,32 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddNameCommand;
+import seedu.address.logic.commands.NameCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new NameCommand object
  */
-public class AddNameCommandParser implements Parser<AddNameCommand> {
+public class NameCommandParser implements Parser<NameCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the NameCommand
+     * and returns an NameCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddNameCommand parse(String args) throws ParseException {
+    public NameCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNameCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NameCommand.MESSAGE_USAGE));
         }
 
         String name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()).toString();
 
 
-        return new AddNameCommand(name);
+        return new NameCommand(name);
     }
 
     /**

@@ -27,6 +27,7 @@ import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.RestaurantListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.ReviewListPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
@@ -100,6 +101,10 @@ public abstract class FoodDiarySystemTest {
 
     public RestaurantListPanelHandle getRestaurantListPanel() {
         return mainWindowHandle.getRestaurantListPanel();
+    }
+
+    public ReviewListPanelHandle getReviewListPanel() {
+        return mainWindowHandle.getReviewListPanel();
     }
 
     public MainMenuHandle getMainMenu() {

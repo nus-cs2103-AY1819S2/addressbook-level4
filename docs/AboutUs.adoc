@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-EatVago is a desktop food diary application. This is adapted and modified from Address Book Level 4
+The Food Diary is a desktop food journal application. This is adapted and modified from Address Book Level 4
 by https://se-edu.github.io/docs/Team.html[se-edu] team.
 
 We are a team undertaking CS2103T Software Engineering module in the National University of Singapore.
@@ -16,42 +16,33 @@ We are a team undertaking CS2103T Software Engineering module in the National Un
 image::wklee96.png[width="150", align="left"]
 {empty} [https://github.com/Wklee96[github]]
 
-Role: Project Leader, Developer
-
-'''
+Role: Project Leader +
+Responsibilities: Model, system testing
 
 === Chen Caijie
 image::rbth7e5.png[width="150", align="left"]
 {empty}[https://github.com/rbth7e5[github]]
 
-Role: Developer, Team Carry +
-Responsibilities:
-
-'''
+Role: Restaurant Categorisation +
+Responsibilities: Logic, git expert
 
 === Koh Wei Xin
 image::weixin-koh.png[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]]
 
-Role: Developer +
-Responsibilities:
-
-'''
+Role: Restaurant Reviews +
+Responsibilities: UI, design
 
 === Chan Qing Zhou
 image::chanqingzhou.png[width="150", align="left"]
 {empty}[https://github.com/chanqingzhou[github]]
 
-Role: Developer +
-Responsibilities:
-
-'''
+Role: Data management +
+Responsibilities: Storage, documentation
 
 === Pai Si Kai
 image::skpai27.png[width="150", align="left"]
 {empty}[https://github.com/skpai27[github]]
 
-Role: Developer +
-Responsibilities:
-
-'''
+Role: Restaurant Reviews Categorisation +
+Responsibilities: Commons, code quality

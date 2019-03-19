@@ -9,8 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Weblink {
 
+    public static final String NO_WEBLINK_STRING = "No weblink added";
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
-    public static final String MESSAGE_CONSTRAINTS = "Weblinks should be of the format local-part.domain "
+    public static final String MESSAGE_CONSTRAINTS = "Weblinks should be of the format https://local-part.domain "
             + "and adhere to the following constraints:\n"
             + "1. The local-part should only contain alphanumeric characters and these special characters, excluding "
             + "the parentheses, (" + SPECIAL_CHARACTERS + ") .\n"
@@ -20,11 +21,11 @@ public class Weblink {
             + "    - start and end with alphanumeric characters\n"
             + "    - consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.";
     // alphanumeric and special characters
-    private static final String LOCAL_PART_REGEX = "^[\\w" + SPECIAL_CHARACTERS + "]+";
+    private static final String LOCAL_PART_REGEX = "[\\w" + SPECIAL_CHARACTERS + "]+";
     private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
     private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric, period and hyphen
     private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
-    public static final String VALIDATION_REGEX = LOCAL_PART_REGEX + "."
+    public static final String VALIDATION_REGEX = "^(http:\\/\\/|https:\\/\\/)" + LOCAL_PART_REGEX + "."
             + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
 
     public final String value;
@@ -44,11 +45,11 @@ public class Weblink {
      * Returns if a given string is a valid email.
      */
     public static boolean isValidWeblink(String test) {
-        return test.matches(VALIDATION_REGEX) || test.matches("No weblink added");
+        return test.matches(VALIDATION_REGEX) || test.matches(NO_WEBLINK_STRING);
     }
 
     public static Weblink makeDefaultWeblink() {
-        return new Weblink("No weblink added");
+        return new Weblink(NO_WEBLINK_STRING);
     }
 
     @Override

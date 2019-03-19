@@ -27,7 +27,7 @@ public class RestaurantBuilder {
     public static final String DEFAULT_PHONE = "65355255";
     public static final String DEFAULT_EMAIL = "kfc@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_WEBLINK = "kfc.com.sg";
+    public static final String DEFAULT_WEBLINK = Weblink.NO_WEBLINK_STRING;
     public static final String DEFAULT_OPENING_HOURS = "0930 to 2130";
 
     private Name name;

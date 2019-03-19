@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWENTRY;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWRATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_ENTRY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW_RATING;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 import java.util.ArrayList;
@@ -32,10 +32,10 @@ public class EditReviewCommand extends Command {
             + "select a restaurant from the list of restaurants."
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_REVIEWENTRY + "ENTRY] "
-            + "[" + PREFIX_REVIEWRATING + "RATING]\n"
+            + "[" + PREFIX_REVIEW_ENTRY + "ENTRY] "
+            + "[" + PREFIX_REVIEW_RATING + "RATING]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_REVIEWENTRY + "Poor food.";
+            + PREFIX_REVIEW_ENTRY + "Poor food.";
 
     public static final String MESSAGE_EDIT_REVIEW_SUCCESS = "Edited review for restaurant: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

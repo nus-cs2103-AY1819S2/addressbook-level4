@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w17-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W17-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -157,11 +157,11 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width="800"]
+image::UiClassDiagramV1.2.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RestaurantListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RestaurantListPanel`, `StatusBarFooter`, `BrowserPanel`, 'ReviewListPanel', etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -195,19 +195,19 @@ image::DeleteRestaurantSdForLogic.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelClassDiagramV1.2.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Food Diary data.
 * exposes an unmodifiable `ObservableList<Restaurant>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Restaurant` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Restaurant` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Food Diary`, which `Restaurant` can reference. This would allow `Food Diary` to only require one `Tag` object per unique `Tag`, instead of each `Restaurant` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -215,14 +215,14 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageClassDiagramV1.2.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Food Diary data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -364,7 +364,7 @@ The `merge` operation is implemented by taking in two `Category` arguments, `pre
 `updated` will replace any existing categories in `previous`. The merged `Category` will retain those categories in
 `previous` for any category not present in `updated`.
 
-THe `merge` operation is used by `SetCategoryCommand#execute()` to update a restaurant's categories by merging it with
+The `merge` operation is used by `SetCategoryCommand#execute()` to update a restaurant's categories by merging it with
 its existing categories.
 
 The `setCategory` command is implemented as follows:
@@ -385,6 +385,35 @@ The `filter` command is implemented as follows:
 tests if a restaurant matches any of the keywords.
 * Inside `FilterCommand#execute()`, `Model#updateFilteredRestaurantList()` is called with the predicate to update the
 list of restaurants that matches the keywords.
+// end::categorisation[]
+
+=== Adding a Review to a selected Restaurant
+
+==== Current Implementation
+The Restaurant class contains a list of reviews. Adding a Review to a restaurant would entail adding a review to this list.
+
+This command is handled by the `AddReviewCommand` class, which takes in an `Index` (indicating the index of the restaurant as displayed on the UI) as well as the `Review` object to be added.
+
+An example of the correct format of this command is `addReview 1 re/Good food! rr/4`, which indicates a user trying to add a review (of entry "Good food!" and rating "4") to the first restaurant in a list.
+
+Once this command is entered into the command line and executed, the `AddReviewCommandParser` will parse the command based on the indicated prefixes. These prefixes are pre-defined inside `Cli-Syntax`.
+The parser will return an `AddReviewCommand` object, which stores the index of the restaurant to add the review too, as well as the review to be added itself. This is returned to the `Logic Manager`, which then executes the command.
+
+The execution of this command involves:
+
+Step 1. Retrieving the last shown list from the `Model` and retrieving the restaurant indicated by the index from the last shown list.
+
+Step 2. Creating a new list of reviews that copies everything from the original restaurant's list of reviews.
+
+Step 3. Inserting the new review into the list.
+
+Step 4. Creating a new restaurant object with the new list.
+
+Step 5. Replace the original restaurant with the new restaurant object in the model.
+
+==== Design considerations
+The primary consideration was the compatibility of this new command with the existing architecture.
+Given the stable implementation of the current system of parsing commands, any new command created should fit into the existing architecture with minimal changes to other components.
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -607,7 +636,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 *Target user profile*:
 
-* Food lovers who want to record their personal food reviews and at the same time obtain personalised food recommendations based on their food review
+* Food lovers who want to record their personal food reviews and at the same time obtain personalised food recommendations based on their food review, as well as decide quickly where to eat with personalised food recommendations.
 
 *Value proposition*: Allow all food lovers to have a centralised platform to document their food adventures and experience at each restaurant
 
@@ -615,6 +644,8 @@ A project often depends on third-party libraries. For example, Address Book depe
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+
+"Food lover" refers to the intended users of our application.
 
 [cols="1%,<13%,<25%,<30%",options="header",]
 |=======================================================================
@@ -687,7 +718,7 @@ Use case resumes at step 3 if name and location are valid else repeat step 2a1.
 1. FoodLover enters command to add restaurant by Google Search
 2. FoodDiary asks user to enter name of restaurant
 3. FoodLover enters name
-4. FoodDiary retrieves data from Google, asks User whether details retrieved are correct.
+4. FoodDiary retrieves data from Google, displays retrieved data to User. FoodDiary asks User to verify displayed information as correct.
 5. FoodLover confirms
 6. FoodDiary adds restaurant
 +
@@ -983,7 +1014,7 @@ Use case ends.
 *MSS*
 
 1. FoodLover enters command and index of restaurant
-2. FoodDiary opens up website on one side of the UI
+2. FoodDiary displays website to User.
 +
 Use case ends
 
@@ -1000,13 +1031,19 @@ Use case ends.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Food Lovers with fast typing speed should be able to accomplish tasks with commands faster than with a mouse or GUI.
+.  Food Lovers with fast typing speed should be able to accomplish tasks (such as adding, editing or deleting Restaurants or Reviews) with commands faster than with a mouse or GUI.
 .  All application data should be stored in a human editable text file locally
 .  Primary mode of input should be CLI.
 .  Should not require installation to use the application
 
 [appendix]
 == Glossary
+
+[[fooddiary]] FoodDiary::
+The application that users interact with.
+
+[[foodlover]] FoodLover::
+The intended users of this application
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X

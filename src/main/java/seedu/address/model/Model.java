@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -138,7 +137,6 @@ public interface Model {
      * Applies filtering and chooses the persons that pass at least one of the conditions
      */
     void filterOr(String name, String phone, String email, String address, String[] tagList);
-
 
     /**
      * Selected person in the filtered person list.

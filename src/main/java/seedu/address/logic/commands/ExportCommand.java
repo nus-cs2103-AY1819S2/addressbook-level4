@@ -48,7 +48,7 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         if (parsedInput.getArgIsAll()) {
-            new SaveCommand(parsedInput.getFile()).execute(model, history);
+            new SaveCommand(parsedInput).execute(model, history);
         } else {
             writeFile(createTempAddressBook(model, parsedInput.getParsedIndex()));
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -76,9 +76,9 @@ public class ExportCommand extends Command {
 
     /**
      * createTempAddressBook() creates a temporary address book populated with the specified patients in parsedInput[1]
-     * @param model
-     * @param parsedIndex
-     * @return
+     * @param model the model which contains the current address book.
+     * @param parsedIndex the hashset containing the indexes requested by the user.
+     * @return A temporary model
      */
     private ModelManager createTempAddressBook(Model model, HashSet<Integer> parsedIndex) {
         ModelManager tempModel = new ModelManager();

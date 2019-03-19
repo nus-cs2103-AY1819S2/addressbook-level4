@@ -196,7 +196,8 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPatient(Patient patient) {
         requireNonNull(patient);
-        return this.versionedPatientBook.hasPatient(patient);    }
+        return this.versionedPatientBook.hasPatient(patient);
+    }
 
     @Override
     public void addPatient(Patient patient) {
@@ -213,7 +214,9 @@ public class ModelManager implements Model {
     //  ============================================================================================
 
     @Override
-    public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() { return selectedHealthWorker; }
+    public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() {
+        return selectedHealthWorker;
+    }
 
     @Override
     public void setSelectedHealthWorker(HealthWorker worker) {
@@ -300,7 +303,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Request> getFilteredRequestList() { return filteredRequests; }
+    public ObservableList<Request> getFilteredRequestList() {
+        return filteredRequests;
+    }
 
     /**
      * Returns the user prefs' request book file path.
@@ -402,7 +407,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyProperty<Request> selectedRequestProperty() { return selectedRequest; }
+    public ReadOnlyProperty<Request> selectedRequestProperty() {
+        return selectedRequest;
+    }
 
     @Override
     public void setSelectedRequest(Request request) {

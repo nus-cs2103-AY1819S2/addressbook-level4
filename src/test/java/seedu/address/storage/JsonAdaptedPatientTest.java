@@ -3,8 +3,6 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.JsonAdaptedPatient.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalPatients.BENSON;
-//import static org.junit.Assert.assertFalse;
-//import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;

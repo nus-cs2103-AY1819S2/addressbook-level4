@@ -11,9 +11,9 @@
         "tagged": [],
         "conditions": "Physiotherapy Dialysis "
       },
-      "conditions": "Physiotherapy ",
       "requestStatus": "PENDING",
-      "requestDate": "01-01-2019 10:00:00",
+      "requestDate": "an invalid date!",
+      "conditions": "Physiotherapy",
       "healthWorker": {
         "name": "Andy Tan",
         "phone": "94358253",

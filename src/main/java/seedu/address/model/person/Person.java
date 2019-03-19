@@ -53,16 +53,6 @@ public class Person {
         return address;
     }
 
-    public void setPinStatus() { isPinned=true; }
-
-    public boolean getPinStatus() {
-        return isPinned;
-    }
-
-    public void resetPinStatus(){
-        isPinned=true;
-    }
-
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

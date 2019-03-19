@@ -50,7 +50,8 @@ public class TypicalPatients {
         .withEmail("cornelia@example.com")
         .withPhone("82015737")
         .withNric("S2652663Z")
-        .withConditions(new Conditions(new HashSet<>()))
+        .withConditions(new Conditions(new HashSet<>(
+            Arrays.asList(new ConditionTag("Palliative")))))
         .build();
     public static final Patient ELLE = new PatientBuilder()
         .withName("Elle Meyer")

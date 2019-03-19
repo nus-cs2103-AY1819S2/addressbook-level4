@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.session.Session;
 
 /**
  * Represents the in-memory management of quiz data
@@ -14,6 +15,7 @@ public class QuizModelManager implements QuizModel {
     private static final Logger logger = LogsCenter.getLogger(QuizModelManager.class);
 
     private Quiz quiz;
+    private Session session;
 
     /**
      * Initialises empty QuizModelManager
@@ -26,9 +28,36 @@ public class QuizModelManager implements QuizModel {
 
     // todo include session
     @Override
+    public List<QuizCard> generateSession() {
+        return session.generateSession();
+    }
+
+    @Override
+    public Quiz.Mode getMode() {
+        return session.getMode();
+    }
+
+    @Override
+    public int getCount() {
+        return session.getCount();
+    }
+
+    @Override
+    public String getName() {
+        return session.getName();
+    }
+
+    @Override
     public void init(Quiz quiz) {
         requireAllNonNull(quiz);
         this.quiz = quiz;
+    }
+
+    @Override
+    public void initWithSession(Quiz quiz, Session session) {
+        requireAllNonNull(quiz, session);
+        this.quiz = quiz;
+        this.session = session;
     }
 
     @Override

@@ -13,6 +13,7 @@ public class CardBuilder {
 
     public static final List<String> DEFAULT_CORE = List.of("Belgium", "Brussels");
     public static final List<String> DEFAULT_OPTIONAL = List.of("B");
+    public static final int DEFAULT_HASHCODE = 1;
 
     private List<String> cores;
     private List<String> optionals;

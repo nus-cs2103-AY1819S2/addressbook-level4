@@ -12,7 +12,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
-import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ManagementModeParserTest {
@@ -57,10 +56,10 @@ public class ManagementModeParserTest {
     //        assertTrue(parser.parse(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
     //        assertTrue(parser.parse("undo 3") instanceof UndoCommand);
     //    }
-    @Test
+    /*@Test
     public void parseCommand_start() throws Exception {
         assertTrue(parser.parse(QuizStartCommand.COMMAND_WORD) instanceof QuizStartCommand);
-    }
+    }*/
 
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {

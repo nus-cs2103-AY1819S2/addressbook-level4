@@ -11,7 +11,7 @@ public class CardSrsData {
     private int numOfAttempts; // Number of attempts for this Card by a User
     private int streak;
     private Instant srsDueDate; // SRS Due Date for a User
-    private HashMap <Integer, CardSrsData> cardmap = new HashMap<>();
+    private HashMap <Integer, CardSrsData> cardMap = new HashMap<>();
 
     /**
      * Constructor for the CardData
@@ -27,7 +27,18 @@ public class CardSrsData {
         this.streak = streak;
         this.srsDueDate = srsDueDate;
     }
+    /**
+     * Function for session management to get list of card datas
+     * @param hashCode must be given
+     * @return card from hashmap
+     */
+    public CardSrsData getCard(int hashCode) {
+        return cardMap.get(hashCode);
+    }
 
+    public void setCard(int hashCode, CardSrsData values) {
+        cardMap.put(hashCode, values);
+    }
 
     public int getHashCode() {
         return hashCode;
@@ -48,7 +59,11 @@ public class CardSrsData {
     public void setStreak(int streak) {
         this.streak = streak;
     }
-
+    /*@Override
+    public boolean equals(Object obj) {
+        CardSrsData other = (CardSrsData) obj;
+        return other.getHashCode() == this.getHashCode();
+    }*/
     public Instant getSrsDueDate() {
         return srsDueDate;
     }

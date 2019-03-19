@@ -23,6 +23,7 @@ import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.session.Session;
 import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.TypicalLessons;
 
@@ -174,9 +175,44 @@ public class AddLessonCommandTest {
      */
     private class QuizModelStub implements QuizModel {
         /**
+         * This method should not be called.
+         */
+        public List<QuizCard> generateSession() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * This method should not be called.
+         */
+        public Quiz.Mode getMode() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * This method should not be called.
+         */
+        public int getCount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * This method should not be called.
+         */
+        public String getName() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
          * Sets the {@code Quiz} information.
          */
         public void init(Quiz quiz) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        /**
+         * Sets the {@code Quiz} and {@code Session} information.
+         */
+        public void initWithSession(Quiz quiz, Session session) {
             throw new AssertionError("This method should not be called.");
         }
 

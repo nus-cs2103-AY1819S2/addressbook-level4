@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.modelmanager.quiz.Quiz;
 
 public class ParserUtilTest {
     @Rule
@@ -35,5 +36,19 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_SECOND_LESSON, ParserUtil.parseIndex("  2  "));
+    }
+
+    @Test
+    public void parserUtil() {
+        final String name = "01-01-learn";
+        final String count = "1";
+        final String mode = "learn";
+        ParserUtil parserUtil = new ParserUtil();
+        String expectedName = parserUtil.parseName(name);
+        assertEquals(expectedName, name);
+        int expectedCount = parserUtil.parseCount(count);
+        assertEquals(expectedCount, 1);
+        Quiz.Mode expectedMode = parserUtil.parseMode(mode);
+        assertEquals(expectedMode, Quiz.Mode.LEARN);
     }
 }

@@ -191,6 +191,16 @@ public class AddPersonCommandTest {
         }
 
         @Override
+        public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedHealthWorker(HealthWorker worker) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -244,6 +254,11 @@ public class AddPersonCommandTest {
 
         @Override
         public void setSelectedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Request> getFilteredRequestList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -333,6 +348,16 @@ public class AddPersonCommandTest {
         @Override
         public void commitRequestBook() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Request> selectedRequestProperty() {
+            return null;
+        }
+
+        @Override
+        public void setSelectedRequest(Request request) {
+
         }
     }
 

@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w10-4/main
 
-By: `Team W10-4`      Since: `Feb 2019`      Licence: `MIT`
+By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 
 == Introduction
 
@@ -24,7 +24,24 @@ Head over to <<Quick Start>> to get started!
 
 == Quick Start
 
-Coming in v2.0
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the latest `know-it-all.jar` here (to be coming in v2.0).
+.  Copy the file to the folder you want to use as the home folder for *Know-It-All*.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
+
+* *`change`* `1` : enter the 1st flashcard folder
+* *`list`* : lists all flashcards in that folder
+* **`add`**`q/How many chambers are there in a heart? a/Four` : adds a new flashcard to the current folder.
+* **`delete`**`3` : deletes the 3rd flashcard shown in the current folder
+* *`exit`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -126,12 +143,11 @@ Format: `test [FOLDER_INDEX]`
 Examples:
 
 * `test 1` +
-Starts a session by displaying a flashcard (both question and hint) from the first folder where 20
-seconds is given to each card to be answered.
+Starts a session by displaying a flashcard (both question and hint) from the 1st folder where 20 seconds is given to each card to be answered.
 
 **Hint Toggle On / Off Feature** `To be coming in v2.0`
 
-When extra help is needed and familiarity with the content is not yet established, hints can be toggled on during a test session when a ‘-hint’ is added on at the end of the test command. Hint will be displayed along with the question when the card is presented.
+When extra help is needed and familiarity with the content is not yet established hints can be toggled on during a test session when a ‘-hint’ is added on at the end of the test command. Hint will be displayed along with the question when the card is presented.
 
 Format: `test [FOLDER_INDEX] [-hint]`
 
@@ -139,10 +155,9 @@ Format: `test [FOLDER_INDEX] [-hint]`
 
 To reinforce learning and enable a more engaging experience with Know-It-All, one can input an answer for the
 currently displayed flashcard question. Know-It-All compares the attempt with the correct answer in that card and
-shows if it is correct or wrong. +
+shows if it is correct or wrong.
 
-The total number of attempts will be incremented. If the answer is correct, the
-number of correct attempts will also be incremented of this card.
+The total number of attempts will be incremented. If the answer is correct, the number of correct attempts will also be incremented.
 
 Format: `ans ANSWER`
 
@@ -150,7 +165,6 @@ Examples:
 
 * `ans Mitochondrion` +
 In response to the card question: What is the powerhouse of the cell?
-
 
 [TIP]
 Answer matching is case insensitive. +

@@ -210,6 +210,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleWrongAnswer() {
         //TODO: Change UI to display wrong answer
+        assert testSession != null;
+        testSession.handleWrongAnswer();
     }
 
     private void updateCardListPanel() {

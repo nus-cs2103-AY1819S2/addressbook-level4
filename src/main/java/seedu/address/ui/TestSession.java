@@ -13,7 +13,7 @@ public class TestSession extends UiPart<Region> {
 
     private static final String FXML = "TestSession.fxml";
     private static final String MESSAGE_CORRECT_ANSWER = "\"Wow you answered correctly, so smart\"";
-    private static final String MESSAGE_WRONG_ANSWER = "\"Better luck next time!\"";
+    private static final String MESSAGE_WRONG_ANSWER = "\"Wrong answer, better luck next time!\"";
 
     private Card cardToTest; //final?
 
@@ -47,11 +47,20 @@ public class TestSession extends UiPart<Region> {
     }
 
     /**
-     * Updates the UI to show the answer for a correctly answered card
+     * Updates the UI to show the answer for a correctly answered card.
      */
     public void handleCorrectAnswer() {
         testSessionPage.setStyle("-fx-background-color: #47AB6C;");
         testMessage.setText(MESSAGE_CORRECT_ANSWER);
+        testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
+    }
+
+    /**
+     * Updates the UI to show the answer for a wrongly answered card.
+     */
+    public void handleWrongAnswer() {
+        testSessionPage.setStyle("-fx-background-color: #ED553B;");
+        testMessage.setText(MESSAGE_WRONG_ANSWER);
         testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
     }
 }

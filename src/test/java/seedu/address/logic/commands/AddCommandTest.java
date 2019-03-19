@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyArchiveBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -138,6 +139,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getArchiveBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setArchiveBookFilePath(Path archiveBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setArchiveBook(ReadOnlyArchiveBook archiveBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyArchiveBook getArchiveBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -168,6 +189,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getFilteredArchivedPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredArchivedPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
@@ -189,6 +220,21 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoArchiveBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoArchiveBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitArchiveBook() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -246,6 +292,11 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            // called by {@code AddCommand#execute()}
+        }
+
+        @Override
+        public void commitArchiveBook() {
             // called by {@code AddCommand#execute()}
         }
 

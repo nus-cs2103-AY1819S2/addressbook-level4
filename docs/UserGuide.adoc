@@ -43,15 +43,18 @@ Format: `help`
 
 === Adding a flashcard : `add`
 
-Adds a flashcard to the current folder. +
+Adds a flashcard to the current folder.
+
 Format: `add q/QUESTION a/ANSWER [h/HINT]...`
 
 [TIP]
 A card can have at most 1 hint (including 0)
 
+
 === Editing a flashcard : `edit`
 
-Edits the flashcard specified by the index in the current folder. +
+Edits the flashcard specified by the index in the current folder.
+
 Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]...`
 
 ****
@@ -62,40 +65,55 @@ Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]...`
 * You can remove the card's hint by typing `h/` without specifying any hint after it.
 ****
 
+
 === Selecting a flashcard : `select`
 
-Displays flashcard details(question, answer, hint, user performance) on the right panel on selection by index. +
+Displays flashcard details(question, answer, hint, user performance) on the right panel on selection by index.
+
 Format: `select INDEX`
+
 
 === Deleting a flashcard : `delete`
 
-Deletes the flashcard identified by index from the current folder. +
+Deletes the flashcard identified by index from the current folder.
+
 Format: `delete INDEX`
+
 
 === Create new folder : `addfolder`
 
-Creates a new flashcard folder with the specified question. +
+Creates a new flashcard folder with the specified question.
+
 Format: `addfolder FOLDER_NAME`
+
 
 === Remove folder : `removefolder`
 
-Removes the flashcard folder specified by index. +
+Removes the flashcard folder specified by index.
+
 Format: `removefolder FOLDER_INDEX`
+
 
 === Report user performance for folder : `report`
 
-Displays user performance on the right panel for the folder specified by index. +
+Displays user performance on the right panel for the folder specified by index.
+
 Format: `report FOLDER_INDEX`
+
 
 === Enter folder : `change`
 
-Changes to the folder specified by index. Left panel will display the list of cards in that folder. +
+Changes to the folder specified by index. Left panel will display the list of cards in that folder.
+
 Format: `change FOLDER_INDEX`
+
 
 === Exit folder : `change ..`
 
-Return to the root directory (exit the current folder). Left panel will display the list of folders. +
+Return to the root directory (exit the current folder). Left panel will display the list of folders.
+
 Format: `change ..`
+
 
 === Test flashcards in a folder : `test`
 
@@ -166,18 +184,24 @@ There is no backtracking in the current session so there is no `prev` command.
 
 ==== End the current session : `end`
 
-Quits the current test session. +
+Quits the current test session.
+
 Format: `end`
+
 
 === Sort cards by level within a folder : `sort`
 
-Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily. +
+Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.
+
 Format: `sort`
+
 
 === Search by keywords : `search`
 
-At the root directory, searches for folders using keywords in folder names. Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions. +
+At the root directory, searches for folders using keywords in folder names. Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions.
+
 Format: `search KEYWORDS [MORE_KEYWORDS]`
+
 
 === List flashcards : `list`
 
@@ -191,10 +215,13 @@ Format: `import FILENAME`
 
 === Export flashcards : `export`
 
-Creates a json file containing the flashcards from the specified folder, which can later be imported. +
+Creates a json file containing the flashcards from the specified folder, which can later be imported.
+
 Format: `export FOLDER_INDEX FILENAME`
+
 
 === Exiting the program : `exit`
 
-Exits the program. +
+Exits the program.
+
 Format: `exit`

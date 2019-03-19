@@ -1,9 +1,5 @@
 package guitests.guihandles;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,9 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.restaurant.Restaurant;
-import seedu.address.model.review.Entry;
-import seedu.address.model.review.Rating;
-import seedu.address.model.review.Review;
 
 /**
  * Provides a handle to a restaurant card in the restaurant list panel.
@@ -27,7 +20,6 @@ public class RestaurantCardHandle extends NodeHandle<Node> {
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
-    private static final String REVIEWS_FIELD_ID = "#reviews";
 
     private final Label idLabel;
     private final Label nameLabel;
@@ -35,7 +27,6 @@ public class RestaurantCardHandle extends NodeHandle<Node> {
     private final Label phoneLabel;
     private final Label emailLabel;
     private final List<Label> tagLabels;
-    private final List<Label> reviewLabels;
 
     public RestaurantCardHandle(Node cardNode) {
         super(cardNode);
@@ -48,13 +39,6 @@ public class RestaurantCardHandle extends NodeHandle<Node> {
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
-                .getChildrenUnmodifiable()
-                .stream()
-                .map(Label.class::cast)
-                .collect(Collectors.toList());
-
-        Region reviewsContainer = getChildNode(REVIEWS_FIELD_ID);
-        reviewLabels = reviewsContainer
                 .getChildrenUnmodifiable()
                 .stream()
                 .map(Label.class::cast)
@@ -88,22 +72,6 @@ public class RestaurantCardHandle extends NodeHandle<Node> {
                 .collect(Collectors.toList());
     }
 
-    public List<Review> getReviews() {
-        Iterator<Label> labelIterator = reviewLabels.iterator();
-        List<Review> reviews = new ArrayList<>();
-
-        // Read in every 3 labels to construct a list of Reviews
-        // @TODO ensure that list of reviewLabels is in multiples of 3 and in the order timeStamp, rating, entry
-        while (labelIterator.hasNext()) {
-            Timestamp timeStamp = Timestamp.valueOf(LocalDateTime.parse(labelIterator.next().getText()));
-            Rating rating = new Rating(labelIterator.next().getText());
-            Entry entry = new Entry(labelIterator.next().getText());
-            reviews.add(new Review(entry, rating, timeStamp));
-        }
-
-        return reviews;
-    }
-
     /**
      * Returns true if this handle contains {@code restaurant}.
      */
@@ -114,7 +82,6 @@ public class RestaurantCardHandle extends NodeHandle<Node> {
                 && getEmail().equals(restaurant.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(restaurant.getTags().stream()
                         .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())))
-                && ImmutableMultiset.copyOf(getReviews()).equals(ImmutableMultiset.copyOf(restaurant.getReviews()));
+                        .collect(Collectors.toList())));
     }
 }

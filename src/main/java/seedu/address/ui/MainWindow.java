@@ -131,7 +131,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
-        questionPanel = new QuestionPanel();
+//        questionPanel = new QuestionPanel();
 //        questionPanelPlaceholder.getChildren().add(questionPanel.getRoot());
 
     }

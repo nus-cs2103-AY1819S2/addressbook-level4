@@ -26,12 +26,21 @@ public class QuestionPanel extends UiPart<Region> {
 
 
     private static final String FXML = "QuestionPanel.fxml";
+    @FXML
+    private HBox questionPane;
 
+    @FXML
+    private Label question;
+
+    @FXML
+    private Label id;
 
 
     public QuestionPanel() {
         super(FXML);
 
+        id.setText("QUESTION");
+        question.setText("Some question");
     }
 
 }

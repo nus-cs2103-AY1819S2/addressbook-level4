@@ -13,7 +13,7 @@ import seedu.address.model.flashcard.Flashcard;
 /**
  * Provides a handle to a flashcard card in the flashcard list panel.
  */
-public class FlashcardCardHandle extends NodeHandle<Node> {
+public class FlashcardListCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String FRONTFACE_FIELD_ID = "#frontFace";
     private static final String BACKFACE_FIELD_ID = "#backFace";
@@ -24,7 +24,7 @@ public class FlashcardCardHandle extends NodeHandle<Node> {
     private final Label backFaceLabel;
     private final List<Label> tagLabels;
 
-    public FlashcardCardHandle(Node cardNode) {
+    public FlashcardListCardHandle(Node cardNode) {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);

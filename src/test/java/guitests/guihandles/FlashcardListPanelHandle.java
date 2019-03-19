@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.address.model.flashcard.Flashcard;
 
 /**
- * Provides a handle for {@code FlashcardListPanel} containing the list of {@code FlashcardCard}.
+ * Provides a handle for {@code FlashcardListPanel} containing the list of {@code FlashcardListCard}.
  */
 public class FlashcardListPanelHandle extends NodeHandle<ListView<Flashcard>> {
     public static final String FLASHCARD_LIST_VIEW_ID = "#flashcardListView";
@@ -23,13 +23,13 @@ public class FlashcardListPanelHandle extends NodeHandle<ListView<Flashcard>> {
     }
 
     /**
-     * Returns a handle to the selected {@code FlashcardCardHandle}.
+     * Returns a handle to the selected {@code FlashcardListCardHandle}.
      * A maximum of 1 item can be selected at any time.
      *
      * @throws AssertionError        if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public FlashcardCardHandle getHandleToSelectedCard() {
+    public FlashcardListCardHandle getHandleToSelectedCard() {
         List<Flashcard> selectedFlashcardList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedFlashcardList.size() != 1) {
@@ -37,7 +37,7 @@ public class FlashcardListPanelHandle extends NodeHandle<ListView<Flashcard>> {
         }
 
         return getAllCardNodes().stream()
-            .map(FlashcardCardHandle::new)
+            .map(FlashcardListCardHandle::new)
             .filter(handle -> handle.equals(selectedFlashcardList.get(0)))
             .findFirst()
             .orElseThrow(IllegalStateException::new);
@@ -71,9 +71,7 @@ public class FlashcardListPanelHandle extends NodeHandle<ListView<Flashcard>> {
             throw new IllegalArgumentException("Flashcard does not exist.");
         }
 
-        guiRobot.interact(() -> {
-            getRootNode().scrollTo(flashcard);
-        });
+        guiRobot.interact(() -> getRootNode().scrollTo(flashcard));
         guiRobot.pauseForHuman();
     }
 
@@ -85,14 +83,12 @@ public class FlashcardListPanelHandle extends NodeHandle<ListView<Flashcard>> {
             throw new IllegalArgumentException("Index is out of bounds.");
         }
 
-        guiRobot.interact(() -> {
-            getRootNode().scrollTo(index);
-        });
+        guiRobot.interact(() -> getRootNode().scrollTo(index));
         guiRobot.pauseForHuman();
     }
 
     /**
-     * Selects the {@code FlashcardCard} at {@code index} in the list.
+     * Selects the {@code FlashcardListCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
@@ -103,9 +99,9 @@ public class FlashcardListPanelHandle extends NodeHandle<ListView<Flashcard>> {
      *
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public FlashcardCardHandle getFlashcardCardHandle(int index) {
+    public FlashcardListCardHandle getFlashcardCardHandle(int index) {
         return getAllCardNodes().stream()
-            .map(FlashcardCardHandle::new)
+            .map(FlashcardListCardHandle::new)
             .filter(handle -> handle.equals(getFlashcard(index)))
             .findFirst()
             .orElseThrow(IllegalStateException::new);
@@ -125,7 +121,7 @@ public class FlashcardListPanelHandle extends NodeHandle<ListView<Flashcard>> {
     }
 
     /**
-     * Remembers the selected {@code FlashcardCard} in the list.
+     * Remembers the selected {@code FlashcardListCard} in the list.
      */
     public void rememberSelectedFlashcardCard() {
         List<Flashcard> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
@@ -138,7 +134,7 @@ public class FlashcardListPanelHandle extends NodeHandle<ListView<Flashcard>> {
     }
 
     /**
-     * Returns true if the selected {@code FlashcardCard} is different from the value remembered by the most recent
+     * Returns true if the selected {@code FlashcardListCard} is different from the value remembered by the most recent
      * {@code rememberSelectedFlashcardCard()} call.
      */
     public boolean isSelectedFlashcardCardChanged() {

@@ -3,8 +3,6 @@ package seedu.address.model.flashcard;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.Objects;
-
 /**
  * Represents a Flashcard's face in the card collection.
  * Guarantees: immutable
@@ -38,12 +36,6 @@ public class Face {
     }
 
     @Override
-    public String toString() {
-        return "Face{"
-            + "text='" + text + "'}";
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -53,10 +45,5 @@ public class Face {
         }
         Face face = (Face) o;
         return text.equals(face.text);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(text);
     }
 }

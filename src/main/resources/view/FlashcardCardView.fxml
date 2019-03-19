@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/10.0.1">
+    <AnchorPane opacity="0.8" prefHeight="200.0" prefWidth="300.0"
+                style="-fx-background-color: white; -fx-background-radius: 30;">
+        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <Label fx:id="frontFace" alignment="CENTER"
+                   style="-fx-text-fill: black; -fx-opacity: 1.0; -fx-font-size: 30pt;" text="\$frontText"
+                   textAlignment="CENTER">
+                <font>
+                    <Font size="30.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets bottom="25.0"/>
+                </HBox.margin>
+            </Label>
+        </HBox>
+        <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="7.0">
+            <Label fx:id="backFace" style="-fx-font-size: 20pt;" text="\$backText" textAlignment="CENTER">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets top="100.0"/>
+                </HBox.margin>
+            </Label>
+        </HBox>
+    </AnchorPane>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+</StackPane>

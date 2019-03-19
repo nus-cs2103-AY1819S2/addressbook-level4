@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -36,6 +37,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     @FXML
     private StackPane cardViewPlaceholder;
 
@@ -54,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
+    @FXML
+    private MenuBar menuBar;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -64,9 +71,22 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
+        setupToolbar();
+
         setAccelerators();
 
         helpWindow = new HelpWindow();
+    }
+
+    private void setupToolbar() {
+        menuBar.setOnMousePressed(mouseEvent -> {
+            xOffset = mouseEvent.getSceneX();
+            yOffset = mouseEvent.getSceneY();
+        });
+        menuBar.setOnMouseDragged(mouseEvent -> {
+            getPrimaryStage().setX(mouseEvent.getScreenX() - xOffset);
+            getPrimaryStage().setY(mouseEvent.getScreenY() - yOffset);
+        });
     }
 
     public Stage getPrimaryStage() {

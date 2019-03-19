@@ -5,14 +5,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalFlashcards;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_FLASHCARD;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysFlashcard;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListCardDisplaysFlashcard;
 
 import java.util.Collections;
 
 import org.junit.Test;
 
-import guitests.guihandles.FlashcardCardHandle;
+import guitests.guihandles.FlashcardListCardHandle;
 import guitests.guihandles.FlashcardListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -37,9 +37,9 @@ public class FlashcardListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_FLASHCARDS.size(); i++) {
             flashcardListPanelHandle.navigateToCard(TYPICAL_FLASHCARDS.get(i));
             Flashcard expectedFlashcard = TYPICAL_FLASHCARDS.get(i);
-            FlashcardCardHandle actualCard = flashcardListPanelHandle.getFlashcardCardHandle(i);
+            FlashcardListCardHandle actualCard = flashcardListPanelHandle.getFlashcardCardHandle(i);
 
-            assertCardDisplaysFlashcard(expectedFlashcard, actualCard);
+            assertListCardDisplaysFlashcard(expectedFlashcard, actualCard);
             assertEquals((i + 1) + ". ", actualCard.getId());
         }
     }
@@ -51,9 +51,9 @@ public class FlashcardListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedFlashcard.set(secondFlashcard));
         guiRobot.pauseForHuman();
 
-        FlashcardCardHandle expectedFlashcard =
+        FlashcardListCardHandle expectedFlashcard =
             flashcardListPanelHandle.getFlashcardCardHandle(INDEX_SECOND_FLASHCARD.getZeroBased());
-        FlashcardCardHandle selectedFlashcard = flashcardListPanelHandle.getHandleToSelectedCard();
+        FlashcardListCardHandle selectedFlashcard = flashcardListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedFlashcard, selectedFlashcard);
     }
 

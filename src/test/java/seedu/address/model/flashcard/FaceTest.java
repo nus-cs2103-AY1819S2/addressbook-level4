@@ -33,4 +33,20 @@ public class FaceTest {
         assertTrue(Face.isValidFace("Hello"));
         assertTrue(Face.isValidFace("你好"));
     }
+
+    @Test
+    public void equals() {
+        Face face = new Face("Hello");
+        // same object equals
+        assertTrue(face.equals(face));
+
+        // null object false
+        assertFalse(face.equals(null));
+
+        // different class false
+        assertFalse(face.equals(1));
+
+        // same text true
+        assertTrue(face.equals(new Face("Hello")));
+    }
 }

@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.StatsCommand.MESSAGE_STATISTICS_FORMAT;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
@@ -24,11 +25,22 @@ public class StatsCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute() throws Exception {
+    public void execute() {
         double successRate = getOverallSuccessRateFromModel(model);
         String feedbackToUser = String.format(MESSAGE_STATISTICS_FORMAT, successRate);
         CommandResult expectedCommandResult = new CommandResult(feedbackToUser, false, false);
         assertCommandSuccess(new StatsCommand(), model, commandHistory, expectedCommandResult, expectedModel);
+    }
+
+    @Test
+    public void equals() {
+        StatsCommand command = new StatsCommand();
+
+        // same object true
+        assertTrue(command.equals(command));
+
+        // different object true
+        assertTrue(command.equals(new StatsCommand()));
     }
 
     private double getOverallSuccessRateFromModel(Model model) {

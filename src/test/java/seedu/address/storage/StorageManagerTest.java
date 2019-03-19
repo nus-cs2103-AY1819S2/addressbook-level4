@@ -86,14 +86,17 @@ public class StorageManagerTest {
         assertNotNull(storageManager.getMenuFilePath());
     }
 
+    @Test
     public void getOrdersFilePath() {
         assertNotNull(storageManager.getOrdersFilePath());
     }
 
+    @Test
     public void getTableFilePath() {
         assertNotNull(storageManager.getTableFilePath());
     }
 
+    @Test
     public void getStatisticsFilePath() {
         assertNotNull(storageManager.getStatisticsFilePath());
     }

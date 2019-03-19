@@ -19,12 +19,6 @@ public class MenuItemTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        MenuItem menuItem = new MenuItemBuilder().build();
-        thrown.expect(UnsupportedOperationException.class);
-    }
-
-    @Test
     public void isSameMenuItem() {
         // same object -> returns true
         assertTrue(SALAD.isSameMenuItem(SALAD));

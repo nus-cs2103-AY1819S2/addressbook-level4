@@ -34,9 +34,9 @@ public class EditPersonDescriptorBuilder {
     public EditPersonDescriptorBuilder(Pdf pdf) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(pdf.getName());
-        descriptor.setDirectory(pdf.getDirectory());
         descriptor.setTags(pdf.getTags());
-        /*descriptor.setPhone(pdf.getPhone());
+        /*descriptor.setDirectory(pdf.getDirectory());
+        descriptor.setPhone(pdf.getPhone());
         descriptor.setEmail(pdf.getEmail());
         descriptor.setAddress(pdf.getAddress());*/
     }
@@ -73,14 +73,14 @@ public class EditPersonDescriptorBuilder {
     //        descriptor.setAddress(new Address(address));
     //        return this;
     //    }
-
-    /**
-     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
-     */
-    public EditPersonDescriptorBuilder withDirectory(String directory) {
-        descriptor.setDirectory(new Directory(directory));
-        return this;
-    }
+    //
+    //    /**
+    //     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+    //     */
+    //    public EditPersonDescriptorBuilder withDirectory(String directory) {
+    //        descriptor.setDirectory(new Directory(directory));
+    //        return this;
+    //    }
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}

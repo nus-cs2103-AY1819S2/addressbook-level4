@@ -215,11 +215,16 @@ public class ParserUtil {
         File file = new File(newPath.concat(filePath));
 
         final String jsonRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)$";
+        final String pdfRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(pdf)$";
 
-        if (!filePath.matches(jsonRegex)) {
-            throw new ParseException("Input file type is not a .json");
-        } else {
+        if (filePath.matches(jsonRegex)) {
             return new ParsedInOut(file, "json");
+        } else {
+            if (filePath.matches(jsonRegex)) {
+                return new ParsedInOut(file, "pdf");
+            } else {
+                throw new ParseException("Input file type is not a .json or .pdf");
+            }
         }
     }
 
@@ -235,12 +240,12 @@ public class ParserUtil {
         String filepath = "";
         String fileType = "";
 
-        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s?([0-9,-]*)?$";
-        final String allRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s(all)$";
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s?([0-9,-]*)?$";
+        final String allRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s(all)$";
 
         if (!input.matches(validationRegex)) {
             if (input.matches(allRegex)) {
-                final Pattern splitRegex = Pattern.compile("^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s(all)$");
+                final Pattern splitRegex = Pattern.compile("^([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s(all)$");
                 Matcher splitMatcher = splitRegex.matcher(input);
 
                 if (splitMatcher.find()) {
@@ -251,14 +256,14 @@ public class ParserUtil {
                     return new ParsedInOut(new File(filepath), fileType);
                 } else {
                     // This shouldn't be possible after validationRegex
-                    throw new ParseException("Input file type is not a .json");
+                    throw new ParseException("Input file type is not a .json or .pdf");
                 }
             } else {
-                throw new ParseException("Input file type is not a .json");
+                throw new ParseException("Input file type is not a .json or .pdf");
             }
         }
 
-        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(json)+\\s?([0-9,-]*)?");
+        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s?([0-9,-]*)?");
         Matcher splitMatcher = splitRegex.matcher(input);
         String indexRange = "";
 
@@ -270,7 +275,7 @@ public class ParserUtil {
             indexRange = splitMatcher.group(3);
         } else {
             // This shouldn't be possible after validationRegex
-            throw new ParseException("Input file type is not a .json");
+            throw new ParseException("Input file type is not a .json or .pdf");
         }
 
         HashSet<Integer> parsedIndex = new HashSet<>();

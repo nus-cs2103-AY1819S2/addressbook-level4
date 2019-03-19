@@ -56,7 +56,7 @@ public class BrowserPanel extends UiPart<Region> {
     private void loadRestaurantPage(Restaurant restaurant) {
         /*loadPage(SEARCH_PAGE_URL + restaurant.getName().fullName);*/
         if (restaurant.getWeblink().value.equalsIgnoreCase(Weblink.NO_WEBLINK_STRING)) {
-            loadDefaultPage();
+            loadPage(SEARCH_PAGE_URL + restaurant.getName().fullName);
         } else {
             loadPage(restaurant.getWeblink().value);
         }

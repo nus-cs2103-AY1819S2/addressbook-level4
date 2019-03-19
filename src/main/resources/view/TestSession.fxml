@@ -12,5 +12,7 @@
       </Label>
       <Label fx:id="testCardAnswer" styleClass="label-dark" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
       </Label>
+      <Label fx:id="testMessage" styleClass="label-dark" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="CENTER">
+      </Label>
    </children>
 </GridPane>

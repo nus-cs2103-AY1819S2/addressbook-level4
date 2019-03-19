@@ -179,13 +179,14 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 ==== Searching persons by personal information: `search`
 
 Search persons whose personal information exactly to the given keywords in the specific fields. +
-Format: `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...`
+Format: `search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [g/GENDER] [r/RACE] [s/SCHOOL] [m/MAJOR]...`
 
 ****
 * The search is case insensitive. e.g `cs` will match `CS`
 * Any personal information is searched.
 * Only full information will be matched e.g. `computer` will not match `Computer Science`
-* Persons matching all keywords will be returned (i.e. `AND` search).
+* In each field, persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* In whole command, persons matching all fields will be returned (i.e. `AND` search). e.g. `m/CS s/NUS` will only return persons who are NUS's CS students.
 ****
 
 Examples:

@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public class CloseDeckCommand extends Command {
 
-    public static final String COMMAND_WORD = "close";
+    public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": End your study state and return to the main page.\n"

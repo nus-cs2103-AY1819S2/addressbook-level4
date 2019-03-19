@@ -10,14 +10,10 @@ package seedu.address.logic.commands;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-<<<<<<< HEAD
-import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
-import static seedu.address.testutil.TypicalIndexes.*;
-=======
-//import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+
+//import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 //import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
->>>>>>> 1901883bc882a6696238f8518d7b4c40170ec76d
 import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -247,12 +243,8 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PDF, DESC_AMY)));
 
         // different descriptor -> returns false
-<<<<<<< HEAD
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PDF, DESC_BOB)));
-    }
-=======
+
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
     }*/
->>>>>>> 1901883bc882a6696238f8518d7b4c40170ec76d
 
 }

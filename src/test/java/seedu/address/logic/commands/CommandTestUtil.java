@@ -2,18 +2,11 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-<<<<<<< HEAD
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
-=======
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
->>>>>>> 1901883bc882a6696238f8518d7b4c40170ec76d
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.nio.file.Paths;
@@ -72,12 +65,6 @@ public class CommandTestUtil {
     public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
     public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;
 
-<<<<<<< HEAD
-    public static final String NAME_DESC_A = " " + PREFIX_NAME + VALID_NAME_AMY;
-=======
-    /*public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
->>>>>>> 1901883bc882a6696238f8518d7b4c40170ec76d
-    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     /*public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;

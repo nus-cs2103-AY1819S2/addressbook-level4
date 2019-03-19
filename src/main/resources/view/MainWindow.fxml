@@ -54,6 +54,7 @@
             </padding>
             <StackPane><Text text="Your board" fill="white"></Text></StackPane>
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="statusbarPlaceholder2" VBox.vgrow="NEVER" />
           </VBox>
 
           <VBox fx:id="enemyMap" minWidth="400" prefWidth="400" SplitPane.resizableWithParent="false">

@@ -42,7 +42,7 @@ public class TestSession extends UiPart<Region> {
     public void displayCard(Card cardToTest) {
         testSessionPage.getChildren().clear();
         testCardQuestion.setText(cardToTest.getQuestion().fullQuestion);
-        testCardAnswer.setText("Correct answer: " + cardToTest.getAnswer().fullAnswer);
+        testCardAnswer.setText("Correct answer:\n" + cardToTest.getAnswer().fullAnswer);
         testSessionPage.getChildren().add(testCardQuestion);
     }
 

@@ -28,9 +28,17 @@
     -fx-opacity: 1;
 }
 
-.label-test {
+.label-test-ans {
     -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+    -fx-text-alignment: "center";
+}
+
+.label-test {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI";
     -fx-text-fill: black;
     -fx-opacity: 1;
 }

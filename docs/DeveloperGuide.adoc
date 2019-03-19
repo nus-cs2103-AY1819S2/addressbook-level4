@@ -228,6 +228,45 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Stateful user interface
+==== Introduction
+
+TopDeck has a stateful user interface.
+This means that the set of valid commands and their respective functionality
+depend on the context of the application state.
+
+For example, the command word `add` is "overloaded" with two capabilities:
+
+- Add a new deck: `add DECK_NAME`
+- Add a new card to a particular deck: `add q/QUESTION a/ANSWER`
+
+The state in TopDeck determines which command is called.
+The second command does not take the target deck as an argument as it is implicit in the state.
+
+==== Current Implementation
+
+States in TopDeck partition the functionalities that are exposed to a user.
+The states are: decks view, cards view and study view.
+Their responsibilites should be self-descriptive.
+The following figure illustrates the transitions between these states.
+
+.State diagram for TopDeck
+[plantuml]
+....
+(*) --> "Decks view"
+"Decks view" --> [Open] "Cards view"
+"Cards view" --> [Close] "Decks view"
+"Decks view" -> [Study] "Study view"
+"Study view" -> [Finish study] "Decks view"
+....
+
+These states are implemented as subtypes of `ViewState`.
+Each state holds transient data that is relevant only while the state is active.
+For example, `CardsView` has `activeDeck` which is the deck that commands such as `add` operate on.
+
+ModelManager owns the one instance of `ViewState` and exposes methods to handle state transitions.
+This abstraction barrier allows `ModelManager` to enforce mutual exclusion.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

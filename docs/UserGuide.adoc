@@ -71,6 +71,11 @@ Format: `add q/QUESTION a/ANSWER [h/HINT]`
 * A card can have at most 1 hint (including 0)
 ====
 
+Examples:
+
+* `add q/Hello? a/World`
+* `add q/The cat ___ on the mat a/sat h/poetry`
+
 
 ==== Editing a flashcard : `edit`
 
@@ -86,6 +91,13 @@ Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 * You can remove the card's hint by typing `h/` without specifying any hint after it.
 ====
 
+Examples:
+
+* `edit 1 a/Skin h/` +
+Edits the answer of the 1st card to be 'Skin' and removes the hint associated, if any.
+* `edit 2 h/history q/Who discovered Penicillin? a/Alexander Fleming` +
+Edits the hint, question and answer of the 2nd card respectively.
+
 
 ==== Selecting a flashcard : `select`
 
@@ -95,14 +107,25 @@ Format: `select INDEX`
 
 Examples:
 
-* `select  2` +
-Selects the 2nd flashcard in the folder.
+* `list` +
+`select 2` +
+Selects the 2nd card in the current folder
 
 ==== Deleting a flashcard : `delete`
 
 Deletes the flashcard identified by index from the current folder.
 
 Format: `delete INDEX`
+
+****
+* Deletes the card at the specified `INDEX`.
+* The index refers to the index number shown in the displayed card list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+* `list` +
+`delete 2` +
+Deletes the 2nd card in the address book.
 
 ==== Sort cards by score within a folder : `sort`
 
@@ -303,6 +326,56 @@ Format: `import FILENAME`
 Creates a json file containing the flashcards from the specified folder, which can later be imported.
 
 Format: `export FOLDER_INDEX FILENAME`
+
+// tag::undoredo[]
+=== Undoing previous command : `undo`
+
+Restores the application to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the card folder's content (`add`, `delete` and `edit`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
 
 ==== Viewing help : `help`
 

@@ -15,7 +15,7 @@ public class Major {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Not among list of possible majors.";
-    private static final String[] POSSIBLE_MAJORS = {"CS", "ME", "MATH", "ECON", "Computer Science"};
+    private static final String[] POSSIBLE_MAJORS = {"CS", "ME", "MATH", "ECON", "ART", "Computer Science"};
     private static final TreeSet<String> POSSIBLE_MAJORS_TREE = new TreeSet<>(Arrays.asList(POSSIBLE_MAJORS));
     public final String value;
 

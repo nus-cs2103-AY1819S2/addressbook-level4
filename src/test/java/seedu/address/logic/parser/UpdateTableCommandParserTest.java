@@ -31,10 +31,12 @@ public class UpdateTableCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid table number
-        assertParseFailure(parser, "a 0", UpdateTableCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "a 0",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateTableCommand.MESSAGE_USAGE));
 
         // invalid new table status
-        assertParseFailure(parser, "1 @", UpdateTableCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "1 @",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateTableCommand.MESSAGE_USAGE));
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + "4", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -44,9 +46,11 @@ public class UpdateTableCommandParserTest {
     @Test
     public void parse_invalidNumberOfInputs_failure() {
         // extra inputs
-        assertParseFailure(parser, "1 2 3", UpdateTableCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "1 2 3", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                UpdateTableCommand.MESSAGE_USAGE));
 
         // insufficient inputs
-        assertParseFailure(parser, "1", UpdateTableCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                UpdateTableCommand.MESSAGE_USAGE));
     }
 }

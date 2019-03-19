@@ -57,4 +57,13 @@ public class UpdateTableCommand extends Command {
         return other == this || (other instanceof UpdateTableCommand && newTableStatus
                 .equals(((UpdateTableCommand) other).newTableStatus));
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (String string : newTableStatus) {
+            sb.append(string);
+        }
+        return sb.toString();
+    }
 }

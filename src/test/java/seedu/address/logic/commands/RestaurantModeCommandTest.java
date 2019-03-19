@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE_CHANGE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
@@ -28,6 +29,6 @@ public class RestaurantModeCommandTest {
     @Test
     public void execute_restaurantMode_failure() {
         assertCommandFailure(Mode.RESTAURANT_MODE, new RestaurantModeCommand(), model, commandHistory,
-                RestaurantModeCommand.MESSAGE_USAGE);
+                MESSAGE_INVALID_MODE_CHANGE);
     }
 }

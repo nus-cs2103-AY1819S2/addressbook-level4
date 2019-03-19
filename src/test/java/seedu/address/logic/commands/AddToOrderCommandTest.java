@@ -495,8 +495,8 @@ public class AddToOrderCommandTest {
         public void removeListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }
-    }
 
+    }
     /**
      * A menu stub that always returns an item for any given code.
      */

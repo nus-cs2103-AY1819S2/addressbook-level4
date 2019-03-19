@@ -372,43 +372,46 @@ Step 5. The method `displayImage` updates the user interface and the user interf
 image::RotateCommandSequenceDiagram.png[width="1280"]
 
 // tag::undoredo[]
-
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+The undo/redo mechanism is facilitated by `Image`. It contains a list of commands applied to the current image. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `Image#addHistory()` -- Saves the current edit command into commandHistory list and increments index.
+* `Image#setUndo()` -- Decreases index by 1.
+* `Image#setRedo()` -- Increases index by 1.
+* `Image#getHistory()` -- Returns commandHistory sublist using index to track which commands should be included.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+image::UndoSeqTEMP.png[width="800"]
+
+Step 1. The user opens an image. The `Image` will be initialized with a commandHistory list containing a null command, and the index pointing to that command.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes a series of transformations on the image. These transformations are stored in the commandHistory list and for each transformation stored, the index is incremented by 1 to point to that transformation.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `Model#replaceTempImage()` which will replace the edited image in temp folder with the original image. It will then call `setUndo()` to set the index in `Image` and retrieve the list with `getHistory`. Using the list, it will apply the commands onto the original image till it reaches the command just before the previous transformation.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. After executing Undo, it will set a flag in `Image` to true. When the user executes another transformation, if the flag is set to true, it will delete all commands in the list at indexes greater than current index before adding the current command into the commandHistory
+and setting flag back false.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
+For redo, it will call `setRedo` and retrieve that command to apply it on the current image.
+
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `Image#index` is 0, pointing to the initial photo, then there are no previous commands to restore. The `undo` command uses `Model#getImage()#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -435,18 +438,18 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1:** Saves the each transformation as a separate image.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+* **Alternative 2(current choice):** Save all transformation in a list and apply them when undo/redo is called.
+** Pros: Will use less memory
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of commands.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `Image`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.

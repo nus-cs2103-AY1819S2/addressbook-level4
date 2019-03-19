@@ -192,7 +192,7 @@ Example:
 
 === Filtering the list: `filter`
 Filter the current shown list.
-Format: `sort /[fieldname to be filtered with] [value or value range of the field]`
+Format: `filter /[fieldname to be filtered with] [value or value range of the field]`
 
 [TIP]
 * The user can filter the current shown list with any fields, and can filter by multiple fields.

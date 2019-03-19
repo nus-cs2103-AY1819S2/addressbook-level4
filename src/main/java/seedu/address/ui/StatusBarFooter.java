@@ -17,7 +17,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
-    public static final String TOTAL_EQUIPMENTS_STATUS = "%d person(s) total";
+    public static final String TOTAL_EQUIPMENTS_STATUS = "%d equipment(s) total";
 
     /**
      * Used to generate time stamps.
@@ -39,9 +39,9 @@ public class StatusBarFooter extends UiPart<Region> {
     private Label saveLocationStatus;
 
 
-    public StatusBarFooter(Path saveLocation, ReadOnlyEquipmentManager addressBook) {
+    public StatusBarFooter(Path saveLocation, ReadOnlyEquipmentManager equipmentManager) {
         super(FXML);
-        addressBook.addListener(observable -> updateSyncStatus(addressBook.getPersonList().size()));
+        equipmentManager.addListener(observable -> updateSyncStatus(equipmentManager.getPersonList().size()));
         syncStatus.setText(SYNC_STATUS_INITIAL);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
 
@@ -64,11 +64,11 @@ public class StatusBarFooter extends UiPart<Region> {
     /**
      * Updates "last updated" status to the current time.
      */
-    private void updateSyncStatus(int totalPersons) {
+    private void updateSyncStatus(int totalEquipments) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
-        totalEquipmentsStatus.setText(String.format(TOTAL_EQUIPMENTS_STATUS, totalPersons));
+        totalEquipmentsStatus.setText(String.format(TOTAL_EQUIPMENTS_STATUS, totalEquipments));
     }
 
 }

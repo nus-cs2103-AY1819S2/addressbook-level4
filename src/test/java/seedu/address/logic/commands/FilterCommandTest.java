@@ -19,7 +19,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.tag.TagsContainsKeywordsPredicate;
+import seedu.address.model.equipment.EquipmentContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FilterCommand}.
@@ -31,10 +31,10 @@ public class FilterCommandTest {
 
     @Test
     public void equals() {
-        TagsContainsKeywordsPredicate firstPredicate =
-                new TagsContainsKeywordsPredicate(Collections.singletonList("first"));
-        TagsContainsKeywordsPredicate secondPredicate =
-                new TagsContainsKeywordsPredicate(Collections.singletonList("second"));
+        EquipmentContainsKeywordsPredicate firstPredicate =
+                new EquipmentContainsKeywordsPredicate(Collections.singletonList("first"));
+        EquipmentContainsKeywordsPredicate secondPredicate =
+                new EquipmentContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FilterCommand filterFirstCommand = new FilterCommand(firstPredicate);
         FilterCommand filterSecondCommand = new FilterCommand(secondPredicate);
@@ -61,7 +61,7 @@ public class FilterCommandTest {
 
     public void execute_zeroKeywords_noEquipmentFound() {
         String expectedMessage = String.format(MESSAGE_EQUIPMENTS_LISTED_OVERVIEW, 0);
-        TagsContainsKeywordsPredicate predicate = preparePredicate(" ");
+        EquipmentContainsKeywordsPredicate predicate = preparePredicate(" ");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(new FilterCommand(predicate), model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
@@ -70,12 +70,12 @@ public class FilterCommandTest {
     @Test
     public void execute_multipleKeywords_multipleEquipmentsFound() {
         String expectedMessage = String.format(MESSAGE_EQUIPMENTS_LISTED_OVERVIEW, 3);
-        TagsContainsKeywordsPredicate predicate = preparePredicate("west urgent");
+        EquipmentContainsKeywordsPredicate predicate = preparePredicate("west urgent");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(new FilterCommand(predicate), model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getFilteredPersonList());
     }
-    private TagsContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new TagsContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private EquipmentContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new EquipmentContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

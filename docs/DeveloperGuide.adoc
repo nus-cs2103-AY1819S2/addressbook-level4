@@ -248,10 +248,6 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-== Implementation
-
-This section describes some noteworthy details on how certain features are implemented.
-
 // tag::datastorage[]
 === Data Storage Feature
 The data storage feature manages the saving of data, such as lessons and user progress, to disk for the application. This lets the user keep their progress between usage sessions.

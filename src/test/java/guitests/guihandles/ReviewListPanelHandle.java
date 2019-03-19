@@ -1,77 +1,33 @@
 package guitests.guihandles;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.review.Review;
 
 /**
- * Provides a handle for {@code RestaurantListPanel} containing the list of {@code RestaurantCard}.
+ * Provides a handle for {@code ReviewListPanel} containing the list of {@code ReviewCard}.
  */
-public class RestaurantListPanelHandle extends NodeHandle<ListView<Restaurant>> {
-    public static final String RESTAURANT_LIST_VIEW_ID = "#restaurantListView";
+public class ReviewListPanelHandle extends NodeHandle<ListView<Review>> {
+    public static final String REVIEW_LIST_VIEW_ID = "#reviewListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    private Optional<Restaurant> lastRememberedSelectedRestaurantCard;
-
-    public RestaurantListPanelHandle(ListView<Restaurant> restaurantListPanelNode) {
-        super(restaurantListPanelNode);
-    }
-
-    /**
-     * Returns a handle to the selected {@code RestaurantCardHandle}.
-     * A maximum of 1 item can be selected at any time.
-     * @throws AssertionError if no card is selected, or more than 1 card is selected.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
-     */
-    public RestaurantCardHandle getHandleToSelectedCard() {
-        List<Restaurant> selectedRestaurantList = getRootNode().getSelectionModel().getSelectedItems();
-
-        if (selectedRestaurantList.size() != 1) {
-            throw new AssertionError("Restaurant list size expected 1.");
-        }
-
-        return getAllCardNodes().stream()
-                .map(RestaurantCardHandle::new)
-                .filter(handle -> handle.equals(selectedRestaurantList.get(0)))
-                .findFirst()
-                .orElseThrow(IllegalStateException::new);
-    }
-
-    /**
-     * Returns the index of the selected card.
-     */
-    public int getSelectedCardIndex() {
-        return getRootNode().getSelectionModel().getSelectedIndex();
-    }
-
-    /**
-     * Returns true if a card is currently selected.
-     */
-    public boolean isAnyCardSelected() {
-        List<Restaurant> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
-
-        if (selectedCardsList.size() > 1) {
-            throw new AssertionError("Card list size expected 0 or 1.");
-        }
-
-        return !selectedCardsList.isEmpty();
+    public ReviewListPanelHandle(ListView<Review> reviewListPanelNode) {
+        super(reviewListPanelNode);
     }
 
     /**
      * Navigates the listview to display {@code restaurant}.
      */
-    public void navigateToCard(Restaurant restaurant) {
-        if (!getRootNode().getItems().contains(restaurant)) {
-            throw new IllegalArgumentException("Restaurant does not exist.");
+    public void navigateToCard(Review review) {
+        if (!getRootNode().getItems().contains(review)) {
+            throw new IllegalArgumentException("Review does not exist.");
         }
 
         guiRobot.interact(() -> {
-            getRootNode().scrollTo(restaurant);
+            getRootNode().scrollTo(review);
         });
         guiRobot.pauseForHuman();
     }
@@ -91,25 +47,25 @@ public class RestaurantListPanelHandle extends NodeHandle<ListView<Restaurant>> 
     }
 
     /**
-     * Selects the {@code RestaurantCard} at {@code index} in the list.
+     * Selects the {@code ReviewCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
     }
 
     /**
-     * Returns the restaurant card handle of a restaurant associated with the {@code index} in the list.
+     * Returns the review card handle of a review associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
-    public RestaurantCardHandle getRestaurantCardHandle(int index) {
+    public ReviewCardHandle getReviewCardHandle(int index) {
         return getAllCardNodes().stream()
-                .map(RestaurantCardHandle::new)
-                .filter(handle -> handle.equals(getRestaurant(index)))
+                .map(ReviewCardHandle::new)
+                .filter(handle -> handle.equals(getReview(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Restaurant getRestaurant(int index) {
+    private Review getReview(int index) {
         return getRootNode().getItems().get(index);
     }
 
@@ -120,34 +76,6 @@ public class RestaurantListPanelHandle extends NodeHandle<ListView<Restaurant>> 
      */
     private Set<Node> getAllCardNodes() {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
-    }
-
-    /**
-     * Remembers the selected {@code RestaurantCard} in the list.
-     */
-    public void rememberSelectedRestaurantCard() {
-        List<Restaurant> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
-
-        if (selectedItems.size() == 0) {
-            lastRememberedSelectedRestaurantCard = Optional.empty();
-        } else {
-            lastRememberedSelectedRestaurantCard = Optional.of(selectedItems.get(0));
-        }
-    }
-
-    /**
-     * Returns true if the selected {@code RestaurantCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedRestaurantCard()} call.
-     */
-    public boolean isSelectedRestaurantCardChanged() {
-        List<Restaurant> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
-
-        if (selectedItems.size() == 0) {
-            return lastRememberedSelectedRestaurantCard.isPresent();
-        } else {
-            return !lastRememberedSelectedRestaurantCard.isPresent()
-                    || !lastRememberedSelectedRestaurantCard.get().equals(selectedItems.get(0));
-        }
     }
 
     /**

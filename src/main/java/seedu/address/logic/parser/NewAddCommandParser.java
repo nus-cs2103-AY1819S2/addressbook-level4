@@ -54,36 +54,36 @@ public class NewAddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
 
         switch (customer) {
-            case "buyer":
-                Buyer buyer = new Buyer(name, phone, email);
-                return new AddCommand(buyer);
-            case "seller":
-                if (argMultimap.getValue(PREFIX_SELLINGPRICE).isPresent()
-                        && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-                    Price sellingPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_SELLINGPRICE).get());
-                    Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-                    Seller seller = new Seller(name, phone, email, new Property("sell", address,
-                            sellingPrice, tagList));
-                    return new AddCommand(seller);
-                } else {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-                }
-            case "landlord":
-                if (argMultimap.getValue(PREFIX_RENTALPRICE).isPresent()
-                        && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-                    Price rentalPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_RENTALPRICE).get());
-                    Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-                    Landlord landlord = new Landlord(name, phone, email, new Property("rent", address,
-                            rentalPrice, tagList));
-                    return new AddCommand(landlord);
-                } else {
-                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-                }
-            case "tenant":
-                Tenant tenant = new Tenant(name, phone, email);
-                return new AddCommand(tenant);
-            default:
+        case "buyer":
+            Buyer buyer = new Buyer(name, phone, email);
+            return new AddCommand(buyer);
+        case "seller":
+            if (argMultimap.getValue(PREFIX_SELLINGPRICE).isPresent()
+                    && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                Price sellingPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_SELLINGPRICE).get());
+                Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+                Seller seller = new Seller(name, phone, email, new Property("sell", address,
+                        sellingPrice, tagList));
+                return new AddCommand(seller);
+            } else {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        case "landlord":
+            if (argMultimap.getValue(PREFIX_RENTALPRICE).isPresent()
+                    && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                Price rentalPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_RENTALPRICE).get());
+                Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+                Landlord landlord = new Landlord(name, phone, email, new Property("rent", address,
+                        rentalPrice, tagList));
+                return new AddCommand(landlord);
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+        case "tenant":
+            Tenant tenant = new Tenant(name, phone, email);
+            return new AddCommand(tenant);
+        default:
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
 

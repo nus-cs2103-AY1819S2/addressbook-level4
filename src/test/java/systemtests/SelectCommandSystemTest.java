@@ -7,7 +7,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_EQUIPMENT_SUCCESS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
+import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_HWI;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
@@ -57,7 +58,7 @@ public class SelectCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: filtered equipment list, select index within bounds of address book but out of bounds of equipment list
          * -> rejected
          */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_HWI);
         int invalidIndex = getModel().getAddressBook().getPersonList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);

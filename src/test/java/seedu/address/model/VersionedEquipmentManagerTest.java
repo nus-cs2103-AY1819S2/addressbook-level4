@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.TypicalEquipments.AMY;
 import static seedu.address.testutil.TypicalEquipments.BOB;
-import static seedu.address.testutil.TypicalEquipments.CARL;
+import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +20,7 @@ public class VersionedEquipmentManagerTest {
 
     private final ReadOnlyEquipmentManager addressBookWithAmy = new EquipmentManagerBuilder().withPerson(AMY).build();
     private final ReadOnlyEquipmentManager addressBookWithBob = new EquipmentManagerBuilder().withPerson(BOB).build();
-    private final ReadOnlyEquipmentManager addressBookWithCarl = new EquipmentManagerBuilder().withPerson(CARL).build();
+    private final ReadOnlyEquipmentManager addressBookWithCarl = new EquipmentManagerBuilder().withPerson(TECKGHEECC).build();
     private final ReadOnlyEquipmentManager emptyAddressBook = new EquipmentManagerBuilder().build();
 
     @Test

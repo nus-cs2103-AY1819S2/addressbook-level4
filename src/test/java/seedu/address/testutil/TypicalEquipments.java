@@ -25,23 +25,23 @@ import seedu.address.model.equipment.Equipment;
  */
 public class TypicalEquipments {
 
-    public static final Equipment ALICE = new EquipmentBuilder().withName("Alice Pauline")
+    public static final Equipment ACHORVALECC = new EquipmentBuilder().withName("Achorvale CC")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253").withSerialNumber("A008844L").withTags("west").build();
-    public static final Equipment BENSON = new EquipmentBuilder().withName("Benson Meier")
+    public static final Equipment HWIYOHCC = new EquipmentBuilder().withName("Hwi Yoh CC")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432").withSerialNumber("A008855L")
             .withTags("urgent", "west").build();
-    public static final Equipment CARL = new EquipmentBuilder().withName("Carl Kurz").withPhone("95352563")
+    public static final Equipment TECKGHEECC = new EquipmentBuilder().withName("Teck Ghee CC").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").withSerialNumber("A0223344X").build();
-    public static final Equipment DANIEL = new EquipmentBuilder().withName("Daniel Meier").withPhone("87652533")
+    public static final Equipment AYERRAJAHCC = new EquipmentBuilder().withName("Ayer Rajah CC").withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("10th street").withSerialNumber("A008800L")
             .withTags("west").build();
-    public static final Equipment ELLE = new EquipmentBuilder().withName("Elle Meyer").withPhone("9482224")
+    public static final Equipment BUKITGCC = new EquipmentBuilder().withName("Bukit Gombak CC").withPhone("9482224")
             .withEmail("werner@example.com").withAddress("michegan ave").withSerialNumber("A008811L").build();
-    public static final Equipment FIONA = new EquipmentBuilder().withName("Fiona Kunz").withPhone("9482427")
+    public static final Equipment CHENGSANCC = new EquipmentBuilder().withName("Cheng San CC").withPhone("9482427")
             .withEmail("lydia@example.com").withAddress("little tokyo").withSerialNumber("A008822L").build();
-    public static final Equipment GEORGE = new EquipmentBuilder().withName("George Best").withPhone("9482442")
+    public static final Equipment JURONGREENCC = new EquipmentBuilder().withName("Jurong Green CC").withPhone("9482442")
             .withEmail("anna@example.com").withAddress("4th street").withSerialNumber("A008821L").build();
 
     // Manually added
@@ -58,7 +58,8 @@ public class TypicalEquipments {
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withSerialNumber(VALID_SERIAL_NUMBER_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_CC = "CC"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_HWI = "Hwi"; // A keyword that matches Bukit
 
     private TypicalEquipments() {} // prevents instantiation
 
@@ -74,6 +75,6 @@ public class TypicalEquipments {
     }
 
     public static List<Equipment> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        return new ArrayList<>(Arrays.asList(ACHORVALECC, HWIYOHCC, TECKGHEECC, AYERRAJAHCC, BUKITGCC, CHENGSANCC, JURONGREENCC));
     }
 }

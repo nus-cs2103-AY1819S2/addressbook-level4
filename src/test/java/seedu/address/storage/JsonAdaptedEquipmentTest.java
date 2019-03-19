@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.JsonAdaptedEquipment.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalEquipments.BENSON;
+import static seedu.address.testutil.TypicalEquipments.HWIYOHCC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,19 +26,19 @@ public class JsonAdaptedEquipmentTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_SERIAL_NUMBER = BENSON.getSerialNumber().toString();
-    private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+    private static final String VALID_NAME = HWIYOHCC.getName().toString();
+    private static final String VALID_PHONE = HWIYOHCC.getPhone().toString();
+    private static final String VALID_EMAIL = HWIYOHCC.getEmail().toString();
+    private static final String VALID_ADDRESS = HWIYOHCC.getAddress().toString();
+    private static final String VALID_SERIAL_NUMBER = HWIYOHCC.getSerialNumber().toString();
+    private static final List<JsonAdaptedTag> VALID_TAGS = HWIYOHCC.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedEquipment person = new JsonAdaptedEquipment(BENSON);
-        assertEquals(BENSON, person.toModelType());
+        JsonAdaptedEquipment person = new JsonAdaptedEquipment(HWIYOHCC);
+        assertEquals(HWIYOHCC, person.toModelType());
     }
 
     @Test

@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_EQUIPMENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEquipments.CARL;
-import static seedu.address.testutil.TypicalEquipments.ELLE;
-import static seedu.address.testutil.TypicalEquipments.FIONA;
+import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
+import static seedu.address.testutil.TypicalEquipments.BUKITGCC;
+import static seedu.address.testutil.TypicalEquipments.CHENGSANCC;
 import static seedu.address.testutil.TypicalEquipments.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -69,11 +69,11 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_EQUIPMENTS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        NameContainsKeywordsPredicate predicate = preparePredicate("Ghee Bukit Cheng");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(TECKGHEECC, BUKITGCC, CHENGSANCC), model.getFilteredPersonList());
     }
 
     /**

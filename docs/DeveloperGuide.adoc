@@ -283,6 +283,7 @@ The lesson CSV storage feature implements the following functions:
 Actual file I/O is handled in the CsvUtil class, which uses the opencsv library to read/write CSV files.
 
 ==== CSV Format
+.Data flow diagram for Lessons saving
 image::CsvStorageDiagram.png[width="800"]
 
 Lessons are parsed by CsvLessonsStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.

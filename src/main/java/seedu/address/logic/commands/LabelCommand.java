@@ -31,7 +31,7 @@ public class LabelCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_MEDICINE_SUCCESS = "Successfully printed the medicine in index: %1$s"
+    public static final String MESSAGE_SELECT_MEDICINE_SUCCESS = "Successfully printed the medicine at index: %1$s"
             + " in PDF format";
 
     private final Index targetIndex;

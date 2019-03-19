@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.card.Card;
@@ -30,21 +29,12 @@ public class CardThumbnail extends UiPart<Region> {
     private Label question;
     @FXML
     private Label id;
-    @FXML
-    private Label answer;
-    @FXML
-    private Label score;
-    @FXML
-    private FlowPane hints;
 
     public CardThumbnail(Card card, int displayedIndex) {
         super(FXML);
         this.card = card;
         id.setText(displayedIndex + ". ");
         question.setText(card.getQuestion().fullQuestion);
-        answer.setText(card.getAnswer().fullAnswer);
-        score.setText(card.getScore().toString());
-        card.getHints().forEach(hint -> hints.getChildren().add(new Label(hint.hintName)));
     }
 
     @Override

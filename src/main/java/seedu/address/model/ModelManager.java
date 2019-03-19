@@ -3,9 +3,11 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -26,6 +28,8 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.storage.csvmanager.CardFolderExport;
+import seedu.address.storage.csvmanager.CsvFile;
+import seedu.address.storage.csvmanager.CsvManager;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -48,6 +52,9 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;
+
+    // Export related
+    private CsvManager csvManager = new CsvManager();
 
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.
@@ -97,6 +104,9 @@ public class ModelManager implements Model {
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
+        return filteredCardsList.get(activeCardFolderIndex);
+    }
+    private ObservableList<Card> getActiveObservableCards() {
         return filteredCardsList.get(activeCardFolderIndex);
     }
 
@@ -152,32 +162,6 @@ public class ModelManager implements Model {
     public List<ReadOnlyCardFolder> getCardFolders() {
         return new ArrayList<>(filteredFolders);
     }
-
-    @Override
-    public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
-        List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
-        for (CardFolderExport cardFolderExport : cardFolders) {
-            addCardFolder(cardFolderExport, returnCardFolder);
-        }
-        return returnCardFolder;
-    }
-
-
-    /**
-     * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
-     * Throws card Folder not found exception if card folder cannot be found.
-     */
-    private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
-        String exportFolderName = cardFolderExport.folderName;
-        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFolders) {
-            if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
-                returnCardFolders.add(readOnlyCardFolder);
-                return;
-            }
-        }
-        throw new CardFolderNotFoundException(cardFolderExport.folderName);
-    }
-
 
     @Override
     public boolean hasCard(Card card) {
@@ -276,11 +260,17 @@ public class ModelManager implements Model {
         return getActiveFilteredCards();
     }
 
+
     @Override
     public void updateFilteredCard(Predicate<Card> predicate) {
         requireNonNull(predicate);
         FilteredList<Card> filteredCards = getActiveFilteredCards();
         filteredCards.setPredicate(predicate);
+    }
+    @Override
+    public void sortFilteredCard(Comparator<Card> cardComparator) {
+        requireNonNull(cardComparator);
+        folders.get(activeCardFolderIndex).sortCards(cardComparator);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -407,14 +397,14 @@ public class ModelManager implements Model {
             boolean wasSelectedCardReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedCard.getValue());
             if (wasSelectedCardReplaced) {
-                // Update selectedCard to its new fullAnswer.
+                // Update selectedCard to its new value.
                 int index = change.getRemoved().indexOf(selectedCard.getValue());
                 selectedCard.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
             boolean wasSelectedCardRemoved = change.getRemoved().stream()
-                    .anyMatch(removedCard -> selectedCard.getValue().isSameCard(removedCard));
+                    .anyMatch(removedCard -> selectedCard.getValue().equals(removedCard));
             if (wasSelectedCardRemoved) {
                 // Select the card that came before it in the list,
                 // or clear the selection if there is no such card.
@@ -441,5 +431,43 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get());
+    }
+
+
+    //=========== Export / Import card folders ========================================================================
+    @Override
+    public void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException {
+        List<ReadOnlyCardFolder> cardFolderObject = returnValidCardFolders(cardFolderExports);
+        csvManager.writeFoldersToCsv(cardFolderObject, csvFile);
+    }
+
+    @Override
+    public void importCardFolders(CsvFile csvFile) throws IOException {
+
+    }
+
+    @Override
+    public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
+        List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
+        for (CardFolderExport cardFolderExport : cardFolders) {
+            addCardFolder(cardFolderExport, returnCardFolder);
+        }
+        return returnCardFolder;
+    }
+
+
+    /**
+     * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
+     * Throws card Folder not found exception if card folder cannot be found.
+     */
+    private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
+        String exportFolderName = cardFolderExport.folderName;
+        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFolders) {
+            if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
+                returnCardFolders.add(readOnlyCardFolder);
+                return;
+            }
+        }
+        throw new CardFolderNotFoundException(cardFolderExport.folderName);
     }
 }

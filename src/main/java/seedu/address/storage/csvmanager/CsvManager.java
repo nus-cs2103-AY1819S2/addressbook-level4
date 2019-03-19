@@ -9,31 +9,22 @@ import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
 
 
-
 /**
- * Manages the exporting of flashcard folders
+ * Manages the importing and exporting of flashcards into model
  */
-public class CsvCardExport {
+public class CsvManager implements CsvCommands {
 
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Hints";
 
 
-
-    private List<ReadOnlyCardFolder> cardFolders;
-    private CsvFile csvFile;
-
-    public CsvCardExport(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) {
-        this.cardFolders = cardFolders;
-        this.csvFile = filename;
-    }
-
     /**
      * Writes card folders as csv file.
      */
-    public void writeFoldersToCsv() throws IOException {
-        String filepath = getFilePath();
+    @Override
+    public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) throws IOException {
+        String filepath = getFilePathAsString(filename);
         FileWriter fileWriter = new FileWriter(filepath);
 
         // get card folder objects
@@ -53,9 +44,13 @@ public class CsvCardExport {
         fileWriter.close();
     }
 
-    private String getFilePath() throws IOException {
-        String defaultFilePath = new File("./").getCanonicalPath();
-        return defaultFilePath + "/" + csvFile.filename;
+    @Override
+    public void readFoldersToCsv(CsvFile csvFile) {
+
+    }
+
+    public static String getFilePathAsString(CsvFile csvFile) throws IOException {
+        return new File("./" + csvFile.filename).getCanonicalPath();
     }
 
     private String getCardString(Card card) {
@@ -66,5 +61,4 @@ public class CsvCardExport {
                 .append(COMMA_DELIMITTER));
         return stringBuilder.toString();
     }
-
 }

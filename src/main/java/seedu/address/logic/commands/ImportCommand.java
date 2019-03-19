@@ -1,8 +1,11 @@
 package seedu.address.logic.commands;
 
+import java.io.IOException;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.storage.csvmanager.CsvFile;
 
 
 /**
@@ -18,20 +21,22 @@ public class ImportCommand extends Command {
             + "Default file path if not specified will be in the root folder of this application\n"
             + "Parameters: JSON_FILE_NAME\n"
             + "Example: " + COMMAND_WORD + "alice.csv";
-    public static final String MESSAGE_INCORRECT_EXTENSION = "Incorrect file extension name";
+    public static final String MESSAGE_FILE_OPS_FAILURE = "Could not import from specified file. Check that it exists "
+            + "in root directory";
 
-    private String filename;
+    private CsvFile filename;
 
-    public ImportCommand(String filename) {
+    public ImportCommand(CsvFile filename) {
         this.filename = filename;
     }
 
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        // check for correct file extension
-        if (!isCorrectFileExtension(filename)) {
-            throw new CommandException(MESSAGE_INCORRECT_EXTENSION);
+        try {
+            model.importCardFolders(filename);
+        } catch (IOException e) {
+            throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
         }
         return null;
     }

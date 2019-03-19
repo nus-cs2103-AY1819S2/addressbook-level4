@@ -1,17 +1,14 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
-import java.net.URL;
 import java.util.logging.Logger;
 
-import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
 
@@ -20,9 +17,7 @@ import seedu.address.model.card.Card;
  */
 public class BrowserPanel extends UiPart<Region> {
 
-    public static final URL DEFAULT_PAGE =
-            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
+    public static final String DEFAULT_CARD_PAGE = "";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -30,6 +25,16 @@ public class BrowserPanel extends UiPart<Region> {
 
     @FXML
     private WebView browser;
+    @FXML
+    private GridPane cardPage;
+    @FXML
+    private Label cardQuestion;
+    @FXML
+    private Label answer;
+    @FXML
+    private Label hint;
+    @FXML
+    private Label score;
 
     public BrowserPanel(ObservableValue<Card> selectedCard) {
         super(FXML);
@@ -40,28 +45,45 @@ public class BrowserPanel extends UiPart<Region> {
         // Load card page when selected card changes.
         selectedCard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                loadDefaultPage();
+                loadDefaultCard();
                 return;
             }
             loadCardPage(newValue);
         });
 
-        loadDefaultPage();
-    }
-
-    private void loadCardPage(Card card) {
-        loadPage(SEARCH_PAGE_URL + card.getQuestion().fullQuestion);
-    }
-
-    public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+        loadDefaultCard();
     }
 
     /**
-     * Loads a default HTML file with a background that matches the general theme.
+     * Load the current selected {@code Card} into the browser panel with all card info.
+     * @param card selected to be displayed.
      */
-    private void loadDefaultPage() {
-        loadPage(DEFAULT_PAGE.toExternalForm());
+    private void loadCardPage(Card card) {
+        cardPage.getChildren().clear();
+
+        cardQuestion.setText(card.getQuestion().fullQuestion);
+        answer.setText("Ans: " + card.getAnswer().fullAnswer);
+        score.setText("Score: " + card.getScore().toString());
+        // Set empty string for hint by default
+        hint.setText("");
+        if (!card.getHints().isEmpty()) {
+            assert card.getHints().size() <= 1;
+            card.getHints().forEach(hintVal -> hint.setText("Hint: " + hintVal.hintName));
+        }
+
+        cardPage.getChildren().addAll(cardQuestion, answer, score, hint);
+    }
+
+    /**
+     * Loads a default blank card with a background that matches the general theme.
+     */
+    private void loadDefaultCard() {
+        cardPage.getChildren().clear();
+        cardQuestion.setText("");
+        answer.setText("");
+        score.setText("");
+        hint.setText("");
+        cardPage.getChildren().addAll(cardQuestion, answer, score, hint);
     }
 
 }

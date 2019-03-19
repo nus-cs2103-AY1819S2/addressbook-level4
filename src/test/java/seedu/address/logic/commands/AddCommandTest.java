@@ -5,9 +5,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -30,6 +32,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CardFolderExport;
+import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.testutil.CardBuilder;
 
 public class AddCommandTest {
@@ -194,6 +197,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void importCardFolders(CsvFile csvFile) throws IOException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }
@@ -240,6 +253,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredCard(Predicate<Card> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredCard(Comparator<Card> comparator) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -308,7 +326,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return this.card.isSameCard(card);
+            return this.card.equals(card);
         }
     }
 
@@ -321,7 +339,7 @@ public class AddCommandTest {
         @Override
         public boolean hasCard(Card card) {
             requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::isSameCard);
+            return cardsAdded.stream().anyMatch(card::equals);
         }
 
         @Override

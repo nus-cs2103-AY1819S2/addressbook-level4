@@ -30,9 +30,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 //import static seedu.address.testutil.TypicalPdfs.AMY;
 //import static seedu.address.testutil.TypicalPdfs.BOB;
 //import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
-
 //import org.junit.Test;
-
 //import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
@@ -56,7 +54,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     public void edit() {
         Model model = getModel();
 
-        *//* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- *//*
+        *//* ----------------- Performing edit operation while an unfiltered list is being shown -------
+        --------------- *//*
 
         *//* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
          * -> edited
@@ -108,7 +107,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedPdf = new PdfBuilder(pdfToEdit).withTags().build();
         assertCommandSuccess(command, index, editedPdf);
 
-        *//* ------------------ Performing edit operation while a filtered list is being shown ------------------------ *//*
+        *//* ------------------ Performing edit operation while a filtered list is being shown -----------------
+        ------- *//*
 
         *//* Case: filtered pdf list, edit index within bounds of address book and pdf list -> edited *//*
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -127,7 +127,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        *//* --------------------- Performing edit operation while a pdf card is selected -------------------------- *//*
+        *//* --------------------- Performing edit operation while a pdf card is selected ----------------------
+        ---- *//*
 
         *//* Case: selects first card in the pdf list, edit a pdf -> edited, card selection remains unchanged but
          * browser url changes
@@ -141,7 +142,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         // browser's url is updated to reflect the new pdf's name
         assertCommandSuccess(command, index, AMY, index);
 
-        *//* --------------------------------- Performing invalid edit operation -------------------------------------- *//*
+        *//* --------------------------------- Performing invalid edit operation --------------------------------
+        ------ *//*
 
         *//* Case: invalid index (0) -> rejected *//*
         assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,

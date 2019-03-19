@@ -21,7 +21,7 @@ package systemtests;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TUTORIAL;
+//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_A;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_B;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -103,19 +103,22 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         *//* Case: add a pdf, missing tags -> added *//*
         assertCommandSuccess(HOON);
 
-        *//* -------------------------- Perform add operation on the shown filtered list ------------------------------ *//*
+        *//* -------------------------- Perform add operation on the shown filtered list ------------------------
+        ------ *//*
 
         *//* Case: filters the pdf list before adding -> added *//*
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        *//* ------------------------ Perform add operation while a pdf card is selected --------------------------- *//*
+        *//* ------------------------ Perform add operation while a pdf card is selected ------------------------
+        --- *//*
 
         *//* Case: selects first card in the pdf list, add a pdf -> added, card selection remains unchanged *//*
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
-        *//* ----------------------------------- Perform invalid add operations --------------------------------------- *//*
+        *//* ----------------------------------- Perform invalid add operations ---------------------------------
+        ------ *//*
 
         *//* Case: add a duplicate pdf -> rejected *//*
         command = PersonUtil.getAddCommand(HOON);

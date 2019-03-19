@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.pdf.*;
+import seedu.address.model.pdf.Directory;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedPdfTest {

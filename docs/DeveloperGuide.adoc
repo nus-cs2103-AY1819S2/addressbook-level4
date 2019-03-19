@@ -451,6 +451,50 @@ Data encryption is likely to be implemented in future versions of the address bo
 
 // end::dataencryption[]
 
+// tag::labelcommand[]
+=== Label
+
+The exporting of a medicine label to a PDF formatted file is implemented by using Apache PDFBox.
+
+Current implementation:
+Under the build.gradle file, we have added new dependency implementation group: 'org.apache.pdfbox', name: 'pdfbox', version: '2.0.13'. This imports the library over to the project for use.
+
+There are many operations available added in the Apache PDFBox, the key operations that we are using would only be:
+
+`PDDocument()` - For creating a new blank PDF file for the medicine details to be exported to.
+`PDPage()` - Creates a new PDPage instance for embedding.
+`PDPageContentStream(PDDocument , PDPage)` - Provides the ability to write a page content stream.
+
+image::UMLLabelDiagram.png[width="800"]
+
+Given below is an example usage scenario and how the label command behaves in each step:
+
+Step 1. The user launches the application for the first time. An empty InformationPanel is displayed.
+
+Step 2. The user executes the `label 2` to output the label of the 2nd medicine indexed in the inventory. Since no file name is included in the argument, the default filename 'to_print' is used instead. Then, `LabelCommand#execute()` is called.
+
+Step 3. The user can find the file `to_print` under the main folder.
+
+Step 4. The user executes `label 1 f/file_to_print` to output the label of the 1st medicine indexed in the inventory. The `LabelCommandParser` class will be able to tokenize and read the desired file name. Then, `LabelCommand#execute()` is called.
+
+Step 5. The user can find a new file `file_to_print` under the same main folder.
+
+[NOTE]
+If the user would execute another `label 1`, the original `to_print` file will be replaced with the information of the 1st medicine indexed in the inventory. Users are warned in the User Guide to be caution about overwriting files.
+
+==== Design Consideration
+
+===== Aspect: How label executes
+
+* **Alternative 1 (current choice):** Creates a new `PDFDocument` every time a medicine it to be labeled.
+** Pros: Easy to implement.
+** Cons: Uses more of the user computer memory space as it creates the temporary file.
+* **Alternative 2:** Find the existing PDF file and edit.
+** Pros: Will use less memory.
+** Cons: We have to read the existing file which requires more time to execute.
+
+// end::labelcommand[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -687,9 +731,9 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 ****
 * Hints
 ** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** link:{repoURL}/src/main/java/seedu/address/logic/parser/InventoryParser.java[`AddressBookParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/InventoryParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.

@@ -22,6 +22,7 @@ import seedu.address.logic.commands.PinCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UnpinCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -92,6 +93,9 @@ public class AddressBookParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case UnpinCommand.COMMAND_WORD:
+            return new UnpinCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();

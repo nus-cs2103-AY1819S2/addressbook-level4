@@ -27,7 +27,8 @@
           </minWidth>
         </Label>
         <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-        <Label fx:id="cuisine" styleClass="cell_small_label" text="\$cuisine" />
+        <Label fx:id="cuisine" styleClass="cell_cuisine_label" text="\$cuisine" />
+        <Label fx:id="occasion" styleClass="cell_occasion_label" text="\$occasion" />
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />

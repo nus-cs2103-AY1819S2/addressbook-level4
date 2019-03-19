@@ -99,6 +99,11 @@ public class AddReviewCommand extends Command {
                 restaurantReviewed.getEmail(),
                 restaurantReviewed.getAddress(), restaurantReviewed.getTags(),
                 restaurantReviewed.getWeblink(), restaurantReviewed.getOpeningHours(),
-                restaurantReviewed.getCuisine(), newReviews);
+                restaurantReviewed.getCategories(), newReviews);
+    }
+
+    @Override
+    public String toString() {
+        return this.getTargetIndex().getOneBased() + " " + this.getReviewToAdd().toString();
     }
 }

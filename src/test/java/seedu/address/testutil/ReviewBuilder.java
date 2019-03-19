@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.sql.Timestamp;
+
 import seedu.address.model.review.Entry;
 import seedu.address.model.review.Rating;
 import seedu.address.model.review.Review;
@@ -15,10 +17,12 @@ public class ReviewBuilder {
 
     private Entry entry;
     private Rating rating;
+    private Timestamp timestamp;
 
     public ReviewBuilder() {
         entry = new Entry(DEFAULT_ENTRY);
         rating = new Rating(DEFAULT_RATING);
+        timestamp = null;
     }
 
     /**
@@ -37,7 +41,21 @@ public class ReviewBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Timestamp} of the {@code Review} that we are building.
+     */
+    public ReviewBuilder withTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+        return this;
+    }
+
+    /**
+     * Constructs the {@code Review} with attributes in ReviewBuilder.
+     */
     public Review build() {
-        return new Review(entry, rating);
+        if (timestamp == null) {
+            return new Review(entry, rating);
+        }
+        return new Review(entry, rating, timestamp);
     }
 }

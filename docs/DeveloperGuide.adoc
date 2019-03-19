@@ -331,6 +331,55 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::categorisation[]
+=== Restaurant Categorisation
+
+Restaurants can be classified using categories. Each restaurant can have each of the optional categories defined.
+Currently, 2 different types of categories are implemented in v1.2: `Cuisine` and `Occasion`.
+
+==== Current Implementation
+
+Restaurant Categorisation is mainly implemented using the following commands:
+
+* `setCategory` -- sets the different categories of the restaurant using its respective prefixes.
+* `filter` -- filters out restaurants using keywords matching that of its categories.
+
+All supported categories are defined in the `seedu.address.model.restaurant.categories` package, along with the `Category`
+class that encapsulates all categories into a `Category` object to be used in the `Restaurant` class.
+
+The restaurants are categorised by a `Category` field in the `Restaurant` class.
+The `Category` class encapsulates all the different categories a restaurant can have such as `Cuisine` and `Occasion`.
+Additionally, it implements the `merge` operation. The `merge` operation is essential in ensuring that when one category
+is being set, it does not override the other categories. For example, if an existing restaurant has the following preexisting
+categories: `cuisine` and `occasion`, doing a `setCategory` for `cuisine` will override its `occasion` category if the
+merge operation is not implemented.
+
+The `merge` operation is implemented by taking in two `Category` arguments, `previous` and `updated`. All categories in
+`updated` will replace any existing categories in `previous`. The merged `Category` will retain those categories in
+`previous` for any category not present in `updated`.
+
+THe `merge` operation is used by `SetCategoryCommand#execute()` to update a restaurant's categories by merging it with
+its existing categories.
+
+The `setCategory` command is implemented as follows:
+
+* `CategoryCommandParser` parses the user input arguments, creating a `SetCategoryCommand` object with the target `Index`
+and new `Category` object containing all the categories in the user input.
+* Inside `SetCategoryCommand#execute()`, the restaurant identified by the index is retrieved from `Model`.
+* Existing categories are retrieved from the target restaurant.
+* New `Category` object is created by merging existing categories and categories inputted by the user.
+* The new `Category` object is used to create a new `Restaurant` with the updated `Category` object.
+* `Model#setRestaurant()` is called to update the target restaurant.
+* `Model#updateFilteredRestaurantList()` is called to update the list of restaurants displayed/
+* `Model#commitFoodDiary()` is called to commit the changes to the food diary.
+
+The `filter` command is implemented as follows:
+
+* `FilterCommandParser` parses the user input arguments, creating a `FilterCommand` object containing the predicate that
+tests if a restaurant matches any of the keywords.
+* Inside `FilterCommand#execute()`, `Model#updateFilteredRestaurantList()` is called with the predicate to update the
+list of restaurants that matches the keywords.
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

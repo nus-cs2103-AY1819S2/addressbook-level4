@@ -98,11 +98,13 @@ public class CommandTestUtil {
                 .withTags(VALID_TAG_FRIEND).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();*/
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         DESC_A = new EditPersonDescriptorBuilder().withName(VALID_NAME_A)
                 .withDirectory(VALID_DIR_A).build();
         DESC_B = new EditPersonDescriptorBuilder().withName(VALID_NAME_B)
-                .withDirectory(VALID_DIR_B).build();
+                .withDirectory(VALID_DIR_B).build();*/
+        DESC_A = new EditPersonDescriptorBuilder().withName(VALID_NAME_A).build();
+        DESC_B = new EditPersonDescriptorBuilder().withName(VALID_NAME_B).build();
     }
 
     /**

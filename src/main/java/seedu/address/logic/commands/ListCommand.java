@@ -13,7 +13,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list-e";
 
-    public static final String MESSAGE_SUCCESS = "Listed all equipment(s)";
+    public static final String MESSAGE_SUCCESS = "Listed all equipment";
 
 
     @Override

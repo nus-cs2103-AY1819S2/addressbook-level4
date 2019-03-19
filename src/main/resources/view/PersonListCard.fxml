@@ -29,12 +29,17 @@
       </HBox>
       <FlowPane fx:id="tags" />
       <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+      <Label fx:id="nric" styleClass="cell_small_label" text="\$nric" />
+      <Label fx:id="gender" styleClass="cell_small_label" text="\$gender" />
+      <Label fx:id="interviewScores" styleClass="cell_small_label" text="\$interviewScores" />
+      <Label fx:id="grade" styleClass="cell_small_label" text="\$grade" />
       <Label fx:id="race" styleClass="cell_small_label" text="\$race" />
       <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
       <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
       <Label fx:id="school" styleClass="cell_small_label" text="\$school"/>
       <Label fx:id="major" styleClass="cell_small_label" text="\$major" />
       <FlowPane fx:id="pastjobs" styleClass="cell_small_label" />
+      <FlowPane fx:id="jobsApply" styleClass="cell_small_label" />
     </VBox>
   </GridPane>
 </HBox>

@@ -3,9 +3,13 @@
     "name": "Hans Muster",
     "phone": "9482424",
     "email": "invalid@email!3e",
+    "nric": "S9345679K",
+    "gender": "Female",
     "race": "Japan",
     "address": "4th street",
     "school": "NUS",
-    "major": "CS"
+    "major": "CS",
+    "grade": "4.56",
+    "jobsApply": [ "Accountant" ]
   } ]
 }

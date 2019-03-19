@@ -9,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class KnownProgLang {
 
-    public static final String MESSAGE_CONSTRAINTS = "Past jobs can take any values, and it should not be blank";
+    public static final String MESSAGE_CONSTRAINTS = "Known programming languages can take any values, "
+            + "and it should not be blank";
 
     /*
      * The first character of the programming language must not be a whitespace,

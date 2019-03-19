@@ -3,9 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INTERVIEWSCORES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
@@ -27,9 +32,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.InterviewScores;
+import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -52,31 +62,46 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_NRIC + "NRIC] "
+            + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_RACE + "RACE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SCHOOL + "SCHOOL] "
             + "[" + PREFIX_MAJOR + "MAJOR] "
+            + "[" + PREFIX_GRADE + "GRADE] "
             + "[" + PREFIX_SCHOOL + "SCHOOL] "
             + "[" + PREFIX_KNOWNPROGLANG + "KNOWNPROGLANG] "
             + "[" + PREFIX_PASTJOB + "PASTJOB] "
+            + "[" + PREFIX_JOBSAPPLY + "JOBSAPPLY] "
+            + "[" + PREFIX_INTERVIEWSCORES + "INTERVIEWSCORES] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com"
+            + PREFIX_NRIC + "S9671597H "
+            + PREFIX_GENDER + "Male "
             + PREFIX_RACE + "Indian "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science "
+            + PREFIX_GRADE + "4.76 "
+            + PREFIX_JOBSAPPLY + "Software Engineer "
+            + PREFIX_INTERVIEWSCORES + "5,8,2,4,10 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney\n"
             + "The alias \"ed\" can be used instead.\n"
             + "Example: " + COMMAND_ALIAS + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
+            + PREFIX_NRIC + "S9671597H "
+            + PREFIX_GENDER + "Male "
             + PREFIX_RACE + "Indian "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_SCHOOL + "NUS "
             + PREFIX_MAJOR + "Computer Science"
+            + PREFIX_GRADE + "4.76 "
+            + PREFIX_JOBSAPPLY + "Software Engineer "
+            + PREFIX_INTERVIEWSCORES + "5,8,2,4,10 "
             + PREFIX_TAG + "friends "
             + PREFIX_TAG + "owesMoney\n";
 
@@ -131,16 +156,23 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Nric updatedNric = editPersonDescriptor.getNric().orElse(personToEdit.getNric());
+        Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Race updatedRace = editPersonDescriptor.getRace().orElse(personToEdit.getRace());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         School updatedSchool = editPersonDescriptor.getSchool().orElse(personToEdit.getSchool());
         Major updatedMajor = editPersonDescriptor.getMajor().orElse(personToEdit.getMajor());
+        Grade updatedGrade = editPersonDescriptor.getGrade().orElse(personToEdit.getGrade());
+        InterviewScores updatedInterviewScores = editPersonDescriptor.getInterviewScores()
+                .orElse(personToEdit.getInterviewScores());
         Set<KnownProgLang> updatedKnownProgLangs = editPersonDescriptor.getKnownProgLangs()
                 .orElse(personToEdit.getKnownProgLangs());
         Set<PastJob> updatedPastJobs = editPersonDescriptor.getPastJobs().orElse(personToEdit.getPastJobs());
+        Set<JobsApply> updatedJobsApply = editPersonDescriptor.getJobsApply().orElse(personToEdit.getJobsApply());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedRace, updatedAddress,
-                updatedSchool, updatedMajor, updatedKnownProgLangs, updatedPastJobs, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedNric, updatedGender, updatedRace,
+                updatedAddress, updatedSchool, updatedMajor, updatedGrade, updatedKnownProgLangs, updatedPastJobs,
+                updatedJobsApply, updatedInterviewScores, updatedTags);
 
     }
 
@@ -170,10 +202,15 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private Nric nric;
+        private Gender gender;
         private Race race;
         private Address address;
         private School school;
         private Major major;
+        private Grade grade;
+        private InterviewScores interviewScores;
+        private Set<JobsApply> jobsApply;
         private Set<KnownProgLang> knownProgLangs;
         private Set<PastJob> pastjobs;
         private Set<Tag> tags;
@@ -190,12 +227,17 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setNric(toCopy.nric);
+            setGender(toCopy.gender);
             setRace(toCopy.race);
             setAddress(toCopy.address);
             setSchool(toCopy.school);
             setMajor(toCopy.major);
+            setGrade(toCopy.grade);
             setKnownProgLangs(toCopy.knownProgLangs);
             setPastJobs(toCopy.pastjobs);
+            setJobsApply(toCopy.jobsApply);
+            setInterviewScores(toCopy.interviewScores);
             setTags(toCopy.tags);
         }
 
@@ -203,8 +245,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, race, address, school,
-                    major, knownProgLangs, pastjobs, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, nric, gender, race, address, school,
+                    major, grade, knownProgLangs, pastjobs, jobsApply, interviewScores, tags);
         }
 
         public void setName(Name name) {
@@ -229,6 +271,22 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setNric(Nric nric) {
+            this.nric = nric;
+        }
+
+        public Optional<Nric> getNric() {
+            return Optional.ofNullable(nric);
+        }
+
+        public void setGender(Gender gender) {
+            this.gender = gender;
+        }
+
+        public Optional<Gender> getGender() {
+            return Optional.ofNullable(gender);
         }
 
         public void setRace(Race race) {
@@ -261,6 +319,22 @@ public class EditCommand extends Command {
 
         public Optional<Major> getMajor() {
             return Optional.ofNullable(major);
+        }
+
+        public void setGrade(Grade grade) {
+            this.grade = grade;
+        }
+
+        public Optional<Grade> getGrade() {
+            return Optional.ofNullable(grade);
+        }
+
+        public void setInterviewScores(InterviewScores interviewScores) {
+            this.interviewScores = interviewScores;
+        }
+
+        public Optional<InterviewScores> getInterviewScores() {
+            return Optional.ofNullable(interviewScores);
         }
 
         /**
@@ -299,6 +373,23 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code jobsApply} to this object's {@code jobsApply}.
+         * A defensive copy of {@code jobsApply} is used internally.
+         */
+        public void setJobsApply(Set<JobsApply> jobsApply) {
+            this.jobsApply = (jobsApply != null) ? new HashSet<>(jobsApply) : null;
+        }
+
+        /**
+         * Returns an unmodifiable jobsApply set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code jobsApply} is null.
+         */
+        public Optional<Set<JobsApply>> getJobsApply() {
+            return (jobsApply != null) ? Optional.of(Collections.unmodifiableSet(jobsApply)) : Optional.empty();
+        }
+
+        /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
          */
@@ -333,12 +424,17 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getNric().equals(e.getNric())
+                    && getGender().equals(e.getGender())
                     && getRace().equals(e.getRace())
                     && getAddress().equals(e.getAddress())
                     && getSchool().equals(e.getSchool())
                     && getMajor().equals(e.getMajor())
+                    && getGrade().equals(e.getGrade())
                     && getKnownProgLangs().equals(e.getKnownProgLangs())
                     && getPastJobs().equals(e.getPastJobs())
+                    && getJobsApply().equals(e.getJobsApply())
+                    && getInterviewScores().equals(e.getInterviewScores())
                     && getTags().equals(e.getTags());
         }
     }

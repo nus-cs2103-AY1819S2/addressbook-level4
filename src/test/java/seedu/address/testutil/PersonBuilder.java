@@ -5,9 +5,14 @@ import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
+import seedu.address.model.person.Grade;
+import seedu.address.model.person.InterviewScores;
+import seedu.address.model.person.JobsApply;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.PastJob;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -24,32 +29,49 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_NRIC = "S1245756B";
+    public static final String DEFAULT_GENDER = "Female";
     public static final String DEFAULT_RACE = "Chinese";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_SCHOOL = "NUS";
     public static final String DEFAULT_MAJOR = "CS";
+    public static final String DEFAULT_GRADE = "3.00";
+    public static final String DEFAULT_INTERVIEWSCORES = "1,2,3,4,5";
+    public static final String DEFAULT_JOBSAPPLY = "Software Engineer";
+
 
     private Name name;
     private Phone phone;
     private Email email;
+    private Nric nric;
+    private Gender gender;
     private Race race;
     private Address address;
     private School school;
     private Major major;
+    private Grade grade;
+    private InterviewScores interviewScores;
     private Set<KnownProgLang> knownProgLangs;
     private Set<PastJob> pastjobs;
+    private Set<JobsApply> jobsApply;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
+        nric = new Nric(DEFAULT_NRIC);
+        gender = new Gender(DEFAULT_GENDER);
         race = new Race(DEFAULT_RACE);
         address = new Address(DEFAULT_ADDRESS);
         school = new School(DEFAULT_SCHOOL);
         major = new Major(DEFAULT_MAJOR);
+        grade = new Grade(DEFAULT_GRADE);
         knownProgLangs = new HashSet<>();
         pastjobs = new HashSet<>();
+        jobsApply = new HashSet<>();
+        jobsApply.add(new JobsApply(DEFAULT_JOBSAPPLY));
+        interviewScores = new InterviewScores(DEFAULT_INTERVIEWSCORES);
         tags = new HashSet<>();
     }
 
@@ -60,12 +82,17 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
+        nric = personToCopy.getNric();
+        gender = personToCopy.getGender();
         race = personToCopy.getRace();
         address = personToCopy.getAddress();
         school = personToCopy.getSchool();
         major = personToCopy.getMajor();
+        grade = personToCopy.getGrade();
         knownProgLangs = new HashSet<>(personToCopy.getKnownProgLangs());
         pastjobs = new HashSet<>(personToCopy.getPastJobs());
+        jobsApply = new HashSet<>(personToCopy.getJobsApply());
+        interviewScores = personToCopy.getInterviewScores();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -83,6 +110,14 @@ public class PersonBuilder {
      */
     public PersonBuilder withKnownProgLangs(String ... knownProgLangs) {
         this.knownProgLangs = SampleDataUtil.getKnownProgLangSet(knownProgLangs);
+        return this;
+    }
+
+    /**
+     * Parses the {@code jobsApply} into a {@code Set<JobsApply>} and set it to the {@code Person} that we are building.
+     */
+    public PersonBuilder withJobsApply(String ... jobsApply) {
+        this.jobsApply = SampleDataUtil.getJobsApplySet(jobsApply);
         return this;
     }
 
@@ -111,10 +146,42 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Gender} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGender(String gender) {
+        this.gender = new Gender(gender);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Grade} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGrade(String grade) {
+        this.grade = new Grade(grade);
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
         this.phone = new Phone(phone);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Nric} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNric(String nric) {
+        this.nric = new Nric(nric);
+        return this;
+    }
+
+    /**
+     * Sets the {@code InterviewScores} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withInterviewScores(String interviewScores) {
+        this.interviewScores = new InterviewScores(interviewScores);
         return this;
     }
 
@@ -150,8 +217,10 @@ public class PersonBuilder {
         return this;
     }
 
+    /***/
     public Person build() {
-        return new Person(name, phone, email, race, address, school, major, knownProgLangs, pastjobs, tags);
+        return new Person(name, phone, email, nric, gender, race, address, school, major, grade, knownProgLangs,
+                pastjobs, jobsApply, interviewScores, tags);
     }
 
 }

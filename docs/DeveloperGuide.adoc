@@ -316,6 +316,39 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::score[]
+=== Score feature
+==== Current Implementation
+
+To implement tracking of the number of correct and incorrect attempts, a new attribute `Score` was added to `Card`.
+Score keeps track of both numbers.
+This attribute is encapsulated in the `Score` class.
+
+==== Design Considerations
+
+===== Aspect: How to represent score
+
+* **Alternative 1 (current choice):** Track total number of correct attempts and total number of attempts
+** Pros: Simple to implement. Most semantically correct.
+** Cons: Score will be rolling average. If the question is answered wrongly even once, the score can never be 100%.
+* **Alternative 2:** Track only last X attempts.
+** Pros: An improvement in performance will be more obvious.
+** Cons: Uses more memory. Have to delete the X+1th score every time a new score is added.
+
+===== Aspect: How to read/write score from file
+
+* **Alternative 1 (current choice):** Read/write as `String`.
+** Pros: `String`s are easier to read/write to file.
+** Cons: There must be strict checks when instantiating score from strings as they are prone to many kinds of formatting errors.
+* **Alternative 2:** Read/write as a double.
+** Pros: A `double` can represent both numbers with just one, which then can be converted to `String`.
+** Cons: When instantiating score from double, it might be simplified.
+For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantiating from double, it is interpreted as 1 correct attempt and 2 total attempts.
+* **Alternative 3:** Read and write both numbers as integers.
+** Pros: Most correct implementation.
+** Cons: Reading/writing to file now needs to take into account this fact. The `toString()` method cannot be used to write to file.
+
+// end::score[]
 
 === Import/Export feature
 ==== Current Implementation

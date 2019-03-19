@@ -1,16 +1,16 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_CS;
+import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_CS;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AUTHOR_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_CS;
-import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_CS;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_CS;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TEXTBOOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
@@ -19,8 +19,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_CS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalBooks.ALI;
 import static seedu.address.testutil.TypicalBooks.CS;
-import static seedu.address.testutil.TypicalBooks.SECRETLIFE;
 import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_LIFE;
+import static seedu.address.testutil.TypicalBooks.SECRETLIFE;
 import static seedu.address.testutil.TypicalBooks.TWILIGHT;
 
 import org.junit.Test;

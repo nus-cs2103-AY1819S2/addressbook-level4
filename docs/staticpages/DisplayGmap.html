@@ -74,7 +74,7 @@
             };
             for (var j = 0; j < keyList.length; j++) {
               if (keyList[j] != "coordinates") {
-                tempPoint["properties"][keyList[j]] = tempObject[keyList[j]][i];;
+                  tempPoint["properties"][keyList[j]] = tempObject[keyList[j]][i];
               }
             }
             points.push(tempPoint);
@@ -90,7 +90,7 @@
         center: { lat: 1.291610266, lng: 103.8497472 },
         zoom: 12
       });
-      var markers = []
+      var markers = [];
       for (var i = 0; i < points.length; i++) {
         var marker = { lat: points[i]["geometry"]["coordinates"][1], lng: points[i]["geometry"]["coordinates"][0] };
         markers.push(new google.maps.Marker({ position: marker, map: map }));

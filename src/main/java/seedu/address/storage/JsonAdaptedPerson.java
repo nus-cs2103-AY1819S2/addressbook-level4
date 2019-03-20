@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Teeth;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -35,6 +36,7 @@ class JsonAdaptedPerson {
     private final String phone;
     private final String email;
     private final String address;
+    private final String teeth;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
@@ -45,6 +47,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("nric") String nric,
             @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("teeth") String teeth,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
             @JsonProperty("records") List<JsonAdaptedRecord> records) {
         this.name = name;
@@ -53,6 +56,7 @@ class JsonAdaptedPerson {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.teeth = teeth;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -74,6 +78,7 @@ class JsonAdaptedPerson {
             phone = source.getPhone().value;
             email = source.getEmail().value;
             address = source.getAddress().value;
+            teeth = new JsonAdaptedTeeth(((Patient) source).getTeeth()).getTeethName();
             tagged.addAll(source.getTags().stream()
                     .map(JsonAdaptedTag::new)
                     .collect(Collectors.toList()));
@@ -150,12 +155,25 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (teeth == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Teeth.class.getSimpleName()));
+        }
+
+        String[] rawLayout = teeth.split(JsonAdaptedConstants.DIVIDER);
+        int[] layout = new int[Teeth.PERMANENTTEETHCOUNT];
+
+        for (int i = 0; i < Teeth.PERMANENTTEETHCOUNT; i++) {
+            layout[i] = Integer.parseInt(rawLayout[i]);
+        }
+
+        final Teeth modelTeeth = new Teeth(layout);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final List<Record> modelRecords = patientRecords;
 
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNric,
-                modelDob, modelRecords);
+                modelDob, modelRecords, modelTeeth);
     }
 
 }

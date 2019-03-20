@@ -233,6 +233,13 @@ Classes used by multiple components are in the `seedu.pdfbook.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::add[]
+=== Add feature
+==== Current Implementation
+
+The add mechanism is facilitated by `AddCommandParser`.
+
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

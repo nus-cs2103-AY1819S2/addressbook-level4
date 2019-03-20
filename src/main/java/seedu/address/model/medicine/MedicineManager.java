@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 public class MedicineManager {
 
-    public static final String ErrorMessage_MedicineWithSameNameExistsInList =
+    public static final String ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST =
         "Medicine with the same name already exists in the storage.";
 
     private Directory root;
@@ -42,7 +42,7 @@ public class MedicineManager {
     public void addMedicine(String medicineName, int quantity, String[] path, BigDecimal price) {
         Optional<Medicine> findMedicine = findMedicine(medicineName);
         if (findMedicine.isPresent()) {
-            throw new IllegalArgumentException(ErrorMessage_MedicineWithSameNameExistsInList);
+            throw new IllegalArgumentException(ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST);
         }
         Optional<Directory> directory = root.findDirectory(path, 0);
         if (!directory.isPresent()) {

@@ -35,7 +35,8 @@ public class AddMedicineCommandTest {
     public void addValidMedicine() {
         try {
             CommandResult commandResult =
-                    new AddMedicineCommand(path, medicineName, presentQuantity, presentPrice).execute(modelManager, history);
+                    new AddMedicineCommand(path, medicineName, presentQuantity, presentPrice)
+                            .execute(modelManager, history);
             Medicine medicine = new Medicine(medicineName, presentQuantity.get());
             medicine.setPrice(presentPrice.get());
             Assert.assertEquals(String.format(AddMedicineCommand.MESSAGE_SUCCESS_NEW_MED,
@@ -50,7 +51,8 @@ public class AddMedicineCommandTest {
     public void addValidMedicineWithInvalidPath_throwCommandException() {
         try {
             CommandResult commandResult =
-                    new AddMedicineCommand(invalidPath, medicineName, presentQuantity, presentPrice).execute(modelManager, history);
+                    new AddMedicineCommand(invalidPath, medicineName, presentQuantity, presentPrice)
+                            .execute(modelManager, history);
             Assert.fail();
         } catch (CommandException ex) {
             Assert.assertEquals("No Directory found at given path", ex.getMessage());
@@ -62,10 +64,11 @@ public class AddMedicineCommandTest {
         addValidMedicine();
         try {
             CommandResult commandResult =
-                    new AddMedicineCommand(path, medicineName, presentQuantity, presentPrice).execute(modelManager, history);
+                    new AddMedicineCommand(path, medicineName, presentQuantity, presentPrice)
+                            .execute(modelManager, history);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals(MedicineManager.ErrorMessage_MedicineWithSameNameExistsInList, ex.getMessage());
+            Assert.assertEquals(MedicineManager.ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST, ex.getMessage());
         }
     }
 
@@ -109,7 +112,7 @@ public class AddMedicineCommandTest {
                             presentPrice).execute(modelManager, history);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals(MedicineManager.ErrorMessage_MedicineWithSameNameExistsInList, ex.getMessage());
+            Assert.assertEquals(MedicineManager.ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST, ex.getMessage());
         } catch (Exception ex) {
             Assert.fail();
         }

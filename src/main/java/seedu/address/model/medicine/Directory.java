@@ -16,7 +16,7 @@ public class Directory {
 
     public static final String VALIDATION_REGEX = "[^\\s].*";
     public static final String MESSAGE_CONSTRAINTS = "Directory name can take any values, and it should not be blank";
-    public static final String ErrorMessage_MedicineAlreadyExistsUnderSameDirectory =
+    public static final String ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY =
             "Medicine with same name already exist under the same directory";
 
     private ArrayList<Medicine> listOfMedicine;
@@ -42,7 +42,7 @@ public class Directory {
      */
     public void addMedicine(Medicine medicine) {
         requireNonNull(medicine);
-        checkArgument(isValidMedicine(medicine), ErrorMessage_MedicineAlreadyExistsUnderSameDirectory);
+        checkArgument(isValidMedicine(medicine), ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY);
         if (threshold.isPresent()) {
             medicine.setThreshold(threshold.get());
         }

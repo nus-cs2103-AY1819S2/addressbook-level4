@@ -44,7 +44,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PDF_SUCCESS = "Edited PDF: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This pdf already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the pdf book.";
+    public static final String MESSAGE_DUPLICATE_PDF_DIRECTORY = "There exists another %s with in %s.";
     public static final String MESSAGE_EDIT_PDF_FAILURE = "Unable to Edit PDF.";
 
     private final Index index;
@@ -72,7 +73,17 @@ public class EditCommand extends Command {
         }
 
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
-        Pdf editedPdf = createEditedPerson(pdfToEdit, editPersonDescriptor);
+        Pdf editedPdf = createEditedPdf(pdfToEdit, editPersonDescriptor);
+
+        if (Paths.get(pdfToEdit.getDirectory().getDirectory(), editedPdf.getName().getFullName())
+                .toAbsolutePath().toFile().exists()) {
+
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_PDF_DIRECTORY,
+                    editedPdf.getName().getFullName(), pdfToEdit.getDirectory().getDirectory()));
+
+        } else if (!pdfToEdit.isSamePdf(editedPdf) && model.hasPdf(editedPdf)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PDF);
+        }
 
         File oFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
         File nFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
@@ -80,10 +91,6 @@ public class EditCommand extends Command {
 
         if (!editSuccess) {
             throw new CommandException(MESSAGE_EDIT_PDF_FAILURE);
-        }
-
-        if (!pdfToEdit.isSamePdf(editedPdf) && model.hasPdf(editedPdf)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
         model.setPdf(pdfToEdit, editedPdf);
@@ -96,12 +103,12 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Pdf} with the details of {@code pdfToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Pdf createEditedPerson(Pdf pdfToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Pdf createEditedPdf(Pdf pdfToEdit, EditPersonDescriptor editPersonDescriptor) {
         assert pdfToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(pdfToEdit.getName());
         Size updatedSize = new Size(Long.toString(Paths.get(pdfToEdit.getDirectory().getDirectory(),
-                pdfToEdit.getName().getFullName()).toFile().getTotalSpace()));
+                pdfToEdit.getName().getFullName()).toFile().length()));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(pdfToEdit.getTags());
 
         return new Pdf(updatedName, pdfToEdit.getDirectory(), updatedSize, updatedTags);

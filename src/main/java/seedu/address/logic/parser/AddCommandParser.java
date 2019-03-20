@@ -37,7 +37,7 @@ public class AddCommandParser implements Parser<AddCommand> {
         File file = ParserUtil.parseFile(argMultimap.getValue((PREFIX_FILE)).get());
         Name name = new Name(file.getName());
         Directory directory = new Directory(file.getParent());
-        Size size = new Size(Long.toString(file.getTotalSpace()));
+        Size size = new Size(Long.toString(file.length()));
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Pdf pdf = new Pdf(name, directory, size, tagList);

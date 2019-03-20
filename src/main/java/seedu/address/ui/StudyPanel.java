@@ -24,9 +24,9 @@ import seedu.address.model.deck.Card;
 /**
  * The Question Panel of the App.
  */
-public class QuestionPanel extends UiPart<Region> {
+public class StudyPanel extends UiPart<Region> {
 
-    private static final String FXML = "QuestionPanel.fxml";
+    private static final String FXML = "StudyPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 
     @FXML
@@ -39,7 +39,7 @@ public class QuestionPanel extends UiPart<Region> {
     private Label id;
 
 
-    public QuestionPanel(ObservableValue<String> textShown) {
+    public StudyPanel(ObservableValue<String> textShown) {
         super(FXML);
 
         question.setText(textShown.getValue());

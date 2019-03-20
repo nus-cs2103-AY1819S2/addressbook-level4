@@ -12,7 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.ListItem;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
@@ -40,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
-    private QuestionPanel questionPanel;
+    private StudyPanel studyPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -191,9 +190,9 @@ public class MainWindow extends UiPart<Stage> {
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
             } else if (commandResult instanceof StudyPanelCommand) {
-                questionPanel = new QuestionPanel(logic.textShownProperty());
+                studyPanel = new StudyPanel(logic.textShownProperty());
                 contentPanelPlaceholder.getChildren().clear();
-                contentPanelPlaceholder.getChildren().add(questionPanel.getRoot());
+                contentPanelPlaceholder.getChildren().add(studyPanel.getRoot());
             } else if (commandResult instanceof HelpCommandResult) {
                 handleHelp();
             } else if (commandResult instanceof ExitCommandResult) {

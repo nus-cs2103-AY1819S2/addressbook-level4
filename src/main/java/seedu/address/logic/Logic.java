@@ -67,7 +67,6 @@ public interface Logic {
      */
     ReadOnlyProperty<ListItem> selectedItemProperty();
 
-
     /**
      * Current text in the model
      */

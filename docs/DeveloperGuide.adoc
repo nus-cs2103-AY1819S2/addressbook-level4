@@ -342,7 +342,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 
 // tag::addBook[]
-=== addBook feature
+=== AddBook feature
 ==== Current Implementation
 
 The addBook mechanism is facilitated by `BookShelf`.

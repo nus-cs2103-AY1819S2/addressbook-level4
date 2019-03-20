@@ -80,15 +80,16 @@ Examples:
 === Listing book entries : `listBook`
 
 Shows a list of all book entries, with the specified TAG and RATING. +
-Format: `listBook [n/NAME] [t/TAG] [m/RATING]`
+Format: `listBook [n/BOOKNAME] [a/AUTHOR] [t/TAG] [m/RATING]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Alice Wonderland` will match `Wonderland Alice`
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Only books match all the search criteria will be returned
-* If no search criteria given, the command will give the complete list of books
-* For name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
+* If no search criteria given, the command will give the complete list of the books
+* For book name searching, books matching at least one keyword will be returned. e.g. `Alice` will return `Alice in Wonderland`, `the Westminster Alice`
+* For author name searching, books whose author name matching at least one keyword will be returned. e.g. `James` will return books whose author name is `Henry James`
 * For tag searching, books containing at least one tag will be returned. e.g. `computer` will return `Computer Organisation`, `Computer Networks`
 * For rating search, books whose rating are included will be returned.
 ****

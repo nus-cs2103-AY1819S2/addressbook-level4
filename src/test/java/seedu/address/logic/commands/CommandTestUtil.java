@@ -52,6 +52,8 @@ public class CommandTestUtil {
     public static final String VALID_BOOKNAME_PART_CS = "Computer";
     public static final String VALID_AUTHOR_ALICE = "Lewis Carroll";
     public static final String VALID_AUTHOR_CS = "Hal Abelson Jerry Sussman";
+    public static final String VALID_AUTHOR_PART_ALICE = "Carroll";
+    public static final String VALID_AUTHOR_PART_CS = "Sussman";
     public static final String VALID_RATING_ALICE = "5";
     public static final String VALID_RATING_CS = "4";
     public static final String VALID_TAG_FANTASY = "fantasy";
@@ -82,6 +84,8 @@ public class CommandTestUtil {
     public static final String NAME_PART_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_PART_CS;
     public static final String AUTHOR_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_ALICE;
     public static final String AUTHOR_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_CS;
+    public static final String AUTHOR_PART_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_PART_ALICE;
+    public static final String AUTHOR_PART_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_PART_CS;
     public static final String RATING_DESC_ALICE = " " + PREFIX_RATING + VALID_RATING_ALICE;
     public static final String RATING_DESC_CS = " " + PREFIX_RATING + VALID_RATING_CS;
     public static final String TAG_DESC_FANTASY = " " + PREFIX_TAG + VALID_TAG_FANTASY;

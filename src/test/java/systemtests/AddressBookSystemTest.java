@@ -4,6 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
@@ -32,6 +33,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListBookCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.BookShelf;
@@ -150,6 +152,14 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Displays all books with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showBooksWithName(String keyword) {
+        executeCommand(ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + keyword);
+        assertTrue(getModel().getFilteredBookList().size() < getModel().getBookShelf().getBookList().size());
+    }
+
+    /**
      * Selects the person at {@code index} of the displayed list.
      */
     protected void selectPerson(Index index) {
@@ -163,6 +173,14 @@ public abstract class AddressBookSystemTest {
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
         assertEquals(0, getModel().getBookShelf().getPersonList().size());
+    }
+
+    /**
+     * Deletes all books in the book shelf.
+     */
+    protected void deleteAllBooks() {
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getBookShelf().getBookList().size());
     }
 
     /**

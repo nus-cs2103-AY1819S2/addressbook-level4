@@ -35,9 +35,11 @@ public class ListBookCommandTest {
         BookListFilterPredicate firstPredicate =
                 new BookListFilterPredicate(Collections.singletonList("first"),
                         Collections.singletonList("first"),
+                        Collections.singletonList("first"),
                         Collections.singletonList("first"));
         BookListFilterPredicate secondPredicate =
                 new BookListFilterPredicate(Collections.singletonList("second"),
+                        Collections.singletonList("second"),
                         Collections.singletonList("second"),
                         Collections.singletonList("second"));
 
@@ -49,7 +51,7 @@ public class ListBookCommandTest {
 
         // same values -> returns true
         ListBookCommand listFirstCommandCopy = new ListBookCommand(firstPredicate);
-        assertTrue(listFirstCommand.equals(listFirstCommand));
+        assertTrue(listFirstCommand.equals(listFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(listFirstCommand.equals(1));
@@ -65,9 +67,10 @@ public class ListBookCommandTest {
     public void execute_zeroKeywords() {
         String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 6);
         List<String> names = new ArrayList<String>();
+        List<String> authors = new ArrayList<String>();
         List<String> tags = new ArrayList<String>();
         List<String> ratings = new ArrayList<String>();
-        BookListFilterPredicate predicate = preparePredicate(names, tags, ratings);
+        BookListFilterPredicate predicate = preparePredicate(names, authors, tags, ratings);
         ListBookCommand command = new ListBookCommand(predicate);
         expectedModel.updateFilteredBookList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -77,11 +80,13 @@ public class ListBookCommandTest {
     public void execute_multipleKeyWords() {
         String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 1);
         String[] arr1 = {"Thief"};
-        String[] arr2 = {"popular"};
-        String[] arr3 = {"7"};
+        String[] arr2 = {"Zusak"};
+        String[] arr3 = {"popular"};
+        String[] arr4 = {"7"};
         BookListFilterPredicate predicate = preparePredicate(Arrays.asList(arr1),
                 Arrays.asList(arr2),
-                Arrays.asList(arr3));
+                Arrays.asList(arr3),
+                Arrays.asList(arr4));
         ListBookCommand command = new ListBookCommand(predicate);
         expectedModel.updateFilteredBookList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -92,11 +97,13 @@ public class ListBookCommandTest {
     public void execute_multipleBooksFound() {
         String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 2);
         String[] arr1 = {"The"};
-        String[] arr2 = {"popular", "fantasy"};
-        String[] arr3 = {"6", "7"};
+        String[] arr2 = {"Zusak", "Collins"};
+        String[] arr3 = {"popular", "fantasy"};
+        String[] arr4 = {"6", "7"};
         BookListFilterPredicate predicate = preparePredicate(Arrays.asList(arr1),
                 Arrays.asList(arr2),
-                Arrays.asList(arr3));
+                Arrays.asList(arr3),
+                Arrays.asList(arr4));
         ListBookCommand command = new ListBookCommand(predicate);
         expectedModel.updateFilteredBookList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -106,8 +113,9 @@ public class ListBookCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private BookListFilterPredicate preparePredicate(List<String> names, List<String> tags, List<String> ratings) {
-        return new BookListFilterPredicate(names, tags, ratings);
+    private BookListFilterPredicate preparePredicate(List<String> names, List<String> authors, List<String> tags,
+            List<String> ratings) {
+        return new BookListFilterPredicate(names, authors, tags, ratings);
     }
 
 }

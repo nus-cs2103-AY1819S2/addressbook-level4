@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
@@ -23,7 +22,6 @@ public interface LessonsStorage {
     /**
      * Returns Lessons data as a {@link Lessons}.
      *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws IOException if there was any problem when reading from the storage.
      */
     Optional<Lessons> readLessons();
 
@@ -36,7 +34,6 @@ public interface LessonsStorage {
      * Saves the given {@link Lessons} to the storage.
      * @param lessons cannot be null.
      * @return Number of lessons successfully saved.
-     * @throws IOException if there was any problem writing to the file.
      */
     int saveLessons(Lessons lessons);
 

@@ -6,7 +6,7 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Equipment;
 
 /**
  * Provides a handle for {@code EquipmentListPanel} containing the list of {@code EquipmentCard}.

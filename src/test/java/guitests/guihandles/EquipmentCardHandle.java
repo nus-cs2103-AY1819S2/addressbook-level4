@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Equipment;
 
 /**
  * Provides a handle to a equipment card in the equipment list panel.

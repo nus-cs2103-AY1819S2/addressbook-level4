@@ -1,23 +1,23 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_EQUIPMENT_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-//import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
-import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_HWI;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.equipment.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.equipment.commons.core.Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX;
+import static seedu.equipment.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.equipment.logic.commands.SelectCommand.MESSAGE_SELECT_EQUIPMENT_SUCCESS;
+import static seedu.equipment.testutil.TestUtil.getLastIndex;
+import static seedu.equipment.testutil.TestUtil.getMidIndex;
+//import static seedu.equipment.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
+import static seedu.equipment.testutil.TypicalEquipments.KEYWORD_MATCHING_HWI;
+import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
+import seedu.equipment.commons.core.index.Index;
+import seedu.equipment.logic.commands.RedoCommand;
+import seedu.equipment.logic.commands.SelectCommand;
+import seedu.equipment.logic.commands.UndoCommand;
+import seedu.equipment.model.Model;
 
 public class SelectCommandSystemTest extends EquipmentManagerSystemTest {
     @Test
@@ -55,15 +55,15 @@ public class SelectCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered equipment list, select index within bounds of address book but out of bounds of equipment list
-         * -> rejected
+        /* Case: filtered equipment list, select index within bounds of equipment book but out of bounds of equipment
+         * list -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_HWI);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getEquipmentManager().getPersonList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
 
-        /* Case: filtered equipment list, select index within bounds of address book and equipment list -> selected */
+        /* Case: filtered equipment list, select index within bounds of equipment book and equipment list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -95,7 +95,7 @@ public class SelectCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty address book -> rejected */
+        /* Case: select from empty equipment book -> rejected */
         deleteAllPersons();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);

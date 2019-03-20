@@ -1,54 +1,54 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_SERIAL_NUMBER_DESC;
-//import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
-import static seedu.address.testutil.TypicalEquipments.AMY;
-import static seedu.address.testutil.TypicalEquipments.BOB;
-import static seedu.address.testutil.TypicalEquipments.HOON;
-import static seedu.address.testutil.TypicalEquipments.IDA;
-import static seedu.address.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
-import static seedu.address.testutil.TypicalEquipments.TECKGHEECC;
+import static seedu.equipment.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.equipment.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.equipment.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.equipment.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+//import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+//import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+//import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+//import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_SERIAL_NUMBER_DESC;
+//import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.equipment.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.equipment.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.equipment.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_AMY;
+import static seedu.equipment.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.equipment.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+//import static seedu.equipment.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
+import static seedu.equipment.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.equipment.testutil.TypicalEquipments.AMY;
+import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
+import static seedu.equipment.testutil.TypicalEquipments.BOB;
+import static seedu.equipment.testutil.TypicalEquipments.HOON;
+import static seedu.equipment.testutil.TypicalEquipments.IDA;
+import static seedu.equipment.testutil.TypicalEquipments.KEYWORD_MATCHING_CC;
+import static seedu.equipment.testutil.TypicalEquipments.TECKGHEECC;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-//import seedu.address.model.equipment.Address;
-//import seedu.address.model.equipment.Email;
-import seedu.address.model.equipment.Equipment;
-import seedu.address.model.equipment.Name;
-//import seedu.address.model.equipment.Phone;
-//import seedu.address.model.tag.Tag;
-import seedu.address.testutil.EquipmentBuilder;
-import seedu.address.testutil.EquipmentUtil;
+import seedu.equipment.commons.core.Messages;
+import seedu.equipment.commons.core.index.Index;
+import seedu.equipment.logic.commands.AddCommand;
+import seedu.equipment.logic.commands.RedoCommand;
+import seedu.equipment.logic.commands.UndoCommand;
+import seedu.equipment.model.Model;
+//import Address;
+//import Email;
+import seedu.equipment.model.equipment.Equipment;
+import seedu.equipment.model.equipment.Name;
+//import Phone;
+//import Tag;
+import seedu.equipment.testutil.EquipmentBuilder;
+import seedu.equipment.testutil.EquipmentUtil;
 
 public class AddCommandSystemTest extends EquipmentManagerSystemTest {
 
@@ -58,7 +58,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a equipment without tags to a non-empty address book, command with leading spaces
+        /* Case: add a equipment without tags to a non-empty equipment book, command with leading spaces
          * and trailing spaces -> added
          */
         Equipment toAdd = AMY;
@@ -74,7 +74,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addPerson(toAdd);
+        model.addEquipment(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -85,9 +85,9 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
                 + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty equipment book -> added */
         deleteAllPersons();
-        assertCommandSuccess(ACHORVALECC);
+        assertCommandSuccess(ANCHORVALECC);
 
         /* Case: add a equipment with tags, command with parameters in random order -> added */
         toAdd = BOB;
@@ -126,7 +126,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         command = EquipmentUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
-        /* Case: add a duplicate equipment except with different address -> rejected */
+        /* Case: add a duplicate equipment except with different equipment -> rejected */
         toAdd = new EquipmentBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = EquipmentUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
@@ -147,7 +147,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing address -> rejected */
+        /* Case: missing equipment -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
@@ -190,7 +190,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
      */
     private void assertCommandSuccess(String command, Equipment toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addPerson(toAdd);
+        expectedModel.addEquipment(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

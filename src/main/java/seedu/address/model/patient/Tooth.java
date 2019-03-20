@@ -8,29 +8,45 @@ class Tooth {
     private boolean onStatus;
     private Status status = new Status();
 
-    Tooth(boolean isPresent) {
-        this.isPresent = isPresent;
+    Tooth() {
+        this.isPresent = true;
         this.onStatus = false;
     }
 
-    public void setPresent(boolean present) {
-        isPresent = present;
+    public boolean isOnStatus() {
+        return onStatus;
     }
 
     public boolean isPresent() {
         return isPresent;
     }
 
+    public void setPresent() {
+        this.isPresent = true;
+        this.onStatus = false;
+        this.status = null;
+    }
+
+    public void setAbsent() {
+        this.isPresent = false;
+        this.onStatus = false;
+        this.status = null;
+    }
+
+    public void setStatus() {
+        this.isPresent = true;
+        this.onStatus = true;
+        this.status = null;
+    }
+
     public void setStatus(Status status) {
+        this.isPresent = true;
+        this.onStatus = true;
         this.status = status;
     }
 
     public Status getStatus() {
         return status;
-    }
-
-    public boolean isOnStatus() {
-        return onStatus;
     }
 
 }

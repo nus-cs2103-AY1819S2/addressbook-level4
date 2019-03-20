@@ -52,12 +52,13 @@ public class Patient extends Person {
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, List<Record> records) {
+                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth) {
         super(name, phone, email, address, tags);
         requireAllNonNull(nric, dateOfBirth, records);
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.records = records;
+        this.teeth = teeth;
     }
 
     /**
@@ -74,7 +75,7 @@ public class Patient extends Person {
      * Should be run only when a new Patient is created, not when it is retrieved from storage.
      */
     private void buildAdultTeeth() {
-        teeth = new Teeth(ADULT);
+        teeth = new Teeth();
         addRelevantTags();
     }
 

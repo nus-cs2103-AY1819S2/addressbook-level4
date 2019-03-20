@@ -3,93 +3,95 @@ package seedu.address.model.patient;
 import java.util.ArrayList;
 
 import seedu.address.model.patient.exceptions.TeethLayoutException;
+import seedu.address.storage.JsonAdaptedConstants;
 
 /**
  * Represents a set of teeth a Person has.
  */
 public class Teeth implements ExportableTeeth {
-    private static final String NONE = "none";
-    private static final String CHILD = "child";
-    private static final String ADULT = "adult";
-    private static final int PRIMARYTEETHCOUNT = 20;
-    private static final int PERMANENTTEETHCOUNT = 32;
+    public static final int ABSENT = 2;
+    public static final int PROBLEMATIC = 1;
+    public static final int HEALTHY = 0;
+    public static final int PERMANENTTEETHCOUNT = 32;
+    public static final String ADULT = "adult";
+
     private String teethLayout;
-
-    private ArrayList<Tooth> permanentTeeth;
-    private ArrayList<Tooth> primaryTeeth;
+    private ArrayList<Tooth> permanentTeeth = new ArrayList<>();
 
     /**
-     * Default constructor. Builds a teeth template according to the specified teeth layout.
-     * @param teethLayout the teeth layout specified by the user.
+     * Default constructor. Builds an adult teeth layout.
      */
-    Teeth(String teethLayout) {
-        this.teethLayout = teethLayout;
-
-        buildNoTeeth();
-        switch (teethLayout) {
-        case NONE:
-            break;
-        case CHILD:
-            addPrimaryTeeth();
-            break;
-        case ADULT:
-            addPermanentTeeth();
-            break;
-        default:
-            throw new TeethLayoutException();
-        }
+    public Teeth() {
+        initialisePermanentTeeth();
+        setPermanentTeeth();
     }
 
     /**
-     * Initialises an empty set of primary and permanent teeth.
+     * Creates a teeth based on stored information.
+     * @param teethLayout the stored teeth information.
      */
-    private void buildNoTeeth() {
-        ArrayList<Tooth> primaryTeeth = new ArrayList<>();
-        ArrayList<Tooth> permanentTeeth = new ArrayList<>();
+    public Teeth(int[] teethLayout) {
+        initialisePermanentTeeth();
+        importPermanentTeeth(teethLayout);
+    }
 
-        for (int i = 0; i < PRIMARYTEETHCOUNT; i++) {
-            primaryTeeth.add(new Tooth(false));
-        }
-
-        this.primaryTeeth = primaryTeeth;
-
+    /**
+     * Initialises teeth in the teeth array.
+     */
+    private void initialisePermanentTeeth() {
+        this.teethLayout = ADULT;
         for (int i = 0; i < PERMANENTTEETHCOUNT; i++) {
-            permanentTeeth.add(new Tooth(false));
+            permanentTeeth.add(new Tooth());
         }
-
-        this.permanentTeeth = permanentTeeth;
     }
 
     /**
-     * Initialises a set of good primary teeth.
+     * Sets the permanent teeth according to an int array.
+     * @param teethLayout the layout information.
      */
-    private void addPrimaryTeeth() {
-        for (Tooth tooth : primaryTeeth) {
-            tooth.setPresent(true);
+    public void importPermanentTeeth(int[] teethLayout) {
+        for (int i = 0; i < permanentTeeth.size(); i++) {
+            Tooth tooth = permanentTeeth.get(i);
+            int status = teethLayout[i];
+
+            if (status == ABSENT) {
+                tooth.setAbsent();
+            } else if (status == PROBLEMATIC) {
+                tooth.setStatus();
+            } else if (status == HEALTHY) {
+                tooth.setPresent();
+            } else {
+                throw new TeethLayoutException();
+            }
         }
     }
 
     /**
      * Initialises a set of good permanent teeth.
      */
-    private void addPermanentTeeth() {
+    private void setPermanentTeeth() {
+        this.teethLayout = ADULT;
         for (Tooth tooth : permanentTeeth) {
-            tooth.setPresent(true);
+            tooth.setPresent();
         }
     }
 
     /**
-     * For permanent tooth.
-     * Sets a status for a tooth.
-     * @param index the tooth alphabet.
-     * @param status the status of the tooth.
+     * Checks if the teeth int array is valid.
+     * @param teethLine the int array representing teeth.
+     * @return true if valid, false otherwise.
      */
-    public void setToothStatus(char index, Status status) {
-        getTooth(index).setStatus(status);
+    public static boolean isValidTeeth(int[] teethLine) {
+        for (int i : teethLine) {
+            if (i == 0 || i == 1 || i == 2) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
-     * For primary tooth.
+     * For permanent tooth.
      * Sets a status for a tooth.
      * @param index the tooth number.
      * @param status the status of the tooth.
@@ -105,17 +107,6 @@ public class Teeth implements ExportableTeeth {
      */
     public String getTeethType() {
         return teethLayout;
-    }
-
-    /**
-     * For primary tooth.
-     * Returns a Tooth representing a patient's tooth using a tooth alphabet.
-     * @param index the tooth alphabet of tooth to be retrieved.
-     * @return the tooth represented by provided tooth alphabet.
-     */
-    public Tooth getTooth(char index) {
-        int parsedIndex = (int) index - (int) 'a';
-        return primaryTeeth.get(parsedIndex);
     }
 
     /**
@@ -144,12 +135,30 @@ public class Teeth implements ExportableTeeth {
         for (int i = 0; i < permanentTeeth.size(); i++ ) {
             Tooth tooth = permanentTeeth.get(i);
             if (!tooth.isPresent()) {
-                exportFormat[i] = 2;
+                exportFormat[i] = ABSENT;
             } else if (tooth.isOnStatus()) {
-                exportFormat[i] = 1;
+                exportFormat[i] = PROBLEMATIC;
+            } else {
+                exportFormat[i] = HEALTHY;
             }
         }
 
         return exportFormat;
+    }
+
+    /**
+     * Get the raw format of the teeth structure to be stored.
+     * @return the raw format in a String.
+     */
+    public String getRawFormat() {
+        int[] teethLayout = exportTeeth();
+
+        StringBuilder sb = new StringBuilder(teethLayout[0]);
+
+        for (int i = 1; i < teethLayout.length; i++) {
+            sb.append(JsonAdaptedConstants.DIVIDER + teethLayout[i]);
+        }
+
+        return sb.toString();
     }
 }

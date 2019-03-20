@@ -16,7 +16,6 @@ import org.junit.rules.TemporaryFolder;
 import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.commons.exceptions.DataConversionException;
 import seedu.equipment.model.UserPrefs;
-import seedu.equipment.storage.JsonUserPrefsStorage;
 
 public class JsonUserPrefsStorageTest {
 
@@ -85,7 +84,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(new GuiSettings(1000, 500, 300, 100));
-        userPrefs.setAddressBookFilePath(Paths.get("addressbook.json"));
+        userPrefs.setEquipmentManagerFilePath(Paths.get("addressbook.json"));
         return userPrefs;
     }
 

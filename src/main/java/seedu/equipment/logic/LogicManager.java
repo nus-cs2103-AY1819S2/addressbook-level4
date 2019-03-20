@@ -29,7 +29,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final EquipmentManagerParser equipmentManagerParser;
-    private boolean addressBookModified;
+    private boolean equipmentManagerModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -37,14 +37,14 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         equipmentManagerParser = new EquipmentManagerParser();
 
-        // Set addressBookModified to true whenever the models' equipment book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        // Set equipmentManagerModified to true whenever the models' equipment is modified.
+        model.getEquipmentManager().addListener(observable -> equipmentManagerModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        equipmentManagerModified = false;
 
         CommandResult commandResult;
         try {
@@ -54,10 +54,10 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (equipmentManagerModified) {
+            logger.info("Equipment Manager modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveAddressBook(model.getEquipmentManager());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -67,8 +67,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyEquipmentManager getAddressBook() {
-        return model.getAddressBook();
+    public ReadOnlyEquipmentManager getEquipmentManager() {
+        return model.getEquipmentManager();
     }
 
     @Override
@@ -82,8 +82,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getEquipmentManagerFilePath() {
+        return model.getEquipmentManagerFilePath();
     }
 
     @Override
@@ -97,12 +97,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Equipment> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+    public ReadOnlyProperty<Equipment> selectedEquipmentProperty() {
+        return model.selectedEquipmentProperty();
     }
 
     @Override
     public void setSelectedPerson(Equipment equipment) {
-        model.setSelectedPerson(equipment);
+        model.setSelectedEquipment(equipment);
     }
 }

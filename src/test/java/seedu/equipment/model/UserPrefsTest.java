@@ -3,7 +3,6 @@ package seedu.equipment.model;
 import org.junit.Test;
 
 import seedu.equipment.testutil.Assert;
-import seedu.equipment.model.UserPrefs;
 
 public class UserPrefsTest {
 
@@ -16,7 +15,7 @@ public class UserPrefsTest {
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setAddressBookFilePath(null));
+        Assert.assertThrows(NullPointerException.class, () -> userPrefs.setEquipmentManagerFilePath(null));
     }
 
 }

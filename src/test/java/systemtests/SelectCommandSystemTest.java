@@ -59,7 +59,7 @@ public class SelectCommandSystemTest extends EquipmentManagerSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_HWI);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getEquipmentManager().getPersonList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
 

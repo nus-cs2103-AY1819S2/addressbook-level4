@@ -15,9 +15,6 @@ import org.junit.Test;
 import seedu.equipment.commons.core.Messages;
 import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.DeleteCommand;
-import seedu.equipment.logic.commands.RedoCommand;
-import seedu.equipment.logic.commands.UndoCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
 import seedu.equipment.model.UserPrefs;
@@ -39,9 +36,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, equipmentToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(equipmentToDelete);
-        expectedModel.commitAddressBook();
+        ModelManager expectedModel = new ModelManager(model.getEquipmentManager(), new UserPrefs());
+        expectedModel.deleteEquipment(equipmentToDelete);
+        expectedModel.commitEquipmentManager();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -63,9 +60,9 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, equipmentToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(equipmentToDelete);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getEquipmentManager(), new UserPrefs());
+        expectedModel.deleteEquipment(equipmentToDelete);
+        expectedModel.commitEquipmentManager();
         showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -77,7 +74,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of equipment book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getEquipmentManager().getPersonList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -88,19 +85,19 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Equipment equipmentToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(equipmentToDelete);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getEquipmentManager(), new UserPrefs());
+        expectedModel.deleteEquipment(equipmentToDelete);
+        expectedModel.commitEquipmentManager();
 
         // delete -> first equipment deleted
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered equipment list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoEquipmentManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first equipment deleted again
-        expectedModel.redoAddressBook();
+        expectedModel.redoEquipmentManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -127,23 +124,23 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getEquipmentManager(), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Equipment equipmentToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.deletePerson(equipmentToDelete);
-        expectedModel.commitAddressBook();
+        expectedModel.deleteEquipment(equipmentToDelete);
+        expectedModel.commitEquipmentManager();
 
         // delete -> deletes second equipment in unfiltered equipment list / first equipment in filtered equipment list
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered equipment list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoEquipmentManager();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(equipmentToDelete, model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
         // redo -> deletes same second equipment in unfiltered equipment list
-        expectedModel.redoAddressBook();
+        expectedModel.redoEquipmentManager();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

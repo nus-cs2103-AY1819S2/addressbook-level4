@@ -28,9 +28,9 @@ public interface Logic {
     /**
      * Returns the EquipmentManager.
      *
-     * @see Model#getAddressBook()
+     * @see Model#getEquipmentManager()
      */
-    ReadOnlyEquipmentManager getAddressBook();
+    ReadOnlyEquipmentManager getEquipmentManager();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Equipment> getFilteredPersonList();
@@ -44,7 +44,7 @@ public interface Logic {
     /**
      * Returns the user prefs' equipment book file path.
      */
-    Path getAddressBookFilePath();
+    Path getEquipmentManagerFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -60,14 +60,14 @@ public interface Logic {
      * Selected equipment in the filtered equipment list.
      * null if no equipment is selected.
      *
-     * @see Model#selectedPersonProperty()
+     * @see Model#selectedEquipmentProperty()
      */
-    ReadOnlyProperty<Equipment> selectedPersonProperty();
+    ReadOnlyProperty<Equipment> selectedEquipmentProperty();
 
     /**
      * Sets the selected equipment in the filtered equipment list.
      *
-     * @see Model#setSelectedPerson(Equipment)
+     * @see Model#setSelectedEquipment(Equipment)
      */
     void setSelectedPerson(Equipment equipment);
 }

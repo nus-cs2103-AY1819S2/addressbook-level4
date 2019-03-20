@@ -79,7 +79,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: redo editing the last equipment in the list -> last equipment edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setPerson(getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedEquipment);
+        model.setEquipment(getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedEquipment);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit an equipment with new values same as existing values -> edited */
@@ -90,7 +90,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: edit an equipment with new values same as another equipment's values but with
          * different serial number -> edited
          */
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        assertTrue(getModel().getEquipmentManager().getPersonList().contains(BOB));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -130,7 +130,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_CC);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getEquipmentManager().getPersonList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
 
@@ -259,7 +259,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, Equipment editedEquipment,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.setPerson(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedEquipment);
+        expectedModel.setEquipment(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedEquipment);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         assertCommandSuccess(command, expectedModel,

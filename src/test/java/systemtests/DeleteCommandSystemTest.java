@@ -69,7 +69,7 @@ public class DeleteCommandSystemTest extends EquipmentManagerSystemTest {
          * -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_HWI);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getEquipmentManager().getPersonList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
 
@@ -100,7 +100,7 @@ public class DeleteCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getPersonList().size() + 1);
+                getModel().getEquipmentManager().getPersonList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
 
@@ -120,7 +120,7 @@ public class DeleteCommandSystemTest extends EquipmentManagerSystemTest {
      */
     private Equipment removePerson(Model model, Index index) {
         Equipment targetEquipment = getPerson(model, index);
-        model.deletePerson(targetEquipment);
+        model.deleteEquipment(targetEquipment);
         return targetEquipment;
     }
 

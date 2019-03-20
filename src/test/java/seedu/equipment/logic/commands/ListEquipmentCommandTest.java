@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.ListEquipmentCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
 import seedu.equipment.model.UserPrefs;
@@ -26,7 +25,7 @@ public class ListEquipmentCommandTest {
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getEquipmentManager(), new UserPrefs());
     }
 
     @Test

@@ -120,47 +120,47 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getEquipmentManagerFilePath() {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setEquipmentManagerFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Equipment equipment) {
-
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyEquipmentManager newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyEquipmentManager getAddressBook() {
+        public void addEquipment(Equipment equipment) {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Equipment equipment) {
+        public void setEquipmentManager(ReadOnlyEquipmentManager newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyEquipmentManager getEquipmentManager() {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Equipment target) {
+        public boolean hasEquipment(Equipment equipment) {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Equipment target, Equipment editedEquipment) {
+        public void deleteEquipment(Equipment target) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setEquipment(Equipment target, Equipment editedEquipment) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -170,7 +170,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updatePerson(Equipment target, Equipment editedEquipment) {
+        public void updateEquipment(Equipment target, Equipment editedEquipment) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -200,48 +200,48 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoEquipmentManager() {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoEquipmentManager() {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoEquipmentManager() {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoEquipmentManager() {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitEquipmentManager() {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyProperty<Equipment> selectedPersonProperty() {
+        public ReadOnlyProperty<Equipment> selectedEquipmentProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Equipment getSelectedPerson() {
+        public Equipment getSelectedEquipment() {
 
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(Equipment equipment) {
+        public void setSelectedEquipment(Equipment equipment) {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -258,7 +258,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Equipment equipment) {
+        public boolean hasEquipment(Equipment equipment) {
             requireNonNull(equipment);
             return this.equipment.isSameEquipment(equipment);
         }
@@ -271,24 +271,24 @@ public class AddCommandTest {
         final ArrayList<Equipment> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Equipment equipment) {
+        public boolean hasEquipment(Equipment equipment) {
             requireNonNull(equipment);
             return personsAdded.stream().anyMatch(equipment::isSameEquipment);
         }
 
         @Override
-        public void addPerson(Equipment equipment) {
+        public void addEquipment(Equipment equipment) {
             requireNonNull(equipment);
             personsAdded.add(equipment);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitEquipmentManager() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyEquipmentManager getAddressBook() {
+        public ReadOnlyEquipmentManager getEquipmentManager() {
             return new EquipmentManager();
         }
     }

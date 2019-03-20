@@ -113,17 +113,17 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPanel = new BrowserPanel(logic.selectedEquipmentProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        equipmentListPanel = new EquipmentListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+        equipmentListPanel = new EquipmentListPanel(logic.getFilteredPersonList(), logic.selectedEquipmentProperty(),
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(equipmentListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getEquipmentManagerFilePath(), logic.getEquipmentManager());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());

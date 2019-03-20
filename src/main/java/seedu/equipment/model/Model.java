@@ -42,37 +42,37 @@ public interface Model {
     /**
      * Returns the user prefs' equipment book file path.
      */
-    Path getAddressBookFilePath();
+    Path getEquipmentManagerFilePath();
 
     /**
      * Sets the user prefs' equipment book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setEquipmentManagerFilePath(Path addressBookFilePath);
 
     /**
      * Replaces equipment book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyEquipmentManager addressBook);
+    void setEquipmentManager(ReadOnlyEquipmentManager addressBook);
 
     /** Returns the EquipmentManager */
-    ReadOnlyEquipmentManager getAddressBook();
+    ReadOnlyEquipmentManager getEquipmentManager();
 
     /**
      * Returns true if a equipment with the same identity as {@code equipment} exists in the equipment book.
      */
-    boolean hasPerson(Equipment equipment);
+    boolean hasEquipment(Equipment equipment);
 
     /**
      * Deletes the given equipment.
      * The equipment must exist in the equipment book.
      */
-    void deletePerson(Equipment target);
+    void deleteEquipment(Equipment target);
 
     /**
      * Adds the given equipment.
      * {@code equipment} must not already exist in the equipment book.
      */
-    void addPerson(Equipment equipment);
+    void addEquipment(Equipment equipment);
 
     /**
      * Replaces the given equipment {@code target} with {@code editedEquipment}.
@@ -80,7 +80,7 @@ public interface Model {
      * The equipment identity of {@code editedEquipment} must not be the same as another
      * existing equipment in the equipment book.
      */
-    void setPerson(Equipment target, Equipment editedEquipment);
+    void setEquipment(Equipment target, Equipment editedEquipment);
 
     /** Returns an unmodifiable view of the filtered equipment list */
     ObservableList<Equipment> getFilteredPersonList();
@@ -103,49 +103,49 @@ public interface Model {
     /**
      * Returns true if the model has previous equipment book states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoEquipmentManager();
 
     /**
      * Returns true if the model has undone equipment book states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoEquipmentManager();
 
     /**
      * Restores the model's equipment book to its previous state.
      */
-    void undoAddressBook();
+    void undoEquipmentManager();
 
     /**
      * Restores the model's equipment book to its previously undone state.
      */
-    void redoAddressBook();
+    void redoEquipmentManager();
 
     /**
      * Saves the current equipment book state for undo/redo.
      */
-    void commitAddressBook();
+    void commitEquipmentManager();
 
     /**
      * Selected equipment in the filtered equipment list.
      * null if no equipment is selected.
      */
-    ReadOnlyProperty<Equipment> selectedPersonProperty();
+    ReadOnlyProperty<Equipment> selectedEquipmentProperty();
 
     /**
      * Returns the selected equipment in the filtered equipment list.
      * null if no equipment is selected.
      */
-    Equipment getSelectedPerson();
+    Equipment getSelectedEquipment();
 
     /**
      * Sets the selected equipment in the filtered equipment list.
      */
-    void setSelectedPerson(Equipment equipment);
+    void setSelectedEquipment(Equipment equipment);
 
     /** Removes the given {@code tag} from all {@code Equipment}s. */
     void deleteTag(Tag tag);
 
-    void updatePerson(Equipment target, Equipment editedEquipment);
+    void updateEquipment(Equipment target, Equipment editedEquipment);
 
     /** Sorts the equipment list by name. */
     void sortByName();

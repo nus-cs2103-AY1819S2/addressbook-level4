@@ -21,7 +21,7 @@ import seedu.equipment.model.tag.Tag;
 import seedu.equipment.commons.util.CollectionUtil;
 
 /**
- * Represents the in-memory model of the equipment book data.
+ * Represents the in-memory model of the equipment manager data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -30,7 +30,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Equipment> filteredEquipments;
     private final FilteredList<WorkList> filteredWorkList;
-    private final SimpleObjectProperty<Equipment> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Equipment> selectedEquipment = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given equipmentManager and userPrefs.
@@ -78,57 +78,57 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getEquipmentManagerFilePath() {
+        return userPrefs.getEquipmentManagerFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setEquipmentManagerFilePath(Path equipmentManagerFilePath) {
+        requireNonNull(equipmentManagerFilePath);
+        userPrefs.setEquipmentManagerFilePath(equipmentManagerFilePath);
     }
 
     //=========== EquipmentManager ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyEquipmentManager addressBook) {
-        versionedEquipmentManager.resetData(addressBook);
+    public void setEquipmentManager(ReadOnlyEquipmentManager equipmentManager) {
+        versionedEquipmentManager.resetData(equipmentManager);
     }
 
     @Override
-    public ReadOnlyEquipmentManager getAddressBook() {
+    public ReadOnlyEquipmentManager getEquipmentManager() {
         return versionedEquipmentManager;
     }
 
     @Override
-    public boolean hasPerson(Equipment equipment) {
+    public boolean hasEquipment(Equipment equipment) {
         requireNonNull(equipment);
         return versionedEquipmentManager.hasPerson(equipment);
     }
 
     @Override
-    public void deletePerson(Equipment target) {
+    public void deleteEquipment(Equipment target) {
         versionedEquipmentManager.removePerson(target);
     }
 
     @Override
-    public void addPerson(Equipment equipment) {
+    public void addEquipment(Equipment equipment) {
         versionedEquipmentManager.addPerson(equipment);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(Equipment target, Equipment editedEquipment) {
+    public void setEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
 
         versionedEquipmentManager.setPerson(target, editedEquipment);
     }
 
     @Override
-    public void updatePerson(Equipment target, Equipment editedEquipment) {
+    public void updateEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
 
-        versionedEquipmentManager.updatePerson(target, editedEquipment);
+        versionedEquipmentManager.updateEquipment(target, editedEquipment);
     }
 
     //=========== Filtered WorkList List Accessors =============================================================
@@ -166,48 +166,48 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
+    public boolean canUndoEquipmentManager() {
         return versionedEquipmentManager.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
+    public boolean canRedoEquipmentManager() {
         return versionedEquipmentManager.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
+    public void undoEquipmentManager() {
         versionedEquipmentManager.undo();
     }
 
     @Override
-    public void redoAddressBook() {
+    public void redoEquipmentManager() {
         versionedEquipmentManager.redo();
     }
 
     @Override
-    public void commitAddressBook() {
+    public void commitEquipmentManager() {
         versionedEquipmentManager.commit();
     }
 
     //=========== Selected equipment ===========================================================================
 
     @Override
-    public ReadOnlyProperty<Equipment> selectedPersonProperty() {
-        return selectedPerson;
+    public ReadOnlyProperty<Equipment> selectedEquipmentProperty() {
+        return selectedEquipment;
     }
 
     @Override
-    public Equipment getSelectedPerson() {
-        return selectedPerson.getValue();
+    public Equipment getSelectedEquipment() {
+        return selectedEquipment.getValue();
     }
 
     @Override
-    public void setSelectedPerson(Equipment equipment) {
+    public void setSelectedEquipment(Equipment equipment) {
         if (equipment != null && !filteredEquipments.contains(equipment)) {
             throw new EquipmentNotFoundException();
         }
-        selectedPerson.setValue(equipment);
+        selectedEquipment.setValue(equipment);
     }
 
     @Override
@@ -216,30 +216,30 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid equipment in {@code filteredEquipments}.
+     * Ensures {@code selectedEquipment} is a valid equipment in {@code filteredEquipments}.
      */
     private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Equipment> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
+            if (selectedEquipment.getValue() == null) {
                 // null is always a valid selected equipment, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+            boolean wasSelectedEquipmentReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedEquipment.getValue());
+            if (wasSelectedEquipmentReplaced) {
+                // Update selectedEquipment to its new value.
+                int index = change.getRemoved().indexOf(selectedEquipment.getValue());
+                selectedEquipment.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameEquipment(removedPerson));
+                    .anyMatch(removedPerson -> selectedEquipment.getValue().isSameEquipment(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the equipment that came before it in the list,
                 // or clear the selection if there is no such equipment.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedEquipment.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -267,6 +267,6 @@ public class ModelManager implements Model {
         return versionedEquipmentManager.equals(other.versionedEquipmentManager)
                 && userPrefs.equals(other.userPrefs)
                 && filteredEquipments.equals(other.filteredEquipments)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && Objects.equals(selectedEquipment.get(), other.selectedEquipment.get());
     }
 }

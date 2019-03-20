@@ -15,9 +15,6 @@ import java.util.List;
 
 import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.Command;
-import seedu.equipment.logic.commands.CommandResult;
-import seedu.equipment.logic.commands.EditCommand;
 import seedu.equipment.logic.commands.exceptions.CommandException;
 import seedu.equipment.model.EquipmentManager;
 import seedu.equipment.model.Model;
@@ -120,9 +117,9 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        EquipmentManager expectedEquipmentManager = new EquipmentManager(actualModel.getAddressBook());
+        EquipmentManager expectedEquipmentManager = new EquipmentManager(actualModel.getEquipmentManager());
         List<Equipment> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-        Equipment expectedSelectedEquipment = actualModel.getSelectedPerson();
+        Equipment expectedSelectedEquipment = actualModel.getSelectedEquipment();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -131,9 +128,9 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedEquipmentManager, actualModel.getAddressBook());
+            assertEquals(expectedEquipmentManager, actualModel.getEquipmentManager());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedSelectedEquipment, actualModel.getSelectedPerson());
+            assertEquals(expectedSelectedEquipment, actualModel.getSelectedEquipment());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -157,8 +154,8 @@ public class CommandTestUtil {
      */
     public static void deleteFirstPerson(Model model) {
         Equipment firstEquipment = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstEquipment);
-        model.commitAddressBook();
+        model.deleteEquipment(firstEquipment);
+        model.commitEquipmentManager();
     }
 
 }

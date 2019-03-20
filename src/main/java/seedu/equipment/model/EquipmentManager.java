@@ -143,7 +143,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
      * The equipment identity of {@code editedEquipment} must not be the same as another existing equipment
      * in the equipment book.
      */
-    public void updatePerson(Equipment target, Equipment editedEquipment) {
+    public void updateEquipment(Equipment target, Equipment editedEquipment) {
         requireNonNull(editedEquipment);
 
         equipment.setEquipment(target, editedEquipment);
@@ -163,7 +163,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
                 new Equipment(equipment.getName(), equipment.getPhone(),
                         equipment.getEmail(), equipment.getAddress(), equipment.getSerialNumber(), newTags);
 
-        updatePerson(equipment, newEquipment);
+        updateEquipment(equipment, newEquipment);
     }
 
     /**

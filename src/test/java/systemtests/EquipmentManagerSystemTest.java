@@ -147,7 +147,7 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListEquipmentCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getEquipmentManager().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
     /**
@@ -155,7 +155,7 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void showAllWorkList() {
         executeCommand(ListWorkListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredWorkListList().size());
+        assertEquals(getModel().getEquipmentManager().getPersonList().size(), getModel().getFilteredWorkListList().size());
     }
 
     /**
@@ -164,7 +164,7 @@ public abstract class EquipmentManagerSystemTest {
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size()
-                < getModel().getAddressBook().getPersonList().size());
+                < getModel().getEquipmentManager().getPersonList().size());
     }
 
     /**
@@ -180,7 +180,7 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getPersonList().size());
+        assertEquals(0, getModel().getEquipmentManager().getPersonList().size());
     }
 
     /**
@@ -192,7 +192,7 @@ public abstract class EquipmentManagerSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new EquipmentManager(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
+        assertEquals(new EquipmentManager(expectedModel.getEquipmentManager()), testApp.readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 

@@ -76,13 +76,13 @@ public class EditCommand extends Command {
         Equipment equipmentToEdit = lastShownList.get(index.getZeroBased());
         Equipment editedEquipment = createEditedPerson(equipmentToEdit, editEquipmentDescriptor);
 
-        if (!equipmentToEdit.isSameEquipment(editedEquipment) && model.hasPerson(editedEquipment)) {
+        if (!equipmentToEdit.isSameEquipment(editedEquipment) && model.hasEquipment(editedEquipment)) {
             throw new CommandException(MESSAGE_DUPLICATE_EQUIPMENT);
         }
 
-        model.setPerson(equipmentToEdit, editedEquipment);
+        model.setEquipment(equipmentToEdit, editedEquipment);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
+        model.commitEquipmentManager();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedEquipment));
     }
 

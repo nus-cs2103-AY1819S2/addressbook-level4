@@ -15,7 +15,6 @@ import org.junit.Test;
 import seedu.equipment.commons.core.Messages;
 import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.SelectCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
 import seedu.equipment.model.UserPrefs;
@@ -59,7 +58,7 @@ public class SelectCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of equipment book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getEquipmentManager().getPersonList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
     }
@@ -94,7 +93,7 @@ public class SelectCommandTest {
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_EQUIPMENT_SUCCESS, index.getOneBased());
-        expectedModel.setSelectedPerson(model.getFilteredPersonList().get(index.getZeroBased()));
+        expectedModel.setSelectedEquipment(model.getFilteredPersonList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }

@@ -6,7 +6,6 @@ import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
 import org.junit.Test;
 
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.ClearCommand;
 import seedu.equipment.model.EquipmentManager;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
@@ -20,7 +19,7 @@ public class ClearCommandTest {
     public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitAddressBook();
+        expectedModel.commitEquipmentManager();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -29,8 +28,8 @@ public class ClearCommandTest {
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        expectedModel.setAddressBook(new EquipmentManager());
-        expectedModel.commitAddressBook();
+        expectedModel.setEquipmentManager(new EquipmentManager());
+        expectedModel.commitEquipmentManager();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }

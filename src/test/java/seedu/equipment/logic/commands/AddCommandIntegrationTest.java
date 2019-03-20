@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
 import seedu.equipment.model.UserPrefs;
@@ -32,9 +31,9 @@ public class AddCommandIntegrationTest {
     public void execute_newPerson_success() {
         Equipment validEquipment = new EquipmentBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.addPerson(validEquipment);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getEquipmentManager(), new UserPrefs());
+        expectedModel.addEquipment(validEquipment);
+        expectedModel.commitEquipmentManager();
 
         assertCommandSuccess(new AddCommand(validEquipment), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validEquipment), expectedModel);
@@ -42,7 +41,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Equipment equipmentInList = model.getAddressBook().getPersonList().get(0);
+        Equipment equipmentInList = model.getEquipmentManager().getPersonList().get(0);
         assertCommandFailure(new AddCommand(equipmentInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
     }

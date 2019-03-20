@@ -57,7 +57,7 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         EquipmentManagerStorage equipmentManagerStorage = new JsonEquipmentManagerStorage(
-                userPrefs.getAddressBookFilePath());
+                userPrefs.getEquipmentManagerFilePath());
         storage = new StorageManager(equipmentManagerStorage, userPrefsStorage);
 
         initLogging(config);

@@ -19,8 +19,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.equipment.logic.Logic;
-import seedu.equipment.logic.LogicManager;
 import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.logic.commands.CommandResult;
 import seedu.equipment.logic.commands.HistoryCommand;
@@ -94,8 +92,8 @@ public class LogicManagerTest {
                 + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         Equipment expectedEquipment = new EquipmentBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedEquipment);
-        expectedModel.commitAddressBook();
+        expectedModel.addEquipment(expectedEquipment);
+        expectedModel.commitEquipmentManager();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);
@@ -137,7 +135,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getEquipmentManager(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

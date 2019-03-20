@@ -41,7 +41,7 @@ public class SelectCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX);
         }
 
-        model.setSelectedPerson(filteredEquipmentList.get(targetIndex.getZeroBased()));
+        model.setSelectedEquipment(filteredEquipmentList.get(targetIndex.getZeroBased()));
         return new CommandResult(String.format(MESSAGE_SELECT_EQUIPMENT_SUCCESS, targetIndex.getOneBased()));
 
     }

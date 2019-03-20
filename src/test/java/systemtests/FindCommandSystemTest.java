@@ -89,7 +89,7 @@ public class FindCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: find same persons in equipment book after deleting 1 of them -> 1 equipment found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getAddressBook().getPersonList().contains(HWIYOHCC));
+        assertFalse(getModel().getEquipmentManager().getPersonList().contains(HWIYOHCC));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_CC;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, ANCHORVALECC, AYERRAJAHCC, TECKGHEECC, BUKITGCC,

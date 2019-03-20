@@ -21,7 +21,6 @@ public class GuiTestAssert {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getRace(), actualCard.getRace());
-        assertEquals(expectedCard.getEmail(), actualCard.getGender());
         assertEquals(expectedCard.getEmail(), actualCard.getEmail());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
@@ -38,7 +37,6 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getRace().value, actualCard.getGender());
         assertEquals(expectedPerson.getRace().value, actualCard.getRace());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getSchool().value, actualCard.getSchool());

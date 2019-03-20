@@ -20,7 +20,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Major;
-import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -86,12 +85,11 @@ public class PersonListPanelTest extends GuiUnitTest {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
-            Gender gender = new Gender("Female");
             Race race = new Race("Indian");
             Address address = new Address("a");
             School school = new School("n");
             Major major = new Major("ME");
-            Person person = new Person(name, phone, email, gender, race, address, school,
+            Person person = new Person(name, phone, email, race, address, school,
                 major, Collections.emptySet(), Collections.emptySet(), Collections.emptySet());
             backingList.add(person);
         }

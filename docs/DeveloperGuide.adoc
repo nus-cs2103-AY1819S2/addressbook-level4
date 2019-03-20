@@ -373,6 +373,44 @@ to remove or add.
 === Open feature
 ==== Current Implementation
 
+The edit feature is facilitated by both the `OpenCommandParser` and `OpenCommand`.
+Essentially upon opening a Pdf that is tracked by the application, the user will be able to
+execute the PDF with the operating system's default PDF reader application.
+
+The Open feature has the following syntax:
+`open <INDEX>`
+
+* `<INDEX>` refers to the index of the `Pdf` that you wish to edit.
+
+[NOTE]
+The index value can be referenced from the list in the main application.
+
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the Open feature.
+
+Step 1: The user launches an application with either an existing set of `Pdf` or a
+new sample set of `Pdf` stored within as shown below.
+
+image::OpenFeatureStep1Default.png[width="600"]
+
+Step 2: The user chooses a `Pdf` that they wish to open, in this case `a.pdf`, and
+enters the `open` command into the CLI Interface, following the outlined Syntax as
+illustrated below.
+
+image::OpenFeatureStep2UserInput.png[width="600"]
+
+Step 3: Upon hitting enter to execute the command, the `OpenCommandParser` parses
+the input into relevant objects that are required to be executed by the `OpenCommand`
+object. Upon parsing, the parser then creates a new `OpenCommand` that will execute the
+user's input.
+
+Step 4: Upon receiving the necessary information from the parser, the `OpenCommand`
+retrieves the directory of the Pdf listed in the Pdf Book. It then launches the Pdf
+with the user-default Pdf reader.
+
+[NOTE]
+For more information about the behavior of launching the Pdf, please refer to Java SE 9 class Desktop.
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

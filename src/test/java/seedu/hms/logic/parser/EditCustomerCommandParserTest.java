@@ -98,7 +98,6 @@ public class EditCustomerCommandParserTest {
         // invalid date of birth
         assertParseFailure(parser, "1" + INVALID_DATE_OF_BIRTH_DESC, DateOfBirth.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid hms
         assertParseFailure(parser, "1" + INVALID_ID_DESC, IdentificationNo.MESSAGE_CONSTRAINTS); // invalid id
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
@@ -203,7 +202,8 @@ public class EditCustomerCommandParserTest {
         Index targetIndex = INDEX_FIRST_CUSTOMER;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY
             + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY + TAG_DESC_FRIEND
-            + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + TAG_DESC_HUSBAND;
+            + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + TAG_DESC_HUSBAND
+            + DATE_OF_BIRTH_DESC_BOB;
 
         EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_BOB)
             .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB)
@@ -228,7 +228,8 @@ public class EditCustomerCommandParserTest {
             + INVALID_PHONE_DESC + ID_DESC_BOB + ADDRESS_DESC_BOB + PHONE_DESC_BOB;
         descriptor =
             new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB).build();
+                .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+                .build();
         expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

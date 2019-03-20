@@ -248,6 +248,10 @@ Display requirements not completed and modules that can be taken to fulfil the r
 Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user. +
 Format: `setlimit s/SEMESTER [g/MIN_GRADE MAX_GRADE] [lec/MIN_LECTURE_HOURS MAX_LECTURE_HOURS] [tut/MIN_TUTORIAL_HOURS MAX_TUTORIAL_HOURS] [lab/MIN_LAB_HOURS MAX_LAB_HOURS] [proj/MIN_PROJ_HOURS MAX_PROJ_HOURS] [prep/MIN_PREP_HOURS MAX_PREP_HOURS]`
 
+Examples:
+
+* `setlimit s/Y1S1 g/2.5 5.0`
+
 === Listing all modules in module plan: `cklimit`
 
 Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user. +

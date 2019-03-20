@@ -15,7 +15,7 @@ import seedu.address.model.medicine.Medicine;
  */
 public class ViewStorageCommand extends Command {
 
-    public static final String COMMAND_WORD = "viewmed";
+    public static final String COMMAND_WORD = "listmed";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Display the information of the directory/medicine "
             + "given by the path "

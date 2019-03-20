@@ -27,38 +27,33 @@ public class AddMedicineCommand extends Command {
             + "Parameters: "
             + "[Directory path separated by \\] "
             + "[Name of Medicine] "
-            + "[(Optional if medicine with same name already exist)Price of Medicine] "
-            + "[(Optional)Amount of Medicine]\n"
+            + "[(For new medicine only)Price of Medicine] "
+            + "[(For new medicine only)Amount of Medicine]\n"
             + "Example: " + COMMAND_WORD + " "
             + "root\\TCM\\herbs "
             + "Healroot "
-            + "3.41 50";
+            + "p/3.41 q/50";
 
     public static final String MESSAGE_SUCCESS_NEW_MED =
             "New Medicine added: %1$s with quantity at %2$d and price at %3$s\n";
     public static final String MESSAGE_SUCCESS_EXISTING_MED = "Existing %1$s, added to %2$s\n";
     public static final String MESSAGE_SETPRICE_IGNORED = "Warning: Overriding of price is ignored.\n";
+    private static final String ERRORMESSAGE_INSUFFICIENTINFO_NEWMEDICINE =
+            "Only one field among price and quantity is supplied for new medicine";
+    private static final String ERRORMESSAGE_NOEXISTINGMEDFOUND =
+            "No existing medicine with name %1$s found in the storage.";
 
     private final String name;
-    private final int quantity;
+    private final Optional<Integer> quantity;
     private final String[] path;
-    private boolean possibleExisting;
-    private BigDecimal price;
+    private Optional<BigDecimal> price;
 
-    public AddMedicineCommand(String[] path, String medicineName, BigDecimal price) {
-        this(path, medicineName, 0, price, true);
-    }
 
-    public AddMedicineCommand(String[] path, String medicineName, int quantity, BigDecimal price) {
-        this(path, medicineName, quantity, price, false);
-    }
-
-    public AddMedicineCommand(String[] path, String medicineName, int quantity,
-                              BigDecimal price, boolean possibleExisting) {
+    public AddMedicineCommand(String[] path, String medicineName,
+                              Optional<Integer> quantity, Optional<BigDecimal> price) {
         this.name = medicineName;
         this.quantity = quantity;
         this.path = path;
-        this.possibleExisting = possibleExisting;
         this.price = price;
     }
 
@@ -80,22 +75,28 @@ public class AddMedicineCommand extends Command {
             if (!findDirectory.isPresent()) {
                 throw new CommandException("No Directory found at given path");
             }
+            if ((price.isPresent() && !quantity.isPresent())
+                    || (!price.isPresent() && quantity.isPresent())) {
+                throw new CommandException(ERRORMESSAGE_INSUFFICIENTINFO_NEWMEDICINE);
+            }
+            boolean existing = !price.isPresent() && !quantity.isPresent();
             Optional<Medicine> findMedicine = model.findMedicine(name);
-            if (possibleExisting) {
+            if (existing) {
                 if (findMedicine.isPresent()) {
                     findDirectory.get().addMedicine(findMedicine.get());
                     model.commitAddressBook();
                     String feedback = String.format(MESSAGE_SUCCESS_EXISTING_MED,
                             findMedicine.get().toString(), fromPathToString(path));
-                    if (!findMedicine.get().getPrice().equals(price)) {
-                        feedback += MESSAGE_SETPRICE_IGNORED;
-                    }
                     return new CommandResult(feedback);
+                } else {
+                    throw new CommandException(String.format(ERRORMESSAGE_NOEXISTINGMEDFOUND, name));
                 }
+            } else {
+                model.addMedicine(name, quantity.get(), path, price.get());
+                model.commitAddressBook();
+                return new CommandResult(String.format(MESSAGE_SUCCESS_NEW_MED, name,
+                        quantity.get(), price.get().toString()));
             }
-            model.addMedicine(name, quantity, path, price);
-            model.commitAddressBook();
-            return new CommandResult(String.format(MESSAGE_SUCCESS_NEW_MED, name, quantity, price.toString()));
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());
         }
@@ -106,8 +107,8 @@ public class AddMedicineCommand extends Command {
         return other == this
                 || (other instanceof AddMedicineCommand
                 && name.equals(((AddMedicineCommand) other).name)
-                && quantity == ((AddMedicineCommand) other).quantity
+                && quantity.equals(((AddMedicineCommand) other).quantity)
                 && Arrays.equals(path, ((AddMedicineCommand) other).path)
-                && possibleExisting == ((AddMedicineCommand) other).possibleExisting);
+                && price.equals(((AddMedicineCommand) other).price));
     }
 }

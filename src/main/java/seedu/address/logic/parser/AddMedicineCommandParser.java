@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,7 +18,11 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
     private static final Pattern AddMedicineCommand_Argument_Format =
             Pattern.compile("(?<rawPath>\\S+)(?:\\s+)(?<medicineInformation>\\S.+)");
     private static final Pattern MedicineInformation_Format =
-            Pattern.compile("(?<name>\\S+)(?:\\s*)(?<priceAndQuantity>.*)");
+            Pattern.compile("(?<name>\\S+)(?:\\s*)(?<priceAndQuantity>\\s.*)?");
+    private static final Pattern BigDecimal_Format = Pattern.compile("(?<int>\\d+)(?:\\.?)(?<decimal>\\d*)");
+    private static final Pattern Integer_Format = Pattern.compile("\\d+");
+    private static final Prefix PREFIX_PRICE = new Prefix("p/");
+    private static final Prefix PREFIX_QUANTITY = new Prefix("q/");
 
     /**
      * parse the given input to produce a AddMedicineCommand
@@ -37,20 +42,40 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
         }
         final String rawPath = pathMedicine.group("rawPath");
-        final String medicineInfo = pathMedicine.group("medicineInformation");
         String[] path = rawPath.split("\\\\");
-        final Matcher nameQuantity = MedicineInformation_Format.matcher(medicineInfo);
-        if (!nameQuantity.matches()) {
+        final String medicineInfo = pathMedicine.group("medicineInformation");
+        final Matcher namePriceQuantity = MedicineInformation_Format.matcher(medicineInfo);
+        if (!namePriceQuantity.matches()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
+        }
+        String medicineName = namePriceQuantity.group("name");
+        String priceAndQuantity = namePriceQuantity.group("priceAndQuantity");
+        if (priceAndQuantity == null) {
+            return new AddMedicineCommand(path, medicineName, Optional.empty(), Optional.empty());
+        }
+        ArgumentMultimap map = ArgumentTokenizer.tokenize(priceAndQuantity, PREFIX_PRICE, PREFIX_QUANTITY);
+        if ((!isPrefixesPresent(map, PREFIX_QUANTITY)
+                || !isPrefixesPresent(map, PREFIX_PRICE)
+                || !map.getPreamble().isEmpty())) {
+            throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
+        }
+        String quantityString = map.getValue(PREFIX_QUANTITY).get().trim();
+        String priceString = map.getValue(PREFIX_PRICE).get().trim();
+        if (!Integer_Format.matcher(quantityString).matches() || !BigDecimal_Format.matcher(priceString).matches()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
         }
-        String medicineName = nameQuantity.group("name");
-        String quantity = nameQuantity.group("quantity");
-        String price = nameQuantity.group("price");
-        if (quantity.isEmpty()) {
-            return new AddMedicineCommand(path, medicineName, new BigDecimal(price));
-        } else {
-            return new AddMedicineCommand(path, medicineName, Integer.parseInt(quantity), new BigDecimal(price));
-        }
+        return new AddMedicineCommand(path, medicineName,
+                Optional.of(Integer.parseInt(quantityString)), Optional.of(new BigDecimal(priceString)));
     }
+
+    /**
+     * Returns true if the prefix contains a non-empty {@code Optional} value in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean isPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix prefix) {
+        return argumentMultimap.getValue(prefix).isPresent();
+    }
+
 }

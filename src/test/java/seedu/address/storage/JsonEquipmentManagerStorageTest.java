@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
+import static seedu.address.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.HOON;
 import static seedu.address.testutil.TypicalEquipments.IDA;
 import static seedu.address.testutil.TypicalEquipments.getTypicalAddressBook;
@@ -87,7 +87,7 @@ public class JsonEquipmentManagerStorageTest {
 
         // Modify data, overwrite exiting file, and read back
         original.addPerson(HOON);
-        original.removePerson(ACHORVALECC);
+        original.removePerson(ANCHORVALECC);
         jsonEquipmentManagerStorage.saveAddressBook(original, filePath);
         readBack = jsonEquipmentManagerStorage.readAddressBook(filePath).get();
         assertEquals(original, new EquipmentManager(readBack));

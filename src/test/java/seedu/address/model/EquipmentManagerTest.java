@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
-import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
+import static seedu.address.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.AMY;
 import static seedu.address.testutil.TypicalEquipments.BOB;
 import static seedu.address.testutil.TypicalEquipments.getTypicalAddressBook;
@@ -62,9 +62,9 @@ public class EquipmentManagerTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two equipment with the same identity fields
-        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB)
+        Equipment editedAlice = new EquipmentBuilder(ANCHORVALECC).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        List<Equipment> newEquipments = Arrays.asList(ACHORVALECC, editedAlice);
+        List<Equipment> newEquipments = Arrays.asList(ANCHORVALECC, editedAlice);
         EquipmentManagerStub newData = new EquipmentManagerStub(newEquipments);
 
         thrown.expect(DuplicateEquipmentException.class);
@@ -85,7 +85,7 @@ public class EquipmentManagerTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(equipmentManager.hasPerson(ACHORVALECC));
+        assertFalse(equipmentManager.hasPerson(ANCHORVALECC));
     }
 
     @Test
@@ -95,8 +95,8 @@ public class EquipmentManagerTest {
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        equipmentManager.addPerson(ACHORVALECC);
-        assertTrue(equipmentManager.hasPerson(ACHORVALECC));
+        equipmentManager.addPerson(ANCHORVALECC);
+        assertTrue(equipmentManager.hasPerson(ANCHORVALECC));
     }
 
     @Test
@@ -113,8 +113,8 @@ public class EquipmentManagerTest {
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        equipmentManager.addPerson(ACHORVALECC);
-        Equipment editedAlice = new EquipmentBuilder(ACHORVALECC).withAddress(VALID_ADDRESS_BOB)
+        equipmentManager.addPerson(ANCHORVALECC);
+        Equipment editedAlice = new EquipmentBuilder(ANCHORVALECC).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(equipmentManager.hasPerson(editedAlice));
     }
@@ -136,7 +136,7 @@ public class EquipmentManagerTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         equipmentManager.addListener(listener);
-        equipmentManager.addPerson(ACHORVALECC);
+        equipmentManager.addPerson(ANCHORVALECC);
         assertEquals(1, counter.get());
     }
 
@@ -146,7 +146,7 @@ public class EquipmentManagerTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         equipmentManager.addListener(listener);
         equipmentManager.removeListener(listener);
-        equipmentManager.addPerson(ACHORVALECC);
+        equipmentManager.addPerson(ANCHORVALECC);
         assertEquals(0, counter.get());
     }
 

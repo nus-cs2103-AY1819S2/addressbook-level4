@@ -5,9 +5,11 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_EQUIPMENTS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
+import static seedu.address.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.AYERRAJAHCC;
+import static seedu.address.testutil.TypicalEquipments.BUKITGCC;
 import static seedu.address.testutil.TypicalEquipments.HWIYOHCC;
+import static seedu.address.testutil.TypicalEquipments.JURONGREENCC;
 import static seedu.address.testutil.TypicalEquipments.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -69,11 +71,11 @@ public class FilterCommandTest {
 
     @Test
     public void execute_multipleKeywords_multipleEquipmentsFound() {
-        String expectedMessage = String.format(MESSAGE_EQUIPMENTS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(MESSAGE_EQUIPMENTS_LISTED_OVERVIEW, 5);
         EquipmentContainsKeywordsPredicate predicate = preparePredicate("west urgent");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(new FilterCommand(predicate), model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ACHORVALECC, HWIYOHCC, AYERRAJAHCC), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ANCHORVALECC, HWIYOHCC, AYERRAJAHCC, BUKITGCC, JURONGREENCC), model.getFilteredPersonList());
     }
     private EquipmentContainsKeywordsPredicate preparePredicate(String userInput) {
         return new EquipmentContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));

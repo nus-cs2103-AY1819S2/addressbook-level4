@@ -25,7 +25,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
+import static seedu.address.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.AMY;
 import static seedu.address.testutil.TypicalEquipments.BOB;
 import static seedu.address.testutil.TypicalEquipments.HOON;
@@ -87,7 +87,7 @@ public class AddCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
-        assertCommandSuccess(ACHORVALECC);
+        assertCommandSuccess(ANCHORVALECC);
 
         /* Case: add a equipment with tags, command with parameters in random order -> added */
         toAdd = BOB;

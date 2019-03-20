@@ -20,24 +20,24 @@ import seedu.address.model.tag.Tag;
 public class SampleDataUtil {
     public static Equipment[] getSamplePersons() {
         return new Equipment[] {
-            new Equipment(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
-                new Address("Blk 30 Geylang Street 29, #06-40"), new SerialNumber("A008866X"),
-                getTagSet("west")),
-            new Equipment(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@example.com"),
-                new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), new SerialNumber("A008877X"),
-                getTagSet("ongoing", "west")),
-            new Equipment(new Name("Charlotte Oliveiro"), new Phone("93210283"), new Email("charlotte@example.com"),
-                new Address("Blk 11 Ang Mo Kio Street 74, #11-04"), new SerialNumber("A008888X"),
-                getTagSet("east")),
-            new Equipment(new Name("David Li"), new Phone("91031282"), new Email("lidavid@example.com"),
-                new Address("Blk 436 Serangoon Gardens Street 26, #16-43"), new SerialNumber("A008899X"),
-                getTagSet("east")),
-            new Equipment(new Name("Irfan Ibrahim"), new Phone("92492021"), new Email("irfan@example.com"),
-                new Address("Blk 47 Tampines Street 20, #17-35"), new SerialNumber("A008800X"),
-                getTagSet("urgent")),
-            new Equipment(new Name("Roy Balakrishnan"), new Phone("92624417"), new Email("royb@example.com"),
-                new Address("Blk 45 Aljunied Street 85, #11-31"), new SerialNumber("A008822X"),
-                getTagSet("ongoing"))
+            new Equipment(new Name("Kaki Bukit CC"), new Phone("64454223"), new Email("kakibukitcc@gmail.com"),
+                    new Address("670 Bedok North Street 3, Singapore 469627"), new SerialNumber("X14H702695"),
+                    getTagSet("east")),
+            new Equipment(new Name("Hougang CC"), new Phone("63662218"), new Email("hougangcc@gmail.com"),
+                    new Address("35 Hougang Ave 3, Singapore 538840"), new SerialNumber("X14H702664"),
+                    getTagSet("ongoing", "east")),
+            new Equipment(new Name("Woodlands Galaxy CC"), new Phone("63662218"), new Email("wgcc@gmail.com"),
+                    new Address("31 Woodlands Ave 6, Singapore 738991"), new SerialNumber("X14H703071"),
+                    getTagSet("east")),
+            new Equipment(new Name("Woodlands Community Center Singapore"), new Phone("63689938"),
+                    new Email("wccc@gmail.com"), new Address("1 Woodlands Street 81, Singapore 738526"),
+                    new SerialNumber("X14H702672"), getTagSet("east")),
+            new Equipment(new Name("Tampines North CC"), new Phone("67832900"), new Email("tpncc@gmail.com"),
+                    new Address("2 Tampines Street 41, Singapore 529204"), new SerialNumber("X14H702901"),
+                    getTagSet("closed")),
+            new Equipment(new Name("Paya Lebar Kovan CC"), new Phone("62844261"), new Email("pykcc@gmail.com"),
+                    new Address("207 Hougang Street 21, Singapore 530207"), new SerialNumber("X14H703091"),
+                    getTagSet("ongoing"))
         };
     }
 

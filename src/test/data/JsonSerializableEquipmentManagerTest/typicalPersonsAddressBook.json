@@ -1,53 +1,53 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
-    "name" : "Achorvale CC",
-    "phone" : "94351253",
-    "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "serial number": "A008844L",
+    "name" : "Anchorvale CC",
+    "phone" : "64894959",
+    "email" : "anchorvalecc@gmail.com",
+    "address" : "59 Anchorvale Rd, Singapore 544965",
+    "serial number": "X14D669807",
     "tagged" : [ "west" ]
   }, {
     "name" : "Hwi Yoh CC",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "serial number": "A008855L",
+    "phone" : "64840338",
+    "email" : "hwiyohcc@gmail.com",
+    "address" : "535 Serangoon North Ave 4, #01-179, Singapore 550535",
+    "serial number": "X10E453103",
     "tagged" : [ "urgent", "west" ]
   }, {
     "name" : "Teck Ghee CC",
-    "phone" : "95352563",
-    "email" : "heinz@example.com",
-    "address" : "wall street",
-    "serial number": "A0223344X",
+    "phone" : "64567123",
+    "email" : "teckgheecc@gmail.com",
+    "address" : "861 Ang Mo Kio Ave 10, Singapore 569734",
+    "serial number": "X14F682834",
     "tagged" : [ ]
   }, {
     "name" : "Ayer Rajah CC",
-    "phone" : "87652533",
-    "email" : "cornelia@example.com",
-    "address" : "10th street",
-    "serial number": "A008800L",
+    "phone" : "65609983",
+    "email" : "arcc@gmail.com",
+    "address" : "150 Pandan Gardens, Singapore 609335",
+    "serial number": "X10E453112",
     "tagged" : [ "west" ]
   }, {
     "name" : "Bukit Gombak CC",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
-    "address" : "michegan ave",
-    "serial number": "A008811L",
+    "phone" : "65150073",
+    "email" : "bgcc@gmail.com",
+    "address" : "386 Bukit Batok West Ave 5, Singapore 650386",
+    "serial number": "X14F682858",
     "tagged" : [ ]
   }, {
     "name" : "Cheng San CC",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
-    "address" : "little tokyo",
-    "serial number": "A008822L",
+    "phone" : "64588222",
+    "email" : "cscc@gmail.com",
+    "address" : "6 Ang Mo Kio Street 53, Singapore 569205",
+    "serial number": "X14F681766",
     "tagged" : [ ]
   }, {
     "name" : "Jurong Green CC",
-    "phone" : "9482442",
-    "email" : "anna@example.com",
-    "address" : "4th street",
-    "serial number": "A008821L",
+    "phone" : "65671374",
+    "email" : "jgcc@gmail.com",
+    "address" : "6 Jurong West Ave 1, Singapore 649520",
+    "serial number": "X10E453250",
     "tagged" : [ ]
   } ]
 }

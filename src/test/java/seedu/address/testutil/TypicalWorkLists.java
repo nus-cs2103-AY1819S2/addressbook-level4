@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
+import static seedu.address.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.address.testutil.TypicalEquipments.BOB;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class TypicalWorkLists {
     public static final WorkList LISTA = new WorkList("2019-01-01", "Anchorvale CC");
     public static final WorkList LISTB = new WorkList("2018-01-01", "BOB");
     {
-        LISTA.addEquipment(ACHORVALECC);
+        LISTA.addEquipment(ANCHORVALECC);
         LISTB.addEquipment(BOB);
     }
 

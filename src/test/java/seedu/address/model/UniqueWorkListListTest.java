@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;
+//import static seedu.address.testutil.TypicalEquipments.ANCHORVALECC;
 //import static seedu.address.testutil.TypicalEquipments.BOB;
 
 import static seedu.address.testutil.TypicalWorkLists.LISTA;

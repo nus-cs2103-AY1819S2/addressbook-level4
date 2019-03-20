@@ -159,7 +159,7 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::ui-class-diagram.png[width:"1200"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/hms/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CustomerListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -178,7 +178,7 @@ The `UI` component,
 image::logic-class-diagram.png[width:"800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/hms/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AddressBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -197,19 +197,19 @@ image::DeleteCustomerSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::model-class-diagram.png[width:"1200"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/hms/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the `HotelManagementSystem` data.
 * exposes an unmodifiable `ObservableList<Customer/Booking>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Customer` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Customer` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Hotel Management System`, which `Customer` can reference. This would allow `Hotel Management System` to only require one `Tag` object per unique `Tag`, instead of each `Customer` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:ModelClassBetterOopDiagram.png[width="800"]
+image:ModelClassBetterOopDiagram.png[width="950"]
 
 [[Design-Storage]]
 === Storage component
@@ -217,7 +217,7 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::storage-class-diagram.png[width="1200"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/hms/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -227,7 +227,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.hms.commons` package.
 
 == Implementation
 

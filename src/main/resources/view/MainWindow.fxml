@@ -61,26 +61,23 @@
 
           <VBox>
             <SplitPane id="splitPaneTwo" fx:id="splitPaneTwo" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-              <StackPane fx:id="mapPanelPlaceholder" minWidth="425" prefWidth="425">
+              <StackPane fx:id="mapPanelPlaceholder" minWidth="425" prefWidth="425" >
               </StackPane>
-              <StackPane>
-                <VBox>
-                  <StackPane fx:id="onReqClickPlaceholder" minWidth="400">
+              <StackPane fx:id="onReqClickPlaceholder" minWidth="400" style="background-color:yellow;">
 
-                  </StackPane>
-                </VBox>
               </StackPane>
             </SplitPane>
-            <StackPane VBox.vgrow="NEVER" fx:id="healthWorkerList" minHeight="150" styleClass="pane-with-border">
+            <StackPane VBox.vgrow="NEVER" fx:id="healthworkerList" minHeight="175" maxHeight="175" prefHeight="175"
+                       styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10"/>
               </padding>
-              <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="ALWAYS"/>
+              <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="NEVER"/>
             </StackPane>
           </VBox>
         </SplitPane>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="ALWAYS"/>
       </VBox>
     </Scene>
   </scene>

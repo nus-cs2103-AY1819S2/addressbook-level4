@@ -348,7 +348,7 @@ span.command {
     -fx-background-radius: 0;
 }
 
-#tags {
+#tags, #specialisations {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
@@ -360,6 +360,15 @@ span.command {
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#specialisations .label {
+    -fx-text-fill: white;
+    -fx-background-color: #ee5253;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 10;
 }
 
 /* Added css lines */

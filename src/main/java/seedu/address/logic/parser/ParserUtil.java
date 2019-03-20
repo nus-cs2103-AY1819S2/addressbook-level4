@@ -74,4 +74,16 @@ public class ParserUtil {
         }
         return new Face(trimmedFace);
     }
+
+    /**
+     * Parses {@code Collection<String> faces} into a {@code Set<Face>}.
+     */
+    public static Set<Face> parseFaces(Collection<String> faces) throws ParseException {
+        requireNonNull(faces);
+        final Set<Face> faceSet = new HashSet<>();
+        for (String faceText : faces) {
+            faceSet.add(parseFace(faceText));
+        }
+        return faceSet;
+    }
 }

@@ -313,6 +313,24 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::findfeature[]
+=== Find Feature
+
+The Find command is implemented under the Logic component which in turn calls upon the Model component to retrieve
+the flashcards a user wishes to find (based on user specified keywords). The implementation can be further explained
+with the aid of the following sequence diagram:
+
+image::FindCommandSequenceDiagram.png[width="800"]
+
+The `FindCommandParser` class takes the input arguments specified by the user and tokenises them based on predefined
+flashcard prefixes to create a list of keywords associated with each of these prefixes (`/f`, `/b`, `/t`). These lists
+are passed to construct a new `FlashcardContainsKeywordPredicate` object which is then passed to the constructor of `FindCommand`.
+The execution of the `FindCommand` calls upon the `Model` object to update the filtered flashcard list based on the predicate defined.
+This is done through the use of the test method in the predicate classes which evaluate matches between the keywords and a
+specific attribute of the flashcard. If a match exists, the flashcard will be displayed to the user.
+
+// end::findfeature[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

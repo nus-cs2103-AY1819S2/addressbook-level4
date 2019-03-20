@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.flashcard.FlashcardContainsKeywordsPredicate.IS_FRONT_FACE;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,8 +9,8 @@ import java.util.List;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.flashcard.FaceContainsKeywordsPredicate;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.NameContainsKeywordsPredicate;
 
 /**
  * Enters quiz mode
@@ -21,10 +22,10 @@ public class QuizCommand extends Command {
     public static final String MESSAGE_QUIZ_START = "Quiz mode started";
 
 
-    private final NameContainsKeywordsPredicate predicate;
+    private final FaceContainsKeywordsPredicate predicate;
 
     public QuizCommand() {
-        predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
+        predicate = new FaceContainsKeywordsPredicate(Collections.emptyList(), IS_FRONT_FACE);
     }
 
     @Override

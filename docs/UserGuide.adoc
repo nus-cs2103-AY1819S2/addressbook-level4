@@ -131,22 +131,27 @@ Flashcard at index 1 will be edited and the updated information will be displaye
 
 === Locating a Flashcard by keyword: `find`
 
-Finds flashcards whose names contain any of the given keywords. +
+Finds and lists flashcards whose front text, back text or collection tags contain any of the given keywords. +
 
-Format: ​`find [KEYWORD]... [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
+Format: ​`find [f/KEYWORD]... [b/KEYWORD]... [t/KEYWORD]...`
 
 ****
-* Finds the flashcard(s) that contains the given keyword(s)
+* Finds the flashcard(s) that contain the given keyword(s) based on the specified prefix. For example,
+ 'f/hello hi' will find all flashcards whose front text contains 'hello' or 'hi'
+* Multiple keywords can be specified for the front text and back text under a single 'f/' and 'b/' prefix.
+ They may also be specified separately behind multiple 'f/' and 'b/' prefixes.
+* Multiple keywords can be specified for the collection tags but must appear separately behind each 't/' prefix.
+ For example, 't/spanish italian' is not permitted but 't/spanish t/italian' is permitted.
 ****
 
 Examples:
 
 * `find f/你好 t/language` +
-This will display flashcards that contains the given keyword in language tag
-* `find t/spanish` +
-This will display all flashcards with spanish tag
+This will display flashcards that contain the given keyword in front text OR with the language tag
+* `find t/spanish t/portuguese` +
+This will display all flashcards with the spanish tag OR with the portuguese tag
 * `find` +
-This will display all flashcards
+This will display all flashcards [coming in v2.0]
 
 === Deleting a flashcard : `delete`
 

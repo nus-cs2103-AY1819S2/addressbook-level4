@@ -10,17 +10,21 @@ import static seedu.address.testutil.TypicalFlashcards.HITBAG;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
+
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.flashcard.Flashcard;
-import seedu.address.model.flashcard.NameContainsKeywordsPredicate;
+import seedu.address.model.flashcard.FlashcardContainsKeywordsPredicate;
 import seedu.address.model.flashcard.exceptions.FlashcardNotFoundException;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardCollectionBuilder;
 import seedu.address.testutil.FlashcardBuilder;
 
@@ -172,8 +176,15 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentCardCollection, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = GOOD.getFrontFace().text.split("\\s+");
-        modelManager.updateFilteredFlashcardList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String[] frontFaceKeywords = GOOD.getFrontFace().text.split("\\s+");
+        String[] backFaceKeywords = GOOD.getBackFace().text.split("\\s+");
+        Set<Tag> tagSet = GOOD.getTags();
+        ArrayList<String> tagKeywords = new ArrayList<>();
+        for (Tag tag : tagSet) {
+            tagKeywords.add(tag.tagName);
+        }
+        modelManager.updateFilteredFlashcardList(new FlashcardContainsKeywordsPredicate(
+                Arrays.asList(frontFaceKeywords), Arrays.asList(backFaceKeywords), tagKeywords));
         assertFalse(modelManager.equals(new ModelManager(cardCollection, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

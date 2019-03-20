@@ -24,14 +24,14 @@ public class WarningPanel extends UiPart<Region> {
                         ObservableList<Medicine> lowQuantityMedicineList) {
         super(FXML);
 
-        createVBox(expiringMedicineList, lowQuantityMedicineList);
+        setUpVBox(expiringMedicineList, lowQuantityMedicineList);
 
     }
 
     /**
-     * Creates the VBox which holds the lists.
+     * Sets up the VBox which holds the lists.
      */
-    private void createVBox(ObservableList<Medicine> expiringMedicineList,
+    private void setUpVBox(ObservableList<Medicine> expiringMedicineList,
                             ObservableList<Medicine> lowQuantityMedicineList) {
         Label expiringListTitle = new Label("Expiring Soon");
         expiringListTitle.getStyleClass().add("label-bright");

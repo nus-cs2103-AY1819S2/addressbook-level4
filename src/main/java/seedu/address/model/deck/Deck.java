@@ -41,7 +41,8 @@ public class Deck implements ListItem {
     }
 
     public Card generateCard() {
-        return cards.iterator().next();
+        return cards.internalList.get((int) Math.random() * cards.internalList.size() + 1);
+        //return cards.iterator().next();
     }
 
     /**

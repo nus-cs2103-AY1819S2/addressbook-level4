@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -91,7 +92,12 @@ public class StorageManager implements Storage {
     public void saveCardFolders(List<ReadOnlyCardFolder> cardFolders, Path path) throws IOException {
         cardFolderStorageList.clear();
         // Clear directory before saving
-        Files.deleteIfExists(path);
+        List<Path> pathsToDelete = Files.walk(path)
+                .filter(Files::isRegularFile)
+                .collect(Collectors.toList());
+        for (Path pathToDelete : pathsToDelete) {
+            Files.deleteIfExists(pathToDelete);
+        }
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             // TODO: Address hardcoding and add check for orphaned folders
             Path filePath = path.resolve(cardFolder.getFolderName() + ".json");

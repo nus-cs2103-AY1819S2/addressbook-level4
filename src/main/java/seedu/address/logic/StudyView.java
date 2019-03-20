@@ -18,7 +18,7 @@ public class StudyView implements ViewState {
     public final List<Card> listOfCards;
     private final Deck activeDeck;
     private Card currentCard;
-    private studyState currentStudyState = studyState.QUESTION;
+    private final SimpleObjectProperty<studyState> currentStudyState = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
     private DeckShuffler deckShuffler;
 
@@ -61,7 +61,7 @@ public class StudyView implements ViewState {
 
 
     public void setCurrentStudyState(studyState state) {
-        currentStudyState = state;
+        currentStudyState.setValue(state);
     }
 
     public ReadOnlyProperty<String> textShownProperty() {
@@ -69,12 +69,16 @@ public class StudyView implements ViewState {
         return textShown;
     }
 
-    public studyState getCurrentStudyState() {
+    public ReadOnlyProperty<studyState> studyStateProperty() {
         return currentStudyState;
     }
 
+    public studyState getCurrentStudyState() {
+        return currentStudyState.getValue();
+    }
+
     public void updateTextShown() {
-        String text =  (currentStudyState == studyState.QUESTION)
+        String text =  (getCurrentStudyState() == studyState.QUESTION)
                 ? currentCard.getQuestion()
                 : currentCard.getAnswer();
         textShown.setValue(text);

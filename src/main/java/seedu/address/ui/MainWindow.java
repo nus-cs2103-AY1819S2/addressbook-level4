@@ -190,7 +190,7 @@ public class MainWindow extends UiPart<Stage> {
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
             } else if (commandResult instanceof StudyPanelCommand) {
-                studyPanel = new StudyPanel(logic.textShownProperty());
+                studyPanel = new StudyPanel(logic.textShownProperty(), logic.studyStateProperty());
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(studyPanel.getRoot());
             } else if (commandResult instanceof HelpCommandResult) {

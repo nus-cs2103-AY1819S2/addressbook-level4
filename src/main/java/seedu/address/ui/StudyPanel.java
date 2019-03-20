@@ -56,7 +56,7 @@ public class StudyPanel extends UiPart<Region> {
         textShown.addListener((observable, oldValue, newValue) -> {
             logger.info("textShown changed to: " + newValue);
             question.setText(textShown.getValue());
-            
+
         });
 
         textShown.addListener((observable, oldValue, newValue) -> {

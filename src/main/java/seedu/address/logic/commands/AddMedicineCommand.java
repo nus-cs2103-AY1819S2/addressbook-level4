@@ -37,10 +37,9 @@ public class AddMedicineCommand extends Command {
     public static final String MESSAGE_SUCCESS_NEW_MED =
             "New Medicine added: %1$s with quantity at %2$d and price at %3$s\n";
     public static final String MESSAGE_SUCCESS_EXISTING_MED = "Existing %1$s, added to %2$s\n";
-    public static final String MESSAGE_SETPRICE_IGNORED = "Warning: Overriding of price is ignored.\n";
-    private static final String ERRORMESSAGE_INSUFFICIENTINFO_NEWMEDICINE =
+    public static final String ERRORMESSAGE_INSUFFICIENTINFO_NEWMEDICINE =
             "Only one field among price and quantity is supplied for new medicine";
-    private static final String ERRORMESSAGE_NOEXISTINGMEDFOUND =
+    public static final String ERRORMESSAGE_NOEXISTINGMEDFOUND =
             "No existing medicine with name %1$s found in the storage.";
 
     private final String name;

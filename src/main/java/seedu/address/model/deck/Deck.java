@@ -40,11 +40,6 @@ public class Deck implements ListItem {
         return cards;
     }
 
-    public Card generateCard() {
-        return cards.internalList.get((int) Math.random() * cards.internalList.size() + 1);
-        //return cards.iterator().next();
-    }
-
     /**
      * Checks if a card is already in a deck.
      */

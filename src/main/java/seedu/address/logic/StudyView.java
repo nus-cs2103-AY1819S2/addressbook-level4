@@ -22,6 +22,7 @@ public class StudyView implements ViewState {
     private Card currentCard;
     private studyState currentStudyState = studyState.QUESTION;
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
+    private Strategy strategy;
 
     public enum studyState {
         QUESTION, ANSWER;
@@ -31,8 +32,9 @@ public class StudyView implements ViewState {
         this.model = model;
         this.activeDeck = deck;
         listOfCards = deck.getCards().internalList;
-        generateCard();
         setCurrentStudyState(studyState.QUESTION);
+        this.strategy = new Strategy(activeDeck);
+        generateCard();
     }
 
     @Override
@@ -55,15 +57,10 @@ public class StudyView implements ViewState {
         return activeDeck;
     }
 
-
-
     public void setCurrentCard(Card card) {
         currentCard = card;
     }
 
-    public Card getCurrentCard() {
-        return currentCard;
-    }
 
     public void setCurrentStudyState(studyState state) {
         currentStudyState = state;
@@ -78,7 +75,7 @@ public class StudyView implements ViewState {
         return currentStudyState;
     }
 
-    public void updateTextShown(){
+    public void updateTextShown() {
         String text =  (currentStudyState == studyState.QUESTION)
                 ? currentCard.getQuestion()
                 : currentCard.getAnswer();
@@ -86,7 +83,8 @@ public class StudyView implements ViewState {
     }
 
     public void generateCard() {
-        setCurrentCard(activeDeck.generateCard());
+        setCurrentCard(strategy.generateCard());
+        updateTextShown();
     };
 
 

@@ -68,7 +68,7 @@ public interface Logic {
     ReadOnlyProperty<ListItem> selectedItemProperty();
 
     /**
-     * Current text in the model
+     * Current text in the StudyView
      */
     ReadOnlyProperty<String> textShownProperty();
 }

@@ -278,5 +278,4 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedItem.get(), other.selectedItem.get());
     }
 
-
 }

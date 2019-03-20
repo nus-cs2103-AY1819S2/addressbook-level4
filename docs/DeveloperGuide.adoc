@@ -249,13 +249,68 @@ Currently PDF++ only supports PDF files, any other types of files will not be ac
 The Add feature has the following syntax:
 `add f/<PATH_TO_FILE> t/<TAG>...`
 
-* `f/` refers to command immediately following after this is a file
+* `f/` refers to command immediately following after this prefix is a file
 * `<PATH_TO_FILE>` refers to the path to the `Pdf` you wish to add
+* `<TAG>...` refers to the new `Tag` you wish to add. Leave this portion empty if you
+do not wish to tag this file.
 
 [NOTE]
-Please refer to <<>>
+Please ensure that you have entered the full `PATH_TO_FILE`. Please refer to
+`Step-by-Step Guide -- add` below for detailed explanation.
 
+===== Step-by-Step Guide -- add
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the Add feature.
 
+Step 1: The user launches the application with either an existing set of `Pdf` or a new
+sample set of `Pdf` stored within as shown below.
+
+image::AddFeatureStep1Default.png[width="600"]
+
+Step 2: The user navigates to the folder with the file and copy the directory.
+
+* __For Windows__
+Once the user has navigated to the folder, click on the address bar and copy
+
+image::AddFeatureStep2CopyDirectory.png[width="600"]
+
+* __For Mac__
+
+Step 3: The user enters the `add` command into the CLI interface, following the
+outlined syntax as illustrated below.
+
+[NOTE]
+Your users must type the file name **after** the directory copied at __Step 2__
+
+image::AddFeatureStep3UserInput.png[width="600"]
+
+Step 4: Upon hitting enter to execute the command, the `AddCommandParser` parses the input
+into several components that are required to be executed by the `AddCommand`.
+
+Upon parsing, the parser then creates a new `AddCommand` that will execute according to
+the user's input.
+
+Step 5: Upon receiving the necessary information from the parser, the `AddCommand` first
+begins by checking for validity as shown below.
+
+* Duplicate `Pdf` found
+
+image::AddFeatureStep5DuplicateFound.png[width="600"]
+
+* `Pdf` does not exist
+
+image::AddFeatureStep5PdfNotFound.png[width="600"]
+
+* `Pdf` found and no duplication
+
+image::AddFeatureStep5Sucess.png[width="600"]
+
+Step 6: If the validity check and the individual property check passes, the file is then
+added to PDF++
+
+[NOTE]
+As of v1.2, the Add feature is only capable of adding 1 `Pdf` file at a time. By v1.4,
+the feature will support adding multiple files.
 
 // tag:edit[]
 === Edit feature
@@ -263,15 +318,16 @@ Please refer to <<>>
 
 The edit feature is facilitated by both the `EditCommandParser` and `EditCommand`.
 Essentially upon adding a Pdf to be tracked by the application, the user will be able to
-change certain attributes tied to the PDF such as the `Name` and `Tag`s tied to a particular Pdf.
+change certain attributes tied to the PDF such as the `Name` and `Tag` tied to a particular Pdf.
 
 The Edit feature has the following syntax:
-`edit <INDEX> n/<NEWNAME> t/<NEWTAG1> t/<NEWTAG2>`
+`edit <INDEX> n/<NEWNAME> t/<NEWTAG1>...`
 
 * `<INDEX>` refers to the index of the `Pdf` that you wish to edit.
 * `n/` indicates that you are editing the name of the file
 * `<NEWNAME>` refers to the new value that you would like to set the `Pdf`s `Name` to.
-* `<NEWTAG*>` refers to the new `Tag`s you wish to add to.
+* `<NEWTAG...>` refers to the new `Tag` you wish to add. Leave this portion empty if you
+do not wish to tag this file.
 
 [NOTE]
 The index value can be referenced from the list in the main application.
@@ -279,10 +335,10 @@ The index value can be referenced from the list in the main application.
 Illustrated below is a sample usage scenario that provides a clear view to the inner
 workings of the Edit feature.
 
-Step 1: The user launches an application with either an existing set of `Pdf`s or a
-new sample set of `Pdf`s stored within as shown below.
+Step 1: The user launches an application with either an existing set of `Pdf` or a
+new sample set of `Pdf` stored within as shown below.
 
-image::EditFeatureDefault.png[width="600"]
+image::EdiFeatureStep1Default.png[width="600"]
 
 Step 2: The user chooses a `Pdf` that they wish to edit, in this case `g.pdf`, and
 enters the `edit` command into the CLI Interface, following the outlined Syntax as
@@ -290,7 +346,7 @@ illustrated below.
 
 image::EditFeatureUserInput.png[width="600"]
 
-Step 3: Upon hitting enter to execute the command, the `EditCommandParser` splits
+Step 3: Upon hitting enter to execute the command, the `EditCommandParser` parses
 the input into relevant objects that are required to be executed by the `EditCommand`
 object. Upon parsing, the parser then creates a new `EditCommand` that will execute the
 user's input.

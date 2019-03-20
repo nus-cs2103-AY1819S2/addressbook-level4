@@ -44,7 +44,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PDF_SUCCESS = "Edited PDF: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This pdf already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the address book.";
     public static final String MESSAGE_EDIT_PDF_FAILURE = "Unable to Edit PDF.";
 
     private final Index index;
@@ -83,7 +83,7 @@ public class EditCommand extends Command {
         }
 
         if (!pdfToEdit.isSamePdf(editedPdf) && model.hasPdf(editedPdf)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_PDF);
         }
 
         model.setPdf(pdfToEdit, editedPdf);

@@ -293,15 +293,15 @@ the user's input.
 Step 5: Upon receiving the necessary information from the parser, the `AddCommand` first
 begins by checking for validity as shown below.
 
-* Duplicate `Pdf` found
+* Duplicate `Pdf` found in PDF++
 
 image::AddFeatureStep5DuplicateFound.png[width="600"]
 
-* `Pdf` does not exist
+* `Pdf` does not exist in directory
 
 image::AddFeatureStep5PdfNotFound.png[width="600"]
 
-* `Pdf` found and no duplication
+* `Pdf` found and no duplication in PDF++
 
 image::AddFeatureStep5Sucess.png[width="600"]
 

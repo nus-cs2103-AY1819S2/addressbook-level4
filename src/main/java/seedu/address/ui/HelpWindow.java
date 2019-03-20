@@ -64,7 +64,7 @@ public class HelpWindow extends UiPart<Stage> {
         logger.fine("Showing help page about the application.");
         //getRoot().show();
         try {
-            Desktop.getDesktop().browse(Paths.get("docs", "HelpWindow.html")
+            Desktop.getDesktop().browse(Paths.get("build", "docs", "html5", "HelpWindow.html")
                     .toAbsolutePath().toFile().toURI());
         } catch (IOException e) {
             e.printStackTrace();

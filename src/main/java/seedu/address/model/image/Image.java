@@ -64,7 +64,7 @@ public class Image {
             this.height = buffer.getHeight();
             this.width = buffer.getWidth();
             this.url = url;
-            this.commandHistory = new ArrayList();
+            this.commandHistory = new ArrayList<>();
             this.index = 1;
 
         } catch (Exception e) {

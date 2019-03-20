@@ -55,6 +55,10 @@ class JsonAdaptedRecord {
         }
     }
 
+    /**
+     * Formats the attributes into a text String to be stored in Json.
+     * @return the String representing the record.
+     */
     @JsonValue
     public String getRecordName() {
         return doctorName + DIVIDER + description + DIVIDER + recordDate;
@@ -64,6 +68,7 @@ class JsonAdaptedRecord {
      * Converts this Jackson-friendly adapted record object into the model's {@code Record} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.
+     * Limitations: If there are multiple constraints violated, only the first will be reported.
      */
     public Record toModelType() throws IllegalValueException {
         if (!Name.isValidName(doctorName)) {

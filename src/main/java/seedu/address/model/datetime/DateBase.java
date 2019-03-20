@@ -9,6 +9,8 @@ import java.util.Date;
  * Date format for patients and records.
  */
 public class DateBase implements DateBuilder {
+    public static final String MESSAGE_CONSTRAINTS =
+            "Date should be in dd-MM-yyyy format";
 
     private int day;
     private int month;
@@ -20,7 +22,7 @@ public class DateBase implements DateBuilder {
      * Default constructor that takes in a birth day.
      * @param dob the dob in dd-mm-yyyy format.
      */
-    DateBase(String dob) {
+    public DateBase(String dob) {
         String[] temp = dob.split("-");
         int day = Integer.parseInt(temp[0].trim());
         int month = Integer.parseInt(temp[1].trim());
@@ -32,7 +34,7 @@ public class DateBase implements DateBuilder {
      * Returns true if a given string is a valid DOB.
      * @param test the string to be tested.
      */
-    static boolean isValidDate(String test) {
+    public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 

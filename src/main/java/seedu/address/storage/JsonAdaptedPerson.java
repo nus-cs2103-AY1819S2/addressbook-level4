@@ -19,6 +19,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.record.Record;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,6 +36,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+    private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -43,15 +45,21 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("nric") String nric,
             @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+            @JsonProperty("records") List<JsonAdaptedRecord> records) {
         this.name = name;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.phone = phone;
         this.email = email;
         this.address = address;
+
         if (tagged != null) {
             this.tagged.addAll(tagged);
+        }
+
+        if (records != null) {
+            this.records.addAll(records);
         }
     }
 
@@ -69,6 +77,9 @@ class JsonAdaptedPerson {
             tagged.addAll(source.getTags().stream()
                     .map(JsonAdaptedTag::new)
                     .collect(Collectors.toList()));
+            records.addAll(((Patient) source).getRecords().stream()
+                    .map(JsonAdaptedRecord::new)
+                    .collect(Collectors.toList()));
         } else {
             throw new PersonIsNotPatient();
         }
@@ -83,6 +94,11 @@ class JsonAdaptedPerson {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+
+        final List<Record> patientRecords = new ArrayList<>();
+        for (JsonAdaptedRecord record : records) {
+            patientRecords.add(record.toModelType());
         }
 
         if (name == null) {
@@ -135,7 +151,11 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNric, modelDob);
+
+        final List<Record> modelRecords = patientRecords;
+
+        return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNric,
+                modelDob, modelRecords);
     }
 
 }

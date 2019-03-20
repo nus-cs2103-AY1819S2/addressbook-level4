@@ -28,6 +28,7 @@ public class Patient extends Person {
     private static final String NONE = "none";
     private static final String CHILD = "child";
     private static final String ADULT = "adult";
+
     private Nric nric;
     private DateOfBirth dateOfBirth;
     private Teeth teeth = null;
@@ -35,6 +36,7 @@ public class Patient extends Person {
 
     /**
      * Every field must be present and not null.
+     * Used by add command.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
                    DateOfBirth dateOfBirth) {
@@ -42,10 +44,11 @@ public class Patient extends Person {
         requireAllNonNull(nric, dateOfBirth);
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
-        inferTeethBuild();
+        buildAdultTeeth();
     }
 
     /**
+     * Used by JSON.
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
@@ -55,7 +58,6 @@ public class Patient extends Person {
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.records = records;
-        inferTeethBuild();
     }
 
     /**
@@ -67,56 +69,28 @@ public class Patient extends Person {
     }
 
     /**
-     * Age inferred teeth layout.
-     * Takes in the age of the patient and infers the teeth build he/she has.
-     */
-    private void inferTeethBuild() {
-        int age = getPatientAge();
-        if (age < 2) {
-            buildTeeth(NONE);
-        } else if (age < 13) {
-            buildTeeth(CHILD);
-        } else {
-            buildTeeth(ADULT);
-        }
-    }
-
-    /**
-     * User specified teeth layout.
-     * Build a default none/child/adult teeth layout, according to the parameters.
-     */
-    private void specifyBuild(String teethLayout) {
-        buildTeeth(teethLayout);
-    }
-
-    /**
      * Build a default none/child/adult teeth layout, according to the parameters.
      * Adds relevant tags to patient if not initialised.
+     * Should be run only when a new Patient is created, not when it is retrieved from storage.
      */
-    private void buildTeeth(String teethLayout) {
-        teeth = new Teeth(teethLayout);
-        if (this.tags.size() == 0) {
-            addRelevantTags(teethLayout);
-        }
+    private void buildAdultTeeth() {
+        teeth = new Teeth(ADULT);
+        addRelevantTags();
     }
 
     /**
      * Add relevant teeth type and health tags to a patient.
      */
-    private void addRelevantTags(String teethLayout) {
-        if (teethLayout.equals(CHILD)) {
-            editTags(new TeethTag(TemplateTags.CHILD));
-        } else {
-            editTags(new TeethTag(TemplateTags.ADULT));
-        }
-        editTags(new StatusTag(TemplateTags.HEALTHY));
+    private void addRelevantTags() {
+        addTag(new TeethTag(TemplateTags.ADULT));
+        addTag(new StatusTag(TemplateTags.HEALTHY));
     }
 
     /**
      * Adds or replace similar tags of the patient.
      * @param tag the tag to be added or overwrite the existing.
      */
-    private void editTags(Tag tag) {
+    private void addTag(Tag tag) {
         if (tag instanceof TeethTag) {
             for (Tag t : tags) {
                 if (t instanceof TeethTag) {

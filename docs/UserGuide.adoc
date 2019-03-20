@@ -89,30 +89,14 @@ Example:
 
 * `open 3` +
 
-=== Assigning and deleting tags to a file : `tag` `[Coming in v1.3]`
+=== Editing a file : `edit`
 
-Assigns and/or deletes tags to an existing file in the list of the app. Use `-` to
-delete tag. No action will be taken when the tag you want to delete does not exist. +
-Format: `tag INDEX TAG...`
+Edit the name or tags of a file at the specified index of the list. +
+Format: `edit INDEX n/NAME t/TAG`
 
 Example:
 
-* `tag Tutorial3 Dijkstra -Graph Tutorial CS2040` +
-
-=== Filter files by tags: `filter` `[Coming in v1.3]`
-
-Display all files that contain any of the given tags. +
-Format: `filter KEYWORD...`
-
-****
-* The search is case insensitive. e.g `dfs` will match `DFS`
-* The order of the keywords does not matter. e.g. `Graphs DFS` will match `DFS Graphs`
-* Only full words will be matched e.g. `Graph` will not match `Graphs`
-* File matching at least one keyword will be returned
-****
-Example:
-
-* `filter Graphs DFS` +
+* `edit 1 n/new.pdf t/cool`
 
 === Deleting a file : `delete`
 
@@ -126,11 +110,26 @@ Example:
 === Moving a file : `move`
 
 Move the file at the specified index of the list into another directory. +
-Format: `move INDEX LOCATION`
+Format: `move INDEX d/DIRECTORY`
 
 Example:
 
-* `move 1 C:\User\Jeremy\Downloads`
+* `move 1 d/C:\User\Jeremy\Downloads`
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Assigning and deleting tags to a file : `tag` `[Coming in v1.3]`
+
+Assigns and/or deletes tags to an existing file in the list of the app. Use `-` to
+ delete tag. No action will be taken when the tag you want to delete does not exist. +
+Format: `tag INDEX t/TAG...`
+
+Example:
+
+* `tag 3 t/DijkstraGraph t/Tutorial t/CS2040` +
 
 === Retrieving information about the file : `info` `[Coming in v1.3]`
 
@@ -146,25 +145,30 @@ Example:
 Set or remove a deadline for the pdf file of the specified index of the list.
 
 ****
-* Format for setting a deadline: `deadline INDEX DATE` +
+* Format for setting a deadline: `deadline INDEX dt/DATE` +
 * Format for removing a deadline: `deadline INDEX`
 * The date must be in the format of dd-mm-yyyy
 ****
 
 Examples:
 
-* `deadline 3 20-02-2019` +
+* `deadline 3 dt/20-02-2019` +
 * `deadline 2` +
 
-=== Exiting the program : `exit`
+=== Filter files by tags: `filter` `[Coming in v1.3]`
 
-Exits the program. +
-Format: `exit`
+Display all files that contain any of the given tags. +
+Format: `filter tx/KEYWORD...`
 
-=== Saving the data
+****
+* The search is case insensitive. e.g `dfs` will match `DFS`
+* The order of the keywords does not matter. e.g. `Graphs DFS` will match `DFS Graphs`
+* Only full words will be matched e.g. `Graph` will not match `Graphs`
+* File matching at least one keyword will be returned
+****
+Example:
 
-PDF++ data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+* `filter tx/Graphs DFS` +
 
 // tag::undoredo[]
 === Undo, redo command `[Coming in v2.0]`
@@ -178,21 +182,27 @@ _Users are able to undo previously entered commands and redo undone commands._
 _Users will be prompted to enter the password for validation purpose to open encrypted files._
 // end::dataencryption[]
 
+=== Saving the data
+
+PDF++ data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+
 == Command Summary
 
 * *Add* `add f/PATH_TO_FILE` +
-e.g. `import C:\Users\Raj\Documents\Tutorial3.pdf`
+e.g. `add f/C:\Users\Raj\Documents\Tutorial3.pdf`
 * *List* : `list`
 * *Open* : `open INDEX`
 e.g. `open 3`
-* *Tag* : `tag FILENAME TAG…` +
-e.g. `tag Tutorial3 Dijkstra Graph Tutorial CS2040`
-* *Filter* : `filter KEYWORD...` +
-e.g. `filter Graphs DFS`
 * *Delete* : `delete INDEX` +
 e.g. `delete 4`
-* *Move* : `move INDEX LOCATION`
-e.g. `move 3 C:\User\Jeremy\Downloads`
+* *Move* : `move INDEX d/LOCATION`
+e.g. `move 3 d/C:\User\Jeremy\Downloads`
+* *Tag* : `tag INDEX t/TAG…` +
+e.g. `tag 3 t/DijkstraGraph t/Tutorial t/CS2040`
+* *Filter* : `filter tx/KEYWORD...` +
+e.g. `filter tx/GraphsDFS`
 * *Info* : `info INDEX`
 e.g. `info 3`
 * *Deadline* : `deadline INDEX DATE` or `deadline INDEX`

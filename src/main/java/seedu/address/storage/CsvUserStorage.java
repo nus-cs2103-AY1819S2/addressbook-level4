@@ -110,9 +110,9 @@ public class CsvUserStorage implements UserStorage {
         int streak;
         Instant srs;
 
-        hashCode = Integer.getInteger(cardArray[0]);
-        numOfAttempts = Integer.getInteger(cardArray[1]);
-        streak = Integer.getInteger(cardArray[2]);
+        hashCode = Integer.parseInt(cardArray[0]);
+        numOfAttempts = Integer.parseInt(cardArray[1]);
+        streak = Integer.parseInt(cardArray[2]);
         srs = Instant.parse(cardArray[3]);
 
         CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs);

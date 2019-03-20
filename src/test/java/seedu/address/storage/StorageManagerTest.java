@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.io.IOException;
+import java.time.Instant;
 import static org.junit.Assert.assertEquals;
 
 import java.nio.file.Path;
@@ -13,6 +15,8 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Lessons;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.user.CardSrsData;
+import seedu.address.model.user.User;
 
 public class StorageManagerTest {
     private static final Path NO_VALID_FILES_FOLDER = Paths.get("src", "test", "data",
@@ -58,11 +62,11 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void lessonsReadSave() throws Exception {
+    public void lessonsReadSave() {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link CsvLessonsStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link CsvLessonsStorage} class.
+         * More extensive testing of Lessons saving/reading is done in {@link CsvLessonsStorage} class.
          */
         Lessons original = new Lessons();
         storageManager.setLessonsFolderPath(NO_VALID_FILES_FOLDER);
@@ -78,5 +82,30 @@ public class StorageManagerTest {
         CsvLessonsStorage expected = new CsvLessonsStorage(getTempFilePath("data"));
         assertEquals(expected.getLessonsFolderPath(), storageManager.getLessonsFolderPath());
     }
+    @Test
+    public void userReadSave() throws IOException {
+        /*
+         * Note: This is an integration test that verifies the StorageManager is properly wired to the
+         * {@link CsvUserStorage} class.
+         * More extensive testing of User saving/reading is done in {@link CsvUserStorage} class.
+         *
+         * TODO
+         */
+        User original = new User();
+        Path testFile = testFolder.newFile("user.csv").toPath();
+        storageManager.setUserFilePath(testFile);
+        assertEquals(original, storageManager.readUser().orElse(new User()));
+        assertEquals(original, storageManager.readUser(testFile).orElse(new User()));
+        original.addCard(new CardSrsData(1, 1, 1, Instant.now()));
+        storageManager.saveUser(original);
+        assertEquals(1 , storageManager.readUser().get().getCards().size());
+        storageManager.saveUser(original, testFile);
+        assertEquals(1 , storageManager.readUser(testFile).get().getCards().size());
+    }
 
+    @Test
+    public void getUserFilePath() {
+        CsvUserStorage expected = new CsvUserStorage(getTempFilePath("data\\user"));
+        assertEquals(expected.getUserFilePath(), storageManager.getUserFilePath());
+    }
 }

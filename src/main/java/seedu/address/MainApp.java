@@ -165,8 +165,8 @@ public class MainApp extends Application {
 
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
+     * Returns a {@code Lessons} using the folder at {@code storage}'s Lessons folder path,
+     * or a new {@code Lessons} with no initial lessons if errors occur when
      * reading from the file.
      */
     protected Lessons initLessons(LessonsStorage storage) {
@@ -182,19 +182,18 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
-     * reading from the file.
+     * Returns a {@code User} using the file at {@code storage}'s user file path,
+     * or a new {@code User} with empty data if errors occur when reading from the file.
      */
     protected User initUser(UserStorage storage) {
-        Path lessonsFolderPath = storage.getUserFilePath();
-        logger.info("Using lessons folder : " + lessonsFolderPath);
+        Path userFilePath = storage.getUserFilePath();
+        logger.info("Using user data folder : " + userFilePath);
 
         User initializedUser = null;
         Optional<User> prefsOptional = storage.readUser();
         initializedUser = prefsOptional.orElse(new User());
 
-        logger.info("User data successfully loaded " + initializedUser.getCards().size() + "  cards.");
+        logger.info("User data successfully loaded " + initializedUser.getCards().size() + " cards.");
         return initializedUser;
     }
 

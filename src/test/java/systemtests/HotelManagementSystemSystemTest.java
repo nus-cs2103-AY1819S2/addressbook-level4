@@ -37,7 +37,7 @@ import seedu.hms.logic.commands.SelectCustomerCommand;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.testutil.TypicalCustomers;
-import seedu.hms.ui.ServiceTypeAndRoomType;
+import seedu.hms.ui.ServiceTypeAndRoomTypePanel;
 import seedu.hms.ui.CommandBox;
 
 /**
@@ -200,7 +200,7 @@ public abstract class HotelManagementSystemSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(ServiceTypeAndRoomType.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertEquals(ServiceTypeAndRoomTypePanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertFalse(getCustomerListPanel().isAnyCardSelected());
     }
 
@@ -216,7 +216,7 @@ public abstract class HotelManagementSystemSystemTest {
         String selectedCardName = getCustomerListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(ServiceTypeAndRoomType.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(ServiceTypeAndRoomTypePanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }
@@ -278,7 +278,7 @@ public abstract class HotelManagementSystemSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCustomerListPanel(), getModel().getFilteredCustomerList());
-        assertEquals(ServiceTypeAndRoomType.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        assertEquals(ServiceTypeAndRoomTypePanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
             getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

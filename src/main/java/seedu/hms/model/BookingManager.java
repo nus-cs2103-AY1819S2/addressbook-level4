@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.booking.exceptions.BookingNotFoundException;
 
 /**
@@ -28,6 +29,7 @@ public class BookingManager implements BookingModel {
     private final UserPrefs userPrefs;
     private final FilteredList<Booking> filteredBookings;
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<ServiceType> selectedServiceType = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given hotelManagementSystem and userPrefs.
@@ -194,6 +196,25 @@ public class BookingManager implements BookingModel {
                 selectedBooking.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
+    }
+
+    //=========== Selected ServiceType ===========================================================================
+
+    public ReadOnlyProperty<ServiceType> selectedServiceTypeProperty() {
+        return selectedServiceTypeProperty();
+    }
+
+    @Override
+    public ServiceType getSelectedServiceType() {
+        return selectedBooking.getValue();
+    }
+
+    @Override
+    public void setSelectedServiceType(ServiceType serviceType) {
+        if (serviceType != null && !filteredBookings.contains(serviceType)) {
+            throw new BookingNotFoundException();
+        }
+        selectedServiceType.setValue(serviceType);
     }
 
     @Override

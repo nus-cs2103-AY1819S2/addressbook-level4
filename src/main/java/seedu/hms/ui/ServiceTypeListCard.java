@@ -10,7 +10,7 @@ import seedu.hms.model.booking.ServiceType;
 /**
  * An UI component that displays information of a {@code Booking}.
  */
-public class ServiceTypeCard extends UiPart<Region> {
+public class ServiceTypeListCard extends UiPart<Region> {
 
     private static final String FXML = "BookingListCard.fxml";
     /**
@@ -33,9 +33,13 @@ public class ServiceTypeCard extends UiPart<Region> {
     @FXML
     private Label ratePerHour;
 
-    public ServiceTypeCard(ServiceType serviceType) {
+    public ServiceTypeListCard(ServiceType serviceType) {
         super(FXML);
         this.serviceType = serviceType;
+        serviceTypeName.setText(serviceType.getName());
+        capacity.setText("Capacity: " + Integer.toString(serviceType.getCapacity()));
+        timeRange.setText("TimeRange: " + serviceType.getTiming().toString());
+        ratePerHour.setText("Rate per hour: " + serviceType.getRatePerHour());
     }
 
     @Override
@@ -51,7 +55,7 @@ public class ServiceTypeCard extends UiPart<Region> {
         }
 
         // state check
-        ServiceTypeCard card = (ServiceTypeCard) other;
+        ServiceTypeListCard card = (ServiceTypeListCard) other;
         return serviceType.equals(card.serviceType);
     }
 }

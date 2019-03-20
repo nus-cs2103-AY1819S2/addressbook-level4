@@ -31,16 +31,18 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private ServiceTypeAndRoomType serviceTypeAndRoomType;
     private CustomerListPanel customerListPanel;
     private BookingListPanel bookingListPanel;
     private ReservationListPanel reservationListPanel;
     private BookingAndReservationPanel bookingAndReservationPanel;
+    private ServiceTypeListPanel serviceTypeListPanel;
+    private RoomTypeListPanel roomTypeListPanel;
+    private ServiceTypeAndRoomTypePanel serviceTypeAndRoomTypePanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane serviceTypeAndRoomTypePlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -118,9 +120,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        serviceTypeAndRoomType = new ServiceTypeAndRoomType(logic.selectedCustomerProperty());
-        browserPlaceholder.getChildren().add(serviceTypeAndRoomType.getRoot());
-
         customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList(), logic.selectedCustomerProperty(),
             logic::setSelectedCustomer);
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
@@ -133,6 +132,12 @@ public class MainWindow extends UiPart<Stage> {
 
         bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel);
         bookingAndReservationPanelPlaceholder.getChildren().add(bookingAndReservationPanel.getRoot());
+
+        serviceTypeListPanel = new BookingListPanel(logic.getFilteredBookingList(), logic.selectedBookingProperty(),
+                logic::setSelectedBooking, logic.selectedCustomerProperty(), this::executeCommand);
+
+        serviceTypeAndRoomTypePanel = new ServiceTypeAndRoomTypePanel(logic.selectedCustomerProperty());
+        serviceTypeAndRoomTypePlaceholder.getChildren().add(serviceTypeAndRoomTypePanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

@@ -13,27 +13,27 @@ import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.hms.model.customer.Customer;
 
-public class ServiceTypeAndRoomTypeTest extends GuiUnitTest {
+public class ServiceTypeAndRoomTypePanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Customer> selectedCustomer = new SimpleObjectProperty<>();
-    private ServiceTypeAndRoomType serviceTypeAndRoomType;
+    private ServiceTypeAndRoomTypePanel serviceTypeAndRoomTypePanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
-        guiRobot.interact(() -> serviceTypeAndRoomType = new ServiceTypeAndRoomType(selectedCustomer));
-        uiPartRule.setUiPart(serviceTypeAndRoomType);
+        guiRobot.interact(() -> serviceTypeAndRoomTypePanel = new ServiceTypeAndRoomTypePanel(selectedCustomer));
+        uiPartRule.setUiPart(serviceTypeAndRoomTypePanel);
 
-        browserPanelHandle = new BrowserPanelHandle(serviceTypeAndRoomType.getRoot());
+        browserPanelHandle = new BrowserPanelHandle(serviceTypeAndRoomTypePanel.getRoot());
     }
 
     @Test
     public void display() throws Exception {
         // default web page
-        assertEquals(ServiceTypeAndRoomType.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
+        assertEquals(ServiceTypeAndRoomTypePanel.DEFAULT_PAGE, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a customer
         guiRobot.interact(() -> selectedCustomer.set(ALICE));
-        URL expectedCustomerUrl = new URL(ServiceTypeAndRoomType.SEARCH_PAGE_URL
+        URL expectedCustomerUrl = new URL(ServiceTypeAndRoomTypePanel.SEARCH_PAGE_URL
             + ALICE.getName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);

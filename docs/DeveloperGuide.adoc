@@ -356,6 +356,40 @@ specific attribute of the flashcard. If a match exists, the flashcard will be di
 
 // end::findfeature[]
 
+// tag::statistics[]
+=== Statistics feature
+==== Current Implementation
+
+The current statistics logic is handled by `Statistics` and `StatsCommand`.
+
+`Statistics` acts as a container to store the data for calculating success percentages from quiz mode. +
+It stores `successAttempt` and `attemptNumber`.
+
+Additionally, `Statistics` implements the following operations:
+
+* `Statistics#getSuccessRate()` -- Return the success rate.
+* `Statistics#quizAttempt(bool isSuccess)` -- Update the current statistics when there is an attempt in the quiz mode.
+* `Statistics#merge(Statistics other)` -- Return merged statistics of two given statistics, generally to be used to +
+calculate the success rate from a bunch of flashcards with a particular tag.
+
+When a user queries for statistics by using command `stats`, `StatsCommand` is the one to calculate the statistics. +
+Currently, `StatsCommand` only supports an overall success rate from all user's flashcards. It will ask `Model` to +
+return all of the flashcards and then merge each `Statistics` from each flashcard to return an overall cummulative +
+`Statistics`.
+
+==== Design Considerations
+
+===== Aspect: How statistics executes
+
+* **Alternative 1 (current choice):** Each individual `Flashcard` has exactly one `Statistics` attribute.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Flashcards are grouped by Tag, each of these groups store one overall `Statistics` attribute.
+** Pros: Will use less memory.
+** Cons: User has less flexibility in term of querying the statistics (User cannot know the statistics of a certain flashcard)
+
+// end::statistics[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 

@@ -6,55 +6,48 @@
     "dateOfBirth" : "11-12-1990",
     "phone" : "94351253",
     "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
+    "address" : "123, Jurong West Ave 6, #08-111"
   }, {
     "name" : "Benson Meier",
     "nric" : "S1234568A",
     "dateOfBirth" : "12-12-1990",
     "phone" : "98765432",
     "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
+    "address" : "311, Clementi Ave 2, #02-25"
   }, {
     "name" : "Carl Kurz",
     "nric" : "S1234569A",
-    "dateOfBirth" : "11-12-1991",
+    "dateOfBirth" : "11-12-2005",
     "phone" : "95352563",
     "email" : "heinz@example.com",
-    "address" : "wall street",
-    "tagged" : [ ]
+    "address" : "wall street"
   }, {
     "name" : "Daniel Meier",
     "nric" : "S2234569A",
     "dateOfBirth" : "21-12-1991",
     "phone" : "87652533",
     "email" : "cornelia@example.com",
-    "address" : "10th street",
-    "tagged" : [ "friends" ]
+    "address" : "10th street"
   }, {
     "name" : "Elle Meyer",
     "nric" : "S2334569A",
     "dateOfBirth" : "11-06-1991",
     "phone" : "9482224",
     "email" : "werner@example.com",
-    "address" : "michegan ave",
-    "tagged" : [ ]
+    "address" : "michegan ave"
   }, {
     "name" : "Fiona Kunz",
     "nric" : "S3234569A",
     "dateOfBirth" : "01-12-1991",
     "phone" : "9482427",
     "email" : "lydia@example.com",
-    "address" : "little tokyo",
-    "tagged" : [ ]
+    "address" : "little tokyo"
   }, {
     "name" : "George Best",
     "nric" : "S5234569A",
     "dateOfBirth" : "11-01-1991",
     "phone" : "9482442",
     "email" : "anna@example.com",
-    "address" : "4th street",
-    "tagged" : [ ]
+    "address" : "4th street"
   } ]
 }

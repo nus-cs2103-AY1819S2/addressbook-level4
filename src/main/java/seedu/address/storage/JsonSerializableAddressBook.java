@@ -40,11 +40,13 @@ class JsonSerializableAddressBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        persons.addAll(source.getPersonList().stream().filter(person -> !person.isCopy())
+                .map(JsonAdaptedPerson::new).collect(Collectors.toList()));
         for (int i = 0; i < source.getPersonList().size(); i++) {
             persons.get(i).setIndex(i);
         }
-        tasks.addAll(source.getTaskList().stream().map(JsonAdaptedTask::new).collect(Collectors.toList()));
+        tasks.addAll(source.getTaskList().stream().filter(task -> !task.isCopy())
+                .map(JsonAdaptedTask::new).collect(Collectors.toList()));
     }
 
     /**

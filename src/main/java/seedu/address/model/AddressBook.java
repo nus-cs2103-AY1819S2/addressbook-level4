@@ -2,11 +2,13 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.task.Task;
@@ -162,6 +164,13 @@ public class AddressBook implements ReadOnlyAddressBook {
                 return false;
             }
         }
+
+        for (Task t : tasks) {
+            if (t.isCopy()) {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -183,6 +192,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// util methods
+
+    /**
+     * Method to sort the patients within the address book
+     */
+    public void sortPatients(Comparator<Patient> patientComparator, boolean isReverse) {
+        persons.sortStoredList(patientComparator, isReverse);
+    }
 
     @Override
     public String toString() {

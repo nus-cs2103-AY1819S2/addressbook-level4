@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -36,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatWindow statWindow;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -71,6 +74,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statWindow = new StatWindow(new Stage(), this.logic);
     }
 
     public Stage getPrimaryStage() {
@@ -159,6 +163,18 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens a stat window and closes the previous one if it's already opened
+     */
+    @FXML
+    public void handleStat() {
+        if (statWindow.isShowing()) {
+            statWindow.close();
+        }
+        statWindow.populateData();
+        statWindow.show();
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -168,6 +184,35 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
+        boolean confirmExit = true;
+        if (!logic.checkNoCopy()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Copies will not be saved.\nConfirm exit?", ButtonType.YES, ButtonType.NO);
+            alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.NO) {
+                confirmExit = false;
+            }
+        }
+        if (confirmExit) {
+            exit();
+        }
+    }
+
+    /**
+     * Close the application.
+     */
+    @FXML
+    private void handleExit(boolean exitAnyway) {
+        if (exitAnyway) {
+            exit();
+        }
+    }
+
+    /**
+     * Exit the application
+     */
+    private void exit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
@@ -194,8 +239,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleHelp();
             }
 
+            if (commandResult.isShowStat()) {
+                handleStat();
+            }
+
             if (commandResult.isExit()) {
-                handleExit();
+                handleExit(true);
             }
 
             return commandResult;

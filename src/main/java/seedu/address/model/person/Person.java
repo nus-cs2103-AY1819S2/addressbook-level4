@@ -71,6 +71,15 @@ public class Person {
     }
 
     /**
+     * Checks if this module has been finished.
+     * @return true if the module has been finished, false otherwise.
+     */
+    public boolean isFinished() {
+        // TODO: compare semester taken and current semester
+        return false;
+    }
+
+    /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */

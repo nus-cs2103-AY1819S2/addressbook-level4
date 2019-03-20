@@ -137,4 +137,23 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses a yesOrNo string into a boolean.
+     * @param yesOrNo a string which should be "y" or "n" (ignore case).
+     * @return true if the string is "y", false if "n".
+     * @throws ParseException if the string is neither "y" or "n".
+     */
+    public static boolean parseBoolean(String yesOrNo) throws ParseException {
+        requireNonNull(yesOrNo);
+
+        switch (yesOrNo.trim().toLowerCase()) {
+        case "y":
+            return true;
+        case "n":
+            return false;
+        default:
+            throw new ParseException("Finished parameter should be 'y' or 'n'.");
+        }
+    }
 }

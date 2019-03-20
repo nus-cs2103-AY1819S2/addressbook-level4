@@ -13,16 +13,17 @@ import seedu.address.model.person.Semester;
 
 /**
  * Finds and lists module(s) in module plan matching all given module code,
- * semester taken or grade obtained (case-insensitive).
+ * semester, grade or finished status (case-insensitive).
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds and lists module(s) based on "
-            + "module code, semester taken or grade obtained (case-insensitive).\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds module(s) based on "
+            + "module code, semester, grade or finished status (case-insensitive).\n"
             + "Module code can be entered partially, but semester and grade must be exact.\n"
-            + "Parameters: [c/MODULE_CODE] [s/SEMESTER] [g/GRADE_OBTAINED]\n"
+            + "Finished status must be 'y' or 'n'."
+            + "Parameters: [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]\n"
             + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A";
 
     private final FindModulePredicate predicate;
@@ -53,6 +54,7 @@ public class FindCommand extends Command {
         private String code; // can be substring of exact code
         private Semester semester;
         private Grade grade;
+        private Boolean isFinished;
 
         public FindModuleDescriptor() {}
 
@@ -63,6 +65,7 @@ public class FindCommand extends Command {
             setCode(toCopy.code);
             setSemester(toCopy.semester);
             setGrade(toCopy.grade);
+            setFinished(toCopy.isFinished);
         }
 
         public void setCode(String code) {
@@ -89,6 +92,14 @@ public class FindCommand extends Command {
             return Optional.ofNullable(grade);
         }
 
+        public Optional<Boolean> isFinished() {
+            return Optional.ofNullable(isFinished);
+        }
+
+        public void setFinished(boolean isFinished) {
+            this.isFinished = isFinished;
+        }
+
         @Override
         public boolean equals(Object object) {
             if (object == this) {
@@ -101,7 +112,8 @@ public class FindCommand extends Command {
             FindModuleDescriptor other = (FindModuleDescriptor) object;
             return getCode().equals(other.getCode())
                     && getSemester().equals(other.getSemester())
-                    && getGrade().equals(other.getGrade());
+                    && getGrade().equals(other.getGrade())
+                    && isFinished().equals(other.isFinished());
         }
     }
 }

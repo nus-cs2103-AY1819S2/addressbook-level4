@@ -64,20 +64,20 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding a review: `add`
+=== Adding a review: `addReview`
 
 Adds a review to the Food Diary +
-Format: `addReview n/RESTAURANT_NAME r/STAR_RATING m/COMMENT`
+Format: `addReview INDEX re/ENTRY rr/RATING`
 
 Examples:
 
-* `addReview n/McDonalds r/4 m/Peach Pie was amazing'
+* `addReview 2 re/Peach Pie was amazing rr/4`
 
 
-=== Editing a specified review : `edit`
+=== Editing a specified review : `editReview`
 
 Edit selected fields in a specified entry. +
-Format: `edit INDEX [r/STAR_RATING] [m/COMMENT]`
+Format: `editReview INDEX [re/ENTRY] [rr/RATING]`
 
 ****
 * Edits the review at the specified `INDEX`. The index refers to the index number shown in the displayed reviews list. The index *must be a positive integer* 1, 2, 3, ...
@@ -87,15 +87,15 @@ Format: `edit INDEX [r/STAR_RATING] [m/COMMENT]`
 
 Examples:
 
-* `edit 1 r/3` +
+* `edit 1 rr/3` +
 Edits the rating of the 1st review to be 3.
-* `edit 2 m/Food isn't the best` +
+* `edit 2 re/Food isn't the best` +
 Edits the comment of the second review to "Food isn't the best"
 
-=== Deleting a review : `delete`
+=== Deleting a review : `deleteReview`
 
 Deletes the review from the Food Diary. +
-Format: `delete INDEX`
+Format: `deleteReview INDEX`
 
 ****
 * Deletes the review at the specified `INDEX`.
@@ -111,13 +111,12 @@ Deletes the 2nd review in the Food Diary.
 === Add a picture of the food to a review : `addImage`
 
 Adds a picture of the food to the review in the specified entry +
-Format: `addPicture INDEX [f/FOOD_NAME] i/IMAGE_FILEPATH`
+Format: `addImage INDEX [f/FOOD_NAME] i/IMAGE_FILEPATH`
 
 Examples:
 
-* 'addPicture 2 f/apple pie i/apple.jpg' +
+* `addImage 2 f/apple pie i/apple.jpg` +
 Adds a picture to the second review of an apple pie
-
 
 
 
@@ -127,14 +126,14 @@ Shows a list of all reviews in the Food Diary. +
 Format: `listReviews [n/RESTAURANT_NAME]`
 
 ****
-*If the restaurant name is left blank, all reviews will be shown
+* If the restaurant name is left blank, all reviews will be shown
 ****
 
 Examples:
 
-* 'listReviews' +
+* `listReviews` +
 Return all the reviews
-* 'listReviews n/MACDONALDS' +
+* `listReviews n/MACDONALDS` +
 Return all the reviews for Macdonalds.
 
 
@@ -150,18 +149,32 @@ Examples:
 * `add n/Nana Thai food a/561 Clementi Road c/Thai` +
 adds the restaurant Nana Thai food with address 561 Clementi Road and cuisine Thai food to the list
 
-=== Listing all restaurants : `listRestaurants`
+=== Deleting a restaurant: `delete`
+
+Delete a restaurant that is in the current list of restaurants. +
+Format: `delete INDEX`
+
+****
+* Deletes the restaurant at the specified `INDEX`.
+* The index refers to the index number shown in the displayed restaurants list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `delete 1` +
+Deletes the 1st restaurant in the Food Diary.
+
+=== Listing all restaurants : `list`
 
 Shows a list of all restaurants in the Food Diary with an option to filter for certain property. +
-Format: `listRestaurants [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
+Format: `list [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
 
 
 Examples:
 
-* 'listRestaurants' +
+* `list` +
 Return all the restaurants
-* 'listReviews n/Mc' +
-Return all the restaurants with name matching Mc.
 
 
 === Listing all restaurants not tried before : `listUnvisited`
@@ -172,14 +185,14 @@ Format: `listUnvisited`
 
 Examples:
 
-* 'listUnvisited' +
+* `listUnvisited` +
 Return all the restaurants that you have not visited
 
 
-=== Editing details of a restaurant  : `editRestaurant`
+=== Editing details of a restaurant  : `edit`
 
 Edit the details of a restaurant identified by the index number used in the listRestaurants. +
-Format: `editRestaurant INDEX [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
+Format: `edit INDEX [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]`
 
 ****
 * The index refers to the index number shown in the displayed restaurants list.
@@ -248,18 +261,18 @@ Format: `name n/YourName`
 
 Examples:
 
-* `name n/JackTheSheep'
+* `name n/JackTheSheep`
 
 === View your profile and usage statistics : `view`
 
 Set the cuisine of a restaurant identified by the index number used in the listRestaurants. +
-Format: `view'
+Format: `view`
 
 
 Examples:
 
 `view` +
-'View personalised statistics for IAMAwesome. You have a total of 0 reviews and a total of 1 restaurants.'
+`View personalised statistics for IAMAwesome. You have a total of 0 reviews and a total of 1 restaurants.`
 
 === Display website of selected restaurant : `visitWeb`
 
@@ -273,9 +286,9 @@ Format: `visitWeb INDEX`
 
 Examples:
 
-* `listRestaurants` +
+* `list` +
 `visitWeb 1` +
-Displays webpage of Restaurant at index 1 of listRestaurants.
+Displays webpage of Restaurant at index 1 of list.
 
 === Exiting the program : `exit`
 
@@ -295,12 +308,46 @@ There is no need to save manually.
 
 == Command Summary
 
-* *AddReview* `addReview n/RESTAURANT_NAME r/STAR_RATING m/COMMENT` +
-e.g. `addReview n/McDonalds r/4 m/Peach Pie was amazing`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *EditReview* : `edit INDEX [r/STAR_RATING] [m/COMMENT` +
-e.g. `editReview 2 r/3 m/this is good`
-* *ListRestaurants* : `listRestaurants`
-* *Help* : `help`
+`Restaurant` Class
 
+* *add* : `add n/RESTAURANT_NAME a/ADDRESS c/CUISINE` +
+e.g. `add n/Nana Thai food a/561 Clementi Road c/Thai`
+* *edit* : `edit INDEX [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]` +
+e.g. `listRestaurants` +
+     `editRestaurant 2 n/MACS`
+* *delete* : `delete INDEX` +
+e.g. `delete 1`
+* *list* : `list [n/RESTAURANT_NAME] [a/ADDRESS] [c/CUISINE]` +
+e.g. `list n/MacDonalds`
+* *listUnvisited* : `listUnvisited` +
+e.g. `listUnvisited`
+* *setCategory* : `setCategory INDEX [c/CUISINE] [o/OCCASION] [p/PRICE_RANGE]` +
+e.g. `listRestaurants` +
+     `setCategory 2 c/Fine Dining o/Wedding p/expensive`
+* *filter* : `filter KEYWORD [MORE_KEYWORDS]` +
+e.g. `filter fast food gathering`
+* *visitWeb* : `visitWeb INDEX` +
+e.g. `list` +
+     `visitWeb 1`
+
+`Review` Class
+
+* *addReview* : `addReview INDEX re/ENTRY rr/RATING` +
+e.g. `addReview 2 re/Peach Pie was amazing rr/4`
+* *editReview* : `edit INDEX [r/STAR_RATING] [m/COMMENT]` +
+e.g. `edit 2 rr/Food isn’t the best`
+* *deleteReview* : `deleteReview INDEX_RESTAURANT INDEX_REVIEW` +
+e.g. `delete 3 1`
+
+`FoodDiary` Class
+
+* *name* : `name n/YourName` +
+e.g. `name n/JackTheSheep`
+* *view* : `view` +
+e.g. `view`
+
+
+Miscellaneous
+
+* *help* : `help`
+* *exit* : `exit`

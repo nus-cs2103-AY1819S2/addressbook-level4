@@ -297,7 +297,7 @@ begins by checking for validity as shown below.
 
 image::AddFeatureStep5DuplicateFound.png[width="600"]
 
-* `Pdf` does not exist
+* `Pdf` does not exist in directory
 
 image::AddFeatureStep5PdfNotFound.png[width="600"]
 

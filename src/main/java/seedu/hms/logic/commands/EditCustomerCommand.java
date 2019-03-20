@@ -56,7 +56,7 @@ public class EditCustomerCommand extends CustomerCommand {
 
     public static final String MESSAGE_EDIT_CUSTOMER_SUCCESS = "Edited Customer: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_CUSTOMER = "This customer already exists in the hms book.";
 
     private final Index index;
     private final EditCustomerDescriptor editCustomerDescriptor;

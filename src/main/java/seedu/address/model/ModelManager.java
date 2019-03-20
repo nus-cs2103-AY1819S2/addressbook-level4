@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -39,7 +38,10 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
     private ViewState viewState;
     private Card currentCard;
-    private int studyState = 0; //0 - shows question //1 shows answer
+
+    private studyState currentStudyState = studyState.QUESTION;
+
+
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
 
     /**
@@ -82,7 +84,7 @@ public class ModelManager implements Model {
     public void studyDeck(Deck deck) {
         viewState = new StudyView(this, deck);
         setCurrentCard(deck.generateCard());
-        setStudyState(0);
+        setCurrentStudyState(studyState.QUESTION);
     }
 
     @Override
@@ -279,7 +281,7 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedItem.get(), other.selectedItem.get());
     }
 
-    //=========== Handling current card ===========================================================================
+    //=========== Study states ===========================================================================
 
     @Override
     public void setCurrentCard(Card card) {
@@ -292,16 +294,21 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setStudyState(int state) {
-        studyState = state;
+    public void setCurrentStudyState(studyState state) {
+        currentStudyState = state;
     }
 
     @Override
     public ReadOnlyProperty<String> textShownProperty() {
-        String text =  (studyState == 0)
+        String text =  (currentStudyState == studyState.QUESTION)
                 ? currentCard.getQuestion()
                 : currentCard.getAnswer();
         textShown.setValue(text);
         return textShown;
+    }
+
+    @Override
+    public studyState getCurrentStudyState() {
+        return currentStudyState;
     }
 }

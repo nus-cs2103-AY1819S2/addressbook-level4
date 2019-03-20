@@ -18,6 +18,10 @@ import seedu.address.model.deck.Deck;
  */
 public interface Model {
 
+    enum studyState {
+        QUESTION, ANSWER;
+    }
+
     /**
      * {@code Predicate} that always evaluate to true
      */
@@ -171,9 +175,7 @@ public interface Model {
      */
     ReadOnlyProperty<String> textShownProperty();
 
-    /**
-     * Sets the study state
-     * @param state
-     */
-    void setStudyState(int state);
+    void setCurrentStudyState(studyState state);
+
+    studyState getCurrentStudyState();
 }

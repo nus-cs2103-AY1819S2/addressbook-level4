@@ -28,7 +28,8 @@ public class StorageManagerTest {
     public void setUp() {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(getTempFilePath("data"));
-        storageManager = new StorageManager(userPrefsStorage, lessonsStorage);
+        CsvUserStorage userStorage = new CsvUserStorage(getTempFilePath("data\\user"));
+        storageManager = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
     }
 
     private Path getTempFilePath(String fileName) {

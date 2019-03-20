@@ -23,8 +23,8 @@ import seedu.address.model.EquipmentManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyEquipmentManager;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.equipment.Equipment;
 import seedu.address.model.WorkList;
+import seedu.address.model.equipment.Equipment;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EquipmentBuilder;
 

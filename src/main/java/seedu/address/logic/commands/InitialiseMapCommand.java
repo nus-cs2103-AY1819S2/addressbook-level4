@@ -45,20 +45,28 @@ public class InitialiseMapCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVALID_MAP_SIZE, MINIMUM_MAP_SIZE, MAXIMUM_MAP_SIZE));
         }
 
+        Cell[][] cellGrid = initialise2dArray(mapSize);
+
+        model.getMapGrid().initialise(cellGrid);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));
+    }
+
+    /**
+     * Initialise the 2D array given the map size
+     */
+    private Cell[][] initialise2dArray(int mapSize) {
         Cell[][] cellGrid = new Cell[mapSize][mapSize];
         char row = 'a';
+
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
 
                 cellGrid[i][j] = new Cell(new Coordinates(String.format("%c%d", row + i, j + 1)));
             }
         }
-        model.getMapGrid().initialise(cellGrid);
-        model.updateUi();
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));
+        return cellGrid;
     }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

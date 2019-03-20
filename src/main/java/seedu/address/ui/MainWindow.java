@@ -39,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private OrderItemListPanel orderItemListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private BillBrowserPanel billBrowserPanel;
+    private BillPanel billPanel;
     private TableFlowPanel tableFlowPanel;
     private MenuItemFlowPanel menuItemFlowPanel;
     private StatisticsFlowPanel statisticsFlowPanel;
@@ -232,9 +232,8 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case BILL_MODE:
-            billBrowserPanel = new BillBrowserPanel(logic.getRecentBill());
-            browserPlaceholder.getChildren().add(billBrowserPanel.getRoot());
-
+            billPanel = new BillPanel(logic.getRecentBill());
+            browserPlaceholder.getChildren().add(billPanel.getRoot());
 
             statusBarFooter.updateMode("Bill Mode");
             break;

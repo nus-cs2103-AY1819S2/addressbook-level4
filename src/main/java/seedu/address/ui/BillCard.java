@@ -15,7 +15,7 @@ import seedu.address.model.statistics.Bill;
  * The Receipt to be added in the BillBrowserPanel.
  */
 public class BillCard extends UiPart<Region> {
-    private static final String FXML = "BillBrowserPanel.fxml";
+    private static final String FXML = "BillPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

@@ -14,9 +14,9 @@ import seedu.address.model.statistics.Bill;
  * The Browser Panel for the bill.
  */
 
-public class BillBrowserPanel extends UiPart<Region> {
+public class BillPanel extends UiPart<Region> {
 
-    private static final String FXML = "BillBrowserPanel.fxml";
+    private static final String FXML = "BillPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -26,7 +26,7 @@ public class BillBrowserPanel extends UiPart<Region> {
     @FXML
     private Label receipt;
 
-    public BillBrowserPanel(Bill bill) {
+    public BillPanel(Bill bill) {
         super(FXML);
 
         requireNonNull(bill);

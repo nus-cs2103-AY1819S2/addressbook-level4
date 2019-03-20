@@ -5,11 +5,11 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueCardList;
 
-public class Strategy {
+public class DeckShuffler {
 
     private Deck deck;
 
-    Strategy(Deck deck){
+    DeckShuffler(Deck deck){
         this.deck = deck;
     }
 

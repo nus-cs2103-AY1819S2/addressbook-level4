@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import java.util.List;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -22,7 +20,7 @@ public class StudyView implements ViewState {
     private Card currentCard;
     private studyState currentStudyState = studyState.QUESTION;
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
-    private Strategy strategy;
+    private DeckShuffler deckShuffler;
 
     public enum studyState {
         QUESTION, ANSWER;
@@ -33,7 +31,7 @@ public class StudyView implements ViewState {
         this.activeDeck = deck;
         listOfCards = deck.getCards().internalList;
         setCurrentStudyState(studyState.QUESTION);
-        this.strategy = new Strategy(activeDeck);
+        this.deckShuffler = new DeckShuffler(activeDeck);
         generateCard();
     }
 
@@ -83,7 +81,7 @@ public class StudyView implements ViewState {
     }
 
     public void generateCard() {
-        setCurrentCard(strategy.generateCard());
+        setCurrentCard(deckShuffler.generateCard());
         updateTextShown();
     };
 

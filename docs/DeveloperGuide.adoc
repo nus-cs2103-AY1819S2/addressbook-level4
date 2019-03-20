@@ -522,7 +522,7 @@ Explanation of the sequence diagram above:
 
 Step 1. When the user launches the application for the first time, `MainWindow` is called during the setting up of the GUI. Within the `MainWindow`. A `WarningPanel`, with the two `ObservableList` to be displayed as parameters, is then created.
 
-Step 2. `WarningPanel#setUpVBox` is called to create two `WarningListView` so that the `ObservableList` can be displayed. Each list will be passed into one `WarningListView` as a parameter, along with a `String` descriptor of that list.
+Step 2. `WarningPanel#setUpVBox` is called to create two `WarningListView` so that the `ObservableList` can be displayed. Each list will be passed into one `WarningListView` as a parameter, along with a `String` descriptor of that list. For simplicity, the construction of only one `WarningListView` is shown.
 
 Step 3. Within the `WarningListView`'s constructor, `ListView#setItems` and `ListView#setCellFactory` are called to set up this `ListView<Medicine>`.
 

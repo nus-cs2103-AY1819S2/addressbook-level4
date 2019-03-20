@@ -7,7 +7,7 @@ import seedu.address.model.patient.exceptions.TeethLayoutException;
 /**
  * Represents a set of teeth a Person has.
  */
-public class Teeth {
+public class Teeth implements ExportableTeeth {
     private static final String NONE = "none";
     private static final String CHILD = "child";
     private static final String ADULT = "adult";
@@ -132,21 +132,21 @@ public class Teeth {
     /**
      * Exports the format of the teeth. (For permanent teeth).
      * Used mainly to print the preview of the teeth layout on GUI to user.
-     * 0 - Absent. (Red).
-     * 1 - Present, on status. (Yellow).
-     * 2 - Present, healthy. (White).
+     * 2 - Absent. (black).
+     * 1 - Problematic. (red).
+     * 0 - Present, healthy. (white).
      * @return an Integer array consisting of current teeth layout information.
      */
-    public ArrayList<Integer> exportTeeth() {
-        ArrayList<Integer> exportFormat = new ArrayList<>();
+    @Override
+    public int[] exportTeeth() {
+        int[] exportFormat = new int[32];
 
-        for (Tooth tooth : permanentTeeth) {
+        for (int i = 0; i < permanentTeeth.size(); i++ ) {
+            Tooth tooth = permanentTeeth.get(i);
             if (!tooth.isPresent()) {
-                exportFormat.add(0);
+                exportFormat[i] = 2;
             } else if (tooth.isOnStatus()) {
-                exportFormat.add(1);
-            } else {
-                exportFormat.add(2);
+                exportFormat[i] = 1;
             }
         }
 

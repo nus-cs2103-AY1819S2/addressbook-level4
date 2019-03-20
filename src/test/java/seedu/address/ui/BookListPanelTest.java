@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalBooks.getTypicalBooks;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysBook;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 

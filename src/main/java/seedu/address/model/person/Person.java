@@ -17,6 +17,12 @@ public class Person {
     private final Phone phone;
     private final Email email;
 
+    // new identity fields
+    private final Education education;
+    private final GPA gpa;
+
+    //private final Skills skills;
+
     // Data fields
     private final Address address;
     private final LinkedHashSet<SkillsTag> tags = new LinkedHashSet<>();
@@ -24,11 +30,14 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<SkillsTag> tags) {
+    public Person(Name name, Phone phone, Email email, Education education, GPA gpa, Address address, Set<SkillsTag> tags) {
+
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.education = education;
+        this.gpa = gpa;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -43,6 +52,14 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Education getEducation() {
+        return education;
+    }
+
+    public GPA getGPA(){
+        return gpa;
     }
 
     public Address getAddress() {
@@ -108,7 +125,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, education, address, tags);
     }
 
     @Override
@@ -119,6 +136,10 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Education: ")
+                .append(getEducation())
+                .append(" GPA: ")
+                .append(getGPA())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

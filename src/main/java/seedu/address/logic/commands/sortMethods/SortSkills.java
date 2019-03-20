@@ -29,11 +29,13 @@ public class SortSkills {
             Name name = lastShownList.get(i).getName();
             Phone phone = lastShownList.get(i).getPhone();
             Email email = lastShownList.get(i).getEmail();
+            Education education = lastShownList.get(i).getEducation();
+            GPA gpa = lastShownList.get(i).getGPA();
             Address address = lastShownList.get(i).getAddress();
             //change list back to set
             LinkedHashSet<SkillsTag> tagSet = SortUtil.toTags(individualSortedSkills);
 
-            Person person = new Person(name, phone, email, address, tagSet);
+            Person person = new Person(name, phone, email, education, gpa, address, tagSet);
             personsWithCorrectTagOrder.add(person);
         }
         return personsWithCorrectTagOrder;

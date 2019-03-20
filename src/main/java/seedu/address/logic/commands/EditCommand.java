@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
@@ -22,6 +24,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Education;
+import seedu.address.model.person.GPA;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -41,6 +45,8 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
+            + "[" + PREFIX_EDUCATION + "EDUCATION] "
+            + "[" + PREFIX_GPA + "GPA] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SKILL + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -98,10 +104,12 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Education updatedEducation = editPersonDescriptor.getEducation().orElse(personToEdit.getEducation());
+        GPA updatedGPA = editPersonDescriptor.getGPA().orElse(personToEdit.getGPA());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<SkillsTag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedEducation, updatedGPA, updatedAddress, updatedTags);
     }
 
     @Override
@@ -130,6 +138,8 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
+        private Education education;
+        private GPA gpa;
         private Address address;
         private Set<SkillsTag> tags;
 
@@ -143,6 +153,8 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
+            setEducation(toCopy.education);
+            setGPA(toCopy.gpa);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -151,7 +163,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, education, gpa, address, tags);
         }
 
         public void setName(Name name) {
@@ -176,6 +188,22 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
+        }
+
+        public void setEducation(Education education) {
+            this.education = education;
+        }
+
+        public Optional<Education> getEducation() {
+            return Optional.ofNullable(education);
+        }
+
+        public void setGPA(GPA gpa) {
+            this.gpa = gpa;
+        }
+
+        public Optional<GPA> getGPA() {
+            return Optional.ofNullable(gpa);
         }
 
         public void setAddress(Address address) {
@@ -221,6 +249,8 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
+                    && getEducation().equals(e.getEducation())
+                    && getGPA().equals(e.getGPA())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }

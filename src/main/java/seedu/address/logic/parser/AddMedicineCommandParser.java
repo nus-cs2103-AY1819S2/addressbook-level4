@@ -17,7 +17,7 @@ public class AddMedicineCommandParser implements Parser<AddMedicineCommand> {
     private static final Pattern AddMedicineCommand_Argument_Format =
             Pattern.compile("(?<rawPath>\\S+)(?:\\s+)(?<medicineInformation>\\S.+)");
     private static final Pattern MedicineInformation_Format =
-            Pattern.compile("(?<name>\\S+)(?:\\s+)(?<price>\\d+\\.?\\d*)(?:\\s*)(?<quantity>\\d*)");
+            Pattern.compile("(?<name>\\S+)(?:\\s*)(?<priceAndQuantity>.*)");
 
     /**
      * parse the given input to produce a AddMedicineCommand

@@ -19,7 +19,7 @@ import seedu.address.model.medicine.Medicine;
  */
 public class AddMedicineCommand extends Command {
 
-    public static final String COMMAND_WORD = "addMed";
+    public static final String COMMAND_WORD = "addmed";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a medicine to the specified directory.\n"
             + "If no quantity specified and medicine with the same name already exists in the storage, "
@@ -27,7 +27,7 @@ public class AddMedicineCommand extends Command {
             + "Parameters: "
             + "[Directory path separated by \\] "
             + "[Name of Medicine] "
-            + "[Price of Medicine] "
+            + "[(Optional if medicine with same name already exist)Price of Medicine] "
             + "[(Optional)Amount of Medicine]\n"
             + "Example: " + COMMAND_WORD + " "
             + "root\\TCM\\herbs "

@@ -96,8 +96,8 @@ image::cropSuccess.PNG[width="918"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `import f/FILEPATH`, `FILEPATH` is a parameter which can be used as `import f/desktop/photoalbum/image1`.
-* Items in square brackets are optional e.g `o/OPERATOR [n/DEGREE]` can be used as `o/Subtract n/20` or as `o/Subtract`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/photoalbum/image1`.
+* Items in square brackets are optional e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightnees or as `brightness 0.9`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 ====
 
@@ -109,28 +109,28 @@ Format: `bw`
 === Brightness: `brightness`
 
 Adjusts the brightness of the image. +
-Format: `brightness o/OPERATOR [n/DEGREE]`
+Format: `brightness [BRIGHTNESS_RATIO]`
 
 Examples:
 
-* `brightness o/subtract`
-* `brightness o/add n/40`
+* `brightness 1.9`
+* `brightness` (brightness ratio preset to 1.1)
 
 === Contrast: `contrast`
 
 Adjusts the contrast of the image. +
-Format: `contrast o/OPERATOR [n/DEGREE]`
+Format: `contrast CONTRAST_RATIO`
 
 Examples:
 
-* `contrast o/add`
-
-* `contrast o/subtract n/30`
+* `contrast 1.4` (increase contrast)
+* `contrast 0.3` (reduce contrast)
+* `contrast` (contrast ratio preset to 1.1)
 
 === Crop an image : `crop`
 
 Crops an image based on given top left hand corner coordinates, width and height of final cropped image wanted. +
-Format: `crop x/POINTCOORD y/POINTCOORD w/WIDTH h/HEIGHT`
+Format: `crop X_POINTCOORD Y_POINTCOORD WIDTH HEIGHT`
 
 ****
 * The point coordinates must be separated by a space each.
@@ -148,11 +148,11 @@ Format: `exit`
 === Export edited image : `export`
 
 Exports the edited image into the specified filepath +
-Format: `export f/FILEPATH`
+Format: `export FILEPATH`
 
 Example:
 
-* `export f/desktop/editedphotoalbum`
+* `export desktop/editedphotoalbum`
 
 === Help view: `help`
 Displays help view to user.
@@ -165,7 +165,7 @@ Format: `import FILEPATH`
 
 Example:
 
-* `import C:/Users/Fomo/Pictures/sample.jpg`
+* `import Users/Fomo/Pictures/sample.jpg`
 
 === List Files: `listfiles`
 
@@ -175,7 +175,7 @@ Format: `listfiles`
 === Open an image : `open`
 
 Opens an image inside assets folder for editing. +
-Format: `import FILENAME`
+Format: `open FILENAME`
 
 Example:
 
@@ -194,15 +194,15 @@ Redoable commands: those commands that modify the image (`rotate`, `crop`, `brig
 Examples:
 
 * `rotate 180` +
-`brightness add` +
-`undo` (reverses the `brightness add` command) +
-`redo` (runs `brightness add` again)
+`brightness` +
+`undo` (reverses the `brightness` command) +
+`redo` (runs `brightness` again)
 
-* `contrast subtract` +
+* `contrast 0.3` +
 `crop 2 3 500 500` +
 `undo` (reverses the `crop 2 3 500 500` command +
-`undo` (reverses the `contrast subtract`) +
-`redo` (runs `contrast subtract` command again) +
+`undo` (reverses the `contrast 0.3`) +
+`redo` (runs `contrast 0.3` command again) +
 `redo` (runs `crop 2 3 500 500` command again)
 
 === Rotate an image : `rotate`
@@ -227,26 +227,26 @@ Undoable commands: those commands that modify the image (`rotate`, `crop`, `brig
 Examples:
 
 * `rotate 180` +
-`brightness add` +
-`undo` (reverses the `brightness add` command) +
+`brightness 1.9` +
+`undo` (reverses the `brightness 1.9` command) +
 
-* `contrast subtract` +
+* `contrast 0.3` +
 `crop 2 3 500 500` +
 `undo` (reverses the `crop 2 3 500 500` command +
-`undo` (reverses the `contrast subtract`)
+`undo` (reverses the `contrast 0.3`)
 
 
 == Command Summary
 
 * *Black/White* `bw`
 
-* *Brightness* `brightness o/OPERATOR [n/DEGREE]` +
-e.g. `brightness o/add n/20` +
+* *Brightness* `brightness [BRIGHTNESS_RATIO]` +
+e.g. `brightness 0.8` +
 
-* *Contrast* `contrast o/OPERATOR [n/DEGREE]` +
-e.g. `contrast o/subtract n/30` +
+* *Contrast* `contrast [CONTRAST_RATIO]]` +
+e.g. `contrast 1.9` +
 
-* *Crop* `crop x/POINTCOORD y/POINTCOORD w/WIDTH h/HEIGHT` +
+* *Crop* `crop X_POINTCOORD Y_POINTCOORD W_WIDTH H_HEIGHT` +
 e.g. `crop 2 4 500 500`
 
 * *Exit* `exit` +
@@ -257,7 +257,7 @@ e.g. `export MyNewImage.jpg`
 * *Help* `help` +
 
 * *Import* `import FILEPATH` +
-e.g. `import C:/Users/Fomo/Pictures/sample.jpg` +
+e.g. `import Users/Fomo/Pictures/sample.jpg` +
 
 * *List Files* `listfiles` +
 

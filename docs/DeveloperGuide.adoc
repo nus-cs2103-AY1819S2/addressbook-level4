@@ -1054,18 +1054,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new pdf |
+|`* * *` |organized student |rename the PDFs to any valid name supported by the operating system |keep my PDFs organized
+
+|`* * *` |lazy user |filter my PDFs based on the tags |so that I can see all the files with the same tag in the app
 
 |`* * *` |user |delete a pdf |remove entries that I no longer need
 
-|`* * *` |user |find a pdf by name |locate details of pdfs without having to go through the entire list
+|`* * *` |user |find a pdf by name |locate details of PDFs without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user with different tasks and deadlines |set due dates for my PDFs |be notified of upcoming deadlines and know the files required for that task
 
-|`*` |user with many pdfs in the pdf book |sort pdfs by name |locate a pdf easily
+|`* *` |student |view my productivity analysis and estimate time to get work done |allocate sufficient time to finish my homework & assignments before deadlines
+
+|`*` |user |view clashing tasks/appointments |be notified and make changes
+
+|`*` |class tutor |obtain the statistics of the exam |evaluate the performance of the exam
+
+|`*` |teacher |create new exam paper |create formatted online exam paper easily
+
+|`*` |NUS student |submit my files to LumiNUS with command lines |submit files without using an internet browsers
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1127,11 +1136,46 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 pdfs without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* **Technical requirements**
++
+The software should work on both 32-bit and 64-bit environments.
 
-_{More to be added}_
+* **Platform compatibility**
++
+The software should work on Windows, Linux and OS-X platforms.
+
+* **Response time**
++
+The software should respond within two seconds.
+
+* **Cost**
++
+The software should be free of charge.
+
+* **Privacy**
++
+The software should work entirely offline and should not collect user personal data for any purposes.
+
+* **Licensing**
++
+The software is free, open-source does not require installation.
+
+* **Portability**
++
+The software should not require any installer, in other words, should be able to run without installing any additional softwares.
+
+* **Extensibility**
++
+The software should take future growth into consideration e.g. adding features, carry-forward of customizations at next major version upgrade.
+
+* **Testability**
++
+The software should not have features that are hard to test both manual and automated testing.
+
+* **Data requirements**
++
+The data that is stored locally should be editable by user. In other words, expert users can open the file without using the application and edit it for his or her liking.
+
 
 [appendix]
 == Glossary
@@ -1141,23 +1185,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1181,8 +1208,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and directory is retained.
 
-_{ more test cases ... }_
-
 === Deleting a pdf
 
 . Deleting a pdf while all pdfs are listed
@@ -1195,12 +1220,8 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

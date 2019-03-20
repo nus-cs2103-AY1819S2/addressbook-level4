@@ -26,7 +26,7 @@ public class ImagePanel extends UiPart<Region> implements PropertyChangeListener
     public ImagePanel(Pane pane) {
         super(FXML);
         Notifier.addPropertyChangeListener(this);
-        imageView.setImage(new Image("/assets/sample.png"));
+        imageView.setImage(new Image("/images/startup.png"));
         imageView.setPreserveRatio(true);
     }
 

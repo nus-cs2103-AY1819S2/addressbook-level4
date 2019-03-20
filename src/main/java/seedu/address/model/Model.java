@@ -84,6 +84,8 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    void displayTempImage();
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -145,10 +147,6 @@ public interface Model {
      */
     String[] getFileNames();
 
-    /**
-     *returns tempImage object
-     */
-    Image getImage();
 
     /**
      * replaces image in Temp folder with original from Assets
@@ -157,7 +155,7 @@ public interface Model {
 
     /**
      * Updates tempImage to Opened image
-     * @param toOpen
+     * @param image
      */
-    void setCurrentImage(Image toOpen);
+    void setCurrentImage(Image image);
 }

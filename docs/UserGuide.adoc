@@ -81,7 +81,7 @@ Format: `cklimit`
 Deletes all the added modules. +
 Format: `clear`
 
-=== Sets the current semester of the students : `cursem`
+=== Sets the current semester: `cursem`
 
 Indicates that the previous semesters must have a single finalized grade in the expected grade range. +
 Format: `cursem`

@@ -49,8 +49,8 @@ public class HealthWorkerCard extends UiPart<Region> {
         this.worker = worker;
         this.name.setText(worker.getName().toString());
         this.organisation.setText(worker.getOrganization().toString());
-        this.worker.getSkills().getSkills().forEach(
-                s -> specialisations.getChildren().add(new Label(s.toString().toLowerCase())));
+        this.worker.getSkills().getSkills().forEach(s ->
+                specialisations.getChildren().add(new Label(s.toString().toLowerCase())));
         this.specialisations.setAlignment(Pos.CENTER);
     }
 

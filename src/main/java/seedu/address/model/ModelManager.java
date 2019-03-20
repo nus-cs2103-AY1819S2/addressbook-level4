@@ -16,7 +16,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.equipment.Equipment;
-import seedu.address.model.equipment.WorkList;
 import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.address.model.tag.Tag;
 

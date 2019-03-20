@@ -1,4 +1,4 @@
-package seedu.address.model.equipment;
+package seedu.address.model;
 
 /**
  * Representing the worklistid and the id is increasing based on the id history.

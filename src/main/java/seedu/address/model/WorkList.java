@@ -1,10 +1,12 @@
-package seedu.address.model.equipment;
+package seedu.address.model;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+
+import seedu.address.model.equipment.Equipment;
 
 /**
  * Representing a WorkList containing the equipments users want to work on.

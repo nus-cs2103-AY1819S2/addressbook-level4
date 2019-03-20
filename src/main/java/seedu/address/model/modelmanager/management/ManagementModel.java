@@ -6,6 +6,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.Model;
+import seedu.address.model.user.CardSrsData;
+import seedu.address.model.user.User;
 
 /**
  * The API of the ManagementModel component.
@@ -57,4 +59,14 @@ public interface ManagementModel extends Model {
      * @param index w
      */
     void deleteLesson(int index);
+
+    User getUser();
+
+    CardSrsData getCardSrsData(int hashCode);
+
+    void addCardSrsData(CardSrsData card);
+
+    void setCardSrsData(CardSrsData card);
+
+    void deleteCardSrsData(CardSrsData card);
 }

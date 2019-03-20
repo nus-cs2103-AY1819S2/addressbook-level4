@@ -12,6 +12,7 @@ import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
 /**
@@ -93,6 +94,31 @@ public class ManagementModelManager implements ManagementModel {
         lessons.deleteLesson(index);
     }
 
+    //=========== User ==================================================================================
+    @Override
+    public User getUser() {
+        return user;
+    }
+
+    @Override
+    public CardSrsData getCardSrsData(int hashCode) {
+        return user.getCard(hashCode);
+    }
+
+    @Override
+    public void addCardSrsData(CardSrsData card) {
+        user.addCard(card);
+    }
+
+    @Override
+    public void setCardSrsData(CardSrsData card) {
+        user.setCard(card);
+    }
+
+    @Override
+    public void deleteCardSrsData(CardSrsData card) {
+        user.deleteCard(card);
+    }
 
     @Override
     public boolean equals(Object obj) {

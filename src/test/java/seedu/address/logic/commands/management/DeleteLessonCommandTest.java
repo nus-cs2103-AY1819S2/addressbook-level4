@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 import static seedu.address.model.Lessons.EXCEPTION_INVALID_INDEX;
+import seedu.address.model.user.CardSrsData;
+import seedu.address.model.user.User;
 import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
 
 import java.util.List;
@@ -158,6 +160,31 @@ public class DeleteLessonCommandTest {
          */
         @Override
         public void deleteLesson(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public User getUser() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CardSrsData getCardSrsData(int hashCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCardSrsData(CardSrsData card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCardSrsData(CardSrsData card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCardSrsData(CardSrsData card) {
             throw new AssertionError("This method should not be called.");
         }
     }

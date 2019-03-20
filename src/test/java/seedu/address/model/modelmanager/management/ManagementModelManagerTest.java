@@ -1,5 +1,6 @@
 package seedu.address.model.modelmanager.management;
 
+import java.time.Instant;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -18,6 +19,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Lessons;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
 public class ManagementModelManagerTest {
@@ -44,6 +46,7 @@ public class ManagementModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Lessons().getLessons(), modelManager.getLessons());
+        assertEquals(new User(), modelManager.getUser());
     }
 
     @Test
@@ -144,6 +147,28 @@ public class ManagementModelManagerTest {
         assertEquals(0, modelManager.getLessons().size());
         thrown.expect(IllegalArgumentException.class);
         modelManager.getLesson(0);
+    }
+
+    @Test
+    public void userTests() {
+        /*
+         * Note: This is an integration test that verifies the ManagementModel is properly wired to the
+         * {@link User} class.
+         * More extensive testing of User functionality is done in {@link User} class.
+         *
+         * TODO
+         */
+        CardSrsData testCardSrsData = new CardSrsData(1, 1, 1, Instant.now());
+
+        User testUser = modelManager.getUser();
+        assertEquals(new User(), testUser);
+        modelManager.addCardSrsData(testCardSrsData);
+        assertEquals(testCardSrsData, modelManager.getCardSrsData(testCardSrsData.getHashCode()));
+        modelManager.setCardSrsData(testCardSrsData);
+        assertEquals(testCardSrsData, modelManager.getCardSrsData(testCardSrsData.getHashCode()));
+        modelManager.deleteCardSrsData(testCardSrsData);
+        assertEquals(0, testUser.getCards().size());
+
     }
 
     @Test

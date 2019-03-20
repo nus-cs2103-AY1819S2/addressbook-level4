@@ -49,7 +49,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `open FILENAME`, `FILENAME` is a parameter which can be used as `open myfile`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `LABEL...` can be used as `{nbsp}` (i.e. 0 times), `MyLabel`, `LabelA LabelB LabelC` etc.
 ====
-
 === Viewing help : `help`
 
 Format: `help`
@@ -166,6 +165,12 @@ Format: `exit`
 
 PDF++ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+// tag::undoredo[]
+=== Undo, redo command `[coming in v2.0]`
+
+_Users are able to undo previously entered commands and redo undone commands._
+// end::undoredo[]
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`

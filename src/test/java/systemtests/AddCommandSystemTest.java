@@ -66,6 +66,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          * -> added
          */
         Pdf toAdd = A_PDF;
+
         String command = "   " + AddCommand.COMMAND_WORD + "  " + VALID_DIR_A + " " + TAG_DESC_LECTURE + " ";
         assertCommandSuccess(command, toAdd);
 

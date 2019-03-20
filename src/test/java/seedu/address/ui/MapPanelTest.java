@@ -37,7 +37,7 @@ public class MapPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedPatient.set(ALICE));
         Address address = ALICE.getAddress();
         String mapAddress = address.toStreetNameOnly().replaceAll("\\s", "%20");
-        URL expectedPersonUrl = new URL(MapPanel.MAP_URL + mapAddress + "%22&zoom=15&size=640x500&markers=%22"
+        URL expectedPersonUrl = new URL(MapPanel.MAP_URL + mapAddress + "%22&zoom=16&size=640x395&markers=%22"
                 + mapAddress + ",red&sensor=false");
 
         waitUntilBrowserLoaded(mapPanelHandle);

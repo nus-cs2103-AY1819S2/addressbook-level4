@@ -83,7 +83,7 @@ public class MapPanel extends UiPart<Region> {
         // https://gothere.sg/maps/staticmap?center=%22bedok%20north%20street%203%22&zoom=15&
         // size=400x300&markers=%22bedok%20north%20street%203%22,red&sensor=false;
         StringBuilder builder = new StringBuilder(MAP_URL);
-        builder.append(mapAddress + "%22&zoom=16&size=640x425&markers=%22");
+        builder.append(mapAddress + "%22&zoom=16&size=640x395&markers=%22");
         builder.append(mapAddress + ",red&sensor=false");
         logger.info(builder.toString());
         return builder.toString();

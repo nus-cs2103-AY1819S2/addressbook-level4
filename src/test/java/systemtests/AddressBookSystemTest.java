@@ -218,7 +218,7 @@ public abstract class AddressBookSystemTest {
 
         URL expectedUrl;
         try {
-            expectedUrl = new URL(MapPanel.MAP_URL + selectedCardAddress + "%22&zoom=15&size=640x500&markers=%22"
+            expectedUrl = new URL(MapPanel.MAP_URL + selectedCardAddress + "%22&zoom=16&size=640x395&markers=%22"
                     + selectedCardAddress + ",red&sensor=false");
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);

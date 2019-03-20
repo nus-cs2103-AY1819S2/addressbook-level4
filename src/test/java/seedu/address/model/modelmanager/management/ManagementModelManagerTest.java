@@ -3,14 +3,10 @@ package seedu.address.model.modelmanager.management;
 import java.time.Instant;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -27,10 +23,6 @@ public class ManagementModelManagerTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private ManagementModelManager modelManager = new ManagementModelManager();
-
-    private void addTestLesson() {
-        modelManager.addLesson(getTestLesson());
-    }
 
     private Lesson getTestLesson() {
         ArrayList<String> testFields = new ArrayList<>();
@@ -77,76 +69,21 @@ public class ManagementModelManagerTest {
     }
 
     @Test
-    public void getLessons_lessonsNotNull_getsLessonsList() {
-        assertNotNull(modelManager.getLessons());
-    }
-
-    @Test
-    public void getLesson_indexOutOfBounds_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        modelManager.getLesson(0);
-        modelManager.getLesson(-1);
-        modelManager.getLesson(999);
-    }
-
-    @Test
-    public void getLesson_validLesson_getsLesson() {
-        addTestLesson();
-        Assert.assertEquals(getTestLesson(), modelManager.getLesson(0));
-    }
-
-    @Test
-    public void addLesson_validLesson_addsLesson() {
-        addTestLesson();
-        assertEquals(1, modelManager.getLessons().size());
-    }
-
-    @Test
-    public void addLesson_nullLesson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.addLesson(null);
-    }
-
-    @Test
-    public void setLesson_nullLesson_throwsNullPointerException() {
-        addTestLesson();
-        thrown.expect(NullPointerException.class);
-        modelManager.setLesson(0, null);
-    }
-
-    @Test
-    public void setLesson_invalidIndex_throwsIndexOutOfBoundsException() {
-        thrown.expect(IndexOutOfBoundsException.class);
-        modelManager.setLesson(0, getTestLesson());
-    }
-
-    @Test
-    public void setLesson_validData_updatesLesson() {
-        addTestLesson();
-        Lesson newLesson = getTestLesson();
-        newLesson.addCard(Arrays.asList("test1", "test2"));
-        assertNotEquals(newLesson, getTestLesson());
-        modelManager.setLesson(0, newLesson);
-        assertEquals(newLesson, modelManager.getLesson(0));
-    }
-
-    @Test
-    public void deleteLesson_invalidIndex_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        modelManager.deleteLesson(0);
-        modelManager.deleteLesson(-1);
-        modelManager.deleteLesson(1);
-    }
-
-    @Test
-    public void deleteLesson_validIndex_deletesLesson() {
-        addTestLesson();
-        assertEquals(1, modelManager.getLessons().size());
-        assertEquals(getTestLesson(), modelManager.getLesson(0));
+    public void lessonsTests() {
+        /*
+         * Note: This is an integration test that verifies the ManagementModel is properly wired to the
+         * {@link Lessons} class.
+         * More extensive testing of Lessons functionality is done in {@link Lessons} class.
+         */
+        Lesson testLesson = getTestLesson();
+        assertEquals(0, modelManager.getLessons().size());
+        modelManager.addLesson(getTestLesson());
+        assertEquals(testLesson, modelManager.getLesson(0));
+        testLesson.setName("other name");
+        modelManager.setLesson(0, testLesson);
+        assertEquals(testLesson, modelManager.getLesson(0));
         modelManager.deleteLesson(0);
         assertEquals(0, modelManager.getLessons().size());
-        thrown.expect(IllegalArgumentException.class);
-        modelManager.getLesson(0);
     }
 
     @Test

@@ -76,24 +76,6 @@ Shows a list of all the player's battleships that are currently deployed on the 
 
 Format: `list`
 
-=== Editing a person : `edit`
-
-Edits a battleship in the current inventory. +
-Format: `edit INDEX [n/NAME] [s/SIZE] [c/COMMAND_FLAG] [t/TAGS]`
-
-****
-* Edits the battleship at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the battleship will be removed i.e adding of tags is not cumulative.
-* You can remove all the battleship's tags by typing `t/` without specifying any tags after it.
-****
-
-Examples:
-
-* `edit 1 n/RSS Vanguard s/5 c/false t/bluewater_fleet` +
-Edits the name, size and command status of the 1st ship to `RSS Vanguard`, size `5` and `false` command ship status.
-
 === Placing a ship: `put`
 
 Adds a ship onto the player's map. The coordinates specified is the position of the ship's head. +
@@ -141,26 +123,6 @@ Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
 
 [NOTE]
 The position may not be displayed if the ship has not been placed.
-
-=== Deleting a ship: `delete`
-
-Deletes the specified ship from the inventory. +
-Format: `delete INDEX`
-
-****
-* Deletes the ship at the specified `INDEX`.
-* The index refers to the index number shown in the displayed ship list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd battleship in the inventory.
-* `find Prinz Eugen` +
-`delete 1` +
-Deletes the 1st ship in the results of the `find` command.
 
 === Selecting a ship : `select`
 
@@ -304,11 +266,9 @@ Format: `exit`
 * **Shoot**: `shoot COORDINATES`
 * **Play**: `play`
 * **Select**: `select INDEX`
-* **Delete**: `delete INDEX`
 * **Find Tag**: `findTag TAG [MORE_TAGS]`
 * **Find**: `find NAME [MORE_NAMES]`
 * **Put**: `put c/COORDINATES r/ORIENTATION`
-* **Edit**: `edit INDEX [n/NAME] [s/SIZE] [c/COMMAND_FLAG] [t/TAGS]`
 * **List**: `list`
 * **Initialise maps**: `init [s/MAP_SIZE]`
 * **Help**: `help`

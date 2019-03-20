@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "bos10",
+      "displayName": "CHE...TON",
+      "authorNames": ["bos10"]
+    },
+    {
+      "githubId": "s-tr",
+      "displayName": "CHO...WEI",
+      "authorNames": ["s-tr"]
+    },
+    {
+      "githubId": "iwle",
+      "displayName": "IAN... EN",
+      "authorNames": ["iwle"]
+    },
+    {
+      "githubId": "lucydotc",
+      "displayName": "LUC...YAN",
+      "authorNames": ["lucydotc"]
+    },
+    {
+      "githubId": "erjillsison",
+      "displayName": "SIS...NES",
+      "authorNames": ["erjillsison"]
+    }
+  ]
+}

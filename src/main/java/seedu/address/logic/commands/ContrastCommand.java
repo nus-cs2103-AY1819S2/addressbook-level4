@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-import static seedu.address.commons.core.Config.TEMP_FILE;
 import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 
 import java.io.File;
@@ -53,18 +52,18 @@ public class ContrastCommand extends Command {
                 new ContrastFilter(this.contrastValue.getAsDouble());
             Image.fromFile(new File(ASSETS_FILEPATH
                 + fileName)).filter(contrastFilter)
-                .output(TEMP_FILE,
+                .output(TEMP_FILEPATH + "sampleContrast.jpg",
                     new JpegWriter(100, true));
         } else {
             BufferedOpFilter contrastFilter =
                 new ContrastFilter(1.1);
             Image.fromFile(new File(ASSETS_FILEPATH
                 + fileName)).filter(contrastFilter)
-                .output(TEMP_FILE,
+                .output(TEMP_FILEPATH + "sampleContrast.jpg",
                         new JpegWriter(100, true));
         }
         seedu.address.model.image.Image finalImage = new seedu.address.model
-            .image.Image(TEMP_FILE);
+            .image.Image(TEMP_FILEPATH + "sampleContrast.jpg");
         model.displayImage(finalImage);
         return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
     }

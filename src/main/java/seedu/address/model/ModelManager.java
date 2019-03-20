@@ -276,8 +276,7 @@ public class ModelManager implements Model {
     @Override
     public String[] getFileNames() {
         File file = new File(ASSETS_FILEPATH);
-        String[] imageNames = file.list();
-        return imageNames;
+        return file.list();
     }
 
     /**
@@ -290,8 +289,7 @@ public class ModelManager implements Model {
             File file = new File(ASSETS_FILEPATH + currentImage.getName());
             File directory = new File(TEMP_FILEPATH);
             FileUtils.copyFileToDirectory(file, directory, false);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.toString());
         }
     }
@@ -302,15 +300,13 @@ public class ModelManager implements Model {
      */
     @Override
     public void setCurrentImage(Image image) {
-        this.currentImage = image;
+        currentImage = image;
         try {
             File outputFile = new File(TEMP_FILENAME);
             File directory = new File(TEMP_FILEPATH);
-
             ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, directory, false);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println(e.toString());
         }
     }

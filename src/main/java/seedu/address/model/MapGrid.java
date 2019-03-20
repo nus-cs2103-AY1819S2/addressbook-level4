@@ -66,6 +66,7 @@ public class MapGrid implements ReadOnlyAddressBook {
         cellGrid = new Cell[size][size];
 
         copy2dArray(cellGrid, map);
+        updateUi();
     }
 
     /**

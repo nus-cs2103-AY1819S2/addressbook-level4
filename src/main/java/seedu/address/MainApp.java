@@ -23,10 +23,8 @@ import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quiz.QuizModel;
 import seedu.address.model.modelmanager.quiz.QuizModelManager;
-import seedu.address.storage.CsvLessonImportExport;
 import seedu.address.storage.CsvLessonsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.LessonImportExport;
 import seedu.address.storage.LessonsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -62,8 +60,7 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         LessonsStorage lessonsStorage = new CsvLessonsStorage(userPrefs.getLessonsFolderPath());
         Lessons lessons = initLessons(lessonsStorage);
-        LessonImportExport lessonImportExport = new CsvLessonImportExport(userPrefs.getLessonImportExportFilePath());
-        storage = new StorageManager(userPrefsStorage, lessonsStorage, lessonImportExport);
+        storage = new StorageManager(userPrefsStorage, lessonsStorage);
 
         initLogging(config);
 

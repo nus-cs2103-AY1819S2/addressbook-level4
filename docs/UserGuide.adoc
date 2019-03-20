@@ -52,16 +52,16 @@ Let's start on our image editing journey, shall we? In this walk through, we wil
 .Import Command
 image::import.JPG[width="912"]
 +
-. Then, while keeping your cursor on the command line, paste the file path, by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys. 
+. Then, while keeping your cursor on the command line, paste the file path, by simultaneously pressing kbd:[Ctrl] and kbd:[V] keys.
 * In Windows: if you used the above method to copy the filepath, please remove the kbd:["] and kbd:["] signs on the two ends of the filepath.
 
 .  Your final command should look something like this, with a different filepath:
 +
-.Import with Filepath 
+.Import with Filepath
 image::importCommand.JPG[width="915"]
 +
 
-.  Then, you can press kbd:[Enter] to execute the import command. Tadah! Your image is now displayed on the FomoFoto application. Your screen should be similar to this. 
+.  Then, you can press kbd:[Enter] to execute the import command. Tadah! Your image is now displayed on the FomoFoto application. Your screen should be similar to this.
 +
 .Import Success
 image::importSuccess.JPG[width="917"]
@@ -70,7 +70,7 @@ image::importSuccess.JPG[width="917"]
 . Now let's move on to other commands, shall we? Now suppose you want to decrease the brightness of the photo slightly, maybe 0.9 of the original brightness. So, you type the following command: `brightness 0.9 squirrel.jpg`.
 
 +
-.Brightness Command 
+.Brightness Command
 image::brightnessCommand.JPG[width="915"]
 +
 
@@ -84,7 +84,7 @@ image::brightnessSuccess.JPG[width="917"]
 .  Now, you seem to prefer to just have the cute squirrel instead of the humans behind. So, it makes sense that you want to crop the humans away. You can then make use of the crop command: `crop 310 250 140 200 squirrel.jpg` to crop the humans away. After executing, your application would look something like this:
 
 +
-.Crop Success 
+.Crop Success
 image::cropSuccess.PNG[width="918"]
 +
 

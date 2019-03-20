@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;

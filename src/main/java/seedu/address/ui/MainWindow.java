@@ -22,6 +22,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
+ * @author Hui Chun
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -35,9 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent UI parts residing in this UI container
     private MapPanel mapPanel;
     private PersonListPanel personListPanel;
-    //TO-DO: Create RequestListPanel, LocationListPanel
     private HealthWorkerListPanel healthWorkerListPanel;
-    private TabPane tabPane;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -49,6 +48,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private MenuItem feedbackMenuItem;
 
     @FXML
     private StackPane patientListPlaceholder;
@@ -89,6 +91,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(feedbackMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -148,6 +151,14 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
+    public PersonListPanel getPersonListPanel() {
+        return personListPanel;
+    }
+
+    void show() {
+        primaryStage.show();
+    }
+
     /**
      * Sets the default size based on {@code guiSettings}.
      */
@@ -172,8 +183,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
+    /**
+     * Opens the feedback window.
+     */
+    @FXML
+    public void handleFeedback() {
+        //TODO implement feedback window logic
     }
 
     /**
@@ -186,10 +201,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**

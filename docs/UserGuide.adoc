@@ -57,7 +57,7 @@ from the mentioned directory to the PDF++ list
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `open FILENAME`, `FILENAME` is a parameter which can be used as `open myfile`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `LABEL...` can be used as `{nbsp}` (i.e. 0 times), `MyLabel`, `LabelA LabelB LabelC` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` can be used as `{nbsp}` (i.e. 0 times), `MyTag`, `TagA TagB TagC` etc.
 ====
 === Viewing help : `help`
 
@@ -92,7 +92,7 @@ Example:
 === Assigning and deleting tags to a file : `tag` `[Coming in v1.3]`
 
 Assigns and/or deletes tags to an existing file in the list of the app. Use `-` to
- delete tag. No action will be taken when the tag you want to delete does not exist. +
+delete tag. No action will be taken when the tag you want to delete does not exist. +
 Format: `tag INDEX TAG...`
 
 Example:

@@ -8,6 +8,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
+import seedu.address.model.pdf.exceptions.DuplicatePdfException;
 
 /**
  * Adds a PDF to the PDF book.
@@ -43,7 +44,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasPdf(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PDF);
+            throw new CommandException(MESSAGE_DUPLICATE_PDF, new DuplicatePdfException());
         }
 
         model.addPdf(toAdd);

@@ -38,7 +38,6 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.MapPanel;
 
@@ -181,7 +180,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code MapHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -198,7 +197,7 @@ public abstract class AddressBookSystemTest {
      * @see MapPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
+        assertEquals(MapPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
@@ -281,7 +280,7 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
+        assertEquals(MapPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

@@ -239,7 +239,7 @@ If a file with the specified file name already exists in the default `exported` 
 
 Outputs label to a PDF file. Label will include name of medicine and standard label template. +
 This includes the company that manufactured it, expiry date and the tags that was set with it. +
-Format: `label INDEX [FILE_NAME]`
+Format: `label INDEX [f/FILE_NAME]`
 
 ****
 * Outputs the label for the medicine at the specified INDEX.
@@ -258,13 +258,13 @@ Outputs label PDF file for 2nd medicine in the list with default file name `to_p
 image::label2_example.png[width="790"]
 +
 * `find Simvastatin` +
-`label 1` +
-Outputs label PDF file for 1st medicine in the results of the `find` command with file name `Gabapentin`.
+`label 1 f/Simvastatin` +
+Outputs label PDF file for 1st medicine in the results of the `find` command with file name `Simvastatin`.
 +
 image::label1_example.png[width="790"]
 +
 [WARNING]
-The `label` command will overwrite the `to_print` file every time it is used. Hence, do print the required file first before using the `label` command again.
+The `label` command will overwrite the `to_print` file every time it is used. Hence, do print the required file first before using the `label` command again. This extends to all other existing file names.
 
 === Listing entered commands : `history`
 

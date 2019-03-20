@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.StudyView;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
@@ -19,8 +20,9 @@ public class ShowAnswerCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        model.setCurrentStudyState(Model.studyState.ANSWER);
-        model.updateTextShown();
+        StudyView studyView = ((StudyView) model.getViewState());
+        studyView.setCurrentStudyState(StudyView.studyState.ANSWER);
+        studyView.updateTextShown();
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

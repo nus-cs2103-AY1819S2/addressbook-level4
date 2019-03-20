@@ -18,10 +18,6 @@ import seedu.address.model.deck.Deck;
  */
 public interface Model {
 
-    enum studyState {
-        QUESTION, ANSWER;
-    }
-
     /**
      * {@code Predicate} that always evaluate to true
      */
@@ -162,30 +158,11 @@ public interface Model {
      */
     void studyDeck(Deck deck);
 
-    void setCurrentCard(Card card);
-
-    Card getCurrentCard();
-
     void goToDecksView();
 
     boolean isAtDecksView();
 
-    /**
-     * Current text in the model
-     */
-    ReadOnlyProperty<String> textShownProperty();
+    ViewState getViewState();
 
-    void setCurrentStudyState(studyState state);
 
-    studyState getCurrentStudyState();
-
-    /**
-     * Updates textshown to display either Question or Answer
-     */
-    void updateTextShown();
-
-    /**
-     * Changes the currentCard property of model
-     */
-    void generateCard();
 }

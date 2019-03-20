@@ -67,10 +67,6 @@ public interface Logic {
      */
     ReadOnlyProperty<ListItem> selectedItemProperty();
 
-    /**
-     * Gets the current card to be displayed during study state.
-     */
-    Card getCurrentCard();
 
     /**
      * Current text in the model

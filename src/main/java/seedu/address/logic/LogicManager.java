@@ -107,14 +107,11 @@ public class LogicManager implements Logic {
         return model.selectedItemProperty();
     }
 
-    @Override
-    public Card getCurrentCard() {
-        return model.getCurrentCard();
-    }
 
     @Override
     public ReadOnlyProperty<String> textShownProperty() {
-        return model.textShownProperty();
+        StudyView studyView = (StudyView) model.getViewState();
+        return studyView.textShownProperty();
     }
 
 

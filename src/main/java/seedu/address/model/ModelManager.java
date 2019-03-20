@@ -37,12 +37,6 @@ public class ModelManager implements Model {
     private FilteredList<? extends ListItem> filteredItems;
     private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
     private ViewState viewState;
-    private Card currentCard;
-
-    private studyState currentStudyState = studyState.QUESTION;
-
-
-    private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -61,7 +55,6 @@ public class ModelManager implements Model {
         filteredItems = ((DecksView) viewState).filteredDecks;
         // filteredItems = ((CardsView) viewState).filteredCards;
 
-        currentCard = null;
     }
 
     public ModelManager() {
@@ -83,8 +76,6 @@ public class ModelManager implements Model {
 
     public void studyDeck(Deck deck) {
         viewState = new StudyView(this, deck);
-        generateCard();
-        setCurrentStudyState(studyState.QUESTION);
     }
 
     @Override
@@ -98,6 +89,12 @@ public class ModelManager implements Model {
     public boolean isAtDecksView() {
         return (viewState instanceof DecksView);
     }
+
+    @Override
+    public ViewState getViewState() {
+        return viewState;
+    }
+
 
     //=========== UserPrefs ==================================================================================
 
@@ -280,48 +277,6 @@ public class ModelManager implements Model {
                 && filteredItems.equals(other.filteredItems)
                 && Objects.equals(selectedItem.get(), other.selectedItem.get());
     }
-
-    //=========== Study states ===========================================================================
-
-    @Override
-    public void setCurrentCard(Card card) {
-        currentCard = card;
-    }
-
-    @Override
-    public Card getCurrentCard() {
-        return currentCard;
-    }
-
-    @Override
-    public void setCurrentStudyState(studyState state) {
-        currentStudyState = state;
-    }
-
-    @Override
-    public ReadOnlyProperty<String> textShownProperty() {
-        updateTextShown();
-        return textShown;
-    }
-
-    @Override
-    public studyState getCurrentStudyState() {
-        return currentStudyState;
-    }
-
-    @Override
-    public void updateTextShown(){
-        String text =  (currentStudyState == studyState.QUESTION)
-                ? currentCard.getQuestion()
-                : currentCard.getAnswer();
-        textShown.setValue(text);
-    }
-
-    @Override
-    public void generateCard() {
-        Deck deck = ((StudyView) viewState).getActiveDeck();
-        setCurrentCard(deck.generateCard());
-    };
 
 
 }

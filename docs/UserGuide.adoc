@@ -87,7 +87,7 @@ Crops an image based on given top left hand corner coordinates, width and height
 Format: `crop x/POINTCOORD y/POINTCOORD w/WIDTH h/HEIGHT`
 
 ****
-* The point coordinates must be separated by a space each
+* The point coordinates must be separated by a space each.
 ****
 
 Example:
@@ -153,16 +153,16 @@ Examples:
 `redo` (runs `brightness add` again)
 
 * `contrast subtract` +
-`crop 2,3 3,4 4,5 5,6` +
-`undo` (reverses the `crop 2,3 3,4 4,5 5,6` command +
+`crop 2 3 500 500` +
+`undo` (reverses the `crop 2 3 500 500` command +
 `undo` (reverses the `contrast subtract`) +
 `redo` (runs `contrast subtract` command again) +
-`redo` (runs `crop 2,3 3,4 4,5 5,6` command again)
+`redo` (runs `crop 2 3 500 500` command again)
 
 === Rotate an image : `rotate`
 
 Rotates the photo by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
-Format: `rotate a/ANGLE`
+Format: `rotate ANGLE`
 
 Example:
 
@@ -185,8 +185,8 @@ Examples:
 `undo` (reverses the `brightness add` command) +
 
 * `contrast subtract` +
-`crop 2,3 3,4 4,5 5,6` +
-`undo` (reverses the `crop 2,3 3,4 4,5 5,6` command +
+`crop 2 3 500 500` +
+`undo` (reverses the `crop 2 3 500 500` command +
 `undo` (reverses the `contrast subtract`)
 
 

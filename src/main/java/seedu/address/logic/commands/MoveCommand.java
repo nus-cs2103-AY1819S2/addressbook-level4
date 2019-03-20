@@ -68,8 +68,6 @@ public class MoveCommand extends Command {
         Pdf editedPdf = new Pdf(pdfToEdit.getName(), movePdfDirectory, pdfToEdit.getSize(), pdfToEdit.getTags());
 
         if (editedPdf.isValidPdf()) {
-            System.out.println(Paths.get(editedPdf.getDirectory().getDirectory(),
-                    editedPdf.getName().getFullName()).toAbsolutePath().toString());
             throw new CommandException(MESSAGE_NOT_MOVED_DUPLICATE, new DuplicatePdfException());
         } else {
 

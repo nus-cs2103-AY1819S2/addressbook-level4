@@ -103,7 +103,7 @@ public class Pdf {
     }
 
     public boolean isValidPdf() {
-        return Paths.get(this.directory.getDirectory(), this.name.getFullName()).toFile().exists();
+        return Paths.get(this.directory.getDirectory(), this.name.getFullName()).toAbsolutePath().toFile().exists();
     }
 
     /**

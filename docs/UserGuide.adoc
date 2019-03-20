@@ -173,7 +173,7 @@ or +
 
 Examples:
 
-* `edit n/CS2103T s/Y2S2` +
+* `edit c/CS2103T s/Y2S2` +
 Changes the semester taken of CS2103T to Y2S2.
 
 * `edit 2 min/A_PLUS` +
@@ -322,8 +322,6 @@ Encrypts user data files.
 === Update module information `[coming in v2.0]`
 
 Retrieves the latest information of all modules from CORS.
-
-
 
 == FAQ
 

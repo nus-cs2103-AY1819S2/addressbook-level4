@@ -13,10 +13,11 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.healthworker.HealthWorker;
 
-
-
 /**
- *
+ * The HealthWorkerList Panel of the App.
+ * Responsible for constructing the health worker list panel via its individual
+ * {@code HealthWorker} cards and handling event logic.
+ * @author Hui Chun
  */
 public class HealthWorkerListPanel extends UiPart<Region> {
     private static final String FXML = "HealthWorkerListPanel.fxml";

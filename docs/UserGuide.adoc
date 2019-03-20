@@ -81,7 +81,7 @@ image::brightnessCommand.JPG[width="915"]
 image::brightnessSuccess.JPG[width="917"]
 +
 
-.  Now, you seem to prefer to just have the cute squirrel instead of the humans behind. So, it makes sense that you want to crop the humans away. You can then make use of the crop command: `crop 310 250 140 200 squirrel.jpg` to crop the humans away. After executing, your squirrel would look something like this:
+.  Now, you seem to prefer to just have the cute squirrel instead of the humans behind. So, it makes sense that you want to crop the humans away. You can then make use of the crop command: `crop 310 250 140 200 squirrel.jpg` to crop the humans away. After executing, your application would look something like this:
 
 +
 .Crop Success 

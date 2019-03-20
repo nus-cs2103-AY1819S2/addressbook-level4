@@ -1,5 +1,7 @@
 package seedu.address.logic;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_MODE;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -10,8 +12,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -43,13 +47,23 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public CommandResult execute(String commandText) throws CommandException,
+            ParseException, InvalidCommandModeException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
 
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
+            if (!(command.isValidMode(model.getAddressBookMode()))) {
+                throw new InvalidCommandModeException(
+                        String.format(MESSAGE_INVALID_COMMAND_MODE,
+                                command.allowedModeListAsString())
+                                + "\nChange to appropriate" +
+                                " mode by using mode command\n"
+                                +ModeCommand.MESSAGE_USAGE
+                );
+            }
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);

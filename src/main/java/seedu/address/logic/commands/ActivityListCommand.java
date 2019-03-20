@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 /**
  * Lists all activities in the club manager to the user.
  */
-public class ActivityListCommand extends Command {
+public class ActivityListCommand extends ActivityCommand {
     public static final String COMMAND_WORD = "activityList";
 
     public static final String MESSAGE_SUCCESS = "Listed all activities";

@@ -10,11 +10,11 @@ import seedu.address.model.Model;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class ModeCommand extends Command {
+public class ModeCommand extends GeneralCommand {
 
     public static final String COMMAND_WORD = "mode";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Get / Sets the mode"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Get / Sets the mode\n"
             + "Parameters:\n"
             + "if left blank the function returns current mode\n"
             + "if MEMBER (case insensitive), changes mode to Member Management\n"

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -11,12 +12,13 @@ import seedu.address.model.Model;
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
-public abstract class Command {
+public abstract class GeneralCommand extends Command {
 
-    private ArrayList<AppMode.Modes> allowedModeList = new ArrayList<>();
+    private ArrayList<AppMode.Modes> modeList = new ArrayList <AppMode.Modes> (
+            Arrays.asList(AppMode.Modes.MEMBER, AppMode.Modes.ACTIVITY));
 
-    public void setAllowedModeList(ArrayList<AppMode.Modes> allowedModeList) {
-        this.allowedModeList = allowedModeList;
+    public GeneralCommand () {
+        super.setAllowedModeList(modeList);
     }
 
     /**
@@ -35,24 +37,8 @@ public abstract class Command {
      * else return false
      */
     public boolean isValidMode (AppMode.Modes mode) {
-        return allowedModeList.contains(mode);
+        return super.isValidMode(mode);
     }
 
-    /**
-     * @return String of valid operation modes.
-     */
-    public String allowedModeListAsString () {
-        String modeList = "";
-        boolean first = true;
-        for (AppMode.Modes modeTmp : this.allowedModeList) {
-            if (!first) {
-                modeList = modeList + ", ";
-            } else {
-                first = false;
-            }
-            modeList = modeList + modeTmp.toString();
-        }
-        return modeList;
-    }
 
 }

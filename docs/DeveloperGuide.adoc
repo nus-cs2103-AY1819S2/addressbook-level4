@@ -560,18 +560,18 @@ The same principle was applied to propagate changes in `CardFolders` (e.g. addin
 
 ==== Design Considerations
 ===== Aspect: How multiple folders are represented
-* Alternative 1 (current choice): List of structures representing individual folders
+* **Alternative 1 (current choice)**: List of structures representing individual folders
 ** Pros: Scalable and better follows OOP principles.
 ** Cons: Hard to implement, alters fundamental architecture of components.
-* Alternative 2: A single structure containing Cards with information on their folder membership (folder operations performed by iterating over all cards)
+* **Alternative 2**: A single structure containing Cards with information on their folder membership (folder operations performed by iterating over all cards)
 ** Pros: Easy to implement.
 ** Cons: Not scalable, will be computationally expensive to perform folder operations when there are many cards and/or folders.
 
 ===== Aspect: Folder identification
-* Alternative 1 (current choice): Use a unique folder name
+* **Alternative 1 (current choice)**: Use a unique folder name
 ** Pros: Easier to implement.
 ** Cons: Have to use a separate test for comparing folders across time (which necessarily have to compare cards).
-* Alternative 2: Identify a folder by its cards
+* **Alternative 2**: Identify a folder by its cards
 ** Pros: There can be no folders with identical cards, preventing redundancy.
 ** Cons: Two folders could have identical names as long as the cards are different.
 

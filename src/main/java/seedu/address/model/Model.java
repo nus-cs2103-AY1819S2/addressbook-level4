@@ -183,4 +183,9 @@ public interface Model {
      * Updates textshown to display either Question or Answer
      */
     void updateTextShown();
+
+    /**
+     * Changes the currentCard property of model
+     */
+    void generateCard();
 }

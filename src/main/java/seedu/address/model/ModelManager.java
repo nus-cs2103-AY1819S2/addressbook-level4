@@ -83,7 +83,7 @@ public class ModelManager implements Model {
 
     public void studyDeck(Deck deck) {
         viewState = new StudyView(this, deck);
-        setCurrentCard(deck.generateCard());
+        generateCard();
         setCurrentStudyState(studyState.QUESTION);
     }
 
@@ -316,4 +316,12 @@ public class ModelManager implements Model {
                 : currentCard.getAnswer();
         textShown.setValue(text);
     }
+
+    @Override
+    public void generateCard() {
+        Deck deck = ((StudyView) viewState).getActiveDeck();
+        setCurrentCard(deck.generateCard());
+    };
+
+
 }

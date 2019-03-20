@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -35,8 +36,7 @@ public class StudyView implements ViewState {
                 if (model.getCurrentStudyState() == Model.studyState.QUESTION) {
                     return new ShowAnswerCommand();
                 } else {
-                    return new ShowAnswerCommand();
-                    //return new GenerateQuestionCommand();
+                    return new GenerateQuestionCommand();
                 }
                 //throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

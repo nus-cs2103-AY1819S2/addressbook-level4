@@ -1,0 +1,372 @@
+commit 30d230dc55eccc78a7135f2982df3a055a45cb67
+Author: A0143487X-Kevin <k3v1n.y30ng@gmail.com>
+Date:   Thu Feb 28 21:12:53 2019 +0800
+
+    Create command for mode change and invalidcommandmode exception
+
+diff --git a/src/main/java/seedu/address/MainApp.java b/src/main/java/seedu/address/MainApp.java
+index a92d4d5d..1b8b6f01 100644
+--- a/src/main/java/seedu/address/MainApp.java
++++ b/src/main/java/seedu/address/MainApp.java
+@@ -7,6 +7,7 @@ import java.util.logging.Logger;
+ 
+ import javafx.application.Application;
+ import javafx.stage.Stage;
++import seedu.address.commons.core.AppMode;
+ import seedu.address.commons.core.Config;
+ import seedu.address.commons.core.LogsCenter;
+ import seedu.address.commons.core.Version;
+@@ -61,6 +62,8 @@ public class MainApp extends Application {
+ 
+         initLogging(config);
+ 
++        AppMode.init();
++
+         model = initModelManager(storage, userPrefs);
+ 
+         logic = new LogicManager(model, storage);
+diff --git a/src/main/java/seedu/address/commons/core/AppMode.java b/src/main/java/seedu/address/commons/core/AppMode.java
+new file mode 100644
+index 00000000..f020cadd
+--- /dev/null
++++ b/src/main/java/seedu/address/commons/core/AppMode.java
+@@ -0,0 +1,26 @@
++package seedu.address.commons.core;
++
++/**
++ * Mode which the app is running in
++ */
++public class AppMode {
++
++    public static int MODE;
++
++    public static void init () {
++        MODE = 1;
++    }
++
++    public static void setModeMember () {
++        MODE = 1;
++    }
++
++    public static void setModeActivity () {
++        MODE = 2;
++    }
++
++    public static int getMODE () {
++        return MODE;
++    }
++
++}
+diff --git a/src/main/java/seedu/address/logic/Logic.java b/src/main/java/seedu/address/logic/Logic.java
+index 60369e20..baccda25 100644
+--- a/src/main/java/seedu/address/logic/Logic.java
++++ b/src/main/java/seedu/address/logic/Logic.java
+@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
+ import seedu.address.commons.core.GuiSettings;
+ import seedu.address.logic.commands.CommandResult;
+ import seedu.address.logic.commands.exceptions.CommandException;
++import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
+ import seedu.address.logic.parser.exceptions.ParseException;
+ import seedu.address.model.ReadOnlyAddressBook;
+ import seedu.address.model.person.Person;
+@@ -22,7 +23,7 @@ public interface Logic {
+      * @throws CommandException If an error occurs during command execution.
+      * @throws ParseException If an error occurs during parsing.
+      */
+-    CommandResult execute(String commandText) throws CommandException, ParseException;
++    CommandResult execute(String commandText) throws CommandException, ParseException, InvalidCommandModeException;
+ 
+     /**
+      * Returns the AddressBook.
+diff --git a/src/main/java/seedu/address/logic/LogicManager.java b/src/main/java/seedu/address/logic/LogicManager.java
+index 5cb24a61..3e46c874 100644
+--- a/src/main/java/seedu/address/logic/LogicManager.java
++++ b/src/main/java/seedu/address/logic/LogicManager.java
+@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
+ import seedu.address.logic.commands.CommandResult;
+ import seedu.address.logic.commands.exceptions.CommandException;
+ import seedu.address.logic.parser.AddressBookParser;
++import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
+ import seedu.address.logic.parser.exceptions.ParseException;
+ import seedu.address.model.Model;
+ import seedu.address.model.ReadOnlyAddressBook;
+@@ -42,7 +43,7 @@ public class LogicManager implements Logic {
+     }
+ 
+     @Override
+-    public CommandResult execute(String commandText) throws CommandException, ParseException {
++    public CommandResult execute(String commandText) throws CommandException, ParseException, InvalidCommandModeException {
+         logger.info("----------------[USER COMMAND][" + commandText + "]");
+         addressBookModified = false;
+ 
+diff --git a/src/main/java/seedu/address/logic/commands/CommandResult.java b/src/main/java/seedu/address/logic/commands/CommandResult.java
+index 92f900b7..0dc66075 100644
+--- a/src/main/java/seedu/address/logic/commands/CommandResult.java
++++ b/src/main/java/seedu/address/logic/commands/CommandResult.java
+@@ -17,13 +17,17 @@ public class CommandResult {
+     /** The application should exit. */
+     private final boolean exit;
+ 
++    /** The application has changed mode. */
++    private final boolean changeMode;
++
+     /**
+      * Constructs a {@code CommandResult} with the specified fields.
+      */
+-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
++    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean changeMode) {
+         this.feedbackToUser = requireNonNull(feedbackToUser);
+         this.showHelp = showHelp;
+         this.exit = exit;
++        this.changeMode = changeMode;
+     }
+ 
+     /**
+@@ -31,7 +35,7 @@ public class CommandResult {
+      * and other fields set to their default value.
+      */
+     public CommandResult(String feedbackToUser) {
+-        this(feedbackToUser, false, false);
++        this(feedbackToUser, false, false, false);
+     }
+ 
+     public String getFeedbackToUser() {
+@@ -46,6 +50,10 @@ public class CommandResult {
+         return exit;
+     }
+ 
++    public boolean isChangeMode() {
++        return changeMode;
++    }
++
+     @Override
+     public boolean equals(Object other) {
+         if (other == this) {
+@@ -60,12 +68,13 @@ public class CommandResult {
+         CommandResult otherCommandResult = (CommandResult) other;
+         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
+                 && showHelp == otherCommandResult.showHelp
+-                && exit == otherCommandResult.exit;
++                && exit == otherCommandResult.exit
++                && changeMode == otherCommandResult.changeMode;
+     }
+ 
+     @Override
+     public int hashCode() {
+-        return Objects.hash(feedbackToUser, showHelp, exit);
++        return Objects.hash(feedbackToUser, showHelp, exit, changeMode);
+     }
+ 
+ }
+diff --git a/src/main/java/seedu/address/logic/commands/ModeActivityCommand.java b/src/main/java/seedu/address/logic/commands/ModeActivityCommand.java
+new file mode 100644
+index 00000000..8d40fe41
+--- /dev/null
++++ b/src/main/java/seedu/address/logic/commands/ModeActivityCommand.java
+@@ -0,0 +1,22 @@
++package seedu.address.logic.commands;
++
++import seedu.address.commons.core.AppMode;
++import seedu.address.logic.CommandHistory;
++import seedu.address.model.Model;
++
++/**
++ * Changes AppMode to ACTIVITY
++ */
++public class ModeActivityCommand extends Command {
++
++    public static final String COMMAND_WORD = "modeActivity";
++
++    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Changing to Activity Management Mode";
++
++    @Override
++    public CommandResult execute(Model model, CommandHistory history) {
++        AppMode.setModeActivity();
++        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, false, true);
++    }
++
++}
+diff --git a/src/main/java/seedu/address/logic/commands/ModeMemberCommand.java b/src/main/java/seedu/address/logic/commands/ModeMemberCommand.java
+new file mode 100644
+index 00000000..4f37ba08
+--- /dev/null
++++ b/src/main/java/seedu/address/logic/commands/ModeMemberCommand.java
+@@ -0,0 +1,22 @@
++package seedu.address.logic.commands;
++
++import seedu.address.commons.core.AppMode;
++import seedu.address.logic.CommandHistory;
++import seedu.address.model.Model;
++
++/**
++ * Changes AppMode to MEMBER
++ */
++public class ModeMemberCommand extends Command {
++
++    public static final String COMMAND_WORD = "modeMember";
++
++    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Changing to Member Management Mode";
++
++    @Override
++    public CommandResult execute(Model model, CommandHistory history) {
++        AppMode.setModeMember();
++        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, false, true);
++    }
++
++}
+diff --git a/src/main/java/seedu/address/logic/parser/AddressBookParser.java b/src/main/java/seedu/address/logic/parser/AddressBookParser.java
+index b7d57f5d..f6d554d0 100644
+--- a/src/main/java/seedu/address/logic/parser/AddressBookParser.java
++++ b/src/main/java/seedu/address/logic/parser/AddressBookParser.java
+@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+ import java.util.regex.Matcher;
+ import java.util.regex.Pattern;
+ 
++import seedu.address.commons.core.AppMode;
+ import seedu.address.logic.commands.AddCommand;
+ import seedu.address.logic.commands.ClearCommand;
+ import seedu.address.logic.commands.Command;
+@@ -16,9 +17,12 @@ import seedu.address.logic.commands.FindCommand;
+ import seedu.address.logic.commands.HelpCommand;
+ import seedu.address.logic.commands.HistoryCommand;
+ import seedu.address.logic.commands.ListCommand;
++import seedu.address.logic.commands.ModeActivityCommand;
++import seedu.address.logic.commands.ModeMemberCommand;
+ import seedu.address.logic.commands.RedoCommand;
+ import seedu.address.logic.commands.SelectCommand;
+ import seedu.address.logic.commands.UndoCommand;
++import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
+ import seedu.address.logic.parser.exceptions.ParseException;
+ 
+ /**
+@@ -38,7 +42,7 @@ public class AddressBookParser {
+      * @return the command based on the user input
+      * @throws ParseException if the user input does not conform the expected format
+      */
+-    public Command parseCommand(String userInput) throws ParseException {
++    public Command parseCommand(String userInput) throws ParseException, InvalidCommandModeException {
+         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+         if (!matcher.matches()) {
+             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+@@ -72,6 +76,18 @@ public class AddressBookParser {
+         case HistoryCommand.COMMAND_WORD:
+             return new HistoryCommand();
+ 
++        case ModeMemberCommand.COMMAND_WORD:
++            if (AppMode.getMODE() == 1) {
++                throw new InvalidCommandModeException("App is already in Member Mode");
++            }
++            return new ModeMemberCommand();
++
++        case ModeActivityCommand.COMMAND_WORD:
++            if (AppMode.getMODE() == 2) {
++                throw new InvalidCommandModeException("App is already in Activity Mode");
++            }
++            return new ModeActivityCommand();
++
+         case ExitCommand.COMMAND_WORD:
+             return new ExitCommand();
+ 
+diff --git a/src/main/java/seedu/address/logic/parser/exceptions/InvalidCommandModeException.java b/src/main/java/seedu/address/logic/parser/exceptions/InvalidCommandModeException.java
+new file mode 100644
+index 00000000..9d9c7180
+--- /dev/null
++++ b/src/main/java/seedu/address/logic/parser/exceptions/InvalidCommandModeException.java
+@@ -0,0 +1,17 @@
++package seedu.address.logic.parser.exceptions;
++
++import seedu.address.commons.exceptions.IllegalValueException;
++
++/**
++ * Represents an error when an invalid command is passed in the current mode
++ */
++public class InvalidCommandModeException extends IllegalValueException {
++
++    public InvalidCommandModeException(String message) {
++        super(message);
++    }
++
++    public InvalidCommandModeException(String message, Throwable cause) {
++        super(message, cause);
++    }
++}
+diff --git a/src/main/java/seedu/address/ui/CommandBox.java b/src/main/java/seedu/address/ui/CommandBox.java
+index bf09f3dc..7cd3521c 100644
+--- a/src/main/java/seedu/address/ui/CommandBox.java
++++ b/src/main/java/seedu/address/ui/CommandBox.java
+@@ -9,6 +9,7 @@ import javafx.scene.input.KeyEvent;
+ import javafx.scene.layout.Region;
+ import seedu.address.logic.commands.CommandResult;
+ import seedu.address.logic.commands.exceptions.CommandException;
++import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
+ import seedu.address.logic.parser.exceptions.ParseException;
+ 
+ /**
+@@ -102,7 +103,7 @@ public class CommandBox extends UiPart<Region> {
+             initHistory();
+             historySnapshot.next();
+             commandTextField.setText("");
+-        } catch (CommandException | ParseException e) {
++        } catch (CommandException | InvalidCommandModeException | ParseException e) {
+             initHistory();
+             setStyleToIndicateCommandFailure();
+         }
+@@ -148,7 +149,7 @@ public class CommandBox extends UiPart<Region> {
+          *
+          * @see seedu.address.logic.Logic#execute(String)
+          */
+-        CommandResult execute(String commandText) throws CommandException, ParseException;
++        CommandResult execute(String commandText) throws CommandException, ParseException, InvalidCommandModeException;
+     }
+ 
+ }
+diff --git a/src/main/java/seedu/address/ui/MainWindow.java b/src/main/java/seedu/address/ui/MainWindow.java
+index ac165736..6d087af1 100644
+--- a/src/main/java/seedu/address/ui/MainWindow.java
++++ b/src/main/java/seedu/address/ui/MainWindow.java
+@@ -10,11 +10,13 @@ import javafx.scene.input.KeyCombination;
+ import javafx.scene.input.KeyEvent;
+ import javafx.scene.layout.StackPane;
+ import javafx.stage.Stage;
++import seedu.address.commons.core.AppMode;
+ import seedu.address.commons.core.GuiSettings;
+ import seedu.address.commons.core.LogsCenter;
+ import seedu.address.logic.Logic;
+ import seedu.address.logic.commands.CommandResult;
+ import seedu.address.logic.commands.exceptions.CommandException;
++import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
+ import seedu.address.logic.parser.exceptions.ParseException;
+ 
+ /**
+@@ -177,12 +179,17 @@ public class MainWindow extends UiPart<Stage> {
+      *
+      * @see seedu.address.logic.Logic#execute(String)
+      */
+-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
++    private CommandResult executeCommand(String commandText) throws CommandException, ParseException, InvalidCommandModeException {
+         try {
+             CommandResult commandResult = logic.execute(commandText);
+             logger.info("Result: " + commandResult.getFeedbackToUser());
+             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+ 
++            if (commandResult.isChangeMode()) {
++                System.out.println("Mode changed to " + AppMode.getMODE()); // FOR DEBUGGING
++                //handleChangeMode();
++            }
++
+             if (commandResult.isShowHelp()) {
+                 handleHelp();
+             }
+@@ -196,6 +203,12 @@ public class MainWindow extends UiPart<Stage> {
+             logger.info("Invalid command: " + commandText);
+             resultDisplay.setFeedbackToUser(e.getMessage());
+             throw e;
++        } catch (InvalidCommandModeException e) {
++            logger.info("Invalid mode for command: " + commandText);
++            resultDisplay.setFeedbackToUser(e.getMessage());
++            throw e;
+         }
++
++
+     }
+ }

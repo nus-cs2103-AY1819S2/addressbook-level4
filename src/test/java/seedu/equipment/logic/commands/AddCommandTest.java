@@ -18,8 +18,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.AddCommand;
-import seedu.equipment.logic.commands.CommandResult;
 import seedu.equipment.logic.commands.exceptions.CommandException;
 import seedu.equipment.model.EquipmentManager;
 import seedu.equipment.model.Model;

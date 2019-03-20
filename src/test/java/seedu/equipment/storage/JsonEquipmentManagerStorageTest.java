@@ -19,7 +19,6 @@ import org.junit.rules.TemporaryFolder;
 import seedu.equipment.commons.exceptions.DataConversionException;
 import seedu.equipment.model.EquipmentManager;
 import seedu.equipment.model.ReadOnlyEquipmentManager;
-import seedu.equipment.storage.JsonEquipmentManagerStorage;
 
 public class JsonEquipmentManagerStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",

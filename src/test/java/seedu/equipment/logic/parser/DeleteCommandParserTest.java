@@ -8,7 +8,6 @@ import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.Test;
 
 import seedu.equipment.logic.commands.DeleteCommand;
-import seedu.equipment.logic.parser.DeleteCommandParser;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations

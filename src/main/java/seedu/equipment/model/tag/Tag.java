@@ -1,7 +1,6 @@
 package seedu.equipment.model.tag;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.equipment.commons.util.AppUtil.checkArgument;
 
 import seedu.equipment.commons.util.AppUtil;
 

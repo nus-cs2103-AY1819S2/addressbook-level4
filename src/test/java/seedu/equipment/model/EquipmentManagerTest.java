@@ -6,8 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
-import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.AMY;
+import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
 import static seedu.equipment.testutil.TypicalEquipments.getTypicalAddressBook;
 
@@ -27,8 +27,6 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.equipment.model.EquipmentManager;
-import seedu.equipment.model.ReadOnlyEquipmentManager;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.testutil.EquipmentBuilder;

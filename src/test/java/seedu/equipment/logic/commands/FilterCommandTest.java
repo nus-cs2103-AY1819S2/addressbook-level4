@@ -18,7 +18,6 @@ import java.util.Collections;
 import org.junit.Test;
 
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.FilterCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
 import seedu.equipment.model.UserPrefs;
@@ -76,7 +75,8 @@ public class FilterCommandTest {
         EquipmentContainsKeywordsPredicate predicate = preparePredicate("west urgent");
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(new FilterCommand(predicate), model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ANCHORVALECC, HWIYOHCC, AYERRAJAHCC, BUKITGCC, JURONGREENCC), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ANCHORVALECC, HWIYOHCC, AYERRAJAHCC, BUKITGCC, JURONGREENCC),
+                model.getFilteredPersonList());
     }
     private EquipmentContainsKeywordsPredicate preparePredicate(String userInput) {
         return new EquipmentContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));

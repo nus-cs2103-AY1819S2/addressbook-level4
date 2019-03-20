@@ -1,7 +1,6 @@
 package seedu.equipment.model;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.equipment.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.Objects;
@@ -15,10 +14,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.commons.core.LogsCenter;
+import seedu.equipment.commons.util.CollectionUtil;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 import seedu.equipment.model.tag.Tag;
-import seedu.equipment.commons.util.CollectionUtil;
 
 /**
  * Represents the in-memory model of the equipment manager data.
@@ -225,8 +224,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedEquipmentReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedEquipment.getValue());
+            boolean wasSelectedEquipmentReplaced = change.wasReplaced() && change.getAddedSize() == change
+                    .getRemovedSize() && change.getRemoved().contains(selectedEquipment.getValue());
             if (wasSelectedEquipmentReplaced) {
                 // Update selectedEquipment to its new value.
                 int index = change.getRemoved().indexOf(selectedEquipment.getValue());

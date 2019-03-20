@@ -12,7 +12,6 @@ import javafx.scene.input.KeyCode;
 import seedu.equipment.logic.commands.CommandResult;
 import seedu.equipment.logic.commands.ListEquipmentCommand;
 import seedu.equipment.logic.commands.exceptions.CommandException;
-import seedu.equipment.ui.CommandBox;
 
 public class CommandBoxTest extends GuiUnitTest {
 

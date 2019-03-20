@@ -10,7 +10,6 @@ import org.junit.Test;
 import guitests.guihandles.EquipmentCardHandle;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.testutil.EquipmentBuilder;
-import seedu.equipment.ui.EquipmentCard;
 
 public class EquipmentCardTest extends GuiUnitTest {
 

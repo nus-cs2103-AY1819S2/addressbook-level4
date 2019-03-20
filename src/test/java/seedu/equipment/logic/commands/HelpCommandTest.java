@@ -6,8 +6,6 @@ import static seedu.equipment.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 import org.junit.Test;
 
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.CommandResult;
-import seedu.equipment.logic.commands.HelpCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
 

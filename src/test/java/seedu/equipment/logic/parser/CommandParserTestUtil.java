@@ -3,7 +3,6 @@ package seedu.equipment.logic.parser;
 import static org.junit.Assert.assertEquals;
 
 import seedu.equipment.logic.commands.Command;
-import seedu.equipment.logic.parser.Parser;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 
 /**

@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleObjectProperty;
-import seedu.equipment.commons.util.InvalidationListenerManager;
 
 public class InvalidationListenerManagerTest {
     private final SimpleObjectProperty<Object> dummyObservable = new SimpleObjectProperty<>();

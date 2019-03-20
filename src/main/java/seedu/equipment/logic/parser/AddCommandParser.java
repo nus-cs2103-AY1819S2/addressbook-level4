@@ -3,6 +3,7 @@ package seedu.equipment.logic.parser;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.equipment.commons.core.Messages;
 import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.equipment.Address;
@@ -12,7 +13,6 @@ import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
 import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.tag.Tag;
-import seedu.equipment.commons.core.Messages;
 
 /**
  * Parses input arguments and creates a new AddCommand object

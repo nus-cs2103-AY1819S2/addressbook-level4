@@ -24,8 +24,6 @@ import org.junit.rules.ExpectedException;
 //import UniqueWorkListList;
 //import WorkList;
 
-import seedu.equipment.model.UniqueWorkListList;
-import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.equipment.model.equipment.exceptions.EquipmentNotFoundException;
 //import seedu.equipment.testutil.EquipmentBuilder;

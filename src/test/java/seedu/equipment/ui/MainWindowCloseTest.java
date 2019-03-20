@@ -20,7 +20,6 @@ import seedu.equipment.model.ModelManager;
 import seedu.equipment.storage.JsonEquipmentManagerStorage;
 import seedu.equipment.storage.JsonUserPrefsStorage;
 import seedu.equipment.storage.StorageManager;
-import seedu.equipment.ui.MainWindow;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.

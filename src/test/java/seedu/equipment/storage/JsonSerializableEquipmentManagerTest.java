@@ -13,7 +13,6 @@ import seedu.equipment.commons.exceptions.IllegalValueException;
 import seedu.equipment.commons.util.JsonUtil;
 import seedu.equipment.model.EquipmentManager;
 import seedu.equipment.testutil.TypicalEquipments;
-import seedu.equipment.storage.JsonSerializableEquipmentManager;
 
 public class JsonSerializableEquipmentManagerTest {
 

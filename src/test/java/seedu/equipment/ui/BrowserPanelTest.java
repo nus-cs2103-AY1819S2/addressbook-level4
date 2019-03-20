@@ -20,7 +20,6 @@ import com.google.maps.model.GeocodingResult;
 import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.equipment.model.equipment.Equipment;
-import seedu.equipment.ui.BrowserPanel;
 
 public class BrowserPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Equipment> selectedPerson = new SimpleObjectProperty<>();

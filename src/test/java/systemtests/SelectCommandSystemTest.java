@@ -55,8 +55,8 @@ public class SelectCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered equipment list, select index within bounds of equipment book but out of bounds of equipment list
-         * -> rejected
+        /* Case: filtered equipment list, select index within bounds of equipment book but out of bounds of equipment
+         * list -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_HWI);
         int invalidIndex = getModel().getEquipmentManager().getPersonList().size();

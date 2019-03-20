@@ -8,8 +8,8 @@ import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.equipment.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.AMY;
+import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
 import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
 

@@ -147,7 +147,8 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListEquipmentCommand.COMMAND_WORD);
-        assertEquals(getModel().getEquipmentManager().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getEquipmentManager().getPersonList().size(), getModel().getFilteredPersonList()
+                .size());
     }
 
     /**
@@ -155,7 +156,8 @@ public abstract class EquipmentManagerSystemTest {
      */
     protected void showAllWorkList() {
         executeCommand(ListWorkListCommand.COMMAND_WORD);
-        assertEquals(getModel().getEquipmentManager().getPersonList().size(), getModel().getFilteredWorkListList().size());
+        assertEquals(getModel().getEquipmentManager().getPersonList().size(), getModel().getFilteredWorkListList()
+                .size());
     }
 
     /**

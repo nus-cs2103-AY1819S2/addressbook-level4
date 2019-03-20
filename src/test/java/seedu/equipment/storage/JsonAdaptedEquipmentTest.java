@@ -17,8 +17,6 @@ import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
 import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.testutil.Assert;
-import seedu.equipment.storage.JsonAdaptedEquipment;
-import seedu.equipment.storage.JsonAdaptedTag;
 
 public class JsonAdaptedEquipmentTest {
     private static final String INVALID_NAME = "R@chel";

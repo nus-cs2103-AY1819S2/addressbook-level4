@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import seedu.equipment.logic.commands.FilterCommand;
 
-import seedu.equipment.logic.parser.FilterCommandParser;
 import seedu.equipment.model.equipment.EquipmentContainsKeywordsPredicate;
 
 public class FilterCommandParserTest {

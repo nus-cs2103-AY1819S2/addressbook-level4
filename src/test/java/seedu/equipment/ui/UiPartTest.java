@@ -13,7 +13,6 @@ import org.junit.rules.TemporaryFolder;
 import javafx.fxml.FXML;
 import seedu.equipment.MainApp;
 import seedu.equipment.testutil.Assert;
-import seedu.equipment.ui.UiPart;
 
 public class UiPartTest {
 

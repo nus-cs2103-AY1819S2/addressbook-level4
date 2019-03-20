@@ -5,7 +5,6 @@ import static seedu.equipment.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORM
 import java.util.Arrays;
 
 import seedu.equipment.logic.commands.FilterCommand;
-import seedu.equipment.logic.parser.Parser;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.equipment.EquipmentContainsKeywordsPredicate;
 

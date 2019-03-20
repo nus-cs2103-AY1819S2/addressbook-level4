@@ -9,8 +9,6 @@ import org.junit.Test;
 
 import seedu.equipment.testutil.SerializableTestClass;
 import seedu.equipment.testutil.TestUtil;
-import seedu.equipment.commons.util.FileUtil;
-import seedu.equipment.commons.util.JsonUtil;
 
 /**
  * Tests JSON Read and Write

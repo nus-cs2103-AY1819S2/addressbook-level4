@@ -5,7 +5,6 @@ import static seedu.equipment.logic.commands.CommandTestUtil.assertCommandSucces
 import org.junit.Test;
 
 import seedu.equipment.logic.CommandHistory;
-import seedu.equipment.logic.commands.HistoryCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.ModelManager;
 

@@ -7,10 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.equipment.logic.parser.ArgumentMultimap;
-import seedu.equipment.logic.parser.ArgumentTokenizer;
-import seedu.equipment.logic.parser.Prefix;
-
 public class ArgumentTokenizerTest {
 
     private final Prefix unknownPrefix = new Prefix("--u");

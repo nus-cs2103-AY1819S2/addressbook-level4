@@ -11,7 +11,6 @@ import java.util.Map;
 import org.junit.Test;
 
 import javafx.application.Application;
-import seedu.equipment.AppParameters;
 
 public class AppParametersTest {
 

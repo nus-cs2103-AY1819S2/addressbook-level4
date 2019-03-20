@@ -37,7 +37,6 @@ import static seedu.equipment.testutil.TypicalEquipments.BOB;
 import org.junit.Test;
 
 import seedu.equipment.logic.commands.AddCommand;
-import seedu.equipment.logic.parser.AddCommandParser;
 import seedu.equipment.model.equipment.Address;
 import seedu.equipment.model.equipment.Email;
 import seedu.equipment.model.equipment.Equipment;

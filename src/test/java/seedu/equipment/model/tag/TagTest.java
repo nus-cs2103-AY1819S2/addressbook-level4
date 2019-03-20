@@ -3,7 +3,6 @@ package seedu.equipment.model.tag;
 import org.junit.Test;
 
 import seedu.equipment.testutil.Assert;
-import seedu.equipment.model.tag.Tag;
 
 public class TagTest {
 

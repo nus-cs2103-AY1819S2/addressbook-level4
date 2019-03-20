@@ -9,7 +9,6 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.equipment.logic.commands.FindCommand;
-import seedu.equipment.logic.parser.FindCommandParser;
 import seedu.equipment.model.equipment.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {

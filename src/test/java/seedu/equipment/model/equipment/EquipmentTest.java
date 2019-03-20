@@ -17,7 +17,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.equipment.testutil.EquipmentBuilder;
-import seedu.equipment.model.equipment.Equipment;
 
 public class EquipmentTest {
     @Rule

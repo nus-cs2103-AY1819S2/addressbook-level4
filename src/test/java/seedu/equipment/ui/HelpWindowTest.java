@@ -14,7 +14,6 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
 import javafx.stage.Stage;
-import seedu.equipment.ui.HelpWindow;
 
 public class HelpWindowTest extends GuiUnitTest {
 

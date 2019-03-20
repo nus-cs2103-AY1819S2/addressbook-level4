@@ -23,7 +23,6 @@ import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
 import seedu.equipment.model.equipment.SerialNumber;
-import seedu.equipment.ui.EquipmentListPanel;
 
 public class EquipmentListPanelTest extends GuiUnitTest {
     private static final ObservableList<Equipment> TYPICAL_EQUIPMENTS =

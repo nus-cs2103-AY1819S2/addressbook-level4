@@ -8,7 +8,6 @@ import static seedu.equipment.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.Test;
 
 import seedu.equipment.logic.commands.SelectCommand;
-import seedu.equipment.logic.parser.SelectCommandParser;
 
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.

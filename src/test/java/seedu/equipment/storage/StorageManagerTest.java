@@ -15,9 +15,6 @@ import seedu.equipment.commons.core.GuiSettings;
 import seedu.equipment.model.EquipmentManager;
 import seedu.equipment.model.ReadOnlyEquipmentManager;
 import seedu.equipment.model.UserPrefs;
-import seedu.equipment.storage.JsonEquipmentManagerStorage;
-import seedu.equipment.storage.JsonUserPrefsStorage;
-import seedu.equipment.storage.StorageManager;
 
 public class StorageManagerTest {
 

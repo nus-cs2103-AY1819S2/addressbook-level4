@@ -11,8 +11,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.equipment.commons.util.CollectionUtil;
-
 public class CollectionUtilTest {
     @Test
     public void requireAllNonNullVarargs() {

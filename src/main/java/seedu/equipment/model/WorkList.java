@@ -1,13 +1,12 @@
 package seedu.equipment.model;
 
-import static seedu.equipment.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.commons.util.CollectionUtil;
+
+import seedu.equipment.model.equipment.Equipment;
 
 /**
  * Representing a WorkList containing the equipments users want to work on.

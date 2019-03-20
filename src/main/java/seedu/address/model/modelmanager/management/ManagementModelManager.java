@@ -12,6 +12,8 @@ import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.user.CardSrsData;
+import seedu.address.model.user.User;
 
 /**
  * Represents the in-memory management of BrainTrain data.
@@ -21,10 +23,11 @@ public class ManagementModelManager implements ManagementModel {
 
     private final Lessons lessons;
     private final UserPrefs userPrefs;
+    private final User user;
     /**
      * Initializes a ManagementModelManager with the given userPrefs.
      */
-    public ManagementModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons) {
+    public ManagementModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons, User user) {
         super();
         requireAllNonNull(userPrefs);
 
@@ -32,10 +35,11 @@ public class ManagementModelManager implements ManagementModel {
 
         this.userPrefs = new UserPrefs(userPrefs);
         this.lessons = lessons;
+        this.user = user;
     }
 
     public ManagementModelManager() {
-        this(new UserPrefs(), new Lessons());
+        this(new UserPrefs(), new Lessons(), new User());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -90,32 +94,31 @@ public class ManagementModelManager implements ManagementModel {
         lessons.deleteLesson(index);
     }
 
-    //=========== Undo/Redo =================================================================================
+    //=========== User ==================================================================================
+    @Override
+    public User getUser() {
+        return user;
+    }
 
-    //    @Override
-    //    public boolean canUndoAddressBook() {
-    //        return versionedAddressBook.canUndo();
-    //    }
-    //
-    //    @Override
-    //    public boolean canRedoAddressBook() {
-    //        return versionedAddressBook.canRedo();
-    //    }
-    //
-    //    @Override
-    //    public void undoAddressBook() {
-    //        versionedAddressBook.undo();
-    //    }
-    //
-    //    @Override
-    //    public void redoAddressBook() {
-    //        versionedAddressBook.redo();
-    //    }
-    //
-    //    @Override
-    //    public void commitAddressBook() {
-    //        versionedAddressBook.commit();
-    //    }
+    @Override
+    public CardSrsData getCardSrsData(int hashCode) {
+        return user.getCard(hashCode);
+    }
+
+    @Override
+    public void addCardSrsData(CardSrsData card) {
+        user.addCard(card);
+    }
+
+    @Override
+    public void setCardSrsData(CardSrsData card) {
+        user.setCard(card);
+    }
+
+    @Override
+    public void deleteCardSrsData(CardSrsData card) {
+        user.deleteCard(card);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -131,7 +134,9 @@ public class ManagementModelManager implements ManagementModel {
 
         // state check
         ManagementModelManager other = (ManagementModelManager) obj;
-        return userPrefs.equals(other.userPrefs) && lessons.equals(other.lessons);
+        return userPrefs.equals(other.userPrefs)
+            && lessons.equals(other.lessons)
+            && user.equals(other.user);
     }
 
 }

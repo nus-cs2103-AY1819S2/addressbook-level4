@@ -20,7 +20,10 @@ import javafx.stage.WindowEvent;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.storage.CsvLessonsStorage;
+import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.StorageManager;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.
@@ -36,9 +39,13 @@ public class MainWindowCloseTest extends GuiUnitTest {
     @Before
     public void setUp() throws Exception {
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
+        CsvLessonsStorage csvLessonsStorage = new CsvLessonsStorage(temporaryFolder.newFolder().toPath());
+        CsvUserStorage csvUserStorage = new CsvUserStorage(temporaryFolder.newFile().toPath());
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            mainWindow = new MainWindow(stage, new LogicManager(new ManagementModelManager(), new QuizModelManager()));
+            mainWindow = new MainWindow(stage, new LogicManager(new ManagementModelManager(),
+                new QuizModelManager(),
+                new StorageManager(jsonUserPrefsStorage, csvLessonsStorage, csvUserStorage)));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
         });

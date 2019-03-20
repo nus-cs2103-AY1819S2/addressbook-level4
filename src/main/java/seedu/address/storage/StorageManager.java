@@ -8,7 +8,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.lesson.Lesson;
 import seedu.address.model.user.User;
 
 /**
@@ -18,16 +17,16 @@ public class StorageManager implements Storage {
 
     private UserPrefsStorage userPrefsStorage;
     private LessonsStorage lessonsStorage;
-    private LessonImportExport lessonImportExport;
+    private UserStorage userStorage;
 
 
     public StorageManager(UserPrefsStorage userPrefsStorage,
                           LessonsStorage lessonsStorage,
-                          LessonImportExport lessonImportExport) {
+                          UserStorage userStorage) {
         super();
         this.userPrefsStorage = userPrefsStorage;
         this.lessonsStorage = lessonsStorage;
-        this.lessonImportExport = lessonImportExport;
+        this.userStorage = userStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -60,69 +59,54 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<Lessons> readLessons() throws IOException {
+    public Optional<Lessons> readLessons() {
         return lessonsStorage.readLessons();
     }
 
     @Override
-    public Optional<Lessons> readLessons(Path filePath) throws IOException {
+    public Optional<Lessons> readLessons(Path filePath) {
         return lessonsStorage.readLessons(filePath);
     }
 
     @Override
-    public int saveLessons(Lessons lessons) throws IOException {
+    public int saveLessons(Lessons lessons) {
         return lessonsStorage.saveLessons(lessons);
     }
 
     @Override
-    public int saveLessons(Lessons lessons, Path filePath) throws IOException {
+    public int saveLessons(Lessons lessons, Path filePath) {
         return lessonsStorage.saveLessons(lessons, filePath);
-    }
-
-    @Override
-    public Path getImportExportFilePath() {
-        return lessonImportExport.getImportExportFilePath();
-    }
-
-    @Override
-    public Optional<Lesson> importLesson(Path filePath) throws IOException {
-        return Optional.empty();
-    }
-
-    @Override
-    public void exportLesson(Lesson lesson, Path filePath) throws IOException {
-
     }
 
     // ================ User methods ==============================
 
     @Override
     public Path getUserFilePath() {
-        return null;
+        return userStorage.getUserFilePath();
     }
 
     @Override
     public void setUserFilePath(Path folderPath) {
-
+        userStorage.setUserFilePath(folderPath);
     }
 
     @Override
-    public Optional<User> readUser() throws IOException {
-        return Optional.empty();
+    public Optional<User> readUser() {
+        return userStorage.readUser();
     }
 
     @Override
-    public Optional<User> readUser(Path folderPath) throws IOException {
-        return Optional.empty();
+    public Optional<User> readUser(Path folderPath) {
+        return userStorage.readUser(folderPath);
     }
 
     @Override
-    public void saveUser(User user) throws IOException {
-
+    public void saveUser(User user) {
+        userStorage.saveUser(user);
     }
 
     @Override
-    public void saveUser(User user, Path filePath) throws IOException {
-
+    public void saveUser(User user, Path filePath) {
+        userStorage.saveUser(user, filePath);
     }
 }

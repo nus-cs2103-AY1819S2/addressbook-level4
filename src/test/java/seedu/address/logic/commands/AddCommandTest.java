@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalPdfs.D_PDF;
+import static seedu.address.testutil.TypicalPdfs.E_PDF;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -24,7 +26,6 @@ import seedu.address.model.PdfBook;
 import seedu.address.model.ReadOnlyPdfBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.testutil.PdfBuilder;
 
 public class AddCommandTest {
 
@@ -44,7 +45,7 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Pdf validPdf = new PdfBuilder().build();
+        Pdf validPdf = D_PDF;
 
         CommandResult commandResult = new AddCommand(validPdf).execute(modelStub, commandHistory);
 
@@ -55,7 +56,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Pdf validPdf = new PdfBuilder().build();
+        Pdf validPdf = D_PDF;
         AddCommand addCommand = new AddCommand(validPdf);
         ModelStub modelStub = new ModelStubWithPerson(validPdf);
 
@@ -66,26 +67,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Pdf alice = new PdfBuilder().withName("Alice").build();
-        Pdf bob = new PdfBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Pdf dpdf = D_PDF;
+        Pdf epdf = E_PDF;
+        AddCommand addDCommand = new AddCommand(dpdf);
+        AddCommand addECommand = new AddCommand(epdf);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addDCommand.equals(addDCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addDCommandCopy = new AddCommand(dpdf);
+        assertTrue(addDCommand.equals(addDCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addDCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addDCommand.equals(null));
 
         // different pdf -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addDCommand.equals(addECommand));
     }
 
     /**

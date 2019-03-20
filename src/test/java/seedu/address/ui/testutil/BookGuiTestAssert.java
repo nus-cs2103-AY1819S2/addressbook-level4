@@ -28,7 +28,6 @@ public class BookGuiTestAssert {
         assertEquals(expectedCard.getAuthor(), actualCard.getAuthor());
         assertEquals(expectedCard.getRating(), actualCard.getRating());
 
-        //TODO add reviews assert here
         expectedCard.getTags().forEach(tag ->
             assertEquals(expectedCard.getTagStyleClasses(tag), actualCard.getTagStyleClasses(tag)));
     }
@@ -41,7 +40,6 @@ public class BookGuiTestAssert {
         assertEquals(expectedBook.getBookName().fullName, actualCard.getName());
         assertEquals(expectedBook.getAuthor().fullName, actualCard.getAuthor());
         assertEquals(expectedBook.getRating().value, actualCard.getRating());
-        // TODO add reviews asset here
         assertTagsEqual(expectedBook, actualCard);
     }
 
@@ -52,27 +50,16 @@ public class BookGuiTestAssert {
      * @see BookCard#getTagColorStyleFor(String)
      */
     private static String getTagColorStyleFor(String tagName) {
+
         switch (tagName) {
-        case "classmates":
-        case "owesMoney":
-            return "teal";
+            case "popular":
+                return "blue";
 
-        case "colleagues":
-        case "neighbours":
-            return "yellow";
+            case "fantasy":
+                return "orange";
 
-        case "family":
-        case "friend":
-            return "orange";
-
-        case "friends":
-            return "brown";
-
-        case "husband":
-            return "grey";
-
-        default:
-            throw new AssertionError(tagName + " does not have a color assigned.");
+            default:
+                throw new AssertionError(tagName + " does not have a color assigned.");
         }
     }
 

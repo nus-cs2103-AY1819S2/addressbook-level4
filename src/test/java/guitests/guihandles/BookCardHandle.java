@@ -23,7 +23,6 @@ public class BookCardHandle extends NodeHandle<Node> {
     private final Label nameLabel;
     private final Label authorLabel;
     private final Label ratingLabel;
-    private final List<Label> reviewLabels;
     private final List<Label> tagLabels;
 
     public BookCardHandle(Node cardNode) {
@@ -32,13 +31,6 @@ public class BookCardHandle extends NodeHandle<Node> {
         nameLabel = getChildNode(NAME_FIELD_ID);
         authorLabel = getChildNode(AUTHOR_FIELD_ID);
         ratingLabel = getChildNode(RATING_FIELD_ID);
-
-        Region reviewsContainer = getChildNode(REVIEWS_FIELD_ID);
-        reviewLabels = reviewsContainer
-            .getChildrenUnmodifiable()
-            .stream()
-            .map(Label.class::cast)
-            .collect(Collectors.toList());
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -58,13 +50,6 @@ public class BookCardHandle extends NodeHandle<Node> {
 
     public String getRating() {
         return ratingLabel.getText();
-    }
-
-    public List<String> getReviews() {
-        return reviewLabels
-            .stream()
-            .map(Label::getText)
-            .collect(Collectors.toList());
     }
 
     public List<String> getTags() {
@@ -92,9 +77,6 @@ public class BookCardHandle extends NodeHandle<Node> {
         return getName().equals(book.getBookName().fullName)
             && getAuthor().equals(book.getAuthor().fullName)
             && getRating().equals(book.getRating().value)
-            && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(book.getReviews().stream()
-            .map(review -> review.toString())
-            .collect(Collectors.toList())))
             && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(book.getTags().stream()
             .map(tag -> tag.tagName)
             .collect(Collectors.toList())));

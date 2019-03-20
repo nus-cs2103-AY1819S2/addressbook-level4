@@ -41,7 +41,6 @@ public class BookListPanelTest extends GuiUnitTest {
             BookCardHandle actualCard = bookListPanelHandle.getBookCardHandle(i);
 
             assertCardDisplaysBook(expectedBook, actualCard);
-            assertEquals(expectedBook + ". ", actualCard.getName());
         }
     }
 

@@ -304,6 +304,29 @@ been explained before.
 ** Cons: Requires more error handling and safety measures
 // end::booking[]
 
+// tag::filteringBooking[]
+=== Filtering service booking functionality
+==== Current Implementation
+
+To find and filter the service bookings, we need to work on Logic, Model and Storage components. We can start
+on the Logic component. According to the current implementation, a command can only take in one model -- either
+a customer model or a booking model. Limited by this, we cannot get access to customer list and booking list at the
+same time in one command. To implement the function without changing the base abstraction, we used identification number
+to check whether the payer of the booking is the customer we are selecting instead of using the index of a customer.
+The reason we use identification number(ID) instead of name or other factors is that the ID of one customer is unique.
+
+==== Design Considerations
+
+===== Aspect: How should the customer be stressed
+
+* **Alternative 1 (current choice):** Using identification number(ID) to check.
+** Pros: The command can be implemented as only getting access to one model.
+** Cons: The scalablity of the program is low.
+* **Alternative 2:** Implementing new command interface which can interact with two models at the same time.
+** Pros: The scalablity of the program is high
+** Cons: Requiring more work and the old abstraction may break.
+// end::filteringBooking[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

@@ -34,6 +34,8 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private CustomerListPanel customerListPanel;
     private BookingListPanel bookingListPanel;
+    private ReservationListPanel reservationListPanel;
+    private BookingAndReservationPanel bookingAndReservationPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -50,7 +52,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane customerListPanelPlaceholder;
 
     @FXML
-    private StackPane bookingListPanelPlaceholder;
+    private StackPane bookingAndReservationPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -124,8 +126,13 @@ public class MainWindow extends UiPart<Stage> {
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
         bookingListPanel = new BookingListPanel(logic.getFilteredBookingList(), logic.selectedBookingProperty(),
-            logic::setSelectedBooking);
-        bookingListPanelPlaceholder.getChildren().add(bookingListPanel.getRoot());
+            logic::setSelectedBooking, logic.selectedCustomerProperty(), this::executeCommand);
+
+        reservationListPanel = new ReservationListPanel(logic.getFilteredBookingList(), logic.selectedBookingProperty(),
+                logic::setSelectedBooking);
+
+        bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel);
+        bookingAndReservationPanelPlaceholder.getChildren().add(bookingAndReservationPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -183,8 +190,16 @@ public class MainWindow extends UiPart<Stage> {
         return customerListPanel;
     }
 
+    public BookingAndReservationPanel getBookingAndReservationPanel() {
+        return bookingAndReservationPanel;
+    }
+
     public BookingListPanel getBookingListPanel() {
         return bookingListPanel;
+    }
+
+    public ReservationListPanel getReservationListPanel() {
+        return reservationListPanel;
     }
 
     /**

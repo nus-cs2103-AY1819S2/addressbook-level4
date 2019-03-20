@@ -254,6 +254,19 @@ Edits the service type of the 1st booking to be GYM.
 * `lb`, then `edit-booking 2 :/14-15 c/`
 Edits the timing of the 2nd booking to be 14:00 - 15:00 and clears all existing comments.
 
+=== Find a booked service contains payer: `findbookingcontainspayer`, `fbcp`
+
+Effect: Displays a booking list, which is paid by the customer whose identification number is the same as the given number
+Format: `{findbookingcontainspayer/fbcp} PAYER_IDENTIFICATION_NUMBER`
+
+****
+*  The searching is done in the whole booking list.
+****
+
+Examples:
+* `fbcs 12345678` +
+Returns any booking which is paid by the customer with identification number 12345678
+
 === Deleting a booked service: `deletebooking`, `delb`
 
 Effect: Deletes a booking from the database.

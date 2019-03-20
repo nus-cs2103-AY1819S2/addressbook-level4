@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
-import java.awt.*;
-import java.io.File;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
@@ -65,7 +64,7 @@ public class HelpWindow extends UiPart<Stage> {
         logger.fine("Showing help page about the application.");
         //getRoot().show();
         try {
-            Desktop.getDesktop().browse(Paths.get("docs","HelpWindow.html")
+            Desktop.getDesktop().browse(Paths.get("docs", "HelpWindow.html")
                     .toAbsolutePath().toFile().toURI());
         } catch (IOException e) {
             e.printStackTrace();

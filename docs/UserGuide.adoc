@@ -23,7 +23,7 @@ By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 
 == About 
 
-Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide and the rest will be a breeze to use.  Head over to <<Quick Start>> to get started.
+Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide closely and the rest will be a breeze.  Head over to <<Quick Start>> to get started.
 
 == Quick Start
 
@@ -399,8 +399,6 @@ Format: `exit`
 sub-folders.
 * [[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
 questions displayed. The user is required to key in an answer for each question.
-Level: An intrinsic score tied to each flashcard tracking the user’s performance on the
-flashcard.
 * [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
 * [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
 

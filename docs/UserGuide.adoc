@@ -1,6 +1,7 @@
 = Top Deck - User Guide
 :site-section: UserGuide
 :toc:
+:toclevels: 3
 :toc-title:
 :toc-placement: preamble
 :sectnums:
@@ -18,10 +19,17 @@ By: `W11-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-TopDeck is a desktop app for managing and using flashcards that is *optimized for those who prefer to work with a Command Line Interface(CLI)*
-while still having the benefits of a Graphical User Interface(GUI). It is useful for those who want to memorise or learn anything through a desktop app.
-Users start by creating, editing and managing decks of cards. Following, one can test oneself by starting a study session. If this is the study tool you
-have been looking for, then jump to <<Quick Start>> to get started. Enjoy!
+TopDeck is a desktop app for anyone who relies on flash cards to memorise things.
+
+TopDeck helps you digitise your flash cards and keeps them organised.
+You can easily review your cards and TopDeck will track your performance.
+Improve your memory without the hassle of managing a physical pile of cards!
+
+TopDeck is optimized for those who prefer to work with a Command Line Interface (CLI)
+while still having the benefits of a Graphical User Interface (GUI).
+
+If this sounds like the tool you have been looking for,
+jump to <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -29,7 +37,7 @@ To get started with TopDeck:
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `topdeck.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for TopDeck.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -37,25 +45,52 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
-Once TopDeck is set up, you can try these commands:
+Once you have set up TopDeck, you can try these commands:
 
-* `index` : lists all cards
-* `add Capitals` : creates a deck named "Capitals"
+* `add Capitals` : creates a new deck named "Capitals"
 * `delete 3` : deletes the third deck in the list
 * `exit` : exits the app
 
-For details of each command, please refer to <<Commands>>.
+You may refer to <<commands>> for details of each command.
 
-[[Commands]]
-== Commands
+== User interface
+
+TopDeck's interface is seperated into three different views.
+By default, TopDeck starts in <<decksview,Decks View>>.
+
+=== Decks View [[decksview]]
+
+This view displays a list of the decks in your collection.
+In decks view, you can:
+
+- Create, edit and delete decks.
+- Open a deck to view its contents. TopDeck will enter <<cardsview,cards view>>.
+- Pick a deck to study. TopDeck will enter <<studyview,study view>>.
+
+=== Cards View [[cardsview]]
+
+This view displays the cards in a particular deck. In cards view, you can:
+
+- Create, edit and delete cards in the deck.
+- View your performance for specific cards.
+
+=== Study View [[studyview]]
+
+In this view you can study a deck of cards.
+
+== Commands [[commands]]
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add q/QUESTION a/ANSWER`, `QUESTION` is a parameter which can be used as `add q/Honduras a/Tegucigalpa`.
-* Items in square brackets are optional e.g `q/QUESTION a/ANSWER [t/TAG]` can be used as `q/China a/Beijing t/Asia` or as `q/China a/Beijing`.
-* Items with `…`​ after them can be used any number of times including zero e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Asia`, `t/trivia t/history` etc.
-* Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `q/QUESTION a/ANSWER` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user. +
+  Example: In `add DECK_NAME`, `DECK_NAME` is a parameter which can be used as `add Spanish`.
+* Items in square brackets are optional. +
+  Example: `q/QUESTION a/ANSWER [t/TAG]` can be used as `q/China a/Beijing t/Asia` or as `q/China a/Beijing`.
+* Items with `…`​ after them can be used any number of times including zero. +
+  Example: `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/Asia`, `t/trivia t/history` etc.
+* Parameters can be in any order. +
+  Example: If the command specifies `q/QUESTION a/ANSWER`, `q/QUESTION a/ANSWER` is also acceptable.
 ====
 
 === Decks View
@@ -64,9 +99,9 @@ These commands are only available in decks view.
 
 ==== Creating a deck: `add`
 
-**Format**: `add NAME`
+**Format**: `add DECK_NAME`
 
-**Outcome**: Creates a new deck called `NAME`.
+**Outcome**: Creates a new deck called `DECK_NAME`.
 
 ==== Deleting a deck: `delete`
 
@@ -74,15 +109,16 @@ These commands are only available in decks view.
 
 **Outcome**: Deletes the deck at `INDEX`.
 
-****
-* The index refers to the index number shown in the displayed deck list. The index *must be a positive integer* 1, 2, 3...
-****
+[NOTE]
+====
+The index refers to the index number shown in the displayed deck list. The index *must be a positive integer* 1, 2, 3...
+====
 
-=== Editing the name of a deck: `edit`
+==== Editing the name of a deck: `edit`
 
-**Format**: `edit INDEX NAME`
+**Format**: `edit INDEX NEW_DECK_NAME`
 
-**Outcome**: Changes the `NAME` of the deck at `INDEX`.
+**Outcome**: Changes the name of the deck at `INDEX` to `NEW_DECK_NAME`.
 
 ==== Finding a deck by name: `find`
 
@@ -96,51 +132,58 @@ These commands are only available in decks view.
 
 **Outcome**: Displays a list of all decks.
 
-==== Select a deck: `select`
+==== Selecting a deck: `select`
 
 **Format**: `select INDEX`
 
-**Outcome**: Selects the deck at `INDEX` and enter cards view. For more information, see <<Cards View>>.
+**Outcome**: Selects the deck at `INDEX`
 
-==== Study a deck: `study`
+==== Studying a deck: `study`
 
 **Format**: `study INDEX`
 
-**Outcome**: Enters **Study Mode** with the deck at `INDEX`.
+**Outcome**: Enters study view with the deck at `INDEX`.
 
 === Cards View
 
-These are commands are only available in cards view, after a deck has been selected.
+These commands are only available in cards view.
+In this section, the active deck is the deck used in the `open` command.
 
-==== Adding a card to the selected deck: `add`
+==== Adding a card to the active deck: `add`
 
 **Format**: `add q/QUESTION a/ANSWER`
 
 **Outcome**: Creates a new card with some front and back text and add it to the current deck.
 
-==== Editing a card in the selected deck: `edit`
+==== Editing a card in the active deck: `edit`
 
 **Format**: `edit INDEX q/QUESTION a/ANSWER`
 
 **Outcome**: Edits the text of the card at `INDEX`.
 
-==== Finding a card in the selected deck by name: `find`
+==== Finding a card in the active deck by name: `find`
 
 **Format**: `find KEYWORD`
 
 **Outcome**: Lists all cards within the current deck containing `KEYWORD` in its text.
 
-==== Deleting a card in the selected deck: `delete`
+==== Listing all cards in the active deck: `list`
+
+**Format**: `list`
+
+**Outcome**: Displays a list of all cards in the deck.
+
+==== Deleting a card in the active deck: `delete`
 
 **Format**: `delete INDEX`
 
 **Outcome**: Deletes the card at `INDEX`.
 
-==== Studying the selected deck: `study`
+==== Studying the active deck: `study`
 
 **Format**: `study`
 
-**Outcome**: Enters **Study Mode** with the current deck selected.
+**Outcome**: Enters study view with the current deck.
 
 ==== Returning to decks view: `back`
 
@@ -161,7 +204,7 @@ These are commands are only available in study view, after `study` command is ex
 
 === Global commands
 
-These commands are available in either view.
+These commands are available in all views.
 
 ==== Listing entered commands : `history`
 
@@ -182,16 +225,21 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 **Examples**:
 
-(In cards view) +
-* `delete 1` +
+* _In decks view_ +
+`delete 1` +
 `list` +
 `undo` (undos `delete 1`) +
 
-(In cards view) +
-* `delete 1` +
+* _In cards view_ +
+`delete 1` +
 `add q/Russia a/Moscow` +
 `undo` (undos `add`) +
 `undo` (undos `delete`) +
+
+[NOTE]
+====
+Undoing is disabled in study view.
+====
 
 ==== Redoing a command : `redo`
 
@@ -209,8 +257,8 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 `redo` +
 The `redo` command fails as there is no undone state to restore.
 
-(In cards view)
-* `delete 1` +
+* _In cards view_ +
+`delete 1` +
 `add q/Panama a/Panama` +
 `undo` (undos `add`) +
 `undo` (undos `delete`) +
@@ -224,7 +272,6 @@ The `redo` command fails as there is no undone state to restore.
 **Outcome**: Displays information regarding commands
 
 ==== Importing a deck: `import`
-
 
 **Format**: `import FILE_PATH`
 
@@ -253,12 +300,6 @@ The `redo` command fails as there is no undone state to restore.
 TopDeck data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-==== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -266,6 +307,7 @@ _{explain how the user can enable/disable data encryption}_
 
 == Glossary
 
-**Card**: Flash cards in TopDeck are called cards. Each card contains a question-answer pair. TopDeck assumes the front face contains the question while the back face contains the answer.
+**Card**: Flash cards in TopDeck are called cards. Each card contains a question-answer pair.
+When studying, TopDeck will show the question, and the answer will be revealed when prompted by the user.
 
-**Deck**: A deck is a collection of cards that can be studied together.
+**Deck**: A deck is a collection of cards that are studied together.

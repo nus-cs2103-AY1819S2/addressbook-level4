@@ -9,7 +9,7 @@ import java.util.List;
 
 import seedu.address.model.EquipmentManager;
 //import seedu.address.model.equipment.Equipment;
-import seedu.address.model.equipment.WorkList;
+import seedu.address.model.WorkList;
 
 /**
  * A utility class containing a list of {@code WorkList} objects to be used in tests.

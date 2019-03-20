@@ -12,7 +12,6 @@ import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.equipment.Equipment;
 import seedu.address.model.equipment.UniqueEquipmentList;
 import seedu.address.model.equipment.UniqueWorkListList;
-import seedu.address.model.equipment.WorkList;
 import seedu.address.model.tag.Tag;
 
 /**

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.WorkList;
 import seedu.address.model.equipment.exceptions.DuplicateEquipmentException;
 import seedu.address.model.equipment.exceptions.EquipmentNotFoundException;
 

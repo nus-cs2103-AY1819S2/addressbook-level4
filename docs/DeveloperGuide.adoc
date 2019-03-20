@@ -495,6 +495,57 @@ If the user would execute another `label 1`, the original `to_print` file will b
 
 // end::labelcommand[]
 
+// tag::warningpanel[]
+=== Warning Panel
+==== Current Implementation
+
+The warning panel is driven by the `MainWindow` which creates `WarningPanel` that extends `UiPart`. The `WarningPanel` then creates two `WarningListView` where the list of expiring medicine and list of medicine low in stock will reside. The lists updates themselves when there are any changes made to the inventory. Each item of a list is represented by a `WarningCard`.
+
+The following are implemented:
+
+* `WarningPanel#setUpVBox(ObservableList<Medicine>, ObservableList<Medicine>)` -- Sets up the `VBox` (vertical box) where the lists will be displayed in, and creates two `WarningListView` objects. Each `ObservableList` is passed into a `WarningListView`, along with a `String` descriptor of the list, as such: `WarningListView(ObservableList<Medicine>, String "expiry")`
+
+* `WarningListView` extends `UiPart` -- Upon construction, `ListView#setItems(ObservableList<T> value)` and `ListView#setCellFactory(Callback<ListView<T>, ListCell<T>> value)` are called.
+
+** `ListView#setItems(ObserverableList<Medicine> medicineList)` -- Sets the `ObservableList` whose items will be displayed in the `ListView`. Due to `ObservableList` semantics, the `ListView` automatically updates when there are changes made to the inventory.
+
+** `ListView#setCellFactory(Callback<ListView<Medicine>, ListCell<Medicine>> listView -> new WarningListViewCell())` -- Sets the cell factory for the `ListView` within the class `WarningListView`.
+*** `WarningListViewCell` extends `ListCell<T>` -- It overrides `ListCell#updateItem(T item, boolean empty)` allowing customization by creating a `WarningCard` for each cell.
+
+* `WarningCard` extends `UiPart` -- Sets the fields (eg. name of medicine, quantity, expiry date) to be displayed in the warning list view cell.
+
+The following sequence diagram shows how `WarningPanel` is executed when MediTab is initialized:
+
+image::WarningPanelSequenceDiagram.png[width="800"]
+
+Explanation of the sequence diagram above:
+
+Step 1. When the user launches the application for the first time, `MainWindow` is called during the setting up of the GUI. Within the `MainWindow`. A `WarningPanel`, with the two `ObservableList` to be displayed as parameters, is then created.
+
+Step 2. `WarningPanel#setUpVBox` is called to create two `WarningListView` so that the `ObservableList` can be displayed. Each list will be passed into one `WarningListView` as a parameter, along with a `String` descriptor of that list. For simplicity, the construction of only one `WarningListView` is shown.
+
+Step 3. Within the `WarningListView`'s constructor, `ListView#setItems` and `ListView#setCellFactory` are called to set up this `ListView<Medicine>`.
+
+[NOTE]
+Any command that modifies the inventory will result in a change in the `ObservableList` being set using `ListView#setItems`. This ensures that the `ListView` is kept up to date with the most recent version of the inventory.
+
+Step 4. The cell factory creates cells by creating a `WarningListViewCell`. This creates a `WarningCard` for every item in the `ListView` supplied. These cells are displayed in the GUI.
+
+==== Design Considerations
+
+===== Aspect: Construction of the lists displayed by the warning panel
+
+Two `ObservableLists` are required, one to display names of medicine expiring soon and the other to display medicine low in stock.
+
+* **Alternative 1 (current choice):** Create two `ObservableList` in the `Model` by filtering the main medicine list from the versioned inventory.
+** Pros: Easy to change predicate for filtration when needed, making it possible to have user defined thresholds for filtration.
+** Cons: Need to create a new filtered `ObservableList` every time the predicate used for filtering changes. This would be the case when the user sets his/her own threshold.
+
+* **Alternative 2:** Pass the medicine list into the `Ui` for filtration.
+** Pros: Simple to implement and filter with the default predicates (i.e. thresholds for expiration and low stock) to obtain the two lists.
+** Cons: No separation of concerns. Not possible to set user defined thresholds for either list.
+// end::warningpanel[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

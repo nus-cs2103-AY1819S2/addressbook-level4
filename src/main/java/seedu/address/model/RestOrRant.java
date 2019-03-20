@@ -45,7 +45,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     }
 
     /**
-     * Creates an RestOrRant using the data in the {@code toBeCopied}
+     * Creates a RestOrRant using the data in the {@code toBeCopied}.
      */
     public RestOrRant(ReadOnlyRestOrRant toBeCopied) {
         this();
@@ -53,8 +53,7 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     }
 
     /**
-     * Creates an RestOrRant using the data specified in {@code copyOrders, copyMenu, copyTables} // TODO: add more
-     * parameters
+     * Creates an RestOrRant using the data specified in {@code copyOrders, copyMenu, copyTables, copyStatistics}.
      */
     public RestOrRant(ReadOnlyOrders copyOrders, ReadOnlyMenu copyMenu, ReadOnlyTables copyTables,
                       ReadOnlyStatistics copyStatistics) {
@@ -63,8 +62,8 @@ public class RestOrRant implements ReadOnlyRestOrRant {
     }
 
     /**
-     * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders, newMenu, newTables}.
-     * //TODO: add more parameters
+     * Resets the existing data of this {@code RestOrRant} with new data from {@code newOrders, newMenu, newTables,
+     * newStatistics}.
      */
     public void resetData(ReadOnlyOrders newOrders, ReadOnlyMenu newMenu, ReadOnlyTables newTables,
                           ReadOnlyStatistics newStatistics) {
@@ -96,19 +95,23 @@ public class RestOrRant implements ReadOnlyRestOrRant {
 
     @Override
     public String toString() {
-        return orders.getOrderItemList().size() + " order items" + "\n" + menu.getMenuItemList().size() + " menu items"
+        return orders.getOrderItemList().size() + " order items"
+                + "\n" + menu.getMenuItemList().size() + " menu items"
+                + "\n" + tables.getTableList().size() + "tables"
                 + "\n" + statistics.getDailyRevenueList().size() + " daily revenues recorded";
-        // TODO: refine later
     }
 
+    @Override
     public Orders getOrders() {
         return orders;
     }
 
+    @Override
     public Menu getMenu() {
         return menu;
     }
 
+    @Override
     public Statistics getStatistics() {
         return statistics;
     }
@@ -123,12 +126,12 @@ public class RestOrRant implements ReadOnlyRestOrRant {
         return other == this // short circuit if same object
                 || (other instanceof RestOrRant // instanceof handles nulls
                 && orders.equals(((RestOrRant) other).orders) && menu.equals(((RestOrRant) other).menu) && tables
-                .equals(((RestOrRant) other).tables)); // TODO: Add statistics check here too.
+                .equals(((RestOrRant) other).tables)) && statistics.equals(((RestOrRant) other).statistics);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orders, menu);
+        return Objects.hash(orders, menu, tables, statistics);
     }
 
 }

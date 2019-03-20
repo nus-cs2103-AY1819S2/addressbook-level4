@@ -233,7 +233,7 @@ This section describes some noteworthy details on how certain features are imple
 === Filter feature
 
 ==== Introduction
-We have implemented a `SortCommand` that allow users to filter the current shown list with any fields.
+We have implemented a `FilterCommand` that allow users to filter the current shown list with any fields.
 
 The filter feature allow users to filter the current shown list with any fields, and can filter by multiple fields.
 

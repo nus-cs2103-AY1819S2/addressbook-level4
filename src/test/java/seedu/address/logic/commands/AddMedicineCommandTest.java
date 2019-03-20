@@ -103,7 +103,7 @@ public class AddMedicineCommandTest {
     }
 
     @Test
-    public void addDuplicateMedicineWithQuanityAndDiffPrice_throwCommandException() {
+    public void addDuplicateMedicineWithQuantityAndPrice_throwCommandException() {
         addValidMedicine();
         try {
             modelManager.addDirectory("test", new String[] {"root"});
@@ -113,6 +113,23 @@ public class AddMedicineCommandTest {
             Assert.fail();
         } catch (CommandException ex) {
             Assert.assertEquals(MedicineManager.ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST, ex.getMessage());
+        } catch (Exception ex) {
+            Assert.fail();
+        }
+    }
+
+    @Test
+    public void addValidExistingMedicine_success() {
+        addValidMedicine();
+        try {
+            modelManager.addDirectory("test", new String[] {"root"});
+            CommandResult commandResult =
+                    new AddMedicineCommand(new String[] {"root", "test"}, medicineName, Optional.empty(),
+                            Optional.empty()).execute(modelManager, history);
+            Medicine medicine = new Medicine(medicineName, presentQuantity.get());
+            medicine.setPrice(presentPrice.get());
+            Assert.assertEquals(String.format(AddMedicineCommand.MESSAGE_SUCCESS_EXISTING_MED,
+                    medicine.toString(), "root\\test"), commandResult.getFeedbackToUser());
         } catch (Exception ex) {
             Assert.fail();
         }

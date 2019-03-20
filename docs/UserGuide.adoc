@@ -17,7 +17,17 @@ By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-PDF++ takes your typical PDF experience to the next level. It strives to be the last PDF reader you ever need in handling PDF files. It has a multitude of functions that enhances your pdf reading and management experience, which include: set deadlines, tagging, label pages, zoom-in view, password, easy transfer, search - and much more to come! More importantly, PDF++ is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, PDF++ can get your PDF files management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+PDF++ is a desktop application that targets students who are looking for a file manager in organising their PDF files.
+This application integrates both Command Line Interface (CLI) and Graphical User Interface (GUI)
+to provide an unique experience for you. All supported features can be performed via the CLI and
+relevant feedback, based on your command, will be shown via the GUI.
+
+This manager plans to enhance your typical experience managing PDF files.
+It strives to be the last PDF manager you ever need. It includes a multitude of
+functions in elevating your PDF reading and management experience. These functions
+include: set deadlines, tagging, label pages, zoom-in view, password, easy transfer,
+search - and much more to come! Are you fascinated by PDF++? What are you waiting for?
+Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -29,12 +39,13 @@ PDF++ takes your typical PDF experience to the next level. It strives to be the 
 image::Ui.png[width="600"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will open this PDF++ User Guide.
 .  Some example commands you can try:
 
-* *`list`* : lists all files
-* **`import`**`C:\Users\John Doe\Documents\myfile.pdf` : adds a PDF file named `myfile` to the PDF++ list
-* **`delete`**`myfile` : deletes the file named `myfile` and all relevant information from the PDF++
+* *`list`* : lists all files in PDF++
+* **`add`**`f/C:\Users\Wei Tang\Documents\myfile.pdf` : adds a PDF file named `myfile`
+from the mentioned directory to the PDF++ list
+* **`delete`**`index` : deletes the file indexed at `index` of the list and all relevant information from the PDF++
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -52,17 +63,17 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Importing a file: `import`
+=== Importing a file: `add`
 
 Adds a PDF file to the app +
-Format: `import PATH_TO_FILE`
+Format: `add f/PATH_TO_FILE`
 
 
 * The file must be a PDF file (with .pdf extension) and does not have duplicate names
 
 Example:
 
-* `import C:\Users\James\Documents\Tutorial3.pdf`
+* `add f/C:\Users\Raj\Documents\Tutorial3.pdf`
 
 === Listing all files : `list`
 
@@ -71,34 +82,26 @@ Format: `list`
 
 === Opening a file : `open`
 
-Opens an existing file in the app with default PDF reader. +
-Format: `open FILENAME`
+Opens an existing file at a specified index in the app with default PDF reader. +
+Format: `open INDEX`
 
 Example:
 
-* `open Tutorial3` +
+* `open 3` +
 
-=== Assigning labels to a file : `label`
+=== Assigning and deleting tags to a file : `tag` `[Coming in v1.3]`
 
-Assigns labels to an existing file in the app. +
-Format: `label FILENAME LABEL...`
-
-Example:
-
-* `label Tutorial3 Dijkstra Graph Tutorial CS2040` +
-
-=== Removing labels from a file : `rlabel`
-
-Removes labels from an existing file in the app. +
-Format: `rlabel FILENAME LABEL...`
+Assigns and/or deletes tags to an existing file in the list of the app. Use `-` to
+ delete tag. No action will be taken when the tag you want to delete does not exist. +
+Format: `tag INDEX TAG...`
 
 Example:
 
-* `rlabel Tutorial3 DFS` +
+* `tag Tutorial3 Dijkstra -Graph Tutorial CS2040` +
 
-=== Filter files by labels: `filter`
+=== Filter files by tags: `filter` `[Coming in v1.3]`
 
-Display all files that contain any of the given labels. +
+Display all files that contain any of the given tags. +
 Format: `filter KEYWORD...`
 
 ****
@@ -113,47 +116,45 @@ Example:
 
 === Deleting a file : `delete`
 
-Deletes the specified file from the app. +
-Format: `delete FILENAME`
-
-* The .pdf extension is not required
+Deletes the file with specified index of the list from the app. +
+Format: `delete INDEX`
 
 Example:
 
-* `delete Tutorial3` +
+* `delete 4` +
 
 === Moving a file : `move`
 
-Move the file into another directory. +
-Format: `move FILENAME LOCATION`
+Move the file at the specified index of the list into another directory. +
+Format: `move INDEX LOCATION`
 
 Example:
 
-* `move Tutorial3 C:\User\James\Downloads`
+* `move 1 C:\User\Jeremy\Downloads`
 
-=== Retrieving information about the file : `info`
+=== Retrieving information about the file : `info` `[Coming in v1.3]`
 
-Retrieve information about the pdf file, e.g. file directory, deadline, etc. +
-Format: `info FILENAME`
+Retrieve information about the pdf file at the specified index of the list, e.g. file directory, deadline, etc. +
+Format: `info INDEX`
 
 Example:
 
-* `info Tutorial3`
+* `info 3`
 
-=== Setting a deadline for the file : `deadline`
+=== Setting a deadline for the file : `deadline` `[Coming in v1.3]`
 
-Set or remove a deadline for the pdf file.
+Set or remove a deadline for the pdf file of the specified index of the list.
 
 ****
-* Format for setting a deadline: `deadline FILENAME DATE` +
-* Format for removing a deadline: `deadline FILENAME`
+* Format for setting a deadline: `deadline INDEX DATE` +
+* Format for removing a deadline: `deadline INDEX`
 * The date must be in the format of dd-mm-yyyy
 ****
 
 Examples:
 
-* `deadline Tutorial3 20-02-2019` +
-* `deadline Tutorial3` +
+* `deadline 3 20-02-2019` +
+* `deadline 2` +
 
 === Exiting the program : `exit`
 
@@ -166,7 +167,7 @@ PDF++ data are saved in the hard disk automatically after any command that chang
 There is no need to save manually.
 
 // tag::undoredo[]
-=== Undo, redo command `[coming in v2.0]`
+=== Undo, redo command `[Coming in v2.0]`
 
 _Users are able to undo previously entered commands and redo undone commands._
 // end::undoredo[]
@@ -179,24 +180,22 @@ _Users will be prompted to enter the password for validation purpose to open enc
 
 == Command Summary
 
-* *Import* `import PATH_TO_FILE` +
-e.g. `import C:\Users\James\Documents\Tutorial3.pdf`
+* *Add* `add f/PATH_TO_FILE` +
+e.g. `import C:\Users\Raj\Documents\Tutorial3.pdf`
 * *List* : `list`
-* *Open* : `open FILENAME`
-e.g. `open Tutorial3`
-* *Label* : `label FILENAME LABEL…` +
-e.g. `label Tutorial3 Dijkstra Graph Tutorial CS2040`
-* *Remove label*: `rlabel FILENAME LABEL…`
-e.g. `rlabel Tutorial3 DFS`
+* *Open* : `open INDEX`
+e.g. `open 3`
+* *Tag* : `tag FILENAME TAG…` +
+e.g. `tag Tutorial3 Dijkstra Graph Tutorial CS2040`
 * *Filter* : `filter KEYWORD...` +
 e.g. `filter Graphs DFS`
-* *Delete* : `delete FILENAME` +
-e.g. `delete Tutorial3`
-* *Move* : `move FILENAME LOCATION`
-e.g. `move Tutorial3 C:\User\James\Downloads`
-* *Info* : `info FILENAME`
-e.g. `info Tutorial3`
-* *Deadline* : `deadline FILENAME DATE`
-e.g. `deadline Tutorial3 20-02-2019` , `deadline Tutorial3`
+* *Delete* : `delete INDEX` +
+e.g. `delete 4`
+* *Move* : `move INDEX LOCATION`
+e.g. `move 3 C:\User\Jeremy\Downloads`
+* *Info* : `info INDEX`
+e.g. `info 3`
+* *Deadline* : `deadline INDEX DATE` or `deadline INDEX`
+e.g. `deadline 3 20-02-2019` , `deadline 2`
 * *Help* : `help`
 * *Exit* : `exit`

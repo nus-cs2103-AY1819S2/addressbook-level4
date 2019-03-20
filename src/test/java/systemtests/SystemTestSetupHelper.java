@@ -8,8 +8,8 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.ReadOnlyEquipmentManager;
+import seedu.equipment.TestApp;
+import seedu.equipment.model.ReadOnlyEquipmentManager;
 
 /**
  * Contains helper methods that system tests require.

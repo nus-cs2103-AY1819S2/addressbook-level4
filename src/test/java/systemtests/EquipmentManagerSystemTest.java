@@ -4,9 +4,9 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.equipment.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.equipment.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.equipment.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -36,18 +36,18 @@ import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.TestApp;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListEquipmentCommand;
-import seedu.address.logic.commands.ListWorkListCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.EquipmentManager;
-import seedu.address.model.Model;
-import seedu.address.testutil.TypicalEquipments;
-import seedu.address.ui.BrowserPanel;
-import seedu.address.ui.CommandBox;
+import seedu.equipment.TestApp;
+import seedu.equipment.commons.core.index.Index;
+import seedu.equipment.logic.commands.ClearCommand;
+import seedu.equipment.logic.commands.FindCommand;
+import seedu.equipment.logic.commands.ListEquipmentCommand;
+import seedu.equipment.logic.commands.ListWorkListCommand;
+import seedu.equipment.logic.commands.SelectCommand;
+import seedu.equipment.model.EquipmentManager;
+import seedu.equipment.model.Model;
+import seedu.equipment.testutil.TypicalEquipments;
+import seedu.equipment.ui.BrowserPanel;
+import seedu.equipment.ui.CommandBox;
 
 /**
  * A system test class for EquipmentManager, which provides access to handles of GUI components and helper methods
@@ -143,7 +143,7 @@ public abstract class EquipmentManagerSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all persons in the equipment book.
      */
     protected void showAllPersons() {
         executeCommand(ListEquipmentCommand.COMMAND_WORD);
@@ -176,7 +176,7 @@ public abstract class EquipmentManagerSystemTest {
     }
 
     /**
-     * Deletes all persons in the address book.
+     * Deletes all persons in the equipment book.
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);

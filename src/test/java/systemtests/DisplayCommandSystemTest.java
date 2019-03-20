@@ -6,10 +6,10 @@ import java.net.URL;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.DisplayCommand;
-import seedu.address.model.Model;
-import seedu.address.ui.BrowserPanel;
+import seedu.equipment.commons.core.Messages;
+import seedu.equipment.logic.commands.DisplayCommand;
+import seedu.equipment.model.Model;
+import seedu.equipment.ui.BrowserPanel;
 
 public class DisplayCommandSystemTest extends EquipmentManagerSystemTest {
 

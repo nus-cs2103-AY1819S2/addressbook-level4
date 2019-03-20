@@ -1,4 +1,4 @@
-package seedu.address.model.equipment;
+package seedu.address.model;
 
 import static org.junit.Assert.assertTrue;
 //import static seedu.address.testutil.TypicalEquipments.ACHORVALECC;

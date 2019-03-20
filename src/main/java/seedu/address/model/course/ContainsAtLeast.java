@@ -14,7 +14,7 @@ import seedu.address.model.moduleinfo.ModuleInfo;
  * Checks number of modules that
  */
 public class ContainsAtLeast extends CourseRequirement {
-
+    //TODO: change into groups instead
     private static final String NUMBER_CONSTRAINTS = "Number of modules must be at least 0!";
     private static final String REGEX_CONSTRAINTS = "Regex cannot contain space!";
     private static final String TYPE = "ContainsAtLeast";

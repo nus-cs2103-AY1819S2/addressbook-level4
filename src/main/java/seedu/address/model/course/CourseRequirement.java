@@ -49,32 +49,4 @@ public class CourseRequirement {
         return isFulfilled.test(moduleInfos);
     };
 
-    /**
-     * Returns Course Requirement that has test method such that it returns true only if both
-     * this.test() and other.test() returns true. Description, and getUnfulfilled is concatenated.
-     * @param other
-     * @return Returns Course Requirement where its test method returns true only if this.test()
-     * and other.test() is true;
-     */
-    public CourseRequirement and(CourseRequirement other) {
-        return new CourseRequirement(description + "\n AND \n" + other.description,
-            "(" + identifier + ") && (" + other.identifier + ")",
-            isFulfilled.and(other.isFulfilled), (
-                    List<ModuleInfo> x) -> getUnfulfilled(x) + "\n AND \n" + other.getUnfulfilled(x));
-    }
-
-
-    /**
-     * Returns Course Requirement that has test method such that it returns true only at least one of
-     * this.test() or other.test() returns true. Description, and getUnfulfilled is concatenated.
-     * @param other
-     * @return Returns Course Requirement where its test method returns true only if at least one of
-     * this.test() or other.test() is true;
-     */
-    public CourseRequirement or(CourseRequirement other) {
-        return new CourseRequirement(description + "\n OR \n" + other.description,
-            "(" + identifier + ") || (" + other.identifier + ")",
-            isFulfilled.or(other.isFulfilled), (
-                    List<ModuleInfo> x) -> getUnfulfilled(x) + "\n OR \n" + other.getUnfulfilled(x));
-    }
 }

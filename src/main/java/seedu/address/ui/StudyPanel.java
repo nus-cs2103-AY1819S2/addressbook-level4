@@ -30,7 +30,7 @@ public class StudyPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 
     @FXML
-    private HBox questionPane;
+    private HBox studyPane;
 
     @FXML
     private Label question;

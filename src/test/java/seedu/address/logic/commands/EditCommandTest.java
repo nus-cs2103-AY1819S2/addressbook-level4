@@ -14,6 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 //import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPdfs.D_PDF;
 import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Pdf editedPdf = new PdfBuilder().build();
+        Pdf editedPdf = D_PDF;
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPdf).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PDF, descriptor);
 

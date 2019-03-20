@@ -37,14 +37,14 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullPdf_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
+    public void execute_pdfAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPdfAdded modelStub = new ModelStubAcceptingPdfAdded();
         Pdf validPdf = D_PDF;
 
         CommandResult commandResult = new AddCommand(validPdf).execute(modelStub, commandHistory);
@@ -55,10 +55,10 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
+    public void execute_duplicatePdf_throwsCommandException() throws Exception {
         Pdf validPdf = D_PDF;
         AddCommand addCommand = new AddCommand(validPdf);
-        ModelStub modelStub = new ModelStubWithPerson(validPdf);
+        ModelStub modelStub = new ModelStubWithPdf(validPdf);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PDF);
@@ -207,10 +207,10 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single pdf.
      */
-    private class ModelStubWithPerson extends ModelStub {
+    private class ModelStubWithPdf extends ModelStub {
         private final Pdf pdf;
 
-        ModelStubWithPerson(Pdf pdf) {
+        ModelStubWithPdf(Pdf pdf) {
             requireNonNull(pdf);
             this.pdf = pdf;
         }
@@ -225,7 +225,7 @@ public class AddCommandTest {
     /**
      * A Model stub that always accept the pdf being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
+    private class ModelStubAcceptingPdfAdded extends ModelStub {
         final ArrayList<Pdf> personsAdded = new ArrayList<>();
 
         @Override

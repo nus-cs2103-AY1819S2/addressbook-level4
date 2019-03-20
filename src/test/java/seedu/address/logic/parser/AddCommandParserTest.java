@@ -29,6 +29,8 @@ public class AddCommandParserTest {
     public void parse_allFieldsPresent_success() {
         Pdf expectedPdf = new PdfBuilder(A_PDF).withTags(VALID_TAG_LECTURE).build();
 
+        System.out.println(FILE_DESC_A_PDF);
+
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + FILE_DESC_A_PDF + TAG_DESC_LECTURE,
                 new AddCommand(expectedPdf));

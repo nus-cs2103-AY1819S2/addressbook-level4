@@ -28,8 +28,22 @@ FomoFoto is a image processing software suite written in Java. This application 
 .  Copy the file to the folder you want to use as the home folder for your FomoFoto application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+.Home Page of FomoFoto
 image::Ui.png[width="790"]
 +
+.  And you have just started up FomoFoto on your device! You can refer to <<Features>> for details of each command. If you would like a step-by-step walkthrough of our application, scroll down to the next section: A Walk Through.
+
+
+
+== A Walk Through
+Let's start on our image editing journey, shall we? In this walkthrough, we will be learning some simple commands to edit a sample image! Let's get started!
+
+.  Head over to this https://twistedsifter.files.wordpress.com/2012/03/squirrel-photobomb-banff.jpg[`link`] over here to get a suggested sample image to start from. Alternatively, you can choose any image you have in your own device currently.
+
+.  Save the image in any desired folder you like on your device, like your Pictures folder for example.
+
+.  Start FomoFoto by referring to <<Quick Start>>.
+
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
@@ -38,11 +52,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`undo`** : undo the editing of the image by one step
 * **`export`** : deletes the 3rd contact shown in the current list
 * *`exit`*`f/desktop/photoalbum` : Export the edited photo into the specified filepath
-
-.  Refer to <<Features>> for details of each command.
-
-== A Walk Through
-{this segment will walk users through the image editing process in the application}
 
 [[Features]]
 == Features

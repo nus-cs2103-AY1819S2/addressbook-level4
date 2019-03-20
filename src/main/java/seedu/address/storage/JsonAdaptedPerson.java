@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Gender;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
@@ -33,7 +32,6 @@ class JsonAdaptedPerson {
     private final String name;
     private final String phone;
     private final String email;
-    private final String gender;
     private final String race;
     private final String address;
     private final String school;
@@ -47,8 +45,7 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("gender") String gender,
-                             @JsonProperty("race") String race,
+                             @JsonProperty("email") String email, @JsonProperty("race") String race,
                              @JsonProperty("address") String address, @JsonProperty("school") String school,
                              @JsonProperty("major") String major,
                              @JsonProperty("knownProgLang") List<JsonAdaptedKnownProgLang> knownProgLang,
@@ -59,7 +56,6 @@ class JsonAdaptedPerson {
         this.phone = phone;
         this.email = email;
         this.race = race;
-        this.gender = gender;
         this.address = address;
         this.school = school;
         this.major = major;
@@ -81,7 +77,6 @@ class JsonAdaptedPerson {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
-        gender = source.getGender().toString();
         race = source.getRace().value;
         address = source.getAddress().value;
         school = source.getSchool().value;
@@ -140,14 +135,6 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if (gender == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName()));
-        }
-        if (!Gender.isValidGender(gender)) {
-            throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
-        }
-        final Gender modelGender = new Gender(gender);
-
         if (race == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Race.class.getSimpleName()));
         }
@@ -182,7 +169,7 @@ class JsonAdaptedPerson {
         final Set<KnownProgLang> modelKnownProgLang = new HashSet<>(personKnownProgLang);
         final Set<Tag> modelTags = new HashSet<>(personTags);
         final Set<PastJob> modelPastJobs = new HashSet<>(personPastJobs);
-        return new Person(modelName, modelPhone, modelEmail, modelGender, modelRace, modelAddress,
+        return new Person(modelName, modelPhone, modelEmail, modelRace, modelAddress,
             modelSchool, modelMajor, modelKnownProgLang, modelPastJobs, modelTags);
     }
 

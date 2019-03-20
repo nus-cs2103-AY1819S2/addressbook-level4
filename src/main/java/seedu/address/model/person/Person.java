@@ -21,7 +21,6 @@ public class Person {
     private final Email email;
 
     // Data fields
-    private final Gender gender;
     private final Race race;
     private final Address address;
     private final School school;
@@ -33,14 +32,13 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Gender gender, Race race, Address address,
+    public Person(Name name, Phone phone, Email email, Race race, Address address,
             School school, Major major, Set<KnownProgLang> knownProgLangs, Set<PastJob> pastjobs, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, school, major, knownProgLangs, pastjobs, tags);
 
         this.name = name;
         this.phone = phone;
         this.email = email;
-        this.gender = gender;
         this.race = race;
         this.address = address;
         this.school = school;
@@ -61,8 +59,6 @@ public class Person {
     public Email getEmail() {
         return email;
     }
-
-    public Gender getGender() { return gender; }
 
     public Race getRace() {
         return race;
@@ -114,7 +110,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName()) && otherPerson.getName().equals(getGender())
+                && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
@@ -136,7 +132,6 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getGender().equals(getGender())
                 && otherPerson.getRace().equals(getRace())
                 && otherPerson.getAddress().equals(getAddress())
                 && otherPerson.getSchool().equals(getSchool())
@@ -149,7 +144,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, gender, race, address, school, major, knownProgLangs, pastjobs, tags);
+        return Objects.hash(name, phone, email, race, address, school, major, knownProgLangs, pastjobs, tags);
     }
 
     @Override
@@ -160,8 +155,6 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Gender: ")
-                .append(getGender())
                 .append(" Race: ")
                 .append(getRace())
                 .append(" Address: ")

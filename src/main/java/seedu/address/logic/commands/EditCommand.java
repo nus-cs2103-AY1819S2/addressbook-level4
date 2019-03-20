@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -28,7 +27,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Gender;
 import seedu.address.model.person.KnownProgLang;
 import seedu.address.model.person.Major;
 import seedu.address.model.person.Name;
@@ -54,7 +52,6 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
-            + "[" + PREFIX_GENDER + "GENDER] "
             + "[" + PREFIX_RACE + "RACE] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SCHOOL + "SCHOOL] "
@@ -66,7 +63,6 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com"
-            + PREFIX_GENDER + "Male "
             + PREFIX_RACE + "Indian "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_SCHOOL + "NUS "
@@ -76,7 +72,6 @@ public class EditCommand extends Command {
             + "The alias \"ed\" can be used instead.\n"
             + "Example: " + COMMAND_ALIAS + " 1 "
             + PREFIX_PHONE + "91234567 "
-            + PREFIX_GENDER + "M "
             + PREFIX_EMAIL + "johndoe@example.com "
             + PREFIX_RACE + "Indian "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
@@ -136,7 +131,6 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Gender updatedGender = editPersonDescriptor.getGender().orElse(personToEdit.getGender());
         Race updatedRace = editPersonDescriptor.getRace().orElse(personToEdit.getRace());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         School updatedSchool = editPersonDescriptor.getSchool().orElse(personToEdit.getSchool());
@@ -145,7 +139,7 @@ public class EditCommand extends Command {
                 .orElse(personToEdit.getKnownProgLangs());
         Set<PastJob> updatedPastJobs = editPersonDescriptor.getPastJobs().orElse(personToEdit.getPastJobs());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedGender, updatedRace, updatedAddress,
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedRace, updatedAddress,
                 updatedSchool, updatedMajor, updatedKnownProgLangs, updatedPastJobs, updatedTags);
 
     }
@@ -176,7 +170,6 @@ public class EditCommand extends Command {
         private Name name;
         private Phone phone;
         private Email email;
-        private Gender gender;
         private Race race;
         private Address address;
         private School school;
@@ -197,7 +190,6 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
-            setGender(toCopy.gender);
             setRace(toCopy.race);
             setAddress(toCopy.address);
             setSchool(toCopy.school);
@@ -211,7 +203,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, gender, race, address, school,
+            return CollectionUtil.isAnyNonNull(name, phone, email, race, address, school,
                     major, knownProgLangs, pastjobs, tags);
         }
 
@@ -237,14 +229,6 @@ public class EditCommand extends Command {
 
         public Optional<Email> getEmail() {
             return Optional.ofNullable(email);
-        }
-
-        public void setGender(Gender gender) {
-            this.gender = gender;
-        }
-
-        public Optional<Gender> getGender() {
-            return Optional.ofNullable(gender);
         }
 
         public void setRace(Race race) {
@@ -349,7 +333,6 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
-                    && getGender().equals(e.getGender())
                     && getRace().equals(e.getRace())
                     && getAddress().equals(e.getAddress())
                     && getSchool().equals(e.getSchool())

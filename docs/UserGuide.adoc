@@ -18,7 +18,7 @@ By: `W14-2`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-FomoFoto is a image processing software suite written in Java. It is designed for those who *prefer to work a Command Line Interface (CLI)* while providing a Graphical User Interface (GUI) for easy reference. For users who who are looking to edit photos in a quick editor, FomoFoto is the best editor out there. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FomoFoto is a image processing software suite written in Java. This application is optimised for users who are *familiar with the Command Line Interface (CLI)*, while providing a *Graphical User Interface (GUI)* for easy reference. For those who love the CLI, this is written for you! If you are not familiar, don't worry, we'll take you through and you'll be a pro in no time! Who knows? You might even be editing your pictures faster than your friends who use Photoshop! Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 
 == Quick Start
@@ -40,6 +40,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`*`f/desktop/photoalbum` : Export the edited photo into the specified filepath
 
 .  Refer to <<Features>> for details of each command.
+
+== A Walk Through
+{this segment will walk users through the image editing process in the application}
 
 [[Features]]
 == Features
@@ -80,16 +83,16 @@ Examples:
 
 === Crop an image : `crop`
 
-Crops an image based on given coordinates. +
-Format: `crop x/POINTCOORD y/POINTCOORD w/POINTCOORD z/POINTCOORD`
+Crops an image based on given top left hand corner coordinates, width and height of final cropped image wanted. +
+Format: `crop x/POINTCOORD y/POINTCOORD w/WIDTH h/HEIGHT`
 
 ****
-* The point coordinates must be separated by a comma without any spacing in between
+* The point coordinates must be separated by a space each.
 ****
 
 Example:
 
-* `crop x/2,3 y/3,4 w/4,5 z/5,6`
+* `crop 2 3 500 500`
 
 === Exit the program : `exit`
 
@@ -144,26 +147,26 @@ Redoable commands: those commands that modify the image (`rotate`, `crop`, `brig
 
 Examples:
 
-* `rotate 20 4 5` +
+* `rotate 180` +
 `brightness add` +
 `undo` (reverses the `brightness add` command) +
 `redo` (runs `brightness add` again)
 
 * `contrast subtract` +
-`crop 2,3 3,4 4,5 5,6` +
-`undo` (reverses the `crop 2,3 3,4 4,5 5,6` command +
+`crop 2 3 500 500` +
+`undo` (reverses the `crop 2 3 500 500` command +
 `undo` (reverses the `contrast subtract`) +
 `redo` (runs `contrast subtract` command again) +
-`redo` (runs `crop 2,3 3,4 4,5 5,6` command again)
+`redo` (runs `crop 2 3 500 500` command again)
 
 === Rotate an image : `rotate`
 
-Rotates the photo by a given degree provided by the user.  +
-Format: `rotate a/ANGLE x/XCOORDINATE y/YCOORDINATE`
+Rotates the photo by a given degree provided by the user. Only 90, 180 or 270 degrees of rotation is allowed. +
+Format: `rotate ANGLE`
 
 Example:
 
-* `rotate a/30 x/23 y/45`
+* `rotate 90`
 
 === Undo edit steps : `undo`
 
@@ -177,13 +180,13 @@ Undoable commands: those commands that modify the image (`rotate`, `crop`, `brig
 
 Examples:
 
-* `rotate 20 4 5` +
+* `rotate 180` +
 `brightness add` +
 `undo` (reverses the `brightness add` command) +
 
 * `contrast subtract` +
-`crop 2,3 3,4 4,5 5,6` +
-`undo` (reverses the `crop 2,3 3,4 4,5 5,6` command +
+`crop 2 3 500 500` +
+`undo` (reverses the `crop 2 3 500 500` command +
 `undo` (reverses the `contrast subtract`)
 
 
@@ -197,8 +200,8 @@ e.g. `brightness o/add n/20` +
 * *Contrast* `contrast o/OPERATOR [n/DEGREE]` +
 e.g. `contrast o/subtract n/30` +
 
-* *Crop* `crop x/POINTCOORD y/POINTCOORD w/POINTCOORD z/POINTCOORD` +
-e.g. `crop x/2,3 y/4,5, w/3,2, z/6,7`
+* *Crop* `crop x/POINTCOORD y/POINTCOORD w/WIDTH h/HEIGHT` +
+e.g. `crop 2 4 500 500`
 
 * *Exit* `exit` +
 
@@ -217,7 +220,7 @@ e.g. `open sample.jpg` +
 
 * *Redo* `redo` +
 
-* *Rotate* `rotate a/ANGLE x/XCOORDINATE y/YCOORDINATE` +
-e.g. `rotate a/30 x/3 y/4` +
+* *Rotate* `rotate ANGLE` +
+e.g. `rotate 270` +
 
 * *Undo* `undo` +

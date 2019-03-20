@@ -1,10 +1,8 @@
 package seedu.address.ui;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.BookGuiTestAssert.assertCardDisplaysBook;
-
 
 import org.junit.Test;
 
@@ -17,7 +15,7 @@ public class BookCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        Book bookWithNoTags = new BookBuilder().withTags().build();
+        Book bookWithNoTags = new BookBuilder().withTags(new String[0]).build();
         BookCard bookCard = new BookCard(bookWithNoTags, 1);
         uiPartRule.setUiPart(bookCard);
         assertCardDisplay(bookCard, bookWithNoTags);

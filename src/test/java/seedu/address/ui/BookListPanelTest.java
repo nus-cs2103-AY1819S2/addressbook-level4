@@ -10,10 +10,10 @@ import static seedu.address.ui.testutil.BookGuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
-import guitests.guihandles.BookCardHandle;
-import guitests.guihandles.BookListPanelHandle;
 import org.junit.Test;
 
+import guitests.guihandles.BookCardHandle;
+import guitests.guihandles.BookListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

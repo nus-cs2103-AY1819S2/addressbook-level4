@@ -1,16 +1,18 @@
 package seedu.address.ui;
 
-import guitests.guihandles.BookBrowserPanelHandle;
-import javafx.beans.property.SimpleObjectProperty;
-import org.junit.Before;
-import org.junit.Test;
-import seedu.address.model.book.Book;
-
-import java.net.URL;
-
 import static guitests.guihandles.BookWebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalBooks.BOOKTHIEF;
+
+import java.net.URL;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import guitests.guihandles.BookBrowserPanelHandle;
+import javafx.beans.property.SimpleObjectProperty;
+import seedu.address.model.book.Book;
+
 
 
 public class BookBrowserPanelTest extends GuiUnitTest {
@@ -33,7 +35,8 @@ public class BookBrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a person
         guiRobot.interact(() -> selectedBook.set(BOOKTHIEF));
-        URL expectedPersonUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL + BOOKTHIEF.getBookName().fullName.replaceAll(" ", "%20"));
+        URL expectedPersonUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL +
+            BOOKTHIEF.getBookName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

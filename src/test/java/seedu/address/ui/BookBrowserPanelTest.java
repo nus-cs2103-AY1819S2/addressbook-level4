@@ -35,8 +35,8 @@ public class BookBrowserPanelTest extends GuiUnitTest {
 
         // associated web page of a person
         guiRobot.interact(() -> selectedBook.set(BOOKTHIEF));
-        URL expectedPersonUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL +
-            BOOKTHIEF.getBookName().fullName.replaceAll(" ", "%20"));
+        URL expectedPersonUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL
+            + BOOKTHIEF.getBookName().fullName.replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

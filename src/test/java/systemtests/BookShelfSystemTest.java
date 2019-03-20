@@ -17,32 +17,30 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import guitests.guihandles.BookBrowserPanelHandle;
-import guitests.guihandles.BookListPanelHandle;
-import guitests.guihandles.BookMainWindowHandle;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
-import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.BookBrowserPanelHandle;
 import guitests.guihandles.BookCommandBoxHandle;
 import guitests.guihandles.BookMainMenuHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.BookMainWindowHandle;
+import guitests.guihandles.BookListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListBookCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalBooks;
 import seedu.address.ui.BookBrowserPanel;
 import seedu.address.ui.CommandBox;
-
 
 /**
  * A system test class for BookShelf, which provides access to handles of GUI components and helper methods
@@ -62,7 +60,7 @@ public abstract class BookShelfSystemTest {
 
     @BeforeClass
     public static void setupBeforeClass() {
-        BookSystemTestSetupHelper.initialize();
+        SystemTestSetupHelper.initialize();
     }
 
     @Before
@@ -84,7 +82,7 @@ public abstract class BookShelfSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected BookShelf getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalBooks.getTypicalAddressBook();
     }
 
     /**
@@ -150,8 +148,15 @@ public abstract class BookShelfSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() <
-            getModel().getBookShelf().getPersonList().size());
+        assertTrue(getModel().getFilteredPersonList().size() < getModel().getBookShelf().getPersonList().size());
+    }
+
+    /**
+     * Displays all books with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showBooksWithName(String keyword) {
+        executeCommand(ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + keyword);
+        assertTrue(getModel().getFilteredBookList().size() < getModel().getBookShelf().getBookList().size());
     }
 
     /**
@@ -171,6 +176,14 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
+     * Deletes all books in the book shelf.
+     */
+    protected void deleteAllBooks() {
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getBookShelf().getBookList().size());
+    }
+
+    /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
      * and the person list panel displays the persons in the model correctly.
@@ -184,7 +197,7 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code BookListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -198,7 +211,7 @@ public abstract class BookShelfSystemTest {
     /**
      * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
      * default page.
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see BookBrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
         assertEquals(BookBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
@@ -208,8 +221,8 @@ public abstract class BookShelfSystemTest {
     /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
-     * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see BookBrowserPanelHandle#isUrlChanged()
+     * @see BookListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getBookListPanel().navigateToCard(getBookListPanel().getSelectedCardIndex());
@@ -227,8 +240,8 @@ public abstract class BookShelfSystemTest {
 
     /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
-     * @see BrowserPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see BookBrowserPanelHandle#isUrlChanged()
+     * @see BookListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());

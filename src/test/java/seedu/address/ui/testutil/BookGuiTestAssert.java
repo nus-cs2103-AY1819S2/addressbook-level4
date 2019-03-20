@@ -53,26 +53,26 @@ public class BookGuiTestAssert {
      */
     private static String getTagColorStyleFor(String tagName) {
         switch (tagName) {
-            case "classmates":
-            case "owesMoney":
-                return "teal";
+        case "classmates":
+        case "owesMoney":
+            return "teal";
 
-            case "colleagues":
-            case "neighbours":
-                return "yellow";
+        case "colleagues":
+        case "neighbours":
+            return "yellow";
 
-            case "family":
-            case "friend":
-                return "orange";
+        case "family":
+        case "friend":
+            return "orange";
 
-            case "friends":
-                return "brown";
+        case "friends":
+            return "brown";
 
-            case "husband":
-                return "grey";
+        case "husband":
+            return "grey";
 
-            default:
-                throw new AssertionError(tagName + " does not have a color assigned.");
+        default:
+            throw new AssertionError(tagName + " does not have a color assigned.");
         }
     }
 

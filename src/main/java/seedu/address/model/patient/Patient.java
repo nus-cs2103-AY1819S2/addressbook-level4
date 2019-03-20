@@ -3,6 +3,7 @@ package seedu.address.model.patient;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class Patient extends Person {
     private Nric nric;
     private DateOfBirth dateOfBirth;
     private Teeth teeth = null;
-    private ArrayList<Record> records = new ArrayList<>();
+    private List<Record> records = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
@@ -41,6 +42,19 @@ public class Patient extends Person {
         requireAllNonNull(nric, dateOfBirth);
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
+        inferTeethBuild();
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
+                   DateOfBirth dateOfBirth, List<Record> records) {
+        super(name, phone, email, address, tags);
+        requireAllNonNull(nric, dateOfBirth, records);
+        this.nric = nric;
+        this.dateOfBirth = dateOfBirth;
+        this.records = records;
         inferTeethBuild();
     }
 
@@ -145,7 +159,7 @@ public class Patient extends Person {
         return dateOfBirth;
     }
 
-    public ArrayList<Record> getRecords() {
+    public List<Record> getRecords() {
         return records;
     }
 

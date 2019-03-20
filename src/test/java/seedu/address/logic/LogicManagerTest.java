@@ -51,7 +51,7 @@ public class LogicManagerTest {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(userPrefsStorage, lessonsStorage);
-        logic = new LogicManager(managementModel, quizModel);
+        logic = new LogicManager(managementModel, quizModel, storage);
     }
 
     @Test

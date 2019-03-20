@@ -67,7 +67,7 @@ public class MainApp extends Application {
         managementModel = initModelManager(userPrefs, lessons);
         quizModel = initQuizModelManager();
 
-        logic = new LogicManager(managementModel, quizModel);
+        logic = new LogicManager(managementModel, quizModel, storage);
 
         ui = new UiManager(logic);
     }

@@ -51,7 +51,7 @@ public class ResultDisplay extends UiPart<Region> {
      * @return text line by line with format header
      */
     private Pair<String, String>[] parseText(String input) {
-        String[] lines = input.split("\n", -1);
+        String[] lines = input.split("\n", 0);
         Pair<String, String>[] result = new Pair[lines.length];
         int i = 0;
         for (String line : lines) {

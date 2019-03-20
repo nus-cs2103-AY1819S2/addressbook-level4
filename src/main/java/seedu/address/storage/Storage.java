@@ -21,15 +21,15 @@ public interface Storage extends UserPrefsStorage, LessonsStorage, UserStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Optional<Lessons> readLessons() throws IOException;
+    Optional<Lessons> readLessons();
 
     @Override
-    int saveLessons(Lessons lessons) throws IOException;
+    int saveLessons(Lessons lessons);
 
     @Override
-    Optional<User> readUser() throws IOException;
+    Optional<User> readUser();
 
     @Override
-    void saveUser(User user) throws IOException;
+    void saveUser(User user);
 
 }

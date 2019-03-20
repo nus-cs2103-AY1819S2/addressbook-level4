@@ -59,22 +59,22 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<Lessons> readLessons() throws IOException {
+    public Optional<Lessons> readLessons() {
         return lessonsStorage.readLessons();
     }
 
     @Override
-    public Optional<Lessons> readLessons(Path filePath) throws IOException {
+    public Optional<Lessons> readLessons(Path filePath) {
         return lessonsStorage.readLessons(filePath);
     }
 
     @Override
-    public int saveLessons(Lessons lessons) throws IOException {
+    public int saveLessons(Lessons lessons) {
         return lessonsStorage.saveLessons(lessons);
     }
 
     @Override
-    public int saveLessons(Lessons lessons, Path filePath) throws IOException {
+    public int saveLessons(Lessons lessons, Path filePath) {
         return lessonsStorage.saveLessons(lessons, filePath);
     }
 
@@ -91,22 +91,22 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<User> readUser() throws IOException {
+    public Optional<User> readUser() {
         return userStorage.readUser();
     }
 
     @Override
-    public Optional<User> readUser(Path folderPath) throws IOException {
+    public Optional<User> readUser(Path folderPath) {
         return userStorage.readUser(folderPath);
     }
 
     @Override
-    public void saveUser(User user) throws IOException {
+    public void saveUser(User user) {
         userStorage.saveUser(user);
     }
 
     @Override
-    public void saveUser(User user, Path filePath) throws IOException {
+    public void saveUser(User user, Path filePath) {
         userStorage.saveUser(user, filePath);
     }
 }

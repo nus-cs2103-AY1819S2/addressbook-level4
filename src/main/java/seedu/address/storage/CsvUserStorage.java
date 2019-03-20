@@ -121,7 +121,7 @@ public class CsvUserStorage implements UserStorage {
     }
 
     @Override
-    public Optional<User> readUser() throws IOException {
+    public Optional<User> readUser() {
         return readUser(filePath);
     }
 

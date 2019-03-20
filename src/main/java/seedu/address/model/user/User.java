@@ -32,4 +32,23 @@ public class User {
     public Map<Integer, CardSrsData> getCards() {
         return cardmap;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof User)) {
+            return false;
+        }
+
+        User otherUser = (User) other;
+        return otherUser.hashCode() == this.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return cardmap.hashCode();
+    }
 }

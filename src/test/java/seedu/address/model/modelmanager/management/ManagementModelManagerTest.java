@@ -18,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.Lessons;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.user.User;
 
 public class ManagementModelManagerTest {
     @Rule
@@ -149,10 +150,11 @@ public class ManagementModelManagerTest {
     public void equals() {
         UserPrefs userPrefs = new UserPrefs();
         Lessons lessons = new Lessons();
+        User user = new User();
 
         // same values -> returns true
-        modelManager = new ManagementModelManager(userPrefs, lessons);
-        ManagementModelManager modelManagerCopy = new ManagementModelManager(userPrefs, lessons);
+        modelManager = new ManagementModelManager(userPrefs, lessons, user);
+        ManagementModelManager modelManagerCopy = new ManagementModelManager(userPrefs, lessons, user);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true

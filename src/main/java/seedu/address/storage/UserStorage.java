@@ -25,22 +25,22 @@ public interface UserStorage {
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<User> readUser() throws IOException;
+    Optional<User> readUser();
 
     /**
      * @see #getUserFilePath()
      */
-    Optional<User> readUser(Path folderPath) throws IOException;
+    Optional<User> readUser(Path folderPath);
 
     /**
      * Saves the given {@link User} to the storage.
      * @param user cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveUser(User user) throws IOException;
+    void saveUser(User user);
 
     /**
      * @see #saveUser(User, Path)
      */
-    void saveUser(User user, Path filePath) throws IOException;
+    void saveUser(User user, Path filePath);
 }

@@ -14,5 +14,5 @@ public interface ReadOnlyUserPrefs {
 
     Path getLessonsFolderPath();
 
-    Path getLessonImportExportFilePath();
+    Path getUserFilePath();
 }

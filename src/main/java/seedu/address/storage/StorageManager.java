@@ -17,13 +17,16 @@ public class StorageManager implements Storage {
 
     private UserPrefsStorage userPrefsStorage;
     private LessonsStorage lessonsStorage;
+    private UserStorage userStorage;
 
 
     public StorageManager(UserPrefsStorage userPrefsStorage,
-                          LessonsStorage lessonsStorage) {
+                          LessonsStorage lessonsStorage,
+                          UserStorage userStorage) {
         super();
         this.userPrefsStorage = userPrefsStorage;
         this.lessonsStorage = lessonsStorage;
+        this.userStorage = userStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -79,31 +82,31 @@ public class StorageManager implements Storage {
 
     @Override
     public Path getUserFilePath() {
-        return null;
+        return userStorage.getUserFilePath();
     }
 
     @Override
     public void setUserFilePath(Path folderPath) {
-
+        userStorage.setUserFilePath(folderPath);
     }
 
     @Override
     public Optional<User> readUser() throws IOException {
-        return Optional.empty();
+        return userStorage.readUser();
     }
 
     @Override
     public Optional<User> readUser(Path folderPath) throws IOException {
-        return Optional.empty();
+        return userStorage.readUser(folderPath);
     }
 
     @Override
     public void saveUser(User user) throws IOException {
-
+        userStorage.saveUser(user);
     }
 
     @Override
     public void saveUser(User user, Path filePath) throws IOException {
-
+        userStorage.saveUser(user, filePath);
     }
 }

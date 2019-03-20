@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.user.User;
 
 /**
  * API of the Storage component
@@ -24,5 +25,11 @@ public interface Storage extends UserPrefsStorage, LessonsStorage, UserStorage {
 
     @Override
     int saveLessons(Lessons lessons) throws IOException;
+
+    @Override
+    Optional<User> readUser() throws IOException;
+
+    @Override
+    void saveUser(User user) throws IOException;
 
 }

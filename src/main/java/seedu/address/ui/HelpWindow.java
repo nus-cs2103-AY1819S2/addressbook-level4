@@ -1,5 +1,8 @@
 package seedu.address.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -59,7 +62,13 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
-        getRoot().show();
+        //getRoot().show();
+        try {
+            Desktop.getDesktop().browse(Paths.get("build", "docs", "html5", "HelpWindow.html")
+                    .toAbsolutePath().toFile().toURI());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

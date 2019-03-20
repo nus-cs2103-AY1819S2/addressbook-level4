@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FINISHED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODCODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
@@ -27,7 +28,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_MODCODE, PREFIX_SEMESTER, PREFIX_GRADE);
+                ArgumentTokenizer.tokenize(args, PREFIX_MODCODE, PREFIX_SEMESTER, PREFIX_GRADE, PREFIX_FINISHED);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
@@ -42,6 +43,9 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         if (argMultimap.getValue(PREFIX_GRADE).isPresent()) {
             findModuleDescriptor.setGrade(ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_FINISHED).isPresent()) {
+            findModuleDescriptor.setFinished(ParserUtil.parseBoolean(argMultimap.getValue(PREFIX_FINISHED).get()));
         }
 
         return new FindCommand(new FindModulePredicate(findModuleDescriptor));

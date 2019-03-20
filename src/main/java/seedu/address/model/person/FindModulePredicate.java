@@ -26,6 +26,7 @@ public class FindModulePredicate implements Predicate<Person> {
         Optional<String> code = findModuleDescriptor.getCode();
         Optional<Semester> semester = findModuleDescriptor.getSemester();
         Optional<Grade> grade = findModuleDescriptor.getGrade();
+        Optional<Boolean> isFinished = findModuleDescriptor.isFinished();
 
         if (code.isPresent()
                 && !moduleCode.fullName.toLowerCase().contains(code.get())) {
@@ -39,6 +40,11 @@ public class FindModulePredicate implements Predicate<Person> {
                 && !grade.get().isWithin(module.getGradeRange())) {
             return false;
         }
+        if (isFinished.isPresent()
+                && (module.isFinished() != isFinished.get().booleanValue())) {
+            return false;
+        }
+
         return true;
     }
 

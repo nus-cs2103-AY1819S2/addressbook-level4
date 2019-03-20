@@ -138,13 +138,15 @@ Deletes the first module on the most recently displayed list.
 
 === Find module: `find`
 
-Finds module(s) in the module plan based on module code, semester taken or grade obtained. +
-Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE_OBTAINED]`
+Finds module(s) in the module plan based on module code, semester, grade or finished status. +
+Module code can be entered partially, but semester and grade must be exact.
+Finished status must be 'y' (YES) or 'n' (NO).
+
+Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 
 ****
 * Parameters can be in any order.
 * Parameters are case-insensitive.
-* Module code can be entered partially, but semester taken and grade obtained must be exact.
 * Modules matching ALL of the above parameters will be listed.
 ****
 
@@ -155,7 +157,7 @@ Lists all level-2000 CS modules in the module plan.
 * `find c/cs s/y1s2` +
 Lists all CS modules (to be) taken in Y1S2.
 
-=== Recommend modules: `rec`
+=== Recommend module: `rec`
 
 Recommends a list of modules that can be taken based on completed modules, FA and course requirements.
 Modules are displayed according to the following order of priority: Core, FA, non-FA, General Education and Unrestricted Elective modules. +
@@ -320,7 +322,7 @@ or +
 * *Delete*: `delete c/MODULE_CODE` +
 or +
 `delete INDEX` +
-* *Find*: `find [c/MODULE_CODE] [t/MODULE_TITLE] [s/SEMESTER] [g/GRADE_OBTAINED]`
+* *Find*: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 * *Recommend*: `rec`
 * *Clear*: `clear`
 * *Displaym*: `displaym o/OPTIONS [MORE_ARGUMENTS]` +

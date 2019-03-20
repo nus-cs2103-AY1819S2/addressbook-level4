@@ -3,6 +3,8 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
+import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -24,8 +26,9 @@ import seedu.address.model.deck.Card;
  */
 public class QuestionPanel extends UiPart<Region> {
 
-
     private static final String FXML = "QuestionPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(ListPanel.class);
+
     @FXML
     private HBox questionPane;
 
@@ -36,10 +39,15 @@ public class QuestionPanel extends UiPart<Region> {
     private Label id;
 
 
-    public QuestionPanel(String textShown) {
+    public QuestionPanel(ObservableValue<String> textShown) {
         super(FXML);
 
-        question.setText(textShown);
+        question.setText(textShown.getValue());
+
+        textShown.addListener((observable, oldValue, newValue) -> {
+            logger.info("textShown changed to: " + newValue);
+        });
+
     }
 
 }

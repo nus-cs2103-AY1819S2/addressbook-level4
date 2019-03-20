@@ -71,4 +71,9 @@ public interface Logic {
      * Gets the current card to be displayed during study state.
      */
     Card getCurrentCard();
+
+    /**
+     * Current text in the model
+     */
+    ReadOnlyProperty<String> textShownProperty();
 }

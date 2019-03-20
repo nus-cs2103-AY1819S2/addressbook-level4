@@ -112,4 +112,9 @@ public class LogicManager implements Logic {
         return model.getCurrentCard();
     }
 
+    @Override
+    public ReadOnlyProperty<String> textShownProperty() {
+        return model.textShownProperty();
+    }
+
 }

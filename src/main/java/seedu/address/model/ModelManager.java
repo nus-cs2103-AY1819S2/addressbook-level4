@@ -39,7 +39,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
     private ViewState viewState;
     private Card currentCard;
-    private final int StudyState = 0; //0 - shows question //1 shows answer
+    private int studyState = 0; //0 - shows question //1 shows answer
+    private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -81,6 +82,7 @@ public class ModelManager implements Model {
     public void studyDeck(Deck deck) {
         viewState = new StudyView(this, deck);
         setCurrentCard(deck.generateCard());
+        setStudyState(0);
     }
 
     @Override
@@ -289,4 +291,17 @@ public class ModelManager implements Model {
         return currentCard;
     }
 
+    @Override
+    public void setStudyState(int state) {
+        studyState = state;
+    }
+
+    @Override
+    public ReadOnlyProperty<String> textShownProperty() {
+        String text =  (studyState == 0)
+                ? currentCard.getQuestion()
+                : currentCard.getAnswer();
+        textShown.setValue(text);
+        return textShown;
+    }
 }

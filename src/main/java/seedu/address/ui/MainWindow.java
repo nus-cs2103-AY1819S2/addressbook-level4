@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.ListItem;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
@@ -190,7 +191,7 @@ public class MainWindow extends UiPart<Stage> {
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
             } else if (commandResult instanceof StudyPanelCommand) {
-                questionPanel = new QuestionPanel(logic.getCurrentCard().getQuestion());
+                questionPanel = new QuestionPanel(logic.textShownProperty());
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(questionPanel.getRoot());
             } else if (commandResult instanceof HelpCommandResult) {

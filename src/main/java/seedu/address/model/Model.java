@@ -165,4 +165,15 @@ public interface Model {
     void goToDecksView();
 
     boolean isAtDecksView();
+
+    /**
+     * Current text in the model
+     */
+    ReadOnlyProperty<String> textShownProperty();
+
+    /**
+     * Sets the study state
+     * @param state
+     */
+    void setStudyState(int state);
 }

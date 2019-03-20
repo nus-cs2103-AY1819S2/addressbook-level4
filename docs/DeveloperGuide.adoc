@@ -244,9 +244,9 @@ change certain attributes tied to the PDF such as the `Name` and `Tag`s tied to 
 The Edit feature has the following syntax:
 `edit <Index> n/<NewName> t/<NewTag1> t/<NewTag2>`
 
-* `<Index>` refers to the index of the `Pdf` that you wish to edit. 
+* `<Index>` refers to the index of the `Pdf` that you wish to edit.
 * `<NewName>` refers to the new value that you would like to set the `Pdf`s `Name` to.
-* `<NewTag*>` refers to the new `Tag`s you wish to add to 
+* `<NewTag*>` refers to the new `Tag`s you wish to add to.
 
 [NOTE]
 The index value can be referenced from the list in the main application.
@@ -270,7 +270,7 @@ the input into relevant objects that are required to be executed by the `EditCom
 object. Upon parsing, the parser then creates a new `EditCommand` that will execute the
 user's input.
 
-Step 4: Upon receiving the necessary information from the parser, the `EditCommand` first 
+Step 4: Upon receiving the necessary information from the parser, the `EditCommand` first
 begins by checking for validity as shown below.
 
 image::EditFeatureNoDuplicate.png[width="700"]
@@ -284,7 +284,7 @@ as shown below.
 image::EditFeatureFinalOutput.png[width="600"]
 
 [NOTE]
-As of V1.2, the Edit Feature removes any existing `Tag`s and replaces them with those
+As of V1.2, the Edit Feature removes any existing `Tag` s and replaces them with those
 input by the user (If any). By `V1.4` The user will be able to select tags he wishes
 to remove or add.
 

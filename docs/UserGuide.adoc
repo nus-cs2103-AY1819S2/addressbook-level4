@@ -57,7 +57,7 @@ from the mentioned directory to the PDF++ list
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `open FILENAME`, `FILENAME` is a parameter which can be used as `open myfile`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `LABEL...` can be used as `{nbsp}` (i.e. 0 times), `MyLabel`, `LabelA LabelB LabelC` etc.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` can be used as `{nbsp}` (i.e. 0 times), `MyTag`, `TagA TagB TagC` etc.
 ====
 === Viewing help : `help`
 

@@ -395,14 +395,15 @@ The index value can be referenced from the list in the main application.
 All parts of the syntax are required.
 
 Illustrated below is a sample usage scenario that provides a clear view to the inner
-workings of the Edit feature.
+workings of the `move` feature.
 
-Step 1: The user launches an application with either an existing set of `Pdf` or a
-new sample set of `Pdf` stored within as shown below.
+Step 1: From the main interface of the application, the user chooses a `Pdf` that
+they wish to move, and enters the `move` command into the CLI Interface, following
+the outlined Syntax as illustrated below.
 
-Step 2: The user chooses a `Pdf` that they wish to move, and enters the `move`
-command into the CLI Interface, following the outlined Syntax as
-illustrated below.
+image::MoveFeatureStep1.png[width="600"]
+
+In this scenario,
 
 Step 3: After executing the command, the `MoveCommandParser` parses the input into
 relevant objects that are required to be executed by the `MoveCommand` object. Upon

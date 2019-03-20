@@ -40,7 +40,6 @@ import static seedu.hms.testutil.TypicalCustomers.BOB;
 import org.junit.Test;
 
 import seedu.hms.logic.commands.AddCustomerCommand;
-import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
@@ -103,7 +102,8 @@ public class AddCustomerCommandParserTest {
     public void parse_optionalFieldsMissing_success() {
         // zero tags
         Customer expectedCustomer = new CustomerBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY,
+        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY
+                + ADDRESS_DESC_AMY + DATE_OF_BIRTH_DESC_AMY,
             new AddCustomerCommand(expectedCustomer));
 
     }
@@ -160,11 +160,6 @@ public class AddCustomerCommandParserTest {
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
             + INVALID_EMAIL_DESC + ID_DESC_BOB + ADDRESS_DESC_BOB
             + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
-
-        // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB
-            + EMAIL_DESC_BOB + ID_DESC_BOB + INVALID_ADDRESS_DESC
-            + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
 
         // invalid id
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + DATE_OF_BIRTH_DESC_BOB

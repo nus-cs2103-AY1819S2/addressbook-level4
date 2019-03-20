@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
+import static seedu.address.commons.core.Config.TEMP_FILE;
+import static seedu.address.commons.core.Config.TEMP_FILENAME;
 import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -11,6 +13,8 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 
@@ -136,6 +140,14 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.setPerson(target, editedPerson);
+    }
+
+    /**
+     * Displays TEMP_FILE in TEMP_FILEPATH on GUI
+     */
+    @Override
+    public void displayTempImage() {
+        Notifier.firePropertyChangeListener("import", null, TEMP_FILE);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -268,13 +280,8 @@ public class ModelManager implements Model {
         return imageNames;
     }
 
-    @Override
-    public Image getImage() {
-        return currentImage;
-    }
-
     /**
-     * replaces temp folder image with original asset Image
+     * Replaces temp folder image with original asset Image
      */
     @Override
     public void replaceTempImage() {
@@ -289,12 +296,23 @@ public class ModelManager implements Model {
         }
     }
 
+
     /**
-     * Updates currentImage to Opened image
+     * Updates currentImage to Opened image and creates copy of it inside temp folder
      */
     @Override
     public void setCurrentImage(Image image) {
         this.currentImage = image;
+        try {
+            File outputFile = new File(TEMP_FILENAME);
+            File directory = new File(TEMP_FILEPATH);
+
+            ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
+            FileUtils.copyFileToDirectory(outputFile, directory, false);
+        }
+        catch (IOException e) {
+            System.out.println(e.toString());
+        }
     }
 
 }

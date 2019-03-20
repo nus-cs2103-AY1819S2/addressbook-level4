@@ -369,7 +369,54 @@ As of V1.2, the Edit Feature removes any existing `Tag` s and replaces them with
 input by the user (If any). By `V1.4` The user will be able to select tags he wishes
 to remove or add.
 
-//tag:open[]
+// tag::move[]
+=== Move feature
+==== Current Implementation
+
+The move feature functions as a simplified version of the `Edit` feature, as in nature
+it is making an edit to the directory of the file. However, in addition to making changes
+to the directory in the application storage, it also ensures that the directory changes
+are reflected in the local filesystem.
+
+[NOTE]
+The design consideration into separating move as a new command from edit factored in the
+purpose of the application; as a document manager, the term "edit" is synonymous with
+making content or characteristic changes when it is applied in the context of documents.
+
+The Edit feature has the following syntax:
+`move <INDEX> <NEWDIRECTORY>
+
+* `<INDEX>` refers to the index of the `Pdf` that you wish to edit.
+* `<NEWDIRECTORY>` refers to the address of the new location the file is to be moved.
+
+[NOTE]
+The index value can be referenced from the list in the main application.
+
+All parts of the syntax are required.
+
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the Edit feature.
+
+Step 1: The user launches an application with either an existing set of `Pdf` or a
+new sample set of `Pdf` stored within as shown below.
+
+Step 2: The user chooses a `Pdf` that they wish to move, and enters the `move`
+command into the CLI Interface, following the outlined Syntax as
+illustrated below.
+
+Step 3: After executing the command, the `MoveCommandParser` parses the input into
+relevant objects that are required to be executed by the `MoveCommand` object. Upon
+parsing, the parser then creates a new `MoveCommand` that will execute the
+user's input.
+
+Step 4: Upon receiving the necessary information from the parser, the `Move` first
+begins by checking for validity as shown below.
+
+Step 5: If the validity check and the individual property check passes, the file is then
+set to move to the new directory.
+
+// end::move[]
+
 === Open feature
 ==== Current Implementation
 

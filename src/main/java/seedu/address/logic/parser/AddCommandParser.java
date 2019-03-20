@@ -44,10 +44,19 @@ import seedu.address.model.tag.Tag;
 public class AddCommandParser implements Parser<AddCommand> {
 
     /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
      * Parses the given {@code String} of arguments in the context of the AddPersonCommand
      * and returns an AddPersonCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
+    @Override
     public AddCommand parse(String args) throws ParseException {
         CommandMode commandMode = ArgumentTokenizer.checkMode(args);
         if (commandMode == CommandMode.HEALTH_WORKER) {
@@ -83,7 +92,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Conditions conditions = ParserUtil.parseConditions(argumentMultimap.getAllValues(PREFIX_CONDITION));
 
-        return new AddRequestCommand(new Request(requestId, null, null, requestDate, conditions,
+        return new AddRequestCommand(new Request(null, null, requestDate, conditions,
             new RequestStatus("PENDING")));
 
     }
@@ -175,14 +184,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         return new Person(name, phone, email, address, tagList);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 
 }

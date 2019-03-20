@@ -26,7 +26,6 @@ class JsonAdaptedRequest {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Request's %s field is missing!";
 
-    private final String id;
     private final JsonAdaptedPatient patient;
     private final String requestDate;
     private final String conditions;
@@ -38,17 +37,14 @@ class JsonAdaptedRequest {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedRequest(@JsonProperty("id") String id,
-                              @JsonProperty("patient") JsonAdaptedPatient patient,
+    public JsonAdaptedRequest(@JsonProperty("patient") JsonAdaptedPatient patient,
                               @JsonProperty("requestdate") String requestDate,
                               @JsonProperty("healthworker") JsonAdaptedHealthWorker healthWorker,
                               @JsonProperty("conditions") String conditions,
                               @JsonProperty("requestStatus") String requestStatus) {
-        this.id = id;
         this.patient = patient;
         this.requestDate = requestDate;
         this.conditions = conditions;
-
         this.healthWorker = healthWorker;
         this.requestStatus = requestStatus;
     }
@@ -57,7 +53,6 @@ class JsonAdaptedRequest {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedRequest(Request source) {
-        this.id = source.getId();
         this.patient = new JsonAdaptedPatient(source.getPatient());
 
         this.requestDate = source.getRequestDate().toString();
@@ -73,13 +68,6 @@ class JsonAdaptedRequest {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Request toModelType() throws IllegalValueException {
-
-
-        if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "id"));
-        }
-
-        final String modelId = this.id;
 
 
         if (patient == null) {
@@ -125,9 +113,9 @@ class JsonAdaptedRequest {
 
 
         if (modelHealthStaff == null) {
-            return new Request(modelId, modelPatient, modelrequestDate, modelConditions, modelrequestStatus);
+            return new Request(modelPatient, modelrequestDate, modelConditions, modelrequestStatus);
         }
-        return new Request(modelId, modelPatient, modelHealthStaff,
+        return new Request(modelPatient, modelHealthStaff,
                 modelrequestDate, modelConditions, modelrequestStatus);
     }
 

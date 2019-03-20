@@ -27,12 +27,8 @@ public class RequestTest {
         // null -> returns false
         assertFalse(ALICE_REQUEST.isSameRequest(null));
 
-        // different id -> returns false
-        Request editedAlice = new RequestBuilder(ALICE_REQUEST).withId("12").build();
-        assertFalse(ALICE_REQUEST.isSameRequest(editedAlice));
-
         // everything same, but conditions different -> returns true
-        editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
+        Request editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
             new HashSet<>(Collections.singletonList(new ConditionTag("Stroke"))))).build();
         assertTrue(ALICE_REQUEST.isSameRequest(editedAlice));
 

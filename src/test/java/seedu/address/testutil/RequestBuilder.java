@@ -42,7 +42,6 @@ public class RequestBuilder {
     public static final String DEFAULT_STAFF_NRIC = "S9123742I";
     public static final String DEFAULT_ORGANISATION = "NUH";
 
-    private String id;
     private RequestDate requestDate;
     private RequestStatus requestStatus;
     private Conditions conditions;
@@ -50,7 +49,6 @@ public class RequestBuilder {
     private Patient patient;
 
     public RequestBuilder() {
-        this.id = DEFAULT_ID;
         HashSet<ConditionTag> conditions =
             new HashSet<>(Collections.singletonList(new ConditionTag(DEFAULT_REQUEST)));
         HashSet<Tag> set = new HashSet<>();
@@ -59,8 +57,8 @@ public class RequestBuilder {
             new Email(DEFAULT_PATIENT_EMAIL), new Nric(DEFAULT_PATIENT_NRIC), new Address(DEFAULT_PATIENT_ADDRESS),
             set, new Conditions(conditions));
         this.healthWorker = Optional.of(new HealthWorker(new Name(DEFAULT_STAFF_NAME), new Phone(DEFAULT_STAFF_PHONE),
-                new Email(DEFAULT_STAFF_EMAIL), new Nric(DEFAULT_STAFF_NRIC), new Address(DEFAULT_STAFF_ADDRESS),
-                Collections.emptySet(), new Organization(DEFAULT_ORGANISATION)));
+            new Email(DEFAULT_STAFF_EMAIL), new Nric(DEFAULT_STAFF_NRIC), new Address(DEFAULT_STAFF_ADDRESS),
+            Collections.emptySet(), new Organization(DEFAULT_ORGANISATION)));
         this.requestDate = new RequestDate(DEFAULT_DATE);
         this.requestStatus = new RequestStatus(DEFAULT_STATUS);
         this.conditions = new Conditions(conditions);
@@ -70,7 +68,6 @@ public class RequestBuilder {
      * Initializes the RequestBuilder with the data of {@code requestToCopy}.
      */
     public RequestBuilder(Request requestToCopy) {
-        this.id = requestToCopy.getId();
         this.patient = requestToCopy.getPatient();
         this.healthWorker = requestToCopy.getHealthStaff();
         this.conditions = requestToCopy.getConditions();
@@ -85,7 +82,6 @@ public class RequestBuilder {
      * @return The RequestBuilder object.
      */
     public RequestBuilder withId(String id) {
-        this.id = id;
         return this;
     }
 
@@ -135,6 +131,7 @@ public class RequestBuilder {
 
     /**
      * Sets the {@code address} of the {@code patient} that we are building
+     *
      * @param address the address of the patient
      * @return The RequestBuilder object
      */
@@ -217,10 +214,10 @@ public class RequestBuilder {
      * Builds and returns the request.
      */
     public Request build() {
-        return this.healthWorker.map(person -> new Request(this.id, this.patient, person, this.requestDate,
-                this.conditions, this.requestStatus))
-                .orElseGet(() -> new Request(this.id, this.patient, this.requestDate, this.conditions,
-                        this.requestStatus));
+        return this.healthWorker.map(person -> new Request(this.patient, person, this.requestDate,
+            this.conditions, this.requestStatus))
+            .orElseGet(() -> new Request(this.patient, this.requestDate, this.conditions,
+                this.requestStatus));
     }
 
 }

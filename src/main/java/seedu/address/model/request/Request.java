@@ -22,7 +22,6 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class Request {
 
-    private String id;
     private final Patient patient;
     private final RequestDate requestDate;
     private final Conditions conditions;
@@ -33,16 +32,14 @@ public class Request {
      *
      * Minimally requires the following parameters to be non-null.
      *
-     * @param id The id of the request
      * @param patient The patient requesting for services.
      * @param requestDate The date of the request.
      * @param conditions The set of the conditions the patient is requesting treatment for.
      * @param requestStatus The state of the request.
      */
-    public Request(String id, Patient patient, RequestDate requestDate, Conditions conditions,
+    public Request(Patient patient, RequestDate requestDate, Conditions conditions,
                    RequestStatus requestStatus) {
         requireAllNonNull(patient, requestDate, conditions, requestStatus);
-        this.id = id;
         this.patient = patient;
         this.requestDate = requestDate;
         this.conditions = conditions;
@@ -53,9 +50,9 @@ public class Request {
     /*
      * Requires all the properties of a request to be non-null.
      */
-    public Request(String id, Patient patient, HealthWorker healthStaff, RequestDate requestDate, Conditions conditions,
+    public Request(Patient patient, HealthWorker healthStaff, RequestDate requestDate, Conditions conditions,
                    RequestStatus requestStatus) {
-        this(id, patient, requestDate, conditions, requestStatus);
+        this(patient, requestDate, conditions, requestStatus);
         requireNonNull(healthStaff);
         this.healthWorker = Optional.of(healthStaff);
     }
@@ -116,11 +113,6 @@ public class Request {
         this.healthWorker = Optional.ofNullable(healthWorker);
     }
 
-    public void setHealthStaff(HealthWorker healthStaff) {
-        requireNonNull(healthStaff);
-        this.healthWorker = Optional.of(healthStaff);
-    }
-
     /**
      * Returns true if both requests of the same ID and date have at least one other
      * property field that is the same.
@@ -135,14 +127,7 @@ public class Request {
             return false;
         }
 
-        if (this.id == null || otherRequest.id == null) {
-            return otherRequest.getRequestDate().equals(this.requestDate)
-                && ((otherRequest.getPatient().equals(this.patient)) || otherRequest.getConditions()
-                .equals(this.conditions));
-        }
-
-        return otherRequest.getId().equals(this.id)
-                && otherRequest.getRequestDate().equals(this.requestDate)
+        return otherRequest.getRequestDate().equals(this.requestDate)
                 && ((otherRequest.getPatient().equals(this.patient)) || otherRequest
                 .getConditions().equals(this.conditions));
     }
@@ -150,12 +135,10 @@ public class Request {
     @Override
     public String toString() {
 
-        String identifier = (id == null) ? "null" : this.id;
         String healthStaff = this.healthWorker.map(Person::toString)
                 .orElse("Unassigned");
 
         return "----------Request----------\n"
-                + "ID: " + identifier + "\n"
                 + "Patient: " + this.patient + "\n"
                 + "Assigned staff: " + healthStaff + "\n"
                 + "Request Date: " + this.requestDate + "\n"
@@ -175,13 +158,6 @@ public class Request {
         }
 
         Request otherRequest = (Request) other;
-
-        if (otherRequest.getId() != null && this.id != null) {
-            if (!getId().equals(this.id)) {
-                return false;
-            }
-        }
-
         return (otherRequest.getRequestDate().equals(this.requestDate))
                 && (otherRequest.getPatient().equals(this.patient))
                 && (otherRequest.getConditions().equals(this.conditions))
@@ -197,10 +173,6 @@ public class Request {
         return this.requestStatus;
     }
 
-    public String getId() {
-        return this.id;
-    }
-
     public Patient getPatient() {
         return patient;
     }
@@ -211,6 +183,11 @@ public class Request {
 
     public Optional<HealthWorker> getHealthStaff() {
         return healthWorker;
+    }
+
+    public void setHealthStaff(HealthWorker healthStaff) {
+        requireNonNull(healthStaff);
+        this.healthWorker = Optional.of(healthStaff);
     }
 
 }

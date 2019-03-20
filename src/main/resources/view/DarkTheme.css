@@ -1,6 +1,17 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    font-family: "Comic Sans MS";
+    padding-left: 20px;
+}
+
+.welcome-message {
+    font-family: "Segoe UI Light";
+}
+
+span.command {
+    font-family: "Lucida Console";
+    font-size: 10pt;
+    color: #00b894;
 }
 
 .label {

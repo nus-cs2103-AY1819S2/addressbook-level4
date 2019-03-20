@@ -301,7 +301,7 @@ image::AddFeatureStep5DuplicateFound.png[width="600"]
 
 image::AddFeatureStep5PdfNotFound.png[width="600"]
 
-* `Pdf` found and no duplication
+* `Pdf` found and no duplication in PDF++
 
 image::AddFeatureStep5Sucess.png[width="600"]
 

@@ -9,7 +9,7 @@ import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_AMY;
 import static seedu.hms.logic.commands.CommandTestUtil.ID_DESC_BOB;
-import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+//import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_DATE_OF_BIRTH_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.hms.logic.commands.CommandTestUtil.INVALID_ID_DESC;
@@ -46,7 +46,7 @@ import org.junit.Test;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.EditCustomerCommand;
 import seedu.hms.logic.commands.EditCustomerCommand.EditCustomerDescriptor;
-import seedu.hms.model.customer.Address;
+//import seedu.hms.model.customer.Address;
 import seedu.hms.model.customer.DateOfBirth;
 import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
@@ -98,7 +98,6 @@ public class EditCustomerCommandParserTest {
         // invalid date of birth
         assertParseFailure(parser, "1" + INVALID_DATE_OF_BIRTH_DESC, DateOfBirth.MESSAGE_CONSTRAINTS);
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid hms
         assertParseFailure(parser, "1" + INVALID_ID_DESC, IdentificationNo.MESSAGE_CONSTRAINTS); // invalid id
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
@@ -203,7 +202,8 @@ public class EditCustomerCommandParserTest {
         Index targetIndex = INDEX_FIRST_CUSTOMER;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY
             + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY + TAG_DESC_FRIEND
-            + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + TAG_DESC_HUSBAND;
+            + PHONE_DESC_BOB + ADDRESS_DESC_BOB + EMAIL_DESC_BOB + ID_DESC_BOB + TAG_DESC_HUSBAND
+            + DATE_OF_BIRTH_DESC_BOB;
 
         EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_BOB)
             .withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).withEmail(VALID_EMAIL_BOB).withIdNum(VALID_ID_BOB)
@@ -228,7 +228,8 @@ public class EditCustomerCommandParserTest {
             + INVALID_PHONE_DESC + ID_DESC_BOB + ADDRESS_DESC_BOB + PHONE_DESC_BOB;
         descriptor =
             new EditCustomerDescriptorBuilder().withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
-                .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB).build();
+                .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB)
+                .build();
         expectedCommand = new EditCustomerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

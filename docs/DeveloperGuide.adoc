@@ -369,9 +369,94 @@ As of V1.2, the Edit Feature removes any existing `Tag` s and replaces them with
 input by the user (If any). By `V1.4` The user will be able to select tags he wishes
 to remove or add.
 
-//tag:open[]
+// tag::move[]
+=== Move feature
+==== Current Implementation
+
+The move feature functions as a simplified version of the `Edit` feature, as in nature
+it is making an edit to the directory of the file. However, in addition to making changes
+to the directory in the application storage, it also ensures that the directory changes
+are reflected in the local filesystem.
+
+[NOTE]
+The design consideration into separating move as a new command from edit factored in the
+purpose of the application; as a document manager, the term "edit" is synonymous with
+making content or characteristic changes when it is applied in the context of documents.
+
+The Edit feature has the following syntax:
+`move <INDEX> <NEWDIRECTORY>
+
+* `<INDEX>` refers to the index of the `Pdf` that you wish to edit.
+* `<NEWDIRECTORY>` refers to the address of the new location the file is to be moved.
+
+[NOTE]
+The index value can be referenced from the list in the main application.
+
+All parts of the syntax are required.
+
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the Edit feature.
+
+Step 1: The user launches an application with either an existing set of `Pdf` or a
+new sample set of `Pdf` stored within as shown below.
+
+Step 2: The user chooses a `Pdf` that they wish to move, and enters the `move`
+command into the CLI Interface, following the outlined Syntax as
+illustrated below.
+
+Step 3: After executing the command, the `MoveCommandParser` parses the input into
+relevant objects that are required to be executed by the `MoveCommand` object. Upon
+parsing, the parser then creates a new `MoveCommand` that will execute the
+user's input.
+
+Step 4: Upon receiving the necessary information from the parser, the `Move` first
+begins by checking for validity as shown below.
+
+Step 5: If the validity check and the individual property check passes, the file is then
+set to move to the new directory.
+
+// end::move[]
+
 === Open feature
 ==== Current Implementation
+
+The edit feature is facilitated by both the `OpenCommandParser` and `OpenCommand`.
+Essentially upon opening a Pdf that is tracked by the application, the user will be able to
+execute the PDF with the operating system's default PDF reader application.
+
+The Open feature has the following syntax:
+`open <INDEX>`
+
+* `<INDEX>` refers to the index of the `Pdf` that you wish to edit.
+
+[NOTE]
+The index value can be referenced from the list in the main application.
+
+Illustrated below is a sample usage scenario that provides a clear view to the inner
+workings of the Open feature.
+
+Step 1: The user launches an application with either an existing set of `Pdf` or a
+new sample set of `Pdf` stored within as shown below.
+
+image::OpenFeatureStep1Default.png[width="600"]
+
+Step 2: The user chooses a `Pdf` that they wish to open, in this case `a.pdf`, and
+enters the `open` command into the CLI Interface, following the outlined Syntax as
+illustrated below.
+
+image::OpenFeatureStep2UserInput.png[width="600"]
+
+Step 3: Upon hitting enter to execute the command, the `OpenCommandParser` parses
+the input into relevant objects that are required to be executed by the `OpenCommand`
+object. Upon parsing, the parser then creates a new `OpenCommand` that will execute the
+user's input.
+
+Step 4: Upon receiving the necessary information from the parser, the `OpenCommand`
+retrieves the directory of the Pdf listed in the Pdf Book. It then launches the Pdf
+with the user-default Pdf reader.
+
+[NOTE]
+For more information about the behavior of launching the Pdf, please refer to Java SE 9 class Desktop.
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -969,18 +1054,27 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new pdf |
+|`* * *` |organized student |rename the PDFs to any valid name supported by the operating system |keep my PDFs organized
+
+|`* * *` |lazy user |filter my PDFs based on the tags |so that I can see all the files with the same tag in the app
 
 |`* * *` |user |delete a pdf |remove entries that I no longer need
 
-|`* * *` |user |find a pdf by name |locate details of pdfs without having to go through the entire list
+|`* * *` |user |find a pdf by name |locate details of PDFs without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user with different tasks and deadlines |set due dates for my PDFs |be notified of upcoming deadlines and know the files required for that task
 
-|`*` |user with many pdfs in the pdf book |sort pdfs by name |locate a pdf easily
+|`* *` |student |view my productivity analysis and estimate time to get work done |allocate sufficient time to finish my homework & assignments before deadlines
+
+|`*` |user |view clashing tasks/appointments |be notified and make changes
+
+|`*` |class tutor |obtain the statistics of the exam |evaluate the performance of the exam
+
+|`*` |teacher |create new exam paper |create formatted online exam paper easily
+
+|`*` |NUS student |submit my files to LumiNUS with command lines |submit files without using an internet browsers
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1042,11 +1136,46 @@ _{More to be added}_
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 pdfs without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+* **Technical requirements**
++
+The software should work on both 32-bit and 64-bit environments.
 
-_{More to be added}_
+* **Platform compatibility**
++
+The software should work on Windows, Linux and OS-X platforms.
+
+* **Response time**
++
+The software should respond within two seconds.
+
+* **Cost**
++
+The software should be free of charge.
+
+* **Privacy**
++
+The software should work entirely offline and should not collect user personal data for any purposes.
+
+* **Licensing**
++
+The software is free, open-source does not require installation.
+
+* **Portability**
++
+The software should not require any installer, in other words, should be able to run without installing any additional softwares.
+
+* **Extensibility**
++
+The software should take future growth into consideration e.g. adding features, carry-forward of customizations at next major version upgrade.
+
+* **Testability**
++
+The software should not have features that are hard to test both manual and automated testing.
+
+* **Data requirements**
++
+The data that is stored locally should be editable by user. In other words, expert users can open the file without using the application and edit it for his or her liking.
+
 
 [appendix]
 == Glossary
@@ -1056,23 +1185,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1096,8 +1208,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and directory is retained.
 
-_{ more test cases ... }_
-
 === Deleting a pdf
 
 . Deleting a pdf while all pdfs are listed
@@ -1110,12 +1220,8 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

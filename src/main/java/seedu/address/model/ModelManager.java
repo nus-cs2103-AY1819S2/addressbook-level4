@@ -300,15 +300,20 @@ public class ModelManager implements Model {
 
     @Override
     public ReadOnlyProperty<String> textShownProperty() {
-        String text =  (currentStudyState == studyState.QUESTION)
-                ? currentCard.getQuestion()
-                : currentCard.getAnswer();
-        textShown.setValue(text);
+        updateTextShown();
         return textShown;
     }
 
     @Override
     public studyState getCurrentStudyState() {
         return currentStudyState;
+    }
+
+    @Override
+    public void updateTextShown(){
+        String text =  (currentStudyState == studyState.QUESTION)
+                ? currentCard.getQuestion()
+                : currentCard.getAnswer();
+        textShown.setValue(text);
     }
 }

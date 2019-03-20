@@ -46,7 +46,10 @@ public class QuestionPanel extends UiPart<Region> {
 
         textShown.addListener((observable, oldValue, newValue) -> {
             logger.info("textShown changed to: " + newValue);
+            question.setText(textShown.getValue());
         });
+
+
 
     }
 

@@ -178,4 +178,9 @@ public interface Model {
     void setCurrentStudyState(studyState state);
 
     studyState getCurrentStudyState();
+
+    /**
+     * Updates textshown to display either Question or Answer
+     */
+    void updateTextShown();
 }

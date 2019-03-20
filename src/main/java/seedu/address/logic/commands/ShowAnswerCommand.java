@@ -20,6 +20,7 @@ public class ShowAnswerCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         model.setCurrentStudyState(Model.studyState.ANSWER);
+        model.updateTextShown();
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

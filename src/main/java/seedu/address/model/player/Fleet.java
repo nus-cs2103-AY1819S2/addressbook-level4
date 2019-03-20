@@ -61,11 +61,26 @@ public class Fleet {
      */
     public void deployOneBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation) {
         if (battleship instanceof DestroyerBattleship) {
-            deployDestroyerBattleships(1, coordinates, orientation);
+            this.numDestroyer--;
+            this.deployedFleet.add(new FleetEntry(
+                    battleship,
+                    coordinates,
+                    orientation
+            ));
         } else if (battleship instanceof CruiserBattleship) {
-            deployCruiserBattleships(1, coordinates, orientation);
+            this.numCruiser--;
+            this.deployedFleet.add(new FleetEntry(
+                    battleship,
+                    coordinates,
+                    orientation
+            ));
         } else if (battleship instanceof AircraftCarrierBattleship) {
-            deployAircraftCarrierBattleships(1, coordinates, orientation);
+            this.numAircraftCarrier--;
+            this.deployedFleet.add(new FleetEntry(
+                    battleship,
+                    coordinates,
+                    orientation
+            ));
         }
     }
 
@@ -83,48 +98,6 @@ public class Fleet {
         }
 
         return false;
-    }
-
-    /**
-     * Deploys a destroyer.
-     */
-    public void deployDestroyerBattleships(int number, Coordinates coordinates, Orientation orientation) {
-        for (int i = 0; i < number; i++) {
-            this.numDestroyer--;
-            this.deployedFleet.add(new FleetEntry(
-                    new DestroyerBattleship(),
-                    coordinates,
-                    orientation
-            ));
-        }
-    }
-
-    /**
-     * Deploys a cruiser.
-     */
-    public void deployCruiserBattleships(int number, Coordinates coordinates, Orientation orientation) {
-        for (int i = 0; i < number; i++) {
-            this.numCruiser--;
-            this.deployedFleet.add(new FleetEntry(
-                    new CruiserBattleship(),
-                    coordinates,
-                    orientation
-            ));
-        }
-    }
-
-    /**
-     * Deploys an aircraft carrier.
-     */
-    public void deployAircraftCarrierBattleships(int number, Coordinates coordinates, Orientation orientation) {
-        for (int i = 0; i < number; i++) {
-            this.numAircraftCarrier--;
-            this.deployedFleet.add(new FleetEntry(
-                    new AircraftCarrierBattleship(),
-                    coordinates,
-                    orientation
-            ));
-        }
     }
 
     public List<FleetEntry> getListOfDestroyerBattleship() {

@@ -193,7 +193,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/hms/logic/Logic.java[`Logic.java`
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deletecustomer 1")` API call.
 
 .Interactions Inside the Logic Component for the `deletecustomer 1` Command
-image::DeleteCustomerSdForLogic.png[width="800"] //TO CHANGE
+image::DeleteCustomerSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component

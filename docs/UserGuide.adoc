@@ -91,34 +91,38 @@ Since Computer Science requires a FA, you need to input the corresponding digit 
 
 You can input `2` to select Artificial Intelligence as your FA.
 
+=== Sets the current semester of the students : `cursem`
+
+Indicates that the previous semesters must have a single finalized grade in the expected grade range. +
+Format: `cursem`
 
 === Add module: `add`
 
 Adds a module to the module plan based on the given module code, semester taken and expected / obtained grade. +
-Format: `add c/MODULE_CODE s/SEMESTER [g/MIN_GRADE_EXPECTED MAX_GRADE_EXPECTED]` +
+Format: `add c/MODULE_CODE s/SEMESTER [min/NEW_EXPECTED_MIN_GRADE] [max/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
 or +
-`add c/MODULE_CODE s/SEMESTER [g/GRADE_OBTAINED]`
+`add c/MODULE_CODE s/SEMESTER [g/NEW_EXPECTED_MIN_GRADE NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]`
 
 ****
-* Possible grade options are the standard letter grades (A+, A, A-, B+, B, B- etc.) and IC, EXE, CS, CU, W, S, U.
+* Possible grade options are the standard letter grades (A_PLUS, A, A_MINUS, B_PLUS, B, B_MINUS etc.) and IC, EXE, CS, CU, W, S, U.
 * You cannot add an existing module with the same semester.
 * You can only add a module if you have previously added its prerequisites.
 ****
 
 Examples:
 
-* `add c/cs2103t s/y2s2` +
+* `add c/CS2103T s/Y2S2` +
 Adds CS2103T, to be taken in Y2S2, to the module plan.
 
-* `add c/cs2103t s/y2s2 g/B-` +
-Adds CS2103T, taken in Y2S2 with grade B-, to the module plan.
+* `add c/CS2103T s/Y2S2 max/B_MINUS` +
+Adds CS2103T, to be taken in Y2S2 with expected max grade B-, to the module plan.
 
 === Edit module: `edit`
 
 Edits the semester or grade of a module in the module plan based on module code or index in the most recently displayed list. +
-Format: `edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
-        or +
-        `edit INDEX [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
+Format: `edit INDEX [s/NEW_SEMESTER] [min/NEW_EXPECTED_MIN_GRADE] [max/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]`
+or +
+`edit INDEX [s/NEW_SEMESTER] [g/NEW_EXPECTED_MIN_GRADE NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
 
 ****
 * Parameters can be in any order, but the index must be entered first.
@@ -127,11 +131,11 @@ Format: `edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
 
 Examples:
 
-* `edit c/cs2103t s/y2s2` +
+* `edit n/CS2103T s/Y2S2` +
 Changes the semester taken of CS2103T to Y2S2.
 
-* `edit 2 g/A+` +
-Changes the grade obtained of the second module in the most recently displayed list to A+.
+* `edit 2 min/A_PLUS` +
+Changes the expected min grade of the second module in the most recently displayed list to A+.
 
 === Delete module: `delete`
 
@@ -150,6 +154,16 @@ Examples:
 Deletes CS2103T from the module plan.
 * `delete 1` +
 Deletes the first module on the most recently displayed list.
+
+=== Clear all data entered: `clear`
+
+Deletes all the added modules. +
+Format: `clear`
+
+=== Listing all modules in module plan: `list`
+
+Shows a list of all modules added by the user. +
+Format: `list`
 
 === Find module: `find`
 
@@ -229,6 +243,16 @@ Displays completed requirement.
 * `displayu o/req c/false` +
 Display requirements not completed and modules that can be taken to fulfil the requirements.
 
+=== Sets the total expected CAP and workload limit for each semester: `setlimit`
+
+Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user. +
+Format: `setlimit s/SEMESTER [g/MIN_GRADE MAX_GRADE] [lec/MIN_LECTURE_HOURS MAX_LECTURE_HOURS] [tut/MIN_TUTORIAL_HOURS MAX_TUTORIAL_HOURS] [lab/MIN_LAB_HOURS MAX_LAB_HOURS] [proj/MIN_PROJ_HOURS MAX_PROJ_HOURS] [prep/MIN_PREP_HOURS MAX_PREP_HOURS]`
+
+=== Listing all modules in module plan: `cklimit`
+
+Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user. +
+Format: `cklimit`
+
 === List entered commands: `history`
 
 Lists all the commands entered in reverse chronological order. +
@@ -289,11 +313,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clear all data entered: `clear`
-
-Clears the module plan. +
-Format: `clear`
-
 === Exit the program: `exit`
 
 Exits the program. +
@@ -323,21 +342,26 @@ Retrieves the latest information of all modules from CORS.
 
 == Command Summary
 
+* *Help*: `help`
 * *Set*: `set COURSE` +
-* *Add*: `add c/MODULE_CODE s/SEMESTER [g/MIN_GRADE_EXPECTED MAX_GRADE_EXPECTED]` +
+* *Cursem*: `cursem s/SEMESTER`
+* *Add*: `add c/MODULE_CODE s/SEMESTER [min/NEW_EXPECTED_MIN_GRADE] [max/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
+         or +
+         `add c/MODULE_CODE s/SEMESTER [g/NEW_EXPECTED_MIN_GRADE NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]`
+* *Edit*: `edit INDEX [s/NEW_SEMESTER] [min/NEW_EXPECTED_MIN_GRADE] [max/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]`
           or +
-          `add c/MODULE_CODE s/SEMESTER [g/GRADE_OBTAINED]` +
-* *Edit*: `edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
-or +
-`edit INDEX [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
+          `edit INDEX [s/NEW_SEMESTER] [g/NEW_EXPECTED_MIN_GRADE NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
 * *Delete*: `delete c/MODULE_CODE` +
 or +
 `delete INDEX` +
-* *Find*: `find [c/MODULE_CODE] [t/MODULE_TITLE] [s/SEMESTER] [g/GRADE_OBTAINED]`
 * *Clear*: `clear`
-* *Displaym*: `displaym o/OPTIONS [MORE_ARGUMENTS]` +
-* *Displayu*: `displayu o/OPTIONS [MORE_ARGUMENTS]` +
-* *Help*: `help`
+* *List*: `list`
+* *Find*: `find [c/MODULE_CODE] [t/MODULE_TITLE] [s/SEMESTER] [g/GRADE_OBTAINED]`
+* *Displaym*: `displaym o/OPTIONS [MORE_ARGUMENTS]`
+* *Displayu*: `displayu o/OPTIONS [MORE_ARGUMENTS]`
+* *setlimit*: `setlimit s/SEMESTER [g/MIN_GRADE MAX_GRADE] [lec/MIN_LECTURE_HOURS MAX_LECTURE_HOURS] [tut/MIN_TUTORIAL_HOURS MAX_TUTORIAL_HOURS] [lab/MIN_LAB_HOURS MAX_LAB_HOURS] [proj/MIN_PROJ_HOURS MAX_PROJ_HOURS] [prep/MIN_PREP_HOURS MAX_PREP_HOURS]`
+* *Cklimit*: `cklimit`
 * *History*: `history`
 * *Undo*: `undo`
 * *Redo*: `redo`
+* *Exit*: `exit`

@@ -45,6 +45,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setStatisticsFilePath(newUserPrefs.getStatisticsFilePath());
     }
 
+    @Override
     public GuiSettings getGuiSettings() {
         return guiSettings;
     }
@@ -54,6 +55,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
+    @Override
     public Path getMenuFilePath() {
         return menuFilePath;
     }
@@ -63,6 +65,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.menuFilePath = menuFilePath;
     }
 
+    @Override
     public Path getOrdersFilePath() {
         return ordersFilePath;
     }
@@ -72,6 +75,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.ordersFilePath = ordersFilePath;
     }
 
+    @Override
     public Path getTablesFilePath() {
         return tablesFilePath;
     }
@@ -81,6 +85,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.tablesFilePath = tablesFilePath;
     }
 
+    @Override
     public Path getStatisticsFilePath() {
         return statisticsFilePath;
     }

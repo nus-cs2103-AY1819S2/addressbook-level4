@@ -1,11 +1,11 @@
 package seedu.address.storage;
 
-import java.io.IOException;
-import java.time.Instant;
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Instant;
 
 import org.junit.Before;
 import org.junit.Rule;

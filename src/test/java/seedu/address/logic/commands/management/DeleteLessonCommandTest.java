@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 import static seedu.address.model.Lessons.EXCEPTION_INVALID_INDEX;
-import seedu.address.model.user.CardSrsData;
-import seedu.address.model.user.User;
 import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
 
 import java.util.List;
@@ -28,6 +26,8 @@ import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
 import seedu.address.model.session.Session;
+import seedu.address.model.user.CardSrsData;
+import seedu.address.model.user.User;
 
 public class DeleteLessonCommandTest {
 

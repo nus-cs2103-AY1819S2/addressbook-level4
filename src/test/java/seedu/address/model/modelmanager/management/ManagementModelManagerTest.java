@@ -1,10 +1,10 @@
 package seedu.address.model.modelmanager.management;
 
-import java.time.Instant;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.Instant;
 import java.util.ArrayList;
 
 import org.junit.Rule;

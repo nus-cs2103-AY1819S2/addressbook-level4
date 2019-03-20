@@ -184,7 +184,7 @@ Format: `sort /[fieldname to be sorted by] [/desc or /asc]`
 The user can sort the current shown list with any fields, and can sort by multiple fields.
 
 [TIP]
-Equipment, client, and worklist can all be sorted, by any fields of them.
+Equipment, client, and work list can all be sorted, by any fields of them.
 
 Example:
 

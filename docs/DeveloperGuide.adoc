@@ -232,17 +232,24 @@ This section describes some noteworthy details on how certain features are imple
 // tag::filter[]
 === Filter feature
 
+==== Introduction
+We have implemented a `SortCommand` that allow users to filter the current shown list with any fields.
+
 The filter feature allow users to filter the current shown list with any fields, and can filter by multiple fields.
 
-The FilterCommand is able to filter the shown list according to the user's preference at a time.
+The `FilterCommand` is able to filter the shown list according to the user's preference at a time.
 
 ==== Current Implementation
+
+The following sequence diagram shows how the filter command works:
+
+image::FilterCommandSequenceDiagram.png[width="800"]
 
 Given below is an example usage scenario of how the filter mechanism behaves at each step when filtering.
 
 Step 1. The user launches the application.
 
-Step 2. The user executes `filter north ongoing`
+Step 2. The user executes `filter /region north`
 
 Step 3. After `EquipmentManagerParser` detects `filter` as the command word, a FilterCommandParser is created to parse
 the arguments supplied to the command.
@@ -254,18 +261,50 @@ number, tags, address, name, email, phone.
 
 Step 6. The argument is filtered against the predicate and returned to the GUI.
 
+==== Design Considerations
+*Implementation of `FilterCommand`*
+
+* **Alternative 1 (current choice):** filter by specific field
+** Pros: It is easy to implement and it is also consistent with how `FindCommand`
+** Cons: The overall list is not 100% sorted by specific field
+* **Alternative 2:** filter by tags
+** Pros: It is more specific and more strictly
+** Cons: More difficult to implement
+
+
 // tag::sort[]
 === Sort feature
-The sort feature allow users to sort the current shown list by name.
 
+==== Introduction
+We have implemented a `SortCommand` that allow users to sort the current shown list with any fields.
 
 ==== Current Implementation
+
+`SortCommand` sorts the list by client name in lexicographical order.
+
+The following sequence diagram shows how the sort command works:
+
+image::SortCommandSequenceDiagram.png[width="800"]
+
 
 Step 1. The user launches the application and add equipment.
 
 Step 2. The user executes `sort`
 
-Step 3. The list is sorted and returned to the GUI.
+Step 3. The list is sorted by specific field and returned to the GUI.
+
+==== Design Considerations
+*Implementation of `SortCommand`*
+
+* **Alternative 1 (current choice):** Sorts by specific field.
+** Pros: Easy to implement. Flexible to add more functions. Many JavaScript libraries can be used.
+** Cons: The overall list is not 100% sorted by specific field
+* **Alternative 2:** Sort by client name
+** Pros: Overall list is sorted fully by client name
+** Cons: Unable to sort other specific fields such as serial number of the equipment.
+
+
+
 
 // tag::display[]
 === Display feature

@@ -28,16 +28,17 @@ public class StudyView implements ViewState {
     @Override
     public Command parse(String commandWord, String arguments) throws ParseException {
 
-        if (model.getCurrentStudyState() == Model.studyState.QUESTION) {
-            return new ShowAnswerCommand();
-        } else {
-            return new GenerateQuestionCommand();
-        }
         switch (commandWord) {
             case DoneCommand.COMMAND_WORD:
                 return new DoneCommand();
             default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                if (model.getCurrentStudyState() == Model.studyState.QUESTION) {
+                    return new ShowAnswerCommand();
+                } else {
+                    return new ShowAnswerCommand();
+                    //return new GenerateQuestionCommand();
+                }
+                //throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

@@ -99,7 +99,7 @@ or +
 
 Examples:
 
-* `delete c/cs2103t` +
+* `delete c/CS2103T` +
 Deletes CS2103T from the module plan.
 * `delete 1` +
 Deletes the first module on the most recently displayed list.

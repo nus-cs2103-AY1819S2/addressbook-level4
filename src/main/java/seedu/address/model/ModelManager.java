@@ -574,11 +574,6 @@ public class ModelManager implements Model {
         recentBill.setValue(bill);
     }
 
-    //    @Override
-    //    public void billUpdateOrders (ObservableList<OrderItem> orderItemList) {
-    //        restOrRant.getOrders().setOrderItems(orderItemList);
-    //    }
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

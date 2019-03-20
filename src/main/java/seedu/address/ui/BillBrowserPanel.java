@@ -32,6 +32,6 @@ public class BillBrowserPanel extends UiPart<Region> {
         requireNonNull(bill);
         tableNumber.setText("TABLE NUMBER " + bill.getTableNumber().tableNumber);
         receipt.setWrapText(true);
-        receipt.setText(bill.getReceipt());
+        receipt.setText(bill.getReceiptWFormattedDate());
     }
 }

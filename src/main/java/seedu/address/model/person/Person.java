@@ -46,6 +46,10 @@ public class Person {
         return semester;
     }
 
+    GradeRange getGradeRange() {
+        return gradeRange;
+    }
+
     public Grade getExpectedMinGrade() {
         return gradeRange.getMin();
     }
@@ -64,6 +68,15 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * Checks if this module has been finished.
+     * @return true if the module has been finished, false otherwise.
+     */
+    public boolean isFinished() {
+        // TODO: compare semester taken and current semester
+        return false;
     }
 
     /**
@@ -125,5 +138,4 @@ public class Person {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

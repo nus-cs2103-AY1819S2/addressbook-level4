@@ -223,6 +223,58 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::displaymod[]
+=== Displaymod feature
+==== Current Implementation
+
+The `displaymod` is a search function that displays all available information with regards to the module codes the user types
+into the command box.
+
+When the application is launched, a JSON file containing all of NUS module information is then converted
+into an Object Class called ModuleInfo individually and stored into an ObservableList<ModuleInfo> called ModuleInfoList.
+
+image::ConversionModuleInfo.png[width="800"]
+
+The usage of ModuleInfoList is only temporary as it is passed into `ModelManager` and then converted into an ObservableList<>.
+
+[NOTE]
+The purpose of having ModuleInfoList is not only for temporary use; it also serves as form of Error handling if the application
+is unable to find the location of the JSON file containing all of the module information, a blank ModuleInfoList is handed to the
+ModelManager.
+
+image::ObservableList.png[width="800"]
+
+This is done as `ObservableList<>` comes with a `FilteredList<>` feature: which wraps an ObservableList and filters the contents
+based on `predicates`.
+
+* `Predicates` -- All search keywords i.e *Module Code* is saved as a list of `predicates`.
+
+This allows for easier search throughout the list of all Module Information, as the User can search for multiple modules in
+a single search.
+
+The FilteredList is then collected and the ModuleInfo Objects will be formatted into Strings so that the information required
+is displayed by the UI.
+
+==== Design Considerations
+===== Aspect: How Displaymod executes
+* **Current Implementation :** Searches based on Module Codes Only
+** Pros: Searches is slightly faster since its only based on Module Codes
+** Cons: Limited search since it requires User to know Module Codes beforehand.
+
+* **Future Implementation :** Search based on keywords
+** Pros: User can search for Modules based on keywords thus require no prior knowledge on a particular module code
+** Cons: Have to combine all module information into a single String and search for keywords; slower searches.
+
+==== Aspect: Data Structure Used
+* **Current Implementation :** `ObservableList<>` is used
+** Pros: Allows for `FilteredList<>` to be used based on predicates; easy implementation.
+** Cons: Requires additional classes to be implemented to handle the use of `Predicates`.
+
+* **Alternative :** Sticking to the `ArrayList<>`
+** Pros: Easy to handle as it is a simple data structure.
+** Cons: Harder to search for specific Keywords(future implementation)
+
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -303,12 +355,52 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::CourseRequirement[]
+=== Adding/Removing/Checking Courses and Course Requirement Feature
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
+Users are able to add and remove and the course requirements and also check if that they have satisfied course requirements
+from the list of modules that they have completed.
 
-// end::dataencryption[]
+Similar to the implementation of the display modules feature, when the application is
+launched, a JSON file containing pre-existing information on courses (either default or pre-defined by users) and their respective course requirement
+will loaded as `Course` and `CourseRequirement` Objects (`Course` contains multiple `CourseRequirement` objects) and stored in an `ObservableList` inside of `ModelManager`.
+
+In the ModelManager, we also store an instance of `ActiveCourse` which extends from Course. Only
+one `Course` can be active since it represents the Course the user is currently
+undertaking when using the Graduation Tracker. However, we allow for different multiple Course object to
+allow extension of different courses not in the default implementation.
+
+The core of the feature is the `CourseRequirement` feature; we use Java 9's `Predicate` to check against a `List<Module>`
+to see whether the user fulfilled the `CourseRequirement` as well as `Function<List<Module>, String>` classes to identify the parts of `CourseRequirement` not satisfied.
+Currently, there are two subclasses that extends `CourseRequirement`; `ContainsAll` and `ContainsAtLeast`. Given a list of regular expression,
+`ContainsAll` ensure that there is at least 1 module taken by the user has module code that matches regex the list whereas on
+the other hand `ContainsAtLeast` checks that at a minimum number of modules have
+module code that fits the list. For now, users can only create `CourseRequirement` of the form
+`ContainsAll`, `ContainsAtLeast` as well as combining them by using `or` and `and` functions defined in `CourseRequirement`.
+
+
+==== Design Considerations
+===== Aspect: Type of CourseRequirement Users can add/define
+* **Alternative 1 (current choice): User can only create and combine limited types of requirements
+and check based on regex of module code**
+** Pros: Safer to implement since we are restricting scope to only checking of strings
+** Con: Unless sufficiently many types that can be combined,
+there might be requirements that are difficult to set properly.
+* ** Alternative 2: Allowing user to check on any attributes of the Module that they have taken**
+** Pros: Increased flexibility allows for more powerful expressions and increased usability for users side
+** Cons: More code required; one more class for one additional attribute user can check
+
+===== Aspect: ContainsAll/ContainsAtLeast isFulfilled() implementation
+* **Alternative 1 (current choice): Check for regex matching of strings**
+** Pros: Easier to implement in the storage stage since each regex string defines the predicate
+** Cons: User might find it hard to isolate the correct regex to achieve the desired expression
+
+* **Alternative 2: Stores module and check for set-containment against a set of ModuleInfo**
+** Pros: Type-safe and can use pre-defined equality in 'ModuleInfo' class
+** Cons: Modules can change frequently and be outdated quite quickly; might cause problem for
+older CourseRequirement defined by user. Also alot of dependency issues in Storage and other areas
+//end::CourseRequirement[]
 
 === Logging
 

@@ -24,8 +24,8 @@ import org.junit.ClassRule;
 
 import guitests.guihandles.BookBrowserPanelHandle;
 import guitests.guihandles.BookCommandBoxHandle;
-import guitests.guihandles.BookMainMenuHandle;
 import guitests.guihandles.BookListPanelHandle;
+import guitests.guihandles.BookMainMenuHandle;
 import guitests.guihandles.BookMainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;

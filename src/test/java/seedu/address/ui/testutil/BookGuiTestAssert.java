@@ -52,14 +52,14 @@ public class BookGuiTestAssert {
     private static String getTagColorStyleFor(String tagName) {
 
         switch (tagName) {
-            case "popular":
-                return "blue";
+        case "popular":
+            return "blue";
 
-            case "fantasy":
-                return "orange";
+        case "fantasy":
+            return "orange";
 
-            default:
-                throw new AssertionError(tagName + " does not have a color assigned.");
+        default:
+            throw new AssertionError(tagName + " does not have a color assigned.");
         }
     }
 

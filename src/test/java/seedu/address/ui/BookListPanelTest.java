@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import static java.time.Duration.ofMillis;
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.BookTypicalIndexes.INDEX_SECOND_BOOK;
 import static seedu.address.testutil.TypicalBooks.getTypicalBooks;

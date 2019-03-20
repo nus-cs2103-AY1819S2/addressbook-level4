@@ -232,6 +232,16 @@ public class AddCommandTest {
         public void setCurrentImage(Image image) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void setOriginalName(String name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String saveToAssets(String name) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

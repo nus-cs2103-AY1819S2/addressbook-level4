@@ -8,6 +8,7 @@ import java.io.File;
 
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ModelManager;
 import seedu.address.model.image.Image;
 
 /**

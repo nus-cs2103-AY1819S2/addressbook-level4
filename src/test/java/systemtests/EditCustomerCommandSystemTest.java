@@ -53,7 +53,6 @@ import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
-import seedu.hms.model.customer.exceptions.DuplicateCustomerException;
 import seedu.hms.model.tag.Tag;
 import seedu.hms.testutil.CustomerBuilder;
 import seedu.hms.testutil.CustomerUtil;

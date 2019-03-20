@@ -3,6 +3,7 @@
     {
       "name": "Alice Pauline",
       "phone": "94351253",
+      "dob": "30/12/1999",
       "email": "alice@example.com",
       "idnum": "12334535",
       "hms": "123, Jurong West Ave 6, #08-111",
@@ -14,6 +15,7 @@
       "name": "Alice Pauline",
       "phone": "94351253",
       "email": "pauline@example.com",
+      "dob": "30/12/1999",
       "idnum": "12334535",
       "hms": "4th street"
     }

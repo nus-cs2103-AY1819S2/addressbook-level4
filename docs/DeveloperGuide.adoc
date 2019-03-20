@@ -313,6 +313,31 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
+// tag::quiz[]
+=== Quiz feature
+==== Current Implementation
+
+The current quiz mechanism is controlled by the `QuizCommand` class. It will then modify the selected flashcard on the card collection model. The UI will then detect the change in the selected flashcard, and will view the flashcard on the screen.
+
+The quiz command contains a predicate member that is used to filter which cards is going to be shown on the quiz. The user can type in `quiz <tags>`, which will then start the quiz on cards that has the given tags. The quiz command will contain a predicate that will filter based on the tags.
+
+In essence, the behaviour of the quiz command is similar to that of `select x` where x is randomly picked among filtered cards, except that the backface of the card will not be shown to the user. Currently, the randomly picking cards is using a  uniform random distribution that does not take into account how well the user does previously. However, in the next versions we will be using weighted random distribution by using the `Statistics` class.
+
+The feedback on the quiz from the user is handled by a separate command which then updates the card's statistics based on how well the user does. The effect is similar to an `EditCommand`, but it only edits the statistics within the flashcard.
+
+==== Design Considerations
+
+===== Aspect: The quiz GUI
+
+* **Alternative 1 (current choice):** Use the same window as the `MainWindow`.
+** Pros: Easy to implement and can use the original command box for quiz feedback.
+** Cons: Need to be able to swap the `MainWindow`'s components when the quiz starts in order to replace the list view with feedback and quiz state.
+* **Alternative 2:** Use a separate window for quiz mode.
+** Pros: Quiz logic separate from `MainWindow`. Easily customizable and more flexible.
+** Cons: Requires a separate command box for the quiz mode window.
+
+// end::quiz[]
+
 // tag::findfeature[]
 === Find Feature
 

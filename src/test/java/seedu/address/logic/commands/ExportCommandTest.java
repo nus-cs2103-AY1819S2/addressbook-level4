@@ -7,6 +7,7 @@ import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,11 +49,12 @@ public class ExportCommandTest {
         String fileName = filePath.toPath().getFileName().toString();
         String fileNameWithoutFileExtension = FilenameUtils.removeExtension(fileName);
         ExportCommand exportCommand = new ExportCommand(new FileName(fileNameWithoutFileExtension));
+        // Delete the temporary csv file so as to simulate csv file does not exist.
         filePath.delete();
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileNameWithoutFileExtension);
 
         assertCommandSuccess(exportCommand, model, commandHistory, expectedMessage, model);
-        // Clean up temporary csv file for test case created.
+        // Clean up temporary csv file for test case which was created.
         filePath.delete();
     }
 
@@ -66,12 +68,12 @@ public class ExportCommandTest {
         String fileName = filePath.toPath().getFileName().toString();
         String fileNameWithoutFileExtension = FilenameUtils.removeExtension(fileName);
         ExportCommand exportCommand = new ExportCommand(new FileName(fileNameWithoutFileExtension));
-        String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileNameWithoutFileExtension);
-
-        assertCommandFailure(exportCommand, model, commandHistory, CsvWrapper.FILE_OPS_ERROR_MESSAGE
+        String expectedMessage = CsvWrapper.FILE_OPS_ERROR_MESSAGE
                 + fileName
-                + " already exists in \"exported\" directory.");
-        // Clean up temporary csv file for test case created.
+                + " already exists in \"exported\" directory.";
+
+        assertCommandFailure(exportCommand, model, commandHistory, expectedMessage);
+        // Clean up temporary csv file for test case which was created.
         filePath.delete();
     }
 
@@ -85,62 +87,74 @@ public class ExportCommandTest {
         String fileName = filePath.toPath().getFileName().toString();
         String fileNameWithoutFileExtension = FilenameUtils.removeExtension(fileName);
         ExportCommand exportCommand = new ExportCommand(new FileName(fileNameWithoutFileExtension));
+        // Delete the temporary csv file so as to simulate csv file does not exist.
         filePath.delete();
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileNameWithoutFileExtension);
 
         assertCommandSuccess(exportCommand, model, commandHistory, expectedMessage, model);
-        CSVReader reader = new CSVReader(new FileReader(filePath));
-        String[] expectedData;
-        String[] actualData;
-        expectedData = CsvWrapper.getDefaultHeading();
-        if ((actualData = reader.readNext()) == null) {
-            filePath.delete();
-            Assert.fail("The actual csv file contains less data than the expected amount of data.");
-        }
-        assertArrayEquals(expectedData, actualData);
-        List<Medicine> currentGuiList = model.getFilteredMedicineList();
-        Iterator iterator = currentGuiList.listIterator();
-        while (iterator.hasNext()) {
-            Medicine current = (Medicine) iterator.next();
-            if (current.getBatches().size() == 0) {
-                continue;
+        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
+            String[] expectedData;
+            String[] actualData;
+            expectedData = CsvWrapper.getDefaultHeading();
+            if ((actualData = reader.readNext()) == null) {
+                // Clean up temporary csv file for test case which was created.
+                filePath.delete();
+                Assert.fail("The actual csv file contains less data than the expected amount of data.");
             }
-            // Iterate through the batches of the current medicine
-            Collection<Batch> batches = current.getBatches().values();
-            Iterator batchIterator = batches.iterator();
-            while (batchIterator.hasNext()) {
-                if ((actualData = reader.readNext()) == null) {
-                    filePath.delete();
-                    Assert.fail("The actual csv file contains less data than the expected amount of data.");
+            assertArrayEquals(expectedData, actualData);
+            List<Medicine> currentGuiList = model.getFilteredMedicineList();
+            Iterator iterator = currentGuiList.listIterator();
+            while (iterator.hasNext()) {
+                Medicine current = (Medicine) iterator.next();
+                if (current.getBatches().size() == 0) {
+                    continue;
                 }
-                Batch currentBatch = (Batch) batchIterator.next();
-                final StringBuilder builder = new StringBuilder();
-                String delimiter = "|";
-                builder.append(current.getName())
-                        .append(delimiter)
-                        .append(currentBatch.getBatchNumber())
-                        .append(delimiter)
-                        .append(currentBatch.getQuantity())
-                        .append(delimiter)
-                        .append(currentBatch.getExpiry())
-                        .append(delimiter)
-                        .append(current.getCompany())
-                        .append(delimiter);
-                Iterator buildIterator = current.getTags().iterator();
-                while (buildIterator.hasNext()) {
-                    Tag currentTag = (Tag) buildIterator.next();
-                    String formattedCurrentTagString = currentTag.toStringUpperCase();
-                    builder.append(formattedCurrentTagString);
-                    builder.append(' ');
+                // Iterate through the batches of the current medicine
+                Collection<Batch> batches = current.getBatches().values();
+                Iterator batchIterator = batches.iterator();
+                while (batchIterator.hasNext()) {
+                    if ((actualData = reader.readNext()) == null) {
+                        // Clean up temporary csv file for test case which was created.
+                        filePath.delete();
+                        Assert.fail("The actual csv file contains less data than the expected amount of data.");
+                    }
+                    Batch currentBatch = (Batch) batchIterator.next();
+                    final StringBuilder builder = new StringBuilder();
+                    String delimiter = "|";
+                    builder.append(current.getName())
+                            .append(delimiter)
+                            .append(currentBatch.getBatchNumber())
+                            .append(delimiter)
+                            .append(currentBatch.getQuantity())
+                            .append(delimiter)
+                            .append(currentBatch.getExpiry())
+                            .append(delimiter)
+                            .append(current.getCompany())
+                            .append(delimiter);
+                    Iterator buildIterator = current.getTags().iterator();
+                    while (buildIterator.hasNext()) {
+                        Tag currentTag = (Tag) buildIterator.next();
+                        String formattedCurrentTagString = currentTag.toStringUpperCase();
+                        builder.append(formattedCurrentTagString);
+                        builder.append(' ');
+                    }
+                    expectedData = builder.toString().split("\\|");
+                    assertArrayEquals(expectedData, actualData);
                 }
-                expectedData = builder.toString().split("\\|");
-                assertArrayEquals(expectedData, actualData);
-            }
 
-        }
-        if (reader.readNext() != null) {
-            filePath.delete();
-            Assert.fail("The actual csv file contains more data than the expected amount of data.");
+            }
+            if (reader.readNext() != null) {
+                // Clean up temporary csv file for test case which was created.
+                filePath.delete();
+                Assert.fail("The actual csv file contains more data than the expected amount of data.");
+            }
+        } catch (IOException ioe) {
+            throw ioe;
+        } finally {
+            // Clean up temporary csv file for test case which was created.
+            if (filePath.exists()) {
+                filePath.delete();
+            }
         }
     }
 }

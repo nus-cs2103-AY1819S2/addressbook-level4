@@ -29,7 +29,6 @@ import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PdfBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

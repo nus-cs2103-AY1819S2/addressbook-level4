@@ -58,7 +58,6 @@ public class PersonCard extends UiPart<Region> {
             email.setText(person.getEmail().value);
             person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         } else {
-            System.out.println(person.getName());
             throw new PersonIsNotPatient();
         }
     }

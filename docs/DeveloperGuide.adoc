@@ -217,10 +217,10 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can reference a `ServiceType` in `Booking`. This would allow the
 `Hotel Management System` to only require one `ServiceType` instance per unique `ServiceType`,
- instead of each `Booking` needing their own `Service` object. An example of how such
- a model may look like is given below. +
+ instead of each `Booking` needing their own `Service` object. +
+Another example is how we store a `Tag` list in `Hotel Management System`, which `Customer` can reference. This would allow `Hotel Management System` to only require one `Tag` object per unique `Tag`, instead of each `Customer` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
-image:ModelClassBetterOopDiagram.png[width="800"] //TO CHANGE
+image:ModelClassBetterOopDiagram.png[width="950"]
 
 [[Design-Storage]]
 === Storage component

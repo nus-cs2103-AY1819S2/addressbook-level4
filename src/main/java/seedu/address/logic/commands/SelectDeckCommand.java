@@ -35,7 +35,7 @@ public class SelectDeckCommand extends SelectCommand {
         }
 
         model.setSelectedItem(filteredDeckList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
+        return new CommandResult(String.format(MESSAGE_SELECT_SUCCESS, targetIndex.getOneBased()));
     }
 
     @Override

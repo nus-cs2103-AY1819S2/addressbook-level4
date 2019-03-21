@@ -14,7 +14,7 @@ public abstract class SelectCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
+    public static final String MESSAGE_SELECT_SUCCESS = "Selected: %1$s";
 
     protected final Index targetIndex;
 

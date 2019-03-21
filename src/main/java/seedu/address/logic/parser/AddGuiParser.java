@@ -33,7 +33,7 @@ class AddGuiParser {
      * a Pdf file of choice.
      * @return File Object corresponding to chosen PDF file.
      */
-    Optional<File> selectPDF() {
+    Optional<File> selectPdf() {
         return Optional.ofNullable(fileChooser.showOpenDialog(new Stage()));
     }
 

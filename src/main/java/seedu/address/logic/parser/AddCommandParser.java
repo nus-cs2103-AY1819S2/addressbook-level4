@@ -29,7 +29,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         File file;
 
-        Optional<File> fileContainer = new AddGuiParser().selectPDF();
+        Optional<File> fileContainer = new AddGuiParser().selectPdf();
 
         if (!fileContainer.isPresent()) {
             throw new ParseException(AddCommandParser.MESSAGE_NO_FILE_SELECTED);

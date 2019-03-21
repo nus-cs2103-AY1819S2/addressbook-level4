@@ -29,7 +29,7 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Successfully exported card folders to: $1%s";
 
-    public static final String MESSAGE_MISSING_CARD_FOLDERS = "Could not find the specified folder: ";
+    public static final String MESSAGE_MISSING_CARD_FOLDERS = "Could not find the specified folder indexes: ";
 
     public static final String MESSAGE_FILE_OPS_FAILURE = "Could not export to specified file";
 
@@ -50,7 +50,7 @@ public class ExportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         // check whether model contains the card folders desired. Catch exception thrown
         try {
-            model.exportCardFolders(cardFolders, filename);
+            model.exportCardFolders(cardFolderIndexes);
         } catch (CardFolderNotFoundException e) {
             throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS + e.getMessage());
         } catch (IOException e) {

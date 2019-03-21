@@ -15,4 +15,6 @@ interface CsvCommands {
 
     public void readFoldersToCsv(CsvFile csvFile);
 
+    public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders) throws IOException;
+
 }

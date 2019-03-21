@@ -49,8 +49,31 @@ public class CsvManager implements CsvCommands {
 
     }
 
+    @Override
+    public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders) throws IOException {
+        String filepath = getDefaultFilePath();
+        for (ReadOnlyCardFolder readOnlyCardFolder : cardFolders) {
+            List<Card> cardList = readOnlyCardFolder.getCardList();
+            String foldername = readOnlyCardFolder.getFolderName();
+            FileWriter fileWriter = new FileWriter(filepath + "/" + foldername + ".csv");
+            fileWriter.append(CARD_HEADERS + NEW_LINE_SEPARATOR);
+            for (Card card : cardList) {
+                String cardRepresentation = getCardString(card);
+                fileWriter.append(cardRepresentation);
+                fileWriter.append(NEW_LINE_SEPARATOR);
+            }
+            fileWriter.append(NEW_LINE_SEPARATOR);
+            fileWriter.flush();
+            fileWriter.close();
+        }
+    }
+
     public static String getFilePathAsString(CsvFile csvFile) throws IOException {
         return new File("./" + csvFile.filename).getCanonicalPath();
+    }
+
+    public static String getDefaultFilePath() throws IOException {
+        return new File("./").getCanonicalPath();
     }
 
     private String getCardString(Card card) {

@@ -456,6 +456,7 @@ public class ModelManager implements Model {
     @Override
     public void exportCardFolders(List<Integer> cardFolderExports) throws IOException {
         List<ReadOnlyCardFolder> cardFolders = returnValidCardFolders(cardFolderExports);
+        csvManager.writeFoldersToCsv(cardFolders);
     }
 
     @Override

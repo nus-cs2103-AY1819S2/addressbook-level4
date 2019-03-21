@@ -1,13 +1,11 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
 import java.io.File;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.Directory;
@@ -27,29 +25,39 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
+
+        FileChooser fc = new FileChooser();
+        File file = fc.showOpenDialog(new Stage());
+
+        /*ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_FILE, PREFIX_TAG);
         if (!arePrefixesPresent(argMultimap, PREFIX_FILE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }*/
+
+        try {
+            Name name = new Name(file.getName());
+            Directory directory = new Directory(file.getParent());
+            Size size = new Size(Long.toString(file.length()));
+            Set<Tag> tagList = new HashSet<>();
+
+            Pdf pdf = new Pdf(name, directory, size, tagList);
+            return new AddCommand(pdf);
+
+        } catch (Exception e) {
+            throw new ParseException(AddCommand.MESSAGE_INVALID_SELECTION);
         }
 
-        File file = ParserUtil.parseFile(argMultimap.getValue((PREFIX_FILE)).get());
-        Name name = new Name(file.getName());
-        Directory directory = new Directory(file.getParent());
-        Size size = new Size(Long.toString(file.length()));
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        Pdf pdf = new Pdf(name, directory, size, tagList);
-        return new AddCommand(pdf);
     }
-
+    /*
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
+    /*
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-
+    */
 }

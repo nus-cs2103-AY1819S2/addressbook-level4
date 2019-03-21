@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_PDFS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static seedu.address.testutil.TypicalPdfs.CARL;
-//import static seedu.address.testutil.TypicalPdfs.ELLE;
-//import static seedu.address.testutil.TypicalPdfs.FIONA;
+import static seedu.address.testutil.TypicalPdfs.A_PDF;
+import static seedu.address.testutil.TypicalPdfs.B_PDF;
+import static seedu.address.testutil.TypicalPdfs.C_PDF;
 import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -58,23 +58,23 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_PDFS_LISTED_OVERVIEW, 0);
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPdfList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPdfList());
     }
-    /*
+
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        String expectedMessage = String.format(MESSAGE_PDFS_LISTED_OVERVIEW, 3);
+        NameContainsKeywordsPredicate predicate = preparePredicate("a.pdf b.pdf c.pdf");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPdfList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPdfList());
-    }*/
+        assertEquals(Arrays.asList(A_PDF, B_PDF, C_PDF), model.getFilteredPdfList());
+    }
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.

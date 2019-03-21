@@ -66,95 +66,95 @@ public class TypicalPdfs {
 
     //Originals
     public static final Pdf A_PDF = new PdfBuilder().withName(a_path.toFile().getName())
-            .withLocation(a_path.toString())
+            .withLocation(a_path.toAbsolutePath().toString())
             .withSize(Long.toString(a_path.toFile().length()))
             .withTags("moduleA", "admin", "w1")
             .build();
     public static final Pdf B_PDF = new PdfBuilder().withName(b_path.toFile().getName())
-            .withLocation(b_path.toString())
+            .withLocation(b_path.toAbsolutePath().toString())
             .withTags("moduleB", "lecture")
             .withSize(Long.toString(b_path.toFile().length())).build();
     public static final Pdf C_PDF = new PdfBuilder().withName(c_path.toFile().getName())
-            .withLocation(c_path.toString())
+            .withLocation(c_path.toAbsolutePath().toString())
             .withTags("moduleC", "tutorial", "w7")
             .withSize(Long.toString(c_path.toFile().length())).build();
     public static final Pdf D_PDF = new PdfBuilder().withName(d_path.toFile().getName())
-            .withLocation(d_path.toString())
+            .withLocation(d_path.toAbsolutePath().toString())
             .withTags("moduleD", "tutorial", "w7")
             .withSize(Long.toString(d_path.toFile().length())).build();
     public static final Pdf E_PDF = new PdfBuilder().withName(e_path.toFile().getName())
-            .withLocation(e_path.toString())
+            .withLocation(e_path.toAbsolutePath().toString())
             .withTags("moduleE", "tutorial", "w7")
             .withSize(Long.toString(e_path.toFile().length())).build();
     public static final Pdf F_PDF = new PdfBuilder().withName(f_path.toFile().getName())
-            .withLocation(f_path.toString())
+            .withLocation(f_path.toAbsolutePath().toString())
             .withTags("moduleF", "tutorial", "w7")
             .withSize(Long.toString(f_path.toFile().length())).build();
     public static final Pdf G_PDF = new PdfBuilder().withName(g_path.toFile().getName())
-            .withLocation(g_path.toString())
+            .withLocation(g_path.toAbsolutePath().toString())
             .withTags("moduleG", "tutorial", "w7")
             .withSize(Long.toString(g_path.toFile().length())).build();
     public static final Pdf H_PDF = new PdfBuilder().withName(h_path.toFile().getName())
-            .withLocation(h_path.toString())
+            .withLocation(h_path.toAbsolutePath().toString())
             .withTags("moduleH", "tutorial", "w7")
             .withSize(Long.toString(h_path.toFile().length())).build();
     public static final Pdf I_PDF = new PdfBuilder().withName(i_path.toFile().getName())
-            .withLocation(i_path.toString())
+            .withLocation(i_path.toAbsolutePath().toString())
             .withTags("moduleI", "tutorial", "w7")
             .withSize(Long.toString(i_path.toFile().length())).build();
     public static final Pdf J_PDF = new PdfBuilder().withName(j_path.toFile().getName())
-            .withLocation(j_path.toString())
+            .withLocation(j_path.toAbsolutePath().toString())
             .withTags("moduleJ", "tutorial", "w7")
             .withSize(Long.toString(j_path.toFile().length())).build();
     public static final Pdf K_PDF = new PdfBuilder().withName(k_path.toFile().getName())
-            .withLocation(k_path.toString())
+            .withLocation(k_path.toAbsolutePath().toString())
             .withTags("moduleK", "tutorial", "w7")
             .withSize(Long.toString(k_path.toFile().length())).build();
 
     //Duplicates
     public static final Pdf A_DUP_PDF = new PdfBuilder().withName(a_dup_path.toFile().getName())
-            .withLocation(a_dup_path.toString())
+            .withLocation(a_dup_path.toAbsolutePath().toString())
             .withSize(Long.toString(a_dup_path.toFile().length()))
             .withTags("moduleA", "admin", "w1")
             .build();
     public static final Pdf B_DUP_PDF = new PdfBuilder().withName(b_dup_path.toFile().getName())
-            .withLocation(b_dup_path.toString())
+            .withLocation(b_dup_path.toAbsolutePath().toString())
             .withTags("moduleB", "lecture")
             .withSize(Long.toString(b_dup_path.toFile().length())).build();
     public static final Pdf C_DUP_PDF = new PdfBuilder().withName(c_dup_path.toFile().getName())
-            .withLocation(c_dup_path.toString())
+            .withLocation(c_dup_path.toAbsolutePath().toString())
             .withTags("moduleC", "tutorial", "w7")
             .withSize(Long.toString(c_dup_path.toFile().length())).build();
     public static final Pdf D_DUP_PDF = new PdfBuilder().withName(d_dup_path.toFile().getName())
-            .withLocation(d_dup_path.toString())
+            .withLocation(d_dup_path.toAbsolutePath().toString())
             .withTags("moduleD", "tutorial", "w7")
             .withSize(Long.toString(d_dup_path.toFile().length())).build();
     public static final Pdf E_DUP_PDF = new PdfBuilder().withName(e_dup_path.toFile().getName())
-            .withLocation(e_dup_path.toString())
+            .withLocation(e_dup_path.toAbsolutePath().toString())
             .withTags("moduleE", "tutorial", "w7")
             .withSize(Long.toString(e_dup_path.toFile().length())).build();
     public static final Pdf F_DUP_PDF = new PdfBuilder().withName(f_dup_path.toFile().getName())
-            .withLocation(f_dup_path.toString())
+            .withLocation(f_dup_path.toAbsolutePath().toString())
             .withTags("moduleF", "tutorial", "w7")
             .withSize(Long.toString(f_dup_path.toFile().length())).build();
     public static final Pdf G_DUP_PDF = new PdfBuilder().withName(g_dup_path.toFile().getName())
-            .withLocation(g_dup_path.toString())
+            .withLocation(g_dup_path.toAbsolutePath().toString())
             .withTags("moduleG", "tutorial", "w7")
             .withSize(Long.toString(g_dup_path.toFile().length())).build();
     public static final Pdf H_DUP_PDF = new PdfBuilder().withName(h_dup_path.toFile().getName())
-            .withLocation(h_dup_path.toString())
+            .withLocation(h_dup_path.toAbsolutePath().toString())
             .withTags("moduleH", "tutorial", "w7")
             .withSize(Long.toString(h_dup_path.toFile().length())).build();
     public static final Pdf I_DUP_PDF = new PdfBuilder().withName(i_dup_path.toFile().getName())
-            .withLocation(i_dup_path.toString())
+            .withLocation(i_dup_path.toAbsolutePath().toString())
             .withTags("moduleI", "tutorial", "w7")
             .withSize(Long.toString(i_dup_path.toFile().length())).build();
     public static final Pdf J_DUP_PDF = new PdfBuilder().withName(j_dup_path.toFile().getName())
-            .withLocation(j_dup_path.toString())
+            .withLocation(j_dup_path.toAbsolutePath().toString())
             .withTags("moduleJ", "tutorial", "w7")
             .withSize(Long.toString(j_dup_path.toFile().length())).build();
     public static final Pdf K_DUP_PDF = new PdfBuilder().withName(k_dup_path.toFile().getName())
-            .withLocation(k_dup_path.toString())
+            .withLocation(k_dup_path.toAbsolutePath().toString())
             .withTags("moduleK", "tutorial", "w7")
             .withSize(Long.toString(k_dup_path.toFile().length())).build();
 
@@ -206,6 +206,6 @@ public class TypicalPdfs {
     }
 
     public static List<Pdf> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(A_PDF, B_PDF, C_PDF, E_PDF, F_PDF, G_PDF, H_PDF, I_PDF, J_PDF, K_PDF));
+        return new ArrayList<>(Arrays.asList(A_PDF, B_PDF, C_PDF));
     }
 }

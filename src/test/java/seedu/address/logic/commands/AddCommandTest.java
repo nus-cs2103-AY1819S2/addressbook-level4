@@ -206,6 +206,11 @@ public class AddCommandTest {
         public void generateInterviews() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public String generateAnalytics() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

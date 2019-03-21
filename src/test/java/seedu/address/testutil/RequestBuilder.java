@@ -4,10 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Optional;
 
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;

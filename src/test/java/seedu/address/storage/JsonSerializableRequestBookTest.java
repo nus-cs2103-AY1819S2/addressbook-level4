@@ -14,7 +14,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.RequestBook;
 import seedu.address.model.request.exceptions.DuplicateRequestException;
-import seedu.address.testutil.TypicalRequests;
 
 class JsonSerializableRequestBookTest {
 

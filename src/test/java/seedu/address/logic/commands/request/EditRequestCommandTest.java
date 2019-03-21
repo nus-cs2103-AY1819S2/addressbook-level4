@@ -24,7 +24,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Nric;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.testutil.EditRequestDescriptorBuilder;

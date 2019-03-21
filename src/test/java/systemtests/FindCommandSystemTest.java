@@ -82,7 +82,7 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: find same cards in deck after deleting 1 of them -> 1 card found */
         executeCommand(DeleteCardCommand.COMMAND_WORD + " 1");
-        assertFalse(getModel().getTopDeck().getCardList().contains(LAYER));
+        assertFalse(getModel().getTopDeck().getDeckList().contains(LAYER));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_HTTP;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, TRANSPORT);

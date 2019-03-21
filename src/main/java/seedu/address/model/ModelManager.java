@@ -219,8 +219,10 @@ public class ModelManager implements Model {
     public void generateInterviews() {
         interviews.generate();
     }
-    
-    @Override
+
+    /**
+     * Obtains current viewed list and generate analytics based on it
+     * */
     public String generateAnalytics() {
         Analytics analytics = new Analytics(getFilteredPersonList());
         return analytics.generate();

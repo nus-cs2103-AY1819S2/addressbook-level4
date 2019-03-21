@@ -10,6 +10,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -20,6 +22,7 @@ import org.apache.commons.io.FileUtils;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -39,13 +42,14 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static Image currentImage;
     private String originalName;
-
+    private final List<Image> listImages;
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
-
+    private final ObservableList<Image> observableList;
+    private final FilteredList<Image> filteredImages;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -60,6 +64,14 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+
+        listImages = new ArrayList<>();
+        listImages.add(new Image("sample", 100, 100));
+        listImages.add(new Image("sample", 100, 100));
+        listImages.add(new Image("sample", 100, 100));
+
+        observableList = FXCollections.observableArrayList(listImages);
+        filteredImages = new FilteredList<>(observableList);
     }
 
     public ModelManager() {
@@ -263,6 +275,8 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
+    //=========== FomoFoto methods ===========================================================================
+
     @Override
     public void clearAssetFolder(File dir) {
         for (File file : dir.listFiles()) {
@@ -329,5 +343,20 @@ public class ModelManager implements Model {
         }
         return name;
     }
+
+
+    public ObservableList<Image> getImageList() {
+        return filteredImages;
+    }
+
+    public void updateImageList(Predicate<Image> predicate) {
+        requireNonNull(predicate);
+        filteredImages.setPredicate(predicate);
+    }
+
+    public void updatePanel(){
+        listImages.add(new Image("sample", 100, 100));
+    }
 }
+
 

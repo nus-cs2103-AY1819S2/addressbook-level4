@@ -30,16 +30,12 @@ public class InformationPanel extends UiPart<Region> {
     @FXML
     private TabPane informationPanel;
 
-    public InformationPanel(ObservableList<Image> imageList, ObservableValue<Image> selectedImage,
-                            Consumer<Image> onSelectedImageChange) {
+    public InformationPanel(ObservableList<Image> imageList) {
         super(FXML);
         ListView<Image> imageListView = new ListView();
         Tab tab = informationPanel.getTabs().get(0);
         tab.setContent(imageListView);
-        List<Image> list = new ArrayList<>();
-        //list.add(new Image(new Name("sample"), new Height("1080"), new Width("1920")));
-        ObservableList<Image> observableList = FXCollections.observableList(list);
-        imageListView.setItems(observableList);
+        imageListView.setItems(imageList);
         imageListView.setCellFactory(listView -> new ImageListViewCell());
     }
     /**

@@ -42,7 +42,6 @@ public class ModelManager implements Model {
     private final FilteredList<Cell> filteredCells;
     private final SimpleObjectProperty<Cell> selectedPerson = new SimpleObjectProperty<>();
     private PlayerStatistics playerStats;
-    private Fleet fleet;
     private BattleManager batMan;
 
     /**
@@ -61,8 +60,10 @@ public class ModelManager implements Model {
 
         // Initialize new statistics
         this.playerStats = new PlayerStatistics();
-        // Create new fleet
-        this.fleet = new Fleet();
+
+        Player humanPlayer = new Player();
+        humanPlayer.getMapGrid().resetData(addressBook);
+        batMan = new BattleManager(humanPlayer, humanPlayer);
     }
 
     public ModelManager() {
@@ -82,8 +83,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public VersionedMapGrid getMapGrid() {
-        return versionedAddressBook;
+    public MapGrid getMapGrid() {
+        return getHumanPlayer().getMapGrid();
     }
 
     @Override
@@ -180,24 +181,24 @@ public class ModelManager implements Model {
 
     @Override
     public int getMapSize() {
-        return versionedAddressBook.getMapSize();
+        return getHumanPlayer().getMapGrid().getMapSize();
     }
 
     //=========== Battleship ===============================================================================
 
     @Override
     public Fleet getFleet() {
-        return this.fleet;
+        return getHumanPlayer().getFleet();
     }
 
     @Override
     public void deployBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation) {
-        fleet.deployOneBattleship(battleship, coordinates, orientation);
+        getFleet().deployOneBattleship(battleship, coordinates, orientation);
     }
 
     @Override
     public boolean isEnoughBattleships(Battleship battleship, int numBattleship) {
-        return fleet.isEnoughBattleship(battleship, numBattleship);
+        return getFleet().isEnoughBattleship(battleship, numBattleship);
     }
 
     //=========== Statistics ===============================================================================

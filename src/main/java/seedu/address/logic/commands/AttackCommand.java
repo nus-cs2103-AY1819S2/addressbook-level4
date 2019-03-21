@@ -3,9 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.battle.AttackResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.player.Player;
 
 /**
  * Attacks a cell on the board.
@@ -32,10 +34,11 @@ public class AttackCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        try {
-            model.getMapGrid().attackCell(coord);
-        } catch (ArrayIndexOutOfBoundsException aiobe) {
-            throw new CommandException("Coordinates are out of bounds: " + aiobe.getMessage());
+        Player human = model.getHumanPlayer();
+        if (human.addToTargetHistory(coord)) {
+            AttackResult res = model.getBattle().humanPerformAttack(coord);
+        } else {
+            throw new CommandException("You have already attacked cell " + coord);
         }
 
         model.updateUi();

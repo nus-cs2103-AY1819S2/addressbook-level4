@@ -106,7 +106,7 @@ public class StudyView implements ViewState {
         userAnswer.setValue(answer);
     }
 
-    public studyState getUserAnswer() {
+    public String getUserAnswer() {
         return userAnswer.getValue();
     }
 

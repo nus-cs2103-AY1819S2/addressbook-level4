@@ -119,5 +119,11 @@ public class LogicManager implements Logic {
         return studyView.studyStateProperty();
     }
 
+    @Override
+    public ReadOnlyProperty<String> userAnswerProperty() {
+        StudyView studyView = (StudyView) model.getViewState();
+        return studyView.userAnswerProperty();
+    }
+
 
 }

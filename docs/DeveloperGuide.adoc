@@ -355,12 +355,52 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::CourseRequirement[]
+=== Adding/Removing/Checking Courses and Course Requirement Feature
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
+Users are able to add and remove and the course requirements and also check if that they have satisfied course requirements
+from the list of modules that they have completed.
 
-// end::dataencryption[]
+Similar to the implementation of the display modules feature, when the application is
+launched, a JSON file containing pre-existing information on courses (either default or pre-defined by users) and their respective course requirement
+will loaded as `Course` and `CourseRequirement` Objects (`Course` contains multiple `CourseRequirement` objects) and stored in an `ObservableList` inside of `ModelManager`.
+
+In the ModelManager, we also store an instance of `ActiveCourse` which extends from Course. Only
+one `Course` can be active since it represents the Course the user is currently
+undertaking when using the Graduation Tracker. However, we allow for different multiple Course object to
+allow extension of different courses not in the default implementation.
+
+The core of the feature is the `CourseRequirement` feature; we use Java 9's `Predicate` to check against a `List<Module>`
+to see whether the user fulfilled the `CourseRequirement` as well as `Function<List<Module>, String>` classes to identify the parts of `CourseRequirement` not satisfied.
+Currently, there are two subclasses that extends `CourseRequirement`; `ContainsAll` and `ContainsAtLeast`. Given a list of regular expression,
+`ContainsAll` ensure that there is at least 1 module taken by the user has module code that matches regex the list whereas on
+the other hand `ContainsAtLeast` checks that at a minimum number of modules have
+module code that fits the list. For now, users can only create `CourseRequirement` of the form
+`ContainsAll`, `ContainsAtLeast` as well as combining them by using `or` and `and` functions defined in `CourseRequirement`.
+
+
+==== Design Considerations
+===== Aspect: Type of CourseRequirement Users can add/define
+* **Alternative 1 (current choice): User can only create and combine limited types of requirements
+and check based on regex of module code**
+** Pros: Safer to implement since we are restricting scope to only checking of strings
+** Con: Unless sufficiently many types that can be combined,
+there might be requirements that are difficult to set properly.
+* ** Alternative 2: Allowing user to check on any attributes of the Module that they have taken**
+** Pros: Increased flexibility allows for more powerful expressions and increased usability for users side
+** Cons: More code required; one more class for one additional attribute user can check
+
+===== Aspect: ContainsAll/ContainsAtLeast isFulfilled() implementation
+* **Alternative 1 (current choice): Check for regex matching of strings**
+** Pros: Easier to implement in the storage stage since each regex string defines the predicate
+** Cons: User might find it hard to isolate the correct regex to achieve the desired expression
+
+* **Alternative 2: Stores module and check for set-containment against a set of ModuleInfo**
+** Pros: Type-safe and can use pre-defined equality in 'ModuleInfo' class
+** Cons: Modules can change frequently and be outdated quite quickly; might cause problem for
+older CourseRequirement defined by user. Also alot of dependency issues in Storage and other areas
+//end::CourseRequirement[]
 
 === Logging
 

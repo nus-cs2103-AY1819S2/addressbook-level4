@@ -17,6 +17,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_PROJECT_HOUR = new Prefix("proj/");
     public static final Prefix PREFIX_PREPARATION_HOUR = new Prefix("prep/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
+    public static final Prefix PREFIX_FINISHED = new Prefix("f/");
 
     /*Prefix related to finding Module Information */
     public static final Prefix PREFIX_MODCODE = new Prefix("c/");

@@ -304,6 +304,7 @@ public class ModelManager implements Model {
             File directory = new File(TEMP_FILEPATH);
             ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, directory, false);
+            outputFile.delete();
         } catch (IOException e) {
             System.out.println(e.toString());
         }
@@ -322,9 +323,11 @@ public class ModelManager implements Model {
             }
             File outputFile = new File(name);
             File latestImage = new File(TEMP_FILE);
-            File directory = new File(ASSETS_FILEPATH);
+            File saveDirectory = new File(ASSETS_FILEPATH);
             latestImage.renameTo(outputFile);
-            FileUtils.copyFileToDirectory(outputFile, directory, false);
+            FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
+            setCurrentImage(currentImage);
+            outputFile.delete();
         } catch (IOException e) {
             System.out.println(e.toString());
         }

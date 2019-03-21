@@ -338,6 +338,31 @@ The feedback on the quiz from the user is handled by a separate command which th
 
 // end::quiz[]
 
+// tag::imagesupport[]
+=== Image Support
+==== Current Implementation
+
+_Not yet implemented. Will be implemented by v1.3._ +
+When adding or editing a flashcard, the user is allowed to optionally specify a path to an image. _Acquizition_ makes a
+copy to its working directory and stores the path to this local copy in the image.
+
+Each image has an optional path to an image. This path is stored within a special folder in the working directory.
+
+==== Design Considerations
+
+===== Aspect: Image Storage
+
+* **Alternative 1 (current choice):** Make a copy of the image from the user's directory to _Acquizition_'s working
+directory when adding images.
+** Pros: Works even when the images in the user's directory are later deleted or moved.
+** Cons: Requires more memory and can result in a lot of redundant images, and requires manually ensuring that no naming
+conflicts occurs on the working directory.
+* **Alternative 2:** Link to the absolute path in the user's directory when adding images.
+** Pros: Simpler to implement.
+** Cons: Breaks when the images in the user's directory are later deleted or moved.
+
+// end::imagesupport[]
+
 // tag::findfeature[]
 === Find Feature
 
@@ -908,6 +933,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add a new flashcard |
 
+|`* * *` |user |add an image to a flashcard | remember concepts better
+
 |`* * *` |user |delete a flashcard |remove cards that I no longer need
 
 |`* * *` |user |edit a flashcard |update the information of a card without needing to delete and add a new one
@@ -965,15 +992,31 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to add a card
-2.  User specify the content the front side of the card
-3.  User specify the content the back side of the card
-4.  User specify the tag of the card
-5.  Acquizition add the card to the list
+1.  User requests to add a card.
+2.  User specifies the content the front side of the card.
+3.  User specifies the content the back side of the card.
+4.  User specifies the tag of the card.
+5.  _Acquizition_ add the card to the list.
 
 +
 Use case ends.
 
+*Extensions*
+
+[none]
+* 4a. User requests to add an image to a card.
++
+[none]
+** 4a1. User inputs the path of the image.
+** 4a2. _Acquizition_ makes a copy of the image to its working directory.
+** 4a3. _Acquizition_ lists the card to its working directory.
+
+* 4a1a. The given path is invalid.
++
+[none]
+** 4a1a1. _Acquizition_ shows an error message.
++
+Use case returns to step 4a1.
 
 [discrete]
 === Use case: Edit card
@@ -983,7 +1026,7 @@ Use case ends.
 1.  User requests to list cards
 2.  Acquizition shows a list of cards
 3.  User requests to edit a specific card in the list
-4.  Acquizition deletes the card
+4.  Acquizition edits the card
 +
 Use case ends.
 

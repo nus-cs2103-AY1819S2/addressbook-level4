@@ -23,9 +23,11 @@ public class SaveCommand extends Command {
     public static final String COMMAND_WORD = "save";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Saves to text file in the \"data\" folder, overwriting if filename exists \n"
+            + ": Saves the current patients to a .json or .pdf file in the \"data\" folder, "
+            + "overwriting if filename exists \n"
             + "Parameters: FILENAME\n"
-            + "Example: " + COMMAND_WORD + " records1.json";
+            + "Example: " + COMMAND_WORD + " records1.json"
+            + "Example: " + COMMAND_WORD + " records1.pdf";
 
     public static final String MESSAGE_SUCCESS = "Saved the records!";
     private static final String MESSAGE_FAILURE = "Problem while writing to the file.";

@@ -28,8 +28,8 @@ public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Imports specific patients by index to text file in the \"data\" folder, "
-            + "overwriting if filename exists \n"
+            + ": Imports specific patients by index from a .json or .pdf file in the \"data\" folder, "
+            + "and appends them to the current list \n"
             + "Parameters: FILENAME [INDEX_RANGE(must be a positive integer) OR all]\n"
             + "Example: " + COMMAND_WORD + " records1.json + 1-5"
             + "Example: " + COMMAND_WORD + " records1.json + 1,3,5"

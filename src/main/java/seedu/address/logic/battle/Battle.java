@@ -1,7 +1,5 @@
 package seedu.address.logic.battle;
 
-import java.util.List;
-
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Player;
 

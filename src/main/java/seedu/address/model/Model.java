@@ -35,7 +35,7 @@ public interface Model {
     /**
      * Returns the map grid
      */
-    VersionedMapGrid getMapGrid();
+    MapGrid getMapGrid();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

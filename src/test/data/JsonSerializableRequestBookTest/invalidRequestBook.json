@@ -1,108 +1,44 @@
 {
   "requests": [
     {
-      "id": "aslkdjaslaskd",
-      "patient": {
-        "name": "Alice Pauline",
-        "phone": "94351253",
-        "email": "alice@example.com",
-        "nric": "S9670515H",
-        "address": "123, Jurong West Ave 6, #08-111",
-        "tagged": [],
-        "conditions": "Physiotherapy Dialysis "
-      },
-      "requestStatus": "PENDING",
-      "requestDate": "an invalid date!",
-      "conditions": "Physiotherapy",
-      "healthWorker": {
-        "name": "Andy Tan",
-        "phone": "94358253",
-        "email": "andye@example.com",
-        "nric": "S8312942G",
-        "address": "125, Jurong West Ave 6, #08-111",
-        "tagged": [],
-        "organization": "NUH",
-        "skills": "PHYSIOTHERAPY GENERAL_PRACTICE "
-      }
-    },
-    {
-      "id": "aslkdjaslaskd",
-      "patient": {
-        "name": "Alice Pauline",
-        "phone": "94351253",
-        "email": "alice@example.com",
-        "nric": "S9670515H",
-        "address": "123, Jurong West Ave 6, #08-111",
-        "tagged": [],
-        "conditions": "Physiotherapy Dialysis "
-      },
+      "name": "Alice Pauline",
+      "nric": "S9670515H",
+      "phone": "94351253",
+      "address": "123, Jurong West Ave 6, #08-111",
       "conditions": "Physiotherapy ",
       "requestStatus": "PENDING",
-      "requestDate": "An invalid date",
-      "healthWorker": {
-        "name": "Andy Tan",
-        "phone": "94358253",
-        "email": "andye@example.com",
-        "nric": "S8312942G",
-        "address": "125, Jurong West Ave 6, #08-111",
-        "tagged": [],
-        "organization": "NUH",
-        "skills": "PHYSIOTHERAPY GENERAL_PRACTICE "
-    }
+      "requestDate": "an invalid date!",
+      "healthWorker": "Andy Tan"
     },
     {
-      "id": "poqweizsdfda",
-      "patient": {
-        "name": "Carl Kurz",
-        "phone": "87652533",
-        "email": "heinz@example.com",
-        "nric": "S9328723A",
-        "address": "wall street",
-        "tagged": [],
-        "conditions": "Palliative "
-      },
+      "name": "Benson Meier",
+      "nric": "S9274100D",
+      "phone": "98765432",
+      "address": "311, Clementi Ave 2, #02-25",
       "conditions": "Palliative ",
       "requestStatus": "PENDING",
       "requestDate": "02-01-2919 08:00:00",
-      "healthWorker": {
-        "name": "Carlie Kurz",
-        "phone": "95358463",
-        "email": "Kurz@example.com",
-        "nric": "S9312942G",
-        "address": "wall street",
-        "tagged": [
-          "Palliative"
-        ],
-        "organization": "NUH",
-        "skills": "GENERAL_PRACTICE "
-      }
+      "healthWorker": "Betty Meier"
     },
     {
-      "id": "xzaiseqnwqd",
-      "patient": {
-        "name": "Daniel Meier",
-        "phone": "82015737",
-        "email": "cornelia@example.com",
-        "nric": "S2652663Z",
-        "address": "10th street",
-        "tagged": [],
-        "conditions": " "
-      },
+      "name": "Carl Kurz",
+      "nric": "S9328723A",
+      "phone": "87652533",
+      "address": "wall street",
+      "conditions": "Palliative ",
+      "requestStatus": "PENDING",
+      "requestDate": "02-01-2919 08:00:00",
+      "healthWorker": "Carlie Kurz"
+    },
+    {
+      "name": "Daniel Meier",
+      "nric": "S2652663Z",
+      "phone": "82015737",
+      "address": "10th street",
       "conditions": "Palliative ",
       "requestStatus": "COMPLETED",
       "requestDate": "02-01-2919 08:00:00",
-      "healthWorker": {
-        "name": "Paniel Meier",
-        "phone": "87652133",
-        "email": "panda@example.com",
-        "nric": "S8412942G",
-        "address": "10th street",
-        "tagged": [
-          "Doctor"
-        ],
-        "organization": "NUH",
-        "skills": "GENERAL_PRACTICE "
-      }
+      "healthWorker": "Paniel Meier"
     }
   ]
 }

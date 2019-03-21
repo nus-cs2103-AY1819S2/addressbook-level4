@@ -1,5 +1,6 @@
 package seedu.address.model.request;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -45,8 +46,7 @@ public class RequestTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Request aliceCopy = new RequestBuilder(ALICE_REQUEST).build();
-        assertTrue(ALICE_REQUEST.equals(aliceCopy));
+        assertEquals(ALICE_REQUEST, ALICE_REQUEST);
 
         // same object -> returns true
         assertTrue(ALICE_REQUEST.equals(ALICE_REQUEST));

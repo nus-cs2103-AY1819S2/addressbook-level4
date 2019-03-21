@@ -22,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
@@ -71,6 +72,45 @@ public class EditRequestCommand extends RequestCommand {
         this.editRequestDescriptor = new EditRequestDescriptor(editRequestDescriptor);
     }
 
+    /**
+     * Creates and returns a {@code Request} with the details of {@code requestToEdit}
+     * edited with {@code editRequestDescriptor}.
+     */
+    private static Request createEditedRequest(Request requestToEdit,
+                                               EditRequestDescriptor editRequestDescriptor) {
+        assert requestToEdit != null;
+
+        Name updatedName =
+            editRequestDescriptor.getName().orElse(requestToEdit.getName());
+        Phone updatedPhone =
+            editRequestDescriptor.getPhone().orElse(requestToEdit.getPhone());
+        Address updatedAddress =
+            editRequestDescriptor.getAddress().orElse(requestToEdit.getAddress());
+        RequestDate updatedRequestDate =
+            editRequestDescriptor.getDate().orElse(requestToEdit.getRequestDate());
+        Nric updatedNric = editRequestDescriptor.getNric().orElse(requestToEdit.getNric());
+        RequestStatus updatedRequestStatus = requestToEdit.getRequestStatus();
+        Set<ConditionTag> updatedConditions =
+            editRequestDescriptor.getConditions().orElse(requestToEdit.getConditions().getConditions());
+        String updatedHealthWorker;
+        if (requestToEdit.getHealthStaff() != null) {
+            updatedHealthWorker = requestToEdit.getHealthStaff();
+        } else {
+            updatedHealthWorker = null;
+        }
+
+        if (updatedHealthWorker == null) {
+            return new Request(updatedName, updatedNric, updatedPhone, updatedAddress,
+                updatedRequestDate,
+                new Conditions(updatedConditions), updatedRequestStatus);
+        } else {
+            return new Request(updatedName, updatedNric, updatedPhone, updatedAddress,
+                updatedRequestDate,
+                new Conditions(updatedConditions), updatedRequestStatus, updatedHealthWorker);
+        }
+
+    }
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireAllNonNull(model, history);
@@ -92,42 +132,6 @@ public class EditRequestCommand extends RequestCommand {
         model.commitRequestBook();
         return new CommandResult(String.format(MESSAGE_EDIT_REQUEST_SUCCESS, editedRequest));
         // List<Request> lastShownList = model.getF()
-    }
-
-    /**
-     * Creates and returns a {@code Request} with the details of {@code requestToEdit}
-     * edited with {@code editRequestDescriptor}.
-     */
-    private static Request createEditedRequest(Request requestToEdit,
-                                               EditRequestDescriptor editRequestDescriptor) {
-        assert requestToEdit != null;
-
-        Name updatedName =
-            editRequestDescriptor.getName().orElse(requestToEdit.getPatient().getName());
-        Phone updatedPhone =
-            editRequestDescriptor.getPhone().orElse(requestToEdit.getPatient().getPhone());
-        Address updatedAddress =
-            editRequestDescriptor.getAddress().orElse(requestToEdit.getPatient().getAddress());
-        RequestDate updatedRequestDate =
-            editRequestDescriptor.getDate().orElse(requestToEdit.getRequestDate());
-        RequestStatus updatedRequestStatus = requestToEdit.getRequestStatus();
-        Set<ConditionTag> updatedConditions =
-            editRequestDescriptor.getConditions().orElse(requestToEdit.getConditions().getConditions());
-        HealthWorker updatedHealthWorker;
-        if (requestToEdit.getHealthStaff().isPresent()) {
-            updatedHealthWorker = requestToEdit.getHealthStaff().get();
-        } else {
-            updatedHealthWorker = null;
-        }
-
-        if (updatedHealthWorker == null) {
-            return new Request(updatedName, updatedPhone, updatedAddress, updatedRequestDate,
-                new Conditions(updatedConditions), updatedRequestStatus);
-        } else {
-            return new Request(updatedName, updatedPhone, updatedAddress, updatedRequestDate,
-                new Conditions(updatedConditions), updatedRequestStatus, updatedHealthWorker);
-        }
-
     }
 
     @Override
@@ -154,6 +158,7 @@ public class EditRequestCommand extends RequestCommand {
         private Phone phone;
         private Address address;
         private RequestDate requestDate;
+        private Nric nric;
         private Set<ConditionTag> conditions;
 
         public EditRequestDescriptor() {}
@@ -167,6 +172,7 @@ public class EditRequestCommand extends RequestCommand {
             setPhone(toCopy.phone);
             setAddress(toCopy.address);
             setDate(toCopy.requestDate);
+            setNric(toCopy.nric);
             setConditions(toCopy.conditions);
         }
 
@@ -177,36 +183,44 @@ public class EditRequestCommand extends RequestCommand {
             return CollectionUtil.isAnyNonNull(name, phone, address, requestDate, conditions);
         }
 
-        public void setName(Name name) {
-            this.name = name;
-        }
-
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setName(Name name) {
+            this.name = name;
         }
 
         public Optional<Phone> getPhone() {
             return Optional.ofNullable(phone);
         }
 
-        public void setAddress(Address address) {
-            this.address = address;
+        public void setPhone(Phone phone) {
+            this.phone = phone;
         }
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
         }
 
-        public void setDate(RequestDate requestDate) {
-            this.requestDate = requestDate;
+        public void setAddress(Address address) {
+            this.address = address;
         }
 
         public Optional<RequestDate> getDate() {
             return Optional.ofNullable(requestDate);
+        }
+
+        public void setDate(RequestDate requestDate) {
+            this.requestDate = requestDate;
+        }
+
+        public Optional<Nric> getNric() {
+            return Optional.ofNullable(nric);
+        }
+
+        public void setNric(Nric nric) {
+            this.nric = nric;
         }
 
         /**
@@ -244,6 +258,7 @@ public class EditRequestCommand extends RequestCommand {
 
             return getName().equals(editRequestDescriptor.getName())
                 && getPhone().equals(editRequestDescriptor.getPhone())
+                && getNric().equals(editRequestDescriptor.getNric())
                 && getAddress().equals(editRequestDescriptor.getAddress())
                 && getDate().equals(editRequestDescriptor.getDate())
                 && getConditions().equals(editRequestDescriptor.getConditions());

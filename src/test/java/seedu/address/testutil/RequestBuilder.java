@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
@@ -13,7 +12,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
@@ -45,20 +43,23 @@ public class RequestBuilder {
     private RequestDate requestDate;
     private RequestStatus requestStatus;
     private Conditions conditions;
-    private Optional<HealthWorker> healthWorker;
-    private Patient patient;
+    private String healthWorker;
+    private Name name;
+    private Phone phone;
+    private Nric nric;
+    private Address address;
+
 
     public RequestBuilder() {
         HashSet<ConditionTag> conditions =
             new HashSet<>(Collections.singletonList(new ConditionTag(DEFAULT_REQUEST)));
         HashSet<Tag> set = new HashSet<>();
         set.add(new Tag(DEFAULT_REQUEST));
-        this.patient = new Patient(new Name(DEFAULT_PATIENT_NAME), new Phone(DEFAULT_PATIENT_PHONE),
-            new Email(DEFAULT_PATIENT_EMAIL), new Nric(DEFAULT_PATIENT_NRIC), new Address(DEFAULT_PATIENT_ADDRESS),
-            set, new Conditions(conditions));
-        this.healthWorker = Optional.of(new HealthWorker(new Name(DEFAULT_STAFF_NAME), new Phone(DEFAULT_STAFF_PHONE),
-            new Email(DEFAULT_STAFF_EMAIL), new Nric(DEFAULT_STAFF_NRIC), new Address(DEFAULT_STAFF_ADDRESS),
-            Collections.emptySet(), new Organization(DEFAULT_ORGANISATION)));
+        this.name = new Name(DEFAULT_PATIENT_NAME);
+        this.phone = new Phone(DEFAULT_PATIENT_PHONE);
+        this.nric = new Nric(DEFAULT_PATIENT_NRIC);
+        this.address = new Address(DEFAULT_PATIENT_ADDRESS);
+        this.healthWorker = DEFAULT_STAFF_NAME;
         this.requestDate = new RequestDate(DEFAULT_DATE);
         this.requestStatus = new RequestStatus(DEFAULT_STATUS);
         this.conditions = new Conditions(conditions);
@@ -68,7 +69,10 @@ public class RequestBuilder {
      * Initializes the RequestBuilder with the data of {@code requestToCopy}.
      */
     public RequestBuilder(Request requestToCopy) {
-        this.patient = requestToCopy.getPatient();
+        this.name = new Name(DEFAULT_PATIENT_NAME);
+        this.phone = new Phone(DEFAULT_PATIENT_PHONE);
+        this.nric = new Nric(DEFAULT_PATIENT_NRIC);
+        this.address = new Address(DEFAULT_PATIENT_ADDRESS);
         this.healthWorker = requestToCopy.getHealthStaff();
         this.conditions = requestToCopy.getConditions();
         this.requestDate = requestToCopy.getRequestDate();
@@ -86,24 +90,13 @@ public class RequestBuilder {
     }
 
     /**
-     * Sets the {@code email} of the {@code Patient} object in the request that we are building.
-     *
-     * @param email the email of the patient to set
-     * @return The RequestBuilder object
-     */
-    public RequestBuilder withEmail(String email) {
-        this.patient = new PatientBuilder(this.patient).withEmail(email).build();
-        return this;
-    }
-
-    /**
      * Sets the {@code nric} of the {@code Patient} object in the request that we are building.
      *
      * @param nric the nric of the patient to set
      * @return The RequestBuilder object
      */
     public RequestBuilder withNric(String nric) {
-        this.patient = new PatientBuilder(this.patient).withNric(nric).build();
+        this.nric = new Nric(nric);
         return this;
     }
 
@@ -125,7 +118,7 @@ public class RequestBuilder {
      * @return The RequestBuilder object
      */
     public RequestBuilder withPhone(String phone) {
-        this.patient = new PatientBuilder(this.patient).withPhone(phone).build();
+        this.phone = new Phone(phone);
         return this;
     }
 
@@ -136,19 +129,18 @@ public class RequestBuilder {
      * @return The RequestBuilder object
      */
     public RequestBuilder withAddress(String address) {
-        this.patient = new PatientBuilder(this.patient).withAddress(address).build();
-        this.patient = new PatientBuilder(this.patient).withAddress(address).build();
+        this.address = new Address(address);
         return this;
     }
 
     /**
-     * Sets the {@code patient} of the {@code Request} we are building.
-     *
-     * @param patient The patient making the request.
-     * @return The RequestBuilder object.
+     * Sets the name, address, phone and nric of the request object
      */
     public RequestBuilder withPatient(Patient patient) {
-        this.patient = patient;
+        this.name = patient.getName();
+        this.address = patient.getAddress();
+        this.phone = patient.getPhone();
+        this.nric = patient.getNric();
         return this;
     }
 
@@ -160,7 +152,19 @@ public class RequestBuilder {
      */
     public RequestBuilder withHealthStaff(HealthWorker healthStaff) {
         requireNonNull(healthStaff);
-        this.healthWorker = Optional.of(healthStaff);
+        this.healthWorker = healthStaff.getName().fullName;
+        return this;
+    }
+
+    /**
+     * Sets the {@code healthStaff} of the {@code Request} that we are building
+     *
+     * @param healthWorker the healthworker attending to the request
+     * @return the requestbuilder object
+     */
+    public RequestBuilder withHealthWorker(String healthWorker) {
+        requireNonNull(healthWorker);
+        this.healthWorker = healthWorker;
         return this;
     }
 
@@ -176,18 +180,6 @@ public class RequestBuilder {
     }
 
     /**
-     * Overloaded constructor that takes in multiple strings as the conditions.
-     *
-     * @return the RequestBuilder object
-     */
-    public RequestBuilder withConditions(String... conditions) {
-        HashSet<ConditionTag> set = new HashSet<>();
-        Arrays.stream(conditions).forEach(condition -> set.add(new ConditionTag(condition)));
-        this.conditions = new Conditions(set);
-        return this;
-    }
-
-    /**
      * Sets the {@code healthStaff} of the {@code Request} we are building.
      *
      * @param status The status of the request.
@@ -199,25 +191,11 @@ public class RequestBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the patient making the request.
-     *
-     * @param name The name of the patient
-     * @return the RequestBuilder object
-     */
-    public RequestBuilder withPatientName(String name) {
-        PatientBuilder pb = new PatientBuilder(this.patient).withName(name);
-        this.patient = pb.build();
-        return this;
-    }
-
-    /**
      * Builds and returns the request.
      */
     public Request build() {
-        return this.healthWorker.map(person -> new Request(this.patient, person, this.requestDate,
-            this.conditions, this.requestStatus))
-            .orElseGet(() -> new Request(this.patient, this.requestDate, this.conditions,
-                this.requestStatus));
+        return new Request(name, nric, phone, address, requestDate, conditions, requestStatus,
+            healthWorker);
     }
 
 }

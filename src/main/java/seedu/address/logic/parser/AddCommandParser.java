@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_HEALTHWORKER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
@@ -12,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Stream;
@@ -79,22 +81,29 @@ public class AddCommandParser implements Parser<AddCommand> {
         UUID uuid = UUID.randomUUID();
         String requestId = uuid.toString();
 
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DATE,
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args,
+            PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE,
             PREFIX_CONDITION);
 
-        if (!arePrefixesPresent(argumentMultimap, PREFIX_DATE, PREFIX_CONDITION)) {
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE,
+            PREFIX_CONDITION)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AddRequestCommand.MESSAGE_USAGE));
         }
 
+        Name name = ParserUtil.parseName(argumentMultimap.getValue(PREFIX_NAME).get());
+        Nric nric = ParserUtil.parseNric(argumentMultimap.getValue(PREFIX_NRIC).get());
+        Phone phone = ParserUtil.parsePhone(argumentMultimap.getValue(PREFIX_PHONE).get());
+        Address address = ParserUtil.parseAddress(argumentMultimap.getValue(PREFIX_ADDRESS).get());
         RequestDate requestDate =
             ParserUtil.parseRequestDate(argumentMultimap.getValue(PREFIX_DATE).get());
-
         Conditions conditions = ParserUtil.parseConditions(argumentMultimap.getAllValues(PREFIX_CONDITION));
 
-        return new AddRequestCommand(new Request(null, null, requestDate, conditions,
-            new RequestStatus("PENDING")));
+        HashSet<Tag> conds = new HashSet<>();
+        conditions.getConditions().forEach(c -> conds.add(new Tag(c.conditionTagName)));
 
+        return new AddRequestCommand(new Request(name, nric, phone, address, requestDate,
+            conds));
     }
 
     /**

@@ -4,15 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.tag.Conditions;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
@@ -22,95 +19,96 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class Request {
 
-    private final Patient patient;
+    private final Name name;
+    private final Nric nric;
+    private final Address address;
+    private final Phone phone;
     private final RequestDate requestDate;
     private final Conditions conditions;
-    private Optional<HealthWorker> healthWorker;
+    private String healthWorker = null;
     private RequestStatus requestStatus;
 
     /**
-     *
-     * Minimally requires the following parameters to be non-null.
-     *
-     * @param patient The patient requesting for services.
-     * @param requestDate The date of the request.
-     * @param conditions The set of the conditions the patient is requesting treatment for.
-     * @param requestStatus The state of the request.
-     */
-    public Request(Patient patient, RequestDate requestDate, Conditions conditions,
-                   RequestStatus requestStatus) {
-        requireAllNonNull(patient, requestDate, conditions, requestStatus);
-        this.patient = patient;
-        this.requestDate = requestDate;
-        this.conditions = conditions;
-        this.requestStatus = requestStatus;
-        this.healthWorker = Optional.empty();
-    }
-
-    /*
-     * Requires all the properties of a request to be non-null.
-     */
-    public Request(Patient patient, HealthWorker healthStaff, RequestDate requestDate, Conditions conditions,
-                   RequestStatus requestStatus) {
-        this(patient, requestDate, conditions, requestStatus);
-        requireNonNull(healthStaff);
-        this.healthWorker = Optional.of(healthStaff);
-    }
-
-    /**
      * Overloaded constructor that takes in differing arguments for the patient.
      */
-    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+    public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
                    Set<Tag> conditions, RequestStatus status) {
-        requireAllNonNull(name, phone, address, requestDate, conditions, status);
-        this.patient = new Patient(name, phone, address, conditions);
+        requireAllNonNull(name, phone, nric, address, requestDate, conditions, status);
+        this.phone = phone;
         this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
         this.requestStatus = status;
         this.requestDate = requestDate;
-        this.healthWorker = Optional.empty();
+        this.name = name;
+        this.nric = nric;
+        this.address = address;
+    }
+
+    /**
+     * Simplified constructor that takes in the minimal arguments to form a {@code Request}
+     * <p>
+     * Sets the {@code requestStatus} to pending
+     */
+    public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
+                   Set<Tag> conditions) {
+        requireAllNonNull(name, nric, address, requestDate, conditions, phone);
+        this.phone = phone;
+        this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
+        this.requestStatus = new RequestStatus("PENDING");
+        this.name = name;
+        this.nric = nric;
+        this.requestDate = requestDate;
+        this.address = address;
     }
 
     /**
      * Overloaded constructor that takes in differing arguments for the patient.
      */
-    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
+    public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
                    Conditions conditions, RequestStatus status) {
-        requireAllNonNull(name, phone, address, requestDate, conditions, status);
+        requireAllNonNull(name, nric, phone, address, requestDate, conditions, status);
         HashSet<Tag> cond = new HashSet<>();
         conditions.getConditions().forEach(conditionTag -> cond.add(new Tag(conditionTag.conditionTagName)));
-        this.patient = new Patient(name, phone, address, cond);
         this.conditions = conditions;
+        this.phone = phone;
+        this.name = name;
+        this.nric = nric;
+        this.address = address;
         this.requestStatus = status;
         this.requestDate = requestDate;
-        this.healthWorker = Optional.empty();
     }
 
     /**
      * Overloaded constructor to represent a request.
      */
-    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
-                   Conditions conditions, RequestStatus status, HealthWorker healthWorker) {
-        requireAllNonNull(name, phone, address, requestDate, conditions, status, healthWorker);
+    public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
+                   Conditions conditions, RequestStatus status, String healthWorker) {
+        requireAllNonNull(name, address, phone, requestDate, conditions, status);
+        this.phone = phone;
         HashSet<Tag> cond = new HashSet<>();
         conditions.getConditions().forEach(conditionTag -> cond.add(new Tag(conditionTag.conditionTagName)));
-        this.patient = new Patient(name, phone, address, cond);
         this.conditions = conditions;
         this.requestStatus = status;
         this.requestDate = requestDate;
-        this.healthWorker = Optional.ofNullable(healthWorker);
+        this.healthWorker = healthWorker;
+        this.name = name;
+        this.nric = nric;
+        this.address = address;
     }
 
     /**
      * Overloaded constructor that takes in a {@code healthWorker}.
      */
-    public Request(Name name, Phone phone, Address address, RequestDate requestDate,
-                   Set<Tag> conditions, RequestStatus status, HealthWorker healthWorker) {
-        requireAllNonNull(name, phone, address, requestDate, conditions, status);
-        this.patient = new Patient(name, phone, address, conditions);
+    public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
+                   Set<Tag> conditions, RequestStatus status, String healthWorker) {
+        requireAllNonNull(name, nric, phone, address, requestDate, conditions, status);
+        this.phone = phone;
+        this.name = name;
+        this.nric = nric;
+        this.address = address;
         this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
         this.requestStatus = status;
         this.requestDate = requestDate;
-        this.healthWorker = Optional.ofNullable(healthWorker);
+        this.healthWorker = healthWorker;
     }
 
     /**
@@ -128,23 +126,35 @@ public class Request {
         }
 
         return otherRequest.getRequestDate().equals(this.requestDate)
-                && ((otherRequest.getPatient().equals(this.patient)) || otherRequest
-                .getConditions().equals(this.conditions));
+            && (otherRequest.getConditions().equals(this.conditions)
+            || otherRequest.nric.equals(this.nric));
+    }
+
+    public Name getName() {
+        return this.name;
+    }
+
+    public Address getAddress() {
+        return this.address;
+    }
+
+    public Nric getNric() {
+        return this.nric;
     }
 
     @Override
     public String toString() {
 
-        String healthStaff = this.healthWorker.map(Person::toString)
-                .orElse("Unassigned");
-
         return "----------Request----------\n"
-                + "Patient: " + this.patient + "\n"
-                + "Assigned staff: " + healthStaff + "\n"
-                + "Request Date: " + this.requestDate + "\n"
-                + "Condition(s): " + this.conditions + "\n"
-                + "Status: " + this.requestStatus + "\n"
-                + "----------End of Request----------\n";
+            + "Name: " + this.name + "\n"
+            + "Nric: " + this.nric + "\n"
+            + "Phone: " + this.phone + "\n"
+            + "Address: " + this.address + "\n"
+            + "Assigned staff: " + healthWorker + "\n"
+            + "Request Date: " + this.requestDate + "\n"
+            + "Condition(s): " + this.conditions + "\n"
+            + "Status: " + this.requestStatus + "\n"
+            + "----------End of Request----------\n";
     }
 
     @Override
@@ -159,10 +169,13 @@ public class Request {
 
         Request otherRequest = (Request) other;
         return (otherRequest.getRequestDate().equals(this.requestDate))
-                && (otherRequest.getPatient().equals(this.patient))
-                && (otherRequest.getConditions().equals(this.conditions))
-                && otherRequest.getHealthStaff().equals(this.healthWorker)
-                && (otherRequest.getRequestStatus().equals(this.requestStatus));
+            && (otherRequest.name.equals(this.name))
+            && (otherRequest.address.equals(this.address))
+            && (otherRequest.phone.equals(this.phone))
+            && (otherRequest.nric.equals(this.nric))
+            && (otherRequest.getConditions().equals(this.conditions))
+            && otherRequest.getHealthStaff().equals(this.healthWorker)
+            && (otherRequest.getRequestStatus().equals(this.requestStatus));
     }
 
     public Conditions getConditions() {
@@ -173,21 +186,21 @@ public class Request {
         return this.requestStatus;
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
     public RequestDate getRequestDate() {
         return this.requestDate;
     }
 
-    public Optional<HealthWorker> getHealthStaff() {
+    public String getHealthStaff() {
         return healthWorker;
     }
 
-    public void setHealthStaff(HealthWorker healthStaff) {
+    public void setHealthStaff(String healthStaff) {
         requireNonNull(healthStaff);
-        this.healthWorker = Optional.of(healthStaff);
+        this.healthWorker = healthStaff;
+    }
+
+    public Phone getPhone() {
+        return phone;
     }
 
 }

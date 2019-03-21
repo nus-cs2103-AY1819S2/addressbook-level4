@@ -11,6 +11,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
@@ -26,26 +30,32 @@ class JsonAdaptedRequest {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Request's %s field is missing!";
 
-    private final JsonAdaptedPatient patient;
+    private final String name;
+    private final String nric;
+    private final String address;
+    private final String phone;
     private final String requestDate;
     private final String conditions;
-    private final JsonAdaptedHealthWorker healthWorker;
-
     private final String requestStatus;
+    private String healthWorker;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedRequest(@JsonProperty("patient") JsonAdaptedPatient patient,
+    public JsonAdaptedRequest(@JsonProperty("name") String name,
+                              @JsonProperty("nric") String nric,
+                              @JsonProperty("phone") String phone,
+                              @JsonProperty("address") String address,
                               @JsonProperty("requestdate") String requestDate,
-                              @JsonProperty("healthworker") JsonAdaptedHealthWorker healthWorker,
                               @JsonProperty("conditions") String conditions,
                               @JsonProperty("requestStatus") String requestStatus) {
-        this.patient = patient;
+        this.name = name;
+        this.nric = nric;
+        this.address = address;
+        this.phone = phone;
         this.requestDate = requestDate;
         this.conditions = conditions;
-        this.healthWorker = healthWorker;
         this.requestStatus = requestStatus;
     }
 
@@ -53,13 +63,14 @@ class JsonAdaptedRequest {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedRequest(Request source) {
-        this.patient = new JsonAdaptedPatient(source.getPatient());
-
+        this.name = source.getName().fullName;
+        this.address = source.getAddress().value;
+        this.nric = source.getNric().getNric();
+        this.phone = source.getPhone().value;
         this.requestDate = source.getRequestDate().toString();
         this.requestStatus = source.getRequestStatus().toString();
         this.conditions = source.getConditions().toString();
-        Optional<HealthWorker> hw = source.getHealthStaff();
-        this.healthWorker = hw.map(JsonAdaptedHealthWorker::new).orElse(null);
+        this.healthWorker = source.getHealthStaff();
     }
 
     /**
@@ -69,18 +80,41 @@ class JsonAdaptedRequest {
      */
     public Request toModelType() throws IllegalValueException {
 
-
-        if (patient == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Patient.class.getSimpleName()));
+        if (name == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Name.class.getSimpleName()));
         }
 
-        final Patient modelPatient = this.patient.toModelType();
-        final HealthWorker modelHealthStaff;
-        if (healthWorker != null) {
-            modelHealthStaff = this.healthWorker.toModelType();
-        } else {
-            modelHealthStaff = null;
+        if (!Name.isValidName(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
+
+        final Name modelName = new Name(name);
+
+        if (phone == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        }
+        if (!Phone.isValidPhone(phone)) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        }
+        final Phone modelPhone = new Phone(phone);
+
+        if (address == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        }
+        if (!Address.isValidAddress(address)) {
+            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        }
+        final Address modelAddress = new Address(address);
+
+        if (nric == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        }
+        if (!Nric.isValidNric(nric)) {
+            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        }
+        final Nric modelNric = new Nric(nric);
+
         if (requestDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     RequestDate.class.getSimpleName()));
@@ -112,11 +146,12 @@ class JsonAdaptedRequest {
         final Conditions modelConditions = new Conditions(set);
 
 
-        if (modelHealthStaff == null) {
-            return new Request(modelPatient, modelrequestDate, modelConditions, modelrequestStatus);
+        if (healthWorker == null) {
+            return new Request(modelName, modelNric, modelPhone, modelAddress, modelrequestDate,
+                modelConditions, modelrequestStatus);
         }
-        return new Request(modelPatient, modelHealthStaff,
-                modelrequestDate, modelConditions, modelrequestStatus);
+        return new Request(modelName, modelNric, modelPhone, modelAddress, modelrequestDate,
+            modelConditions, modelrequestStatus, healthWorker);
     }
 
 }

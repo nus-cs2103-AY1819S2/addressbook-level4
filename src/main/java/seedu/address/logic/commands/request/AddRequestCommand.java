@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.address.logic.CommandHistory;
@@ -24,6 +25,7 @@ public class AddRequestCommand extends AddCommand {
     public static final String MESSAGE_USAGE = RequestCommand.COMMAND_WORD + " " + AddCommand.COMMAND_WORD
         + ": Creates a new request in the request book. " + "Parameters: "
         + PREFIX_NAME + "NAME "
+        + PREFIX_NRIC + "NRIC "
         + PREFIX_PHONE + "PHONE "
         + PREFIX_ADDRESS + "ADDRESS "
         + PREFIX_DATE + "DATETIME"

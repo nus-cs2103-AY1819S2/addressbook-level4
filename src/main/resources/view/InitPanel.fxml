@@ -14,7 +14,7 @@
         <TextFlow fx:id="initText">
           <VBox>
             <children>
-              <Text fill="WHITE" text="FomoFoto">
+              <Text fill="WHITE" text="📷 FomoFoto">
                 <font>
                   <Font name="Gill Sans MT" size="32.0"/>
                 </font>

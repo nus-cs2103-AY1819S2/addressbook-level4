@@ -32,7 +32,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 
-
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -266,10 +265,7 @@ public class ModelManager implements Model {
 
     @Override
     public void clearAssetFolder(File dir) {
-        for (File file: dir.listFiles()) {
-            if (file.getName().equals("sample.png") || file.getName().equals("sample2.png")) {
-                continue;
-            }
+        for (File file : dir.listFiles()) {
             file.delete();
         }
     }

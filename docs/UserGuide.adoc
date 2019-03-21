@@ -426,3 +426,11 @@ e.g. `warning e/20 s/10`
 
 == Appendix A: File Naming Convention
 
+MediTabs uses the following File Naming Convention when File Name field is used e.g. The `export` command's optional `[FILE_NAME]` field. The File Naming Convention is to ensure consistency and to avoid potential bugs involving file names with different operating systems such as Windows, Linux and MacOS +
+Format: `Start with an Alphabet or Number followed by Alphabets, Numbers, underscore or hyphen`
+
+[IMPORTANT]
+You should follow the File Naming Convention format when specifying the File Name field for any commands that support File Name as a field.
+
+[CAUTION]
+The characters of the File Name cannot contain any spacing or symbols such as `\/:*?"<>|.`

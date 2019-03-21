@@ -270,9 +270,7 @@ Course abbreviations are as follows:
 Examples:
 
 * `set CS` +
-Sets the course of study to Computer Science.
-
-Invoking set again will change your course of study
+Sets the course of study to Computer Science. Invoking `set` command again will change your course of study
 
 === Sets the total expected CAP and workload limit for each semester: `setlimit`
 

@@ -1,52 +1,45 @@
 package seedu.address.model.course;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 import seedu.address.model.moduleinfo.ModuleInfo;
-
 /**
- * Checks whether a list of module fulfils course requirement
+ * API of CourseRequirement
  */
-public class CourseRequirement {
-
-    protected final String description;
-    protected final String identifier;
-    protected final Predicate<List<ModuleInfo>> isFulfilled;
-    protected final Function<List<ModuleInfo>, String> getUnfulfilled;
-
-    /* Protected because we only want an instance of this class to be constructed via its
-       subclasses such as ContainsAll, or ContainsAtLeast
-     */
-    protected CourseRequirement (String description, String identifier,
-                              Predicate<List<ModuleInfo>> isFulfilled,
-                              Function<List<ModuleInfo>, String> getUnfulfilled) {
-        requireAllNonNull(description, isFulfilled, getUnfulfilled);
-        this.description = description;
-        this.identifier = identifier;
-        this.isFulfilled = isFulfilled;
-        this.getUnfulfilled = getUnfulfilled;
-    }
+public interface CourseRequirement {
 
     /**
      * Returns description of course requirement
+     * @return description of course requirement
      */
-    public String getDescription() {
-        return description;
-    }
+    String getCourseReqDesc();
 
     /**
-     * Returns regular expressions that are not satisfied
+     * Returns true if list in modules satisfy the course requirement
+     * @param moduleInfos List of moduleInfo to check whether modules satisfy the course requirement
+     * @return true if moduleInfos satisfy course requirement
      */
-    public String getUnfulfilled(List<ModuleInfo> moduleInfos) {
-        return getUnfulfilled.apply(moduleInfos);
-    };
+    boolean isFulfilled(List<ModuleInfo> moduleInfos);
 
-    public boolean test(List<ModuleInfo> moduleInfos) {
-        return isFulfilled.test(moduleInfos);
-    };
+    /**
+     * Returns true if module can be used to satisfy course requirement
+     * @param moduleInfo moduleInfo to check whether can fulfil course requirement
+     * @return true if moduleInfo can be used to satisfy course requirement
+     */
+    boolean canFulfill(ModuleInfo moduleInfo);
 
+    /**
+     * Returns a percentage (in the range of [0,1]) of the degree of completion of the course requirement
+     * @param moduleInfos moduleInfos to check degree of completion of course requirement
+     * @return a double in the range of [0, 1]
+     */
+    double getFulfilledPercentage(List<ModuleInfo> moduleInfos);
+
+    /**
+     * Returns a formatted string of the aspects of course requirements
+     * unfulfilled by the list of module infos
+     * @param moduleInfos moduleInfos to check the aspects of course requirements unfulfilled
+     * @return a formatted string in the form
+     */
+    String getUnfulfilled(List<ModuleInfo> moduleInfos);
 }

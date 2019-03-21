@@ -37,10 +37,10 @@ public class RecordCard extends UiPart<Region> {
     public RecordCard(Record record, int displayedIndex) {
         super(FXML);
         this.record = record;
-        id.setText(displayedIndex + ". ");
+        id.setText("Dated on");
         recordDate.setText(record.getRecordDate().getDate());
-        nameOfDentist.setText(record.getDoctorName().fullName);
-        description.setText(record.getDescription().value);
+        nameOfDentist.setText("By Dentist: Dr. " + record.getDoctorName().fullName);
+        description.setText("Session Description: \n" + record.getDescription().value);
     }
 
     @Override

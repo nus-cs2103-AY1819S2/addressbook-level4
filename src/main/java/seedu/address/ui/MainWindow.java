@@ -16,12 +16,15 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.patient.Patient;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
+
+    private static Patient recordPatient;
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -77,6 +80,9 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statWindow = new StatWindow(new Stage(), this.logic);
+
+        // Hidden panel by default.
+        recordListPanelPlaceholder.setVisible(false);
     }
 
     public Stage getPrimaryStage() {
@@ -89,6 +95,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -127,9 +134,6 @@ public class MainWindow extends UiPart<Stage> {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
-        recordListPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
@@ -185,9 +189,19 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleRecord() {
-        if (personListPanelPlaceholder.isVisible() || !recordListPanelPlaceholder.isVisible()) {
-            personListPanelPlaceholder.setVisible(false);
-            recordListPanelPlaceholder.setVisible(true);
+        populateRecords();
+        personListPanelPlaceholder.setVisible(false);
+        recordListPanelPlaceholder.setVisible(true);
+    }
+
+    /**
+     * Generates the record using the stored patient.
+     */
+    private void populateRecords() {
+        if (MainWindow.getRecordPatient() != null) {
+            recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
+            recordListPanelPlaceholder.getChildren().clear();
+            recordListPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
         }
     }
 
@@ -201,9 +215,10 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        if (!personListPanelPlaceholder.isVisible() || recordListPanelPlaceholder.isVisible()) {
+        if (recordListPanelPlaceholder.isVisible()) {
             personListPanelPlaceholder.setVisible(true);
             recordListPanelPlaceholder.setVisible(false);
+            MainWindow.setRecordPatient(null);
         } else {
             GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                     (int) primaryStage.getX(), (int) primaryStage.getY());
@@ -250,5 +265,18 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Sets the patient who records are going to show.
+     *
+     * @param patient the patient who records will be shown.
+     */
+    public static void setRecordPatient(Patient patient) {
+        MainWindow.recordPatient = patient;
+    }
+
+    public static Patient getRecordPatient() {
+        return MainWindow.recordPatient;
     }
 }

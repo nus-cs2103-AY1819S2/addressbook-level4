@@ -17,13 +17,21 @@ endif::[]
 By: `Team W17-3`      Since: `January 2019`      Licence: `MIT`
 
 == Introduction
-In-Credit-Ble will be your "one-stop shop" in managing and tracking your personal finances. Our user-friendly interface will make it easy for you to stick to your budget and be more aware of your spending habits. If you are a fast typer, or prefer to type over using your mouse and like to get things done efficiently, then this is the product just for you! In-Credit-Ble is designed for those who prefer to work with a *Command Line Interface (CLI).*
+Welcome to the _In-Credit-Ble_ User Guide! _In-Credit-Ble_ is your "one-stop shop" in managing and tracking your
+personal finances. Our user-friendly interface will make it easy for you to stick to your budget and be more aware
+of your spending habits. If you are a *fast typer*, *prefer to type* over using your mouse and *like to get things done
+efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed for those who prefer to work with a
+*Command Line Interface (CLI)*.
+
+This user guide shows you how to get started using _In-Credit-Ble_. It also provides in-depth documentation on the
+different features and shows you how to perform basic _In-Credit-ble_ operations.
 
 == Quick Start
+Follow these steps to get _In-Credit-Ble_ up and running on your computer in no time!
 
-.  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `increditble.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have Java version `9` or later installed in your computer.
+.  Download the latest `increditble.jar` file link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your finance tracker.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -32,142 +40,173 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`allocate`* : allocate budget to a certain category
-* *`help`* : view command list and how to use them
-* *`set`* : set a budget
+* *`allocate`* : allocates budget to a certain category
+* *`help`* : opens the _In-Credit-Ble_ user guide
+* *`set`* : exits the application
 
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
+This section describes the various features _In-Credit-Ble_ has to offer. Examples are also included to give you
+step-by-step instructions on how to use the different commands.
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `set a/AMOUNT`, `AMOUNT` is a parameter which can be used as `set 200.00`.
-* Items in square brackets are optional e.g `search KEYWORD [MORE_KEYWORDS]` can be used as `search John` or as `search John Williams`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `set $/AMOUNT`,
+`AMOUNT` is a parameter which can be used as `set $/200.00`.
+* Items in square brackets are optional e.g `search KEYWORD [MORE_KEYWORDS]` can be used as `search clothes` or as
+`search cake lunch`.
 * Items with `…`​ after them can be used multiple times including zero times.
 ====
 
-=== Viewing help : `help`
+=== Viewing help: `help`
 
-Lists the commands that a user can enter to navigate the software +
+Forgotten which commands to use? You can easily find the commands you need to navigate the software
+by using the following command:
+
 *Format*: `help`
 
-=== Set a budget: `set`
+=== Setting a budget: `set`
 
-Sets a budget for the month/week
-*Format*: `set a/AMOUNT`
+This command enables you to set a fixed budget for a month/week. The command format is as follows:
 
-Examples:
+*Format*: `set $/AMOUNT`
 
-* `set a/500`
-* `set a/500.50`
+*Examples*:
 
-=== Adding an expense : `spend`
+* `set $/500`
+* `set $/500.50`
 
-Adds an expenditure to a given category in the expense tracker +
-*Format*: `spend a/AMOUNT c/CATEGORY`
+=== Adding an expense: `spend`
 
-=== Increasing budget: `increase`
+You can keep track of how much you have spent by adding an expense entry to In-Credit-Ble.
 
-Increases the budget limit for the month/week by the specified amount. +
-*Format*: `increase a/AMOUNT`
+*Alias*: `add`
 
-Examples:
+*Format*: `spend n/NAME $/AMOUNT d/DATE [c/CATEGORY] ...`
 
-* `increase a/10.10`
-* `increase 100`
+*Examples*:
 
-=== Allocate budgeting based on categories: `allocate`
+* `spend n/cake $/5.50 d/15/03/2019 c/Food`
+* `spend n/movie $/10 d/16/03/2019 c/Entertainment`
 
-To set the budget amount for a particular category +
-*Format*: `allocate a/AMOUNT c/CATEGORY`
+=== Increasing the budget: `increase`
 
+With this command, you will be able to increase the budget limit for the month/week by the specified amount.
 
-Examples:
+*Format*: `increase $/AMOUNT`
 
-* `allocate a/50 c/Dining` +
-Allocates $50 of month/week's budget to `Dining` category
-* `allocate a/30.50 c/Shopping` +
-Allocates $30.50 of month/week's budget to `Shopping` category
+*Examples*:
 
-=== Listing all entries : `list`
+* `increase $/10.10`
+* `increase $/100`
 
-List all entries by user +
+=== Allocating budget based on categories: `allocate`
+
+You can use this command to set a budget for a particular category that has already been created in _In-Credit-Ble_.
+
+*Format*: `allocate $/AMOUNT c/CATEGORY`
+
+*Examples*:
+
+* `allocate $/50 c/Dining`
+* `allocate $/100 c/Shopping`
+
+=== Listing all entries: `list`
+
+You can see all the entries you have entered with the list command.
+
+*Alias*: `l`, `ls`
+
 *Format*: `list`
 
-=== Showing summary of records : `summary`
+=== Showing summary of records: `summary`
 
-Shows the summary of user's previous expenditures, with statistics on how one's spending habits are like in the different categories. It also displays the remaining budget amount for each category. +
+Shows the summary of your previous expenditures, with statistics on how your spending habits are like in the
+different categories. It also displays the remaining budget amount for each category.
+
 *Format*: `summary`
 
-=== Editing description of entries: `description`
-
-Edits the description of an existing entry in records. +
-*Format*: `description INDEX [d/DESCRIPTION]`
-
-Examples:
-
-* `description 1 d/Father's birthday present` +
-Changes the description of entry at index 1 to "Father's birthday present"
-
-* `description 1 d/` +
-Removes the description of entry at index 1
-
-=== Editing entries : `edit`
+=== Editing an entry: `edit`
 
 Edits an existing entry in the record. +
-*Format*: `edit INDEX [a/AMOUNT] [c/CATEGORY]`
-****
-* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed record list. The index *must be a positive integer* 1, 2, 3, ...
+Index refers to the index number shown in the list.
+
+*Alias*: `e`
+
+*Format*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]`
+
+[NOTE]
+====
+* `INDEX` here refers to the index number shown in the displayed records.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-****
-Examples:
+====
 
-* `search Transport Wednesday` +
-Returns an entry that has Transport as category and is entered on Wednesday
-=== Locating entry based on category/date: `search`
+*Examples*:
 
-Search for an entry using a category name or a date/day/week/month/year as keyword.
-*Format*: `search KEYWORD [KEYWORD]`
+* `edit 2 $/10.10`
+* `edit 1 n/burger c/Food
 
-Examples:
+=== Locating entry based on name/category: `search`
 
-* `search Transport Wednesday` +
-Returns an entry that has Transport as category and is entered on Wednesday
+Search for an entry using a name or category as keyword.
+
+*Alias*: `find`
+
+*Format*: `search KEYWORD [MORE_KEYWORDS]`
+
+*Examples*:
+
+* `search Transport` +
+* `search cake bread Food`
 
 === Deleting an entry: `delete`
 
-Deletes an entry in the record. +
+Deletes an entry in the record.
+
+*Alias*: `d`, `del`
+
 *Format*: `delete INDEX`
+
 [NOTE]
 ====
-`INDEX` here refers to the index number shown in the list
+* `INDEX` here refers to the index number shown in the displayed records.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
 ====
-Examples:
 
-* `delete 2` +
-Deletes the entry at index 2
+*Example*:
+
+* `delete 2`
 
 === Listing entered commands: `history`
 
-Lists all the commands user has entered in reverse chronological order +
+List all the commands you have entered in reverse chronological order.
+
+*Alias*: `h`, `hist`
+
 *Format*: `history`
 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores to the state before the previous _undoable_ command was executed.
+
+*Alias*: `u`
+
 *Format*: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`set`, `spend`, `increase`, `allocate`, `edit`, `delete`, `clear`).
+_Undoable_ commands:
+* commands that modify the finance tracker's content +
+(`set`, `spend`, `increase`, `allocate`, `edit`, `delete`, `clear`, `description).
 ====
 
-Examples:
+*Examples*:
 
 * `delete 1` +
 `list` +
@@ -185,10 +224,13 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+Reverses the most recent `undo` command.
+
+*Alias*: `r`
+
 *Format*: `redo`
 
-Examples:
+*Examples*:
 
 * `delete 1` +
 `undo` (reverses the `delete 1` command) +
@@ -208,63 +250,136 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Deletes all the entries and reset budget to 0.
+
+*Alias*: `c`, `clr`
+
 *Format*: `clear`
 
 === Exiting the program : `exit`
 
-Exits the program. +
+Exits the program.
+
+*Alias*: `quit`
+
 *Format*: `exit`
+
+
+=== Adding a description to an entry: `description`
+
+Adds a description to an existing entry in the records.
+
+*Alias*: `descr`
+
+*Format*: `description INDEX [d/DESCRIPTION]`
+
+[NOTE]
+====
+* `INDEX` here refers to the index number shown in the displayed records.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+====
+
+*Examples*:
+
+* `description 1 d/Father's birthday present` +
+Changes the description of entry at index 1 to "Father's birthday present"
+
+* `description 1 d/` +
+Removes the description of entry at index 1
+
+=== Selecting an entry: `select`
+
+Selects an existing entry in the records
+
+*Alias*: `s`, `sel`
+
+*Format*: `select INDEX`
+
+[NOTE]
+====
+* `INDEX` here refers to the index number shown in the displayed records.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+====
+
+*Example*:
+
+* `select 3`
 
 === Saving the data
 
-The finance record and allocated budget will be saved in the hard disk automatically after any command that changes the data. There is no need to save manually
+The finance record and allocated budget will be saved in the hard disk automatically after any command that changes
+the data. There is no need to save manually.
 
 // tag::savingpatterns[]
 === Establish saving patterns based on record and derive projected savings/expenses in a time span `[coming in v2.0]`
 
-The finance record for each month will be archived at the end of the month. This information will be used to derive the projected savings/expenses based on the typical spending pattern of the user.
+The finance records for each month will be archived at the end of the month. This information will be used to derive
+the projected savings/expenses based on the typical spending pattern of the user.
 // end::savingpatterns[]
 
 === Suggestions on how to save/Links to investment guide `[coming in v2.0]`
 
-The user will be able to list categories of financial articles that they are interested in (e.g. investment, stock market). Based on these categories, the application will use Google API to search for related articles for the user to view.
+The user will be able to list categories of financial articles that they are interested in
+(e.g. investment, stock market). Based on these categories, the application will use Google API to search for
+related articles for the user to view.
 
 === Separate expenditures based on methods of payment (Cash, Visa, Paylah) `[coming in v2.0]`
 
-The application will link up with secure methods of payment such as payLah, Visa/MasterCard, Amex or Paypal to allow transactions between users. By paying through this application, the transactions will be automatically updated on the records.
+The application will link up with secure methods of payment such as payLah, Visa/MasterCard, Amex or Paypal to allow
+transactions between users. By paying through this application, the transactions will be automatically updated
+on the records.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous In-Credit-Ble folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file
+that contains the data of your previous _In-Credit-Ble_ folder.
 
-*Q*: Will the application support different currency?
-*A*: At the current version, the application is unable to support transactions record in different currency. User will need to calculate and input based on the local currency. This will be rectified in the subsequent version of our application.
+*Q*: Will the application support different currency? +
+*A*: At the current version, the application is unable to support transactions record in different currency.
+User will need to calculate and input based on the local currency. This will be rectified in the subsequent version
+of our application.
 
 == Command Summary
 
 * *Help*: `help`
-* *Set Budget*: `set a/AMOUNT` +
-e.g. `set 500`
-* *Add expense*: `spend a/AMOUNT c/CATEGORY` +
-e.g. `spend 5.1 food`
-* *Increase budget*: `increase a/AMOUNT` +
-e.g. `increase 10`
-* *Allocate budgeting based on categories*: `allocate a/AMOUNT c/CATEGORY' +
-e.g. `allocate 100 transport`
-* *Listing all entries*: `list`
-* *Showing summary of record*: `summary`
-* *Editing an entry*: `edit INDEX a/AMOUNT [c/CATEGORY]` +
-e.g. `edit 1 4.55 transport`
-* *Locating entry based on category/date*: `search KEYWORD [MORE_KEYWORDS]`
-* *Deleting an entry*: `delete INDEX` +
-e.g. `delete 1`
-* *Listing entered commands*: `history`
-* *Undoing previous command*: `undo`
-* *Redoing previously undone command*: `redo`
-* *Clearing all entries*: `clear`
-* *Exiting the program*: `exit`
+* *Set Budget*: `set $/AMOUNT` +
+e.g. `set $/500`
+* *Add expense*: `spend n/NAME $/AMOUNT d/DATE [c/CATEGORY] ...` +
+Alias: `add` +
+e.g. `spend n/movie $/10 d/16/03/2019 c/Entertainment`
+* *Increase budget*: `increase $/AMOUNT` +
+e.g. `increase $/10.10`
+* *Allocate budgeting based on categories*: `allocate $/AMOUNT c/CATEGORY' +
+e.g. `allocate $/100 c/Shopping`
+* *List all entries*: `list` +
+Alias: `l`, `ls`
+* *Show summary of record*: `summary`
+* *Edit an entry*: `edit INDEX [n/NAME] [$/AMOUNT] [d/DATE] [c/CATEGORY]` +
+Alias: `e` +
+e.g. `edit 1 n/burger c/Food`
+* *Locate entry based on name/category*: `search KEYWORD [MORE_KEYWORDS]` +
+Alias: `find` +
+e.g. `search cake break Food`
+* *Delete an entry*: `delete INDEX` +
+Alias: `d`, `del` +
+e.g. `delete 2`
+* *List entered commands*: `history` +
+Alias: `h`, `hist`
+* *Undo previous command*: `undo` +
+Alias: `u`
+* *Redo previously undone command*: `redo` +
+Alias: `r`
+* *Clear all entries*: `clear` +
+Alias: `c`, `clr`
+* *Exit the program*: `exit` +
+Alias: `quit`
+* *Add a description to an entry*: `description INDEX d/DESCRIPTION` +
+Alias: `descr` +
+e.g. `description 1 d/Father's birthday present`
+* *Select an entry*: `select INDEX` +
+Alias: `s`, `sel` +
+e.g. `select 3`
 
 == Glossary
 
@@ -274,9 +389,6 @@ The amount of money for expenditure and budget
 Entry::
 A listed item/activity tracked by the application.  It generally consists of the name, amount and date along with a
 category tag (if specified)
-
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
 
 Records::
 The list of all entries stored in the application

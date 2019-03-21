@@ -64,10 +64,6 @@ public class StudyPanel extends UiPart<Region> {
         textShown.addListener((observable, oldValue, newValue) -> {
             logger.info("textShown changed to: " + newValue);
             question.setText(textShown.getValue());
-
-        });
-
-        textShown.addListener((observable, oldValue, newValue) -> {
             logger.info("color changed to: " + newValue);
             card.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);
             question.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);

@@ -100,9 +100,16 @@ public class Bill {
     }
 
     /**
-     * Gets the receipt that appends the formatted date.
+     * Gets the receipt.
      */
     public String getReceipt() {
+        return receipt;
+    }
+
+    /**
+     * Gets the receipt that appends the formatted date.
+     */
+    public String getReceiptWFormattedDate() {
         StringBuilder newReceipt = new StringBuilder();
         newReceipt.append(receipt).append(getFormattedDate());
         return newReceipt.toString();
@@ -114,7 +121,8 @@ public class Bill {
                 || (other instanceof Bill // instanceof handles nulls
                 && this.getDay().equals(((Bill) other).day) && this.getMonth().equals(((Bill) other).month)
                 && this.getYear().equals(((Bill) other).year) && this.getTotalBill() == ((Bill) other).getTotalBill()
-                && this.getTableNumber().equals(((Bill) other).tableNumber));
+                && this.getTableNumber().equals(((Bill) other).tableNumber))
+                && this.getReceipt().equals(((Bill) other).receipt);
         // state check
     }
 

@@ -75,7 +75,7 @@ public class EditCommand extends Command {
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
         Pdf editedPdf = createEditedPdf(pdfToEdit, editPersonDescriptor);
 
-        if (!pdfToEdit.getName().getFullName().equals(pdfToEdit.getName().getFullName()) &&
+        if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName()) &&
                 Paths.get(pdfToEdit.getDirectory().getDirectory(), editedPdf.getName().getFullName())
                 .toAbsolutePath().toFile().exists()) {
 

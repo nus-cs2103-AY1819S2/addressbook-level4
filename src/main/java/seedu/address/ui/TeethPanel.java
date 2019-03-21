@@ -24,4 +24,19 @@ import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
 
+/**
+ * Panel containing an image representation of a patient's teeth
+ */
+public class TeethPanel extends UiPart<Region> {
+    private static final String FXML = "TeethPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+
+    @FXML
+    private AnchorPane space;
+
+    public TeethPanel(ObservableValue<Person> selectedPerson) {
+        super(FXML);
+    }
+
+}
 

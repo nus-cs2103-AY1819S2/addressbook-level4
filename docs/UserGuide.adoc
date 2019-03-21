@@ -18,13 +18,23 @@ By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-MediTabs is for those who prefer to use a desktop app for managing medicine stock taking. This is especially useful for clinics such as family clinics or private clinics to track the amount of medicine they have left available. More importantly, MediTabs is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MediTabs can get your medicine stock taking done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to the _MediTabs User Guide_. You can find step by step instructions on how to set up MediTabs and take advantage of the features provided by MediTabs to optimise your clinic's medicine stock taking workflow. Interested? You can jump to the <<Quick Start>> to start get started. Enjoy!
+
+=== What is MediTabs?
+
+MediTabs is a desktop application for managing medicine stock taking. You can use MediTabs in your clinics such as family clinics or private clinics to keep track of your clinic's medicine inventory such as which medicines are low in stock and which medicines are expiring soon.
+
+MediTabs supports Windows, Linux and MacOS operating systems.
+
+=== Who is it for?
+
+If you are looking for a medicine stock taking application for clinics, MediTabs is the product you are looking for. Whether you are an owner of a clinic or a pharmacist in charge of your clinic's medicine inventory, you can use MediTabs to help improve your workflow. It is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, MediTabs can get your medicine stock taking done faster than traditional GUI apps.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `meditabs.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your MediTabs application.
+.  Download the latest version of `meditabs.jar` link:{repoURL}/releases[here].
+.  Copy the `meditabs.jar` file to the folder you want to use as the home folder for your MediTabs application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,12 +43,13 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all medicines in inventory
-* *`add`* `n/Paracetamol c/3M Pharmaceuticals` : adds a new medicine named Paracetamol to the inventory
+* *`list`* : lists all medicines in the inventory
+* *`add`* `n/Paracetamol c/3M Pharmaceuticals` : adds a new medicine named `Paracetamol` to the inventory
 * *`delete`* `3` : deletes the 3rd entry shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+.  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:https://github.com/CS2103-AY1819S2-T12-3/main/issues[here] and our team would do our best to assist you.
 
 [[Features]]
 == Features
@@ -200,8 +211,8 @@ Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the
 
 === Managing warning panel : `warning`
 
-Manage the threshold for expiry date and low stock warnings.
-Format: `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]`
+Manage the threshold for expiry date and low stock warnings. +
+Format: `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
 If the thresholds are not set, the default threshold for expiry is 10 days, while threshold for low stock is 20.
 
 ****
@@ -219,22 +230,31 @@ Medicines with quanities of less than or equal to 20 will be displayed in the wa
 
 === Exporting as CSV file format : `export`
 
-You can export the current Medicine Inventory data shown in the GUI as CSV file format. +
+You can export the current Medicine Inventory data shown in the GUI as Comma-separated values (CSV) file format which is supported by many commonly used spreadsheet applications such as Microsoft Excel (Windows), LibreOffice (Linux) or Numbers (MacOS). 
+
+This feature is especially useful if you want to save the current Medicine Inventory data in a file so that it can be printed later or if you want to organise the Medicine Inventory data using a spreadsheet application for you, your superior or your supplier's reference. 
+
+In addition, you can even use the spreadsheet application to convert the CSV file to Microsoft Excel format and use all the functionalities provided by Microsoft Excel such as drawing graphs or chart to display the overview of your clinic's medicine inventory. +
 Format: `export [FILE_NAME]`
 
 ****
-* If no file name is specified, the export will just name the file according to the date and time of export.
+* The `FILE_NAME` field is optional. You can refer to <<Appendix A: File Naming Convention>> for supported file name format if you want to specify a file name for the exported CSV file.
+* If no file name is specified, the export command uses the default file name format according to the date and time of export.
+* The specific data and time format used if no file name is specified is `dd_MMM_yyyy_HH_mm_ss` e.g. `18_Mar_2019_10_28_00`
+* The file extension for a CSV file is `.csv`
+* The exported file can be found in the default `exported` folder which can be found in the home folder used for your MediTabs application.
+* If the default `exported` folder is not found in the home folder, MediTabs will automatically create the folder when the export command is executed.
 ****
 
 Examples:
 
-* `export example` +
-Export the current list shown in the GUI to a CSV file which has the filename `example`.
 * `export` +
-Export the current list shown in the GUI to a CSV file which has a default file name in this format `{Date of export}_{Time of export}`. The specific date and time format used is `dd_MMM_yyyy_HH_mm_ss`. In other words, an example of a default CSV file name is `18_Mar_2019_10_28_00`.
+Exports the current Medicine Inventory data shown in the GUI to a CSV file which has a default file name format `{Date of export}_{Time of export}`. e.g. `18_Mar_2019_10_28_00`
+* `export example` +
+Exports the current list shown in the GUI to a CSV file which has the filename `example`.
 
 [WARNING]
-If a file with the specified file name already exists in the default `exported` directory, a `File already exists` exception would be shown.
+If a file with the specified file name already exists in the default `exported` folder, the file would not exported and an error message `File already exists`
 
 === Printing labels : `label`
 
@@ -357,7 +377,7 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-== FAQ
+== Frequently Asked Questions (FAQ)
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MediTabs folder.
@@ -396,3 +416,6 @@ e.g. `warning e/20 s/10`
 * *Back to input* : kbd:[Shift] + kbd:[Enter]
 * *To bottom of list* : kbd:[Shift] + kbd:[d]
 * *To top of list* : kbd:[Shift] + kbd:[u]
+
+== Appendix A: File Naming Convention
+

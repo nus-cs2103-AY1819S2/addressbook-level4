@@ -17,7 +17,7 @@ public class AddGUIParser {
         this.fileChooser = new FileChooser();
         this.fileChooser.setTitle(AddGUIParser.FILECHOOSER_TITLE);
         this.fileChooser.getExtensionFilters()
-                .add(new FileChooser.ExtensionFilter(AddGUIParser.FILECHOOSER_FILTER_DESCRIPTION, 
+                .add(new FileChooser.ExtensionFilter(AddGUIParser.FILECHOOSER_FILTER_DESCRIPTION,
                         AddGUIParser.FILECHOOSER_FILTER_VALUE));
 
     }

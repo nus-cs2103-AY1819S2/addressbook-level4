@@ -159,7 +159,7 @@ public class BillCommand extends Command {
      */
     private void updateOrderItemList(Model model) {
         for (OrderItem oderItem : orderItemList) {
-                model.deleteOrderItem(oderItem);
+            model.deleteOrderItem(oderItem);
         }
     }
 

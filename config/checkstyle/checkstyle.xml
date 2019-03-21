@@ -82,7 +82,7 @@
     NAMING CHECKS
     -->
 
-    <!-- Validate abbreviations (consecutive capital letters) length in identifier name -->
+    <!-- Validate abbreviations (consecutive capital letters) length in type name -->
     <module name="AbbreviationAsWordInName">
       <property name="ignoreFinal" value="false"/>
       <property name="allowedAbbreviationLength" value="1"/>

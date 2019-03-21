@@ -1,12 +1,8 @@
 package seedu.address.storage;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.ArrayList;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.Title;
 
 
 /**
@@ -14,6 +10,7 @@ import seedu.address.model.task.Title;
  */
 class PdfAdaptedTask {
 
+    public static final int ATTRIBUTES = 3;
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
 
     private final String title;
@@ -37,5 +34,18 @@ class PdfAdaptedTask {
         title = source.getTitle().toString();
         startdate = source.getStartDate().toString();
         enddate = source.getEndDate().toString();
+    }
+
+    /**
+     * Creates a {@code String[]} for PDF exporting.
+     * @return the attributes of a PdfAdaptedTask
+     */
+    public ArrayList<String> getStrings() {
+        ArrayList<String> stringArray = new ArrayList<>(ATTRIBUTES);
+        stringArray.add("Title: " + title);
+        stringArray.add("Start date: " + startdate);
+        stringArray.add("End date: " + enddate);
+
+        return stringArray;
     }
 }

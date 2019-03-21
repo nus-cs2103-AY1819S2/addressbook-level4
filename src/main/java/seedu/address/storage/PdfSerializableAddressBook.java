@@ -21,9 +21,6 @@ class PdfSerializableAddressBook {
      */
     public PdfSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(PdfAdaptedPerson::new).collect(Collectors.toList()));
-        for (int i = 0; i < source.getPersonList().size(); i++) {
-            persons.get(i).setIndex(i);
-        }
         tasks.addAll(source.getTaskList().stream().map(PdfAdaptedTask::new).collect(Collectors.toList()));
     }
 

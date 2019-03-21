@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -102,19 +103,42 @@ public class InOutAddressBookStorage implements AddressBookStorage {
 
         FileUtil.createIfMissing(filePath);
 
-        try (PDDocument doc = new PDDocument()) {
-            PDPage page = new PDPage();
-            doc.addPage(page);
-            try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
-                PDFont font = PDType1Font.HELVETICA_BOLD;
+        ArrayList<String> stringArr;
 
-                contents.beginText();
-                contents.setFont(font, 12);
-                for (PdfAdaptedPerson person : toWrite.getPersons()) {
-                    contents.newLineAtOffset(100, 700);
-                    contents.showText(person.toString());
+        try (PDDocument doc = new PDDocument()) {
+            PDFont font = PDType1Font.HELVETICA;
+            int fontSize = 12;
+
+            for (PdfAdaptedPerson person : toWrite.getPersons()) {
+                PDPage page = new PDPage();
+                doc.addPage(page);
+                stringArr = person.getStrings();
+                try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
+
+                    contents.setFont(font, fontSize);
+                    for (int i = 0; i < stringArr.size(); i++) {
+                        contents.beginText();
+                        contents.newLineAtOffset(100, 700 - (i * (fontSize + 3)));
+                        contents.showText(stringArr.get(i));
+                        contents.endText();
+                    }
                 }
-                contents.endText();
+            }
+
+            for (PdfAdaptedTask task : toWrite.getTasks()) {
+                PDPage page = new PDPage();
+                doc.addPage(page);
+                stringArr = task.getStrings();
+                try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
+
+                    contents.setFont(font, fontSize);
+                    for (int i = 0; i < stringArr.size(); i++) {
+                        contents.beginText();
+                        contents.newLineAtOffset(100, 700 - (i * (fontSize + 3)));
+                        contents.showText(stringArr.get(i));
+                        contents.endText();
+                    }
+                }
             }
             doc.save(filePath.toFile());
         }

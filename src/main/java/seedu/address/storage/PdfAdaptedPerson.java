@@ -1,34 +1,20 @@
 package seedu.address.storage;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.patient.DateOfBirth;
-import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link Person}.
  */
 class PdfAdaptedPerson {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final int ATTRIBUTES = 7;
 
-    private int index;
     private final String name;
     private final String nric;
     private final String dateOfBirth;
@@ -73,10 +59,41 @@ class PdfAdaptedPerson {
     }
 
     /**
-     * Sets the index of a PdfAdaptedPerson for exporting.
+     * Creates a {@code String[]} for PDF exporting.
+     * @return the attributes of a PdfAdaptedPerson
      */
-    public void setIndex(int index) {
-        this.index = index;
+    public ArrayList<String> getStrings() {
+        ArrayList<String> stringArray = new ArrayList<>(ATTRIBUTES);
+        stringArray.add("NRIC: " + nric);
+        stringArray.add("Name: " + name);
+        stringArray.add("Date of birth: " + dateOfBirth);
+        stringArray.add("Home Address : " + address);
+        stringArray.add("Phone Number: " + phone);
+        stringArray.add("Email Address: " + email);
+        stringArray.add(getTags());
+
+        return stringArray;
     }
 
+    /**
+     * Creates a {@code String} for getStrings().
+     * @return the tags a PdfAdaptedPerson
+     */
+    private String getTags() {
+        String message = "Tags: [";
+
+        StringBuilder sb = new StringBuilder(message);
+
+        for (PdfAdaptedTag tag : tagged) {
+            sb.append(tag.getTagName());
+            sb.append(", ");
+        }
+
+        sb.delete(sb.length() - 2, sb.length());
+        sb.append("]");
+
+        System.out.println(sb);
+
+        return sb.toString();
+    }
 }

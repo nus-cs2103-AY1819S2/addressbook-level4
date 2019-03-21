@@ -10,13 +10,14 @@ class PdfAdaptedTag {
     private final String tagName;
 
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code PdfAdaptedTag} with the given {@code tagName}.
+     */
     public PdfAdaptedTag(String tagName) {
         this.tagName = tagName;
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Converts a given {@code Tag} into this class for PDF use.
      */
     public PdfAdaptedTag(Tag source) {
         tagName = source.tagName;

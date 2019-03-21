@@ -47,15 +47,17 @@ public class StudyPanel extends UiPart<Region> {
     private Label id;
 
     @FXML
-    private Label userAnswer;
+    private Label userAnswerLabel;
 
 
-    public StudyPanel(ObservableValue<String> textShown, ObservableValue<StudyView.studyState> studyState) {
+    public StudyPanel(ObservableValue<String> textShown,
+                      ObservableValue<StudyView.studyState> studyState,
+                      ObservableValue<String> userAnswer) {
         super(FXML);
 
         question.setText(textShown.getValue());
 
-        userAnswer.setText("Your answer: \nLorem Ipsum Dolor");
+        userAnswerLabel.setText("Your answer: \nLorem Ipsum Dolor");
 
         card.pseudoClassStateChanged(ANSWER, false);
 
@@ -69,6 +71,11 @@ public class StudyPanel extends UiPart<Region> {
             logger.info("color changed to: " + newValue);
             card.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);
             question.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);
+        });
+
+        userAnswer.addListener((observable, oldValue, newValue) -> {
+            logger.info("user answer changed to: " + newValue);
+            userAnswerLabel.setText(userAnswer.getValue());
         });
 
 

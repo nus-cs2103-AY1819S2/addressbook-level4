@@ -58,25 +58,26 @@ public class StudyPanel extends UiPart<Region> {
         super(FXML);
 
         question.setText(textShown.getValue());
-
-        userAnswerLabel.setText(YOUR_ANSWER_LABEL);
+        userAnswerLabel.setVisible(false);
 
         card.pseudoClassStateChanged(ANSWER, false);
 
         textShown.addListener((observable, oldValue, newValue) -> {
             logger.info("textShown changed to: " + newValue);
             question.setText(textShown.getValue());
-            logger.info("color changed to: " + newValue);
+        });
+
+        studyState.addListener((observable, oldValue, newValue) -> {
+            logger.info("color changed for: " + newValue);
             card.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);
             question.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);
+            userAnswerLabel.setVisible(studyState.getValue() == StudyView.studyState.ANSWER);
         });
 
         userAnswer.addListener((observable, oldValue, newValue) -> {
             logger.info("user answer changed to: " + newValue);
             userAnswerLabel.setText(YOUR_ANSWER_LABEL + userAnswer.getValue());
         });
-
-
 
     }
 

@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "kevvvinn",
+      "displayName": "LAW...VIN",
+      "authorNames": ["kevvvinn"]
+    },
+    {
+      "githubId": "JonathanLeeWH",
+      "displayName": "LEE...HAN",
+      "authorNames": ["JonathanLeeWH"]
+    },
+    {
+      "githubId": "melpulomas",
+      "displayName": "MEL...ITO",
+      "authorNames": ["melpulomas"]
+    },
+    {
+      "githubId": "flxffy",
+      "displayName": "ONG...HUI",
+      "authorNames": ["flxffy", "aihui"]
+    },
+    {
+      "githubId": "jtankw3",
+      "displayName": "TAN...SON",
+      "authorNames": ["jtankw3", "Jason Tan"]
+    }
+  ]
+}

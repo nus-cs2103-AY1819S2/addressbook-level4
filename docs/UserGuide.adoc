@@ -352,6 +352,7 @@ health.
 === Open
 Opens the file in the specified file path and overwrites the current records.
 ** Note that 'open' always searches inside the data folder.
+** You can only open .json files.
 
 Format: `open FILE_PATH`
 
@@ -368,6 +369,9 @@ Replaces the current records with the records in "records2.json" found in the "f
 Saves the current records to the specified filepath.
 ** Note that 'save' always saves inside the data folder. If no such filepath exists,
 it will be created. Otherwise, it will overwrite the existing file.
+** You can only save to .json and .pdf.
+.json files allow you to open or import them.
+.pdf files are easier for humans to read, but you cannot open or import them with OurTeeth.
 
 Format: `save FILE_PATH`
 
@@ -376,13 +380,14 @@ Examples:
 * `save records1.json` +
 Saves the current records to "records1.json".
 
-* `save february\records2.json` +
+* `save february\records2.pdf` +
 Saves the current records to "records1.json" found in the "february" folder.
 
 
 === Import
 Opens the file in the specified file path and adds the specified patients to the current records.
 ** Note that 'import' always searches inside the data folder.
+** You can only import .json files.
 
 Format: `import FILE_PATH INDEX_RANGE`
 
@@ -400,11 +405,17 @@ Adds patient 1 and patient 4 from "records1.json" to the current records.
 * `import records1.json 1-4` +
 Adds patient 1 to patient 4 from "records1.json" to the current records.
 
+* `import records1.json 1,3-5` +
+Adds patient 1 and patient 3 to patient 5 from "records1.json" to the current records..
+
 
 === Export
 Saves the specified patients in the current records to the specified filepath.
 ** Note that 'export' always saves inside the data folder. If no such filepath exists,
 it will be created. Otherwise, it will overwrite the existing file.
+** You can only export to .json and .pdf. 
+.json files allow you to open or import them.
+.pdf files are easier for humans to read, but you cannot open or import them with OurTeeth.
 
 Format: `export FILE_PATH INDEX_RANGE`
 
@@ -413,17 +424,21 @@ Examples:
 * `export records1.json 1` +
 Saves patient 1 from the current records to "records1.json".
 
-* `export february\records1.json 1` +
-Saves patient 1 from the current records to "records1.json" found in the "february" folder.
+* `export february\records1.pdf 1` +
+Saves patient 1 from the current records to "records1.pdf" found in the "february" folder.
 
 * `export records1.json 1,4` +
 Saves patient 1 and patient 4 from the current records to "records1.json".
 
-* `export records1.json 1-4` +
-Saves patient 1 to patient 4 from the current records to "records1.json".
+* `export records1.pdf 1-4` +
+Saves patient 1 to patient 4 from the current records to "records1.pdf".
 
-* `Export records2.json` +
+* `export records1.pdf 1,3-5` +
+Saves patient 1 and patient 3 to patient 5 from the current records to "records1.pdf".
+
+* `Export records2.json all` +
 Writes all entries from the address book to records2.json. +
+
 
 === List
 Shows a list of all personnel or medical stored in the application

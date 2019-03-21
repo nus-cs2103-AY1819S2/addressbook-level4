@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -23,6 +24,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_NOT_AN_INTEGER = "Cannot parse string to integer";
+    public static final String MESSAGE_INDEX_LESS_THAN_ZERO = "Index is less than zero";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -114,14 +116,16 @@ public class ParserUtil {
     }
 
 
-    public static List<Integer> parseFolderIndex(String folderIndexes) throws ParseException {
+    public static List<Integer> parseFolderIndex(String folderIndexes) throws NumberFormatException, IllegalValueException {
         List<Integer> indexList = new ArrayList<>();
         folderIndexes = folderIndexes.trim();
-        try {
-            return Arrays.stream(folderIndexes.split(" ")).map(ParserUtil::stringToInt).collect(Collectors.toList());
-        } catch (NumberFormatException exception) {
-            throw new ParseException(MESSAGE_NOT_AN_INTEGER);
+        indexList = Arrays.stream(folderIndexes.split(" ")).map(ParserUtil::stringToInt).collect(Collectors.toList());
+
+        List<Integer> InvalidIndexList = indexList.stream().filter(i -> i < 0).collect(Collectors.toList());
+        if (InvalidIndexList.size() > 0) {
+            throw new IllegalValueException(MESSAGE_INDEX_LESS_THAN_ZERO);
         }
+        return indexList;
     }
 
     /**

@@ -18,10 +18,7 @@ public class CsvManager implements CsvCommands {
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Hints";
 
-
-    /**
-     * Writes card folders as csv file.
-     */
+    /*
     @Override
     public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) throws IOException {
         String filepath = getFilePathAsString(filename);
@@ -42,6 +39,13 @@ public class CsvManager implements CsvCommands {
         }
         fileWriter.flush();
         fileWriter.close();
+    }
+    */
+
+
+    @Override
+    public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) throws IOException {
+
     }
 
     @Override

@@ -439,7 +439,7 @@ public class ModelManager implements Model {
                 ReadOnlyCardFolder cardFolder = filteredFoldersList.get(index.getZeroBased());
                 readOnlyCardFolders.add(cardFolder);
             } catch (IndexOutOfBoundsException e) {
-                throw new CardFolderNotFoundException();
+                throw new CardFolderNotFoundException(index.displayIndex());
             }
         }
         return readOnlyCardFolders;

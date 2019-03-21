@@ -16,4 +16,5 @@ public class Messages {
             + " session";
     public static final String MESSAGE_INVALID_ANSWER_COMMAND = "Answer command is valid only when a question is "
             + "displayed";
+    public static final String MESSAGE_NO_NEGATIVE_INDEX = "Negative index not allowed !";
 }

@@ -29,18 +29,21 @@ public class ExportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Successfully exported card folders to: $1%s";
 
-    public static final String MESSAGE_MISSING_CARD_FOLDERS = "Could not find the specified folder indexes: ";
+    public static final String MESSAGE_MISSING_CARD_FOLDERS = "Could not find the specified folder index: ";
 
     public static final String MESSAGE_FILE_OPS_FAILURE = "Could not export to specified file";
 
+    private List<Integer> cardFolderIndexes;
+    /*
     private Set<CardFolderExport> cardFolders;
     private CsvFile filename;
-    private List<Integer> cardFolderIndexes;
+
 
     public ExportCommand(Set<CardFolderExport> cardFolders, CsvFile filename) {
         this.cardFolders = cardFolders;
         this.filename = filename;
     }
+    */
 
     public ExportCommand(List<Integer> cardFolderIndexes) {
         this.cardFolderIndexes = cardFolderIndexes;
@@ -56,9 +59,10 @@ public class ExportCommand extends Command {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, filename));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
+    /*
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -66,4 +70,5 @@ public class ExportCommand extends Command {
                 && (cardFolders.containsAll(((ExportCommand) other).cardFolders)
                 && filename.equals(((ExportCommand) other).filename));
     }
+    */
 }

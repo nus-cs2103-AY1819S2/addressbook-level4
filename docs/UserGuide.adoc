@@ -24,7 +24,7 @@ efficiently*, then this is the product just for you! _In-Credit-Ble_ is designed
 *Command Line Interface (CLI)*.
 
 This user guide shows you how to get started using _In-Credit-Ble_. It also provides in-depth documentation on the
-different features and shows you how to perform basic _In-Credit-ble_ operations.
+different features and shows you how to perform basic _In-Credit-Ble_ operations.
 
 == Quick Start
 Follow these steps to get _In-Credit-Ble_ up and running on your computer in no time!
@@ -81,7 +81,7 @@ This command enables you to set a fixed budget for a month/week. The command for
 
 === Adding an expense: `spend`
 
-You can keep track of how much you have spent by adding an expense entry to In-Credit-Ble.
+You can keep track of how much you have spent by adding an expense entry to _In-Credit-Ble_.
 
 *Alias*: `add`
 
@@ -202,6 +202,7 @@ Restores to the state before the previous _undoable_ command was executed.
 [NOTE]
 ====
 _Undoable_ commands:
+
 * commands that modify the finance tracker's content +
 (`set`, `spend`, `increase`, `allocate`, `edit`, `delete`, `clear`, `description).
 ====
@@ -350,7 +351,7 @@ Alias: `add` +
 e.g. `spend n/movie $/10 d/16/03/2019 c/Entertainment`
 * *Increase budget*: `increase $/AMOUNT` +
 e.g. `increase $/10.10`
-* *Allocate budgeting based on categories*: `allocate $/AMOUNT c/CATEGORY' +
+* *Allocate budgeting based on categories*: `allocate $/AMOUNT c/CATEGORY` +
 e.g. `allocate $/100 c/Shopping`
 * *List all entries*: `list` +
 Alias: `l`, `ls`

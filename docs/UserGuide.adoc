@@ -26,23 +26,45 @@ Interested? Jump to the <<Quick Start>> to get started. If you already have Equi
 
 == Quick Start
 
+To get Equipment manager up and running, simply follow these few steps.
+
+=== Setting up of Equipment Manager
+
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+.  Download the latest `equipmentmanager.jar` link:https://github.com/CS2103-AY1819S2-W10-3/main/releases/[here].
+.  Copy the file to the folder you want to use as the home folder for your Equipment Manager.
+.  Double-click the file to start the app. The _Graphical User Interface_ (GUI) should appear in a few seconds.
+
+=== Graphical User Interface (GUI)
+.A total of six regions to note in our GUI
+[[GUI]]
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
+The GUI for _Equipment Manager_ as shown in <<GUI>> consists of six regions:
+
+
+[1] Menu Bar {nbsp} {nbsp} {nbsp} [2] Result Panel {nbsp} {nbsp} {nbsp} [3] Google Map +
+[4] Message Box {nbsp}[5] Command Box{nbsp} {nbsp} [6] Status Bar
+
+[IMPORTANT]
+Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
+
+ Note to editor: add labels to GUI picture, change auto figure link to sentence
+
+=== Entering a command
+
+Type the command in the Command Box and press kbd:[Enter] to execute it. +
+
+*Some basic commands you can try to get started:*
+
+* *`help`*: opens up user guide
+* *`list`*: lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* **`delete`**`3`: deletes the 3rd contact shown in the current list
+* *`exit`*: exits the app
 
-.  Refer to <<Features>> for details of each command.
+[TIP]
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -57,19 +79,25 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 
 === Viewing help : `help`
+This command opens up the User Guide in a separate window and shows all the available commands. It also teaches you how to use them effectively. +
 
 Format: `help`
 
+[TIP]
+You can view help by click the `Help button on the Menu Bar.
+
+If it is your first time reading this, then good job on opening the User Guide!
+
 === Adding an equipment: `add-e`
 Adds an equipment to the Equipment Manager +
-Format: `add-e /[field name][field value]`
+Format: `add-e n/CLIENT_NAME p/CLIENT_PHONE_NUMBER e/CLIENT_EMAIL a/CLIENT_ADDRESS s/SERIAL_NUMBER [t/TAG]`
 
 [TIP]
-The user can enter multiple field name and values.
+An equipment can any number of tags (including 0).
 
 Example:
 
-* `add equipment /name AED /clientid 1729 /year 2019 /status in-use`
+* `add n/Clementi CC p/98765432 e/clementic@gmail.com a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
 
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
@@ -84,32 +112,33 @@ Example:
 
 === Adding to work list: `put`
 Adds equipment to working list in the Equipment Manager +
-Format: `put [equipment id] [worklist id]`
+Format: `put INDEX [worklist id]`
 
 [TIP]
 The user can enter multiple field name and values.
 
 Example:
 
-* `put 17291 203`
+* `list-w` +
+`put 1 203`
 
 === Editing an equipment: `edit-e`
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Edits an existing equipment in the _Equipment Manager_. +
+Format: `edit INDEX [n/CLENT_NAME] [p/CLENT_PHONE] [e/CLENT_EMAIL] [a/CLENT_ADDRESS] [s/SERIAL_NUMBER] [t/TAG]…​`
 
-* Edits the person at the specified INDEX. The index refers to the index number shown in the displayed person list. The index must be a positive integer 1, 2, 3, …​
+* Edits the equipment at the specified INDEX. The index refers to the index number shown in the displayed equipment list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person’s tags by typing t/ without specifying any tags after it.
+* When editing tags, the existing tags of the equipment will be removed i.e adding of tags is not cumulative.
+* You can remove all the equipment’s tags by typing t/ without specifying any tags after it.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be 91234567 and johndoe@example.com respectively.
+* `edit 1 p/91234567 e/ccc@gmail.com` +
+Edits the client phone number and client email address of the 1st equipment to be 91234567 and ccc@gmail.com respectively.
 
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be Betsy Crower and clears all existing tags.
+* `edit 2 n/Hougang CC t/` +
+Edits the client name of the 2nd equipment to be Huogang CC and clears all existing tags.
 
 === List all equipments:  `list-e`
 Shows a list of all equipments in the Equipment Manager +
@@ -117,19 +146,15 @@ Format: `list-e`
 
 Example:
 
-* `list equipment`
+* `list-e`
 
 === View work list: `list-w`
 Shows a list of all clients in the Equipment Manager +
 Format: `list-w`
 
-=== View equipment details: `view-e`
-View and retrieve more information on the equipment +
-Format: `view-e /[equipment name]`
-
 Example:
 
-* `view equipment 12839`
+* `list-w`
 
 === Selecting an equipment or work list: `select`
 Selects the equipment or work list identified by the index number used in the displayed equipment list or displayed work list. The address of the equipment will be shown as marker on the map. +
@@ -149,7 +174,7 @@ Selects the 2nd equipment in the equipment manager.
 `select 1` +
 Selects the 1st worklist in the equipment manager.
 
-* `find Betsy` +
+* `find Clementi` +
 `select 1` +
 Selects the 1st equipment in the results of the find command.
 
@@ -207,20 +232,23 @@ Example:
 If you have forgotten how to type a command, do not worry!  By typing in the first letter of the command in the command and pressing the kbd:[tab] key, it will display the full format of the command.
 
 === Deleting equipment: `delete-e`
-Deletes the specified equipment from the equipment list and the whole details contained under the equipment specified by its equipment name /[equipment id]
+Deletes the specified equipment from the equipment list and the whole details contained under the equipment specified by INDEX
 
-Format: delete equipment EQUIPMENT_ID
+Format: `delete-e INDEX`
 
 Example:
 
-* `delete equipment 38120`
+* `list-e` +
+`delete-e 1`
 
 === Deleting work list: `delete-w`
 Deletes the specified work list from the work list.
-Format: delete worklist /[worklist id]
+Format: `delete-w INDEX`
 
 Example:
-* `delete worklist 12`
+
+* `list-w` +
+`delete-w 12`
 
 === Enabling notification: `notify`
 Notifies you when an equipment is due for preventive maintenance in 2 days. You can choose to get notifications or not.
@@ -232,6 +260,13 @@ With multiple destinations that you plan to visit for preventive maintenance, us
 * A list of location to visit in order.
 ****
 Format: `route /[worklist id]`
+
+Examples:
+
+* `list-w` +
+`route 120`
+
+    Note to editor: add a png example of the routing of worklist id 120.
 
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order.
@@ -285,7 +320,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
-// end::undoredo[]
 
 === Clearing all entries: `clear`
 If you want to clear out all the client or equipment details in Equipment Manager, you can use the clear command. For example, clear all clients or clear all equipment. +
@@ -300,17 +334,118 @@ Format: `exit`
 Equipment Manager data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Equipment Manager folder.
 
+== Glossary
+Unsure of a few technical terms? We got you covered. Refer to [underline]#<<techtable>># below.
+
+[[techtable]]
+.Technical Terms
+[cols="2,5", options="header"]
+|===
+| Term | Explanation
+
+|*Autocomplete*
+|Provides suggestions while you type into the field.
+
+|*Google Maps*
+|It is a online map service provided by Google.
+
+|*Mainstream Operating System (OS)*
+|Windows, Linux, Unix and OS-X are operating systems used widely in the world.
+
+|*User Interface (UI)*
+|Allows the user to interact with the application through inputs and outputs of data.
+|===
+
+
 == Command Summary
 
-* [in-progress]
+This is the last section of the User Guide, but the most useful if you just want a list of commands to try.
+Refer to <<generaltable>> for general commands and <<managetable>> for Equipment Manager.
+For more details on what each command does, please refer to <<Features>>.
+
+.General Commands
+[[generaltable]]
+[cols="^.^2,^.^2,^.^2", width=50%, options="header"]
+|===
+|Command |Format |Example
+
+|*Help*
+|help
+|he
+
+|*Add Equipment*
+|add-e
+|l
+
+|*Add Work List*
+|add-w
+|l
+
+|*List Equipment*
+|list-e
+|l
+
+|*List Work List*
+|list-w
+|l
+
+|*Delete Equipment*
+|delete-e
+|l
+
+|*Delete Work List*
+|delete-w
+|l
+
+|*Undo*
+|undo
+|u
+
+|*Redo*
+|redo
+|r
+
+|*Clear*
+|clear
+|cl
+
+|*History*
+|history
+|hi
+
+|*Exit*
+|exit
+|e
+|===
+
+.Equipment Manager
+[[managetable]]
+[cols="^.^1,^.^4,^.^2"]
+|===
+|Command |Format |Example
+
+|*Select*
+|select INDEX
+|s 2
+
+|*Put*
+|put INDEX [worklist id]
+|put 1 120
+
+|*Find*
+|find KEYWORD [MORE_KEYWORDS]
+|fin punggol
+
+|*Filter*
+|filter /year 1987-2018 /status in-use`
+|fil ongoing
+|===

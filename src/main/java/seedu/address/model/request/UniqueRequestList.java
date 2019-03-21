@@ -31,7 +31,7 @@ public class UniqueRequestList implements Iterable<Request> {
      */
     public boolean contains(Request toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isSameRequest);
     }
 
     /**
@@ -64,7 +64,7 @@ public class UniqueRequestList implements Iterable<Request> {
             throw new DuplicateRequestException();
         }
 
-        internalList.add(index, editedRequest);
+        internalList.set(index, editedRequest);
     }
 
     public void setRequests(UniqueRequestList replacement) {
@@ -151,5 +151,10 @@ public class UniqueRequestList implements Iterable<Request> {
         return other == this // short circuit if same object
                 || (other instanceof UniqueRequestList // instanceof handles nulls
                 && internalList.equals(((UniqueRequestList) other).internalList));
+    }
+
+    @Override
+    public String toString() {
+        return this.internalList.toString();
     }
 }

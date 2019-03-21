@@ -47,7 +47,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 
 * *`list`* : lists all places
-* **`add`**`n/NUS Computing r/5 d/No Description a/NUS School of Computing, COM1, 13 Computing Drive, 117417` : adds
+* **`add`**`n/NUS Computing cc/SGP r/5 d/No Description a/NUS School of Computing, COM1, 13 Computing Drive, 117417` :
+adds
  a place named `NUS Computing` to TravelBuddy.
 * **`delete`**`3` : deletes the 3rd place shown in the current list
 * *`exit`* : exits the application
@@ -81,28 +82,28 @@ around. This can be useful to refer to when using the app.
 === Adding a place: `add`
 
 Adds a place to TravelBuddy. +
-Shortcut: 'a' +
-Format: `add n/NAME r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...`
+Shortcut: `a` +
+Format: `add n/NAME cc/COUNTRYCODE r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...`
 
 [TIP]
 A place can have any number of tags (including 0)
 
 Examples:
 
-* `add n/NUS Computing r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417`
-* `add n/Raffles Hotel t/hotel d/This place is lovely a/Raffles Road r/5 t/staycation`
+* `add n/NUS Computing cc/SGP r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417`
+* `add n/Raffles Hotel t/hotel d/This place is lovely cc/SGP a/Raffles Road r/5 t/staycation`
 
 === Listing all places : `list`
 
 Shows a list of all places in TravelBuddy. +
-Shortcut: 'l' +
+Shortcut: `l` +
 Format: `list`
 
 === Editing a place : `edit`
 
 Edits an existing place in TravelBuddy. +
-Shortcut: 'e' +
-Format: `edit INDEX [n/NAME] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
+Shortcut: `e` +
+Format: `edit INDEX [n/NAME] [cc/COUNTRYCODE] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
 
 ****
 * Edits the place at the specified `INDEX`. The index refers to the index number shown in the displayed place list. The
@@ -179,7 +180,7 @@ Returns a list of places with ratings of `4` or `5`
 === Deleting a place : `delete`
 
 Deletes the specified place from TravelBuddy. +
-Shortcut: 'd' +
+Shortcut: `d` +
 Format: `delete INDEX`
 
 ****
@@ -202,7 +203,8 @@ Deletes the 1st place in the results of the `find` command.
 Deletes multiple places from TravelBuddy's currently displayed list on the left. +
 Format: `deletem START_INDEX END_INDEX`
 
-< screenshot of UI needed>
+image::deletemExample.png[width="600"]
+
 
 ****
 * Deletes multiple places from a specified range from `START_INDEX` to `END_INDEX`
@@ -245,7 +247,7 @@ Selects the 1st place in the results of the `find` command.
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
-Shortcut: 'h' +
+Shortcut: `h` +
 Format: `history`
 
 [NOTE]
@@ -257,7 +259,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 === Undoing previous command : `undo`
 
 Restores TravelBuddy to the state before the previous _undoable_ command was executed. +
-Shortcut: 'u' +
+Shortcut: `u` +
 Format: `undo`
 
 [NOTE]
@@ -283,7 +285,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 === Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
-Shortcut: 'r' +
+Shortcut: `r` +
 Format: `redo`
 
 Examples:
@@ -306,7 +308,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 === Clearing all entries : `clear`
 
 Clears all place entries from TravelBuddy. +
-Shortcut: 'c' +
+Shortcut: `c` +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -350,7 +352,6 @@ If you have been using it frequently, please refer to Data and Storage Issues.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TravelBuddy folder.
 
-
 *Q*: How do I send my address book to another person? +
 *A*: Send the person (via E-mail or messenger applications) your file that contains the data of your Address Book folder.
 
@@ -369,10 +370,11 @@ Please do check the file that contains the data of your address book.
 *Q*: What details do I need for the `add` command? +
 *A*: The following details are required for a valid `add` command:
 
-* Name of place (Prefix: n/)
-* Rating of place (Prefix: r/)
-* Description of place (Prefix: d/)
-* Address of place (Prefix: a/)
+* Name of place (Prefix: `n/`)
+* Country Code of place (Prefix: `cc/`)
+* Rating of place (Prefix: `r/`)
+* Description of place (Prefix: `d/`)
+* Address of place (Prefix: `a/`)
 
 *Q*: Why does the `undo` command not work? +
 *A*: The `undo` command only reverses the commands `add`, `delete`, `edit` and `clear`.
@@ -384,8 +386,9 @@ Please do check the file that contains the data of your address book.
 
 Below is a summarized list of all the shortcuts for commands that TravelBuddy supports:
 
-* *Add* - shortcut `a` - `a n/NAME r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...` +
-e.g. `a n/NUS Computing r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417 t/school`
+* *Add* - shortcut `a` - `a n/NAME cc/COUNTRYCODE r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...` +
+e.g. `a n/NUS Computing cc/SGP r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417
+t/school`
 
 * *Clear* : shortcut `c`
 
@@ -396,7 +399,7 @@ e.g. `d 3`
 e.g. `deletem 2 5`
 <currently does not have a shortcut>
 
-* *Edit* : shortcut `e INDEX [n/NAME] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...` +
+* *Edit* : shortcut `e INDEX [n/NAME] [cc/COUNTRYCODE] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...` +
 e.g. `e 2 n/Starbucks d/I like the coffee here`
 
 * *Search* : shortcut `s KEYWORD [MORE_KEYWORDS]` +

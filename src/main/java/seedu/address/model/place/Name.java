@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Place's name in the address book.
+ * Represents a Place's name in TravelBuddy.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
@@ -38,12 +38,6 @@ public class Name {
         return test.matches(VALIDATION_REGEX);
     }
 
-
-    @Override
-    public String toString() {
-        return fullName;
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -54,6 +48,11 @@ public class Name {
     @Override
     public int hashCode() {
         return fullName.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return fullName;
     }
 
 }

@@ -1,7 +1,14 @@
 package seedu.address.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javafx.collections.ObservableList;
+import seedu.address.model.place.CountryCode;
+import seedu.address.model.place.Place;
+import seedu.address.model.place.Rating;
 
 /**
  * {@code AddressBook} that keeps track of its own history.
@@ -88,6 +95,42 @@ public class VersionedAddressBook extends AddressBook {
         return super.equals(otherVersionedAddressBook)
                 && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+    }
+
+    /**
+     * Generates a chart by country.
+     */
+    public Map<CountryCode, Integer> generateCountryChart() {
+        ObservableList<Place> placeList = addressBookStateList.get(addressBookStateList.size() - 1).getPlaceList();
+        CountryCode countryCode;
+        Map<CountryCode, Integer> mapCountry = new HashMap<>();
+        for (Place place : placeList) {
+            countryCode = place.getCountryCode();
+            if (mapCountry.containsKey(countryCode)) {
+                mapCountry.put(countryCode, mapCountry.get(countryCode) + 1);
+            } else {
+                mapCountry.put(countryCode, 1);
+            }
+        }
+        return mapCountry;
+    }
+
+    /**
+     * Generates a chart by rating.
+     */
+    public Map<Rating, Integer> generateRatingChart() {
+        ObservableList<Place> placeList = addressBookStateList.get(addressBookStateList.size() - 1).getPlaceList();
+        Rating rating;
+        Map<Rating, Integer> mapRating = new HashMap<>();
+        for (Place place : placeList) {
+            rating = place.getRating();
+            if (mapRating.containsKey(rating)) {
+                mapRating.put(rating, mapRating.get(rating) + 1);
+            } else {
+                mapRating.put(rating, 1);
+            }
+        }
+        return mapRating;
     }
 
     /**

@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -51,7 +50,6 @@ public class HealthWorkerCard extends UiPart<Region> {
         this.organisation.setText(worker.getOrganization().toString());
         this.worker.getSkills().getSkills().forEach(s ->
                 specialisations.getChildren().add(new Label(s.toString().toLowerCase())));
-        this.specialisations.setAlignment(Pos.CENTER);
     }
 
     @Override

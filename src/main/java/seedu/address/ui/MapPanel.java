@@ -61,15 +61,16 @@ public class MapPanel extends UiPart<Region> {
         loadPage(constructLink(mapAddress));
     }
 
-    public void loadPage(String url) {
-        Platform.runLater(() -> map.getEngine().load(url));
-    }
-
     /**
-     * Loads a default HTML file with a background that matches the general theme.
+     * Loads a default HTML file that displays the welcome message and starter tips.
      */
     private void loadDefaultPage() {
         loadPage(DEFAULT_PAGE.toExternalForm());
+    }
+
+
+    public void loadPage(String url) {
+        Platform.runLater(() -> map.getEngine().load(url));
     }
 
 
@@ -82,11 +83,10 @@ public class MapPanel extends UiPart<Region> {
         // https://gothere.sg/maps/staticmap?center=%22bedok%20north%20street%203%22&zoom=15&
         // size=400x300&markers=%22bedok%20north%20street%203%22,red&sensor=false;
         StringBuilder builder = new StringBuilder(MAP_URL);
-        builder.append(mapAddress + "%22&zoom=15&size=640x500&markers=%22");
+        builder.append(mapAddress + "%22&zoom=16&size=640x395&markers=%22");
         builder.append(mapAddress + ",red&sensor=false");
         logger.info(builder.toString());
         return builder.toString();
 
     }
-
 }

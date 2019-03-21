@@ -7,7 +7,7 @@
     "address" : "125, Jurong West Ave 6, #08-111",
     "tagged" : [ ],
     "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE PHYSIOTHERAPY "
+    "skills" : "PHYSIOTHERAPY "
   }, {
     "name" : "Betty Meier",
     "phone" : "98761232",
@@ -16,7 +16,7 @@
     "address" : "312, Clementi Ave 2, #02-25",
     "tagged" : [ "Stroke", "Eldercare" ],
     "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE ORTHOPAEDIC "
+    "skills" : "ORTHOPAEDIC "
   }, {
     "name" : "Carlie Kurz",
     "phone" : "95358463",

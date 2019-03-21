@@ -1,6 +1,17 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the default.html file */
+    font-family: "Comic Sans MS";
+    padding-left: 20px;
+}
+
+.welcome-message {
+    font-family: "Segoe UI Light";
+}
+
+span.command {
+    font-family: "Lucida Console";
+    font-size: 10pt;
+    color: #00b894;
 }
 
 .label {
@@ -337,7 +348,7 @@
     -fx-background-radius: 0;
 }
 
-#tags {
+#tags, #specialisations {
     -fx-hgap: 7;
     -fx-vgap: 3;
 }
@@ -349,6 +360,15 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#specialisations .label {
+    -fx-text-fill: white;
+    -fx-background-color: #ee5253;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 10;
 }
 
 /* Added css lines */

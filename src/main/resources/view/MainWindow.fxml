@@ -21,7 +21,7 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css"/>
+        <!--<URL value="@DarkTheme.css"/>-->
         <URL value="@Extensions.css"/>
       </stylesheets>
 
@@ -32,6 +32,9 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Feedback">
+            <MenuItem fx:id="feedbackMenuItem" mnemonicParsing="false" onAction="#handleFeedback" text="Feedback"/>
           </Menu>
         </MenuBar>
 
@@ -49,7 +52,7 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="patientList" minWidth="300" prefWidth="300" maxWidth="300" SplitPane.resizableWithParent="false">
+          <VBox fx:id="patientList" minWidth="300" prefWidth="350" maxWidth="350" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
@@ -58,31 +61,23 @@
 
           <VBox>
             <SplitPane id="splitPaneTwo" fx:id="splitPaneTwo" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-              <StackPane fx:id="mapPanelPlaceholder" minWidth="425" prefWidth="640">
+              <StackPane fx:id="mapPanelPlaceholder" minWidth="425" prefWidth="425" >
               </StackPane>
-              <StackPane>
-                <VBox>
-                  <TabPane fx:id="tabPane" minHeight="300" minWidth="400">
-                    <Tab fx:id="requestTab" text="Requests" closable="false">
-                      <StackPane fx:id="requestListPlaceholder" VBox.vgrow="ALWAYS"/>
-                    </Tab>
-                    <Tab fx:id="locationTab" text="Locations" closable="false">
-                      <StackPane fx:id="locationListPlaceholder" VBox.vgrow="ALWAYS"/>
-                    </Tab>
-                  </TabPane>
-                </VBox>
+              <StackPane fx:id="onReqClickPlaceholder" minWidth="400" style="background-color:yellow;">
+
               </StackPane>
             </SplitPane>
-            <StackPane VBox.vgrow="NEVER" fx:id="healthworkerList" minHeight="150" styleClass="pane-with-border">
+            <StackPane VBox.vgrow="NEVER" fx:id="healthworkerList" minHeight="175" maxHeight="175" prefHeight="175"
+                       styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10"/>
               </padding>
-              <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="ALWAYS"/>
+              <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="NEVER"/>
             </StackPane>
           </VBox>
         </SplitPane>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="ALWAYS"/>
       </VBox>
     </Scene>
   </scene>

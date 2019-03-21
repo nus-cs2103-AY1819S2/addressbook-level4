@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.description.Description;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -45,6 +46,7 @@ public class Patient extends Person {
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         buildAdultTeeth();
+        records.add(new Record(new Description("Patient is added today")));
     }
 
     /**
@@ -67,6 +69,14 @@ public class Patient extends Person {
      */
     public void addRecord(Record record) {
         this.records.add(record);
+    }
+
+    /**
+     * Adds a new medical record to a patient.
+     * @param record the medical record to be added.
+     */
+    public void removeRecord(Record record) {
+        this.records.remove(record);
     }
 
     /**

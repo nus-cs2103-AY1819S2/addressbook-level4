@@ -27,7 +27,6 @@ public enum Specialisation {
      */
     public static String getSpecialisationList() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("List of available specialisations:\n");
         for (Specialisation specialisation : Specialisation.values()) {
             stringBuilder.append(specialisation.toString()).append("\n");
         }
@@ -69,9 +68,7 @@ public enum Specialisation {
     private static String getMessageConstraints() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Valid specialisations: \n");
-        for (Specialisation specialisation : Specialisation.values()) {
-            stringBuilder.append(specialisation.name()).append("\n");
-        }
+        stringBuilder.append(getSpecialisationList());
 
         return stringBuilder.toString();
     }

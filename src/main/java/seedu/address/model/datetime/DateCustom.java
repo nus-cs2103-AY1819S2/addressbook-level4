@@ -3,18 +3,19 @@ package seedu.address.model.datetime;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
- * Represents a date.
+ * Represents a date for tasks.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class DateCustom {
-    public static final String MESSAGE_CONSTRAINTS = "DateCustom should only contain exactly 8 numbers";
+public class DateCustom implements DateBuilder {
+    public static final String MESSAGE_CONSTRAINTS = "Date should not be before today's date, End Date should not"
+                                                   + " be before Start Date and a valid date should"
+                                                   + " be in the form of dd-mm-yyyy";
 
-    public static final String VALIDATION_REGEX = "^((([0-2][0-9]|3[0,1])(01|03|05|07|08|10|12))|"
-        + "(([0-2][0-9]|30)(04|06|09|11))|"
-        + "(([0-1][0-9]|2[0-9])(02)))(\\d{4})$";
-
-    public final String storedDate;
+    private final String storedDate;
 
     /**
      * Constructs a {@code DateCustom}
@@ -27,13 +28,47 @@ public class DateCustom {
         storedDate = date;
     }
 
+
+    public static String getFormat() {
+        return DATE_FORMAT;
+    }
+
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     *  Returns false if the given date is before the current date
+     * @param test the date to be tested
+     */
+    public static boolean isDateBeforeToday(String test) {
+        String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(getFormat()));
+        return dateCompare(test, currentDateString);
+    }
+
+    public static boolean isEndDateBeforeStartDate(String format, String date1, String date2) {
+        return dateCompare(date2, date1);
+    }
+
+    public LocalDate getDate() {
+        return LocalDate.parse(storedDate);
+    }
+    /**
+     *  Returns true if the first date given is before the second date given
+     * @param date1 the first date to comapre with the second date
+     * @param date2 the second date
+     * @return true if first date is before, false otherwise.
+     */
+    public static boolean dateCompare(String date1, String date2) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getFormat());
+        LocalDate firstDate = LocalDate.parse(date1, formatter);
+        LocalDate secondDate = LocalDate.parse(date2, formatter);
+        return firstDate.isBefore(secondDate);
+    }
+
     @Override
     public String toString() {
-        return super.toString();
+        return storedDate;
     }
 
     @Override

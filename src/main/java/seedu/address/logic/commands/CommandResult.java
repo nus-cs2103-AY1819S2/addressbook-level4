@@ -17,6 +17,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** Stat information should be shown to the user. */
+    private boolean showStat;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -34,12 +37,25 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code showStat},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, boolean showStat) {
+        this(feedbackToUser, false, false);
+        this.showStat = showStat;
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
     public boolean isShowHelp() {
         return showHelp;
+    }
+
+    public boolean isShowStat() {
+        return showStat;
     }
 
     public boolean isExit() {

@@ -1,6 +1,4 @@
-package seedu.address.model.person;
-
-import java.util.Date;
+package seedu.address.model.patient;
 
 /**
  * Represents the status of a teeth.
@@ -8,18 +6,16 @@ import java.util.Date;
  */
 public class Status {
     private String description;
-    private Date dateCreated;
 
-    public Status(String description) {
+    Status() {
+        this.description = null;
+    }
+
+    public void setDescription(String description) {
         this.description = description;
-        this.dateCreated = new Date();
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public Date getDateCreated() {
-        return dateCreated;
     }
 }

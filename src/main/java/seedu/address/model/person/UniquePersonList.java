@@ -3,13 +3,19 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -33,7 +39,11 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        if (toCheck instanceof Patient) {
+            return internalList.stream().anyMatch(toCheck::isSamePerson);
+        } else {
+            throw new PersonIsNotPatient();
+        }
     }
 
     /**
@@ -102,6 +112,25 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public ObservableList<Person> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Sorts the internal list according to desired comparator
+     */
+    public void sortStoredList(Comparator<Patient> compPatient, boolean isReverse) {
+        //        ObservableList<Patient> patientObservableList = (ObservableList<Patient>) internalList;
+        ArrayList<Patient> tempPatientList = new ArrayList<>();
+        for (Person p:internalList) {
+            if (p instanceof Patient) {
+                tempPatientList.add((Patient) p);
+            }
+        }
+        if (!isReverse) {
+            Collections.sort(tempPatientList, compPatient);
+        } else {
+            Collections.sort(tempPatientList, Collections.reverseOrder(compPatient));
+        }
+        this.setPersons(new ArrayList<Person>(tempPatientList));
     }
 
     @Override

@@ -6,15 +6,23 @@ import java.io.File;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.patient.Nric;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Title;
+import seedu.address.storage.ParsedInOut;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -97,6 +105,32 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String nric} into an {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Nric parseNric(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        if (!Nric.isValidNric(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_CONSTRAINTS);
+        }
+        return new Nric(trimmedNric);
+    }
+
+    /**
+     * Parses a {@code String dob} into an {@code Dob}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateOfBirth parseDob(String dob) throws ParseException {
+        requireNonNull(dob);
+        String trimmedDob = dob.trim();
+        if (!DateOfBirth.isValidDate(dob)) {
+            throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        return new DateOfBirth(trimmedDob);
+    }
+
+    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -109,6 +143,53 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses a {@code String title} into an {@code Title}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Title parseTitle(String title) throws ParseException {
+        requireNonNull(title);
+        String trimmedTitle = title.trim();
+        if (!Title.isValidTitle(title)) {
+            throw new ParseException(Title.MESSAGE_CONSTRAINTS);
+        }
+        return new Title(trimmedTitle);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseStartDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateCustom.isValidDate(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        if (DateCustom.isDateBeforeToday(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        return new DateCustom(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseEndDate(String endDate, String startDate) throws ParseException {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        String trimmedStartDate = startDate.trim();
+        String trimmedEndDate = endDate.trim();
+        if (!DateCustom.isValidDate(trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        if (DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+        }
+        return new DateCustom(trimmedEndDate);
     }
 
     /**
@@ -128,10 +209,10 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code file} is invalid.
      */
-    public static File parseFile(String filePath) throws ParseException {
+    public static File parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        final String validationRegex = "\\p{Alnum}+.(txt|xml|json)$";
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)$";
 
         if (!filePath.matches(validationRegex)) {
             throw new ParseException("File name is invalid");
@@ -142,5 +223,100 @@ public class ParserUtil {
         File file = new File(newPath.concat(filePath));
 
         return file;
+    }
+
+    /**
+     * Parses a {@code String file} and {@code Index} into a {@code ParsedIO}.
+     *
+     * @throws ParseException if the given {@code file} is invalid.
+     */
+    public static ParsedInOut parseImportExport(String input) throws ParseException {
+        requireNonNull(input);
+        input = input.trim();
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?$";
+
+        if (!input.matches(validationRegex)) {
+            throw new ParseException("File name is invalid or no index given");
+        }
+
+        String newPath = "data\\";
+        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?");
+        Matcher splitMatcher = splitRegex.matcher(input);
+        String filepath = "";
+        String indexRange = "";
+
+        if (splitMatcher.find()) {
+            filepath = splitMatcher.group(1).concat(".");
+            filepath = filepath.concat(splitMatcher.group(2));
+            filepath = newPath.concat(filepath);
+            indexRange = splitMatcher.group(3);
+        } else {
+            // This shouldn't be possible after validationRegex
+            throw new ParseException("File name is invalid or no index given");
+        }
+
+        HashSet<Integer> parsedIndex = new HashSet<>();
+
+        String[] splitInput = indexRange.trim().split(",");
+        String[] splitRange;
+        final String singleNumberRegex = "^\\d+$";
+        final String rangeNumberRegex = "^(\\d+)-(\\d+)$";
+
+        for (String string : splitInput) {
+            if (string.matches(singleNumberRegex)) {
+                // -1 because indexes displayed to user starts with 1, not 0
+                parsedIndex.add(Integer.parseInt(string) - 1);
+            } else if (string.matches(rangeNumberRegex)) {
+                splitRange = string.split("-");
+                for (int i = Integer.parseInt(splitRange[0]); i < Integer.parseInt(splitRange[1]) + 1; i++) {
+                    // -1 because indexes displayed to user starts with 1, not 0
+                    parsedIndex.add(i - 1);
+                }
+            } else {
+                throw new ParseException("Invalid index range!");
+            }
+        }
+
+        return new ParsedInOut(new File(filepath), parsedIndex);
+    }
+
+    /**
+     * Parse a {@code  String argument} from copy or taskcopy command to number of copies needed
+     * @param input input from copy or taskcopy command
+     * @return number of copies requested
+     * @throws ParseException
+     */
+    public static Pair<Index, Integer> parseCopy(String input) throws ParseException {
+        requireNonNull(input);
+        input = input.trim();
+
+        String[] parsedInput = input.split("\\s+");
+        Index i;
+        int numOfCopies;
+
+        if (parsedInput.length == 1) {
+
+            try {
+                i = parseIndex(parsedInput[0]);
+            } catch (NumberFormatException e) {
+                throw new ParseException("Wrong input format!");
+            }
+            return new Pair(i, 1);
+        } else if (parsedInput.length == 2) {
+
+            try {
+                i = parseIndex(parsedInput[0]);
+                numOfCopies = Integer.parseInt(parsedInput[1]);
+            } catch (NumberFormatException e) {
+                throw new ParseException("Wrong input format!");
+            }
+            if (numOfCopies < 1) {
+                throw new ParseException("Input number must be positive!");
+            }
+
+            return new Pair(i, numOfCopies);
+        }
+
+        throw new ParseException("Wrong number of arguments");
     }
 }

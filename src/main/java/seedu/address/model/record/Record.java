@@ -38,7 +38,6 @@ public class Record {
         this.description = desc;
     }
 
-    //getter methods
     public Person getPerson() {
         return person;
     }

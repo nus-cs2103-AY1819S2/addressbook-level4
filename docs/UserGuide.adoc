@@ -175,7 +175,9 @@ Format: `edit <type> <index> <additional_parameters>...` +
 Notes:
 
 ****
-* Edits the corresponding request/health worker/patient at the specified `<index>`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the corresponding request/health worker/patient at the specified `<index>`. The index refers to the
+index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+and not greater than the number of requests/health workers/patients in the current list.
 * Existing values will be updated to the input values.
 ** Apart from `specialisations` in health workers and `condition` in
 patients, each field can only have a single value and multiple edit values
@@ -218,6 +220,14 @@ Format: `filter <type> <keyword> [<more_keywords>]...` +
 identify requests or personnel, using the same prefixes as in add, edit and
 delete commands. Some examples of keywords are shown below.
 
+Examples:
+
+* `filter 3 n/John` +
+Returns patients named `john` and `John Doe`
+* `filter 1 s/GENERAL_PRACTICE s/GYNAECOLOGY` +
+Returns all health workers whose field of expertise include general practice
+or gynaecology.
+
 Notes:
 
 ****
@@ -230,15 +240,6 @@ parameters will be accepted
 that subword.
 ** `filter 1 n/Tan` may return people with the surnames Tan or Tang
 ****
-
-Examples:
-
-* `filter 3 n/John` +
-Returns patients named `john` and `John Doe`
-* `filter 1 s/GENERAL_PRACTICE s/GYNAECOLOGY` +
-Returns all health workers whose field of expertise include general practice
-or gynaecology.
-
 === Deleting a request/health worker/patient : `delete`
 
 Should there be any invalid or expired request, health worker or patient in
@@ -265,13 +266,14 @@ Notes:
 * Deletes the corresponding request/health worker/patient at the specified `<index>`.
 * The index refers to the index number shown in the displayed request/health
 worker/patient list using the `list` command, or displayed through the GUI.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* 1, 2, 3, ... and not greater
+than the number of requests/health workers/patients in the current list.
 ****
 
 Examples:
 
 * `delete 1 2` +
-Deletes the 2nd request in the application.
+Deletes the 2nd health worker in the application.
 
 * `delete 3 1` +
 Deletes the 1st patient in the results of the `list` command.
@@ -285,6 +287,8 @@ After registering a new request using the `add 2` command, you may proceed to
 Format: `assign <request_index> <health_worker_index>`
 
 ****
+* The `request_index` and `health_worker_index` fields *must be a positive integer* 1, 2, 3, ... and not greater
+than the number of requests/health workers in the current list.
 * Health worker that is assigned must be available at the current time stated by the request.
 * Health worker must have the necessary skillset and certifications that allow him to be able to take up the corresponding request.
 ****

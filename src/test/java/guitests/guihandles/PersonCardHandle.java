@@ -19,7 +19,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
-    private static final String TAGS_FIELD_ID = "#tags";
+    private static final String CONDITIONS_FIELD_ID = "#conditions";
 
     private final Label idLabel;
     private final Label nameLabel;
@@ -37,7 +37,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         phoneLabel = getChildNode(PHONE_FIELD_ID);
         emailLabel = getChildNode(EMAIL_FIELD_ID);
 
-        Region tagsContainer = getChildNode(TAGS_FIELD_ID);
+        Region tagsContainer = getChildNode(CONDITIONS_FIELD_ID);
         tagLabels = tagsContainer
                 .getChildrenUnmodifiable()
                 .stream()

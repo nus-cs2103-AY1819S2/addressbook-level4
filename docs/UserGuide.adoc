@@ -18,11 +18,15 @@ By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-HealthHub is a application that allows users to add, manage and close requests from
-patients for health services. AB4 provides a *Graphical User Interface* for administrative staff of health organization and hospitals to manage requests from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
+HealthHub is a desktop application which allows health administrative staff to add, manage and close requests from
+patients. These patients are people who do not require 24-hour round' the clock medical attention but perhaps some
+other health care services such as the changing of tubing. +
 
-Looking to improve and ease management of requests from customers and patients?
-Look no further, AB4 provides all the utility and functions you need to streamline your workflow. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+HealthHub provides a *Graphical User Interface* for administrative staff of health organizations and hospitals to manage requests
+from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
+
+Looking to improve and ease management of requests from your patients?
+Look no further, HealthHub provides all the utility and functions you need to streamline your workflow. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Notation
 
@@ -65,7 +69,12 @@ adds a patient named `John Doe` to the application.
 [[Features]]
 == Features
 
-Note that the current application is a work in progress. The following description of the features and commands are prototypes and specific details and implementation may vary over the course of the project.
+Note that the current application is a work in progress. The screenshot below shows how the application
+looks like -
+image::work_in_progress.png[]
+
+
+The following description of the features and commands are prototypes and specific details and implementation may vary over the course of the project.
 
 ====
 *General Command Format*

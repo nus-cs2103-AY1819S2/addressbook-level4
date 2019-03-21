@@ -15,7 +15,7 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PdfBuilder {
 
-    public static final String DEFAULT_NAME = "2103T Lecture Notes";
+    public static final String DEFAULT_NAME = "2103T Lecture Notes.pdf";
     public static final String DEFAULT_LOCATION = "TempValue";
     public static final String DEFAULT_SIZE = "10";
 

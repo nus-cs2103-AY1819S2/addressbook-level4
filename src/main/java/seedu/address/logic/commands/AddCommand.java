@@ -28,6 +28,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New PDF added: %1$s";
     public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the PDF book";
+    public static final String MESSAGE_INVALID_SELECTION = "Selected file is not supported by PDF++";
 
     private final Pdf toAdd;
 

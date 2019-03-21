@@ -41,8 +41,8 @@ public class CommandTestUtil {
     public static final String VALID_NAME_A = "a.pdf";
     public static final String VALID_NAME_B = "b.pdf";
     public static final String VALID_NAME_C = "c.pdf";
-    public static final String VALID_DIR_A = Paths.get("src", "data", "JsonAdaptedPdfTest", "a.pdf")
-            .toAbsolutePath().toString();
+    public static final String VALID_DIR_A = Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "a.pdf")
+            .getParent().toAbsolutePath().toString();
     public static final String VALID_DIR_B = Paths.get("src", "data", "JsonAdaptedPdfTest", "b.pdf")
             .toAbsolutePath().toString();
     public static final String VALID_DIR_C = Paths.get("src", "data", "JsonAdaptedPdfTest", "c.pdf")
@@ -59,7 +59,8 @@ public class CommandTestUtil {
 
     public static final String FILE_DESC_A_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_A, VALID_NAME_A)
             .toAbsolutePath().toString();
-    public static final String FILE_DESC_B_PDF = " " + PREFIX_FILE + VALID_DIR_B + VALID_NAME_B;
+    public static final String FILE_DESC_B_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_B, VALID_NAME_B)
+            .toAbsolutePath().toString();
 
     public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_LECTURE;
     public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_TUTORIAL;

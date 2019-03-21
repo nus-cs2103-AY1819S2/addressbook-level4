@@ -44,7 +44,7 @@ public class StudyView implements ViewState {
                 return new DoneCommand();
             default:
                 if (getCurrentStudyState() == studyState.QUESTION) {
-                    return new ShowAnswerCommand(arguments);
+                    return new ShowAnswerCommand(commandWord+arguments);
                 } else {
                     return new GenerateQuestionCommand();
                 }

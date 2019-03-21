@@ -32,10 +32,10 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Saved the records!";
     private static final String MESSAGE_FAILURE = "Problem while writing to the file.";
 
-    private final ParsedInOut parsedInOut;
+    private final ParsedInOut parsedInput;
 
-    public SaveCommand(ParsedInOut parsedInOut) {
-        this.parsedInOut = parsedInOut;
+    public SaveCommand(ParsedInOut parsedInput) {
+        this.parsedInput = parsedInput;
     }
 
     @Override
@@ -50,14 +50,18 @@ public class SaveCommand extends Command {
      * writeFile() writes or overwrites a file with the contents of the current address book.
      */
     private void writeFile(Model model) {
-        AddressBookStorage addressBookStorage = new InOutAddressBookStorage(parsedInOut.getFile().toPath());
+        AddressBookStorage addressBookStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
         StorageManager storage = new StorageManager(addressBookStorage, null);
 
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
         try {
-            storage.saveAddressBook(model.getAddressBook(), parsedInOut.getFile().toPath());
+            if (parsedInput.getType().equals("json")) {
+                storage.saveAddressBook(model.getAddressBook(), parsedInput.getFile().toPath());
+            } else if (parsedInput.getType().equals("pdf")) {
+                storage.saveAsPdf(model.getAddressBook(), parsedInput.getFile().toPath());
+            }
         } catch (IOException e) {
             logger.warning(MESSAGE_FAILURE);
         }

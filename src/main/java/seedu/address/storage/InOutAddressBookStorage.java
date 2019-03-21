@@ -7,6 +7,12 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -92,7 +98,25 @@ public class InOutAddressBookStorage implements AddressBookStorage {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
+        PdfSerializableAddressBook toWrite = new PdfSerializableAddressBook(addressBook);
+
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+
+        try (PDDocument doc = new PDDocument()) {
+            PDPage page = new PDPage();
+            doc.addPage(page);
+            try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
+                PDFont font = PDType1Font.HELVETICA_BOLD;
+
+                contents.beginText();
+                contents.setFont(font, 12);
+                for (PdfAdaptedPerson person : toWrite.getPersons()) {
+                    contents.newLineAtOffset(100, 700);
+                    contents.showText(person.toString());
+                }
+                contents.endText();
+            }
+            doc.save(filePath.toFile());
+        }
     }
 }

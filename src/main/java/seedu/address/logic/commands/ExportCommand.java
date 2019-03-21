@@ -68,7 +68,11 @@ public class ExportCommand extends Command {
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            if (parsedInput.getType().equals("json")) {
+                storage.saveAddressBook(model.getAddressBook());
+            } else if (parsedInput.getType().equals("pdf")) {
+                storage.saveAsPdf(model.getAddressBook());
+            }
         } catch (IOException e) {
             logger.warning(MESSAGE_FAILURE);
         }

@@ -61,7 +61,7 @@ public class Job {
     }
 
     /**
-     * Returns an ArrayList of Person that can be editted but does not change the list in job directly
+     * Returns an ArrayList of Person that can be edited but does not change the list in job directly
      */
     public final ArrayList<Person> getList(int listNumber) {
         return personsList.get(listNumber);

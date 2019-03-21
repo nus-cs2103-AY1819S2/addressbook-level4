@@ -219,7 +219,8 @@ public class ModelManager implements Model {
     public void generateInterviews() {
         interviews.generate();
     }
-
+    
+    @Override
     public String generateAnalytics() {
         Analytics analytics = new Analytics(getFilteredPersonList());
         return analytics.generate();

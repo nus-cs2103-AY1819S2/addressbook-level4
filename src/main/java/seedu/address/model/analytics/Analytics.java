@@ -114,7 +114,7 @@ public class Analytics {
     private ArrayList<Float> meanInterviewScores() {
         ArrayList<Float> averageScores = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++) {
             averageScores.add(0F);
         }
         int interviewed = numPeople;
@@ -144,7 +144,7 @@ public class Analytics {
     private ArrayList<Integer> genderBreakdown() {
         ArrayList<Integer> genderCount = new ArrayList<>();
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             genderCount.add(0);
         }
 

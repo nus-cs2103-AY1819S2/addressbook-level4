@@ -8,7 +8,7 @@ import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input and creates a new StatsCommand object
+ * Parses input and creates a new GoToCommand object
  */
 public class GoToCommandParser implements Parser<GoToCommand> {
 

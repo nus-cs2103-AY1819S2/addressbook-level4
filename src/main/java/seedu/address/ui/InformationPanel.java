@@ -1,24 +1,63 @@
+/* @@author Carrein */
+
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
+
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.image.Image;
 
 /**
- * The Browser Panel of the App.
+ * The Image Panel of the App.
  */
 public class InformationPanel extends UiPart<Region> {
 
-    private static final String FXML = "ImagePanel.fxml";
+    private static final String FXML = "InformationPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(InformationPanel.class);
 
     @FXML
-    private ImageView imageView;
+    private TabPane informationPanel;
 
-    public InformationPanel() {
+
+    public InformationPanel(ObservableList<Image> imageList, ObservableValue<Image> selectedImage,
+                            Consumer<Image> onSelectedImageChange) {
         super(FXML);
-        Image image = new Image("https://i.imgur.com/zy0dRYh.jpg");
-        imageView.setImage(image);
+        ListView<Image> imageListView = new ListView();
+        Tab tab = informationPanel.getTabs().get(0);
+        tab.setContent(imageListView);
+        List<Image> list = new ArrayList<>();
+        //list.add(new Image(new Name("sample"), new Height("1080"), new Width("1920")));
+        ObservableList<Image> observableList = FXCollections.observableList(list);
+        imageListView.setItems(observableList);
+        imageListView.setCellFactory(listView -> new ImageListViewCell());
     }
+    /**
+     * Custom {@code ListCell} that displays the graphics of a {@code Image} using a {@code ImageCard}.
+     */
+    class ImageListViewCell extends ListCell<Image> {
+        @Override
+        protected void updateItem(Image image, boolean empty) {
+            super.updateItem(image, empty);
 
+            if (empty || image == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(new ImageCard(image, getIndex() + 1).getRoot());
+            }
+        }
+    }
 }
+

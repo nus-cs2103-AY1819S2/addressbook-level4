@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @@author Carrein -->
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<HBox fx:id="initView" alignment="CENTER" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <VBox alignment="CENTER">
+      <children>
+        <TextFlow fx:id="initText">
+          <VBox>
+            <children>
+              <Text fill="WHITE" text="FomoFoto">
+                <font>
+                  <Font name="Gill Sans MT" size="32.0"/>
+                </font>
+              </Text>
+              <Text>
+                <font>
+                  <Font name="Gill Sans MT" size="12.0"/>
+                </font>
+              </Text>
+              <Text fill="WHITE" text="Quick Start:">
+                <font>
+                  <Font name="Gill Sans MT" size="14.0"/>
+                </font>
+              </Text>
+              <Text fill="WHITE" text="Import image from your computer:">
+                <font>
+                  <Font name="Gill Sans MT" size="14.0"/>
+                </font>
+              </Text>
+              <Text fill="WHITE" style="-fx-font-weight: bold;" text="import C:\User\Pictures\MyImage.png">
+                <font>
+                  <Font name="Gill Sans MT" size="14.0"/>
+                </font>
+              </Text>
+              <Text>
+                <font>
+                  <Font name="Gill Sans MT" size="12.0"/>
+                </font>
+              </Text>
+              <Text fill="WHITE" text="Open image for editing:">
+                <font>
+                  <Font name="Gill Sans MT" size="14.0"/>
+                </font>
+              </Text>
+              <Text fill="WHITE" style="-fx-font-weight: bold;" text="open MyImage.png">
+                <font>
+                  <Font name="Gill Sans MT" size="14.0"/>
+                </font>
+              </Text>
+              <Text>
+                <font>
+                  <Font name="Gill Sans MT" size="12.0"/>
+                </font>
+              </Text>
+              <Text fill="WHITE" text="Apply edit to image:">
+                <font>
+                  <Font name="Gill Sans MT" size="14.0"/>
+                </font>
+              </Text>
+              <Text fill="WHITE" style="-fx-font-weight: bold;" text="rotate 90">
+                <font>
+                  <Font name="Gill Sans MT" size="14.0"/>
+                </font>
+              </Text>
+              <Text>
+                <font>
+                  <Font name="Gill Sans MT" size="12.0"/>
+                </font>
+              </Text>
+              <HBox>
+                <children>
+                  <Text fill="WHITE" text="View all commands by entering: ">
+                    <font>
+                      <Font name="Gill Sans MT" size="14.0"/>
+                    </font>
+                  </Text>
+                  <Text fill="WHITE" style="-fx-font-weight: bold;" text="help">
+                    <font>
+                      <Font name="Gill Sans MT" size="14.0"/>
+                    </font>
+                  </Text>
+                </children>
+              </HBox>
+            </children>
+          </VBox>
+        </TextFlow>
+      </children>
+    </VBox>
+  </children>
+</HBox>

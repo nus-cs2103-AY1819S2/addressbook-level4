@@ -35,6 +35,8 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private InformationPanel informationPanel;
+    private InitPanel initPanel;
 
     @FXML
     private StackPane imagePlaceholder;
@@ -53,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane informationPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -111,12 +116,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        imagePanel = new ImagePanel(imagePlaceholder);
-        imagePlaceholder.getChildren().add(imagePanel.getRoot());
+        //informationPanel = new InformationPanel(logic.getFilteredImageList(), logic.selectedImageProperty(),
+        //        logic::setSelectedImage);
+        //informationPlaceholder.getChildren().add(informationPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        initPanel = new InitPanel();
+        imagePanel = new ImagePanel(imagePlaceholder);
+        imagePlaceholder.getChildren().add(initPanel.getRoot());
+        imagePlaceholder.getChildren().add(imagePanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
@@ -61,7 +61,7 @@ public class ExportCommand extends Command {
      */
     private void writeFile(Model model) {
 
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(parsedInput.getFile().toPath());
+        AddressBookStorage addressBookStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
         StorageManager storage = new StorageManager(addressBookStorage, null);
 

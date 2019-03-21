@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
@@ -57,7 +57,7 @@ public class ImportCommand extends Command {
      * readFile() appends the current address book with the contents of the file.
      */
     private void readFile(Model model) {
-        AddressBookStorage importStorage = new JsonAddressBookStorage(parsedInput.getFile().toPath());
+        AddressBookStorage importStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
         StorageManager importStorageManager = new StorageManager(importStorage, null);
 

@@ -42,4 +42,16 @@ public interface AddressBookStorage {
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
 
+    /**
+     * Saves the given {@link ReadOnlyAddressBook} to a PDF file.
+     * @param addressBook cannot be null.
+     * @throws IOException if there was any problem writing to the file.
+     */
+    void saveAsPdf(ReadOnlyAddressBook addressBook) throws IOException;
+
+    /**
+     * @see #saveAsPdf(ReadOnlyAddressBook)
+     */
+    void saveAsPdf(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+
 }

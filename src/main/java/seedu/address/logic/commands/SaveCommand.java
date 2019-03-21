@@ -11,7 +11,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
@@ -50,7 +50,7 @@ public class SaveCommand extends Command {
      * writeFile() writes or overwrites a file with the contents of the current address book.
      */
     private void writeFile(Model model) {
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(parsedInOut.getFile().toPath());
+        AddressBookStorage addressBookStorage = new InOutAddressBookStorage(parsedInOut.getFile().toPath());
 
         StorageManager storage = new StorageManager(addressBookStorage, null);
 

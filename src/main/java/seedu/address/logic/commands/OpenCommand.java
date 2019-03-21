@@ -17,7 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.StorageManager;
 
 /**
@@ -53,7 +53,7 @@ public class OpenCommand extends Command {
      * readFile() overwrites the current address book with the contents of the file.
      */
     private void readFile(Model model) {
-        AddressBookStorage openStorage = new JsonAddressBookStorage(file.toPath());
+        AddressBookStorage openStorage = new InOutAddressBookStorage(file.toPath());
 
         StorageManager openStorageManager = new StorageManager(openStorage, null);
 

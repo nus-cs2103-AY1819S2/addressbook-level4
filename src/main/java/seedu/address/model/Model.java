@@ -157,13 +157,7 @@ public interface Model {
     ObservableList<Record> getFilteredRecordList();
 
     /**
-     * Updates the filter of the filtered record list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredRecordList(Predicate<Record> predicate);
-
-    /**
-     * Returns true if a record with the same identity as {@code task} exists in the address book.
+     * Returns true if a record with the same identity as {@code record} exists in the address book.
      */
     boolean hasRecord(Record record);
 
@@ -172,17 +166,12 @@ public interface Model {
      * {@code record} must not already exist in the address book.
      */
     void addRecord(Record record);
+
     /**
      * Deletes the given record.
      * The record must exist in the address book.
      */
     void deleteRecord(Record record);
-    /**
-     * Replaces the given record {@code target} with {@code editedRecord}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedRecord} must not be the same as another existing record in the address book.
-     */
-    void setRecord(Record target, Record editedRecord);
 
     //=========== Undo/Redo/Commit =================================================================================
 

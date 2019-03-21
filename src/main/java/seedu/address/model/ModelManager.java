@@ -13,6 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
@@ -23,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
@@ -429,6 +431,20 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedCard.get(), other.selectedCard.get());
     }
 
+    private List<ReadOnlyCardFolder> returnValidCardFolders(List<Integer> cardFolderExports) {
+        List<ReadOnlyCardFolder> readOnlyCardFolders = new ArrayList<>();
+        List<Index> indexList = cardFolderExports.stream().map(Index::fromOneBased).collect(Collectors.toList());
+        for (Index index : indexList) {
+            try {
+                ReadOnlyCardFolder cardFolder = filteredFoldersList.get(index.getZeroBased());
+                readOnlyCardFolders.add(cardFolder);
+            } catch (IndexOutOfBoundsException e) {
+                throw new CardFolderNotFoundException();
+            }
+        }
+        return readOnlyCardFolders;
+    }
+
 
     //=========== Export / Import card folders ========================================================================
     @Override
@@ -439,7 +455,7 @@ public class ModelManager implements Model {
 
     @Override
     public void exportCardFolders(List<Integer> cardFolderExports) throws IOException {
-        
+        List<ReadOnlyCardFolder> cardFolders = returnValidCardFolders(cardFolderExports);
     }
 
     @Override

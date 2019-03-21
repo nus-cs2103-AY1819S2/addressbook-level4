@@ -22,6 +22,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueActivityList activities;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private final AppMode appMode;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -33,6 +34,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         activities = new UniqueActivityList();
+        appMode = new AppMode();
     }
 
     public AddressBook() {}
@@ -46,6 +48,33 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// list overwrite operations
+
+    /**
+     * Returns true if appMode is MEMBER
+     */
+    public boolean modeIsMember () {
+        return appMode.isMember();
+    }
+    /**
+     * Returns true if appMode is ACTIVITY
+     */
+    public boolean modeIsActivity () {
+        return appMode.isActivity();
+    }
+
+    /**
+     * Returns value of appMode
+     */
+    public AppMode.Modes getAppMode () {
+        return appMode.getAppMode();
+    }
+
+    /**
+     * Sets value of appMode to (@code mode)
+     */
+    public void setAppMode (AppMode.Modes mode) {
+        appMode.setAppMode(mode);
+    }
 
     /**
      * Replaces the contents of the person list with {@code persons}.
@@ -74,6 +103,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
 
         setActivities(newData.getActivityList());
+
+        setAppMode(newData.getCurrMode());
     }
 
     /**
@@ -200,6 +231,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Activity> getActivityList() {
         return activities.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public AppMode.Modes getCurrMode() {
+        return appMode.getAppMode();
     }
 
     @Override

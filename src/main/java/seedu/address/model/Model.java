@@ -58,6 +58,26 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Sets AddressBook mode to {@code mode}.
+     */
+    void setAddressBookMode(AppMode.Modes mode);
+
+    /**
+     * Get AddressBook mode.
+     */
+    AppMode.Modes getAddressBookMode();
+
+    /**
+     * Returns true if appMode is MEMBER.
+     */
+    boolean addressBookModeIsMember ();
+
+    /**
+     * Returns true if appMode is ACTIVITY.
+     */
+    boolean addressBookModeIsActivity ();
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);

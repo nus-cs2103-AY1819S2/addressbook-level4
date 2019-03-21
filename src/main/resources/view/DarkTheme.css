@@ -347,9 +347,22 @@
 
 }
 
+
+#card:answer{
+
+
+    -fx-background-color: #ffffff;
+
+}
+
 #question{
     -fx-alignment: center;
     -fx-padding: 20px;
+}
+
+
+#question:answer{
+    -fx-text-fill: #223040;
 }
 
 

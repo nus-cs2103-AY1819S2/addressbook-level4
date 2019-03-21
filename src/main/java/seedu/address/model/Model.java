@@ -154,7 +154,7 @@ public interface Model {
     //=========== Methods for interacting with Record Object ===========================================================
 
     /** Returns an unmodifiable view of the filtered record list */
-    ObservableList<Task> getFilteredRecordList();
+    ObservableList<Record> getFilteredRecordList();
 
     /**
      * Updates the filter of the filtered record list to filter by the given {@code predicate}.

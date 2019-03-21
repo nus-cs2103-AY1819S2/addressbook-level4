@@ -66,11 +66,10 @@ public class TeethPanel extends UiPart<Region> {
         try {
             BufferedImage main = ImageIO.read(imgFile);
             for (int i = 0; i < teethList.length; i++) {
-                if (teethList[i] > 0 ) {
+                if (teethList[i] > 0) {
                     if (teethList[i] == 1) {
                         type = "A";
-                    }
-                    else {
+                    } else {
                         type = "P";
                     }
                     String filepath = "/src/main/resources/images/teeth/" + type + "_" + String.valueOf(i + 1) + ".png";

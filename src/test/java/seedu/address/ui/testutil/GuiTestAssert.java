@@ -51,6 +51,7 @@ public class GuiTestAssert {
      * @see PersonCard#getTagColorStyleFor(String)
      */
     private static String getTagColorStyleFor(String tagName) {
+
         switch (tagName) {
         case "classmates":
         case "owesMoney":
@@ -76,7 +77,7 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedPerson} with the correct
+     * Asserts that the tags in {@code actualCard} matches all the tags in {@code expectedBook} with the correct
      * color.
      */
     private static void assertTagsEqual(Person expectedPerson, PersonCardHandle actualCard) {

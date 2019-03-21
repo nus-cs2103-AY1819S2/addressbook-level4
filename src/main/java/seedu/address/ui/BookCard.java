@@ -12,7 +12,7 @@ import seedu.address.model.book.Book;
  */
 public class BookCard extends UiPart<Region> {
 
-    private static final String FXML = "bookListCard.fxml";
+    private static final String FXML = "BookListCard.fxml";
 
     private static final String[] TAG_COLOR_STYLES =
         { "teal", "red", "yellow", "blue", "orange", "brown", "green", "pink", "black", "grey" };
@@ -53,7 +53,7 @@ public class BookCard extends UiPart<Region> {
     /**
      * Returns the color style for {@code tagName}'s label.
      */
-    private String getTagColorStyleFor(String tagName) {
+    public String getTagColorStyleFor(String tagName) {
         // we use the hash code of the tag name to generate a random color, so that the color remain consistent
         // between different runs of the program while still making it random enough between tags.
         return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];

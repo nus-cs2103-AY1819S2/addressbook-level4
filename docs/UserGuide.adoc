@@ -262,7 +262,7 @@ Format: `exit`
 * **Undo**: `undo`
 * **Statistics**: `stats`
 * **Stats**: `stats`
-* **"enemyTurn**: `enemyturn`
+* **enemyTurn**: `enemyturn`
 * **Shoot**: `shoot COORDINATES`
 * **Play**: `play`
 * **Select**: `select INDEX`

@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -16,6 +18,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -34,7 +37,11 @@ import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
+import seedu.address.model.table.UniqueTableList;
+import seedu.address.model.table.exceptions.DuplicateTableException;
+import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.testutil.MenuItemBuilder;
+import seedu.address.testutil.StatisticsBuilder;
 import seedu.address.testutil.TableBuilder;
 
 public class BillCommandTest {
@@ -59,14 +66,42 @@ public class BillCommandTest {
         BillCommandTest.ModelStubAcceptingDailyRevenueAdded modelStub =
                 new BillCommandTest.ModelStubAcceptingDailyRevenueAdded();
 
-        DailyRevenue validDailyRevenue = new StatisticsBuilder().withTotalDailyRevenue("300.50").build();
-        Bill validBill = new StatisticsBuilder().buildBill();
+        DailyRevenue validDailyRevenue = new StatisticsBuilder().withDay("2").withMonth("3").withYear("2019")
+                .withTotalDailyRevenue("300.50").build();
+        Bill validBill = new StatisticsBuilder().withTableNumber("1").withDay("2").withMonth("3").withYear("2019")
+                .withTotalBill("20.50").buildBill();
 
         CommandResult commandResult = new BillCommand(validBill).execute(
                 Mode.TABLE_MODE, modelStub, commandHistory);
 
         validBill = modelStub.updateBill(validBill);
-        modelStub.updateDailyRevenue(validBill);
+        modelStub.updateDailyRevenueList(validBill);
+
+        assertEquals(validBill, modelStub.getRecentBill());
+
+        assertEquals(String.format(BillCommand.MESSAGE_SUCCESS, validBill),
+                commandResult.getFeedbackToUser());
+
+        assertEquals(Arrays.asList(validDailyRevenue), modelStub.dailyRevenuesAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_dailyRevenueAcceptedByModel_updateSuccessful() throws Exception {
+
+        BillCommandTest.ModelStubAcceptingDailyRevenueAdded modelStub =
+                new BillCommandTest.ModelStubAcceptingDailyRevenueAdded();
+
+        DailyRevenue validDailyRevenue = new StatisticsBuilder().withDay("2").withMonth("3").withYear("2019")
+                .withTotalDailyRevenue("300.50").build();
+        Bill validBill = new StatisticsBuilder().withTableNumber("1").withDay("2").withMonth("3").withYear("2019")
+                .withTotalBill("20.50").buildBill();
+
+        CommandResult commandResult = new BillCommand(validBill).execute(
+                Mode.TABLE_MODE, modelStub, commandHistory);
+
+        validBill = modelStub.updateBill(validBill);
+        modelStub.updateDailyRevenueList(validBill);
 
         assertEquals(validBill, modelStub.getRecentBill());
 
@@ -100,13 +135,14 @@ public class BillCommandTest {
         // different bill -> returns false
         assertFalse(addBill1CommandCopy.equals(addBill2Command));
     }
-    **/
+    */
 
     /**
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
         private final Table table = new TableBuilder().build();
+        private ReadOnlyRestOrRant restOrRant = new RestOrRantStub();
 
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -250,7 +286,8 @@ public class BillCommandTest {
 
         @Override
         public TableNumber addTable(TableStatus tableStatus) {
-            throw new AssertionError("This method should not be called.");
+            TableNumber addedTableNumber = restOrRant.getTables().addTable(tableStatus);
+            return addedTableNumber;
         }
 
         @Override
@@ -460,26 +497,70 @@ public class BillCommandTest {
     }
 
     /**
-     * A default RestOrRant stub that has all of the methods failing, except getMenu() which returns an empty menu.
+     * A RestOrRant stub whose menu will return an item for any given code.
      */
-    private class RestOrRantStub implements ReadOnlyRestOrRant {
+    private class RestOrRantStubWithItemCodes extends RestOrRantStub {
         @Override
         public ReadOnlyMenu getMenu() {
-            return new MenuStub();
+            return new MenuStubWithItemCodes();
         }
+    }
+
+    /**
+     * A default table stub that has all methods failing, except setTable which sets the targeted table as the
+     * new table provided.
+     */
+    private class TableStub implements ReadOnlyTables {
+
+        private int nextTableNumber = 1;
+        private UniqueTableList tableList = new UniqueTableList();
 
         @Override
-        public ReadOnlyOrders getOrders() {
+        public ObservableList<Table> getTableList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyStatistics getStatistics() {
+        public boolean hasTable(Table table) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyTables getTables() {
+        public void addTable(Table table) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public TableNumber addTable(TableStatus tableStatus) {
+            tableList.add(new Table(new TableNumber(String.valueOf(nextTableNumber)), tableStatus));
+            nextTableNumber++;
+            return new TableNumber(String.valueOf(nextTableNumber - 1));
+        }
+
+        @Override
+        public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTables(List<Table> tableList){
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTable(Table target, Table editedTable) {
+            if (!target.isSameTable(editedTable)) {
+                throw new DuplicateTableException();
+            }
+        }
+
+        @Override
+        public void removeTable(Table key) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isOccupied(TableNumber tableNumber) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -495,12 +576,19 @@ public class BillCommandTest {
     }
 
     /**
-     * A RestOrRant stub whose menu will return an item for any given code.
+     * A Model stub that always accept the table being added.
      */
-    private class RestOrRantStubWithItemCodes extends RestOrRantStub {
+    private class TableStubWithTableList extends TableStub {
+        final ArrayList<Table> tableAdded = new ArrayList<>();
+        //        @Override
+        //        public ObservableList<Table> getTableList() {
+        //            return tableAdded.add(new);
+        //        }
+
         @Override
-        public ReadOnlyMenu getMenu() {
-            return new MenuStubWithItemCodes();
+        public void addTable(Table table) {
+            requireNonNull(table);
+            tableAdded.add(table);
         }
     }
 
@@ -527,6 +615,7 @@ public class BillCommandTest {
         }
     }
 
+
     /**
      * A Model stub that always accept the daily revenue being added.
      */
@@ -534,9 +623,9 @@ public class BillCommandTest {
         final ArrayList<DailyRevenue> dailyRevenuesAdded = new ArrayList<>();
 
         /**
-         * Updates the total daily revenue when a bill is calculated.
+         * Updates the total daily revenue list when a bill is calculated.
          */
-        public void updateDailyRevenue(Bill bill) {
+        public void updateDailyRevenueList(Bill bill) {
             DailyRevenue dailyRevenue =
                     new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTotalBill());
             if (hasDailyRevenue(dailyRevenue)) {
@@ -599,31 +688,37 @@ public class BillCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A default RestOrRant stub that has all of the methods failing, except getMenu() which returns an empty menu.
      */
-    private class ModelStubAcceptingTableAdded extends BillCommandTest.ModelStub {
-        final ArrayList<Table> tableAdded = new ArrayList<>();
-
+    private class RestOrRantStub implements ReadOnlyRestOrRant {
         @Override
-        public boolean hasTable(Table table) {
-            requireNonNull(table);
-            return tableAdded.stream().anyMatch(table::isSameTable);
+        public ReadOnlyMenu getMenu() {
+            return new MenuStub();
         }
 
         @Override
-        public void addTable(Table table) {
-            requireNonNull(table);
-            tableAdded.add(table);
+        public ReadOnlyOrders getOrders() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateMode() {
-            // called by {@code AddCommand#execute()}
+        public ReadOnlyStatistics getStatistics() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyRestOrRant getRestOrRant() {
-            return new RestOrRant();
+        public ReadOnlyTables getTables() {
+            return new TableStub();
+        }
+
+        @Override
+        public void addListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
         }
     }
 }

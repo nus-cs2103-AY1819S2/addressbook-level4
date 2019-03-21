@@ -32,6 +32,8 @@ public class StudyPanel extends UiPart<Region> {
     private static final String FXML = "StudyPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
 
+    private final String YOUR_ANSWER_LABEL = "Your answer: ";
+
     private static final PseudoClass ANSWER = PseudoClass.getPseudoClass("answer");
 
     @FXML
@@ -57,7 +59,7 @@ public class StudyPanel extends UiPart<Region> {
 
         question.setText(textShown.getValue());
 
-        userAnswerLabel.setText("Your answer: \nLorem Ipsum Dolor");
+        userAnswerLabel.setText(YOUR_ANSWER_LABEL);
 
         card.pseudoClassStateChanged(ANSWER, false);
 
@@ -71,7 +73,7 @@ public class StudyPanel extends UiPart<Region> {
 
         userAnswer.addListener((observable, oldValue, newValue) -> {
             logger.info("user answer changed to: " + newValue);
-            userAnswerLabel.setText(userAnswer.getValue());
+            userAnswerLabel.setText(YOUR_ANSWER_LABEL + userAnswer.getValue());
         });
 
 

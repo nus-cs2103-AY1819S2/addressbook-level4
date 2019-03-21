@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="MediTabs" minWidth="1000" minHeight="700" onCloseRequest="#handleExit">
+         title="MediTabs" minWidth="1000" minHeight="700" fullScreen="true" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/medicine_bottle_32.png" />
   </icons>

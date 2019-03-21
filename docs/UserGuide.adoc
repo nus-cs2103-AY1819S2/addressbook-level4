@@ -21,7 +21,7 @@ By: `CS2103T W11-3 Team`      Since: `Mar 2019`      Licence: `MIT`
 *TravelBuddy* is a desktop journal app for all your travel memories! Add all the places you've been,
 attach photos (coming in Version 2.0), keep a diary, create custom tags and tag different places, and search through all of your places!
 
-Its 2019, and we understand your desire for transparency, so *TravelBuddy* will also
+It's 2019, and we understand your desire for transparency, so *TravelBuddy* will also
 provide clear data visualisation and analytics in upcoming versions. *TravelBuddy* also solemnly pledges to not
 collect or sell your data in any shape or form.
 
@@ -43,7 +43,8 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+
+Some example commands you can try:
 
 
 * *`list`* : lists all places
@@ -53,7 +54,7 @@ adds
 * **`delete`**`3` : deletes the 3rd place shown in the current list
 * *`exit`* : exits the application
 
-.  Refer to <<Features>> for details of each command.
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features
@@ -81,12 +82,15 @@ around. This can be useful to refer to when using the app.
 
 === Adding a place: `add`
 
-Adds a place to TravelBuddy. +
+The `add` command adds a place to TravelBuddy. +
+
 Shortcut: `a` +
 Format: `add n/NAME cc/COUNTRYCODE r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...`
 
 [TIP]
-A place can have any number of tags (including 0)
+A place can have any number of tags (including 0).
+
+image::addCommand.png[width="600"]
 
 Examples:
 
@@ -95,13 +99,19 @@ Examples:
 
 === Listing all places : `list`
 
-Shows a list of all places in TravelBuddy. +
+The `list` command shows a list of all places in TravelBuddy. +
+
 Shortcut: `l` +
 Format: `list`
 
+Calling the `list` command will return a list of all the places in TravelBuddy as shown in the image below.
+
+image::listCommand.png[width="600"]
+
 === Editing a place : `edit`
 
-Edits an existing place in TravelBuddy. +
+You can use the `edit` command to edit an existing place in TravelBuddy. +
+
 Shortcut: `e` +
 Format: `edit INDEX [n/NAME] [cc/COUNTRYCODE] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
 
@@ -114,6 +124,14 @@ Format: `edit INDEX [n/NAME] [cc/COUNTRYCODE] [r/RATING] [d/DESCRIPTION] [a/ADDR
 * You can remove all the place's tags by typing `t/` without specifying any tags after it.
 ****
 
+The image below shows the list of places before the `edit` command is used.
+
+image::editCommandBefore.png[width="600"]
+
+The following image below shows the edited list of places after the `edit` command is called.
+
+image::editCommandAfter.png[width="600"]
+
 Examples:
 
 * `edit 1 r/3 d/No description` +
@@ -123,7 +141,8 @@ Edits the name of the 2nd place to be `Raffles Hotel` and clears all existing ta
 
 === Searching places by name: `search`
 
-Finds places whose names contain any of the given keywords. +
+The `search` command helps you to search for places whose names contain any of the given keywords. +
+
 Format: `search KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -134,6 +153,8 @@ Format: `search KEYWORD [MORE_KEYWORDS]`
 * Places matching at least one keyword will be returned (i.e. `OR` search). e.g. `National Museum` will return `National Museum of Singapore`, `National University Hospital`
 ****
 
+image::UIsearchresults.png[width="600"]
+
 Examples:
 
 * `search National` +
@@ -143,7 +164,8 @@ Returns any place having names `National` or `Temple`
 
 === Searching places by tags: `searcht`
 
-Finds places whose tags correspond to any given keywords. +
+The `searcht` command helps you to search for places whose tags correspond to any given keywords. +
+
 Format: `searcht KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -152,6 +174,8 @@ Format: `searcht KEYWORD [MORE_KEYWORDS]`
 * Only full words will be matched e.g. `temp` will not match `temple`
 * Places tagged with at least one matching keyword will be returned (i.e. `OR` search). e.g. `temple school` will return places tagged with `temple` or `school`
 ****
+
+image::UIsearchtagsresults.png[width="600"]
 
 Examples:
 
@@ -162,13 +186,16 @@ Returns a list of places tagged with `temple` or `school`
 
 === Searching places by ratings: `searchr`
 
-Finds places whose ratings match the specified rating from 1 to 5. +
+The `searchr` command helps you to search for places whose ratings match the specified rating from 1 to 5. +
+
 Format: `searchr INDEX [MORE_INDICES]`
 
 ****
 * The search rating is from a range of 1 to 5. e.g `5` will return places with 5 star ratings.
 * Only the ratings are searched.
 ****
+
+image::UIsearchratingresults.png[width="600"]
 
 Examples:
 
@@ -179,7 +206,8 @@ Returns a list of places with ratings of `4` or `5`
 
 === Deleting a place : `delete`
 
-Deletes the specified place from TravelBuddy. +
+The `delete` command deletes the specified place from TravelBuddy. +
+
 Shortcut: `d` +
 Format: `delete INDEX`
 
@@ -189,18 +217,27 @@ Format: `delete INDEX`
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+The image below shows TravelBuddy before `delete` command is used.
+
+image::deleteCommandBefore.png[width="600"]
+
+The following image below shows the result of using the `delete` command on the first place of interest.
+
+image::deleteCommandAfter.png[width="600"]
+
 Examples:
 
 * `list` +
 `delete 2` +
 Deletes the 2nd place in TravelBuddy.
-* `find Raffles` +
+* `search Raffles` +
 `delete 1` +
 Deletes the 1st place in the results of the `find` command.
 
 === Deleting multiple places : `deletem`
 
-Deletes multiple places from TravelBuddy's currently displayed list on the left. +
+The `deletem` command deletes multiple places from TravelBuddy's currently displayed list on the left. +
+
 Format: `deletem START_INDEX END_INDEX`
 
 image::deletemExample.png[width="600"]
@@ -224,9 +261,10 @@ Deletes the 1st, 2nd and 3rd place in the results of the `search Singapore` comm
 
 === Selecting a place : `select`
 
-Selects the place identified by the index number used in the currently displayed list on the left,
+The `select` command selects the place identified by the index number used in the currently displayed list on the left,
 which loads expanded details of the selected place on the right of the displayed list.
-Shortcut: 's' +
+
+Shortcut: `s` +
 Format: `select INDEX`
 
 ****
@@ -234,21 +272,30 @@ Format: `select INDEX`
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
+The image below shows the result of using `select 3` command. The place with an index of 3 is highlighted in a blue box and additional information is shown on the right side of the GUI.
+
+image::selectCommand.png[width="600"]
+
 Examples:
 
 * `list` +
 `select 2` +
 Selects the 2nd place in TravelBuddy.
 
-* `find Raffles` +
+* `search Raffles` +
 `select 1` +
 Selects the 1st place in the results of the `find` command.
 
-=== Listing entered commands : `history`
+=== Listing previously entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+The `history` command lists all the commands that you have entered in reverse chronological order. +
+
 Shortcut: `h` +
 Format: `history`
+
+The image below shows the result of running the `history` command.
+
+image::historyCommand.png[width="600"]
 
 [NOTE]
 ====
@@ -258,16 +305,18 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores TravelBuddy to the state before the previous _undoable_ command was executed. +
+The `undo` command restores TravelBuddy to the state before the previous _undoable_ command was executed. +
+
 Shortcut: `u` +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify TravelBuddy's data (`add`, `delete`, `edit` and `clear`).
+Undoable commands: Commands that modify TravelBuddy's data (`add`, `delete`, `deletem`, `edit` and `clear`).
 ====
 
 Examples: +
+
 * `delete 1` +
 `list` +
 `undo` (reverses the `delete 1` command) +
@@ -284,7 +333,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+The `redo` command reverses the most recent `undo` command. +
+
 Shortcut: `r` +
 Format: `redo`
 
@@ -307,32 +357,37 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all place entries from TravelBuddy. +
+The `clear` command clears all place entries from TravelBuddy. +
+
 Shortcut: `c` +
 Format: `clear`
 
+The image below shows the results of running a `clear` command, which will remove all places in TravelBuddy.
+
+image::clearCommand.png[width="600"]
+
 === Exiting the program : `exit`
 
-Exits the program. +
+The `exit` command exits the program. +
 Format: `exit`
 
 === Saving the data
 
-TravelBuddy data are saved in the hard disk automatically after any command that changes the data. +
+TravelBuddy data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::generateGraphs[]
 === Generating graphs `[coming in v2.0]`
 
-Provides useful data analytics and visualization via graphs and charts, based on your data in TravelBuddy. +
+The `generate` command provides useful data analytics and visualization through graphs and charts, based on your data in TravelBuddy. +
 Format: `generate`
 // end::generateGraphs[]
 
 // tag::addphoto[]
 === Adding Photos to Places `[coming in v2.0]`
 
-Add photo files to places in TravelBuddy. +
-Format: `generate`
+TravelBuddy helps you save photos by adding photo files to places in TravelBuddy. +
+Format: `add p/`
 // end::addphoto[]
 
 == FAQ
@@ -341,26 +396,26 @@ Format: `generate`
 *Q*: Can the application be used even without internet connection? +
 *A*: Yes, the application works without internet connection.
 
-*Q*: How do I import data from another address book? +
-*A*: Overwrite the empty data file in your computer with the data file of the other address book.
+*Q*: How do I import data from another TravelBuddy? +
+*A*: Overwrite the empty data file in your computer with the data file of the other TravelBuddy.
 
 *Q*: Why is my address book empty? +
-*A*: If you are just starting out, the address book will be empty for you to add places that you have been to.
+*A*: If you are just starting out, TravelBuddy will be empty for you to add places that you have been to.
 If you have been using it frequently, please refer to Data and Storage Issues.
 
 === Data and Storage Issues
-*Q*: How do I transfer my data to another Computer? +
+*Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TravelBuddy folder.
 
 *Q*: How do I send my address book to another person? +
-*A*: Send the person (via E-mail or messenger applications) your file that contains the data of your Address Book folder.
+*A*: Send the person (via E-mail or messenger applications) your file that contains the data of your TravelBuddy folder.
 
 *Q*: Can I retrieve the data from when I just launched the application? +
 *A*: Repeatedly use the `undo` command until there are no further commands to undo.
 
 *Q*: Why is my address book empty? +
-*A*: If you are just starting out, please refer to Setting Up section. An empty address book means that the address book file has been cleared either by commands or invalid json file.
-Please do check the file that contains the data of your address book.
+*A*: If you are just starting out, please refer to Setting Up section. An empty TravelBuddy means that your data has been cleared either by commands or invalid json file.
+Please do check the file that contains the data of your TravelBuddy.
 
 === Command Issues
 
@@ -412,7 +467,7 @@ e.g. `s Coffee Bean Tea Leaf`
 * *Select* : shortcut `s INDEX` +
 e.g.`s 2`
 * *History* : shortcut `h`
-* *Undo* : shortcut ] `u`
+* *Undo* : shortcut `u`
 
 * *Redo* : shortcut `r`
 

@@ -1,4 +1,4 @@
-package seedu.address.model.Analytics;
+package seedu.address.model.analytics;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -39,8 +39,14 @@ public class Analytics {
         DecimalFormat df = new DecimalFormat("#.00");
 
         String finalReport;
-        String reportMeanGrade, reportMeanInterviewScores, reportGender, reportRace, reportMajor, reportSchool,
-                reportPastJob, reportJobApply;
+        String reportMeanGrade;
+        String reportMeanInterviewScores;
+        String reportGender;
+        String reportRace;
+        String reportMajor;
+        String reportSchool;
+        String reportPastJob;
+        String reportJobApply;
 
         reportMeanGrade = "Average Grade: " + df.format(meanGrade);
         reportMeanInterviewScores = "Average Interview Scores:" + "\n" + "Q1: " + df.format(meanInterviewSores.get(0))
@@ -106,26 +112,25 @@ public class Analytics {
      * */
 
     private ArrayList<Float> meanInterviewScores() {
-       ArrayList<Float> averageScores = new ArrayList<>();
-       int interviewed = numPeople;
+        ArrayList<Float> averageScores = new ArrayList<>();
+        int interviewed = numPeople;
 
-       for (int i = 0; i < numPeople; i++) {
-           Person curr = personList.get(i);
-           if (curr.getInterviewScores().value == "No Record") {
-               interviewed--;
-           } else {
-               String[] personScores;
-               personScores = curr.getInterviewScores().value.split(",");
-               for (int j = 0; j < 5; j++) {
-                   averageScores.set(j, averageScores.get(j) + Integer.valueOf(personScores[j]));
-               }
-           }
-       }
-       for (int i = 0; i < 5; i++) {
-           averageScores.set(i, averageScores.get(i) / interviewed);
-       }
-
-       return averageScores;
+        for (int i = 0; i < numPeople; i++) {
+            Person curr = personList.get(i);
+            if (curr.getInterviewScores().value == "No Record") {
+                interviewed--;
+            } else {
+                String[] personScores;
+                personScores = curr.getInterviewScores().value.split(",");
+                for (int j = 0; j < 5; j++) {
+                    averageScores.set(j, averageScores.get(j) + Integer.valueOf(personScores[j]));
+                }
+            }
+        }
+        for (int i = 0; i < 5; i++) {
+            averageScores.set(i, averageScores.get(i) / interviewed);
+        }
+        return averageScores;
     }
 
     /**
@@ -189,12 +194,12 @@ public class Analytics {
 
         for (int i = 0; i < numPeople; i++) {
             String currMajor = personList.get(i).getMajor().value;
-                if (!majorCounter.containsKey(currMajor)) {
-                    majorCounter.put(currMajor, 1);
-                } else {
-                    majorCounter.put(currMajor, majorCounter.get(currMajor) + 1);
-                }
+            if (!majorCounter.containsKey(currMajor)) {
+                majorCounter.put(currMajor, 1);
+            } else {
+                majorCounter.put(currMajor, majorCounter.get(currMajor) + 1);
             }
+        }
         return majorCounter;
     }
 
@@ -205,7 +210,7 @@ public class Analytics {
     private HashMap<String, Integer> schoolBreakdown() {
         HashMap<String, Integer> schoolCounter = new HashMap<>();
 
-        for (int i = 0; i < numPeople ; i++) {
+        for (int i = 0; i < numPeople; i++) {
             String currSchool = personList.get(i).getSchool().value;
             if (!schoolCounter.containsKey(currSchool)) {
                 schoolCounter.put(currSchool, 1);
@@ -237,6 +242,10 @@ public class Analytics {
         }
         return pastJobCounter;
     }
+
+    /**
+     * Generates as string output the key and values of any Hashmap with a String key and Integer value
+     * */
 
     private String generateStringFromSet(HashMap<String, Integer> map) {
         String output = "";

@@ -83,6 +83,9 @@ public class LogicManager implements Logic {
         return model.getFilteredTaskList();
     }
 
+    /**
+     * Returns an unmodifiable view of the filtered list of tasks
+     */
     @Override
     public ObservableList<Record> getFilteredRecordList() {
         return model.getFilteredRecordList();

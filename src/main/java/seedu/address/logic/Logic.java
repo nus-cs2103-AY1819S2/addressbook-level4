@@ -39,7 +39,7 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Task> getFilteredTaskList();
 
-    /** Returns an unmodifiable view of the filtered list of records */
+    /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Record> getFilteredRecordList();
 
     /**

@@ -202,6 +202,7 @@ image::modelUmlDiagram.jpg[width="800"]
 The `Model`,
 
 * stores the Address Book data.
+* stores the Request Book data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -221,7 +222,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address,Request, Patient and HealthWorker Book data in json format and read it back.
+* can save the Address, Request Book data in json format and read it back.
 
 
 [[Design-Commons]]

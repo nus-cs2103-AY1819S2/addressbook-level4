@@ -17,6 +17,11 @@ import seedu.address.model.deck.Card;
 public class ShowAnswerCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Answer";
+    private static String userAnswer;
+
+    public ShowAnswerCommand(String userAnswer) {
+        this.userAnswer = userAnswer;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -25,6 +30,8 @@ public class ShowAnswerCommand extends Command {
         studyView.updateTextShown();
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
+
+
 
 
 }

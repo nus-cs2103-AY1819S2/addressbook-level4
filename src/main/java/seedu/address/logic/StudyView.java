@@ -20,6 +20,7 @@ public class StudyView implements ViewState {
     private Card currentCard;
     private final SimpleObjectProperty<studyState> currentStudyState = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<String> userAnswer = new SimpleObjectProperty<>();
     private DeckShuffler deckShuffler;
 
     public enum studyState {
@@ -54,27 +55,33 @@ public class StudyView implements ViewState {
         return activeDeck;
     }
 
+    //=========== Current Card ================================================================================
+
+
     public void setCurrentCard(Card card) {
         currentCard = card;
     }
 
-
-    public void setCurrentStudyState(studyState state) {
-        currentStudyState.setValue(state);
-    }
-
-    public ReadOnlyProperty<String> textShownProperty() {
+    public void generateCard() {
+        setCurrentCard(deckShuffler.generateCard());
         updateTextShown();
-        return textShown;
-    }
+    };
+
+    //=========== Study States ================================================================================
 
     public ReadOnlyProperty<studyState> studyStateProperty() {
         return currentStudyState;
     }
 
+    public void setCurrentStudyState(studyState state) {
+        currentStudyState.setValue(state);
+    }
+
     public studyState getCurrentStudyState() {
         return currentStudyState.getValue();
     }
+
+    //=========== TextShown ================================================================================
 
     public void updateTextShown() {
         String text =  (getCurrentStudyState() == studyState.QUESTION)
@@ -83,10 +90,15 @@ public class StudyView implements ViewState {
         textShown.setValue(text);
     }
 
-    public void generateCard() {
-        setCurrentCard(deckShuffler.generateCard());
+
+    public ReadOnlyProperty<String> textShownProperty() {
         updateTextShown();
-    };
+        return textShown;
+    }
+
+    //=========== User Answer ================================================================================
+
+
 
 
 }

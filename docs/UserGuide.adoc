@@ -48,7 +48,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * The list of medicine running low on stock or expiring soon medicine will be displayed in the warning panel to notify the user.
 * Warnings will be logged in the warnings panel until action has been taken to either remove or update the medicine.
 
-image::UserGuide_WarningPanel.png[width="790"]
+image::UserGuide_WarningPanel.png[width="250"]
 
 *Terminology*
 

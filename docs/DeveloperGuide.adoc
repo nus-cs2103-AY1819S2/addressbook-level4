@@ -18,6 +18,20 @@ endif::[]
 
 By: `Team W10-3`      Since: `Feb 2019`      Licence: `MIT`
 
+== Introduction
+Welcome to the Developer Guide for _Equipment Manager_!
+
+_Equipment Manager_ is an application that allows engineers to keep track of the Preventive Maintenance schedule of all Resuscitation Devices in Singapore. It will help engineers to plan the number of equipment to carry out preventive maintenance, and also keep track on each equipment details such as status and location. +
+
+Objectives of the application include:
+
+* Providing commands such as search and filter to search and filter equipment serial number, equipment status or work list respectively.
+
+* Displaying location of equipment in Google Maps.
+
+* Planning the most efficient route to take for visiting multiple locations.
+
+
 == Setting up
 
 === Prerequisites
@@ -48,10 +62,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/equipment/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/equipment/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 

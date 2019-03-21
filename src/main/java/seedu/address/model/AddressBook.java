@@ -147,7 +147,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// activity-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if activity with the same identity as {@code activity} exists in the address book.
      */
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
@@ -155,8 +155,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an activity to the address book.
+     * The activity must not already exist in the address book.
      */
     public void addActivity(Activity a) {
         activities.add(a);
@@ -164,9 +164,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given activity {@code target} in the list with {@code editedActivity}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity in the address book.
      */
     public void setActivity(Activity target, Activity editedActivity) {
         requireNonNull(editedActivity);

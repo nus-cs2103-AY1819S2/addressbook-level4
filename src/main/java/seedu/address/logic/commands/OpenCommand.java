@@ -28,7 +28,7 @@ public class OpenCommand extends Command {
     public static final String COMMAND_WORD = "open";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": open a text file in the \"data\" folder and overwrites the current addressbook\n"
+            + ": Opens a .json file in the \"data\" folder and overwrites the current addressbook\n"
             + "Parameters: FILENAME\n"
             + "Example: " + COMMAND_WORD + " records1.json";
 

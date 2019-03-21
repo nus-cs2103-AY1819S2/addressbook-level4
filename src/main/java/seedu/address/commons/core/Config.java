@@ -13,7 +13,7 @@ public class Config {
     public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
     public static final String ASSETS_FILEPATH = "src/main/resources/assets/";
     public static final String TEMP_FILEPATH = "src/main/resources/temp/";
-    public static final String TEMP_FILENAME = "temp_img";
+    public static final String TEMP_FILENAME = "temp_img.png";
     public static final String TEMP_FILE = TEMP_FILEPATH + TEMP_FILENAME;
 
     // Config values customizable through config file

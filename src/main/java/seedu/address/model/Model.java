@@ -158,4 +158,15 @@ public interface Model {
      * @param image
      */
     void setCurrentImage(Image image);
+
+    /**
+     * Creates a copy of the original {@code name} of the opened image
+     */
+    void setOriginalName(String name);
+
+    /**
+     * Saves the edited image as {@code name} into assets folder)
+     * To use originalName if {@code name} is empty
+     */
+    String saveToAssets(String name);
 }

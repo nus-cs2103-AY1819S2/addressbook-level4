@@ -39,6 +39,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static Image currentImage;
+    private String originalName;
 
 
     private final VersionedAddressBook versionedAddressBook;
@@ -295,9 +296,6 @@ public class ModelManager implements Model {
     }
 
 
-    /**
-     * Updates currentImage to Opened image and creates copy of it inside temp folder
-     */
     @Override
     public void setCurrentImage(Image image) {
         currentImage = image;
@@ -311,4 +309,26 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
+    public void setOriginalName(String name) {
+        this.originalName = name;
+    }
+
+    @Override
+    public String saveToAssets(String name) {
+        try {
+            if (name.isEmpty()) {
+                name = originalName;
+            }
+            File outputFile = new File(name);
+            File latestImage = new File(TEMP_FILE);
+            File directory = new File(ASSETS_FILEPATH);
+            latestImage.renameTo(outputFile);
+            FileUtils.copyFileToDirectory(outputFile, directory, false);
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        return name;
+    }
 }
+

@@ -49,7 +49,7 @@ public class AddAppCommandParserTest {
     public void parse_compulsoryPrefixMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddAppCommand.MESSAGE_USAGE);
 
-        // missing index prefix
+        // missing nric prefix
         assertParseFailure(parser,
                 nricString + " "
                         + PREFIX_DATE + dateString + " "

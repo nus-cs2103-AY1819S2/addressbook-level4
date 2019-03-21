@@ -22,6 +22,7 @@ import seedu.address.logic.commands.AddMedicineCommand;
 import seedu.address.logic.commands.AddPatientCommand;
 import seedu.address.logic.commands.AddRemCommand;
 import seedu.address.logic.commands.ConsultationCommand;
+import seedu.address.logic.commands.DeleteAppCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditPatientCommand;
@@ -35,9 +36,7 @@ import seedu.address.logic.commands.ListConsultationCommand;
 import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListRemCommand;
 import seedu.address.logic.commands.PrescriptionCommand;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.consultation.Assessment;
 import seedu.address.model.consultation.Diagnosis;
@@ -103,18 +102,6 @@ public class AddressBookParserTest {
         SelectCommand command = (SelectCommand) parser.parseCommand(
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
-    }
-
-    @Test
-    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {
-        assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD) instanceof RedoCommand);
-        assertTrue(parser.parseCommand("redo 1") instanceof RedoCommand);
-    }
-
-    @Test
-    public void parseCommand_undoCommandWord_returnsUndoCommand() throws Exception {
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-        assertTrue(parser.parseCommand("undo 3") instanceof UndoCommand);
     }
 
     @Test
@@ -274,6 +261,21 @@ public class AddressBookParserTest {
     public void parseCommand_listApp() throws Exception {
         assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD) instanceof ListAppCommand);
         assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD + " 3") instanceof ListAppCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteAppointment() throws Exception {
+        String dateString = "2019-03-15";
+        String startString = "09:00";
+
+        LocalDate date = LocalDate.parse(dateString);
+        LocalTime start = LocalTime.parse(startString);
+
+        String userInput = DeleteAppCommand.COMMAND_WORD
+                + " d/" + dateString
+                + " s/" + startString;
+        DeleteAppCommand command = (DeleteAppCommand) parser.parseCommand(userInput);
+        assertEquals(new DeleteAppCommand(date, start), command);
     }
 
     @Test

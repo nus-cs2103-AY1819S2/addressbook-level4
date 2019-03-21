@@ -14,6 +14,7 @@ import seedu.address.logic.commands.AddRemCommand;
 import seedu.address.logic.commands.AlarmCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ConsultationCommand;
+import seedu.address.logic.commands.DeleteAppCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditPatientCommand;
@@ -28,12 +29,10 @@ import seedu.address.logic.commands.ListPatientCommand;
 import seedu.address.logic.commands.ListRemCommand;
 import seedu.address.logic.commands.PrescriptionCommand;
 import seedu.address.logic.commands.PurchaseMedicineCommand;
-import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetConsultationFeeCommand;
 import seedu.address.logic.commands.SetPriceCommand;
 import seedu.address.logic.commands.StatisticsCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.ViewStorageCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -82,17 +81,14 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
-
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
-
         case AddPatientCommand.COMMAND_WORD:
             return new AddPatientParser().parse(arguments);
 
         case AddAppCommand.COMMAND_WORD:
             return new AddAppCommandParser().parse(arguments);
+
+        case DeleteAppCommand.COMMAND_WORD:
+            return new DeleteAppCommandParser().parse(arguments);
 
         case ListAppCommand.COMMAND_WORD:
             return new ListAppCommand();

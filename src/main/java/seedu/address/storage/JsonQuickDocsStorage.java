@@ -18,7 +18,7 @@ import seedu.address.model.QuickDocs;
 /**
  * A class to access QuickDocs data stored as a json file on the hard disk.
  */
-public class JsonQuickDocsStorage {
+public class JsonQuickDocsStorage implements QuickDocsStorage {
     private static final Logger logger = LogsCenter.getLogger(JsonQuickDocsStorage.class);
     private Path filePath = Paths.get("data" , "quickdocs.json");
 

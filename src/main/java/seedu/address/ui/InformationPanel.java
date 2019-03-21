@@ -30,8 +30,6 @@ public class InformationPanel extends UiPart<Region> {
     @FXML
     private TabPane informationPanel;
 
-    
-
     public InformationPanel(ObservableList<Image> imageList, ObservableValue<Image> selectedImage,
                             Consumer<Image> onSelectedImageChange) {
         super(FXML);

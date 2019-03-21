@@ -106,4 +106,24 @@ public class LogicManager implements Logic {
     public ReadOnlyProperty<ListItem> selectedItemProperty() {
         return model.selectedItemProperty();
     }
+    
+    @Override
+    public ReadOnlyProperty<String> textShownProperty() {
+        StudyView studyView = (StudyView) model.getViewState();
+        return studyView.textShownProperty();
+    }
+
+    @Override
+    public ReadOnlyProperty<StudyView.studyState> studyStateProperty() {
+        StudyView studyView = (StudyView) model.getViewState();
+        return studyView.studyStateProperty();
+    }
+
+    @Override
+    public ReadOnlyProperty<String> userAnswerProperty() {
+        StudyView studyView = (StudyView) model.getViewState();
+        return studyView.userAnswerProperty();
+    }
+
+
 }

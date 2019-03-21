@@ -66,4 +66,19 @@ public interface Logic {
      * null if no item is selected.
      */
     ReadOnlyProperty<ListItem> selectedItemProperty();
+
+    /**
+     * Current text in the StudyView
+     */
+    ReadOnlyProperty<String> textShownProperty();
+
+    /**
+     * Current studyState in the StudyView
+     */
+    ReadOnlyProperty<StudyView.studyState> studyStateProperty();
+
+    /**
+     * Current userAnswer
+     */
+    ReadOnlyProperty<String> userAnswerProperty();
 }

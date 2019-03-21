@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ExitCommandResult;
 import seedu.address.logic.commands.HelpCommandResult;
+import seedu.address.logic.commands.StudyPanelCommand;
 import seedu.address.logic.commands.UpdatePanelCommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -38,7 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CommandBox commandBox;
-    private QuestionPanel questionPanel;
+    private StudyPanel studyPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -47,16 +48,13 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane contentPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
-
-    @FXML
-    private StackPane questionPanelPlaceholder;
 
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -117,7 +115,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
-        personListPanelPlaceholder.getChildren().add(listPanel.getRoot());
+        contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -127,9 +125,6 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
-//        questionPanel = new QuestionPanel();
-//        questionPanelPlaceholder.getChildren().add(questionPanel.getRoot());
 
     }
 
@@ -189,8 +184,12 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult instanceof UpdatePanelCommandResult) {
                 listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
-                personListPanelPlaceholder.getChildren().clear();
-                personListPanelPlaceholder.getChildren().add(listPanel.getRoot());
+                contentPanelPlaceholder.getChildren().clear();
+                contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
+            } else if (commandResult instanceof StudyPanelCommand) {
+                studyPanel = new StudyPanel(logic.textShownProperty(), logic.studyStateProperty(), logic.userAnswerProperty());
+                contentPanelPlaceholder.getChildren().clear();
+                contentPanelPlaceholder.getChildren().add(studyPanel.getRoot());
             } else if (commandResult instanceof HelpCommandResult) {
                 handleHelp();
             } else if (commandResult instanceof ExitCommandResult) {

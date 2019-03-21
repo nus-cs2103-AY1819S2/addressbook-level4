@@ -161,4 +161,8 @@ public interface Model {
     void goToDecksView();
 
     boolean isAtDecksView();
+
+    ViewState getViewState();
+
+
 }

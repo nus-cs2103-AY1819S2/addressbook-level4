@@ -1,37 +1,53 @@
 package seedu.address.logic;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import java.util.List;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ListChangeListener;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.GenerateQuestionCommand;
+import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
-public class StudyView implements ListViewState {
+public class StudyView implements ViewState {
     private final Model model;
-    public final FilteredList<Card> filteredCards;
-    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    public final List<Card> listOfCards;
     private final Deck activeDeck;
+    private Card currentCard;
+    private final SimpleObjectProperty<studyState> currentStudyState = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<String> userAnswer = new SimpleObjectProperty<>();
+    private DeckShuffler deckShuffler;
+
+    public enum studyState {
+        QUESTION, ANSWER;
+    }
 
     public StudyView(Model model, Deck deck) {
         this.model = model;
         this.activeDeck = deck;
-        filteredCards = new FilteredList<>(deck.getCards().asUnmodifiableObservableList());
-        filteredCards.addListener(this::ensureSelectedItemIsValid);
+        listOfCards = deck.getCards().internalList;
+        setCurrentStudyState(studyState.QUESTION);
+        this.deckShuffler = new DeckShuffler(activeDeck);
+        generateCard();
     }
 
     @Override
     public Command parse(String commandWord, String arguments) throws ParseException {
+
         switch (commandWord) {
             case DoneCommand.COMMAND_WORD:
                 return new DoneCommand();
             default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+                if (getCurrentStudyState() == studyState.QUESTION) {
+                    return new ShowAnswerCommand(commandWord+arguments);
+                } else {
+                    return new GenerateQuestionCommand();
+                }
         }
     }
 
@@ -39,32 +55,59 @@ public class StudyView implements ListViewState {
         return activeDeck;
     }
 
-    /**
-     * Ensures {@code selectedItem} is a valid card in {@code filteredItems}.
-     */
-    private void ensureSelectedItemIsValid(ListChangeListener.Change<? extends Card> change) {
-        while (change.next()) {
-            if (selectedCard.getValue() == null) {
-                // null is always a valid selected card, so we do not need to check that it is valid anymore.
-                return;
-            }
+    //=========== Current Card ================================================================================
 
-            boolean wasSelectedItemReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedCard.getValue());
-            if (wasSelectedItemReplaced) {
-                // Update selectedCard to its new value.
-                int index = change.getRemoved().indexOf(selectedCard.getValue());
-                selectedCard.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
 
-            boolean wasSelectedItemRemoved = change.getRemoved().stream()
-                    .anyMatch(removedItem -> selectedCard.getValue().equals(removedItem));
-            if (wasSelectedItemRemoved) {
-                // Select the card that came before it in the list,
-                // or clear the selection if there is no such card.
-                selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
+    public void setCurrentCard(Card card) {
+        currentCard = card;
     }
+
+    public void generateCard() {
+        setCurrentCard(deckShuffler.generateCard());
+        updateTextShown();
+    };
+
+    //=========== Study States ================================================================================
+
+    public ReadOnlyProperty<studyState> studyStateProperty() {
+        return currentStudyState;
+    }
+
+    public void setCurrentStudyState(studyState state) {
+        currentStudyState.setValue(state);
+    }
+
+    public studyState getCurrentStudyState() {
+        return currentStudyState.getValue();
+    }
+
+    //=========== TextShown ================================================================================
+
+    public void updateTextShown() {
+        String text =  (getCurrentStudyState() == studyState.QUESTION)
+                ? currentCard.getQuestion()
+                : currentCard.getAnswer();
+        textShown.setValue(text);
+    }
+
+
+    public ReadOnlyProperty<String> textShownProperty() {
+        updateTextShown();
+        return textShown;
+    }
+
+    //=========== User Answer ================================================================================
+
+    public ReadOnlyProperty<String> userAnswerProperty() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(String answer) {
+        userAnswer.setValue(answer);
+    }
+
+    public String getUserAnswer() {
+        return userAnswer.getValue();
+    }
+
 }

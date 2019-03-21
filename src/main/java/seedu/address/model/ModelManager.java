@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -28,7 +27,7 @@ import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of top deck data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -55,6 +54,7 @@ public class ModelManager implements Model {
         // TODO: move filteredItems into viewState
         filteredItems = ((DecksView) viewState).filteredDecks;
         // filteredItems = ((CardsView) viewState).filteredCards;
+
     }
 
     public ModelManager() {
@@ -76,11 +76,6 @@ public class ModelManager implements Model {
 
     public void studyDeck(Deck deck) {
         viewState = new StudyView(this, deck);
-        // TODO: change this to above after migrating global cards list
-        //viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
-
-        filteredItems = ((StudyView) viewState).filteredCards;
-        setSelectedItem(null);
     }
 
     @Override
@@ -94,6 +89,12 @@ public class ModelManager implements Model {
     public boolean isAtDecksView() {
         return (viewState instanceof DecksView);
     }
+
+    @Override
+    public ViewState getViewState() {
+        return viewState;
+    }
+
 
     //=========== UserPrefs ==================================================================================
 

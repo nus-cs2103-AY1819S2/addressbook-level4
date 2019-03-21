@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.model.task.Task;
 
 /**
@@ -149,6 +150,39 @@ public interface Model {
      * The person identity of {@code editedTask} must not be the same as another existing task in the address book.
      */
     void setTask(Task target, Task editedTask);
+
+    //=========== Methods for interacting with Record Object ===========================================================
+
+    /** Returns an unmodifiable view of the filtered record list */
+    ObservableList<Task> getFilteredRecordList();
+
+    /**
+     * Updates the filter of the filtered record list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredRecordList(Predicate<Record> predicate);
+
+    /**
+     * Returns true if a record with the same identity as {@code task} exists in the address book.
+     */
+    boolean hasRecord(Record record);
+
+    /**
+     * Adds the given record.
+     * {@code record} must not already exist in the address book.
+     */
+    void addRecord(Record record);
+    /**
+     * Deletes the given record.
+     * The record must exist in the address book.
+     */
+    void deleteRecord(Record record);
+    /**
+     * Replaces the given record {@code target} with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     */
+    void setRecord(Record target, Record editedRecord);
 
     //=========== Undo/Redo/Commit =================================================================================
 

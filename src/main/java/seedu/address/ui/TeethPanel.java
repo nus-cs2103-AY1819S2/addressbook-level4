@@ -36,7 +36,24 @@ public class TeethPanel extends UiPart<Region> {
 
     public TeethPanel(ObservableValue<Person> selectedPerson) {
         super(FXML);
+        getRoot().setOnKeyPressed(Event::consume);
+        // Load patient's teeth when selected person changes.
+        selectedPerson.addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                clearTeeth();
+                return;
+            }
+            clearTeeth();
+            loadTeeth(newValue);
+        });
     }
 
+    /**
+     * Test
+     */
+    private void loadTeeth(Person person) {
+    }
+    private void clearTeeth() {
+    }
 }
 

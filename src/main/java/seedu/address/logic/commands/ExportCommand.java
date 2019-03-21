@@ -27,13 +27,13 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Exports specific patients by index to text file in the \"data\" folder, "
+            + ": Exports specific patients by index to .json or .pdf file in the \"data\" folder, "
             + "overwriting if filename exists \n"
             + "Parameters: FILENAME [INDEX_RANGE(must be a positive integer) OR all]\n"
             + "Example: " + COMMAND_WORD + " records1.json + 1-5"
-            + "Example: " + COMMAND_WORD + " records1.json + 1,3,5"
+            + "Example: " + COMMAND_WORD + " records1.pdf + 1,3,5"
             + "Example: " + COMMAND_WORD + " records1.json + 1,3-5"
-            + "Example: " + COMMAND_WORD + " records1.json + all";
+            + "Example: " + COMMAND_WORD + " records1.pdf + all";
 
     public static final String MESSAGE_SUCCESS = "Exported the records!";
     private static final String MESSAGE_FAILURE = "Problem while writing to the file.";

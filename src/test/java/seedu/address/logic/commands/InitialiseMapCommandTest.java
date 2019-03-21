@@ -19,7 +19,7 @@ public class InitialiseMapCommandTest {
     public void execute_initialisemap_success() throws Exception {
         Model model = new ModelManager();
         CommandHistory history = new CommandHistory();
-        int validSize = 5;
+        int validSize = InitialiseMapCommand.MINIMUM_MAP_SIZE;
 
         InitialiseMapCommand initialiseMapCommand = new InitialiseMapCommand(validSize);
         CommandResult commandResult = initialiseMapCommand.execute(model, history);
@@ -32,7 +32,7 @@ public class InitialiseMapCommandTest {
     public void execute_initialisemapWithSizeMoreThanMax_throwsCommandException() throws Exception {
         Model model = new ModelManager();
         CommandHistory history = new CommandHistory();
-        int invalidSize = 11;
+        int invalidSize = InitialiseMapCommand.MAXIMUM_MAP_SIZE + 1;
 
         InitialiseMapCommand initialiseMapCommand = new InitialiseMapCommand(invalidSize);
 
@@ -47,7 +47,7 @@ public class InitialiseMapCommandTest {
     public void execute_initialisemapWithSizeLessThanMin_throwsCommandException() throws Exception {
         Model model = new ModelManager();
         CommandHistory history = new CommandHistory();
-        int invalidSize = 4;
+        int invalidSize = InitialiseMapCommand.MINIMUM_MAP_SIZE - 1;
 
         InitialiseMapCommand initialiseMapCommand = new InitialiseMapCommand(invalidSize);
 

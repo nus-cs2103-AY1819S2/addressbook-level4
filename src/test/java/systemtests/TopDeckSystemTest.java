@@ -129,7 +129,7 @@ public abstract class TopDeckSystemTest {
      */
     protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getTopDeck().getCardList().size(), getModel().getFilteredList().size());
+        assertEquals(getModel().getTopDeck().getFilteredList().size(), getModel().getFilteredList().size());
     }
 
     /**

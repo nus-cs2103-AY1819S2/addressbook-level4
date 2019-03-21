@@ -51,7 +51,7 @@ public class TypicalCards {
      * Returns a {@code Deck} with all the typical cards.
      */
     public static Deck getTypicalDeck() {
-        Deck ad = new Deck(new Name("HEYYY"), getTypicalCards());
+        Deck ad = new Deck(new Name("Typical Deck"), getTypicalCards());
         return ad;
     }
 
@@ -60,9 +60,7 @@ public class TypicalCards {
      */
     public static TopDeck getTypicalTopDeck() {
         TopDeck td = new TopDeck();
-        for (Card card : getTypicalCards()) {
-            td.addCard(card);
-        }
+        td.addDeck(getTypicalDeck());
         return td;
     }
 

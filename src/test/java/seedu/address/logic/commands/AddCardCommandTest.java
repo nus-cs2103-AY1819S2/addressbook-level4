@@ -19,6 +19,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.ListItem;
+import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -229,8 +230,23 @@ public class AddCardCommandTest {
         @Override
         public void goToDecksView() {
             throw new AssertionError("This method should not be called.");
-
         }
+
+        @Override
+        public void studyDeck(Deck deck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isAtDecksView() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ViewState getViewState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

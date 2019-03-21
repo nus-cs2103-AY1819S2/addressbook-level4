@@ -16,9 +16,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.TopDeck;
+import seedu.address.model.deck.Deck;
 
 public class JsonTopDeckStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonTopDeckStorageTest");
@@ -76,6 +78,7 @@ public class JsonTopDeckStorageTest {
     public void readAndSaveTopDeck_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempTopDeck.json");
         TopDeck original = getTypicalTopDeck();
+        Deck originalDeck = original.getDeckList().get(0);
         JsonTopDeckStorage jsontopDeckStorage = new JsonTopDeckStorage(filePath);
 
         // Save in new file and read back
@@ -84,14 +87,14 @@ public class JsonTopDeckStorageTest {
         assertEquals(original, new TopDeck(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addCard(MULTIPLICATION);
-        original.removeCard(ADDITION);
+        original.addCard(MULTIPLICATION, originalDeck);
+        original.deleteCard(ADDITION, originalDeck);
         jsontopDeckStorage.saveTopDeck(original, filePath);
         readBack = jsontopDeckStorage.readTopDeck(filePath).get();
         assertEquals(original, new TopDeck(readBack));
 
         // Save and read without specifying file path
-        original.addCard(UNIQUE);
+        original.addCard(UNIQUE, originalDeck);
         jsontopDeckStorage.saveTopDeck(original); // file path not specified
         readBack = jsontopDeckStorage.readTopDeck().get(); // file path not specified
         assertEquals(original, new TopDeck(readBack));

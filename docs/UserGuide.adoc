@@ -18,6 +18,8 @@ By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
+HealthHub is connects home care patients to qualified professionals seamlessly.
+
 HealthHub is a application that allows users to add, manage and close requests from
 patients for health services. AB4 provides a *Graphical User Interface* for administrative staff of health organization and hospitals to manage requests from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
 
@@ -61,6 +63,12 @@ adds a patient named `John Doe` to the application.
  in the application.
 
 .  Refer to <<Features>> for a detailed explanation of each command.
+
+== What's new in v1.2
+
+* `add healthworker` command: Adds a `Healthworker` to the application.
+* `add request` command: Creates a new `Request` for the hospital management to attend to.
+* `assign request` command: Assigns a `Request` to a `Healthworker`, to attend to the request.
 
 [[Features]]
 == Features

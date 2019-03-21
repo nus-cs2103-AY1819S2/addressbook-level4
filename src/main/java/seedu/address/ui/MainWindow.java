@@ -32,6 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
@@ -58,6 +59,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane taskListPanelPlaceholder;
+
+    @FXML
+    private StackPane recordListPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -124,6 +128,9 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
+        recordListPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
@@ -173,20 +180,37 @@ public class MainWindow extends UiPart<Stage> {
         statWindow.show();
     }
 
+    /**
+     * Opens the record panel and hides the patient list.
+     */
+    @FXML
+    public void handleRecord() {
+        if (personListPanelPlaceholder.isVisible() || !recordListPanelPlaceholder.isVisible()) {
+            personListPanelPlaceholder.setVisible(false);
+            recordListPanelPlaceholder.setVisible(true);
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
 
     /**
-     * Closes the application.
+     * If at GoTo mode -> Goes back to patient list.
+     * Else closes the application.
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
-        primaryStage.hide();
+        if (!personListPanelPlaceholder.isVisible() || recordListPanelPlaceholder.isVisible()) {
+            personListPanelPlaceholder.setVisible(true);
+            recordListPanelPlaceholder.setVisible(false);
+        } else {
+            GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                    (int) primaryStage.getX(), (int) primaryStage.getY());
+            logic.setGuiSettings(guiSettings);
+            helpWindow.hide();
+            primaryStage.hide();
+        }
     }
 
     public PersonListPanel getPersonListPanel() {
@@ -210,6 +234,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowStat()) {
                 handleStat();
+            }
+
+            if (commandResult.isShowRecord()) {
+                handleRecord();
             }
 
             if (commandResult.isExit()) {

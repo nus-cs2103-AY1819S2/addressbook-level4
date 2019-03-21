@@ -16,7 +16,7 @@ import seedu.address.model.deck.Card;
  */
 public class ShowAnswerCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "Answer";
+    public static final String MESSAGE_SUCCESS = "";
     private static String userAnswer;
 
     public ShowAnswerCommand(String userAnswer) {

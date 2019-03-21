@@ -38,7 +38,6 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.MapPanel;
 
@@ -181,7 +180,7 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code MapHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -198,7 +197,7 @@ public abstract class AddressBookSystemTest {
      * @see MapPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
+        assertEquals(MapPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
@@ -219,7 +218,7 @@ public abstract class AddressBookSystemTest {
 
         URL expectedUrl;
         try {
-            expectedUrl = new URL(MapPanel.MAP_URL + selectedCardAddress + "%22&zoom=15&size=640x500&markers=%22"
+            expectedUrl = new URL(MapPanel.MAP_URL + selectedCardAddress + "%22&zoom=16&size=640x395&markers=%22"
                     + selectedCardAddress + ",red&sensor=false");
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
@@ -281,7 +280,7 @@ public abstract class AddressBookSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
-        assertEquals(BrowserPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
+        assertEquals(MapPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

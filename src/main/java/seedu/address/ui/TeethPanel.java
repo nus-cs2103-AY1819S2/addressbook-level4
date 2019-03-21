@@ -29,7 +29,7 @@ import seedu.address.model.person.Person;
  */
 public class TeethPanel extends UiPart<Region> {
     private static final String FXML = "TeethPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(TeethPanel.class);
 
     @FXML
     private AnchorPane space;
@@ -52,8 +52,47 @@ public class TeethPanel extends UiPart<Region> {
      * Test
      */
     private void loadTeeth(Person person) {
+        String type;
+        StackPane stack = new StackPane();
+        stack.setMaxWidth(Double.MAX_VALUE);
+        stack.setMaxHeight(Double.MAX_VALUE);
+        String basepath = System.getProperty("user.dir");
+        int[] teethList = new int[32];
+        //int[] teethList = person.getTeeth();
+        for (int i = 0; i < teethList.length; i++) {
+            teethList[i] = ThreadLocalRandom.current().nextInt(-1, 3 + 1);
+        }
+        File imgFile = new File(basepath + "/src/main/resources/images/teeth/BaseLayer2.png");
+        try {
+            BufferedImage main = ImageIO.read(imgFile);
+            for (int i = 0; i < teethList.length; i++) {
+                if (teethList[i] > 0 ) {
+                    if (teethList[i] == 1) {
+                        type = "A";
+                    }
+                    else {
+                        type = "P";
+                    }
+                    String filepath = "/src/main/resources/images/teeth/" + type + "_" + String.valueOf(i + 1) + ".png";
+                    String path = basepath + filepath;
+                    File imgFile2 = new File(path);
+                    BufferedImage layer = ImageIO.read(imgFile2);
+                    Graphics g = main.getGraphics();
+                    g.drawImage(layer, 0, 0, null);
+                }
+            }
+            Image fin = SwingFXUtils.toFXImage(main, null);
+            ImageView test = new ImageView(fin);
+            test.setPreserveRatio(true);
+            test.setFitHeight(500);
+            stack.getChildren().add(test);
+            space.getChildren().add(stack);
+        } catch (IOException e) {
+            new IOException("Error opening image file");
+        }
     }
     private void clearTeeth() {
+        space.getChildren().clear();
     }
 }
 

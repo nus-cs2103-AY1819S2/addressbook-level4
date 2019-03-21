@@ -20,6 +20,13 @@ public class ModeCommand extends GeneralCommand {
             + "if MEMBER (case insensitive), changes mode to Member Management\n"
             + "if ACTIVITY (case insensitive), changes mode to Activity Management";
 
+    public static final String MESSAGE_USAGE_CHANGE_MODE = COMMAND_WORD + " : Sets the mode\n"
+            + "Parameters:\n"
+            + "if MEMBER (case insensitive), changes mode to Member Management\n"
+            + "if ACTIVITY (case insensitive), changes mode to Activity Management";
+
+    public static final String MESSAGE_USAGE_CHECK_MODE = COMMAND_WORD + " : Get the mode\n";
+
 
     private final AppMode.Modes modeToChange;
 

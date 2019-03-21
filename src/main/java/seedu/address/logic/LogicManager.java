@@ -57,11 +57,8 @@ public class LogicManager implements Logic {
             Command command = addressBookParser.parseCommand(commandText);
             if (!(command.isValidMode(model.getAddressBookMode()))) {
                 throw new InvalidCommandModeException(
-                        String.format(MESSAGE_INVALID_COMMAND_MODE,
-                                command.allowedModeListAsString())
-                                + "\nChange to appropriate" +
-                                " mode by using mode command\n"
-                                +ModeCommand.MESSAGE_USAGE
+                        String.format(MESSAGE_INVALID_COMMAND_MODE, command.allowedModeListAsString(),
+                                ModeCommand.MESSAGE_USAGE_CHANGE_MODE)
                 );
             }
             commandResult = command.execute(model, history);

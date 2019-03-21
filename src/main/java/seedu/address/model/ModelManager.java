@@ -19,6 +19,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.battle.Battle;
+import seedu.address.logic.battle.BattleManager;
 import seedu.address.logic.statistics.PlayerStatistics;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
@@ -26,6 +28,7 @@ import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
 import seedu.address.model.player.Fleet;
+import seedu.address.model.player.Player;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -40,6 +43,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Cell> selectedPerson = new SimpleObjectProperty<>();
     private PlayerStatistics playerStats;
     private Fleet fleet;
+    private BattleManager batMan;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -294,6 +298,31 @@ public class ModelManager implements Model {
         }
     }
 
+    //========== Battle manager ==========================================================================
+
+    /**
+     * Returns the human player in the game.
+     */
+    @Override
+    public Player getHumanPlayer() {
+        return batMan.getHumanPlayer();
+    }
+
+    /**
+     * Returns the computer player.
+     */
+    @Override
+    public Player getEnemyPlayer() {
+        return batMan.getEnemyPlayer();
+    }
+
+    /**
+     * Retrieves the Battle API.
+     */
+    @Override
+    public Battle getBattle() {
+        return batMan;
+    }
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

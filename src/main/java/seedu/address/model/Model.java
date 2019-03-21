@@ -8,12 +8,14 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.battle.Battle;
 import seedu.address.logic.statistics.PlayerStatistics;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Fleet;
+import seedu.address.model.player.Player;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -181,4 +183,19 @@ public interface Model {
      * Checks number of battleships available.
      */
     boolean isEnoughBattleships(Battleship battleship, int numBattleship);
+
+    /**
+     * Returns the human player in the game.
+     */
+    Player getHumanPlayer();
+
+    /**
+     * Returns the computer player.
+     */
+    Player getEnemyPlayer();
+
+    /**
+     * Retrieves the Battle API.
+     */
+    Battle getBattle();
 }

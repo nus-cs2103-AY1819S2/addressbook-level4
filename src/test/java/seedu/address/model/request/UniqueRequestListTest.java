@@ -22,9 +22,10 @@ import seedu.address.testutil.Assert;
 import seedu.address.testutil.RequestBuilder;
 
 class UniqueRequestListTest {
-    private final UniqueRequestList uniqueRequestList = new UniqueRequestList();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private final UniqueRequestList uniqueRequestList = new UniqueRequestList();
 
     @Test
     public void contains_nullRequest_throwsNullPointerException() {

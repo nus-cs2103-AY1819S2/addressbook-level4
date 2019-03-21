@@ -26,23 +26,46 @@ Interested? Jump to the <<Quick Start>> to get started. If you already have Equi
 
 == Quick Start
 
+To get Equipment manager up and running, simply follow these few steps.
+
+=== Setting up of Equipment Manager
+
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
+.  Download the latest `equipmentmanager.jar` link:https://github.com/CS2103-AY1819S2-W10-3/main/releases/[here].
+.  Copy the file to the folder you want to use as the home folder for your Equipment Manager.
+.  Double-click the file to start the app. The _Graphical User Interface_ (GUI) should appear in a few seconds.
+
+=== Graphical User Interface (GUI)
+.A total of six regions to note in our GUI
+[[GUI]]
 image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
 
-* *`list`* : lists all contacts
+The GUI for _Equipment Manager_ as shown in <<GUI>> consists of six regions:
+
+
+[1] Menu Bar {nbsp} {nbsp} {nbsp} [2] Result Panel {nbsp} {nbsp} {nbsp} [3] Google Map +
+[4] Message Box {nbsp}[5] Command Box{nbsp} {nbsp} [6] Status Bar
+
+[IMPORTANT]
+Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
+
+ Note to editor: add labels to GUI picture, change auto figure link to sentence
+
+=== Entering a command
+
+Type the command in the Command Box and press kbd:[Enter] to execute it. +
+
+
+*Some basic commands you can try to get started:*
+
+* *`help`*: opens up user guide
+* *`list`*: lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* **`delete`**`3`: deletes the 3rd contact shown in the current list
+* *`exit`*: exits the app
 
-.  Refer to <<Features>> for details of each command.
+[TIP]
+Refer to <<Features>> for details of each command.
 
 [[Features]]
 == Features

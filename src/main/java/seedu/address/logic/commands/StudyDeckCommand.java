@@ -29,30 +29,38 @@ public class StudyDeckCommand extends Command {
 
     private Index targetIndex;
     private DecksView viewState;
+    private Deck targetDeck;
 
     public StudyDeckCommand(Index targetIndex, DecksView viewState) {
         this.targetIndex = targetIndex;
         this.viewState = viewState;
     }
 
+    public StudyDeckCommand(Deck targetDeck) {
+        this.targetDeck = targetDeck;
+    }
+
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         requireNonNull(model);
 
-        List<Deck> filteredDeckList = viewState.filteredDecks;
+        if (targetIndex!=null){
+            List<Deck> filteredDeckList = viewState.filteredDecks;
 
-        if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
+            if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
+            }
+
+            if (filteredDeckList.get(targetIndex.getZeroBased()).isEmpty() ) {
+                throw new CommandException(Messages.MESSAGE_EMPTY_DECK);
+            }
+            targetDeck = filteredDeckList.get(targetIndex.getZeroBased());
+
+
         }
+        model.studyDeck(targetDeck);
 
-        if (filteredDeckList.get(targetIndex.getZeroBased()).isEmpty() ) {
-            throw new CommandException(Messages.MESSAGE_EMPTY_DECK);
-        }
-
-
-        model.studyDeck(filteredDeckList.get(targetIndex.getZeroBased()));
-
-        return new StudyPanelCommand(String.format(MESSAGE_STUDY_DECK_SUCCESS, targetIndex.getOneBased()));
+        return new StudyPanelCommand(String.format(MESSAGE_STUDY_DECK_SUCCESS, targetDeck.getName()));
     }
 
     @Override

@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.analytics.Analytics;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -217,6 +218,11 @@ public class ModelManager implements Model {
 
     public void generateInterviews() {
         interviews.generate();
+    }
+
+    public String generateAnalytics() {
+        Analytics analytics = new Analytics(getFilteredPersonList());
+        return analytics.generate();
     }
 
     @Override

@@ -29,7 +29,7 @@ public class AddCustomerCommand extends CustomerCommand {
         + PREFIX_DATE_OF_BIRTH + "DATE OF BIRTH "
         + PREFIX_EMAIL + "EMAIL "
         + PREFIX_IDENTIFICATION_NUMBER + "IDENTIFICATION "
-        + PREFIX_ADDRESS + "hms "
+        + PREFIX_ADDRESS + "ADDRESS "
         + "[" + PREFIX_TAG + "TAG]...\n"
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_NAME + "John Doe "

@@ -28,6 +28,7 @@ public class ShowAnswerCommand extends Command {
         StudyView studyView = ((StudyView) model.getViewState());
         studyView.setCurrentStudyState(StudyView.studyState.ANSWER);
         studyView.updateTextShown();
+        studyView.setUserAnswer(userAnswer);
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

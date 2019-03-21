@@ -97,7 +97,7 @@ public class StudyView implements ViewState {
     }
 
     //=========== User Answer ================================================================================
-    
+
     public ReadOnlyProperty<String> userAnswerProperty() {
         return userAnswer;
     }

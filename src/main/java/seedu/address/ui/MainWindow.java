@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -22,6 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
+ * @author Hui Chun
  */
 public class MainWindow extends UiPart<Stage> {
 
@@ -35,38 +35,33 @@ public class MainWindow extends UiPart<Stage> {
     // Independent UI parts residing in this UI container
     private MapPanel mapPanel;
     private PersonListPanel personListPanel;
-    //TO-DO: Create RequestListPanel, LocationListPanel
     private HealthWorkerListPanel healthWorkerListPanel;
-    private TabPane tabPane;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-
-    @FXML
-    private StackPane mapPanelPlaceholder;
-
-    @FXML
-    private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane patientListPlaceholder;
+    private MenuItem feedbackMenuItem;
 
     @FXML
-    private StackPane requestListPlaceholder;
-
-    @FXML
-    private StackPane locationListPlaceholder;
-
-    @FXML
-    private StackPane healthWorkerListPlaceholder;
+    private StackPane commandBoxPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane requestListPlaceholder;
+
+    @FXML
+    private StackPane displayInfoPlaceholder;
+
+    @FXML
+    private StackPane healthWorkerListPlaceholder;
+
+    @FXML
+    private StackPane statusBarPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -89,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+        setAccelerator(feedbackMenuItem, KeyCombination.valueOf("F2"));
     }
 
     /**
@@ -132,20 +128,27 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         mapPanel = new MapPanel(logic.selectedPersonProperty());
-        mapPanelPlaceholder.getChildren().add(mapPanel.getRoot());
+        displayInfoPlaceholder.getChildren().add(mapPanel.getRoot());
 
         //TODO: Change personListPanel to patientListPanel
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        patientListPlaceholder.getChildren().add(personListPanel.getRoot());
+        requestListPlaceholder.getChildren().add(personListPanel.getRoot());
 
-        //healthWorkerListPanel = new HealthWorkerListPanel(logic.getFilteredHealthWorkerList(),
-        //logic.selectedHealthWorkerProperty(),
-        // logic::setSelectedHealthWorker);
-        //healthWorkerListPlaceholder.getChildren().add(healthWorkerListPanel.getRoot());
+        healthWorkerListPanel = new HealthWorkerListPanel(logic.getFilteredHealthWorkerList(),
+            logic.selectedHealthWorkerProperty(), logic::setSelectedHealthWorker);
+        healthWorkerListPlaceholder.getChildren().add(healthWorkerListPanel.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+    }
+
+    public PersonListPanel getPersonListPanel() {
+        return personListPanel;
+    }
+
+    void show() {
+        primaryStage.show();
     }
 
     /**
@@ -172,8 +175,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
-        primaryStage.show();
+    /**
+     * Opens the feedback window.
+     */
+    @FXML
+    public void handleFeedback() {
+        //TODO implement feedback window logic
     }
 
     /**
@@ -186,10 +193,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**

@@ -7,7 +7,7 @@ import javafx.scene.control.Labeled;
  * A handle for the {@code StatusBarFooter} at the footer of the application.
  */
 public class StatusBarFooterHandle extends NodeHandle<Node> {
-    public static final String STATUS_BAR_PLACEHOLDER = "#statusbarPlaceholder";
+    public static final String STATUS_BAR_PLACEHOLDER = "#statusBarPlaceholder";
 
     private static final String SYNC_STATUS_ID = "#syncStatus";
     private static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";

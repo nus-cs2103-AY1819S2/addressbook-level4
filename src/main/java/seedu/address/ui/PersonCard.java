@@ -26,6 +26,7 @@ public class PersonCard extends UiPart<Region> {
 
     @FXML
     private HBox cardPane;
+
     @FXML
     private Label name;
     @FXML
@@ -37,7 +38,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
-    private FlowPane tags;
+    private FlowPane conditions;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -47,7 +48,7 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        person.getTags().forEach(tag -> conditions.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

@@ -7,7 +7,7 @@ import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.Model;
 
 /**
- * Clears the hms book.
+ * Clears the hms book
  */
 public class ClearCustomerCommand extends Command {
 

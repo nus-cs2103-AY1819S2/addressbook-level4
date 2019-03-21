@@ -60,12 +60,12 @@ public class HealthWorkerCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof HealthWorkerCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        HealthWorkerCard card = (HealthWorkerCard) other;
         return true;
     }
 }

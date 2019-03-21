@@ -46,11 +46,17 @@ public class StudyPanel extends UiPart<Region> {
     @FXML
     private Label id;
 
+    @FXML
+    private Label userAnswer;
+
 
     public StudyPanel(ObservableValue<String> textShown, ObservableValue<StudyView.studyState> studyState) {
         super(FXML);
 
         question.setText(textShown.getValue());
+
+        userAnswer.setText("Your answer: \nLorem Ipsum Dolor");
+
         card.pseudoClassStateChanged(ANSWER, false);
 
         textShown.addListener((observable, oldValue, newValue) -> {

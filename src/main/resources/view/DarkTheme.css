@@ -138,6 +138,13 @@
     -fx-text-fill: #010504;
 }
 
+
+.userAnswer_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffffff;
+}
+
 .stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }

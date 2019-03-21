@@ -10,14 +10,12 @@ import seedu.address.model.Model;
  */
 public class GenerateQuestionCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "Question";
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         StudyView studyView = ((StudyView) model.getViewState());
         studyView.generateCard();
         studyView.setCurrentStudyState(StudyView.studyState.QUESTION);
         studyView.updateTextShown();
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult("");
     }
 }

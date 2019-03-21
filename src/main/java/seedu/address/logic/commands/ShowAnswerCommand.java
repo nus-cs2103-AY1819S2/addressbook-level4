@@ -16,7 +16,6 @@ import seedu.address.model.deck.Card;
  */
 public class ShowAnswerCommand extends Command {
 
-    public static final String MESSAGE_SUCCESS = "";
     private static String userAnswer;
 
     public ShowAnswerCommand(String userAnswer) {
@@ -29,7 +28,7 @@ public class ShowAnswerCommand extends Command {
         studyView.setCurrentStudyState(StudyView.studyState.ANSWER);
         studyView.updateTextShown();
         studyView.setUserAnswer(userAnswer);
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult("");
     }
 
 

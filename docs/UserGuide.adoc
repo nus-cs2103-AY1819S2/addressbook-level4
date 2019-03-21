@@ -94,7 +94,8 @@ Format: `menuMode`
 * RestOrRant should not already be in Menu Mode.
 ****
 
-=== Adding tableList : `addTables`
+=== Features executable in RestaurantMode
+==== Adding tableList : `addTables`
 
 Adds tableList to the restaurant. +
 Format: `addTables NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
@@ -110,7 +111,7 @@ Examples:
 * `addTables 4`
 * `addTables 4 2 4`
 
-=== Listing all tableList in the restaurant : `listTables`
+==== Listing all tableList in the restaurant : `listTables`
 
 Shows a list of all tableList in the restaurant as well as their current occupancy. +
 Format: `listTables`
@@ -119,7 +120,7 @@ Format: `listTables`
 * Command can only be used in Restaurant Mode.
 ****
 
-=== Updating the table: `updateTable`
+==== Updating the table: `updateTable`
 
 Updates the status of the table. +
 Format: `updateTable TABLE_NUMBER NEW_OCCUPANCY`
@@ -135,7 +136,7 @@ Examples:
 * `updateTable 2 0`
 * `updateTable 1 4`
 
-=== Removing a table : `removeTable`
+==== Removing a table : `removeTable`
 
 Removes an existing table in the restaurant. +
 Format: `removeTable TABLE_NUMBER`
@@ -150,7 +151,8 @@ Examples:
 
 * `removeTable 3`
 
-=== Adding item(s) to an order: `addToOrder`
+=== Features executable in TableMode
+==== Adding item(s) to an order: `addToOrder`
 
 Adds the specified item(s) to the order of the current selected table and displays the new list of order items. +
 Format: `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]…`
@@ -167,7 +169,7 @@ Examples:
 * `addToOrder W09 2`
 * `addToOrder W09 1 N01 1 C04 2`
 
-=== Adding a note to an item in an order: `addNote`
+==== Adding a note to an item in an order: `addNote`
 
 Adds a note to an item in the order of the specified table. +
 Format: `addNote TABLE_NUMBER ITEM_CODE NOTE`
@@ -180,7 +182,7 @@ Examples:
 
 * `addNote 1 W09 Less spicy`
 
-=== Deleting an item from an order: `deleteFromOrder`
+==== Deleting an item from an order: `deleteFromOrder`
 
 Deletes a specified item from the order of the specified table. +
 Format: `deleteFromOrder TABLE_NUMBER ITEM_CODE [QUANTITY]`
@@ -197,7 +199,7 @@ Deletes all W09 Chicken Wings from table 1’s order.
 * `deleteFromOrder 1 W09 1` +
 Reduces the quantity of W09 Chicken Wings by 1 in table 1’s order.
 
-=== Clearing all the items in an order: `clearOrder`
+==== Clearing all the items in an order: `clearOrder`
 
 Deletes all the items ordered by the specified table. +
 Format: `clearOrder TABLE_NUMBER`
@@ -206,7 +208,7 @@ Examples:
 
 * `clearOrder 1`
 
-=== Marking an item in an order as served: `serve`
+==== Marking an item in an order as served: `serve`
 
 Marks the specified item as served for the specified table. +
 Format: `serve TABLE_NUMBER ITEM_CODE [QUANTITY]`
@@ -224,7 +226,7 @@ Updates the status of table 1’s order with 1 W09 Chicken Wings served.
 * `serve 5 C04 2` +
 Updates the status of table 5’s order with 2 C04 Shrimp Fried Rice served.
 
-=== Checking if table is served : `isTableServed`
+==== Checking if table is served : `isTableServed`
 
 Checks if all menu items on the order has been served. +
 Format: `isTableServed`
@@ -239,7 +241,22 @@ Examples:
 * `isTableServed` +
 Returns `Table is fully served`, `Table is not fully served` or `Table is empty`
 
-=== Listing all items in menu : `printMenu`
+==== Calculating the bill of an order : `bill`
+
+Calculates the bill of an order from the specified table in TableMode. +
+Format: `bill`
+
+****
+* Only works in TableMode.
+****
+
+Examples:
+
+* `TableMode 1` then `bill` +
+Returns the total price of the order from table 1.
+
+=== Features executable in MenuMode
+==== Listing all items in menu : `printMenu`
 
 Lists all the items in the menu currently. +
 Format: `printMenu`
@@ -248,7 +265,7 @@ Format: `printMenu`
 * “Menu is empty” is printed if there is no item in current menu.
 ****
 
-=== Adding menu items to the menu : `addToMenu`
+==== Adding menu items to the menu : `addToMenu`
 
 Adds the specified item to the menu. +
 Format: `addToMenu ITEM_CODE ITEM_NAME ITEM_PRICE`
@@ -263,7 +280,7 @@ Examples:
 * `addToMenu c/A02 n/French Fries p/2.00` +
 Adds French Fries with item code A02 and price $2.00 to the menu.
 
-=== Removing menu items from the menu : `removeFromMenu`
+==== Removing menu items from the menu : `removeFromMenu`
 
 Removes the specified item from the menu. +
 Format: `removeFromMenu ITEM_CODE ITEM_NAME`
@@ -273,7 +290,7 @@ Examples:
 * `removeFromMenu c/A02 n/French Fries` +
 Removes French Fries with item code A02 from the menu.
 
-=== Checking if item exists in the menu : `itemExists`
+==== Checking if item exists in the menu : `itemExists`
 
 Checks if item with the specified item code exists in the menu. +
 Format: `itemExists ITEM_CODE`
@@ -283,22 +300,8 @@ Examples:
 * `itemExists A02` +
 Checks if item with code A02 exists in the menu.
 
-=== Calculating the bill of an order : `bill`
-
-Calculates the bill of an order from the specified table. +
-Format: `bill TABLE_NUMBER YEAR MONTH DAY`
-
-****
-* Only works in TableMode.
-* `YEAR`, `MONTH`, `DAY` has to be valid.
-****
-
-Examples:
-
-* `bill tn/1 y/2019 m/12 d/30` +
-Returns the total price of the order from table 1.
-
-=== Getting the most popular item ordered: `getMostPopularItem`
+=== Features executable in StatisticsMode
+==== Getting the most popular item ordered: `getMostPopularItem`
 
 Returns the item on the menu that has the most orders. +
 Format: `getMostPopularItem`
@@ -308,7 +311,7 @@ Examples:
 * `getMostPopularItem` +
 Returns the most popular item `W09 Chicken Wings`
 
-=== Getting the total number of customers : `getTotalCustomers`
+==== Getting the total number of customers : `getTotalCustomers`
 
 Returns the total number of customer for the stated day, month or year. +
 Format: `getTotalCustomers [YEAR] [MONTH] [DAY]`
@@ -330,7 +333,7 @@ Returns the total number of customers of the month February 2019 `600`
 * `getTotalCustomers y/2019` +
 Returns the total number of customers of the year 2019 `1200`
 
-=== Getting the total revenue : `getTotalRevenue`
+==== Getting the total revenue : `getTotalRevenue`
 
 Returns the total revenue earned by the restaurant by the stated year, month or day. +
 Format: `getTotalRevenue [YEAR] [MONTH] [DAY]`
@@ -352,7 +355,7 @@ Returns the total revenue of the month February 2019 `$7000`
 * `getTotalCustomers y/2019` +
 Returns the total revenue of the year 2019 `15000`
 
-=== Getting all the statistics : `getStatistics`
+==== Getting all the statistics : `getStatistics`
 
 Returns all the calculated statistics. +
 Format: `getStatistics`

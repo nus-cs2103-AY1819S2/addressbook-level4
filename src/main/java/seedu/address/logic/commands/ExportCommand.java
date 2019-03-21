@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILENAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FOLDERNAME;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
@@ -14,19 +15,17 @@ import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.storage.csvmanager.CsvFile;
 
 /**
- * Exports single or multiple card folders into a .json file. Users must specify file name to export card folders to.
+ * Exports single or multiple card folders into a .csv file.
  */
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports single or multiple card folders into"
-            + "a .csv file. "
-            + "Users must include the .csv extension.\n"
-            + "Parameters: "
-            + PREFIX_FOLDERNAME + "CARD_FOLDER_NAME [MORE CARD_FOLDER_NAMES]..."
-            + PREFIX_FILENAME + "Filename.csv\n"
-            + "Example: " + COMMAND_WORD + "f/Human_anatomy f/Bone_structure n/myfilename.csv";
+            + "their respective .csv files."
+            + "Parameters: INDEX (Index specifies the card folder index to export) \n"
+            + "Can specify more than one card folder index to export"
+            + "Example: " + COMMAND_WORD + "1 3 5 7";
 
     public static final String MESSAGE_SUCCESS = "Successfully exported card folders to: $1%s";
 
@@ -36,10 +35,15 @@ public class ExportCommand extends Command {
 
     private Set<CardFolderExport> cardFolders;
     private CsvFile filename;
+    private List<Integer> cardFolderIndexes;
 
     public ExportCommand(Set<CardFolderExport> cardFolders, CsvFile filename) {
         this.cardFolders = cardFolders;
         this.filename = filename;
+    }
+
+    public ExportCommand(List<Integer> cardFolderIndexes) {
+        this.cardFolderIndexes = cardFolderIndexes;
     }
 
     @Override

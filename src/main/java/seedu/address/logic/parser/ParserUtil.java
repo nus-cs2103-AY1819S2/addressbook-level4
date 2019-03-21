@@ -2,15 +2,13 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Question;
@@ -24,6 +22,7 @@ import seedu.address.storage.csvmanager.CsvFile;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_NOT_AN_INTEGER = "Cannot parse string to integer";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -108,6 +107,21 @@ public class ParserUtil {
             cardFolderExports.add(parseFolder(folderName));
         }
         return cardFolderExports;
+    }
+
+    public static Integer stringToInt(String element) throws NumberFormatException {
+        return Integer.parseInt(element);
+    }
+
+
+    public static List<Integer> parseFolderIndex(String folderIndexes) throws ParseException {
+        List<Integer> indexList = new ArrayList<>();
+        folderIndexes = folderIndexes.trim();
+        try {
+            return Arrays.stream(folderIndexes.split(" ")).map(ParserUtil::stringToInt).collect(Collectors.toList());
+        } catch (NumberFormatException exception) {
+            throw new ParseException(MESSAGE_NOT_AN_INTEGER);
+        }
     }
 
     /**

@@ -34,23 +34,14 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         // check if array elements contain all numbers
         try {
             List<Integer> folderIndexes = ParserUtil.parseFolderIndex(userInput);
-            return new ExportCommand()
+            return new ExportCommand(folderIndexes);
         } catch (ParseException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE), e);
         }
 
-        String[] array = userInput.split(" ");
 
 
 
-        List<Integer> indexList = new ArrayList<>();
-
-        for (String element : array) {
-            indexList.add(Integer.parseInt(element));
-        }
-
-
-
-        return new ExportCommand(folderNames, filename);
+        // return new ExportCommand(folderNames, filename);
     }
 }

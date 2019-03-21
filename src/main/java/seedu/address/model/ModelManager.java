@@ -438,6 +438,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void exportCardFolders(List<Integer> cardFolderExports) throws IOException {
+        
+    }
+
+    @Override
     public void importCardFolders(CsvFile csvFile) throws IOException {
 
     }

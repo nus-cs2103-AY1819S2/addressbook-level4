@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -39,9 +37,7 @@ import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
 import seedu.address.model.table.UniqueTableList;
 import seedu.address.model.table.exceptions.DuplicateTableException;
-import seedu.address.model.table.exceptions.TableNotFoundException;
 import seedu.address.testutil.MenuItemBuilder;
-import seedu.address.testutil.StatisticsBuilder;
 import seedu.address.testutil.TableBuilder;
 
 public class BillCommandTest {
@@ -543,7 +539,7 @@ public class BillCommandTest {
         }
 
         @Override
-        public void setTables(List<Table> tableList){
+        public void setTables(List<Table> tableList) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -415,7 +415,7 @@ public class ModelManager implements Model {
 
     // for adding
     public boolean duplicatePatient(Patient patient) {
-        return this.patientManager.duplicatePatient(patient);
+        return this.patientManager.isDuplicatePatient(patient);
     }
 
     /**

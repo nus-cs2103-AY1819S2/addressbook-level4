@@ -53,7 +53,7 @@ public class JsonSerializableQuickDocs {
             Patient patient = jsonAdaptedPatient.toModelType();
 
             // handle duplicates
-            if (patientManager.duplicatePatient(patient)) {
+            if (patientManager.isDuplicatePatient(patient)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PATIENT);
             }
             patientManager.addPatient(patient);

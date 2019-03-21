@@ -1,5 +1,7 @@
 package seedu.address.model.medicine;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -11,14 +13,12 @@ import java.math.BigDecimal;
 public class Medicine {
 
     public static final String MESSAGE_CONSTRAINTS = "Medicine name can take any values, and it should not be blank";
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "\\S*";
     public static final String TO_STRING = "Medicine: %1$s, Quantity: %2$d, Price: %3$s";
-
-    private static int defaultThreshold = 50;
+    private static int DEFAULT_THRESHOLD = 50;
 
     public final String name;
     private int quantity;
-    private boolean thresholdIsDefault = true;
     private int threshold;
     private BigDecimal price;
 
@@ -30,7 +30,7 @@ public class Medicine {
      * Constructs a medicine with given name and default quantity 0.
      * @param name The name of medicine
      */
-    public Medicine(String name) {
+    public Medicine(String name) throws IllegalValueException {
         this(name, 0);
     }
 
@@ -39,11 +39,15 @@ public class Medicine {
      * @param name The name of medicine
      * @param amount The amount of medicine
      */
-    public Medicine(String name, int amount) {
+    public Medicine(String name, int amount) throws IllegalValueException {
         requireNonNull(name);
         checkArgument(isValidMedicine(name), MESSAGE_CONSTRAINTS);
+        if (amount < 0) {
+            throw new IllegalValueException("Quantity should not be negative.");
+        }
         this.name = name;
         setQuantity(amount);
+        this.threshold = DEFAULT_THRESHOLD;
     }
 
     public static boolean isValidMedicine(String test) {
@@ -95,14 +99,8 @@ public class Medicine {
      */
     private void checkIfSufficient() {
         int current = this.getQuantity();
-        if (thresholdIsDefault) {
-            if (current <= defaultThreshold) {
-                //Throws a reminder
-            }
-        } else {
-            if (current <= threshold) {
-                //Throws a reminder
-            }
+        if (quantity < threshold) {
+            //throw a reminder
         }
     }
 
@@ -110,15 +108,10 @@ public class Medicine {
         return threshold;
     }
 
-    public boolean isThresholdIsDefault() {
-        return thresholdIsDefault;
-    }
-
     public void setThreshold(int threshold) {
         if (threshold < 0) {
             throw new IllegalArgumentException("threshold must be non-negative");
         }
-        thresholdIsDefault = false;
         this.threshold = threshold;
     }
 
@@ -135,7 +128,10 @@ public class Medicine {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(BigDecimal price) throws IllegalValueException {
+        if (price.compareTo(new BigDecimal("0")) == -1) {
+            throw new IllegalValueException("Price should not be negative.");
+        }
         this.price = price;
     }
 }

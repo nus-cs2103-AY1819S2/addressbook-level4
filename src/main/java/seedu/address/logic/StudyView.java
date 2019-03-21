@@ -97,8 +97,17 @@ public class StudyView implements ViewState {
     }
 
     //=========== User Answer ================================================================================
+    
+    public ReadOnlyProperty<String> userAnswerProperty() {
+        return userAnswer;
+    }
 
+    public void setUserAnswer(String answer) {
+        userAnswer.setValue(answer);
+    }
 
-
+    public studyState getUserAnswer() {
+        return userAnswer.getValue();
+    }
 
 }

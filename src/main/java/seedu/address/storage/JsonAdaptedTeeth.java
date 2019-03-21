@@ -49,7 +49,8 @@ class JsonAdaptedTeeth {
      */
     @JsonValue
     public String getTeethName() {
-        StringBuilder sb = new StringBuilder(teethLayout[0]);
+        StringBuilder sb = new StringBuilder();
+        sb.append(teethLayout[0]);
 
         for (int i = 1; i < teethLayout.length; i++) {
             sb.append(JsonAdaptedConstants.DIVIDER + teethLayout[i]);

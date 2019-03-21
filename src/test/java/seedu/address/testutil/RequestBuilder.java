@@ -144,9 +144,6 @@ public class RequestBuilder {
 
     /**
      * Sets the {@code healthStaff} of the {@code Request} we are building.
-     *
-     * @param healthStaff The healthStaff attending to the request.
-     * @return The RequestBuilder object.
      */
     public RequestBuilder withHealthStaff(HealthWorker healthStaff) {
         requireNonNull(healthStaff);
@@ -156,9 +153,6 @@ public class RequestBuilder {
 
     /**
      * Sets the {@code healthStaff} of the {@code Request} that we are building
-     *
-     * @param healthWorker the healthworker attending to the request
-     * @return the requestbuilder object
      */
     public RequestBuilder withHealthWorker(String healthWorker) {
         requireNonNull(healthWorker);
@@ -168,9 +162,6 @@ public class RequestBuilder {
 
     /**
      * Sets the {@code healthStaff} of the {@code Request} we are building.
-     *
-     * @param conditions The conditions that need be attended to, by the healthworker.
-     * @return The RequestBuilder object.
      */
     public RequestBuilder withConditions(Conditions conditions) {
         this.conditions = new Conditions(conditions);
@@ -179,12 +170,17 @@ public class RequestBuilder {
 
     /**
      * Sets the {@code healthStaff} of the {@code Request} we are building.
-     *
-     * @param status The status of the request.
-     * @return The RequestBuilder object.
      */
     public RequestBuilder withStatus(String status) {
         this.requestStatus = new RequestStatus(status);
+        return this;
+    }
+
+    /**
+     * Sets the {@code name} of the patient in the {@code Request} we are building
+     */
+    public RequestBuilder withName(String name) {
+        this.name = new Name(name);
         return this;
     }
 

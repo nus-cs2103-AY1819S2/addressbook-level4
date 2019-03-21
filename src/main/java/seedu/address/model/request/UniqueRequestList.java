@@ -31,7 +31,7 @@ public class UniqueRequestList implements Iterable<Request> {
      */
     public boolean contains(Request toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameRequest);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**

@@ -8,8 +8,10 @@ import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
@@ -44,9 +46,10 @@ class JsonAdaptedRequest {
                               @JsonProperty("nric") String nric,
                               @JsonProperty("phone") String phone,
                               @JsonProperty("address") String address,
-                              @JsonProperty("requestdate") String requestDate,
+                              @JsonProperty("requestDate") String requestDate,
                               @JsonProperty("conditions") String conditions,
-                              @JsonProperty("requestStatus") String requestStatus) {
+                              @JsonProperty("requestStatus") String requestStatus,
+                              @JsonProperty("healthWorker") String healthWorker) {
         this.name = name;
         this.nric = nric;
         this.address = address;
@@ -54,6 +57,7 @@ class JsonAdaptedRequest {
         this.requestDate = requestDate;
         this.conditions = conditions;
         this.requestStatus = requestStatus;
+        this.healthWorker = healthWorker;
     }
 
     /**
@@ -108,7 +112,7 @@ class JsonAdaptedRequest {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
         if (!Nric.isValidNric(nric)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);
         }
         final Nric modelNric = new Nric(nric);
 
@@ -149,6 +153,17 @@ class JsonAdaptedRequest {
         }
         return new Request(modelName, modelNric, modelPhone, modelAddress, modelrequestDate,
             modelConditions, modelrequestStatus, healthWorker);
+    }
+
+    @Override
+    public String toString() {
+        String message = "Unable to parse";
+        try {
+            message = JsonUtil.toJsonString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return message;
     }
 
 }

@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.nio.file.Path;
@@ -35,12 +35,11 @@ class JsonSerializableRequestBookTest {
             JsonSerializableRequestBook.class).get();
         RequestBook requestBookFromFile = dataFromFile.toModelType();
         RequestBook typicalRequestsRequestBook = getTypicalRequestBook();
-        assertTrue(requestBookFromFile.areRequestsSame(typicalRequestsRequestBook));
+        assertEquals(typicalRequestsRequestBook, requestBookFromFile);
     }
 
     @Test
     public void toModelType_invalidRequestFile_throwsIllegalValueException() throws Exception {
-        System.out.println(JsonUtil.toJsonString(new JsonSerializableRequestBook(getTypicalRequestBook())));
         JsonUtil.readJsonFile(INVALID_REQUESTS_FILE,
             JsonSerializableRequestBook.class).get();
         thrown.expect(IllegalValueException.class);

@@ -389,6 +389,7 @@
 
 .receipt_big_label {
     -fx-font-family: "Courier New", Courier, monospace;
+    -fx-font-weight: bold;
     -fx-font-size: 17px;
     -fx-text-fill: #585858;
 }

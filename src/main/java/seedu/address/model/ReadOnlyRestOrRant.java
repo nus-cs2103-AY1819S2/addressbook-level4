@@ -11,10 +11,19 @@ import seedu.address.model.table.ReadOnlyTables;
  */
 public interface ReadOnlyRestOrRant extends Observable {
 
+    /**
+     * Returns an unmodifiable view of the menu list.
+     */
     ReadOnlyMenu getMenu();
 
+    /**
+     * Returns an unmodifiable view of the order list.
+     */
     ReadOnlyOrders getOrders();
 
+    /**
+     * Returns an unmodifiable view of the statistic list.
+     */
     ReadOnlyStatistics getStatistics();
 
     /**

@@ -1,7 +1,9 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -28,14 +30,14 @@ public class BillCommand extends Command {
             + "Example: " + COMMAND_WORD + "or " + COMMAND_ALIAS;
     public static final String MESSAGE_SUCCESS = "%1$s";
     public static final String MESSAGE_TABLE_DOES_NOT_EXIST = "This table does not exist.";
-    public static final String MESSAGE_TABLE_MISMATCH = "TableNumber is different from the received table.";
-    public static final String MESSAGE_MENUITEM_NOT_PRESENT = "MenuItem is not received.";
+    public static final String MESSAGE_MENU_ITEM_NOT_PRESENT = "MenuItem is not received.";
     public static final String MESSAGE_INCORRECT_MODE = "Incorrect Mode, unable to execute command. Enter tableMode."
             + "[TABLE_NUMBER]";
 
     private Bill bill;
     private Table tableToBill;
     private float totalBill;
+    private ArrayList<OrderItem> orderItemList = new ArrayList<>();
 
     /**
      * Creates a BillCommand to find the total bill of the specified {@code Table}
@@ -44,7 +46,7 @@ public class BillCommand extends Command {
     }
 
     /**
-     * Creates a BillCommand to find the total bill of the specified {@code Table}
+     * Creates a BillCommand from the specified created bill formed in test cases.
      */
     public BillCommand(Bill bill) {
         requireNonNull(bill);
@@ -53,7 +55,7 @@ public class BillCommand extends Command {
 
     @Override
     public CommandResult execute(Mode mode, Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
+        requireAllNonNull(mode, model, history);
 
         if (!mode.equals(Mode.TABLE_MODE)) {
             throw new CommandException(MESSAGE_INCORRECT_MODE);
@@ -65,14 +67,12 @@ public class BillCommand extends Command {
             throw new CommandException(MESSAGE_TABLE_DOES_NOT_EXIST);
         }
 
-        ObservableList<OrderItem> orderItemList = model.getFilteredOrderItemList();
-
-        bill = calculateBill(orderItemList, model.getRestOrRant().getMenu());
-
+        bill = calculateBill(model);
         model.setRecentBill(bill);
 
         DailyRevenue dailyRevenue =
                 new DailyRevenue(bill.getDay(), bill.getMonth(), bill.getYear(), bill.getTotalBill());
+
         if (model.hasDailyRevenue(dailyRevenue)) {
             updateDailyRevenue(model, bill);
         } else {
@@ -80,12 +80,11 @@ public class BillCommand extends Command {
         }
 
         updateStatusOfTable(model);
-        model.updateFilteredOrderItemList(orderItem -> !orderItem.getTableNumber().equals(tableToBill.getTableNumber
-                ()));
+        updateOrderItemList(model);
 
-        //model.billUpdateOrders(model.getFilteredOrderItemList());
         model.updateTables();
         model.updateStatistics();
+        model.updateOrders();
         model.updateMode();
         return new CommandResult(String.format(MESSAGE_SUCCESS, bill), false, false, Mode.BILL_MODE);
     }
@@ -96,20 +95,22 @@ public class BillCommand extends Command {
      * Updates the status of the table;
      * Returns a new Bill with a receipt.
      */
-    private Bill calculateBill(ObservableList<OrderItem> orderItemList, ReadOnlyMenu menu) throws CommandException {
+    private Bill calculateBill(Model model) throws CommandException {
+        ObservableList<OrderItem> observableOrderItemList = model.getFilteredOrderItemList();
+        ReadOnlyMenu menu = model.getRestOrRant().getMenu();
         MenuItem menuItem;
         Optional<MenuItem> opt;
 
         final StringBuilder receipt = new StringBuilder();
         receipt.append("\nTable ").append(tableToBill.getTableNumber()).append("\n\n");
 
-        for (OrderItem orderItem : orderItemList) {
-            if (!tableToBill.getTableNumber().equals(orderItem.getTableNumber())) {
-                throw new CommandException(MESSAGE_TABLE_MISMATCH);
-            }
+        for (OrderItem orderItem : observableOrderItemList) {
+            requireNonNull(orderItem);
+            orderItemList.add(orderItem);
+
             opt = menu.getItemFromCode(orderItem.getMenuItemCode());
             if (!opt.isPresent()) {
-                throw new CommandException(MESSAGE_MENUITEM_NOT_PRESENT);
+                throw new CommandException(MESSAGE_MENU_ITEM_NOT_PRESENT);
             }
             menuItem = opt.get();
             //TODO: Update the quantity of the menu item for its popularity
@@ -125,7 +126,7 @@ public class BillCommand extends Command {
 
             totalBill += Float.parseFloat(menuItem.getPrice().toString()) * orderItem.getQuantity();
         }
-        receipt.append("Total Bill: $ ").append(totalBill).append("\n");
+        receipt.append("Total Bill: $ ").append(String.format("%.2f", totalBill)).append("\n");
         return new Bill(tableToBill.getTableNumber(), totalBill, receipt.toString());
     }
 
@@ -151,6 +152,15 @@ public class BillCommand extends Command {
         updatedTableStatus.changeOccupancy("0");
         Table updatedTable = new Table(tableToBill.getTableNumber(), updatedTableStatus);
         model.setTable(tableToBill, updatedTable);
+    }
+
+    /**
+     * Updates the status of orders by reading the updated ArrayList of OrderItems.
+     */
+    private void updateOrderItemList(Model model) {
+        for (OrderItem oderItem : orderItemList) {
+            model.deleteOrderItem(oderItem);
+        }
     }
 
     @Override

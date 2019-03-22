@@ -3,17 +3,24 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.pdf.Pdf;
+
+import javax.swing.filechooser.FileSystemView;
+
 
 /**
  * The Browser Panel of the App.
@@ -31,11 +38,19 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
+    @FXML
+    private Label name;
+    @FXML
+    private Label directory;
+    @FXML
+    private ImageView thumbnail;
+
     public BrowserPanel(ObservableValue<Pdf> selectedPerson) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
+
 
         // Load pdf page when selected pdf changes.
         selectedPerson.addListener((observable, oldValue, newValue) -> {
@@ -43,7 +58,10 @@ public class BrowserPanel extends UiPart<Region> {
                 loadDefaultPage();
                 return;
             }
-            loadPersonPage(newValue);
+            
+            name.setText(newValue.getName().getFullName());
+            directory.setText(newValue.getDirectory().getDirectory());
+
         });
 
         loadDefaultPage();

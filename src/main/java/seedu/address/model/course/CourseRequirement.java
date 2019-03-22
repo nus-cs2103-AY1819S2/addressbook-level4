@@ -8,6 +8,19 @@ import seedu.address.model.moduleinfo.ModuleInfo;
  */
 public interface CourseRequirement {
 
+
+    /**
+     * Returns CourseReqType of a CourseRequirement
+     * @return CourseReqType of CourseRequirement interface object
+     */
+    CourseReqType getType();
+
+    /**
+     * Returns name of course requirement
+     * @return name of course requirement
+     */
+    String getCourseReqName();
+
     /**
      * Returns description of course requirement
      * @return description of course requirement
@@ -42,4 +55,27 @@ public interface CourseRequirement {
      * @return a formatted string in the form
      */
     String getUnfulfilled(List<ModuleInfo> moduleInfos);
+
+    /**
+     * Returns a composite CourseRequirement whose boolean methods returns
+     * first.booleanMethod() && second.booleanMethod()
+     * for instance: first.And(second).canFulfill(moduleInfo)
+     * returns the same value as first.canFulfill(moduleInfo) && second.canFulfill(moduleInfo)
+     * @param other CourseRequirement to combine
+     * @return new CourseRequirement whose boolean method returns first.booleanMethod() && second.booleanMethod()
+     */
+    CourseRequirement and(CourseRequirement other);
+
+
+    /**
+     * Returns a composite CourseRequirement whose boolean methods returns
+     * first.booleanMethod() || second.booleanMethod()
+     * for instance: first.Or(second).canFulfill(moduleInfo)
+     * is returns the same value as first.canFulfill(moduleInfo) || second.canFulfill(moduleInfo)
+     * @param other CourseRequirement to combine
+     * @return new CourseRequirement whose boolean method returns first.booleanMethod() || second.booleanMethod()
+     */
+    CourseRequirement or(CourseRequirement other);
+
+
 }

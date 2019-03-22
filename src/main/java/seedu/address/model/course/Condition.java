@@ -103,6 +103,7 @@ public class Condition {
      * @return a double in range of [0,1.0] to see percentage of completion
      */
     public double getPercentageCompleted(List<ModuleInfo> moduleInfos) {
+
         return Math.max(moduleInfos.stream()
                 .filter(moduleInfo -> regexes.stream().anyMatch(regex -> moduleInfo.toString().matches(regex)))
                 .distinct().count() / (double) minToSatisfy, 1.0);

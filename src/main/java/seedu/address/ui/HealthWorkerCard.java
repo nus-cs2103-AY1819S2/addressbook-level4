@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
@@ -12,6 +11,7 @@ import seedu.address.model.person.healthworker.HealthWorker;
 /**
  * An UI component that displays a simple card info of a {@code HealthWorker},
  * displaying its specialisation, as well as its availability.
+ *
  * @author Hui Chun
  */
 public class HealthWorkerCard extends UiPart<Region> {
@@ -50,8 +50,7 @@ public class HealthWorkerCard extends UiPart<Region> {
         this.name.setText(worker.getName().toString());
         this.organisation.setText(worker.getOrganization().toString());
         this.worker.getSkills().getSkills().forEach(s ->
-                specialisations.getChildren().add(new Label(s.toString().toLowerCase())));
-        this.specialisations.setAlignment(Pos.CENTER);
+            specialisations.getChildren().add(new Label(s.toString().toLowerCase())));
     }
 
     @Override
@@ -62,12 +61,12 @@ public class HealthWorkerCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof HealthWorkerCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        HealthWorkerCard card = (HealthWorkerCard) other;
         return true;
     }
 }

@@ -27,6 +27,7 @@ import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PatientBook;
+import seedu.address.model.RequestBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
@@ -49,7 +50,7 @@ public class EditHealthWorkerCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
             new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
-            getTypicalRequestBook(), new UserPrefs());
+            new RequestBook(model.getRequestBook()), new UserPrefs());
         expectedModel.setHealthWorker(model.getFilteredHealthWorkerList().get(0), editedHealthWorker);
         expectedModel.commitAddressBook();
 

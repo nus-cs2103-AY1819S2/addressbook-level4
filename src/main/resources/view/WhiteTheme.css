@@ -1,0 +1,84 @@
+/**
+ This css file is written from scratch to convert the dark theme in AB4 to a white theme
+ that is more appropriate for the context of our application, HealthHub.
+ Author: Hui Chun
+ Date: 21-03-2019
+**/
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
+
+/* For the command box input and result */
+#commandTextField, #resultDisplay {
+    -fx-font-family: "Inconsolata";
+    -fx-font-size: 14pt;
+}
+
+/* For the requestListPanel */
+#conditions, #specialisations {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#conditions .label {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 2 5 2 5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 10pt;
+}
+
+.cell_big_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: #010504;
+}
+
+.cell_small_label {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: #010504;
+}
+
+/* For the welcome message in displayInfoPanel */
+.background {
+    font-family: "Comic Sans MS";
+    padding-left: 20px;
+    font-size: 12pt;
+}
+
+.welcome-message {
+    font-family: "Segoe UI Light";
+}
+
+span.command {
+    font-family: "Lucida Console";
+    color: #00b894;
+}
+
+/* For the healthWorkerListPanel */
+#healthWorkerInfo {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 11pt;
+}
+
+/* For the pink rounded border around specialisations */
+#specialisations .label {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: white;
+    -fx-background-color: #ee5253;
+    -fx-padding: 2 5 2 5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-font-size: 10pt;
+}
+
+.list-cell {
+    -fx-border-color: #D0D0D0;
+    -fx-border-style: solid;
+    -fx-border-width: 0.25;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #c7ecee;
+}

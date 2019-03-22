@@ -18,15 +18,16 @@ By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
+HealthHub is connects home care patients to qualified professionals seamlessly.
+
 HealthHub is a desktop application which allows health administrative staff to add, manage and close requests from
 patients. These patients are people who do not require 24-hour round' the clock medical attention but perhaps some
 other health care services such as the changing of tubing. +
-
+8
 HealthHub provides a *Graphical User Interface* for administrative staff of health organizations and hospitals to manage requests
 from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
 
-Looking to improve and ease management of requests from your patients?
-Look no further, HealthHub provides all the utility and functions you need to streamline your workflow. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Let's get you started with how to install and use HealthHub!
 
 == Notation
 
@@ -65,6 +66,12 @@ adds a patient named `John Doe` to the application.
  in the application.
 
 .  Refer to <<Features>> for a detailed explanation of each command.
+
+== What's new in v1.2
+
+* `add healthworker` command: Adds a `Healthworker` to the application.
+* `add request` command: Creates a new `Request` for the hospital management to attend to.
+* `assign request` command: Assigns a `Request` to a `Healthworker`, to attend to the request.
 
 [[Features]]
 == Features

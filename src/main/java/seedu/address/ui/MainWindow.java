@@ -116,7 +116,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        informationPanel = new InformationPanel(logic.getImageList());
+        informationPanel = new InformationPanel();
         informationPlaceholder.getChildren().add(informationPanel.getRoot());
 
         initPanel = new InitPanel();

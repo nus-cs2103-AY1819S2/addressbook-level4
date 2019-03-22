@@ -106,10 +106,4 @@ public class LogicManager implements Logic {
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
     }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    public ObservableList<Image> getImageList() {
-        return model.getImageList();
-    }
 }

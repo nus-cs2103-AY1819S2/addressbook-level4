@@ -1,5 +1,4 @@
 /* @@author Carrein */
-
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -36,7 +35,7 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.refreshAlbum(new Image("a", 100, 100));
+        model.refreshAlbum();
         String returnString = isDirectory ? MESSAGE_DIR_SUCCESS : MESSAGE_SUCCESS;
         return new CommandResult(String.format(returnString));
     }

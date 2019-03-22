@@ -11,6 +11,7 @@ import org.apache.commons.io.FileUtils;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Album;
 import seedu.address.model.image.Image;
 
 /**
@@ -20,6 +21,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
 
     private final String assetsFilePath = "src/main/resources/assets/";
     private final File directory = new File(assetsFilePath);
+
+    // Album singleton class to add new images.
+    private final Album album = Album.getInstance();
 
     /**
      * Parses the given {@code String} of arguments in the context
@@ -32,7 +36,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         // Boolean value to indicate if FomoFoto should print directory or file return message.
         boolean isDirectory = false;
 
-        // Trim to prevent excess whitespace
+        // Trim to prevent excess whitespace.
         args = args.trim();
 
         try {
@@ -48,6 +52,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                         Image image = new Image(path);
                         if (!duplicateFile(image)) {
                             try {
+                                // Add each image to Album.
+                                album.addImage(image);
+
                                 File file = new File(path);
                                 FileUtils.copyFileToDirectory(file, directory);
                             } catch (IOException e) {
@@ -62,6 +69,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                     Image image = new Image(args);
                     if (!duplicateFile(image)) {
                         try {
+                            // Add each image to Album.
+                            album.addImage(image);
+
                             File file = new File(args);
                             FileUtils.copyFileToDirectory(file, directory);
                         } catch (IOException e) {
@@ -94,11 +104,9 @@ public class ImportCommandParser implements Parser<ImportCommand> {
         // Trim url to remove trailing whitespace
         File file = new File(url.trim());
         if (file.isDirectory()) {
-            System.out.println("I'm a directory");
             return 1;
         }
         if (file.isFile()) {
-            System.out.println("I'm a file");
             return 0;
         }
         return -1;

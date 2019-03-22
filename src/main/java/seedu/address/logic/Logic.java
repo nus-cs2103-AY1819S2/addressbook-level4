@@ -70,7 +70,4 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
-
-    //=========== Filtered Person List Accessors =============================================================
-    ObservableList<Image> getImageList();
 }

@@ -34,4 +34,8 @@ public class Album {
     public void addImage(Image image) {
         imageList.add(image);
     }
+
+    public void clearAlbum() {
+        imageList.clear();
+    }
 }

@@ -7,7 +7,6 @@ import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -32,12 +31,11 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
     private final Tab albumTab = informationPanel.getTabs().get(0);
     private final Tab detailsTab = informationPanel.getTabs().get(1);
     private final Tab historyTab = informationPanel.getTabs().get(2);
-    private final Album album;
+    private final Album album = Album.getInstance();
 
 
     public InformationPanel() {
         super(FXML);
-        album = Album.getInstance();
         Notifier.addPropertyChangeListener(this);
         refresh();
     }
@@ -49,7 +47,6 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
         @Override
         protected void updateItem(Image image, boolean empty) {
             super.updateItem(image, empty);
-
             if (empty || image == null) {
                 setGraphic(null);
                 setText(null);
@@ -65,16 +62,19 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
      * @param event url of new image to display.
      */
     public void propertyChange(PropertyChangeEvent event) {
-        switch (event.getPropertyName()) {
-        case "album":
+//        switch (event.getPropertyName()) {
+//            case "album":
+//                refresh();
+//                break;
+//            case "details":
+//                break;
+//            case "history":
+//                break;
+//            default:
+//                System.out.println("Something broke.");
+//        }
+        if (event.getPropertyName().equals("refresh")) {
             refresh();
-            break;
-        case "details":
-            break;
-        case "history":
-            break;
-        default:
-            System.out.println("Something broke.");
         }
     }
 

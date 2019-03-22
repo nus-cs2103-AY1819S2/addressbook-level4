@@ -36,7 +36,7 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updatePanel();
+        model.refreshAlbum(new Image("a", 100, 100));
         String returnString = isDirectory ? MESSAGE_DIR_SUCCESS : MESSAGE_SUCCESS;
         return new CommandResult(String.format(returnString));
     }

@@ -51,6 +51,8 @@ public class ModelManager implements Model {
     private final ObservableList<Image> observableList;
     private final FilteredList<Image> filteredImages;
 
+    private final Album album;
+
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -72,6 +74,7 @@ public class ModelManager implements Model {
 
         observableList = FXCollections.observableArrayList(listImages);
         filteredImages = new FilteredList<>(observableList);
+        album = Album.getInstance();
     }
 
     public ModelManager() {
@@ -349,13 +352,23 @@ public class ModelManager implements Model {
         return filteredImages;
     }
 
+    public void addImage() {
+        updateImageList(PREDICATE_IMAGE);
+    }
+
+
     public void updateImageList(Predicate<Image> predicate) {
         requireNonNull(predicate);
         filteredImages.setPredicate(predicate);
     }
 
-    public void updatePanel(){
+    public void updatePanel() {
         listImages.add(new Image("sample", 100, 100));
+    }
+
+    public void refreshAlbum(Image image) {
+        album.addImage(image);
+        Notifier.firePropertyChangeListener("album", null, null);
     }
 }
 

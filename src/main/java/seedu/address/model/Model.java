@@ -180,6 +180,13 @@ public interface Model {
 
     //=========== Filtered Person List Accessors =============================================================
     ObservableList<Image> getImageList();
+
     void updatePanel();
+
+    void refreshAlbum(Image image);
+
     void updateImageList(Predicate<Image> predicate);
+
+    Predicate<Image> PREDICATE_IMAGE = unused -> true;
+
 }

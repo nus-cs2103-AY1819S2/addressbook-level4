@@ -26,8 +26,6 @@ import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
-import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddPersonCommand;
@@ -45,7 +43,8 @@ import seedu.address.testutil.PersonUtil;
 
 public class AddPersonCommandSystemTest extends AddressBookSystemTest {
 
-    @Test
+    // TODO: Phased out. To be changed to AddHealthWorker/AddRequestSystemTest.
+
     public void add() {
         Model model = getModel();
 

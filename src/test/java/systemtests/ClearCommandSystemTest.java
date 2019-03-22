@@ -14,6 +14,8 @@ import seedu.address.model.ModelManager;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
+    // TODO: Deprecated. To be replaced accordingly.
+
     @Test
     public void clear() {
         final Model defaultModel = getModel();

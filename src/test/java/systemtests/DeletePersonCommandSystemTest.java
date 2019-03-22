@@ -10,8 +10,6 @@ import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
-import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeletePersonCommand;
@@ -22,10 +20,11 @@ import seedu.address.model.person.Person;
 
 public class DeletePersonCommandSystemTest extends AddressBookSystemTest {
 
+    // TODO: Phased out. To be replaced with DeleteHealthWorker/DeleteRequestSystemTest
+
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE);
 
-    @Test
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 

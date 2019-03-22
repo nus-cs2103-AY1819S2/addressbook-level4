@@ -104,7 +104,7 @@ public class TopDeck implements ReadOnlyTopDeck {
 
     /**
      * Deletes a card in TopDeck
-     * The {@code Card} target should exist in the  {@code deck} activeDeck.
+     * The {@code Card} target should exist in the {@code deck} activeDeck.
      */
     public void deleteCard(Card target, Deck activeDeck) throws DeckNotFoundException, CardNotFoundException {
         if (!decks.contains(activeDeck)) {
@@ -116,6 +116,25 @@ public class TopDeck implements ReadOnlyTopDeck {
         }
 
         activeDeck.removeCard(target);
+
+        decks.setDeck(activeDeck, activeDeck);
+    }
+
+    /**
+     * Sets a card in TopDeck
+     * The {@code Card} target should exist in the {@code deck} activeDeck.
+     */
+    public void setCard(Card target, Card newCard, Deck activeDeck) throws DeckNotFoundException, CardNotFoundException {
+        if (!decks.contains(activeDeck)) {
+            throw new DeckNotFoundException();
+        }
+
+        if (!activeDeck.hasCard(target)) {
+            throw new CardNotFoundException();
+        }
+
+        activeDeck.removeCard(target);
+        activeDeck.addCard(newCard);
 
         decks.setDeck(activeDeck, activeDeck);
     }

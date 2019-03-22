@@ -79,9 +79,9 @@ public class CommandTestUtil {
 
     public static final List<Card> VALID_CARD_LIST = new ArrayList<>();
 
-    public static final EditCommand.EditCardDescriptor DESC_HELLO;
-    public static final EditCommand.EditCardDescriptor DESC_MOD;
-    public static final EditCommand.EditCardDescriptor DESC_ADDITION;
+    public static final EditCardCommand.EditCardDescriptor DESC_HELLO;
+    public static final EditCardCommand.EditCardDescriptor DESC_MOD;
+    public static final EditCardCommand.EditCardDescriptor DESC_ADDITION;
 
     static {
         DESC_HELLO = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_HELLO)

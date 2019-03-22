@@ -67,8 +67,6 @@ public class ModelManager implements Model {
 
     public void changeDeck(Deck deck) {
         viewState = new CardsView(this, deck);
-        // TODO: change this to above after migrating global cards list
-        //viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
 
         filteredItems = ((CardsView) viewState).filteredCards;
         setSelectedItem(null);
@@ -181,8 +179,15 @@ public class ModelManager implements Model {
     @Override
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
-        //TODO: Implement setCard
-        //versionedTopDeck.setCard(target, editedCard);
+
+        if (!(viewState instanceof CardsView)) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
+        CardsView cardsView = (CardsView)viewState;
+
+        versionedTopDeck.setCard(target, editedCard, cardsView.getActiveDeck());
+        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override

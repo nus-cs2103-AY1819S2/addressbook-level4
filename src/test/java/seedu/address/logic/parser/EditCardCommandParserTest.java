@@ -25,17 +25,17 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditCardDescriptor;
+import seedu.address.logic.commands.EditCardCommand;
+import seedu.address.logic.commands.EditCardCommand.EditCardDescriptor;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
-public class EditCommandParserTest {
+public class EditCardCommandParserTest {
 
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -83,7 +83,7 @@ public class EditCommandParserTest {
 
         EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_HELLO)
                 .withAnswer(VALID_ANSWER_HELLO).withTags(VALID_TAG_SUBJECT, VALID_TAG_MOD).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCardCommand expectedCommand = new EditCardCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -93,9 +93,9 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_CARD;
         String userInput = targetIndex.getOneBased() + ANSWER_DESC_HELLO;
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
             .withAnswer(VALID_ANSWER_HELLO).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCardCommand expectedCommand = new EditCardCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -105,7 +105,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_CARD;
         String userInput = Integer.toString(targetIndex.getOneBased());
 
-        EditCommand expectedCommand = new EditCommand(targetIndex);
+        EditCardCommand expectedCommand = new EditCardCommand(targetIndex);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -115,21 +115,21 @@ public class EditCommandParserTest {
         // question
         Index targetIndex = INDEX_THIRD_CARD;
         String userInput = targetIndex.getOneBased() + QUESTION_DESC_ADDITION;
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
             .withQuestion(VALID_QUESTION_ADDITION).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCardCommand expectedCommand = new EditCardCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // answer
         userInput = targetIndex.getOneBased() + ANSWER_DESC_ADDITION;
         descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_ADDITION).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditCardCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // tags
         userInput = targetIndex.getOneBased() + TAG_DESC_MOD;
         descriptor = new EditCardDescriptorBuilder().withTags(VALID_TAG_MOD).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
+        expectedCommand = new EditCardCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -139,9 +139,9 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + ANSWER_DESC_ADDITION + ANSWER_DESC_SUBTRACTION
             + ANSWER_DESC_HELLO + TAG_DESC_MOD + TAG_DESC_SUBJECT;
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_HELLO)
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withAnswer(VALID_ANSWER_HELLO)
                 .withTags(VALID_TAG_MOD, VALID_TAG_SUBJECT).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCardCommand expectedCommand = new EditCardCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -151,8 +151,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_THIRD_CARD;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withTags().build();
+        EditCardCommand expectedCommand = new EditCardCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

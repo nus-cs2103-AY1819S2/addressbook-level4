@@ -17,7 +17,7 @@ public class EditCardDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditCommand.EditCardDescriptor descriptorWithSameValues = new EditCommand.EditCardDescriptor(DESC_HELLO);
+        EditCardCommand.EditCardDescriptor descriptorWithSameValues = new EditCardCommand.EditCardDescriptor(DESC_HELLO);
         assertTrue(DESC_HELLO.equals(descriptorWithSameValues));
 
         // same object -> returns true
@@ -33,7 +33,7 @@ public class EditCardDescriptorTest {
         assertFalse(DESC_HELLO.equals(DESC_MOD));
 
         // different question -> returns false
-        EditCommand.EditCardDescriptor editedHello = new EditCardDescriptorBuilder(DESC_HELLO)
+        EditCardCommand.EditCardDescriptor editedHello = new EditCardDescriptorBuilder(DESC_HELLO)
                 .withQuestion(VALID_QUESTION_MOD).build();
         assertFalse(DESC_HELLO.equals(editedHello));
 

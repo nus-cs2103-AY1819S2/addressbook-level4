@@ -33,9 +33,9 @@ import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCardCommand.
  */
-public class EditCommandTest {
+public class EditCardCommandTest {
 
     private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -43,10 +43,10 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Card editedCard = new CardBuilder().build();
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD, descriptor);
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
+        EditCardCommand editCommand = new EditCardCommand(INDEX_FIRST_CARD, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
         expectedModel.setCard(model.getFilteredList().get(0), editedCard);
@@ -63,11 +63,11 @@ public class EditCommandTest {
         CardBuilder cardInList = new CardBuilder(lastCard);
         Card editedCard = cardInList.withQuestion(VALID_QUESTION_MOD).withAnswer(VALID_ANSWER_MOD).build();
 
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_MOD)
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_MOD)
                 .withAnswer(VALID_ANSWER_MOD).build();
-        EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
+        EditCardCommand editCommand = new EditCardCommand(indexLastPerson, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
         expectedModel.setCard(lastCard, editedCard);
@@ -78,19 +78,19 @@ public class EditCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD);
+        EditCardCommand editCommand = new EditCardCommand(INDEX_FIRST_CARD);
         Card firstCard = model.getFilteredList().get(0);
         final StringBuilder builder = new StringBuilder();
         for (Tag tag : firstCard.getTags()) {
             builder.append(" ").append(PREFIX_TAG).append(tag.tagName);
         }
         String prefilledText = String.format("%s %d %s%s %s%s %s",
-                EditCommand.COMMAND_WORD,
+                EditCardCommand.COMMAND_WORD,
                 1,
                 PREFIX_QUESTION, firstCard.getQuestion(),
                 PREFIX_ANSWER, firstCard.getAnswer(),
                 builder.toString());
-        CommandResult expectedResult = new PrefillCommandBoxCommandResult(EditCommand.MESSAGE_EDIT_CARD_AUTOCOMPLETE,
+        CommandResult expectedResult = new PrefillCommandBoxCommandResult(EditCardCommand.MESSAGE_EDIT_CARD_AUTOCOMPLETE,
                 prefilledText);
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedResult, model);
@@ -102,10 +102,10 @@ public class EditCommandTest {
 
         Card cardInFilteredList = model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
         Card editedCard = new CardBuilder(cardInFilteredList).withQuestion(VALID_QUESTION_MOD).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD,
+        EditCardCommand editCommand = new EditCardCommand(INDEX_FIRST_CARD,
                 new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_MOD).build());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
+        String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
         expectedModel.setCard(model.getFilteredList().get(0), editedCard);
@@ -117,10 +117,10 @@ public class EditCommandTest {
     @Test
     public void execute_duplicateCardUnfilteredList_failure() {
         Card firstCard = model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(firstCard).build();
-        EditCommand editCommand = new EditCommand(INDEX_SECOND_CARD, descriptor);
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(firstCard).build();
+        EditCardCommand editCommand = new EditCardCommand(INDEX_SECOND_CARD, descriptor);
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_CARD);
+        assertCommandFailure(editCommand, model, commandHistory, EditCardCommand.MESSAGE_DUPLICATE_CARD);
     }
 
     @Test
@@ -129,18 +129,18 @@ public class EditCommandTest {
 
         // edit card in filtered list into a duplicate in address book
         Card cardInList = model.getTopDeck().getCardList().get(INDEX_SECOND_CARD.getZeroBased());
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD,
+        EditCardCommand editCommand = new EditCardCommand(INDEX_FIRST_CARD,
                 new EditCardDescriptorBuilder(cardInList).build());
 
-        assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_CARD);
+        assertCommandFailure(editCommand, model, commandHistory, EditCardCommand.MESSAGE_DUPLICATE_CARD);
     }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
             .withQuestion(VALID_QUESTION_MOD).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        EditCardCommand editCommand = new EditCardCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
     }
@@ -156,7 +156,7 @@ public class EditCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTopDeck().getCardList().size());
 
-        EditCommand editCommand = new EditCommand(outOfBoundIndex,
+        EditCardCommand editCommand = new EditCardCommand(outOfBoundIndex,
                 new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_MOD).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
@@ -166,8 +166,8 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Card editedCard = new CardBuilder().build();
         Card cardToEdit = model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD, descriptor);
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
+        EditCardCommand editCommand = new EditCardCommand(INDEX_FIRST_CARD, descriptor);
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
         expectedModel.setCard(cardToEdit, editedCard);
         expectedModel.commitTopDeck();
@@ -187,9 +187,9 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
             .withQuestion(VALID_QUESTION_MOD).build();
-        EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
+        EditCardCommand editCommand = new EditCardCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
@@ -209,8 +209,8 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Card editedCard = new CardBuilder().build();
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
-        EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD, descriptor);
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
+        EditCardCommand editCommand = new EditCardCommand(INDEX_FIRST_CARD, descriptor);
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
 
         showCardAtIndex(model, INDEX_SECOND_CARD);
@@ -233,11 +233,11 @@ public class EditCommandTest {
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_CARD, DESC_HELLO);
+        final EditCardCommand standardCommand = new EditCardCommand(INDEX_FIRST_CARD, DESC_HELLO);
 
         // same values -> returns true
-        EditCommand.EditCardDescriptor copyDescriptor = new EditCommand.EditCardDescriptor(DESC_HELLO);
-        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_CARD, copyDescriptor);
+        EditCardCommand.EditCardDescriptor copyDescriptor = new EditCardCommand.EditCardDescriptor(DESC_HELLO);
+        EditCardCommand commandWithSameValues = new EditCardCommand(INDEX_FIRST_CARD, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -250,10 +250,10 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_CARD, DESC_HELLO)));
+        assertFalse(standardCommand.equals(new EditCardCommand(INDEX_SECOND_CARD, DESC_HELLO)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_CARD, DESC_MOD)));
+        assertFalse(standardCommand.equals(new EditCardCommand(INDEX_FIRST_CARD, DESC_MOD)));
     }
 
 }

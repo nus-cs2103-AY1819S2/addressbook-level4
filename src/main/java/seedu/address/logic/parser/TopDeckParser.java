@@ -57,7 +57,7 @@ public class TopDeckParser {
         case AddCardCommand.COMMAND_WORD:
             return new AddCardCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditCardCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:

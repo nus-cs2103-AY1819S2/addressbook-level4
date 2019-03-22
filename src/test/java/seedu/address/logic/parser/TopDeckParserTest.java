@@ -8,7 +8,7 @@ import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCardCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -86,10 +86,10 @@ public class TopDeckParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Card card = new CardBuilder().build();
-        EditCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(card).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
+        EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(card).build();
+        EditCardCommand command = (EditCardCommand) parser.parseCommand(EditCardCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_CARD.getOneBased() + " " + CardUtil.getEditCardDescriptorDetails(descriptor), model);
-        assertEquals(new EditCommand(INDEX_FIRST_CARD, descriptor), command);
+        assertEquals(new EditCardCommand(INDEX_FIRST_CARD, descriptor), command);
     }
 
     @Test

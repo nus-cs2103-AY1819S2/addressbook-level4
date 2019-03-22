@@ -78,4 +78,10 @@ public class VersionedAddressBook extends AddressBook implements VersionedBook {
                 && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
+
+    @Override
+    public String toString() {
+        return "Pointer: " + this.currentStatePointer + addressBookStateList.toString();
+    }
+
 }

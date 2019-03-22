@@ -17,7 +17,7 @@ import seedu.address.model.request.Request;
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "requestbook")
-class JsonSerializableRequestBook {
+public class JsonSerializableRequestBook {
 
     public static final String MESSAGE_DUPLICATE_REQUEST = "Request list contains duplicate "
         + "request(s).";

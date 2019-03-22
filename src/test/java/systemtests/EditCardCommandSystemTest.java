@@ -3,42 +3,16 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_ADDITION;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_HELLO;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SUBTRACTION;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_ADDITION;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_HELLO;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SUBTRACTION;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_UNIQUE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SIMPLE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_SUBJECT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_SUBTRACTION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_UNIQUE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MATH;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
-import static seedu.address.testutil.TypicalCards.ADDITION;
-import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.CardBuilder;
-import seedu.address.testutil.CardUtil;
 
-public class EditCommandSystemTest extends TopDeckSystemTest {
+public class EditCardCommandSystemTest extends TopDeckSystemTest {
 
     @Test
     public void edit() {
@@ -50,7 +24,7 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
          * -> edited
          */
         /*Index index = INDEX_FIRST_CARD;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  "
+        String command = " " + EditCardCommand.COMMAND_WORD + "  " + index.getOneBased() + "  "
             + QUESTION_DESC_ADDITION + "  " + ANSWER_DESC_ADDITION + " " + TAG_DESC_MATH + " ";
         Card editedCard = new CardBuilder(ADDITION).withTags(VALID_TAG_MATH).build();
         assertCommandSuccess(command, index, editedCard);*/
@@ -67,7 +41,7 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);*/
 
         /* Case: edit a card with new values same as existing values -> edited */
-        /*command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
+        /*command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
                 + TAG_DESC_MATH;
         assertCommandSuccess(command, index, ADDITION);*/
 
@@ -75,14 +49,14 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         /*assertTrue(getModel().getTopDeck().getDeckList().contains(ADDITION));
         index = INDEX_SECOND_CARD;
         assertNotEquals(getModel().getFilteredList().get(index.getZeroBased()), ADDITION);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SUBTRACTION
+        command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SUBTRACTION
             + ANSWER_DESC_ADDITION + TAG_DESC_MATH;
         editedCard = new CardBuilder(ADDITION).withQuestion(VALID_QUESTION_SUBTRACTION).build();
         assertCommandSuccess(command, index, editedCard);*/
 
         /* Case: clear tags -> cleared */
         /*index = INDEX_FIRST_CARD;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
+        command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         Card cardToEdit = getModel().getFilteredList().get(index.getZeroBased());
         editedCard = new CardBuilder(cardToEdit).withTags().build();
         assertCommandSuccess(command, index, editedCard);*/
@@ -93,7 +67,7 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         /*showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
         index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_UNIQUE;
+        command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_UNIQUE;
         cardToEdit = getModel().getFilteredList().get(index.getZeroBased());
         editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_UNIQUE).build();
         assertCommandSuccess(command, index, editedCard);*/
@@ -103,7 +77,7 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
          */
         /*showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
         int invalidIndex = getModel().getTopDeck().getCardList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_HELLO,
+        assertCommandFailure(EditCardCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_HELLO,
                 Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);*/
 
         /* --------------------- Performing edit operation while a card card is selected -------------------------- */
@@ -114,7 +88,7 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         /*showAllCards();
         index = INDEX_FIRST_CARD;
         selectCard(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
+        command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
                 + TAG_DESC_MATH;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new card's name
@@ -123,24 +97,24 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
-        /*assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + QUESTION_DESC_SUBTRACTION,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));*/
+        /*assertCommandFailure(EditCardCommand.COMMAND_WORD + " 0" + QUESTION_DESC_SUBTRACTION,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE));*/
 
         /* Case: invalid index (-1) -> rejected */
-        /*assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + QUESTION_DESC_SUBTRACTION,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));*/
+        /*assertCommandFailure(EditCardCommand.COMMAND_WORD + " -1" + QUESTION_DESC_SUBTRACTION,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE));*/
 
         /* Case: invalid index (size + 1) -> rejected */
         /*invalidIndex = getModel().getFilteredList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_SUBTRACTION,
+        assertCommandFailure(EditCardCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_SUBTRACTION,
                 Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);*/
 
         /* Case: missing index -> rejected */
-        /*assertCommandFailure(EditCommand.COMMAND_WORD + QUESTION_DESC_SUBTRACTION,
-                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));*/
+        /*assertCommandFailure(EditCardCommand.COMMAND_WORD + QUESTION_DESC_SUBTRACTION,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE));*/
 
         /* Case: invalid tag -> rejected */
-        /*assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased() + INVALID_TAG_DESC,
+        /*assertCommandFailure(EditCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);*/
 
         /* Case: edit a card with new values same as another card's values -> rejected */
@@ -148,19 +122,19 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         assertTrue(getModel().getTopDeck().getCardList().contains(ADDITION));
         index = INDEX_FIRST_CARD;
         assertFalse(getModel().getFilteredList().get(index.getZeroBased()).equals(HELLO_WORLD));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO
+        command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO
                 + TAG_DESC_SUBJECT + TAG_DESC_SIMPLE;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);*/
+        assertCommandFailure(command, EditCardCommand.MESSAGE_DUPLICATE_CARD);*/
 
         /* Case: edit a card with new values same as another card's values but with different tags -> rejected */
-        /*command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO
+        /*command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_HELLO
                 + TAG_DESC_SUBJECT;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);*/
+        assertCommandFailure(command, EditCardCommand.MESSAGE_DUPLICATE_CARD);*/
 
         /* Case: edit a card with new values same as another card's question but with different answer -> rejected */
-        /*command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_SUBTRACTION
+        /*command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_HELLO + ANSWER_DESC_SUBTRACTION
                 + TAG_DESC_SUBJECT + TAG_DESC_SIMPLE;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);*/
+        assertCommandFailure(command, EditCardCommand.MESSAGE_DUPLICATE_CARD);*/
 
     }
 
@@ -168,7 +142,7 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Person, Index)} except that
      * the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Card, Index)
+     * @see EditCardCommandSystemTest#assertCommandSuccess(String, Index, Card, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Card editedCard) {
         assertCommandSuccess(command, toEdit, editedCard, null);
@@ -176,11 +150,11 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
-     * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
+     * 1. Asserts that result display box displays the success message of executing {@code EditCardCommand}.<br>
      * 2. Asserts that the model related components are updated to reflect the card at index {@code toEdit} being
      * updated to values specified {@code editedCard}.<br>
      * @param toEdit the index of the current model's filtered list.
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditCardCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Card editedCard,
                                       Index expectedSelectedCardIndex) {
@@ -189,13 +163,13 @@ public class EditCommandSystemTest extends TopDeckSystemTest {
         expectedModel.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard), expectedSelectedCardIndex);
+                String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard), expectedSelectedCardIndex);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
      * browser url and selected card remain unchanged.
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditCardCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);

@@ -162,7 +162,7 @@ public interface Model {
 
     boolean isAtDecksView();
 
+    boolean isAtCardsView();
+
     ViewState getViewState();
-
-
 }

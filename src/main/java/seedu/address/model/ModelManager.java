@@ -1,13 +1,5 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.nio.file.Path;
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -25,6 +17,14 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
+
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of top deck data.
@@ -67,8 +67,6 @@ public class ModelManager implements Model {
 
     public void changeDeck(Deck deck) {
         viewState = new CardsView(this, deck);
-        // TODO: change this to above after migrating global cards list
-        //viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
 
         filteredItems = ((CardsView) viewState).filteredCards;
         setSelectedItem(null);
@@ -88,6 +86,11 @@ public class ModelManager implements Model {
     @Override
     public boolean isAtDecksView() {
         return (viewState instanceof DecksView);
+    }
+
+    @Override
+    public boolean isAtCardsView() {
+        return (viewState instanceof CardsView);
     }
 
     @Override
@@ -146,9 +149,14 @@ public class ModelManager implements Model {
     @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);
-        //return versionedTopDeck.hasCard(card);
-        //TODO: Implement hasCard
-        return false;
+
+        if (!(viewState instanceof CardsView)) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
+        CardsView cardsView = (CardsView)viewState;
+
+        return cardsView.getActiveDeck().hasCard(card);
     }
 
     @Override
@@ -176,8 +184,15 @@ public class ModelManager implements Model {
     @Override
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
-        //TODO: Implement setCard
-        //versionedTopDeck.setCard(target, editedCard);
+
+        if (!(viewState instanceof CardsView)) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
+        CardsView cardsView = (CardsView)viewState;
+
+        versionedTopDeck.setCard(target, editedCard, cardsView.getActiveDeck());
+        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override

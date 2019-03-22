@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCardCommand;
-import seedu.address.logic.commands.EditCommand.EditCardDescriptor;
+import seedu.address.logic.commands.EditCardCommand.EditCardDescriptor;
 import seedu.address.model.deck.Card;
 import seedu.address.model.tag.Tag;
 

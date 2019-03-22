@@ -25,7 +25,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing card in the deck.
  */
-public class EditCommand extends Command {
+public class EditCardCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -51,14 +51,14 @@ public class EditCommand extends Command {
      * @param index of the card in the filtered card list to edit
      * @param editCardDescriptor details to edit the card with
      */
-    public EditCommand(Index index, EditCardDescriptor editCardDescriptor) {
+    public EditCardCommand(Index index, EditCardDescriptor editCardDescriptor) {
         requireNonNull(index);
         requireNonNull(editCardDescriptor);
 
         this.index = index;
         this.editCardDescriptor = Optional.of(new EditCardDescriptor(editCardDescriptor));
     }
-    public EditCommand(Index index) {
+    public EditCardCommand(Index index) {
         requireNonNull(index);
         this.index = index;
         this.editCardDescriptor = Optional.empty();
@@ -127,12 +127,12 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditCardCommand)) {
             return false;
         }
 
         // state check
-        EditCommand e = (EditCommand) other;
+        EditCardCommand e = (EditCardCommand) other;
         return index.equals(e.index)
                 && editCardDescriptor.equals(e.editCardDescriptor);
     }

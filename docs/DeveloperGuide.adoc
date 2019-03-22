@@ -223,6 +223,8 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Book Shelf data in json format and read it back.
+* users are not supposed to touch the data file (file inside the `data` folder) directly. If the user insists on doing so, the data might be corrupted.
+* users are not supposed to add data files into the app manually. If you accidentally do so and find the data corrupted, you should reinstall the app and all previous data will get lost.
 
 [[Design-Commons]]
 === Common classes

@@ -29,10 +29,11 @@ public class PutShipCommand extends Command {
             + "Parameters: "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_COORDINATES + "COORDINATES]\n"
-            + "[" + PREFIX_ORIENTATION + "ORIENTATION\n"
+            + "[" + PREFIX_ORIENTATION + "ORIENTATION]\n"
             + "Example: " + COMMAND_WORD
             + PREFIX_NAME + "Destroyer "
-            + PREFIX_COORDINATES + "c1";
+            + PREFIX_COORDINATES + "c1"
+            + PREFIX_ORIENTATION + "vertical";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Put ship in cell: %1$s";
     public static final String MESSAGE_BATTLESHIP_PRESENT = "There is already a ship on the coordinate.";
@@ -63,6 +64,10 @@ public class PutShipCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        MapGrid mapGrid = model.getMapGrid();
+
+        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(mapGrid, battleship,
+                coordinates, orientation);
 
         if (!isHeadWithinBounds(model, coordinates)) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

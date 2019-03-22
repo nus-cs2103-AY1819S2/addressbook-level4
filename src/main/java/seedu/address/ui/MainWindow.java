@@ -26,7 +26,11 @@ import seedu.address.model.patient.Patient;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    private static Patient recordPatient;
+    /** The patient of records to be shown */
+    private static Patient recordPatient = null;
+
+    /** Indicates if current mode is showing patient records */
+    private static boolean isGoToMode = false;
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -194,6 +198,7 @@ public class MainWindow extends UiPart<Stage> {
         populateRecords();
         personListPanelPlaceholder.setVisible(false);
         recordListPanelPlaceholder.setVisible(true);
+        isGoToMode = true;
     }
 
     /**
@@ -212,29 +217,40 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Returns records list to patient list.
+     */
+    @FXML
+    private void handleBack() {
+        if (recordListPanelPlaceholder.isVisible()) {
+            Alert alert = new Alert(Alert.AlertType.NONE,
+                    "You will be directed back to patients list.\nConfirm action?",
+                    ButtonType.YES, ButtonType.CANCEL);
+            alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.YES) {
+                backToPatientList();
+            }
+        }
+    }
+
+    /**
      * If at GoTo mode -> Goes back to patient list.
      * Else closes the application.
      */
     @FXML
     private void handleExit() {
-        if (recordListPanelPlaceholder.isVisible()) {
-            personListPanelPlaceholder.setVisible(true);
-            recordListPanelPlaceholder.setVisible(false);
-            MainWindow.setRecordPatient(null);
-        } else {
-            boolean confirmExit = true;
-            if (!logic.checkNoCopy()) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-                        "Copies will not be saved.\nConfirm exit?", ButtonType.YES, ButtonType.NO);
-                alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
-                alert.showAndWait();
-                if (alert.getResult() == ButtonType.NO) {
-                    confirmExit = false;
-                }
+        boolean confirmExit = true;
+        if (!logic.checkNoCopy()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Copies will not be saved.\nConfirm exit?", ButtonType.YES, ButtonType.NO);
+            alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.NO) {
+                confirmExit = false;
             }
-            if (confirmExit) {
-                exit();
-            }
+        }
+        if (confirmExit) {
+            exit();
         }
     }
 
@@ -246,6 +262,16 @@ public class MainWindow extends UiPart<Stage> {
         if (exitAnyway) {
             exit();
         }
+    }
+
+    /**
+     * Returns to Patient list from Records list.
+     */
+    private void backToPatientList() {
+        personListPanelPlaceholder.setVisible(true);
+        recordListPanelPlaceholder.setVisible(false);
+        MainWindow.setRecordPatient(null);
+        isGoToMode = false;
     }
 
     /**

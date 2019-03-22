@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPdfs.D_PDF;
-import static seedu.address.testutil.TypicalPdfs.E_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_4;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_5;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -45,7 +45,7 @@ public class AddCommandTest {
     @Test
     public void execute_pdfAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPdfAdded modelStub = new ModelStubAcceptingPdfAdded();
-        Pdf validPdf = D_PDF;
+        Pdf validPdf = SAMPLE_PDF_4;
 
         CommandResult commandResult = new AddCommand(validPdf).execute(modelStub, commandHistory);
 
@@ -56,7 +56,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePdf_throwsCommandException() throws Exception {
-        Pdf validPdf = D_PDF;
+        Pdf validPdf = SAMPLE_PDF_4;
         AddCommand addCommand = new AddCommand(validPdf);
         ModelStub modelStub = new ModelStubWithPdf(validPdf);
 
@@ -67,8 +67,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Pdf dpdf = D_PDF;
-        Pdf epdf = E_PDF;
+        Pdf dpdf = SAMPLE_PDF_4;
+        Pdf epdf = SAMPLE_PDF_5;
         AddCommand addDCommand = new AddCommand(dpdf);
         AddCommand addECommand = new AddCommand(epdf);
 

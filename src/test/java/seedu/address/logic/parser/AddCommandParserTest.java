@@ -12,8 +12,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TUTORIAL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPdfs.A_PDF;
-import static seedu.address.testutil.TypicalPdfs.B_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Pdf expectedPdf = new PdfBuilder(A_PDF).withTags(VALID_TAG_LECTURE).build();
+        Pdf expectedPdf = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_LECTURE).build();
 
         System.out.println(FILE_DESC_A_PDF);
 
@@ -52,7 +52,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPdf));*/
 
         // multiple tags - all accepted
-        Pdf expectedPdfMultipleTags = new PdfBuilder(A_PDF).withTags(VALID_TAG_LECTURE, VALID_TAG_TUTORIAL)
+        Pdf expectedPdfMultipleTags = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_LECTURE, VALID_TAG_TUTORIAL)
                 .build();
         assertParseSuccess(parser, FILE_DESC_A_PDF + TAG_DESC_LECTURE + TAG_DESC_TUTORIAL,
                 new AddCommand(expectedPdfMultipleTags));
@@ -61,7 +61,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero labels
-        Pdf expectedPdf = new PdfBuilder(B_PDF).withTags().build();
+        Pdf expectedPdf = new PdfBuilder(SAMPLE_PDF_2).withTags().build();
         assertParseSuccess(parser, FILE_DESC_B_PDF , new AddCommand(expectedPdf));
     }
 

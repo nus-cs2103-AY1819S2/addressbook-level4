@@ -3,7 +3,7 @@ package seedu.address.model.pdf;
 //import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.assertFalse;
 //import static org.junit.Assert.assertTrue;
-//import static seedu.address.testutil.TypicalPdfs.G_PDF;
+//import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_7;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 //import static seedu.address.testutil.TypicalPdfs.ALICE;
@@ -35,7 +35,7 @@ public class UniquePdfListTest {
     /*
     @Test
     public void contains_personNotInList_returnsFalse() {
-        assertFalse(uniquePdfList.contains(G_PDF));
+        assertFalse(uniquePdfList.contains(SAMPLE_PDF_7));
     }
 
     @Test

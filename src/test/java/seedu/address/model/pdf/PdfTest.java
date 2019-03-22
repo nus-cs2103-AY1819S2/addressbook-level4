@@ -10,9 +10,9 @@ import static org.junit.Assert.assertTrue;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 //import static seedu.address.testutil.TypicalPdfs.ALICE;
 import static seedu.address.testutil.TypicalPdfs.A_DUP_PDF;
-import static seedu.address.testutil.TypicalPdfs.A_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 //import static seedu.address.testutil.TypicalPdfs.B_DUP_PDF;
-import static seedu.address.testutil.TypicalPdfs.B_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 //import static seedu.address.testutil.TypicalPdfs.BOB;
 
 import org.junit.Rule;
@@ -35,14 +35,14 @@ public class PdfTest {
     @Test
     public void isSamePerson() {
         // same object -> returns true
-        assertTrue(A_PDF.isSamePdf(A_PDF));
+        assertTrue(SAMPLE_PDF_1.isSamePdf(SAMPLE_PDF_1));
 
         // null -> returns false
-        assertFalse(A_PDF.isSamePdf(null));
+        assertFalse(SAMPLE_PDF_1.isSamePdf(null));
 
         // different directory -> returns false
         Pdf comparisonPdf = new PdfBuilder(A_DUP_PDF).build();
-        assertFalse(A_PDF.isSamePdf(comparisonPdf));
+        assertFalse(SAMPLE_PDF_1.isSamePdf(comparisonPdf));
 
         /*// different name -> returns false
         comparisonPdf = new PdfBuilder(ALICE).withName(VALID_NAME_BOB).build();
@@ -66,20 +66,20 @@ public class PdfTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Pdf acopy = new PdfBuilder(A_PDF).build();
-        assertTrue(A_PDF.equals(acopy));
+        Pdf acopy = new PdfBuilder(SAMPLE_PDF_1).build();
+        assertTrue(SAMPLE_PDF_1.equals(acopy));
 
         // same object -> returns true
-        assertTrue(A_PDF.equals(A_PDF));
+        assertTrue(SAMPLE_PDF_1.equals(SAMPLE_PDF_1));
 
         // null -> returns false
-        assertFalse(A_PDF.equals(null));
+        assertFalse(SAMPLE_PDF_1.equals(null));
 
         // different type -> returns false
-        assertFalse(A_PDF.equals(5));
+        assertFalse(SAMPLE_PDF_1.equals(5));
 
         // different pdf -> returns false
-        assertFalse(A_PDF.equals(B_PDF));
+        assertFalse(SAMPLE_PDF_1.equals(SAMPLE_PDF_2));
 
         /*// different name -> returns false
         Pdf editedAlice = new PdfBuilder(ALICE).withName(VALID_NAME_BOB).build();
@@ -95,10 +95,10 @@ public class PdfTest {
 
         // different directory -> returns false
         Pdf comparison = new PdfBuilder(A_DUP_PDF).build();
-        assertFalse(A_PDF.equals(A_DUP_PDF));
+        assertFalse(SAMPLE_PDF_1.equals(A_DUP_PDF));
 
         /*// different tags -> returns false
-        comparison = new PdfBuilder(A_PDF).withTags(VALID_TAG_TUTORIAL).build();
-        assertFalse(A_PDF.equals(editedAlice));*/
+        comparison = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_TUTORIAL).build();
+        assertFalse(SAMPLE_PDF_1.equals(editedAlice));*/
     }
 }

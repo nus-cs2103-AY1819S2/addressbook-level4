@@ -27,14 +27,14 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_B;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 //import static seedu.address.testutil.TypicalPdfs.ALICE;
 //import static seedu.address.testutil.TypicalPdfs.AMY;
-import static seedu.address.testutil.TypicalPdfs.A_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 //import static seedu.address.testutil.TypicalPdfs.BOB;
 //import static seedu.address.testutil.TypicalPdfs.CARL;
 //import static seedu.address.testutil.TypicalPdfs.HOON;
 //import static seedu.address.testutil.TypicalPdfs.IDA;
 import static seedu.address.testutil.TypicalPdfs.B_DUP_PDF;
-import static seedu.address.testutil.TypicalPdfs.B_PDF;
-//import static seedu.address.testutil.TypicalPdfs.C_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
+//import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
 //import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -65,24 +65,24 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a pdf without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        Pdf toAdd = A_PDF;
+        Pdf toAdd = SAMPLE_PDF_1;
 
         String command = "   " + AddCommand.COMMAND_WORD + "  " + VALID_DIR_A + " " + TAG_DESC_LECTURE + " ";
         assertCommandSuccess(command, toAdd);
 
-        /* Case: undo adding A_PDF to the list -> Amy deleted */
+        /* Case: undo adding SAMPLE_PDF_1 to the list -> Amy deleted */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: redo adding A_PDF to the list -> Amy added again */
+        /* Case: redo adding SAMPLE_PDF_1 to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
         model.addPdf(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: add another pdf with different properties */
-        toAdd = new PdfBuilder(B_PDF).build();
+        toAdd = new PdfBuilder(SAMPLE_PDF_2).build();
         command = AddCommand.COMMAND_WORD + VALID_DIR_B;
         assertCommandSuccess(command, toAdd);
 
@@ -93,11 +93,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add to empty address book -> added */
         deleteAllPersons();
-        assertCommandSuccess(A_PDF);
+        assertCommandSuccess(SAMPLE_PDF_1);
 
         /*
         *//* Case: add a pdf with tags, command with parameters in random order -> added *//*
-        toAdd = C_PDF;
+        toAdd = SAMPLE_PDF_3;
         command = AddCommand.COMMAND_WORD + TAG_DESC_TUTORIAL + VALID_DIR_C;
         assertCommandSuccess(command, toAdd);
 

@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPdfs.D_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_4;
 import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
 
 import org.junit.Before;
@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newPerson_success() {
-        Pdf validPdf = D_PDF;
+        Pdf validPdf = SAMPLE_PDF_4;
 
         Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
         expectedModel.addPdf(validPdf);

@@ -70,21 +70,27 @@ public class ModelManager implements Model {
         this(new MapGrid(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //=========== MapGrid ================================================================================
+    @Override
+    public MapGrid getMapGrid() {
+        return getHumanPlayer().getMapGrid();
+    }
+
+    @Override
+    public int getMapSize() {
+        return getHumanPlayer().getMapGrid().getMapSize();
+    }
 
     @Override
     public void updateUi() {
         versionedAddressBook.updateUi();
     }
+    
+    //=========== UserPrefs ==================================================================================
 
     @Override
     public ObservableBooleanValue getModelUpdateObservable() {
         return getHumanPlayer().getMapGrid().getObservableValue();
-    }
-
-    @Override
-    public MapGrid getMapGrid() {
-        return getHumanPlayer().getMapGrid();
     }
 
     @Override
@@ -120,7 +126,7 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== MapGrid ================================================================================
+    //=========== AddressBook ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -177,11 +183,6 @@ public class ModelManager implements Model {
     public int countTags() {
         Set<Tag> tags = this.getAllTags();
         return tags.size();
-    }
-
-    @Override
-    public int getMapSize() {
-        return getHumanPlayer().getMapGrid().getMapSize();
     }
 
     //=========== Battleship ===============================================================================

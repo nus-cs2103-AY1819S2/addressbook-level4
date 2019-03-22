@@ -12,5 +12,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
     public static final String MESSAGE_IN_GO_TO_MODE = "Please exit the goto mode using the back command first";
     public static final String MESSAGE_IN_PATIENT_MODE = "Patient list is already shown";
+    public static final String MESSAGE_NOTHING_DONE = "Cancelled, nothing has been done";
 
 }

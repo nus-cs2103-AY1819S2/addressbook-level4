@@ -6,6 +6,7 @@ import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.UniqueRequestList;

@@ -11,8 +11,9 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 
-import guitests.guihandles.HelpWindowHandle;
 import javafx.stage.Stage;
+
+import guitests.guihandles.HelpWindowHandle;
 import org.testfx.api.FxToolkit;
 
 public class HelpWindowTest extends GuiUnitTest {

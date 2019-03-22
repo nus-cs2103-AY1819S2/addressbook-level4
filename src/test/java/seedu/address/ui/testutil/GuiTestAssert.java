@@ -4,10 +4,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import seedu.address.model.person.Person;
+
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.Person;
 
 /**
  * A set of assertion methods useful for writing GUI tests.

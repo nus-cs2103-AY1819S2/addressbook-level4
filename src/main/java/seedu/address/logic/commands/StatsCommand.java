@@ -57,7 +57,7 @@ public class StatsCommand extends Command {
         }
         StatWindow.setStatPatient(this.toStat);
 
-        return new CommandResult(false, String.format(MESSAGE_SUCCESS, toStat.getName()), true);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toStat.getName()), false, true, false);
     }
 
     /**

@@ -148,5 +148,6 @@ public class HealthWorkerBookTest {
         public void removeListener(InvalidationListener invalidationListener) {
             throw new AssertionError("This method should not be called.");
         }
+
     }
 }

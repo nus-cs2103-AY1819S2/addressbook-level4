@@ -22,7 +22,7 @@ Welcome to the _MediTabs User Guide_. You can find step by step instructions on 
 
 === What is MediTabs?
 
-MediTabs is a desktop application for managing medicine stock taking. You can use MediTabs in your clinics such as family clinics or private clinics to keep track of your clinic's medicine inventory such as which medicines are low in stock and which medicines are expiring soon.
+MediTabs is a desktop application for managing medicine stock taking. You can use MediTabs in your clinics to easily track of your medicine inventory and take note of important information such as which medicines are low in stock and which medicines are expiring soon.
 
 MediTabs supports Windows, Linux and MacOS operating systems.
 
@@ -44,7 +44,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all medicines in the inventory
-* *`add`* `n/Paracetamol c/3M Pharmaceuticals` : adds a new medicine named `Paracetamol` to the inventory
+* *`add`* `n/Paracetamol c/3M Pharmaceuticals` : adds a new medicine named `Paracetamol` to the inventory with the manufacturing company `3M Pharmaceuticals`
 * *`delete`* `3` : deletes the 3rd entry shown in the current list
 * *`exit`* : exits the app
 
@@ -72,7 +72,7 @@ image::UserGuide_WarningPanel.png[width="250"]
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/Paracetamol`.
-* Items in square brackets are optional e.g `e.g n/NAME [t/TAG] can be used as `n/Paracetamol t/Popular` or as `n/Paracetamol`.
+* Items in square brackets are optional e.g `e.g n/NAME [t/TAG] can be used as n/Paracetamol t/Popular` or as `n/Paracetamol`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), t/Ordered, t/PhasingOut t/SlowMoving etc..
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/COMPANY_NAME`, `c/COMPANY_NAME n/NAME` is also acceptable.
 
@@ -427,10 +427,10 @@ e.g. `warning e/20 s/10`
 == Appendix A: File Naming Convention
 
 MediTabs uses the following File Naming Convention when File Name field is used e.g. The `export` command's optional `[FILE_NAME]` field. The File Naming Convention is to ensure consistency and to avoid potential bugs involving file names with different operating systems such as Windows, Linux and MacOS +
-Format: `Start with an Alphabet or Number followed by Alphabets, Numbers, underscore or hyphen`
+Format: `Start with an alphabet or number followed by alphabets, numbers, underscore or hyphen`
 
 [IMPORTANT]
-You should follow the File Naming Convention format when specifying the File Name field for any commands that support File Name as a field.
+You must follow the File Naming Convention format when specifying the File Name field for any commands that support File Name as a field.
 
 [CAUTION]
-The characters of the File Name cannot contain any spacing or symbols such as `\/:*?"<>|.`
+The characters of the File Name cannot contain any spacing or symbols, including but not limited to, `\/:*?"<>|.+[]{};!@#$%^&~``

@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class DateOfBirth extends DateBase {
     public static final String MESSAGE_CONSTRAINTS =
-            "Date of birth is compulsory, denoted by \\dob and should be in dd-MM-yyyy format.";
+            "Date of birth is compulsory, denoted by dob/ and should be in dd-MM-yyyy format.";
 
     /**
      * Default constructor that takes in a birth day.

@@ -58,11 +58,16 @@ public class Deadline {
      * @param month - Month of Deadline
      * @param year - Year of Deadline
      * @param isMet - Specifying if Deadline has been met.
-     * @throws DateTimeException
+     * @throws DateTimeException - If invalid input is detected
      */
     public Deadline(int date, int month, int year, boolean isMet) throws DateTimeException {
         this.date = LocalDate.of(year, month, date);
         this.isMet = isMet;
+    }
+
+    public Deadline(Deadline existingDeadline, boolean isMet) {
+        this(existingDeadline.date.getDayOfMonth(), existingDeadline.date.getMonthValue(),
+                existingDeadline.date.getYear(), isMet);
     }
 
     /**
@@ -73,6 +78,15 @@ public class Deadline {
      */
     public LocalDate getValue() {
         return this.date;
+    }
+
+    /**
+     * Calculates the number of days to a particular deadline.
+     *
+     * @return - Number of Days to Deadline as long.
+     */
+    public long getDaysToDeadline() {
+        return LocalDate.now().datesUntil(this.date).count();
     }
 
     /**

@@ -89,12 +89,12 @@ public class VersionedTravelBuddy extends TravelBuddy {
             return false;
         }
 
-        VersionedTravelBuddy otherVersionedAddressBook = (VersionedTravelBuddy) other;
+        VersionedTravelBuddy otherVersionedTravelBuddy = (VersionedTravelBuddy) other;
 
         // state check
-        return super.equals(otherVersionedAddressBook)
-                && travelBuddyStateList.equals(otherVersionedAddressBook.travelBuddyStateList)
-                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
+        return super.equals(otherVersionedTravelBuddy)
+                && travelBuddyStateList.equals(otherVersionedTravelBuddy.travelBuddyStateList)
+                && currentStatePointer == otherVersionedTravelBuddy.currentStatePointer;
     }
 
     /**
@@ -138,7 +138,7 @@ public class VersionedTravelBuddy extends TravelBuddy {
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of addressBookState list, unable to undo.");
+            super("Current state pointer at start of travelBuddyState list, unable to undo.");
         }
     }
 
@@ -147,7 +147,7 @@ public class VersionedTravelBuddy extends TravelBuddy {
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of addressBookState list, unable to redo.");
+            super("Current state pointer at end of travelBuddyState list, unable to redo.");
         }
     }
 }

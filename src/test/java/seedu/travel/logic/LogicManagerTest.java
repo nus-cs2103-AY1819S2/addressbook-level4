@@ -50,9 +50,9 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonTravelBuddyStorage addressBookStorage = new JsonTravelBuddyStorage(temporaryFolder.newFile().toPath());
+        JsonTravelBuddyStorage travelBuddyStorage = new JsonTravelBuddyStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(travelBuddyStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -80,10 +80,10 @@ public class LogicManagerTest {
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonTravelBuddyIoExceptionThrowingStub
-        JsonTravelBuddyStorage addressBookStorage =
+        JsonTravelBuddyStorage travelBuddyStorage =
                 new JsonTravelBuddyIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(travelBuddyStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -184,7 +184,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveTravelBuddy(ReadOnlyTravelBuddy addressBook, Path filePath) throws IOException {
+        public void saveTravelBuddy(ReadOnlyTravelBuddy travelBuddy, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

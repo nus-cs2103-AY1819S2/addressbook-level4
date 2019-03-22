@@ -40,7 +40,7 @@ class JsonAdaptedPlace {
                             @JsonProperty("countryCode") String countryCode,
                             @JsonProperty("rating") String rating,
                             @JsonProperty("description") String description,
-                            @JsonProperty("travel") String address,
+                            @JsonProperty("address") String address,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.countryCode = countryCode;

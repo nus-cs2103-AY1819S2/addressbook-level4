@@ -33,15 +33,15 @@ public interface TravelBuddyStorage {
 
     /**
      * Saves the given {@link ReadOnlyTravelBuddy} to the storage.
-     * @param addressBook cannot be null.
+     * @param travelBuddy cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTravelBuddy(ReadOnlyTravelBuddy addressBook) throws IOException;
+    void saveTravelBuddy(ReadOnlyTravelBuddy travelBuddy) throws IOException;
 
     /**
      * @see #saveTravelBuddy(ReadOnlyTravelBuddy)
      */
-    void saveTravelBuddy(ReadOnlyTravelBuddy addressBook, Path filePath) throws IOException;
+    void saveTravelBuddy(ReadOnlyTravelBuddy travelBuddy, Path filePath) throws IOException;
 
-    void backupTravelBuddy(ReadOnlyTravelBuddy addressBook) throws IOException;
+    void backupTravelBuddy(ReadOnlyTravelBuddy travelBuddy) throws IOException;
 }

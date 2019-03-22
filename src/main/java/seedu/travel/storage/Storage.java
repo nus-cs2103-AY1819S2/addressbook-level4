@@ -27,6 +27,6 @@ public interface Storage extends TravelBuddyStorage, UserPrefsStorage {
     Optional<ReadOnlyTravelBuddy> readTravelBuddy() throws DataConversionException, IOException;
 
     @Override
-    void saveTravelBuddy(ReadOnlyTravelBuddy addressBook) throws IOException;
+    void saveTravelBuddy(ReadOnlyTravelBuddy travelBuddy) throws IOException;
 
 }

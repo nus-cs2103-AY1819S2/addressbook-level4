@@ -77,14 +77,14 @@ public class MainApp extends Application {
      * or an empty travel book will be used instead if errors occur when reading {@code storage}'s travel book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyTravelBuddy> addressBookOptional;
+        Optional<ReadOnlyTravelBuddy> travelBuddyOptional;
         ReadOnlyTravelBuddy initialData;
         try {
-            addressBookOptional = storage.readTravelBuddy();
-            if (!addressBookOptional.isPresent()) {
+            travelBuddyOptional = storage.readTravelBuddy();
+            if (!travelBuddyOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample TravelBuddy");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleTravelBuddy);
+            initialData = travelBuddyOptional.orElseGet(SampleDataUtil::getSampleTravelBuddy);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TravelBuddy");
             initialData = new TravelBuddy();

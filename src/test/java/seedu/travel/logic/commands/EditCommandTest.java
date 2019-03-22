@@ -165,7 +165,7 @@ public class EditCommandTest {
         // edit -> first place edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered place list to show all places
+        // undo -> reverts travelBuddy back to previous state and filtered place list to show all places
         expectedModel.undoTravelBuddy();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

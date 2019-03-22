@@ -49,14 +49,14 @@ public class JsonTravelBuddyStorage implements TravelBuddyStorage {
     public Optional<ReadOnlyTravelBuddy> readTravelBuddy(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableTravelBuddy> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableTravelBuddy> jsonTravelBuddy = JsonUtil.readJsonFile(
                 filePath, JsonSerializableTravelBuddy.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (!jsonTravelBuddy.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonTravelBuddy.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -64,8 +64,8 @@ public class JsonTravelBuddyStorage implements TravelBuddyStorage {
     }
 
     @Override
-    public void saveTravelBuddy(ReadOnlyTravelBuddy addressBook) throws IOException {
-        saveTravelBuddy(addressBook, filePath);
+    public void saveTravelBuddy(ReadOnlyTravelBuddy travelBuddy) throws IOException {
+        saveTravelBuddy(travelBuddy, filePath);
     }
 
     /**
@@ -73,17 +73,17 @@ public class JsonTravelBuddyStorage implements TravelBuddyStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveTravelBuddy(ReadOnlyTravelBuddy addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveTravelBuddy(ReadOnlyTravelBuddy travelBuddy, Path filePath) throws IOException {
+        requireNonNull(travelBuddy);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableTravelBuddy(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableTravelBuddy(travelBuddy), filePath);
     }
 
     @Override
-    public void backupTravelBuddy(ReadOnlyTravelBuddy addressBook) throws IOException {
-        saveTravelBuddy(addressBook, backupFilePath);
+    public void backupTravelBuddy(ReadOnlyTravelBuddy travelBuddy) throws IOException {
+        saveTravelBuddy(travelBuddy, backupFilePath);
     }
 
 }

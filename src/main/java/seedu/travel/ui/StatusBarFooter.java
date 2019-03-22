@@ -36,9 +36,9 @@ public class StatusBarFooter extends UiPart<Region> {
     private Label saveLocationStatus;
 
 
-    public StatusBarFooter(Path saveLocation, ReadOnlyTravelBuddy addressBook) {
+    public StatusBarFooter(Path saveLocation, ReadOnlyTravelBuddy travelBuddy) {
         super(FXML);
-        addressBook.addListener(observable -> updateSyncStatus());
+        travelBuddy.addListener(observable -> updateSyncStatus());
         syncStatus.setText(SYNC_STATUS_INITIAL);
         saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }

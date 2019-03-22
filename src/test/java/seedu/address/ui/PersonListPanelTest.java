@@ -77,7 +77,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         ObservableList<Person> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < personCount; i++) {
             Name name = new Name(i + "a");
-            Phone phone = new Phone("000");
+            Phone phone = new Phone("81812288");
             Nric nric = new Nric("S1234567A");
             Person person = new Person(name, nric, phone);
             backingList.add(person);

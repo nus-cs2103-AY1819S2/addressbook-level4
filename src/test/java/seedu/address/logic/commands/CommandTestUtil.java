@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_HEALTHWORKER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_OTHERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
@@ -57,10 +58,6 @@ public class CommandTestUtil {
     public static final String VALID_NRIC_BETTY = "S9898222A";
     public static final String VALID_PHONE_ANDY = "94358253";
     public static final String VALID_PHONE_BETTY = "99991111";
-    public static final String VALID_EMAIL_ANDY = "andye@example.com";
-    public static final String VALID_EMAIL_BETTY = "healthworkerb@example.com";
-    public static final String VALID_ADDRESS_ANDY = "125, Jurong West Ave 6, #08-111";
-    public static final String VALID_ADDRESS_BETTY = "Block 456, NUS";
     public static final String VALID_ORGANIZATION_ANDY = "NUH";
     public static final String VALID_ORGANIZATION_BETTY = "Clinic B";
     // Default strings for Patient objects
@@ -73,6 +70,7 @@ public class CommandTestUtil {
     public static final String VALID_CONDITION_PHYSIO = "Physiotherapy";
     public static final String VALID_CONDITION_DIALYSIS = "Dialysis";
 
+    public static final String MODE_OTHERS = " " + PREFIX_ADD_OTHERS;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -93,10 +91,6 @@ public class CommandTestUtil {
     public static final String NRIC_DESC_BETTY = " " + PREFIX_NRIC + VALID_NRIC_BETTY;
     public static final String PHONE_DESC_ANDY = " " + PREFIX_PHONE + VALID_PHONE_ANDY;
     public static final String PHONE_DESC_BETTY = " " + PREFIX_PHONE + VALID_PHONE_BETTY;
-    public static final String EMAIL_DESC_ANDY = " " + PREFIX_EMAIL + VALID_EMAIL_ANDY;
-    public static final String EMAIL_DESC_BETTY = " " + PREFIX_EMAIL + VALID_EMAIL_BETTY;
-    public static final String ADDRESS_DESC_ANDY = " " + PREFIX_ADDRESS + VALID_ADDRESS_ANDY;
-    public static final String ADDRESS_DESC_BETTY = " " + PREFIX_ADDRESS + VALID_ADDRESS_BETTY;
     public static final String ORGANIZATION_DESC_ANDY = " " + PREFIX_ORGANIZATION + VALID_ORGANIZATION_ANDY;
     public static final String ORGANIZATION_DESC_BETTY = " " + PREFIX_ORGANIZATION + VALID_ORGANIZATION_BETTY;
     public static final String SKILLS_DESC_ANDY = " " + PREFIX_SKILLS + Specialisation.GENERAL_PRACTICE.name()

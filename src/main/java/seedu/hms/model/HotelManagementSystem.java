@@ -16,7 +16,7 @@ import seedu.hms.model.customer.UniqueCustomerList;
  * Wraps all data at the hms-book level
  * Duplicates are not allowed (by .isSameCustomer comparison)
  */
-public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManagementSystem {
+public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
 
     private final BookingList bookings;
     private final UniqueCustomerList customers;
@@ -28,8 +28,7 @@ public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManag
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         bookings = new BookingList();
         customers = new UniqueCustomerList();
     }
@@ -40,7 +39,7 @@ public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManag
     /**
      * Creates an HotelManagementSystem using the Customers in the {@code toBeCopied}
      */
-    public HotelManagementSystem(seedu.hms.model.ReadOnlyHotelManagementSystem toBeCopied) {
+    public HotelManagementSystem(ReadOnlyHotelManagementSystem toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -67,13 +66,21 @@ public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManag
     /**
      * Resets the existing data of this {@code HotelManagementSystem} with {@code newData}.
      */
-    public void resetData(seedu.hms.model.ReadOnlyHotelManagementSystem newData) {
+    public void resetData(ReadOnlyHotelManagementSystem newData) {
         requireNonNull(newData);
 
         setCustomers(newData.getCustomerList());
         setBookings(newData.getBookingList());
     }
 
+    /**
+     * Resets the existing booking data of this {@code HotelManagementSystem} with {@code newData}
+     */
+    public void resetDataBooking(ReadOnlyHotelManagementSystem newData) {
+        requireNonNull(newData);
+
+        setBookings(newData.getBookingList());
+    }
     //// customer-level operations
 
     /**

@@ -1,10 +1,8 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalCards.ADDITION;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.StatusBarFooter.TOTAL_CARDS_STATUS;
+import static seedu.address.testutil.TypicalDecks.DECK_A;
+import static seedu.address.ui.StatusBarFooter.*;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,7 +24,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
     private static final Path RELATIVE_PATH = Paths.get(".");
 
-    private static final int INITIAL_TOTAL_PERSONS = 0;
+    private static final int INITIAL_TOTAL_DECKS = 0;
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
@@ -58,13 +56,13 @@ public class StatusBarFooterTest extends GuiUnitTest {
     public void display() {
         // initial state
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL,
-                String.format(TOTAL_CARDS_STATUS, INITIAL_TOTAL_PERSONS));
+                String.format(TOTAL_DECKS_STATUS, INITIAL_TOTAL_DECKS));
 
         // after address book is updated
-        guiRobot.interact(() -> topDeck.addCard(ADDITION));
+        guiRobot.interact(() -> topDeck.addDeck(DECK_A));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()),
-                String.format(TOTAL_CARDS_STATUS, topDeck.getCardList().size()));
+                String.format(TOTAL_DECKS_STATUS, topDeck.getDeckList().size()));
     }
 
     /**

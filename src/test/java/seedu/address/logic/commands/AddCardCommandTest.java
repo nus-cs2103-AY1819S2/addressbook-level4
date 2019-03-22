@@ -247,6 +247,11 @@ public class AddCardCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public boolean isAtCardsView() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

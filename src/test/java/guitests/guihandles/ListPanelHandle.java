@@ -7,6 +7,7 @@ import java.util.Set;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * Provides a handle for {@code ListPanel} containing the list of {@code CardDisplay}.
@@ -80,6 +81,34 @@ public class ListPanelHandle extends NodeHandle<ListView<Card>> {
      * Navigates the listview to {@code index}.
      */
     public void navigateToCard(int index) {
+        if (index < 0 || index >= getRootNode().getItems().size()) {
+            throw new IllegalArgumentException("Index is out of bounds.");
+        }
+
+        guiRobot.interact(() -> {
+            getRootNode().scrollTo(index);
+        });
+        guiRobot.pauseForHuman();
+    }
+
+    /**
+     * Navigates the listview to display {@code deck}.
+     */
+    public void navigateToDeck(Deck deck) {
+        if (!getRootNode().getItems().contains(deck)) {
+            throw new IllegalArgumentException("Deck does not exist.");
+        }
+
+        guiRobot.interact(() -> {
+            getRootNode().scrollTo(deck);
+        });
+        guiRobot.pauseForHuman();
+    }
+
+    /**
+     * Navigates the listview to {@code index}.
+     */
+    public void navigateToDeck(int index) {
         if (index < 0 || index >= getRootNode().getItems().size()) {
             throw new IllegalArgumentException("Index is out of bounds.");
         }

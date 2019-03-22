@@ -29,13 +29,14 @@ public class VersionedTopDeckTest {
     private final ReadOnlyTopDeck topDeckWithDeckC = new TopDeckBuilder().withDeck(DECK_C).build();
     private final ReadOnlyTopDeck topDeckWithDeckD = new TopDeckBuilder().withDeck(DECK_D).build();
     private final ReadOnlyTopDeck topDeckWithDeckE = new TopDeckBuilder().withDeck(DECK_E).build();
-    private final ReadOnlyTopDeck EmptyTopDeck = new TopDeckBuilder().build();
+    private final ReadOnlyTopDeck emptyTopDeck = new TopDeckBuilder().build();
+
 
 
     private final ReadOnlyTopDeck topDeckWithAdd = new TopDeckBuilder().withCard(ADDITION).build();
     private final ReadOnlyTopDeck topDeckWithSub = new TopDeckBuilder().withCard(SUBTRACTION).build();
     private final ReadOnlyTopDeck topDeckWithMul = new TopDeckBuilder().withCard(MULTIPLICATION).build();
-    private final ReadOnlyTopDeck emptyTopDeck = new TopDeckBuilder().build();
+//    private final ReadOnlyTopDeck emptyTopDeck = new TopDeckBuilder().build();
 
     @Test
     public void commit_singleTopDeck_noStatesRemovedCurrentStateSaved() {

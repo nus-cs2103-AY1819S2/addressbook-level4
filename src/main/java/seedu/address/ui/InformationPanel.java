@@ -51,7 +51,7 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ImageCard(image, getIndex() + 1).getRoot());
+                setGraphic(new ImageCard(image).getRoot());
             }
         }
     }

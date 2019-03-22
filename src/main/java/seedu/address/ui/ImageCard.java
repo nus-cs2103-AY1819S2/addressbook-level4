@@ -1,3 +1,5 @@
+/* @@author Carrein */
+
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
@@ -27,8 +29,6 @@ public class ImageCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label id;
-    @FXML
     private Label name;
     @FXML
     private Label height;
@@ -37,30 +37,11 @@ public class ImageCard extends UiPart<Region> {
     @FXML
     private ImageView thumbnail;
 
-    public ImageCard(Image image, int displayedIndex) {
+    public ImageCard(Image image) {
         super(FXML);
         this.image = image;
-        id.setText(displayedIndex + ". ");
-        name.setText(image.getName().name);
-        height.setText(image.getHeight().value);
-        width.setText(image.getWidth().value);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof ImageCard)) {
-            return false;
-        }
-
-        // state check
-        ImageCard card = (ImageCard) other;
-        return id.getText().equals(card.id.getText())
-                && image.equals(card.image);
+        name.setText("Name: " + image.getName().name);
+        height.setText("Image: " + image.getHeight().value);
+        width.setText("Width: " + image.getWidth().value);
     }
 }

@@ -413,7 +413,7 @@ Adds patient 1 and patient 3 to patient 5 from "records1.json" to the current re
 Saves the specified patients in the current records to the specified filepath.
 ** Note that 'export' always saves inside the data folder. If no such filepath exists,
 it will be created. Otherwise, it will overwrite the existing file.
-** You can only export to .json and .pdf. 
+** You can only export to .json and .pdf.
 .json files allow you to open or import them.
 .pdf files are easier for humans to read, but you cannot open or import them with OurTeeth.
 

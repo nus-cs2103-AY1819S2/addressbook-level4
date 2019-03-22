@@ -380,7 +380,7 @@ Step 4. The book shelf now adds the book to the book list after making sure ther
 
 
 // tag::addReview[]
-=== addReview Feature
+=== AddReview Feature
 
 ==== Current Implementation
 
@@ -419,7 +419,7 @@ Step 5. The `AddReviewCommand` executes. The command checks if the book to which
 // end::addReview[]
 
 // tag::listBook[]
-=== listBook Feature
+=== ListBook Feature
 
 ==== Current Implementation
 

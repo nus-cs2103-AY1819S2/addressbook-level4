@@ -18,7 +18,7 @@ public class Major {
      */
     public static final String VALIDATION_REGEX = "[^\\s].*";
 
-    public final String major;
+    public final String value;
 
     /**
      * Constructs a {@code Name}.
@@ -28,7 +28,7 @@ public class Major {
     public Major(String major) {
         requireNonNull(major);
         checkArgument(isValidMajor(major), MESSAGE_CONSTRAINTS);
-        this.major = major;
+        this.value = major;
     }
 
     /**
@@ -41,19 +41,19 @@ public class Major {
 
     @Override
     public String toString() {
-        return major;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Major // instanceof handles nulls
-                && major.equals(((Major) other).major)); // state check
+                && value.equals(((Major) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return major.hashCode();
+        return value.hashCode();
     }
 
 }

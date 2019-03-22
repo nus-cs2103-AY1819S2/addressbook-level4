@@ -25,24 +25,25 @@ public class MemberAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a member to Club Manager. "
             + "Parameters: "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_GENDER + "GENDER "
-            + PREFIX_MAJOR + "MAJOR "
-            + PREFIX_MATRICNUMBER + "MATRICNUMBER "
             + PREFIX_NAME + "NAME "
+            + PREFIX_MATRICNUMBER + "MATRICNUMBER "
             + PREFIX_PHONE + "PHONE "
+            + PREFIX_EMAIL + "EMAIL "
+            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_GENDER + "GENDER "
             + PREFIX_YEAROFSTUDY + "YEAROFSTUDY "
+            + PREFIX_MAJOR + "MAJOR "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
+            + PREFIX_MATRICNUMBER + "A0123456Z "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_MAJOR + "Chemistry "
-            + PREFIX_MATRICNUMBER + "A0123456Z "
+            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
+            + PREFIX_GENDER + "Male "
             + PREFIX_YEAROFSTUDY + "Year 2 "
-            + PREFIX_TAG + "swimming "
-            + PREFIX_TAG + "running";
+            + PREFIX_MAJOR + "Chemistry "
+            + PREFIX_TAG + "Swimming";
 
     public static final String MESSAGE_SUCCESS = "New member added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This member already exists in Club Manager";

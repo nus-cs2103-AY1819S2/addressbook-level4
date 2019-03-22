@@ -17,57 +17,65 @@ public class Person {
 
     // Identity fields
     private final Name name;
+    private final MatricNumber matricNumber;
     private final Phone phone;
     private final Email email;
 
     // Data fields
     private final Address address;
     private final Gender gender;
-    private final Major major;
-    private final MatricNumber matricNumber;
     private final YearOfStudy yearOfStudy;
+    private final Major major;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Address address, Gender gender, Name name, Phone phone, Email email, Major major,
-                  MatricNumber matricNumber, YearOfStudy yearOfStudy, Set<Tag> tags) {
-        requireAllNonNull(address, gender, name, phone, email, major, matricNumber, yearOfStudy, tags);
-        this.address = address;
+    public Person(Name name, MatricNumber matricNumber, Phone phone, Email email, Address address, Gender gender,
+                  YearOfStudy yearOfStudy, Major major, Set<Tag> tags) {
+        requireAllNonNull(name, matricNumber, phone, email, address, gender, yearOfStudy, major, tags);
         this.name = name;
-        this.gender = gender;
+        this.matricNumber = matricNumber;
         this.phone = phone;
         this.email = email;
-        this.major = major;
-        this.matricNumber = matricNumber;
+        this.address = address;
+        this.gender = gender;
         this.yearOfStudy = yearOfStudy;
+        this.major = major;
         this.tags.addAll(tags);
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public Name getName() {
         return name;
     }
 
-    public Gender getGender() { return gender; }
+    public MatricNumber getMatricNumber() {
+        return matricNumber;
+    }
 
     public Phone getPhone() {
         return phone;
     }
 
-    public Email getEmail() { return email; }
+    public Email getEmail() {
+        return email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public YearOfStudy getYearOfStudy() {
+        return yearOfStudy;
+    }
 
     public Major getMajor() {
         return major;
     }
-
-    public MatricNumber getMatricNumber() { return matricNumber; }
-
-    public YearOfStudy getYearOfStudy() { return yearOfStudy; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -107,8 +115,10 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getGender().equals(getGender())
-                && otherPerson.getMatricNumber().equals(getMatricNumber());
+                && otherPerson.getMatricNumber().equals(getMatricNumber())
+                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getEmail().equals(getEmail());
+
     }
 
     @Override

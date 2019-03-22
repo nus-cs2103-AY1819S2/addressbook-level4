@@ -1,5 +1,9 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import java.io.File;
 import java.util.HashSet;
 import java.util.Optional;
@@ -13,10 +17,6 @@ import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.Size;
 import seedu.address.model.tag.Tag;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -84,7 +84,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             System.out.println("In here now");
             Size size = new Size(Long.toString(file.length()));
 
-            Pdf pdf = new Pdf(name, directory, size,tags);
+            Pdf pdf = new Pdf(name, directory, size, tags);
             return new AddCommand(pdf);
 
         } catch (Exception e) {

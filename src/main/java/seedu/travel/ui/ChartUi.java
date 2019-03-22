@@ -33,6 +33,7 @@ public class ChartUi extends Application {
     // final static String italy = "Italy";
     // final static String usa = "USA";
 
+    @SuppressWarnings("unchecked")
     @Override
     public void start(Stage stage) {
         stage.setTitle("Number of Visits to Each Country");

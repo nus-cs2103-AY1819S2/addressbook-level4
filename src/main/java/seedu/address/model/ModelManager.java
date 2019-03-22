@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -14,6 +15,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.course.Course;
@@ -42,6 +44,7 @@ public class ModelManager implements Model {
     private final ObservableList<ModuleInfo> allModules;
     private final FilteredList<ModuleInfo> displayList;
     private final ModuleInfoList moduleInfoList;
+    private final SortedList<ModuleInfo> sortedDisplayList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -61,6 +64,7 @@ public class ModelManager implements Model {
         this.allModules = allModules.getObservableList();
         this.displayList = new FilteredList<>(this.allModules);
         this.moduleInfoList = allModules;
+        this.sortedDisplayList = new SortedList<>(displayList);
     }
 
     public ModelManager() {
@@ -241,10 +245,20 @@ public class ModelManager implements Model {
 
     @Override
     public void updateDisplayList(Predicate<ModuleInfo> predicate) {
-        requireAllNonNull(predicate);
+        requireNonNull(predicate);
         displayList.setPredicate(predicate);
     }
 
+    @Override
+    public ObservableList<ModuleInfo> getSortedDisplayList() {
+        return sortedDisplayList;
+    }
+
+    @Override
+    public void sortDisplayList(Comparator<ModuleInfo> comparator) {
+        requireNonNull(comparator);
+        sortedDisplayList.setComparator(comparator);
+    }
 
     /**
      * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.

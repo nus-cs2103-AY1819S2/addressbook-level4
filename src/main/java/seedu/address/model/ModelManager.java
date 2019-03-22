@@ -89,6 +89,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean isAtCardsView() {
+        return (viewState instanceof CardsView);
+    }
+
+    @Override
     public ViewState getViewState() {
         return viewState;
     }

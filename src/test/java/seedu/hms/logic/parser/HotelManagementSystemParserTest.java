@@ -14,7 +14,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.hms.logic.commands.AddBookingCommand;
 import seedu.hms.logic.commands.AddCustomerCommand;
 import seedu.hms.logic.commands.ClearCustomerCommand;
 import seedu.hms.logic.commands.DeleteBookingCommand;
@@ -40,9 +39,9 @@ import seedu.hms.testutil.CustomerUtil;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
 public class HotelManagementSystemParserTest {
+    private final HotelManagementSystemParser parser = new HotelManagementSystemParser();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private final HotelManagementSystemParser parser = new HotelManagementSystemParser();
 
     @Test
     public void parseCommandAddCustomer() throws Exception {

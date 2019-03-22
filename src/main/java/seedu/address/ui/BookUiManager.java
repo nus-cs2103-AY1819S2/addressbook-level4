@@ -15,7 +15,7 @@ import seedu.address.logic.Logic;
 /**
  * The manager of the UI component.
  */
-public class UiManager implements Ui {
+public class BookUiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
@@ -23,9 +23,9 @@ public class UiManager implements Ui {
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private Logic logic;
-    private MainWindow mainWindow;
+    private BookMainWindow bookMainWindow;
 
-    public UiManager(Logic logic) {
+    public BookUiManager(Logic logic) {
         super();
         this.logic = logic;
     }
@@ -38,9 +38,9 @@ public class UiManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
-            mainWindow.fillInnerParts();
+            bookMainWindow = new BookMainWindow(primaryStage, logic);
+            bookMainWindow.show(); //This should be called before creating other UI parts
+            bookMainWindow.fillInnerParts();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -52,8 +52,8 @@ public class UiManager implements Ui {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
-    private void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+        showAlertDialogAndWait(bookMainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     /**

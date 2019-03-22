@@ -21,7 +21,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Stage> {
+public class BookMainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -31,8 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private BookListPanel bookListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -45,9 +44,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private MenuItem helpMenuItem;
 
-
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane bookListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -55,7 +53,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane statusbarPlaceholder;
 
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public BookMainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
         // Set dependencies
@@ -111,14 +109,13 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+    public void fillInnerParts() {
+        BookBrowserPanel bookBrowserPanel = new BookBrowserPanel(logic.selectedBookProperty());
+        browserPlaceholder.getChildren().add(bookBrowserPanel.getRoot());
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
+            logic::setSelectedBook);
+        bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -154,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    public void show() {
         primaryStage.show();
     }
 
@@ -164,14 +161,14 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public BookListPanel getBookListPanel() {
+        return bookListPanel;
     }
 
     /**

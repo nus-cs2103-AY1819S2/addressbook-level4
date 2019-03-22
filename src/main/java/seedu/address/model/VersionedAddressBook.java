@@ -100,7 +100,7 @@ public class VersionedAddressBook extends AddressBook {
     /**
      * Generates a chart by country.
      */
-    public Map<CountryCode, Integer> generateCountryChart() {
+    protected Map<CountryCode, Integer> generateCountryChart() {
         ObservableList<Place> placeList = addressBookStateList.get(addressBookStateList.size() - 1).getPlaceList();
         CountryCode countryCode;
         Map<CountryCode, Integer> mapCountry = new HashMap<>();
@@ -118,7 +118,7 @@ public class VersionedAddressBook extends AddressBook {
     /**
      * Generates a chart by rating.
      */
-    public Map<Rating, Integer> generateRatingChart() {
+    protected Map<Rating, Integer> generateRatingChart() {
         ObservableList<Place> placeList = addressBookStateList.get(addressBookStateList.size() - 1).getPlaceList();
         Rating rating;
         Map<Rating, Integer> mapRating = new HashMap<>();

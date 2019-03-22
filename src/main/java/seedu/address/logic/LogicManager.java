@@ -55,7 +55,7 @@ public class LogicManager implements Logic {
         }
 
         if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+            logger.info("TravelBuddy modified, saving to file.");
             try {
                 storage.saveAddressBook(model.getAddressBook());
             } catch (IOException ioe) {

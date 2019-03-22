@@ -21,8 +21,6 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds module(s) based on "
             + "module code, semester, grade or finished status (case-insensitive).\n"
-            + "Module code can be entered partially, but semester and grade must be exact.\n"
-            + "Finished status must be 'y' or 'n'."
             + "Parameters: [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]\n"
             + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A";
 

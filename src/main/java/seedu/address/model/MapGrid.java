@@ -157,7 +157,7 @@ public class MapGrid implements ReadOnlyAddressBook {
         boolean isSuccessfulHit =
                 cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
                         .receiveAttack();
-        
+
         updateUi();
         return isSuccessfulHit;
     }

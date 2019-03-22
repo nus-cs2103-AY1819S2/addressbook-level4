@@ -287,7 +287,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isExit()) {
-                handleExit(true);
+                handleExit();
             }
 
             return commandResult;

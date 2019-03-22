@@ -66,13 +66,13 @@ public class ListPanelHandle extends NodeHandle<ListView<Card>> {
     /**
      * Navigates the listview to display {@code card}.
      */
-    public void navigateToCard(Card person) {
-        if (!getRootNode().getItems().contains(person)) {
+    public void navigateToCard(Card card) {
+        if (!getRootNode().getItems().contains(card)) {
             throw new IllegalArgumentException("Card does not exist.");
         }
 
         guiRobot.interact(() -> {
-            getRootNode().scrollTo(person);
+            getRootNode().scrollTo(card);
         });
         guiRobot.pauseForHuman();
     }

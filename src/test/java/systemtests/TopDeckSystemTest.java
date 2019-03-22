@@ -95,6 +95,10 @@ public abstract class TopDeckSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
+    public DeckListPanelHandle getDeckListPanel() {
+        return mainWindowHandle.getDeckListPanel();
+    }
+
     public ListPanelHandle getCardListPanel() {
         return mainWindowHandle.getListPanel();
     }
@@ -129,7 +133,9 @@ public abstract class TopDeckSystemTest {
      */
     protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getTopDeck().getFilteredList().size(), getModel().getFilteredList().size());
+        assertEquals(getModel().getTopDeck().getDeckList()
+
+                getFilteredList().size(), getModel().getFilteredList().size());
     }
 
     /**

@@ -23,19 +23,22 @@ import seedu.address.testutil.TopDeckBuilder;
 
 public class VersionedTopDeckTest {
 
-
+    //Empty decks
     private final ReadOnlyTopDeck topDeckWithDeckA = new TopDeckBuilder().withDeck(DECK_A).build();
     private final ReadOnlyTopDeck topDeckWithDeckB = new TopDeckBuilder().withDeck(DECK_B).build();
     private final ReadOnlyTopDeck topDeckWithDeckC = new TopDeckBuilder().withDeck(DECK_C).build();
+
+    //Decks with cards
     private final ReadOnlyTopDeck topDeckWithDeckD = new TopDeckBuilder().withDeck(DECK_D).build();
     private final ReadOnlyTopDeck topDeckWithDeckE = new TopDeckBuilder().withDeck(DECK_E).build();
+
+
     private final ReadOnlyTopDeck emptyTopDeck = new TopDeckBuilder().build();
 
 
-
-    private final ReadOnlyTopDeck topDeckWithAdd = new TopDeckBuilder().withCard(ADDITION).build();
-    private final ReadOnlyTopDeck topDeckWithSub = new TopDeckBuilder().withCard(SUBTRACTION).build();
-    private final ReadOnlyTopDeck topDeckWithMul = new TopDeckBuilder().withCard(MULTIPLICATION).build();
+//    private final ReadOnlyTopDeck topDeckWithAdd = new TopDeckBuilder().withCard(ADDITION).build();
+//    private final ReadOnlyTopDeck topDeckWithSub = new TopDeckBuilder().withCard(SUBTRACTION).build();
+//    private final ReadOnlyTopDeck topDeckWithMul = new TopDeckBuilder().withCard(MULTIPLICATION).build();
 //    private final ReadOnlyTopDeck emptyTopDeck = new TopDeckBuilder().build();
 
     @Test
@@ -52,19 +55,19 @@ public class VersionedTopDeckTest {
     @Test
     public void commit_multipleTopDeckPointerAtEndOfStateList_noStatesRemovedCurrentStateSaved() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
 
         versionedTopDeck.commit();
         assertTopDeckListStatus(versionedTopDeck,
-                Arrays.asList(emptyTopDeck, topDeckWithAdd, topDeckWithSub),
-                topDeckWithSub,
+                Arrays.asList(emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB),
+                topDeckWithDeckB,
                 Collections.emptyList());
     }
 
     @Test
     public void commit_multipleTopDeckPointerNotAtEndOfStateList_statesAfterPointerRemovedCurrentStateSaved() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 2);
 
         versionedTopDeck.commit();
@@ -77,7 +80,7 @@ public class VersionedTopDeckTest {
     @Test
     public void canUndo_multipleTopDeckPointerAtEndOfStateList_returnsTrue() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
 
         assertTrue(versionedTopDeck.canUndo());
     }
@@ -85,7 +88,7 @@ public class VersionedTopDeckTest {
     @Test
     public void canUndo_multipleTopDeckPointerAtStartOfStateList_returnsTrue() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 1);
 
         assertTrue(versionedTopDeck.canUndo());
@@ -101,7 +104,7 @@ public class VersionedTopDeckTest {
     @Test
     public void canUndo_multipleTopDeckPointerAtStartOfStateList_returnsFalse() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 2);
 
         assertFalse(versionedTopDeck.canUndo());
@@ -110,7 +113,7 @@ public class VersionedTopDeckTest {
     @Test
     public void canRedo_multipleTopDeckPointerNotAtEndOfStateList_returnsTrue() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 1);
 
         assertTrue(versionedTopDeck.canRedo());
@@ -119,7 +122,7 @@ public class VersionedTopDeckTest {
     @Test
     public void canRedo_multipleTopDeckPointerAtStartOfStateList_returnsTrue() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 2);
 
         assertTrue(versionedTopDeck.canRedo());
@@ -135,7 +138,7 @@ public class VersionedTopDeckTest {
     @Test
     public void canRedo_multipleTopDeckPointerAtEndOfStateList_returnsFalse() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
 
         assertFalse(versionedTopDeck.canRedo());
     }
@@ -143,26 +146,26 @@ public class VersionedTopDeckTest {
     @Test
     public void undo_multipleTopDeckPointerAtEndOfStateList_success() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
 
         versionedTopDeck.undo();
         assertTopDeckListStatus(versionedTopDeck,
                 Collections.singletonList(emptyTopDeck),
-                topDeckWithAdd,
-                Collections.singletonList(topDeckWithSub));
+                topDeckWithDeckA,
+                Collections.singletonList(topDeckWithDeckB));
     }
 
     @Test
     public void undo_multipleTopDeckPointerNotAtStartOfStateList_success() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 1);
 
         versionedTopDeck.undo();
         assertTopDeckListStatus(versionedTopDeck,
                 Collections.emptyList(),
                 emptyTopDeck,
-                Arrays.asList(topDeckWithAdd, topDeckWithSub));
+                Arrays.asList(topDeckWithDeckA, topDeckWithDeckB));
     }
 
     @Test
@@ -175,7 +178,7 @@ public class VersionedTopDeckTest {
     @Test
     public void undo_multipleTopDeckPointerAtStartOfStateList_throwsNoUndoableStateException() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 2);
 
         assertThrows(VersionedTopDeck.NoUndoableStateException.class, versionedTopDeck::undo);
@@ -184,27 +187,27 @@ public class VersionedTopDeckTest {
     @Test
     public void redo_multipleTopDeckPointerNotAtEndOfStateList_success() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 1);
 
         versionedTopDeck.redo();
         assertTopDeckListStatus(versionedTopDeck,
-                Arrays.asList(emptyTopDeck, topDeckWithAdd),
-                topDeckWithSub,
+                Arrays.asList(emptyTopDeck, topDeckWithDeckA),
+                topDeckWithDeckB,
                 Collections.emptyList());
     }
 
     @Test
     public void redo_multipleTopDeckPointerAtStartOfStateList_success() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 2);
 
         versionedTopDeck.redo();
         assertTopDeckListStatus(versionedTopDeck,
                 Collections.singletonList(emptyTopDeck),
-                topDeckWithAdd,
-                Collections.singletonList(topDeckWithSub));
+                topDeckWithDeckA,
+                Collections.singletonList(topDeckWithDeckB));
     }
 
     @Test
@@ -217,17 +220,17 @@ public class VersionedTopDeckTest {
     @Test
     public void redo_multipleTopDeckPointerAtEndOfStateList_throwsNoRedoableStateException() {
         VersionedTopDeck versionedTopDeck = prepareTopDeckList(
-                emptyTopDeck, topDeckWithAdd, topDeckWithSub);
+                emptyTopDeck, topDeckWithDeckA, topDeckWithDeckB);
 
         assertThrows(VersionedTopDeck.NoRedoableStateException.class, versionedTopDeck::redo);
     }
 
     @Test
     public void equals() {
-        VersionedTopDeck versionedTopDeck = prepareTopDeckList(topDeckWithAdd, topDeckWithSub);
+        VersionedTopDeck versionedTopDeck = prepareTopDeckList(topDeckWithDeckA, topDeckWithDeckB);
 
         // same values -> returns true
-        VersionedTopDeck copy = prepareTopDeckList(topDeckWithAdd, topDeckWithSub);
+        VersionedTopDeck copy = prepareTopDeckList(topDeckWithDeckA, topDeckWithDeckB);
         assertTrue(versionedTopDeck.equals(copy));
 
         // same object -> returns true
@@ -240,12 +243,12 @@ public class VersionedTopDeckTest {
         assertFalse(versionedTopDeck.equals(1));
 
         // different state list -> returns false
-        VersionedTopDeck differentAddressBookList = prepareTopDeckList(topDeckWithSub, topDeckWithMul);
+        VersionedTopDeck differentAddressBookList = prepareTopDeckList(topDeckWithDeckB, topDeckWithDeckC);
         assertFalse(versionedTopDeck.equals(differentAddressBookList));
 
         // different current pointer index -> returns false
         VersionedTopDeck differentCurrentStatePointer = prepareTopDeckList(
-                topDeckWithAdd, topDeckWithSub);
+                topDeckWithDeckA, topDeckWithDeckB);
         shiftCurrentStatePointerLeftwards(versionedTopDeck, 1);
         assertFalse(versionedTopDeck.equals(differentCurrentStatePointer));
     }

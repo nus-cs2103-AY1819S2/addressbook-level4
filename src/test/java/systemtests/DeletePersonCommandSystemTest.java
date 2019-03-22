@@ -23,8 +23,9 @@ import seedu.address.model.person.Person;
  */
 public class DeletePersonCommandSystemTest extends AddressBookSystemTest {
 
-    // TODO: Phased out. To be replaced with DeleteHealthWorker/DeleteRequestSystemTest
-
+    /**
+     * TODO: Phased out. To be replaced with DeleteHealthWorker/DeleteRequestSystemTest.
+     */
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE);
 

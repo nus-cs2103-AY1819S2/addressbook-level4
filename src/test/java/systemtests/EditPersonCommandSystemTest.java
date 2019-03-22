@@ -50,8 +50,9 @@ import seedu.address.testutil.PersonUtil;
  */
 public class EditPersonCommandSystemTest extends AddressBookSystemTest {
 
-    // TODO: Phased out. To be replaced with EditHealthWorker/EditRequestSystemTest
-
+    /**
+     * TODO: Phased out. To be replaced with EditHealthWorker/EditRequestSystemTest
+     */
     private static final String MODE_OTHERS = CommandMode.MODE_OTHERS + " ";
 
     public void edit() {

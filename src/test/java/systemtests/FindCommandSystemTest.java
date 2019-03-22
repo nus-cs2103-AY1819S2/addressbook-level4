@@ -20,8 +20,9 @@ import seedu.address.model.Model;
  */
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
-    // TODO: replace to filter system test after find is changed to filter
-
+    /**
+     * TODO: replace to filter system test after find is changed to filter
+     */
     public void find() {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
          * -> 2 persons found

@@ -21,8 +21,9 @@ import seedu.address.model.Model;
  */
 public class SelectCommandSystemTest extends AddressBookSystemTest {
 
-    // TODO: Deprecated. To be replaced with new SelectCommandSystemTest after implementing of Select command
-
+    /**
+     * TODO: Deprecated. To be replaced with new SelectCommandSystemTest after implementing of Select command.
+     */
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 

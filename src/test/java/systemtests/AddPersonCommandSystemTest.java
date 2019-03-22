@@ -46,8 +46,9 @@ import seedu.address.testutil.PersonUtil;
  */
 public class AddPersonCommandSystemTest extends AddressBookSystemTest {
 
-    // TODO: Phased out. To be changed to AddHealthWorker/AddRequestSystemTest.
-
+    /**
+     * TODO: Phased out. To be changed to AddHealthWorker/AddRequestSystemTest.
+     */
     public void add() {
         Model model = getModel();
 

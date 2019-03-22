@@ -137,18 +137,19 @@ public class MapGrid implements ReadOnlyAddressBook {
      * Put battleship in the given coordinates
      */
     public void putShip(Coordinates coordinates, Battleship battleship) {
-        updateUi();
         cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
             .putShip(battleship);
+        updateUi();
     }
 
     /**
      * Attack a specified cell. Returns true if a ship was hit otherwise false.
      */
     public boolean attackCell(Coordinates coordinates) {
-        updateUi();
-        return cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
+        boolean isSuccessfulHit = cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
                 .receiveAttack();
+        updateUi();
+        return isSuccessfulHit;
     }
 
     //// list overwrite operations

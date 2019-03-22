@@ -22,6 +22,7 @@ public class Pdf {
     private final Email email;
     private final Directory directory;
     private final Size size;
+    private final Deadline deadline;
 
     // Data fields
     private final Address address;
@@ -32,6 +33,22 @@ public class Pdf {
         this.name = name;
         this.directory = directory;
         this.size = size;
+        this.deadline = new Deadline();
+        this.tags.addAll(tags);
+
+        //dummy
+        this.phone = null;
+        this.email = null;
+        this.address = null;
+
+    }
+
+    public Pdf(Name name, Directory directory, Size size, Set<Tag> tags, Deadline deadline) {
+        requireAllNonNull(name, directory, size, tags, deadline);
+        this.name = name;
+        this.directory = directory;
+        this.size = size;
+        this.deadline = deadline;
         this.tags.addAll(tags);
 
         //dummy
@@ -55,6 +72,7 @@ public class Pdf {
         //dummy
         this.directory = null;
         this.size = null;
+        this.deadline = null;
     }
 
     public Name getName() {
@@ -79,6 +97,10 @@ public class Pdf {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Deadline getDeadline() {
+        return deadline;
     }
 
     /**
@@ -136,6 +158,7 @@ public class Pdf {
         return Objects.hash(name, directory, size, tags);
     }
 
+    //TODO: Add deadline value here once functionality is finalized.
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

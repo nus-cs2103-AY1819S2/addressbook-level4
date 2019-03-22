@@ -30,7 +30,7 @@ public class JsonAdaptedPdfTest {
         assertEquals(A_PDF, pdf.toModelType());
     }
 
-    @Test
+    /*@Test
     public void toModelType_invalidLocation_throwsIllegalValueException() {
         JsonAdaptedPdf pdf =
                 new JsonAdaptedPdf(A_PDF.getName().getFullName(), INVALID_LOCATION, A_PDF.getSize().getValue(),
@@ -46,7 +46,7 @@ public class JsonAdaptedPdfTest {
         JsonAdaptedPdf person =
                 new JsonAdaptedPdf(VALID_NAME, VALID_LOCATION, VALID_SIZE, invalidTags);
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
-    }
+    }*/
 
     /*@Test
     public void toModelType_invalidName_throwsIllegalValueException() {

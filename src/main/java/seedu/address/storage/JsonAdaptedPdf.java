@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
@@ -26,18 +28,36 @@ class JsonAdaptedPdf {
 
     private final String name;
     private final String size;
-    private final String location;
+    private final String directory;
+    private final String deadline;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
+
+//    /**
+//     * Constructs a {@code JsonAdaptedPdf} with the given pdf details.
+//     */
+//    @JsonCreator
+//    public JsonAdaptedPdf(@JsonProperty("name") String name, @JsonProperty("directory") String directory,
+//                          @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+//        this.name = name;
+//        this.directory = directory;
+//        this.size = size;
+//        this.deadline = null;
+//        if (tagged != null) {
+//            this.tagged.addAll(tagged);
+//        }
+//    }
 
     /**
      * Constructs a {@code JsonAdaptedPdf} with the given pdf details.
      */
     @JsonCreator
-    public JsonAdaptedPdf(@JsonProperty("name") String name, @JsonProperty("location") String location,
-                          @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPdf(@JsonProperty("name") String name, @JsonProperty("directory") String directory,
+                          @JsonProperty("size") String size, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
+                          @JsonProperty("deadline") String deadline) {
         this.name = name;
-        this.location = location;
+        this.directory = directory;
         this.size = size;
+        this.deadline = deadline;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -49,7 +69,8 @@ class JsonAdaptedPdf {
     public JsonAdaptedPdf(Pdf source) {
         name = source.getName().getFullName();
         size = source.getSize().getValue();
-        location = source.getDirectory().getDirectory();
+        directory = source.getDirectory().getDirectory();
+        deadline = source.getDeadline().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -67,6 +88,8 @@ class JsonAdaptedPdf {
             personTags.add(tag.toModelType());
         }
 
+        final Set<Tag> modelTags = new HashSet<>(personTags);
+
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -83,17 +106,27 @@ class JsonAdaptedPdf {
         }
         Size modelSize = new Size(size);
 
-        if (location == null) {
+        if (directory == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Directory.class.getSimpleName()));
         }
-        if (!Directory.isValidDirectory(location)) {
+        if (!Directory.isValidDirectory(directory)) {
             throw new IllegalValueException(Directory.MESSAGE_CONSTRAINTS);
         }
-        final Directory modelDirectory = new Directory(location);
+        final Directory modelDirectory = new Directory(directory);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Pdf(modelName, modelDirectory, modelSize, modelTags);
+        /*if (deadline == null) {
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, Deadline.class.getSimpleName()));
+        }*/
+
+        try {
+            final Deadline modelDeadline = new Deadline(deadline);
+            return new Pdf(modelName, modelDirectory, modelSize, modelTags, modelDeadline);
+        } catch (DateTimeException e) {
+            throw new IllegalValueException(Deadline.MESSAGE_CONSTRAINTS);
+        }
+
     }
 
 }

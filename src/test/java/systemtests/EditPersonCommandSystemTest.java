@@ -50,11 +50,11 @@ import seedu.address.testutil.PersonUtil;
  */
 public class EditPersonCommandSystemTest extends AddressBookSystemTest {
 
+    private static final String MODE_OTHERS = CommandMode.MODE_OTHERS + " ";
+
     /**
      * TODO: Phased out. To be replaced with EditHealthWorker/EditRequestSystemTest
      */
-    private static final String MODE_OTHERS = CommandMode.MODE_OTHERS + " ";
-
     public void edit() {
         Model model = getModel();
 

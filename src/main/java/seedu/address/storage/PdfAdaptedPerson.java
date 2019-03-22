@@ -11,7 +11,7 @@ import seedu.address.model.person.Person;
 /**
  * Jackson-friendly version of {@link Person}.
  */
-class PdfAdaptedPerson {
+class PdfAdaptedPerson implements PdfAdaptedInterface {
 
     public static final int ATTRIBUTES = 7;
 
@@ -62,6 +62,7 @@ class PdfAdaptedPerson {
      * Creates a {@code String[]} for PDF exporting.
      * @return the attributes of a PdfAdaptedPerson
      */
+    @Override
     public ArrayList<String> getStrings() {
         ArrayList<String> stringArray = new ArrayList<>(ATTRIBUTES);
         stringArray.add("NRIC: " + nric);

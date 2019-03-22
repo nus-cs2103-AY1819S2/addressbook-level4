@@ -103,44 +103,43 @@ public class InOutAddressBookStorage implements AddressBookStorage {
 
         FileUtil.createIfMissing(filePath);
 
-        ArrayList<String> stringArr;
-
         try (PDDocument doc = new PDDocument()) {
             PDFont font = PDType1Font.HELVETICA;
             int fontSize = 12;
 
             for (PdfAdaptedPerson person : toWrite.getPersons()) {
-                PDPage page = new PDPage();
-                doc.addPage(page);
-                stringArr = person.getStrings();
-                try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
-
-                    contents.setFont(font, fontSize);
-                    for (int i = 0; i < stringArr.size(); i++) {
-                        contents.beginText();
-                        contents.newLineAtOffset(100, 700 - (i * (fontSize + 3)));
-                        contents.showText(stringArr.get(i));
-                        contents.endText();
-                    }
-                }
+                printModelObject(doc, font, fontSize, person);
             }
 
             for (PdfAdaptedTask task : toWrite.getTasks()) {
-                PDPage page = new PDPage();
-                doc.addPage(page);
-                stringArr = task.getStrings();
-                try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
-
-                    contents.setFont(font, fontSize);
-                    for (int i = 0; i < stringArr.size(); i++) {
-                        contents.beginText();
-                        contents.newLineAtOffset(100, 700 - (i * (fontSize + 3)));
-                        contents.showText(stringArr.get(i));
-                        contents.endText();
-                    }
-                }
+                printModelObject(doc, font, fontSize, task);
             }
+
             doc.save(filePath.toFile());
+        }
+    }
+
+    /**
+     * Outputs the PDF adapted class object contents to a PDF page.
+     * @param doc The PDF document
+     * @param font The font type to be used
+     * @param fontSize The font size to be used
+     * @param pdfAdaptedObj The object to be printed
+     * @throws IOException If file cannot be written
+     */
+    private void printModelObject(PDDocument doc, PDFont font, int fontSize,
+                                  PdfAdaptedInterface pdfAdaptedObj) throws IOException {
+        PDPage page = new PDPage();
+        doc.addPage(page);
+        ArrayList<String> stringArr = pdfAdaptedObj.getStrings();
+        try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
+            contents.setFont(font, fontSize);
+            for (int i = 0; i < stringArr.size(); i++) {
+                contents.beginText();
+                contents.newLineAtOffset(100, 700 - (i * (fontSize + 3)));
+                contents.showText(stringArr.get(i));
+                contents.endText();
+            }
         }
     }
 }

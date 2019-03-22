@@ -8,7 +8,7 @@ import seedu.address.model.task.Task;
 /**
  * PDF-friendly version of {@link Task}.
  */
-class PdfAdaptedTask {
+class PdfAdaptedTask implements PdfAdaptedInterface {
 
     public static final int ATTRIBUTES = 3;
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
@@ -40,6 +40,7 @@ class PdfAdaptedTask {
      * Creates a {@code String[]} for PDF exporting.
      * @return the attributes of a PdfAdaptedTask
      */
+    @Override
     public ArrayList<String> getStrings() {
         ArrayList<String> stringArray = new ArrayList<>(ATTRIBUTES);
         stringArray.add("Title: " + title);

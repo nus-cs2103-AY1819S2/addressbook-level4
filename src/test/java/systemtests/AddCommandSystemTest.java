@@ -1,56 +1,56 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BEDOK;
-import static seedu.address.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_AMK;
-import static seedu.address.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_BEDOK;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_AMK;
-import static seedu.address.logic.commands.CommandTestUtil.DESCRIPTION_BEDOK;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_COUNTRY_CODE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMK;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BEDOK;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_AMK;
-import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_BEDOK;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_EWL;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MRT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BEDOK;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_BEDOK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPlaces.ALICE;
-import static seedu.address.testutil.TypicalPlaces.AMK;
-import static seedu.address.testutil.TypicalPlaces.BEDOK;
-import static seedu.address.testutil.TypicalPlaces.CARL;
-import static seedu.address.testutil.TypicalPlaces.HOON;
-import static seedu.address.testutil.TypicalPlaces.IDA;
-import static seedu.address.testutil.TypicalPlaces.KEYWORD_MATCHING_SINGAPORE;
+import static seedu.travel.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.DESCRIPTION_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.DESCRIPTION_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_COUNTRY_CODE_DESC;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_DESCRIPTION;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.travel.logic.commands.CommandTestUtil.NAME_DESC_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.NAME_DESC_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.RATING_DESC_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.RATING_DESC_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.TAG_DESC_EWL;
+import static seedu.travel.logic.commands.CommandTestUtil.TAG_DESC_MRT;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_NAME_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_RATING_BEDOK;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.travel.testutil.TypicalPlaces.ALICE;
+import static seedu.travel.testutil.TypicalPlaces.AMK;
+import static seedu.travel.testutil.TypicalPlaces.BEDOK;
+import static seedu.travel.testutil.TypicalPlaces.CARL;
+import static seedu.travel.testutil.TypicalPlaces.HOON;
+import static seedu.travel.testutil.TypicalPlaces.IDA;
+import static seedu.travel.testutil.TypicalPlaces.KEYWORD_MATCHING_SINGAPORE;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.place.Address;
-import seedu.address.model.place.CountryCode;
-import seedu.address.model.place.Description;
-import seedu.address.model.place.Name;
-import seedu.address.model.place.Place;
-import seedu.address.model.place.Rating;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PlaceBuilder;
-import seedu.address.testutil.PlaceUtil;
+import seedu.travel.commons.core.Messages;
+import seedu.travel.commons.core.index.Index;
+import seedu.travel.logic.commands.AddCommand;
+import seedu.travel.logic.commands.RedoCommand;
+import seedu.travel.logic.commands.UndoCommand;
+import seedu.travel.model.Model;
+import seedu.travel.model.place.Address;
+import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.Description;
+import seedu.travel.model.place.Name;
+import seedu.travel.model.place.Place;
+import seedu.travel.model.place.Rating;
+import seedu.travel.model.tag.Tag;
+import seedu.travel.testutil.PlaceBuilder;
+import seedu.travel.testutil.PlaceUtil;
 
-public class AddCommandSystemTest extends AddressBookSystemTest {
+public class AddCommandSystemTest extends TravelBuddySystemTest {
 
     @Test
     public void add() {
@@ -58,7 +58,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a place without tags to a non-empty address book, command with leading spaces and trailing spaces
+        /* Case: add a place without tags to a non-empty travel book, command with leading spaces and trailing spaces
          * -> added
          */
         Place toAdd = AMK;
@@ -79,14 +79,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a place with all fields same as another place in the address book except name -> added */
+        /* Case: add a place with all fields same as another place in the travel book except name -> added */
         toAdd = new PlaceBuilder(AMK).withName(VALID_NAME_BEDOK).build();
         command =
             AddCommand.COMMAND_WORD + NAME_DESC_BEDOK + COUNTRY_CODE_DESC_AMK + RATING_DESC_AMK
                 + DESCRIPTION_AMK + ADDRESS_DESC_AMK + TAG_DESC_MRT;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty address book -> added */
+        /* Case: add to empty travel book -> added */
         deleteAllPlaces();
         assertCommandSuccess(ALICE);
 
@@ -116,26 +116,26 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a duplicate place -> rejected */
         command = PlaceUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PLACE);
 
         /* Case: add a duplicate place except with different rating -> rejected */
         toAdd = new PlaceBuilder(HOON).withRating(VALID_RATING_BEDOK).build();
         command = PlaceUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PLACE);
 
         /* Case: add a duplicate place except with different description -> rejected */
         toAdd = new PlaceBuilder(HOON).withDescription(VALID_DESCRIPTION_BEDOK).build();
         command = PlaceUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PLACE);
 
-        /* Case: add a duplicate place except with different address -> rejected */
+        /* Case: add a duplicate place except with different travel -> rejected */
         toAdd = new PlaceBuilder(HOON).withAddress(VALID_ADDRESS_BEDOK).build();
         command = PlaceUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PLACE);
 
         /* Case: add a duplicate place except with different tags -> rejected */
         command = PlaceUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PLACE);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
@@ -153,7 +153,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing address -> rejected */
+        /* Case: missing travel -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + DESCRIPTION_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
@@ -181,7 +181,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 + RATING_DESC_AMK + INVALID_DESCRIPTION + ADDRESS_DESC_AMK;
         assertCommandFailure(command, Description.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid travel -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK
                 + RATING_DESC_AMK + DESCRIPTION_AMK + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
@@ -203,8 +203,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code TravelBuddySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see TravelBuddySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Place toAdd) {
         assertCommandSuccess(PlaceUtil.getAddCommand(toAdd), toAdd);
@@ -247,8 +247,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code PlaceListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code TravelBuddySystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see TravelBuddySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

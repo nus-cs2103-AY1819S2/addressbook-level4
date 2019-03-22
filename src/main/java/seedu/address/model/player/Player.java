@@ -74,7 +74,7 @@ public class Player {
         return this.fleetSize;
     }
 
-    private Fleet getFleet() {
+    public Fleet getFleet() {
         return this.fleet;
     }
 

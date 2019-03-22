@@ -1,8 +1,5 @@
 package seedu.address.logic.battle;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.beans.property.BooleanProperty;
@@ -23,14 +20,16 @@ public class BattleManager implements Battle {
      * The human player
      */
     private Player humanPlayer;
-    // The list of AI players who are waiting to take a turn.
-    private ArrayList<Player> aiPlayers;
+    /**
+     * The enemy player
+     */
+    private Player aiPlayer;
 
     private BooleanProperty isPlayerTurn;
 
-    public BattleManager(Player humanPlayer, List<Player> aiPlayers) {
+    public BattleManager(Player humanPlayer, Player aiPlayer) {
         this.humanPlayer = humanPlayer;
-        this.aiPlayers = new ArrayList<>(aiPlayers);
+        this.aiPlayer = aiPlayer;
         isPlayerTurn = new SimpleBooleanProperty(true);
     }
 
@@ -40,27 +39,12 @@ public class BattleManager implements Battle {
     }
 
     @Override
-    public AttackResult humanPerformAttack(String enemyName, Coordinates coord) {
-        Optional<Player> target = aiPlayers.stream()
-            .filter((Player p) -> p.getName().equals(enemyName))
-            .findFirst();
-        if (target.isPresent()) {
-            return performAttack(humanPlayer, target.get(), coord);
-        } else {
-            return new AttackFailed(humanPlayer, enemyName, coord,
-                "could not find player with that name");
-        }
-    }
-
-    /**
-     * The human attacks the default enemy.
-     */
     public AttackResult humanPerformAttack(Coordinates coord) {
-        return performAttack(humanPlayer, humanPlayer, coord);
+        return performAttack(humanPlayer, aiPlayer, coord);
     }
 
     /**
-     * An Player attacks an enemy.
+     * A Player attacks another Player.
      */
     private AttackResult performAttack(Player attacker, Player target, Coordinates coord) {
         logger.info(String.format(AttackResult.ATTACK, attacker.getName(), coord, target.getName()));
@@ -85,16 +69,27 @@ public class BattleManager implements Battle {
     }
 
     @Override
-    public List<AttackResult> humanEndTurn() {
+    public AttackResult humanEndTurn() {
         isPlayerTurn.setValue(false);
 
-        ArrayList<AttackResult> results = new ArrayList<>();
-        for (Player ai: aiPlayers) {
-            // make the AIs take turns
-        }
+        // AI takes its turn
 
         isPlayerTurn.setValue(true);
 
-        return results;
+        return null;
+    }
+
+    /**
+     * Returns the human player in the game.
+     */
+    public Player getHumanPlayer() {
+        return humanPlayer;
+    }
+
+    /**
+     * Returns the computer player.
+     */
+    public Player getEnemyPlayer() {
+        return aiPlayer;
     }
 }

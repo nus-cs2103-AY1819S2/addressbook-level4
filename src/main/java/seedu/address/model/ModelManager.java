@@ -19,6 +19,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.battle.Battle;
+import seedu.address.logic.battle.BattleManager;
 import seedu.address.logic.statistics.PlayerStatistics;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
@@ -26,6 +28,7 @@ import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
 import seedu.address.model.player.Fleet;
+import seedu.address.model.player.Player;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -39,7 +42,7 @@ public class ModelManager implements Model {
     private final FilteredList<Cell> filteredCells;
     private final SimpleObjectProperty<Cell> selectedPerson = new SimpleObjectProperty<>();
     private PlayerStatistics playerStats;
-    private Fleet fleet;
+    private BattleManager batMan;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -57,8 +60,10 @@ public class ModelManager implements Model {
 
         // Initialize new statistics
         this.playerStats = new PlayerStatistics();
-        // Create new fleet
-        this.fleet = new Fleet();
+
+        Player humanPlayer = new Player();
+        humanPlayer.getMapGrid().resetData(addressBook);
+        batMan = new BattleManager(humanPlayer, humanPlayer);
     }
 
     public ModelManager() {
@@ -78,8 +83,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public VersionedMapGrid getMapGrid() {
-        return versionedAddressBook;
+    public MapGrid getMapGrid() {
+        return getHumanPlayer().getMapGrid();
     }
 
     @Override
@@ -176,24 +181,24 @@ public class ModelManager implements Model {
 
     @Override
     public int getMapSize() {
-        return versionedAddressBook.getMapSize();
+        return getHumanPlayer().getMapGrid().getMapSize();
     }
 
     //=========== Battleship ===============================================================================
 
     @Override
     public Fleet getFleet() {
-        return this.fleet;
+        return getHumanPlayer().getFleet();
     }
 
     @Override
     public void deployBattleship(Battleship battleship, Coordinates coordinates, Orientation orientation) {
-        fleet.deployOneBattleship(battleship, coordinates, orientation);
+        getFleet().deployOneBattleship(battleship, coordinates, orientation);
     }
 
     @Override
     public boolean isEnoughBattleships(Battleship battleship, int numBattleship) {
-        return fleet.isEnoughBattleship(battleship, numBattleship);
+        return getFleet().isEnoughBattleship(battleship, numBattleship);
     }
 
     //=========== Statistics ===============================================================================
@@ -294,6 +299,31 @@ public class ModelManager implements Model {
         }
     }
 
+    //========== Battle manager ==========================================================================
+
+    /**
+     * Returns the human player in the game.
+     */
+    @Override
+    public Player getHumanPlayer() {
+        return batMan.getHumanPlayer();
+    }
+
+    /**
+     * Returns the computer player.
+     */
+    @Override
+    public Player getEnemyPlayer() {
+        return batMan.getEnemyPlayer();
+    }
+
+    /**
+     * Retrieves the Battle API.
+     */
+    @Override
+    public Battle getBattle() {
+        return batMan;
+    }
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

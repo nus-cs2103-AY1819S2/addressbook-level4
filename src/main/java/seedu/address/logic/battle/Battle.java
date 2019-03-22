@@ -1,8 +1,7 @@
 package seedu.address.logic.battle;
 
-import java.util.List;
-
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.player.Player;
 
 /**
  * API of the Battle component
@@ -17,10 +16,20 @@ public interface Battle {
      * Handles the human player attacking another player.
      * @return Result of the player attack.
      */
-    public AttackResult humanPerformAttack(String enemyName, Coordinates coord);
+    public AttackResult humanPerformAttack(Coordinates coord);
 
     /**
-     * Ends the player turn and causes all AIs to make attacks.
+     * Ends the player turn and causes the AI to make its attack.
      */
-    public List<AttackResult> humanEndTurn();
+    public AttackResult humanEndTurn();
+
+    /**
+     * Returns the human player in the game.
+     */
+    Player getHumanPlayer();
+
+    /**
+     * Returns the computer player.
+     */
+    Player getEnemyPlayer();
 }

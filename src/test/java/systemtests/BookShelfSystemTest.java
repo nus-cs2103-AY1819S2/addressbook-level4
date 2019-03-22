@@ -32,10 +32,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListBookCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalBooks;
@@ -60,7 +57,7 @@ public abstract class BookShelfSystemTest {
 
     @BeforeClass
     public static void setupBeforeClass() {
-        SystemTestSetupHelper.initialize();
+        BookSystemTestSetupHelper.initialize();
     }
 
     @Before
@@ -82,7 +79,7 @@ public abstract class BookShelfSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected BookShelf getInitialData() {
-        return TypicalBooks.getTypicalAddressBook();
+        return TypicalBooks.getTypicalBookShelf();
     }
 
     /**
@@ -136,19 +133,11 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
-     * Displays all persons in the address book.
+     * Displays all books in the address book.
      */
-    protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getBookShelf().getPersonList().size(), getModel().getFilteredPersonList().size());
-    }
-
-    /**
-     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
-     */
-    protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getBookShelf().getPersonList().size());
+    protected void showAllBooks() {
+        executeCommand(ListBookCommand.COMMAND_WORD);
+        assertEquals(getModel().getBookShelf().getBookList().size(), getModel().getFilteredBookList().size());
     }
 
     /**
@@ -157,22 +146,6 @@ public abstract class BookShelfSystemTest {
     protected void showBooksWithName(String keyword) {
         executeCommand(ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + keyword);
         assertTrue(getModel().getFilteredBookList().size() < getModel().getBookShelf().getBookList().size());
-    }
-
-    /**
-     * Selects the person at {@code index} of the displayed list.
-     */
-    protected void selectPerson(Index index) {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getBookListPanel().getSelectedCardIndex());
-    }
-
-    /**
-     * Deletes all persons in the address book.
-     */
-    protected void deleteAllPersons() {
-        executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getBookShelf().getPersonList().size());
     }
 
     /**
@@ -185,19 +158,19 @@ public abstract class BookShelfSystemTest {
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same person objects as {@code expectedModel}
-     * and the person list panel displays the persons in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same book objects as {@code expectedModel}
+     * and the book list panel displays the books in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new BookShelf(expectedModel.getBookShelf()), testApp.readStorageAddressBook());
+        assertEquals(new BookShelf(expectedModel.getBookShelf()), testApp.readStorageBookShelf());
         assertListMatching(getBookListPanel(), expectedModel.getFilteredBookList());
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BrowserPanelHandle}, {@code BookListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -205,7 +178,7 @@ public abstract class BookShelfSystemTest {
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getBookListPanel().rememberSelectedPersonCard();
+        getBookListPanel().rememberSelectedBookCard();
     }
 
     /**
@@ -222,7 +195,7 @@ public abstract class BookShelfSystemTest {
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BookBrowserPanelHandle#isUrlChanged()
-     * @see BookListPanelHandle#isSelectedPersonCardChanged()
+     * @see BookListPanelHandle#isSelectedBookCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getBookListPanel().navigateToCard(getBookListPanel().getSelectedCardIndex());
@@ -241,11 +214,11 @@ public abstract class BookShelfSystemTest {
     /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
      * @see BookBrowserPanelHandle#isUrlChanged()
-     * @see BookListPanelHandle#isSelectedPersonCardChanged()
+     * @see BookListPanelHandle#isSelectedBookCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getBookListPanel().isSelectedPersonCardChanged());
+        assertFalse(getBookListPanel().isSelectedBookCardChanged());
     }
 
     /**

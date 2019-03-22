@@ -32,6 +32,13 @@ public interface Logic {
      */
     ReadOnlyBookShelf getAddressBook();
 
+    /**
+     * Returns the BookShelf.
+     *
+     * @see seedu.address.model.Model#getBookShelf()
+     */
+    ReadOnlyBookShelf getBookShelf();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
@@ -48,6 +55,11 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' book shelf file path.
+     */
+    Path getBookShelfFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

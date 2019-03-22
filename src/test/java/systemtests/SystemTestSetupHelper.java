@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
+import org.junit.Ignore;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
@@ -14,6 +15,7 @@ import seedu.address.model.ReadOnlyBookShelf;
 /**
  * Contains helper methods that system tests require.
  */
+@Ignore
 public class SystemTestSetupHelper {
     private TestApp testApp;
     private MainWindowHandle mainWindowHandle;

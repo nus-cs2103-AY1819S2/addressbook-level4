@@ -20,7 +20,6 @@ import seedu.address.model.book.Book;
  * A utility class containing a list of {@code Book} objects to be used in tests.
  */
 public class TypicalBooks {
-
     public static final Book BOOKTHIEF = new BookBuilder().withBookName("The Book Thief")
             .withAuthor("Markus Zusak")
             .withRating("7")
@@ -65,18 +64,23 @@ public class TypicalBooks {
             .build();
 
     public static final String KEYWORD_MATCHING_LIFE = "life"; // A keyword that matches LIFE
+    public static final String KEYWORD_MATCHING_ZUSAK = "Zusak"; // A keyword that matches Zusak
+    public static final String KEYWORD_MATCHING_COLLINS = "Collins"; //A keyword that matches Collins
+    public static final String KEYWORD_MATCHING_SIX = "6"; // A keyword that matches 6
+    public static final String KEYWORD_MATCHING_FANTASY = "fantasy"; // A keyword that matches fantasy
+
 
     private TypicalBooks() {} // prevents instantiation
 
     /**
      * Returns an {@code BookShelf} with all the typical books.
      */
-    public static BookShelf getTypicalAddressBook() {
-        BookShelf ab = new BookShelf();
+    public static BookShelf getTypicalBookShelf() {
+        BookShelf bs = new BookShelf();
         for (Book book : getTypicalBooks()) {
-            ab.addBook(book);
+            bs.addBook(book);
         }
-        return ab;
+        return bs;
     }
 
     public static List<Book> getTypicalBooks() {

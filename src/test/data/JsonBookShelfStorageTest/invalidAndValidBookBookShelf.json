@@ -1,0 +1,11 @@
+{
+  "books": [ {
+    "bookname": "Valid Book",
+    "author": "Lewis Carroll",
+    "rating": "5"
+  }, {
+    "bookname": "Book With Invalid Author Field",
+    "author": "J.K",
+    "rating": "5"
+  } ]
+}

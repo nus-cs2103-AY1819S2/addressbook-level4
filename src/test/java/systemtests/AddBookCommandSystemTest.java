@@ -38,7 +38,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
 
-public class AddBookCommandSystemTest extends AddressBookSystemTest {
+public class AddBookCommandSystemTest extends BookShelfSystemTest {
 
     @Test
     public void add() {
@@ -155,8 +155,8 @@ public class AddBookCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code BookShelfSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see BookShelfSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Book toAdd) {
         assertCommandSuccess(BookUtil.getAddBookCommand(toAdd), toAdd);

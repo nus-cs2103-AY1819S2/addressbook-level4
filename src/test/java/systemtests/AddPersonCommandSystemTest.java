@@ -41,6 +41,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
+/**
+ * Deprecated test for AddCommand in AB4.
+ */
 public class AddPersonCommandSystemTest extends AddressBookSystemTest {
 
     // TODO: Phased out. To be changed to AddHealthWorker/AddRequestSystemTest.

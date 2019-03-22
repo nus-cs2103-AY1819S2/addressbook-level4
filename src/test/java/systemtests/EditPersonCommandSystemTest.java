@@ -45,8 +45,9 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-//import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_BOB;
-
+/**
+ * Deprecated system test for EditCommand in AB4.
+ */
 public class EditPersonCommandSystemTest extends AddressBookSystemTest {
 
     // TODO: Phased out. To be replaced with EditHealthWorker/EditRequestSystemTest

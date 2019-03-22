@@ -61,7 +61,7 @@ public class AddCommandParserTest {
         Person expectedPerson = new PersonBuilder(BOB).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser,  NAME_DESC_BOB + PHONE_DESC_BOB + NRIC_DESC_BOB,
+        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + NRIC_DESC_BOB,
                 new AddPersonCommand(expectedPerson));
 
         // multiple names - last name accepted

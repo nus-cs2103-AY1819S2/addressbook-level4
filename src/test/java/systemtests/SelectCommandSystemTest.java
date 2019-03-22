@@ -16,6 +16,9 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 
+/**
+ * Deprecated system for SelectCommand in AB4.
+ */
 public class SelectCommandSystemTest extends AddressBookSystemTest {
 
     // TODO: Deprecated. To be replaced with new SelectCommandSystemTest after implementing of Select command

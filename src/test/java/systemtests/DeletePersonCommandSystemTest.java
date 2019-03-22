@@ -18,6 +18,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
+/**
+ * Deprecated system test for DeleteCommand in AB4.
+ */
 public class DeletePersonCommandSystemTest extends AddressBookSystemTest {
 
     // TODO: Phased out. To be replaced with DeleteHealthWorker/DeleteRequestSystemTest

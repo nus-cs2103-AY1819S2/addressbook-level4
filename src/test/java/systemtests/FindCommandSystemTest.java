@@ -15,6 +15,9 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 
+/**
+ * Deprecated system test for FindCommand in AB4.
+ */
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
     // TODO: replace to filter system test after find is changed to filter

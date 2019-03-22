@@ -12,6 +12,9 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+/**
+ * Deprecated system test for ClearCommand in AB4.
+ */
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     // TODO: Deprecated. To be replaced accordingly.

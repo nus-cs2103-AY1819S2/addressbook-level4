@@ -7,6 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.MULTIPLICATION;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
+import static seedu.address.testutil.TypicalDecks.DECK_A;
+import static seedu.address.testutil.TypicalDecks.DECK_B;
+import static seedu.address.testutil.TypicalDecks.DECK_C;
+import static seedu.address.testutil.TypicalDecks.DECK_D;
+import static seedu.address.testutil.TypicalDecks.DECK_E;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,6 +22,15 @@ import org.junit.Test;
 import seedu.address.testutil.TopDeckBuilder;
 
 public class VersionedTopDeckTest {
+
+
+    private final ReadOnlyTopDeck topDeckWithDeckA = new TopDeckBuilder().withDeck(DECK_A).build();
+    private final ReadOnlyTopDeck topDeckWithDeckB = new TopDeckBuilder().withDeck(DECK_B).build();
+    private final ReadOnlyTopDeck topDeckWithDeckC = new TopDeckBuilder().withDeck(DECK_C).build();
+    private final ReadOnlyTopDeck topDeckWithDeckD = new TopDeckBuilder().withDeck(DECK_D).build();
+    private final ReadOnlyTopDeck topDeckWithDeckE = new TopDeckBuilder().withDeck(DECK_E).build();
+    private final ReadOnlyTopDeck EmptyTopDeck = new TopDeckBuilder().build();
+
 
     private final ReadOnlyTopDeck topDeckWithAdd = new TopDeckBuilder().withCard(ADDITION).build();
     private final ReadOnlyTopDeck topDeckWithSub = new TopDeckBuilder().withCard(SUBTRACTION).build();

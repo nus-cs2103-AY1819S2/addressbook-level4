@@ -5,6 +5,10 @@ package seedu.address.model.cell;
  */
 public enum Status {
     /**
+     * This cell has not been hit before. Can be either empty or has a ship. Used in enemy view of the map.
+     */
+    HIDDEN,
+    /**
      * This cell is empty and has not been hit.
      */
     EMPTY,

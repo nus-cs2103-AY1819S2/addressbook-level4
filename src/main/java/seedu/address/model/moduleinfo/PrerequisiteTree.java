@@ -9,28 +9,28 @@ import java.util.ArrayList;
 public class PrerequisiteTree {
 
     private String head;
-    private ArrayList<ArrayList<ModuleInfo>> Tree;
+    private ArrayList<ArrayList<ModuleInfo>> tree;
 
 
     public PrerequisiteTree(String head) {
         this.head = head;
-        this.Tree = new ArrayList<>();
+        this.tree = new ArrayList<>();
     }
 
     public void addAndPreRequisite(ArrayList<ModuleInfo> moduleList) {
-        Tree.add(moduleList);
+        tree.add(moduleList);
     }
 
     public int getAndTreeSize() {
-        return Tree.size();
+        return tree.size();
     }
 
     public void addOrPreRequisite(int i, ModuleInfo module) {
-        Tree.get(i).add(module);
+        tree.get(i).add(module);
     }
 
     public int getOrTreeSize(int i) {
-        return Tree.get(i).size();
+        return tree.get(i).size();
     }
 
 

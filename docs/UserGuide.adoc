@@ -50,73 +50,41 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `c/MODULE_CODE [g/GRADE_OBTAINED]` can be used as `c/cs1010 g/A` or as `c/cs1010`.
 ====
 
-=== View all other commands : `help`
-
-Displays a list of all available commands. +
-Format: `help`
-
-=== Set course of study: `set`
-
-Sets the course of study you are currently undertaking. +
-Format: `set COURSE` +
-
-Course abbreviations are as follows:
-****
-* `BZA` - Business Analytics
-* `CS` - Computer Science
-* `CEG` - Computer Engineering
-* `IS` - Information System
-* `IFS` - Infocomm Security
-****
-
-Examples:
-
-* `set CS` +
-Sets the course of study to Computer Science.
-
-Invoking set again will change your course of study
-
 === Add module: `add`
 
 Adds a module to the module plan based on the given module code, semester taken and expected / obtained grade. +
-Format: `add c/MODULE_CODE s/SEMESTER [g/MIN_GRADE_EXPECTED MAX_GRADE_EXPECTED]` +
+Format: `add c/MODULE_CODE s/SEMESTER [min/NEW_EXPECTED_MIN_GRADE] [max/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
 or +
-`add c/MODULE_CODE s/SEMESTER [g/GRADE_OBTAINED]`
+`add c/MODULE_CODE s/SEMESTER [g/NEW_EXPECTED_MIN_GRADE NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]`
 
 ****
-* Possible grade options are the standard letter grades (A+, A, A-, B+, B, B- etc.) and IC, EXE, CS, CU, W, S, U.
+* Possible grade options are the standard letter grades (A_PLUS, A, A_MINUS, B_PLUS, B, B_MINUS etc.) and IC, EXE, CS, CU, W, S, U.
 * You cannot add an existing module with the same semester.
 * You can only add a module if you have previously added its prerequisites.
 ****
 
 Examples:
 
-* `add c/cs2103t s/y2s2` +
+* `add c/CS2103T s/Y2S2` +
 Adds CS2103T, to be taken in Y2S2, to the module plan.
 
-* `add c/cs2103t s/y2s2 g/B-` +
-Adds CS2103T, taken in Y2S2 with grade B-, to the module plan.
+* `add c/CS2103T s/Y2S2 max/B_MINUS` +
+Adds CS2103T, to be taken in Y2S2 with expected max grade B-, to the module plan.
 
-=== Edit module: `edit`
+=== Listing all modules in module plan: `cklimit`
 
-Edits the semester or grade of a module in the module plan based on module code or index in the most recently displayed list. +
-Format: `edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
-        or +
-        `edit INDEX [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
+Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user. +
+Format: `cklimit`
 
-****
-* Parameters can be in any order, but the index must be entered first.
-* Parameters are case-insensitive.
-* At least one field to be edited must be given.
-****
+=== Clear all data entered: `clear`
 
-Examples:
+Deletes all the added modules. +
+Format: `clear`
 
-* `edit c/cs2103t s/y2s2` +
-Changes the semester taken of CS2103T to Y2S2.
+=== Sets the current semester: `cursem`
 
-* `edit 2 g/A+` +
-Changes the grade obtained of the second module in the most recently displayed list to A+.
+Indicates that the previous semesters must have a single finalized grade in the expected grade range. +
+Format: `cursem`
 
 === Delete module: `delete`
 
@@ -131,38 +99,10 @@ or +
 
 Examples:
 
-* `delete c/cs2103t` +
+* `delete c/CS2103T` +
 Deletes CS2103T from the module plan.
 * `delete 1` +
 Deletes the first module on the most recently displayed list.
-
-=== Find module: `find`
-
-Finds module(s) in the module plan based on module code, semester, grade or finished status. +
-Module code can be entered partially, but semester and grade must be exact.
-Finished status must be 'y' (YES) or 'n' (NO).
-
-Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
-
-****
-* Parameters can be in any order.
-* Parameters are case-insensitive.
-* Modules matching ALL of the above parameters will be listed.
-****
-
-Examples:
-
-* `find c/cs2` +
-Lists all level-2000 CS modules in the module plan.
-* `find c/cs s/y1s2` +
-Lists all CS modules (to be) taken in Y1S2.
-
-=== Recommend module: `rec`
-
-Recommends a list of modules that can be taken based on completed modules, FA and course requirements.
-Modules are displayed according to the following order of priority: Core, FA, non-FA, General Education and Unrestricted Elective modules. +
-Format: `rec`
-
 
 === Display module information: `displaymod`
 
@@ -219,6 +159,57 @@ Displays completed requirement.
 * `displayu o/req c/false` +
 Display requirements not completed and modules that can be taken to fulfil the requirements.
 
+=== Edit module: `edit`
+
+Edits the semester or grade of a module in the module plan based on module code or index in the most recently displayed list. +
+Format: `edit INDEX [s/NEW_SEMESTER] [min/NEW_EXPECTED_MIN_GRADE] [max/NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]`
+or +
+`edit INDEX [s/NEW_SEMESTER] [g/NEW_EXPECTED_MIN_GRADE NEW_EXPECTED_MAX_GRADE] [lec/NEW_LECTURE_HOURS] [tut/NEW_TUTORIAL_HOURS] [lab/NEW_LAB_HOURS] [proj/NEW_PROJ_HOURS] [prep/NEW_PREP_HOURS]` +
+
+****
+* Parameters can be in any order, but the index must be entered first.
+* At least one field to be edited must be given.
+****
+
+Examples:
+
+* `edit c/CS2103T s/Y2S2` +
+Changes the semester taken of CS2103T to Y2S2.
+
+* `edit 2 min/A_PLUS` +
+Changes the expected min grade of the second module in the most recently displayed list to A+.
+
+=== Exit the program: `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Find module: `find`
+
+Finds module(s) in the module plan based on module code, semester, grade or finished status. +
+Module code can be entered partially, but semester and grade must be exact.
+Finished status must be 'y' (YES) or 'n' (NO).
+
+Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
+
+****
+* Parameters can be in any order.
+* Parameters are case-insensitive.
+* Modules matching ALL of the above parameters will be listed.
+****
+
+Examples:
+
+* `find c/cs2` +
+Lists all level-2000 CS modules in the module plan.
+* `find c/cs s/y1s2` +
+Lists all CS modules (to be) taken in Y1S2.
+
+=== View all other commands : `help`
+
+Displays a list of all available commands. +
+Format: `help`
+
 === List entered commands: `history`
 
 Lists all commands entered in reverse chronological order. +
@@ -229,7 +220,67 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
+=== Listing all modules in module plan: `list`
+
+Shows a list of all modules added by the user. +
+Format: `list`
+
+=== Recommend module: `rec`
+
+Recommends a list of modules that can be taken based on completed modules, FA and course requirements.
+Modules are displayed according to the following order of priority: Core, FA, non-FA, General Education and Unrestricted Elective modules. +
+Format: `rec`
+
+=== Redo the previously undone command: `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+
+=== Set course of study: `set`
+
+Sets the course of study you are currently undertaking. +
+Format: `set COURSE` +
+
+Course abbreviations are as follows:
+****
+* `BZA` - Business Analytics
+* `CS` - Computer Science
+* `CEG` - Computer Engineering
+* `IS` - Information System
+* `IFS` - Infocomm Security
+****
+
+Examples:
+
+* `set CS` +
+Sets the course of study to Computer Science. Invoking `set` command again will change your course of study
+
+=== Sets the total expected CAP and workload limit for each semester: `setlimit`
+
+Calculates the expected total workload and expected min and max CAP of each semester and checks against the limit set by the user. +
+Format: `setlimit s/SEMESTER [g/MIN_GRADE MAX_GRADE] [lec/MIN_LECTURE_HOURS MAX_LECTURE_HOURS] [tut/MIN_TUTORIAL_HOURS MAX_TUTORIAL_HOURS] [lab/MIN_LAB_HOURS MAX_LAB_HOURS] [proj/MIN_PROJ_HOURS MAX_PROJ_HOURS] [prep/MIN_PREP_HOURS MAX_PREP_HOURS]`
+
+Examples:
+
+* `setlimit s/Y1S1 g/2.5 5.0`
+
 === Undo previous command: `undo`
 
 Restores the module plan to the state before the previous _undoable_ command was executed. +
@@ -256,39 +307,6 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redo the previously undone command: `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clear all data entered: `clear`
-
-Clears the module plan. +
-Format: `clear`
-
-=== Exit the program: `exit`
-
-Exits the program. +
-Format: `exit`
-
 === Save data
 
 Data are saved in the hard disk automatically after any command that changes them. There is no need to save manually.
@@ -303,8 +321,6 @@ Encrypts user data files.
 
 Retrieves the latest information of all modules from CORS.
 
-
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
@@ -312,22 +328,32 @@ Retrieves the latest information of all modules from CORS.
 
 == Command Summary
 
-* *Set*: `set COURSE` +
+
 * *Add*: `add c/MODULE_CODE s/SEMESTER [g/MIN_GRADE_EXPECTED MAX_GRADE_EXPECTED]` +
           or +
           `add c/MODULE_CODE s/SEMESTER [g/GRADE_OBTAINED]` +
-* *Edit*: `edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
-or +
-`edit INDEX [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
+* *Cklimit*: `cklimit`
+* *Clear*: `clear`
+* *Cursem*: `cursem s/SEMESTER`
 * *Delete*: `delete c/MODULE_CODE` +
 or +
 `delete INDEX` +
-* *Find*: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
-* *Recommend*: `rec`
-* *Clear*: `clear`
 * *Displaym*: `displaym o/OPTIONS [MORE_ARGUMENTS]` +
 * *Displayu*: `displayu o/OPTIONS [MORE_ARGUMENTS]` +
+* *Edit*: `edit c/MODULE_CODE [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
+or +
+`edit INDEX [s/NEW_SEMESTER] [g/NEW_GRADE_OBTAINED]` +
+* *Exit*: `exit`
+* *Find*: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 * *Help*: `help`
 * *History*: `history`
-* *Undo*: `undo`
+* *List*: `list`
+* *Recommend*: `rec`
 * *Redo*: `redo`
+* *Set*: `set COURSE` +
+* *Setlimit*: `setlimit s/SEMESTER [g/MIN_GRADE MAX_GRADE] [lec/MIN_LECTURE_HOURS MAX_LECTURE_HOURS] [tut/MIN_TUTORIAL_HOURS MAX_TUTORIAL_HOURS] [lab/MIN_LAB_HOURS MAX_LAB_HOURS] [proj/MIN_PROJ_HOURS MAX_PROJ_HOURS] [prep/MIN_PREP_HOURS MAX_PREP_HOURS]`
+* *Undo*: `undo`
+
+
+
+

@@ -9,16 +9,16 @@ public class ModuleInfoPrerequisites {
     public static final String EQUIVALENT_REGEX = "its equivalent";
     public static final String NOREQUIREMENT_MESSAGE = "No prerequisites needed";
 
-    private PrerequisiteTree Tree;
+    private PrerequisiteTree tree;
     private String prerequisitesString;
 
-    public ModuleInfoPrerequisites(String Code, String prereq) {
-        this.Tree = new PrerequisiteTree(Code);
+    public ModuleInfoPrerequisites(String code, String prereq) {
+        this.tree = new PrerequisiteTree(code);
         this.prerequisitesString = prereq;
     }
 
     /**
-     * generates PreReuqisite Tree for this particular module
+     * generates PreReuqisite tree for this particular module
      */
     public void generatePrerequisiteTree() {
         if (!prerequisitesString.equals(NOREQUIREMENT_MESSAGE)) {

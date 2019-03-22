@@ -7,6 +7,8 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.job.Job;
+import seedu.address.model.job.UniqueJobList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueNricMap;
 import seedu.address.model.person.UniquePersonList;
@@ -20,6 +22,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueNricMap nrics;
     private final UniquePersonList persons;
+    private final UniqueJobList jobs;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -32,6 +35,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         nrics = new UniqueNricMap();
+        jobs = new UniqueJobList();
     }
 
     public AddressBook() {}
@@ -83,6 +87,23 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.add(p);
         nrics.add(p.getNric(), p);
         indicateModified();
+    }
+
+    /**
+     * Adds a job to the address book.
+     * The job must not already exist in the address book.
+     */
+    public void addJob(Job j) {
+        jobs.add(j);
+        indicateModified();
+    }
+
+    /**
+     * Returns true if a job with the same identity as {@code job} exists in the address book.
+     */
+    public boolean hasJob(Job job) {
+        requireNonNull(job);
+        return jobs.contains(job);
     }
 
     /**

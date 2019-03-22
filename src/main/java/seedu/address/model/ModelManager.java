@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.interviews.Interviews;
+import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -105,6 +106,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasJob(Job job) {
+        requireNonNull(job);
+        return versionedAddressBook.hasJob(job);
+    }
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
     }
@@ -113,6 +120,11 @@ public class ModelManager implements Model {
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addJob(Job job) {
+        versionedAddressBook.addJob(job);
     }
 
     @Override

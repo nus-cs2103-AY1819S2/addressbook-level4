@@ -91,6 +91,24 @@ public class Job {
         return false;
     }
 
+    /**
+     * Returns true if both jobs have the same identity and data fields.
+     * This defines a stronger notion of equality between two jobs.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Job)) {
+            return false;
+        }
+
+        Job otherJob = (Job) other;
+        return otherJob.getName().equals(getName());
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

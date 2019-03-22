@@ -50,8 +50,8 @@ public class PutShipCommandTest {
 
         Battleship battleship = new DestroyerBattleship();
 
-        model.getMapGrid().initialise(cellGrid);
-        model.getMapGrid().getCell(COORDINATES_A1).putShip(battleship);
+        model.getHumanMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().getCell(COORDINATES_A1).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
 
@@ -73,8 +73,8 @@ public class PutShipCommandTest {
 
         Battleship battleship = new Battleship();
 
-        model.getMapGrid().initialise(cellGrid);
-        model.getMapGrid().getCell(COORDINATES_B1).putShip(battleship);
+        model.getHumanMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().getCell(COORDINATES_B1).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
@@ -95,8 +95,8 @@ public class PutShipCommandTest {
 
         Battleship battleship = new Battleship();
 
-        model.getMapGrid().initialise(cellGrid);
-        model.getMapGrid().getCell(COORDINATES_A2).putShip(battleship);
+        model.getHumanMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().getCell(COORDINATES_A2).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
@@ -115,7 +115,7 @@ public class PutShipCommandTest {
             }
         }
 
-        model.getMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().initialise(cellGrid);
         Battleship battleship = new Battleship();
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
@@ -135,7 +135,7 @@ public class PutShipCommandTest {
             }
         }
 
-        model.getMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().initialise(cellGrid);
         Battleship battleship = new Battleship();
 
         Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
@@ -155,7 +155,7 @@ public class PutShipCommandTest {
             }
         }
 
-        model.getMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().initialise(cellGrid);
         Battleship battleship = new AircraftCarrierBattleship();
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
@@ -166,7 +166,7 @@ public class PutShipCommandTest {
 
             // Test length of battleship
             for (int i = 0; i < battleship.getLength(); i++) {
-                Cell cellToCheck = model.getMapGrid().getCell(
+                Cell cellToCheck = model.getHumanMapGrid().getCell(
                         COORDINATES_A1.getRowIndex().getZeroBased(),
                         COORDINATES_A1.getColIndex().getZeroBased() + i);
                 assertTrue(cellToCheck.hasBattleShip());
@@ -186,7 +186,7 @@ public class PutShipCommandTest {
             }
         }
 
-        model.getMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().initialise(cellGrid);
         Battleship battleship = new AircraftCarrierBattleship();
 
         Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
@@ -197,7 +197,7 @@ public class PutShipCommandTest {
 
             // Test length of battleship
             for (int i = 0; i < battleship.getLength(); i++) {
-                Cell cellToCheck = model.getMapGrid().getCell(
+                Cell cellToCheck = model.getHumanMapGrid().getCell(
                         COORDINATES_A1.getRowIndex().getZeroBased() + i,
                         COORDINATES_A1.getColIndex().getZeroBased());
                 assertTrue(cellToCheck.hasBattleShip());
@@ -218,14 +218,14 @@ public class PutShipCommandTest {
             }
         }
 
-        model.getMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().initialise(cellGrid);
         Battleship battleship = new AircraftCarrierBattleship();
         Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
 
         PutShipCommand putShipCommand = new PutShipCommand(COORDINATES_A1, battleship, orientation);
 
-        model.getMapGrid().initialise(cellGrid);
-        model.getMapGrid().getCell(COORDINATES_A2).putShip(battleship);
+        model.getHumanMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().getCell(COORDINATES_A2).putShip(battleship);
         model.deployBattleship(battleship, COORDINATES_A2, orientation);
 
         assertCommandFailure(putShipCommand, model, commandHistory,

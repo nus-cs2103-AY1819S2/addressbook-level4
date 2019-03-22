@@ -72,8 +72,13 @@ public class ModelManager implements Model {
 
     //=========== MapGrid ================================================================================
     @Override
-    public MapGrid getMapGrid() {
+    public MapGrid getHumanMapGrid() {
         return getHumanPlayer().getMapGrid();
+    }
+
+    @Override
+    public MapGrid getEnemyMapGrid() {
+        return getEnemyPlayer().getMapGrid();
     }
 
     @Override

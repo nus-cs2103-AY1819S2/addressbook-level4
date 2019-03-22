@@ -115,7 +115,7 @@ public class LogicManager implements Logic {
 
     @Override
     public MapGrid getMapGrid() {
-        return model.getMapGrid();
+        return model.getHumanMapGrid();
     }
 
     @Override

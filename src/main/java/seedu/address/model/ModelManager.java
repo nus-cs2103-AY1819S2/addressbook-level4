@@ -22,7 +22,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the book shelf data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -35,15 +35,15 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Book> selectedBook = new SimpleObjectProperty<>();
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given book shelf and userPrefs.
      */
-    public ModelManager(ReadOnlyBookShelf addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyBookShelf bookShelf, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(bookShelf, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with book shelf: " + bookShelf + " and user prefs " + userPrefs);
 
-        versionedBookShelf = new VersionedBookShelf(addressBook);
+        versionedBookShelf = new VersionedBookShelf(bookShelf);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedBookShelf.getPersonList());
         filteredBooks = new FilteredList<>(versionedBookShelf.getBookList());
@@ -81,20 +81,20 @@ public class ModelManager implements Model {
 
     @Override
     public Path getBookShelfFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getBookShelfFilePath();
     }
 
     @Override
-    public void setBookShelfFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setBookShelfFilePath(Path bookShelfFilePath) {
+        requireNonNull(bookShelfFilePath);
+        userPrefs.setBookShelfFilePath(bookShelfFilePath);
     }
 
     //=========== BookShelf ================================================================================
 
     @Override
-    public void setBookShelf(ReadOnlyBookShelf addressBook) {
-        versionedBookShelf.resetData(addressBook);
+    public void setBookShelf(ReadOnlyBookShelf bookShelf) {
+        versionedBookShelf.resetData(bookShelf);
     }
 
     @Override

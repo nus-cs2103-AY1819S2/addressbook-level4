@@ -46,11 +46,18 @@ public class SampleDataUtil {
 
     public static Book[] getSampleBooks() {
         return new Book[] {
-            new Book(new BookName("Alice in Wonderland"), new Author("Lewis Carroll"), new Rating("5"),
-                getTagSet("fantasy")),
-            new Book(new BookName("Structure and Interpretation of Computer Programs"),
-                new Author("Hal Abelson Jerry Sussman"), new Rating("4"),
-                getTagSet("textbook", "boring")),
+            new Book(new BookName("Madame Bovary"), new Author("Gustave Flaubert"), new Rating("8"),
+                getTagSet("classic")),
+            new Book(new BookName("Pride and Prejudice"), new Author("Jane Austen"), new Rating("6"),
+                getTagSet("novel", "romantic")),
+            new Book(new BookName("Green Eggs and Ham"), new Author("Dr Seuss"), new Rating("7"),
+                getTagSet("children")),
+            new Book(new BookName("The Adventures of Tintin"), new Author("Georges Remi"), new Rating("5"),
+                getTagSet("adventure")),
+            new Book(new BookName("Gone Girl"), new Author("Gillian Flynn"), new Rating("4"),
+                getTagSet("thriller")),
+            new Book(new BookName("One Hundred Years of Solitude"), new Author("Garcia Marquez"), new Rating("9"),
+                getTagSet("fantasy"))
         };
     }
 

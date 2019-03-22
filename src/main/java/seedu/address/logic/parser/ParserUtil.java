@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.tag.Tag;
@@ -107,6 +109,37 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static Deadline parseDeadline(String deadline) throws ParseException {
+        requireNonNull(deadline);
+
+        final int DAY_POSITION = 0;
+        final int MONTH_POSITION = 1;
+        final int YEAR_POSITION = 2;
+        final String PARAMETER_SEPERATOR = "-";
+        final String DATE_ERROR = "Invalid Date Format/Value";
+
+        String[] dates = deadline.split(PARAMETER_SEPERATOR);
+
+        for (String s : dates) {
+            if (s.length() == 0 || s.length() > 4) {
+                throw new ParseException(DATE_ERROR);
+            }
+        }
+
+        if (dates[DAY_POSITION].length() > 2 || dates[MONTH_POSITION].length() > 2
+                || dates[YEAR_POSITION].length() > 4) {
+            throw new ParseException(DATE_ERROR);
+        }
+
+        try {
+            return new Deadline(Integer.parseInt(dates[DAY_POSITION]), Integer.parseInt(dates[MONTH_POSITION]),
+                    Integer.parseInt(dates[YEAR_POSITION]));
+        } catch (DateTimeException e) {
+            throw new ParseException(DATE_ERROR);
+        }
+
     }
 
 }

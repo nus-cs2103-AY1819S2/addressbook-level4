@@ -175,6 +175,11 @@ public class Pdf {
         //.append(" Address: ")
         //.append(getAddress())
         getTags().forEach(builder::append);
+
+        if (getDeadline().exists()) {
+            builder.append(" Deadline: ").append(getDeadline().getValue().toString());
+        }
+
         return builder.toString();
     }
 

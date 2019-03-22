@@ -287,7 +287,7 @@ The key operations are as follows:
 * `CsvWrapper#createCsvFile(String csvFileName)` -- Creates a CSV file with the file name based on the `csvFileName` input. The file is created in the `exported` directory which is located in the same directory as our product application.
 * `CsvWrapper#writeDataToCsv(List currentGuiList)` -- Writes the current Medicine Inventory data shown in the GUI to the CSV file created by the `CsvWrapper#createCsvFile(String csvFileName)` operation.
 
-[Note]
+[NOTE]
 Out of the three key operations stated above, *only* `CsvWrapper#export()` is a _public_ operation available for use by other components. It acts as the main interface which other components use to interact with `CsvWrapper` in order to integrate exporting to CSV file format feature into their own implementation.
 
 Given below is a sequence diagram overview of how these 3 key operations behaves when you execute the export command in order to export the current Medicine Inventory data shown in the GUI to CSV file format:

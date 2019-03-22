@@ -3,10 +3,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.web.WebView?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.control.Label?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1">
-  <ImageView fx:id="thumbnail"/>
-  <Label fx:id="name" />
-  <Label fx:id="directory"/>
+  <WebView fx:id="browser"/>
 </StackPane>

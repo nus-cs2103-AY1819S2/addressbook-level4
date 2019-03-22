@@ -65,7 +65,7 @@ Format: `help`
 
 === Importing a file: `add`
 
-You can add a PDF file to the app +
+Adds a PDF file to the app +
 Format: `add f/PATH_TO_FILE`
 
 
@@ -77,12 +77,12 @@ Example:
 
 === Listing all files : `list`
 
-You can view a list of all PDF files in the app. +
+Shows a list of all PDF files in the app. +
 Format: `list`
 
 === Opening a file : `open`
 
-You can open an existing file at a specified index in the app with default PDF reader. +
+Opens an existing file at a specified index in the app with default PDF reader. +
 Format: `open INDEX`
 
 Example:
@@ -91,7 +91,7 @@ Example:
 
 === Editing a file : `edit`
 
-You can edit the name or tags of a file at the specified index of the list. +
+Edit the name or tags of a file at the specified index of the list. +
 Format: `edit INDEX n/NAME t/TAG`
 
 Example:
@@ -100,7 +100,7 @@ Example:
 
 === Deleting a file : `delete`
 
-You can deletes the file with specified index of the list from the app. +
+Deletes the file with specified index of the list from the app. +
 Format: `delete INDEX`
 
 Example:
@@ -109,7 +109,7 @@ Example:
 
 === Moving a file : `move`
 
-You can move the file at the specified index of the list into another directory. +
+Move the file at the specified index of the list into another directory. +
 Format: `move INDEX d/DIRECTORY`
 
 Example:
@@ -118,12 +118,12 @@ Example:
 
 === Exiting the program : `exit`
 
-You may exits the program with the exit command. +
+Exits the program. +
 Format: `exit`
 
 === Assigning and deleting tags to a file : `tag` `[Coming in v1.3]`
 
-Assigning and/or deleting tags to an existing file in the list of the app. Use `-` to
+Assigns and/or deletes tags to an existing file in the list of the app. Use `-` to
  delete tag. No action will be taken when the tag you want to delete does not exist. +
 Format: `tag INDEX t/TAG...`
 

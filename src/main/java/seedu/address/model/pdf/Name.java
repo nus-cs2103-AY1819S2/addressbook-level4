@@ -26,9 +26,7 @@ public class Name implements Comparable<Name> {
      * @param name A valid name.
      */
     public Name(String name) {
-        System.out.println("In Constructor");
         requireNonNull(name);
-        System.out.println("Name not null");
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
     }
@@ -37,7 +35,6 @@ public class Name implements Comparable<Name> {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        System.out.println("In NameTest");
         return test.matches(VALIDATION_REGEX);
     }
 

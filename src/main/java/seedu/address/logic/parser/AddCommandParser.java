@@ -39,7 +39,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_FILE, PREFIX_TAG);
 
         if (arePrefixesPresent(argMultimap, PREFIX_FILE)
-                && !argMultimap.getPreamble().isEmpty()) {
+                && argMultimap.getPreamble().isEmpty()) {
 
             if (argMultimap.getValue(PREFIX_FILE).isPresent()) {
 
@@ -77,11 +77,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         }*/
 
         try {
-            System.out.println("In here");
             Name name = new Name(file.getName());
-            System.out.println("In here too");
             Directory directory = new Directory(file.getParent());
-            System.out.println("In here now");
             Size size = new Size(Long.toString(file.length()));
 
             Pdf pdf = new Pdf(name, directory, size, tags);

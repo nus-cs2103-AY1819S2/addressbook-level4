@@ -44,11 +44,16 @@ public class GoToCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+        /* Do not allow going into another patient's records while still in one */
+        if (MainWindow.isGoToMode()) {
+            throw new CommandException(Messages.MESSAGE_IN_GO_TO_MODE);
+        }
+
         Patient selectedPerson = (Patient) filteredPersonList.get(targetIndex.getZeroBased());
         MainWindow.setRecordPatient(selectedPerson);
 
-        return new CommandResult(true,
-                String.format(MESSAGE_EXPAND_PERSON_SUCCESS, targetIndex.getOneBased()), false);
+        return new CommandResult(String.format(MESSAGE_EXPAND_PERSON_SUCCESS, targetIndex.getOneBased()), true,
+                false, false);
     }
 
     @Override

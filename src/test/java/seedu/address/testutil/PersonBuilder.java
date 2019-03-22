@@ -16,7 +16,10 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.record.Record;
+import seedu.address.model.tag.StatusTag;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TeethTag;
+import seedu.address.model.tag.TemplateTags;
 
 /**
  * A utility class to help with building Person objects.
@@ -48,6 +51,8 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        tags.add(new TeethTag(TemplateTags.ADULT));
+        tags.add(new StatusTag(TemplateTags.HEALTHY));
         records = new ArrayList<>();
 
         int[] teethLayout = new int[Teeth.PERMANENTTEETHCOUNT];
@@ -66,6 +71,7 @@ public class PersonBuilder {
             email = personToCopy.getEmail();
             address = personToCopy.getAddress();
             tags = new HashSet<>(personToCopy.getTags());
+            records = new ArrayList<>();
         } else {
             throw new PersonIsNotPatient();
         }

@@ -26,7 +26,6 @@ public class BoundaryValueChecker {
     private final Coordinates coordinates;
     private final Orientation orientation;
 
-
     public BoundaryValueChecker(MapGrid mapGrid, Battleship battleship,
                                 Coordinates coordinates, Orientation orientation) {
         this.mapGrid = mapGrid;
@@ -37,6 +36,10 @@ public class BoundaryValueChecker {
 
     }
 
+    /**
+     * Performs all the relevant checks.
+     * @throws CommandException when a check fails
+     */
     public void performChecks() throws CommandException {
         if (!this.isHeadWithinBounds()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -59,6 +62,9 @@ public class BoundaryValueChecker {
         }
     }
 
+    /**
+     * Checks if the head of a battleship is within bounds.
+     */
     public boolean isHeadWithinBounds() {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
@@ -71,6 +77,10 @@ public class BoundaryValueChecker {
         return true;
     }
 
+    /**
+     * Checks if the body length of a battleship is within bounds.
+     * Check is horizontal.
+     */
     public boolean isBodyWithinHorizontalBounds() {
         Index colIndex = coordinates.getColIndex();
 
@@ -83,6 +93,10 @@ public class BoundaryValueChecker {
         return true;
     }
 
+    /**
+     * Checks if the body of a battleship is within bounds.
+     * Check is vertical.
+     */
     public boolean isBodyWithinVerticalBounds() {
         Index rowIndex = coordinates.getRowIndex();
 
@@ -95,6 +109,9 @@ public class BoundaryValueChecker {
         return true;
     }
 
+    /**
+     * Checks if there is no battleship on the grids.
+     */
     public boolean isBattleshipAbsent() {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
@@ -108,6 +125,9 @@ public class BoundaryValueChecker {
         return true;
     }
 
+    /**
+     * Checks if the vertical does not have any other battleships.
+     */
     public boolean isVerticalClear() {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
@@ -126,6 +146,9 @@ public class BoundaryValueChecker {
         return true;
     }
 
+    /**
+     * Checks if the horizontal does not have any other battleships.
+     */
     public boolean isHorizontalClear() {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
@@ -143,7 +166,4 @@ public class BoundaryValueChecker {
 
         return true;
     }
-
-
-
 }

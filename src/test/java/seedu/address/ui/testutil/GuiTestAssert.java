@@ -40,8 +40,8 @@ public class GuiTestAssert {
      */
     public static void assertListMatching(ListPanelHandle listPanelHandle, Card... cards) {
         for (int i = 0; i < cards.length; i++) {
-            listPanelHandle.navigateToCard(i);
-            assertCardDisplaysCardObject(cards[i], listPanelHandle.getCardDiplayHandle(i));
+            listPanelHandle.navigateToDeck(i);
+            assertCardDisplaysCardObject(cards[i], listPanelHandle.getDeckDiplayHandle(i));
         }
     }
 

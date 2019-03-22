@@ -6,89 +6,60 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
 /**
- * Provides a handle for {@code ListPanel} containing the list of {@code CardDisplay}.
+ * Provides a handle for {@code ListPanel} containing the list of {@code DeckDisplay}.
  */
-public class ListPanelHandle extends NodeHandle<ListView<Card>> {
-    public static final String CARD_LIST_VIEW_ID = "#ListView";
+public class ListPanelHandle extends NodeHandle<ListView<Deck>> {
+    public static final String DECK_LIST_VIEW_ID = "#ListView";
 
-    private static final String CARD_PANE_ID = "#cardPane";
+    private static final String DECK_PANE_ID = "#deckPane";
 
-    private Optional<Card> lastRememberedSelectedCardDisplay;
+    private Optional<Deck> lastRememberedSelectedDeckDisplay;
 
-    public ListPanelHandle(ListView<Card> ListPanelNode) {
+    public ListPanelHandle(ListView<Deck> ListPanelNode) {
         super(ListPanelNode);
     }
 
     /**
-     * Returns a handle to the selected {@code CardDisplayHandle}.
+     * Returns a handle to the selected {@code DeckDisplayHandle}.
      * A maximum of 1 item can be selected at any time.
-     * @throws AssertionError if no card is selected, or more than 1 card is selected.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
+     * @throws AssertionError if no deck is selected, or more than 1 deck is selected.
+     * @throws IllegalStateException if the selected deck is currently not in the scene graph.
      */
-    public CardDisplayHandle getHandleToSelectedCard() {
-        List<Card> selectedCardList = getRootNode().getSelectionModel().getSelectedItems();
+    public DeckDisplayHandle getHandleToSelectedDeck() {
+        List<Deck> selectedDeckList = getRootNode().getSelectionModel().getSelectedItems();
 
-        if (selectedCardList.size() != 1) {
-            throw new AssertionError("Card list size expected 1.");
+        if (selectedDeckList.size() != 1) {
+            throw new AssertionError("Deck list size expected 1.");
         }
 
-        return getAllCardNodes().stream()
-                .map(CardDisplayHandle::new)
-                .filter(handle -> handle.equals(selectedCardList.get(0)))
+        return getAllDeckNodes().stream()
+                .map(DeckDisplayHandle::new)
+                .filter(handle -> handle.equals(selectedDeckList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
     /**
-     * Returns the index of the selected card.
+     * Returns the index of the selected deck.
      */
-    public int getSelectedCardIndex() {
+    public int getSelectedDeckIndex() {
         return getRootNode().getSelectionModel().getSelectedIndex();
     }
 
     /**
-     * Returns true if a card is currently selected.
+     * Returns true if a deck is currently selected.
      */
-    public boolean isAnyCardSelected() {
-        List<Card> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
+    public boolean isAnyDeckSelected() {
+        List<Deck> selectedDecksList = getRootNode().getSelectionModel().getSelectedItems();
 
-        if (selectedCardsList.size() > 1) {
-            throw new AssertionError("Card list size expected 0 or 1.");
+        if (selectedDecksList.size() > 1) {
+            throw new AssertionError("Deck list size expected 0 or 1.");
         }
 
-        return !selectedCardsList.isEmpty();
-    }
-
-    /**
-     * Navigates the listview to display {@code card}.
-     */
-    public void navigateToCard(Card card) {
-        if (!getRootNode().getItems().contains(card)) {
-            throw new IllegalArgumentException("Card does not exist.");
-        }
-
-        guiRobot.interact(() -> {
-            getRootNode().scrollTo(card);
-        });
-        guiRobot.pauseForHuman();
-    }
-
-    /**
-     * Navigates the listview to {@code index}.
-     */
-    public void navigateToCard(int index) {
-        if (index < 0 || index >= getRootNode().getItems().size()) {
-            throw new IllegalArgumentException("Index is out of bounds.");
-        }
-
-        guiRobot.interact(() -> {
-            getRootNode().scrollTo(index);
-        });
-        guiRobot.pauseForHuman();
+        return !selectedDecksList.isEmpty();
     }
 
     /**
@@ -120,62 +91,62 @@ public class ListPanelHandle extends NodeHandle<ListView<Card>> {
     }
 
     /**
-     * Selects the {@code CardDisplay} at {@code index} in the list.
+     * Selects the {@code DeckDisplay} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
     }
 
     /**
-     * Returns the display card handle of a card associated with the {@code index} in the list.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
+     * Returns the display deck handle of a deck associated with the {@code index} in the list.
+     * @throws IllegalStateException if the selected deck is currently not in the scene graph.
      */
-    public CardDisplayHandle getCardDiplayHandle(int index) {
-        return getAllCardNodes().stream()
-                .map(CardDisplayHandle::new)
-                .filter(handle -> handle.equals(getCard(index)))
+    public DeckDisplayHandle getDeckDiplayHandle(int index) {
+        return getAllDeckNodes().stream()
+                .map(DeckDisplayHandle::new)
+                .filter(handle -> handle.equals(getDeck(index)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
 
-    private Card getCard(int index) {
+    private Deck getDeck(int index) {
         return getRootNode().getItems().get(index);
     }
 
     /**
-     * Returns all card nodes in the scene graph.
-     * Card nodes that are visible in the listview are definitely in the scene graph, while some nodes that are not
+     * Returns all deck nodes in the scene graph.
+     * Deck nodes that are visible in the listview are definitely in the scene graph, while some nodes that are not
      * visible in the listview may also be in the scene graph.
      */
-    private Set<Node> getAllCardNodes() {
-        return guiRobot.lookup(CARD_PANE_ID).queryAll();
+    private Set<Node> getAllDeckNodes() {
+        return guiRobot.lookup(DECK_PANE_ID).queryAll();
     }
 
     /**
-     * Remembers the selected {@code CardDisplay} in the list.
+     * Remembers the selected {@code DeckDisplay} in the list.
      */
-    public void rememberSelectedCardDisplay() {
-        List<Card> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+    public void rememberSelectedDeckDisplay() {
+        List<Deck> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedCardDisplay = Optional.empty();
+            lastRememberedSelectedDeckDisplay = Optional.empty();
         } else {
-            lastRememberedSelectedCardDisplay = Optional.of(selectedItems.get(0));
+            lastRememberedSelectedDeckDisplay = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
-     * Returns true if the selected {@code CardDisplay} is different from the value remembered by the most recent
-     * {@code rememberSelectedCardDisplay()} call.
+     * Returns true if the selected {@code DeckDisplay} is different from the value remembered by the most recent
+     * {@code rememberSelectedDeckDisplay()} call.
      */
-    public boolean isSelectedCardDisplayChanged() {
-        List<Card> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+    public boolean isSelectedDeckDisplayChanged() {
+        List<Deck> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedCardDisplay.isPresent();
+            return lastRememberedSelectedDeckDisplay.isPresent();
         } else {
-            return !lastRememberedSelectedCardDisplay.isPresent()
-                    || !lastRememberedSelectedCardDisplay.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedDeckDisplay.isPresent()
+                    || !lastRememberedSelectedDeckDisplay.get().equals(selectedItems.get(0));
         }
     }
 

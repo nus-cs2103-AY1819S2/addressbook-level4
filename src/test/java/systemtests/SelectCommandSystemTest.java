@@ -57,7 +57,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
         /* Case: filtered card list, select index within bounds of address book but out of bounds of card list
          * -> rejected
          */
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
+        showDecksWithQuestion(KEYWORD_MATCHING_HTTP);
         int invalidIndex = getModel().getTopDeck().getDeckList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_DISPLAYED_INDEX);
 
@@ -93,7 +93,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: select from empty address book -> rejected */
-        deleteAllCards();
+        deleteAllDecks();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased(),
                 MESSAGE_INVALID_DISPLAYED_INDEX);
     }
@@ -110,21 +110,21 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
      * Verifications 1, 3 and 4 are performed by
      * {@code TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see TopDeckSystemTest#assertSelectedCardChanged(Index)
+     * @see TopDeckSystemTest#assertSelectedDeckChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
             MESSAGE_SELECT_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getCardListPanel().getSelectedCardIndex();
+        int preExecutionSelectedCardIndex = getCardListPanel().getSelectedDeckIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
         if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
-            assertSelectedCardUnchanged();
+            assertSelectedDeckUnchanged();
         } else {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
+            assertSelectedDeckChanged(expectedSelectedCardIndex);
         }
 
         assertCommandBoxShowsDefaultStyle();
@@ -147,7 +147,7 @@ public class SelectCommandSystemTest extends TopDeckSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

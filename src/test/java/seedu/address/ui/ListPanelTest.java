@@ -4,7 +4,6 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalCards.getTypicalCards;
-import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 import static seedu.address.testutil.TypicalDecks.getTypicalDecks;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplayEquals;
@@ -15,6 +14,7 @@ import java.util.Collections;
 import org.junit.Test;
 
 import guitests.guihandles.CardDisplayHandle;
+import guitests.guihandles.DeckDisplayHandle;
 import guitests.guihandles.ListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -30,6 +30,7 @@ public class ListPanelTest extends GuiUnitTest {
             FXCollections.observableList(getTypicalDecks());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT= 2500;
+    private static final long DECK_CREATION_AND_DELETION_TIMEOUT= 2500;
 
     private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<ListItem> selectedCard = new SimpleObjectProperty<>();
@@ -41,9 +42,9 @@ public class ListPanelTest extends GuiUnitTest {
         initUi(TYPICAL_CARDS);
 
         for (int i = 0; i < TYPICAL_CARDS.size(); i++) {
-            listPanelHandle.navigateToCard(TYPICAL_CARDS.get(i));
+            listPanelHandle.navigateToDeck(TYPICAL_DECKS.get(i));
             Card expectedCard = TYPICAL_CARDS.get(i);
-            CardDisplayHandle actualCard = listPanelHandle.getCardDiplayHandle(i);
+            CardDisplayHandle actualCard = listPanelHandle.getDeckDiplayHandle(i);
 
             assertCardDisplaysCardObject(expectedCard, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -57,8 +58,8 @@ public class ListPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> selectedCard.set(secondCard));
         guiRobot.pauseForHuman();
 
-        CardDisplayHandle expectedPerson = listPanelHandle.getCardDiplayHandle(INDEX_SECOND_CARD.getZeroBased());
-        CardDisplayHandle selectedPerson = listPanelHandle.getHandleToSelectedCard();
+        CardDisplayHandle expectedPerson = listPanelHandle.getDeckDiplayHandle(INDEX_SECOND_CARD.getZeroBased());
+        CardDisplayHandle selectedPerson = listPanelHandle.getHandleToSelectedDeck();
         assertCardDisplayEquals(expectedPerson, selectedPerson);
     }
 
@@ -102,6 +103,6 @@ public class ListPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(listPanel);
 
         listPanelHandle = new ListPanelHandle(getChildNode(listPanel.getRoot(),
-                ListPanelHandle.CARD_LIST_VIEW_ID));
+                ListPanelHandle.DECK_LIST_VIEW_ID));
     }
 }

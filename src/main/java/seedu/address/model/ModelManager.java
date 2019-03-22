@@ -79,7 +79,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableBooleanValue getModelUpdateObservable() {
-        return versionedAddressBook.getObservableValue();
+        return getHumanPlayer().getMapGrid().getObservableValue();
     }
 
     @Override

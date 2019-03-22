@@ -1,13 +1,5 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.nio.file.Path;
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -25,6 +17,14 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
+
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents the in-memory model of top deck data.
@@ -146,9 +146,14 @@ public class ModelManager implements Model {
     @Override
     public boolean hasCard(Card card) {
         requireNonNull(card);
-        //return versionedTopDeck.hasCard(card);
-        //TODO: Implement hasCard
-        return false;
+
+        if (!(viewState instanceof CardsView)) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
+        CardsView cardsView = (CardsView)viewState;
+
+        return cardsView.getActiveDeck().hasCard(card);
     }
 
     @Override

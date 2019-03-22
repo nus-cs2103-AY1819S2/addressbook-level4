@@ -53,12 +53,12 @@ public class ParserUtil {
         }
         return new Name(trimmedName);
     }
-    
+
     /**
-     * Parses a {@code String name} into a {@code Name}.
+     * Parses a {@code String gender} into a {@code Gender}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code gender} is invalid.
      */
     public static Gender parseGender(String gender) throws ParseException {
         requireNonNull(gender);
@@ -83,9 +83,9 @@ public class ParserUtil {
         }
         return new Major(trimmedMajor);
     }
-    
+
     /**
-     * Parses a {@code String matricNumber} into a {@code MatricNumber}.
+     *Parses a {@code String matricNumber} into a {@code MatricNumber}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code matricNumber} is invalid.

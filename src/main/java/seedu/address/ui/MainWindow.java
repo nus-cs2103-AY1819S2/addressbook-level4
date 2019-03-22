@@ -34,8 +34,8 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private Map playerMap;
-    private Map enemyMap;
+    private PlayerMap playerMap;
+    private EnemyMap enemyMap;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatusBarFooter statusBarFooter;
@@ -126,10 +126,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        playerMap = new Map(logic.getModelUpdateObservable(), logic.getHumanMapGrid());
+        playerMap = new PlayerMap(logic.getModelUpdateObservable(), logic.getHumanMapGrid());
         personListPanelPlaceholder.getChildren().add(playerMap.getRoot());
 
-        enemyMap = new Map(logic.getModelUpdateObservable(), logic.getEnemyMapGrid());
+        enemyMap = new EnemyMap(logic.getModelUpdateObservable(), logic.getEnemyMapGrid());
         browserPlaceholder.getChildren().add(enemyMap.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -199,7 +199,7 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public Map getPlayerMap() {
+    public PlayerMap getPlayerMap() {
         return playerMap;
     }
 

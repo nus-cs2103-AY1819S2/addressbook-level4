@@ -14,12 +14,11 @@ import javafx.scene.text.Text;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.MapGrid;
 import seedu.address.model.cell.Cell;
-import seedu.address.model.cell.Status;
 
 /**
  * Panel containing the list of persons.
  */
-public class Map extends UiPart<Region> {
+public abstract class Map extends UiPart<Region> {
     private static final String FXML = "PlayerMap.fxml";
     private final Logger logger = LogsCenter.getLogger(Map.class);
 
@@ -87,23 +86,5 @@ public class Map extends UiPart<Region> {
     /**
      * Determine color of cell from the status of cell
      */
-    private Color getColor(Cell cell) {
-        Status status = cell.getStatus();
-        switch (status) {
-        case SHIP:
-            return Color.BLACK;
-        case SHIPHIT:
-            return Color.ORANGE;
-        case EMPTY:
-        case HIDDEN:
-            return Color.LIGHTBLUE;
-        case EMPTYHIT:
-            return Color.DARKBLUE;
-        case DESTROYED:
-            return Color.RED;
-        default:
-            return Color.WHITE;
-
-        }
-    }
+    protected abstract Color getColor(Cell cell);
 }

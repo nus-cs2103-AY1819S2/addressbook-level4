@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 
 import java.io.File;
 import java.util.Optional;
@@ -30,20 +31,32 @@ public class MoveCommandParser implements Parser<MoveCommand> {
         Directory directory;
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args);
+                ArgumentTokenizer.tokenize(args, PREFIX_DIRECTORY);
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE), pe);
         }
 
-        Optional<File> selectedDirContainer = new MoveGuiParser().selectDirectory();
+        if (arePrefixesPresent(argMultimap, PREFIX_DIRECTORY)) {
 
-        if (!selectedDirContainer.isPresent()) {
-            throw new ParseException(MoveCommandParser.MESSAGE_NO_DIR_SELECTED);
+            if (argMultimap.getValue(PREFIX_DIRECTORY).isPresent()) {
+                directory = ParserUtil.parseDirectory(argMultimap.getValue(PREFIX_DIRECTORY).get());
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MoveCommand.MESSAGE_USAGE));
+            }
+
+        } else {
+
+            Optional<File> selectedDirContainer = new MoveGuiParser().selectDirectory();
+
+            if (!selectedDirContainer.isPresent()) {
+                throw new ParseException(MoveCommandParser.MESSAGE_NO_DIR_SELECTED);
+            }
+
+            directory = ParserUtil.parseDirectory(selectedDirContainer.get().getAbsolutePath());
+
         }
-
-        directory = ParserUtil.parseDirectory(selectedDirContainer.get().getAbsolutePath());
 
         /*try {
             String[] parseArgs = args.trim().split("\\s+");

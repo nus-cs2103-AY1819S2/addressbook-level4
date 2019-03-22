@@ -93,8 +93,6 @@ class PdfAdaptedPerson implements PdfAdaptedInterface {
         sb.delete(sb.length() - 2, sb.length());
         sb.append("]");
 
-        System.out.println(sb);
-
         return sb.toString();
     }
 }

@@ -17,15 +17,12 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
     private BookShelfStorage bookShelfStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, BookShelfStorage bookShelfStorage,
-                          UserPrefsStorage userPrefsStorage) {
+    public StorageManager(BookShelfStorage bookShelfStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
         this.bookShelfStorage = bookShelfStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
@@ -45,41 +42,6 @@ public class StorageManager implements Storage {
     @Override
     public void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
-    }
-
-
-    // ================ AddressBook methods ==============================
-
-    @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
-    }
-
-    @Override
-    public Optional<ReadOnlyBookShelf> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
-    }
-
-    @Override
-    public Optional<ReadOnlyBookShelf> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
-    }
-
-    @Override
-    public void saveAddressBook(ReadOnlyBookShelf addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
-    }
-
-    @Override
-    public void saveAddressBook(ReadOnlyBookShelf addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
-    }
-
-    @Override
-    public void backupAddressBook(ReadOnlyBookShelf addressBook) throws IOException {
-        addressBookStorage.backupAddressBook(addressBook);
     }
 
     // ================ BookShelf methods ==============================

@@ -123,9 +123,9 @@ public class BookListPanelHandle extends NodeHandle<ListView<Book>> {
     }
 
     /**
-     * Remembers the selected {@code PersonCard} in the list.
+     * Remembers the selected {@code BookCard} in the list.
      */
-    public void rememberSelectedPersonCard() {
+    public void rememberSelectedBookCard() {
         List<Book> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
@@ -139,7 +139,7 @@ public class BookListPanelHandle extends NodeHandle<ListView<Book>> {
      * Returns true if the selected {@code PersonCard} is different from the value remembered by the most recent
      * {@code rememberSelectedPersonCard()} call.
      */
-    public boolean isSelectedPersonCardChanged() {
+    public boolean isSelectedBookCardChanged() {
         List<Book> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {

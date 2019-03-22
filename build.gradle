@@ -52,6 +52,15 @@ jacocoTestReport {
 
 test {
     useJUnitPlatform()
+    exclude '**/AddCommandSystemTest.class'
+    exclude '**/ClearCommandSystemTest.class'
+    exclude '**/DeleteCommandSystemTest.class'
+    exclude '**/EditCommandSystemTest.class'
+    exclude '**/FindCommandSystemTest.class'
+    exclude '**/HelpCommandSystemTest.class'
+    exclude '**/AddressBookSystemTest.class'
+    exclude '**/SelectCommandSystemTest.class'
+    exclude '**/SampleDataTest.class'
 }
 
 dependencies {

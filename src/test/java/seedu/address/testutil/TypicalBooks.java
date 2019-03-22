@@ -64,6 +64,11 @@ public class TypicalBooks {
             .build();
 
     public static final String KEYWORD_MATCHING_LIFE = "life"; // A keyword that matches LIFE
+    public static final String KEYWORD_MATCHING_ZUSAK = "Zusak"; // A keyword that matches Zusak
+    public static final String KEYWORD_MATCHING_COLLINS = "Collins"; //A keyword that matches Collins
+    public static final String KEYWORD_MATCHING_SIX = "6"; // A keyword that matches 6
+    public static final String KEYWORD_MATCHING_FANTASY = "fantasy"; // A keyword that matches fantasy
+
 
     private TypicalBooks() {} // prevents instantiation
 

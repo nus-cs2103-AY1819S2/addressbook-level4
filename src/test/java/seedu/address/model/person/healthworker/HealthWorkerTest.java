@@ -2,8 +2,6 @@ package seedu.address.model.person.healthworker;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BETTY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_BETTY;
@@ -23,13 +21,6 @@ public class HealthWorkerTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        HealthWorker healthWorker = new HealthWorkerBuilder().build();
-        thrown.expect(UnsupportedOperationException.class);
-        healthWorker.getTags().remove(0);
-    }
-
-    @Test
     public void isSameHealthWorker() {
         // same object -> returns true
         assertTrue(ANDY.isSameHealthWorker(ANDY));
@@ -37,10 +28,10 @@ public class HealthWorkerTest {
         // null -> returns false
         assertFalse(ANDY.isSameHealthWorker(null));
 
-        // different phone -> returns false
+        // different phone -> returns true
         HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withPhone(VALID_PHONE_BETTY)).build();
-        assertFalse(ANDY.isSameHealthWorker(editedAndy));
+        assertTrue(ANDY.isSameHealthWorker(editedAndy));
 
         // different NRIC -> returns false
         editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
@@ -52,23 +43,10 @@ public class HealthWorkerTest {
                 .withName(VALID_NAME_BETTY)).build();
         assertFalse(ANDY.isSameHealthWorker(editedAndy));
 
-        // same name, same phone, different organization -> returns false
+        // same name, same phone, different organization -> returns true
         editedAndy = new HealthWorkerBuilder(ANDY)
                 .withOrganization(VALID_ORGANIZATION_BETTY).build();
-        assertFalse(ANDY.isSameHealthWorker(editedAndy));
-
-        // same name, same phone, same organization, different email -> returns
-        // true
-        editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY).withEmail
-                (VALID_EMAIL_BETTY)).build();
         assertTrue(ANDY.isSameHealthWorker(editedAndy));
-
-        // same name, phone, organization and nric, different skills ->
-        // returns true
-        editedAndy = new HealthWorkerBuilder(ANDY)
-                .withSkills(BETTY.getSkills()).build();
-        assertTrue(ANDY.isSameHealthWorker(editedAndy));
-
     }
 
     @Test
@@ -102,16 +80,6 @@ public class HealthWorkerTest {
         // different phone -> returns false
         editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
                 .withPhone(VALID_PHONE_BETTY)).build();
-        assertFalse(ANDY.equals(editedAndy));
-
-        // different email -> returns false
-        editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
-                .withEmail(VALID_EMAIL_BETTY)).build();
-        assertFalse(ANDY.equals(editedAndy));
-
-        // different address -> returns false
-        editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
-                .withAddress(VALID_ADDRESS_BETTY)).build();
         assertFalse(ANDY.equals(editedAndy));
 
         // different skills -> returns false

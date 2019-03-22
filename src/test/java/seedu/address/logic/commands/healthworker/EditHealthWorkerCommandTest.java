@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.healthworker;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -12,7 +12,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
-import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
@@ -21,13 +20,16 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.CommandTestUtil;
+import seedu.address.logic.commands.EditHealthWorkerCommand;
 import seedu.address.logic.commands.EditHealthWorkerCommand.EditHealthWorkerDescriptor;
+import seedu.address.logic.commands.HealthWorkerCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.PatientBook;
-import seedu.address.model.RequestBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
@@ -36,7 +38,7 @@ import seedu.address.testutil.HealthWorkerBuilder;
 public class EditHealthWorkerCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
-        getTypicalPatientBook(), getTypicalRequestBook(), new UserPrefs());
+        getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -49,8 +51,7 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
-            new RequestBook(model.getRequestBook()), new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(model.getFilteredHealthWorkerList().get(0), editedHealthWorker);
         expectedModel.commitAddressBook();
 
@@ -74,8 +75,7 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
-            getTypicalRequestBook(), new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(lastHealthWorker, editedHealthWorker);
         expectedModel.commitAddressBook();
 
@@ -92,8 +92,7 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
-            getTypicalRequestBook(), new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(editHealthWorkerCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -112,8 +111,7 @@ public class EditHealthWorkerCommandTest {
                 editedHealthWorker);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
-            getTypicalRequestBook(), new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(model.getFilteredHealthWorkerList().get(0), editedHealthWorker);
         expectedModel.commitAddressBook();
 
@@ -160,8 +158,7 @@ public class EditHealthWorkerCommandTest {
         EditHealthWorkerCommand editHealthWorkerCommand = new EditHealthWorkerCommand(INDEX_FIRST, descriptor);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
-            getTypicalRequestBook(), new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
         expectedModel.setHealthWorker(toEdit, editedHealthWorker);
         expectedModel.commitAddressBook();
 
@@ -169,11 +166,13 @@ public class EditHealthWorkerCommandTest {
 
         // undo
         expectedModel.undoAddressBook();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandTestUtil.assertCommandSuccess(new UndoCommand(), model, commandHistory,
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo
         expectedModel.redoAddressBook();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandTestUtil.assertCommandSuccess(new RedoCommand(), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -195,8 +194,7 @@ public class EditHealthWorkerCommandTest {
         EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder(editedHealthWorker).build();
         EditHealthWorkerCommand editHealthWorkerCommand = new EditHealthWorkerCommand(INDEX_FIRST, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-            new HealthWorkerBook(model.getHealthWorkerBook()), new PatientBook(model.getPatientBook()),
-            getTypicalRequestBook(), new UserPrefs());
+            new HealthWorkerBook(model.getHealthWorkerBook()), model.getRequestBook(), new UserPrefs());
 
         HealthWorker toEdit = model.getFilteredHealthWorkerList().get(INDEX_FIRST.getZeroBased());
         expectedModel.setHealthWorker(toEdit, editedHealthWorker);

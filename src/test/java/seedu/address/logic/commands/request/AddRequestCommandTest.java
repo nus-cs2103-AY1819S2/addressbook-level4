@@ -23,13 +23,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
-import seedu.address.model.ReadOnlyPatientBook;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RequestBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.RequestBuilder;
@@ -150,11 +148,6 @@ class AddRequestCommandTest {
         }
 
         @Override
-        public ReadOnlyPatientBook getPatientBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -211,21 +204,6 @@ class AddRequestCommandTest {
 
         @Override
         public void updateFilteredHealthWorkerList(Predicate<HealthWorker> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPatient(Patient patient) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPatient(Patient patient) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPatientList(Predicate<Patient> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

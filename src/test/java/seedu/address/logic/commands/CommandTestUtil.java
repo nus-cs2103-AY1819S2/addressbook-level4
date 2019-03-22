@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_HEALTHWORKER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_OTHERS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
@@ -38,13 +39,13 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_AMY = "94672740";
+    public static final String VALID_PHONE_BOB = "81812288";
     public static final String VALID_DATE_AMY = "01-10-2018 10:00:00";
     public static final String VALID_DATE_BOB = "02-10-2018 10:00:00";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_NRIC_BOB = "S1234567A";
+    public static final String VALID_NRIC_BOB = "S9876543Z";
     public static final String VALID_NRIC_AMY = "S1234567A";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
@@ -57,10 +58,6 @@ public class CommandTestUtil {
     public static final String VALID_NRIC_BETTY = "S9898222A";
     public static final String VALID_PHONE_ANDY = "94358253";
     public static final String VALID_PHONE_BETTY = "99991111";
-    public static final String VALID_EMAIL_ANDY = "andye@example.com";
-    public static final String VALID_EMAIL_BETTY = "healthworkerb@example.com";
-    public static final String VALID_ADDRESS_ANDY = "125, Jurong West Ave 6, #08-111";
-    public static final String VALID_ADDRESS_BETTY = "Block 456, NUS";
     public static final String VALID_ORGANIZATION_ANDY = "NUH";
     public static final String VALID_ORGANIZATION_BETTY = "Clinic B";
     // Default strings for Patient objects
@@ -70,13 +67,10 @@ public class CommandTestUtil {
     public static final String VALID_NRIC_BENSON = "S9274100D";
     public static final String VALID_PHONE_ALICE = "94351253";
     public static final String VALID_PHONE_BENSON = "98765432";
-    public static final String VALID_EMAIL_ALICE = "alice@example.com";
-    public static final String VALID_EMAIL_BENSON = "johnd@example.com";
-    public static final String VALID_ADDRESS_ALICE = "125, Jurong West Ave 6, #08-111";
-    public static final String VALID_ADDRESS_BENSON = "311, Clementi Ave 2, #02-25";
     public static final String VALID_CONDITION_PHYSIO = "Physiotherapy";
     public static final String VALID_CONDITION_DIALYSIS = "Dialysis";
 
+    public static final String MODE_OTHERS = " " + PREFIX_ADD_OTHERS;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
@@ -97,10 +91,6 @@ public class CommandTestUtil {
     public static final String NRIC_DESC_BETTY = " " + PREFIX_NRIC + VALID_NRIC_BETTY;
     public static final String PHONE_DESC_ANDY = " " + PREFIX_PHONE + VALID_PHONE_ANDY;
     public static final String PHONE_DESC_BETTY = " " + PREFIX_PHONE + VALID_PHONE_BETTY;
-    public static final String EMAIL_DESC_ANDY = " " + PREFIX_EMAIL + VALID_EMAIL_ANDY;
-    public static final String EMAIL_DESC_BETTY = " " + PREFIX_EMAIL + VALID_EMAIL_BETTY;
-    public static final String ADDRESS_DESC_ANDY = " " + PREFIX_ADDRESS + VALID_ADDRESS_ANDY;
-    public static final String ADDRESS_DESC_BETTY = " " + PREFIX_ADDRESS + VALID_ADDRESS_BETTY;
     public static final String ORGANIZATION_DESC_ANDY = " " + PREFIX_ORGANIZATION + VALID_ORGANIZATION_ANDY;
     public static final String ORGANIZATION_DESC_BETTY = " " + PREFIX_ORGANIZATION + VALID_ORGANIZATION_BETTY;
     public static final String SKILLS_DESC_ANDY = " " + PREFIX_SKILLS + Specialisation.GENERAL_PRACTICE.name()
@@ -135,20 +125,22 @@ public class CommandTestUtil {
                 .withDate(VALID_DATE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withConditions(VALID_CONDITION_PHYSIO).build();
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withPhone(VALID_PHONE_AMY)
                 .withNric(VALID_NRIC_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withPhone(VALID_PHONE_BOB)
                 .withNric(VALID_NRIC_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .build();
         DESC_ANDY = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_ANDY)
-                .withPhone(VALID_PHONE_ANDY).withEmail(VALID_EMAIL_ANDY).withAddress(VALID_ADDRESS_ANDY)
-                .withNric(VALID_NRIC_ANDY).withTags(VALID_TAG_HUSBAND)
+                .withPhone(VALID_PHONE_ANDY)
+                .withNric(VALID_NRIC_ANDY)
+                .withOrganization(VALID_ORGANIZATION_ANDY)
                 .withSkills(Specialisation.GENERAL_PRACTICE.name(), Specialisation.PHYSIOTHERAPY.name()).build();
         DESC_BETTY = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_BETTY)
-                .withPhone(VALID_PHONE_BETTY).withEmail(VALID_EMAIL_BETTY).withAddress(VALID_ADDRESS_BETTY)
-                .withNric(VALID_NRIC_BETTY).withTags(VALID_TAG_FRIEND)
+                .withPhone(VALID_PHONE_BETTY)
+                .withNric(VALID_NRIC_BETTY)
+                .withOrganization(VALID_ORGANIZATION_BETTY)
                 .withSkills(Specialisation.GENERAL_PRACTICE.name(), Specialisation.ORTHOPAEDIC.name()).build();
     }
 

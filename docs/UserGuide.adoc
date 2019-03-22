@@ -86,7 +86,7 @@ The following description of the features and commands are prototypes and specif
 ====
 *General Command Format*
 
-* Words in `<tags>` are the parameters to be supplied by the user e.g. in `add n/<name>`, `<name>` is a parameter which can be used as `add n/John Doe`.
+* Words in `<conditions>` are the parameters to be supplied by the user e.g. in `add n/<name>`, `<name>` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/<name> [c/<condition>]`
 can be used as `n/John Doe c/Claustrophobia` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `s/<specialisation>...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.

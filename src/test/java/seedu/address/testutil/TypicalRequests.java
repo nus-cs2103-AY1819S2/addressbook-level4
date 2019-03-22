@@ -1,13 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import seedu.address.model.RequestBook;
 import seedu.address.model.request.Request;
-import seedu.address.model.tag.ConditionTag;
-import seedu.address.model.tag.Conditions;
+import seedu.address.model.tag.Condition;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class containing {@code Request} objects to be used in tests.
@@ -20,7 +18,7 @@ public class TypicalRequests {
 
     public static final Request ALICE_REQUEST = new RequestBuilder()
             .withId(ALICE_ID)
-            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Physiotherapy"))))
+            .withConditions(SampleDataUtil.getConditionSet("Physiotherapy"))
             .withDate("01-01-2019 10:00:00")
             .withHealthStaff(TypicalHealthWorkers.ANDY)
             .withStatus("PENDING")
@@ -28,7 +26,7 @@ public class TypicalRequests {
 
     public static final Request BENSON_REQUEST = new RequestBuilder()
             .withId(BENSON_ID)
-            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
+            .withConditions(SampleDataUtil.getConditionSet("Palliative"))
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.BETTY)
             .withStatus("PENDING")
@@ -36,7 +34,7 @@ public class TypicalRequests {
 
     public static final Request CARL_REQUEST = new RequestBuilder()
             .withId(CARL_ID)
-            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Cancer"))))
+            .withConditions(SampleDataUtil.getConditionSet("Cancer"))
             .withDate("02-01-2919 14:00:00")
             .withHealthStaff(TypicalHealthWorkers.CARLIE)
             .withStatus("PENDING")
@@ -44,7 +42,7 @@ public class TypicalRequests {
 
     public static final Request DANIEL_REQUEST = new RequestBuilder()
             .withId(DANIEL_ID)
-            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Aids"))))
+            .withConditions(SampleDataUtil.getConditionSet("AIDS"))
             .withDate("02-01-2919 18:00:00")
             .withHealthStaff(TypicalHealthWorkers.PANIEL)
             .withStatus("COMPLETED")

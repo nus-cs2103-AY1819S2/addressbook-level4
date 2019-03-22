@@ -10,7 +10,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
-import seedu.address.model.tag.ConditionTag;
 
 /**
  * A utility class to help with building EditRequestDescriptor objects
@@ -70,7 +69,7 @@ public class EditRequestDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code conditions} into a {@code Set<Tag>} and set it to the {@code
+     * Parses the {@code conditions} into a {@code Set<Condition>} and set it to the {@code
      * EditOrderDescriptor} that we are building
      */
     public EditRequestDescriptorBuilder withConditions(String... conditions) {

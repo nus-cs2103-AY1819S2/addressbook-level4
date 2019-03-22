@@ -16,11 +16,8 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.request.RequestDate;
-import seedu.address.model.tag.ConditionTag;
-import seedu.address.model.tag.Conditions;
-import seedu.address.model.tag.Skills;
-import seedu.address.model.tag.Specialisation;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.*;
+import seedu.address.model.tag.Condition;
 
 
 /**
@@ -113,31 +110,21 @@ public class ParserUtil {
         return new Email(trimmedEmail);
     }
 
-    /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     * Parses {@code Collection<String> conditionsToAdd} into a {@code Set<Condition>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
+    public static Set<Condition> parseConditions(Collection<String> conditionsToAdd)
+            throws ParseException {
+        requireNonNull(conditionsToAdd);
+        final Set<Condition> conditionSet = new HashSet<>();
+        for (String conditionToAdd : conditionsToAdd) {
+            if (!Condition.isValidConditionName(conditionToAdd)) {
+                throw new ParseException(Condition.MESSAGE_CONDITION_CONSTRAINTS);
+            }
+            conditionSet.add(new Condition(conditionToAdd));
         }
-        return tagSet;
+        return conditionSet;
     }
 
     // ===== Methods for parsing Organisation, Nric and Specialisations =====
@@ -203,37 +190,6 @@ public class ParserUtil {
             skills.addSpecialisation(parseSpecialisation(specialisation));
         }
         return skills;
-    }
-
-    /**
-     * Parses a {@code String conditionTag} into a {@code ConditionTag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code conditionTag} is invalid.
-     */
-    public static ConditionTag parseConditionTag(String conditionTag)
-        throws ParseException {
-        requireNonNull(conditionTag);
-        String trimmedConditionTag = conditionTag.trim();
-        if (!ConditionTag.isValidConditionTagName(trimmedConditionTag)) {
-            throw new ParseException(ConditionTag.MESSAGE_CONSTRAINTS);
-        }
-
-        return ConditionTag.parseString(trimmedConditionTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> conditionTag} into a {@code
-     * Conditions}.
-     */
-    public static Conditions parseConditions(Collection<String> conditionTags)
-        throws ParseException {
-        requireNonNull(conditionTags);
-        final Conditions conditions = new Conditions();
-        for (String conditionTag : conditionTags) {
-            conditions.addConditionTag(parseConditionTag(conditionTag));
-        }
-        return conditions;
     }
 
     /**

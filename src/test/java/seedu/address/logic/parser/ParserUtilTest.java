@@ -23,7 +23,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Condition;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
@@ -180,15 +180,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
+        Condition expectedCondition = new Condition(VALID_TAG_1);
+        assertEquals(expectedCondition, ParserUtil.parseTag(VALID_TAG_1));
     }
 
     @Test
     public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
         String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
+        Condition expectedCondition = new Condition(VALID_TAG_1);
+        assertEquals(expectedCondition, ParserUtil.parseTag(tagWithWhitespace));
     }
 
     @Test
@@ -210,10 +210,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+        Set<Condition> actualConditionSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+        Set<Condition> expectedConditionSet = new HashSet<Condition>(Arrays.asList(new Condition(VALID_TAG_1), new Condition(VALID_TAG_2)));
 
-        assertEquals(expectedTagSet, actualTagSet);
+        assertEquals(expectedConditionSet, actualConditionSet);
     }
 
     // ========= Tests for parsing Organisation/NRIC/Specialisation =========

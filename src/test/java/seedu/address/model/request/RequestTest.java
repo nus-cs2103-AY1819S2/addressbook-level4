@@ -9,27 +9,23 @@ import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 
 import org.junit.Test;
 
-import seedu.address.model.tag.ConditionTag;
-import seedu.address.model.tag.Conditions;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Condition;
 import seedu.address.testutil.RequestBuilder;
 
 public class RequestTest {
 
     @Test
     public void test_default_constructor() {
-        HashSet<Tag> conditions = new HashSet<>();
-        ALICE_REQUEST.getConditions().getConditions().forEach(conditionTag -> conditions.add(
-            new Tag(conditionTag.getName())));
-
         Request aliceRequest = new Request(ALICE_REQUEST.getName(), ALICE_REQUEST.getNric(),
             ALICE_REQUEST.getPhone(), ALICE_REQUEST.getAddress(), ALICE_REQUEST.getRequestDate(),
-            conditions);
+            ALICE_REQUEST.getConditions());
 
         assertFalse(aliceRequest.isOngoingStatus());
         assertTrue(aliceRequest.isSameRequest(ALICE_REQUEST));
@@ -118,8 +114,8 @@ public class RequestTest {
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
         // different treatment conditions -> returns false
-        editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
-            new HashSet<>(Collections.singletonList(new ConditionTag("Cancer"))))).build();
+        editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new HashSet<>(Arrays.asList(
+                new Condition("Cancer")))).build();
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
         // different isComplete status -> returns false

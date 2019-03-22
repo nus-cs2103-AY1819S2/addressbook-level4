@@ -48,6 +48,7 @@ public class InitialiseMapCommand extends Command {
         Cell[][] cellGrid = initialise2dArray(mapSize);
 
         model.getHumanMapGrid().initialise(cellGrid);
+        model.getEnemyMapGrid().initialise(cellGrid);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));
     }

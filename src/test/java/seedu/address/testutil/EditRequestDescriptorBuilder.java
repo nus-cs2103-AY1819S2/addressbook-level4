@@ -31,8 +31,8 @@ public class EditRequestDescriptorBuilder {
      */
     public EditRequestDescriptorBuilder(Request request) {
         descriptor = new EditRequestDescriptor();
-        descriptor.setName(request.getPatient().getName());
-        descriptor.setPhone(request.getPatient().getPhone());
+        descriptor.setName(request.getName());
+        descriptor.setPhone(request.getPhone());
         descriptor.setDate(request.getRequestDate());
         descriptor.setConditions(request.getConditions().getConditions());
     }

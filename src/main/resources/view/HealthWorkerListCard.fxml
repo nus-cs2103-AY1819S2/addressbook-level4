@@ -8,25 +8,26 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane id="borderPane" fx:id="borderPane" maxHeight="100" maxWidth="300" minHeight="100" minWidth="200" prefHeight="100" prefWidth="300" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" id="borderPane" fx:id="borderPane" maxHeight="100" maxWidth="300"
+            minHeight="100" minWidth="200" prefHeight="100" prefWidth="300" xmlns="http://javafx.com/javafx/8.0.172-ea">
     <padding>
-        <Insets bottom="5" left="20" right="20" top="5" />
+        <Insets bottom="5" left="20" right="20" top="5"/>
     </padding>
     <left>
         <ImageView fitHeight="64" fitWidth="64" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
             <image>
-                <Image url="@../images/health_worker.png" />
+                <Image url="@../images/health_worker.png"/>
             </image>
         </ImageView>
     </left>
     <center>
         <VBox fx:id="healthWorkerInfo" alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="104.0">
-        <Label fx:id="name" text="\$name" />
-        <Label fx:id="organisation" text="\$organisation" />
-        <FlowPane fx:id="specialisations" />
-         <BorderPane.margin>
-            <Insets left="30.0" />
-         </BorderPane.margin>
+            <Label fx:id="name" text="\$name"/>
+            <Label fx:id="organisation" text="\$organisation"/>
+            <FlowPane fx:id="specialisations"/>
+            <BorderPane.margin>
+                <Insets left="30.0"/>
+            </BorderPane.margin>
         </VBox>
     </center>
 </BorderPane>

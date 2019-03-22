@@ -11,6 +11,7 @@ import seedu.address.model.person.healthworker.HealthWorker;
 /**
  * An UI component that displays a simple card info of a {@code HealthWorker},
  * displaying its specialisation, as well as its availability.
+ *
  * @author Hui Chun
  */
 public class HealthWorkerCard extends UiPart<Region> {
@@ -49,7 +50,7 @@ public class HealthWorkerCard extends UiPart<Region> {
         this.name.setText(worker.getName().toString());
         this.organisation.setText(worker.getOrganization().toString());
         this.worker.getSkills().getSkills().forEach(s ->
-                specialisations.getChildren().add(new Label(s.toString().toLowerCase())));
+            specialisations.getChildren().add(new Label(s.toString().toLowerCase())));
     }
 
     @Override

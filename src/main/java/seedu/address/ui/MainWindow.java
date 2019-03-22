@@ -26,10 +26,14 @@ import seedu.address.model.patient.Patient;
  */
 public class MainWindow extends UiPart<Stage> {
 
-    /** The patient of records to be shown */
+    /**
+     * The patient of records to be shown
+     */
     private static Patient recordPatient = null;
 
-    /** Indicates if current mode is showing patient records */
+    /**
+     * Indicates if current mode is showing patient records
+     */
     private static boolean goToMode = false;
 
     private static final String FXML = "MainWindow.fxml";
@@ -221,16 +225,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleBack() {
-        if (recordListPanelPlaceholder.isVisible()) {
-            Alert alert = new Alert(Alert.AlertType.NONE,
-                    "You will be directed back to patients list.\nConfirm action?",
-                    ButtonType.YES, ButtonType.CANCEL);
-            alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
-            alert.showAndWait();
-            if (alert.getResult() == ButtonType.YES) {
-                backToPatientList();
-            }
-        }
+        backToPatientList();
     }
 
     /**

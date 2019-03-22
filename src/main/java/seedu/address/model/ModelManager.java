@@ -34,6 +34,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final FilteredList<Task> filteredTasks;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
 
     private FilteredList<Record> filteredRecords;
 

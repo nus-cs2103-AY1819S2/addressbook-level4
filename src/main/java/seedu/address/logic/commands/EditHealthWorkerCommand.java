@@ -147,9 +147,6 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
             return getName().equals(e.getName())
                     && getNric().equals(e.getNric())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags())
                     && getOrganization().equals(e.getOrganization())
                     && getSkills().equals(e.getSkills());
         }

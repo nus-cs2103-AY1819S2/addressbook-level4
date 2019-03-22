@@ -46,25 +46,25 @@ public class TypicalHealthWorkers {
             .withOrganization("NUH").build();
     public static final HealthWorker FIONE = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Fione Kunz")
-            .withPhone("9482237")
+            .withPhone("94822373")
             .withNric("S7812942G"))
             .withOrganization("NUH").build();
     public static final HealthWorker GEORGE = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("George Best")
-            .withPhone("9482442")
+            .withPhone("94824424")
             .withNric("S8812942G"))
             .withOrganization("NUH").build();
 
     // Manually added
     public static final HealthWorker HOOK = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Hoon Meier")
-            .withPhone("8482424")
+            .withPhone("84824245")
             .withNric("S1234567A"))
             .withOrganization("NUH").build();
 
     public static final HealthWorker IVAN = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Ida Mueller")
-            .withPhone("8482131")
+            .withPhone("84821316")
             .withNric("S1234567A"))
             .withOrganization("NUH").build();
 

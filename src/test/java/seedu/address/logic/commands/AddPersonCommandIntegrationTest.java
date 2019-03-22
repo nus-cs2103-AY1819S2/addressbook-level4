@@ -35,7 +35,7 @@ public class AddPersonCommandIntegrationTest {
         Person validPerson = new PersonBuilder().build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(),
-            model.getHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
+            model.getHealthWorkerBook(), model.getRequestBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
 

@@ -14,7 +14,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.RequestBook;
 
@@ -74,15 +73,15 @@ public class JsonRequestBookStorageTest {
 
     @Test
     public void readAndSaveRequestBook_allInOrder_success() throws Exception {
-        Path filePath = testFolder.getRoot().toPath().resolve("TempRequestBook.json");
-        RequestBook original = getTypicalRequestBook();
-        JsonRequestBookStorage jsonRequestBookStorage = new JsonRequestBookStorage(filePath);
+         Path filePath = testFolder.getRoot().toPath().resolve("TempRequestBook.json");
+         RequestBook original = getTypicalRequestBook();
+         JsonRequestBookStorage jsonRequestBookStorage = new JsonRequestBookStorage(filePath);
 
-        // Save in new file and read back
-        jsonRequestBookStorage.saveRequestBook(original, filePath);
-        ReadOnlyRequestBook readBack = jsonRequestBookStorage.readRequestBook(filePath).get();
+         // Save in new file and read back
+         jsonRequestBookStorage.saveRequestBook(original, filePath);
+         ReadOnlyRequestBook readBack = jsonRequestBookStorage.readRequestBook(filePath).get();
 
-        assertTrue(original.areRequestsSame(new RequestBook(readBack)));
+         assertTrue(original.areRequestsSame(new RequestBook(readBack)));
 
     }
 

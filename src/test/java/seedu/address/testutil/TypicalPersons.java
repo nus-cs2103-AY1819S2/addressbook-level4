@@ -34,21 +34,21 @@ public class TypicalPersons {
             .withPhone("87652533")
             .withNric("S1234567A").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
-            .withPhone("9482224")
+            .withPhone("94832224")
             .withNric("S1234567A").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
-            .withPhone("9482427")
+            .withPhone("94824427")
             .withNric("S1234567A").build();
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
-            .withPhone("9482442")
+            .withPhone("94824452")
             .withNric("S1234567A").build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier")
-            .withPhone("8482424")
+            .withPhone("84824245")
             .withNric("S1234567A").build();
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller")
-            .withPhone("8482131")
+            .withPhone("84821316")
             .withNric("S1234567A").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}

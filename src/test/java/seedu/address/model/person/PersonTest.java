@@ -36,7 +36,7 @@ public class PersonTest {
 
         // different nric -> returns false
         editedAlice = new PersonBuilder(ALICE).withNric(VALID_NRIC_BOB).build();
-        assertTrue(ALICE.isSamePerson(editedAlice));
+        assertFalse(ALICE.isSamePerson(editedAlice));
     }
 
     @Test

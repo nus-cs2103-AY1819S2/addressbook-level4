@@ -76,9 +76,7 @@ public class HealthWorker extends Person {
 
         return other != null
                 && other.getName().equals(this.getName())
-                && other.getNric().equals(this.getNric())
-                && other.getPhone().equals(this.getPhone())
-                && other.getOrganization().equals(this.getOrganization());
+                && other.getNric().equals(this.getNric());
     }
 
     @Override

@@ -36,23 +36,23 @@ public class TypicalRequests {
 
     public static final Request CARL_REQUEST = new RequestBuilder()
             .withId(CARL_ID)
-            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
-            .withDate("02-01-2919 08:00:00")
+            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Cancer"))))
+            .withDate("02-01-2919 14:00:00")
             .withHealthStaff(TypicalHealthWorkers.CARLIE)
             .withStatus("PENDING")
             .build();
 
     public static final Request DANIEL_REQUEST = new RequestBuilder()
             .withId(DANIEL_ID)
-            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
-            .withDate("02-01-2919 08:00:00")
+            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Aids"))))
+            .withDate("02-01-2919 18:00:00")
             .withHealthStaff(TypicalHealthWorkers.PANIEL)
             .withStatus("COMPLETED")
             .build();
 
     /*
     // To be added manually
-    // David pls review this, i do not know the purpose of Hoon and Ida -Rohan
+    // TODO: David pls review this, i do not know the purpose of Hoon and Ida -Rohan
 
     public static final Request HOON_REQUEST = new RequestBuilder()
             .withId("asdfbtyuilkj")

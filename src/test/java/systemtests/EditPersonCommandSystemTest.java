@@ -14,12 +14,15 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -59,7 +62,7 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a person with new values same as existing values -> edited */
         Index index = INDEX_FIRST;
         String command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + PHONE_DESC_BOB + NRIC_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a person with new values same as another person's values but with different name -> edited */
@@ -67,17 +70,24 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_AMY
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + PHONE_DESC_BOB + NRIC_DESC_BOB;
         Person editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: edit a person with new values same as another person's values but with different phone and email
-         * -> edited
+        /* Case: edit a person with new values same as another person's values but with different phone -> edited
          */
         index = INDEX_SECOND;
         command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB
-                + PHONE_DESC_AMY  + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+                + PHONE_DESC_AMY + NRIC_DESC_BOB;
         editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: edit a person with new values same as another person's values but with different Nric -> edited
+         */
+        index = INDEX_SECOND;
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB
+                + PHONE_DESC_BOB + NRIC_DESC_AMY;
+        editedPerson = new PersonBuilder(BOB).withNric(VALID_NRIC_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
 

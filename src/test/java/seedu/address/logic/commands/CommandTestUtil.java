@@ -38,13 +38,13 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
+    public static final String VALID_PHONE_AMY = "94672740";
+    public static final String VALID_PHONE_BOB = "81812288";
     public static final String VALID_DATE_AMY = "01-10-2018 10:00:00";
     public static final String VALID_DATE_BOB = "02-10-2018 10:00:00";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_NRIC_BOB = "S1234567A";
+    public static final String VALID_NRIC_BOB = "S9876543Z";
     public static final String VALID_NRIC_AMY = "S1234567A";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
@@ -131,20 +131,22 @@ public class CommandTestUtil {
                 .withDate(VALID_DATE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withConditions(VALID_CONDITION_PHYSIO).build();
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withPhone(VALID_PHONE_AMY)
                 .withNric(VALID_NRIC_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
+                .build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withPhone(VALID_PHONE_BOB)
                 .withNric(VALID_NRIC_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+                .build();
         DESC_ANDY = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_ANDY)
-                .withPhone(VALID_PHONE_ANDY).withEmail(VALID_EMAIL_ANDY).withAddress(VALID_ADDRESS_ANDY)
-                .withNric(VALID_NRIC_ANDY).withTags(VALID_TAG_HUSBAND)
+                .withPhone(VALID_PHONE_ANDY)
+                .withNric(VALID_NRIC_ANDY)
+                .withOrganization(VALID_ORGANIZATION_ANDY)
                 .withSkills(Specialisation.GENERAL_PRACTICE.name(), Specialisation.PHYSIOTHERAPY.name()).build();
         DESC_BETTY = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_BETTY)
-                .withPhone(VALID_PHONE_BETTY).withEmail(VALID_EMAIL_BETTY).withAddress(VALID_ADDRESS_BETTY)
-                .withNric(VALID_NRIC_BETTY).withTags(VALID_TAG_FRIEND)
+                .withPhone(VALID_PHONE_BETTY)
+                .withNric(VALID_NRIC_BETTY)
+                .withOrganization(VALID_ORGANIZATION_BETTY)
                 .withSkills(Specialisation.GENERAL_PRACTICE.name(), Specialisation.ORTHOPAEDIC.name()).build();
     }
 

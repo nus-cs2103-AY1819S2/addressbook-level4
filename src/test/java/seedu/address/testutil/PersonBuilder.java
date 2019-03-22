@@ -10,7 +10,7 @@ import seedu.address.model.person.Phone;
  */
 public class PersonBuilder {
 
-    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_NAME = "George Rogers";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_NRIC = "S1234567A";
 

@@ -54,7 +54,7 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.travel.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -398,7 +398,9 @@ Step 1. The user launches the application and sees the GUI with the user's list 
 image::UIsearchrating.png[width="800"]
 
 Step 2. The user executes `searchr 4` command to search for all entries in TravelBuddy with `4` as its rating.
-The `searchr` command will call `LogicManager#execute()`, which in turn uses `AddressBookParser#parseCommand()`. Since the argument is `searchr`, `SearchRatingCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchRatingCommand`.
+The `searchr` command will call `LogicManager#execute()`, which in turn uses `AddressBookParser#parseCommand()`. Since
+the argument is `searchr`, `SearchRatingCommandParser#parse(arguments)` will be called to parse the arguments to be
+used in `SearchRatingCommand`.
 The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
 
 [NOTE]
@@ -411,9 +413,11 @@ image::UIsearchratingresults.png[width="800"]
 ===== Search Tags Feature
 The search tags mechanism is facilitated by `SearchTagsCommand`.
 It extends `Command` with a predicate that specifies the conditions of the tags of the entry to be chosen.
-The command is executed when the arguments parsed from the user input matches the command word of `SearchTagsCommand`, which is `searcht`.
+The command is executed when the arguments parsed from the user input matches the command word of `SearchTagsCommand`,
+which is `searcht`.
 
-The arguments entered by the user are stored in a list of keywords and passed into `TagContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to each entry in the address book.
+The arguments entered by the user are stored in a list of keywords and passed into `TagContainsKeywordsPredicate`,
+where the list is converted into a stream and individually matched to each entry in the address book.
 
 Given below is an example usage scenario and how the search tags mechanism behaves at each step.
 
@@ -421,9 +425,11 @@ Step 1. The user launches the application and sees the GUI with the user's list 
 
 image::UIsearchtags.png[width="800"]
 
-Step 2. The user executes `searcht shoppingMall` command to search for all entries in TravelBuddy with `shoppingMall` as its tag.
-The `searcht` command will call `LogicManager#execute()`, which in turn uses `AddressBookParser#parseCommand()`. Since the argument is `searcht`, `SearchTagsCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchTagsCommand`.
-The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
+Step 2. The user executes `searcht shoppingMall` command to search for all entries in TravelBuddy with `shoppingMall`
+as its tag. The `searcht` command will call `LogicManager#execute()`, which in turn uses
+`AddressBookParser#parseCommand()`. Since the argument is `searcht`, `SearchTagsCommandParser#parse(arguments)`
+will be called to parse the arguments to be used in `SearchTagsCommand`. The parsed arguments will be used as a
+predicate to filter out entries that satisfy the predicate to be displayed.
 
 [NOTE]
 The command `searcht` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
@@ -544,7 +550,7 @@ country or a chart by rating.
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and
- logging destinations.
+logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See
 <<Implementation-Configuration>>)
@@ -606,7 +612,8 @@ image::chrome_save_as_pdf.png[width="300"]
 === Site-wide Documentation Settings
 
 The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor
-.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project
+are rendered.
 
 [TIP]
 Attributes left unset in the `build.gradle` file will use their *default value*, if any.
@@ -715,16 +722,16 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.travel.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.travel.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be
  working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.travel.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are
 connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.travel.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -878,19 +885,29 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
+** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`]
+is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the
+result is a success or failure, and is caught by
+link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the
+style to.
+** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to
+display an error.
 * Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
+** Modify
+link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's
+constructor so that users of the event can indicate whether an error has occurred.
+** Modify
+link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+*** The system tests
+link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
 ** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total
+number of people in the address book.
 +
 **Before**
 +
@@ -902,15 +919,20 @@ image::getting-started-ui-status-after.png[width="500"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`.
+Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
+** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status
+bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
 ** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to
  take in the number of places when the application just started.
 ** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter
 .java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of places whenever
  there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
+** For tests, modify
+link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a
+state-saving functionality for the total number of people status, just like what we did for save location and sync
+status.
 ** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest
 .java[`AddressBookSystemTest`] to also verify the new total number of places status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
@@ -919,17 +941,25 @@ image::getting-started-ui-status-after.png[width="500"]
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new
+feature of saving the address book to the cloud. However, the current implementation of the application constantly
+saves the address book after the execution of each command, which is not ideal if the user is working on limited
+internet connection. Your team decided that the application should instead save the changes to a temporary local
+backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a
+backup API for the address book storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary
+ location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
+** Add the API method in
+link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and
+link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -937,9 +967,15 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 [[GetStartedProgramming-RemarkCommand]]
 === Creating a new command: `remark`
 
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
+By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major
+components of the app.
 
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
+*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects.
+The current users of your application have a list of new feature requests that they hope the software will eventually
+have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a
+flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the
+`remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark`
+command.
 
 ==== Description
 Edits the remark for a place specified in the `INDEX`. +
@@ -959,29 +995,35 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
+. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`].
+Upon execution, it should just throw an `Exception`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept
+a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to
+link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which
+tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
+Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee`.
 
 **Main:**
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use
+the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`]
+to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `PlaceCard`
 Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PlaceCard.java[`PlaceCard`] s to
@@ -1000,9 +1042,9 @@ to the actual label.
  can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/place/Place
-.java[`Place`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase
-already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our
+link:{repoURL}/src/main/java/seedu/address/model/place/Place.java[`Place`] class. Instead of just using a `String`,
+let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
@@ -1023,7 +1065,9 @@ link:{repoURL}/src/main/java/seedu/address/model/place/Place.java[`Place`].
 . Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/place/Place.java[`Place`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e
 the place will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you launch it.)
+. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks
+for the sample data (delete your `data/addressbook.json` so that the application will load the sample data when you
+launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedPlace` class
 We now have `Remark` s for `Place` s, but they will be gone when we exit the application. Let's modify
@@ -1036,7 +1080,7 @@ field so that it will be saved.
 
 **Tests:**
 
-. Fix `invalidAndValidPlaceAddressBook.json`, `typicalPlacesAddressBook.json`, `validAddressBook.json` etc., such that
+. Fix `invalidAndValidPlaceAddressBook.json`, `typicalPlacesTravelBuddy.json`, `validAddressBook.json` etc., such that
 the JSON tests will not fail due to a missing `remark` field.
 
 ===== [Step 6b] Test: Add withRemark() for `PlaceBuilder`
@@ -1066,7 +1110,8 @@ field to the `Place` 's remark.
 .java[`GuiTestAssert#assertCardDisplaysPlace(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
+We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic
+for our `remark` command.
 
 **Main:**
 
@@ -1110,7 +1155,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a place by name |locate details of places without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else
+seeing them by accident
 
 |`*` |user with many places in the address book |sort places by name |locate a place easily
 |=======================================================================

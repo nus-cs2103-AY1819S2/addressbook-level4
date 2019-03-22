@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.place.Place;
+import seedu.travel.model.place.Place;
 
 /**
  * Provides a handle to a place card in the place list panel.

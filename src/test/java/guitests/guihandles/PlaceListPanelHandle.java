@@ -6,13 +6,13 @@ import java.util.Set;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.model.place.Place;
+import seedu.travel.model.place.Place;
 
 /**
  * Provides a handle for {@code PlaceListPanel} containing the list of {@code PlaceCard}.
  */
 public class PlaceListPanelHandle extends NodeHandle<ListView<Place>> {
-    public static final String PERSON_LIST_VIEW_ID = "#placeListView";
+    public static final String PLACE_LIST_VIEW_ID = "#placeListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 

@@ -1,15 +1,14 @@
+/* @@author Carrein */
 package seedu.address.model.image;
 
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.awt.image.BufferedImage;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Objects;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -28,14 +27,12 @@ import com.drew.metadata.Tag;
 public class Image {
 
     // Data fields
-    private String name;
-    private int height;
-    private int width;
+    private Name name;
+    private Height height;
+    private Width width;
     private BufferedImage buffer;
     private String url;
     private String fileType;
-    private List<String> commandHistory;
-    private int index;
 
     /**
      * Every field must be present and not null.
@@ -60,65 +57,31 @@ public class Image {
             } catch (IOException e) {
                 System.out.println(e.toString());
             }
-            this.name = file.getName();
-            this.height = buffer.getHeight();
-            this.width = buffer.getWidth();
             this.url = url;
-            this.commandHistory = new ArrayList<>();
-            this.index = 1;
+            this.name = new Name(file.getName());
+            this.width = new Width(String.valueOf(buffer.getWidth()));
+            this.height = new Height(String.valueOf(buffer.getHeight()));
 
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
-    public Image(String name, int height, int width) {
+    public Image(Name name, Height height, Width width) {
         this.name = name;
         this.height = height;
         this.width = width;
     }
 
-    /**
-     * method to track history of image
-     * @param c command to be added to history
-     */
-    public void addHistory(String c) {
-        commandHistory.add(c);
-        index++;
-    }
-    //CAN USE JAVA UTIL LIST HERE???
-    public List getHistory() {
-        return commandHistory.subList(0, index);
-    }
-
-    public void setUndo() {
-        index--;
-    }
-
-    public void setRedo() {
-        index++;
-    }
-
-    public boolean canUndo() {
-        return index > 0;
-    }
-
-    public boolean canRedo() {
-        return index < commandHistory.size() - 1;
-    }
-
-    public int getIndex() {
-        return index; }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
+    public Height getHeight() {
         return height;
     }
 
-    public String getName() {
+    public Width getWidth() {
+        return width;
+    }
+
+    public Name getName() {
         return name;
     }
 
@@ -133,6 +96,59 @@ public class Image {
     public String getFileType() {
         return fileType;
     }
+
+    /**
+     * Returns true if both images have the same name.
+     * This defines a weaker notion of equality between two images.
+     */
+    public boolean isSameImage(Image otherImage) {
+        if (otherImage == this) {
+            return true;
+        }
+
+        return otherImage != null
+                && otherImage.getName().equals(getName());
+    }
+
+    /**
+     * Returns true if both images have the same identity and data fields.
+     * This defines a stronger notion of equality between two images.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Image)) {
+            return false;
+        }
+
+        Image otherImage = (Image) other;
+        return otherImage.getName().equals(getName())
+                && otherImage.getWidth().equals(getWidth())
+                && otherImage.getHeight().equals(getHeight());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, width, height);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Name: ")
+                .append(getName())
+                .append(" Height: ")
+                .append(getHeight())
+                .append(" Width: ")
+                .append(getWidth());
+        return builder.toString();
+    }
+
     /**
      * Prints the metadata for any given image.
      */

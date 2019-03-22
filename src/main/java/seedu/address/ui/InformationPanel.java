@@ -62,17 +62,6 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
      * @param event url of new image to display.
      */
     public void propertyChange(PropertyChangeEvent event) {
-//        switch (event.getPropertyName()) {
-//            case "album":
-//                refresh();
-//                break;
-//            case "details":
-//                break;
-//            case "history":
-//                break;
-//            default:
-//                System.out.println("Something broke.");
-//        }
         if (event.getPropertyName().equals("refresh")) {
             refresh();
         }

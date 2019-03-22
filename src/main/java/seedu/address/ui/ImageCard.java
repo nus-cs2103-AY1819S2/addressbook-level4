@@ -41,9 +41,9 @@ public class ImageCard extends UiPart<Region> {
         super(FXML);
         this.image = image;
         id.setText(displayedIndex + ". ");
-        //name.setText(image.getName().fullName);
-        //height.setText(image.getHeight().value);
-        //width.setText(image.getWidth().value);
+        name.setText(image.getName().name);
+        height.setText(image.getHeight().value);
+        width.setText(image.getWidth().value);
     }
 
     @Override

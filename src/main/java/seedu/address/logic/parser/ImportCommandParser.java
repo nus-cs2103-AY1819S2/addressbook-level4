@@ -51,6 +51,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                     if (validFormat(path)) {
                         Image image = new Image(path);
                         if (!duplicateFile(image)) {
+                            System.out.println("non dup");
                             try {
                                 // Add each image to Album.
                                 album.addImage(image);
@@ -119,7 +120,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @return True if image file name exist, false otherwise.
      */
     public boolean duplicateFile(Image image) {
-        return (new File(assetsFilePath + image.getName()).exists()) ? true : false;
+        return (new File(assetsFilePath + image.getName().name).exists()) ? true : false;
     }
 
     /**

@@ -57,6 +57,9 @@ public class AddressBookParser {
         case AddCommand.COMMAND_ALIAS:
             return new AddCommandParser().parse(arguments);
 
+        case CreateJobCommand.COMMAND_WORD:
+            return new CreateJobCommandParser().parse(arguments);
+
         case CreateJobCommand.COMMAND_ALIAS:
             return new CreateJobCommandParser().parse(arguments);
 

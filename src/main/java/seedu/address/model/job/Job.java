@@ -119,10 +119,6 @@ public class Job {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        for (int i = 0; i < NUMBER_OF_LISTS; i++) {
-            builder.append(LIST_NAMES[i]);
-            getPeopleNames(getPeople(i)).forEach(builder::append);
-        }
         return builder.toString();
     }
 

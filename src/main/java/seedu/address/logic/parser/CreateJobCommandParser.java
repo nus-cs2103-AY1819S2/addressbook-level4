@@ -28,7 +28,7 @@ public class CreateJobCommandParser implements Parser<CreateJobCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_JOBNAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateJobCommand.MESSAGE_USAGE));
         }
 
         JobName name = ParserUtil.parseJobName(argMultimap.getValue(PREFIX_JOBNAME).get());

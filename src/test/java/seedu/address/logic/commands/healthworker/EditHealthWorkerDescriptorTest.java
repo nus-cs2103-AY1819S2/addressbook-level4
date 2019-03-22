@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.healthworker;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_BE
 
 import org.junit.Test;
 
+import seedu.address.logic.commands.EditHealthWorkerCommand;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
 

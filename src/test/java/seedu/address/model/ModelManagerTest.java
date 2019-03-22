@@ -3,12 +3,12 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
-import static seedu.address.testutil.TypicalPatients.ALICE;
-import static seedu.address.testutil.TypicalPatients.BENSON;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 
 import java.nio.file.Path;
@@ -28,7 +28,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.HealthWorkerBookBuilder;
-import seedu.address.testutil.PatientBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.RequestBookBuilder;
 
@@ -131,7 +130,7 @@ public class ModelManagerTest {
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addPerson(ALICE);
         modelManager.setSelectedPerson(ALICE);
-        Person updatedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        Person updatedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
         modelManager.setPerson(ALICE, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPerson());
     }
@@ -223,16 +222,13 @@ public class ModelManagerTest {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         HealthWorkerBook healthWorkerBook = new HealthWorkerBookBuilder().withHealthWorker(ANDY)
                 .withHealthWorker(BETTY).build();
-        PatientBook patientBook = new PatientBookBuilder().withPatient(ALICE)
-            .withPatient(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         RequestBook requestBook = new RequestBookBuilder().withRequest(ALICE_REQUEST).build();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, healthWorkerBook, patientBook, requestBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, healthWorkerBook, patientBook,
-            requestBook, userPrefs);
+        modelManager = new ModelManager(addressBook, healthWorkerBook, requestBook, userPrefs);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, healthWorkerBook, requestBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -245,13 +241,13 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, healthWorkerBook, patientBook,
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, healthWorkerBook,
             requestBook, userPrefs)));
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, healthWorkerBook, patientBook,
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, healthWorkerBook,
             requestBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
@@ -260,7 +256,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, healthWorkerBook, patientBook,
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, healthWorkerBook,
             requestBook, differentUserPrefs)));
     }
 }

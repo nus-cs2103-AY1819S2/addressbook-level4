@@ -13,7 +13,6 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.PatientBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.RequestBook;
 import seedu.address.model.UserPrefs;

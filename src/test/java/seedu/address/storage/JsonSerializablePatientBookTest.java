@@ -12,8 +12,6 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.PatientBook;
-import seedu.address.testutil.TypicalPatients;
 
 public class JsonSerializablePatientBookTest {
 

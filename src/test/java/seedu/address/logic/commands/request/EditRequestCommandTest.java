@@ -27,7 +27,6 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.testutil.EditRequestDescriptorBuilder;
-import seedu.address.testutil.PatientBuilder;
 import seedu.address.testutil.RequestBuilder;
 
 class EditRequestCommandTest {

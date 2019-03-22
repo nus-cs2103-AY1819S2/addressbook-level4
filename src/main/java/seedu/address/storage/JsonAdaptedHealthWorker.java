@@ -1,16 +1,11 @@
 package seedu.address.storage;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
@@ -18,7 +13,6 @@ import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
-import seedu.address.model.tag.Tag;
 
 /**
  * Jackson-friendly version of {@link HealthWorker}.
@@ -36,13 +30,10 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedHealthWorker(@JsonProperty("name") String name,
                                    @JsonProperty("phone") String phone,
-                                   @JsonProperty("email") String email,
                                    @JsonProperty("nric") String nric,
-                                   @JsonProperty("address") String address,
-                                   @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
                                    @JsonProperty("organization") String organisation,
                                    @JsonProperty("skills") String skills) {
-        super(name, phone, email, nric, address, tagged);
+        super(name, phone, nric);
         this.organization = organisation;
         this.skills = skills;
     }
@@ -62,10 +53,6 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted HealthWorker.
      */
     public HealthWorker toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
-        }
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -83,22 +70,6 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
         }
         final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
-        }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-        }
-        final Email modelEmail = new Email(email);
-
-        if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
-        }
-        if (!Address.isValidAddress(address)) {
-            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
-        }
-        final Address modelAddress = new Address(address);
-
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
@@ -106,8 +77,6 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
             throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);
         }
         final Nric modelNric = new Nric(nric);
-
-        final Set<Tag> modelTags = new HashSet<>(personTags);
 
         if (organization == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
@@ -133,8 +102,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
         }
         final Skills modelSkills = new Skills(set);
 
-        return new HealthWorker(modelName, modelPhone, modelEmail,
-                modelNric, modelAddress, modelTags, modelOrganisation, modelSkills);
+        return new HealthWorker(modelName, modelNric, modelPhone, modelOrganisation, modelSkills);
 
     }
 

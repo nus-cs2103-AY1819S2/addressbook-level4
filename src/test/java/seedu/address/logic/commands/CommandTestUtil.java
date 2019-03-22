@@ -70,10 +70,6 @@ public class CommandTestUtil {
     public static final String VALID_NRIC_BENSON = "S9274100D";
     public static final String VALID_PHONE_ALICE = "94351253";
     public static final String VALID_PHONE_BENSON = "98765432";
-    public static final String VALID_EMAIL_ALICE = "alice@example.com";
-    public static final String VALID_EMAIL_BENSON = "johnd@example.com";
-    public static final String VALID_ADDRESS_ALICE = "125, Jurong West Ave 6, #08-111";
-    public static final String VALID_ADDRESS_BENSON = "311, Clementi Ave 2, #02-25";
     public static final String VALID_CONDITION_PHYSIO = "Physiotherapy";
     public static final String VALID_CONDITION_DIALYSIS = "Dialysis";
 

@@ -63,6 +63,15 @@ public class Patient extends Person {
         this.teeth = teeth;
     }
 
+    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
+                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount) {
+        super(name, phone, email, address, tags, personToCopy, copyCount);
+        requireAllNonNull(nric, dateOfBirth);
+        this.nric = nric;
+        this.dateOfBirth = dateOfBirth;
+        buildAdultTeeth();
+    }
+
     /**
      * Adds a new medical record to a patient.
      * @param record the medical record to be added.
@@ -156,6 +165,9 @@ public class Patient extends Person {
         if (otherPerson == null) {
             return false;
         } else if (otherPerson instanceof Patient) {
+            if (isCopy() || otherPerson.isCopy()) {
+                return false;
+            }
             return nric.equals(((Patient) otherPerson).getNric());
         } else {
             System.out.println(otherPerson);

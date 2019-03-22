@@ -95,7 +95,6 @@ public class PutShipCommand extends Command {
         } else {
             throw new CommandException(MESSAGE_USAGE);
         }
-        
         Cell cellToEdit = model.getMapGrid().getCell(coordinates);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));

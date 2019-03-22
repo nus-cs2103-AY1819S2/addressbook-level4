@@ -16,6 +16,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+//import seedu.address.model.activity.Activity;
+//import seedu.address.model.activity.ActivityDateTime;
+import seedu.address.model.activity.ActivityName;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -29,6 +32,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_ACTIVITYNAME = "L@Tex Workshop";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -36,6 +40,7 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_ACTIVITY_NAME = "CSS Workshop";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -85,6 +90,49 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseActivityName_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseActivityName((String) null));
+    }
+
+    @Test
+    public void parseActivityName_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseActivityName(INVALID_ACTIVITYNAME));
+    }
+
+    @Test
+    public void parseActivityName_validValueWithoutWhitespace_returnsName() throws Exception {
+        ActivityName expectedName = new ActivityName(VALID_NAME);
+        assertEquals(expectedName, ParserUtil.parseActivityName(VALID_NAME));
+    }
+
+    @Test
+    public void parseActivityName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
+        String nameWithWhitespace = WHITESPACE + VALID_ACTIVITY_NAME + WHITESPACE;
+        ActivityName expectedName = new ActivityName(VALID_ACTIVITY_NAME);
+        assertEquals(expectedName, ParserUtil.parseActivityName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseActivityDateTime_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseActivityDateTime((String) null));
+    }
+
+    @Test
+    public void parseActivityDateTime_invalidValue_throwsParseException() {
+        // To be updated
+    }
+
+    @Test
+    public void parseActivityDateTime_validValueWithoutWhitespace_returnsDateTime() throws Exception {
+        // To be updated
+    }
+
+    @Test
+    public void parseActivityDateTime_validValueWithWhitespace_returnsDateTime() throws Exception {
+        // To be updated
     }
 
     @Test

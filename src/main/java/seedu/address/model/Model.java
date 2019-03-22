@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 
 /**
@@ -14,6 +15,9 @@ import seedu.address.model.person.Person;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Activity> PREDICATE_SHOW_ALL_ACTIVITIES = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -132,4 +136,62 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Sets the selected person in the filtered person list.
+     * Returns the filtered person, for export
+     */
+    Person generateExportedPerson(Person person);
+
+    /** Returns an unmodifiable view of the filtered activity list */
+    ObservableList<Activity> getFilteredActivityList();
+
+    /**
+     * Updates the filter of the filtered activity list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredActivityList(Predicate<Activity> predicate);
+
+    /**
+     * Returns true if an activity with the same identity as {@code activity} exists in the address book.
+     */
+    boolean hasActivity(Activity activity);
+
+    /**
+     * Deletes the given activity.
+     * The activity must exist in the address book.
+     */
+    void deleteActivity(Activity target);
+
+    /**
+     * Adds the given activity.
+     * {@code activity} must not already exist in the address book.
+     */
+    void addActivity(Activity activity);
+
+    /**
+     * Replaces the given activity {@code target} with {@code editedActivity}.
+     * {@code target} must exist in the address book.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity
+     * in the address book.
+     */
+    void setActivity(Activity target, Activity editedActivity);
+
+    /**
+     * Selected person in the filtered person list.
+     * null if no person is selected.
+     */
+    ReadOnlyProperty<Activity> selectedActivityProperty();
+
+    /**
+     * Returns the selected person in the filtered person list.
+     * null if no person is selected.
+     */
+    Activity getSelectedActivity();
+
+    /**
+     * Sets the selected person in the filtered person list.
+     */
+    void setSelectedActivity(Activity activity);
+
 }

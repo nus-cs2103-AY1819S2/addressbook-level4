@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= ClubManager - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -313,12 +313,33 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::membersort[]
+=== MemberSort
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
+image::MemberSortCommand_LogicComponentSequenceDiagram.png[width="800"]
+* The `memberSort` command extends from command, and modifies the uniquePersonList which is an observable list.
 
-// end::dataencryption[]
+* It takes in a criteria from the user, and checks if the input from the user matches any of the available
+sorting criteria provided.
+
+* If the user input matches, the uniquePersonList will be sorted based on that criteria
+If the user input does not match, then an error message will be prompted to the user.
+
+// tag::memberexport[]
+=== MemberExport
+
+==== Current Implementation
+image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
+* The `memberExport` command extends from command and retrieves the Person object from the Model based on the specified index
+
+* Then it uses export utilities to create the file and write the Person's information to it
+
+* If the index specified in invalid, an error message will be displayed
+
+==== Future Implementation
+* For future implementation, the `memberExport` command will export the members details in a formatted html page
+// end::memberexport[]
 
 === Logging
 
@@ -335,10 +356,31 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-[[Implementation-Configuration]]
+// tag::implementationconfiguration[]
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+// end::implementationconfiguration[]
+
+[[Implementation-Activity Model]]
+
+=== Activity Model
+
+.Structure of the Activity Model Component
+image::ModelComponentWithActivityList.png[width="800"]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The updated `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Address Book data.
+* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Activity>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* Each activity can have a HashMap of `Person` Object for attendance.
+
+
 
 == Documentation
 
@@ -839,8 +881,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |CCA main committee member |see which members are attending an activity |plan the activity according to the participation rate.
 
-|`* * *` |CCA main committee member |see which members are interested in attending a future event |decide whether to execute the activity or to cancel it based on the level of  interests.
-
 |`* * *` |CCA main committee member |view the activities that a member has participated. |better select applicants for the main committee positions.
 
 |`*` |CCA main committee member |see the payments of each member |track the payments of each member.
@@ -878,8 +918,6 @@ _{More to be added}_
 
 [appendix]
 == Use Cases
-
-(For all use cases below, the *System* is the `AddressBook` and the *Admin* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add Member
@@ -1052,7 +1090,6 @@ Use case resumes at step 1.
 
 1.  User requests to add a new activity in the list
 2.  Club Manager adds the activity
-3.  Use case ends.
 +
 Use case ends.
 
@@ -1217,7 +1254,7 @@ Use case resumes at step 2.
 [discrete]
 === Use case: List Activity
 
-* Main Success Scenario (MSS)*
+*Main Success Scenario (MSS)*
 
 1. User requests to list activities
 2. Club Manager shows a list of activities
@@ -1234,7 +1271,7 @@ Use case ends.
 [discrete]
 === Use case: Select Activity
 
-* Main Success Scenario (MSS)*
+*Main Success Scenario (MSS)*
 
 1. User requests to list activities
 2. Club Manager shows a list of activities
@@ -1260,7 +1297,7 @@ Use case resumes at step 2.
 [discrete]
 === Use case: Find Activity
 
-* Main Success Scenario (MSS)*
+*Main Success Scenario (MSS)*
 
 1. User requests to find activities based on keywords
 2. Club Manager finds the activities with the given keywords
@@ -1283,72 +1320,6 @@ Use case ends.
 +
 Use case ends.
 
-
-[discrete]
-=== Use case: Archive Activity
-
-* Main Success Scenario (MSS)*
-
-1. User requests to list activities
-2. Club Manager shows a list of activities
-3. User request to archive an activity from the displayed list
-4. Club Manager archives the selected activity
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. Club Manager shows an error message.
-+
-Use case resumes at step 2.
-
-* 3b. The activity at the given index is already archived.
-+
-[none]
-** 3b1. Club Manager shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Unarchive Activity
-
-* Main Success Scenario (MSS)*
-
-1. User requests to list activities
-2. Club Manager shows a list of activities
-3. User request to unarchive an activity from the displayed list
-4. Club Manager unarchives the selected activity
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. Club Manager shows an error message.
-+
-Use case resumes at step 2.
-
-* 3b. The activity at the given index is not archived.
-+
-[none]
-** 3b1. Club Manager shows an error message.
-+
-Use case resumes at step 2.
 
 
 _{More to be added}_

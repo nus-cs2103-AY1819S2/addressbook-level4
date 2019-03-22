@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.activity.Activity;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -158,7 +159,52 @@ public class MemberAddCommandTest {
         }
 
         @Override
+        public ObservableList<Activity> getFilteredActivityList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredActivityList(Predicate<Activity> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteActivity(Activity activity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setActivity(Activity target, Activity editedActivity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Activity> selectedActivityProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Activity getSelectedActivity() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedActivity(Activity activity) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -205,6 +251,12 @@ public class MemberAddCommandTest {
         public void setSelectedPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Person generateExportedPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

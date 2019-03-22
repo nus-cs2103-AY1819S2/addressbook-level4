@@ -85,7 +85,7 @@ public class ModelManager implements Model {
     public void updateUi() {
         versionedAddressBook.updateUi();
     }
-    
+
     //=========== UserPrefs ==================================================================================
 
     @Override

@@ -15,4 +15,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_PHONE = new Prefix("p/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_YEAROFSTUDY = new Prefix("y/");
+
+    public static final Prefix PREFIX_ACTIVITYNAME = new Prefix("n/");
+    public static final Prefix PREFIX_DATETIME = new Prefix("d/");
+    public static final Prefix PREFIX_LOCATION = new Prefix("l/");
+    public static final Prefix PREFIX_ADESCRIPTION = new Prefix("de/");
+    public static final Prefix PREFIX_IC = new Prefix("ic/");
 }

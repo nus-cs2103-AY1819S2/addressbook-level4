@@ -16,7 +16,9 @@ import seedu.address.model.person.Person;
 public class Activity {
     // Identity fields
     private final ActivityName name;
-    private final ActivityDate date;
+    private final ActivityDateTime dateTime;
+    private final ActivityLocation location;
+    private final ActivityDescription description;
 
     // Data fields
     private Person inCharge;
@@ -25,18 +27,38 @@ public class Activity {
     /**
      * Every field must be present and not null.
      */
-    public Activity(ActivityName name, ActivityDate date) {
-        requireAllNonNull(name, date);
+    public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location,
+                    ActivityDescription description) {
+        requireAllNonNull(name, dateTime, location, description);
         this.name = name;
-        this.date = date;
+        this.dateTime = dateTime;
+        this.location = location;
+        this.description = description;
     }
+
+    public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location) {
+        requireAllNonNull(name, dateTime, location);
+        this.name = name;
+        this.dateTime = dateTime;
+        this.location = location;
+        this.description = new ActivityDescription();
+    }
+
 
     public ActivityName getName() {
         return name;
     }
 
-    public ActivityDate getDate() {
-        return date;
+    public ActivityDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public ActivityLocation getLocation() {
+        return location;
+    }
+
+    public ActivityDescription getDescription() {
+        return description;
     }
 
     public Person getInCharge() {
@@ -66,7 +88,7 @@ public class Activity {
 
         return otherActivity != null
                 && otherActivity.getName().equals(getName())
-                && otherActivity.getDate().equals(getDate());
+                && otherActivity.getDateTime().equals(getDateTime());
     }
 
     /**
@@ -85,7 +107,9 @@ public class Activity {
 
         Activity otherActivity = (Activity) other;
         return otherActivity.getName().equals(getName())
-                && otherActivity.getDate().equals(getDate())
+                && otherActivity.getDateTime().equals(getDateTime())
+                && otherActivity.getLocation().equals(getLocation())
+                && otherActivity.getDescription().equals(getDescription())
                 && otherActivity.getInCharge().equals(getInCharge())
                 && otherActivity.getAttendance().equals(getAttendance());
     }
@@ -93,15 +117,19 @@ public class Activity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, inCharge, attendance);
+        return Objects.hash(name, dateTime, inCharge, attendance);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
-                .append(getDate())
+                .append(" Date Time: ")
+                .append(getDateTime())
+                .append(" Location: ")
+                .append(getLocation())
+                .append(" Description: ")
+                .append(getDescription())
                 .append(" In Charge: ")
                 .append(getInCharge())
                 .append(" Number Attending: ")

@@ -5,10 +5,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORIENTATION;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.BoundaryValueChecker;
+import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
@@ -69,43 +70,27 @@ public class PutShipCommand extends Command {
         BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(mapGrid, battleship,
                 coordinates, orientation);
 
-        if (!isHeadWithinBounds(model, coordinates)) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } else if (this.orientation.isHorizontal() && !this.orientation.isVertical()) {
-            if (!isBattleshipAbsent(model, coordinates)) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
-            } else if (!isBodyWithinHorizontalBounds(model, coordinates, battleship)) {
-                throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
-            } else if (!isHorizontalClear(model, coordinates, battleship)) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_HORIZONTAL);
-            } else {
-                try {
-                    checkEnoughBattleships(model, battleship, 1);
-                    putAlongHorizontal(model, coordinates, battleship);
-                    model.deployBattleship(battleship, coordinates, orientation);
-                } catch (ArrayIndexOutOfBoundsException aiobe) {
-                    throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
-                } catch (Exception e) {
-                    throw new CommandException(e.getMessage());
-                }
+        boundaryValueChecker.performChecks();
+
+        if (this.orientation.isHorizontal()) {
+            try {
+                checkEnoughBattleships(model, battleship, 1);
+                putAlongHorizontal(model, coordinates, battleship);
+                model.deployBattleship(battleship, coordinates, orientation);
+            } catch (ArrayIndexOutOfBoundsException aiobe) {
+                throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
+            } catch (Exception e) {
+                throw new CommandException(e.getMessage());
             }
-        } else if (this.orientation.isVertical() && !this.orientation.isHorizontal()) {
-            if (!isBattleshipAbsent(model, coordinates)) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT);
-            } else if (!isBodyWithinVerticalBounds(model, coordinates, battleship)) {
-                throw new CommandException(Messages.MESSAGE_BODY_LENGTH_TOO_LONG);
-            } else if (!isVerticalClear(model, coordinates, battleship)) {
-                throw new CommandException(MESSAGE_BATTLESHIP_PRESENT_BODY_VERTICAL);
-            } else {
-                try {
-                    checkEnoughBattleships(model, battleship, 1);
-                    putAlongVertical(model, coordinates, battleship);
-                    model.deployBattleship(battleship, coordinates, orientation);
-                } catch (ArrayIndexOutOfBoundsException aiobe) {
-                    throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
-                } catch (Exception e) {
-                    throw new CommandException(e.getMessage());
-                }
+        } else if (this.orientation.isVertical()) {
+            try {
+                checkEnoughBattleships(model, battleship, 1);
+                putAlongVertical(model, coordinates, battleship);
+                model.deployBattleship(battleship, coordinates, orientation);
+            } catch (ArrayIndexOutOfBoundsException aiobe) {
+                throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
+            } catch (Exception e) {
+                throw new CommandException(e.getMessage());
             }
         } else {
             throw new CommandException(MESSAGE_USAGE);
@@ -118,95 +103,6 @@ public class PutShipCommand extends Command {
     }
 
     /**
-     * Checks if given coordinates falls within the MapGrid.
-     * @return true or false whether the coordinates fall within the MapGrid
-     */
-    public static boolean isHeadWithinBounds(Model model, Coordinates coordinates) {
-        Index rowIndex = coordinates.getRowIndex();
-        Index colIndex = coordinates.getColIndex();
-
-        if ((rowIndex.getZeroBased() > model.getMapSize())
-                || colIndex.getZeroBased() > model.getMapSize()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Checks if the body is within horizontal bounds of the map grid.
-     * @return boolean of whether the body of battleship is within bounds of map grid.
-     */
-    public static boolean isBodyWithinHorizontalBounds(Model model,
-                                                       Coordinates coordinates, Battleship battleship) {
-        Index colIndex = coordinates.getColIndex();
-
-        int length = battleship.getLength();
-
-        if (colIndex.getZeroBased() + length > model.getMapSize()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Checks if the body is within vertical bounds of the map grid.
-     * @return boolean of whether body of battleship is within bounds of map grid.
-     */
-    public static boolean isBodyWithinVerticalBounds(Model model,
-                                                     Coordinates coordinates, Battleship battleship) {
-        Index rowIndex = coordinates.getRowIndex();
-
-        int length = battleship.getLength();
-
-        if (rowIndex.getZeroBased() + length > model.getMapSize()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Checks if the battleship is absent.
-     * @return boolean of whether battleship is absent or present.
-     */
-    public static boolean isBattleshipAbsent(Model model, Coordinates coordinates) {
-        Index rowIndex = coordinates.getRowIndex();
-        Index colIndex = coordinates.getColIndex();
-
-        Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(), colIndex.getZeroBased());
-
-        if (cellToInspect.hasBattleShip()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Checks if vertical length is clear, i.e., there are no other battleship objects.
-     * @return boolean of whether vertical length is clear.
-     */
-    public static boolean isVerticalClear(Model model, Coordinates coordinates, Battleship battleship) {
-        Index rowIndex = coordinates.getRowIndex();
-        Index colIndex = coordinates.getColIndex();
-
-        int length = battleship.getLength();
-
-        for (int i = 1; i < length; i++) {
-            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
-                    colIndex.getZeroBased());
-
-            if (cellToInspect.hasBattleShip()) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
      * Checks if there are enough battleships to use. Throws exception if otherwise.
      */
     public static void checkEnoughBattleships(Model model, Battleship battleship, int numBattleship)
@@ -214,28 +110,6 @@ public class PutShipCommand extends Command {
         if (!model.isEnoughBattleships(battleship, numBattleship)) {
             throw new Exception("Not enough " + battleship.getName() + "s.");
         }
-    }
-
-    /**
-     * Checks if horizontal length is clear, i.e., there are no other battleship objects.
-     * @return boolean of whether horizontal length is clear.
-     */
-    public static boolean isHorizontalClear(Model model, Coordinates coordinates, Battleship battleship) {
-        Index rowIndex = coordinates.getRowIndex();
-        Index colIndex = coordinates.getColIndex();
-
-        int length = battleship.getLength();
-
-        for (int i = 1; i < length; i++) {
-            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
-                    colIndex.getZeroBased() + i);
-
-            if (cellToInspect.hasBattleShip()) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     /**

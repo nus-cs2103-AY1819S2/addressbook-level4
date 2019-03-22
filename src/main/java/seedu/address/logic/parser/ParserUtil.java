@@ -111,33 +111,40 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a DD-MM-YYYY string input into a Deadline Object
+     *
+     * @param deadline = String in DD-MM-YYYY format.
+     * @return Constructed valid Deadline Object
+     * @throws ParseException - If input does not match requirements.
+     */
     public static Deadline parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
 
-        final int DAY_POSITION = 0;
-        final int MONTH_POSITION = 1;
-        final int YEAR_POSITION = 2;
-        final String PARAMETER_SEPERATOR = "-";
-        final String DATE_ERROR = "Invalid Date Format/Value";
+        final int position_day = 0;
+        final int position_month = 1;
+        final int position_year = 2;
+        final String parameter_seperator = "-";
+        final String date_error = "Invalid Date Format/Value";
 
-        String[] dates = deadline.split(PARAMETER_SEPERATOR);
+        String[] dates = deadline.split(parameter_seperator);
 
         for (String s : dates) {
             if (s.length() == 0 || s.length() > 4) {
-                throw new ParseException(DATE_ERROR);
+                throw new ParseException(date_error);
             }
         }
 
-        if (dates[DAY_POSITION].length() > 2 || dates[MONTH_POSITION].length() > 2
-                || dates[YEAR_POSITION].length() > 4) {
-            throw new ParseException(DATE_ERROR);
+        if (dates[position_day].length() > 2 || dates[position_month].length() > 2
+                || dates[position_year].length() > 4) {
+            throw new ParseException(date_error);
         }
 
         try {
-            return new Deadline(Integer.parseInt(dates[DAY_POSITION]), Integer.parseInt(dates[MONTH_POSITION]),
-                    Integer.parseInt(dates[YEAR_POSITION]));
+            return new Deadline(Integer.parseInt(dates[position_day]), Integer.parseInt(dates[position_month]),
+                    Integer.parseInt(dates[position_year]));
         } catch (DateTimeException e) {
-            throw new ParseException(DATE_ERROR);
+            throw new ParseException(date_error);
         }
 
     }

@@ -9,8 +9,16 @@ import seedu.address.logic.commands.DeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.Deadline;
 
+/**
+ * Parses input arguments and creates a new DeleteCommand object
+ */
 public class DeadlineCommandParser implements Parser<DeadlineCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeadlineCommand
+     * and returns an DeadlineCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     @Override
     public DeadlineCommand parse(String args) throws ParseException {
         requireNonNull(args);

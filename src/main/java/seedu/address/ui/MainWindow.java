@@ -31,11 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-<<<<<<< HEAD
-    private BrowserPanel browserPanel;
-=======
     private BookBrowserPanel browserPanel;
->>>>>>> 922c72f86ad2b5420953d4580f0969fbec323143
     private BookListPanel bookListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -116,19 +112,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-<<<<<<< HEAD
-        browserPanel = new BrowserPanel(logic.selectedBookProperty());
-=======
         browserPanel = new BookBrowserPanel(logic.selectedBookProperty());
->>>>>>> 922c72f86ad2b5420953d4580f0969fbec323143
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
                 logic::setSelectedBook);
-<<<<<<< HEAD
-=======
 
->>>>>>> 922c72f86ad2b5420953d4580f0969fbec323143
         bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

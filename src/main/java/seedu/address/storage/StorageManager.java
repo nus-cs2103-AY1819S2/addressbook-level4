@@ -9,7 +9,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
-import seedu.address.model.ReadOnlyPatientBook;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
@@ -24,7 +23,6 @@ public class StorageManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private RequestBookStorage requestBookStorage;
     private HealthWorkerBookStorage healthWorkerBookStorage;
-    private PatientBookStorage patientBookStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
@@ -34,14 +32,12 @@ public class StorageManager implements Storage {
     }
 
     public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefStorage,
-                          RequestBookStorage requestBookStorage, HealthWorkerBookStorage healthWorkerBookStorage,
-                          PatientBookStorage patientBookStorage) {
+                          RequestBookStorage requestBookStorage, HealthWorkerBookStorage healthWorkerBookStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefStorage;
         this.requestBookStorage = requestBookStorage;
         this.healthWorkerBookStorage = healthWorkerBookStorage;
-        this.patientBookStorage = patientBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -126,37 +122,6 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
-    // ================ PatientBook methods ==============================
-    /**
-     * Returns the file path of the data file.
-     */
-    @Override
-    public Path getPatientBookFilePath() {
-        return patientBookStorage.getPatientBookFilePath();
-    }
-
-    @Override
-    public Optional<ReadOnlyPatientBook> readPatientBook() throws DataConversionException, IOException {
-        return readPatientBook(patientBookStorage.getPatientBookFilePath());
-    }
-
-    @Override
-    public Optional<ReadOnlyPatientBook> readPatientBook(Path filePath)
-            throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return patientBookStorage.readPatientBook(filePath);
-    }
-
-    @Override
-    public void savePatientBook(ReadOnlyPatientBook patientBook) throws IOException {
-        savePatientBook(patientBook, patientBookStorage.getPatientBookFilePath());
-    }
-
-    @Override
-    public void savePatientBook(ReadOnlyPatientBook patientBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        patientBookStorage.savePatientBook(patientBook, filePath);
-    }
     //================ HealthWorkerBook methods ==============================
     /**
      * Returns the file path of the data file.

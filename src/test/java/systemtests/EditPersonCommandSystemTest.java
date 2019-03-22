@@ -14,17 +14,16 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -32,13 +31,9 @@ import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
-import org.junit.Test;
-
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditPersonCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.CommandMode;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
@@ -50,40 +45,25 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
+/**
+ * Deprecated system test for EditCommand in AB4.
+ */
 public class EditPersonCommandSystemTest extends AddressBookSystemTest {
 
     private static final String MODE_OTHERS = CommandMode.MODE_OTHERS + " ";
 
-    @Test
+    /**
+     * TODO: Phased out. To be replaced with EditHealthWorker/EditRequestSystemTest
+     */
     public void edit() {
         Model model = getModel();
 
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 
-        /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
-         * -> edited
-         */
-        Index index = INDEX_FIRST;
-        String command = " " + EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " " + index.getOneBased() + "  "
-                + NAME_DESC_BOB + "  " + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " "
-                + TAG_DESC_HUSBAND + " ";
-        Person editedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
-        assertCommandSuccess(command, index, editedPerson);
-
-        /* Case: undo editing the last person in the list -> last person restored */
-        command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: redo editing the last person in the list -> last person edited again */
-        command = RedoCommand.COMMAND_WORD;
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setPerson(getModel().getFilteredPersonList().get(INDEX_FIRST.getZeroBased()), editedPerson);
-        assertCommandSuccess(command, model, expectedResultMessage);
-
         /* Case: edit a person with new values same as existing values -> edited */
-        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        Index index = INDEX_FIRST;
+        String command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB
+                + PHONE_DESC_BOB + NRIC_DESC_BOB;
         assertCommandSuccess(command, index, BOB);
 
         /* Case: edit a person with new values same as another person's values but with different name -> edited */
@@ -91,26 +71,26 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_SECOND;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), BOB);
         command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_AMY
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
+                + PHONE_DESC_BOB + NRIC_DESC_BOB;
+        Person editedPerson = new PersonBuilder(BOB).withName(VALID_NAME_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: edit a person with new values same as another person's values but with different phone and email
-         * -> edited
+        /* Case: edit a person with new values same as another person's values but with different phone -> edited
          */
         index = INDEX_SECOND;
         command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB
-                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).build();
+                + PHONE_DESC_AMY + NRIC_DESC_BOB;
+        editedPerson = new PersonBuilder(BOB).withPhone(VALID_PHONE_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /* Case: clear tags -> cleared */
-        index = INDEX_FIRST;
-        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + " "
-                + PREFIX_TAG.getPrefix();
-        Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
-        editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        /* Case: edit a person with new values same as another person's values but with different Nric -> edited
+         */
+        index = INDEX_SECOND;
+        command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + NAME_DESC_BOB
+                + PHONE_DESC_BOB + NRIC_DESC_AMY;
+        editedPerson = new PersonBuilder(BOB).withNric(VALID_NRIC_AMY).build();
         assertCommandSuccess(command, index, editedPerson);
+
 
         /* ----------------- Performing edit operation while a filtered list is being shown ----------------------- */
 
@@ -119,7 +99,7 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
         index = INDEX_FIRST;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + index.getOneBased() + " " + NAME_DESC_BOB;
-        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
 

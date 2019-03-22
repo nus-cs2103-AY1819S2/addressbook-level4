@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BETTY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BETTY;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
@@ -44,8 +44,8 @@ public class HealthWorkerBookTest {
         assertEquals(healthWorkerBook, newData);
 
         // reset data with list containing duplicate persons
-        HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY).withAddress(
-                VALID_ADDRESS_BETTY)).build();
+        HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY).withPhone(
+                VALID_PHONE_BETTY)).build();
         List<HealthWorker> newHealthWorkers = Arrays.asList(ANDY, editedAndy);
         HealthWorkerBookStub newBook = new HealthWorkerBookStub(newHealthWorkers);
         Assert.assertThrows(DuplicatePersonException.class, () -> healthWorkerBook.resetData(newBook));
@@ -61,8 +61,8 @@ public class HealthWorkerBookTest {
         Assert.assertThrows(DuplicatePersonException.class, () -> healthWorkerBook.addHealthWorker(ANDY));
 
         // same identity fields -> duplicate
-        HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY).withAddress(
-                VALID_ADDRESS_BETTY)).build();
+        HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY).withPhone(
+                VALID_PHONE_BETTY)).build();
         Assert.assertThrows(DuplicatePersonException.class, () -> healthWorkerBook.addHealthWorker(editedAndy));
 
         List<HealthWorker> newData = Arrays.asList(ANDY, BETTY);
@@ -112,8 +112,8 @@ public class HealthWorkerBookTest {
         assertTrue(healthWorkerBook.hasHealthWorker(ANDY));
 
         // health worker with different fields, same identity -> return true
-        HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY).withAddress(
-                VALID_ADDRESS_BETTY)).build();
+        HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY).withPhone(
+                VALID_PHONE_BETTY)).build();
         assertTrue(healthWorkerBook.hasHealthWorker(editedAndy));
     }
 
@@ -147,5 +147,6 @@ public class HealthWorkerBookTest {
         public void removeListener(InvalidationListener invalidationListener) {
             throw new AssertionError("This method should not be called.");
         }
+
     }
 }

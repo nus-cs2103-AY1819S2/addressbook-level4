@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -12,15 +11,12 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.tag.Skills;
-import seedu.address.model.tag.Tag;
 
 /**
  * @author Lookaz
@@ -77,15 +73,11 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
         Name updatedName = editHealthWorkerDescriptor.getName().orElse(toEdit.getName());
         Nric updatedNric = editHealthWorkerDescriptor.getNric().orElse(toEdit.getNric());
         Phone updatedPhone = editHealthWorkerDescriptor.getPhone().orElse(toEdit.getPhone());
-        Email updatedEmail = editHealthWorkerDescriptor.getEmail().orElse(toEdit.getEmail());
-        Address updatedAddress = editHealthWorkerDescriptor.getAddress().orElse(toEdit.getAddress());
-        Set<Tag> updatedTags = editHealthWorkerDescriptor.getTags().orElse(toEdit.getTags());
         Organization updatedOrganization = editHealthWorkerDescriptor.getOrganization()
                 .orElse(toEdit.getOrganization());
         Skills updatedSkills = editHealthWorkerDescriptor.getSkills().orElse(toEdit.getSkills());
 
-        return new HealthWorker(updatedName, updatedPhone, updatedEmail, updatedNric, updatedAddress, updatedTags,
-                updatedOrganization, updatedSkills);
+        return new HealthWorker(updatedName, updatedNric, updatedPhone, updatedOrganization, updatedSkills);
     }
 
     @Override
@@ -153,12 +145,10 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
             EditHealthWorkerDescriptor e = (EditHealthWorkerDescriptor) other;
 
             return getName().equals(e.getName())
+                    && getNric().equals(e.getNric())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags())
                     && getOrganization().equals(e.getOrganization())
-                    && getSkills().equals(getSkills());
+                    && getSkills().equals(e.getSkills());
         }
     }
 }

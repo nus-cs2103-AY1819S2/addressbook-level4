@@ -1,10 +1,7 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
-import static seedu.address.testutil.TypicalPatients.BENSON;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
-import static seedu.address.testutil.TypicalRequests.BENSON_ID;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
 
 import org.junit.Test;
@@ -22,22 +19,10 @@ import seedu.address.testutil.Assert;
 public class JsonAdaptedRequestTest {
     private static final String INVALID_PHONE = "+651234";
     private static final String INVALID_NRIC = "2193213";
-    private static final String INVALID_TAG = "#friend";
     private static final String INVALID_DATE = "1st Jan";
     private static final String INVALID_STATUS = "Busy";
     private static final String INVALID_NAME = "R@chel";
     private static final String INVALID_ADDRESS = " ";
-
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_DATE = BENSON_REQUEST.getRequestDate().toString();
-    private static final String VALID_ID = BENSON_ID;
-    private static final String VALID_STATUS = BENSON_REQUEST.getRequestStatus().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final String VALID_SKILLS = BETTY.getSkills().toString();
-    private static final String VALID_NRIC = BETTY.getNric().toString();
-
 
     @Test
     public void toModelType_validRequestDetails_returnsRequest() throws Exception {

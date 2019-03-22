@@ -1,10 +1,9 @@
 package seedu.address.storage;
 
 //import java.util.ArrayList;
+
 import java.util.HashSet;
-//import java.util.List;
 import java.util.Set;
-//import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -21,6 +20,9 @@ import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.ConditionTag;
 import seedu.address.model.tag.Conditions;
+
+//import java.util.List;
+//import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Request}.

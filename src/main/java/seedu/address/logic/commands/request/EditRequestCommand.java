@@ -79,18 +79,14 @@ public class EditRequestCommand extends RequestCommand {
                                                EditRequestDescriptor editRequestDescriptor) {
         assert requestToEdit != null;
 
-        Name updatedName =
-            editRequestDescriptor.getName().orElse(requestToEdit.getName());
-        Phone updatedPhone =
-            editRequestDescriptor.getPhone().orElse(requestToEdit.getPhone());
-        Address updatedAddress =
-            editRequestDescriptor.getAddress().orElse(requestToEdit.getAddress());
-        RequestDate updatedRequestDate =
-            editRequestDescriptor.getDate().orElse(requestToEdit.getRequestDate());
+        Name updatedName = editRequestDescriptor.getName().orElse(requestToEdit.getName());
+        Phone updatedPhone = editRequestDescriptor.getPhone().orElse(requestToEdit.getPhone());
+        Address updatedAddress = editRequestDescriptor.getAddress().orElse(requestToEdit.getAddress());
+        RequestDate updatedRequestDate = editRequestDescriptor.getDate().orElse(requestToEdit.getRequestDate());
         Nric updatedNric = editRequestDescriptor.getNric().orElse(requestToEdit.getNric());
         RequestStatus updatedRequestStatus = requestToEdit.getRequestStatus();
-        Set<ConditionTag> updatedConditions =
-            editRequestDescriptor.getConditions().orElse(requestToEdit.getConditions().getConditions());
+        Set<ConditionTag> updatedConditions = editRequestDescriptor.getConditions().orElse(requestToEdit
+                .getConditions().getConditions());
         String updatedHealthWorker;
         if (requestToEdit.getHealthStaff() != null) {
             updatedHealthWorker = requestToEdit.getHealthStaff();

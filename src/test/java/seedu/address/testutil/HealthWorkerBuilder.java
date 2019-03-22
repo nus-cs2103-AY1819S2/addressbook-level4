@@ -61,8 +61,7 @@ public class HealthWorkerBuilder extends PersonBuilder {
      * object.
      */
     public HealthWorker build() {
-        return new HealthWorker(name, phone, email, nric, address, tags,
-                organization, skills);
+        return new HealthWorker(name, nric, phone, organization, skills);
     }
 
 }

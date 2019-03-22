@@ -4,9 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BENSON;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
-import static seedu.address.testutil.TypicalPatients.BENSON;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
 
@@ -94,7 +93,7 @@ public class RequestTest {
         assertFalse(ALICE_REQUEST.equals(BENSON_REQUEST));
 
         // different name -> returns false
-        Request editedAlice = new RequestBuilder(ALICE_REQUEST).withPatient(BENSON).build();
+        Request editedAlice = new RequestBuilder(ALICE_REQUEST).withName(VALID_NAME_BENSON).build();
         assertFalse(ALICE_REQUEST.equals(editedAlice));
 
         // different nric -> returns false

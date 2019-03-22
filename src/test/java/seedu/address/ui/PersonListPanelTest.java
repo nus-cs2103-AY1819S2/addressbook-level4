@@ -8,8 +8,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
@@ -17,8 +15,6 @@ import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
@@ -82,10 +78,8 @@ public class PersonListPanelTest extends GuiUnitTest {
         for (int i = 0; i < personCount; i++) {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
-            Email email = new Email("a@aa");
-            Address address = new Address("a");
             Nric nric = new Nric("S1234567A");
-            Person person = new Person(name, phone, email, nric, address, Collections.emptySet());
+            Person person = new Person(name, nric, phone);
             backingList.add(person);
         }
         return backingList;

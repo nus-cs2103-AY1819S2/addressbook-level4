@@ -3,7 +3,7 @@ package seedu.address.model.person.healthworker;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BETTY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BETTY;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 
@@ -44,7 +44,7 @@ public class UniqueHealthWorkerListTest {
 
         // Identity fields same -> returns true
         HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
-                .withAddress(VALID_ADDRESS_BETTY)).build();
+                .withPhone(VALID_PHONE_BETTY)).build();
         assertTrue(uniqueHealthWorkerList.contains(editedAndy));
     }
 
@@ -61,7 +61,7 @@ public class UniqueHealthWorkerListTest {
 
         // same identity fields -> duplicate
         HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
-                .withAddress(VALID_ADDRESS_BETTY)).build();
+                .withPhone(VALID_PHONE_BETTY)).build();
         Assert.assertThrows(DuplicatePersonException.class, () ->
                 uniqueHealthWorkerList.add(editedAndy));
     }
@@ -87,7 +87,7 @@ public class UniqueHealthWorkerListTest {
 
         // edited health worker same identity -> same list
         HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
-                .withAddress(VALID_ADDRESS_BETTY)).build();
+                .withPhone(VALID_PHONE_BETTY)).build();
         uniqueHealthWorkerList.setHealthWorker(ANDY, editedAndy);
         expectedUniqueHealthWorkerList = new UniqueHealthWorkerList();
         expectedUniqueHealthWorkerList.add(editedAndy);
@@ -123,7 +123,7 @@ public class UniqueHealthWorkerListTest {
 
         // different fields -> object not in list
         HealthWorker editedAndy = ((HealthWorkerBuilder) new HealthWorkerBuilder(ANDY)
-                .withAddress(VALID_ADDRESS_BETTY)).build();
+                .withPhone(VALID_PHONE_BETTY)).build();
         Assert.assertThrows(PersonNotFoundException.class, () ->
                 uniqueHealthWorkerList.remove(editedAndy));
     }

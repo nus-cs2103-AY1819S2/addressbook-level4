@@ -31,10 +31,8 @@ public class StorageManagerTest {
             "rb"));
         JsonHealthWorkerBookStorage healthWorkerBookStorage =
             new JsonHealthWorkerBookStorage(getTempFilePath("hb"));
-        JsonPatientBookStorage patientBookStorage =
-                new JsonPatientBookStorage((getTempFilePath("pb")));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage,
-            requestBookStorage, healthWorkerBookStorage, patientBookStorage);
+            requestBookStorage, healthWorkerBookStorage);
     }
 
     private Path getTempFilePath(String fileName) {

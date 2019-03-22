@@ -31,7 +31,6 @@ import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.HealthWorkerBuilder;
@@ -235,31 +234,6 @@ public class AddHealthWorkerCommandTest {
         public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
             throw new AssertionError("This method should not be called.");
         }
-
-        // =========== Implemented methods supporting Patient ===========
-        // @author Rohan
-
-        @Override
-        public boolean hasPatient(Patient patient) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPatient(Patient patient) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPatientList(Predicate<Patient> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyPatientBook getPatientBook() {
-            return null;
-        }
-        // ===================================================================
-
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {

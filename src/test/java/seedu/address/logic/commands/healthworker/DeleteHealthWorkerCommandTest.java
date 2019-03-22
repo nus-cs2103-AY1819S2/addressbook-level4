@@ -8,7 +8,6 @@ import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorker
 
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
-import static seedu.address.testutil.TypicalPatients.getTypicalPatientBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
@@ -26,7 +25,7 @@ import seedu.address.model.person.healthworker.HealthWorker;
 public class DeleteHealthWorkerCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
-        getTypicalPatientBook(), getTypicalRequestBook(), new UserPrefs());
+            getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -37,7 +36,7 @@ public class DeleteHealthWorkerCommandTest {
         String expectedMessage = String.format(DeleteHealthWorkerCommand.MESSAGE_DELETE_HEALTHWORKER_SUCCESS, toDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getHealthWorkerBook(),
-            model.getPatientBook(), model.getRequestBook(), new UserPrefs());
+                model.getRequestBook(), new UserPrefs());
         expectedModel.deleteHealthWorker(toDelete);
         expectedModel.commitAddressBook();
 

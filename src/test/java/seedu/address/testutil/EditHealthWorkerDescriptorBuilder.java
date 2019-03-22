@@ -40,10 +40,7 @@ public class EditHealthWorkerDescriptorBuilder {
         descriptor = new EditHealthWorkerDescriptor();
         descriptor.setName(healthWorker.getName());
         descriptor.setPhone(healthWorker.getPhone());
-        descriptor.setEmail(healthWorker.getEmail());
-        descriptor.setAddress(healthWorker.getAddress());
         descriptor.setNric(healthWorker.getNric());
-        descriptor.setTags(healthWorker.getTags());
         descriptor.setOrganization(healthWorker.getOrganization());
         descriptor.setSkills(healthWorker.getSkills());
     }

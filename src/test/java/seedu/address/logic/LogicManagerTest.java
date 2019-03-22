@@ -57,10 +57,8 @@ public class LogicManagerTest {
             new JsonRequestBookStorage(temporaryFolder.newFile().toPath());
         JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage =
             new JsonHealthWorkerBookStorage(temporaryFolder.newFile().toPath());
-        JsonPatientBookStorage jsonPatientBookStorage =
-                new JsonPatientBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
-            requestBookStorage, jsonHealthWorkerBookStorage, jsonPatientBookStorage);
+            requestBookStorage, jsonHealthWorkerBookStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -95,16 +93,14 @@ public class LogicManagerTest {
             new JsonRequestBookStorage(temporaryFolder.newFile().toPath());
         JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage =
             new JsonHealthWorkerBookStorage(temporaryFolder.newFile().toPath());
-        JsonPatientBookStorage jsonPatientBookStorage =
-                new JsonPatientBookStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage,
-            requestBookStorage, jsonHealthWorkerBookStorage, jsonPatientBookStorage);
+            requestBookStorage, jsonHealthWorkerBookStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
         String addCommand = AddPersonCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Person expectedPerson = new PersonBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);
         expectedModel.commitAddressBook();
@@ -150,7 +146,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getHealthWorkerBook(),
-            model.getPatientBook(), getTypicalRequestBook(), new UserPrefs());
+            getTypicalRequestBook(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

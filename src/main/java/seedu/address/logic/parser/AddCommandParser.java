@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.HashSet;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -23,14 +22,12 @@ import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.request.AddRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.healthworker.Organization;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.tag.Conditions;
@@ -104,37 +101,6 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     /**
-     * @author Rohan
-     * @param args argument list for add command
-     * @return new AddPatientCommand for the adding of patient
-     * with the fields specified in args
-     * @throws ParseException if there are invalid/unfilled fields.
-     */
-    private AddPatientCommand parseAddPatient(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-            PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ORGANIZATION,
-            PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_TAG, PREFIX_SKILLS);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_NRIC,
-            PREFIX_ORGANIZATION, PREFIX_PHONE, PREFIX_ADDRESS, PREFIX_EMAIL, PREFIX_SKILLS)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddPatientCommand.MESSAGE_USAGE));
-        }
-
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Conditions conditions = ParserUtil.parseConditions(argMultimap.getAllValues(PREFIX_CONDITION));
-
-        Patient patient = new Patient(name, phone, email, nric, address, tagList, conditions);
-
-        return new AddPatientCommand(patient);
-    }
-
-    /**
      * @author Lookaz
      * Auxiliary method for parsing the adding of HealthWorker objects
      * @param args argument list for add command
@@ -159,13 +125,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         Organization organization = ParserUtil.parseOrganization(argMultimap
                 .getValue(PREFIX_ORGANIZATION).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Skills skills = ParserUtil.parseSpecialisations(argMultimap.getAllValues(PREFIX_SKILLS));
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        HealthWorker healthWorker = new HealthWorker(name, phone, email,
-                nric, address, tagList, organization, skills);
+        HealthWorker healthWorker = new HealthWorker(name, nric, phone, organization, skills);
 
         return new AddHealthWorkerCommand(healthWorker);
     }
@@ -185,11 +147,9 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
 
-        return new Person(name, phone, email, address, tagList);
+        return new Person(name, nric, phone);
     }
 
 }

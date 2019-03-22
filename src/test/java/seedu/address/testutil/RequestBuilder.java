@@ -10,7 +10,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
@@ -128,17 +127,6 @@ public class RequestBuilder {
      */
     public RequestBuilder withAddress(String address) {
         this.address = new Address(address);
-        return this;
-    }
-
-    /**
-     * Sets the name, address, phone and nric of the request object
-     */
-    public RequestBuilder withPatient(Patient patient) {
-        this.name = patient.getName();
-        this.address = patient.getAddress();
-        this.phone = patient.getPhone();
-        this.nric = patient.getNric();
         return this;
     }
 

@@ -95,8 +95,8 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         // TODO: Fix HealthWorkerBook implementation
-        Model copy = new ModelManager((model.getAddressBook()), new HealthWorkerBook(), new PatientBook(),
-            new RequestBook(), new UserPrefs());
+        Model copy = new ModelManager((model.getAddressBook()), new HealthWorkerBook(),
+                new RequestBook(), new UserPrefs());
         ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         return copy;
     }

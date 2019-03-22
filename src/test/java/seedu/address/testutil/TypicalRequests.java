@@ -20,8 +20,7 @@ public class TypicalRequests {
 
     public static final Request ALICE_REQUEST = new RequestBuilder()
             .withId(ALICE_ID)
-            .withPatient(TypicalPatients.ALICE)
-        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Physiotherapy"))))
+            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Physiotherapy"))))
             .withDate("01-01-2019 10:00:00")
             .withHealthStaff(TypicalHealthWorkers.ANDY)
             .withStatus("PENDING")
@@ -29,8 +28,7 @@ public class TypicalRequests {
 
     public static final Request BENSON_REQUEST = new RequestBuilder()
             .withId(BENSON_ID)
-            .withPatient(TypicalPatients.BENSON)
-        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
+            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.BETTY)
             .withStatus("PENDING")
@@ -38,8 +36,7 @@ public class TypicalRequests {
 
     public static final Request CARL_REQUEST = new RequestBuilder()
             .withId(CARL_ID)
-            .withPatient(TypicalPatients.CARL)
-        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
+            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.CARLIE)
             .withStatus("PENDING")
@@ -47,7 +44,6 @@ public class TypicalRequests {
 
     public static final Request DANIEL_REQUEST = new RequestBuilder()
             .withId(DANIEL_ID)
-            .withPatient(TypicalPatients.DANIEL)
             .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.PANIEL)

@@ -46,7 +46,6 @@ public class GoToCommand extends Command {
 
         Patient selectedPerson = (Patient) filteredPersonList.get(targetIndex.getZeroBased());
         MainWindow.setRecordPatient(selectedPerson);
-        // Do something to generate records.
 
         return new CommandResult(true,
                 String.format(MESSAGE_EXPAND_PERSON_SUCCESS, targetIndex.getOneBased()), false);

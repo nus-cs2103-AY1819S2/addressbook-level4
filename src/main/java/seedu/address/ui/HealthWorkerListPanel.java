@@ -13,10 +13,11 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.healthworker.HealthWorker;
 
-
-
 /**
- *
+ * The HealthWorkerList Panel of the App.
+ * Responsible for constructing the health worker list panel via its individual
+ * {@code HealthWorker} cards and handling event logic.
+ * @author Hui Chun
  */
 public class HealthWorkerListPanel extends UiPart<Region> {
     private static final String FXML = "HealthWorkerListPanel.fxml";
@@ -48,6 +49,7 @@ public class HealthWorkerListPanel extends UiPart<Region> {
             if (newValue == null) {
                 healthWorkerListView.getSelectionModel().clearSelection();
             } else {
+                logger.info("NEW HEALTH WORKER" + newValue);
                 int index = healthWorkerListView.getItems().indexOf(newValue);
                 healthWorkerListView.scrollTo(index);
                 healthWorkerListView.getSelectionModel().clearAndSelect(index);
@@ -55,7 +57,6 @@ public class HealthWorkerListPanel extends UiPart<Region> {
         });
 
     }
-
 
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code HealthWorker} using a {@code HealthWorkerCard}.
@@ -69,7 +70,7 @@ public class HealthWorkerListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(worker, getIndex() + 1).getRoot());
+                setGraphic(new HealthWorkerCard(worker, getIndex() + 1).getRoot());
             }
         }
     }

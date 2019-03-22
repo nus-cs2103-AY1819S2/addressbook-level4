@@ -43,7 +43,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
 
             assertCardDisplaysPerson(expectedPerson, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals((i + 1) + ". ", actualCard.getId());
         }
     }
 

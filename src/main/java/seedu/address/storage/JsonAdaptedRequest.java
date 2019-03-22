@@ -3,16 +3,19 @@ package seedu.address.storage;
 //import java.util.ArrayList;
 import java.util.HashSet;
 //import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 //import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.person.patient.Patient;
+import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Phone;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
@@ -26,45 +29,49 @@ class JsonAdaptedRequest {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Request's %s field is missing!";
 
-    private final String id;
-    private final JsonAdaptedPatient patient;
+    private final String name;
+    private final String nric;
+    private final String address;
+    private final String phone;
     private final String requestDate;
     private final String conditions;
-    private final JsonAdaptedHealthWorker healthWorker;
-
     private final String requestStatus;
+    private String healthWorker;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedRequest(@JsonProperty("id") String id,
-                              @JsonProperty("patient") JsonAdaptedPatient patient,
-                              @JsonProperty("requestdate") String requestDate,
-                              @JsonProperty("healthworker") JsonAdaptedHealthWorker healthWorker,
+    public JsonAdaptedRequest(@JsonProperty("name") String name,
+                              @JsonProperty("nric") String nric,
+                              @JsonProperty("phone") String phone,
+                              @JsonProperty("address") String address,
+                              @JsonProperty("requestDate") String requestDate,
                               @JsonProperty("conditions") String conditions,
-                              @JsonProperty("requestStatus") String requestStatus) {
-        this.id = id;
-        this.patient = patient;
+                              @JsonProperty("requestStatus") String requestStatus,
+                              @JsonProperty("healthWorker") String healthWorker) {
+        this.name = name;
+        this.nric = nric;
+        this.address = address;
+        this.phone = phone;
         this.requestDate = requestDate;
         this.conditions = conditions;
-
-        this.healthWorker = healthWorker;
         this.requestStatus = requestStatus;
+        this.healthWorker = healthWorker;
     }
 
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedRequest(Request source) {
-        this.id = source.getId();
-        this.patient = new JsonAdaptedPatient(source.getPatient());
-
+        this.name = source.getName().fullName;
+        this.address = source.getAddress().value;
+        this.nric = source.getNric().getNric();
+        this.phone = source.getPhone().value;
         this.requestDate = source.getRequestDate().toString();
         this.requestStatus = source.getRequestStatus().toString();
         this.conditions = source.getConditions().toString();
-        Optional<HealthWorker> hw = source.getHealthStaff();
-        this.healthWorker = hw.map(JsonAdaptedHealthWorker::new).orElse(null);
+        this.healthWorker = source.getHealthStaff();
     }
 
     /**
@@ -74,25 +81,41 @@ class JsonAdaptedRequest {
      */
     public Request toModelType() throws IllegalValueException {
 
-
-        if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "id"));
+        if (name == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Name.class.getSimpleName()));
         }
 
-        final String modelId = this.id;
-
-
-        if (patient == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Patient.class.getSimpleName()));
+        if (!Name.isValidName(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
 
-        final Patient modelPatient = this.patient.toModelType();
-        final HealthWorker modelHealthStaff;
-        if (healthWorker != null) {
-            modelHealthStaff = this.healthWorker.toModelType();
-        } else {
-            modelHealthStaff = null;
+        final Name modelName = new Name(name);
+
+        if (phone == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
+        if (!Phone.isValidPhone(phone)) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        }
+        final Phone modelPhone = new Phone(phone);
+
+        if (address == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        }
+        if (!Address.isValidAddress(address)) {
+            throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
+        }
+        final Address modelAddress = new Address(address);
+
+        if (nric == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+        }
+        if (!Nric.isValidNric(nric)) {
+            throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);
+        }
+        final Nric modelNric = new Nric(nric);
+
         if (requestDate == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     RequestDate.class.getSimpleName()));
@@ -124,11 +147,23 @@ class JsonAdaptedRequest {
         final Conditions modelConditions = new Conditions(set);
 
 
-        if (modelHealthStaff == null) {
-            return new Request(modelId, modelPatient, modelrequestDate, modelConditions, modelrequestStatus);
+        if (healthWorker == null) {
+            return new Request(modelName, modelNric, modelPhone, modelAddress, modelrequestDate,
+                modelConditions, modelrequestStatus);
         }
-        return new Request(modelId, modelPatient, modelHealthStaff,
-                modelrequestDate, modelConditions, modelrequestStatus);
+        return new Request(modelName, modelNric, modelPhone, modelAddress, modelrequestDate,
+            modelConditions, modelrequestStatus, healthWorker);
+    }
+
+    @Override
+    public String toString() {
+        String message = "Unable to parse";
+        try {
+            message = JsonUtil.toJsonString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return message;
     }
 
 }

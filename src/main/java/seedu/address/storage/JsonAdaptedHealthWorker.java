@@ -52,6 +52,7 @@ class JsonAdaptedHealthWorker extends JsonAdaptedPerson {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted HealthWorker.
      */
+    @Override
     public HealthWorker toModelType() throws IllegalValueException {
 
         if (name == null) {

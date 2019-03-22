@@ -88,7 +88,7 @@ public class Conditions {
             return true;
         }
 
-        if (!(other instanceof Skills)) {
+        if (!(other instanceof Conditions)) {
             return false;
         }
 

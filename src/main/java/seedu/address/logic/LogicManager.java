@@ -30,7 +30,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final BookShelfParser bookShelfParser;
-    private boolean addressBookModified;
+    private boolean bookShelfModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -39,13 +39,13 @@ public class LogicManager implements Logic {
         bookShelfParser = new BookShelfParser();
 
         // Set addressBookModified to true whenever the models' address book is modified.
-        model.getBookShelf().addListener(observable -> addressBookModified = true);
+        model.getBookShelf().addListener(observable -> bookShelfModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        bookShelfModified = false;
 
         CommandResult commandResult;
         try {
@@ -55,10 +55,10 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
+        if (bookShelfModified) {
             logger.info("Address book modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getBookShelf());
+                storage.saveBookShelf(model.getBookShelf());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -69,6 +69,11 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyBookShelf getAddressBook() {
+        return model.getBookShelf();
+    }
+
+    @Override
+    public ReadOnlyBookShelf getBookShelf() {
         return model.getBookShelf();
     }
 
@@ -89,6 +94,11 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getAddressBookFilePath() {
+        return model.getBookShelfFilePath();
+    }
+
+    @Override
+    public Path getBookShelfFilePath() {
         return model.getBookShelfFilePath();
     }
 

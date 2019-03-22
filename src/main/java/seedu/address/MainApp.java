@@ -22,8 +22,8 @@ import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.BookShelfStorage;
+import seedu.address.storage.JsonBookShelfStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -56,8 +56,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        BookShelfStorage bookShelfStorage = new JsonBookShelfStorage(userPrefs.getBookShelfFilePath());
+        storage = new StorageManager(bookShelfStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -74,14 +74,14 @@ public class MainApp extends Application {
      * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyBookShelf> addressBookOptional;
+        Optional<ReadOnlyBookShelf> bookShelfOptional;
         ReadOnlyBookShelf initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
+            bookShelfOptional = storage.readBookShelf();
+            if (!bookShelfOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample BookShelf");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleBookShelf);
+            initialData = bookShelfOptional.orElseGet(SampleDataUtil::getSampleBookShelf);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty BookShelf");
             initialData = new BookShelf();
@@ -173,7 +173,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping BookShelf ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

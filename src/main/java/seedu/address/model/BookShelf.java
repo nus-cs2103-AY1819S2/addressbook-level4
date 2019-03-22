@@ -40,7 +40,7 @@ public class BookShelf implements ReadOnlyBookShelf {
     public BookShelf() {}
 
     /**
-     * Creates an BookShelf using the Persons in the {@code toBeCopied}
+     * Creates an BookShelf using the Books in the {@code toBeCopied}
      */
     public BookShelf(ReadOnlyBookShelf toBeCopied) {
         this();
@@ -211,8 +211,7 @@ public class BookShelf implements ReadOnlyBookShelf {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
-        // TODO: refine later
+        return books.asUnmodifiableObservableList().size() + " books";
     }
 
     @Override
@@ -229,7 +228,8 @@ public class BookShelf implements ReadOnlyBookShelf {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookShelf // instanceof handles nulls
-                && persons.equals(((BookShelf) other).persons));
+                && persons.equals(((BookShelf) other).persons)
+                && books.equals(((BookShelf) other).books));
     }
 
     @Override

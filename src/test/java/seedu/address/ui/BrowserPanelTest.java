@@ -12,15 +12,27 @@ import org.junit.Test;
 import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.book.Book;
+<<<<<<< HEAD
 
 public class BrowserPanelTest extends GuiUnitTest {
+=======
+import seedu.address.model.person.Person;
+
+public class BrowserPanelTest extends GuiUnitTest {
+    private SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+>>>>>>> 922c72f86ad2b5420953d4580f0969fbec323143
     private SimpleObjectProperty<Book> selectedBook = new SimpleObjectProperty<>();
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() {
+<<<<<<< HEAD
         guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedBook));
+=======
+        //guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedBook));
+        guiRobot.interact(() -> browserPanel = new BrowserPanel(selectedPerson));
+>>>>>>> 922c72f86ad2b5420953d4580f0969fbec323143
         uiPartRule.setUiPart(browserPanel);
 
         browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());

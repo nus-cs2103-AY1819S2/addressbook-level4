@@ -103,9 +103,9 @@ public class CommandTestUtil {
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String INVALID_BOOKNAME_DESC = " " + PREFIX_NAME + "The K&d"; // '&' not allowed in names
-    public static final String INVALID_AUTHOR_DESC = " " + PREFIX_AUTHOR + "J.K"; // '.' not allowed in phones
+    public static final String INVALID_AUTHOR_DESC = " " + PREFIX_AUTHOR + "J.K"; // '.' not allowed in authors
     public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "11"; // rating should be [1,10]
-    public static final String INVALID_REVIEWTITLE_DESC = " " + PREFIX_RATING + "100%"; // '%' not allowed in names
+    public static final String INVALID_REVIEWTITLE_DESC = " " + PREFIX_RATING + "100%"; // '%' not allowed in reviews
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

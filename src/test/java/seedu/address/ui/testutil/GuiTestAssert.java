@@ -49,6 +49,7 @@ public class GuiTestAssert {
      * @see BookCard#getTagColorStyleFor(String)
      */
     private static String getTagColorStyleFor(String tagName) {
+
         switch (tagName) {
         case "textbook":
             return "teal";

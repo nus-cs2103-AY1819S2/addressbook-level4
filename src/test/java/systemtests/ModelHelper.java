@@ -42,6 +42,13 @@ public class ModelHelper {
     }
 
     /**
+     * @see ModelHelper#setFilteredList(Model, List)
+     */
+    public static void setFilteredBookList(Model model, Book... toDisplay) {
+        setFilteredBookList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
      * Returns a predicate that evaluates to true if this {@code Person} equals to {@code other}.
      */
     private static Predicate<Person> getPredicateMatching(Person other) {

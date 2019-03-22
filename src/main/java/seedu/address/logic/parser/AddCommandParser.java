@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -12,6 +13,10 @@ import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.Size;
 import seedu.address.model.tag.Tag;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -27,14 +32,41 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     public AddCommand parse(String args) throws ParseException {
 
-        File file;
+        File file = null;
+        Set<Tag> tags = null;
 
-        Optional<File> fileContainer = new AddGuiParser().selectPdf();
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_FILE, PREFIX_TAG);
 
-        if (!fileContainer.isPresent()) {
-            throw new ParseException(AddCommandParser.MESSAGE_NO_FILE_SELECTED);
-        } else {
-            file = fileContainer.get();
+        if (arePrefixesPresent(argMultimap, PREFIX_FILE)
+                && !argMultimap.getPreamble().isEmpty()) {
+
+            if (argMultimap.getValue(PREFIX_FILE).isPresent()) {
+
+                file = ParserUtil.parseFile(argMultimap.getValue(PREFIX_FILE).get());
+                tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+
+            } else {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+
+        } else if (!arePrefixesPresent(argMultimap, PREFIX_FILE)
+                && argMultimap.getPreamble().isEmpty()) {
+
+            Optional<File> fileContainer = new AddGuiParser().selectPdf();
+
+            if (!fileContainer.isPresent()) {
+                throw new ParseException(AddCommandParser.MESSAGE_NO_FILE_SELECTED);
+            } else {
+                file = fileContainer.get();
+                tags = new HashSet<>();
+            }
+
+        } else if (!arePrefixesPresent(argMultimap, PREFIX_FILE)
+                && !argMultimap.getPreamble().isEmpty()) {
+
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
         }
 
         /*ArgumentMultimap argMultimap =
@@ -45,12 +77,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         }*/
 
         try {
+            System.out.println("In here");
             Name name = new Name(file.getName());
+            System.out.println("In here too");
             Directory directory = new Directory(file.getParent());
+            System.out.println("In here now");
             Size size = new Size(Long.toString(file.length()));
-            Set<Tag> tagList = new HashSet<>();
 
-            Pdf pdf = new Pdf(name, directory, size, tagList);
+            Pdf pdf = new Pdf(name, directory, size,tags);
             return new AddCommand(pdf);
 
         } catch (Exception e) {
@@ -58,14 +92,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
     }
-    /*
+
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
      */
-    /*
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
-    */
 }

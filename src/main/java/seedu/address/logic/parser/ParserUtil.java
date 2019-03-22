@@ -121,30 +121,30 @@ public class ParserUtil {
     public static Deadline parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
 
-        final int position_day = 0;
-        final int position_month = 1;
-        final int position_year = 2;
-        final String parameter_seperator = "-";
-        final String date_error = "Invalid Date Format/Value";
+        final int positionDay = 0;
+        final int positionMonth = 1;
+        final int positionYear = 2;
+        final String parameterSeperator = "-";
+        final String dateError = "Invalid Date Format/Value";
 
-        String[] dates = deadline.split(parameter_seperator);
+        String[] dates = deadline.split(parameterSeperator);
 
         for (String s : dates) {
             if (s.length() == 0 || s.length() > 4) {
-                throw new ParseException(date_error);
+                throw new ParseException(dateError);
             }
         }
 
-        if (dates[position_day].length() > 2 || dates[position_month].length() > 2
-                || dates[position_year].length() > 4) {
-            throw new ParseException(date_error);
+        if (dates[positionDay].length() > 2 || dates[positionMonth].length() > 2
+                || dates[positionYear].length() > 4) {
+            throw new ParseException(dateError);
         }
 
         try {
-            return new Deadline(Integer.parseInt(dates[position_day]), Integer.parseInt(dates[position_month]),
-                    Integer.parseInt(dates[position_year]));
+            return new Deadline(Integer.parseInt(dates[positionDay]), Integer.parseInt(dates[positionMonth]),
+                    Integer.parseInt(dates[positionYear]));
         } catch (DateTimeException e) {
-            throw new ParseException(date_error);
+            throw new ParseException(dateError);
         }
 
     }

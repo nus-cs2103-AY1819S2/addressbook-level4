@@ -30,7 +30,7 @@ public class MainWindow extends UiPart<Stage> {
     private static Patient recordPatient = null;
 
     /** Indicates if current mode is showing patient records */
-    private static boolean isGoToMode = false;
+    private static boolean goToMode = false;
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -198,7 +198,7 @@ public class MainWindow extends UiPart<Stage> {
         populateRecords();
         personListPanelPlaceholder.setVisible(false);
         recordListPanelPlaceholder.setVisible(true);
-        isGoToMode = true;
+        goToMode = true;
     }
 
     /**
@@ -271,7 +271,7 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.setVisible(true);
         recordListPanelPlaceholder.setVisible(false);
         MainWindow.setRecordPatient(null);
-        isGoToMode = false;
+        goToMode = false;
     }
 
     /**
@@ -335,5 +335,9 @@ public class MainWindow extends UiPart<Stage> {
 
     public static Patient getRecordPatient() {
         return MainWindow.recordPatient;
+    }
+
+    public static boolean isGoToMode() {
+        return goToMode;
     }
 }

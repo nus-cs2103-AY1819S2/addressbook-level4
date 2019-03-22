@@ -6,9 +6,9 @@ import static seedu.travel.testutil.TypicalPlaces.getTypicalTravelBuddy;
 import org.junit.Test;
 
 import seedu.travel.logic.CommandHistory;
-import seedu.travel.model.TravelBuddy;
 import seedu.travel.model.Model;
 import seedu.travel.model.ModelManager;
+import seedu.travel.model.TravelBuddy;
 import seedu.travel.model.UserPrefs;
 
 public class ClearCommandTest {

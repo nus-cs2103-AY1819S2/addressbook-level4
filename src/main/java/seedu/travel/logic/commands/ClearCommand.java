@@ -3,8 +3,8 @@ package seedu.travel.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.travel.logic.CommandHistory;
-import seedu.travel.model.TravelBuddy;
 import seedu.travel.model.Model;
+import seedu.travel.model.TravelBuddy;
 
 /**
  * Clears the travel book.

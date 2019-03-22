@@ -17,7 +17,7 @@ public class PlaceCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String COUNTRY_CODE_FIELD_ID = "#countryCode";
-    private static final String ADDRESS_FIELD_ID = "#travel";
+    private static final String ADDRESS_FIELD_ID = "#address";
     private static final String RATING_FIELD_ID = "#rating";
     private static final String DESCRIPTION_FIELD_ID = "#description";
     private static final String TAGS_FIELD_ID = "#tags";

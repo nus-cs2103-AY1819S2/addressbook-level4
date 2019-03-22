@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.travel.commons.core.GuiSettings;
-import seedu.travel.model.TravelBuddy;
 import seedu.travel.model.ReadOnlyTravelBuddy;
+import seedu.travel.model.TravelBuddy;
 import seedu.travel.model.UserPrefs;
 
 public class StorageManagerTest {

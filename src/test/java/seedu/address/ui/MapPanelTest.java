@@ -5,11 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import javafx.beans.property.SimpleObjectProperty;
-
-import seedu.address.model.person.Person;
-
 import guitests.guihandles.MapPanelHandle;
+import javafx.beans.property.SimpleObjectProperty;
+import seedu.address.model.person.Person;
 
 public class MapPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Person> selectedPatient = new SimpleObjectProperty<>();

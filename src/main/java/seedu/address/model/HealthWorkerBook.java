@@ -6,7 +6,6 @@ import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.healthworker.UniqueHealthWorkerList;

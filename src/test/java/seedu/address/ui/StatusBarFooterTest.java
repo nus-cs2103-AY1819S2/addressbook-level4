@@ -17,9 +17,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
-
 import guitests.guihandles.StatusBarFooterHandle;
+import seedu.address.model.AddressBook;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 

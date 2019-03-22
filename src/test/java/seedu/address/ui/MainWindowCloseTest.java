@@ -9,10 +9,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import org.testfx.api.FxToolkit;
 
+import guitests.guihandles.HelpWindowHandle;
+import guitests.guihandles.StageHandle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
 import seedu.address.storage.JsonAddressBookStorage;
@@ -20,10 +22,6 @@ import seedu.address.storage.JsonHealthWorkerBookStorage;
 import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-
-import guitests.guihandles.HelpWindowHandle;
-import guitests.guihandles.StageHandle;
-import org.testfx.api.FxToolkit;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.

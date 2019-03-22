@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
-
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-
-import guitests.guihandles.CommandBoxHandle;
 
 public class CommandBoxTest extends GuiUnitTest {
 

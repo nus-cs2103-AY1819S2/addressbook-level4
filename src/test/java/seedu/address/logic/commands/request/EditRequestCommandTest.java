@@ -86,11 +86,9 @@ class EditRequestCommandTest {
             new EditRequestCommand.EditRequestDescriptor());
         Request editedRequest = model.getFilteredRequestList().get(INDEX_FIRST.getZeroBased());
         // Patient patient =
-            // new PatientBuilder(ALICE).withConditionTags(VALID_CONDITION_PHYSIO).withEmail(Email.DEFAULT_EMAIL)
-                // .withConditionTags(VALID_CONDITION_PHYSIO).withNric(VALID_NRIC_ALICE).build();
-        // editedRequest =
-            // new RequestBuilder(editedRequest)
-                // .withPatient(patient).build();
+        //     new PatientBuilder(ALICE).withConditionTags(VALID_CONDITION_PHYSIO).withEmail(Email.DEFAULT_EMAIL)
+        //         .withConditionTags(VALID_CONDITION_PHYSIO).withNric(VALID_NRIC_ALICE).build();
+        // editedRequest = new RequestBuilder(editedRequest).withPatient(patient).build();
 
         String expectedMessage = String.format(EditRequestCommand.MESSAGE_EDIT_REQUEST_SUCCESS,
             editedRequest);

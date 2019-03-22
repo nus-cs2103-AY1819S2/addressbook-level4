@@ -18,7 +18,6 @@ import org.junit.rules.ExpectedException;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddHealthWorkerCommand;
@@ -38,13 +37,12 @@ import seedu.address.testutil.HealthWorkerBuilder;
 
 public class AddHealthWorkerCommandTest {
 
-    private CommandHistory commandHistory = new CommandHistory();
-
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new
-            CommandHistory();
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {

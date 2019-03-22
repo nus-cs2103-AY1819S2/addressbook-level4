@@ -56,7 +56,7 @@ public class RequestTest {
         // everything same, but conditions different -> returns false
         // TODO: David - IsSameRequest to handle for conditions
         // Request editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
-            // new HashSet<>(Collections.singletonList(new ConditionTag("Stroke"))))).build();
+        //     new HashSet<>(Collections.singletonList(new ConditionTag("Stroke"))))).build();
         // assertFalse(ALICE_REQUEST.isSameRequest(editedAlice));
 
         // everything same, different nric -> returns false

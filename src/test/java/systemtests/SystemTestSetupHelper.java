@@ -4,13 +4,12 @@ import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
-import javafx.stage.Stage;
-
-import seedu.address.TestApp;
-import seedu.address.model.ReadOnlyAddressBook;
+import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
-import org.testfx.api.FxToolkit;
+import javafx.stage.Stage;
+import seedu.address.TestApp;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * Contains helper methods that system tests require.

@@ -10,11 +10,10 @@ import java.net.URL;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import javafx.stage.Stage;
+import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
-import org.testfx.api.FxToolkit;
+import javafx.stage.Stage;
 
 public class HelpWindowTest extends GuiUnitTest {
 

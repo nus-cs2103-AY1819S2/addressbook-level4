@@ -238,8 +238,8 @@ public class EditCommandParserTest {
         input = MODE_HEALTHWORKER + targetIndex.getOneBased() + NAME_DESC_ANDY + PHONE_DESC_BETTY + NRIC_DESC_ANDY
                 + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY;
         descriptor = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_ANDY)
-                .withPhone(VALID_PHONE_BETTY).withNric(VALID_NRIC_ANDY).withOrganization(VALID_ORGANIZATION_ANDY).withSkills(
-                        Specialisation.GENERAL_PRACTICE.name(), Specialisation.PHYSIOTHERAPY.name()).build();
+                .withPhone(VALID_PHONE_BETTY).withNric(VALID_NRIC_ANDY).withOrganization(VALID_ORGANIZATION_ANDY)
+                .withSkills(Specialisation.GENERAL_PRACTICE.name(), Specialisation.PHYSIOTHERAPY.name()).build();
         expectedCommand = new EditHealthWorkerCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, input, expectedCommand);

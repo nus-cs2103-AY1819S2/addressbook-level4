@@ -17,6 +17,8 @@ public class Condition {
 
     public static final String INVALID_REGEXES =
             "At least one of the regular expressions is invalid or contains comma!";
+    public static final String INVALID_REGEXES_SIZE =
+            "Must contain at least 1 regex expression!";
     public static final String INVALID_MIN_TO_SATISFY =
             "Minimum number of modules to satisfy aspect cannot be less than 1!";
     private final String conditionName;
@@ -34,6 +36,7 @@ public class Condition {
         requireAllNonNull((Object[]) regexes);
         checkArgument(isValidMinToSatisfy(minToSatisfy), INVALID_MIN_TO_SATISFY);
         checkArgument(isValidRegex(regexes), INVALID_REGEXES);
+        checkArgument(isValidRegexesSize(regexes.length), INVALID_REGEXES_SIZE);
         this.conditionName = conditionName;
         this.regexes = List.of(regexes);
         this.minToSatisfy = minToSatisfy;
@@ -50,6 +53,7 @@ public class Condition {
         requireAllNonNull(conditionName, regexes);
         requireAllNonNull((Object[]) regexes);
         checkArgument(isValidRegex(regexes), INVALID_REGEXES);
+        checkArgument(isValidRegexesSize(regexes.length), INVALID_REGEXES_SIZE);
         this.conditionName = conditionName;
         this.regexes = List.of(regexes);
         this.minToSatisfy = regexes.length;
@@ -59,6 +63,13 @@ public class Condition {
      * Returns true if given number is larger than 0.
      */
     public static boolean isValidMinToSatisfy(int test) {
+        return test > 0;
+    }
+
+    /**
+     * Returns true if given size is larger than 0.
+     */
+    public static boolean isValidRegexesSize(int test) {
         return test > 0;
     }
 
@@ -128,5 +139,13 @@ public class Condition {
 
     public String getConditionName() {
         return conditionName;
+    }
+
+    public int getMinToSatisfy() {
+        return minToSatisfy;
+    }
+
+    public List<String> getRegexes() {
+        return regexes;
     }
 }

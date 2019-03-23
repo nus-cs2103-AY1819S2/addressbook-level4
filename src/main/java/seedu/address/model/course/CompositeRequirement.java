@@ -11,6 +11,8 @@ import seedu.address.model.moduleinfo.ModuleInfo;
  */
 public class CompositeRequirement implements CourseRequirement {
 
+
+
     /**
      * Represents logical connectors of CompositeRequirement
      */
@@ -114,5 +116,22 @@ public class CompositeRequirement implements CourseRequirement {
     @Override
     public CourseRequirement or(CourseRequirement other) {
         return new CompositeRequirement(this, other, LogicalConnector.AND, this.courseReqType);
+    }
+
+
+    public CourseRequirement getFirst() {
+        return first;
+    }
+
+    public CourseRequirement getSecond() {
+        return second;
+    }
+
+    public LogicalConnector getLogicalConnector() {
+        return connector;
+    }
+
+    public CourseReqType getCourseReqType() {
+        return courseReqType;
     }
 }

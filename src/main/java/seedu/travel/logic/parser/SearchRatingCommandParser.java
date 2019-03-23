@@ -29,5 +29,4 @@ public class SearchRatingCommandParser implements Parser<SearchRatingCommand> {
 
         return new SearchRatingCommand(new RatingContainsKeywordsPredicate(Arrays.asList(ratingKeywords)));
     }
-
 }

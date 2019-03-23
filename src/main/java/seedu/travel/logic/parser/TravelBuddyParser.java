@@ -19,6 +19,7 @@ import seedu.travel.logic.commands.HistoryCommand;
 import seedu.travel.logic.commands.ListCommand;
 import seedu.travel.logic.commands.RedoCommand;
 import seedu.travel.logic.commands.SearchCommand;
+import seedu.travel.logic.commands.SearchCountryCommand;
 import seedu.travel.logic.commands.SearchRatingCommand;
 import seedu.travel.logic.commands.SearchTagsCommand;
 import seedu.travel.logic.commands.SelectCommand;
@@ -84,6 +85,9 @@ public class TravelBuddyParser {
 
         case SearchTagsCommand.COMMAND_WORD:
             return new SearchTagsCommandParser().parse(arguments);
+
+        case SearchCountryCommand.COMMAND_WORD:
+            return new SearchCountryCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
         case ListCommand.COMMAND_ALIAS:

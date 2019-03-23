@@ -12,7 +12,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/cs2103-ay1819s2-t12-3/main
+:repoURL: https://github.com/CS2103-AY1819S2-T12-3/main
 
 By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 

@@ -9,9 +9,9 @@ import static org.junit.Assert.assertTrue;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 //import static seedu.address.testutil.TypicalPdfs.ALICE;
-import static seedu.address.testutil.TypicalPdfs.A_DUP_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_DUPLICATE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
-//import static seedu.address.testutil.TypicalPdfs.B_DUP_PDF;
+//import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2_DUPLICATE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 //import static seedu.address.testutil.TypicalPdfs.BOB;
 
@@ -41,7 +41,7 @@ public class PdfTest {
         assertFalse(SAMPLE_PDF_1.isSamePdf(null));
 
         // different directory -> returns false
-        Pdf comparisonPdf = new PdfBuilder(A_DUP_PDF).build();
+        Pdf comparisonPdf = new PdfBuilder(SAMPLE_PDF_1_DUPLICATE).build();
         assertFalse(SAMPLE_PDF_1.isSamePdf(comparisonPdf));
 
         /*// different name -> returns false
@@ -94,8 +94,8 @@ public class PdfTest {
         assertFalse(ALICE.equals(editedAlice));*/
 
         // different directory -> returns false
-        Pdf comparison = new PdfBuilder(A_DUP_PDF).build();
-        assertFalse(SAMPLE_PDF_1.equals(A_DUP_PDF));
+        Pdf comparison = new PdfBuilder(SAMPLE_PDF_1_DUPLICATE).build();
+        assertFalse(SAMPLE_PDF_1.equals(SAMPLE_PDF_1_DUPLICATE));
 
         /*// different tags -> returns false
         comparison = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_TUTORIAL).build();

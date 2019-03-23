@@ -4,8 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_4;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_5;
+import static seedu.address.testutil.TypicalPdfs.*;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

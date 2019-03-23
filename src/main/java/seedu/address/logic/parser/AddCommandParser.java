@@ -69,13 +69,6 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         }
 
-        /*ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FILE, PREFIX_TAG);
-        if (!arePrefixesPresent(argMultimap, PREFIX_FILE)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }*/
-
         try {
             Name name = new Name(file.getName());
             Directory directory = new Directory(file.getParent());
@@ -87,7 +80,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         } catch (Exception e) {
             throw new ParseException(AddCommand.MESSAGE_INVALID_SELECTION);
         }
-
     }
 
     /**

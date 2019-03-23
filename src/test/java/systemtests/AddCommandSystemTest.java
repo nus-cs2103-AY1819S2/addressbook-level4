@@ -32,7 +32,7 @@ import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 //import static seedu.address.testutil.TypicalPdfs.CARL;
 //import static seedu.address.testutil.TypicalPdfs.HOON;
 //import static seedu.address.testutil.TypicalPdfs.IDA;
-import static seedu.address.testutil.TypicalPdfs.B_DUP_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2_DUPLICATE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 //import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
 //import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
@@ -87,7 +87,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a pdf with the same name but different directory -> added*/
-        toAdd = B_DUP_PDF;
+        toAdd = SAMPLE_PDF_2_DUPLICATE;
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 

@@ -6,6 +6,6 @@ package seedu.address.model.pdf.exceptions;
  */
 public class DuplicatePdfException extends RuntimeException {
     public DuplicatePdfException() {
-        super("Operation would result in duplicate persons");
+        super("Operation would result in duplicate pdf");
     }
 }

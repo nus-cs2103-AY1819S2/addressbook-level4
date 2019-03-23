@@ -23,6 +23,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_FILE_DOES_NOT_EXIST = "File does not exist.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -63,7 +64,7 @@ public class ParserUtil {
         String trimmedFilePath = filePath.trim();
         File file = new File(trimmedFilePath);
         if (!file.exists()) {
-            throw new ParseException("File does not exist.", new FileNotFoundException());
+            throw new ParseException(MESSAGE_FILE_DOES_NOT_EXIST, new FileNotFoundException());
         }
         return file;
     }

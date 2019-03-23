@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class Deadline {
     public static final String MESSAGE_CONSTRAINTS = "Deadline can take any valid date, "
             + "and it should not be blank";
-    private static final String PROPERTY_SEPERATOR_PREFIX = "/";
+    private static final String PROPERTY_SEPARATOR_PREFIX = "/";
     private static final int PROPERTY_DATE_INDEX = 0;
     private static final int PROPERTY_ISMET_INDEX = 0;
 
@@ -33,9 +33,9 @@ public class Deadline {
      *
      */
     public Deadline(String jsonFormat) {
-        this.date = LocalDate.parse(jsonFormat.split(Deadline.PROPERTY_SEPERATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
+        this.date = LocalDate.parse(jsonFormat.split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
         this.isMet = Boolean.parseBoolean(jsonFormat
-                .split(Deadline.PROPERTY_SEPERATOR_PREFIX)[Deadline.PROPERTY_ISMET_INDEX]);
+                .split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_ISMET_INDEX]);
     }
 
     /**
@@ -121,7 +121,7 @@ public class Deadline {
     @Override
     public String toString() {
         return new StringBuilder().append(this.date.toString())
-                .append(Deadline.PROPERTY_SEPERATOR_PREFIX)
+                .append(Deadline.PROPERTY_SEPARATOR_PREFIX)
                 .append(this.isMet)
                 .toString();
     }

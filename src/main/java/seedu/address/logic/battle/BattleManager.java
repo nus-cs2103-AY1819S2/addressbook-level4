@@ -1,5 +1,7 @@
 package seedu.address.logic.battle;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -24,6 +26,8 @@ public class BattleManager implements Battle {
     private Player aiPlayer;
 
     public BattleManager(Player humanPlayer, Player aiPlayer) {
+        requireNonNull(humanPlayer);
+        requireNonNull(aiPlayer);
         this.humanPlayer = humanPlayer;
         this.aiPlayer = aiPlayer;
     }

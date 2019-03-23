@@ -48,6 +48,9 @@ public class UpdateTableCommand extends Command {
         updatedTableStatus.changeOccupancy(newTableStatus[1]);
         Table updatedTable = new Table(tableNumber, updatedTableStatus);
         model.setTable(optionalTable.get(), updatedTable);
+        if (Integer.parseInt(newTableStatus[1]) == 0) {
+            model.clearOrderItemsFrom(tableNumber);
+        }
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, updatedTable.getTableNumber(), optionalTable.get().getTableStatus()));
     }

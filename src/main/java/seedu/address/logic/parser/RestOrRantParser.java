@@ -13,6 +13,7 @@ import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -53,12 +54,8 @@ public class RestOrRantParser {
         // General commands that work in all modes
 
         switch (commandWord) {
-
-        case ClearCommand.COMMAND_WORD: // Fallthrough
-        case ClearCommand.COMMAND_ALIAS:
-            return new ClearCommand();
-
-        case HelpCommand.COMMAND_WORD: // Fallthrough
+            
+        case HelpCommand.COMMAND_WORD: // Fallthrough 
         case HelpCommand.COMMAND_ALIAS:
             return new HelpCommand();
 
@@ -108,6 +105,13 @@ public class RestOrRantParser {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new AddToOrderCommandParser().parse(arguments);
+
+        case ClearOrderCommand.COMMAND_WORD: // Fallthrough
+        case ClearOrderCommand.COMMAND_ALIAS:
+            if (mode != Mode.TABLE_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new ClearOrderCommand();
 
         case BillCommand.COMMAND_WORD: // Fallthrough
         case BillCommand.COMMAND_ALIAS:

@@ -685,6 +685,17 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Initialising the maps
+. Initialising the maps after launching the game
+
+.. Test case: `init 7` +
+   Expected: Displays two empty map grids of size 7 in the GUI. Both maps will have the appropriate alphanumeric labels on the first row and column.
+.. Test case: `init 0` +
+   Expected: If this is the first command ran, no map will be displayed. Otherwise, no changes will be made to the displayed maps.
+   Error message will be displayed in the result display box.
+.. Other incorrect initialise commands to try: `init`, `init x` (where x is smaller or larger than the specified minimum or maximum map size respectively). +
+   Expected: No map will be displayed if this is the first command ran. Otherwise, no changes will be made to the displayed map.
+
 === Deleting a person
 
 . Deleting a person while all persons are listed

@@ -1,11 +1,17 @@
 package seedu.address.storage.coursestorage;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.course.CourseRequirement;
 
 /**
  * Jackson-friendly version of {@link CourseRequirement}.
  */
-public class JsonAdaptedCourseRequirement {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Course's %s field is missing!";
+public interface JsonAdaptedCourseRequirement {
+    /**
+     * Converts this Jackson-friendly adapted person object into the model's {@code CourseRequirement}
+     * interface objects.
+     * @throws IllegalValueException if unacceptable values of CourseRequirements are used
+     */
+    CourseRequirement toModelType() throws IllegalValueException;
 
 }

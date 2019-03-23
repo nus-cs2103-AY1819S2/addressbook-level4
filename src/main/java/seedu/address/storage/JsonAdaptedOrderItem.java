@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.Name;
 import seedu.address.model.order.OrderItem;
@@ -56,37 +58,46 @@ class JsonAdaptedOrderItem {
      */
     public OrderItem toModelType() throws IllegalValueException {
         if (tableNumber == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "tableNumber"));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, TableNumber.class.getSimpleName()));
         }
-        // TODO: check if table number is valid
-        //if (!Name.isValidName(name)) {
-        //    throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        //}
+        if (!TableNumber.isValidTableNumber(tableNumber)) {
+            throw new IllegalValueException(TableNumber.MESSAGE_CONSTRAINTS);
+        }
         final TableNumber modelTableNumber = new TableNumber(tableNumber);
 
         if (menuItemCode == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "menuItemCode"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Code.class.getSimpleName()));
         }
-        // TODO: check if menu item code is legal
-        //if (!Phone.isValidPhone(phone)) {
-        //    throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        //}
+        if (!Code.isValidCode(menuItemCode)) {
+            throw new IllegalValueException(Code.MESSAGE_CONSTRAINTS);
+        }
         final Code modelMenuItemCode = new Code(menuItemCode);
 
         if (menuItemName == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "menuItemName"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        // TODO: check if menu item name is legal
+        if (!Name.isValidName(menuItemName)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
         final Name modelMenuItemName = new Name(menuItemName);
 
         if (quantityOrdered == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ordered"));
         }
 
-        final int modelQuantityOrdered = Integer.parseInt(quantityOrdered); // TODO: handle NumberFormatException
-
         if (quantityUnserved == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "unserved"));
+        }
+
+        final int modelQuantityOrdered;
+        // final int modelQuantityUnserved;
+
+        try {
+            modelQuantityOrdered = ParserUtil.parseQuantity(quantityOrdered);
+            // modelQuantityUnserved = ParserUtil.parseQuantity(quantityUnserved);
+        } catch (ParseException e) {
+            throw new IllegalValueException(ParserUtil.MESSAGE_INVALID_QUANTITY);
         }
 
         return new OrderItem(modelTableNumber, modelMenuItemCode, modelMenuItemName, modelQuantityOrdered);

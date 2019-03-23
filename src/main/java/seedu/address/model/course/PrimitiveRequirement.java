@@ -77,4 +77,8 @@ public class PrimitiveRequirement implements CourseRequirement {
         return new CompositeRequirement(this, other, CompositeRequirement.LogicalConnector
                 .OR, this.courseReqType);
     }
+
+    public Condition getCondition() {
+        return condition;
+    }
 }

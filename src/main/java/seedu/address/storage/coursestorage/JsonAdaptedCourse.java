@@ -7,10 +7,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.course.CompositeRequirement;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseDescription;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseRequirement;
+import seedu.address.model.course.PrimitiveRequirement;
 
 /**
  * Jackson-friendly version of {@link Course}.
@@ -42,11 +44,20 @@ public class JsonAdaptedCourse {
     public JsonAdaptedCourse(Course course) {
         name = course.getCourseName().toString();
         description = course.getCourseDescription().toString();
-        //TODO: Json for AdaptedCourseRequirement
+        List<CourseRequirement> requirements = course.getCourseRequirements();
+        for (CourseRequirement requirement : requirements) {
+            if (requirement instanceof PrimitiveRequirement) {
+                this.requirements.add(new JsonAdaptedPrimitiveRequirement(
+                        (PrimitiveRequirement) requirement));
+            } else {
+                this.requirements.add(new JsonAdaptedCompositeRequirement(
+                        (CompositeRequirement) requirement));
+            }
+        }
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Course} object.
+     * Converts this Jackson-friendly adapted course object into the model's {@code Course} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
@@ -64,9 +75,9 @@ public class JsonAdaptedCourse {
         final CourseName courseName = new CourseName(name);
         final CourseDescription courseDescription = new CourseDescription(description);
         final List<CourseRequirement> requirements = new ArrayList<>();
-
-        //TODO: after JsonAdaptedCourseRequirement adding
-
+        for (JsonAdaptedCourseRequirement courseRequirement : this.requirements) {
+            requirements.add(courseRequirement.toModelType());
+        }
         return new Course(courseName, courseDescription, requirements.toArray(new CourseRequirement[0]));
     }
 }

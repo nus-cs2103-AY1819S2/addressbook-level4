@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.PdfBook;
 import seedu.address.model.ReadOnlyPdfBook;
+import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
@@ -24,10 +25,12 @@ public class SampleDataUtil {
         return new Pdf[] {
             new Pdf(new Name(sampleA.getFileName().toString()),
                     new Directory(sampleA.getParent().toAbsolutePath().toString()),
-                    new Size(Long.toString(sampleA.toFile().length())), getTagSet("RandomTag1")),
+                    new Size(Long.toString(sampleA.toFile().length())), getTagSet("RandomTag1"),
+                    new Deadline()),
             new Pdf(new Name(sampleB.getFileName().toString()),
                     new Directory(sampleB.getParent().toAbsolutePath().toString()),
-                    new Size(Long.toString(sampleB.toFile().length())), getTagSet("RandomTag2"))
+                    new Size(Long.toString(sampleB.toFile().length())), getTagSet("RandomTag2"),
+                    new Deadline())
         };
     }
 

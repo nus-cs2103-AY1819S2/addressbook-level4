@@ -37,6 +37,8 @@ public class PersonCard extends UiPart<Region> {
     //@FXML
     //private Label email;
     @FXML
+    private Label deadline;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(Pdf pdf, int displayedIndex) {
@@ -44,6 +46,10 @@ public class PersonCard extends UiPart<Region> {
         this.pdf = pdf;
         id.setText(displayedIndex + ". ");
         name.setText(pdf.getName().getFullName());
+
+        if (pdf.getDeadline().exists()) {
+            deadline.setText(pdf.getDeadline().getValue().toString());
+        }
         //phone.setText(pdf.getPhone().value);
         //address.setText(pdf.getAddress().value);
         //email.setText(pdf.getEmail().value);

@@ -1,0 +1,28 @@
+{
+	"ignoreGlobList": ["about-us/**", "**index.html"],
+	"formats": ["adoc", "cs", "css", "fxml", "gradle", "html", "java", "js", "json", "jsp", "md", "py", "tag", "txt", "xml", "jade", "scss", "yml"],
+	"ignoreCommitList": [ ],
+	"authors":
+	[
+		{
+			"githubId": "simjiazhi",
+			"displayName": "SIM...ZHI",
+			"authorNames": ["simjiazhi"]
+		},
+		{
+			"githubId": "bentwj",
+			"displayName": "TAN...IAN",
+			"authorNames": ["bentwj"]
+		},
+		{
+			"githubId": "ongaaron96",
+			"displayName": "ONG...RON",
+			"authorNames": ["ongaaron96"]
+		},
+		{
+			"githubId": "Xue-Chenyang",
+			"displayName": "XUE...ANG",
+			"authorNames": ["Xue-Chenyang"],
+		}
+	]
+}

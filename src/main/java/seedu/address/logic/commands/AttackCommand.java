@@ -30,6 +30,7 @@ public class AttackCommand extends Command {
     private Coordinates coord;
 
     public AttackCommand(Coordinates coord) {
+        requireNonNull(coord);
         this.coord = coord;
         setPermissibleStates(EnumSet.of(BattleState.PLAYER_ATTACK));
     }

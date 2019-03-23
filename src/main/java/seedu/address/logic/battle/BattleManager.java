@@ -39,6 +39,7 @@ public class BattleManager implements Battle {
 
     @Override
     public AttackResult humanPerformAttack(Coordinates coord) {
+        requireNonNull(coord);
         return performAttack(humanPlayer, aiPlayer, coord);
     }
 
@@ -77,6 +78,7 @@ public class BattleManager implements Battle {
     /**
      * Returns the human player in the game.
      */
+    @Override
     public Player getHumanPlayer() {
         return humanPlayer;
     }
@@ -84,6 +86,7 @@ public class BattleManager implements Battle {
     /**
      * Returns the computer player.
      */
+    @Override
     public Player getEnemyPlayer() {
         return aiPlayer;
     }

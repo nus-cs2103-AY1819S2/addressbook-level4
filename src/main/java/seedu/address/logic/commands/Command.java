@@ -40,7 +40,11 @@ public abstract class Command {
      * Checks if this command can be executed in a certain state.
      * <br>
      * By default, commands can be run in all states. Those commands which are not
-     * should set the permissible states using <code>setPermissibleStates()</code>.
+     * should set the permissible states using <code>setPermissibleStates()</code>
+     * inside the constructor.
+     * <br>
+     * Before calling execute() using a <code>Model</code>, one must call this
+     * method on the BattleState stored in it.
      */
     public final boolean canExecuteIn(BattleState battleState) {
         return permissibleStates.contains(battleState);

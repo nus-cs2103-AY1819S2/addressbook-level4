@@ -22,7 +22,6 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_BOOLEAN = "Finished parameter should be 'y' or 'n'.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -148,5 +147,12 @@ public class ParserUtil {
         requireNonNull(finishedStatus);
 
         return finishedStatus.trim().toLowerCase().equals("y");
+    }
+
+    public static String booleanToFinishedStatus(boolean isFinished) {
+        if (isFinished) {
+            return "y";
+        }
+        return "n";
     }
 }

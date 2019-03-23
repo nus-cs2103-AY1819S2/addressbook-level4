@@ -30,7 +30,7 @@ public class ActivityDescriptionTest {
 
 
     @Test
-    public void isValidDescription(){
+    public void isValidDescription() {
         //null description
         Assert.assertThrows(NullPointerException.class, () -> ActivityDescription.isValidDescription(null));
 

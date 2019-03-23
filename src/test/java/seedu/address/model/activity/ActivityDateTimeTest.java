@@ -21,7 +21,7 @@ public class ActivityDateTimeTest {
     }
 
     @Test
-    public void isValidActivityDateTime(){
+    public void isValidActivityDateTime() {
         //null datetime
         Assert.assertThrows(NullPointerException.class, () -> ActivityDateTime.isValidActivityDateTime(null));
 
@@ -31,24 +31,24 @@ public class ActivityDateTimeTest {
 
         //missing parts
         assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/2012")); //missing time
-        assertFalse(ActivityDateTime.isValidActivityDateTime("1230"));//missing date
-        assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/20121230"));//missing blank
+        assertFalse(ActivityDateTime.isValidActivityDateTime("1230")); //missing date
+        assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/20121230")); //missing blank
 
         //invalid parts
-        assertFalse(ActivityDateTime.isValidActivityDateTime("xx/12/2012 1230"));//date not in numbers
+        assertFalse(ActivityDateTime.isValidActivityDateTime("xx/12/2012 1230")); //date not in numbers
         assertFalse(ActivityDateTime.isValidActivityDateTime("21.12.2012 1230"));
         //date separation not using forward slash
-        assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/2012 -130"));//time not in numbers
+        assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/2012 -130")); //time not in numbers
         assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/2012.1230"));
         //separation of date and time not using space
-        assertFalse(ActivityDateTime.isValidActivityDateTime("12/31/2012 1230"));//date input invalid
+        assertFalse(ActivityDateTime.isValidActivityDateTime("12/31/2012 1230")); //date input invalid
         assertFalse(ActivityDateTime.isValidActivityDateTime("29/02/2018 1230")); //invalid date input
-        assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/2012 2430"));//hour input out of range
-        assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/2012 1260"));//minute input out of range
+        assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/2012 2430")); //hour input out of range
+        assertFalse(ActivityDateTime.isValidActivityDateTime("21/12/2012 1260")); //minute input out of range
 
         //valid date time
-        assertTrue(ActivityDateTime.isValidActivityDateTime("29/02/2012 1230"));//valid leap year date
-        assertTrue(ActivityDateTime.isValidActivityDateTime("21/02/2012 0000"));//valid 0am
-        assertTrue(ActivityDateTime.isValidActivityDateTime("21/12/2012 2359"));//valid time 2359
+        assertTrue(ActivityDateTime.isValidActivityDateTime("29/02/2012 1230")); //valid leap year date
+        assertTrue(ActivityDateTime.isValidActivityDateTime("21/02/2012 0000")); //valid 0am
+        assertTrue(ActivityDateTime.isValidActivityDateTime("21/12/2012 2359")); //valid time 2359
     }
 }

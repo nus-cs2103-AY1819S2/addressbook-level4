@@ -21,7 +21,7 @@ public class ActivityLocationTest {
     }
 
     @Test
-    public void isValidLocation(){
+    public void isValidLocation() {
         //null location
         Assert.assertThrows(NullPointerException.class, () -> ActivityLocation.isValidLocation(null));
 

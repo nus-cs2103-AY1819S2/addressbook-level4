@@ -148,6 +148,7 @@ public class RequestBuilder {
      * Sets the {@code conditions} of the patient in the {@code Request} we are building.
      */
     public RequestBuilder withConditions(Set<Condition> conditions) {
+        requireNonNull(conditions);
         this.conditions = conditions;
         return this;
     }

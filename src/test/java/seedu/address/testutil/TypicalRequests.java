@@ -4,7 +4,6 @@ import java.util.*;
 
 import seedu.address.model.RequestBook;
 import seedu.address.model.request.Request;
-import seedu.address.model.tag.Condition;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -63,5 +62,4 @@ public class TypicalRequests {
         return new ArrayList<>(Arrays.asList(ALICE_REQUEST, BENSON_REQUEST, CARL_REQUEST,
             DANIEL_REQUEST));
     }
-
 }

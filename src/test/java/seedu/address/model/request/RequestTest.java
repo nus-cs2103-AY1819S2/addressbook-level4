@@ -9,9 +9,7 @@ import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 
 import org.junit.Test;
@@ -50,7 +48,8 @@ public class RequestTest {
         assertFalse(request.isSameRequest(ALICE_REQUEST));
 
         // everything same, but conditions different -> returns false
-        //Request editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(BENSON_REQUEST.getConditions()).build();
+        //Request editedAlice = new RequestBuilder(ALICE_REQUEST)
+        // .withConditions(BENSON_REQUEST.getConditions()).build();
         //assertFalse(ALICE_REQUEST.isSameRequest(editedAlice));
 
         // everything same, different nric -> returns false

@@ -21,9 +21,9 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
+import seedu.address.model.tag.Condition;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
-import seedu.address.model.tag.Condition;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {

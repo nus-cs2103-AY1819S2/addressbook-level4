@@ -208,7 +208,6 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case TABLE_MODE:
-            // TODO: actual menuBrowserPanel
             menuItemFlowPanel = new MenuItemFlowPanel(logic.getFilteredMenuItemList(), scrollPane);
             browserPlaceholder.getChildren().add(menuItemFlowPanel.getRoot());
 

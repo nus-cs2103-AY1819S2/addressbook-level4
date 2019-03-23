@@ -54,7 +54,8 @@ public class AddToOrderCommand extends Command {
             if (!itemOptional.isPresent()) {
                 throw new CommandException(String.format(MESSAGE_INVALID_ITEM_CODE, itemCodes.get(i)));
             }
-            OrderItem orderItem = new OrderItem(tableNumber, itemCodes.get(i), itemQuantities.get(i));
+            OrderItem orderItem = new OrderItem(tableNumber, itemCodes.get(i),
+                    model.getRestOrRant().getMenu().getNameFromItem(itemOptional.get()), itemQuantities.get(i));
             if (model.hasOrderItem(orderItem)) { // add order items until encountering a duplicate
                 throw new CommandException(
                         String.format(MESSAGE_DUPLICATE_ORDER_ITEM, itemCodes.get(i), tableNumber.toString()));
@@ -72,7 +73,7 @@ public class AddToOrderCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddToOrderCommand // instanceof handles nulls
-                && itemCodes.equals(((AddToOrderCommand) other).itemCodes) && itemQuantities
-                .equals(((AddToOrderCommand) other).itemQuantities));
+                && itemCodes.equals(((AddToOrderCommand) other).itemCodes) && itemQuantities.equals((
+                        (AddToOrderCommand) other).itemQuantities));
     }
 }

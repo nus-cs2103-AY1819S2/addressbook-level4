@@ -11,7 +11,6 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.MATRICNUMBER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.MATRICNUMBER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -52,8 +51,8 @@ public class MemberAddCommandParserTest {
         Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_RUNNING).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_RUNNING,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB + PHONE_DESC_BOB
+                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_RUNNING,
                 new MemberAddCommand(expectedPerson));
 
         // multiple names - last name accepted

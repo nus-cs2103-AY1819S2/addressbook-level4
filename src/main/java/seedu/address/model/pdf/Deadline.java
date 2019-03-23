@@ -3,6 +3,8 @@ package seedu.address.model.pdf;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 /**
  * Represents a Pdf's address in the address book.
  * Guarantees: immutable;
@@ -92,7 +94,7 @@ public class Deadline {
      * @return - Number of Days to Deadline as long.
      */
     public long getDaysToDeadline() {
-        return LocalDate.now().datesUntil(this.date).count();
+        return DAYS.between(LocalDate.now(), this.date);
     }
 
     /**

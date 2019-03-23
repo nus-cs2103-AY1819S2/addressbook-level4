@@ -1,10 +1,17 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import seedu.address.model.pdf.Pdf;
 
 /**
@@ -48,7 +55,46 @@ public class PersonCard extends UiPart<Region> {
         name.setText(pdf.getName().getFullName());
 
         if (pdf.getDeadline().exists()) {
+            deadline.setPadding(new Insets(4, 0, 0, 0));
+
             deadline.setText(pdf.getDeadline().getValue().toString());
+            //Green = #008060
+            //Orange = #b36b00
+            //Red = #b30000
+
+            if (pdf.getDeadline().isMet()) {
+                deadline.setStyle("-fx-text-fill: white;" +
+                        "-fx-background-color: #0047b3;" +
+                        "-fx-padding: 1;" +
+                        "-fx-border-radius: 3;" +
+                        "-fx-background-radius: 3;" +
+                        "-fx-label-padding: 0;");
+            } else {
+                if (pdf.getDeadline().getDaysToDeadline() > 7) {
+                    deadline.setStyle("-fx-text-fill: white;" +
+                            "-fx-background-color: #008060;" +
+                            "-fx-padding: 1;" +
+                            "-fx-border-radius: 3;" +
+                            "-fx-background-radius: 3;" +
+                            "-fx-label-padding: 0;");
+
+                } else if (pdf.getDeadline().getDaysToDeadline() > 3) {
+                    deadline.setStyle("-fx-text-fill: white;" +
+                            "-fx-background-color: #b36b00;" +
+                            "-fx-padding: 1;" +
+                            "-fx-border-radius: 3;" +
+                            "-fx-background-radius: 3;" +
+                            "-fx-label-padding: 0;");
+                } else if (pdf.getDeadline().getDaysToDeadline() <= 0) {
+                    deadline.setStyle("-fx-text-fill: white;" +
+                            "-fx-background-color: #b30000;" +
+                            "-fx-padding: 1;" +
+                            "-fx-border-radius: 3;" +
+                            "-fx-background-radius: 3;" +
+                            "-fx-label-padding: 0;");
+                }
+            }
+
         }
         //phone.setText(pdf.getPhone().value);
         //address.setText(pdf.getAddress().value);

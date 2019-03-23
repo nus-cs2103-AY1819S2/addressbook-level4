@@ -9,10 +9,14 @@
 /* For the command box input and result */
 #commandTextField, #resultDisplay {
     -fx-font-family: "Inconsolata";
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
 }
 
 /* For the requestListPanel */
+#request_date {
+
+}
+
 #conditions, #specialisations {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -81,4 +85,11 @@ span.command {
 
 .list-cell:filled:selected {
     -fx-background-color: #c7ecee;
+}
+
+.list-view .scroll-bar:horizontal .increment-arrow,
+.list-view .scroll-bar:horizontal .decrement-arrow,
+.list-view .scroll-bar:horizontal .increment-button,
+.list-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
 }

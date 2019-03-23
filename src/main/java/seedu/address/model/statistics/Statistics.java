@@ -7,7 +7,9 @@ public abstract class Statistics {
     protected static int hitCount;
     protected static int missCount;
     protected static int movesLeft;
-    protected static int enemyShipDestroyed;
+    protected static int enemyShipsDestroyed;
+    protected static int attackCount;
+    protected static final int TOTAL_MOVES = 10;
     // private int shipsLeft;
     // private int hatTricks // 3 in a row
 
@@ -23,8 +25,9 @@ public abstract class Statistics {
     private void defaultConfig() {
         this.hitCount = 0;
         this.missCount = 0;
-        this.enemyShipDestroyed = 0;
-        this.movesLeft = 10; // magic number for now
+        this.enemyShipsDestroyed = 0;
+        this.attackCount = 0;
+        this.movesLeft = TOTAL_MOVES;
     }
 
     /**
@@ -40,9 +43,13 @@ public abstract class Statistics {
      * increments the num of enemy ships destroyed by 1.
      * @return number of enemy ships destroyed.
      */
-    public int enemyShipDestroyed() {
-        ++this.enemyShipDestroyed;
-        return this.enemyShipDestroyed;
+    public int enemyShipsDestroyed() {
+        ++this.enemyShipsDestroyed;
+        return this.enemyShipsDestroyed;
+    }
+
+    public int getEnemyShipsDestroyed(){
+        return this.enemyShipsDestroyed;
     }
     /**
      * increments the miss count by 1.
@@ -62,6 +69,13 @@ public abstract class Statistics {
         return this.movesLeft;
     }
 
+    public int addAttack(){
+        ++this.attackCount;
+        return this.attackCount;
+    }
+    public int getAttacksMade(){
+        return this.attackCount;
+    }
     public int getMovesLeft() {
         return this.movesLeft;
     }

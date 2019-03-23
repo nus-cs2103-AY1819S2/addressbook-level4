@@ -3,11 +3,9 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import seedu.address.logic.CommandHistory;
+
 import seedu.address.model.Model;
 import seedu.address.model.statistics.PlayerStatistics;
 
@@ -27,22 +25,25 @@ public class StatsCommand extends Command {
         ArrayList<String> outputStatistics = new ArrayList<>();
 
         PlayerStatistics playerStats = model.getPlayerStats();
+        String attacksMade = "Attacks Made : " + playerStats.getAttacksMade();
         String movesLeft = "Moves Left : " + playerStats.getMovesLeft();
         String hitCount = "Successful Hit : " + playerStats.getHitCount();
         String missCount = "Misses : " + playerStats.getMissCount();
+        String shipsDestroyed = "Enemy Ships Destroyed : " + playerStats.getEnemyShipsDestroyed();
+        // To add :
+        // Accuracy
+        // Your own number of ships left
 
-        //        if (previousCommands.isEmpty()) {
-        //            return new CommandResult(MESSAGE_NO_HISTORY);
-        //        }
-        //
-        //        for (String string : previousCommands) {
-        //            onlyCommands.add(string.split(" ")[0]); // Take first word
-        //        }
-        //        Set<String> set = new HashSet<>(onlyCommands);
-        // get frequency of each command
         outputStatistics.add(movesLeft);
+        outputStatistics.add(attacksMade);
         outputStatistics.add(hitCount);
         outputStatistics.add(missCount);
+        outputStatistics.add(shipsDestroyed);
+
+        // Make a pop-up window
+        //new StatisticView(); // to input parameters
+        // must import StatisticView into this also
+        // to change command message into log?
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));
     }

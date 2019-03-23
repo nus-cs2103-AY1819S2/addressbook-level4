@@ -27,6 +27,7 @@ public class QuizModeParser implements Parser<Command> {
      */
     public Command parse(String userInput) throws ParseException {
         matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        matcher.matches();
 
         final String commandWord = matcher.group("commandWord");
         final String answer = matcher.group("answer");

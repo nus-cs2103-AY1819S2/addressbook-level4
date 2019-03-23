@@ -28,6 +28,7 @@ import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
 import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.model.modelmanager.quiz.QuizUiDisplayFormatter;
 import seedu.address.storage.CsvLessonsStorage;
 import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -100,8 +101,7 @@ public class LogicManagerTest {
         expectedModel.getNextCard();
 
         QuizCard expectedCard = expectedModel.getNextCard();
-        CommandResult expected = new CommandResult(String.format(QuizAnswerCommand.MESSAGE_QUESTION_ANSWER,
-            expectedCard.getQuestion(), expectedCard.getAnswer()));
+        CommandResult expected = new CommandResult("");
 
         quizModel.init(new Quiz(quizCards, Quiz.Mode.LEARN));
         quizModel.getNextCard();
@@ -154,6 +154,31 @@ public class LogicManagerTest {
         assertTrue(new ExitCommand().execute(managementModel, history).isExit());
     }
 
+    @Test
+    public void getDisplayFormatter() {
+        // TODO change to session
+        // this hardcoded values matched StartCommand
+        // when session is implemented then this will change to session instead
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
+        final QuizCard card4 = new QuizCard("中国", "北京");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
+        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+
+        QuizModelManager expectedModel = new QuizModelManager();
+        expectedModel.init(quiz);
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary", "answer", "Budapest",
+            Quiz.Mode.PREVIEW));
+
+        quizModel.init(new Quiz(quizCards, Quiz.Mode.LEARN));
+        quizModel.getNextCard();
+
+        assertCommandSuccess("", "", expectedModel);
+        assertEquals(expectedModel.getDisplayFormatter(), logic.getDisplayFormatter());
+    }
     @Test
     public void getHistory() {
         CommandHistory empty = new CommandHistory();

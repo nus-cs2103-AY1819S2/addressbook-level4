@@ -23,6 +23,7 @@ import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.modelmanager.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
@@ -294,16 +295,19 @@ public class AddLessonCommandTest {
         }
 
         /**
-         * Returns if User is done with {@code Quiz}.
-         */
-        public boolean isDone() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        /**
          * Returns data needed by {@code Session} when {@code Quiz} end.
          */
         public List<List<Integer>> end() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDisplayFormatter(QuizUiDisplayFormatter formatter) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public QuizUiDisplayFormatter getDisplayFormatter() {
             throw new AssertionError("This method should not be called.");
         }
     }

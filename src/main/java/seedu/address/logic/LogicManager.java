@@ -15,6 +15,7 @@ import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.modelmanager.quiz.QuizUiDisplayFormatter;
 import seedu.address.storage.Storage;
 
 /**
@@ -55,7 +56,6 @@ public class LogicManager implements Logic {
                 commandResult = command.execute(quizModel, history);
             }
 
-            // very ugly way
             if (command instanceof QuizStartCommand) {
                 QuizStartCommand quizStartCommand = (QuizStartCommand) command;
                 commandResult = quizStartCommand.executeActual(quizModel, history);
@@ -65,6 +65,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public QuizUiDisplayFormatter getDisplayFormatter() {
+        return quizModel.getDisplayFormatter();
     }
 
     @Override

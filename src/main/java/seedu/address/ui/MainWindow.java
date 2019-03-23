@@ -15,7 +15,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -172,32 +171,11 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowQuiz()) {
-                String feedback = commandResult.getFeedbackToUser();
-                // TODO refactor this
-                if (feedback.contains(QuizAnswerCommand.MESSAGE_CORRECT)) {
-                    resultDisplay.setFeedbackToUser(QuizAnswerCommand.MESSAGE_CORRECT);
-                    feedback = feedback.replace(QuizAnswerCommand.MESSAGE_CORRECT, "");
-                } else if (feedback.contains(QuizAnswerCommand.MESSAGE_WRONG_ONCE)) {
-                    resultDisplay.setFeedbackToUser(QuizAnswerCommand.MESSAGE_WRONG_ONCE);
-                    feedback = feedback.replace(QuizAnswerCommand.MESSAGE_WRONG_ONCE, "");
-                } else if (feedback.contains("The correct answer is")) {
-                    int startIndex = feedback.indexOf("The correct answer is ");
-                    int endIndex = feedback.indexOf("Question: ");
-                    String removeThisString = feedback.substring(startIndex, endIndex);
-
-                    resultDisplay.setFeedbackToUser(removeThisString);
-                    feedback = feedback.replace(removeThisString, "");
-                }
-
-                quizResultDisplay.setFeedbackToUser(feedback);
-            } else {
-                logger.info("Result: " + commandResult.getFeedbackToUser());
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-                // clear
-                quizResultDisplay.setFeedbackToUser("");
+                quizResultDisplay.setFeedbackToUser(logic.getDisplayFormatter());
             }
 
             if (commandResult.isShowHelp()) {

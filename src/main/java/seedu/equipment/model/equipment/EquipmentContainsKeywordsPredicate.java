@@ -15,6 +15,9 @@ public class EquipmentContainsKeywordsPredicate implements Predicate<Equipment> 
         this.keywords = keywords;
     }
 
+    public List<String> getKeywords() {
+        return this.keywords;
+    }
     @Override
     public boolean test(Equipment equipment) {
         return keywords.stream()

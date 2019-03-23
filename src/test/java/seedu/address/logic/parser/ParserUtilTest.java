@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
@@ -22,27 +21,27 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
+import seedu.address.model.tag.Condition;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_PHONE = "+651234312";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_CONDITION = "#friend";
     private static final String INVALID_ORGANIZATION = "h@xx0r";
     private static final String INVALID_NRIC = "A12345678";
     private static final String INVALID_SPECIALISATION = "physio";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_PHONE = "123456";
+    private static final String VALID_PHONE = "98765432";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_EMAIL = "rachel@example.com";
-    private static final String VALID_TAG_1 = "friend";
-    private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_CONDITION_1 = "cancer";
+    private static final String VALID_CONDITION_2 = "palliative";
     private static final String VALID_ORGANIZATION = "NUS";
     private static final String VALID_NRIC = "S1234567A";
     private static final String VALID_SPECIALISATION = "PHYSIOTHERAPY";
@@ -167,54 +166,49 @@ public class ParserUtilTest {
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
     }
 
+    // ========= Tests for parsing Condition from Request =========
+    // @author Rohan
+
     @Test
-    public void parseTag_null_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-        ParserUtil.parseTag(null);
+    public void parseCondition() throws ParseException {
+        // null condition
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil
+                .parseCondition(null));
+
+        // invalid condition
+        Assert.assertThrows(ParseException.class, () -> ParserUtil
+                .parseCondition(INVALID_CONDITION));
+
+        // same condition -> returns true
+        Condition expectedCondition = new Condition(VALID_CONDITION_1);
+        assertEquals(expectedCondition, ParserUtil
+                .parseCondition(VALID_CONDITION_1));
+
+        // condition with whitespace trimmed -> returned true
+        assertEquals(expectedCondition, ParserUtil.parseCondition(
+                WHITESPACE + VALID_CONDITION_1 + WHITESPACE));
     }
 
     @Test
-    public void parseTag_invalidValue_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        ParserUtil.parseTag(INVALID_TAG);
-    }
+    public void parseConditions() throws ParseException {
+        // null condition set
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil
+                .parseConditions(null));
 
-    @Test
-    public void parseTag_validValueWithoutWhitespace_returnsTag() throws Exception {
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(VALID_TAG_1));
-    }
+        // list contains invalid condition
+        Assert.assertThrows(ParseException.class, () -> ParserUtil
+                .parseConditions(Arrays.asList(VALID_CONDITION_1,
+                        INVALID_CONDITION)));
 
-    @Test
-    public void parseTag_validValueWithWhitespace_returnsTrimmedTag() throws Exception {
-        String tagWithWhitespace = WHITESPACE + VALID_TAG_1 + WHITESPACE;
-        Tag expectedTag = new Tag(VALID_TAG_1);
-        assertEquals(expectedTag, ParserUtil.parseTag(tagWithWhitespace));
-    }
+        // empty condition set
+        assertTrue(ParserUtil.parseConditions(Collections.emptyList()).isEmpty());
 
-    @Test
-    public void parseTags_null_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-        ParserUtil.parseTags(null);
-    }
-
-    @Test
-    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
-    }
-
-    @Test
-    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
-    }
-
-    @Test
-    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
-
-        assertEquals(expectedTagSet, actualTagSet);
+        // valid condition returns conditionSet containing conditions
+        Set<Condition> expectedConditions = new HashSet<>(Arrays.asList
+                (new Condition(VALID_CONDITION_1),
+                        new Condition(VALID_CONDITION_2)));
+        assertEquals(expectedConditions, ParserUtil.parseConditions(Arrays
+                .asList(VALID_CONDITION_1, VALID_CONDITION_2)));
     }
 
     // ========= Tests for parsing Organisation/NRIC/Specialisation =========

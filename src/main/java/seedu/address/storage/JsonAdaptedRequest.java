@@ -1,10 +1,9 @@
 package seedu.address.storage;
 
 //import java.util.ArrayList;
+
 import java.util.HashSet;
-//import java.util.List;
 import java.util.Set;
-//import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,8 +18,10 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
-import seedu.address.model.tag.ConditionTag;
-import seedu.address.model.tag.Conditions;
+import seedu.address.model.tag.Condition;
+
+//import java.util.List;
+//import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Request}.
@@ -138,21 +139,20 @@ class JsonAdaptedRequest {
 
         final RequestStatus modelrequestStatus = new RequestStatus(this.requestStatus);
 
-        Set<ConditionTag> set = new HashSet<>();
+        Set<Condition> modelConditions = new HashSet<>();
         String[] conditionsArr = this.conditions.split(" ");
         for (String condition : conditionsArr) {
-            ConditionTag conditionTag = ConditionTag.parseString(condition);
-            set.add(conditionTag);
+            Condition conditionToAdd = new Condition(condition);
+            modelConditions.add(conditionToAdd);
         }
-        final Conditions modelConditions = new Conditions(set);
 
 
         if (healthWorker == null) {
             return new Request(modelName, modelNric, modelPhone, modelAddress, modelrequestDate,
-                modelConditions, modelrequestStatus);
+                    modelConditions, modelrequestStatus);
         }
         return new Request(modelName, modelNric, modelPhone, modelAddress, modelrequestDate,
-            modelConditions, modelrequestStatus, healthWorker);
+                modelConditions, modelrequestStatus, healthWorker);
     }
 
     @Override

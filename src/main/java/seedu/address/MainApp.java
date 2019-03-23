@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
@@ -20,10 +19,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.PatientBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
-import seedu.address.model.ReadOnlyPatientBook;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RequestBook;
@@ -33,10 +30,8 @@ import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.HealthWorkerBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonHealthWorkerBookStorage;
-import seedu.address.storage.JsonPatientBookStorage;
 import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.PatientBookStorage;
 import seedu.address.storage.RequestBookStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -73,9 +68,8 @@ public class MainApp extends Application {
         RequestBookStorage requestBookStorage = new JsonRequestBookStorage(userPrefs.getRequestBookFilePath());
         HealthWorkerBookStorage healthWorkerBookStorage = new JsonHealthWorkerBookStorage(
                 userPrefs.getHealthWorkerBookFilePath());
-        PatientBookStorage patientBookStorage = new JsonPatientBookStorage(userPrefs.getPatientBookFilePath());
         storage = new StorageManager(addressBookStorage, userPrefsStorage, requestBookStorage,
-                healthWorkerBookStorage, patientBookStorage);
+                healthWorkerBookStorage);
 
         initLogging(config);
 
@@ -96,18 +90,14 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyHealthWorkerBook> healthWorkerBookOptional;
-        Optional<ReadOnlyPatientBook> patientBookOptional;
         Optional<ReadOnlyRequestBook> requestBookOptional;
         ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
-        ReadOnlyPatientBook initialPatientBook;
         ReadOnlyRequestBook initialRequestBook;
 
         try {
 
-            initialPatientBook = new PatientBook();
             addressBookOptional = storage.readAddressBook();
-            patientBookOptional = storage.readPatientBook();
             healthWorkerBookOptional = storage.readHealthWorkerBook();
             requestBookOptional = storage.readRequestBook();
             if (!addressBookOptional.isPresent()) {
@@ -118,31 +108,29 @@ public class MainApp extends Application {
                 logger.info("Request file not found. Will be starting with sample RequestBook");
             }
             initialRequestBook = requestBookOptional.get();
+            // TODO: Jing to Implement SampleDataUtil for HealthHub
             initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample HealthWorkerBook");
             }
             // initialHealthWorkerBook =
             // healthWorkerBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            // will uncomment when the Sample DataUtil is done
+
             initialHealthWorkerBook = healthWorkerBookOptional.get();
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with empty books");
             initialAddressBook = new AddressBook();
             initialHealthWorkerBook = new HealthWorkerBook();
             initialRequestBook = new RequestBook();
-            initialPatientBook = new PatientBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with empty books");
             initialAddressBook = new AddressBook();
             initialHealthWorkerBook = new HealthWorkerBook();
             initialRequestBook = new RequestBook();
-            initialPatientBook = new PatientBook();
         }
 
 
-        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialPatientBook, initialRequestBook,
-            userPrefs);
+        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialRequestBook, userPrefs);
     }
 
     private void initLogging(Config config) {

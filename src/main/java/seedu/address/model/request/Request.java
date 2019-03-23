@@ -10,8 +10,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Conditions;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Condition;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -24,7 +23,7 @@ public class Request {
     private final Address address;
     private final Phone phone;
     private final RequestDate requestDate;
-    private final Conditions conditions;
+    private Set<Condition> conditions = new HashSet<>();
     private String healthWorker = null;
     private RequestStatus requestStatus;
 
@@ -32,10 +31,10 @@ public class Request {
      * Overloaded constructor that takes in differing arguments for the patient.
      */
     public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
-                   Set<Tag> conditions, RequestStatus status) {
+                   Set<Condition> conditions, RequestStatus status) {
         requireAllNonNull(name, phone, nric, address, requestDate, conditions, status);
         this.phone = phone;
-        this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
+        this.conditions = SampleDataUtil.getConditionsFromConditionSet(conditions);
         this.requestStatus = status;
         this.requestDate = requestDate;
         this.name = name;
@@ -49,10 +48,10 @@ public class Request {
      * Sets the {@code requestStatus} to pending
      */
     public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
-                   Set<Tag> conditions) {
+                   Set<Condition> conditions) {
         requireAllNonNull(name, nric, address, requestDate, conditions, phone);
         this.phone = phone;
-        this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
+        this.conditions = SampleDataUtil.getConditionsFromConditionSet(conditions);
         this.requestStatus = new RequestStatus("PENDING");
         this.name = name;
         this.nric = nric;
@@ -61,31 +60,12 @@ public class Request {
     }
 
     /**
-     * Overloaded constructor that takes in differing arguments for the patient.
-     */
-    public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
-                   Conditions conditions, RequestStatus status) {
-        requireAllNonNull(name, nric, phone, address, requestDate, conditions, status);
-        HashSet<Tag> cond = new HashSet<>();
-        conditions.getConditions().forEach(conditionTag -> cond.add(new Tag(conditionTag.conditionTagName)));
-        this.conditions = conditions;
-        this.phone = phone;
-        this.name = name;
-        this.nric = nric;
-        this.address = address;
-        this.requestStatus = status;
-        this.requestDate = requestDate;
-    }
-
-    /**
      * Overloaded constructor to represent a request.
      */
     public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
-                   Conditions conditions, RequestStatus status, String healthWorker) {
+                   Set<Condition> conditions, RequestStatus status, String healthWorker) {
         requireAllNonNull(name, address, phone, requestDate, conditions, status);
         this.phone = phone;
-        HashSet<Tag> cond = new HashSet<>();
-        conditions.getConditions().forEach(conditionTag -> cond.add(new Tag(conditionTag.conditionTagName)));
         this.conditions = conditions;
         this.requestStatus = status;
         this.requestDate = requestDate;
@@ -95,21 +75,6 @@ public class Request {
         this.address = address;
     }
 
-    /**
-     * Overloaded constructor that takes in a {@code healthWorker}.
-     */
-    public Request(Name name, Nric nric, Phone phone, Address address, RequestDate requestDate,
-                   Set<Tag> conditions, RequestStatus status, String healthWorker) {
-        requireAllNonNull(name, nric, phone, address, requestDate, conditions, status);
-        this.phone = phone;
-        this.name = name;
-        this.nric = nric;
-        this.address = address;
-        this.conditions = SampleDataUtil.getConditionsFromTagSet(conditions);
-        this.requestStatus = status;
-        this.requestDate = requestDate;
-        this.healthWorker = healthWorker;
-    }
 
     /**
      * Returns true if both requests of the same ID and date have at least one other
@@ -127,8 +92,8 @@ public class Request {
 
         return otherRequest.nric.equals(this.nric)
             && otherRequest.getRequestDate().equals(this.requestDate)
-            && ((otherRequest.getConditions().equals(this.conditions)
-            || otherRequest.address.equals(this.address)));
+            && otherRequest.getConditions().equals(this.conditions)
+            && otherRequest.address.equals(this.address);
     }
 
     public Name getName() {
@@ -145,17 +110,27 @@ public class Request {
 
     @Override
     public String toString() {
-
-        return "----------Request----------\n"
-            + "Name: " + this.name + "\n"
-            + "Nric: " + this.nric + "\n"
-            + "Phone: " + this.phone + "\n"
-            + "Address: " + this.address + "\n"
-            + "Assigned staff: " + healthWorker + "\n"
-            + "Request Date: " + this.requestDate + "\n"
-            + "Condition(s): " + this.conditions + "\n"
-            + "Status: " + this.requestStatus + "\n"
-            + "----------End of Request----------\n";
+        final StringBuilder builder = new StringBuilder();
+        builder.append("----------Request----------\n")
+                .append("Name: ")
+                .append(getName() + "\n")
+                .append("Nric: ")
+                .append(getNric() + "\n")
+                .append("Phone: ")
+                .append(getPhone() + "\n")
+                .append("Address: ")
+                .append(getAddress() + "\n")
+                .append("Assigned staff: ")
+                .append(getHealthStaff() + "\n")
+                .append("Request Date: ")
+                .append(getRequestDate() + "\n")
+                .append("Condition(s): ");
+        getConditions().forEach(builder::append);
+        builder.append(getConditions() + "\n")
+                .append("Status: ")
+                .append(getRequestStatus() + "\n")
+                .append("----------End of Request----------\n");
+        return builder.toString();
     }
 
     @Override
@@ -179,7 +154,7 @@ public class Request {
             && (otherRequest.getRequestStatus().equals(this.requestStatus));
     }
 
-    public Conditions getConditions() {
+    public Set<Condition> getConditions() {
         return this.conditions;
     }
 

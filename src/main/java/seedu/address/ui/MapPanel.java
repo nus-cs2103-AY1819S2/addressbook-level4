@@ -11,10 +11,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
-
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 
 /**
@@ -49,16 +47,10 @@ public class MapPanel extends UiPart<Region> {
                 loadDefaultPage();
                 return;
             }
-            loadPatientLocation(newValue);
+            // Removed loadPatientLocation method
         });
 
         loadDefaultPage();
-    }
-
-    private void loadPatientLocation(Person patient) {
-        Address address = patient.getAddress();
-        String mapAddress = address.toStreetNameOnly().replaceAll("\\s", "%20");
-        loadPage(constructLink(mapAddress));
     }
 
     /**

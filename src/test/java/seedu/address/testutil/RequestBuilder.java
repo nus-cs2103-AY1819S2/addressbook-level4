@@ -2,21 +2,19 @@ package seedu.address.testutil;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.person.patient.Patient;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
-import seedu.address.model.tag.ConditionTag;
-import seedu.address.model.tag.Conditions;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Condition;
 
 /**
  * A utility class to help with building Request objects.
@@ -40,7 +38,7 @@ public class RequestBuilder {
 
     private RequestDate requestDate;
     private RequestStatus requestStatus;
-    private Conditions conditions;
+    private Set<Condition> conditions;
     private String healthWorker;
     private Name name;
     private Phone phone;
@@ -49,10 +47,6 @@ public class RequestBuilder {
 
 
     public RequestBuilder() {
-        HashSet<ConditionTag> conditions =
-            new HashSet<>(Collections.singletonList(new ConditionTag(DEFAULT_REQUEST)));
-        HashSet<Tag> set = new HashSet<>();
-        set.add(new Tag(DEFAULT_REQUEST));
         this.name = new Name(DEFAULT_PATIENT_NAME);
         this.phone = new Phone(DEFAULT_PATIENT_PHONE);
         this.nric = new Nric(DEFAULT_PATIENT_NRIC);
@@ -60,7 +54,7 @@ public class RequestBuilder {
         this.healthWorker = DEFAULT_STAFF_NAME;
         this.requestDate = new RequestDate(DEFAULT_DATE);
         this.requestStatus = new RequestStatus(DEFAULT_STATUS);
-        this.conditions = new Conditions(conditions);
+        this.conditions = new HashSet<>(Arrays.asList(new Condition(DEFAULT_REQUEST)));
     }
 
     /*
@@ -132,17 +126,6 @@ public class RequestBuilder {
     }
 
     /**
-     * Sets the name, address, phone and nric of the request object
-     */
-    public RequestBuilder withPatient(Patient patient) {
-        this.name = patient.getName();
-        this.address = patient.getAddress();
-        this.phone = patient.getPhone();
-        this.nric = patient.getNric();
-        return this;
-    }
-
-    /**
      * Sets the {@code healthStaff} of the {@code Request} we are building.
      */
     public RequestBuilder withHealthStaff(HealthWorker healthStaff) {
@@ -161,10 +144,11 @@ public class RequestBuilder {
     }
 
     /**
-     * Sets the {@code healthStaff} of the {@code Request} we are building.
+     * Sets the {@code conditions} of the patient in the {@code Request} we are building.
      */
-    public RequestBuilder withConditions(Conditions conditions) {
-        this.conditions = new Conditions(conditions);
+    public RequestBuilder withConditions(Set<Condition> conditions) {
+        requireNonNull(conditions);
+        this.conditions = conditions;
         return this;
     }
 

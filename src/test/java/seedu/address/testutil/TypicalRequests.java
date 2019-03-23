@@ -6,8 +6,7 @@ import java.util.List;
 
 import seedu.address.model.RequestBook;
 import seedu.address.model.request.Request;
-import seedu.address.model.tag.ConditionTag;
-import seedu.address.model.tag.Conditions;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class containing {@code Request} objects to be used in tests.
@@ -20,8 +19,7 @@ public class TypicalRequests {
 
     public static final Request ALICE_REQUEST = new RequestBuilder()
             .withId(ALICE_ID)
-            .withPatient(TypicalPatients.ALICE)
-        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Physiotherapy"))))
+            .withConditions(SampleDataUtil.getConditionSet("Physiotherapy"))
             .withDate("01-01-2019 10:00:00")
             .withHealthStaff(TypicalHealthWorkers.ANDY)
             .withStatus("PENDING")
@@ -29,8 +27,7 @@ public class TypicalRequests {
 
     public static final Request BENSON_REQUEST = new RequestBuilder()
             .withId(BENSON_ID)
-            .withPatient(TypicalPatients.BENSON)
-        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
+            .withConditions(SampleDataUtil.getConditionSet("Palliative"))
             .withDate("02-01-2919 08:00:00")
             .withHealthStaff(TypicalHealthWorkers.BETTY)
             .withStatus("PENDING")
@@ -38,44 +35,19 @@ public class TypicalRequests {
 
     public static final Request CARL_REQUEST = new RequestBuilder()
             .withId(CARL_ID)
-            .withPatient(TypicalPatients.CARL)
-        .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
-            .withDate("02-01-2919 08:00:00")
+            .withConditions(SampleDataUtil.getConditionSet("Cancer"))
+            .withDate("02-01-2919 14:00:00")
             .withHealthStaff(TypicalHealthWorkers.CARLIE)
             .withStatus("PENDING")
             .build();
 
     public static final Request DANIEL_REQUEST = new RequestBuilder()
             .withId(DANIEL_ID)
-            .withPatient(TypicalPatients.DANIEL)
-            .withConditions(new Conditions(Arrays.asList(new ConditionTag("Palliative"))))
-            .withDate("02-01-2919 08:00:00")
+            .withConditions(SampleDataUtil.getConditionSet("AIDS"))
+            .withDate("02-01-2919 18:00:00")
             .withHealthStaff(TypicalHealthWorkers.PANIEL)
             .withStatus("COMPLETED")
             .build();
-
-    /*
-    // To be added manually
-    // David pls review this, i do not know the purpose of Hoon and Ida -Rohan
-
-    public static final Request HOON_REQUEST = new RequestBuilder()
-            .withId("asdfbtyuilkj")
-            .withPatient(TypicalPatients.HOON)
-            .withConditions("Physiotherapy")
-            .withDate("01-01-2019 10:00:00")
-            .withHealthStaff(TypicalHealthWorkers.HOOK)
-            .withStatus("PENDING")
-            .build();
-
-    public static final Request IDA_REQUEST = new RequestBuilder()
-            .withId("ghdusnsbgugy")
-            .withPatient(TypicalPatients.IDA)
-            .withConditions("Physiotherapy")
-            .withDate("01-01-2019 10:00:00")
-            .withHealthStaff(TypicalHealthWorkers.IVAN)
-            .withStatus("COMPLETED")
-            .build();
-    */
 
     /**
      * Returns an {@code RequestBook} with all the typical persons.
@@ -92,5 +64,4 @@ public class TypicalRequests {
         return new ArrayList<>(Arrays.asList(ALICE_REQUEST, BENSON_REQUEST, CARL_REQUEST,
             DANIEL_REQUEST));
     }
-
 }

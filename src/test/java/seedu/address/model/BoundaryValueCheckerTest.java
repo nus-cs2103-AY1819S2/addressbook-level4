@@ -41,12 +41,12 @@ public class BoundaryValueCheckerTest {
 
         Battleship battleship = new DestroyerBattleship();
 
-        model.getMapGrid().initialise(cellGrid);
-        model.getMapGrid().getCell(COORDINATES_A1).putShip(battleship);
+        model.getHumanMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().getCell(COORDINATES_A1).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
 
-        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getMapGrid(),
+        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getHumanMapGrid(),
                 battleship, COORDINATES_A1, orientation);
 
         Assert.assertThrows(CommandException.class, () -> boundaryValueChecker.performChecks());
@@ -64,12 +64,12 @@ public class BoundaryValueCheckerTest {
 
         Battleship battleship = new Battleship();
 
-        model.getMapGrid().initialise(cellGrid);
-        model.getMapGrid().getCell(COORDINATES_B1).putShip(battleship);
+        model.getHumanMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().getCell(COORDINATES_B1).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
 
-        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getMapGrid(),
+        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getHumanMapGrid(),
                 battleship, COORDINATES_A1, orientation);
 
         Assert.assertThrows(CommandException.class, () -> boundaryValueChecker.performChecks());
@@ -87,11 +87,11 @@ public class BoundaryValueCheckerTest {
 
         Battleship battleship = new Battleship();
 
-        model.getMapGrid().initialise(cellGrid);
-        model.getMapGrid().getCell(COORDINATES_A2).putShip(battleship);
+        model.getHumanMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().getCell(COORDINATES_A2).putShip(battleship);
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
-        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getMapGrid(),
+        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getHumanMapGrid(),
                 battleship, COORDINATES_A1, orientation);
 
         Assert.assertThrows(CommandException.class, () -> boundaryValueChecker.performChecks());
@@ -107,11 +107,11 @@ public class BoundaryValueCheckerTest {
             }
         }
 
-        model.getMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().initialise(cellGrid);
         Battleship battleship = new Battleship();
 
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
-        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getMapGrid(),
+        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getHumanMapGrid(),
                 battleship, COORDINATES_A10, orientation);
 
         Assert.assertThrows(CommandException.class, () -> boundaryValueChecker.performChecks());
@@ -127,11 +127,11 @@ public class BoundaryValueCheckerTest {
             }
         }
 
-        model.getMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().initialise(cellGrid);
         Battleship battleship = new Battleship();
 
         Orientation orientation = new Orientation(VALID_VERTICAL_ORIENTATION);
-        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getMapGrid(),
+        BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(model.getHumanMapGrid(),
                 battleship, COORDINATES_J1, orientation);
 
         Assert.assertThrows(CommandException.class, () -> boundaryValueChecker.performChecks());

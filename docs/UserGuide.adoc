@@ -299,6 +299,11 @@ Deletes the 2nd health worker in the application.
 * `delete 3 1` +
 Deletes the 1st patient in the results of the `list` command.
 
+[TIP]
+====
+As a shortcut, you can use `dr [INDEX]` to delete the request with a particular index!
+====
+
 === Assigning a health worker to an existing open request : `assign`
 
 After registering a new request using the `add 2` command, you may proceed to

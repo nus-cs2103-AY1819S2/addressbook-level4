@@ -12,41 +12,42 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
+import seedu.address.model.request.Request;
 
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class RequestListPanel extends UiPart<Region> {
+    private static final String FXML = "RequestListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(RequestListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Request> requestListView;
 
-    public PersonListPanel(ObservableList<Person> personList, ObservableValue<Person> selectedPerson,
-            Consumer<Person> onSelectedPersonChange) {
+    public RequestListPanel(ObservableList<Request> requestList, ObservableValue<Request> selectedRequest,
+                Consumer<Request> onSelectedRequestChange) {
         super(FXML);
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-            onSelectedPersonChange.accept(newValue);
+        requestListView.setItems(requestList);
+        requestListView.setCellFactory(listView -> new RequestListViewCell());
+        requestListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selection in request list panel changed to : '" + newValue + "'");
+            onSelectedRequestChange.accept(newValue);
         });
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected person changed to: " + newValue);
+        selectedRequest.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected request changed to: " + newValue);
 
-            // Don't modify selection if we are already selecting the selected person,
+            // Don't modify selection if we are already selecting the selected request,
             // otherwise we would have an infinite loop.
-            if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
+            if (Objects.equals(requestListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }
 
             if (newValue == null) {
-                personListView.getSelectionModel().clearSelection();
+                requestListView.getSelectionModel().clearSelection();
             } else {
-                int index = personListView.getItems().indexOf(newValue);
-                personListView.scrollTo(index);
-                personListView.getSelectionModel().clearAndSelect(index);
+                int index = requestListView.getItems().indexOf(newValue);
+                requestListView.scrollTo(index);
+                requestListView.getSelectionModel().clearAndSelect(index);
             }
         });
     }
@@ -54,16 +55,16 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class RequestListViewCell extends ListCell<Request> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Request request, boolean empty) {
+            super.updateItem(request, empty);
 
-            if (empty || person == null) {
+            if (empty || request == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new RequestCard(request, getIndex() + 1).getRoot());
             }
         }
     }

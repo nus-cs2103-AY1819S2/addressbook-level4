@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
 import seedu.address.model.request.Request;
 
 /**
@@ -32,6 +31,8 @@ public class RequestCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label date;
+    @FXML
     private Label nric;
     @FXML
     private Label phone;
@@ -45,10 +46,12 @@ public class RequestCard extends UiPart<Region> {
         this.request = request;
         this.id.setText(displayedIndex + ". ");
         this.name.setText(request.getName().toString());
+        this.date.setText(request.getRequestDate().getDate().toString());
         this.nric.setText(request.getNric().toString());
         this.phone.setText(request.getPhone().value);
         this.address.setText(request.getAddress().toString());
-        this.email.setText(request.get)
+        this.request.getConditions().forEach(c ->
+                this.conditions.getChildren().add(new Label(c.toString())));
     }
 
     @Override
@@ -66,6 +69,6 @@ public class RequestCard extends UiPart<Region> {
         // state check
         RequestCard card = (RequestCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && request.equals(card.request);
     }
 }

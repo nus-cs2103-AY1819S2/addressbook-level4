@@ -1,5 +1,6 @@
 package seedu.address.model.player;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import seedu.address.model.cell.Coordinates;
@@ -10,7 +11,9 @@ import seedu.address.model.cell.Coordinates;
  */
 public class Enemy extends Player {
 
+    private static final String xCoordinates = "abcdefghij";
     private static final Random randGen = new Random();
+    private final HashMap attackStatusHistory = new HashMap();
 
     /**
      * Default constructor with fleet size 5.
@@ -40,16 +43,12 @@ public class Enemy extends Player {
     /**
      * generates valid coordinates for shooting
      */
-    public Coordinates generateCoordinates(int mapSize) {
-
-        String xCoords = "abcdefghij";
+    private Coordinates generateCoordinates(int mapSize) {
         int x = randGen.nextInt(mapSize);
         int y = randGen.nextInt(mapSize) + 1;
-        String xy = xCoords.charAt(x) + Integer.toString(y);
+        String xy = xCoordinates.charAt(x) + Integer.toString(y);
         return new Coordinates(xy);
 
     }
-
-
 
 }

@@ -65,7 +65,7 @@ public class PutShipCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        MapGrid mapGrid = model.getMapGrid();
+        MapGrid mapGrid = model.getHumanMapGrid();
 
         BoundaryValueChecker boundaryValueChecker = new BoundaryValueChecker(mapGrid, battleship,
                 coordinates, orientation);
@@ -96,7 +96,6 @@ public class PutShipCommand extends Command {
             throw new CommandException(MESSAGE_USAGE);
         }
 
-        model.updateUi();
         Cell cellToEdit = model.getHumanMapGrid().getCell(coordinates);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));

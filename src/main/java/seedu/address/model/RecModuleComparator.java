@@ -8,6 +8,8 @@ public class RecModuleComparator implements Comparator<ModuleInfo> {
 
     @Override
     public int compare(ModuleInfo first, ModuleInfo second) {
-        return 0;
+        //TODO: implement priority according to req type
+
+        return first.getCodeString().compareTo(second.getCodeString());
     }
 }

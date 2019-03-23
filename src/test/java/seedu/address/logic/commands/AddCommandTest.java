@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -24,6 +25,7 @@ import seedu.address.model.Cap;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RecModulePredicate;
 import seedu.address.model.course.Course;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.person.Person;
@@ -243,6 +245,21 @@ public class AddCommandTest {
 
         @Override
         public void updateDisplayList(Predicate<ModuleInfo> predicate) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public RecModulePredicate getRecModulePredicate() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<ModuleInfo> getSortedDisplayList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void sortDisplayList(Comparator<ModuleInfo> comparator) {
             throw new AssertionError("This method should not be called");
         }
     }

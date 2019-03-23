@@ -177,4 +177,6 @@ public interface Model {
     ObservableList<ModuleInfo> getSortedDisplayList();
 
     void sortDisplayList(Comparator<ModuleInfo> comparator);
+
+    RecModulePredicate getRecModulePredicate();
 }

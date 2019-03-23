@@ -249,6 +249,12 @@ public class ModelManager implements Model {
         displayList.setPredicate(predicate);
     }
 
+    //=========== Module recommendation ===========================================================================
+    @Override
+    public RecModulePredicate getRecModulePredicate() {
+        return new RecModulePredicate(course, versionedAddressBook);
+    }
+
     @Override
     public ObservableList<ModuleInfo> getSortedDisplayList() {
         return sortedDisplayList;

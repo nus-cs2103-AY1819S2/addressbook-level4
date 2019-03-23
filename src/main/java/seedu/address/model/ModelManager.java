@@ -70,21 +70,32 @@ public class ModelManager implements Model {
         this(new MapGrid(), new UserPrefs());
     }
 
-    //=========== UserPrefs ==================================================================================
+    //=========== MapGrid ================================================================================
+    @Override
+    public MapGrid getHumanMapGrid() {
+        return getHumanPlayer().getMapGrid();
+    }
+
+    @Override
+    public MapGrid getEnemyMapGrid() {
+        return getEnemyPlayer().getMapGrid();
+    }
+
+    @Override
+    public int getMapSize() {
+        return getHumanPlayer().getMapGrid().getMapSize();
+    }
 
     @Override
     public void updateUi() {
         versionedAddressBook.updateUi();
     }
 
-    @Override
-    public ObservableBooleanValue getModelUpdateObservable() {
-        return versionedAddressBook.getObservableValue();
-    }
+    //=========== UserPrefs ==================================================================================
 
     @Override
-    public MapGrid getMapGrid() {
-        return getHumanPlayer().getMapGrid();
+    public ObservableBooleanValue getModelUpdateObservable() {
+        return getHumanPlayer().getMapGrid().getObservableValue();
     }
 
     @Override
@@ -120,7 +131,7 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== MapGrid ================================================================================
+    //=========== AddressBook ================================================================================
 
     @Override
     public void setAddressBook(ReadOnlyAddressBook addressBook) {
@@ -177,11 +188,6 @@ public class ModelManager implements Model {
     public int countTags() {
         Set<Tag> tags = this.getAllTags();
         return tags.size();
-    }
-
-    @Override
-    public int getMapSize() {
-        return getHumanPlayer().getMapGrid().getMapSize();
     }
 
     //=========== Battleship ===============================================================================

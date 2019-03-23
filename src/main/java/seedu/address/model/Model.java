@@ -33,9 +33,14 @@ public interface Model {
     ObservableBooleanValue getModelUpdateObservable();
 
     /**
-     * Returns the map grid
+     * Returns the player map grid
      */
-    MapGrid getMapGrid();
+    MapGrid getHumanMapGrid();
+
+    /**
+     * Returns the enemy map grid
+     */
+    MapGrid getEnemyMapGrid();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

@@ -1,6 +1,7 @@
 package seedu.address.model.modelmanager.quiz;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,6 +54,43 @@ public class QuizUiDisplayFormatterTest {
     @Test
     public void getMode() {
         assertEquals(MODE, formatter.getMode());
+    }
+
+    @Test
+    public void equals() {
+        final QuizUiDisplayFormatter anotherFormatter = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
+            ANSWER_HEADER, ANSWER, MODE);
+        final QuizUiDisplayFormatter formatterWithoutAnswer = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
+            ANSWER_HEADER, MODE);
+
+        // same object
+        assertEquals(formatter, formatter);
+
+        // same value
+        assertEquals(formatter, anotherFormatter);
+
+        // different obj
+        assertNotEquals(formatter, new Object());
+
+        // different types
+        assertNotEquals("random things", formatter);
+
+        // different values
+        assertNotEquals(formatter, formatterWithoutAnswer);
+    }
+
+    @Test
+    public void hashcode() {
+        final QuizUiDisplayFormatter anotherFormatter = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
+            ANSWER_HEADER, ANSWER, MODE);
+        final QuizUiDisplayFormatter formatterWithoutAnswer = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
+            ANSWER_HEADER, MODE);
+
+        // same value
+        assertEquals(formatter.hashCode(), anotherFormatter.hashCode());
+
+        // without answer
+        assertNotEquals(formatter.hashCode(), formatterWithoutAnswer.hashCode());
     }
 
 

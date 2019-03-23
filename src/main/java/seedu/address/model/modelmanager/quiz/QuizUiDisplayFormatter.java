@@ -2,6 +2,8 @@ package seedu.address.model.modelmanager.quiz;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Objects;
+
 /**
  * Quiz commands uses this to format the output to Ui display panel
  */
@@ -48,5 +50,27 @@ public class QuizUiDisplayFormatter {
 
     public Quiz.Mode getMode() {
         return mode;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof QuizUiDisplayFormatter)) {
+            return false;
+        }
+
+        // state check
+        QuizUiDisplayFormatter other = (QuizUiDisplayFormatter) obj;
+        return other.hashCode() == this.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(questionHeader, question, answerHeader, answer, mode);
     }
 }

@@ -12,15 +12,15 @@ public class ConditionTest {
     }
 
     @Test
-    public void constructor_invalidTagName_throwsIllegalArgumentException() {
-        String invalidTagName = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Condition(invalidTagName));
+    public void constructor_invalidConditionName_throwsIllegalArgumentException() {
+        String invalidConditionName = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Condition(invalidConditionName));
     }
 
     @Test
-    public void isValidTagName() {
-        // null tag name
-        Assert.assertThrows(NullPointerException.class, () -> Condition.isValidTagName(null));
+    public void isValidConditionName() {
+        // null condition name
+        Assert.assertThrows(NullPointerException.class, () -> Condition.isValidConditionName(null));
     }
 
 }

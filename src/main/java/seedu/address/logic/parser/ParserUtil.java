@@ -109,7 +109,24 @@ public class ParserUtil {
         }
         return new Email(trimmedEmail);
     }
+    // ===== Methods for parsing Patient Conditions =====
+    // @author Rohan
+    /**
+     * Parses a {@code String specialisation} into a {@code Specialisation}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code specialisation} is invalid.
+     */
+    public static Condition parseCondition(String condition)
+            throws ParseException {
+        requireNonNull(condition);
+        String trimmedCondition = condition.trim();
+        if (!Condition.isValidConditionName(trimmedCondition)) {
+            throw new ParseException(Condition.MESSAGE_CONDITION_CONSTRAINTS);
+        }
 
+        return new Condition(trimmedCondition);
+    }
 
     /**
      * Parses {@code Collection<String> conditionsToAdd} into a {@code Set<Condition>}.
@@ -119,10 +136,7 @@ public class ParserUtil {
         requireNonNull(conditionsToAdd);
         final Set<Condition> conditionSet = new HashSet<>();
         for (String conditionToAdd : conditionsToAdd) {
-            if (!Condition.isValidConditionName(conditionToAdd)) {
-                throw new ParseException(Condition.MESSAGE_CONDITION_CONSTRAINTS);
-            }
-            conditionSet.add(new Condition(conditionToAdd));
+            conditionSet.add(parseCondition(conditionToAdd));
         }
         return conditionSet;
     }

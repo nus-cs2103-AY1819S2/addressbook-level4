@@ -57,8 +57,8 @@ public class FindCommandTest {
         assertTrue(fc1.equals(fc1));
 
         // same values -> returns true
-        FindCommand f1Copy = new FindCommand(new FindModulePredicate(fd1));
-        assertTrue(fc1.equals(f1Copy));
+        FindCommand fc1Copy = new FindCommand(new FindModulePredicate(fd1));
+        assertTrue(fc1.equals(fc1Copy));
 
         // same values (ignoring case) -> returns true
         assertTrue(fc4.equals(fc5));

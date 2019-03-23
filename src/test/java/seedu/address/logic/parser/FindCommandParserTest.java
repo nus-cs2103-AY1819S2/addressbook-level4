@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.FINISHED_STATUS_DESC_TRUE;
-import static seedu.address.logic.commands.CommandTestUtil.FINISHED_STATUS_TRUE;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_GRADE_DESC;
@@ -17,6 +16,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_BOB;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.FINISHED_STATUS_TRUE;
 
 import org.junit.Test;
 

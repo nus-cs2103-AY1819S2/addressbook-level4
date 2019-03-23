@@ -14,8 +14,8 @@ import seedu.address.model.person.healthworker.HealthWorker;
 public class AddHealthWorkerCommand extends AddCommand implements HealthWorkerCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + " " + COMMAND_OPTION
-            + ": Add a health worker to the address book. Parameters: " + COMMAND_PARAMETERS + "\n"
-            + "Example: " + COMMAND_WORD + " " + COMMAND_EXAMPLE;
+            + ": Add a health worker to the address book. Parameters:" + ADD_COMMAND_PARAMETERS + "\n"
+            + "Example: " + COMMAND_WORD + " " + ADD_COMMAND_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "New health worker added: %1$s";
 

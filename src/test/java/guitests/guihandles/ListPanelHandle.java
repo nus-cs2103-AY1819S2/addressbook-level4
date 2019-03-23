@@ -1,5 +1,6 @@
 package guitests.guihandles;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -12,7 +13,7 @@ import seedu.address.model.deck.Deck;
  * Provides a handle for {@code ListPanel} containing the list of {@code DeckDisplay}.
  */
 public class ListPanelHandle extends NodeHandle<ListView<Deck>> {
-    public static final String DECK_LIST_VIEW_ID = "#ListView";
+    public static final String DECK_LIST_VIEW_ID = "#listView";
 
     private static final String DECK_PANE_ID = "#deckPane";
 

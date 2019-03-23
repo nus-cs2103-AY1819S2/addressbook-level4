@@ -49,7 +49,7 @@ public class GuiTestAssert {
      * Asserts that {@code actualDeck} displays the details of {@code expectedDeck}.
      */
     public static void assertCardDisplaysDeckObject(Deck expectedDeck, DeckDisplayHandle actualDeck) {
-        assertEquals(expectedDeck.getName(), actualDeck.getName());
+        assertEquals(expectedDeck.getName().fullName, actualDeck.getName());
     }
 
     /**

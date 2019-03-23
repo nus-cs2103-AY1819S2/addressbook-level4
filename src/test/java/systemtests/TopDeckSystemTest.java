@@ -33,6 +33,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
+import seedu.address.model.deck.Name;
 import seedu.address.testutil.TypicalDecks;
 import seedu.address.ui.CommandBox;
 
@@ -196,7 +197,7 @@ public abstract class TopDeckSystemTest {
      */
     protected void assertSelectedDeckChanged(Index expectedSelectedDeckIndex) {
         getDeckListPanel().navigateToDeck(getDeckListPanel().getSelectedDeckIndex());
-        String selectedDeckName = getDeckListPanel().getHandleToSelectedDeck().getName();
+        //String selectedDeckName = getDeckListPanel().getHandleToSelectedDeck().getName();
 
         assertEquals(expectedSelectedDeckIndex.getZeroBased(), getDeckListPanel().getSelectedDeckIndex());
     }

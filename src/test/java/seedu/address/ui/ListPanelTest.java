@@ -7,17 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.Test;
 import seedu.address.logic.ListItem;
-import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
-
-import java.util.Collections;
 
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalDecks.getTypicalDecks;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DECK;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysDeckObject;
 import static seedu.address.ui.testutil.GuiTestAssert.assertDeckDisplayEquals;
@@ -47,13 +43,13 @@ public class ListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void selection_modelSelectedCardChanged_selectionChanges() {
+    public void selection_modelSelectedDeckChanged_selectionChanges() {
         initUi(TYPICAL_DECKS);
         Deck secondDeck = TYPICAL_DECKS.get(INDEX_SECOND_DECK.getZeroBased());
         guiRobot.interact(() -> selectedItem.set(secondDeck));
         guiRobot.pauseForHuman();
 
-        DeckDisplayHandle expectedDeck = listPanelHandle.getDeckDisplayHandle(INDEX_SECOND_CARD.getZeroBased());
+        DeckDisplayHandle expectedDeck = listPanelHandle.getDeckDisplayHandle(INDEX_SECOND_DECK.getZeroBased());
         DeckDisplayHandle selectedDeck = listPanelHandle.getHandleToSelectedDeck();
         assertDeckDisplayEquals(expectedDeck, selectedDeck);
     }
@@ -92,10 +88,8 @@ public class ListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code ListPanel}.
      */
     private void initUi(ObservableList<? extends ListItem> list) {
-        ObservableList<ListItem> listItems = (ObservableList<ListItem>) list;
-
         ListPanel listPanel =
-                new ListPanel(listItems, selectedItem, selectedItem::set);
+                new ListPanel((ObservableList<ListItem>)list, selectedItem, selectedItem::set);
         uiPartRule.setUiPart(listPanel);
 
         listPanelHandle = new ListPanelHandle(getChildNode(listPanel.getRoot(),

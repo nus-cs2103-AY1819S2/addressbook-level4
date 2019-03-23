@@ -35,7 +35,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new TopDeck(), new TopDeck(modelManager.getTopDeck()));
+        assertEquals(new TopDeck(), modelManager.getTopDeck());
         assertEquals(null, modelManager.getSelectedItem());
     }
 
@@ -85,6 +85,9 @@ public class ModelManagerTest {
         assertEquals(path, modelManager.getTopDeckFilePath());
     }
 
+    //========== Card Management Tests ==================================================================
+
+    //TODO: Card Management tests will only be carried out after Deck management test
     @Test
     public void hasCard_nullCard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);

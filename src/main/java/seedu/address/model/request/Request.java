@@ -92,8 +92,8 @@ public class Request {
 
         return otherRequest.nric.equals(this.nric)
             && otherRequest.getRequestDate().equals(this.requestDate)
-            && ((otherRequest.getConditions().equals(this.conditions)
-            || otherRequest.address.equals(this.address)));
+            && (otherRequest.getConditions().equals(this.conditions)
+            && otherRequest.address.equals(this.address));
     }
 
     public Name getName() {

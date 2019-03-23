@@ -12,7 +12,7 @@ import seedu.address.model.Model;
  */
 public class ListRequestCommand extends Command {
 
-    public static final String COMMAND_WORD = "rl";
+    public static final String COMMAND_WORD = "lr";
 
     public static final String MESSAGE_SUCCESS = "Listed all requests";
 

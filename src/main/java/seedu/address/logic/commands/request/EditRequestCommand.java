@@ -37,7 +37,7 @@ public class EditRequestCommand extends RequestCommand {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = RequestCommand.COMMAND_WORD + " " + COMMAND_WORD
-        + ": Edits the details of the order identified "
+        + ": Edits the details of the request identified "
         + "by the index number used in the displayed request book. "
         + "Existing values will be overwritten by the input values.\n"
         + "Parameters: INDEX (must be a positive integer) "

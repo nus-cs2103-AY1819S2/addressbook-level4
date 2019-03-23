@@ -154,9 +154,6 @@ public class ArgumentTokenizerTest {
         // Empty String
         assertEquals(ArgumentTokenizer.checkMode(""), CommandMode.INVALID);
 
-        // String too short
-        assertEquals(ArgumentTokenizer.checkMode("1"), CommandMode.INVALID);
-
         // null string
         Assert.assertThrows(NullPointerException.class, () ->
                 ArgumentTokenizer.checkMode(null));
@@ -165,17 +162,27 @@ public class ArgumentTokenizerTest {
         assertTrue(ArgumentTokenizer.checkMode("1 n/")
                 .equals(CommandMode.HEALTH_WORKER));
 
-        // 2 -> Patient command mode
-        assertTrue(ArgumentTokenizer.checkMode("2 n/")
-                .equals(CommandMode.PATIENT));
+        // alternative command modes for health worker
+        assertTrue(ArgumentTokenizer.checkMode("healthworker")
+                .equals(CommandMode.HEALTH_WORKER));
+        assertTrue(ArgumentTokenizer.checkMode("h")
+                .equals(CommandMode.HEALTH_WORKER));
 
-        // 3 -> Request command mode
-        assertTrue(ArgumentTokenizer.checkMode("3 n/")
+        // alternative command modes for request
+        assertTrue(ArgumentTokenizer.checkMode("request")
+                .equals(CommandMode.REQUEST));
+        assertTrue(ArgumentTokenizer.checkMode("r")
                 .equals(CommandMode.REQUEST));
 
-        // 4 -> Others command mode
-        assertTrue(ArgumentTokenizer.checkMode("4 n/")
-                .equals(CommandMode.OTHERS));
+        // invalid alternative command modes
+        assertFalse(ArgumentTokenizer.checkMode("health_worker")
+                .equals(CommandMode.HEALTH_WORKER));
+        assertFalse(ArgumentTokenizer.checkMode("req")
+                .equals(CommandMode.REQUEST));
+
+        // 3 -> Request command mode
+        assertTrue(ArgumentTokenizer.checkMode("2 n/")
+                .equals(CommandMode.REQUEST));
 
         // Invalid number
         assertTrue(ArgumentTokenizer.checkMode("0 n/")

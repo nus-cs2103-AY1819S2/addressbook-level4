@@ -53,14 +53,13 @@ public class RequestTest {
         Request request = new RequestBuilder(ALICE_REQUEST).withDate("30-10-2019 10:10:10").build();
         assertFalse(request.isSameRequest(ALICE_REQUEST));
 
-        // everything same, but conditions different -> returns false
-        // TODO: David - IsSameRequest to handle for conditions
-        // Request editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
-        //     new HashSet<>(Collections.singletonList(new ConditionTag("Stroke"))))).build();
-        // assertFalse(ALICE_REQUEST.isSameRequest(editedAlice));
+        // everything same, but conditions different -> returns true
+        Request editedAlice = new RequestBuilder(ALICE_REQUEST).withConditions(new Conditions(
+            new HashSet<>(Collections.singletonList(new ConditionTag("Stroke"))))).build();
+        assertTrue(ALICE_REQUEST.isSameRequest(editedAlice));
 
         // everything same, different nric -> returns false
-        Request editedAlice = new RequestBuilder(ALICE_REQUEST).withNric("S1234567G").build();
+        editedAlice = new RequestBuilder(ALICE_REQUEST).withNric("S1234567G").build();
         assertFalse(ALICE_REQUEST.isSameRequest(editedAlice));
 
         // different date, everything else same -> returns false

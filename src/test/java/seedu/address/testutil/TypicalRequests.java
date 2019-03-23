@@ -50,29 +50,6 @@ public class TypicalRequests {
             .withStatus("COMPLETED")
             .build();
 
-    /*
-    // To be added manually
-    // TODO: David pls review this, i do not know the purpose of Hoon and Ida -Rohan
-
-    public static final Request HOON_REQUEST = new RequestBuilder()
-            .withId("asdfbtyuilkj")
-            .withPatient(TypicalPatients.HOON)
-            .withConditions("Physiotherapy")
-            .withDate("01-01-2019 10:00:00")
-            .withHealthStaff(TypicalHealthWorkers.HOOK)
-            .withStatus("PENDING")
-            .build();
-
-    public static final Request IDA_REQUEST = new RequestBuilder()
-            .withId("ghdusnsbgugy")
-            .withPatient(TypicalPatients.IDA)
-            .withConditions("Physiotherapy")
-            .withDate("01-01-2019 10:00:00")
-            .withHealthStaff(TypicalHealthWorkers.IVAN)
-            .withStatus("COMPLETED")
-            .build();
-    */
-
     /**
      * Returns an {@code RequestBook} with all the typical persons.
      */

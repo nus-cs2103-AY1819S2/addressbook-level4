@@ -119,6 +119,11 @@ certifications they possess
 * `list 3` lists all patients registered in the system, their NRIC and any
 medical statuses or past conditions.
 
+[TIP]
+====
+As a shortcut, you can use `lr` to list all requests!
+====
+
 === Adding a request/health worker/patient: `add`
 
 Before you can jump right into the core feature of our application, which is

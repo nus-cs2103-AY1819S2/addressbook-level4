@@ -3,7 +3,6 @@ package seedu.address.model.request;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -23,7 +22,7 @@ public class Request {
     private final Address address;
     private final Phone phone;
     private final RequestDate requestDate;
-    private Set<Condition> conditions = new HashSet<>();
+    private Set<Condition> conditions;
     private String healthWorker = null;
     private RequestStatus requestStatus;
 
@@ -110,8 +109,9 @@ public class Request {
 
     @Override
     public String toString() {
+        String hw = (healthWorker == null) ? "Unassigned" : healthWorker;
         final StringBuilder builder = new StringBuilder();
-        builder.append("----------Request----------\n")
+        builder.append("\n----------Request----------\n")
                 .append("Name: ")
                 .append(getName() + "\n")
                 .append("Nric: ")
@@ -121,11 +121,10 @@ public class Request {
                 .append("Address: ")
                 .append(getAddress() + "\n")
                 .append("Assigned staff: ")
-                .append(getHealthStaff() + "\n")
+            .append(hw + "\n")
                 .append("Request Date: ")
                 .append(getRequestDate() + "\n")
                 .append("Condition(s): ");
-        getConditions().forEach(builder::append);
         builder.append(getConditions() + "\n")
                 .append("Status: ")
                 .append(getRequestStatus() + "\n")

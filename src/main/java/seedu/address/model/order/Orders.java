@@ -2,11 +2,13 @@ package seedu.address.model.order;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.table.TableNumber;
 
 /**
  * Wraps all order-related data
@@ -96,6 +98,22 @@ public class Orders implements ReadOnlyOrders {
      */
     public void removeOrderItem(OrderItem key) {
         orderItems.remove(key);
+        indicateModified();
+    }
+
+    /**
+     * Removes all order items from the given {@code tableNumber} from this RestOrRant's {@code Orders}.
+     */
+    public void clearOrderItemsFrom(TableNumber tableNumber) {
+        ArrayList<OrderItem> itemsToDelete = new ArrayList<>();
+        for (OrderItem orderItem : orderItems) {
+            if (orderItem.getTableNumber().equals(tableNumber)) {
+                itemsToDelete.add(orderItem);
+            }
+        }
+        for (OrderItem item : itemsToDelete) {
+            orderItems.remove(item);
+        }
         indicateModified();
     }
 

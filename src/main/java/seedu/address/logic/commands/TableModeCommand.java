@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE_CHANGE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TABLE_NUMBER;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TABLE_UNOCCUPIED;
 
 import java.util.Optional;
 
@@ -46,9 +47,14 @@ public class TableModeCommand extends ChangeModeCommand {
         if (!tableOptional.isPresent()) {
             throw new CommandException(MESSAGE_INVALID_TABLE_NUMBER);
         }
+        
+        Table chosenTable = tableOptional.get();
+        if (!chosenTable.isOccupied()) {
+            throw new CommandException(String.format(MESSAGE_INVALID_TABLE_UNOCCUPIED, tableNumber.toString()));
+        }
 
         model.updateFilteredTableList(Model.PREDICATE_SHOW_ALL_TABLES);
-        model.setSelectedTable(tableOptional.get());
+        model.setSelectedTable(chosenTable);
         model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
 
         model.updateMode();

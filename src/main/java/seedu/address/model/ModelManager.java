@@ -273,6 +273,9 @@ public class ModelManager implements Model {
     public void deleteOrderItem(OrderItem target) {
         restOrRant.getOrders().removeOrderItem(target);
     }
+    
+    @Override
+    public void clearOrderItemsFrom(TableNumber tableNumber) { restOrRant.getOrders().clearOrderItemsFrom(tableNumber); }
 
     @Override
     public void addOrderItem(OrderItem orderItem) {

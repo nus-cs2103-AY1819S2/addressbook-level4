@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -17,7 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class QuizModeParser implements Parser<Command> {
 
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\\\\\w*)|(?<answer>^\\S.+)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\\\\\w*)|(?<answer>.*)");
     private static Matcher matcher;
 
     /**
@@ -28,10 +27,6 @@ public class QuizModeParser implements Parser<Command> {
      */
     public Command parse(String userInput) throws ParseException {
         matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizHelpCommand.MESSAGE_USAGE));
-        }
-
 
         final String commandWord = matcher.group("commandWord");
         final String answer = matcher.group("answer");

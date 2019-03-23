@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Rule;
@@ -35,20 +34,6 @@ public class QuizModeParserTest {
 
         assertTrue(parser.parse("\\status") instanceof QuizStatusCommand);
         assertTrue(parser.parse(QuizStatusCommand.COMMAND_WORD) instanceof QuizStatusCommand);
-    }
-
-    @Test
-    public void parse_unrecognisedInput_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizHelpCommand.MESSAGE_USAGE));
-        parser.parse("");
-    }
-
-    @Test
-    public void parse_onlyWhitespace_throwsParseException() throws Exception {
-        thrown.expect(ParseException.class);
-        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizHelpCommand.MESSAGE_USAGE));
-        parser.parse("   ");
     }
 
     @Test

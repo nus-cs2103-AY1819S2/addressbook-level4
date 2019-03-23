@@ -70,7 +70,15 @@ public interface Logic {
      */
     ObservableBooleanValue getModelUpdateObservable();
 
-    MapGrid getMapGrid();
+    /**
+     * Returns the player map grid
+     */
+    MapGrid getHumanMapGrid();
+
+    /**
+     * Returns the enemy map grid
+     */
+    MapGrid getEnemyMapGrid();
 
     /**
      * Sets the selected cell in the filtered cell list.

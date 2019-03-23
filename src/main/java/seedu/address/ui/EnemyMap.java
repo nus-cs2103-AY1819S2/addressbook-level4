@@ -27,8 +27,7 @@ public class EnemyMap extends Map {
          */
         case SHIP:
         case EMPTY:
-            return Color.LIGHTBLUE;
-
+            return Color.CADETBLUE;
         case SHIPHIT:
             return Color.ORANGE;
         case EMPTYHIT:

@@ -95,7 +95,9 @@ public class PutShipCommand extends Command {
         } else {
             throw new CommandException(MESSAGE_USAGE);
         }
-        Cell cellToEdit = model.getMapGrid().getCell(coordinates);
+
+        model.updateUi();
+        Cell cellToEdit = model.getHumanMapGrid().getCell(coordinates);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));
     }
@@ -122,7 +124,7 @@ public class PutShipCommand extends Command {
         int length = battleship.getLength();
 
         for (int i = 0; i < length; i++) {
-            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
+            Cell cellToInspect = model.getHumanMapGrid().getCell(rowIndex.getZeroBased() + i,
                     colIndex.getZeroBased());
 
             cellToInspect.putShip(battleship);
@@ -141,7 +143,7 @@ public class PutShipCommand extends Command {
         int length = battleship.getLength();
 
         for (int i = 0; i < length; i++) {
-            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
+            Cell cellToInspect = model.getHumanMapGrid().getCell(rowIndex.getZeroBased(),
                     colIndex.getZeroBased() + i);
 
             cellToInspect.putShip(battleship);

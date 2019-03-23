@@ -17,7 +17,7 @@ public class InitialiseMapCommand extends Command {
     public static final String COMMAND_ALIAS = "i";
 
     public static final int MAXIMUM_MAP_SIZE = 10;
-    public static final int MINIMUM_MAP_SIZE = 5;
+    public static final int MINIMUM_MAP_SIZE = 6;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Initialise the map to specified size. "
             + "Parameters: "
@@ -47,7 +47,8 @@ public class InitialiseMapCommand extends Command {
 
         Cell[][] cellGrid = initialise2dArray(mapSize);
 
-        model.getMapGrid().initialise(cellGrid);
+        model.getHumanMapGrid().initialise(cellGrid);
+        model.getEnemyMapGrid().initialise(cellGrid);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, mapSize));
     }

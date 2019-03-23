@@ -41,7 +41,7 @@ public class EditBookCommand extends Command {
             + "[" + PREFIX_RATING + "RATING] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + PREFIX_NAME + "Alice in Wonderland "
+            + PREFIX_NAME + " Alice in Wonderland "
             + PREFIX_AUTHOR + "Jimmy "
             + PREFIX_RATING + "1";
 

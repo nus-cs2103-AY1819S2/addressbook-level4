@@ -25,13 +25,19 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyTopDeck getSampleTopDeck() {
-        TopDeck sampleTd = new TopDeck();
+    public static Deck[] getSampleDecks() {
         Deck sampleDeck = new Deck(new Name("Sample Deck"));
         for (Card sampleCard : getSampleCards()) {
             sampleDeck.addCard(sampleCard);
         }
-        sampleTd.addDeck(sampleDeck);
+        return new Deck[] { sampleDeck };
+    }
+
+    public static ReadOnlyTopDeck getSampleTopDeck() {
+        TopDeck sampleTd = new TopDeck();
+        for (Deck sampleDeck: getSampleDecks()) {
+            sampleTd.addDeck(sampleDeck);
+        }
         return sampleTd;
     }
 

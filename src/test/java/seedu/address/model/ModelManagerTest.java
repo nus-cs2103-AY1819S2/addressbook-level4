@@ -1,32 +1,29 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_MOD;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
-import static seedu.address.testutil.TypicalDecks.DECK_A;
-
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
-import static seedu.address.testutil.TypicalCards.ADDITION;
-import static seedu.address.testutil.TypicalCards.SUBTRACTION;
-import static seedu.address.testutil.TypicalDecks.DECK_B;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.TopDeckBuilder;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_MOD;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
+import static seedu.address.testutil.TypicalCards.ADDITION;
+import static seedu.address.testutil.TypicalCards.SUBTRACTION;
+import static seedu.address.testutil.TypicalDecks.DECK_A;
+import static seedu.address.testutil.TypicalDecks.DECK_B;
 
 public class ModelManagerTest {
     @Rule
@@ -38,7 +35,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new TopDeck(), new TopDeck(modelManager.getTopDeck()));
+        assertEquals(new TopDeck(), modelManager.getTopDeck());
         assertEquals(null, modelManager.getSelectedItem());
     }
 
@@ -88,6 +85,9 @@ public class ModelManagerTest {
         assertEquals(path, modelManager.getTopDeckFilePath());
     }
 
+    //========== Card Management Tests ==================================================================
+
+    //TODO: Card Management tests will only be carried out after Deck management test
     @Test
     public void hasCard_nullCard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);

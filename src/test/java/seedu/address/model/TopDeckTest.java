@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.DuplicateCardException;
+import seedu.address.model.deck.exceptions.DuplicateDeckException;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.DeckBuilder;
 
@@ -57,7 +58,7 @@ public class TopDeckTest {
         List<Deck> newDecks = Arrays.asList(DECK_A, editedDeckA);
         TopDeckStub newData = new TopDeckTest.TopDeckStub(newDecks);
 
-        thrown.expect(DuplicateCardException.class);
+        thrown.expect(DuplicateDeckException.class);
         topDeck.resetData(newData);
     }
 

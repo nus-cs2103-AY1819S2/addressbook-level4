@@ -12,41 +12,40 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.TopDeck;
-import seedu.address.testutil.TypicalCards;
+import seedu.address.model.deck.exceptions.DuplicateCardException;
+import seedu.address.testutil.TypicalDecks;
 
 public class JsonSerializableTopDeckTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data",
             "JsonSerializableTopDeckTest");
-    private static final Path TYPICAL_CARDS_FILE = TEST_DATA_FOLDER.resolve("typicalDeckTopDeck.json");
-    private static final Path INVALID_CARD_FILE = TEST_DATA_FOLDER.resolve("invalidDeckTopDeck.json");
-    private static final Path DUPLICATE_CARD_FILE = TEST_DATA_FOLDER.resolve("duplicateDeckTopDeck.json");
-
-    private static final Path TYPICAL_DECKS_FILE = TEST_DATA_FOLDER.resolve("typicalDecksTopDeck.json");
+    private static final Path TYPICAL_DECKS_FILE = TEST_DATA_FOLDER.resolve("typicalDeckTopDeck.json");
     private static final Path INVALID_DECK_FILE = TEST_DATA_FOLDER.resolve("invalidDeckTopDeck.json");
     private static final Path DUPLICATE_DECK_FILE = TEST_DATA_FOLDER.resolve("duplicateDeckTopDeck.json");
+    private static final Path DUPLICATE_CARD_FILE = TEST_DATA_FOLDER.resolve("duplicateCardTopDeck.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toModelType_typicalCardsFile_success() throws Exception {
-        JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(TYPICAL_CARDS_FILE,
+    public void toModelType_typicalDecksFile_success() throws Exception {
+        JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(TYPICAL_DECKS_FILE,
                 JsonSerializableTopDeck.class).get();
         TopDeck topDeckFromFile = dataFromFile.toModelType();
-        TopDeck typicalCardsTopDeck = TypicalCards.getTypicalTopDeck();
+        TopDeck typicalCardsTopDeck = TypicalDecks.getTypicalTopDeck();
         assertEquals(topDeckFromFile, typicalCardsTopDeck);
     }
 
     @Test
-    public void toModelType_invalidCardFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(INVALID_CARD_FILE,
+    public void toModelType_invalidDeckFile_throwsIllegalValueException() throws Exception {
+        JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(INVALID_DECK_FILE,
                 JsonSerializableTopDeck.class).get();
         thrown.expect(IllegalValueException.class);
         dataFromFile.toModelType();
     }
 
     @Test
+    //TODO: Change the JSON file to throw duplicate deck exception instead of cards
     public void toModelType_duplicateDecksFile_throwsIllegalValueException() throws Exception {
         JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(DUPLICATE_DECK_FILE,
                 JsonSerializableTopDeck.class).get();
@@ -56,10 +55,10 @@ public class JsonSerializableTopDeckTest {
     }
 
     @Test
-    public void toModelType_duplicateCards_throwsIllegalValueException() throws Exception {
+    public void toModelType_duplicateCardsFile_throwsIllegalValueException() throws Exception {
         JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(DUPLICATE_CARD_FILE,
                 JsonSerializableTopDeck.class).get();
-        thrown.expect(IllegalValueException.class);
+        thrown.expect(DuplicateCardException.class);
         thrown.expectMessage(JsonSerializableTopDeck.MESSAGE_DUPLICATE_CARD);
         dataFromFile.toModelType();
     }

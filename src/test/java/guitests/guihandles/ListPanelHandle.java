@@ -1,5 +1,6 @@
 package guitests.guihandles;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -12,7 +13,7 @@ import seedu.address.model.deck.Deck;
  * Provides a handle for {@code ListPanel} containing the list of {@code DeckDisplay}.
  */
 public class ListPanelHandle extends NodeHandle<ListView<Deck>> {
-    public static final String DECK_LIST_VIEW_ID = "#ListView";
+    public static final String DECK_LIST_VIEW_ID = "#listView";
 
     private static final String DECK_PANE_ID = "#deckPane";
 
@@ -101,7 +102,7 @@ public class ListPanelHandle extends NodeHandle<ListView<Deck>> {
      * Returns the display deck handle of a deck associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected deck is currently not in the scene graph.
      */
-    public DeckDisplayHandle getDeckDiplayHandle(int index) {
+    public DeckDisplayHandle getDeckDisplayHandle(int index) {
         return getAllDeckNodes().stream()
                 .map(DeckDisplayHandle::new)
                 .filter(handle -> handle.equals(getDeck(index)))

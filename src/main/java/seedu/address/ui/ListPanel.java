@@ -29,7 +29,7 @@ public class ListPanel extends UiPart<Region> {
         super(FXML);
 
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in card list panel changed to : '" + newValue + "'");
+            logger.fine("Selection in list panel changed to : '" + newValue + "'");
             onSelectedItemChange.accept(newValue);
         });
 

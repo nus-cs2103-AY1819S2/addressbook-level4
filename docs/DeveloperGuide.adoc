@@ -292,7 +292,7 @@ The key operations are as follows:
 [NOTE]
 Out of the three key operations stated above, *only* `CsvWrapper#export()` is a _public_ operation available for use by other components. It acts as the main interface which other components use to interact with `CsvWrapper` in order to integrate exporting to CSV file format feature into their own implementation.
 
-Given below is a sequence diagram overview of how these 3 key operations behaves when you execute the export command in order to export the current Medicine Inventory data shown in the GUI to CSV file format:
+Given below is a sequence diagram overview of how these 3 key operations behaves when the user executes the export command in order to export the current Medicine Inventory data shown in the GUI to CSV file format:
 
 image::ExportCommandSequenceDiagramOverview.png[width="800"]
 
@@ -319,7 +319,7 @@ Step 8: The `ExportCommand#execute()` operations returns a `CommandResult` which
 
 ==== Design Considerations
 
-===== Aspect: How the exporting as CSV file format feature via the export command executes
+===== Aspect: How exporting as CSV file format executes
 
 * **Alternative 1 (current choice):** Export all the Medicine Inventory data currently shown in the GUI to CSV file format.
 ** Pros: Easy to implement and users have a preview of the data before exporting.
@@ -328,7 +328,7 @@ Step 8: The `ExportCommand#execute()` operations returns a `CommandResult` which
 ** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered Medicine Inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
 ** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able preview the data before exporting.
 
-===== Aspect: Data structure/Algorithm/Implementation to support the exporting as CSV file format feature via the export command
+===== Aspect: Data structure/Algorithm/Implementation to support the export command
 
 * **Alternative 1 (current choice):** Iterate through each of the Medicine in the list retrieved from `Model#getFilterMedicineList()` operation to build the structure in which the data is organised when exported to CSV file format.
 ** Pros: Easy for developers to understand, especially for those who want to modify the way the data is organised when exported to CSV file format but have no prior knowledge on `Opencsv` Java CSV parser library.

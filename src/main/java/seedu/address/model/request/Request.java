@@ -10,7 +10,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Condition;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -118,9 +117,9 @@ public class Request {
                 .append("Nric: ")
                 .append(getNric() + "\n")
                 .append("Phone: ")
-                .append(getPhone()+ "\n")
+                .append(getPhone() + "\n")
                 .append("Address: ")
-                .append(getAddress()+ "\n")
+                .append(getAddress() + "\n")
                 .append("Assigned staff: ")
                 .append(getHealthStaff() + "\n")
                 .append("Request Date: ")

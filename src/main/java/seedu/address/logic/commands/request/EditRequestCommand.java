@@ -98,7 +98,7 @@ public class EditRequestCommand extends RequestCommand {
                 updatedRequestDate, updatedConditions, updatedRequestStatus);
         } else {
             return new Request(updatedName, updatedNric, updatedPhone, updatedAddress,
-                updatedRequestDate,updatedConditions, updatedRequestStatus, updatedHealthWorker);
+                updatedRequestDate, updatedConditions, updatedRequestStatus, updatedHealthWorker);
         }
 
     }

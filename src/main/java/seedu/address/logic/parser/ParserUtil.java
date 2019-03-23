@@ -16,8 +16,10 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.request.RequestDate;
-import seedu.address.model.tag.*;
 import seedu.address.model.tag.Condition;
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
+
 
 
 /**

@@ -32,7 +32,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 
-
 /**
  * Represents the in-memory model of the address book data.
  */
@@ -41,12 +40,12 @@ public class ModelManager implements Model {
     private static Image currentImage;
     private String originalName;
 
-
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
+    private final Album album;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -61,6 +60,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+
+        album = Album.getInstance();
     }
 
     public ModelManager() {
@@ -264,12 +265,11 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
+    //=========== FomoFoto methods ===========================================================================
+
     @Override
     public void clearAssetFolder(File dir) {
-        for (File file: dir.listFiles()) {
-            if (file.getName().equals("sample.png") || file.getName().equals("sample2.png")) {
-                continue;
-            }
+        for (File file : dir.listFiles()) {
             file.delete();
         }
     }
@@ -333,5 +333,14 @@ public class ModelManager implements Model {
         }
         return name;
     }
+
+    //=========== Filtered Person List Accessors =============================================================
+    /* @@author Carrein */
+
+    @Override
+    public void refreshAlbum() {
+        Notifier.firePropertyChangeListener("refresh", null, null);
+    }
 }
+
 

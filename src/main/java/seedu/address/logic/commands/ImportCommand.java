@@ -1,10 +1,10 @@
+/* @@author Carrein */
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.image.Image;
 
 /**
  * Imports a image to FomoFoto.
@@ -18,21 +18,24 @@ public class ImportCommand extends Command {
             + "Example: " + COMMAND_WORD + " C:/Users/Fomo/Pictures/sample.jpg";
 
     public static final String MESSAGE_SUCCESS = "Image successfully imported.";
+    public static final String MESSAGE_DIR_SUCCESS =
+            "Directory successfully imported (Note: Invalid file types and duplicates are skipped).";
 
-    private final Image toImport;
+    private final boolean isDirectory;
 
     /**
      * Creates an ImportCommand to add the specified {@code Image}
      */
-    public ImportCommand(Image image) {
-        requireNonNull(image);
-        toImport = image;
+    public ImportCommand(boolean isDirectory) {
+        requireNonNull(isDirectory);
+        this.isDirectory = isDirectory;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.displayImage(toImport);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toImport));
+        model.refreshAlbum();
+        String returnString = isDirectory ? MESSAGE_DIR_SUCCESS : MESSAGE_SUCCESS;
+        return new CommandResult(String.format(returnString));
     }
 }

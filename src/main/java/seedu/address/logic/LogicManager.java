@@ -18,6 +18,7 @@ import seedu.address.model.MapGrid;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.cell.Cell;
+import seedu.address.model.statistics.PlayerStatistics;
 import seedu.address.storage.Storage;
 
 /**
@@ -31,6 +32,7 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
+    private final PlayerStatistics statistics;
     private boolean addressBookModified;
 
     public LogicManager(Model model, Storage storage) {
@@ -39,6 +41,7 @@ public class LogicManager implements Logic {
         this.storage = storage;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
+        this.statistics = new PlayerStatistics();
 
 
         // Set addressBookModified to true whenever the models' address book is modified.
@@ -54,7 +57,8 @@ public class LogicManager implements Logic {
         try {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
-            validCommand = true; // only valid commands can reach here without getting handled by exception
+            addToStatistics(commandText);
+            validCommand = true;
         } finally {
             if (validCommand) {
                 history.add(commandText);
@@ -71,6 +75,19 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    /**
+     * keeps track of specific commands for statistics (eg. attack).
+     */
+    public void addToStatistics (String commandText) {
+        // check if it is AttackCommand
+        //System.out.println("Commandtext is : " + commandText);
+        String commandKeyword = commandText.split(" ")[0]; // Take first word
+        //System.out.println("Command keyword is : " + commandKeyword);
+        if (commandKeyword.equals("attack")) {
+            int numMovesLeft = statistics.minusMove();
+        }
     }
 
     @Override

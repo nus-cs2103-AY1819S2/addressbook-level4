@@ -208,5 +208,10 @@ public interface Model {
     /**
      * Retrieves the current state of the battle.
      */
+    void setBattleState(BattleState battleState);
+
+    /**
+     * Retrieves the current state of the battle.
+     */
     BattleState getBattleState();
 }

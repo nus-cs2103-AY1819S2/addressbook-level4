@@ -38,6 +38,7 @@ public class ModelManagerTest {
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new MapGrid(), new MapGrid(modelManager.getAddressBook()));
         assertEquals(null, modelManager.getSelectedPerson());
+        assertEquals(BattleState.PRE_BATTLE, modelManager.getBattleState());
     }
 
     @Test
@@ -164,8 +165,10 @@ public class ModelManagerTest {
 
     @Test
     public void setBattleState_validState_setsBattleState() {
-        modelManager.setBattleState(BattleState.ENEMY_ATTACK);
-        assertEquals(modelManager.getBattleState(), BattleState.ENEMY_ATTACK);
+        for (BattleState bs: BattleState.values()) {
+            modelManager.setBattleState(bs);
+            assertEquals(modelManager.getBattleState(), bs);
+        }
     }
 
     @Test

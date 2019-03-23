@@ -1,9 +1,9 @@
 package seedu.address.model.pdf;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
-
-import static java.time.temporal.ChronoUnit.DAYS;
 
 /**
  * Represents a Pdf's address in the address book.

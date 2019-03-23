@@ -65,6 +65,12 @@ public class Deadline {
         this.isMet = isMet;
     }
 
+    /**
+     * Takes an existing deadline and parses its values while replacing its status with
+     * user input.
+     * @param existingDeadline - Existing Deadline whose status you want to change.
+     * @param isMet - Status of the deadline
+     */
     public Deadline(Deadline existingDeadline, boolean isMet) {
         this(existingDeadline.date.getDayOfMonth(), existingDeadline.date.getMonthValue(),
                 existingDeadline.date.getYear(), isMet);

@@ -49,6 +49,7 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        /*
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {
@@ -58,6 +59,8 @@ public class AddCommand extends Command {
         model.addPerson(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        */
+        return null;
     }
 
     @Override

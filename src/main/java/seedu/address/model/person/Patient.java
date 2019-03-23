@@ -11,9 +11,8 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Patient in docX.
+ * Represents a Patient in docX record.
  * Guarantees: details are present and not null, field values are validated, immutable.
- * !! supposed to extend from abstract class Person
  */
 public class Patient {
     // Identity fields
@@ -68,11 +67,11 @@ public class Patient {
     }
 
     /**
-     * Returns true if both persons of the same name
+     * Returns true if both patients are of the same name
      * have at least one other identity field (phone number) that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * This defines a weaker notion of equality between two patients.
      */
-    public boolean isSamePatient(seedu.address.model.person.Patient otherPatient) {
+    public boolean isSamePatient(Patient otherPatient) {
         if (otherPatient == this) {
             return true;
         }
@@ -83,7 +82,7 @@ public class Patient {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both patients have the same identity and data fields.
      * This defines a stronger notion of equality between two patients.
      */
     @Override

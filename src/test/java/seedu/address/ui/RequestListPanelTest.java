@@ -16,7 +16,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.*;
-import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.tag.Condition;
@@ -70,7 +69,7 @@ public class RequestListPanelTest extends GuiUnitTest {
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+        }, "Creation and deletion of request cards exceeded time limit");
     }
 
     /**
@@ -84,10 +83,11 @@ public class RequestListPanelTest extends GuiUnitTest {
             Nric nric = new Nric("S1234567A");
             Phone phone = new Phone("81812288");
             Address address = new Address("123 ABC Road, #09-99");
-            RequestDate requestDate = new RequestDate("30-01-2019");
-            Set<Condition> conditionList = new HashSet<>(Arrays.asList);
+            RequestDate requestDate = new RequestDate("30-01-2019 10:00:00");
+            Set<Condition> conditionList = new HashSet<>();
             Condition condition = new Condition("diabetic");
-            Request request = new Request(name, nric, phone, address, requestDate, condition.);
+            conditionList.add(condition);
+            Request request = new Request(name, nric, phone, address, requestDate, conditionList);
             backingList.add(request);
         }
         return backingList;
@@ -99,10 +99,10 @@ public class RequestListPanelTest extends GuiUnitTest {
      */
     private void initUi(ObservableList<Request> backingList) {
         RequestListPanel requestListPanel =
-                new RequestListPanel(backingList, selectedPerson, selectedPerson::set);
+                new RequestListPanel(backingList, selectedRequest, selectedRequest::set);
         uiPartRule.setUiPart(requestListPanel);
 
-        personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
-                PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        requestListPanelHandle = new RequestListPanelHandle(getChildNode(requestListPanel.getRoot(),
+                RequestListPanelHandle.REQUEST_LIST_VIEW_ID));
     }
 }

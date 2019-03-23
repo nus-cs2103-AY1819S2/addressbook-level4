@@ -5,68 +5,62 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
+import guitests.guihandles.RequestCardHandle;
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
-import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.request.Request;
+import seedu.address.testutil.RequestBuilder;
 
-public class PersonCardTest extends GuiUnitTest {
+public class RequestCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        // no tags
-        Person personWithNoTags = new PersonBuilder().build();
-        PersonCard personCard = new PersonCard(personWithNoTags, 1);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithNoTags, 1);
-
-        // with tags
-        Person personWithTags = new PersonBuilder().build();
-        personCard = new PersonCard(personWithTags, 2);
-        uiPartRule.setUiPart(personCard);
-        assertCardDisplay(personCard, personWithTags, 2);
+        // no conditions
+        Request request = new RequestBuilder().build();
+        RequestCard requestCard = new RequestCard(request, 1);
+        uiPartRule.setUiPart(requestCard);
+        assertCardDisplay(requestCard, request, 1);
     }
 
     @Test
     public void equals() {
-        Person person = new PersonBuilder().build();
-        PersonCard personCard = new PersonCard(person, 0);
+        Request request = new RequestBuilder().build();
+        RequestCard requestCard = new RequestCard(request, 0);
 
         // same person, same index -> returns true
-        PersonCard copy = new PersonCard(person, 0);
-        assertTrue(personCard.equals(copy));
+        RequestCard copy = new RequestCard(request, 0);
+        assertTrue(requestCard.equals(copy));
 
         // same object -> returns true
-        assertTrue(personCard.equals(personCard));
+        assertTrue(requestCard.equals(requestCard));
 
         // null -> returns false
-        assertFalse(personCard.equals(null));
+        assertFalse(requestCard.equals(null));
 
         // different types -> returns false
-        assertFalse(personCard.equals(0));
+        assertFalse(requestCard.equals(0));
 
-        // different person, same index -> returns false
-        Person differentPerson = new PersonBuilder().withName("differentName").build();
-        assertFalse(personCard.equals(new PersonCard(differentPerson, 0)));
+        // different request, same index -> returns false
+        Request differentRequest = new RequestBuilder().withName("different request").build();
+        assertFalse(requestCard.equals(new RequestCard(differentRequest, 0)));
 
-        // same person, different index -> returns false
-        assertFalse(personCard.equals(new PersonCard(person, 1)));
+        // same request, different index -> returns false
+        assertFalse(requestCard.equals(new RequestCard(request, 1)));
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
-     * {@code expectedId}.
+     * Asserts that {@code requestCard} displays the details of {@code expectedRequest} correctly
+     * and matches {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(RequestCard requestCard, Request expectedRequest, int expectedId) {
         guiRobot.pauseForHuman();
 
-        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
+        RequestCardHandle requestCardHandle = new RequestCardHandle(requestCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(expectedId + ". ", personCardHandle.getId());
+        assertEquals(expectedId + ". ", requestCardHandle.getId());
 
-        // verify person details are displayed correctly
-        assertCardDisplaysPerson(expectedPerson, personCardHandle);
+        // verify request details are displayed correctly
+        assertCardDisplaysPerson(expectedRequest, requestCardHandle);
     }
 }

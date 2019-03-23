@@ -24,7 +24,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
 //import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TUTORIAL;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_A;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_B;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
 //import static seedu.address.testutil.TypicalPdfs.ALICE;
 //import static seedu.address.testutil.TypicalPdfs.AMY;
 import static seedu.address.testutil.TypicalPdfs.A_PDF;
@@ -141,7 +141,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: add a duplicate pdf except with different tags -> rejected *//*
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG_NEW.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: missing name -> rejected *//*

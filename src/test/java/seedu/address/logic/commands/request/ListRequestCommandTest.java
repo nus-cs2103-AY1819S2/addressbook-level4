@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.request;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;

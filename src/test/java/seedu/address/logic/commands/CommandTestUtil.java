@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FINISHED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -36,6 +37,8 @@ public class CommandTestUtil {
     public static final String VALID_SEMESTER_BOB = "Y2S1";
     public static final String VALID_GRADE_AMY = "A";
     public static final String VALID_GRADE_BOB = "B";
+    public static final String FINISHED_STATUS_TRUE = "y";
+    public static final String FINISHED_STATUS_FALSE = "n";
     public static final String VALID_EXPECTED_MIN_GRADE_AMY = "C";
     public static final String VALID_EXPECTED_MIN_GRADE_BOB = "D";
     public static final String VALID_EXPECTED_MAX_GRADE_AMY = "A";
@@ -51,6 +54,8 @@ public class CommandTestUtil {
     public static final String SEMESTER_DESC_BOB = " " + PREFIX_SEMESTER + VALID_SEMESTER_BOB;
     public static final String GRADE_DESC_AMY = " " + PREFIX_GRADE + VALID_GRADE_AMY;
     public static final String GRADE_DESC_BOB = " " + PREFIX_GRADE + VALID_GRADE_BOB;
+    public static final String FINISHED_STATUS_DESC_TRUE = " " + PREFIX_FINISHED + FINISHED_STATUS_TRUE;
+    public static final String FINISHED_STATUS_DESC_FALSE = " " + PREFIX_FINISHED + FINISHED_STATUS_FALSE;
     public static final String EXPECTED_MIN_GRADE_DESC_AMY = " " + PREFIX_EXPECTED_MIN_GRADE
             + VALID_EXPECTED_MIN_GRADE_AMY;
     public static final String EXPECTED_MIN_GRADE_DESC_BOB = " " + PREFIX_EXPECTED_MIN_GRADE

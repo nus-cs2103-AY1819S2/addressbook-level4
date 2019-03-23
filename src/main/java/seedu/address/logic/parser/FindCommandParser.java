@@ -44,7 +44,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             findModuleDescriptor.setGrade(ParserUtil.parseGrade(argMultimap.getValue(PREFIX_GRADE).get()));
         }
         if (argMultimap.getValue(PREFIX_FINISHED).isPresent()) {
-            findModuleDescriptor.setFinished(ParserUtil.parseBoolean(argMultimap.getValue(PREFIX_FINISHED).get()));
+            findModuleDescriptor.setFinished(ParserUtil.parseFinishedStatus(argMultimap.getValue(PREFIX_FINISHED).get()));
         }
 
         return new FindCommand(new FindModulePredicate(findModuleDescriptor));

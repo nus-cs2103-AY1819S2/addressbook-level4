@@ -22,6 +22,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_BOOLEAN = "Finished parameter should be 'y' or 'n'.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -139,21 +140,13 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a yesOrNo string into a boolean.
-     * @param yesOrNo a string which should be "y" or "n" (ignore case).
-     * @return true if the string is "y", false if "n".
-     * @throws ParseException if the string is neither "y" or "n".
+     * Parses a {@code finishedStatus} string into a boolean.
+     * @param finishedStatus Any string.
+     * @return true if the string is "y" (case-insensitive), false otherwise.
      */
-    public static boolean parseBoolean(String yesOrNo) throws ParseException {
-        requireNonNull(yesOrNo);
+    public static boolean parseFinishedStatus(String finishedStatus) {
+        requireNonNull(finishedStatus);
 
-        switch (yesOrNo.trim().toLowerCase()) {
-        case "y":
-            return true;
-        case "n":
-            return false;
-        default:
-            throw new ParseException("Finished parameter should be 'y' or 'n'.");
-        }
+        return finishedStatus.trim().toLowerCase().equals("y");
     }
 }

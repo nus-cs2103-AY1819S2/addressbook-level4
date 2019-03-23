@@ -76,7 +76,7 @@ public class JsonAdaptedCourse {
         final CourseDescription courseDescription = new CourseDescription(description);
         final List<CourseRequirement> requirements = new ArrayList<>();
         for (JsonAdaptedCourseRequirement courseRequirement : this.requirements) {
-                requirements.add(courseRequirement.toModelType());
+            requirements.add(courseRequirement.toModelType());
         }
         return new Course(courseName, courseDescription, requirements.toArray(new CourseRequirement[0]));
     }

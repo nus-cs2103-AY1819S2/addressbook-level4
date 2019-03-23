@@ -1,5 +1,6 @@
 package seedu.address.model.player;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -13,6 +14,8 @@ public class Enemy extends Player {
 
     private static final String xCoordinates = "abcdefghij";
     private static final Random randGen = new Random();
+
+    private static final ArrayList allPossibleTargets = new ArrayList<String>();
     private final HashMap attackStatusHistory = new HashMap();
 
     /**
@@ -20,35 +23,45 @@ public class Enemy extends Player {
      */
     public Enemy() {
         super("EnemyPlayer", 5, 2, 1);
+        fillAllPossibleTargets(this.getMapGrid().getMapSize());
     }
 
     /**
-     * Creates and returns valid Coordinate to be shot at.
+     * Draws and returns valid Coordinate to be shot at.
      * Adds Coordinates into targetHistory
      */
     public Coordinates enemyShootAt() {
+        Coordinates newTarget = drawPossbleTarget();
+        this.addToTargetHistory(newTarget);
+        return newTarget;
+    }
 
-        int mapSize = this.getMapGrid().getMapSize();
-        boolean nonDuplicateCoord = false;
-        Coordinates target;
+    /**
+     * draws a valid String coordinate for shooting
+     * from list of valid coordinates
+     * removes this drawn String coordinate from the list AllPossibleTarget
+     * Creates and returns Coord with drawn String Coord
+     */
+    private Coordinates drawPossbleTarget() {
 
-        //interim measure. bruteforcing til a non-duplicate is found
-        do {
-            target = generateCoordinates(mapSize);
-            nonDuplicateCoord = addToTargetHistory(target);
-        } while (nonDuplicateCoord == false);
+        String targetCoord = (String) allPossibleTargets.get(0);
+        allPossibleTargets.remove(0);
+        Coordinates target = new Coordinates(targetCoord);
         return target;
     }
 
     /**
-     * generates valid coordinates for shooting
+     * fills allPossibleTarget ArrayList with
+     * all valid Strings of coordinates for shooting
      */
-    private Coordinates generateCoordinates(int mapSize) {
-        int x = randGen.nextInt(mapSize);
-        int y = randGen.nextInt(mapSize) + 1;
-        String xy = xCoordinates.charAt(x) + Integer.toString(y);
-        return new Coordinates(xy);
-
+    private void fillAllPossibleTargets (int mapSize) {
+        for (int xIndex = 0; xIndex < mapSize; xIndex++) {
+            for (int yIndex = 0; yIndex < mapSize; yIndex++) {
+                String xy = xCoordinates.charAt(xIndex) + Integer.toString(yIndex + 1);
+                allPossibleTargets.add(xy);
+            }
+        }
+        java.util.Collections.shuffle(allPossibleTargets, randGen);
     }
 
 }

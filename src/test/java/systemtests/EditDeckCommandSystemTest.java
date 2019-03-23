@@ -12,7 +12,7 @@ import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 
-public class EditCardCommandSystemTest extends TopDeckSystemTest {
+public class EditDeckCommandSystemTest extends TopDeckSystemTest {
 
     @Test
     public void edit() {
@@ -64,7 +64,7 @@ public class EditCardCommandSystemTest extends TopDeckSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered card list, edit index within bounds of the deck and card list -> edited */
-        /*showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
+        /*showDecksWithQuestion(KEYWORD_MATCHING_HTTP);
         index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredList().size());
         command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + " " + QUESTION_DESC_UNIQUE;
@@ -75,7 +75,7 @@ public class EditCardCommandSystemTest extends TopDeckSystemTest {
         /* Case: filtered card list, edit index within bounds of the deck but out of bounds of card list
          * -> rejected
          */
-        /*showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
+        /*showDecksWithQuestion(KEYWORD_MATCHING_HTTP);
         int invalidIndex = getModel().getTopDeck().getCardList().size();
         assertCommandFailure(EditCardCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_HELLO,
                 Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);*/
@@ -85,9 +85,9 @@ public class EditCardCommandSystemTest extends TopDeckSystemTest {
         /* Case: selects first card in the card list, edit a card -> edited, card selection remains unchanged but
          * browser url changes
          */
-        /*showAllCards();
+        /*showAllDecks();
         index = INDEX_FIRST_CARD;
-        selectCard(index);
+        selectDeck(index);
         command = EditCardCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION
                 + TAG_DESC_MATH;
         // this can be misleading: card selection actually remains unchanged but the
@@ -142,7 +142,7 @@ public class EditCardCommandSystemTest extends TopDeckSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Person, Index)} except that
      * the browser url and selected card remain unchanged.
      * @param toEdit the index of the current model's filtered list
-     * @see EditCardCommandSystemTest#assertCommandSuccess(String, Index, Card, Index)
+     * @see EditDeckCommandSystemTest#assertCommandSuccess(String, Index, Card, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Card editedCard) {
         assertCommandSuccess(command, toEdit, editedCard, null);
@@ -154,7 +154,7 @@ public class EditCardCommandSystemTest extends TopDeckSystemTest {
      * 2. Asserts that the model related components are updated to reflect the card at index {@code toEdit} being
      * updated to values specified {@code editedCard}.<br>
      * @param toEdit the index of the current model's filtered list.
-     * @see EditCardCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditDeckCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Card editedCard,
                                       Index expectedSelectedCardIndex) {
@@ -169,7 +169,7 @@ public class EditCardCommandSystemTest extends TopDeckSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
      * browser url and selected card remain unchanged.
-     * @see EditCardCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     * @see EditDeckCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
@@ -186,7 +186,7 @@ public class EditCardCommandSystemTest extends TopDeckSystemTest {
      * Verifications 1 and 2 are performed by
      * {@code TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see TopDeckSystemTest#assertSelectedCardChanged(Index)
+     * @see TopDeckSystemTest#assertSelectedDeckChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -195,9 +195,9 @@ public class EditCardCommandSystemTest extends TopDeckSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
+            assertSelectedDeckChanged(expectedSelectedCardIndex);
         } else {
-            assertSelectedCardUnchanged();
+            assertSelectedDeckUnchanged();
         }
         assertStatusBarUnchangedExceptSyncStatus();
     }
@@ -217,7 +217,7 @@ public class EditCardCommandSystemTest extends TopDeckSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

@@ -12,7 +12,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
-public class ClearCommandSystemTest extends TopDeckSystemTest {
+public class ClearDecksCommandSystemTest extends TopDeckSystemTest {
 
     @Test
     public void clear() {
@@ -22,35 +22,35 @@ public class ClearCommandSystemTest extends TopDeckSystemTest {
          * spaces -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: undo clearing address book -> original address book restored */
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: redo clearing address book -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: selects first card in card list and clears address book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        selectCard(Index.fromOneBased(1));
+        selectDeck(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertSelectedCardDeselected();
+        assertSelectedDeckDeselected();
 
         /* Case: filters the card list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
+        showDecksWithQuestion(KEYWORD_MATCHING_HTTP);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: clear empty address book -> cleared */
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
@@ -71,7 +71,7 @@ public class ClearCommandSystemTest extends TopDeckSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String)} except that the result box displays
      * {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
-     * @see ClearCommandSystemTest#assertCommandSuccess(String)
+     * @see ClearDecksCommandSystemTest#assertCommandSuccess(String)
      */
     private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {
         executeCommand(command);
@@ -94,7 +94,7 @@ public class ClearCommandSystemTest extends TopDeckSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

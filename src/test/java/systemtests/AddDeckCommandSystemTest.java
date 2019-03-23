@@ -31,7 +31,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.CardUtil;
 
-public class AddCardCommandSystemTest extends TopDeckSystemTest {
+public class AddDeckCommandSystemTest extends TopDeckSystemTest {
 
     @Test
     public void add() {
@@ -65,7 +65,7 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
-        deleteAllCards();
+        deleteAllDecks();
         assertCommandSuccess(ADDITION);
 
         /* Case: add a card with tags, command with parameters in random order -> added */
@@ -79,13 +79,13 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the card list before adding -> added */
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
+        showDecksWithQuestion(KEYWORD_MATCHING_HTTP);
         assertCommandSuccess(HELLO_WORLD);
 
         /* ------------------------ Perform add operation while a card card is selected --------------------------- */
 
         /* Case: selects first card in the card list, add a card -> added, card selection remains unchanged */
-        selectCard(Index.fromOneBased(1));
+        selectDeck(Index.fromOneBased(1));
         assertCommandSuccess(MULTIPLICATION);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
@@ -141,7 +141,7 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
      * instead.
-     * @see AddCardCommandSystemTest#assertCommandSuccess(Card)
+     * @see AddDeckCommandSystemTest#assertCommandSuccess(Card)
      */
     private void assertCommandSuccess(String command, Card toAdd) {
         Model expectedModel = getModel();
@@ -157,12 +157,12 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code ListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
-     * @see AddCardCommandSystemTest#assertCommandSuccess(String, Card)
+     * @see AddDeckCommandSystemTest#assertCommandSuccess(String, Card)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarChangedExceptSaveLocation();
     }
@@ -183,7 +183,7 @@ public class AddCardCommandSystemTest extends TopDeckSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

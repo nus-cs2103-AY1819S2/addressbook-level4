@@ -4,6 +4,7 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalCards.getTypicalCards;
+import static seedu.address.testutil.TypicalDecks.getTypicalDecks;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplayEquals;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysCardObject;
@@ -13,19 +14,27 @@ import java.util.Collections;
 import org.junit.Test;
 
 import guitests.guihandles.CardDisplayHandle;
+import guitests.guihandles.DeckDisplayHandle;
 import guitests.guihandles.ListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.ListItem;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 public class ListPanelTest extends GuiUnitTest {
     private static final ObservableList<Card> TYPICAL_CARDS =
             FXCollections.observableList(getTypicalCards());
+    private static final ObservableList<Deck> TYPICAL_DECKS =
+            FXCollections.observableList(getTypicalDecks());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT= 2500;
+    private static final long DECK_CREATION_AND_DELETION_TIMEOUT= 2500;
 
-    private final SimpleObjectProperty<Card> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<ListItem> selectedItem = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<ListItem> selectedCard = new SimpleObjectProperty<>();
+
     private ListPanelHandle listPanelHandle;
 
     @Test
@@ -33,9 +42,9 @@ public class ListPanelTest extends GuiUnitTest {
         initUi(TYPICAL_CARDS);
 
         for (int i = 0; i < TYPICAL_CARDS.size(); i++) {
-            listPanelHandle.navigateToCard(TYPICAL_CARDS.get(i));
+            listPanelHandle.navigateToDeck(TYPICAL_DECKS.get(i));
             Card expectedCard = TYPICAL_CARDS.get(i);
-            CardDisplayHandle actualCard = listPanelHandle.getCardDiplayHandle(i);
+            CardDisplayHandle actualCard = listPanelHandle.getDeckDiplayHandle(i);
 
             assertCardDisplaysCardObject(expectedCard, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
@@ -43,16 +52,17 @@ public class ListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void selection_modelSelectedPersonChanged_selectionChanges() {
+    public void selection_modelSelectedCardChanged_selectionChanges() {
         initUi(TYPICAL_CARDS);
         Card secondCard = TYPICAL_CARDS.get(INDEX_SECOND_CARD.getZeroBased());
-        guiRobot.interact(() -> selectedPerson.set(secondCard));
+        guiRobot.interact(() -> selectedCard.set(secondCard));
         guiRobot.pauseForHuman();
 
-        CardDisplayHandle expectedPerson = listPanelHandle.getCardDiplayHandle(INDEX_SECOND_CARD.getZeroBased());
-        CardDisplayHandle selectedPerson = listPanelHandle.getHandleToSelectedCard();
+        CardDisplayHandle expectedPerson = listPanelHandle.getDeckDiplayHandle(INDEX_SECOND_CARD.getZeroBased());
+        CardDisplayHandle selectedPerson = listPanelHandle.getHandleToSelectedDeck();
         assertCardDisplayEquals(expectedPerson, selectedPerson);
     }
+
 
     /**
      * Verifies that creating and deleting large number of cards in {@code ListPanel} requires lesser than
@@ -84,15 +94,15 @@ public class ListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code listPanelHandle} with a {@code ListPanel} backed by {@code backingList}.
+     * Initializes {@code listPanelHandle} with a {@code ListPanel} backed by {@code list}.
      * Also shows the {@code Stage} that displays only {@code ListPanel}.
      */
-    private void initUi(ObservableList<Card> backingList) {
+    private void initUi(ObservableList<? extends ListItem> list) {
         ListPanel listPanel =
-                new ListPanel(backingList, selectedPerson);
+                new ListPanel(list, selectedItem, selectedItem::set);
         uiPartRule.setUiPart(listPanel);
 
         listPanelHandle = new ListPanelHandle(getChildNode(listPanel.getRoot(),
-                ListPanelHandle.CARD_LIST_VIEW_ID));
+                ListPanelHandle.DECK_LIST_VIEW_ID));
     }
 }

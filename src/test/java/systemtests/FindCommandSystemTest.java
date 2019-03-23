@@ -32,43 +32,43 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
         Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, LAYER, TRANSPORT); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: repeat previous find command where card list is displaying the cards we are finding
          * -> 2 cards found
          */
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_HTTP;
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find card where card list is not displaying the card we are finding -> 1 card found */
         command = FindCommand.COMMAND_WORD + " Hello?";
         ModelHelper.setFilteredList(expectedModel, HELLO_WORLD);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find multiple cards in deck, 2 keywords -> 2 cards found */
         command = FindCommand.COMMAND_WORD + " transport layer";
         ModelHelper.setFilteredList(expectedModel, TRANSPORT, LAYER);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find multiple cards in deck, 2 keywords in reversed order -> 2 cards found */
         command = FindCommand.COMMAND_WORD + " layer transport";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find multiple cards in deck, 2 keywords with 1 repeat -> 2 cards found */
         command = FindCommand.COMMAND_WORD + " transport layer transport";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find multiple cards in deck, 2 matching keywords and 1 non-matching keyword
          * -> 2 cards found
          */
         command = FindCommand.COMMAND_WORD + " transport layer NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: undo previous find command -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -87,57 +87,57 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, TRANSPORT);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find card in deck, keyword is same as name but of different case -> 1 card found */
         command = FindCommand.COMMAND_WORD + " HttP";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find card in deck, keyword is substring of name -> 0 cards found */
         command = FindCommand.COMMAND_WORD + " HT";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find card in deck, name is substring of keyword -> 0 cards found */
         command = FindCommand.COMMAND_WORD + " Transpo";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find card not in deck -> 0 cards found */
         command = FindCommand.COMMAND_WORD + " NotInBook";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find answer of card in deck -> 0 cards found */
         command = FindCommand.COMMAND_WORD + " " + TRANSPORT.getAnswer();
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find tags of card in deck -> 0 cards found */
         List<Tag> tags = new ArrayList<>(TRANSPORT.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: find while a card is selected -> selected card deselected */
-        showAllCards();
-        selectCard(Index.fromOneBased(1));
-        assertFalse(getCardListPanel().getHandleToSelectedCard().getQuestion().equals(TRANSPORT.getQuestion()));
+        showAllDecks();
+        selectDeck(Index.fromOneBased(1));
+        assertFalse(getCardListPanel().getHandleToSelectedDeck().getQuestion().equals(TRANSPORT.getQuestion()));
         command = FindCommand.COMMAND_WORD + " transport";
         ModelHelper.setFilteredList(expectedModel, TRANSPORT);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardDeselected();
+        assertSelectedDeckDeselected();
 
         /* Case: find card in empty deck -> 0 cards found */
-        deleteAllCards();
+        deleteAllDecks();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_HTTP;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, TRANSPORT);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
 
         /* Case: mixed case command word -> rejected */
         command = "FiNd HTTP";
@@ -178,7 +178,7 @@ public class FindCommandSystemTest extends TopDeckSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

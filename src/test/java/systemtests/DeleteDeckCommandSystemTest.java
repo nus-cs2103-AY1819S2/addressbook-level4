@@ -20,7 +20,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 
-public class DeleteCommandSystemTest extends TopDeckSystemTest {
+public class DeleteDeckCommandSystemTest extends TopDeckSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE);
@@ -59,7 +59,7 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered card list, delete index within bounds of address book and card list -> deleted */
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
+        showDecksWithQuestion(KEYWORD_MATCHING_HTTP);
         Index index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredList().size());
         assertCommandSuccess(index);
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
         /* Case: filtered card list, delete index within bounds of address book but out of bounds of card list
          * -> rejected
          */
-        showCardsWithQuestion(KEYWORD_MATCHING_HTTP);
+        showDecksWithQuestion(KEYWORD_MATCHING_HTTP);
         int invalidIndex = getModel().getTopDeck().getDeckList().size();
         command = DeleteCardCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_DISPLAYED_INDEX);
@@ -75,11 +75,11 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
         /* --------------------- Performing delete operation while a card card is selected ------------------------ */
 
         /* Case: delete the selected card -> card list panel selects the card before the deleted card */
-        showAllCards();
+        showAllDecks();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
-        selectCard(selectedIndex);
+        selectDeck(selectedIndex);
         command = DeleteCardCommand.COMMAND_WORD + " " + selectedIndex.getOneBased();
         deletedCard = removeCard(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_CARD_SUCCESS, deletedCard);
@@ -124,7 +124,7 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
     /**
      * Deletes the card at {@code toDelete} by creating a default {@code DeleteCardCommand} using {@code toDelete} and
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
-     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
+     * @see DeleteDeckCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
@@ -153,8 +153,8 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
-     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
-     * @see TopDeckSystemTest#assertSelectedCardChanged(Index)
+     * @see DeleteDeckCommandSystemTest#assertCommandSuccess(String, Model, String)
+     * @see TopDeckSystemTest#assertSelectedDeckChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -162,9 +162,9 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
         if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
+            assertSelectedDeckChanged(expectedSelectedCardIndex);
         } else {
-            assertSelectedCardUnchanged();
+            assertSelectedDeckUnchanged();
         }
 
         assertCommandBoxShowsDefaultStyle();
@@ -186,7 +186,7 @@ public class DeleteCommandSystemTest extends TopDeckSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedDeckUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

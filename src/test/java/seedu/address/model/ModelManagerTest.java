@@ -4,9 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_MOD;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
+import static seedu.address.testutil.TypicalDecks.DECK_A;
+
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
+import static seedu.address.testutil.TypicalDecks.DECK_B;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -150,7 +154,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        TopDeck topDeck = new TopDeckBuilder().withCard(ADDITION).withCard(SUBTRACTION).build();
+        TopDeck topDeck = new TopDeckBuilder().withDeck(DECK_A).withDeck(DECK_B).build();
         TopDeck differentTopDeck = new TopDeck();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -177,7 +181,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(topDeck, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+        modelManager.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

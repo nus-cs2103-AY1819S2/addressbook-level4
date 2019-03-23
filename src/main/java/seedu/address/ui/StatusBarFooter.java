@@ -19,7 +19,7 @@ public class StatusBarFooter extends UiPart<Region> {
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
 
     public static final String TOTAL_CARDS_STATUS = "%d card(s) total";
-
+    public static final String TOTAL_DECKS_STATUS = "%d deck(s) total";
     /**
      * Used to generate time stamps.
      *
@@ -36,6 +36,8 @@ public class StatusBarFooter extends UiPart<Region> {
     private Label syncStatus;
     @FXML
     private Label totalCardsStatus;
+    @FXML
+    private Label totalDecksStatus;
     @FXML
     private Label saveLocationStatus;
 
@@ -77,7 +79,7 @@ public class StatusBarFooter extends UiPart<Region> {
      */
     private void updateTotalDecksStatus(ReadOnlyTopDeck topDeck) {
         int decksCount = topDeck.getDeckList().size();
-        totalCardsStatus.setText(String.format(TOTAL_CARDS_STATUS, decksCount));
+        totalDecksStatus.setText(String.format(TOTAL_DECKS_STATUS, decksCount));
     }
 
 }

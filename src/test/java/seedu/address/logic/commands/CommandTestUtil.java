@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.ParserUtil.FINISHED_STATUS_TRUE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +38,6 @@ public class CommandTestUtil {
     public static final String VALID_SEMESTER_BOB = "Y2S1";
     public static final String VALID_GRADE_AMY = "A";
     public static final String VALID_GRADE_BOB = "B";
-    public static final String FINISHED_STATUS_TRUE = "y";
     public static final String FINISHED_STATUS_FALSE = "n";
     public static final String VALID_EXPECTED_MIN_GRADE_AMY = "C";
     public static final String VALID_EXPECTED_MIN_GRADE_BOB = "D";

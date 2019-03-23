@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 import java.io.File;
@@ -20,6 +19,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.Size;
@@ -36,11 +36,9 @@ public class EditCommand extends Command {
             + "by the index number used in the displayed pdf list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] "
-            + "[" + PREFIX_TAG + "TAG]...\n"
+            + "[" + PREFIX_NAME + "NAME]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_NAME + "Tutorial3.pdf "
-            + PREFIX_TAG + "Easy";
+            + PREFIX_NAME + "Tutorial3.pdf";
 
     public static final String MESSAGE_EDIT_PDF_SUCCESS = "Edited PDF: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -111,8 +109,9 @@ public class EditCommand extends Command {
         Size updatedSize = new Size(Long.toString(Paths.get(pdfToEdit.getDirectory().getDirectory(),
                 pdfToEdit.getName().getFullName()).toFile().length()));
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(pdfToEdit.getTags());
+        Deadline updatedDeadline = pdfToEdit.getDeadline();
 
-        return new Pdf(updatedName, pdfToEdit.getDirectory(), updatedSize, updatedTags);
+        return new Pdf(updatedName, pdfToEdit.getDirectory(), updatedSize, updatedTags, updatedDeadline);
     }
 
     @Override

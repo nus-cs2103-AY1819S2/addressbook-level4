@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 import java.util.List;
@@ -26,12 +26,13 @@ public class DeadlineCommand extends Command {
             + "by the index number used in the displayed pdf list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_DEADLINE + "DEADLINE] (In dd-mm-yyyy format)\n"
+            + "[" + PREFIX_DEADLINE_NEW + "DEADLINE] (In dd-mm-yyyy format)\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DEADLINE + "13-02-2020";
+            + PREFIX_DEADLINE_NEW + "13-02-2020";
 
     private final Index index;
     private final Deadline deadline;
+    private final Boolean status;
 
     public DeadlineCommand(Index index, Deadline deadline) {
         requireNonNull(index);
@@ -39,6 +40,16 @@ public class DeadlineCommand extends Command {
 
         this.index = index;
         this.deadline = deadline;
+        this.status = null;
+    }
+
+    public DeadlineCommand(Index index, Deadline deadline, Boolean status) {
+        requireNonNull(index);
+        requireNonNull(status);
+
+        this.index = index;
+        this.deadline = null;
+        this.status = status;
     }
 
     @Override
@@ -51,7 +62,13 @@ public class DeadlineCommand extends Command {
         }
 
         Pdf oPdf = lastShownList.get(this.index.getZeroBased());
-        Pdf nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf, this.deadline);
+        Pdf nPdf;
+
+        if (deadline == null) {
+            nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf, new Deadline(oPdf.getDeadline(), this.status));
+        } else {
+            nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf, this.deadline);
+        }
 
         model.setPdf(oPdf, nPdf);
         model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);

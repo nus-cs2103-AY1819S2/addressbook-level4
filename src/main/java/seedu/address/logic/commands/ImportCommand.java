@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.image.Image;
 
 /**
  * Imports a image to FomoFoto.

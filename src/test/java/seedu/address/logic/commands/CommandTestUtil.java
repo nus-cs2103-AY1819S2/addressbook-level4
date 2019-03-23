@@ -210,7 +210,7 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
+        final String[] splitName = person.getName().toString().split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
@@ -224,9 +224,9 @@ public class CommandTestUtil {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredHealthWorkerList().size());
 
         HealthWorker healthWorker = model.getFilteredHealthWorkerList().get(targetIndex.getZeroBased());
-        final String[] splitName = healthWorker.getName().fullName.split("\\s+");
+        final String[] splitName = healthWorker.getName().toString().split("\\s+");
         model.updateFilteredHealthWorkerList(p -> Arrays.asList(splitName[0]).stream().anyMatch(
-            keyword -> StringUtil.containsWordIgnoreCase(p.getName().fullName, keyword)
+            keyword -> StringUtil.containsWordIgnoreCase(p.getName().toString(), keyword)
         ));
 
         assertEquals(1, model.getFilteredHealthWorkerList().size());

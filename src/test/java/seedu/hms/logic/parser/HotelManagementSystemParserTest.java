@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.hms.logic.commands.AddCustomerCommand;
+import seedu.hms.logic.commands.ClearBookingCommand;
 import seedu.hms.logic.commands.ClearCustomerCommand;
 import seedu.hms.logic.commands.DeleteBookingCommand;
 import seedu.hms.logic.commands.DeleteCustomerCommand;
@@ -70,11 +71,27 @@ public class HotelManagementSystemParserTest {
     }
 
     @Test
+    public void parseCommandClearBooking() throws Exception {
+        assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_WORD, new CustomerManager(), new BookingManager())
+            instanceof ClearBookingCommand);
+        assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_WORD + " 3", new CustomerManager(),
+            new BookingManager()) instanceof ClearBookingCommand);
+    }
+
+    @Test
     public void parseCommandClearCustomerAlias() throws Exception {
         assertTrue(parser.parseCommand(ClearCustomerCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager())
             instanceof ClearCustomerCommand);
         assertTrue(parser.parseCommand(ClearCustomerCommand.COMMAND_ALIAS + " 3", new CustomerManager(),
             new BookingManager()) instanceof ClearCustomerCommand);
+    }
+
+    @Test
+    public void parseCommandClearBookingAlias() throws Exception {
+        assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager())
+            instanceof ClearBookingCommand);
+        assertTrue(parser.parseCommand(ClearBookingCommand.COMMAND_ALIAS + " 3", new CustomerManager(),
+            new BookingManager()) instanceof ClearBookingCommand);
     }
 
     @Test

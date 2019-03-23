@@ -101,7 +101,7 @@ public class ListPanelHandle extends NodeHandle<ListView<Deck>> {
      * Returns the display deck handle of a deck associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected deck is currently not in the scene graph.
      */
-    public DeckDisplayHandle getDeckDiplayHandle(int index) {
+    public DeckDisplayHandle getDeckDisplayHandle(int index) {
         return getAllDeckNodes().stream()
                 .map(DeckDisplayHandle::new)
                 .filter(handle -> handle.equals(getDeck(index)))

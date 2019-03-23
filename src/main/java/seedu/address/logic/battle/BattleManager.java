@@ -2,8 +2,6 @@ package seedu.address.logic.battle;
 
 import java.util.logging.Logger;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
@@ -25,12 +23,9 @@ public class BattleManager implements Battle {
      */
     private Player aiPlayer;
 
-    private BooleanProperty isPlayerTurn;
-
     public BattleManager(Player humanPlayer, Player aiPlayer) {
         this.humanPlayer = humanPlayer;
         this.aiPlayer = aiPlayer;
-        isPlayerTurn = new SimpleBooleanProperty(true);
     }
 
     @Override
@@ -69,12 +64,8 @@ public class BattleManager implements Battle {
     }
 
     @Override
-    public AttackResult humanEndTurn() {
-        isPlayerTurn.setValue(false);
-
+    public AttackResult takeComputerTurn() {
         // AI takes its turn
-
-        isPlayerTurn.setValue(true);
 
         return null;
     }

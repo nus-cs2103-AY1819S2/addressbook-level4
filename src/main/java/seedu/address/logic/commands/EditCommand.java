@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 import java.io.File;

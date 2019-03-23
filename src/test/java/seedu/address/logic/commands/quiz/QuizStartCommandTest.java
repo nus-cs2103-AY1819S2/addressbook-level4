@@ -45,7 +45,7 @@ public class QuizStartCommandTest {
     }*/
 
     @Test
-    public void executeActual_success() {
+    public void executeActual_learn_success() {
         Lesson lesson = new LessonBuilder().build();
         final Session session = new SessionBuilder(new Session("01-01-Learn", 2,
                 Quiz.Mode.LEARN, List.of(new SrsCardBuilder().build(),
@@ -89,5 +89,31 @@ public class QuizStartCommandTest {
         assertEquals(expectedCommandResult, result);
         assertEquals(expectedModel, actualModel);
         assertEquals(expectedCommandHistory, commandHistory);*/
+    }
+
+    @Test
+    public void executeActual_review_success() {
+        Lesson lesson = new LessonBuilder().build();
+        final Session session = new SessionBuilder(new Session("01-01-Learn", 2,
+            Quiz.Mode.REVIEW, List.of(new SrsCardBuilder().build(),
+            new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
+                1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
+        final QuizCard card1 = new QuizCard("Belgium", "Brussels");
+        final QuizCard card2 = new QuizCard("Japan", "Tokyo");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
+        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.REVIEW);
+
+        QuizModelManager expectedModel = new QuizModelManager();
+        expectedModel.init(quiz);
+        expectedModel.getNextCard();
+        CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,
+            commandHistory);
+        QuizModel actualModel = new QuizModelManager();
+        QuizStartCommand quizStartCommand = new QuizStartCommand(session);
+
+        CommandHistory expectedCommandHistory = new CommandHistory(commandHistory);
+        CommandResult result = quizStartCommand.executeActual(actualModel, commandHistory);
+        assertEquals(expectedCommandResult, result);
+        assertEquals(expectedCommandHistory, commandHistory);
     }
 }

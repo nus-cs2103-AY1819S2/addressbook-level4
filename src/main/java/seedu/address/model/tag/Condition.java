@@ -15,7 +15,7 @@ public class Condition {
      * The first character of the condition must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_CONDITION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String VALIDATION_CONDITION_REGEX = "[\\p{Alnum}][\\p{Alnum}]*";
 
     public final String conditionName;
 

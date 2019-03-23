@@ -215,7 +215,8 @@ public class MainWindow extends UiPart<Stage> {
                     logic.selectedOrderItemProperty(), logic::setSelectedOrderItem);
             listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
 
-            statusBarFooter.updateMode("Table Mode");
+            statusBarFooter.updateMode("Table Mode: Table "
+                    + logic.selectedTableProperty().getValue().getTableNumber().toString());
             break;
 
         case MENU_MODE:

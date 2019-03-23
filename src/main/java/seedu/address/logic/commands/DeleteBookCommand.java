@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class DeleteBookCommand extends Command {
 
         Book bookToDelete = lastShownList.get(0);
         model.deleteBook(bookToDelete);
+        model.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
         model.commitBookShelf();
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
     }

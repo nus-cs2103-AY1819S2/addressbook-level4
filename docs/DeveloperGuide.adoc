@@ -24,7 +24,7 @@ By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 . *JDK `9` (highly recommended) or `10`*
 +
 [NOTE]
-JDK `11` and later are not recommended due to some features being removed which were once available in JDK `9`. You can read more about the issue highlighted from the developers of the base source code which MediTabs was initially based of and improved upon link:https://github.com/se-edu/addressbook-level4/issues/951[here]
+JDK `11` and later are not recommended due to some features being removed which were once available in JDK `9`. You can read more about the issue highlighted from the developers of the base source code which MediTabs is based on and improved upon link:https://github.com/se-edu/addressbook-level4/issues/951[here]
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
@@ -235,7 +235,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 This section provides you with some description of how certain key features of our product are being implemented.
 
 // tag::batchtable[]
-=== Batch table feature
+=== Batch table
 ==== Current Implementation
 
 The batch table is mainly driven by `InformationPanel` which extends `UiPart` with an added mechanism to interact with the currently selected medicine.
@@ -275,7 +275,7 @@ Step 3. The user executes `find n/Paracetamol ...`. The `find` command deselects
 // end::batchtable[]
 
 // tag::exportcommand[]
-=== Exporting as CSV file format feature via Export Command
+=== Exporting as CSV file format
 ==== Current Implementation
 
 The exporting as CSV file format mechanism is facilitated by `CsvWrapper`.
@@ -341,7 +341,7 @@ More information on `Opencsv` library's `StatefulBeanToCsvBuilder` operation can
 // end::exportcommand[]
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedInventory`.
@@ -448,7 +448,7 @@ Data encryption is likely to be implemented in future versions of the MediTabs i
 // end::dataencryption[]
 
 // tag::labelcommand[]
-=== Label
+=== Exporting Medicine Label
 
 The exporting of a medicine label to a PDF formatted file is implemented by using Apache PDFBox.
 

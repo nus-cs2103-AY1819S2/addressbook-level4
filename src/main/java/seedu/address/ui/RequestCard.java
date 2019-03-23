@@ -6,13 +6,14 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.request.Request;
 
 /**
  * An UI component that displays information of a {@code Person}.
  */
-public class PersonCard extends UiPart<Region> {
+public class RequestCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "RequestListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -22,29 +23,32 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Request request;
 
     @FXML
     private HBox cardPane;
     @FXML
+    private Label id;
+    @FXML
     private Label name;
     @FXML
-    private Label id;
+    private Label nric;
     @FXML
     private Label phone;
     @FXML
     private Label address;
     @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private FlowPane conditions;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public RequestCard(Request request, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.request = request;
         this.id.setText(displayedIndex + ". ");
-        this.name.setText(person.getName().fullName);
-        this.phone.setText(person.getPhone().value);
+        this.name.setText(request.getName().toString());
+        this.nric.setText(request.getNric().toString());
+        this.phone.setText(request.getPhone().value);
+        this.address.setText(request.getAddress().toString());
+        this.email.setText(request.get)
     }
 
     @Override
@@ -55,12 +59,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof RequestCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        RequestCard card = (RequestCard) other;
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }

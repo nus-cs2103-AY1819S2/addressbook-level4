@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a request card in the request list panel.
  */
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";

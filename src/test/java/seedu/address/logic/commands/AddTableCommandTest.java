@@ -1,41 +1,39 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
+import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.menu.MenuItem;
-import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
-import seedu.address.model.order.ReadOnlyOrders;
 import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
-import seedu.address.model.statistics.ReadOnlyStatistics;
-import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
-import seedu.address.model.table.UniqueTableList;
+import seedu.address.model.table.exceptions.DuplicateTableException;
 import seedu.address.testutil.TableBuilder;
 
 public class AddTableCommandTest {
@@ -48,44 +46,31 @@ public class AddTableCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullTableStatus_throwsNullPointerException() {
+    public void constructor_nullTable_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddTableCommand(null);
     }
 
-    //    @Test
-    //    public void execute_tableAcceptedByModel_addSuccessful() {
-    //        ModelStubAcceptingTableAdded modelStub = new ModelStubAcceptingTableAdded();
-    //        Table validTable = new TableBuilder().build();
-    //        List<TableStatus> tableStatusList = new ArrayList<>();
-    //        tableStatusList.add(validTable.getTableStatus());
-    //
-    //        CommandResult commandResult = new AddTableCommand(tableStatusList).execute(
-    //                Mode.RESTAURANT_MODE, modelStub, commandHistory);
-    //
-    //        assertEquals(String.format(AddTableCommand.MESSAGE_SUCCESS, validTable),
-    //                commandResult.getFeedbackToUser());
-    //        assertEquals(Arrays.asList(validTable), modelStub.tableAdded);
-    //        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    //    }
+    @Test
+    public void execute_tableAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingTableAdded modelStub = new ModelStubAcceptingTableAdded();
+        Table validTable = new TableBuilder().build();
+        List<TableStatus> tableStatusList = new ArrayList<>();
+        tableStatusList.add(validTable.getTableStatus());
 
-    //    @Test
-    //    public void execute_duplicateTable_throwsCommandException() throws Exception {
-    //        List<TableStatus> tableStatusList = new ArrayList<>();
-    //        tableStatusList.add(new TableStatus("0/4"));
-    //        Table validTable = new TableBuilder().build();
-    //        AddTableCommand addCommand = new AddTableCommand(tableStatusList);
-    //        ModelStub modelStub = new ModelStubWithTable(validTable);
-    //
-    //        thrown.expect(CommandException.class);
-    //        thrown.expectMessage(AddToOrderCommand.MESSAGE_DUPLICATE_ORDER_ITEM);
-    //        addCommand.execute(Mode.TABLE_MODE, modelStub, commandHistory);
-    //    }
+        CommandResult commandResult =
+                new AddTableCommand(tableStatusList).execute(Mode.RESTAURANT_MODE, modelStub, commandHistory);
+
+        assertEquals(AddTableCommand.MESSAGE_SUCCESS + String.format(AddTableCommand.MESSAGE_TABLE_ADDED,
+                validTable.getTableNumber(), validTable.getTableStatus()), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validTable), modelStub.tablesAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
 
     @Test
     public void equals() {
-        Table table1 = new TableBuilder().withTableStatus(new TableStatus("0/4").toString()).build();
-        Table table2 = new TableBuilder().withTableStatus(new TableStatus("0/8").toString()).build();
+        Table table1 = new TableBuilder(TABLE1).build();
+        Table table2 = new TableBuilder(TABLE2).build();
         List<TableStatus> tableStatusList1 = new ArrayList<>();
         tableStatusList1.add(table1.getTableStatus());
         AddTableCommand addTable1Command = new AddTableCommand(tableStatusList1);
@@ -106,7 +91,7 @@ public class AddTableCommandTest {
         // null -> returns false
         assertFalse(addTable1Command.equals(null));
 
-        // different person -> returns false
+        // different table -> returns false
         assertFalse(addTable1Command.equals(addTable2Command));
     }
 
@@ -114,16 +99,13 @@ public class AddTableCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
-
-        private ReadOnlyRestOrRant restOrRant = new RestOrRantStub();
-
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -143,7 +125,7 @@ public class AddTableCommandTest {
         }
 
         @Override
-        public void setOrdersFilePath(Path restOrRantFilePath) {
+        public void setOrdersFilePath(Path ordersFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -178,12 +160,22 @@ public class AddTableCommandTest {
         }
 
         @Override
-        public ReadOnlyRestOrRant getRestOrRant() {
+        public void addTable(Table table) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
+        public TableNumber addTable(TableStatus tableStatus) {
+            return new TableNumber("1");
+        }
+
+        @Override
+        public void setRestOrRant(ReadOnlyRestOrRant newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyRestOrRant getRestOrRant() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -198,19 +190,8 @@ public class AddTableCommandTest {
         }
 
         @Override
-        public void deleteTable(Table table) {
+        public void deleteTable(Table target) {
             throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addTable(Table table) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public TableNumber addTable(TableStatus tableStatus) {
-            TableNumber addedTableNumber = restOrRant.getTables().addTable(tableStatus);
-            return addedTableNumber;
         }
 
         @Override
@@ -254,17 +235,7 @@ public class AddTableCommandTest {
         }
 
         @Override
-        public boolean hasMenuItem(MenuItem menuItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void deleteOrderItem(OrderItem target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteMenuItem(MenuItem menuItem) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -274,17 +245,7 @@ public class AddTableCommandTest {
         }
 
         @Override
-        public void addMenuItem(MenuItem menuItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setOrderItem(OrderItem target, OrderItem editedOrderItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setMenuItem(MenuItem target, MenuItem editedItem) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -294,27 +255,12 @@ public class AddTableCommandTest {
         }
 
         @Override
-        public ObservableList<MenuItem> getFilteredMenuItemList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void updateFilteredOrderItemList(Predicate<OrderItem> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredMenuItemList(Predicate<MenuItem> predicate) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyProperty<OrderItem> selectedOrderItemProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyProperty<MenuItem> selectedMenuItemProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -325,21 +271,6 @@ public class AddTableCommandTest {
 
         @Override
         public void setSelectedOrderItem(OrderItem orderItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public MenuItem getSelectedMenuItem() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setSelectedMenuItem(MenuItem menuItem) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateMenu() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -417,10 +348,61 @@ public class AddTableCommandTest {
         public void updateStatistics() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean hasMenuItem(MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMenuItem(MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addMenuItem(MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMenuItem(MenuItem target, MenuItem editedItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<MenuItem> getFilteredMenuItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMenuItemList(Predicate<MenuItem> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<MenuItem> selectedMenuItemProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MenuItem getSelectedMenuItem() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedMenuItem(MenuItem menuItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateMenu() {
+            throw new AssertionError("This method should not be called.");
+        }
+        
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single table.
      */
     private class ModelStubWithTable extends ModelStub {
         private final Table table;
@@ -438,26 +420,30 @@ public class AddTableCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the table being added.
      */
     private class ModelStubAcceptingTableAdded extends ModelStub {
-        final ArrayList<Table> tableAdded = new ArrayList<>();
+        final ArrayList<Table> tablesAdded = new ArrayList<>();
+        private int nextTableNumber = 1;
 
         @Override
         public boolean hasTable(Table table) {
             requireNonNull(table);
-            return tableAdded.stream().anyMatch(table::isSameTable);
+            return tablesAdded.stream().anyMatch(table::isSameTable);
         }
 
         @Override
-        public void addTable(Table table) {
-            requireNonNull(table);
-            tableAdded.add(table);
+        public TableNumber addTable(TableStatus tableStatus) {
+            requireNonNull(tableStatus);
+            TableNumber tableNumber = new TableNumber(String.valueOf(nextTableNumber));
+            nextTableNumber++;
+            tablesAdded.add(new Table(tableNumber, tableStatus));
+            return tableNumber;
         }
 
         @Override
         public void updateMode() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddTableCommand#execute()}
         }
 
         @Override
@@ -466,104 +452,4 @@ public class AddTableCommandTest {
         }
     }
 
-    /**
-     * A default menu stub that has all methods failing, except getItemFromCode() which returns an empty Optional.
-     */
-    private class TableStub implements ReadOnlyTables {
-
-        private int nextTableNumber = 1;
-        private UniqueTableList tableList = new UniqueTableList();
-
-        @Override
-        public ObservableList<Table> getTableList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasTable(Table table) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addTable(Table table) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public TableNumber addTable(TableStatus tableStatus) {
-            tableList.add(new Table(new TableNumber(String.valueOf(nextTableNumber)), tableStatus));
-            nextTableNumber++;
-            return new TableNumber(String.valueOf(nextTableNumber - 1));
-        }
-
-        @Override
-        public Optional<Table> getTableFromNumber(TableNumber tableNumber) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setTables(List<Table> tableList) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setTable(Table target, Table editedTable) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeTable(Table key) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean isOccupied(TableNumber tableNumber) throws CommandException {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addListener(InvalidationListener listener) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeListener(InvalidationListener listener) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
-
-    /**
-     * A default RestOrRant stub that has all of the methods failing, except getTables() which returns an empty table.
-     */
-    private class RestOrRantStub implements ReadOnlyRestOrRant {
-        @Override
-        public ReadOnlyMenu getMenu() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyOrders getOrders() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyStatistics getStatistics() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyTables getTables() {
-            return new TableStub();
-        }
-
-        @Override
-        public void addListener(InvalidationListener listener) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void removeListener(InvalidationListener listener) {
-            throw new AssertionError("This method should not be called.");
-        }
-    }
 }

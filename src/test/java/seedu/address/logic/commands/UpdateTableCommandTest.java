@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.UpdateTableCommand.MESSAGE_SUCCESS;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
@@ -24,20 +26,20 @@ public class UpdateTableCommandTest {
 
     private Model model = new ModelManager(getTypicalRestOrRant(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private String[] tableStatusInString = new String[]{"1", "4"};
+    private String[] tableStatusInString = new String[]{"1", "0"};
     private Table originalTable = new TableBuilder(TABLE1).build();
 
 
-    //    @Test TODO
-    //    public void execute_tableUpdatedByModel_updateSuccessful() {
-    //        Table editedTable = new TableBuilder(TABLE1).withTableStatus("0/4").build();
-    //        UpdateTableCommand updateTableCommand = new UpdateTableCommand(tableStatusInString);
-    //        ModelManager expectedModel = new ModelManager(getTypicalRestOrRant(), new UserPrefs());
-    //        expectedModel.deleteTable(originalTable);
-    //        expectedModel.addTable(editedTable);
-    //        assertCommandSuccess(Mode.RESTAURANT_MODE, updateTableCommand, model, commandHistory,
-    //                new CommandResult(UpdateTableCommand.MESSAGE_SUCCESS), expectedModel);
-    //    }
+    @Test
+    public void execute_tableUpdatedByModel_updateSuccessful() {
+        Table editedTable = new TableBuilder(TABLE1).withTableStatus("0/4").build();
+        UpdateTableCommand updateTableCommand = new UpdateTableCommand(tableStatusInString);
+        ModelManager expectedModel = new ModelManager(getTypicalRestOrRant(), new UserPrefs());
+        expectedModel.setTable(originalTable, editedTable);
+        assertCommandSuccess(Mode.RESTAURANT_MODE, updateTableCommand, model, commandHistory,
+                new CommandResult(String.format(MESSAGE_SUCCESS, editedTable.getTableNumber(),
+                        editedTable.getTableStatus())), expectedModel);
+    }
 
     @Test
     public void execute_invalidTableNumber_updateFailure() {

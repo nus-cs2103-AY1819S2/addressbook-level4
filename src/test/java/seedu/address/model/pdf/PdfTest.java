@@ -2,7 +2,7 @@ package seedu.address.model.pdf;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TUTORIAL;
+//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LECTURE;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -98,7 +98,7 @@ public class PdfTest {
         assertFalse(SAMPLE_PDF_1.equals(SAMPLE_PDF_1_DUPLICATE));
 
         /*// different tags -> returns false
-        comparison = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_TUTORIAL).build();
+        comparison = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_LECTURE).build();
         assertFalse(SAMPLE_PDF_1.equals(editedAlice));*/
     }
 }

@@ -7,9 +7,9 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_PATH_DES
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TUTORIAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_A;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LECTURE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TUTORIAL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
@@ -27,7 +27,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Pdf expectedPdf = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_LECTURE).build();
+        Pdf expectedPdf = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_CS2103T).build();
 
         System.out.println(FILE_DESC_A_PDF);
 
@@ -52,7 +52,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPdf));*/
 
         // multiple tags - all accepted
-        Pdf expectedPdfMultipleTags = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_LECTURE, VALID_TAG_TUTORIAL)
+        Pdf expectedPdfMultipleTags = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_CS2103T, VALID_TAG_LECTURE)
                 .build();
         assertParseSuccess(parser, FILE_DESC_A_PDF + TAG_DESC_LECTURE + TAG_DESC_TUTORIAL,
                 new AddCommand(expectedPdfMultipleTags));
@@ -70,10 +70,10 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing file prefix
-        assertParseFailure(parser, VALID_NAME_A, expectedMessage);
+        assertParseFailure(parser, VALID_NAME_1, expectedMessage);
 
         /*// missing name prefix
-        assertParseFailure(parser, VALID_NAME_A + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
+        assertParseFailure(parser, VALID_NAME_1 + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
                 expectedMessage);
 
         // missing phone prefix

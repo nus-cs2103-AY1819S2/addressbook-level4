@@ -4,13 +4,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_A;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_B;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_2;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LECTURE;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditPdfDescriptorBuilder;
 
 public class EditPdfDescriptorTest {
     @Test
@@ -32,11 +32,11 @@ public class EditPdfDescriptorTest {
         assertFalse(DESC_A.equals(DESC_B));
 
         // different name -> returns false
-        EditPersonDescriptor editedA = new EditPersonDescriptorBuilder(DESC_A).withName(VALID_NAME_B).build();
+        EditPersonDescriptor editedA = new EditPdfDescriptorBuilder(DESC_A).withName(VALID_NAME_2).build();
         assertFalse(DESC_A.equals(editedA));
 
         // different tags -> returns false
-        editedA = new EditPersonDescriptorBuilder(DESC_A).withTags(VALID_TAG_TUTORIAL).build();
+        editedA = new EditPdfDescriptorBuilder(DESC_A).withTags(VALID_TAG_LECTURE).build();
         assertFalse(DESC_A.equals(editedA));
     }
 }

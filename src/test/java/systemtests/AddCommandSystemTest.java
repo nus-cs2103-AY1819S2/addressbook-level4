@@ -22,8 +22,8 @@ package systemtests;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
 //import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TUTORIAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_B;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_2;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 //import static seedu.address.testutil.TypicalPdfs.ALICE;
 //import static seedu.address.testutil.TypicalPdfs.AMY;
@@ -67,7 +67,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Pdf toAdd = SAMPLE_PDF_1;
 
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + VALID_DIR_A + " " + TAG_DESC_LECTURE + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + VALID_DIR_1 + " " + TAG_DESC_LECTURE + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding SAMPLE_PDF_1 to the list -> Amy deleted */
@@ -83,7 +83,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add another pdf with different properties */
         toAdd = new PdfBuilder(SAMPLE_PDF_2).build();
-        command = AddCommand.COMMAND_WORD + VALID_DIR_B;
+        command = AddCommand.COMMAND_WORD + VALID_DIR_2;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a pdf with the same name but different directory -> added*/
@@ -98,7 +98,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /*
         *//* Case: add a pdf with tags, command with parameters in random order -> added *//*
         toAdd = SAMPLE_PDF_3;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_TUTORIAL + VALID_DIR_C;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_TUTORIAL + VALID_DIR_3;
         assertCommandSuccess(command, toAdd);
 
         *//* Case: add a pdf, missing tags -> added *//*

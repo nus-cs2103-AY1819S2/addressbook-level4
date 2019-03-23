@@ -12,17 +12,14 @@ import seedu.address.model.person.Grade;
 import seedu.address.model.person.Semester;
 
 /**
- * Finds and lists module(s) in module plan matching all given module code,
+ * Finds module(s) in the module plan matching all given module code,
  * semester, grade or finished status (case-insensitive).
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds module(s) based on "
-            + "module code, semester, grade or finished status (case-insensitive).\n"
-            + "Module code can be entered partially, but semester and grade must be exact.\n"
-            + "Finished status must be 'y' or 'n'."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds module(s) matching all given parameters.\n"
             + "Parameters: [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]\n"
             + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A";
 
@@ -48,10 +45,11 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Stores the details for finding a module. Each field can be empty.
+     * Stores details for finding a module in the module plan.
+     * There must be at least one filled field.
      */
     public static class FindModuleDescriptor {
-        private String code; // can be substring of exact code
+        private String subCode; // can be substring of exact code
         private Semester semester;
         private Grade grade;
         private Boolean isFinished;
@@ -62,18 +60,18 @@ public class FindCommand extends Command {
          * Copy constructor.
          */
         public FindModuleDescriptor(FindModuleDescriptor toCopy) {
-            setCode(toCopy.code);
+            setSubCode(toCopy.subCode);
             setSemester(toCopy.semester);
             setGrade(toCopy.grade);
             setFinished(toCopy.isFinished);
         }
 
-        public void setCode(String code) {
-            this.code = code.toLowerCase();
+        public void setSubCode(String subCode) {
+            this.subCode = subCode.toLowerCase();
         }
 
-        public Optional<String> getCode() {
-            return Optional.ofNullable(code);
+        public Optional<String> getSubCode() {
+            return Optional.ofNullable(subCode);
         }
 
         public void setSemester(Semester semester) {
@@ -110,7 +108,7 @@ public class FindCommand extends Command {
             }
 
             FindModuleDescriptor other = (FindModuleDescriptor) object;
-            return getCode().equals(other.getCode())
+            return getSubCode().equals(other.getSubCode())
                     && getSemester().equals(other.getSemester())
                     && getGrade().equals(other.getGrade())
                     && isFinished().equals(other.isFinished());

@@ -78,7 +78,7 @@ public class PersonUtil {
 
     public static String getFindModuleDescriptorDetails(FindModuleDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getCode().ifPresent(code -> sb.append(PREFIX_NAME).append(code).append(" "));
+        descriptor.getSubCode().ifPresent(code -> sb.append(PREFIX_NAME).append(code).append(" "));
         descriptor.getSemester().ifPresent(semester ->
                 sb.append(PREFIX_SEMESTER)
                         .append(semester.name())

@@ -25,7 +25,7 @@ public class FindModuleDescriptorBuilder {
      */
     public FindModuleDescriptorBuilder(Person module) {
         descriptor = new FindModuleDescriptor();
-        descriptor.setCode(module.getModuleInfo().fullName);
+        descriptor.setSubCode(module.getModuleInfo().fullName);
         descriptor.setSemester(module.getSemester());
         descriptor.setGrade(module.getExpectedMinGrade());
     }
@@ -34,7 +34,7 @@ public class FindModuleDescriptorBuilder {
      * Sets the {@code code} of the {@code FindModuleDescriptor} that we are building.
      */
     public FindModuleDescriptorBuilder withCode(String code) {
-        descriptor.setCode(code);
+        descriptor.setSubCode(code);
         return this;
     }
 

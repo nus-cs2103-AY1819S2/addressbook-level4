@@ -4,10 +4,10 @@ package seedu.address.model.statistics;
  */
 public abstract class Statistics {
 
-    protected int hitCount;
-    protected int missCount;
-    protected int movesLeft;
-    protected int enemyShipDestroyed;
+    protected static int hitCount;
+    protected static int missCount;
+    protected static int movesLeft;
+    protected static int enemyShipDestroyed;
     // private int shipsLeft;
     // private int hatTricks // 3 in a row
 

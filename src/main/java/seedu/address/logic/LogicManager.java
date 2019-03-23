@@ -87,6 +87,8 @@ public class LogicManager implements Logic {
         //System.out.println("Command keyword is : " + commandKeyword);
         if (commandKeyword.equals("attack")) {
             int numMovesLeft = statistics.minusMove();
+            System.out.println("Moves Left: " + numMovesLeft);
+            System.out.println("Stats Moves Left: " + statistics.getMovesLeft());
         }
     }
 

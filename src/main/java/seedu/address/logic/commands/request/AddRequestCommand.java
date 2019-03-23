@@ -22,7 +22,7 @@ public class AddRequestCommand extends AddCommand {
 
     public static final String COMMAND_WORD = "request";
 
-    public static final String MESSAGE_USAGE = RequestCommand.COMMAND_WORD + " " + AddCommand.COMMAND_WORD
+    public static final String MESSAGE_USAGE = AddCommand.COMMAND_WORD + "3"
         + ": Creates a new request in the request book. " + "Parameters: "
         + PREFIX_NAME + "NAME "
         + PREFIX_NRIC + "NRIC "

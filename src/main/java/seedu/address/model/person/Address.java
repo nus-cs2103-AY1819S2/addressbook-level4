@@ -37,21 +37,6 @@ public class Address {
         return test.matches(VALIDATION_REGEX);
     }
 
-    /**
-     * This method is used to extract the street name only,
-     * without the unit number.
-     * @return substring of address
-     */
-    public String toStreetNameOnly() {
-        // We assume that address would be in this format:
-        // Blk 17 Ghim Moh Terrace, #01-17.
-        if (value.contains(",")) {
-            return value.substring(0, value.indexOf(","));
-        } else {
-            return value;
-        }
-    }
-
     @Override
     public String toString() {
         return value;

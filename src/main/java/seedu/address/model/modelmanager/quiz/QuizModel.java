@@ -86,4 +86,14 @@ public interface QuizModel extends Model {
      * Returns data needed by {@code Session} when {@code Quiz} end.
      */
     List<List<Integer>> end();
+
+    /**
+     * Sets formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.
+     */
+    void setDisplayFormatter(QuizUiDisplayFormatter formatter);
+
+    /**
+     * Returns formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.
+     */
+    QuizUiDisplayFormatter getDisplayFormatter();
 }

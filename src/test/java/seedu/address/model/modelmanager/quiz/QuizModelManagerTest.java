@@ -16,13 +16,15 @@ import seedu.address.model.session.Session;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.SessionBuilder;
 
-public class QuizManagementModelManagerTest {
+public class QuizModelManagerTest {
     private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo",
             Arrays.asList("JP", "Asia"));
     private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");
     private static final List<QuizCard> VALID_QUIZCARD = Arrays.asList(QUIZCARD_1, QUIZCARD_2);
     private static final Quiz QUIZ = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+    private static final QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter("Question", "some question",
+        "Answer", "some answer", Quiz.Mode.LEARN);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -152,6 +154,12 @@ public class QuizManagementModelManagerTest {
         assertEquals(expected, modelManager.end());
         assertEquals(4, modelManager.getQuizTotalAttempts());
         assertEquals(4, modelManager.getQuizTotalCorrectQuestions());
+    }
+
+    @Test
+    public void getDisplayFormatter() {
+        modelManager.setDisplayFormatter(formatter);
+        assertEquals(formatter, modelManager.getDisplayFormatter());
     }
 
     @Test

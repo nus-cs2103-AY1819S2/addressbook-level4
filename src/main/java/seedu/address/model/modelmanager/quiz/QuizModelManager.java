@@ -15,6 +15,7 @@ public class QuizModelManager implements QuizModel {
     private static final Logger logger = LogsCenter.getLogger(QuizModelManager.class);
 
     private Quiz quiz;
+    private QuizUiDisplayFormatter formatter;
     private Session session;
 
     /**
@@ -109,6 +110,16 @@ public class QuizModelManager implements QuizModel {
     @Override
     public List<List<Integer>> end() {
         return quiz.end();
+    }
+
+    @Override
+    public void setDisplayFormatter(QuizUiDisplayFormatter formatter) {
+        this.formatter = formatter;
+    }
+
+    @Override
+    public QuizUiDisplayFormatter getDisplayFormatter() {
+        return formatter;
     }
 
     @Override

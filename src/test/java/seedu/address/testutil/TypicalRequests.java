@@ -12,42 +12,50 @@ import seedu.address.model.util.SampleDataUtil;
  * A utility class containing {@code Request} objects to be used in tests.
  */
 public class TypicalRequests {
-    public static final String ALICE_ID = "aslkdjaslaskd";
-    public static final String BENSON_ID = "slkajsfddasdf";
-    public static final String CARL_ID = "poqweizsdfda";
-    public static final String DANIEL_ID = "xzaiseqnwqd";
 
     public static final Request ALICE_REQUEST = new RequestBuilder()
-            .withId(ALICE_ID)
-            .withConditions(SampleDataUtil.getConditionSet("Physiotherapy"))
-            .withDate("01-01-2019 10:00:00")
-            .withHealthStaff(TypicalHealthWorkers.ANDY)
-            .withStatus("PENDING")
-            .build();
+        .withConditions(SampleDataUtil.getConditionSet("Physiotherapy"))
+        .withDate("01-01-2019 10:00:00")
+        .withHealthStaff(TypicalHealthWorkers.ANDY)
+        .withStatus("PENDING")
+        .withAddress("123, Jurong West Ave 6, #08-111")
+        .withPhone("94351253")
+        .withNric("S9670515H")
+        .withName("Alice Pauline")
+        .build();
 
     public static final Request BENSON_REQUEST = new RequestBuilder()
-            .withId(BENSON_ID)
-            .withConditions(SampleDataUtil.getConditionSet("Palliative"))
-            .withDate("02-01-2919 08:00:00")
-            .withHealthStaff(TypicalHealthWorkers.BETTY)
-            .withStatus("PENDING")
-            .build();
+        .withConditions(SampleDataUtil.getConditionSet("Palliative"))
+        .withDate("02-01-2919 08:00:00")
+        .withHealthStaff(TypicalHealthWorkers.BETTY)
+        .withStatus("PENDING")
+        .withName("Benson Meier")
+        .withNric("S9274100D")
+        .withAddress("311, Clementi Ave 2, #02-25")
+        .withPhone("98765432")
+        .build();
 
     public static final Request CARL_REQUEST = new RequestBuilder()
-            .withId(CARL_ID)
-            .withConditions(SampleDataUtil.getConditionSet("Cancer"))
-            .withDate("02-01-2919 14:00:00")
-            .withHealthStaff(TypicalHealthWorkers.CARLIE)
-            .withStatus("PENDING")
-            .build();
+        .withConditions(SampleDataUtil.getConditionSet("Palliative"))
+        .withDate("02-01-2919 14:00:00")
+        .withHealthStaff(TypicalHealthWorkers.CARLIE)
+        .withStatus("PENDING")
+        .withNric("S9328723A")
+        .withName("Carl Kurz")
+        .withPhone("87652533")
+        .withAddress("wall street")
+        .build();
 
     public static final Request DANIEL_REQUEST = new RequestBuilder()
-            .withId(DANIEL_ID)
-            .withConditions(SampleDataUtil.getConditionSet("AIDS"))
-            .withDate("02-01-2919 18:00:00")
-            .withHealthStaff(TypicalHealthWorkers.PANIEL)
-            .withStatus("COMPLETED")
-            .build();
+        .withConditions(SampleDataUtil.getConditionSet("Palliative"))
+        .withDate("02-01-2919 18:00:00")
+        .withHealthStaff(TypicalHealthWorkers.PANIEL)
+        .withStatus("COMPLETED")
+        .withNric("S2652663Z")
+        .withPhone("82015737")
+        .withAddress("10th street")
+        .withName("Daniel Meier")
+        .build();
 
     /**
      * Returns an {@code RequestBook} with all the typical persons.

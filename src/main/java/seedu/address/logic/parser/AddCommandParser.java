@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
 
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
@@ -69,8 +68,6 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private AddRequestCommand parseAddRequest(String args) throws ParseException {
-        UUID uuid = UUID.randomUUID();
-        String requestId = uuid.toString();
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args,
             PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE,

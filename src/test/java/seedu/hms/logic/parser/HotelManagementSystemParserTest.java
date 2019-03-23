@@ -130,7 +130,8 @@ public class HotelManagementSystemParserTest {
     public void parseCommandEditCustomer() throws Exception {
         Customer customer = new CustomerBuilder().build();
         EditCustomerCommand.EditCustomerDescriptor descriptor = new EditCustomerDescriptorBuilder(customer).build();
-        EditCustomerCommand command = (EditCustomerCommand) parser.parseCommand(EditCustomerCommand.COMMAND_WORD + " "
+        EditCustomerCommand command = (EditCustomerCommand) parser.parseCommand(
+            EditCustomerCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_CUSTOMER.getOneBased() + " " + CustomerUtil.getEditCustomerDescriptorDetails(descriptor),
             new CustomerManager(), new BookingManager());
         assertEquals(new EditCustomerCommand(INDEX_FIRST_CUSTOMER, descriptor), command);
@@ -262,16 +263,16 @@ public class HotelManagementSystemParserTest {
     @Test
     public void parseCommand_select() throws Exception {
         SelectCustomerCommand command = (SelectCustomerCommand) parser.parseCommand(
-            SelectCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(), new CustomerManager(),
-            new BookingManager());
+            SelectCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+            new CustomerManager(), new BookingManager());
         assertEquals(new SelectCustomerCommand(INDEX_FIRST_CUSTOMER), command);
     }
 
     @Test
     public void parseCommand_selectAlias() throws Exception {
         SelectCustomerCommand commandAlias = (SelectCustomerCommand) parser.parseCommand(
-            SelectCustomerCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(), new CustomerManager(),
-            new BookingManager());
+            SelectCustomerCommand.COMMAND_ALIAS + " " + INDEX_FIRST_CUSTOMER.getOneBased(),
+            new CustomerManager(), new BookingManager());
         assertEquals(new SelectCustomerCommand(INDEX_FIRST_CUSTOMER), commandAlias);
     }
 

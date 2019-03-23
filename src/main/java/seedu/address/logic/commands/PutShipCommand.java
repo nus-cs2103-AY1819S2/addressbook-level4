@@ -107,7 +107,7 @@ public class PutShipCommand extends Command {
         }
 
         model.updateUi();
-        Cell cellToEdit = model.getMapGrid().getCell(coordinates);
+        Cell cellToEdit = model.getHumanMapGrid().getCell(coordinates);
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));
     }
@@ -120,12 +120,8 @@ public class PutShipCommand extends Command {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
-        if ((rowIndex.getZeroBased() > model.getMapSize())
-                || colIndex.getZeroBased() > model.getMapSize()) {
-            return false;
-        }
-
-        return true;
+        return (rowIndex.getZeroBased() <= model.getMapSize())
+                && colIndex.getZeroBased() <= model.getMapSize();
     }
 
     /**
@@ -138,11 +134,7 @@ public class PutShipCommand extends Command {
 
         int length = battleship.getLength();
 
-        if (colIndex.getZeroBased() + length > model.getMapSize()) {
-            return false;
-        }
-
-        return true;
+        return colIndex.getZeroBased() + length <= model.getMapSize();
     }
 
     /**
@@ -155,11 +147,7 @@ public class PutShipCommand extends Command {
 
         int length = battleship.getLength();
 
-        if (rowIndex.getZeroBased() + length > model.getMapSize()) {
-            return false;
-        }
-
-        return true;
+        return rowIndex.getZeroBased() + length <= model.getMapSize();
     }
 
     /**
@@ -170,13 +158,9 @@ public class PutShipCommand extends Command {
         Index rowIndex = coordinates.getRowIndex();
         Index colIndex = coordinates.getColIndex();
 
-        Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(), colIndex.getZeroBased());
+        Cell cellToInspect = model.getHumanMapGrid().getCell(rowIndex.getZeroBased(), colIndex.getZeroBased());
 
-        if (cellToInspect.hasBattleShip()) {
-            return false;
-        }
-
-        return true;
+        return !cellToInspect.hasBattleShip();
     }
 
     /**
@@ -190,7 +174,7 @@ public class PutShipCommand extends Command {
         int length = battleship.getLength();
 
         for (int i = 1; i < length; i++) {
-            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
+            Cell cellToInspect = model.getHumanMapGrid().getCell(rowIndex.getZeroBased() + i,
                     colIndex.getZeroBased());
 
             if (cellToInspect.hasBattleShip()) {
@@ -222,7 +206,7 @@ public class PutShipCommand extends Command {
         int length = battleship.getLength();
 
         for (int i = 1; i < length; i++) {
-            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
+            Cell cellToInspect = model.getHumanMapGrid().getCell(rowIndex.getZeroBased(),
                     colIndex.getZeroBased() + i);
 
             if (cellToInspect.hasBattleShip()) {
@@ -245,7 +229,7 @@ public class PutShipCommand extends Command {
         int length = battleship.getLength();
 
         for (int i = 0; i < length; i++) {
-            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased() + i,
+            Cell cellToInspect = model.getHumanMapGrid().getCell(rowIndex.getZeroBased() + i,
                     colIndex.getZeroBased());
 
             cellToInspect.putShip(battleship);
@@ -264,7 +248,7 @@ public class PutShipCommand extends Command {
         int length = battleship.getLength();
 
         for (int i = 0; i < length; i++) {
-            Cell cellToInspect = model.getMapGrid().getCell(rowIndex.getZeroBased(),
+            Cell cellToInspect = model.getHumanMapGrid().getCell(rowIndex.getZeroBased(),
                     colIndex.getZeroBased() + i);
 
             cellToInspect.putShip(battleship);

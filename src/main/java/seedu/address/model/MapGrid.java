@@ -136,19 +136,30 @@ public class MapGrid implements ReadOnlyAddressBook {
     /**
      * Put battleship in the given coordinates
      */
-    public void putShip(Coordinates coordinates, Battleship battleship) {
-        updateUi();
+    public void putShip(Coordinates coordinates, Battleship battleship) throws ArrayIndexOutOfBoundsException {
+        if (coordinates.getColIndex().getOneBased() > getMapSize()) {
+            throw new ArrayIndexOutOfBoundsException("Coordinates are outside of the map");
+        }
+
         cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
             .putShip(battleship);
+        updateUi();
     }
 
     /**
      * Attack a specified cell. Returns true if a ship was hit otherwise false.
      */
-    public boolean attackCell(Coordinates coordinates) {
+    public boolean attackCell(Coordinates coordinates) throws ArrayIndexOutOfBoundsException {
+        if (coordinates.getColIndex().getOneBased() > getMapSize()) {
+            throw new ArrayIndexOutOfBoundsException("Coordinates are outside of the map");
+        }
+
+        boolean isSuccessfulHit =
+                cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
+                        .receiveAttack();
+
         updateUi();
-        return cellGrid[coordinates.getRowIndex().getZeroBased()][coordinates.getColIndex().getZeroBased()]
-                .receiveAttack();
+        return isSuccessfulHit;
     }
 
     //// list overwrite operations

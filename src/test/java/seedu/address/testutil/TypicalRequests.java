@@ -1,12 +1,12 @@
 package seedu.address.testutil;
 
-import seedu.address.model.RequestBook;
-import seedu.address.model.request.Request;
-import seedu.address.model.util.SampleDataUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.address.model.RequestBook;
+import seedu.address.model.request.Request;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class containing {@code Request} objects to be used in tests.

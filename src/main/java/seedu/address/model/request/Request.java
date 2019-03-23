@@ -90,10 +90,10 @@ public class Request {
             return false;
         }
 
-        return otherRequest.nric.equals(this.nric)
+        return (otherRequest.nric.equals(this.nric)
             && otherRequest.getRequestDate().equals(this.requestDate)
-            && (otherRequest.getConditions().equals(this.conditions)
-            && otherRequest.address.equals(this.address));
+            && otherRequest.getConditions().equals(this.conditions))
+            || otherRequest.address.equals(this.address);
     }
 
     public Name getName() {

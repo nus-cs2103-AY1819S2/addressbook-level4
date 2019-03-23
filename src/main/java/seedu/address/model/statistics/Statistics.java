@@ -1,4 +1,4 @@
-package seedu.address.logic.statistics;
+package seedu.address.model.statistics;
 /**
  * A Statistics Class tracks the key gameplay information.
  */

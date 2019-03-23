@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import seedu.address.model.statistics.PlayerStatistics;
+
 /**
  * The StatisticsTest will test the methods of the statistics class
  */

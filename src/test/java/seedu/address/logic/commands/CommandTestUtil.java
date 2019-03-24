@@ -20,91 +20,55 @@ import seedu.address.model.Model;
 import seedu.address.model.PdfBook;
 import seedu.address.model.pdf.NameContainsKeywordsPredicate;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditPdfDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
-
-    /*public static final String VALID_NAME_AMY = "Amy Bee";
-    public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_PHONE_AMY = "11111111";
-    public static final String VALID_PHONE_BOB = "22222222";
-    public static final String VALID_EMAIL_AMY = "amy@example.com";
-    public static final String VALID_EMAIL_BOB = "bob@example.com";
-    public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
-    public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_TAG_HUSBAND = "husband";
-    public static final String VALID_TAG_FRIEND = "friend";*/
-
-    public static final String VALID_NAME_A = "a.pdf";
-    public static final String VALID_NAME_B = "b.pdf";
-    public static final String VALID_NAME_C = "c.pdf";
-    public static final String VALID_DIR_A = Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "a.pdf")
-            .getParent().toAbsolutePath().toString();
-    public static final String VALID_DIR_B = Paths.get("src", "data", "JsonAdaptedPdfTest", "b.pdf")
+    public static final String VALID_NAME_1 = "CS2103T_PDF++_UG_Intro.pdf";
+    public static final String VALID_NAME_2 = "CS2103T_Week9_Integration Approaches.pdf";
+    public static final String VALID_NAME_3 = "validnamec!.pdf";
+    public static final String VALID_DIR_1 =
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", VALID_NAME_1)
             .toAbsolutePath().toString();
-    public static final String VALID_DIR_C = Paths.get("src", "data", "JsonAdaptedPdfTest", "c.pdf")
+    public static final String VALID_DIR_2 =
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", VALID_NAME_2)
             .toAbsolutePath().toString();
-    public static final String VALID_SIZE_A = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
-            "a.pdf").toAbsolutePath().toFile().length());
-    public static final String VALID_SIZE_B = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
-            "b.pdf").toAbsolutePath().toFile().length());
-    public static final String VALID_SIZE_C = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
-            "c.pdf").toAbsolutePath().toFile().length());
+    public static final String VALID_DIR_3 =
+            Paths.get("src", "data", "JsonAdaptedPdfTest", "CS2103T_sample PPP.pdf")
+            .toAbsolutePath().toString();
+    public static final String VALID_SIZE_1 = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
+            "CS2103T_Lecture3.pdf").toAbsolutePath().toFile().length());
+    public static final String VALID_SIZE_2 = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
+            "CS2103T_Schedule_AY1819S2.pdf").toAbsolutePath().toFile().length());
+    public static final String VALID_SIZE_3 = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
+            "CS2103T_sample PPP.pdf").toAbsolutePath().toFile().length());
 
+    public static final String VALID_TAG_CS2103T = "CS2103T";
+    public static final String VALID_TAG_UG = "UG";
+    public static final String VALID_TAG_INTRODUCTION = "introduction";
     public static final String VALID_TAG_LECTURE = "lecture";
-    public static final String VALID_TAG_TUTORIAL = "tutorial";
 
-    public static final String FILE_DESC_A_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_A, VALID_NAME_A)
+    public static final String FILE_DESC_1_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_1)
             .toAbsolutePath().toString();
-    public static final String FILE_DESC_B_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_B, VALID_NAME_B)
+    public static final String FILE_DESC_2_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_2)
             .toAbsolutePath().toString();
 
     public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG_NEW + VALID_TAG_LECTURE;
-    public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG_NEW + VALID_TAG_TUTORIAL;
-
-    /*public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG_NEW + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG_NEW + VALID_TAG_HUSBAND;*/
-
-
+    public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_NEW + VALID_TAG_CS2103T;
     public static final String INVALID_FILE_PATH_DESC = " " + PREFIX_FILE + "DefinitelyNotAFilePath"; // not valid path
-
-    /*public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses*/
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG_NEW + "moduleA*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    /*public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;*/
-
-    public static final EditCommand.EditPersonDescriptor DESC_A;
-    public static final EditCommand.EditPersonDescriptor DESC_B;
+    public static final EditCommand.EditPersonDescriptor DESC_1;
+    public static final EditCommand.EditPersonDescriptor DESC_2;
 
     static {
-        /*DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        DESC_A = new EditPersonDescriptorBuilder().withName(VALID_NAME_A)
-                .withDirectory(VALID_DIR_A).build();
-        DESC_B = new EditPersonDescriptorBuilder().withName(VALID_NAME_B)
-                .withDirectory(VALID_DIR_B).build();*/
-        DESC_A = new EditPersonDescriptorBuilder().withName(VALID_NAME_A).build();
-        DESC_B = new EditPersonDescriptorBuilder().withName(VALID_NAME_B).build();
+        DESC_1 = new EditPdfDescriptorBuilder().withName(VALID_NAME_1).build();
+        DESC_2 = new EditPdfDescriptorBuilder().withName(VALID_NAME_2).build();
     }
 
     /**

@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalPdfs.A_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
@@ -57,7 +57,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
 
         // after address book is updated
-        guiRobot.interact(() -> addressBook.addPdf(A_PDF));
+        guiRobot.interact(() -> addressBook.addPdf(SAMPLE_PDF_1));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }

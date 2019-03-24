@@ -14,7 +14,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 //import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 //import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPdfs.D_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_4;
 import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -28,7 +28,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.PdfBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditPdfDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -40,8 +40,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Pdf editedPdf = D_PDF;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPdf).build();
+        Pdf editedPdf = SAMPLE_PDF_4;
+        EditPersonDescriptor descriptor = new EditPdfDescriptorBuilder(editedPdf).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PDF, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
@@ -62,7 +62,7 @@ public class EditCommandTest {
         Pdf editedPdf = personInList.withName(VALID_NAME_BOB).withSize(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        EditPersonDescriptor descriptor = new EditPdfDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withTags(VALID_TAG_HUSBAND).build();
         EditCommand editCommand = new EditCommand(indexLastPerson, descriptor);
 
@@ -95,7 +95,7 @@ public class EditCommandTest {
         Pdf pdfInFilteredList = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
         Pdf editedPdf = new PdfBuilder(pdfInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PDF,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditPdfDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PDF_SUCCESS, editedPdf);
 
@@ -109,7 +109,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
         Pdf firstPdf = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPdf).build();
+        EditPersonDescriptor descriptor = new EditPdfDescriptorBuilder(firstPdf).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PDF, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PDF);
@@ -122,7 +122,7 @@ public class EditCommandTest {
         // edit pdf in filtered list into a duplicate in address book
         Pdf pdfInList = model.getPdfBook().getPdfList().get(INDEX_SECOND_PDF.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PDF,
-                new EditPersonDescriptorBuilder(pdfInList).build());
+                new EditPdfDescriptorBuilder(pdfInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, EditCommand.MESSAGE_DUPLICATE_PDF);
     }
@@ -130,7 +130,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPdfList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditPersonDescriptor descriptor = new EditPdfDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -148,7 +148,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPdfBook().getPdfList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
+                new EditPdfDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -157,7 +157,7 @@ public class EditCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Pdf editedPdf = new PdfBuilder().build();
         Pdf pdfToEdit = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPdf).build();
+        EditPersonDescriptor descriptor = new EditPdfDescriptorBuilder(editedPdf).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PDF, descriptor);
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
         expectedModel.setPdf(pdfToEdit, editedPdf);
@@ -178,7 +178,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPdfList().size() + 1);
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditPersonDescriptor descriptor = new EditPdfDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
@@ -199,7 +199,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Pdf editedPdf = new PdfBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPdf).build();
+        EditPersonDescriptor descriptor = new EditPdfDescriptorBuilder(editedPdf).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PDF, descriptor);
         Model expectedModel = new ModelManager(new PdfBook(model.getPdfBook()), new UserPrefs());
 

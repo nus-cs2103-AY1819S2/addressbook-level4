@@ -4,8 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.testutil.TypicalBooks.BOOKTHIEF;
 import static seedu.address.ui.testutil.BookGuiTestAssert.assertListMatching;
 
 import org.junit.Test;
@@ -70,7 +68,7 @@ public class HelpCommandSystemTest extends BookShelfSystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteBookCommand.COMMAND_WORD + " " + PREFIX_NAME + BOOKTHIEF.getBookName().fullName);
+        executeCommand(DeleteBookCommand.COMMAND_WORD + " 1");
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

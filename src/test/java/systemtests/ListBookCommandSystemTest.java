@@ -92,7 +92,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         assertCommandFailure(command, expectedResultMessage);
 
         /* Case: find same books in book shelf after deleting 1 of them -> 1 person found */
-        command = DeleteBookCommand.COMMAND_WORD + " " + PREFIX_NAME + BOOKTHIEF.getBookName().fullName;
+        command = DeleteBookCommand.COMMAND_WORD + " 1";
         executeCommand(command);
         assertFalse(getModel().getBookShelf().getBookList().contains(BOOKTHIEF));
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + KEYWORD_MATCHING_COLLINS + "   ";

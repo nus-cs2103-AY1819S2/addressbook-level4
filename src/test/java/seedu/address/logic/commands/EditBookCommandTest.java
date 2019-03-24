@@ -6,17 +6,19 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALI;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_CS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TEXTBOOK;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showBookOfExactName;
+import static seedu.address.logic.commands.CommandTestUtil.showBookAtIndex;
 import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BOOK;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.model.BookShelf;
@@ -24,8 +26,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.BookName;
-import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.EditBookDescriptorBuilder;
 
@@ -41,10 +41,8 @@ public class EditBookCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Book editedBook = new BookBuilder().build();
-        BookNameContainsExactKeywordsPredicate firstPredicate =
-                new BookNameContainsExactKeywordsPredicate(model.getBookShelf().getBookList().get(0).getBookName());
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder(editedBook).build();
-        EditBookCommand editCommand = new EditBookCommand(firstPredicate, descriptor);
+        EditBookCommand editCommand = new EditBookCommand(INDEX_FIRST_BOOK, descriptor);
 
         String expectedMessage = String.format(EditBookCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook);
 
@@ -57,9 +55,8 @@ public class EditBookCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Book lastBook = model.getFilteredBookList().get(model.getFilteredBookList().size() - 1);
-        BookNameContainsExactKeywordsPredicate firstPredicate =
-                new BookNameContainsExactKeywordsPredicate(lastBook.getBookName());
+        Index indexLastBook = Index.fromOneBased(model.getFilteredBookList().size());
+        Book lastBook = model.getFilteredBookList().get(indexLastBook.getZeroBased());
 
         BookBuilder bookInList = new BookBuilder(lastBook);
         Book editedBook = bookInList.withBookName(VALID_BOOKNAME_CS).withAuthor(VALID_AUTHOR_CS)
@@ -67,7 +64,7 @@ public class EditBookCommandTest {
 
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_CS)
                 .withAuthor(VALID_AUTHOR_CS).withTags(VALID_TAG_TEXTBOOK).build();
-        EditBookCommand editCommand = new EditBookCommand(firstPredicate, descriptor);
+        EditBookCommand editCommand = new EditBookCommand(indexLastBook, descriptor);
 
         String expectedMessage = String.format(EditBookCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook);
 
@@ -80,10 +77,8 @@ public class EditBookCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        BookNameContainsExactKeywordsPredicate firstPredicate =
-                new BookNameContainsExactKeywordsPredicate(model.getBookShelf().getBookList().get(0).getBookName());
-        EditBookCommand editCommand = new EditBookCommand(firstPredicate, new EditBookDescriptor());
-        Book editedBook = model.getFilteredBookList().get(0);
+        EditBookCommand editCommand = new EditBookCommand(INDEX_FIRST_BOOK, new EditBookDescriptor());
+        Book editedBook = model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased());
 
         String expectedMessage = String.format(EditBookCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook);
 
@@ -95,11 +90,11 @@ public class EditBookCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        Book bookInFilteredList = model.getFilteredBookList().get(0);
+        showBookAtIndex(model, INDEX_FIRST_BOOK);
+
+        Book bookInFilteredList = model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased());
         Book editedBook = new BookBuilder(bookInFilteredList).withBookName(VALID_BOOKNAME_CS).build();
-        BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate(bookInFilteredList.getBookName());
-        EditBookCommand editCommand = new EditBookCommand(predicate,
+        EditBookCommand editCommand = new EditBookCommand(INDEX_FIRST_BOOK,
                 new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_CS).build());
 
         String expectedMessage = String.format(EditBookCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook);
@@ -113,38 +108,57 @@ public class EditBookCommandTest {
 
     @Test
     public void execute_duplicateBookUnfilteredList_failure() {
-        Book firstBook = model.getFilteredBookList().get(0);
-        Book second = model.getFilteredBookList().get(1);
-        BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate(firstBook.getBookName());
-        EditBookDescriptor descriptor = new EditBookDescriptorBuilder(second).build();
-        EditBookCommand editCommand = new EditBookCommand(predicate, descriptor);
+        Book firstBook = model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased());
+        EditBookDescriptor descriptor = new EditBookDescriptorBuilder(firstBook).build();
+        EditBookCommand editCommand = new EditBookCommand(INDEX_SECOND_BOOK, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
     }
 
     @Test
     public void execute_duplicateBookFilteredList_failure() {
+        showBookAtIndex(model, INDEX_FIRST_BOOK);
+
         // edit book in filtered list into a duplicate in address book
-        Book firstBookInList = model.getBookShelf().getBookList().get(0);
-        Book secondBookInList = model.getBookShelf().getBookList().get(1);
-        BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate(firstBookInList.getBookName());
-        EditBookCommand editCommand = new EditBookCommand(predicate,
-                new EditBookDescriptorBuilder(secondBookInList).build());
+        Book bookInList = model.getBookShelf().getBookList().get(INDEX_SECOND_BOOK.getZeroBased());
+        EditBookCommand editCommand = new EditBookCommand(INDEX_FIRST_BOOK,
+                new EditBookDescriptorBuilder(bookInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
     }
 
+    @Test
+    public void execute_invalidBookIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookList().size() + 1);
+        EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_CS).build();
+        EditBookCommand editCommand = new EditBookCommand(outOfBoundIndex, descriptor);
+
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
+    }
+
+    /**
+     * Edit filtered list where index is larger than size of filtered list,
+     * but smaller than size of address book
+     */
+    @Test
+    public void execute_invalidBookIndexFilteredList_failure() {
+        showBookAtIndex(model, INDEX_FIRST_BOOK);
+        Index outOfBoundIndex = INDEX_SECOND_BOOK;
+        // ensures that outOfBoundIndex is still in bounds of address book list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getBookShelf().getBookList().size());
+
+        EditBookCommand editCommand = new EditBookCommand(outOfBoundIndex,
+                new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_CS).build());
+
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
+    }
 
     @Test
-    public void executeUndoRedo_validBook_success() throws Exception {
+    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Book editedBook = new BookBuilder().build();
-        Book bookToEdit = model.getFilteredBookList().get(0);
-        BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate(bookToEdit.getBookName());
+        Book bookToEdit = model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased());
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder(editedBook).build();
-        EditBookCommand editCommand = new EditBookCommand(predicate, descriptor);
+        EditBookCommand editCommand = new EditBookCommand(INDEX_FIRST_BOOK, descriptor);
         Model expectedModel = new ModelManager(new BookShelf(model.getBookShelf()), new UserPrefs());
         expectedModel.setBook(bookToEdit, editedBook);
         expectedModel.commitBookShelf();
@@ -162,14 +176,13 @@ public class EditBookCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_invalidBook_failure() {
-        BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate(new BookName("Invalid"));
+    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookList().size() + 1);
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_CS).build();
-        EditBookCommand editCommand = new EditBookCommand(predicate, descriptor);
+        EditBookCommand editCommand = new EditBookCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
-        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_BOOK);
+        assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
@@ -185,26 +198,24 @@ public class EditBookCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameBookEdited() throws Exception {
-        Book bookToEdit = model.getFilteredBookList().get(1);
-        Book editedBook = new BookBuilder(bookToEdit).build();
-        BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate(bookToEdit.getBookName());
+        Book editedBook = new BookBuilder().build();
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder(editedBook).build();
-        EditBookCommand editCommand = new EditBookCommand(predicate, descriptor);
+        EditBookCommand editCommand = new EditBookCommand(INDEX_FIRST_BOOK, descriptor);
         Model expectedModel = new ModelManager(new BookShelf(model.getBookShelf()), new UserPrefs());
 
-        showBookOfExactName(model, bookToEdit.getBookName());
+        showBookAtIndex(model, INDEX_SECOND_BOOK);
+        Book bookToEdit = model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased());
         expectedModel.setBook(bookToEdit, editedBook);
         expectedModel.commitBookShelf();
 
         // edit -> edits second book in unfiltered book list / first book in filtered book list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts book shelf back to previous state and filtered book list to show all books
+        // undo -> reverts addressbook back to previous state and filtered book list to show all books
         expectedModel.undoBookShelf();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredBookList().get(0), bookToEdit);
+        assertNotEquals(model.getFilteredBookList().get(INDEX_FIRST_BOOK.getZeroBased()), bookToEdit);
         // redo -> edits same second book in unfiltered book list
         expectedModel.redoBookShelf();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -212,13 +223,10 @@ public class EditBookCommandTest {
 
     @Test
     public void equals() {
-        BookNameContainsExactKeywordsPredicate predicate =
-                new BookNameContainsExactKeywordsPredicate(new BookName(VALID_BOOKNAME_ALICE));
-        final EditBookCommand standardCommand = new EditBookCommand(predicate, DESC_ALI);
-
+        final EditBookCommand standardCommand = new EditBookCommand(INDEX_FIRST_BOOK, DESC_ALI);
         // same values -> returns true
         EditBookDescriptor copyDescriptor = new EditBookDescriptor(DESC_ALI);
-        EditBookCommand commandWithSameValues = new EditBookCommand(predicate, copyDescriptor);
+        EditBookCommand commandWithSameValues = new EditBookCommand(INDEX_FIRST_BOOK, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -230,7 +238,10 @@ public class EditBookCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearCommand()));
 
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new EditBookCommand(INDEX_SECOND_BOOK, DESC_ALI)));
+
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditBookCommand(predicate, DESC_CS)));
+        assertFalse(standardCommand.equals(new EditBookCommand(INDEX_FIRST_BOOK, DESC_CS)));
     }
 }

@@ -47,7 +47,7 @@ public class SystemTestSetupHelper {
     }
 
     /**
-     * Encapsulates the primary stage of {@code TestApp} in a {@code MainWindowHandle} and returns it.
+     * Encapsulates the primary stage of {@code TestApp} in a {@code BookMainWindowHandle} and returns it.
      */
     public MainWindowHandle setupMainWindowHandle() {
         try {

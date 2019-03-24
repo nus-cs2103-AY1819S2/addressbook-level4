@@ -60,7 +60,7 @@ public interface Model extends Observable {
     /**
      * Replaces card folder data with the data in {@code cardFolder}.
      */
-    void setCardFolder(ReadOnlyCardFolder cardFolder);
+    void resetCardFolder(ReadOnlyCardFolder cardFolder);
 
     /** Returns the active CardFolder */
     ReadOnlyCardFolder getActiveCardFolder();
@@ -120,6 +120,13 @@ public interface Model extends Observable {
      * Sets the index of the current active {@code CardFolder}.
      */
     void setActiveCardFolderIndex(int newIndex);
+
+    /**
+     * Sets the Model back to the home directory, outside of any cardfolder.
+     */
+    void exitFoldersToHome();
+
+    boolean isInFolder();
 
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCards();

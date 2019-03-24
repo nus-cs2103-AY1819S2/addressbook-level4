@@ -35,20 +35,27 @@ import seedu.address.storage.csvmanager.CsvManager;
  * Represents the in-memory model of the card folder data.
  */
 public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final FilteredList<VersionedCardFolder> filteredFoldersList;
-    private ObservableList<VersionedCardFolder> foldersList;
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+
+    private final UserPrefs userPrefs;
+
+    // CardFolder related
+    private ObservableList<VersionedCardFolder> folders;
+    private final FilteredList<VersionedCardFolder> filteredFolders;
+    private final List<FilteredList<Card>> filteredCardsList;
     private int activeCardFolderIndex;
     private boolean inFolder;
-    private final UserPrefs userPrefs;
-    private final List<FilteredList<Card>> filteredCardsList;
+
+    // Test Session related
     private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;
+
+    // Export related
     private CsvManager csvManager = new CsvManager();
-    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.
@@ -63,30 +70,21 @@ public class ModelManager implements Model {
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             versionedCardFolders.add(new VersionedCardFolder(cardFolder));
         }
-        foldersList = FXCollections.observableArrayList(versionedCardFolders);
-        filteredFoldersList = new FilteredList<>(foldersList);
+        folders = FXCollections.observableArrayList(versionedCardFolders);
+        filteredFolders = new FilteredList<>(folders);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredCardsList = new ArrayList<>();
-        for (int i = 0; i < filteredFoldersList.size(); i++) {
-            FilteredList<Card> filteredCards = new FilteredList<>(filteredFoldersList.get(i).getCardList());
+        for (int i = 0; i < filteredFolders.size(); i++) {
+            FilteredList<Card> filteredCards = new FilteredList<>(filteredFolders.get(i).getCardList());
             filteredCardsList.add(filteredCards);
             filteredCards.addListener(this::ensureSelectedCardIsValid);
         }
 
-        // TODO: Address the following hardcoded line
+
+        // ModelManager initialises to homepage
         activeCardFolderIndex = 0;
-    }
-
-    public ModelManager(ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireNonNull(userPrefs);
-
-        logger.fine("Initialising user prefs without folder: " + userPrefs);
-
-        filteredFoldersList = new FilteredList<>(FXCollections.observableArrayList());
-        this.userPrefs = new UserPrefs(userPrefs);
-        filteredCardsList = new ArrayList<>();
+        inFolder = true;
     }
 
     public ModelManager(String newFolderName) {
@@ -94,13 +92,11 @@ public class ModelManager implements Model {
     }
 
     private VersionedCardFolder getActiveVersionedCardFolder() {
-        return foldersList.get(activeCardFolderIndex);
+        return folders.get(activeCardFolderIndex);
     }
 
     private FilteredList<Card> getActiveFilteredCards() {
-        return filteredCardsList.get(activeCardFolderIndex);
-    }
-    private ObservableList<Card> getActiveObservableCards() {
+        // TODO: Only return if inFolder
         return filteredCardsList.get(activeCardFolderIndex);
     }
 
@@ -142,7 +138,7 @@ public class ModelManager implements Model {
     //=========== CardFolder ================================================================================
 
     @Override
-    public void setCardFolder(ReadOnlyCardFolder cardFolder) {
+    public void resetCardFolder(ReadOnlyCardFolder cardFolder) {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.resetData(cardFolder);
     }
@@ -154,10 +150,8 @@ public class ModelManager implements Model {
 
     @Override
     public List<ReadOnlyCardFolder> getCardFolders() {
-        return new ArrayList<>(filteredFoldersList);
+        return new ArrayList<>(filteredFolders);
     }
-
-
 
     @Override
     public boolean hasCard(Card card) {
@@ -192,7 +186,7 @@ public class ModelManager implements Model {
     public boolean hasFolder(CardFolder cardFolder) {
         requireNonNull(cardFolder);
 
-        for (VersionedCardFolder versionedCardFolder : filteredFoldersList) {
+        for (VersionedCardFolder versionedCardFolder : filteredFolders) {
             if (versionedCardFolder.hasSameFolderName(cardFolder)) {
                 return true;
             }
@@ -203,7 +197,7 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteFolder(int index) {
-        foldersList.remove(index);
+        folders.remove(index);
         filteredCardsList.remove(index);
         indicateModified();
     }
@@ -211,7 +205,7 @@ public class ModelManager implements Model {
     @Override
     public void addFolder(CardFolder cardFolder) {
         VersionedCardFolder versionedCardFolder = new VersionedCardFolder(cardFolder);
-        foldersList.add(versionedCardFolder);
+        folders.add(versionedCardFolder);
         FilteredList<Card> filteredCards = new FilteredList<>(versionedCardFolder.getCardList());
         filteredCardsList.add(filteredCards);
         filteredCards.addListener(this::ensureSelectedCardIsValid);
@@ -225,7 +219,18 @@ public class ModelManager implements Model {
 
     @Override
     public void setActiveCardFolderIndex(int newIndex) {
+        inFolder = true;
         activeCardFolderIndex = newIndex;
+    }
+
+    @Override
+    public void exitFoldersToHome() {
+        inFolder = false;
+    }
+
+    @Override
+    public boolean isInFolder() {
+        return inFolder;
     }
 
     @Override
@@ -241,7 +246,7 @@ public class ModelManager implements Model {
     /**
      * Notifies listeners that the list of card folders has been modified.
      */
-    protected void indicateModified() {
+    private void indicateModified() {
         invalidationListenerManager.callListeners(this);
     }
 
@@ -249,7 +254,7 @@ public class ModelManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
-     * {@code filteredFoldersList}
+     * {@code filteredFolders}
      */
     @Override
     public ObservableList<Card> getFilteredCards() {
@@ -266,7 +271,7 @@ public class ModelManager implements Model {
     @Override
     public void sortFilteredCard(Comparator<Card> cardComparator) {
         requireNonNull(cardComparator);
-        foldersList.get(activeCardFolderIndex).sortCards(cardComparator);
+        folders.get(activeCardFolderIndex).sortCards(cardComparator);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -423,7 +428,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return filteredFoldersList.equals(other.filteredFoldersList)
+        return filteredFolders.equals(other.filteredFolders)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get());
@@ -458,7 +463,7 @@ public class ModelManager implements Model {
      */
     private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
         String exportFolderName = cardFolderExport.folderName;
-        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFoldersList) {
+        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFolders) {
             if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
                 returnCardFolders.add(readOnlyCardFolder);
                 return;

@@ -10,7 +10,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.Model;
-import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.ManagementModel;
 
 /**
  * This implements a {@link ManagementCommand} which executes a command to add a {@link Lesson}

@@ -5,8 +5,8 @@ import static seedu.address.logic.commands.management.CommandTestUtil.assertComm
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.modelmanager.management.ManagementModel;
-import seedu.address.model.modelmanager.management.ManagementModelManager;
+import seedu.address.model.modelmanager.ManagementModel;
+import seedu.address.model.modelmanager.ManagementModelManager;
 
 public class HistoryCommandTest {
     private CommandHistory history = new CommandHistory();

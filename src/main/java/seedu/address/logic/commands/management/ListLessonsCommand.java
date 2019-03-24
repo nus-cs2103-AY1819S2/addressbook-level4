@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.management.ManagementCommand.requireManagementModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +10,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.Model;
-import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.ManagementModel;
 
 /**
  * This implements a {@link ManagementCommand} which executes a command to list all {@link Lesson} objects

@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.management;
+package seedu.address.model.modelmanager;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;

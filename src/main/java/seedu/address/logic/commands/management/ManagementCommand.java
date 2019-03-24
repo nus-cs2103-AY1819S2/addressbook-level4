@@ -2,7 +2,7 @@ package seedu.address.logic.commands.management;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.ManagementModel;
 
 /**
  * Represents a management command with hidden internal logic and the ability to be executed.

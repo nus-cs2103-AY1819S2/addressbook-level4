@@ -17,7 +17,6 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
     private Path requestBookFilePath = Paths.get("data" , "requestbook.json");
     private Path healthWorkerBookFilePath = Paths.get("data" , "healthworkerbook.json");
-    private Path patientBookFilePath = Paths.get("data" , "patientbook.json");
 
 
     /**
@@ -61,7 +60,9 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(addressBookFilePath);
         this.addressBookFilePath = addressBookFilePath;
     }
-
+    public Path getRequestBookFilePath() {
+        return this.requestBookFilePath;
+    }
     public void setRequestBookFilePath(Path requestBookFilePath) {
         requireNonNull(requestBookFilePath);
         this.requestBookFilePath = requestBookFilePath;
@@ -76,14 +77,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.healthWorkerBookFilePath = healthWorkerBookFilePath;
     }
 
-    public Path getPatientBookFilePath() {
-        return patientBookFilePath;
-    }
 
-    public void setPatientBookFilePath(Path patientBookFilePath) {
-        requireNonNull(patientBookFilePath);
-        this.patientBookFilePath = patientBookFilePath;
-    }
 
     @Override
     public boolean equals(Object other) {
@@ -113,11 +107,8 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("\nAddress book Local data file location : " + addressBookFilePath);
         sb.append("\nRequest book Local data file location : " + requestBookFilePath);
         sb.append("\nHealthWorker book Local data file location : " + healthWorkerBookFilePath);
-        sb.append("\nPatient book Local data file location : " + patientBookFilePath);
         return sb.toString();
     }
 
-    public Path getRequestBookFilePath() {
-        return this.requestBookFilePath;
-    }
+
 }

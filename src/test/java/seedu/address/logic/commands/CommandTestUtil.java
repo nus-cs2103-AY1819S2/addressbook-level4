@@ -29,7 +29,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.EditRequestDescriptorBuilder;
 
 /**
@@ -109,8 +108,7 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditPersonCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditPersonCommand.EditPersonDescriptor DESC_BOB;
+
     public static final EditHealthWorkerCommand.EditHealthWorkerDescriptor DESC_ANDY;
     public static final EditHealthWorkerCommand.EditHealthWorkerDescriptor DESC_BETTY;
     public static final EditRequestCommand.EditRequestDescriptor REQ_DESC_ALICE;
@@ -125,14 +123,7 @@ public class CommandTestUtil {
             new EditRequestDescriptorBuilder().withAddress(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withDate(VALID_DATE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withConditions(VALID_CONDITION_PHYSIO).build();
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withPhone(VALID_PHONE_AMY)
-                .withNric(VALID_NRIC_AMY)
-                .build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB)
-                .withNric(VALID_NRIC_BOB)
-                .build();
+
         DESC_ANDY = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_ANDY)
                 .withPhone(VALID_PHONE_ANDY)
                 .withNric(VALID_NRIC_ANDY)

@@ -103,22 +103,51 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
      * Stores the details to edit the HealthWorker with. Each non-empty field value will replace the
      * corresponding field value of the HealthWorker.
      */
-    public static class EditHealthWorkerDescriptor extends EditPersonCommand.EditPersonDescriptor {
+    public static class EditHealthWorkerDescriptor {
 
         private Organization organization;
         private Skills skills;
+        protected Name name;
+        protected Nric nric;
+        protected Phone phone;
+
 
         public EditHealthWorkerDescriptor() {}
 
         public EditHealthWorkerDescriptor(EditHealthWorkerDescriptor toCopy) {
-            super(toCopy);
+            setName(toCopy.name);
+            setPhone(toCopy.phone);
+            setNric(toCopy.nric);
             this.organization = toCopy.organization;
             this.skills = toCopy.skills;
         }
 
-        @Override
         public boolean isAnyFieldEdited() {
-            return super.isAnyFieldEdited() || CollectionUtil.isAnyNonNull(this.organization, this.skills);
+            return CollectionUtil.isAnyNonNull(name, nric, phone,organization,skills);
+        }
+
+        public void setName(Name name) {
+            this.name = name;
+        }
+
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
+
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
+
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
+        }
+
+        public void setNric(Nric nric) {
+            this.nric = nric;
+        }
+
+        public Optional<Nric> getNric() {
+            return Optional.ofNullable(nric);
         }
 
         public void setOrganization(Organization organization) {
@@ -137,7 +166,6 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
             return Optional.ofNullable(this.skills);
         }
 
-        @Override
         public boolean equals(Object other) {
             if (other == this) {
                 return true;

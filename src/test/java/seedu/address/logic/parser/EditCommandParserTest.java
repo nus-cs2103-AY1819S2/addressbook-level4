@@ -1,27 +1,27 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_MAX_GRADE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_MAX_GRADE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_MIN_GRADE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_MIN_GRADE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_MAX_GRADE_DESC_CS1010;
+import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_MAX_GRADE_DESC_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_MIN_GRADE_DESC_CS1010;
+import static seedu.address.logic.commands.CommandTestUtil.EXPECTED_MIN_GRADE_DESC_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_CS2103T_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXPECTED_MAX_GRADE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXPECTED_MIN_GRADE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_SEMESTER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.SEMESTER_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.SEMESTER_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.SEMESTER_DESC_CS1010;
+import static seedu.address.logic.commands.CommandTestUtil.SEMESTER_DESC_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MAX_GRADE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MAX_GRADE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MIN_GRADE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MIN_GRADE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MAX_GRADE_CS1010;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MAX_GRADE_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MIN_GRADE_CS1010;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MIN_GRADE_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_INFO_CODE_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_CS1010;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -36,8 +36,8 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.person.Grade;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -54,7 +54,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_MODULE_INFO_CODE_CS2103T, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", EditCommand.MESSAGE_NOT_EDITED);
@@ -66,10 +66,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + NAME_DESC_CS2103T, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + NAME_DESC_CS2103T, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -80,7 +80,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
+        assertParseFailure(parser, "1" + INVALID_CS2103T_DESC, ModuleInfoCode.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_SEMESTER_DESC, Semester.MESSAGE_CONSTRAINTS); // invalid semester
         assertParseFailure(parser, "1" + INVALID_EXPECTED_MIN_GRADE_DESC, Grade.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_EXPECTED_MAX_GRADE_DESC, Grade.MESSAGE_CONSTRAINTS); // invalid address
@@ -88,14 +88,14 @@ public class EditCommandParserTest {
 
         // invalid semester followed by valid email
         assertParseFailure(parser, "1" + INVALID_SEMESTER_DESC
-                + EXPECTED_MIN_GRADE_DESC_AMY, Semester.MESSAGE_CONSTRAINTS);
+                + EXPECTED_MIN_GRADE_DESC_CS2103T, Semester.MESSAGE_CONSTRAINTS);
 
         // valid semester followed by invalid semester. The test case for invalid semester followed by valid semester
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + SEMESTER_DESC_BOB
+        assertParseFailure(parser, "1" + SEMESTER_DESC_CS1010
                 + INVALID_SEMESTER_DESC, Semester.MESSAGE_CONSTRAINTS);
 
-        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
+        // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code ModuleTaken} being edited,
         // parsing it together with a valid tag results in error
         assertParseFailure(parser, "1" + TAG_DESC_FRIEND
                 + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
@@ -105,22 +105,22 @@ public class EditCommandParserTest {
                 + TAG_DESC_HUSBAND, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC
-                + INVALID_EXPECTED_MIN_GRADE_DESC + VALID_EXPECTED_MAX_GRADE_AMY
-                + VALID_SEMESTER_AMY, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_CS2103T_DESC
+                + INVALID_EXPECTED_MIN_GRADE_DESC + VALID_EXPECTED_MAX_GRADE_CS2103T
+                + VALID_SEMESTER_CS2103T, ModuleInfoCode.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + SEMESTER_DESC_BOB + TAG_DESC_HUSBAND
-                + EXPECTED_MIN_GRADE_DESC_AMY + EXPECTED_MAX_GRADE_DESC_AMY
-                + NAME_DESC_AMY + TAG_DESC_FRIEND;
+        String userInput = targetIndex.getOneBased() + SEMESTER_DESC_CS1010 + TAG_DESC_HUSBAND
+                + EXPECTED_MIN_GRADE_DESC_CS2103T + EXPECTED_MAX_GRADE_DESC_CS2103T
+                + NAME_DESC_CS2103T + TAG_DESC_FRIEND;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                .withSemester(VALID_SEMESTER_BOB)
-                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_AMY)
-                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_AMY)
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS2103T)
+                .withSemester(VALID_SEMESTER_CS1010)
+                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS2103T)
+                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS2103T)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -130,10 +130,10 @@ public class EditCommandParserTest {
     @Test
     public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + SEMESTER_DESC_BOB + EXPECTED_MIN_GRADE_DESC_AMY;
+        String userInput = targetIndex.getOneBased() + SEMESTER_DESC_CS1010 + EXPECTED_MIN_GRADE_DESC_CS2103T;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withSemester(VALID_SEMESTER_BOB)
-                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_AMY).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withSemester(VALID_SEMESTER_CS1010)
+                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS2103T).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -143,29 +143,30 @@ public class EditCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
+        String userInput = targetIndex.getOneBased() + NAME_DESC_CS2103T;
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
+                .withName(VALID_MODULE_INFO_CODE_CS2103T).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // semester
-        userInput = targetIndex.getOneBased() + SEMESTER_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withSemester(VALID_SEMESTER_AMY).build();
+        userInput = targetIndex.getOneBased() + SEMESTER_DESC_CS2103T;
+        descriptor = new EditPersonDescriptorBuilder().withSemester(VALID_SEMESTER_CS2103T).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // email
-        userInput = targetIndex.getOneBased() + EXPECTED_MIN_GRADE_DESC_AMY;
+        userInput = targetIndex.getOneBased() + EXPECTED_MIN_GRADE_DESC_CS2103T;
         descriptor = new EditPersonDescriptorBuilder()
-                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_AMY)
+                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS2103T)
                 .build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // address
-        userInput = targetIndex.getOneBased() + EXPECTED_MAX_GRADE_DESC_AMY;
+        userInput = targetIndex.getOneBased() + EXPECTED_MAX_GRADE_DESC_CS2103T;
         descriptor = new EditPersonDescriptorBuilder()
-                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_AMY)
+                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS2103T)
                 .build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -180,16 +181,16 @@ public class EditCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + SEMESTER_DESC_AMY
-                + EXPECTED_MAX_GRADE_DESC_AMY + EXPECTED_MIN_GRADE_DESC_AMY
-                + TAG_DESC_FRIEND + SEMESTER_DESC_AMY + EXPECTED_MAX_GRADE_DESC_AMY
-                + EXPECTED_MIN_GRADE_DESC_AMY + TAG_DESC_FRIEND + SEMESTER_DESC_BOB
-                + EXPECTED_MAX_GRADE_DESC_BOB + EXPECTED_MIN_GRADE_DESC_BOB + TAG_DESC_HUSBAND;
+        String userInput = targetIndex.getOneBased() + SEMESTER_DESC_CS2103T
+                + EXPECTED_MAX_GRADE_DESC_CS2103T + EXPECTED_MIN_GRADE_DESC_CS2103T
+                + TAG_DESC_FRIEND + SEMESTER_DESC_CS2103T + EXPECTED_MAX_GRADE_DESC_CS2103T
+                + EXPECTED_MIN_GRADE_DESC_CS2103T + TAG_DESC_FRIEND + SEMESTER_DESC_CS1010
+                + EXPECTED_MAX_GRADE_DESC_CS1010 + EXPECTED_MIN_GRADE_DESC_CS1010 + TAG_DESC_HUSBAND;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
-                .withSemester(VALID_SEMESTER_BOB)
-                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_BOB)
-                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_BOB)
+                .withSemester(VALID_SEMESTER_CS1010)
+                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS1010)
+                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS1010)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -201,20 +202,20 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + INVALID_SEMESTER_DESC + SEMESTER_DESC_BOB;
+        String userInput = targetIndex.getOneBased() + INVALID_SEMESTER_DESC + SEMESTER_DESC_CS1010;
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
-                .withSemester(VALID_SEMESTER_BOB).build();
+                .withSemester(VALID_SEMESTER_CS1010).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + EXPECTED_MIN_GRADE_DESC_BOB
-                + INVALID_SEMESTER_DESC + EXPECTED_MAX_GRADE_DESC_BOB
-                + SEMESTER_DESC_BOB;
+        userInput = targetIndex.getOneBased() + EXPECTED_MIN_GRADE_DESC_CS1010
+                + INVALID_SEMESTER_DESC + EXPECTED_MAX_GRADE_DESC_CS1010
+                + SEMESTER_DESC_CS1010;
         descriptor = new EditPersonDescriptorBuilder()
-                .withSemester(VALID_SEMESTER_BOB)
-                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_BOB)
-                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_BOB).build();
+                .withSemester(VALID_SEMESTER_CS1010)
+                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS1010)
+                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS1010).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

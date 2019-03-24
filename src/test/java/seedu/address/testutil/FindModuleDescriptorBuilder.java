@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.person.Grade;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.Semester;
 
 /**
@@ -24,9 +24,9 @@ public class FindModuleDescriptorBuilder {
     /**
      * Returns an {@code FindModuleDescriptor} with fields containing some of {@code module}'s details
      */
-    public FindModuleDescriptorBuilder(Person module) {
+    public FindModuleDescriptorBuilder(ModuleTaken module) {
         descriptor = new FindModuleDescriptor();
-        descriptor.setSubCode(module.getModuleInfo().fullName);
+        descriptor.setSubCode(module.getModuleInfo().toString());
         descriptor.setSemester(module.getSemester());
         descriptor.setGrade(module.getExpectedMinGrade());
         descriptor.setFinished(module.isFinished());

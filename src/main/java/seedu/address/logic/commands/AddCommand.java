@@ -4,48 +4,48 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MAX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_INFO_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 
 /**
- * Adds a person to the address book.
+ * Adds a moduleTaken to the address book.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a moduleTaken to the address book. "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
+            + PREFIX_MODULE_INFO_CODE + "NAME "
             + PREFIX_SEMESTER + "SEMESTER "
             + PREFIX_EXPECTED_MIN_GRADE + "EXPECTED MIN GRADE "
             + PREFIX_EXPECTED_MAX_GRADE + "EXPECTED MAX GRADE "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "CS2103T "
+            + PREFIX_MODULE_INFO_CODE + "CS2103T "
             + PREFIX_SEMESTER + "Y3S1 "
             + PREFIX_EXPECTED_MIN_GRADE + "D "
             + PREFIX_EXPECTED_MAX_GRADE + "A "
             + PREFIX_TAG + "Software "
             + PREFIX_TAG + "OOP";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New moduleTaken added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This moduleTaken already exists in the address book";
 
-    private final Person toAdd;
+    private final ModuleTaken toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code ModuleTaken}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(ModuleTaken moduleTaken) {
+        requireNonNull(moduleTaken);
+        toAdd = moduleTaken;
     }
 
     @Override

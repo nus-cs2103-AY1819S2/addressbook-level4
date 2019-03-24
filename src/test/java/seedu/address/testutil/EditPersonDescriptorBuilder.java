@@ -5,10 +5,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.person.Grade;
 import seedu.address.model.person.Hour;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 
@@ -28,23 +28,23 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code moduleTaken}'s details
      */
-    public EditPersonDescriptorBuilder(Person person) {
+    public EditPersonDescriptorBuilder(ModuleTaken moduleTaken) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(person.getModuleInfo());
-        descriptor.setSemester(person.getSemester());
-        descriptor.setExpectedMinGrade(person.getExpectedMinGrade());
-        descriptor.setExpectedMaxGrade(person.getExpectedMaxGrade());
-        descriptor.setLectureHour(person.getLectureHour());
-        descriptor.setTags(person.getTags());
+        descriptor.setModuleInfoCode(moduleTaken.getModuleInfo());
+        descriptor.setSemester(moduleTaken.getSemester());
+        descriptor.setExpectedMinGrade(moduleTaken.getExpectedMinGrade());
+        descriptor.setExpectedMaxGrade(moduleTaken.getExpectedMaxGrade());
+        descriptor.setLectureHour(moduleTaken.getLectureHour());
+        descriptor.setTags(moduleTaken.getTags());
     }
 
     /**
      * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+        descriptor.setModuleInfoCode(new ModuleInfoCode(name));
         return this;
     }
 

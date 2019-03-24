@@ -1,13 +1,13 @@
 {
   "persons": [ {
-    "name": "Alice Pauline",
+    "moduleInfoCode": "CS2103T",
     "semester" : "Y3S2",
     "expectedMinGrade" : "D",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
     "tagged": [ "friends" ]
   }, {
-    "name": "Alice Pauline",
+    "moduleInfoCode": "CS2103T",
     "semester" : "Y3S2",
     "expectedMinGrade" : "C",
     "expectedMaxGrade" : "B",

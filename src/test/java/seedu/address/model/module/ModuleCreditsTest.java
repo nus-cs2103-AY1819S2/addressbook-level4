@@ -29,7 +29,7 @@ public class ModuleCreditsTest {
         assertFalse(ModuleCredits.isValidModuleCredits("-1")); //contains - sign
         assertFalse(ModuleCredits.isValidModuleCredits("21")); //larger than 20
         assertFalse(ModuleCredits.isValidModuleCredits("5.2")); //contains .
-        assertFalse(ModuleCredits.isValidModuleCredits("CS1010")); //contains alphabet
+        assertFalse(ModuleCredits.isValidModuleCredits("DEFAULT_MODULE_CS1010")); //contains alphabet
         assertFalse(ModuleCredits.isValidModuleCredits("Sdasdas")); //contains only alphabet
 
         // valid addresses

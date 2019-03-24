@@ -5,10 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code ModuleTaken}.
  */
 public class PersonCard extends UiPart<Region> {
 
@@ -22,12 +22,12 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final ModuleTaken moduleTaken;
 
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private Label moduleInfoCode;
     @FXML
     private Label id;
     @FXML
@@ -39,15 +39,15 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(Person person, int displayedIndex) {
+    public PersonCard(ModuleTaken moduleTaken, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.moduleTaken = moduleTaken;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getModuleInfo().fullName);
-        semester.setText(person.getSemester().toString());
-        expectedMinGrade.setText(person.getExpectedMinGrade().toString());
-        expectedMaxGrade.setText(person.getExpectedMaxGrade().toString());
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        moduleInfoCode.setText(moduleTaken.getModuleInfo().toString());
+        semester.setText(moduleTaken.getSemester().toString());
+        expectedMinGrade.setText(moduleTaken.getExpectedMinGrade().toString());
+        expectedMaxGrade.setText(moduleTaken.getExpectedMaxGrade().toString());
+        moduleTaken.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
@@ -65,6 +65,6 @@ public class PersonCard extends UiPart<Region> {
         // state check
         PersonCard card = (PersonCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && moduleTaken.equals(card.moduleTaken);
     }
 }

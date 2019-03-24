@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -82,13 +82,14 @@ public class SelectCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different moduleTaken -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index},
-     * and checks that the model's selected person is set to the person at {@code index} in the filtered person list.
+     * and checks that the model's selected moduleTaken is set to the moduleTaken at {@code index}
+     * in the filtered moduleTaken list.
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);

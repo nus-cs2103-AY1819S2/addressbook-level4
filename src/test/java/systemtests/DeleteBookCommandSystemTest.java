@@ -4,11 +4,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteBookCommand.MESSAGE_DELETE_BOOK_SUCCESS;
+import static seedu.address.testutil.TestUtil.getBook;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TestUtil.getBook;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_LIFE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class DeleteBookCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first book in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
-        String command = "     " + DeleteBookCommand.COMMAND_WORD + "      " + INDEX_FIRST_BOOK.getOneBased() + "       ";
+        String command = "     " + DeleteBookCommand.COMMAND_WORD + "      " + INDEX_FIRST_BOOK.getOneBased() + "     ";
         Book deletedBook = removeBook(expectedModel, INDEX_FIRST_BOOK);
         String expectedResultMessage = String.format(MESSAGE_DELETE_BOOK_SUCCESS, deletedBook);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

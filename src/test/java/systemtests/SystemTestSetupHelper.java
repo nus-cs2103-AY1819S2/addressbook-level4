@@ -7,7 +7,6 @@ import java.util.function.Supplier;
 import org.junit.Ignore;
 import org.testfx.api.FxToolkit;
 
-import guitests.guihandles.BookMainWindowHandle;
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;

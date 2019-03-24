@@ -36,10 +36,10 @@ import seedu.address.logic.commands.EditBookCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.book.Author;
+import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.Rating;
-import seedu.address.model.book.Book;
-import seedu.address.model.book.Author;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
@@ -74,7 +74,8 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a book with new values same as existing values -> edited */
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
+        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
+                + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
                 + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
         assertCommandSuccess(command, index, CS);
 
@@ -82,7 +83,8 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getBookShelf().getBookList().contains(CS));
         index = INDEX_SECOND_BOOK;
         assertNotEquals(getModel().getFilteredBookList().get(index.getZeroBased()), CS);
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ALICE + AUTHOR_DESC_CS + RATING_DESC_CS
+        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ALICE
+                + AUTHOR_DESC_CS + RATING_DESC_CS
                 + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
         editedBook = new BookBuilder(CS).withBookName(VALID_BOOKNAME_ALICE).build();
         assertCommandSuccess(command, index, editedBook);
@@ -91,7 +93,8 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         index = INDEX_SECOND_BOOK;
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
+        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS
+                + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
                 + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
         editedBook = new BookBuilder(CS).withAuthor(VALID_AUTHOR_ALICE).withRating(VALID_RATING_ALICE).build();
         assertCommandSuccess(command, index, editedBook);
@@ -131,7 +134,8 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
         showAllBooks();
         index = INDEX_FIRST_BOOK;
         selectBook(index);
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
+        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
+        + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
                 + TAG_DESC_FRIEND;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new book's name
@@ -161,19 +165,23 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
                 EditBookCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditBookCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOK.getOneBased() + INVALID_BOOKNAME_DESC,
+        assertCommandFailure(EditBookCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_BOOK.getOneBased() + INVALID_BOOKNAME_DESC,
                 BookName.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid author -> rejected */
-        assertCommandFailure(EditBookCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOK.getOneBased() + INVALID_AUTHOR_DESC,
+        assertCommandFailure(EditBookCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_BOOK.getOneBased() + INVALID_AUTHOR_DESC,
                 Author.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid rating -> rejected */
-        assertCommandFailure(EditBookCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOK.getOneBased() + INVALID_RATING_DESC,
+        assertCommandFailure(EditBookCommand.COMMAND_WORD
+                        + " " + INDEX_FIRST_BOOK.getOneBased() + INVALID_RATING_DESC,
                 Rating.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditBookCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOK.getOneBased() + INVALID_TAG_DESC,
+        assertCommandFailure(EditBookCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_BOOK.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a book with new values same as another book's values -> rejected */
@@ -181,22 +189,26 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
         assertTrue(getModel().getBookShelf().getBookList().contains(CS));
         index = INDEX_FIRST_BOOK;
         assertFalse(getModel().getFilteredBookList().get(index.getZeroBased()).equals(CS));
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
+        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
+                + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
                 + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
         assertCommandFailure(command, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: edit a book with new values same as another book's values but with different tags -> rejected */
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
+        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
+                + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
                 + TAG_DESC_TEXTBOOK;
         assertCommandFailure(command, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: edit a book with new values same as another book's values but with different author -> rejected */
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS + AUTHOR_DESC_ALICE + RATING_DESC_CS
+        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
+                + NAME_DESC_CS + AUTHOR_DESC_ALICE + RATING_DESC_CS
                 + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
         assertCommandFailure(command, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: edit a book with new values same as another book's values but with different rating -> rejected */
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_ALICE
+        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
+                + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_ALICE
                 + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
         assertCommandFailure(command, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
     }

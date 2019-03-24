@@ -228,7 +228,7 @@ public class EditBookCommandTest {
     @Test
     public void equals() {
         final EditBookCommand standardCommand = new EditBookCommand(INDEX_FIRST_BOOK, DESC_ALI);
-
+        
         // same values -> returns true
         EditBookDescriptor copyDescriptor = new EditBookDescriptor(DESC_ALI);
         EditBookCommand commandWithSameValues = new EditBookCommand(INDEX_FIRST_BOOK, copyDescriptor);

@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Album album,
-                                 CommandHistory history, Model model) throws CommandException {
+                                 Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 

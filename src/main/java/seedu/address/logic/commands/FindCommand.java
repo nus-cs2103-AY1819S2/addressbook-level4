@@ -29,7 +29,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) {
+    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(

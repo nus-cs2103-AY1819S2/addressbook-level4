@@ -53,7 +53,7 @@ public class RotateCommand extends Command {
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Album album,
-                                 CommandHistory history, Model model) throws CommandException {
+                                 Model model, CommandHistory history) throws CommandException {
 
         if (degree == 90) {
             rotate = Scalr.Rotation.CW_90;

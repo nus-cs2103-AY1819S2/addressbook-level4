@@ -25,7 +25,7 @@ public class SaveCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) {
+    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
         requireNonNull(model);
         String name = model.saveToAssets(toName);
         return new CommandResult(String.format(MESSAGE_SUCCESS + name));

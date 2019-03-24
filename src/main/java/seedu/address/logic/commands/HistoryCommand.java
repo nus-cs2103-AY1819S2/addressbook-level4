@@ -20,7 +20,7 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) {
+    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
         requireNonNull(history);
         ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
 

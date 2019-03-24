@@ -46,7 +46,7 @@ public class ContrastCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) {
+    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
         //seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
         //if (this.contrastValue.isPresent()) {
         //    BufferedOpFilter contrastFilter =

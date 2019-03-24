@@ -170,7 +170,6 @@ public class EditBookCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         Index targetIndex = INDEX_FIRST_BOOK;
-        
         // no other valid values specified
         String userInput = targetIndex.getOneBased() + INVALID_AUTHOR_DESC + AUTHOR_DESC_CS;
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withAuthor(VALID_AUTHOR_CS).build();

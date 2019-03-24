@@ -41,6 +41,15 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     /**
+     * Opens the lesson by index.
+     */
+    @Override
+    public String openLesson(int index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+
+    /**
      * Gets the entire list of lessons.
      */
     @Override

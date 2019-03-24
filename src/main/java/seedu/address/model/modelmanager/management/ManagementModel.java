@@ -40,6 +40,11 @@ public interface ManagementModel extends Model {
     Lesson getLesson(int index);
 
     /**
+     * Open the lesson by index.
+     */
+    String openLesson(int index);
+
+    /**
      * Gets the entire list of lessons.
      */
     List<Lesson> getLessons();

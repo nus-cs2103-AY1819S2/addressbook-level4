@@ -80,6 +80,11 @@ public class ManagementModelManager implements ManagementModel {
     }
 
     @Override
+    public String openLesson(int index) {
+        return "To do";
+    }
+
+    @Override
     public void addLesson(Lesson lesson) {
         lessons.addLesson(lesson);
     }

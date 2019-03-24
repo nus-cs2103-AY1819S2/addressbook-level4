@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
+import seedu.address.logic.commands.quiz.QuizDifficultCommand;
 import seedu.address.logic.commands.quiz.QuizHelpCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -21,9 +22,9 @@ public class QuizModeParser implements Parser<Command> {
 
     /**
      * Checks if userInput is valid
-     * @param userInput
-     * @return
-     * @throws ParseException
+     * @param userInput from commandBox
+     * @return the correct parser
+     * @throws ParseException if the user input does not conform the expected format
      */
     public Command parse(String userInput) throws ParseException {
         matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -52,10 +53,12 @@ public class QuizModeParser implements Parser<Command> {
      */
     private Command parseCommand(String commandWord) throws ParseException {
         switch (commandWord) {
-        case QuizStatusCommand.COMMAND_WORD:
-            return new QuizStatusCommand();
+        case QuizDifficultCommand.COMMAND_WORD:
+            return new QuizDifficultCommand();
         case QuizHelpCommand.COMMAND_WORD:
             return new QuizHelpCommand();
+        case QuizStatusCommand.COMMAND_WORD:
+            return new QuizStatusCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
+import seedu.address.logic.commands.quiz.QuizDifficultCommand;
 import seedu.address.logic.commands.quiz.QuizHelpCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,6 +30,9 @@ public class QuizModeParserTest {
 
     @Test
     public void parseCommand() throws Exception {
+        assertTrue(parser.parse("\\difficult") instanceof QuizDifficultCommand);
+        assertTrue(parser.parse(QuizDifficultCommand.COMMAND_WORD) instanceof QuizDifficultCommand);
+
         assertTrue(parser.parse("\\help") instanceof QuizHelpCommand);
         assertTrue(parser.parse(QuizHelpCommand.COMMAND_WORD) instanceof QuizHelpCommand);
 

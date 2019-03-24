@@ -41,7 +41,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.Condition;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -166,7 +166,7 @@ public class EditPersonCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditPersonCommand.COMMAND_WORD + " " + MODE_OTHERS + " "
-                + INDEX_FIRST.getOneBased() + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
+                + INDEX_FIRST.getOneBased() + INVALID_TAG_DESC, Condition.MESSAGE_CONDITION_CONSTRAINTS);
 
         /* Case: edit a person with new values same as another person's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));

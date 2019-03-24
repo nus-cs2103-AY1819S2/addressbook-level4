@@ -24,8 +24,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
-import seedu.address.model.tag.ConditionTag;
-import seedu.address.model.tag.Conditions;
+import seedu.address.model.tag.Condition;
 
 /**
  * Edits an order in the request book.
@@ -70,8 +69,8 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
         RequestDate updatedRequestDate = editRequestDescriptor.getDate().orElse(requestToEdit.getRequestDate());
         Nric updatedNric = editRequestDescriptor.getNric().orElse(requestToEdit.getNric());
         RequestStatus updatedRequestStatus = requestToEdit.getRequestStatus();
-        Set<ConditionTag> updatedConditions = editRequestDescriptor.getConditions().orElse(requestToEdit
-                .getConditions().getConditions());
+        Set<Condition> updatedConditions = editRequestDescriptor.getConditions().orElse(requestToEdit
+                .getConditions());
         String updatedHealthWorker;
         if (requestToEdit.getHealthStaff() != null) {
             updatedHealthWorker = requestToEdit.getHealthStaff();
@@ -81,12 +80,10 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
 
         if (updatedHealthWorker == null) {
             return new Request(updatedName, updatedNric, updatedPhone, updatedAddress,
-                updatedRequestDate,
-                new Conditions(updatedConditions), updatedRequestStatus);
+                updatedRequestDate, updatedConditions, updatedRequestStatus);
         } else {
             return new Request(updatedName, updatedNric, updatedPhone, updatedAddress,
-                updatedRequestDate,
-                new Conditions(updatedConditions), updatedRequestStatus, updatedHealthWorker);
+                updatedRequestDate, updatedConditions, updatedRequestStatus, updatedHealthWorker);
         }
 
     }
@@ -144,7 +141,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
         private Address address;
         private RequestDate requestDate;
         private Nric nric;
-        private Set<ConditionTag> conditions;
+        private Set<Condition> conditions;
 
         public EditRequestDescriptor() {}
 
@@ -209,11 +206,11 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
         }
 
         /**
-         * Returns an unmodifiable food set, which throws {@code UnsupportedOperationException}
+         * Returns an unmodifiable condition set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code conditions} is null
          */
-        public Optional<Set<ConditionTag>> getConditions() {
+        public Optional<Set<Condition>> getConditions() {
             return (conditions != null) ? Optional.of(Collections.unmodifiableSet(conditions))
                 : Optional.empty();
         }
@@ -222,7 +219,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
          * Sets {@code conditions} to this object's {@code conditions}
          * A defensive copy of {@code conditions} is used internally.
          */
-        public void setConditions(Set<ConditionTag> conditions) {
+        public void setConditions(Set<Condition> conditions) {
             this.conditions = (conditions != null) ? new HashSet<>(conditions) : null;
         }
 

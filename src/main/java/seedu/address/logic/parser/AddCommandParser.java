@@ -10,8 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
 
-import java.util.HashSet;
-import java.util.UUID;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
@@ -26,9 +25,8 @@ import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
-import seedu.address.model.tag.Conditions;
+import seedu.address.model.tag.Condition;
 import seedu.address.model.tag.Skills;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddPersonCommand object
@@ -69,8 +67,6 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     private AddRequestCommand parseAddRequest(String args) throws ParseException {
-        UUID uuid = UUID.randomUUID();
-        String requestId = uuid.toString();
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args,
             PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE,
@@ -88,13 +84,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Address address = ParserUtil.parseAddress(argumentMultimap.getValue(PREFIX_ADDRESS).get());
         RequestDate requestDate =
             ParserUtil.parseRequestDate(argumentMultimap.getValue(PREFIX_DATE).get());
-        Conditions conditions = ParserUtil.parseConditions(argumentMultimap.getAllValues(PREFIX_CONDITION));
-
-        HashSet<Tag> conds = new HashSet<>();
-        conditions.getConditions().forEach(c -> conds.add(new Tag(c.conditionTagName)));
+        Set<Condition> conditions =
+                ParserUtil.parseConditions(argumentMultimap.getAllValues(PREFIX_CONDITION));
 
         return new AddRequestCommand(new Request(name, nric, phone, address, requestDate,
-            conds));
+            conditions));
     }
 
     /**

@@ -2,11 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.model.Model.COMPARATOR_ASCENDING_NAME_PDFS;
-import static seedu.address.model.Model.COMPARATOR_DESCENDING_NAME_PDFS;
 import static seedu.address.model.Model.COMPARATOR_ASCENDING_DEADLINE_PDFS;
+import static seedu.address.model.Model.COMPARATOR_ASCENDING_NAME_PDFS;
 import static seedu.address.model.Model.COMPARATOR_DESCENDING_DEADLINE_PDFS;
-
+import static seedu.address.model.Model.COMPARATOR_DESCENDING_NAME_PDFS;
 
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

@@ -7,7 +7,9 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -17,6 +19,7 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
+    private final UniqueDoctorList doctors;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -28,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        doctors = new UniqueDoctorList();
     }
 
     public AddressBook() {}
@@ -76,6 +80,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+        indicateModified();
+    }
+
+    /**
+     * Adds a doctor to the address book.
+     * The doctor must not already exist in the address book.
+     */
+    public void addDoctor(Doctor d) {
+        doctors.add(d);
         indicateModified();
     }
 

@@ -29,7 +29,7 @@ public class UniqueRecordList implements Iterable<Record> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent Task as the given argument.
+     * Returns true if the list contains an equivalent Record as the given argument.
      */
     public boolean contains(Record toCheck) {
         requireNonNull(toCheck);
@@ -37,20 +37,20 @@ public class UniqueRecordList implements Iterable<Record> {
     }
 
     /**
-     * Adds a Task to the list.
-     * The Task must not already exist in the list.
+     * Adds a Record to the top of the list.
+     * The Record must not already exist in the list.
      */
     public void add(Record toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
-        internalList.add(toAdd);
+        internalList.add(0, toAdd);
     }
 
     /**
-     * Removes the equivalent Task from the list.
-     * The Task must exist in the list.
+     * Removes the equivalent Record from the list.
+     * The Record must exist in the list.
      */
     public void remove(Record toRemove) {
         requireNonNull(toRemove);
@@ -60,8 +60,8 @@ public class UniqueRecordList implements Iterable<Record> {
     }
 
     /**
-     * Replaces the contents of this list with {@code Tasks}.
-     * {@code Tasks} must not contain duplicate Tasks.
+     * Replaces the contents of this list with {@code Records}.
+     * {@code Records} must not contain duplicate Records.
      */
     public void setRecords(List<Record> records) {
         requireAllNonNull(records);

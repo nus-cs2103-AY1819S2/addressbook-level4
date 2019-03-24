@@ -17,6 +17,7 @@ public class ListTagsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS + model.getAllTagsString());
+
+        return new CommandResult(MESSAGE_SUCCESS + model.getHumanPlayer().getFleet().getAllTags());
     }
 }

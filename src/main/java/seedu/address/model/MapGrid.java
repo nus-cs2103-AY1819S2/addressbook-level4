@@ -248,21 +248,6 @@ public class MapGrid implements ReadOnlyAddressBook {
         }
     }
 
-    /**
-     * Show all tags that have been used in the address book.
-     * Returns a hash set of the tags.
-     */
-    public Set<Tag> getAllTags() {
-        Set<Tag> tags = new HashSet<>();
-        for (Cell cell : persons) {
-            for (Tag t : cell.getTags()) {
-                tags.add(t);
-            }
-        }
-
-        return tags;
-    }
-
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);

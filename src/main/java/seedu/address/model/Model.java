@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -16,7 +15,6 @@ import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.player.Fleet;
 import seedu.address.model.player.Player;
-import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -103,21 +101,6 @@ public interface Model {
      * The cell identity of {@code editedCell} must not be the same as another existing cell in the address book.
      */
     void setPerson(Cell target, Cell editedCell);
-
-    /**
-     * Gets all tags from the {@code persons} in the {@code MapGrid}.
-     */
-    Set<Tag> getAllTags();
-
-    /**
-     * Counts number of tags in {@code MapGrid}.
-     */
-    int countTags();
-
-    /**
-     * Creates string from existing all tags in MapGrid.
-     */
-    String getAllTagsString();
 
     /** Returns an unmodifiable view of the filtered cell list */
     ObservableList<Cell> getFilteredPersonList();

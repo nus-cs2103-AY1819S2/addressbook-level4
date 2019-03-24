@@ -53,7 +53,7 @@ public class ParserUtilTest {
     private static final String VALID_COORD_1 = "a1";
     private static final String VALID_COORD_2 = "b3";
 
-    private final Set<Tag> emptySet = new HashSet<>();
+    private static final Set<Tag> emptySet = new HashSet<>();
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();

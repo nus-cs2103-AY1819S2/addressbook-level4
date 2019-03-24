@@ -150,12 +150,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void countTags() throws Exception {
-        modelManager.addPerson(ALICE);
-        assertEquals(modelManager.countTags(), ALICE.getTags().size());
-    }
-
-    @Test
     public void equals() {
         MapGrid mapGrid = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         MapGrid differentMapGrid = new MapGrid();

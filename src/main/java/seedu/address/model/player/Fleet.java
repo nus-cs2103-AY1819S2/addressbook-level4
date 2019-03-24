@@ -2,7 +2,9 @@ package seedu.address.model.player;
 
 import java.util.ArrayList;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.battleship.AircraftCarrierBattleship;
@@ -11,6 +13,7 @@ import seedu.address.model.battleship.CruiserBattleship;
 import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.tag.Tag;
 
 
 /**
@@ -131,6 +134,18 @@ public class Fleet {
 
     public int getNumAircraftCarrier() {
         return this.numAircraftCarrier;
+    }
+
+    public Set<Tag> getAllTags() {
+        Set<Tag> tagSet = new HashSet<>();
+
+        for (FleetEntry fleetEntry : this.getDeployedFleet()) {
+            for (Tag tag : fleetEntry.getBattleship().getTags()) {
+                tagSet.add(tag);
+            }
+        }
+
+        return tagSet;
     }
 
     @Override

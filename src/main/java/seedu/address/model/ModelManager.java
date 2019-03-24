@@ -4,10 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -29,7 +26,6 @@ import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
 import seedu.address.model.player.Fleet;
 import seedu.address.model.player.Player;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -165,29 +161,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedCell);
 
         versionedAddressBook.setPerson(target, editedCell);
-    }
-
-    @Override
-    public Set<Tag> getAllTags() {
-        return versionedAddressBook.getAllTags();
-    }
-
-    @Override
-    public String getAllTagsString() {
-        Set<Tag> tags = this.getAllTags();
-        List<String> tagsString = new ArrayList<>();
-
-        for (Tag tag : tags) {
-            tagsString.add(tag.getTagName());
-        }
-
-        return String.join(", ", tagsString);
-    }
-
-    @Override
-    public int countTags() {
-        Set<Tag> tags = this.getAllTags();
-        return tags.size();
     }
 
     //=========== Battleship ===============================================================================

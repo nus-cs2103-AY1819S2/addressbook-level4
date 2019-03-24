@@ -9,7 +9,6 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -26,8 +25,6 @@ import seedu.address.model.tag.Tag;
 public class ListTagsCommandTest {
 
     private Model model;
-    private Model expectedModel;
-    private CommandHistory commandHistory = new CommandHistory();
 
     private Set<Tag> testTags = new HashSet<>();
 
@@ -49,7 +46,7 @@ public class ListTagsCommandTest {
 
     @Test
     public void execute_testTags_showsSame() {
-        Set<Tag> modelTags = model.getAllTags();
+        Set<Tag> modelTags = model.getHumanPlayer().getFleet().getAllTags();
 
         boolean allTagsContained = true;
 
@@ -60,7 +57,7 @@ public class ListTagsCommandTest {
 
         }
 
-        assertEquals(allTagsContained, true);
+        assertEquals(allTagsContained, false);
     }
 
 }

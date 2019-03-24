@@ -240,6 +240,7 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+            rootLayoutController.setPrimaryStage(primaryStage);
             rootLayoutController.fillReminderList();
         } catch (IOException e) {
             e.printStackTrace();

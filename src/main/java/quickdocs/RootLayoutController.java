@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.ui.ListElementPointer;
@@ -25,6 +27,9 @@ public class RootLayoutController {
     private ListElementPointer historySnapshot;
 
     @FXML
+    private Stage primaryStage;
+
+    @FXML
     private TextArea display;
 
     @FXML
@@ -35,6 +40,10 @@ public class RootLayoutController {
 
     @FXML
     private StackPane reminderList;
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
 
     public void setLogicManager(Logic logicManager) {
         this.logicManager = logicManager;
@@ -63,6 +72,12 @@ public class RootLayoutController {
             try {
                 inputFeedback.setText("");
                 CommandResult result = logicManager.execute(userInput.getText());
+
+                // handling exit
+                if (result.isExit()) {
+                    primaryStage.close();
+                }
+
                 display.appendText(">" + userInput.getText() + "\n");
                 display.appendText(result.getFeedbackToUser());
                 display.appendText("\n");

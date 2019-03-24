@@ -16,6 +16,7 @@ public class AddRequestCommand extends AddCommand implements RequestCommand {
 
     public static final String COMMAND_WORD = "request";
 
+
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Creates a new request in the request book.\n" + "Parameters: "
         + ADD_COMMAND_PARAMETERS

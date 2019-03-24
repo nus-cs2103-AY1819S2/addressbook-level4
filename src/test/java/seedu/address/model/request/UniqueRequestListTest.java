@@ -46,8 +46,7 @@ class UniqueRequestListTest {
     @Test
     public void contains_personWithSameRequestFieldsInList_returnsTrue() {
         uniqueRequestList.add(ALICE_REQUEST);
-        Request editedAlice = new RequestBuilder(ALICE_REQUEST).withAddress("Blk 472A, Anchorvale"
-            + " Street").build();
+        Request editedAlice = new RequestBuilder(ALICE_REQUEST).build();
         assertTrue(uniqueRequestList.contains(editedAlice));
     }
 

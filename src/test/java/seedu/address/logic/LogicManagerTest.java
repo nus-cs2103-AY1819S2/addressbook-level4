@@ -155,6 +155,36 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void getMode() {
+        // TODO change to session
+        // this hardcoded values matched StartCommand
+        // when session is implemented then this will change to session instead
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
+        final QuizCard card4 = new QuizCard("中国", "北京");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
+        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+
+        QuizModelManager expectedModel = new QuizModelManager();
+        expectedModel.init(quiz);
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary", "answer", "Budapest",
+            Quiz.Mode.PREVIEW));
+
+        // before quiz starts
+        assertEquals("management", logic.getMode());
+
+        quizModel.init(new Quiz(quizCards, Quiz.Mode.LEARN));
+        quizModel.getNextCard();
+
+        // after quiz started
+        assertCommandSuccess("", "", expectedModel);
+        assertEquals("quiz", logic.getMode());
+    }
+
+    @Test
     public void getDisplayFormatter() {
         // TODO change to session
         // this hardcoded values matched StartCommand

@@ -21,6 +21,7 @@ public class QuizResultDisplay extends UiPart<Region> {
     @FXML
     private TextFlow quizResultDisplay;
 
+
     public QuizResultDisplay() {
         super(FXML);
     }
@@ -60,11 +61,5 @@ public class QuizResultDisplay extends UiPart<Region> {
             quizResultDisplay.getChildren().add(new Text(""));
 
         }
-
-
-
-
-
     }
-
 }

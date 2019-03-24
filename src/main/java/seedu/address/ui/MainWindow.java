@@ -5,10 +5,12 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -29,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private String mode;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
@@ -43,6 +46,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private SplitPane splitPane;
+
+    @FXML
+    private VBox personList;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -62,6 +71,9 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+
+        // Set default mode
+        mode = "management";
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -136,6 +148,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Changes the Ui setting between management and quiz mode
+     */
+    private void handleModeSwitching() {
+        if (mode.equals("management")) {
+            splitPane.setDividerPosition(0, 0.1);
+            personList.setMinWidth(340);
+            personList.setPrefWidth(340);
+        } else {
+            splitPane.setDividerPosition(0, 0);
+            personList.setMinWidth(0);
+            personList.setPrefWidth(0);
+        }
+    }
+
+    /**
      * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
@@ -173,6 +200,12 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            String currentMode = logic.getMode();
+
+            if (!currentMode.equals(mode)) {
+                this.mode = currentMode;
+                handleModeSwitching();
+            }
 
             if (commandResult.isShowQuiz()) {
                 quizResultDisplay.setFeedbackToUser(logic.getDisplayFormatter());

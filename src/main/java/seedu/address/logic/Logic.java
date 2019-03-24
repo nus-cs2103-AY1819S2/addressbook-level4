@@ -22,6 +22,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
+     * Returns either management or quiz mode dependent on isQuizDone
+     */
+    String getMode();
+
+    /**
      * Returns the Quiz Display formatter for QuizDisplayResult
      */
     QuizUiDisplayFormatter getDisplayFormatter();

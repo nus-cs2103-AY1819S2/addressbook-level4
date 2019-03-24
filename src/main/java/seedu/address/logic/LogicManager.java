@@ -48,7 +48,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         try {
             Command command = null;
-            if (quizModel.isQuizDone()) {
+            if (getMode().equals("management")) {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
             } else {
@@ -65,6 +65,11 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public String getMode() {
+        return quizModel.isQuizDone() ? "management" : "quiz";
     }
 
     @Override

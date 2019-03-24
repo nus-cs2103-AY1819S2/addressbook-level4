@@ -17,6 +17,7 @@ import static seedu.address.testutil.TypicalPersons.getEmptyMapGrid;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;

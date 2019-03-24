@@ -7,6 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import org.junit.Test;
 
 import seedu.address.model.battleship.AircraftCarrierBattleship;

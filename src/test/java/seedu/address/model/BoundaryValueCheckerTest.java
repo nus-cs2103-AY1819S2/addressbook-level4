@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalIndexes.MAP_SIZE_TEN;
 import static seedu.address.testutil.TypicalPersons.getEmptyMapGrid;
 
 import java.util.HashSet;
+
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;

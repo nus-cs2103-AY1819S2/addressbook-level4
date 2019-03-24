@@ -16,6 +16,7 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    //TODO: change Name to ModuleInfoCode
     private final Name moduleInfo;
     private final Semester semester;
 

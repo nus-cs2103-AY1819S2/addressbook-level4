@@ -179,4 +179,6 @@ public interface Model {
     void sortDisplayList(Comparator<ModuleInfo> comparator);
 
     RecModulePredicate getRecModulePredicate();
+
+    RecModuleComparator getRecModuleComparator();
 }

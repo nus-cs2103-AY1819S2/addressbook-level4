@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
-import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
  * Represents a composite Course Requirement that is connected by logical connectors.
@@ -69,42 +69,44 @@ public class CompositeRequirement implements CourseRequirement {
     }
 
     @Override
-    public boolean isFulfilled(List<ModuleInfo> moduleInfos) {
+    public boolean isFulfilled(List<ModuleInfoCode> moduleInfoCodes) {
         switch(connector) {
         case AND:
-            return first.isFulfilled(moduleInfos) && second.isFulfilled(moduleInfos);
+            return first.isFulfilled(moduleInfoCodes) && second.isFulfilled(moduleInfoCodes);
         case OR:
         default:
-            return first.isFulfilled(moduleInfos) || second.isFulfilled(moduleInfos);
+            return first.isFulfilled(moduleInfoCodes) || second.isFulfilled(moduleInfoCodes);
         }
     }
 
 
     @Override
-    public boolean canFulfill(ModuleInfo moduleInfo) {
+    public boolean canFulfill(ModuleInfoCode moduleInfoCode) {
         switch(connector) {
         case AND:
-            return first.canFulfill(moduleInfo) && second.canFulfill(moduleInfo);
+            return first.canFulfill(moduleInfoCode) && second.canFulfill(moduleInfoCode);
         case OR:
         default:
-            return first.canFulfill(moduleInfo) || second.canFulfill(moduleInfo);
+            return first.canFulfill(moduleInfoCode) || second.canFulfill(moduleInfoCode);
         }
     }
 
     @Override
-    public double getFulfilledPercentage(List<ModuleInfo> moduleInfos) {
+    public double getFulfilledPercentage(List<ModuleInfoCode> moduleInfoCode) {
         //TODO: find a good way to return percentage
         return 0;
     }
 
     @Override
-    public String getUnfulfilled(List<ModuleInfo> moduleInfos) {
+    public String getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes) {
         switch(connector) {
         case AND:
-            return "(" + first.getUnfulfilled(moduleInfos) + ") AND (" + second.getUnfulfilled(moduleInfos) + ")";
+            return "(" + first.getUnfulfilled(moduleInfoCodes) + ") AND ("
+                    + second.getUnfulfilled(moduleInfoCodes) + ")";
         case OR:
         default:
-            return "(" + first.getUnfulfilled(moduleInfos) + ") OR (" + second.getUnfulfilled(moduleInfos) + ")";
+            return "(" + first.getUnfulfilled(moduleInfoCodes) + ") OR ("
+                    + second.getUnfulfilled(moduleInfoCodes) + ")";
         }
     }
 

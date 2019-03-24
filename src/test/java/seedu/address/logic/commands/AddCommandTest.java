@@ -25,6 +25,7 @@ import seedu.address.model.Cap;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.RecModuleComparator;
 import seedu.address.model.RecModulePredicate;
 import seedu.address.model.course.Course;
 import seedu.address.model.moduleinfo.ModuleInfo;
@@ -249,17 +250,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public RecModulePredicate getRecModulePredicate() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
         public ObservableList<ModuleInfo> getSortedDisplayList() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
         public void sortDisplayList(Comparator<ModuleInfo> comparator) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public RecModulePredicate getRecModulePredicate() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public RecModuleComparator getRecModuleComparator() {
             throw new AssertionError("This method should not be called");
         }
     }

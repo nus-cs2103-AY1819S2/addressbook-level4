@@ -251,11 +251,6 @@ public class ModelManager implements Model {
 
     //=========== Module recommendation ===========================================================================
     @Override
-    public RecModulePredicate getRecModulePredicate() {
-        return new RecModulePredicate(course, versionedAddressBook);
-    }
-
-    @Override
     public ObservableList<ModuleInfo> getSortedDisplayList() {
         return sortedDisplayList;
     }
@@ -264,6 +259,16 @@ public class ModelManager implements Model {
     public void sortDisplayList(Comparator<ModuleInfo> comparator) {
         requireNonNull(comparator);
         sortedDisplayList.setComparator(comparator);
+    }
+
+    @Override
+    public RecModulePredicate getRecModulePredicate() {
+        return new RecModulePredicate(course, versionedAddressBook);
+    }
+
+    @Override
+    public RecModuleComparator getRecModuleComparator() {
+        return new RecModuleComparator(course);
     }
 
     /**

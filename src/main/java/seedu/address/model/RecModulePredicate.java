@@ -1,11 +1,16 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfo;
-import seedu.address.model.person.Person;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 
+/**
+ * Tests if a module can be recommended to the user.
+ */
 public class RecModulePredicate implements Predicate<ModuleInfo> {
 
     private Course course;
@@ -28,8 +33,17 @@ public class RecModulePredicate implements Predicate<ModuleInfo> {
             // module already in plan
             return false;
         }
-        //TODO: check if module's req type has already been fully satisfied
 
-        return true;
+        List<ModuleInfoCode> passedModuleList = versionedAddressBook.getPassedModuleList();
+        List<CourseReqType> reqTypeList = course.getCourseReqTypeOf(module.getModuleInfoCode());
+        for (CourseReqType reqType : reqTypeList) { // starting from most important requirement
+            if (!course.isReqFulfilled(reqType, passedModuleList)) {
+                // module can contribute towards unfulfilled requirement
+                course.putCodeToReqMap(module.getModuleInfoCode(), reqType);
+                return true;
+            }
+        }
+
+        return false; // all course requirements fulfilled
     }
 }

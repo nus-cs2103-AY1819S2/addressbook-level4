@@ -7,8 +7,8 @@ import javafx.stage.Stage;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.lesson.LessonList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.user.User;

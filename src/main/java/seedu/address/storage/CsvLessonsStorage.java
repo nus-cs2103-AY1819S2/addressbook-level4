@@ -14,9 +14,9 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.CsvUtil;
-import seedu.address.model.lesson.LessonList;
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 
 /**
  * A class to access LessonList stored in the hard disk as a csv file

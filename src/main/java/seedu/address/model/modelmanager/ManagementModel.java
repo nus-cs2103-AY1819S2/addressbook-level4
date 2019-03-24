@@ -5,7 +5,6 @@ import java.util.List;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelmanager.Model;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 

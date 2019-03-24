@@ -17,8 +17,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.model.lesson.LessonList;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 
 public class CsvLessonListStorageTest {
 

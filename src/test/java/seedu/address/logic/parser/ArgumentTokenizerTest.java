@@ -201,4 +201,22 @@ public class ArgumentTokenizerTest {
                 .equals(CommandMode.HEALTH_WORKER));
     }
 
+    @Test
+    public void trimMode() {
+        // null
+        Assert.assertThrows(NullPointerException.class, () -> ArgumentTokenizer.trimMode(null));
+
+        // empty string
+        Assert.assertThrows(ArrayIndexOutOfBoundsException.class, () -> ArgumentTokenizer.trimMode(""));
+
+        // single word
+        Assert.assertThrows(ArrayIndexOutOfBoundsException.class, () -> ArgumentTokenizer.trimMode("first"));
+
+        // two words
+        assertEquals(ArgumentTokenizer.trimMode("first second"), "second");
+
+        // sentence
+        assertEquals(ArgumentTokenizer.trimMode("first second third fourth"), "second third fourth");
+    }
+
 }

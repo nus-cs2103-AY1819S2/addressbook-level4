@@ -120,8 +120,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             descriptor.setDate(ParserUtil.parseRequestDate(argMultimap.getValue(PREFIX_DATE).get()));
         }
         if (argMultimap.getValue(PREFIX_CONDITION).isPresent()) {
-            descriptor.setConditions(ParserUtil.parseConditions(argMultimap.getAllValues(PREFIX_CONDITION))
-                    .getConditions());
+            descriptor.setConditions(ParserUtil.parseConditions(argMultimap.getAllValues(PREFIX_CONDITION)));
         }
 
         if (!descriptor.isAnyFieldEdited()) {

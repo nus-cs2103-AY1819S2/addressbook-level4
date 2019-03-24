@@ -36,7 +36,7 @@ public class ArgumentTokenizer {
      * @param args argument string to check
      * @return CommandMode enum type if available, else CommandMode.INVALID
      */
-    public static CommandMode checkMode(String args) {
+    public static CommandMode checkMode(String args) throws NullPointerException {
         String commandMode = args.trim().split("\\s")[0];
         return CommandMode.checkMode(commandMode);
     }
@@ -49,7 +49,7 @@ public class ArgumentTokenizer {
      * @return trimmed argument string.
      */
     public static String trimMode(String args) {
-        return args.split("\\s", 2)[1];
+        return args.trim().split("\\s", 2)[1];
     }
 
     /**

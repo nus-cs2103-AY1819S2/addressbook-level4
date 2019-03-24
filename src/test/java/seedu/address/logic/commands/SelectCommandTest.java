@@ -15,6 +15,9 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.Album;
+import seedu.address.model.CurrentEdit;
+import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,6 +27,8 @@ import seedu.address.model.UserPrefs;
  */
 public class SelectCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private CurrentEdit currentEdit = new CurrentEditManager();
+    private Album album = new Album();
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -94,7 +99,7 @@ public class SelectCommandTest {
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
         expectedModel.setSelectedPerson(model.getFilteredPersonList().get(index.getZeroBased()));
 
-        assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel, currentEdit, album);
     }
 
     /**
@@ -103,6 +108,6 @@ public class SelectCommandTest {
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
         SelectCommand selectCommand = new SelectCommand(index);
-        assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
+        assertCommandFailure(selectCommand, model, commandHistory, expectedMessage, currentEdit, album);
     }
 }

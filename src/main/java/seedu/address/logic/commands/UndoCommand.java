@@ -9,6 +9,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 //import seedu.address.logic.parser.AddressBookParser;
 //import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Album;
+import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
 /**
@@ -22,7 +24,8 @@ public class UndoCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(CurrentEdit currentEdit, Album album,
+                                 Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
         if (!model.canUndoAddressBook()) {

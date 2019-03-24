@@ -16,7 +16,7 @@ public class Album {
     private static Album instance = null;
     private List<Image> imageList;
 
-    private Album() {
+    public Album() {
         imageList = new ArrayList<>();
     }
 

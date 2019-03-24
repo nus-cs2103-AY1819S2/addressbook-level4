@@ -13,6 +13,8 @@ import com.sksamuel.scrimage.nio.JpegWriter;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.Album;
+import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
 /**
@@ -42,7 +44,22 @@ public class BrightnessCommand extends Command {
         this.fileName = fileName;
     }
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
+        //seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
+        //if (this.brightnessValue.isPresent()) {
+        //    BufferedOpFilter brightnessFilter =
+        //        new BrightnessFilter(this.brightnessValue.getAsDouble());
+        //    Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(brightnessFilter);
+        //    currentEdit.setTempImage(outputImage);
+        //} else {
+        //    BufferedOpFilter brightnessFilter =
+        //        new BrightnessFilter(1.1);
+        //    Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(brightnessFilter);
+        //   currentEdit.setTempImage(outputImage);
+        //}
+        //currentEdit.displayTempImage();
+        //currentEdit.addCommand(this);
+        //return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
         if (this.brightnessValue.isPresent()) {
             seedu.address.model.image.Image initialImage = new seedu.address
                 .model.image.Image(ASSETS_FILEPATH + fileName);

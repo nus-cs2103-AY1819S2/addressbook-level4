@@ -32,6 +32,6 @@ public class AgeTest {
         // valid ages
         assertTrue(Age.isValidAge("55"));
         assertTrue(Age.isValidAge("2")); // one digit
-        assertTrue(Age.isValidAge("123")); // long address
+        assertTrue(Age.isValidAge("123")); // three digits
     }
 }

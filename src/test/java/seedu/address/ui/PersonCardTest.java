@@ -1,3 +1,4 @@
+/*
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
@@ -54,10 +55,12 @@ public class PersonCardTest extends GuiUnitTest {
         assertFalse(personCard.equals(new PersonCard(person, 1)));
     }
 
-    /**
+    */
+/**
      * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
      * {@code expectedId}.
-     */
+     *//*
+
     private void assertCardDisplay(PersonCard personCard, Person expectedPerson, int expectedId) {
         guiRobot.pauseForHuman();
 
@@ -70,3 +73,4 @@ public class PersonCardTest extends GuiUnitTest {
         assertCardDisplaysPerson(expectedPerson, personCardHandle);
     }
 }
+*/

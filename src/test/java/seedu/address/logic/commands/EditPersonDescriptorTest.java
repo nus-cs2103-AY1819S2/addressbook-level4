@@ -1,3 +1,4 @@
+/*
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
@@ -56,3 +57,4 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 }
+*/

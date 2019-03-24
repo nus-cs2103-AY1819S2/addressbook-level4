@@ -29,7 +29,7 @@ public class Patient {
      * Every field must be present and not null.
      */
     public Patient(Name name, Gender gender, Age age, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, address, tags);
+        requireAllNonNull(name, gender, age, phone, address, tags);
         this.name = name;
         this.gender = gender;
         this.age = age;
@@ -68,7 +68,7 @@ public class Patient {
 
     /**
      * Returns true if both patients are of the same name
-     * have at least one other identity field (phone number) that is the same.
+     * and their phone number are the same.
      * This defines a weaker notion of equality between two patients.
      */
     public boolean isSamePatient(Patient otherPatient) {
@@ -91,12 +91,14 @@ public class Patient {
             return true;
         }
 
-        if (!(other instanceof seedu.address.model.person.Person)) {
+        if (!(other instanceof Patient)) {
             return false;
         }
 
         Patient otherPatient = (Patient) other;
         return otherPatient.getName().equals(getName())
+                && otherPatient.getGender().equals(getGender())
+                && otherPatient.getAge().equals(getAge())
                 && otherPatient.getPhone().equals(getPhone())
                 && otherPatient.getAddress().equals(getAddress())
                 && otherPatient.getTags().equals(getTags());

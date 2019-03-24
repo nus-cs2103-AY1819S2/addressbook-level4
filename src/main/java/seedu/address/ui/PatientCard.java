@@ -50,6 +50,8 @@ public class PatientCard extends UiPart<Region> {
         age.setText(patient.getAge().value);
         phone.setText(patient.getPhone().value);
         address.setText(patient.getAddress().value);
+
+        patient.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

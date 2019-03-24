@@ -6,13 +6,11 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALI;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_CS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TEXTBOOK;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showBookAtIndex;
-import static seedu.address.logic.commands.CommandTestUtil.showBookOfExactName;
 import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BOOK;
@@ -28,8 +26,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.BookName;
-import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.EditBookDescriptorBuilder;
 
@@ -246,6 +242,6 @@ public class EditBookCommandTest {
         assertFalse(standardCommand.equals(new EditBookCommand(INDEX_SECOND_BOOK, DESC_ALI)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditBookCommand(INDEX_FIRST_BOOK, DESC_CS)));
+        assertFalse(standardCommand.equals(new EditBookCommand(INDEX_FIRST_BOOK, DESC_CS));
     }
 }

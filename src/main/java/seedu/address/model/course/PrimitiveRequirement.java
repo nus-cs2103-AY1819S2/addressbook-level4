@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
-import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
  * Represents a simple Course Requirement that is not composite or not connected by logical connectors.
@@ -47,23 +47,23 @@ public class PrimitiveRequirement implements CourseRequirement {
     }
 
     @Override
-    public boolean isFulfilled(List<ModuleInfo> moduleInfos) {
-        return condition.isSatisfied(moduleInfos);
+    public boolean isFulfilled(List<ModuleInfoCode> moduleInfoCodes) {
+        return condition.isSatisfied(moduleInfoCodes);
     }
 
     @Override
-    public boolean canFulfill(ModuleInfo moduleInfo) {
-        return condition.canSatisfy(moduleInfo);
+    public boolean canFulfill(ModuleInfoCode moduleInfoCode) {
+        return condition.canSatisfy(moduleInfoCode);
     }
 
     @Override
-    public double getFulfilledPercentage(List<ModuleInfo> moduleInfos) {
-        return condition.getPercentageCompleted(moduleInfos);
+    public double getFulfilledPercentage(List<ModuleInfoCode> moduleInfoCodes) {
+        return condition.getPercentageCompleted(moduleInfoCodes);
     }
 
     @Override
-    public String getUnfulfilled(List<ModuleInfo> moduleInfos) {
-        return condition.getUnsatisfied(moduleInfos);
+    public String getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes) {
+        return condition.getUnsatisfied(moduleInfoCodes);
     }
 
     @Override

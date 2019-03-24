@@ -2,11 +2,13 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -99,6 +101,47 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removePerson(Person key) {
         persons.remove(key);
         indicateModified();
+    }
+
+    public List<ModuleInfoCode> getPassedModuleList() {
+        List<ModuleInfoCode> codeList = new ArrayList<>();
+
+        for (Person module : getPersonList()) {
+            if (module.isPassed()) {
+                codeList.add(new ModuleInfoCode(module.getModuleInfo().fullName)); // temporary
+            }
+        }
+
+        return codeList;
+    }
+
+    /**
+     * Returns true if the module list contains a passed module corresponding to the given module code string.
+     */
+    public boolean hasPassedModule(String code) {
+        requireNonNull(code);
+        for (Person module : getPersonList()) {
+            if (module.getModuleInfo().fullName.equals(code)
+                    && module.isPassed()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if the module list contains a planned (unfinished) module
+     * corresponding to the given module code string.
+     */
+    public boolean hasPlannedModule(String code) {
+        requireNonNull(code);
+        for (Person module : getPersonList()) {
+            if (module.getModuleInfo().fullName.equals(code)
+                    && !module.isFinished()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

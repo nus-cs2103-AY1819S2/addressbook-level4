@@ -19,7 +19,7 @@ public class RecordAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new dental record to a patient. "
             + "Parameters: "
-            + PREFIX_DESC + "Description"
+            + PREFIX_DESC + "Description \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESC + "Patient went through all four wisdom tooth extraction today ";
 

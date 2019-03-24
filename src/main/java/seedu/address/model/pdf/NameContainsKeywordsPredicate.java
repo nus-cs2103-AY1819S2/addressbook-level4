@@ -18,7 +18,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Pdf> {
     @Override
     public boolean test(Pdf pdf) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(pdf.getName().getFullName(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(pdf.getName().getFullName(), keyword)
+                                || StringUtil.containsWordInContent(pdf, keyword));
     }
 
     @Override

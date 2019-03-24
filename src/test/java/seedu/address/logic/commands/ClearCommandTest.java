@@ -13,7 +13,7 @@ import seedu.address.model.UserPrefs;
 
 public class ClearCommandTest {
 
-    private CommandHistory commandHistory = new CommandHistory();
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Test
     public void execute_emptyPdfBook_success() {
@@ -21,7 +21,7 @@ public class ClearCommandTest {
         Model expectedModel = new ModelManager();
         expectedModel.commitPdfBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, EMPTY_COMMAND_HISTORY, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -31,7 +31,7 @@ public class ClearCommandTest {
         expectedModel.setPdfBook(new PdfBook());
         expectedModel.commitPdfBook();
 
-        assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ClearCommand(), model, EMPTY_COMMAND_HISTORY, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

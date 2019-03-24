@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_A;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_B;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_1;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LECTURE;
 
@@ -16,27 +16,27 @@ public class EditPdfDescriptorTest {
     @Test
     public void equals() {
         // same values -> returns true
-        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_A);
-        assertTrue(DESC_A.equals(descriptorWithSameValues));
+        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_1);
+        assertTrue(DESC_1.equals(descriptorWithSameValues));
 
         // same object -> returns true
-        assertTrue(DESC_A.equals(DESC_A));
+        assertTrue(DESC_1.equals(DESC_1));
 
         // null -> returns false
-        assertFalse(DESC_A.equals(null));
+        assertFalse(DESC_1.equals(null));
 
         // different types -> returns false
-        assertFalse(DESC_A.equals(5));
+        assertFalse(DESC_1.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_A.equals(DESC_B));
+        assertFalse(DESC_1.equals(DESC_2));
 
         // different name -> returns false
-        EditPersonDescriptor editedA = new EditPdfDescriptorBuilder(DESC_A).withName(VALID_NAME_2).build();
-        assertFalse(DESC_A.equals(editedA));
+        EditPersonDescriptor editedA = new EditPdfDescriptorBuilder(DESC_1).withName(VALID_NAME_2).build();
+        assertFalse(DESC_1.equals(editedA));
 
         // different tags -> returns false
-        editedA = new EditPdfDescriptorBuilder(DESC_A).withTags(VALID_TAG_LECTURE).build();
-        assertFalse(DESC_A.equals(editedA));
+        editedA = new EditPdfDescriptorBuilder(DESC_1).withTags(VALID_TAG_LECTURE).build();
+        assertFalse(DESC_1.equals(editedA));
     }
 }

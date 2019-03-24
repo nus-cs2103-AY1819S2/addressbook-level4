@@ -32,8 +32,8 @@ import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 //import static seedu.address.testutil.TypicalPdfs.CARL;
 //import static seedu.address.testutil.TypicalPdfs.HOON;
 //import static seedu.address.testutil.TypicalPdfs.IDA;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2_DUPLICATE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2_DUPLICATE;
 //import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
 //import static seedu.address.testutil.TypicalPdfs.KEYWORD_MATCHING_MEIER;
 
@@ -136,7 +136,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: add a duplicate pdf except with different address -> rejected *//*
-        toAdd = new PdfBuilder(HOON).withLocation(VALID_ADDRESS_BOB).build();
+        toAdd = new PdfBuilder(HOON).withDirectory(VALID_ADDRESS_BOB).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 

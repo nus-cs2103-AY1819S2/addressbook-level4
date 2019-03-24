@@ -47,7 +47,7 @@ public class UniquePdfListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePdfList.add(ALICE);
-        Pdf editedAlice = new PdfBuilder(ALICE).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Pdf editedAlice = new PdfBuilder(ALICE).withDirectory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniquePdfList.contains(editedAlice));
     }
@@ -95,7 +95,7 @@ public class UniquePdfListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePdfList.add(ALICE);
-        Pdf editedAlice = new PdfBuilder(ALICE).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Pdf editedAlice = new PdfBuilder(ALICE).withDirectory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniquePdfList.setPerson(ALICE, editedAlice);
         UniquePdfList expectedUniquePdfList = new UniquePdfList();

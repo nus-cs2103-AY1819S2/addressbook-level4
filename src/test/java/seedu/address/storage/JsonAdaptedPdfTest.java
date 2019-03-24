@@ -32,7 +32,8 @@ public class JsonAdaptedPdfTest {
     /*@Test
     public void toModelType_invalidLocation_throwsIllegalValueException() {
         JsonAdaptedPdf pdf =
-                new JsonAdaptedPdf(SAMPLE_PDF_1.getName().getFullName(), INVALID_LOCATION, SAMPLE_PDF_1.getSize().getValue(),
+                new JsonAdaptedPdf(SAMPLE_PDF_1.getName().getFullName(), INVALID_LOCATION,
+                SAMPLE_PDF_1.getSize().getValue(),
                         VALID_TAGS);
         String expectedMessage = Directory.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, pdf::toModelType);

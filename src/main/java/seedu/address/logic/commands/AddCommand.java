@@ -20,7 +20,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a pdf to the PDF book. "
             + "Parameters: "
             + PREFIX_FILE + "FILEPATH "
-            + "[" + PREFIX_TAG_NEW + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILE + "Desktop\\main\\target";
 

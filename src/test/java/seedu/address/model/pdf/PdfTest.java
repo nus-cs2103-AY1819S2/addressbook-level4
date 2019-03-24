@@ -2,18 +2,9 @@ package seedu.address.model.pdf;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LECTURE;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static seedu.address.testutil.TypicalPdfs.ALICE;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_DUPLICATE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
-//import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2_DUPLICATE;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1_DUPLICATE;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
-//import static seedu.address.testutil.TypicalPdfs.BOB;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,17 +40,17 @@ public class PdfTest {
         assertFalse(ALICE.isSamePdf(comparisonPdf));
 
         // same name, same phone, different attributes -> returns true
-        comparisonPdf = new PdfBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withLocation(VALID_ADDRESS_BOB)
+        comparisonPdf = new PdfBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withDirectory(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePdf(comparisonPdf));*/
 
         /*// same name, same email, different attributes -> returns true
-        comparisonPdf = new PdfBuilder(ALICE).withSize(VALID_PHONE_BOB).withLocation(VALID_ADDRESS_BOB)
+        comparisonPdf = new PdfBuilder(ALICE).withSize(VALID_PHONE_BOB).withDirectory(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePdf(comparisonPdf));
 
         // same name, same phone, same email, different attributes -> returns true
-        comparisonPdf = new PdfBuilder(ALICE).withLocation(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        comparisonPdf = new PdfBuilder(ALICE).withDirectory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePdf(comparisonPdf));*/
     }
 

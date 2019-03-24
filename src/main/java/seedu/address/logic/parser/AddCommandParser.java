@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.address.logic.parser.CliSyntax.*;
 
 import java.io.File;
 import java.util.HashSet;
@@ -31,14 +31,13 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         File file = null;
 
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FILE);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FILE, PREFIX_TAG_NEW);
 
-        if (arePrefixesPresent(argMultimap, PREFIX_FILE)
-                && argMultimap.getPreamble().isEmpty()) {
-
+        if (arePrefixesPresent(argMultimap, PREFIX_TAG_NEW)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        if (arePrefixesPresent(argMultimap, PREFIX_FILE) && argMultimap.getPreamble().isEmpty()) {
             if (argMultimap.getValue(PREFIX_FILE).isPresent()) {
-
                 file = ParserUtil.parseFile(argMultimap.getValue(PREFIX_FILE).get());
 
             } else {

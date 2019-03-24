@@ -1,13 +1,6 @@
 package seedu.address.logic.parser;
 
 import org.junit.Test;
-import seedu.address.logic.commands.TagCommand;
-import seedu.address.model.pdf.Pdf;
-import seedu.address.testutil.PdfBuilder;
-
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 
 public class TagCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();

@@ -1,16 +1,15 @@
 package guitests.guihandles;
 
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Person;
-import seedu.address.ui.DoctorCard;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.print.Doc;
+//import javax.print.Doc;
+
+import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import seedu.address.model.person.Doctor;
+//import seedu.address.ui.DoctorCard;
 
 /**
  * Provides a handle for {@code DoctorListPanel} containing the list of {@code DoctorCard}.

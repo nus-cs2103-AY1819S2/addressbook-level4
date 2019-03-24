@@ -5,6 +5,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Tags a pdf identified using it's displayed index from the PDF book.
+ */
 public class TagCommand extends Command {
     public static final String COMMAND_WORD = "tag";
 

@@ -17,6 +17,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+import seedu.address.logic.commands.management.ManagementCommand;
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.Model;
@@ -82,7 +83,7 @@ public class QuizStartCommand implements Command {
         // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
         // In other words, only incorrect code will result in a CommandException being thrown
         if (!(model instanceof ManagementModel)) {
-            throw new CommandException(MESSAGE_EXPECTED_MGT_MODEL);
+            throw new CommandException(ManagementCommand.MESSAGE_EXPECTED_MGT_MODEL);
         }
 
         //CsvLessonsStorage storage = new CsvLessonsStorage(INVALID_CORE_CHAR_FIELD_DATA_FOLDER);

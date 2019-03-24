@@ -2,7 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static seedu.address.logic.commands.Command.MESSAGE_EXPECTED_MGT_MODEL;
+import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MGT_MODEL;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_DELIMITER;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;

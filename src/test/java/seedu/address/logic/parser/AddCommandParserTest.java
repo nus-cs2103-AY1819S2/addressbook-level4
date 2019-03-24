@@ -1,7 +1,17 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_VALID_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.DIRECTORY_DESC_1;
+import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
+import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_2_PDF;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_PATH_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_1;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_1;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_1;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;

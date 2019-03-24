@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPdfs.*;
 
 import java.nio.file.Path;
@@ -21,13 +23,16 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.PdfBook;
 import seedu.address.model.ReadOnlyPdfBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
 
 public class AddCommandTest {
 
+    private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
@@ -86,6 +91,26 @@ public class AddCommandTest {
 
         // different pdf -> returns false
         assertFalse(addCommandSamplePdf6.equals(addCommandSamplePdf7));
+    }
+
+    @Test
+    public void executeUndoRedo_validFile_success() throws Exception {
+        Pdf pdfToAdd = SAMPLE_PDF_8;
+        AddCommand addCommand = new AddCommand(pdfToAdd);
+        Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
+        expectedModel.addPdf(pdfToAdd);
+        expectedModel.commitPdfBook();
+
+        // add -> first pdf deleted
+        addCommand.execute(model, commandHistory);
+
+        // undo -> reverts addressbook back to previous state and filtered pdf list to show all persons
+        expectedModel.undoPdfBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo -> same first pdf deleted again
+        expectedModel.redoPdfBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     /**

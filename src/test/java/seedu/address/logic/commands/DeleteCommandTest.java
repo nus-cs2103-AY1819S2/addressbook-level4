@@ -8,11 +8,12 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
-//import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PDF;
-import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
+import org.junit.Rule;
 import org.junit.Test;
 
+import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -20,14 +21,21 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
+import seedu.address.model.pdf.exceptions.PdfNotFoundException;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
  * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
+    @Rule
+    public final TemporaryFolder tempFolder = new TemporaryFolder();
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -45,11 +53,33 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_validIndexUnfilteredListHard_success() {
+        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
+
+        saveBackup(pdfToDelete);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PDF, DeleteCommand.DeleteType.Hard);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PDF_SUCCESS, pdfToDelete);
+
+        ModelManager expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
+        expectedModel.deletePdf(pdfToDelete);
+        expectedModel.commitPdfBook();
+
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        revertBackup(pdfToDelete);
+        assertTrue(Paths.get(pdfToDelete.getDirectory().getDirectory() + "\\"
+                + pdfToDelete.getName()).toFile().exists());
+
+    }
+
+    @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPdfList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        DeleteCommand deleteHardCommand = new DeleteCommand(outOfBoundIndex, DeleteCommand.DeleteType.Hard);
+        assertCommandFailure(deleteHardCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -70,6 +100,27 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_validIndexFilteredListHard_success() {
+        showPdfAtIndex(model, INDEX_FIRST_PDF);
+
+        Pdf pdfToDelete = model.getFilteredPdfList().get(INDEX_FIRST_PDF.getZeroBased());
+        saveBackup(pdfToDelete);
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PDF, DeleteCommand.DeleteType.Hard);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PDF_SUCCESS, pdfToDelete);
+
+        Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
+        expectedModel.deletePdf(pdfToDelete);
+        expectedModel.commitPdfBook();
+        showNoPerson(expectedModel);
+
+        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        revertBackup(pdfToDelete);
+        assertTrue(Paths.get(pdfToDelete.getDirectory().getDirectory() + "\\"
+                + pdfToDelete.getName()).toFile().exists());
+    }
+
+    @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showPdfAtIndex(model, INDEX_FIRST_PDF);
 
@@ -80,6 +131,10 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        DeleteCommand deleteHardCommand = new DeleteCommand(outOfBoundIndex, DeleteCommand.DeleteType.Hard);
+
+        assertCommandFailure(deleteHardCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -135,7 +190,7 @@ public class DeleteCommandTest {
         // delete -> deletes second pdf in unfiltered pdf list / first pdf in filtered pdf list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered pdf list to show all persons
+        // undo -> reverts pdfbook back to previous state and filtered pdf list to show all persons
         expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -149,6 +204,8 @@ public class DeleteCommandTest {
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PDF);
         DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PDF);
+        DeleteCommand deleteHardFirstCommand = new DeleteCommand(INDEX_FIRST_PDF, DeleteCommand.DeleteType.Hard);
+        DeleteCommand deleteHardSecondCommand = new DeleteCommand(INDEX_SECOND_PDF, DeleteCommand.DeleteType.Hard);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
@@ -159,12 +216,35 @@ public class DeleteCommandTest {
 
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
+        assertFalse(deleteFirstCommand.equals(deleteHardFirstCommand));
+        assertFalse(deleteHardSecondCommand.equals(deleteSecondCommand));
 
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
         // different pdf -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+    }
+
+    /**
+     * Saves {@param pdfToDelete} as a backup
+     */
+    private void saveBackup(Pdf pdfToDelete) {
+        try {
+            Files.copy(Paths.get(pdfToDelete.getDirectory().getDirectory() + "\\" + pdfToDelete.getName()),
+                    Paths.get(pdfToDelete.getDirectory().getDirectory() + "\\Backup\\" + pdfToDelete.getName()));
+        } catch (IOException ioe) {
+            throw new PdfNotFoundException();
+        }
+    }
+
+    /**
+     * Moves {@param pdfToRevert} back to its original location
+     */
+    private void revertBackup(Pdf pdfToRevert) {
+        Paths.get(pdfToRevert.getDirectory().getDirectory() + "\\Backup\\" + pdfToRevert.getName()).toFile()
+                .renameTo(Paths.get(pdfToRevert.getDirectory().getDirectory() + "\\"
+                        + pdfToRevert.getName()).toFile());
     }
 
     /**

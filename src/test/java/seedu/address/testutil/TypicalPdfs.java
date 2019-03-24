@@ -1,16 +1,5 @@
 package seedu.address.testutil;
 
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-//import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -63,7 +52,7 @@ public class TypicalPdfs {
                     "CS2101_Writing User Guides.pdf");
     private static final Path sample_invalidPdf_1_path =
             Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
-                    "invalidPdf_1.pdf");
+                    "invalidPathToFile.pdf");
 
     //Duplicates - Pdfs that have the same name but in a different location
     private static final Path sample_pdf_1_duplicate_path =
@@ -218,15 +207,15 @@ public class TypicalPdfs {
     /**
      * Returns an {@code PdfBook} with all the typical persons.
      */
-    public static PdfBook getTypicalAddressBook() {
-        PdfBook ab = new PdfBook();
-        for (Pdf pdf : getTypicalPersons()) {
-            ab.addPdf(pdf);
+    public static PdfBook getTypicalPdfBook() {
+        PdfBook pdfBook = new PdfBook();
+        for (Pdf pdf : getTypicalPdfs()) {
+            pdfBook.addPdf(pdf);
         }
-        return ab;
+        return pdfBook;
     }
 
-    public static List<Pdf> getTypicalPersons() {
+    public static List<Pdf> getTypicalPdfs() {
         return new ArrayList<>(Arrays.asList(SAMPLE_PDF_1, SAMPLE_PDF_2, SAMPLE_PDF_3));
     }
 }

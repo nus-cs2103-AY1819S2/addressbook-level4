@@ -42,7 +42,6 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_HARD_FAIL = "PDF unable to be deleted at filesystem.";
 
     private final Index targetIndex;
-
     private final DeleteType deleteType;
 
     public DeleteCommand(Index targetIndex) {

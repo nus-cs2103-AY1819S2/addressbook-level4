@@ -4,7 +4,7 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
-import static seedu.address.testutil.TypicalPdfs.getTypicalPersons;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfs;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -25,7 +25,7 @@ import seedu.address.model.pdf.Phone;
 
 public class PdfListPanelTest extends GuiUnitTest {
     private static final ObservableList<Pdf> TYPICAL_PDFS =
-            FXCollections.observableList(getTypicalPersons());
+            FXCollections.observableList(getTypicalPdfs());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 

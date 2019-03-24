@@ -9,6 +9,8 @@ import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.battle.Battle;
+import seedu.address.logic.battle.state.BattleState;
+import seedu.address.logic.statistics.PlayerStatistics;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
@@ -204,4 +206,14 @@ public interface Model {
      * Retrieves the Battle API.
      */
     Battle getBattle();
+
+    /**
+     * Retrieves the current state of the battle.
+     */
+    void setBattleState(BattleState battleState);
+
+    /**
+     * Retrieves the current state of the battle.
+     */
+    BattleState getBattleState();
 }

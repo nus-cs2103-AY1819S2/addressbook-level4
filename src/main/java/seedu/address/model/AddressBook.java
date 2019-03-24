@@ -213,7 +213,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return medHists.asUnmodifiableObservableList();
     }
 
-//    @Override
+    @Override
     public ObservableList<Doctor> getDoctorList() {
         return doctors.asUnmodifiableObservableList();
     }

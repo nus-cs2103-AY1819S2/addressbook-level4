@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.lesson;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -10,9 +10,6 @@ import java.util.Arrays;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import seedu.address.model.lesson.Lesson;
-import seedu.address.model.lesson.LessonList;
 
 public class LessonListTest {
     @Rule

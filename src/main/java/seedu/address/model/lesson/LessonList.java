@@ -6,22 +6,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Wraps all lesson data in memory.
+ * Represents a list of {@link Lesson} objects. It has helper functions to assist with the management
+ * of {@link Lesson} objects.
  */
 public class LessonList {
     //Static fields
-    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: ";
+    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s";
 
+    // Data fields
+    /**
+     * The list of {@link Lesson} objects.
+     */
     private List<Lesson> lessons;
 
+    /**
+     * Creates a new {@link LessonList} which is used to store a list of {@link Lesson} objects.
+     */
     public LessonList() {
         lessons = new ArrayList<>();
     }
 
+    /**
+     * Returns the list of {@link #lessons}.
+     *
+     * @return the list of {@link #lessons}
+     */
     public List<Lesson> getLessons() {
         return lessons;
     }
 
+    /**
+     * Returns the {@link Lesson} at the specified position in {@link #lessons}.
+     *
+     * @param index index of the lesson to return
+     * @return the lesson at the specified position in {@link #lessons}
+     */
     public Lesson getLesson(int index) {
         try {
             return lessons.get(index);
@@ -31,8 +50,19 @@ public class LessonList {
     }
 
     /**
-     * Removes lesson at index.
-     * @param index
+     * Adds a {@link Lesson} object to {@link #lessons}.
+     *
+     * @param lesson {@link Lesson} to be added to {@link #lessons}
+     */
+    public void addLesson(Lesson lesson) {
+        requireNonNull(lesson);
+        lessons.add(lesson);
+    }
+
+    /**
+     * Deletes a {@link Lesson} object from {@link #lessons}.
+     *
+     * @param index index of the lesson to delete
      */
     public void deleteLesson(int index) {
         try {
@@ -43,16 +73,13 @@ public class LessonList {
     }
 
     /**
-     * Adds a lesson to the current list.
+     * Sets the {@link Lesson} object at index of {@link #lessons}.
+     * @param index index of the lesson to set
+     * @param newLesson set the old lesson to this lesson
      */
-    public void addLesson(Lesson lesson) {
-        requireNonNull(lesson);
-        lessons.add(lesson);
-    }
-
-    public void setLesson(int index, Lesson lesson) {
-        requireNonNull(lesson);
-        lessons.set(index, lesson);
+    public void setLesson(int index, Lesson newLesson) {
+        requireNonNull(newLesson);
+        lessons.set(index, newLesson);
     }
 
     @Override

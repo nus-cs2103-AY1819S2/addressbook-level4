@@ -317,9 +317,9 @@ public class Lesson {
     }
 
     /**
-     * Adds a {@link Card} object to the lesson.
+     * Adds a {@link Card} object to {@link #cards}.
      *
-     * @param card {@link Card} to be added to the lesson
+     * @param card {@link Card} to be added to {@link #cards}
      */
     public void addCard(Card card) {
         // All Card objects added must have the same number of cores as the number of core headers.

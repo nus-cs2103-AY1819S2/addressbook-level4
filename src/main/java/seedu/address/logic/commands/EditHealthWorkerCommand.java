@@ -105,11 +105,12 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
      */
     public static class EditHealthWorkerDescriptor {
 
-        private Organization organization;
-        private Skills skills;
         protected Name name;
         protected Nric nric;
         protected Phone phone;
+        private Organization organization;
+        private Skills skills;
+
 
 
         public EditHealthWorkerDescriptor() {}
@@ -123,7 +124,7 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
         }
 
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, nric, phone,organization,skills);
+            return CollectionUtil.isAnyNonNull(name, nric, phone, organization, skills);
         }
 
         public void setName(Name name) {
@@ -166,6 +167,7 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
             return Optional.ofNullable(this.skills);
         }
 
+        @Override
         public boolean equals(Object other) {
             if (other == this) {
                 return true;

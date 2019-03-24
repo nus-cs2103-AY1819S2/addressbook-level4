@@ -1,7 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,7 +18,7 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
-import seedu.address.model.person.Person;
+//import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
@@ -35,10 +35,10 @@ public class SampleDataUtil {
     // TODO: Fix implementation for HealthHub in MainApp for loading AddressBook class
     public static Person[] getSamplePersons() {
         return new Person[] {
-                new Person(new Name("Alison Jacksonston"), new Nric("S9876542A"), new Phone("86633666")),
-                new Person(new Name("Brandon Stark"), new Nric("S9879842A"), new Phone("81234466")),
-                new Person(new Name("Charlie LivinStone"), new Nric("S9133154A"), new Phone("87895566")),
-                new Person(new Name("Dick Grayson"), new Nric("S9076542A"), new Phone("88888888"))
+            new Person(new Name("Alison Jacksonston"), new Nric("S9876542A"), new Phone("86633666")),
+            new Person(new Name("Brandon Stark"), new Nric("S9879842A"), new Phone("81234466")),
+            new Person(new Name("Charlie LivinStone"), new Nric("S9133154A"), new Phone("87895566")),
+            new Person(new Name("Dick Grayson"), new Nric("S9076542A"), new Phone("88888888"))
         };
     }
 
@@ -52,13 +52,13 @@ public class SampleDataUtil {
 
     public static HealthWorker[] getSampleHealthWorkers() {
         return new HealthWorker[] {
-                new HealthWorker(new Name("Alex Raider"), new Nric("T1234567J"), new Phone("98765432"),
+            new HealthWorker(new Name("Alex Raider"), new Nric("T1234567J"), new Phone("98765432"),
                         new Organization("SGH"), getSkillsFromString("PATHOLOGY")),
-                new HealthWorker(new Name("Billy Batson"), new Nric("T5857367J"), new Phone("98875432"),
+            new HealthWorker(new Name("Billy Batson"), new Nric("T5857367J"), new Phone("98875432"),
                         new Organization("SGH"), getSkillsFromString("GYNAECOLOGY")),
-                new HealthWorker(new Name("Charles Anderson"), new Nric("S5856787J"), new Phone("91234432"),
+            new HealthWorker(new Name("Charles Anderson"), new Nric("S5856787J"), new Phone("91234432"),
                         new Organization("NUH"), getSkillsFromString("GYNAECOLOGY")),
-                new HealthWorker(new Name("Dawgs Galore"), new Nric("T2334567J"), new Phone("90987432"),
+            new HealthWorker(new Name("Dawgs Galore"), new Nric("T2334567J"), new Phone("90987432"),
                         new Organization("SGH"), getSkillsFromString("UROLOGY"))
         };
     }
@@ -72,11 +72,11 @@ public class SampleDataUtil {
     }
     public static Request[] getSampleRequests() {
         return new Request[] {
-                new Request(new Name("Aggie Tan"), new Nric("S9875432L"), new Phone("81234567"),
-                        new Address("311, Clementi Ave 2, #02-25"),new RequestDate("02-01-2919 08:00:00"),
+            new Request(new Name("Aggie Tan"), new Nric("S9875432L"), new Phone("81234567"),
+                        new Address("311, Clementi Ave 2, #02-25"), new RequestDate("02-01-2919 08:00:00"),
                         getConditionSet("Palliative"), new RequestStatus("PENDING")),
-                new Request(new Name("Benson Tan"), new Nric("S9878932L"), new Phone("84561267"),
-                        new Address("14, Bishan Ave 2, #01-20"),new RequestDate("02-01-2009 08:00:00"),
+            new Request(new Name("Benson Tan"), new Nric("S9878932L"), new Phone("84561267"),
+                        new Address("14, Bishan Ave 2, #01-20"), new RequestDate("02-01-2009 08:00:00"),
                         getConditionSet("Palliative"), new RequestStatus("COMPLETED"))
         };
     }

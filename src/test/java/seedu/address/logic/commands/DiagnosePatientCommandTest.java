@@ -29,6 +29,8 @@ public class DiagnosePatientCommandTest {
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
 
+    private Patient patient1;
+
     @Before
     public void init() {
         Name name = new Name("Peter Tan");
@@ -39,7 +41,7 @@ public class DiagnosePatientCommandTest {
         Gender gender = new Gender("M");
         Dob dob = new Dob("1991-01-01");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         modelManager.addPatient(patient1);
     }
 
@@ -67,7 +69,7 @@ public class DiagnosePatientCommandTest {
         Diagnosis diagnosis = new Diagnosis(assessment, symptoms);
         DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
 
-        modelManager.createConsultation(modelManager.getPatientAtIndex(1));
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
 
         try {
             assertEquals(command.execute(modelManager, history).getFeedbackToUser(), diagnosis.toString());

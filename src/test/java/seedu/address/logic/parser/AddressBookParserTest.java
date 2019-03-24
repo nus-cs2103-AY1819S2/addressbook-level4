@@ -149,7 +149,7 @@ public class AddressBookParserTest {
         Email email = new Email("ptan@gmail.com");
         Address address = new Address("1 Simei Road");
 
-        String userInput = "pedit 1 n/" + name.getName() + " "
+        String userInput = EditPatientCommand.COMMAND_WORD + " S9123456A " + "n/" + name.getName() + " "
                 + "r/" + nric.getNric() + " "
                 + "e/" + email.getEmail() + " "
                 + "a/" + address.getAddress();
@@ -160,7 +160,7 @@ public class AddressBookParserTest {
         pef.setEmail(email);
         pef.setAddress(address);
 
-        EditPatientCommand expectedCommand = new EditPatientCommand(1, pef);
+        EditPatientCommand expectedCommand = new EditPatientCommand(nric, pef);
 
         EditPatientCommand command = (EditPatientCommand) parser.parseCommand(userInput);
         assertEquals(expectedCommand, command);

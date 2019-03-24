@@ -29,6 +29,7 @@ public class EndConsultationTest {
 
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
+    private Patient patient1;
 
     @Before
     public void init() {
@@ -40,14 +41,14 @@ public class EndConsultationTest {
         Gender gender = new Gender("M");
         Dob dob = new Dob("1991-01-01");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         modelManager.addPatient(patient1);
     }
 
     @Test
     public void endConsultation() {
 
-        modelManager.createConsultation(modelManager.getPatientAtIndex(1));
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
 
         EndConsultationCommand command = new EndConsultationCommand();
 
@@ -71,7 +72,7 @@ public class EndConsultationTest {
         try {
             org.junit.Assert.assertEquals(command.execute(modelManager, history).getFeedbackToUser(),
                     String.format(EndConsultationCommand.END_CONSULT_FEEDBACK,
-                            modelManager.getPatientAtIndex(1).getNric()));
+                            modelManager.getPatientByNric(patient1.getNric().toString()).getNric()));
         } catch (CommandException ce) {
             org.junit.Assert.fail();
         }

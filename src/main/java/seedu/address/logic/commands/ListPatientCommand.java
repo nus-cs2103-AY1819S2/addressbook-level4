@@ -23,7 +23,9 @@ public class ListPatientCommand extends Command {
     private Tag tag;
 
     public ListPatientCommand(int index) {
-        this.index = index;
+        // for user entry, index is always 1 indexed.
+        // since patientmanager uses 0 indexing, 1 indexing is handled here
+        this.index = index - 1;
         constructedBy = 1;
     }
 

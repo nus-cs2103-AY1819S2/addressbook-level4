@@ -473,6 +473,9 @@ public class ModelManager implements Model {
         return this.patientManager.getPatientByNric(nric);
     }
 
+    public int getIndexByNric(Nric nric) {
+        return this.patientManager.getIndexByNric(nric); }
+
     /**
      * Delete patient from patient records
      *

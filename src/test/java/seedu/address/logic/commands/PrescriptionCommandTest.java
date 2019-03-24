@@ -24,6 +24,7 @@ public class PrescriptionCommandTest {
 
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
+    private Patient patient1;
 
     @Before
     public void init() {
@@ -35,9 +36,9 @@ public class PrescriptionCommandTest {
         Gender gender = new Gender("M");
         Dob dob = new Dob("1991-01-01");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
-        modelManager.addPatient(patient1);
 
+        patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        modelManager.addPatient(patient1);
         // to store medicine
         String[] paths = {"root"};
         modelManager.addMedicine("antibiotics", 2, paths, BigDecimal.valueOf(23.23));
@@ -61,7 +62,7 @@ public class PrescriptionCommandTest {
                     "There is no ongoing consultation to prescribe medicine to");
         }
 
-        modelManager.createConsultation(modelManager.getPatientAtIndex(1));
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
         try {
             Medicine med = new Medicine("antibiotics", 2);
             prescriptionCommand = new PrescriptionCommand(medList, qtyList);

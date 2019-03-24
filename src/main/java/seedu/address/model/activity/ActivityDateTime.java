@@ -34,9 +34,6 @@ public class ActivityDateTime implements Comparable<ActivityDateTime> {
     public final String fullDateTime;
     public final Calendar calendarDateTime;
 
-    private static final DateFormat activityDateTimeFormat = new SimpleDateFormat("dd/MM/YYYY HHmm");
-
-
     /**
      * Constructs a {@code ActivityDateTime}.
      *
@@ -100,7 +97,7 @@ public class ActivityDateTime implements Comparable<ActivityDateTime> {
         int year = Integer.parseInt(datePart.substring(6, 10));
         int hour = Integer.parseInt(timePart.substring(0, 2));
         int minute = Integer.parseInt(timePart.substring(2));
-        cal.set(year, month - 1, day, hour, minute,00);
+        cal.set(year, month - 1, day, hour, minute, 00);
         return cal;
     }
 

@@ -6,7 +6,10 @@ package seedu.address.model.activity;
  */
 public class ActivityStatus {
 
-    public enum Status {ONGOING, COMPLETED}
+    /**
+     * Represents the possible status of ActivityStatus
+     */
+    public enum Status { ONGOING, COMPLETED }
 
     public final Status status;
 
@@ -16,7 +19,7 @@ public class ActivityStatus {
      * @param isPast a boolean about whether the activity time is in the past.
      */
     public ActivityStatus(boolean isPast) {
-        if (isPast){
+        if (isPast) {
             this.status = Status.COMPLETED;
         } else {
             this.status = Status.ONGOING;

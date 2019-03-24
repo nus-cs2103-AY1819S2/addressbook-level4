@@ -131,7 +131,7 @@ public class Activity implements Comparable<Activity> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, dateTime,location, description, inCharge, attendance);
+        return Objects.hash(name, dateTime, location, description, inCharge, attendance);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class Activity implements Comparable<Activity> {
     }
 
     @Override
-    public int compareTo(Activity other){
+    public int compareTo(Activity other) {
         //when both activity are ongoing or completed, compare by the time of the activity
         if (this.status.equals(other.status)) {
             return this.dateTime.compareTo(other.dateTime);

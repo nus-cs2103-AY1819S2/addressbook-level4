@@ -83,7 +83,7 @@ public class QuizStartCommand implements Command {
         // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
         // In other words, only incorrect code will result in a CommandException being thrown
         if (!(model instanceof ManagementModel)) {
-            throw new CommandException(ManagementCommand.MESSAGE_EXPECTED_MGT_MODEL);
+            throw new CommandException(ManagementCommand.MESSAGE_EXPECTED_MODEL);
         }
 
         //CsvLessonsStorage storage = new CsvLessonsStorage(INVALID_CORE_CHAR_FIELD_DATA_FOLDER);

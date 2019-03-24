@@ -3,7 +3,7 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MGT_MODEL;
+import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,7 +63,7 @@ public class AddLessonCommandTest {
         // attempting to execute AddLessonCommand on a QuizModel instead of a ManagementModel ->
         // CommandException thrown
         thrown.expect(CommandException.class);
-        thrown.expectMessage(MESSAGE_EXPECTED_MGT_MODEL);
+        thrown.expectMessage(MESSAGE_EXPECTED_MODEL);
         addLessonCommand.execute(modelStub, commandHistory);
     }
 

@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-// import com.google.maps.GeoApiContext;
+import com.google.maps.GeoApiContext;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -39,7 +39,7 @@ import seedu.travel.ui.UiManager;
 public class MainApp extends Application {
 
     public static final String GOOGLE_API_KEY = "AIzaSyBHys5ywgiaHrGJHRd_aksq3DH7BpiogXc";
-    // public static final GeoApiContext CONTEXT = new GeoApiContext.Builder().apiKey(GOOGLE_API_KEY).build();
+    public static final GeoApiContext CONTEXT = new GeoApiContext.Builder().apiKey(GOOGLE_API_KEY).build();
     private static final Version VERSION = new Version(1, 3, 0, true);
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 

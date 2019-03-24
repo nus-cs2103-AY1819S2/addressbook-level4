@@ -9,6 +9,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.travel.logic.commands.SearchCountryCommand;
+import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.CountryCodeContainsKeywordsPredicate;
 
 public class SearchCountryCommandParserTest {
@@ -18,6 +19,12 @@ public class SearchCountryCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SearchCountryCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidArg_throwsParseException() {
+        assertParseFailure(parser, "SGXX JP", String.format(CountryCode.MESSAGE_CONSTRAINTS,
                 SearchCountryCommand.MESSAGE_USAGE));
     }
 

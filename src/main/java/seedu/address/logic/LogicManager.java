@@ -13,9 +13,9 @@ import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.management.ManagementModel;
-import seedu.address.model.modelmanager.quiz.QuizModel;
-import seedu.address.model.modelmanager.quiz.QuizUiDisplayFormatter;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.storage.Storage;
 
 /**

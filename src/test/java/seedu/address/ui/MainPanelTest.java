@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.MainPanelHandle;
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizUiDisplayFormatter;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 public class MainPanelTest extends GuiUnitTest {
 

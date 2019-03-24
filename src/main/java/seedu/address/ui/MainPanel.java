@@ -4,8 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizUiDisplayFormatter;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.

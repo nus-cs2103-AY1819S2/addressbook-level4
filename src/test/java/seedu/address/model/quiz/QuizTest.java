@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.quiz;
+package seedu.address.model.quiz;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

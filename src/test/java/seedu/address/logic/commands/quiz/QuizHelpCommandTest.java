@@ -12,10 +12,10 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
-import seedu.address.model.modelmanager.quiz.QuizModel;
-import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.model.modelmanager.QuizModel;
+import seedu.address.model.modelmanager.QuizModelManager;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
 
 public class QuizHelpCommandTest {
     private QuizModel model = new QuizModelManager();

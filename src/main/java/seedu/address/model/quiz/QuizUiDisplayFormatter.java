@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.quiz;
+package seedu.address.model.quiz;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 

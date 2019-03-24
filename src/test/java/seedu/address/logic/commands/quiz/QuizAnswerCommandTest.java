@@ -14,11 +14,11 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.Model;
+import seedu.address.model.modelmanager.QuizModel;
+import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
-import seedu.address.model.modelmanager.quiz.QuizModel;
-import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
 import seedu.address.testutil.Assert;
 
 public class QuizAnswerCommandTest {

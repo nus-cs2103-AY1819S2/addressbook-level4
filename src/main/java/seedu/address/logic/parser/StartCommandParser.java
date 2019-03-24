@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.quiz.Quiz;
 import seedu.address.model.session.Session;
 
 

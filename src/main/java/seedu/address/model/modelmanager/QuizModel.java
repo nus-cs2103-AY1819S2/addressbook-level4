@@ -1,8 +1,10 @@
-package seedu.address.model.modelmanager.quiz;
+package seedu.address.model.modelmanager;
 
 import java.util.List;
 
-import seedu.address.model.modelmanager.Model;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 
 /**

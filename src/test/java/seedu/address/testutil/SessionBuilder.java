@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import java.util.List;
 
-import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.quiz.Quiz;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
 

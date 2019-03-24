@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//import javax.print.Doc;
+
 import guitests.guihandles.DoctorCardHandle;
 import guitests.guihandles.DoctorListPanelHandle;
 import guitests.guihandles.PersonCardHandle;
@@ -13,7 +15,6 @@ import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Person;
 
-import javax.print.Doc;
 
 /**
  * A set of assertion methods useful for writing GUI tests.

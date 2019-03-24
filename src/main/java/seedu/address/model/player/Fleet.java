@@ -183,9 +183,10 @@ public class Fleet {
                     .append(" at ")
                     .append(this.getCoordinates())
                     .append(" ")
-                    .append(this.getOrientation());
+                    .append(this.getOrientation())
+                    .append(" ");
+            this.getBattleship().getTags().forEach(builder::append);
             return builder.toString();
         }
     }
-
 }

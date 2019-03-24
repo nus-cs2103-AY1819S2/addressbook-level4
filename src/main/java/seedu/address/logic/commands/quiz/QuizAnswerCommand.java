@@ -3,7 +3,6 @@ package seedu.address.logic.commands.quiz;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.Model;
@@ -14,7 +13,7 @@ import seedu.address.model.modelmanager.quiz.QuizModel;
 /**
  * Execute User answer
  */
-public class QuizAnswerCommand implements Command {
+public class QuizAnswerCommand extends QuizCommand {
     public static final String COMMAND_WORD = "answer";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": * any character except word that starts with \\\n";
     public static final String MESSAGE_QUESTION = "Question: %1$s\n";
@@ -41,13 +40,7 @@ public class QuizAnswerCommand implements Command {
      * @throws CommandException If the {@link Model} passed in is not a {@link QuizModel}
      */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
-        // In other words, only incorrect code will result in a CommandException being thrown
-        if (!(model instanceof QuizModel)) {
-            throw new CommandException(MESSAGE_EXPECTED_QUIZ_MODEL);
-        }
-
-        QuizModel quizModel = (QuizModel) model;
+        QuizModel quizModel = requireQuizModel(model);
 
         QuizCard card = quizModel.getCurrentQuizCard();
 

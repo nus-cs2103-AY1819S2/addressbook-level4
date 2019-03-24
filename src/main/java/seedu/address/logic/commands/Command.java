@@ -8,9 +8,6 @@ import seedu.address.model.modelmanager.Model;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public interface Command {
-    String MESSAGE_EXPECTED_QUIZ_MODEL =
-            "Expected QuizModel but received ManagementModel instead.";
-
     /**
      * Executes the command and returns the result message.
      *

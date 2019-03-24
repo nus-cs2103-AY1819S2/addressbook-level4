@@ -47,7 +47,7 @@ public class RecordAddCommand extends Command {
             requireNonNull(model);
 
             Record record = new Record(description);
-            toAdd.addRecord(record);
+            model.addRecord(record);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
         } else {

@@ -12,6 +12,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.logic.commands.AddTableCommand;
+import seedu.address.logic.commands.AddToMenuCommand;
+import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -20,16 +23,24 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.ReadOnlyMenu;
+import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.table.ReadOnlyTables;
+import seedu.address.model.table.Table;
 import seedu.address.storage.JsonMenuStorage;
 import seedu.address.storage.JsonOrdersStorage;
 import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonTablesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.MenuItemBuilder;
+import seedu.address.testutil.OrderItemBuilder;
+import seedu.address.testutil.StatisticsBuilder;
+import seedu.address.testutil.TableBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -62,7 +73,7 @@ public class LogicManagerTest {
         assertHistoryCorrect(invalidCommand);
     }
 
-    //    @Test
+    //    @Test TODO: future use
     //    public void execute_commandExecutionError_throwsCommandException() {
     //        String deleteCommand = "delete 9";
     //        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -76,54 +87,63 @@ public class LogicManagerTest {
         assertHistoryCorrect(helpCommand);
     }
 
-    //    @Test TODO
-    //    public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
-    //        // Setup LogicManager with JsonRestOrRantIoExceptionThrowingStub
-    //        //        JsonRestOrRantStorage jsonRestOrRantStorage =
-    //        //                new JsonRestOrRantIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
-    //        JsonOrdersStorage jsonOrdersStorage =
-    //                new JsonOrdersIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
-    //        JsonMenuStorage jsonMenuStorage = new JsonMenuIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
-    //        JsonStatisticsStorage jsonStatisticsStorage =
-    //                new JsonStatisticsIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
-    //        JsonTablesStorage jsonTablesStorage =
-    //                new JsonTablesIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
-    //        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-    //        StorageManager storage = new StorageManager(userPrefsStorage, jsonOrdersStorage, jsonMenuStorage,
-    //                jsonStatisticsStorage, jsonTablesStorage);
-    //        logic = new LogicManager(model, storage);
-    //
-    //        // Execute add command
-    //        //        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-    //        //                + ADDRESS_DESC_AMY;
-    //        //        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-    //        //        expectedModel.addPerson(expectedPerson);
-    //        //        expectedModel.updateMode();
-    //        //        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-    //        //        assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
-    //        //        assertHistoryCorrect(addCommand);
-    //
-    //        // Execute addTable command
-    //        String addTableCommand = AddTableCommand.COMMAND_WORD + " 1";
-    //        Table expectedTable = new TableBuilder().build();
-    //        OrderItem expectedOrderItem = new OrderItemBuilder().build();
-    //        MenuItem expectedMenuItem = new MenuItemBuilder().build();
-    //        DailyRevenue expectedDailyRevenue = new StatisticsBuilder().build();
-    //        ModelManager expectedModel = new ModelManager();
-    //        expectedModel.addTable(expectedTable);
-    //        expectedModel.addOrderItem(expectedOrderItem);
-    //        expectedModel.addMenuItem(expectedMenuItem);
-    //        expectedModel.addDailyRevenue(expectedDailyRevenue);
-    //        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-    //        assertCommandBehavior(CommandException.class, addTableCommand, expectedMessage, expectedModel);
-    //        assertHistoryCorrect(addTableCommand);
-    //    }
+    @Test
+    public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
+        // Setup LogicManager with JsonRestOrRantIoExceptionThrowingStub
+        //        JsonRestOrRantStorage jsonRestOrRantStorage =
+        //                new JsonRestOrRantIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonOrdersStorage jsonOrdersStorage =
+                new JsonOrdersIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonMenuStorage jsonMenuStorage = new JsonMenuIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonStatisticsStorage jsonStatisticsStorage =
+                new JsonStatisticsIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonTablesStorage jsonTablesStorage =
+                new JsonTablesIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
+        StorageManager storage = new StorageManager(userPrefsStorage, jsonOrdersStorage, jsonMenuStorage,
+                jsonStatisticsStorage, jsonTablesStorage);
+        logic = new LogicManager(model, storage);
 
-    //    @Test
-    //    public void getFilteredPersonsList_modifyList_throwsUnsupportedOperationException() {
-    //        thrown.expect(UnsupportedOperationException.class);
-    //        logic.getFilteredPersonsList().remove(0);
-    //    }
+        // Execute add command
+        //        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        //                + ADDRESS_DESC_AMY;
+        //        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        //        expectedModel.addPerson(expectedPerson);
+        //        expectedModel.updateMode();
+        //        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        //        assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
+        //        assertHistoryCorrect(addCommand);
+
+        // Execute addTable command
+        String addTableCommand = AddTableCommand.COMMAND_WORD + " 4";
+        String addToMenuCommand = AddToMenuCommand.COMMAND_WORD + " n/Chicken Wings c/W09 p/3.99";
+        String addToOrderCommand = AddToOrderCommand.COMMAND_WORD + " W09 3";
+        Table expectedTable = new TableBuilder().build();
+        OrderItem expectedOrderItem = new OrderItemBuilder().build();
+        MenuItem expectedMenuItem = new MenuItemBuilder().build();
+        DailyRevenue expectedDailyRevenue = new StatisticsBuilder().build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addTable(expectedTable);
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandBehavior(CommandException.class, addTableCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(addTableCommand);
+
+        // Execute addToMenu command
+        logic.changeMode(Mode.MENU_MODE);
+        expectedModel.addMenuItem(expectedMenuItem);
+        assertCommandBehavior(CommandException.class, addToMenuCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(addToMenuCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
+                + addTableCommand);
+
+        // Execute addToOrder command
+        logic.changeMode(Mode.TABLE_MODE);
+        logic.setSelectedTable(expectedTable);
+        expectedModel.addOrderItem(expectedOrderItem);
+        assertCommandBehavior(CommandException.class, addToOrderCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(addToOrderCommand + "\n" + addToMenuCommand + "\n"
+                + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
+//        expectedModel.addDailyRevenue(expectedDailyRevenue);
+    }
 
     @Test
     public void getFilteredOrderItemList_modifyList_throwsUnsupportedOperationException() {
@@ -187,7 +207,7 @@ public class LogicManagerTest {
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
      *      - the internal model manager data are same as those in the {@code expectedModel} <br>
-     *      - {@code expectedModel}'s address book was saved to the storage file.
+     *      - {@code expectedModel}'s data was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
                                            String expectedMessage, Model expectedModel) {
@@ -219,7 +239,7 @@ public class LogicManagerTest {
         }
     }
 
-    //    /**
+    //    /** TODO: delete if not necessary
     //     * A stub class to throw an {@code IOException} when the save method is called.
     //     */
     //    private static class JsonRestOrRantIoExceptionThrowingStub extends JsonRestOrRantStorage {

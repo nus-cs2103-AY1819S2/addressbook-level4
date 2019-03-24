@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -41,6 +42,11 @@ public class TableBuilder {
      */
     public TableBuilder withTableStatus(String tableStatus) {
         this.tableStatus = new TableStatus(tableStatus);
+        try {
+            this.tableStatus.changeOccupancy(tableStatus.substring(0, 1));
+        } catch (CommandException e) {
+            throw new IllegalArgumentException();
+        }
         return this;
     }
 

@@ -49,8 +49,8 @@ public class AddCommandParserTest {
                 + SKILLS_DESC_ANDY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, INVALID_COMMAND_USAGE));
 
         // invalid command mode
-        assertParseFailure(parser, INVALID_MODE + NAME_DESC_ANDY + PHONE_DESC_ANDY + ORGANIZATION_DESC_ANDY +
-                NRIC_DESC_ANDY + SKILLS_DESC_ANDY, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+        assertParseFailure(parser, INVALID_MODE + NAME_DESC_ANDY + PHONE_DESC_ANDY + ORGANIZATION_DESC_ANDY
+                + NRIC_DESC_ANDY + SKILLS_DESC_ANDY, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 INVALID_COMMAND_USAGE));
     }
 
@@ -69,8 +69,8 @@ public class AddCommandParserTest {
                 new AddHealthWorkerCommand(expectedWorker));
 
         // multiple phones - last phone accepted
-        assertParseSuccess(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY
-                        + PHONE_DESC_BETTY + PHONE_DESC_ANDY + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY,
+        assertParseSuccess(parser, MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_BETTY + PHONE_DESC_ANDY
+                        + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY,
                 new AddHealthWorkerCommand(expectedWorker));
 
         // multiple NRIC - last NRIC accepted

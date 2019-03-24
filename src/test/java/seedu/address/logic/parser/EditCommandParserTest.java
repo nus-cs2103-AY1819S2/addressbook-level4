@@ -184,7 +184,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_healthWorker_someFields() {
         Index targetIndex = INDEX_FIRST;
-        String userInput =  MODE_HEALTHWORKER + targetIndex.getOneBased() + PHONE_DESC_BOB;
+        String userInput = MODE_HEALTHWORKER + targetIndex.getOneBased() + PHONE_DESC_BOB;
 
         EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder()
                 .withPhone(VALID_PHONE_BOB).build();
@@ -196,7 +196,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_request_someFields() {
         Index targetIndex = INDEX_FIRST;
-        String userInput =  MODE_REQUEST + targetIndex.getOneBased() + PHONE_DESC_BOB;
+        String userInput = MODE_REQUEST + targetIndex.getOneBased() + PHONE_DESC_BOB;
 
         EditRequestDescriptor descriptor = new EditRequestDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
         EditRequestCommand expectedCommand = new EditRequestCommand(targetIndex, descriptor);

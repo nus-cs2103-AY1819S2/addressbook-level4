@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalIndexes.COORDINATES_J1;
 import static seedu.address.testutil.TypicalIndexes.MAP_SIZE_TEN;
 import static seedu.address.testutil.TypicalPersons.getEmptyMapGrid;
 
+import java.util.HashSet;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
@@ -39,7 +40,7 @@ public class BoundaryValueCheckerTest {
             }
         }
 
-        Battleship battleship = new DestroyerBattleship();
+        Battleship battleship = new DestroyerBattleship(new HashSet<>());
 
         model.getHumanMapGrid().initialise(cellGrid);
         model.getHumanMapGrid().getCell(COORDINATES_A1).putShip(battleship);

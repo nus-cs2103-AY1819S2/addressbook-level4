@@ -59,6 +59,7 @@ public class CommandTestUtil {
     public static final String COUNTRY_CODE_DESC_BEDOK = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_BEDOK;
     public static final String COUNTRY_CODE_DESC_CLEMENTI = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_CLEMENTI;
     public static final String COUNTRY_CODE_DESC_DG = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_DG;
+    public static final String COUNTRY_CODE_DESC_AMERICA = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_AMERICA;
     public static final String RATING_DESC_AMK = " " + PREFIX_RATING + VALID_RATING_AMK;
     public static final String RATING_DESC_BEDOK = " " + PREFIX_RATING + VALID_RATING_BEDOK;
     public static final String RATING_DESC_CLEMENTI = " " + PREFIX_RATING + VALID_RATING_CLEMENTI;

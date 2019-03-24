@@ -22,11 +22,11 @@
     "address" : "8 Sentosa Gateway, 0982693",
     "tagged" : [ "amusementPark", "recreation" ]
   }, {
-    "name" : "Japanese Cemetery Park",
-    "countryCode" : "SGP",
+    "name" : "Yanaka Cemetery Park",
+    "countryCode" : "JPN",
     "rating": "3",
-    "description" : "The Japanese Cemetery Park serves as the burial ground for Japanese soldiers and civilians who lived in the early 20th century.",
-    "address" : "22 Chuan Hoe Ave, Singapore 549854",
+    "description" : "Hilly, cherry tree–planted cemetery with graves of renowned artists & actors & a 5-story pagoda.",
+    "address" : "7-chōme-5-24 Yanaka, Taito City, Tōkyō-to 110-0001, Japan",
     "tagged" : [ "cemetery", "placeOfInterest" ]
   }, {
     "name" : "National University of Singapore",

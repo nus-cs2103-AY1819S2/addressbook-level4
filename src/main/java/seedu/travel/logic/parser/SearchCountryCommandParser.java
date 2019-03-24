@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import seedu.travel.logic.commands.SearchCountryCommand;
 import seedu.travel.logic.parser.exceptions.ParseException;
+import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.CountryCodeContainsKeywordsPredicate;
 
 /**
@@ -26,6 +27,13 @@ public class SearchCountryCommandParser implements Parser<SearchCountryCommand> 
         }
 
         String[] countryKeywords = trimmedArgs.split("\\s+");
+
+        for (String country : countryKeywords) {
+            if (!CountryCode.isValidCountryCode(country)) {
+                throw new ParseException(
+                        String.format(CountryCode.MESSAGE_CONSTRAINTS, SearchCountryCommand.MESSAGE_USAGE));
+            }
+        }
 
         return new SearchCountryCommand(new CountryCodeContainsKeywordsPredicate(Arrays.asList(countryKeywords)));
     }

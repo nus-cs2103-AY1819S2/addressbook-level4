@@ -58,8 +58,8 @@ public class DeleteLessonCommandTest {
         CommandResult commandResult =
                 new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS + LESSON_DEFAULT.getName(),
-                toDeleteIndex.getZeroBased()), commandResult.getFeedbackToUser());
+        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
+                commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 

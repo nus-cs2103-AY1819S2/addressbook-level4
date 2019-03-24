@@ -34,7 +34,7 @@ public class DeleteLessonCommand implements Command {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Deleted lesson: ";
+    public static final String MESSAGE_SUCCESS = "Deleted lesson: %1$s";
     /**
      * The index of the lesson to be deleted when {@link #execute(Model, CommandHistory)}
      * is called.
@@ -71,7 +71,7 @@ public class DeleteLessonCommand implements Command {
         ManagementModel mgtModel = (ManagementModel) model;
         int toDeleteIndex = targetIndex.getZeroBased();
 
-        String lessonName = "";
+        String lessonName;
 
         try {
             lessonName = mgtModel.getLesson(toDeleteIndex).getName();
@@ -81,7 +81,7 @@ public class DeleteLessonCommand implements Command {
                     DeleteLessonCommand.MESSAGE_USAGE), e);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS + lessonName);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
     }
 
     @Override

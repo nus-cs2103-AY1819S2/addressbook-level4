@@ -152,12 +152,6 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void countTags() throws Exception {
-        modelManager.addPerson(ALICE);
-        assertEquals(modelManager.countTags(), ALICE.getTags().size());
-    }
-
-    @Test
     public void setBattleState_nullState_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.setBattleState(null);

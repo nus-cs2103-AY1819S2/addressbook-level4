@@ -38,6 +38,13 @@ public class Battleship {
     }
 
     /**
+     * Constructor for Battleship with only name.
+     */
+    public Battleship(Name name) {
+        this(name, DEFAULT_LENGTH, DEFAULT_LIFE, new HashSet<Tag>());
+    }
+
+    /**
      * Constructor for Battleship with only name and tags.
      * Default size is length = 2, life = 1
      */
@@ -51,13 +58,6 @@ public class Battleship {
      */
     public Battleship(Name name, int length, int life) {
         this(name, length, life, new HashSet<>());
-    }
-
-    /**
-     * Constructor for Battleship with only name.
-     */
-    public Battleship(Name name) {
-        this(name, DEFAULT_LENGTH, DEFAULT_LIFE, new HashSet<Tag>());
     }
 
     /**
@@ -149,7 +149,6 @@ public class Battleship {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        getTags().forEach(builder::append);
         return builder.toString();
     }
 

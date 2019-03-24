@@ -5,7 +5,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORIENTATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.PutShipCommand;
@@ -14,6 +17,7 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Name;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new PutShipCommand object
@@ -28,7 +32,7 @@ public class PutShipCommandParser implements Parser<PutShipCommand> {
     public PutShipCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COORDINATES, PREFIX_ORIENTATION);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COORDINATES, PREFIX_ORIENTATION, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_COORDINATES, PREFIX_ORIENTATION)
                 || !argMultimap.getPreamble().isEmpty()) {
@@ -39,10 +43,16 @@ public class PutShipCommandParser implements Parser<PutShipCommand> {
         Coordinates coordinates = ParserUtil.parseCoordinates(argMultimap.getValue(PREFIX_COORDINATES).get());
         Orientation orientation = ParserUtil.parseOrientation(argMultimap.getValue(PREFIX_ORIENTATION).get());
 
-        // Default 1 by 1 battleship
-        Battleship battleship = ParserUtil.parseBattleship(name);
+        if (arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+            Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        return new PutShipCommand(coordinates, battleship, orientation);
+            // Default 1 by 1 battleship
+            Battleship battleship = ParserUtil.parseBattleship(name, tagSet);
+
+            return new PutShipCommand(coordinates, ParserUtil.parseBattleship(name, tagSet), orientation);
+        }
+
+        return new PutShipCommand(coordinates, ParserUtil.parseBattleship(name, new HashSet<>()), orientation);
     }
 
     /**

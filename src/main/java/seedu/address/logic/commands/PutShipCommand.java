@@ -72,28 +72,18 @@ public class PutShipCommand extends Command {
 
         boundaryValueChecker.performChecks();
 
-        if (this.orientation.isHorizontal()) {
-            try {
-                checkEnoughBattleships(model, battleship, 1);
+        try {
+            checkEnoughBattleships(model, battleship, 1);
+            if (this.orientation.isHorizontal()) {
                 putAlongHorizontal(model, coordinates, battleship);
-                model.deployBattleship(battleship, coordinates, orientation);
-            } catch (ArrayIndexOutOfBoundsException aiobe) {
-                throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
-            } catch (Exception e) {
-                throw new CommandException(e.getMessage());
-            }
-        } else if (this.orientation.isVertical()) {
-            try {
-                checkEnoughBattleships(model, battleship, 1);
+            } else {
                 putAlongVertical(model, coordinates, battleship);
-                model.deployBattleship(battleship, coordinates, orientation);
-            } catch (ArrayIndexOutOfBoundsException aiobe) {
-                throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
-            } catch (Exception e) {
-                throw new CommandException(e.getMessage());
             }
-        } else {
-            throw new CommandException(MESSAGE_USAGE);
+            model.deployBattleship(battleship, coordinates, orientation);
+        } catch (ArrayIndexOutOfBoundsException aiobe) {
+            throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
+        } catch (Exception e) {
+            throw new CommandException(e.getMessage());
         }
 
         Cell cellToEdit = model.getHumanMapGrid().getCell(coordinates);

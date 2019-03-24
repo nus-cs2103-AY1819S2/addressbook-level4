@@ -7,6 +7,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.Objects;
 
+import java.util.Set;
+
 import org.junit.Test;
 
 import seedu.address.model.cell.Address;
@@ -14,6 +16,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class BattleshipTest {
+
+    private final Set<Tag> emptySet = new HashSet<>();
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -66,8 +70,8 @@ public class BattleshipTest {
     @Test
     public void testIsSameBattleship() {
         // create variables
-        Battleship battleshipOne = new DestroyerBattleship();
-        Battleship battleshipTwo = new DestroyerBattleship();
+        Battleship battleshipOne = new DestroyerBattleship(emptySet);
+        Battleship battleshipTwo = new DestroyerBattleship(emptySet);
         Battleship battleshipThree = battleshipOne;
 
         // test equality
@@ -79,8 +83,8 @@ public class BattleshipTest {
     public void testDifferentNameDifferentBattleship() {
 
         // create variables
-        Battleship battleshipOne = new DestroyerBattleship();;
-        Battleship battleshipTwo = new CruiserBattleship();
+        Battleship battleshipOne = new DestroyerBattleship(emptySet);;
+        Battleship battleshipTwo = new CruiserBattleship(emptySet);
 
         // test equality
         assertFalse(battleshipOne.equals(battleshipTwo));
@@ -90,8 +94,8 @@ public class BattleshipTest {
     public void testSameNameDifferentBattleship() {
 
         // create variables
-        Battleship battleshipOne = new DestroyerBattleship();
-        Battleship battleshipTwo = new DestroyerBattleship();
+        Battleship battleshipOne = new DestroyerBattleship(emptySet);
+        Battleship battleshipTwo = new DestroyerBattleship(emptySet);
 
         // test equality
         assertTrue(battleshipOne.equals(battleshipTwo));
@@ -101,7 +105,7 @@ public class BattleshipTest {
     public void testSameNameSameBattleship() {
 
         // create variables
-        Battleship battleshipOne = new DestroyerBattleship();
+        Battleship battleshipOne = new DestroyerBattleship(emptySet);
         Battleship battleshipTwo = battleshipOne;
 
         // test equality
@@ -111,21 +115,21 @@ public class BattleshipTest {
     @Test
     public void testBattleshipLength() {
         // create variables
-        Battleship battleshipOne = new DestroyerBattleship();
+        Battleship battleshipOne = new DestroyerBattleship(emptySet);
         assertEquals(battleshipOne.getLength(), 3);
     }
 
     @Test
     public void testBattleshipLife() {
         // create variables
-        Battleship battleshipOne = new DestroyerBattleship();
+        Battleship battleshipOne = new DestroyerBattleship(emptySet);
         assertEquals(battleshipOne.getLife(), 3);
     }
 
     @Test
     public void testBattleshipReduceLife() {
         // create variables
-        Battleship battleshipOne = new DestroyerBattleship();
+        Battleship battleshipOne = new DestroyerBattleship(emptySet);
         int initialLife = battleshipOne.getLife();
 
         battleshipOne.reduceLife();
@@ -136,7 +140,7 @@ public class BattleshipTest {
     @Test
     public void testBattleshipDestroyed() {
         // create variables
-        Battleship battleshipOne = new DestroyerBattleship();
+        Battleship battleshipOne = new DestroyerBattleship(emptySet);
         int initialLife = battleshipOne.getLife();
 
         for (int i = 0; i < initialLife; i++) {
@@ -148,19 +152,19 @@ public class BattleshipTest {
 
     @Test
     public void testAicraftCarrier() {
-        Battleship aircraftCarrier = new AircraftCarrierBattleship();
+        Battleship aircraftCarrier = new AircraftCarrierBattleship(emptySet);
         assertEquals(aircraftCarrier.getLength(), 5);
     }
 
     @Test
     public void testDestroyer() {
-        Battleship destroyerBattleship = new DestroyerBattleship();
+        Battleship destroyerBattleship = new DestroyerBattleship(emptySet);
         assertEquals(destroyerBattleship.getLength(), 3);
     }
 
     @Test
     public void testCruiser() {
-        Battleship cruiserBattleship = new CruiserBattleship();
+        Battleship cruiserBattleship = new CruiserBattleship(emptySet);
         assertEquals(cruiserBattleship.getLength(), 2);
     }
 }

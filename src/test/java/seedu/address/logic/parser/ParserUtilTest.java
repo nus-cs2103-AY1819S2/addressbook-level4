@@ -53,6 +53,8 @@ public class ParserUtilTest {
     private static final String VALID_COORD_1 = "a1";
     private static final String VALID_COORD_2 = "b3";
 
+    private static final Set<Tag> emptySet = new HashSet<>();
+
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
 
@@ -264,12 +266,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseBattleship_validBattleship() throws Exception {
-        Battleship expectedBattleshipOne = new AircraftCarrierBattleship();
-        Battleship expectedBattleshipTwo = new DestroyerBattleship();
-        Battleship expectedBattleshipThree = new CruiserBattleship();
+        Battleship expectedBattleshipOne = new AircraftCarrierBattleship(emptySet);
+        Battleship expectedBattleshipTwo = new DestroyerBattleship(emptySet);
+        Battleship expectedBattleshipThree = new CruiserBattleship(emptySet);
 
-        assertEquals(expectedBattleshipOne, ParserUtil.parseBattleship(new Name("aircraft carrier")));
-        assertEquals(expectedBattleshipTwo, ParserUtil.parseBattleship(new Name("destroyer")));
-        assertEquals(expectedBattleshipThree, ParserUtil.parseBattleship(new Name("cruiser")));
+        assertEquals(expectedBattleshipOne, ParserUtil.parseBattleship(new Name("aircraft carrier"), emptySet));
+        assertEquals(expectedBattleshipTwo, ParserUtil.parseBattleship(new Name("destroyer"), emptySet));
+        assertEquals(expectedBattleshipThree, ParserUtil.parseBattleship(new Name("cruiser"), emptySet));
     }
 }

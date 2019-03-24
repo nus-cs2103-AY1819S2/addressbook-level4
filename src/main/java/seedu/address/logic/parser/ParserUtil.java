@@ -75,17 +75,17 @@ public class ParserUtil {
      * Parses a {@code Name name} into a {@code Battleship}.
      * @throws ParseException if the given (@code name} is invalid.
      */
-    public static Battleship parseBattleship(Name name) throws ParseException {
+    public static Battleship parseBattleship(Name name, Set<Tag> tagSet) throws ParseException {
         requireNonNull(name);
 
         Battleship battleship;
 
         if (name.fullName.toLowerCase().equals("destroyer")) {
-            battleship = new DestroyerBattleship();
+            battleship = new DestroyerBattleship(tagSet);
         } else if (name.fullName.toLowerCase().equals("cruiser")) {
-            battleship = new CruiserBattleship();
+            battleship = new CruiserBattleship(tagSet);
         } else if (name.fullName.toLowerCase().equals("aircraft carrier")) {
-            battleship = new AircraftCarrierBattleship();
+            battleship = new AircraftCarrierBattleship(tagSet);
         } else {
             throw new ParseException("Error");
         }

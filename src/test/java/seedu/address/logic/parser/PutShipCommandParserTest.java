@@ -15,6 +15,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_HORIZONTAL_ORIE
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.PutShipCommand;
@@ -22,6 +25,7 @@ import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.DestroyerBattleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.tag.Tag;
 
 public class PutShipCommandParserTest {
 
@@ -29,6 +33,8 @@ public class PutShipCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, PutShipCommand.MESSAGE_USAGE);
 
     private PutShipCommandParser parser = new PutShipCommandParser();
+
+    private final Set<Tag> emptySet = new HashSet<>();
 
     @Test
     public void parse_missingParts_failure() {
@@ -75,7 +81,7 @@ public class PutShipCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         String userInput = NAME_DESC_DESTROYER + COORDINATE_FIRST_ROW + ORIENTATION_HORIZONTAL;
 
-        Battleship battleship = new DestroyerBattleship();
+        Battleship battleship = new DestroyerBattleship(emptySet);
         Coordinates coordinates = new Coordinates(VALID_COORDINATES_FIRST_ROW);
         Orientation orientation = new Orientation(VALID_HORIZONTAL_ORIENTATION);
 

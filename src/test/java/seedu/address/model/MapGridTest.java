@@ -14,7 +14,6 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -137,26 +136,6 @@ public class MapGridTest {
 
         assertEquals(expectedMapGrid, mapGrid);
 
-    }
-
-    @Test
-    public void deleteTag_nonExistentTag_forAll() throws Exception {
-        Tag unusedTag = new Tag(VALID_TAG_UNUSED);
-        for (Cell cell : mapGrid.getPersonList()) {
-            Set<Tag> newTags = cell.getTags();
-            newTags.add(unusedTag);
-            Cell editedCell = new Cell(
-                    cell.getName(),
-                    cell.getPhone(),
-                    cell.getEmail(),
-                    cell.getAddress(),
-                    newTags
-            );
-            mapGrid.setPerson(cell, editedCell);
-        }
-
-        mapGrid.deleteTag(unusedTag);
-        assertEquals(mapGrid.getAllTags().contains(unusedTag), false);
     }
 
     /**

@@ -5,7 +5,25 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a File name in MediTabs.
+ * Standardise the File Naming Convention in MediTabs and also to ensure the file name specified is valid. It does not
+ * check whether the file name is too long (Windows has an issue with long file names but that also involves file
+ * systems:
+ * <a href="https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#short-vs-long-names" target="_blank">
+ *     Link</a>
+ * <p>
+ * We suggest complementing this class with Java build in class such as
+ * {@link java.io.File File} or {@link java.nio.file.Files Files} and handling
+ * the exceptions thrown by the methods used in those classes when creating files with the file name validated to
+ * resolve potential exceptions involving permissions, security, file name being too long, etc.
+ * </p>
+ * Note: In an effort to make it platform independent, the validation is such that it ensures that the specified
+ * file name does not violate file naming conventions in any platform especially Windows which has a very strict
+ * file name conventions:
+ * <a href="https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions" target="_blank">
+ *     Link</a>
+ * <p>
  * Guarantees: immutable; is valid as declared in {@link #isValidFileName(String)}
+ * </p>
  */
 public class FileName {
 
@@ -35,12 +53,14 @@ public class FileName {
 
     /**
      * Returns true if a given string is a valid file name.
+     * @param fileNameToCheck
      */
-    public static boolean isValidFileName(String test) {
-        if (test.isEmpty()) {
+    public static boolean isValidFileName(String fileNameToCheck) {
+        requireNonNull(fileNameToCheck);
+        if (fileNameToCheck.isEmpty()) {
             return false;
         }
-        return test.matches(VALIDATION_REGEX);
+        return fileNameToCheck.matches(VALIDATION_REGEX);
     }
 
 

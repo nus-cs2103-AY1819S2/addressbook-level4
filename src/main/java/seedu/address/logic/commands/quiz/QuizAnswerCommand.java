@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_QUIZ_MODEL;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;

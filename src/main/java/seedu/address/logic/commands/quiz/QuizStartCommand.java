@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_NAME;

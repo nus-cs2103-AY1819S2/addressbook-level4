@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.management;
 
-import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
+import static seedu.address.logic.commands.Command.MESSAGE_EXPECTED_MGT_MODEL;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_DELIMITER;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;

@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.Command.MESSAGE_EXPECTED_MGT_MODEL;
 import static seedu.address.model.Lessons.EXCEPTION_INVALID_INDEX;
 import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Rule;
@@ -17,7 +18,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Lessons;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.management.ManagementModelStub;
 import seedu.address.model.modelmanager.quiz.QuizModelStub;
@@ -31,40 +31,43 @@ public class DeleteLessonCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
-    /**
-     * Attempts to delete a non-existent lesson
-     */
-    @Test
-    public void execute_lessonDeletedByModel_deleteUnsuccessful() throws Exception {
-        MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
-        Index toDeleteIndex = Index.fromZeroBased(0);
-        thrown.expect(CommandException.class);
-        new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
-    }
-
     @Test
     public void execute_lessonDeletedByModel_deleteSuccessful() throws Exception {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
-        modelStub.addLesson(LESSON_DEFAULT);
+        modelStub.addLesson(LESSON_DEFAULT); // always work
 
+        // delete a lesson which exists in model -> lesson deleted successfully
         Index toDeleteIndex = Index.fromZeroBased(0);
         CommandResult commandResult =
                 new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
 
+        // lesson deleted successfully -> success feedback
         assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
                 commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
+    public void execute_lessonDeletedByModel_deleteUnsuccessful() throws Exception {
+        MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
+        Index toDeleteIndex = Index.fromZeroBased(0);
+
+        // delete a lesson which does not exist in model -> CommandException thrown
+        thrown.expect(CommandException.class);
+        new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
+    }
+
+    @Test
     public void execute_incorrectModel_throwsCommandException() throws Exception {
         QuizModelStub modelStub = new QuizModelStub();
         Index toDeleteIndex = Index.fromZeroBased(0);
-        DeleteLessonCommand addLessonCommand = new DeleteLessonCommand(toDeleteIndex);
+        DeleteLessonCommand deleteLessonCommand = new DeleteLessonCommand(toDeleteIndex);
 
+        // attempting to execute DeleteLessonCommand on a QuizModel instead of a ManagementModel ->
+        // CommandException thrown
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_EXPECTED_MGT_MODEL);
-        addLessonCommand.execute(modelStub, commandHistory);
+        deleteLessonCommand.execute(modelStub, commandHistory);
     }
 
     @Test
@@ -92,39 +95,34 @@ public class DeleteLessonCommandTest {
     }
 
     /**
-     * A Model stub that always accept the lesson being added.
+     * A ManagementModel stub which always accept the lesson being added and can always delete a lesson if
+     * it exists.
      */
     private class MgtModelStubAcceptingAddDelete extends ManagementModelStub {
-        private final Lessons lessons = new Lessons();
+        private final ArrayList<Lesson> lessons = new ArrayList<>();
 
         @Override
         public void addLesson(Lesson lesson) {
             requireNonNull(lesson);
-            lessons.addLesson(lesson);
+            lessons.add(lesson);
         }
 
-        /**
-         * Gets the entire list of lessons.
-         */
         public Lesson getLesson(int index) {
             try {
-                return lessons.getLesson(index);
+                return lessons.get(index);
             } catch (IndexOutOfBoundsException e) {
                 throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
             }
         }
 
-        /**
-         * Gets the entire list of lessons.
-         */
         @Override
         public List<Lesson> getLessons() {
-            return lessons.getLessons();
+            return lessons;
         }
 
         @Override
         public void deleteLesson(int index) {
-            lessons.deleteLesson(index);
+            lessons.remove(index);
         }
     }
 }

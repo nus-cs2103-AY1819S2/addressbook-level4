@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.management;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.Command.MESSAGE_EXPECTED_MGT_MODEL;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_DELIMITER;
@@ -32,18 +34,20 @@ public class ListLessonsCommandTest {
 
     @Test
     public void execute_listNoLessons() {
-        ManagementModel modelStub = new ManagementModelStubWithNoLessons();
+        ManagementModel modelStub = new MgtModelStubWithNoLessons();
 
+        // attempt to list all lessons when there are no lessons -> return feedback that there are no lessons
         assertCommandSuccess(new ListLessonsCommand(), modelStub, commandHistory,
                 MESSAGE_SUCCESS + MESSAGE_DELIMITER + MESSAGE_NO_LESSONS, modelStub);
     }
 
     @Test
     public void execute_listLessons() {
-        ManagementModel modelStub = new ManagementModelStubWithLessons();
+        ManagementModel modelStub = new MgtModelStubWithLessons();
         ListLessonsCommand listLessonsCommand = new ListLessonsCommand();
         String expectedOutput = listLessonsCommand.buildList(TypicalLessons.getTypicalLessons());
 
+        // attempt to list all lessons when there are lessons -> list all lessons
         assertCommandSuccess(new ListLessonsCommand(), modelStub, commandHistory,
                 expectedOutput, modelStub);
     }
@@ -53,12 +57,25 @@ public class ListLessonsCommandTest {
         QuizModelStub modelStub = new QuizModelStub();
         ListLessonsCommand listLessonsCommand = new ListLessonsCommand();
 
+        // attempting to execute ListLessonsCommand on a QuizModel instead of a ManagementModel ->
+        // CommandException thrown
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_EXPECTED_MGT_MODEL);
         listLessonsCommand.execute(modelStub, commandHistory);
     }
 
-    private class ManagementModelStubWithNoLessons extends ManagementModelStub {
+    @Test
+    public void equals() {
+        ListLessonsCommand listLessonCommand = new ListLessonsCommand();
+
+        // different types -> returns false
+        assertNotEquals(listLessonCommand, 1);
+
+        // null -> returns false
+        assertNotEquals(listLessonCommand, null);
+    }
+
+    private class MgtModelStubWithNoLessons extends ManagementModelStub {
         @Override
         public List<Lesson> getLessons() {
             return new ArrayList<>();
@@ -66,7 +83,7 @@ public class ListLessonsCommandTest {
     }
 
 
-    private class ManagementModelStubWithLessons extends ManagementModelStub {
+    private class MgtModelStubWithLessons extends ManagementModelStub {
         @Override
         public List<Lesson> getLessons() {
             return TypicalLessons.getTypicalLessons();

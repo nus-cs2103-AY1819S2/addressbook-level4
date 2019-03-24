@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.Command.MESSAGE_EXPECTED_MGT_MODEL;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,21 +32,25 @@ public class AddLessonCommandTest {
 
     @Test
     public void constructor_nullLesson_throwsNullPointerException() {
+        // add null lesson -> NullPointerException thrown
         thrown.expect(NullPointerException.class);
         new AddLessonCommand(null);
     }
 
     @Test
     public void execute_lessonAcceptedByModel_addSuccessful() throws Exception {
-        ManagementModelStubAcceptingLesson modelStub = new ManagementModelStubAcceptingLesson();
+        MgtModelStubAcceptingAdd modelStub = new MgtModelStubAcceptingAdd();
         Lesson validLesson = new LessonBuilder().build();
 
+        // add valid lesson -> lesson added successfully
         CommandResult commandResult =
                 new AddLessonCommand(validLesson).execute(modelStub, commandHistory);
 
+        // lesson added successfully -> success feedback
         assertEquals(String.format(AddLessonCommand.MESSAGE_SUCCESS, validLesson),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validLesson), modelStub.lessonsAdded);
+        // lesson added successfully -> lesson in lessons
+        assertEquals(Collections.singletonList(validLesson), modelStub.lessons);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
@@ -56,6 +60,8 @@ public class AddLessonCommandTest {
         Lesson validLesson = new LessonBuilder().build();
         AddLessonCommand addLessonCommand = new AddLessonCommand(validLesson);
 
+        // attempting to execute AddLessonCommand on a QuizModel instead of a ManagementModel ->
+        // CommandException thrown
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_EXPECTED_MGT_MODEL);
         addLessonCommand.execute(modelStub, commandHistory);
@@ -86,15 +92,15 @@ public class AddLessonCommandTest {
     }
 
     /**
-     * A Model stub that always accept the lesson being added.
+     * A ManagementModel stub which always accept the lesson being added.
      */
-    private class ManagementModelStubAcceptingLesson extends ManagementModelStub {
-        public final ArrayList<Lesson> lessonsAdded = new ArrayList<>();
+    private class MgtModelStubAcceptingAdd extends ManagementModelStub {
+        final ArrayList<Lesson> lessons = new ArrayList<>();
 
         @Override
         public void addLesson(Lesson lesson) {
             requireNonNull(lesson);
-            lessonsAdded.add(lesson);
+            lessons.add(lesson);
         }
     }
 }

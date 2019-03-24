@@ -41,7 +41,6 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
 
             return new DeadlineCommand(index, deadline);
         } else if (argMultimap.getValue(PREFIX_DEADLINE_COMPLETE).isPresent()) {
-            System.out.println(argMultimap.getValue(PREFIX_DEADLINE_COMPLETE).isPresent());
             return new DeadlineCommand(index, deadline, argMultimap.getValue(PREFIX_DEADLINE_COMPLETE).isPresent());
         } else {
             throw new ParseException("Missing Prefix(s)");

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import seedu.address.logic.CommandHistory;
 
 import seedu.address.model.Model;
+import javafx.stage.Stage;
+import seedu.address.ui.StatisticView;
 import seedu.address.model.statistics.PlayerStatistics;
 
 /**
@@ -40,9 +42,10 @@ public class StatsCommand extends Command {
         outputStatistics.add(missCount);
         outputStatistics.add(shipsDestroyed);
 
+
         // Make a pop-up window
-        //new StatisticView(); // to input parameters
-        // must import StatisticView into this also
+         new StatisticView(new Stage(), playerStats.generateData()).show(); // to input parameters
+
         // to change command message into log?
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));

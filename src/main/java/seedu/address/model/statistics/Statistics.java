@@ -1,4 +1,5 @@
 package seedu.address.model.statistics;
+import javafx.scene.chart.XYChart;
 /**
  * A Statistics Class tracks the key gameplay information.
  */
@@ -91,6 +92,17 @@ public abstract class Statistics {
      */
     public double getAccuracy() {
         return (double) hitCount / (double) (hitCount + missCount);
+    }
+
+    // ADD NEW METHOD TO GENERATE STATS DATA GRAPHS
+    public XYChart.Series generateData() {
+        XYChart.Series dataSeries1 = new XYChart.Series();
+        dataSeries1.getData().add(new XYChart.Data("Attacks", getAttacksMade()));
+        dataSeries1.getData().add(new XYChart.Data("Hits", getHitCount()));
+        dataSeries1.getData().add(new XYChart.Data("Misses", getMissCount()));
+        //dataSeries1.getData().add(new XYChart.Data("Accuracy", getMissCount()));
+        dataSeries1.getData().add(new XYChart.Data("Ships Destroyed", getEnemyShipsDestroyed()));
+        return dataSeries1;
     }
 
 }

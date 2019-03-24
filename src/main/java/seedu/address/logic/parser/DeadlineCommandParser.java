@@ -39,7 +39,6 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
         if (argMultimap.getValue(PREFIX_DEADLINE_NEW).isPresent()) {
             deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE_NEW).get(),
                     Deadline.STATUS_READY);
-
             return new DeadlineCommand(index, deadline);
         } else if (argMultimap.getValue(PREFIX_DEADLINE_COMPLETE).isPresent()) {
             System.out.println(argMultimap.getValue(PREFIX_DEADLINE_COMPLETE).get());

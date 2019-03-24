@@ -404,7 +404,6 @@ Format: `add-med MEDICINE`
 ****
 
 Examples:
-
 * `add-med 'coughing tablets'` +
 Adds 'coughing syrup' into docX's available lists of medicines.
 * `add-med 'muscle patch'` +

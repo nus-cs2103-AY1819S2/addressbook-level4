@@ -351,18 +351,13 @@
     -fx-font-size: 15;
 }
 
-/*#deadline {*/
-    /*-fx-hgap: 7;*/
-    /*-fx-vgap: 3;*/
-/*}*/
+#welcome {
+    -fx-font-size: 25;
+    -fx-padding: 15, 0 ,0 ,0;
+}
 
-/*#deadline .label {*/
-    /*-fx-strikethrough: false;*/
-    /*-fx-text-fill: white;*/
-    /*!*-fx-background-color: #3e7b91;*!*/
-    /*-fx-padding: 3 3 3 3;*/
-    /*-fx-border-radius: 2;*/
-    /*-fx-background-radius: 2;*/
-    /*-fx-font-size: 9;*/
-
-/*}*/
+.defaultpage {
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-padding: 7, 0 ,0 ,0;
+}

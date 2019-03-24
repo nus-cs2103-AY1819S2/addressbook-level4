@@ -47,7 +47,8 @@ public class CropCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) throws CommandException {
+    public CommandResult execute(CurrentEdit currentEdit, Album album,
+                                 CommandHistory history, Model model) throws CommandException {
         Image initialImage = new Image(ASSETS_FILEPATH + fileName);
         try {
             File directory = new File(TEMP_FILEPATH);

@@ -50,7 +50,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) throws CommandException {
+    public CommandResult execute(CurrentEdit currentEdit, Album album,
+                                 CommandHistory history, Model model) throws CommandException {
         requireNonNull(model);
 
         if (model.hasPerson(toAdd)) {

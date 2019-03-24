@@ -19,7 +19,8 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) throws CommandException {
+    public CommandResult execute(CurrentEdit currentEdit, Album album,
+                                 CommandHistory history, Model model) throws CommandException {
         requireNonNull(model);
 
         if (!model.canRedoAddressBook()) {

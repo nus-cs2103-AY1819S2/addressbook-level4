@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.Doctor;
 
 /**
  * Unmodifiable view of an address book
@@ -22,4 +23,9 @@ public interface ReadOnlyAddressBook extends Observable {
      * This list will not contain any duplicate persons.
      */
     ObservableList<MedicalHistory> getMedHistList();
+    /**
+     * Returns an unmodifiable view of the doctors list.
+     * This list will not contain any duplicate doctors.
+     */
+    ObservableList<Doctor> getDoctorList();
 }

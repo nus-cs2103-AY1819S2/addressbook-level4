@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.description.Description;
 import seedu.address.model.patient.Patient;
@@ -35,15 +34,11 @@ public class RecordAddCommand extends Command {
      * Creates an RecordAddCommand to add a new dental record to a specified {@code Patient}
      * @param description the description of the record to be added.
      */
-    public RecordAddCommand(Description description) throws CommandException {
-        if (MainWindow.isGoToMode() && MainWindow.getRecordPatient() != null) {
-            requireNonNull(description);
-            toAdd = MainWindow.getRecordPatient();
-            this.description = description;
-        } else {
-            throw new CommandException(MESSAGE_ERROR);
-        }
-
+    public RecordAddCommand(Description description) {
+        requireNonNull(MainWindow.getRecordPatient());
+        requireNonNull(description);
+        toAdd = MainWindow.getRecordPatient();
+        this.description = description;
     }
 
     @Override

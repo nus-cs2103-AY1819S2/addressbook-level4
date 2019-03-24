@@ -34,7 +34,7 @@ import seedu.address.model.tag.Skills;
 public class AddCommandParser implements Parser<AddCommand> {
 
     public static final String INVALID_COMMAND_USAGE = AddCommand.MESSAGE_USAGE + "\n"
-            + AddHealthWorkerCommand.MESSAGE_USAGE + "\n\n"+ AddRequestCommand.MESSAGE_USAGE;
+            + AddHealthWorkerCommand.MESSAGE_USAGE + "\n\n" + AddRequestCommand.MESSAGE_USAGE;
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given

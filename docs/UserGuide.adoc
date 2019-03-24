@@ -259,7 +259,7 @@ currently displayed flashcard question. Know-It-All compares the attempt with th
 shows if it is correct or wrong.
 
 ====
-* Answering a flashcard will increase The total number of attempts. If the answer is correct, the action will also increase the number of correct attempt.
+* Answering a flashcard will increase the total number of attempts. If the answer is correct, the action will also increase the number of correct attempt.
 * Answer matching is case insensitive.
 ====
 

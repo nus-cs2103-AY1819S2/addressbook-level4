@@ -4,12 +4,13 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
+import javafx.stage.Stage;
 import seedu.address.logic.CommandHistory;
 
 import seedu.address.model.Model;
-import javafx.stage.Stage;
-import seedu.address.ui.StatisticView;
 import seedu.address.model.statistics.PlayerStatistics;
+import seedu.address.ui.StatisticView;
+
 
 /**
  * Lists all the commands entered by user from the start of app launch.
@@ -42,9 +43,7 @@ public class StatsCommand extends Command {
         outputStatistics.add(missCount);
         outputStatistics.add(shipsDestroyed);
 
-
-        // Make a pop-up window
-         new StatisticView(new Stage(), playerStats.generateData()).show(); // to input parameters
+        new StatisticView(new Stage(), playerStats.generateData()).show(); // to input parameters
 
         // to change command message into log?
 

@@ -1,5 +1,6 @@
 package seedu.address.model.statistics;
 import javafx.scene.chart.XYChart;
+import seedu.address.logic.battle.AttackResult;
 /**
  * A Statistics Class tracks the key gameplay information.
  */
@@ -49,7 +50,10 @@ public abstract class Statistics {
         return this.enemyShipsDestroyed;
     }
 
-    public int getEnemyShipsDestroyed(){
+    /**
+     * @return the number of enemy Ships destroyed by player
+     */
+    public int getEnemyShipsDestroyed() {
         return this.enemyShipsDestroyed;
     }
     /**
@@ -70,11 +74,15 @@ public abstract class Statistics {
         return this.movesLeft;
     }
 
-    public int addAttack(){
+    /**
+     * increments number of attack by 1.
+     * @return the current number of attacks.
+     */
+    public int addAttack() {
         ++this.attackCount;
         return this.attackCount;
     }
-    public int getAttacksMade(){
+    public int getAttacksMade() {
         return this.attackCount;
     }
     public int getMovesLeft() {
@@ -94,7 +102,29 @@ public abstract class Statistics {
         return (double) hitCount / (double) (hitCount + missCount);
     }
 
-    // ADD NEW METHOD TO GENERATE STATS DATA GRAPHS
+    /**
+     * extracts the result from AttackResult string and add to stats.
+     * @param res , the result of the attack made.
+     * @return the registered result string.
+     */
+    public String addResultToStats(AttackResult res) {
+        String result = res.toString().split(" ")[1];
+        switch (result) {
+        case "hit":
+            addHit();
+            break;
+        case "missed":
+            addMiss();
+            break;
+        default : break;
+        }
+        return result;
+    }
+
+    /**
+     * This will generate the required data format for the bar charts.
+     * @return the formatted data.
+     */
     public XYChart.Series generateData() {
         XYChart.Series dataSeries1 = new XYChart.Series();
         dataSeries1.getData().add(new XYChart.Data("Attacks", getAttacksMade()));

@@ -33,13 +33,14 @@ public class AttackCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
+        AttackResult res;
         Player human = model.getHumanPlayer();
         if (human.addToTargetHistory(coord)) {
-            AttackResult res = model.getBattle().humanPerformAttack(coord);
+            res = model.getBattle().humanPerformAttack(coord);
         } else {
             throw new CommandException("You have already attacked cell " + coord);
         }
+        model.getPlayerStats().addResultToStats(res);
 
         model.updateUi();
 

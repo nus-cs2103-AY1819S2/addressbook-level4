@@ -38,15 +38,11 @@ public class BrowserPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-//    @FXML
-//    private WebView browser;
+    //@FXML
+    //private WebView browser;
 
     public BrowserPanel(ObservableValue<Pdf> selectedPerson, List<Pdf> duePdfs) {
         super(FXML);
-//        welcome.setStyle("-fx-text-fill: white;"
-//                + "-fx-padding: 1;"
-//                + "-fx-label-padding: 0;"
-//                + "-fx-font-size: 25");
 
         // To prevent triggering events for typing inside the loaded Web page.
         /*getRoot().setOnKeyPressed(Event::consume);*/
@@ -70,6 +66,11 @@ public class BrowserPanel extends UiPart<Region> {
         //loadDefaultPage();
     }
 
+    /**
+     * Updates the default page with relevant information of due documents.
+     *
+     * @param duePdfs - List of Pdfs that are due soon. (To a maximum of 4)
+     */
     public void updateDefaultPage(List<Pdf> duePdfs) {
         StringBuilder sb = new StringBuilder();
 

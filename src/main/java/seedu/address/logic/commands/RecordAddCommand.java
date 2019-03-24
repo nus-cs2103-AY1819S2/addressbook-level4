@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESC;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.description.Description;
 import seedu.address.model.patient.Patient;
@@ -42,13 +43,17 @@ public class RecordAddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
-        requireNonNull(model);
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        if (MainWindow.isGoToMode() && toAdd != null) {
+            requireNonNull(model);
 
-        Record record = new Record(description);
-        toAdd.addRecord(record);
+            Record record = new Record(description);
+            toAdd.addRecord(record);
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
+        } else {
+            throw new CommandException(MESSAGE_ERROR);
+        }
     }
 
     /**

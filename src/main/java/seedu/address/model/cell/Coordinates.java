@@ -3,6 +3,7 @@ package seedu.address.model.cell;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,7 +30,6 @@ public class Coordinates {
 
     private static final String VALIDATION_REGEX = ROW_PART_REGEX + COL_PART_REGEX;
 
-    public final String value;
     private final Index rowIndex;
     private final Index colIndex;
 
@@ -41,7 +41,7 @@ public class Coordinates {
     public Coordinates(String coordinate) {
         requireNonNull(coordinate);
         checkArgument(isValidCoordinates(coordinate), MESSAGE_CONSTRAINTS);
-        value = coordinate;
+        String value = coordinate;
 
         // use regex to extract alphabetical row and numeric col
         Pattern rowRegex = Pattern.compile(ROW_PART_REGEX);
@@ -61,6 +61,16 @@ public class Coordinates {
 
         this.rowIndex = Index.fromOneBased(rowNum);
         this.colIndex = Index.fromOneBased(colNum);
+    }
+
+    public Coordinates(int rowZeroBased, int colZeroBased) {
+        this.rowIndex = Index.fromZeroBased(rowZeroBased);
+        this.colIndex = Index.fromZeroBased(colZeroBased);
+    }
+
+    public Coordinates(Index rowIndex, Index colIndex) {
+        this.rowIndex = rowIndex;
+        this.colIndex = colIndex;
     }
 
     /**
@@ -86,7 +96,6 @@ public class Coordinates {
      */
     public Index getColIndex() {
         return this.colIndex;
-
     }
 
     /**
@@ -98,19 +107,26 @@ public class Coordinates {
 
     @Override
     public String toString() {
-        return value;
+        StringBuilder stringBuilder = new StringBuilder();
+        char colChar = (char) (this.rowIndex.getZeroBased() + 'a');
+
+        stringBuilder.append(colChar)
+                .append(this.colIndex.getOneBased());
+
+        return stringBuilder.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Coordinates // instanceof handles nulls
-                && value.equals(((Coordinates) other).value)); // state check
+                || (other instanceof Coordinates) // instanceof handles nulls
+                && this.rowIndex.equals(((Coordinates) other).rowIndex)
+                && this.colIndex.equals(((Coordinates) other).colIndex); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return Objects.hash(rowIndex, colIndex);
     }
 
 }

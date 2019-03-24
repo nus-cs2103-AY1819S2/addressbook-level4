@@ -138,8 +138,9 @@ public class MainWindow extends UiPart<Stage> {
         statusBarFooter = new StatusBarFooter();
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        statsPane = new StatsPane(); //StatsPane(model.getStatistics());
-        statusbarPlaceholder2.getChildren().add(statsPane.getRoot());
+        //STATS PANE DISABLED FOR NOW
+        //statsPane = new StatsPane(); //StatsPane(model.getStatistics());
+        //statusbarPlaceholder2.getChildren().add(statsPane.getRoot());
         //statsPane = new StatsPane();
         //statspanePlaceholder.getChildren().add(statsPane.getRoot());
 

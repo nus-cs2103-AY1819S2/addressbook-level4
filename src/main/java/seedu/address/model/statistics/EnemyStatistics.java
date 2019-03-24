@@ -1,4 +1,4 @@
-package seedu.address.logic.statistics;
+package seedu.address.model.statistics;
 
 /**
  * enemyStatistics is the statistics for the enemy.

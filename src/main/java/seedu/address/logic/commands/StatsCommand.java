@@ -3,12 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
+import javafx.stage.Stage;
 import seedu.address.logic.CommandHistory;
+
 import seedu.address.model.Model;
+import seedu.address.model.statistics.PlayerStatistics;
+import seedu.address.ui.StatisticView;
+
 
 /**
  * Lists all the commands entered by user from the start of app launch.
@@ -23,25 +25,27 @@ public class StatsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(history);
-        ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
-        ArrayList<String> onlyCommands = new ArrayList<>();
         ArrayList<String> outputStatistics = new ArrayList<>();
-        //long elapsedTime = history.getElapsedTime(System.nanoTime());
-        // to be integrated to stats results
-        //System.out.println("Duration: " + elapsedTime + " seconds");
 
-        if (previousCommands.isEmpty()) {
-            return new CommandResult(MESSAGE_NO_HISTORY);
-        }
+        PlayerStatistics playerStats = model.getPlayerStats();
+        String attacksMade = "Attacks Made : " + playerStats.getAttacksMade();
+        String movesLeft = "Moves Left : " + playerStats.getMovesLeft();
+        String hitCount = "Successful Hit : " + playerStats.getHitCount();
+        String missCount = "Misses : " + playerStats.getMissCount();
+        String shipsDestroyed = "Enemy Ships Destroyed : " + playerStats.getEnemyShipsDestroyed();
+        // To add :
+        // Accuracy
+        // Your own number of ships left
 
-        for (String string : previousCommands) {
-            onlyCommands.add(string.split(" ")[0]); // Take first word
-        }
-        Set<String> set = new HashSet<>(onlyCommands);
-        // get frequency of each command
-        for (String s : set) {
-            outputStatistics.add(s + ": " + Collections.frequency(onlyCommands, s));
-        }
+        outputStatistics.add(movesLeft);
+        outputStatistics.add(attacksMade);
+        outputStatistics.add(hitCount);
+        outputStatistics.add(missCount);
+        outputStatistics.add(shipsDestroyed);
+
+        new StatisticView(new Stage(), playerStats.generateData()).show(); // to input parameters
+
+        // to change command message into log?
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));
     }

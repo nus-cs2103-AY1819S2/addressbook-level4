@@ -39,7 +39,6 @@ public class AttackCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         // assert canExecuteIn(model.getBattleState());
-
         Player human = model.getHumanPlayer();
         AttackResult res;
 
@@ -49,6 +48,7 @@ public class AttackCommand extends Command {
         } else {
             throw new CommandException("You have already attacked cell " + coord);
         }
+        model.getPlayerStats().addResultToStats(res);
 
         model.updateUi();
 

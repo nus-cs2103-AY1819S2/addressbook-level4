@@ -168,9 +168,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
                 + INVALID_HINT_DESC, Hint.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a card with new values same as another card's values -> rejected */
-        //executeCommand(CardUtil.getAddCommand(CARD_2));
-        executeCommand("add q/Sample Question 2 a/Sample Answer 2 h/husband");
-        // EDIT
+        executeCommand(CardUtil.getAddCommand(CARD_2));
         assertTrue(getModel().getActiveCardFolder().getCardList().contains(CARD_2));
         index = INDEX_FIRST_CARD;
         assertFalse(getModel().getFilteredCards().get(index.getZeroBased()).equals(CARD_2));

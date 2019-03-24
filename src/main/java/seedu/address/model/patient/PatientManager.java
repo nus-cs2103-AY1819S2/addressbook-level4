@@ -232,4 +232,17 @@ public class PatientManager {
         }
         return Optional.empty();
     }
+
+    /**
+     * Remove patient with nric specified
+     * @param nric of the patient to be deleted
+     */
+    public void deletePatientByNric(String nric) {
+        for (int i = 0; i < patientList.size(); i++) {
+            if (patientList.get(i).getNric().toString().equals(nric)) {
+                patientList.remove(i);
+                break;
+            }
+        }
+    }
 }

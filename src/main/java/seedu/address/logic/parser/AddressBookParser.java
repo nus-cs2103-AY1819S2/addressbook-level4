@@ -16,6 +16,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ConsultationCommand;
 import seedu.address.logic.commands.DeleteAppCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.EndConsultationCommand;
@@ -146,6 +147,10 @@ public class AddressBookParser {
 
         case SetPriceCommand.COMMAND_WORD:
             return new SetPriceCommandParser().parse(arguments);
+
+        case DeletePatientCommand.COMMAND_WORD:
+        case DeletePatientCommand.COMMAND_ALIAS:
+            return new DeletePatientParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

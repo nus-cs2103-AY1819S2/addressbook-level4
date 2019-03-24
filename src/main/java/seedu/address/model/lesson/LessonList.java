@@ -103,10 +103,12 @@ public class LessonList {
      * All lesson-editing-related commands will apply to this lesson.
      *
      * @param index index of the lesson to be assigned to {@link #openedLesson}
+     * @return the name of the lesson
      */
-    public void openLesson(int index) {
+    public String openLesson(int index) {
         try {
-            this.openedLesson = lessons.get(index);
+            openedLesson = lessons.get(index);
+            return openedLesson.getName();
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
         }
@@ -116,7 +118,7 @@ public class LessonList {
      * Sets {@link #openedLesson} to null.
      */
     public void closeLesson() {
-        this.openedLesson = null;
+        openedLesson = null;
     }
 
     @Override

@@ -42,7 +42,10 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     /**
-     * Opens the lesson by index.
+     * Opens the {@link Lesson} object at the specified index of {@link #lessonList}.
+     *
+     * @param index the index of the {@link Lesson} object in {@link #lessonList} to open
+     * @return the name of the {@link Lesson} object
      */
     @Override
     public String openLesson(int index) {

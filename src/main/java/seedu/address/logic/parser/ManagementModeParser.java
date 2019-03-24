@@ -11,6 +11,7 @@ import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
+import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -65,11 +66,8 @@ public class ManagementModeParser implements Parser<Command> {
         case ListLessonsCommand.COMMAND_WORD:
             return new ListLessonsCommand();
 
-        //        case UndoCommand.COMMAND_WORD:
-        //            return new UndoCommand();
-        //
-        //        case RedoCommand.COMMAND_WORD:
-        //            return new RedoCommand();
+        case OpenLessonCommand.COMMAND_WORD:
+            return new OpenLessonParser().parse(arguments);
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

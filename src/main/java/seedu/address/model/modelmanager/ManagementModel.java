@@ -39,7 +39,10 @@ public interface ManagementModel extends Model {
     Lesson getLesson(int index);
 
     /**
-     * Open the lesson by index.
+     * Opens the {@link Lesson} object at the specified index.
+     *
+     * @param index the index of the {@link Lesson} object to open
+     * @return the name of the {@link Lesson} object
      */
     String openLesson(int index);
 

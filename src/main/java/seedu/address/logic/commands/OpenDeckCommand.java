@@ -36,6 +36,7 @@ public class OpenDeckCommand extends Command {
         this.viewState = viewState;
     }
 
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
         requireNonNull(model);

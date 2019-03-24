@@ -18,7 +18,7 @@ import seedu.address.logic.commands.DeleteCardCommand;
  */
 public class DeleteCardCommandParserTest {
 
-    private DeleteCommandParser parser = new DeleteCommandParser();
+    private DeleteCardCommandParser parser = new DeleteCardCommandParser();
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {

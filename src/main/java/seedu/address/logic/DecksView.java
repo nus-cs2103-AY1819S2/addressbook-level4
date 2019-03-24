@@ -7,10 +7,12 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteDeckCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
 import seedu.address.logic.parser.AddDeckCommandParser;
+import seedu.address.logic.parser.DeleteDeckCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -38,6 +40,8 @@ public class DecksView implements ListViewState {
                 return new OpenDeckCommandParser(this).parse(arguments);
             case StudyDeckCommand.COMMAND_WORD:
                 return new StudyDeckCommandParser(this).parse(arguments);
+            case DeleteDeckCommand.COMMAND_WORD:
+                return new DeleteDeckCommandParser().parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

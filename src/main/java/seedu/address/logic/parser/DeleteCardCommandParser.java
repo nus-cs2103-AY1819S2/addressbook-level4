@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new DeleteCardCommand object
  */
-public class DeleteCommandParser implements Parser<DeleteCardCommand> {
+public class DeleteCardCommandParser implements Parser<DeleteCardCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCardCommand
@@ -25,5 +25,4 @@ public class DeleteCommandParser implements Parser<DeleteCardCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE), pe);
         }
     }
-
 }

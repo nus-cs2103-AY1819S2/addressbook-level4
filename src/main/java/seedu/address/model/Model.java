@@ -145,6 +145,12 @@ public interface Model {
      */
     void addDeck(Deck deck);
 
+    /**
+     * Deletes the given deck.
+     * The deck must exist in TopDeck.
+     */
+    void deleteDeck(Deck target);
+
     boolean hasDeck(Deck deck);
 
     Command parse(String commandWord, String arguments) throws ParseException;

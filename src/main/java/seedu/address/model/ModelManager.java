@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
+import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingCardException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
 
 import java.nio.file.Path;
@@ -207,6 +208,17 @@ public class ModelManager implements Model {
     public boolean hasDeck(Deck deck) {
         requireAllNonNull(deck);
         return versionedTopDeck.hasDeck(deck);
+    }
+
+    @Override
+    public void deleteDeck(Deck deck) {
+        if (!(viewState instanceof DecksView)) {
+            throw new IllegalOperationWhileReviewingCardException();
+        }
+        logger.info("Deleted a deck.");
+
+        versionedTopDeck.deleteDeck(deck);
+        updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
     }
 
     //=========== Filtered Card List Accessors =============================================================

@@ -46,7 +46,14 @@ public class CardFolder implements ReadOnlyCardFolder {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the card list with {@code cards}.
+     * Returns the number of {@code cards} within the folder.
+     */
+    public int countCards() {
+        return cards.size();
+    }
+
+    /**
+     * Replaces the contents of the folder list with {@code cards}.
      * {@code cards} must not contain duplicate cards.
      */
     public void setCards(List<Card> cards) {
@@ -64,10 +71,10 @@ public class CardFolder implements ReadOnlyCardFolder {
         setFolderName(newData.getFolderName());
     }
 
-    //// card-level operations
+    //// folder-level operations
 
     /**
-     * Returns true if a card with the same identity as {@code card} exists in the card folder.
+     * Returns true if a folder with the same identity as {@code folder} exists in the folder folder.
      */
     public boolean hasCard(Card card) {
         requireNonNull(card);
@@ -75,8 +82,8 @@ public class CardFolder implements ReadOnlyCardFolder {
     }
 
     /**
-     * Adds a card to the card folder.
-     * The card must not already exist in the card folder.
+     * Adds a folder to the folder folder.
+     * The folder must not already exist in the folder folder.
      */
     public void addCard(Card p) {
         cards.add(p);
@@ -84,9 +91,9 @@ public class CardFolder implements ReadOnlyCardFolder {
     }
 
     /**
-     * Replaces the given card {@code target} in the list with {@code editedCard}.
-     * {@code target} must exist in the card folder.
-     * The card identity of {@code editedCard} must not be the same as another existing card in the card folder.
+     * Replaces the given folder {@code target} in the list with {@code editedCard}.
+     * {@code target} must exist in the folder folder.
+     * The folder identity of {@code editedCard} must not be the same as another existing folder in the folder folder.
      */
     public void setCard(Card target, Card editedCard) {
         requireNonNull(editedCard);
@@ -97,7 +104,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     /**
      * Removes {@code key} from this {@code CardFolder}.
-     * {@code key} must exist in the card folder.
+     * {@code key} must exist in the folder folder.
      */
     public void removeCard(Card key) {
         cards.remove(key);
@@ -115,7 +122,7 @@ public class CardFolder implements ReadOnlyCardFolder {
     }
 
     /**
-     * Notifies listeners that the card folder has been modified.
+     * Notifies listeners that the folder folder has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -126,7 +133,6 @@ public class CardFolder implements ReadOnlyCardFolder {
     @Override
     public String toString() {
         return getFolderName();
-        // TODO: refine later
     }
 
     @Override
@@ -151,15 +157,19 @@ public class CardFolder implements ReadOnlyCardFolder {
         return folderName;
     }
 
+    @Override
+    public boolean hasSameCards(ObservableList<Card> otherCardList) {
+        return cards.asUnmodifiableObservableList().equals(otherCardList);
+    }
+
     /**
-     * Equivalence of {@code CardFolder} is determined by folderName and cards.
+     * Equivalence of {@code CardFolder} is determined by folderName.
      */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CardFolder // instanceof handles nulls
-                && folderName.equals(((CardFolder) other).folderName)
-                && cards.equals(((CardFolder) other).cards));
+                && folderName.equals(((CardFolder) other).folderName));
     }
 
     @Override

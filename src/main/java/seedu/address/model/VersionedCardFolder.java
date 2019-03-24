@@ -3,6 +3,8 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.card.Card;
+
 /**
  * {@code CardFolder} that keeps track of its own history.
  */
@@ -35,7 +37,7 @@ public class VersionedCardFolder extends CardFolder {
     }
 
     /**
-     * Restores the card folder to its previous state.
+     * Restores the folder folder to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -46,7 +48,7 @@ public class VersionedCardFolder extends CardFolder {
     }
 
     /**
-     * Restores the card folder to its previously undone state.
+     * Restores the folder folder to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
@@ -57,14 +59,14 @@ public class VersionedCardFolder extends CardFolder {
     }
 
     /**
-     * Returns true if {@code undo()} has card folder states to undo.
+     * Returns true if {@code undo()} has folder folder states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has card folder states to redo.
+     * Returns true if {@code redo()} has folder folder states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < cardFolderStateList.size() - 1;
@@ -84,14 +86,23 @@ public class VersionedCardFolder extends CardFolder {
 
         VersionedCardFolder otherVersionedCardFolder = (VersionedCardFolder) other;
 
-        // state check
+        // check past states have same folder name and cards
+        for (int i = 0; i < cardFolderStateList.size(); i++) {
+            ReadOnlyCardFolder state = cardFolderStateList.get(i);
+            ReadOnlyCardFolder otherState = otherVersionedCardFolder.cardFolderStateList.get(i);
+            if (!state.equals(otherState) || !state.hasSameCards(otherState.getCardList())) {
+                return false;
+            }
+        }
+
+        // present state check
         return super.equals(otherVersionedCardFolder)
-                && cardFolderStateList.equals(otherVersionedCardFolder.cardFolderStateList)
+                && hasSameCards(otherVersionedCardFolder.getCardList())
                 && currentStatePointer == otherVersionedCardFolder.currentStatePointer;
     }
 
     /**
-     * Checks whether the latest version of this card folder has the same folder name as {@code other}
+     * Checks whether the latest version of this folder folder has the same folder name as {@code other}
      */
     public boolean hasSameFolderName(CardFolder other) {
         return cardFolderStateList.get(cardFolderStateList.size() - 1).getFolderName().equals(other.getFolderName());

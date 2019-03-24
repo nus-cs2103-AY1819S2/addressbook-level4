@@ -190,12 +190,13 @@ public class DateBase implements DateBuilder, Comparable<DateBase> {
      */
     @Override
     public int compareTo(DateBase o) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-        LocalDate firstDate = LocalDate.parse(this.getRawFormat(), formatter);
-        LocalDate secondDate = LocalDate.parse(o.getRawFormat(), formatter);
+        LocalDate d1 = LocalDate.of(this.year, this.month, this.day);
+        LocalDate d2 = LocalDate.of(o.year, o.month, o.day);
 
-        if (firstDate.isBefore(secondDate)) {
+        if (d1.isBefore(d2)) {
             return 1;
+        } else if (d2.isBefore(d1)) {
+            return -1;
         } else {
             return 0;
         }

@@ -21,7 +21,7 @@ package systemtests;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
-//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TUTORIAL;
+//import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_2;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -98,7 +98,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /*
         *//* Case: add a pdf with tags, command with parameters in random order -> added *//*
         toAdd = SAMPLE_PDF_3;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_TUTORIAL + VALID_DIR_3;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_CS2103T + VALID_DIR_3;
         assertCommandSuccess(command, toAdd);
 
         *//* Case: add a pdf, missing tags -> added *//*
@@ -141,7 +141,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: add a duplicate pdf except with different tags -> rejected *//*
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG_NEW.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: missing name -> rejected *//*

@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -53,12 +53,11 @@ public class CommandTestUtil {
     public static final String FILE_DESC_B_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_2, VALID_NAME_2)
             .toAbsolutePath().toString();
 
-    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG + VALID_TAG_CS2103T;
-    public static final String TAG_DESC_TUTORIAL = " " + PREFIX_TAG + VALID_TAG_LECTURE;
-
+    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG_NEW + VALID_TAG_LECTURE;
+    public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_NEW + VALID_TAG_CS2103T;
     public static final String INVALID_FILE_PATH_DESC = " " + PREFIX_FILE + "DefinitelyNotAFilePath"; // not valid path
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG_NEW + "moduleA*"; // '*' not allowed in tags
 
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "moduleA*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

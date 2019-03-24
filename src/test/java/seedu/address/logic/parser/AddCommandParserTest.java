@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_B_PDF;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_PATH_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LECTURE;
@@ -54,7 +54,7 @@ public class AddCommandParserTest {
         // multiple tags - all accepted
         Pdf expectedPdfMultipleTags = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_CS2103T, VALID_TAG_LECTURE)
                 .build();
-        assertParseSuccess(parser, FILE_DESC_A_PDF + TAG_DESC_LECTURE + TAG_DESC_TUTORIAL,
+        assertParseSuccess(parser, FILE_DESC_A_PDF + TAG_DESC_LECTURE + TAG_DESC_CS2103T,
                 new AddCommand(expectedPdfMultipleTags));
     }
 
@@ -124,7 +124,7 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));*/
         // invalid file path
-        assertParseFailure(parser, INVALID_FILE_PATH_DESC + TAG_DESC_TUTORIAL + TAG_DESC_LECTURE,
+        assertParseFailure(parser, INVALID_FILE_PATH_DESC + TAG_DESC_CS2103T + TAG_DESC_LECTURE,
                 Name.MESSAGE_CONSTRAINTS);
     }
 }

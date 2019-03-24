@@ -71,7 +71,7 @@ public class Deadline {
      * @param existingDeadline - Existing Deadline whose status you want to change.
      * @param isMet - Status of the deadline
      */
-    public Deadline(Deadline existingDeadline, boolean isMet) {
+    public Deadline(Deadline existingDeadline, Boolean isMet) {
         this(existingDeadline.date.getDayOfMonth(), existingDeadline.date.getMonthValue(),
                 existingDeadline.date.getYear(), isMet);
     }

@@ -119,7 +119,7 @@ public class ParserUtil {
      * @return Constructed valid Deadline Object
      * @throws ParseException - If input does not match requirements.
      */
-    public static Deadline parseDeadline(String deadline) throws ParseException {
+    public static Deadline parseDeadline(String deadline, boolean status) throws ParseException {
         requireNonNull(deadline);
 
         final int positionDay = 0;
@@ -143,7 +143,7 @@ public class ParserUtil {
 
         try {
             return new Deadline(Integer.parseInt(dates[positionDay]), Integer.parseInt(dates[positionMonth]),
-                    Integer.parseInt(dates[positionYear]));
+                    Integer.parseInt(dates[positionYear]), status);
         } catch (DateTimeException e) {
             throw new ParseException(dateError);
         }

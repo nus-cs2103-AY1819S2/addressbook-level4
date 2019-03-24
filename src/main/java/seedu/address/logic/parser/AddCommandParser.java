@@ -2,12 +2,10 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
@@ -16,7 +14,6 @@ import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.pdf.Size;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -33,10 +30,9 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
 
         File file = null;
-        Set<Tag> tags = null;
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FILE, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_FILE);
 
         if (arePrefixesPresent(argMultimap, PREFIX_FILE)
                 && argMultimap.getPreamble().isEmpty()) {
@@ -44,7 +40,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             if (argMultimap.getValue(PREFIX_FILE).isPresent()) {
 
                 file = ParserUtil.parseFile(argMultimap.getValue(PREFIX_FILE).get());
-                tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
             } else {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -59,14 +54,12 @@ public class AddCommandParser implements Parser<AddCommand> {
                 throw new ParseException(AddCommandParser.MESSAGE_NO_FILE_SELECTED);
             } else {
                 file = fileContainer.get();
-                tags = new HashSet<>();
             }
 
         } else if (!arePrefixesPresent(argMultimap, PREFIX_FILE)
                 && !argMultimap.getPreamble().isEmpty()) {
 
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-
         }
 
         try {
@@ -74,7 +67,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             Directory directory = new Directory(file.getParent());
             Size size = new Size(Long.toString(file.length()));
 
-            Pdf pdf = new Pdf(name, directory, size, tags);
+            Pdf pdf = new Pdf(name, directory, size, new HashSet<>());
             return new AddCommand(pdf);
 
         } catch (Exception e) {

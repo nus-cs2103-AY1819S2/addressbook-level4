@@ -82,22 +82,13 @@ public class ModelManager implements Model {
         }
 
 
-        // ModelManager initialises to homepage
+        // ModelManager initialises to first card folder
         activeCardFolderIndex = 0;
         inFolder = true;
     }
 
     public ModelManager(String newFolderName) {
         this(Collections.singletonList(new CardFolder(newFolderName)), new UserPrefs());
-    }
-
-    private VersionedCardFolder getActiveVersionedCardFolder() {
-        return folders.get(activeCardFolderIndex);
-    }
-
-    private FilteredList<Card> getActiveFilteredCards() {
-        // TODO: Only return if inFolder
-        return filteredCardsList.get(activeCardFolderIndex);
     }
 
     //=========== UserPrefs ==================================================================================
@@ -213,17 +204,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public int getActiveCardFolderIndex() {
-        return activeCardFolderIndex;
-    }
-
-    @Override
-    public void setActiveCardFolderIndex(int newIndex) {
-        inFolder = true;
-        activeCardFolderIndex = newIndex;
-    }
-
-    @Override
     public void exitFoldersToHome() {
         inFolder = false;
     }
@@ -241,6 +221,31 @@ public class ModelManager implements Model {
     @Override
     public void removeListener(InvalidationListener listener) {
         invalidationListenerManager.removeListener(listener);
+    }
+
+    @Override
+    public int getActiveCardFolderIndex() {
+        return activeCardFolderIndex;
+    }
+
+    @Override
+    public void setActiveCardFolderIndex(int newIndex) {
+        inFolder = true;
+        activeCardFolderIndex = newIndex;
+    }
+
+    /**
+     * Returns the active {@code CardFolder}
+     */
+    private VersionedCardFolder getActiveVersionedCardFolder() {
+        return folders.get(activeCardFolderIndex);
+    }
+
+    /**
+     * Returns the filtered list of cards from the active {@code CardFolder}
+     */
+    private FilteredList<Card> getActiveFilteredCards() {
+        return filteredCardsList.get(activeCardFolderIndex);
     }
 
     /**

@@ -26,7 +26,7 @@ public class ListRequestCommandTest {
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), getTypicalHealthWorkerBook(),
+        expectedModel = new ModelManager(model.getAddressBook(), model.getHealthWorkerBook(),
             model.getRequestBook(), new UserPrefs());
     }
 

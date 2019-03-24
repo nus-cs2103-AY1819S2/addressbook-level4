@@ -52,7 +52,7 @@ public class ChartUi extends Application {
             Gson gson = new Gson();
             responses = gson.fromJson(jsonReader, HashMap.class);
             frCountry.close();
-            jsonReader.close();
+            // jsonReader.close();
         } catch (IOException e) {
             logger.warning(e.getMessage());
         }

@@ -28,8 +28,10 @@ public class JsonSerializableTravelBuddyTest {
     public void toModelType_typicalPlacesFile_success() throws Exception {
         JsonSerializableTravelBuddy dataFromFile = JsonUtil.readJsonFile(TYPICAL_PLACES_FILE,
                 JsonSerializableTravelBuddy.class).get();
+
         TravelBuddy travelBuddyFromFile = dataFromFile.toModelType();
         TravelBuddy typicalPlacesTravelBuddy = TypicalPlaces.getTypicalTravelBuddy();
+
         assertEquals(travelBuddyFromFile, typicalPlacesTravelBuddy);
     }
 

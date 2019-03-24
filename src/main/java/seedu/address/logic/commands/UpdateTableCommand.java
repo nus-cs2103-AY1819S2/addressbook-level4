@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import seedu.address.logic.CommandHistory;
@@ -54,8 +55,8 @@ public class UpdateTableCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof UpdateTableCommand && newTableStatus
-                .equals(((UpdateTableCommand) other).newTableStatus));
+        return other == this || (other instanceof UpdateTableCommand
+                && Arrays.equals(newTableStatus, ((UpdateTableCommand) other).newTableStatus));
     }
 
     @Override

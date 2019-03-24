@@ -68,14 +68,6 @@ public class TableStatus {
         return test.matches(SEATS_VALIDATION_REGEX);
     }
 
-    /**
-     * Checks if two TableStatus objects are equal.
-     */
-    public boolean equals(TableStatus otherTableStatus) {
-        return numberOfSeats.equals(otherTableStatus.numberOfSeats) && numberOfTakenSeats
-                .equals(otherTableStatus.numberOfTakenSeats);
-    }
-
     @Override
     public boolean equals(Object other) {
         return this == other

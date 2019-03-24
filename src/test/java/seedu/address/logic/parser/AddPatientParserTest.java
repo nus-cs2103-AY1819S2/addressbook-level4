@@ -70,7 +70,7 @@ public class AddPatientParserTest {
                 + "a/" + address.getAddress() + " "
                 + "c/" + contact.getContact() + " "
                 + "d/" + dob.getDob();
-        assertParseFailure(parser, userInput, "Some details are left out, please retype the command");
+        assertParseFailure(parser, userInput, AddPatientParser.INVALID_ADD_ARGUMENTS);
 
     }
 

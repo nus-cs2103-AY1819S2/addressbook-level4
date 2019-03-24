@@ -129,7 +129,7 @@ public class AddressBookParserTest {
         ArrayList<Tag> tagList = new ArrayList<Tag>();
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
 
-        String userInput = "padd n/" + name.getName() + " "
+        String userInput = AddPatientCommand.COMMAND_WORD + " n/" + name.getName() + " "
                 + "r/" + nric.getNric() + " "
                 + "e/" + email.getEmail() + " "
                 + "a/" + address.getAddress() + " "

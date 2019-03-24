@@ -83,6 +83,7 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case AddPatientCommand.COMMAND_WORD:
+        case AddPatientCommand.COMMAND_ALIAS:
             return new AddPatientParser().parse(arguments);
 
         case AddAppCommand.COMMAND_WORD:

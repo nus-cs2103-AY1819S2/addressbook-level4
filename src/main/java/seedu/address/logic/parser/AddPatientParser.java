@@ -30,6 +30,9 @@ public class AddPatientParser implements Parser<AddPatientCommand> {
     public static final Prefix PREFIX_GENDER = new Prefix("g/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
+    public static final String INVALID_ADD_ARGUMENTS = "Invalid or insufficient input parameters entered.\n"
+            + AddPatientCommand.MESSAGE_USAGE;
+
     /**
      * Parse arguments to create an AddPatientCommand to be executed
      *
@@ -47,7 +50,7 @@ public class AddPatientParser implements Parser<AddPatientCommand> {
         boolean preamblePresent = argMultimap.getPreamble().isEmpty();
 
         if (!prefixesPresent || !preamblePresent) {
-            throw new ParseException("Some details are left out, please retype the command");
+            throw new ParseException(INVALID_ADD_ARGUMENTS);
         }
 
         Name name = new Name(argMultimap.getValue(PREFIX_NAME).get().trim());

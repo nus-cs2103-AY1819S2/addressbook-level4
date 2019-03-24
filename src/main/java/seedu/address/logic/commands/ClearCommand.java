@@ -7,6 +7,8 @@ import java.io.File;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Album;
+import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
 /**
@@ -19,7 +21,7 @@ public class ClearCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) {
         requireNonNull(model);
         model.setAddressBook(new AddressBook());
         model.commitAddressBook();

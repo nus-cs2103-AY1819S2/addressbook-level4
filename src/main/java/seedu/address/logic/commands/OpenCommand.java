@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.Album;
+import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 import seedu.address.model.image.Image;
 
@@ -31,7 +33,7 @@ public class OpenCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) {
         requireNonNull(model);
         model.setOriginalName(toOpen.getName().name);
         model.setCurrentImage(toOpen);

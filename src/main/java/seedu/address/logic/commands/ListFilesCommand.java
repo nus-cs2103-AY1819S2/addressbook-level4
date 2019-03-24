@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.Album;
+import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
 /**
@@ -18,7 +20,7 @@ public class ListFilesCommand extends Command {
 
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) {
         requireNonNull(model);
         String[] fileNames = model.getFileNames();
         return new CommandResult(MESSAGE_LIST_FILES_HEADER + Arrays.toString(fileNames) + "\n" + MESSAGE_SUCCESS);

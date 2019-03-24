@@ -16,6 +16,9 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Album;
+import seedu.address.model.CurrentEdit;
+import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -44,6 +47,8 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Storage storage;
     protected Model model;
+    protected CurrentEdit currentEdit;
+    protected Album album;
     protected Config config;
 
     @Override
@@ -61,8 +66,9 @@ public class MainApp extends Application {
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
-
-        logic = new LogicManager(model, storage);
+        currentEdit = new CurrentEditManager();
+        album = new Album();
+        logic = new LogicManager(model, storage, currentEdit, album);
 
         ui = new UiManager(logic);
     }

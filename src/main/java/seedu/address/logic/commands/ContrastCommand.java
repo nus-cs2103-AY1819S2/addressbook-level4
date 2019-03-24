@@ -13,6 +13,8 @@ import com.sksamuel.scrimage.nio.JpegWriter;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.Album;
+import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
 /**
@@ -44,18 +46,22 @@ public class ContrastCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
-
-//        seedu.address.model.image.Image currentImage = model.getImage();
-//        String filename = currentImage.getName();
-//        Album.getAsset(filename);
-//
-//        Album.getInstance().passTemp(Optinal);
-//        model.passCommand();
-//        model.displayImage();
-//
-//        model.displayImage();
-
+    public CommandResult execute(CurrentEdit currentEdit, Album album, CommandHistory history, Model model) {
+        //seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
+        //if (this.contrastValue.isPresent()) {
+        //    BufferedOpFilter contrastFilter =
+        //        new ContrastFilter(this.contrastValue.getAsDouble());
+        //    Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(contrastFilter);
+        //    currentEdit.setTempImage(outputImage);
+        //} else {
+        //    BufferedOpFilter contrastFilter =
+        //        new ContrastFilter(1.1);
+        //    Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(contrastFilter);
+        //   currentEdit.setTempImage(outputImage);
+        //}
+        //currentEdit.displayTempImage();
+        //currentEdit.addCommand(this);
+        //return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
 
         if (this.contrastValue.isPresent()) {
             seedu.address.model.image.Image initialImage = new seedu.address

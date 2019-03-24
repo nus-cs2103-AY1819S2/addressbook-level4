@@ -10,15 +10,16 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Represents an Acrivity in the address book.
+ * Represents an Activity in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Activity {
+public class Activity implements Comparable<Activity> {
     // Identity fields
     private final ActivityName name;
     private final ActivityDateTime dateTime;
     private final ActivityLocation location;
     private final ActivityDescription description;
+    private final ActivityStatus status;
 
     // Data fields
     private Person inCharge;
@@ -34,6 +35,7 @@ public class Activity {
         this.dateTime = dateTime;
         this.location = location;
         this.description = description;
+        this.status = setStatus(dateTime);
     }
 
     public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location) {
@@ -42,6 +44,7 @@ public class Activity {
         this.dateTime = dateTime;
         this.location = location;
         this.description = new ActivityDescription();
+        this.status = setStatus(dateTime);
     }
 
 
@@ -69,12 +72,23 @@ public class Activity {
         return attendance;
     }
 
+    public ActivityStatus getStatus() {
+        return status;
+    }
+
     public void setInCharge(Person person) {
         this.inCharge = person;
     }
 
     public int getNumberAttending() {
         return this.attendance.size();
+    }
+
+    /**
+     * Returns a activity status based on the ActivityDateTime input
+     */
+    private ActivityStatus setStatus(ActivityDateTime dateTime) {
+        return new ActivityStatus(ActivityDateTime.isPast(dateTime));
     }
 
     /**
@@ -117,7 +131,7 @@ public class Activity {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, dateTime, inCharge, attendance);
+        return Objects.hash(name, dateTime,location, description, inCharge, attendance);
     }
 
     @Override
@@ -135,5 +149,19 @@ public class Activity {
                 .append(" Number Attending: ")
                 .append(getNumberAttending());
         return builder.toString();
+    }
+
+    @Override
+    public int compareTo(Activity other){
+        //when both activity are ongoing or completed, compare by the time of the activity
+        if (this.status.equals(other.status)) {
+            return this.dateTime.compareTo(other.dateTime);
+        }
+        if (ActivityStatus.isCompleted(other.status)) {
+            return -1;
+            //this activity is ongoing while the other is completed, this activity will come first in the list
+        }
+        return 1;
+        // this activity is completed while the other is ongoing, the other activity will come first in the list
     }
 }

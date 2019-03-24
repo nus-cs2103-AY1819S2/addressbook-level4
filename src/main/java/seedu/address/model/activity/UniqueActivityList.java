@@ -3,11 +3,13 @@ package seedu.address.model.activity;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.model.activity.exceptions.ActivityNotFoundException;
 import seedu.address.model.activity.exceptions.DuplicateActivityException;
 
@@ -25,8 +27,9 @@ import seedu.address.model.activity.exceptions.DuplicateActivityException;
 public class UniqueActivityList implements Iterable<Activity> {
 
     private final ObservableList<Activity> internalList = FXCollections.observableArrayList();
+    private final SortedList<Activity> sortedInternalList = internalList.sorted();
     private final ObservableList<Activity> internalUnmodifiableList =
-            FXCollections.unmodifiableObservableList(internalList);
+            FXCollections.unmodifiableObservableList(sortedInternalList);
 
 
     /**

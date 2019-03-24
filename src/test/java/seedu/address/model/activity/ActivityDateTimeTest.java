@@ -2,12 +2,19 @@ package seedu.address.model.activity;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
 public class ActivityDateTimeTest {
+
+    private static final ActivityDateTime t1 = new ActivityDateTime("12/02/2018 1200");
+    private static final ActivityDateTime t2 = new ActivityDateTime("12/02/2018 1300");
+    private static final ActivityDateTime t3 = new ActivityDateTime("14/02/2018 1200");
+    private static final ActivityDateTime t4 = new ActivityDateTime("12/03/2018 1200");
+    private static final ActivityDateTime t5 = new ActivityDateTime("12/03/2020 1200");
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -50,5 +57,29 @@ public class ActivityDateTimeTest {
         assertTrue(ActivityDateTime.isValidActivityDateTime("29/02/2012 1230")); //valid leap year date
         assertTrue(ActivityDateTime.isValidActivityDateTime("21/02/2012 0000")); //valid 0am
         assertTrue(ActivityDateTime.isValidActivityDateTime("21/12/2012 2359")); //valid time 2359
+    }
+
+    @Test
+    public void isPast() {
+        assertTrue(ActivityDateTime.isPast(t1));
+        assertFalse(ActivityDateTime.isPast(t5));
+    }
+
+
+    @Test
+    public void compareTo() {
+
+        //same time
+        assertEquals(0, t1.compareTo(t1));
+
+        //before
+        assertEquals(-1, t1.compareTo(t2));
+        assertEquals(-1, t1.compareTo(t3));
+        assertEquals(-1, t1.compareTo(t4));
+
+        //after
+        assertEquals(1, t2.compareTo(t1));
+        assertEquals(1, t3.compareTo(t1));
+        assertEquals(1, t4.compareTo(t1));
     }
 }

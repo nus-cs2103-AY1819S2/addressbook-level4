@@ -9,7 +9,8 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.address.logic.commands.DeletePersonCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.HealthWorkerCommand;
 import seedu.address.logic.commands.HelpCommand;
 
 /**
@@ -65,7 +66,8 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        executeCommand(DeleteCommand.COMMAND_WORD + " " + HealthWorkerCommand.COMMAND_OPTION + " " + INDEX_FIRST
+                .getOneBased());
         //assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

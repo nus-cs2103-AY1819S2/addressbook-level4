@@ -53,9 +53,9 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         CommandMode commandMode = ArgumentTokenizer.checkMode(args);
         if (commandMode == CommandMode.HEALTH_WORKER) {
-            return parseAddHealthWorker(ArgumentTokenizer.trimMode(args));
+            return parseAddHealthWorker(" " + ArgumentTokenizer.trimMode(args));
         } else if (commandMode == CommandMode.REQUEST) {
-            return parseAddRequest(args);
+            return parseAddRequest(" " + ArgumentTokenizer.trimMode(args));
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, INVALID_COMMAND_USAGE));
@@ -69,8 +69,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     private AddRequestCommand parseAddRequest(String args) throws ParseException {
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args,
-            PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE,
-            PREFIX_CONDITION);
+            PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE, PREFIX_CONDITION);
 
         if (!arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE,
             PREFIX_CONDITION)) {
@@ -98,7 +97,6 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @return new AddHealthWorkerCommand for the adding of health worker
      * with the fields specified in args
      * @throws ParseException if there are invalid/unfilled fields.
-     * TODO: Handling of preamble before command mode
      */
     private AddHealthWorkerCommand parseAddHealthWorker(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,

@@ -15,7 +15,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -49,9 +48,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeletePersonCommand command = (DeletePersonCommand) parser.parseCommand(
-                DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeletePersonCommand(INDEX_FIRST), command);
+        // TODO: To be phased out
+        // DeletePersonCommand command = (DeletePersonCommand) parser.parseCommand(
+        //        DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        // assertEquals(new DeletePersonCommand(INDEX_FIRST), command);
     }
 
     @Test

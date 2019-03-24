@@ -158,6 +158,17 @@ public class TopDeck implements ReadOnlyTopDeck {
         return decks.contains(deck);
     }
 
+    /**
+     * Deletes {@code deck} from this {@code TopDeck}.
+     * The {@code deck} target should exist in {@code TopDeck}.
+     */
+    public void deleteDeck(Deck target) throws DeckNotFoundException {
+        if (!decks.contains(target)) {
+            throw new DeckNotFoundException();
+        }
+
+        decks.remove(target);
+    }
 
     //// util methods
 

@@ -31,6 +31,7 @@ public class Patient extends Person {
     private static final String CHILD = "child";
     private static final String ADULT = "adult";
 
+    private Sex sex;
     private Nric nric;
     private DateOfBirth dateOfBirth;
     private Teeth teeth = null;
@@ -150,6 +151,10 @@ public class Patient extends Person {
 
     public List<Record> getRecords() {
         return records;
+    }
+
+    public Sex getSex() {
+        return sex;
     }
 
     /**

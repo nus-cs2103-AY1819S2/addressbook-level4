@@ -35,7 +35,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
-    private QuizResultDisplay quizResultDisplay;
+    private MainPanel mainPanel;
     private HelpWindow helpWindow;
 
     @FXML
@@ -51,7 +51,7 @@ public class MainWindow extends UiPart<Stage> {
     private SplitPane splitPane;
 
     @FXML
-    private VBox personList;
+    private VBox sidePanel;
 
     @FXML
     private StackPane personListPanelPlaceholder;
@@ -60,7 +60,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane quizResultDisplayPlaceholder;
+    private StackPane mainPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -128,8 +128,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        quizResultDisplay = new QuizResultDisplay();
-        quizResultDisplayPlaceholder.getChildren().add(quizResultDisplay.getRoot());
+        mainPanel = new MainPanel();
+        mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -153,12 +153,12 @@ public class MainWindow extends UiPart<Stage> {
     private void handleModeSwitching() {
         if (mode.equals("management")) {
             splitPane.setDividerPosition(0, 0.1);
-            personList.setMinWidth(340);
-            personList.setPrefWidth(340);
+            sidePanel.setMinWidth(340);
+            sidePanel.setPrefWidth(340);
         } else {
             splitPane.setDividerPosition(0, 0);
-            personList.setMinWidth(0);
-            personList.setPrefWidth(0);
+            sidePanel.setMinWidth(0);
+            sidePanel.setPrefWidth(0);
         }
     }
 
@@ -208,7 +208,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowQuiz()) {
-                quizResultDisplay.setFeedbackToUser(logic.getDisplayFormatter());
+                mainPanel.setFeedbackToUser(logic.getDisplayFormatter());
             }
 
             if (commandResult.isShowHelp()) {

@@ -5,24 +5,24 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import guitests.guihandles.QuizResultDisplayHandle;
+import guitests.guihandles.MainPanelHandle;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizUiDisplayFormatter;
 
-public class QuizResultDisplayTest extends GuiUnitTest {
+public class MainPanelTest extends GuiUnitTest {
 
-    private QuizResultDisplay quizResultDisplay;
-    private QuizResultDisplayHandle quizResultDisplayHandle;
+    private MainPanel mainPanel;
+    private MainPanelHandle mainPanelHandle;
     private QuizUiDisplayFormatter formatter;
     private QuizUiDisplayFormatter formatterReview;
 
     @Before
     public void setUp() {
-        quizResultDisplay = new QuizResultDisplay();
-        uiPartRule.setUiPart(quizResultDisplay);
+        mainPanel = new MainPanel();
+        uiPartRule.setUiPart(mainPanel);
 
-        quizResultDisplayHandle = new QuizResultDisplayHandle(getChildNode(quizResultDisplay.getRoot(),
-            QuizResultDisplayHandle.RESULT_DISPLAY_ID));
+        mainPanelHandle = new MainPanelHandle(getChildNode(mainPanel.getRoot(),
+            MainPanelHandle.RESULT_DISPLAY_ID));
 
         formatter = new QuizUiDisplayFormatter("Question", "some question", "Answer", "some answer", Quiz.Mode.PREVIEW);
         formatterReview = new QuizUiDisplayFormatter("Question", "some question", "Answer", Quiz.Mode.REVIEW);
@@ -32,23 +32,23 @@ public class QuizResultDisplayTest extends GuiUnitTest {
     public void display() {
         // default result text
         guiRobot.pauseForHuman();
-        assertEquals("", quizResultDisplayHandle.getText());
+        assertEquals("", mainPanelHandle.getText());
 
         // both question and answer
-        guiRobot.interact(() -> quizResultDisplay.setFeedbackToUser(formatter));
+        guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatter));
         guiRobot.pauseForHuman();
         assertEquals("Question: some question\nAnswer: some answer\nPress Enter to go to the next question",
-            quizResultDisplayHandle.getText());
+            mainPanelHandle.getText());
 
         // only question
-        guiRobot.interact(() -> quizResultDisplay.setFeedbackToUser(formatterReview));
+        guiRobot.interact(() -> mainPanel.setFeedbackToUser(formatterReview));
         guiRobot.pauseForHuman();
         assertEquals("Question: some question\nType the Answer for the Question above and press Enter",
-            quizResultDisplayHandle.getText());
+            mainPanelHandle.getText());
 
         // switch back to management mode, so become blank
-        guiRobot.interact(() -> quizResultDisplay.setFeedbackToUser(null));
+        guiRobot.interact(() -> mainPanel.setFeedbackToUser(null));
         guiRobot.pauseForHuman();
-        assertEquals("", quizResultDisplayHandle.getText());
+        assertEquals("", mainPanelHandle.getText());
     }
 }

@@ -47,12 +47,12 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340"
+          <VBox fx:id="sidePanel" minWidth="340" prefWidth="340"
                 SplitPane.resizableWithParent="false">
             <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <StackPane fx:id="quizResultDisplayPlaceholder" >
+          <StackPane fx:id="mainPanelPlaceholder" >
           </StackPane>
         </SplitPane>
 

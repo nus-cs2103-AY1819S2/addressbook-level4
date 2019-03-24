@@ -148,6 +148,17 @@ public class Fleet {
         return tagSet;
     }
 
+    public ArrayList<FleetEntry> getByTags(Set<Tag> tagSet) {
+        ArrayList<FleetEntry> battleshipTagSet = new ArrayList<>();
+        for (FleetEntry fleetEntry : this.getDeployedFleet()) {
+            if (fleetEntry.getBattleship().getTags().containsAll(tagSet)) {
+                battleshipTagSet.add(fleetEntry);
+            }
+        }
+
+        return battleshipTagSet;
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -163,7 +174,7 @@ public class Fleet {
      * Represents an entry in the fleet. To describe the orientation and coordinates
      * of a given battleship.
      */
-    private class FleetEntry {
+    public class FleetEntry {
         private final Battleship battleship;
         private final Orientation orientation;
         private final Coordinates coordinates;

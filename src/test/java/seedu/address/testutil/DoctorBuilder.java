@@ -1,5 +1,10 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Doctor;
@@ -8,11 +13,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.model.util.SampleDataUtil;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * A utility class to help with building Doctor objects.

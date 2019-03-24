@@ -47,14 +47,14 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+
+          <StackPane fx:id="imagePlaceholder" prefWidth="140" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+          </StackPane>
 
-          <StackPane fx:id="imagePlaceholder" prefWidth="140" >
+          <StackPane fx:id="informationPlaceholder" prefWidth="140" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>

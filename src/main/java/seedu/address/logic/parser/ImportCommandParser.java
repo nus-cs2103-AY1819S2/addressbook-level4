@@ -1,61 +1,137 @@
+/* @@author Carrein */
 package seedu.address.logic.parser;
-
-import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FILE;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TYPE;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.apache.commons.io.FileUtils;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Album;
 import seedu.address.model.image.Image;
 
 /**
  * Parses input arguments and creates a new ImportImage object
  */
 public class ImportCommandParser implements Parser<ImportCommand> {
+
+    private final String assetsFilePath = "src/main/resources/assets/";
+    private final File directory = new File(assetsFilePath);
+
+    // Album singleton class to add new images.
+    private final Album album = Album.getInstance();
+
     /**
      * Parses the given {@code String} of arguments in the context
      * of the ImportCommand and returns an ImportCommand object for execution.
      *
-     * @throws ParseException   if the user input does not conform the expected format.
+     * @throws ParseException if the user input does not conform the expected format.
      */
     public ImportCommand parse(String args) throws ParseException {
-        args = args.trim();
-        File file = new File(args);
-        Image image = null;
-        File directory = new File(ASSETS_FILEPATH);
 
-        // File must exist.
-        if (file.isFile()) {
-            // File must be an image type.
-            try {
-                String mime = Files.probeContentType(file.toPath());
-                if (mime != null && mime.split("/")[0].equals("image")) {
-                    image = new Image(args);
-                    if (!new File(ASSETS_FILEPATH + image.getName()).exists()) {
+        // Boolean value to indicate if FomoFoto should print directory or file return message.
+        boolean isDirectory = false;
+
+        // Trim to prevent excess whitespace.
+        args = args.trim();
+
+        try {
+            switch (validPath(args)) {
+            case 1:
+                isDirectory = true;
+                File folder = new File(args);
+                File[] listOfFiles = folder.listFiles();
+                for (File f : listOfFiles) {
+                    String path = f.getAbsolutePath();
+                    System.out.println(path);
+                    if (validFormat(path)) {
+                        Image image = new Image(path);
+                        if (!duplicateFile(image)) {
+                            System.out.println("non dup");
+                            try {
+                                // Add each image to Album.
+                                album.addImage(image);
+
+                                File file = new File(path);
+                                FileUtils.copyFileToDirectory(file, directory);
+                            } catch (IOException e) {
+                                System.out.println(e.toString());
+                            }
+                        }
+                    }
+                }
+                break;
+            case 0:
+                if (validFormat(args)) {
+                    Image image = new Image(args);
+                    if (!duplicateFile(image)) {
                         try {
+                            // Add each image to Album.
+                            album.addImage(image);
+
+                            File file = new File(args);
                             FileUtils.copyFileToDirectory(file, directory);
                         } catch (IOException e) {
                             System.out.println(e.toString());
                         }
                     } else {
-                        throw new ParseException(String.format(MESSAGE_DUPLICATE_FILE, ImportCommand.MESSAGE_USAGE));
+                        throw new ParseException(Messages.MESSAGE_DUPLICATE_FILE);
                     }
                 } else {
-                    throw new ParseException(String.format(MESSAGE_INVALID_TYPE, ImportCommand.MESSAGE_USAGE));
+                    throw new ParseException(Messages.MESSAGE_INVALID_TYPE);
                 }
-            } catch (IOException e) {
-                System.out.println(e.toString());
+                break;
+            default:
+                throw new ParseException(Messages.MESSAGE_INVALID_PATH);
             }
-        } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_PATH, ImportCommand.MESSAGE_USAGE));
+
+        } catch (IOException e) {
+            System.out.println(e.toString());
         }
-        return new ImportCommand(image);
+        return new ImportCommand(isDirectory);
+    }
+
+    /**
+     * Given a URL checks if the given path is valid.
+     *
+     * @param url Path to a file or directory.
+     * @return 1 if directory, 0 if file, -1 otherwise.
+     */
+    public int validPath(String url) {
+        // Trim url to remove trailing whitespace
+        File file = new File(url.trim());
+        if (file.isDirectory()) {
+            return 1;
+        }
+        if (file.isFile()) {
+            return 0;
+        }
+        return -1;
+    }
+
+    /**
+     * Given a Image checks if the file name already exists.
+     *
+     * @param image image to for checking.
+     * @return True if image file name exist, false otherwise.
+     */
+    public boolean duplicateFile(Image image) {
+        return (new File(assetsFilePath + image.getName().name).exists()) ? true : false;
+    }
+
+    /**
+     * Given a URL checks if the file is of an image type.
+     *
+     * @param url Path to a file or directory.
+     * @return True if path is valid, false otherwise.
+     */
+    public boolean validFormat(String url) throws IOException {
+        String mime = Files.probeContentType(Paths.get(url));
+        return (mime != null && mime.split("/")[0].equals("image")) ? true : false;
     }
 }
+

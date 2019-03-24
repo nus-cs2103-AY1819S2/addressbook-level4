@@ -14,7 +14,9 @@ import seedu.address.model.person.Person;
  * The API of the Model component.
  */
 public interface Model {
-    /** {@code Predicate} that always evaluate to true */
+    /**
+     * {@code Predicate} that always evaluate to true
+     */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
@@ -52,7 +54,9 @@ public interface Model {
      */
     void setAddressBook(ReadOnlyAddressBook addressBook);
 
-    /** Returns the AddressBook */
+    /**
+     * Returns the AddressBook
+     */
     ReadOnlyAddressBook getAddressBook();
 
     /**
@@ -86,11 +90,14 @@ public interface Model {
 
     void displayTempImage();
 
-    /** Returns an unmodifiable view of the filtered person list */
+    /**
+     * Returns an unmodifiable view of the filtered person list
+     */
     ObservableList<Person> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     *
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
@@ -155,7 +162,23 @@ public interface Model {
 
     /**
      * Updates tempImage to Opened image
+     *
      * @param image
      */
     void setCurrentImage(Image image);
+
+    /**
+     * Creates a copy of the original {@code name} of the opened image
+     */
+    void setOriginalName(String name);
+
+    /**
+     * Saves the edited image as {@code name} into assets folder)
+     * To use originalName if {@code name} is empty
+     */
+    String saveToAssets(String name);
+
+    //=========== Filtered Person List Accessors =============================================================
+
+    void refreshAlbum();
 }

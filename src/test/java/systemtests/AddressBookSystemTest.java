@@ -21,6 +21,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -45,6 +46,8 @@ import seedu.address.ui.CommandBox;
  * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
  * for test verification.
  */
+
+@Ignore
 public abstract class AddressBookSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();

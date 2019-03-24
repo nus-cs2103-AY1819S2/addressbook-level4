@@ -94,6 +94,12 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
+        @Override
+        public void refreshAlbum() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void displayImage(Image image) {
             throw new AssertionError("This method should not be called.");
@@ -230,6 +236,16 @@ public class AddCommandTest {
 
         @Override
         public void setCurrentImage(Image image) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setOriginalName(String name) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String saveToAssets(String name) {
             throw new AssertionError("This method should not be called.");
         }
     }

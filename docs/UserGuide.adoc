@@ -88,7 +88,7 @@ image::brightnessSuccess.JPG[width="917"]
 image::cropSuccess.PNG[width="918"]
 +
 
-.  Bye bye humans!
+.  To save, simply use the save command: `save`. Voila! You're done!
 
 [[Features]]
 == Features
@@ -214,6 +214,15 @@ Example:
 
 * `rotate 90`
 
+=== Save image : `save`
+
+Apply and save your edits. +
+Format: `save` or `save FILENAME`
+
+Example:
+
+* `save MyNewImage.png`
+
 === Undo edit steps : `undo`
 
 Go back to the previous state of the image. +
@@ -268,5 +277,8 @@ e.g. `open sample.jpg` +
 
 * *Rotate* `rotate ANGLE` +
 e.g. `rotate 270` +
+
+* *Save* `save` or `save FILENAME` +
+e.g. `save MyNewImage.png` +
 
 * *Undo* `undo` +

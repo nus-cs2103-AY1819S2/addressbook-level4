@@ -32,20 +32,20 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 
-
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private static Image currentImage;
-
+    private String originalName;
 
     private final VersionedAddressBook versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
+    private final Album album;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -60,6 +60,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+
+        album = Album.getInstance();
     }
 
     public ModelManager() {
@@ -263,12 +265,11 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 
+    //=========== FomoFoto methods ===========================================================================
+
     @Override
     public void clearAssetFolder(File dir) {
-        for (File file: dir.listFiles()) {
-            if (file.getName().equals("sample.png") || file.getName().equals("sample2.png")) {
-                continue;
-            }
+        for (File file : dir.listFiles()) {
             file.delete();
         }
     }
@@ -295,9 +296,6 @@ public class ModelManager implements Model {
     }
 
 
-    /**
-     * Updates currentImage to Opened image and creates copy of it inside temp folder
-     */
     @Override
     public void setCurrentImage(Image image) {
         currentImage = image;
@@ -306,9 +304,43 @@ public class ModelManager implements Model {
             File directory = new File(TEMP_FILEPATH);
             ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, directory, false);
+            outputFile.delete();
         } catch (IOException e) {
             System.out.println(e.toString());
         }
     }
 
+    @Override
+    public void setOriginalName(String name) {
+        this.originalName = name;
+    }
+
+    @Override
+    public String saveToAssets(String name) {
+        try {
+            if (name.isEmpty()) {
+                name = originalName;
+            }
+            File outputFile = new File(name);
+            File latestImage = new File(TEMP_FILE);
+            File saveDirectory = new File(ASSETS_FILEPATH);
+            latestImage.renameTo(outputFile);
+            FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
+            setCurrentImage(currentImage);
+            outputFile.delete();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        return name;
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
+    /* @@author Carrein */
+
+    @Override
+    public void refreshAlbum() {
+        Notifier.firePropertyChangeListener("refresh", null, null);
+    }
 }
+
+

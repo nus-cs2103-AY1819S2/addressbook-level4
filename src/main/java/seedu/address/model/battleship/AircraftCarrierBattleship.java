@@ -1,6 +1,8 @@
 package seedu.address.model.battleship;
 
-import java.util.HashSet;
+import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a battleship in a map.
@@ -12,8 +14,8 @@ public class AircraftCarrierBattleship extends Battleship {
      * Constructor for Battleship with only name and tags.
      * Default size is length = 2, life = 1
      */
-    public AircraftCarrierBattleship() {
-        super(new Name("aircraft carrier"), 5, 5, new HashSet<>());
+    public AircraftCarrierBattleship(Set<Tag> tagSet) {
+        super(new Name("aircraft carrier"), 5, 5, tagSet);
     }
 
 }

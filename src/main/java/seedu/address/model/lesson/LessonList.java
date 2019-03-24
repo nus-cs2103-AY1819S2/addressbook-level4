@@ -18,6 +18,11 @@ public class LessonList {
      * The list of {@link Lesson} objects.
      */
     private List<Lesson> lessons;
+    /**
+     * The {@link Lesson} object currently in focus. All lesson-editing-related commands will apply
+     * to this lesson.
+     */
+    private Lesson openedLesson = null; // The lesson currently being edited
 
     /**
      * Creates a new {@link LessonList} which is used to store a list of {@link Lesson} objects.
@@ -80,6 +85,38 @@ public class LessonList {
     public void setLesson(int index, Lesson newLesson) {
         requireNonNull(newLesson);
         lessons.set(index, newLesson);
+    }
+
+    /**
+     * Returns the {@link #openedLesson}. A lesson is opened by calling {@link #openLesson(int)} and
+     * closed by calling {@link #closeLesson()}. If there is no lesson currently opened, this returns
+     * null.
+     *
+     * @return the {@link Lesson} object in {@link #openedLesson}. Null if there is no opened lesson.
+     */
+    public Lesson getOpenedLesson() {
+        return openedLesson;
+    }
+
+    /**
+     * Sets {@link #openedLesson} to the lesson at the specified index.
+     * All lesson-editing-related commands will apply to this lesson.
+     *
+     * @param index index of the lesson to be assigned to {@link #openedLesson}
+     */
+    public void openLesson(int index) {
+        try {
+            this.openedLesson = lessons.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
+        }
+    }
+
+    /**
+     * Sets {@link #openedLesson} to null.
+     */
+    public void closeLesson() {
+        this.openedLesson = null;
     }
 
     @Override

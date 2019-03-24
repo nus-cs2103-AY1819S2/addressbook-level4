@@ -103,6 +103,54 @@ public class LessonListTest {
     }
 
     @Test
+    public void openLesson_validIndex_opensLesson() {
+        addTestLesson();
+        assertEquals(1, lessonList.getLessons().size());
+        assertEquals(getTestLesson(), lessonList.getLesson(0));
+
+        // open valid lesson at valid index -> openedLesson = Lesson at index 0
+        lessonList.openLesson(0);
+
+        // get openedLesson which has been set to lesson at index 0 -> Lesson returned = lesson at index 0
+        assertEquals(lessonList.getOpenedLesson(), lessonList.getLesson(0));
+    }
+
+    @Test
+    public void openLesson_invalidIndex_throwsIllegalArgumentException() {
+        addTestLesson();
+        assertEquals(1, lessonList.getLessons().size());
+        assertEquals(getTestLesson(), lessonList.getLesson(0));
+
+        // open non-existing lesson at invalid index -> IllegalArgumentException thrown
+        thrown.expect(IllegalArgumentException.class);
+        lessonList.openLesson(1);
+    }
+
+    @Test
+    public void noLesson_getOpenedLesson_returnNull() {
+        assertEquals(0, lessonList.getLessons().size());
+
+        // get openedLesson which has not been set -> return null
+        assertEquals(lessonList.getOpenedLesson(), null);
+    }
+
+    @Test
+    public void openLesson_closeLesson_getOpenedLesson_returnNull() {
+        addTestLesson();
+        assertEquals(1, lessonList.getLessons().size());
+        assertEquals(getTestLesson(), lessonList.getLesson(0));
+
+        // open valid lesson at valid index -> openedLesson = Lesson at index 0
+        lessonList.openLesson(0);
+
+        // close lesson -> openedLesson set to null
+        lessonList.closeLesson();
+
+        // get openedLesson which has been set to null by closeLesson -> return null
+        assertEquals(lessonList.getOpenedLesson(), null);
+    }
+
+    @Test
     public void equals() {
         LessonList diffLessonList = new LessonList();
         diffLessonList.addLesson(getTestLesson());

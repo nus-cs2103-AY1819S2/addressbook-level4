@@ -4,9 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.*;
 
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;

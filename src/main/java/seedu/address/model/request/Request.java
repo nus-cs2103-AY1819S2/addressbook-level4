@@ -33,7 +33,7 @@ public class Request {
                    Set<Condition> conditions, RequestStatus status) {
         requireAllNonNull(name, phone, nric, address, requestDate, conditions, status);
         this.phone = phone;
-        this.conditions = SampleDataUtil.getConditionsFromConditionSet(conditions);
+        this.conditions = conditions;
         this.requestStatus = status;
         this.requestDate = requestDate;
         this.name = name;
@@ -50,7 +50,7 @@ public class Request {
                    Set<Condition> conditions) {
         requireAllNonNull(name, nric, address, requestDate, conditions, phone);
         this.phone = phone;
-        this.conditions = SampleDataUtil.getConditionsFromConditionSet(conditions);
+        this.conditions = conditions;
         this.requestStatus = new RequestStatus("PENDING");
         this.name = name;
         this.nric = nric;

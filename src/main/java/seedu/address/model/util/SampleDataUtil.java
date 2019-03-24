@@ -99,16 +99,6 @@ public class SampleDataUtil {
                 .collect(Collectors.toSet());
     }
 
-    /**
-     * Returns Conditions from a set of conditions passed in.
-     */
-    public static Set<Condition> getConditionsFromConditionSet(Set<Condition> conditions) {
-        HashSet<Condition> set = new HashSet<>();
-        conditions.forEach(condition -> {
-            set.add(condition);
-        });
-        return set;
-    }
 
     /**
      * Returns a Specialisation from a set of strings

@@ -26,7 +26,7 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
 
     public static final String MESSAGE_EDIT_HEALTHWORKER_SUCCESS = "Edited Health Worker: %1$s";
 
-    public static final String MESSAGE_USAGE = EditCommand.COMMAND_WORD + COMMAND_OPTION + ": "
+    public static final String MESSAGE_USAGE = EditCommand.COMMAND_WORD + " " + COMMAND_OPTION + ": "
             + "Edits the details health worker at the specified index number used in the displayed HealthWorker list "
             + "Parameters: INDEX (must be a positive integer) " + EDIT_COMMAND_PARAMETERS
             + "Example: " + EditCommand.COMMAND_WORD + ": " + EDIT_COMMAND_EXAMPLE;

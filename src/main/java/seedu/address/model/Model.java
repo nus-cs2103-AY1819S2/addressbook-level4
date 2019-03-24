@@ -8,6 +8,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
+import seedu.address.model.person.Doctor;
+
 
 /**
  * The API of the Model component.
@@ -15,6 +17,9 @@ import seedu.address.model.person.Patient;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Patient> PREDICATE_SHOW_ALL_PATIENTS = unused -> true;
+
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -99,6 +104,10 @@ public interface Model {
      */
     void updateFilteredPatientList(Predicate<Patient> predicate);
 
+    ObservableList<Doctor> getFilteredDoctorList();
+
+    void updateFilteredDoctorList(Predicate<Doctor> predicate);
+
     /**
      * Returns true if the model has previous address book states to restore.
      */
@@ -140,4 +149,15 @@ public interface Model {
      * Sets the selected patient in the filtered patient list.
      */
     void setSelectedPatient(Patient patient);
+
+    /**
+     * Returns true if a doctor with the same identity as {@code doctor} exists in docX.
+     */
+    boolean hasDoctor(Doctor toAdd);
+
+    /**
+     * Adds the given doctor.
+     * {@code doctor} must not already exist in docX.
+     */
+    void addDoctor(Doctor toAdd);
 }

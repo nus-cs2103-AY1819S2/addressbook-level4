@@ -99,7 +99,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given patient {@code target} in the list with {@code editedPatient}.
+     * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
+     */
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return doctors.contains(doctor);
+    }
+
+    /**
      * Adds a doctor to the address book.
      * The doctor must not already exist in the address book.
      */
@@ -109,7 +116,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given patient {@code target} in the list with {@code editedPatient}.
      * {@code target} must exist in the address book.
      * The patient identity of {@code editedPatient} must not be the same
      * as another existing patient in the address book.
@@ -204,6 +211,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<MedicalHistory> getMedHistList() {
         return medHists.asUnmodifiableObservableList();
+    }
+
+//    @Override
+    public ObservableList<Doctor> getDoctorList() {
+        return doctors.asUnmodifiableObservableList();
     }
 
     @Override

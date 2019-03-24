@@ -18,6 +18,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +31,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Patient> filteredPatients;
     private final SimpleObjectProperty<Patient> selectedPatient = new SimpleObjectProperty<>();
+    private final FilteredList<Doctor> filteredDoctors;
+    private final SimpleObjectProperty<Doctor> selectedDoctor = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,6 +47,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPatients = new FilteredList<>(versionedAddressBook.getPatientList());
         filteredPatients.addListener(this::ensureSelectedPatientIsValid);
+        filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
+        filteredDoctors.addListener(this::ensureSelectedDoctorIsValid);
     }
 
     public ModelManager() {
@@ -114,6 +120,18 @@ public class ModelManager implements Model {
         updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
     }
 
+    @Override
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return versionedAddressBook.hasDoctor(doctor);
+    }
+
+    @Override
+    public void addDoctor(Doctor doctor) {
+        versionedAddressBook.addDoctor(doctor);
+        updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+    }
+
     // Needed to be implemented later
     @Override
     public boolean hasMedHist(MedicalHistory medicalHistory) {
@@ -147,6 +165,23 @@ public class ModelManager implements Model {
     public void updateFilteredPatientList(Predicate<Patient> predicate) {
         requireNonNull(predicate);
         filteredPatients.setPredicate(predicate);
+    }
+
+    //=========== Filtered Doctor List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Doctor} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<Doctor> getFilteredDoctorList() {
+        return filteredDoctors;
+    }
+
+    @Override
+    public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+        requireNonNull(predicate);
+        filteredDoctors.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -222,6 +257,35 @@ public class ModelManager implements Model {
                 // Select the patient that came before it in the list,
                 // or clear the selection if there is no such patient.
                 selectedPatient.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    /**
+     * Ensures {@code selectedDoctor} is a valid doctor in {@code filteredDoctors}.
+     */
+    private void ensureSelectedDoctorIsValid(ListChangeListener.Change<? extends Doctor> change) {
+        while (change.next()) {
+            if (selectedDoctor.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedDoctorReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedDoctor.getValue());
+            if (wasSelectedDoctorReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedDoctor.getValue());
+                selectedDoctor.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedDoctorRemoved = change.getRemoved().stream()
+                    .anyMatch(removedDoctor -> selectedDoctor.getValue().isSameDoctor(removedDoctor));
+            if (wasSelectedDoctorRemoved) {
+                // Select the doctor that came before it in the list,
+                // or clear the selection if there is no such doctor.
+                selectedDoctor.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

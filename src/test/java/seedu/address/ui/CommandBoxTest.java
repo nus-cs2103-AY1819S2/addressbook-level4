@@ -153,7 +153,7 @@ public class CommandBoxTest extends GuiUnitTest {
      * Pushes {@code keycode} and checks that the input in the {@code commandBox} equals to {@code expectedCommand}.
      */
     private void assertInputHistory(KeyCode keycode, String expectedCommand) {
-//        guiRobot.push(keycode);
-//        assertEquals(expectedCommand, commandBoxHandle.getInput());
+    //        guiRobot.push(keycode);
+    //        assertEquals(expectedCommand, commandBoxHandle.getInput());
     }
 }

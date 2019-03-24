@@ -3,6 +3,7 @@ package seedu.address.model.patient;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -60,6 +61,7 @@ public class Patient extends Person {
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.records = records;
+        this.records.sort(Comparator.comparing(Record::getRecordDate));
         this.teeth = teeth;
     }
 
@@ -77,7 +79,8 @@ public class Patient extends Person {
      * @param record the medical record to be added.
      */
     public void addRecord(Record record) {
-        this.records.add(record);
+        this.records.add(0, record);
+        this.records.sort(Comparator.comparing(Record::getRecordDate));
     }
 
     /**
@@ -127,14 +130,6 @@ public class Patient extends Person {
             }
         }
         tags.add(tag);
-    }
-
-    /**
-     * Using the patient's year of birth and the current year, derive his or her age.
-     * @return the age of the patient.
-     */
-    private int getPatientAge() {
-        return dateOfBirth.getAge();
     }
 
     public void setRecords(ArrayList<Record> records) {

@@ -195,7 +195,7 @@ public class DateBase implements DateBuilder, Comparable<DateBase> {
         LocalDate secondDate = LocalDate.parse(o.getRawFormat(), formatter);
 
         if (firstDate.isBefore(secondDate)) {
-            return -1;
+            return 1;
         } else {
             return 0;
         }

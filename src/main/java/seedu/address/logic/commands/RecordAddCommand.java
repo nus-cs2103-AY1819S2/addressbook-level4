@@ -29,13 +29,13 @@ public class RecordAddCommand extends Command {
     public static final String MESSAGE_ERROR = "Please specify the patient using the goto command first";
 
     private final Patient toAdd;
-    private final String description;
+    private final Description description;
 
     /**
      * Creates an RecordAddCommand to add a new dental record to a specified {@code Patient}
      * @param description the description of the record to be added.
      */
-    public RecordAddCommand(String description) throws CommandException {
+    public RecordAddCommand(Description description) throws CommandException {
         if (MainWindow.isGoToMode() && MainWindow.getRecordPatient() != null) {
             requireNonNull(description);
             toAdd = MainWindow.getRecordPatient();
@@ -50,7 +50,7 @@ public class RecordAddCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        Record record = new Record(new Description(description));
+        Record record = new Record(description);
         toAdd.addRecord(record);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));

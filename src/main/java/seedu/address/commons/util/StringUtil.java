@@ -4,9 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -46,20 +46,28 @@ public class StringUtil {
                 .anyMatch(w-> w.contains(preppedWord));
     }
 
+    /**
+     * Returns true if the {@code pdf} contains the {@code word}.
+     *   Uses apache.pdfbox to access the contents of pdf and
+     *   extract as a String.
+     * @param pdf cannot be null
+     * @param word cannot be null, cannot be empty, must be a single word
+     */
     public static boolean containsWordInContent(Pdf pdf, String word) {
         requireNonNull(pdf);
         requireNonNull(word);
 
         String preppedWord = word.trim().toLowerCase();
         try {
-            PDDocument document = PDDocument.load(Paths.get(pdf.getDirectory().getDirectory(), pdf.getName().getFullName()).toFile());
+            PDDocument document = PDDocument.load(
+                    Paths.get(pdf.getDirectory().getDirectory(), pdf.getName().getFullName()).toFile());
             String preppedContent = new PDFTextStripper().getText(document).trim().toLowerCase();
-            if(preppedContent.contains(preppedWord)){
+            if (preppedContent.contains(preppedWord)) {
                 return true;
             } else {
                 return false;
             }
-        } catch (IOException e){
+        } catch (IOException e) {
           // Unable to open document
           return false;
         }

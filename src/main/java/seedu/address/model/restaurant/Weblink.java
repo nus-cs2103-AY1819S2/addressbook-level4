@@ -3,9 +3,13 @@ package seedu.address.model.restaurant;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 /**
  * Represents a Restaurant's weblink in the food diary.
- * Guarantees: immutable; is valid as declared in {@link #isValidWeblink(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidWeblinkString(String)}
  */
 public class Weblink {
 
@@ -37,14 +41,14 @@ public class Weblink {
      */
     public Weblink(String weblink) {
         requireNonNull(weblink);
-        checkArgument(isValidWeblink(weblink), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidWeblinkString(weblink), MESSAGE_CONSTRAINTS);
         value = weblink;
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns if a given string is a valid weblink.
      */
-    public static boolean isValidWeblink(String test) {
+    public static boolean isValidWeblinkString(String test) {
         return test.matches(VALIDATION_REGEX) || test.matches(NO_WEBLINK_STRING);
     }
 
@@ -62,6 +66,22 @@ public class Weblink {
         return other == this // short circuit if same object
                 || (other instanceof Weblink // instanceof handles nulls
                 && value.equals(((Weblink) other).value)); // state check
+    }
+
+    public boolean isValidWeblinkURL(String urlString) {
+        try {
+            URL u = new URL(urlString);
+            HttpURLConnection huc = (HttpURLConnection) u.openConnection();
+            huc.setRequestMethod("HEAD");
+            huc.connect();
+            if (huc.getResponseCode() < 400) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     @Override

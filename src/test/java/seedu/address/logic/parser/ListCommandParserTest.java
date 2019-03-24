@@ -13,7 +13,7 @@ import seedu.address.logic.commands.request.ListRequestCommand;
 
 public class ListCommandParserTest {
 
-    public static final String INVALID_COMMAND_FORMAT = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+    private static final String INVALID_COMMAND_FORMAT = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
             ListCommand.MESSAGE_UAGE);
 
     ListCommandParser parser = new ListCommandParser();

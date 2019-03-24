@@ -58,7 +58,8 @@
 //    public void edit() {
 //        Model model = getModel();
 //
-//        /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
+//        /* ----------------- Performing edit operation while an unfiltered list is being shown
+//        ---------------------- */
 //
 //        /* Case: edit a person with new values same as existing values -> edited */
 //        Index index = INDEX_FIRST;
@@ -224,7 +225,8 @@
 //        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 //
 //        assertCommandSuccess(command, expectedModel,
-//                String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), expectedSelectedCardIndex);
+//                String.format(EditPersonCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson),
+//                expectedSelectedCardIndex);
 //    }
 //
 //    /**

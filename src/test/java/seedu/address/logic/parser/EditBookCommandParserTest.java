@@ -81,22 +81,17 @@ public class EditBookCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
         // invalid author followed by valid email
-        assertParseFailure(parser, "1" 
-                + INVALID_AUTHOR_DESC + RATING_DESC_ALICE, Author.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_AUTHOR_DESC + RATING_DESC_ALICE, Author.MESSAGE_CONSTRAINTS);
 
         // valid author followed by invalid author. The test case for invalid author followed by valid author
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, "1" + AUTHOR_DESC_CS 
-                + INVALID_AUTHOR_DESC, Author.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + AUTHOR_DESC_CS + INVALID_AUTHOR_DESC, Author.MESSAGE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Book} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" 
-                + TAG_DESC_FANTASY + TAG_DESC_TEXTBOOK + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" 
-                + TAG_DESC_FANTASY + TAG_EMPTY + TAG_DESC_TEXTBOOK, Tag.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, "1" 
-                + TAG_EMPTY + TAG_DESC_FANTASY + TAG_DESC_TEXTBOOK, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FANTASY + TAG_DESC_TEXTBOOK + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FANTASY + TAG_EMPTY + TAG_DESC_TEXTBOOK, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FANTASY + TAG_DESC_TEXTBOOK, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_RATING_DESC + VALID_AUTHOR_ALICE,
@@ -183,10 +178,8 @@ public class EditBookCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + RATING_DESC_CS + INVALID_AUTHOR_DESC
-                + AUTHOR_DESC_CS;
-        descriptor = new EditBookDescriptorBuilder().withAuthor(VALID_AUTHOR_CS).withRating(VALID_RATING_CS)
-                .build();
+        userInput = targetIndex.getOneBased() + RATING_DESC_CS + INVALID_AUTHOR_DESC + AUTHOR_DESC_CS;
+        descriptor = new EditBookDescriptorBuilder().withAuthor(VALID_AUTHOR_CS).withRating(VALID_RATING_CS).build();
         expectedCommand = new EditBookCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

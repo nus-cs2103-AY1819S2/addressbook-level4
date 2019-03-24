@@ -45,6 +45,18 @@ public class ContrastCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
+
+//        seedu.address.model.image.Image currentImage = model.getImage();
+//        String filename = currentImage.getName();
+//        Album.getAsset(filename);
+//
+//        Album.getInstance().passTemp(Optinal);
+//        model.passCommand();
+//        model.displayImage();
+//
+//        model.displayImage();
+
+
         if (this.contrastValue.isPresent()) {
             seedu.address.model.image.Image initialImage = new seedu.address
                 .model.image.Image(ASSETS_FILEPATH + fileName);
@@ -57,9 +69,9 @@ public class ContrastCommand extends Command {
         } else {
             BufferedOpFilter contrastFilter =
                 new ContrastFilter(1.1);
-            Image.fromFile(new File(ASSETS_FILEPATH
-                + fileName)).filter(contrastFilter)
-                .output(TEMP_FILEPATH + "sampleContrast.jpg",
+            Image image = Image.fromFile(new File(ASSETS_FILEPATH
+                + fileName)).filter(contrastFilter);
+            image.output(TEMP_FILEPATH + "sampleContrast.jpg",
                         new JpegWriter(100, true));
         }
         seedu.address.model.image.Image finalImage = new seedu.address.model

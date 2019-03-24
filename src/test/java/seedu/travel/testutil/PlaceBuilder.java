@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.travel.model.place.Address;
 import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
 import seedu.travel.model.place.Place;
@@ -19,6 +20,7 @@ public class PlaceBuilder {
 
     public static final String DEFAULT_NAME = "Haw Par Villa";
     public static final String DEFAULT_COUNTRY_CODE = "SGP";
+    public static final String DEFAULT_DATE_VISITED = "19/10/2018";
     public static final String DEFAULT_RATING = "4";
     public static final String DEFAULT_DESCRIPTION = "Unique park using giant statues & dioramas "
             + "to retell historic Chinese legends & religious mythology.";
@@ -26,6 +28,7 @@ public class PlaceBuilder {
 
     private Name name;
     private CountryCode countryCode;
+    private DateVisited dateVisited;
     private Rating rating;
     private Description description;
     private Address address;
@@ -34,6 +37,7 @@ public class PlaceBuilder {
     public PlaceBuilder() {
         name = new Name(DEFAULT_NAME);
         countryCode = new CountryCode(DEFAULT_COUNTRY_CODE);
+        dateVisited = new DateVisited(DEFAULT_DATE_VISITED);
         rating = new Rating(DEFAULT_RATING);
         description = new Description(DEFAULT_DESCRIPTION);
         address = new Address(DEFAULT_ADDRESS);
@@ -46,6 +50,7 @@ public class PlaceBuilder {
     public PlaceBuilder(Place placeToCopy) {
         name = placeToCopy.getName();
         countryCode = placeToCopy.getCountryCode();
+        dateVisited = placeToCopy.getDateVisited();
         rating = placeToCopy.getRating();
         description = placeToCopy.getDescription();
         address = placeToCopy.getAddress();
@@ -65,6 +70,14 @@ public class PlaceBuilder {
      */
     public PlaceBuilder withCountryCode(String countryCode) {
         this.countryCode = new CountryCode(countryCode);
+        return this;
+    }
+
+    /**
+     * Sets the {@code DateVisited} of the {@code Place} that we are building.
+     */
+    public PlaceBuilder withDateVisited(String dateVisited) {
+        this.dateVisited = new DateVisited(dateVisited);
         return this;
     }
 
@@ -101,7 +114,7 @@ public class PlaceBuilder {
     }
 
     public Place build() {
-        return new Place(name, countryCode, rating, description, address, tags);
+        return new Place(name, countryCode, dateVisited, rating, description, address, tags);
     }
 
 }

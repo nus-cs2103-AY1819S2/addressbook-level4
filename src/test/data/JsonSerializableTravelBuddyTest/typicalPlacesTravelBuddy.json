@@ -3,6 +3,7 @@
   "places" : [ {
     "name" : "VivoCity",
     "countryCode" : "SGP",
+    "dateVisited" : "10/10/2017",
     "rating": "1",
     "description" : "Expansive, modern shopping center hosting a wide range of retailers, restaurants & theaters.",
     "address" : "1 Harbourfront Walk, Singapore 098585",
@@ -10,6 +11,7 @@
   }, {
     "name" : "Changi Airport Singapore",
     "countryCode" : "SGP",
+    "dateVisited" : "01/01/2019",
     "rating" : "5",
     "description" : "Passenger & cargo hub with 4 modern terminals plus buses & trains to the city center.",
     "address" : "Airport Boulevard",
@@ -17,6 +19,7 @@
   }, {
     "name" : "Universal Studios Singapore",
     "countryCode" : "SGP",
+    "dateVisited" : "23/12/2017",
     "rating" : "4",
     "description" : "Movie amusement centre with sets & rides on themes from Hollywood to sci-fi, plus live entertainment.",
     "address" : "8 Sentosa Gateway, 0982693",
@@ -24,6 +27,7 @@
   }, {
     "name" : "Japanese Cemetery Park",
     "countryCode" : "SGP",
+    "dateVisited" : "11/09/2017",
     "rating": "3",
     "description" : "The Japanese Cemetery Park serves as the burial ground for Japanese soldiers and civilians who lived in the early 20th century.",
     "address" : "22 Chuan Hoe Ave, Singapore 549854",
@@ -31,6 +35,7 @@
   }, {
     "name" : "National University of Singapore",
     "countryCode" : "SGP",
+    "dateVisited" : "10/10/2018",
     "rating" : "4",
     "description" : "The National University of Singapore is an autonomous research university in Singapore.",
     "address" : "21 Lower Kent Ridge Rd, Singapore 119077",
@@ -38,6 +43,7 @@
   }, {
     "name" : "Singapore Zoo",
     "countryCode" : "SGP",
+    "dateVisited" : "09/08/2018",
     "rating" : "3",
     "description" : "Rainforest zoo with tram rides, trails & viewing platforms to see wildlife habitats & exhibits.",
     "address" : "80 Mandai Lake Rd, Singapore 729826",
@@ -45,6 +51,7 @@
   }, {
     "name" : "Buddha Tooth Relic Temple",
     "countryCode" : "SGP",
+    "dateVisited" : "09/10/2018",
     "rating" : "4",
     "description" : "Tang dynasty–style temple housing religious relics, with ornate rooms & a tranquil rooftop garden.",
     "address" : "288 South Bridge Rd, Singapore 058840",

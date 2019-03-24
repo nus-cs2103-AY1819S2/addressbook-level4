@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
+// import com.google.gson.Gson;
+// import com.google.gson.stream.JsonReader;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -48,11 +48,11 @@ public class ChartUi extends Application {
 
         try {
             FileReader frCountry = new FileReader(FILENAME);
-            JsonReader jsonReader = new JsonReader(frCountry);
-            Gson gson = new Gson();
-            responses = gson.fromJson(jsonReader, HashMap.class);
+            // JsonReader jsonReader = new JsonReader(frCountry);
+            // Gson gson = new Gson();
+            // responses = gson.fromJson(jsonReader, HashMap.class);
             frCountry.close();
-            jsonReader.close();
+            // jsonReader.close();
         } catch (IOException e) {
             logger.warning(e.getMessage());
         }

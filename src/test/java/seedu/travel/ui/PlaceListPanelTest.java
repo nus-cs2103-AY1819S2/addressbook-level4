@@ -19,6 +19,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.travel.model.place.Address;
 import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
 import seedu.travel.model.place.Place;
@@ -82,10 +83,12 @@ public class PlaceListPanelTest extends GuiUnitTest {
         for (int i = 0; i < placeCount; i++) {
             Name name = new Name(i + "a");
             CountryCode countryCode = new CountryCode("SGP");
+            DateVisited dateVisited = new DateVisited("05/04/2018");
             Rating rating = new Rating("1");
             Description description = new Description("aaa");
             Address address = new Address("a");
-            Place place = new Place(name, countryCode , rating, description, address, Collections.emptySet());
+            Place place = new Place(name, countryCode, dateVisited, rating, description, address,
+                Collections.emptySet());
             backingList.add(place);
         }
         return backingList;

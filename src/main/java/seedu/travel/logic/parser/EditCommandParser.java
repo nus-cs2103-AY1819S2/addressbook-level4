@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.travel.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
@@ -33,7 +34,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_COUNTRY_CODE,
-            PREFIX_RATING, PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_TAG);
+            PREFIX_DATE_VISITED, PREFIX_RATING, PREFIX_DESCRIPTION, PREFIX_ADDRESS, PREFIX_TAG);
 
         Index index;
 
@@ -50,6 +51,10 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_COUNTRY_CODE).isPresent()) {
             editPlaceDescriptor.setCountryCode(ParserUtil
                 .parseCountryCode(argMultimap.getValue(PREFIX_COUNTRY_CODE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_DATE_VISITED).isPresent()) {
+            editPlaceDescriptor.setDateVisited(ParserUtil
+                .parseDateVisited(argMultimap.getValue(PREFIX_DATE_VISITED).get()));
         }
         if (argMultimap.getValue(PREFIX_RATING).isPresent()) {
             editPlaceDescriptor.setRating(ParserUtil.parseRating(argMultimap.getValue(PREFIX_RATING).get()));

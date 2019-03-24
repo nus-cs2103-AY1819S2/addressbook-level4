@@ -5,6 +5,13 @@ import static seedu.travel.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_ADDRESS_CLEMENTI;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_ADDRESS_DG;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_CLEMENTI;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_DG;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_DATE_VISITED_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_DATE_VISITED_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_DATE_VISITED_CLEMENTI;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_DATE_VISITED_DG;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_DESCRIPTION_CLEMENTI;
@@ -35,6 +42,7 @@ public class TypicalPlaces {
     public static final Place ALICE = new PlaceBuilder()
             .withName("VivoCity")
             .withCountryCode("SGP")
+            .withDateVisited("10/10/2016")
             .withAddress("1 Harbourfront Walk, Singapore 098585")
             .withDescription("Expansive, modern shopping center hosting a wide range of retailers, "
                     + "restaurants & theaters.")
@@ -44,6 +52,7 @@ public class TypicalPlaces {
     public static final Place BENSON = new PlaceBuilder()
             .withName("Changi Airport Singapore")
             .withCountryCode("SGP")
+            .withDateVisited("01/04/2017")
             .withAddress("Airport Boulevard")
             .withDescription("Passenger & cargo hub with 4 modern terminals plus buses & trains to the city center.")
             .withRating("5")
@@ -52,6 +61,7 @@ public class TypicalPlaces {
     public static final Place CARL = new PlaceBuilder()
             .withName("Universal Studios Singapore")
             .withCountryCode("SGP")
+            .withDateVisited("08/04/2016")
             .withRating("4")
             .withDescription("Movie amusement centre with sets & rides on themes from "
                     + "Hollywood to sci-fi, plus live entertainment.")
@@ -61,6 +71,9 @@ public class TypicalPlaces {
     public static final Place DANIEL = new PlaceBuilder()
             .withName("Yanaka Cemetery Park")
             .withCountryCode("JPN")
+            .withName("Japanese Cemetery Park")
+            .withCountryCode("SGP")
+            .withDateVisited("02/05/2016")
             .withRating("3")
             .withDescription("Hilly, cherry tree–planted cemetery with graves"
                     + " of renowned artists & actors & a 5-story pagoda.")
@@ -70,6 +83,7 @@ public class TypicalPlaces {
     public static final Place ELLE = new PlaceBuilder()
             .withName("National University of Singapore")
             .withCountryCode("SGP")
+            .withDateVisited("05/05/2018")
             .withRating("4")
             .withDescription("The National University of Singapore is an autonomous research university in Singapore.")
             .withAddress("21 Lower Kent Ridge Rd, Singapore 119077")
@@ -78,6 +92,7 @@ public class TypicalPlaces {
     public static final Place FIONA = new PlaceBuilder()
             .withName("Singapore Zoo")
             .withCountryCode("SGP")
+            .withDateVisited("08/05/2018")
             .withRating("3")
             .withDescription("Rainforest zoo with tram rides, trails & viewing platforms "
                     + "to see wildlife habitats & exhibits.")
@@ -87,6 +102,7 @@ public class TypicalPlaces {
     public static final Place GEORGE = new PlaceBuilder()
             .withName("Buddha Tooth Relic Temple")
             .withCountryCode("SGP")
+            .withDateVisited("02/10/2017")
             .withRating("4")
             .withDescription("Tang dynasty–style temple housing religious relics, "
                     + "with ornate rooms & a tranquil rooftop garden.")
@@ -98,6 +114,7 @@ public class TypicalPlaces {
     public static final Place HOON = new PlaceBuilder()
             .withName("Changi General Hospital")
             .withCountryCode("SGP")
+            .withDateVisited("02/05/2015")
             .withRating("2")
             .withDescription("Singapore's first purpose-built general hospital to"
                     + " serve communities in the east and north-east regions.")
@@ -107,6 +124,7 @@ public class TypicalPlaces {
     public static final Place IDA = new PlaceBuilder()
             .withName("Singapore Botanic Gardens")
             .withCountryCode("SGP")
+            .withDateVisited("02/12/2018")
             .withRating("5")
             .withDescription("Botanical gardens with sculptures, a swan lake"
                     + " & significant collection of tropical trees.")
@@ -117,6 +135,7 @@ public class TypicalPlaces {
     public static final Place AMK = new PlaceBuilder()
             .withName(VALID_NAME_AMK)
             .withCountryCode(VALID_COUNTRY_CODE_AMK)
+            .withDateVisited(VALID_DATE_VISITED_AMK)
             .withRating(VALID_RATING_AMK)
             .withDescription(VALID_DESCRIPTION_AMK)
             .withAddress(VALID_ADDRESS_AMK)
@@ -124,7 +143,8 @@ public class TypicalPlaces {
             .build();
     public static final Place BEDOK = new PlaceBuilder()
             .withName(VALID_NAME_BEDOK)
-            .withCountryCode(VALID_COUNTRY_CODE_AMK)
+            .withCountryCode(VALID_COUNTRY_CODE_BEDOK)
+            .withDateVisited(VALID_DATE_VISITED_BEDOK)
             .withRating(VALID_RATING_BEDOK)
             .withDescription(VALID_DESCRIPTION_BEDOK)
             .withAddress(VALID_ADDRESS_BEDOK)
@@ -132,7 +152,8 @@ public class TypicalPlaces {
             .build();
     public static final Place CLEMENTI = new PlaceBuilder()
             .withName(VALID_NAME_CLEMENTI)
-            .withCountryCode(VALID_COUNTRY_CODE_AMK)
+            .withCountryCode(VALID_COUNTRY_CODE_CLEMENTI)
+            .withDateVisited(VALID_DATE_VISITED_CLEMENTI)
             .withRating(VALID_RATING_CLEMENTI)
             .withDescription(VALID_DESCRIPTION_CLEMENTI)
             .withAddress(VALID_ADDRESS_CLEMENTI)
@@ -140,7 +161,8 @@ public class TypicalPlaces {
             .build();
     public static final Place DG = new PlaceBuilder()
             .withName(VALID_NAME_DG)
-            .withCountryCode(VALID_COUNTRY_CODE_AMK)
+            .withCountryCode(VALID_COUNTRY_CODE_DG)
+            .withDateVisited(VALID_DATE_VISITED_DG)
             .withRating(VALID_RATING_DG)
             .withDescription(VALID_DESCRIPTION_DG)
             .withAddress(VALID_ADDRESS_DG)

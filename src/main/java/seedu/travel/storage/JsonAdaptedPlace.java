@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.travel.commons.exceptions.IllegalValueException;
 import seedu.travel.model.place.Address;
 import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
 import seedu.travel.model.place.Place;
@@ -27,6 +28,7 @@ class JsonAdaptedPlace {
 
     private final String name;
     private final String countryCode;
+    private final String dateVisited;
     private final String rating;
     private final String description;
     private final String address;
@@ -38,12 +40,14 @@ class JsonAdaptedPlace {
     @JsonCreator
     public JsonAdaptedPlace(@JsonProperty("name") String name,
                             @JsonProperty("countryCode") String countryCode,
+                            @JsonProperty("dateVisited") String dateVisited,
                             @JsonProperty("rating") String rating,
                             @JsonProperty("description") String description,
                             @JsonProperty("address") String address,
                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.countryCode = countryCode;
+        this.dateVisited = dateVisited;
         this.rating = rating;
         this.description = description;
         this.address = address;
@@ -58,6 +62,7 @@ class JsonAdaptedPlace {
     public JsonAdaptedPlace(Place source) {
         name = source.getName().fullName;
         countryCode = source.getCountryCode().code;
+        dateVisited = source.getDateVisited().date;
         rating = source.getRating().value;
         description = source.getDescription().value;
         address = source.getAddress().value;
@@ -94,6 +99,18 @@ class JsonAdaptedPlace {
         }
         final CountryCode modelCountryCode = new CountryCode(countryCode);
 
+        if (dateVisited == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                DateVisited.class.getSimpleName()));
+        }
+        if (!DateVisited.isCorrectDateFormat(dateVisited)) {
+            throw new IllegalValueException(DateVisited.MESSAGE_INCORRECT_FORMAT);
+        }
+        if (!DateVisited.isValidDateVisited(dateVisited)) {
+            throw new IllegalValueException(DateVisited.MESSAGE_FUTURE_DATE_ADDED);
+        }
+        final DateVisited modelDateVisited = new DateVisited(dateVisited);
+
         if (rating == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Rating.class.getSimpleName()));
         }
@@ -120,7 +137,8 @@ class JsonAdaptedPlace {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(placeTags);
-        return new Place(modelName, modelCountryCode, modelPhone, modelDescription, modelAddress, modelTags);
+        return new Place(modelName, modelCountryCode, modelDateVisited, modelPhone, modelDescription, modelAddress,
+            modelTags);
     }
 
 }

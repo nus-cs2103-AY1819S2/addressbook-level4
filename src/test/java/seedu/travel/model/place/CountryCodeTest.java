@@ -17,7 +17,7 @@ public class CountryCodeTest {
     @Test
     public void constructor_invalidCountryCode_throwsIllegalArgumentException() {
         String invalidCountryCode = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Rating(invalidCountryCode));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new CountryCode(invalidCountryCode));
     }
 
     @Test

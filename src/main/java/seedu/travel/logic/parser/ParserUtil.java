@@ -11,6 +11,7 @@ import seedu.travel.commons.util.StringUtil;
 import seedu.travel.logic.parser.exceptions.ParseException;
 import seedu.travel.model.place.Address;
 import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
 import seedu.travel.model.place.Rating;
@@ -64,6 +65,24 @@ public class ParserUtil {
             throw new ParseException(CountryCode.MESSAGE_CONSTRAINTS);
         }
         return new CountryCode(trimmedCountryCode);
+    }
+
+    /**
+     * Parses a {@code String dateVisited} into a {@code DateVisited}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code dateVisited} is invalid.
+     */
+    public static DateVisited parseDateVisited(String dateVisited) throws ParseException {
+        requireNonNull(dateVisited);
+        String trimmedDateVisited = dateVisited.trim();
+        if (!DateVisited.isCorrectDateFormat(trimmedDateVisited)) {
+            throw new ParseException(DateVisited.MESSAGE_INCORRECT_FORMAT);
+        }
+        if (!DateVisited.isValidDateVisited(trimmedDateVisited)) {
+            throw new ParseException(DateVisited.MESSAGE_FUTURE_DATE_ADDED);
+        }
+        return new DateVisited(trimmedDateVisited);
     }
 
     /**

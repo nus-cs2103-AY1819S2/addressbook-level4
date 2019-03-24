@@ -135,7 +135,7 @@ public class LessonListTest {
     }
 
     @Test
-    public void openLesson_closeLesson_getOpenedLesson_returnNull() {
+    public void getOpenedLesson_returnNull() {
         addTestLesson();
         assertEquals(1, lessonList.getLessons().size());
         assertEquals(getTestLesson(), lessonList.getLesson(0));

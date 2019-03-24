@@ -16,7 +16,7 @@ public class ListCommandParserTest {
     private static final String INVALID_COMMAND_FORMAT = String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
             ListCommand.MESSAGE_UAGE);
 
-    ListCommandParser parser = new ListCommandParser();
+    private ListCommandParser parser = new ListCommandParser();
 
     @Test
     public void parse_invalidCommandMode() {

@@ -7,22 +7,17 @@ import static seedu.address.logic.commands.Command.MESSAGE_EXPECTED_MGT_MODEL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.management.ManagementModelStub;
 import seedu.address.model.modelmanager.quiz.QuizModelStub;
-import seedu.address.model.user.CardSrsData;
-import seedu.address.model.user.User;
 import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.TypicalLessons;
 
@@ -88,97 +83,6 @@ public class AddLessonCommandTest {
 
         // different lesson -> returns false
         assertNotEquals(addLessonDefCommand, addLessonPropCommand);
-    }
-
-    /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ManagementModelStub implements ManagementModel {
-        @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public GuiSettings getGuiSettings() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setGuiSettings(GuiSettings guiSettings) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        /**
-         * Gets the lesson by index.
-         */
-        @Override
-        public Lesson getLesson(int index) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        /**
-         * Gets the entire list of lessons.
-         */
-        @Override
-        public List<Lesson> getLessons() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        /**
-         * Adds the lesson.
-         */
-        @Override
-        public void addLesson(Lesson lesson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        /**
-         * Updates the lesson at the given index.
-         */
-        @Override
-        public void setLesson(int index, Lesson updatedLesson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        /**
-         * Removes the lesson at the given index from memory, and deletes its corresponding file.
-         * @param index w
-         */
-        @Override
-        public void deleteLesson(int index) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public User getUser() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public CardSrsData getCardSrsData(int hashCode) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addCardSrsData(CardSrsData card) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setCardSrsData(CardSrsData card) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deleteCardSrsData(CardSrsData card) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
 
     /**

@@ -206,7 +206,8 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedPatientReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedPatientReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedPatient.getValue());
             if (wasSelectedPatientReplaced) {
                 // Update selectedPatient to its new value.

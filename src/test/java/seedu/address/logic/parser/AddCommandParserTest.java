@@ -1,24 +1,19 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_A_PDF;
-import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_B_PDF;
+import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
+import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_2_PDF;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_FILE_PATH_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TUTORIAL;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_A;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_LECTURE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TUTORIAL;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_1;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPdfs.A_PDF;
-import static seedu.address.testutil.TypicalPdfs.B_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.testutil.PdfBuilder;
 
@@ -27,42 +22,22 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Pdf expectedPdf = new PdfBuilder(A_PDF).withTags(VALID_TAG_LECTURE).build();
 
-        System.out.println(FILE_DESC_A_PDF);
 
+        Pdf expectedPdf = new PdfBuilder(SAMPLE_PDF_1).build();
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FILE_DESC_A_PDF + TAG_DESC_LECTURE,
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FILE_DESC_1_PDF, new AddCommand(expectedPdf));
+
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FILE_DESC_2_PDF + FILE_DESC_1_PDF,
                 new AddCommand(expectedPdf));
 
-        // multiple names - last file accepted
-        assertParseSuccess(parser, FILE_DESC_B_PDF + FILE_DESC_A_PDF + TAG_DESC_LECTURE,
-                new AddCommand(expectedPdf));
-
-        /*// multiple phones - last phone accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPdf));
-
-        // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPdf));
-
-        // multiple addresses - last address accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPdf));*/
-
-        // multiple tags - all accepted
-        Pdf expectedPdfMultipleTags = new PdfBuilder(A_PDF).withTags(VALID_TAG_LECTURE, VALID_TAG_TUTORIAL)
-                .build();
-        assertParseSuccess(parser, FILE_DESC_A_PDF + TAG_DESC_LECTURE + TAG_DESC_TUTORIAL,
-                new AddCommand(expectedPdfMultipleTags));
     }
 
     @Test
-    public void parse_optionalFieldsMissing_success() {
+    public void parse_additionalTagField_failure() {
         // zero labels
-        Pdf expectedPdf = new PdfBuilder(B_PDF).withTags().build();
-        assertParseSuccess(parser, FILE_DESC_B_PDF , new AddCommand(expectedPdf));
+        assertParseFailure(parser, FILE_DESC_2_PDF + TAG_DESC_CS2103T,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -70,27 +45,8 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing file prefix
-        assertParseFailure(parser, VALID_NAME_A, expectedMessage);
+        assertParseFailure(parser, VALID_NAME_1, expectedMessage);
 
-        /*// missing name prefix
-        assertParseFailure(parser, VALID_NAME_A + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
-
-        // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);
-
-        // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);*/
     }
 
     @Test
@@ -124,7 +80,6 @@ public class AddCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));*/
         // invalid file path
-        assertParseFailure(parser, INVALID_FILE_PATH_DESC + TAG_DESC_TUTORIAL + TAG_DESC_LECTURE,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_FILE_PATH_DESC, ParserUtil.MESSAGE_FILE_DOES_NOT_EXIST);
     }
 }

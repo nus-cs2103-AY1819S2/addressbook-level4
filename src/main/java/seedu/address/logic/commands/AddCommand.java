@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,11 +19,8 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a pdf to the PDF book. "
             + "Parameters: "
             + PREFIX_FILE + "FILEPATH "
-            + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FILE + "Desktop\\main\\target "
-            + PREFIX_TAG + "CS2103T "
-            + PREFIX_TAG + "SE ROCKS";
+            + PREFIX_FILE + "Desktop\\main\\target";
 
     public static final String MESSAGE_SUCCESS = "New PDF added: %1$s";
     public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the PDF book";

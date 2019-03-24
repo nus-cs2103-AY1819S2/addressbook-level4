@@ -2,9 +2,9 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPdfs.A_PDF;
-import static seedu.address.testutil.TypicalPdfs.B_PDF;
-import static seedu.address.testutil.TypicalPdfs.C_PDF;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
 import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
 
 import java.io.IOException;
@@ -84,14 +84,14 @@ public class JsonPdfBookStorageTest {
         assertEquals(original, new PdfBook(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addPdf(A_PDF);
-        original.removePdf(C_PDF);
+        original.addPdf(SAMPLE_PDF_1);
+        original.removePdf(SAMPLE_PDF_3);
         jsonPdfBookStorage.savePdfBook(original, filePath);
         readBack = jsonPdfBookStorage.readPdfBook(filePath).get();
         assertEquals(original, new PdfBook(readBack));
 
         // Save and read without specifying file value
-        original.addPdf(B_PDF);
+        original.addPdf(SAMPLE_PDF_2);
         jsonPdfBookStorage.savePdfBook(original); // file value not specified
         readBack = jsonPdfBookStorage.readPdfBook().get(); // file value not specified
         assertEquals(original, new PdfBook(readBack));

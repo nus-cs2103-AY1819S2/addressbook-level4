@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.DateTimeException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.tag.Tag;
@@ -21,6 +23,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_FILE_DOES_NOT_EXIST = "File does not exist.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -61,7 +64,7 @@ public class ParserUtil {
         String trimmedFilePath = filePath.trim();
         File file = new File(trimmedFilePath);
         if (!file.exists()) {
-            throw new ParseException("File does not exist.", new FileNotFoundException());
+            throw new ParseException(MESSAGE_FILE_DOES_NOT_EXIST, new FileNotFoundException());
         }
         return file;
     }
@@ -107,6 +110,44 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a DD-MM-YYYY string input into a Deadline Object
+     *
+     * @param deadline = String in DD-MM-YYYY format.
+     * @return Constructed valid Deadline Object
+     * @throws ParseException - If input does not match requirements.
+     */
+    public static Deadline parseDeadline(String deadline, boolean status) throws ParseException {
+        requireNonNull(deadline);
+
+        final int positionDay = 0;
+        final int positionMonth = 1;
+        final int positionYear = 2;
+        final String parameterSeperator = "-";
+        final String dateError = "Invalid Date Format/Value";
+
+        String[] dates = deadline.split(parameterSeperator);
+
+        for (String s : dates) {
+            if (s.length() == 0 || s.length() > 4) {
+                throw new ParseException(dateError);
+            }
+        }
+
+        if (dates[positionDay].length() > 2 || dates[positionMonth].length() > 2
+                || dates[positionYear].length() > 4) {
+            throw new ParseException(dateError);
+        }
+
+        try {
+            return new Deadline(Integer.parseInt(dates[positionDay]), Integer.parseInt(dates[positionMonth]),
+                    Integer.parseInt(dates[positionYear]), status);
+        } catch (DateTimeException e) {
+            throw new ParseException(dateError);
+        }
+
     }
 
 }

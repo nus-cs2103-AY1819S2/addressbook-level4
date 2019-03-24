@@ -16,7 +16,7 @@ import seedu.address.model.util.SampleDataUtil;
 public class PdfBuilder {
 
     public static final String DEFAULT_NAME = "2103T Lecture Notes.pdf";
-    public static final String DEFAULT_LOCATION = "TempValue";
+    public static final String DEFAULT_DIRECTORY = "TempValue";
     public static final String DEFAULT_SIZE = "10";
 
     private Name name;
@@ -26,7 +26,7 @@ public class PdfBuilder {
 
     public PdfBuilder() {
         name = new Name(DEFAULT_NAME);
-        directory = new Directory(DEFAULT_LOCATION);
+        directory = new Directory(DEFAULT_DIRECTORY);
         size = new Size(DEFAULT_SIZE);
         tags = new HashSet<>();
     }
@@ -60,7 +60,7 @@ public class PdfBuilder {
     /**
      * Sets the {@code Directory} of the {@code Pdf} that we are building.
      */
-    public PdfBuilder withLocation(String location) {
+    public PdfBuilder withDirectory(String location) {
         this.directory = new Directory(location);
         return this;
     }

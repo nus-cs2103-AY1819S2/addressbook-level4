@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-//import seedu.address.logic.parser.DeleteCommandParser;
+import seedu.address.logic.commands.request.ListRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -29,6 +28,8 @@ import seedu.address.storage.JsonHealthWorkerBookStorage;
 import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+
+//import seedu.address.logic.parser.DeleteCommandParser;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
@@ -72,8 +73,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListCommand.COMMAND_WORD + " request";
+        assertCommandSuccess(listCommand, ListRequestCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
     }
 

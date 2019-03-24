@@ -71,8 +71,6 @@ public class TypicalPlaces {
     public static final Place DANIEL = new PlaceBuilder()
             .withName("Yanaka Cemetery Park")
             .withCountryCode("JPN")
-            .withName("Japanese Cemetery Park")
-            .withCountryCode("SGP")
             .withDateVisited("02/05/2016")
             .withRating("3")
             .withDescription("Hilly, cherry tree–planted cemetery with graves"

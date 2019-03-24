@@ -21,8 +21,10 @@ By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
 === Prerequisites
 
-. *JDK `9`* or later
+. *JDK `9` (highly recommended) or `10`*
 +
+[NOTE]
+JDK `11` and later are not recommended due to some features being removed which were once available in JDK `9`. You can read more about the issue highlighted from the developers of the base source code which MediTabs is based on and improved upon link:https://github.com/se-edu/addressbook-level4/issues/951[here]
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
 Windows developers are highly recommended to use JDK `9`.
@@ -34,9 +36,9 @@ IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
 
-=== Setting up the project in your computer
+=== Setting up the project on your computer
 
-. Fork this repo, and clone the fork to your computer
+. Fork this repository, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
 .. Click `Configure` > `Project Defaults` > `Project Structure`
@@ -46,7 +48,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
-This will generate all resources required by the application and tests.
+This will generate all the resources required by the application and tests.
 . Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
@@ -162,7 +164,7 @@ image::UiClassDiagram.png[width="800"]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `MedicineListPanel`, `StatusBarFooter`, `InformationPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -226,14 +228,14 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
 This section provides you with some description of how certain key features of our product are being implemented.
 
 // tag::batchtable[]
-=== Batch table feature
+=== Batch table
 ==== Current Implementation
 
 The batch table is mainly driven by `InformationPanel` which extends `UiPart` with an added mechanism to interact with the currently selected medicine.
@@ -273,7 +275,7 @@ Step 3. The user executes `find n/Paracetamol ...`. The `find` command deselects
 // end::batchtable[]
 
 // tag::exportcommand[]
-=== Exporting as CSV file format feature via Export Command
+=== Exporting as CSV file format
 ==== Current Implementation
 
 The exporting as CSV file format mechanism is facilitated by `CsvWrapper`.
@@ -284,19 +286,21 @@ There are many additonal operations added in `CsvWrapper` but we will only list 
 The key operations are as follows:
 
 * `CsvWrapper#export()` -- Export the current Medicine Inventory data shown in the GUI to CSV file format.
-* `CsvWrapper#createCsvFile(String csvFileName)` -- Creates a CSV file with the file name based on the `csvFileName` input. The file is created in the `exported` directory which is located in the same directory as our product application.
+* `CsvWrapper#createCsvFile(String csvFileName)` -- Creates a CSV file with the file name based on the `csvFileName` input. The file is created in the default `exported` directory which is located in the same directory as our product application.
+[NOTE]
+If the default `exported` directory is not found, it will be automatically created.
 * `CsvWrapper#writeDataToCsv(List currentGuiList)` -- Writes the current Medicine Inventory data shown in the GUI to the CSV file created by the `CsvWrapper#createCsvFile(String csvFileName)` operation.
 
 [NOTE]
 Out of the three key operations stated above, *only* `CsvWrapper#export()` is a _public_ operation available for use by other components. It acts as the main interface which other components use to interact with `CsvWrapper` in order to integrate exporting to CSV file format feature into their own implementation.
 
-Given below is a sequence diagram overview of how these 3 key operations behaves when you execute the export command in order to export the current Medicine Inventory data shown in the GUI to CSV file format:
+Given below is a sequence diagram overview of how these 3 key operations behaves when the user executes the `export` command in order to export the current Medicine Inventory data shown in the GUI to CSV file format:
 
 image::ExportCommandSequenceDiagramOverview.png[width="800"]
 
 Given below is a brief description of how the exporting as CSV file format mechanism behaves as shown in the sequence diagram above:
 
-Step 1: When the user executes the export command, assuming parsing of the command line arguments have already been completed, the `ExportCommand#execute()` operation is called.
+Step 1: When the user executes the `export` command, assuming parsing of the command line arguments have already been completed, the `ExportCommand#execute()` operation is called.
 
 Step 2: The `ExportCommand#execute()` operation initialises the `CsvWrapper` with the _file name of the CSV file to be stored_ and _the current model instance_ as its input parameters.
 
@@ -304,10 +308,10 @@ Step 3: The `ExportCommand#execute()` operation then calls `CsvWrapper#export()`
 
 Step 4: The `CsvWrapper#export()` operation retrieves the current Medicine Inventory data shown in the GUI by calling the `Model#getFilteredMedicineList()` operation.
 
-Step 5: After retrieving the data, the `CsvWrapper#createCsvFile(String csvFileName)` operation, which is the second key operation, is called. It creates an empty CSV file with the input file name in the `exported` directory as mentioned earlier.
+Step 5: After retrieving the data, the `CsvWrapper#createCsvFile(String csvFileName)` operation, which is the second key operation, is called. It creates an empty CSV file with the input file name in the default `exported` directory.
 
 [NOTE]
-If a CSV file with the input file name *already exist* in the `exported` directory, a `File already exist` exception will be shown in the `CommandResult` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current Medicine Inventory data shown in the GUI would not be exported.
+If a CSV file with the input file name already exists in the `exported` directory, a `"Could not export data to csv file: {Input File Name} already exists in "exported" directory"` exception will be shown in the `CommandResult` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current Medicine Inventory data shown in the GUI would not be exported.
 
 Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv`, which is the third key operation, is called to process the current Medicine Inventory data retrieved earlier in Step 4 and writes to the CSV file in an organised format for easier reference by the users of the exported CSV file.
 
@@ -315,18 +319,22 @@ Step 7: The current Medicine Inventory data shown in the GUI is exported success
 
 Step 8: The `ExportCommand#execute()` operations returns a `CommandResult` which shows the current list is exported to a CSV file with the input file name.
 
+The following activity diagram summarizes what happens when a user executes the `export` command:
+
+image::ExportCommandActivityDiagram.png[width="800"]
+
 ==== Design Considerations
 
-===== Aspect: How the exporting as CSV file format feature via the export command executes
+===== Aspect: How exporting as CSV file format executes
 
-* **Alternative 1 (current choice):** Export all the Medicine Inventory data currently shown in the GUI to CSV file format.
+* **Alternative 1 (current choice):** Export the current Medicine Inventory data shown in the GUI to CSV file format.
 ** Pros: Easy to implement and users have a preview of the data before exporting.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual commands each adds an additional parameter to export as CSV file.
-** Pros: Individuals can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered Medicine Inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
+** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered Medicine Inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
 ** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able preview the data before exporting.
 
-===== Aspect: Data structure/Algorithm/Implementation to support the exporting as CSV file format feature via the export command
+===== Aspect: Data structure/Algorithm/Implementation to support the `export` command
 
 * **Alternative 1 (current choice):** Iterate through each of the Medicine in the list retrieved from `Model#getFilterMedicineList()` operation to build the structure in which the data is organised when exported to CSV file format.
 ** Pros: Easy for developers to understand, especially for those who want to modify the way the data is organised when exported to CSV file format but have no prior knowledge on `Opencsv` Java CSV parser library.
@@ -339,7 +347,7 @@ More information on `Opencsv` library's `StatefulBeanToCsvBuilder` operation can
 // end::exportcommand[]
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo
 ==== Current Implementation
 
 The undo/redo mechanism is facilitated by `VersionedInventory`.
@@ -446,7 +454,7 @@ Data encryption is likely to be implemented in future versions of the MediTabs i
 // end::dataencryption[]
 
 // tag::labelcommand[]
-=== Label
+=== Exporting Medicine Label
 
 The exporting of a medicine label to a PDF formatted file is implemented by using Apache PDFBox.
 

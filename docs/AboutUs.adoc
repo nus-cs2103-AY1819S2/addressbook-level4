@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Meditabs was developed by the https://github.com/cs2103-ay1819s2-t12-3/main[t12-3] team. +
+Meditabs was developed by the https://github.com/CS2103-AY1819S2-T12-3/main[t12-3] team. +
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -15,7 +15,7 @@ image::jonathanleewh.png[width="150", align="left"]
 {empty} [https://github.com/JonathanLeeWH[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-      Responsibilities: Storage
+Responsibilities: Storage
 
 '''
 

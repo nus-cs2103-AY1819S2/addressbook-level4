@@ -1,6 +1,5 @@
 package systemtests;
 
-
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_PRIDE;
 
@@ -11,7 +10,6 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-
 
 public class ClearCommandSystemTest extends BookShelfSystemTest {
 

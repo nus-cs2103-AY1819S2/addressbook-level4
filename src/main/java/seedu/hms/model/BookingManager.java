@@ -114,6 +114,11 @@ public class BookingManager implements BookingModel {
         versionedHotelManagementSystem.setBooking(bookingIndex, editedBooking);
     }
 
+    @Override
+    public void setClearBooking(ReadOnlyHotelManagementSystem hotelManagementSystem) {
+        versionedHotelManagementSystem.resetDataBooking(hotelManagementSystem);
+    }
+
     //=========== Filtered Booking List Accessors =============================================================
 
     /**

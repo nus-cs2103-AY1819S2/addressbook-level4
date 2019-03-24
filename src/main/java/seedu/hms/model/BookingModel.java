@@ -62,6 +62,7 @@ public interface BookingModel extends Model {
     void setBooking(int target, Booking editedBooking);
 
     /**
+<<<<<<< HEAD
      * Selected serviceType in the serviceType list.
      * null if no service type is selected.
      */
@@ -77,4 +78,9 @@ public interface BookingModel extends Model {
      * Sets the selected serviceType in the serviceType list.
      */
     void setSelectedServiceType(ServiceType serviceType);
+=======
+     * Clears all the bookings present in the {@code hotelManagementSystem}.
+     */
+    void setClearBooking(ReadOnlyHotelManagementSystem hotelManagementSystem);
+>>>>>>> 9a1a9c77c9dfbfed55885b1a7b98820324c95317
 }

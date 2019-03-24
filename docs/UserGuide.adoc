@@ -1,6 +1,8 @@
 = Hotel Management System - User Guide
 
-Welcome to the `HMS+ User Guide`. Hope you are as excited as we were when we developed this guide for you.
+Welcome to the `HMS+ User Guide`.
+
+Hope you are as excited as we were when we developed this guide for you.
 
 :site-section: UserGuide
 :toc:
@@ -21,7 +23,9 @@ By: `cs2103-ay1819s2-t12-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introducing HMS+
 
-HMS+ is for hotels that want to use a single, integrated system to *manage all aspects of their service*. As a command line app, HMS is highly customisable to match the needs for different hotels and allows easy scripting for batch processing.
+You need a world-class property management system to run your hotel’s front desk and back office. We’ve spent years listening to what independent hoteliers need to take their business to the next level. From before check-in to post check out, we have everything you need to get your customers moving and your hotel running.
+
+HMS+ is for hotels that want to use a single, integrated system to *manage all aspects of their requirements*. As a command line app, HMS is highly customisable to match the needs for different hotels and allows easy scripting for batch processing.
 
 This user guide provides in-depth documentation on the HMS+ installation process, system configuration and management, monitoring and troubleshooting problems. In addition the <<Getting Started>> will provide the basic knowledge of the setup process and how you can get started.
 
@@ -211,66 +215,70 @@ Deletes the 1st booking in the results of the listb command.
 === Booking a service: `add-booking`,`ab`
 
 Effect: Adds a service associated with certain customers. +
-Format: `{add-booking/ab} s/SERVICE_TYPE :/START_TIME-END_TIME $/PAYER INDEX [c/CUSTOMER INDEX] [com/COMMENTS]`
+Format: `{add-booking/ab} s/SERVICE_NAME :/START_TIME-END_TIME $/PAYER INDEX [c/CUSTOMER INDEX] [com/COMMENTS]`
 
 ****
 * `SERVICE_TYPE` is a string. Which corresponds to which service type is defined by the user.
-* `START_TIME` and `END_TIME` follows the `HH.MM 24-hour` format.
+* `START_TIME` and `END_TIME` follows the `HH 24-hour` format.
 * `COMMENTS` can contain any text without slash (`/`).
 ****
 
 Examples:
 
-* `listc`, then `add-booking s/GYM :/20:55-23:55 $/2
-Adds a booking for service GYM, for the 15th customer from the complete customer list, from 20:55 to 23:55.
-* `findn Jack Rose`, then `add-booking s/GYM h/14:20-15:20 $/1 c/2`
-Adds a booking of service GYM for customer index 2 payed customer index 1, from 14:20 to 15:20.
+* `listc`, then `add-booking s/GYM :/20-23 $/2
+Adds a booking for service GYM, for the 2nd customer from the complete customer list, from 20:00 to 23:00 if the service is available.
+* `findn Jack Rose`, then `add-booking s/GYM h/14-15 $/1 c/2`
+Adds a booking of service GYM for customer index 2 payed by customer index 1, from 14:00 to 15:00.
 
-=== Listing all booked services: `list-bookings`,`lb`
-Effect: Displays a service list, which lists one of: 1. all the room services in the booking database; 2. the services associated with certain customers; 3. the room that are booked inside the time range. +
-Format: `{list-booking/lb} [i/INDEX_OF_CUSTOMER]… [t/START_TIME-END_TIME]`
-
-****
-* If the indices are provided, the command shows only the bookings associated with any of the customers. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
-* If a time range is provided, the command shows only the bookings that are in that time range. The date should follow the `DD.MM` format.
-* Indices and time ranges can be provided at the same time. The command will then show only the bookings associated with the customers that covers the date.
-****
+=== Listing all booked services: `listbookings`,`lb`
+Effect: Displays a booking list, which lists all the bookings made till now.
+Format: `{listbookings/lb}`
 
 === Editing a booked service: `edit-booking`, `eb`
 
-Effect: Edits the fields of an room service in the database. +
-Format: `{edit-booking/eb} INDEX [s/SERVICE_TYPE] [h/START_TIME - END_TIME] [c/COMMENTS]`
+Effect: Edits the fields of a booking in the database. +
+Format: `{edit-booking/eb} INDEX [s/SERVICE_NAME] [:/START_TIME - END_TIME] [p/PAYER INDEX] [c/CUSTOMER INDICES] [com/COMMENTS]`
 
 ****
 * Edits the booking at the specified index. The index refers to the index number shown in the displayed booking list. The index must be a positive integer.
 * At least one of the optional fields must be provided. Otherwise, nothing will be changed.
-* Changing the associated customers is forbidden because that may lead to billing issues. If that is desired, delete the existing booking and create a new one.
 * Existing values will be updated to the input values.
 * When editing comments, the existing comments of the booking will be removed, i.e adding of comments is not cumulative.
-* You can remove all the booking's comments by typing `c/` without specifying any tags after it.
+* You can remove all the booking's comments by typing `com/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `lb`, then `eb 1 s/3`
-Edits the service type of the 1st booking to be Type 3.
-* `lb`, then `edit-booking 2 s/14:20-14.30 c/`
-Edits the timing of the 2nd booking to be 14:20 - 14:30 and clears all existing comments.
+* `lb`, then `eb 1 s/GYM`
+Edits the service type of the 1st booking to be GYM.
+* `lb`, then `edit-booking 2 :/14-15 c/`
+Edits the timing of the 2nd booking to be 14:00 - 15:00 and clears all existing comments.
 
-=== Deleting a booked service: `delete-booking`, `db`
+=== Find a booked service contains payer: `findbookingcontainspayer`, `fbcp`
 
-Effect: Deletes a room service from the database.
-Format: `{delete-booking/db} INDEX`
+Effect: Displays a booking list, which is paid by the customer whose identification number is the same as the given number
+Format: `{findbookingcontainspayer/fbcp} PAYER_IDENTIFICATION_NUMBER`
 
 ****
-* Deletes the room service at the specified index. The index refers to the index number shown in the displayed room service list. The index must be a positive integer.
+*  The searching is done in the whole booking list.
 ****
 
 Examples:
-* `lb`, then `delete-booking 2`
+* `fbcs 12345678` +
+Returns any booking which is paid by the customer with identification number 12345678
+
+=== Deleting a booked service: `deletebooking`, `delb`
+
+Effect: Deletes a booking from the database.
+Format: `{deletebooking/delb} INDEX`
+
+****
+* Deletes the booking at the specified index. The index refers to the index number shown in the displayed room service list. The index must be a positive integer.
+****
+
+Examples:
+* `lb`, then `deletebooking 2`
 Deletes the 2nd booking of the booking database
-* `lb i/2`, then `delete-booking 1`
-Deletes the 1st booking in the results of the `lists` command.
 
 === Generate customer's bill : `generatebill`, `gb`   `[coming in v2.0]`
 

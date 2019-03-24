@@ -12,11 +12,9 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditBookCommand;
-import seedu.address.logic.commands.EditBookCommand.EditBookDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.book.BookName;
-import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,16 +31,18 @@ public class EditBookCommandParser implements Parser<EditBookCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AUTHOR, PREFIX_RATING, PREFIX_TAG);
+        Index index;
 
-        EditBookDescriptor editBookDescriptor = new EditBookDescriptor();
-
-        if (!argMultimap.getValue(PREFIX_NAME).isPresent() || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBookCommand.MESSAGE_USAGE));
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditBookCommand.MESSAGE_USAGE), pe);
         }
 
-        BookName bookName = ParserUtil.parseBookName(argMultimap.getValue(PREFIX_NAME).get());
-        editBookDescriptor.setName(bookName);
-
+        EditBookCommand.EditBookDescriptor editBookDescriptor = new EditBookCommand.EditBookDescriptor();
+        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
+            editBookDescriptor.setName(ParserUtil.parseBookName(argMultimap.getValue(PREFIX_NAME).get()));
+        }
         if (argMultimap.getValue(PREFIX_AUTHOR).isPresent()) {
             editBookDescriptor.setAuthor(ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get()));
         }
@@ -55,7 +55,7 @@ public class EditBookCommandParser implements Parser<EditBookCommand> {
             throw new ParseException(EditBookCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditBookCommand(new BookNameContainsExactKeywordsPredicate(bookName), editBookDescriptor);
+        return new EditBookCommand(index, editBookDescriptor);
     }
 
     /**
@@ -72,5 +72,4 @@ public class EditBookCommandParser implements Parser<EditBookCommand> {
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
-
 }

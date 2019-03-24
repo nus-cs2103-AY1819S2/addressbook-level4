@@ -1,13 +1,10 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteBookCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.book.BookName;
-import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new DeleteBookCommand object
@@ -20,16 +17,12 @@ public class DeleteBookCommandParser implements Parser<DeleteBookCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteBookCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
-
-        if (!argMultimap.getValue(PREFIX_NAME).isPresent() || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteBookCommand.MESSAGE_USAGE));
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new DeleteBookCommand(index);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteBookCommand.MESSAGE_USAGE), pe);
         }
-
-        BookName bookName = ParserUtil.parseBookName(argMultimap.getValue(PREFIX_NAME).get());
-
-        return new DeleteBookCommand(new BookNameContainsExactKeywordsPredicate(bookName));
     }
 }

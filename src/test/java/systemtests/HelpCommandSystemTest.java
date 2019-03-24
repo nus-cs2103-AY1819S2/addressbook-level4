@@ -70,7 +70,7 @@ public class HelpCommandSystemTest extends BookShelfSystemTest {
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar
-        executeCommand(DeleteBookCommand.COMMAND_WORD + " " + PREFIX_NAME + BOOKTHIEF.getBookName().fullName);
+        executeCommand(DeleteBookCommand.COMMAND_WORD + " 1");
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 

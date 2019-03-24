@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import org.junit.Ignore;
 import org.testfx.api.FxToolkit;
 
+import guitests.guihandles.BookMainWindowHandle;
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
@@ -47,7 +48,7 @@ public class SystemTestSetupHelper {
     }
 
     /**
-     * Encapsulates the primary stage of {@code TestApp} in a {@code MainWindowHandle} and returns it.
+     * Encapsulates the primary stage of {@code TestApp} in a {@code BookMainWindowHandle} and returns it.
      */
     public MainWindowHandle setupMainWindowHandle() {
         try {

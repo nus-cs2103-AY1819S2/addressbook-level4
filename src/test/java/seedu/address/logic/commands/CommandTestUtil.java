@@ -25,6 +25,7 @@ import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
+import seedu.address.model.book.BookNameContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditBookDescriptorBuilder;
@@ -202,6 +203,21 @@ public class CommandTestUtil {
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the book at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showBookAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBookList().size());
+
+        Book book = model.getFilteredBookList().get(targetIndex.getZeroBased());
+        model.updateFilteredBookList(new BookNameContainsExactKeywordsPredicate(book.getBookName()));
+
+        assertEquals(1, model.getFilteredBookList().size());
+
+    }
+
 
     /**
      * Updates {@code model}'s filtered list to show only the book of the given {@code name} in the

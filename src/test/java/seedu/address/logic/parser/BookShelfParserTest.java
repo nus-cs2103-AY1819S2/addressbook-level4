@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -80,10 +81,9 @@ public class BookShelfParserTest {
 
     @Test
     public void parseCommand_deleteBook() throws Exception {
-        Book book = new BookBuilder().build();
-        DeleteBookCommand command = (DeleteBookCommand) parser.parseCommand(BookUtil.getDeleteBookCommand(book));
-        assertEquals(new DeleteBookCommand(
-                new BookNameContainsExactKeywordsPredicate(book.getBookName())), command);
+        DeleteBookCommand command = (DeleteBookCommand) parser.parseCommand(
+                DeleteBookCommand.COMMAND_WORD + " " + INDEX_FIRST_BOOK.getOneBased());
+        assertEquals(new DeleteBookCommand(INDEX_FIRST_BOOK), command);
     }
 
     @Test
@@ -100,9 +100,8 @@ public class BookShelfParserTest {
         Book book = new BookBuilder().build();
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder(book).build();
         EditBookCommand command = (EditBookCommand) parser.parseCommand(EditBookCommand.COMMAND_WORD + " "
-                + BookUtil.getEditBookDescriptorDetails(descriptor));
-        assertEquals(new EditBookCommand(
-                new BookNameContainsExactKeywordsPredicate(book.getBookName()), descriptor), command);
+                + INDEX_FIRST_BOOK.getOneBased() + " " + BookUtil.getEditBookDescriptorDetails(descriptor));
+        assertEquals(new EditBookCommand(INDEX_FIRST_BOOK, descriptor), command);
     }
 
     @Test

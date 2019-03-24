@@ -14,7 +14,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
 import seedu.address.logic.parser.AddCardCommandParser;
 import seedu.address.logic.parser.DeleteCardCommandParser;
-import seedu.address.logic.parser.EditCommandParser;
+import seedu.address.logic.parser.EditCardCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -42,7 +42,7 @@ public class CardsView implements ListViewState {
             case DeleteCardCommand.COMMAND_WORD:
                 return new DeleteCardCommandParser().parse(arguments);
             case EditCardCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
+                return new EditCardCommandParser().parse(arguments);
             case SelectCommand.COMMAND_WORD:
                 return new SelectCommandParser(this).parse(arguments);
             case BackCommand.COMMAND_WORD:

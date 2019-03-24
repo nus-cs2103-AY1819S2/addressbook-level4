@@ -37,7 +37,7 @@ public class EditCardCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE);
 
-    private EditCommandParser parser = new EditCommandParser();
+    private EditCardCommandParser parser = new EditCardCommandParser();
 
     @Test
     public void parse_missingParts_failure() {

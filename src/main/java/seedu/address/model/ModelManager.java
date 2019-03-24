@@ -221,6 +221,28 @@ public class ModelManager implements Model {
         updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
     }
 
+    @Override
+    public void setDeck(Deck target, Deck editedDeck) {
+        requireAllNonNull(target, editedDeck);
+
+        if (!(viewState instanceof DecksView)) {
+            throw new IllegalOperationWhileReviewingDeckException();
+        }
+
+        DecksView decksView = (DecksView)viewState;
+
+        versionedTopDeck.setDecks(decksView.filteredDecks);
+        updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
+    }
+
+    @Override
+    public void updateDeck(Deck target, Deck editedDeck) {
+        requireAllNonNull(target, editedDeck);
+        logger.info("Updated a deck's name in TopDeck.");
+        versionedTopDeck.updateDeck(target, editedDeck);
+        updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
+    }
+
     //=========== Filtered Card List Accessors =============================================================
 
     /**

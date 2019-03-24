@@ -21,7 +21,7 @@ By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 
 *Know-It-All* is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, *Know-It-All* is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. *Know-It-All* targets medicine students in NUS as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
 
-== About 
+== About
 
 Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide closely and the rest will be a breeze.  Head over to <<Quick Start>> to get started.
 

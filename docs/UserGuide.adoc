@@ -94,8 +94,8 @@ Edits the name and phone number of the patient with ID of '2' to be `Betsy Crowe
 
 === Locating patient by name: `search-patient`
 
-Finds patient(s) whose names contain any of the given keywords. +
-Format: `search-patient NAME [PHONE_NUMBER]`
+Search and return patient(s) whose names contain any of the given keywords. +
+Format: `search-patient [NAME] [PHONE_NUMBER]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`

@@ -94,7 +94,9 @@ public class Coordinates {
     /**
      * Return Index for colNum
      */
-    public Index getColIndex() { return this.colIndex; }
+    public Index getColIndex() {
+        return this.colIndex;
+    }
 
     /**
      * Returns if a given string is a valid coordinate.

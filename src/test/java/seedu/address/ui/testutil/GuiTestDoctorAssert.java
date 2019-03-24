@@ -1,17 +1,16 @@
 package seedu.address.ui.testutil;
 
-import guitests.guihandles.DoctorCardHandle;
-import guitests.guihandles.DoctorListPanelHandle;
-import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.Doctor;
-
-//import javax.print.Doc;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
+//import javax.print.Doc;
 
+import guitests.guihandles.DoctorCardHandle;
+import guitests.guihandles.DoctorListPanelHandle;
+import guitests.guihandles.ResultDisplayHandle;
+import seedu.address.model.person.Doctor;
 
 /**
  * A set of assertion methods useful for writing GUI tests.

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_DG;
+import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_AMERICA;
 import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_DG;
 import static seedu.travel.logic.commands.CommandTestUtil.DATE_VISITED_DESC_BEDOK;
@@ -124,7 +125,7 @@ public class EditCommandSystemTest extends TravelBuddySystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered place list, edit index within bounds of travel book and place list -> edited */
+        /* Case: filtered place list, edit index within bounds of travel buddy and place list -> edited */
         showPlacesWithName(KEYWORD_MATCHING_SINGAPORE);
         index = INDEX_FIRST_PLACE;
         assertTrue(index.getZeroBased() < getModel().getFilteredPlaceList().size());
@@ -133,7 +134,7 @@ public class EditCommandSystemTest extends TravelBuddySystemTest {
         editedPlace = new PlaceBuilder(placeToEdit).withName(VALID_NAME_CLEMENTI).build();
         assertCommandSuccess(command, index, editedPlace);
 
-        /* Case: filtered place list, edit index within bounds of travel book but out of bounds of place list
+        /* Case: filtered place list, edit index within bounds of travel buddy but out of bounds of place list
          * -> rejected
          */
         showPlacesWithName(KEYWORD_MATCHING_SINGAPORE);
@@ -229,6 +230,12 @@ public class EditCommandSystemTest extends TravelBuddySystemTest {
         /* Case: edit a place with new values same as another place's values but with different address -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BEDOK + COUNTRY_CODE_DESC_BEDOK
                 + DATE_VISITED_DESC_BEDOK + RATING_DESC_BEDOK
+                + DESCRIPTION_BEDOK + ADDRESS_DESC_AMK + TAG_DESC_MRT + TAG_DESC_EWL;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PLACE);
+
+        /* Case: edit a place with new values same as another place's values but with different country -> rejected */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BEDOK + COUNTRY_CODE_DESC_AMERICA
+                + RATING_DESC_BEDOK
                 + DESCRIPTION_BEDOK + ADDRESS_DESC_AMK + TAG_DESC_MRT + TAG_DESC_EWL;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PLACE);
 

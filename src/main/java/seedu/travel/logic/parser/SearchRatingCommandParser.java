@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import seedu.travel.logic.commands.SearchRatingCommand;
 import seedu.travel.logic.parser.exceptions.ParseException;
+import seedu.travel.model.place.Rating;
 import seedu.travel.model.place.RatingContainsKeywordsPredicate;
 
 /**
@@ -27,7 +28,12 @@ public class SearchRatingCommandParser implements Parser<SearchRatingCommand> {
 
         String[] ratingKeywords = trimmedArgs.split("\\s+");
 
+        for (String rating : ratingKeywords) {
+            if (!Rating.isValidRating(rating)) {
+                throw new ParseException(String.format(Rating.MESSAGE_CONSTRAINTS, SearchRatingCommand.MESSAGE_USAGE));
+            }
+        }
+
         return new SearchRatingCommand(new RatingContainsKeywordsPredicate(Arrays.asList(ratingKeywords)));
     }
-
 }

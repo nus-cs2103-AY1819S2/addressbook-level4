@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.travel.logic.parser.exceptions.ParseException;
 import seedu.travel.model.place.Address;
+import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
 import seedu.travel.model.place.Rating;
@@ -25,12 +26,14 @@ import seedu.travel.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_COUNTRY_CODE = "SGXX";
     private static final String INVALID_RATING = "65";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_DESCRIPTION = "@I love this place";
     private static final String INVALID_TAG = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_COUNTRY_CODE = "SGP";
     private static final String VALID_RATING = "5";
     private static final String VALID_ADDRESS = "123 Main Street #0505";
     private static final String VALID_DESCRIPTION = "I love this place";
@@ -88,6 +91,29 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseCountryCode_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseCountryCode((String) null));
+    }
+
+    @Test
+    public void parseCountryCode_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseCountryCode(INVALID_COUNTRY_CODE));
+    }
+
+    @Test
+    public void parseCountryCode_validValueWithoutWhitespace_returnsCountryCode() throws Exception {
+        CountryCode expectedCountryCode = new CountryCode(VALID_COUNTRY_CODE);
+        assertEquals(expectedCountryCode, ParserUtil.parseCountryCode(VALID_COUNTRY_CODE));
+    }
+
+    @Test
+    public void parseCountryCode_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
+        String countryCodeWithWhitespace = WHITESPACE + VALID_COUNTRY_CODE + WHITESPACE;
+        CountryCode expectedCountryCode = new CountryCode(VALID_COUNTRY_CODE);
+        assertEquals(expectedCountryCode, ParserUtil.parseCountryCode(countryCodeWithWhitespace));
+    }
+
+    @Test
     public void parseRating_null_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseRating((String) null));
     }
@@ -99,15 +125,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseRating_validValueWithoutWhitespace_returnsRating() throws Exception {
-        Rating expectedPhone = new Rating(VALID_RATING);
-        assertEquals(expectedPhone, ParserUtil.parseRating(VALID_RATING));
+        Rating expectedRating = new Rating(VALID_RATING);
+        assertEquals(expectedRating, ParserUtil.parseRating(VALID_RATING));
     }
 
     @Test
     public void parseRating_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
-        String phoneWithWhitespace = WHITESPACE + VALID_RATING + WHITESPACE;
-        Rating expectedPhone = new Rating(VALID_RATING);
-        assertEquals(expectedPhone, ParserUtil.parseRating(phoneWithWhitespace));
+        String ratingWithWhitespace = WHITESPACE + VALID_RATING + WHITESPACE;
+        Rating expectedRating = new Rating(VALID_RATING);
+        assertEquals(expectedRating, ParserUtil.parseRating(ratingWithWhitespace));
     }
 
     @Test

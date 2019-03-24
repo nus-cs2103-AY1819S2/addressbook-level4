@@ -228,8 +228,8 @@ public class StringUtilTest {
     //---------------- Tests for containsRating --------------------------------------
 
     /*
-     * Invalid equivalence partitions for rating: null, empty, multiple ratings
-     * Invalid equivalence partitions for ratingsList: null, characters outside of range 1 to 5
+     * Invalid equivalence partitions for rating: null, empty, multiple ratings, characters outside range of 1 to 5
+     * Invalid equivalence partitions for ratingsList: null
      * The four test cases below test one invalid input at a time.
      */
 
@@ -258,10 +258,15 @@ public class StringUtilTest {
     }
 
     @Test
-    public void containsRatingIgnoreCase_nullSentence_throwsNullPointerException() {
-        assertExceptionForRatingThrown(NullPointerException.class, null, "2", Optional.empty());
+    public void containsRating_charOutsideRange_throwsIllegalArgumentException() {
+        assertExceptionForRatingThrown(IllegalArgumentException.class, "4 5", "7",
+                Optional.of("Rating parameter should be a single value from 1 to 5"));
     }
 
+    @Test
+    public void containsRating_nullSentence_throwsNullPointerException() {
+        assertExceptionForRatingThrown(NullPointerException.class, null, "2", Optional.empty());
+    }
     /*
      * Valid equivalence partitions for rating:
      *   - any value between 1 to 5 inclusive
@@ -305,6 +310,103 @@ public class StringUtilTest {
 
         // Matches multiple ratings in ratingsList
         assertTrue(StringUtil.containsRating("1 2 3  2", "2"));
+    }
+
+    //---------------- Tests for containsCountryCode --------------------------------------
+
+    /*
+     * Invalid equivalence partitions for countryCode: null, empty, multiple countryCode,
+     * keywords longer or shorter than 3 characters
+     * Invalid equivalence partitions for countryCodeList: null
+     * 3 character words that do not correspond to ISO-3166 country codes
+     * The four test cases below test one invalid input at a time.
+     */
+
+    @Test
+    public void containsCountryCode_nullWord_throwsNullPointerException() {
+        assertExceptionForCountryCodeThrown(NullPointerException.class, "SGP JPN", null, Optional.empty());
+    }
+
+    private void assertExceptionForCountryCodeThrown(Class<? extends Throwable> exceptionClass, String countryCodeList,
+                                                String countryCode, Optional<String> errorMessage) {
+        thrown.expect(exceptionClass);
+        errorMessage.ifPresent(message -> thrown.expectMessage(message));
+        StringUtil.containsCountryCode(countryCodeList, countryCode);
+    }
+
+    @Test
+    public void containsCountryCode_emptyWord_throwsIllegalArgumentException() {
+        assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN", "  ",
+                Optional.of("Country Code parameter cannot be empty"));
+    }
+
+    @Test
+    public void containsCountryCode_multipleCountryCode_throwsIllegalArgumentException() {
+        assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN CHN",
+                "SGP JPN", Optional.of("Country Code parameter should be a single word"));
+    }
+
+    @Test
+    public void containsCountryCode_countryCodeLongerThanThreeLetter_throwsIllegalArgumentException() {
+        assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN USA",
+                "SGXX", Optional.of("Country codes should only contain a three-letter alphabets"));
+    }
+
+    @Test
+    public void containsCountryCode_countryCodeShorterThanThreeLetter_throwsIllegalArgumentException() {
+        assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN USA",
+                "SG", Optional.of("Country codes should only contain a three-letter alphabets"));
+    }
+
+    @Test
+    public void containsCountryCodeIgnoreCase_nullSentence_throwsNullPointerException() {
+        assertExceptionForCountryCodeThrown(NullPointerException.class, null,
+                "SGP", Optional.empty());
+    }
+
+    /*
+     * Valid equivalence partitions for countryCode:
+     *   - any 3 letter keyword that matches ISO-3166 country code
+     *   - 3 letter keyword that matches ISO-3166 country code with leading/trailing spaces
+     *
+     * Valid equivalence partitions for countryCodeList:
+     *   - empty string
+     *   - one countryCode
+     *   - multiple countryCode
+     *   - countryCodeList with extra spaces
+     *
+     * Possible scenarios returning true:
+     *   - matches first countryCode in countryCodeList
+     *   - last countryCode in countryCodeList
+     *   - middle countryCode in countryCodeList
+     *   - matches multiple countryCode
+     *
+     * Possible scenarios returning false:
+     *   - query rating not found in countryCodeList
+     *
+     * The test method below tries to verify all above with a reasonably low number of test cases.
+     */
+
+    @Test
+    public void containsCountryCode_validInputs_correctResult() {
+
+        // Empty countryCodeList
+        assertFalse(StringUtil.containsCountryCode("", "SGP")); // Boundary case
+        assertFalse(StringUtil.containsCountryCode("    ", "JPN"));
+
+        // Query countryCode not in countryCodeList
+        assertFalse(StringUtil.containsCountryCode("SGP JPN USA", "KOR"));
+        assertFalse(StringUtil.containsCountryCode("DEU CHN IND", "SGP"));
+
+        // Matches countryCode in the countryCodeList
+        assertTrue(StringUtil.containsCountryCode("DEU JPN CHN", "DEU")); // First rating (boundary case)
+        assertTrue(StringUtil.containsCountryCode("CHN SGP USA", "USA")); // Last rating (boundary case)
+        assertTrue(StringUtil.containsCountryCode("  FRA   CHN   ITA  ", "FRA")); // countryCodeList has extra spaces
+        assertTrue(StringUtil.containsCountryCode("SGP", "SGP")); // One countryCode in countryCodeList (boundary case)
+        assertTrue(StringUtil.containsCountryCode("SGP DEU IND", "  IND  ")); // Leading/trailing spaces in countryCode
+
+        // Matches multiple countryCode in countryCodeList
+        assertTrue(StringUtil.containsCountryCode("DEU JPN USA  JPN", "JPN"));
     }
 
     //---------------- Tests for getDetails --------------------------------------

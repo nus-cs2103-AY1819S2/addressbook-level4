@@ -69,13 +69,13 @@ public class TypicalPlaces {
             .withTags("amusementPark", "recreation")
             .build();
     public static final Place DANIEL = new PlaceBuilder()
-            .withName("Japanese Cemetery Park")
-            .withCountryCode("SGP")
+            .withName("Yanaka Cemetery Park")
+            .withCountryCode("JPN")
             .withDateVisited("02/05/2016")
             .withRating("3")
-            .withDescription("The Japanese Cemetery Park serves as the burial ground for "
-                    + "Japanese soldiers and civilians who lived in the early 20th century.")
-            .withAddress("22 Chuan Hoe Ave, Singapore 549854")
+            .withDescription("Hilly, cherry tree–planted cemetery with graves"
+                    + " of renowned artists & actors & a 5-story pagoda.")
+            .withAddress("7-chōme-5-24 Yanaka, Taito City, Tōkyō-to 110-0001, Japan")
             .withTags("cemetery", "placeOfInterest")
             .build();
     public static final Place ELLE = new PlaceBuilder()
@@ -171,6 +171,8 @@ public class TypicalPlaces {
     public static final String KEYWORD_MATCHING_SHOPPING_MALL = "shoppingMall"; // A keyword that matches shoppingMall
 
     public static final String KEYWORD_MATCHING_FOUR = "4"; // A keyword that matches 4
+
+    public static final String KEYWORD_MATCHING_SGP = "SGP"; // A keyword that matches the country code SGP
 
     private TypicalPlaces() {} // prevents instantiation
 

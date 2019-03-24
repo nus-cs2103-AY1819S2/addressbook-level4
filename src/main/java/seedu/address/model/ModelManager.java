@@ -18,7 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.battle.Battle;
 import seedu.address.logic.battle.BattleManager;
-import seedu.address.logic.statistics.PlayerStatistics;
+import seedu.address.logic.battle.state.BattleState;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
@@ -26,6 +26,8 @@ import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
 import seedu.address.model.player.Fleet;
 import seedu.address.model.player.Player;
+import seedu.address.model.statistics.PlayerStatistics;
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -39,6 +41,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Cell> selectedPerson = new SimpleObjectProperty<>();
     private PlayerStatistics playerStats;
     private BattleManager batMan;
+    private BattleState state;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -60,6 +63,7 @@ public class ModelManager implements Model {
         Player humanPlayer = new Player();
         humanPlayer.getMapGrid().resetData(addressBook);
         batMan = new BattleManager(humanPlayer, humanPlayer);
+        state = BattleState.PRE_BATTLE;
     }
 
     public ModelManager() {
@@ -303,6 +307,23 @@ public class ModelManager implements Model {
     public Battle getBattle() {
         return batMan;
     }
+
+    /**
+     * Retrieves the current state of the battle.
+     */
+    @Override
+    public BattleState getBattleState() {
+        return state;
+    }
+
+    /**
+     * Sets the current state of the battle.
+     */
+    public void setBattleState(BattleState newState) {
+        requireNonNull(newState);
+        this.state = newState;
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

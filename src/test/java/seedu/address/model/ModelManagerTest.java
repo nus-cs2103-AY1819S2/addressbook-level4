@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.battle.state.BattleState;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.NameContainsKeywordsPredicate;
 import seedu.address.model.cell.exceptions.PersonNotFoundException;
@@ -37,6 +38,7 @@ public class ModelManagerTest {
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new MapGrid(), new MapGrid(modelManager.getAddressBook()));
         assertEquals(null, modelManager.getSelectedPerson());
+        assertEquals(BattleState.PRE_BATTLE, modelManager.getBattleState());
     }
 
     @Test
@@ -147,6 +149,20 @@ public class ModelManagerTest {
         assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
         modelManager.setSelectedPerson(ALICE);
         assertEquals(ALICE, modelManager.getSelectedPerson());
+    }
+
+    @Test
+    public void setBattleState_nullState_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.setBattleState(null);
+    }
+
+    @Test
+    public void setBattleState_validState_setsBattleState() {
+        for (BattleState bs: BattleState.values()) {
+            modelManager.setBattleState(bs);
+            assertEquals(modelManager.getBattleState(), bs);
+        }
     }
 
     @Test

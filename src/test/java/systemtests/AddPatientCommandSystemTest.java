@@ -113,7 +113,7 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
         showPatientsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a patient card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a patient card is selected -------------------------- */
 
         /* Case: selects first card in the patient list, add a patient -> added, card selection remains unchanged */
         selectPatient(Index.fromOneBased(1));
@@ -145,7 +145,7 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddPatientCommand.MESSAGE_DUPLICATE_PATIENT);
 
         /* Case: missing name -> rejected */
-        command = AddPatientCommand.COMMAND_WORD + GENDER_DESC_AMY + AGE_DESC_AMY +  PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddPatientCommand.COMMAND_WORD + GENDER_DESC_AMY + AGE_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPatientCommand.MESSAGE_USAGE));
 
         /* Case: missing gender -> rejected */
@@ -212,6 +212,7 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(Patient toAdd) {
@@ -221,6 +222,7 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(Patient)}. Executes {@code command}
      * instead.
+     *
      * @see AddPatientCommandSystemTest#assertCommandSuccess(Patient)
      */
     private void assertCommandSuccess(String command, Patient toAdd) {
@@ -237,6 +239,7 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code PatientListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
+     *
      * @see AddPatientCommandSystemTest#assertCommandSuccess(String, Patient)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -256,6 +259,7 @@ public class AddPatientCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

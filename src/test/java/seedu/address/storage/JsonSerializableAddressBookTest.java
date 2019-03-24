@@ -20,7 +20,8 @@ public class JsonSerializableAddressBookTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-/*    //fail due to extra space at the end
+    /*
+    //fail due to extra space at the end
     @Test
     public void toModelType_typicalPatientsFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,

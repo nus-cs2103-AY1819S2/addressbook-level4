@@ -37,7 +37,7 @@ public class PatientUtil {
         sb.append(PREFIX_PHONE + patient.getPhone().value + " ");
         sb.append(PREFIX_ADDRESS + patient.getAddress().value + " ");
         patient.getTags().stream().forEach(
-                s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
     }

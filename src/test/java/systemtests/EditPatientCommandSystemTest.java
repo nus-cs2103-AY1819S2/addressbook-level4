@@ -63,7 +63,8 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
          * -> edited
          */
         Index index = INDEX_FIRST_PERSON;
-        String command = " " + EditPatientCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
+        String command = " " + EditPatientCommand.COMMAND_WORD + "  " + index.getOneBased() + "  "
+                + NAME_DESC_BOB + "  "
                 + GENDER_DESC_BOB + " " + AGE_DESC_BOB + " " + PHONE_DESC_BOB + " "
                 + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
         Patient editedPatient = new PatientBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
@@ -132,7 +133,7 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditPatientCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a patient card is selected -------------------------- */
+        /* --------------------- Performing edit operation while a patient card is selected ------------------------- */
 
         /* Case: selects first card in the patient list, edit a patient -> edited, card selection remains unchanged but
          * browser url changes
@@ -171,27 +172,33 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
                 EditPatientCommand.MESSAGE_NOT_EDITED);
 
         /* Case: invalid name -> rejected */
-        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
+        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
                 Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid gender -> rejected */
-        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_GENDER_DESC,
+        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_GENDER_DESC,
                 Gender.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid age -> rejected */
-        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_AGE_DESC,
+        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_AGE_DESC,
                 Age.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
+        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
                 Phone.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
+        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
                 Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
+        assertCommandFailure(EditPatientCommand.COMMAND_WORD + " "
+                        + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a patient with new values same as another patient's values -> rejected */
@@ -204,7 +211,8 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditPatientCommand.MESSAGE_DUPLICATE_PATIENT);
 
-        /* Case: edit a patient with new values same as another patient's values but with different gender -> rejected */
+        /* Case: edit a patient with new values same as another patient's values
+        but with different gender -> rejected */
         command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + GENDER_DESC_AMY + AGE_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
@@ -228,7 +236,8 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditPatientCommand.MESSAGE_DUPLICATE_PATIENT);
 
-        /* Case: edit a patient with new values same as another patient's values but with different address -> rejected */
+        /* Case: edit a patient with new values same as another patient's values
+         but with different address -> rejected */
         command = EditPatientCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB
                 + GENDER_DESC_BOB + AGE_DESC_BOB + PHONE_DESC_BOB
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
@@ -262,7 +271,8 @@ public class EditPatientCommandSystemTest extends AddressBookSystemTest {
         expectedModel.updateFilteredPatientList(PREDICATE_SHOW_ALL_PATIENTS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditPatientCommand.MESSAGE_EDIT_PATIENT_SUCCESS, editedPatient), expectedSelectedCardIndex);
+                String.format(EditPatientCommand.MESSAGE_EDIT_PATIENT_SUCCESS,
+                        editedPatient), expectedSelectedCardIndex);
     }
 
     /**

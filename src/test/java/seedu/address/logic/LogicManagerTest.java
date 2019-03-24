@@ -2,7 +2,7 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.MODE_OTHERS;
+import static seedu.address.logic.commands.CommandTestUtil.MODE_HEALTHWORKER;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.testutil.TypicalPersons.AMY;
@@ -17,10 +17,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.logic.commands.AddPersonCommand;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.DeleteCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -77,8 +77,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() {
-        String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        String listCommand = ListHealthWorkerCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListHealthWorkerCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
     }
 
@@ -97,7 +97,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddPersonCommand.COMMAND_WORD + MODE_OTHERS + NAME_DESC_AMY + PHONE_DESC_AMY;
+        String addCommand = AddCommand.COMMAND_WORD + MODE_HEALTHWORKER + NAME_DESC_AMY + PHONE_DESC_AMY;
         Person expectedPerson = new PersonBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPerson(expectedPerson);

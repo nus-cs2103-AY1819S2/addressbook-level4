@@ -20,7 +20,7 @@ public abstract class QuizCommand implements Command {
      * @return {@code obj} if {@link QuizModel}
      * @throws CommandException if {@code obj} is not {@link QuizModel}.
      */
-    static QuizModel requireQuizModel(Object obj) throws CommandException {
+    protected static QuizModel requireQuizModel(Object obj) throws CommandException {
         // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
         // In other words, only incorrect code will result in a CommandException being thrown
         if (!(obj instanceof QuizModel)) {

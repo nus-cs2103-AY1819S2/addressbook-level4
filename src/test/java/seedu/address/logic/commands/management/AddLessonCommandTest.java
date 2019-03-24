@@ -95,7 +95,7 @@ public class AddLessonCommandTest {
      * A ManagementModel stub which always accept the lesson being added.
      */
     private class MgtModelStubAcceptingAdd extends ManagementModelStub {
-        final ArrayList<Lesson> lessons = new ArrayList<>();
+        private final ArrayList<Lesson> lessons = new ArrayList<>();
 
         @Override
         public void addLesson(Lesson lesson) {

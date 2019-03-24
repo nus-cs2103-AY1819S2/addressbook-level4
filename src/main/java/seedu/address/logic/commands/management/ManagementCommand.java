@@ -20,7 +20,7 @@ public abstract class ManagementCommand implements Command {
      * @return {@code obj} if {@link ManagementModel}
      * @throws CommandException if {@code obj} is not {@link ManagementModel}.
      */
-    static ManagementModel requireManagementModel(Object obj) throws CommandException {
+    protected static ManagementModel requireManagementModel(Object obj) throws CommandException {
         // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
         // In other words, only incorrect code will result in a CommandException being thrown
         if (!(obj instanceof ManagementModel)) {

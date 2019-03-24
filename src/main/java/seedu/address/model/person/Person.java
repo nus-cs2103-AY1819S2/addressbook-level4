@@ -16,6 +16,7 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    //TODO: change Name to ModuleInfoCode
     private final Name moduleInfo;
     private final Semester semester;
 
@@ -77,6 +78,14 @@ public class Person {
     public boolean isFinished() {
         // TODO: compare semester taken and current semester
         return false;
+    }
+
+    /**
+     * Checks if this module has been passed.
+     * @return true if this module has been passed, false otherwise.
+     */
+    public boolean isPassed() {
+        return isFinished() && getGradeRange().getMax().isPassingGrade();
     }
 
     /**

@@ -917,7 +917,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |student |delete a module |remove modules that I am not taking
 
-|`* * *` |student |find a module by name |locate details of modules without having to go through the entire list
+|`* * *` |student |find a module by code, semester, grade or finished status |locate details of modules without having to go through the entire list
 
 |`* *` |student |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -926,6 +926,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |student |add my modules in future semesters |plan ahead
 
 |`* *` |student |know my CAP |pull up my CAP
+
+|`* *` |student |see a recommended list of modules I can take in order of priority |fulfil the graduation requirements on time
 
 |`*` |student with many modules |sort module by name |locate a module easily
 |=======================================================================

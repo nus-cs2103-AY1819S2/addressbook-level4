@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -172,4 +173,12 @@ public interface Model {
      * @param predicate
      */
     void updateDisplayList(Predicate<ModuleInfo> predicate);
+
+    ObservableList<ModuleInfo> getSortedDisplayList();
+
+    void sortDisplayList(Comparator<ModuleInfo> comparator);
+
+    RecModulePredicate getRecModulePredicate();
+
+    RecModuleComparator getRecModuleComparator();
 }

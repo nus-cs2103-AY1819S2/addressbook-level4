@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 import java.util.stream.Stream;
 
-import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
  * Represents aspect of a CourseRequirement
@@ -89,50 +89,50 @@ public class Condition {
     /**
      * Returns true if there are at least minToSatisfy number of modules in list
      * matches regex in regexes list
-     * @param moduleInfos a list of moduleInfo to check whether condition is satisfied
+     * @param moduleInfoCodes a list of module codes to check whether condition is satisfied
      * @return true if condition satisfied, false otherwise
      */
-    public boolean isSatisfied(List<ModuleInfo> moduleInfos) {
+    public boolean isSatisfied(List<ModuleInfoCode> moduleInfoCodes) {
         //Will complete if modules taken list class is completed
-        return moduleInfos.stream()
-                .filter(moduleInfo -> regexes.stream().anyMatch(regex -> moduleInfo.toString().matches(regex)))
+        return moduleInfoCodes.stream()
+                .filter(moduleInfoCode -> regexes.stream().anyMatch(regex -> moduleInfoCode.toString().matches(regex)))
                 .distinct().count() >= minToSatisfy;
     }
 
     /**
      * Returns true if the module code of module matches at least one of the regex in regex list
-     * @param moduleInfo a module to check against regex list
+     * @param moduleInfoCode a module code to check against regex list
      * @return true if at least module code of module matches at least one of the regex in regex list
      */
-    public boolean canSatisfy(ModuleInfo moduleInfo) {
-        return regexes.stream().anyMatch(regex -> moduleInfo.toString().matches(regex));
+    public boolean canSatisfy(ModuleInfoCode moduleInfoCode) {
+        return regexes.stream().anyMatch(regex -> moduleInfoCode.toString().matches(regex));
     }
 
     /**
      * Returns percentage, in range of [0, 1.0] of completion for this condition
-     * @param moduleInfos a list of moduleInfo to check completion percentage
+     * @param moduleInfoCodes a list of module codes to check completion percentage
      * @return a double in range of [0,1.0] to see percentage of completion
      */
-    public double getPercentageCompleted(List<ModuleInfo> moduleInfos) {
-
-        return Math.max(moduleInfos.stream()
-                .filter(moduleInfo -> regexes.stream().anyMatch(regex -> moduleInfo.toString().matches(regex)))
+    public double getPercentageCompleted(List<ModuleInfoCode> moduleInfoCodes) {
+        return Math.max(moduleInfoCodes.stream()
+                .filter(moduleInfoCode -> regexes.stream().anyMatch(regex -> moduleInfoCode.toString().matches(regex)))
                 .distinct().count() / (double) minToSatisfy, 1.0);
     }
 
     /**
      * If the condition is unsatisfied, returns formatted string of the regex not satisfied
-     * @param moduleInfos a list of moduleInfos to unsatisfied modules
-     * @return a formatted String of regexes that are not fulfilled by any of the moduleInfos
+     * @param moduleInfoCodes a list of module codes to unsatisfied modules
+     * @return a formatted String of regexes that are not fulfilled by any of the module codes
      */
-    public String getUnsatisfied(List<ModuleInfo> moduleInfos) {
-        if (isSatisfied(moduleInfos)) {
+    public String getUnsatisfied(List<ModuleInfoCode> moduleInfoCodes) {
+        if (isSatisfied(moduleInfoCodes)) {
             return conditionName + " is satisfied";
         }
         StringBuilder formattedString = new StringBuilder();
         formattedString.append(conditionName + " has unsatisfied:");
         regexes.stream()
-            .filter(regex -> moduleInfos.stream().noneMatch(moduleInfo -> moduleInfo.toString().matches(regex)))
+            .filter(regex -> moduleInfoCodes.stream()
+                    .noneMatch(moduleInfoCode -> moduleInfoCode.toString().matches(regex)))
             .forEach(regex -> formattedString.append("\n regex"));
         return formattedString.toString();
     }

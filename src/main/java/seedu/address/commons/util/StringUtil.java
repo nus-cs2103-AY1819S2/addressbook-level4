@@ -68,8 +68,8 @@ public class StringUtil {
                 return false;
             }
         } catch (IOException e) {
-          // Unable to open document
-          return false;
+            // Unable to open document
+            return false;
         }
     }
 

@@ -6,18 +6,21 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 
 /**
- * Represents a Pdf's address in the address book.
+ * Represents a Pdf's deadline in the Pdf book.
  * Guarantees: immutable;
  */
-public class Deadline {
+public class Deadline implements Comparable<Deadline> {
     public static final String MESSAGE_CONSTRAINTS = "Deadline can take any valid date, "
             + "and it should not be blank";
+    public static final int STATUS_READY = 0;
+    public static final int STATUS_COMPLETE = 1;
+    public static final int STATUS_REMOVE = 2;
     private static final String PROPERTY_SEPARATOR_PREFIX = "/";
     private static final int PROPERTY_DATE_INDEX = 0;
-    private static final int PROPERTY_ISMET_INDEX = 0;
+    private static final int PROPERTY_STATUS_INDEX = 0;
 
     private final LocalDate date;
-    private final boolean isMet;
+    private final int status;
 
     /**
      * Constructs a valid {@code Deadline}.
@@ -25,7 +28,7 @@ public class Deadline {
      */
     public Deadline() {
         this.date = LocalDate.MIN;
-        this.isMet = false;
+        this.status = STATUS_READY;
     }
 
 
@@ -36,8 +39,9 @@ public class Deadline {
      */
     public Deadline(String jsonFormat) {
         this.date = LocalDate.parse(jsonFormat.split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
-        this.isMet = Boolean.parseBoolean(jsonFormat
-                .split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_ISMET_INDEX]);
+        this.status = STATUS_READY;
+        // this.status = Integer.parseInt(jsonFormat
+        //        .split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX]);
     }
 
     /**
@@ -50,32 +54,32 @@ public class Deadline {
      */
     public Deadline(int date, int month, int year) throws DateTimeException {
         this.date = LocalDate.of(year, month, date);
-        this.isMet = false;
+        this.status = STATUS_READY;
     }
 
     /**
      * Constructs a valid {@code Deadline}.
      *
      * @param date - Date of deadline
-     * @param month - Month of Deadline
-     * @param year - Year of Deadline
-     * @param isMet - Specifying if Deadline has been met.
+     * @param month - Month of deadline
+     * @param year - Year of deadline
+     * @param status - Status of Deadline.
      * @throws DateTimeException - If invalid input is detected
      */
-    public Deadline(int date, int month, int year, boolean isMet) throws DateTimeException {
+    public Deadline(int date, int month, int year, int status) throws DateTimeException {
         this.date = LocalDate.of(year, month, date);
-        this.isMet = isMet;
+        this.status = status;
     }
 
     /**
      * Takes an existing deadline and parses its values while replacing its status with
      * user input.
      * @param existingDeadline - Existing Deadline whose status you want to change.
-     * @param isMet - Status of the deadline
+     * @param status - Status of the deadline
      */
-    public Deadline(Deadline existingDeadline, Boolean isMet) {
+    public Deadline(Deadline existingDeadline, Integer status) {
         this(existingDeadline.date.getDayOfMonth(), existingDeadline.date.getMonthValue(),
-                existingDeadline.date.getYear(), isMet);
+                existingDeadline.date.getYear(), status);
     }
 
     /**
@@ -103,7 +107,7 @@ public class Deadline {
      * @return true or false depending on this.isMet
      */
     public boolean isMet() {
-        return this.isMet;
+        return this.status == STATUS_COMPLETE;
     }
 
     /**
@@ -112,7 +116,7 @@ public class Deadline {
      * @return - existence of localdate.
      */
     public boolean exists() {
-        return !(this.date.equals(LocalDate.MIN));
+        return !(this.date.equals(LocalDate.MIN)) || this.status == STATUS_REMOVE;
     }
 
     @Override
@@ -124,7 +128,7 @@ public class Deadline {
     public String toString() {
         return new StringBuilder().append(this.date.toString())
                 .append(Deadline.PROPERTY_SEPARATOR_PREFIX)
-                .append(this.isMet)
+                .append(this.status)
                 .toString();
     }
 
@@ -132,5 +136,10 @@ public class Deadline {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Deadline); // instanceof handles nulls;
+    }
+
+    @Override
+    public int compareTo(Deadline other) {
+        return this.date.compareTo(other.date);
     }
 }

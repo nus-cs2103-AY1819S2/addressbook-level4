@@ -119,9 +119,9 @@ public class Coordinates {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Coordinates // instanceof handles nulls
+                || (other instanceof Coordinates) // instanceof handles nulls
                 && this.rowIndex.equals(((Coordinates) other).rowIndex)
-                && this.colIndex.equals(((Coordinates) other).rowIndex)); // state check
+                && this.colIndex.equals(((Coordinates) other).colIndex); // state check
     }
 
     @Override

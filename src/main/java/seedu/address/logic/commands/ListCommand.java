@@ -17,7 +17,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    private final Set<Tag> tagSet;
+    public final Set<Tag> tagSet;
 
     public ListCommand(Set<Tag> tagSet) {
         this.tagSet = tagSet;
@@ -52,5 +52,12 @@ public class ListCommand extends Command {
         }
 
         return new CommandResult(builder.toString());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListCommand) // instanceof handles nulls
+                && this.tagSet.equals(((ListCommand) other).tagSet);
     }
 }

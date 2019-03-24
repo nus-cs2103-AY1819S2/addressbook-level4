@@ -3,13 +3,13 @@ package quickdocs;
 import java.util.List;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.ui.ListElementPointer;
@@ -40,6 +40,9 @@ public class RootLayoutController {
 
     @FXML
     private StackPane reminderList;
+
+    @FXML
+    private Label currentSession;
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -77,6 +80,10 @@ public class RootLayoutController {
                 if (result.isExit()) {
                     primaryStage.close();
                 }
+
+                // consultation session handling
+                indicateConsultation(result.getFeedbackToUser());
+                endConsultation(result.getFeedbackToUser());
 
                 display.appendText(">" + userInput.getText() + "\n");
                 display.appendText(result.getFeedbackToUser());
@@ -179,5 +186,31 @@ public class RootLayoutController {
     private void replaceText(String text) {
         userInput.setText(text);
         userInput.positionCaret(userInput.getText().length());
+    }
+
+    /**
+     * First, check whether the command result is from the consultation command
+     * if it is, make label display the ongoing session
+     * @param checkConsultation can be any command result from the various commands
+     */
+    private void indicateConsultation(String checkConsultation) {
+        if (checkConsultation.contains("Consultation")
+                && checkConsultation.contains("started")) {
+            int colonPos = checkConsultation.indexOf(":");
+            String nric = checkConsultation.substring(colonPos + 2, colonPos + 11);
+            currentSession.setText("Consultation ongoing for: " + nric);
+        }
+    }
+
+    /**
+     * If command result indicates that consultation has ended
+     * make label disappear
+     * @param checkConsultation
+     */
+    private void endConsultation(String checkConsultation) {
+        if (checkConsultation.contains("Consultation")
+                && checkConsultation.contains("ended")) {
+            currentSession.setText("");
+        }
     }
 }

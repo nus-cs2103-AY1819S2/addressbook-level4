@@ -12,15 +12,16 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 
-public class LessonsTest {
+public class LessonListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Lessons lessons = new Lessons();
+    private LessonList lessonList = new LessonList();
 
     private void addTestLesson() {
-        lessons.addLesson(getTestLesson());
+        lessonList.addLesson(getTestLesson());
     }
 
     private Lesson getTestLesson() {
@@ -33,46 +34,46 @@ public class LessonsTest {
     }
     @Test
     public void getLessons_lessonsNotNull_getsLessonsList() {
-        assertNotNull(lessons.getLessons());
+        assertNotNull(lessonList.getLessons());
     }
 
     @Test
     public void getLesson_indexOutOfBounds_throwsIllegalArgumentException() {
         thrown.expect(IllegalArgumentException.class);
-        lessons.getLesson(0);
-        lessons.getLesson(-1);
-        lessons.getLesson(999);
+        lessonList.getLesson(0);
+        lessonList.getLesson(-1);
+        lessonList.getLesson(999);
     }
 
     @Test
     public void getLesson_validLesson_getsLesson() {
         addTestLesson();
-        assertEquals(getTestLesson(), lessons.getLesson(0));
+        assertEquals(getTestLesson(), lessonList.getLesson(0));
     }
 
     @Test
     public void addLesson_validLesson_addsLesson() {
         addTestLesson();
-        assertEquals(1, lessons.getLessons().size());
+        assertEquals(1, lessonList.getLessons().size());
     }
 
     @Test
     public void addLesson_nullLesson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        lessons.addLesson(null);
+        lessonList.addLesson(null);
     }
 
     @Test
     public void setLesson_nullLesson_throwsNullPointerException() {
         addTestLesson();
         thrown.expect(NullPointerException.class);
-        lessons.setLesson(0, null);
+        lessonList.setLesson(0, null);
     }
 
     @Test
     public void setLesson_invalidIndex_throwsIndexOutOfBoundsException() {
         thrown.expect(IndexOutOfBoundsException.class);
-        lessons.setLesson(0, getTestLesson());
+        lessonList.setLesson(0, getTestLesson());
     }
 
     @Test
@@ -81,40 +82,40 @@ public class LessonsTest {
         Lesson newLesson = getTestLesson();
         newLesson.addCard(Arrays.asList("test1", "test2"));
         assertNotEquals(newLesson, getTestLesson());
-        lessons.setLesson(0, newLesson);
-        assertEquals(newLesson, lessons.getLesson(0));
+        lessonList.setLesson(0, newLesson);
+        assertEquals(newLesson, lessonList.getLesson(0));
     }
 
     @Test
     public void deleteLesson_invalidIndex_throwsIllegalArgumentException() {
         thrown.expect(IllegalArgumentException.class);
-        lessons.deleteLesson(0);
-        lessons.deleteLesson(-1);
-        lessons.deleteLesson(1);
+        lessonList.deleteLesson(0);
+        lessonList.deleteLesson(-1);
+        lessonList.deleteLesson(1);
     }
 
     @Test
     public void deleteLesson_validIndex_deletesLesson() {
         addTestLesson();
-        assertEquals(1, lessons.getLessons().size());
-        assertEquals(getTestLesson(), lessons.getLesson(0));
-        lessons.deleteLesson(0);
-        assertEquals(0, lessons.getLessons().size());
+        assertEquals(1, lessonList.getLessons().size());
+        assertEquals(getTestLesson(), lessonList.getLesson(0));
+        lessonList.deleteLesson(0);
+        assertEquals(0, lessonList.getLessons().size());
         thrown.expect(IllegalArgumentException.class);
-        lessons.getLesson(0);
+        lessonList.getLesson(0);
     }
 
     @Test
     public void equals() {
-        Lessons diffLessons = new Lessons();
-        diffLessons.addLesson(getTestLesson());
-        assertEquals(lessons, lessons);
-        assertNotEquals(lessons, diffLessons);
-        assertNotEquals(lessons, new Object());
-        Lessons diffLessonsCopy = new Lessons();
-        for (Lesson l : diffLessons.getLessons()) {
-            diffLessonsCopy.addLesson(l);
+        LessonList diffLessonList = new LessonList();
+        diffLessonList.addLesson(getTestLesson());
+        assertEquals(lessonList, lessonList);
+        assertNotEquals(lessonList, diffLessonList);
+        assertNotEquals(lessonList, new Object());
+        LessonList diffLessonListCopy = new LessonList();
+        for (Lesson l : diffLessonList.getLessons()) {
+            diffLessonListCopy.addLesson(l);
         }
-        assertEquals(diffLessons, diffLessonsCopy);
+        assertEquals(diffLessonList, diffLessonListCopy);
     }
 }

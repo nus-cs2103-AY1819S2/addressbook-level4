@@ -250,7 +250,7 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::datastorage[]
 === Data Storage Feature
-The data storage feature manages the saving of data, such as lessons and user progress, to disk for the application. This lets the user keep their progress between usage sessions.
+The data storage feature manages the saving of data, such as lessonList and user progress, to disk for the application. This lets the user keep their progress between usage sessions.
 
 ==== Current Implementation
 All data storage components implement public functions that are called through Storage, with no user commands currently implemented. These functions include saving and reading of files, with an option for changing the default directory where each kind of data is saved.
@@ -274,7 +274,7 @@ NOTE: These functions are automatically performed on opening/closing the Session
 The lesson CSV storage feature implements the following functions:
 
 * Parsing lesson data into the correct format for saving
-* Parsing data from file into lessons
+* Parsing data from file into lessonList
 
 Actual file I/O is handled in the CsvUtil class, which uses the opencsv library to read/write CSV files.
 
@@ -284,7 +284,7 @@ image::CsvStorageDiagram.png[width="800"]
 
 Lessons are parsed by CsvLessonsStorage, being converted between Lesson and List<String[]> formats. The List<String[]> format is the primary format handled by CsvUtil for reading and writing to CSV files.
 
-For lessons, there are three main components when saved to a CSV file.
+For lessonList, there are three main components when saved to a CSV file.
 
 ===== Name
 Lesson names are equivalent to their filenames.
@@ -292,7 +292,7 @@ Lesson names are equivalent to their filenames.
 A lesson named "French" would be saved as French.csv, and vice-versa.
 
 ===== Header
-The header stores the set up information for the lesson. For more information on the format of lessons, please read `TODO`
+The header stores the set up information for the lesson. For more information on the format of lessonList, please read `TODO`
 
 Core fields start with `CORE_ESCAPE` character, `\*`. When a field without `*` is found, all subsequent fields are assumed to be optional.
 
@@ -854,7 +854,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 * student who is trying to remember something content heavy for a given subject
 * would like a flashcard system that introduces/tests them on words/ideas
 * prefers command line interface for simplicity
-* able to keep track of the progress of all <<lesson,lessons>>
+* able to keep track of the progress of all <<lesson,lessonList>>
 
 *Possible users*:
 
@@ -874,9 +874,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that...
 |`* * *` |new user |see usage instructions |I can refer to instructions when I forget how to use the App
 
-|`* * *` |user |load/import lessons |I can use the App without needing to make my own lists first
+|`* * *` |user |load/import lessonList |I can use the App without needing to make my own lists first
 
-|`* * *` |Creator |export lessons |I can share my lessons easily in a multiple files
+|`* * *` |Creator |export lessonList |I can share my lessonList easily in a multiple files
 
 |`* * *` |user |be tested more often on poorly memorized questions |I can automatically focus on them
 
@@ -884,7 +884,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |export my current progress |I can keep my progress between different devices
 
-|`* * *` |user |start multiple lessons |I can see all the question at once
+|`* * *` |user |start multiple lessonList |I can see all the question at once
 
 |`* * *` |user |reset my progress |I can start anew
 
@@ -892,7 +892,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |be give multiple chances to answer |I am given some leeway for mistyping
 
-|`* * *` |user |add tags to the lessons |I can search based on the tags
+|`* * *` |user |add tags to the lessonList |I can search based on the tags
 
 |`* * *` |user |start a lesson |I can start to memorise
 
@@ -911,7 +911,7 @@ remember it better
 
 |`* *` |user |have a graded test based on my current progress |I can see clearly how well I obtain the knowledge
 
-|`* *` |user |view lessons created by others |I can import them into my own library without creating my own
+|`* *` |user |view lessonList created by others |I can import them into my own library without creating my own
 
 |`* *` |user |change the frequency of re-testing |I can test everything on my own basis
 
@@ -923,9 +923,9 @@ remember it better
 
 |`*` |user |set the plan (like 15 words a day) |I can make sure that I'm on track
 
-|`*` |user |autocomplete the lessons name |I can find a lesson quickly
+|`*` |user |autocomplete the lessonList name |I can find a lesson quickly
 
-|`*` |Creator |import from other file formats into lessons |I can use my own pre-existing lists with the application
+|`*` |Creator |import from other file formats into lessonList |I can use my own pre-existing lists with the application
 
 |`*` |Creator |notify users if there is any change of the app |I can help users stay updated with new methods
 
@@ -1030,12 +1030,12 @@ Use case ends.
 Use case resumes at step 3.
 
 [discrete]
-=== Use case: Start multiple lessons
+=== Use case: Start multiple lessonList
 
 *MSS*
 
-1. User finds specified lessons.
-2. User starts lessons by lesson names.
+1. User finds specified lessonList.
+2. User starts lessonList by lesson names.
 3. App displays questions for User to answer.
 4. User to input his answer.
 5. App displays the correct answer.
@@ -1060,7 +1060,7 @@ Use case resumes at step 3.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 lessons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 lessonList without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_

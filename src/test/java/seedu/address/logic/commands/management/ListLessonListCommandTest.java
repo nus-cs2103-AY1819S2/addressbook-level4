@@ -26,7 +26,7 @@ import seedu.address.testutil.TypicalLessons;
 /**
  * Contains tests for ListCommand.
  */
-public class ListLessonsCommandTest {
+public class ListLessonListCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -77,7 +77,7 @@ public class ListLessonsCommandTest {
 
     private class MgtModelStubWithNoLessons extends ManagementModelStub {
         @Override
-        public List<Lesson> getLessons() {
+        public List<Lesson> getLessonList() {
             return new ArrayList<>();
         }
     }
@@ -85,7 +85,7 @@ public class ListLessonsCommandTest {
 
     private class MgtModelStubWithLessons extends ManagementModelStub {
         @Override
-        public List<Lesson> getLessons() {
+        public List<Lesson> getLessonList() {
             return TypicalLessons.getTypicalLessons();
         }
     }

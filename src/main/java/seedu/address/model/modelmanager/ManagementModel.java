@@ -47,7 +47,7 @@ public interface ManagementModel extends Model {
     /**
      * Gets the entire list of lessons.
      */
-    List<Lesson> getLessons();
+    List<Lesson> getLessonList();
 
     /**
      * Adds the lesson.

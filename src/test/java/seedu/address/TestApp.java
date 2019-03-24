@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Lessons;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
@@ -50,7 +50,7 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the management.
      */
     public ManagementModel getModel() {
-        ManagementModel copy = new ManagementModelManager(new UserPrefs(), new Lessons(), new User());
+        ManagementModel copy = new ManagementModelManager(new UserPrefs(), new LessonList(), new User());
         return copy;
     }
 

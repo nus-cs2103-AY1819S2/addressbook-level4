@@ -54,7 +54,7 @@ public class ManagementModelStub implements ManagementModel {
      * Gets the entire list of lessons.
      */
     @Override
-    public List<Lesson> getLessons() {
+    public List<Lesson> getLessonList() {
         throw new AssertionError("This method should not be called.");
     }
 

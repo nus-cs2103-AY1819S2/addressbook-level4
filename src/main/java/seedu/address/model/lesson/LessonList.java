@@ -1,22 +1,20 @@
-package seedu.address.model;
+package seedu.address.model.lesson;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.lesson.Lesson;
-
 /**
  * Wraps all lesson data in memory.
  */
-public class Lessons {
+public class LessonList {
     //Static fields
     public static final String EXCEPTION_INVALID_INDEX = "Invalid index: ";
 
     private List<Lesson> lessons;
 
-    public Lessons () {
+    public LessonList() {
         lessons = new ArrayList<>();
     }
 
@@ -63,11 +61,11 @@ public class Lessons {
             return true;
         }
 
-        if (!(other instanceof Lessons)) {
+        if (!(other instanceof LessonList)) {
             return false;
         }
 
-        Lessons otherLesson = (Lessons) other;
+        LessonList otherLesson = (LessonList) other;
         return otherLesson.hashCode() == this.hashCode();
     }
 

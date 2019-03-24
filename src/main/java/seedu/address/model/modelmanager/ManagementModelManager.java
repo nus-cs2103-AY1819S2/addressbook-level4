@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.Lessons;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
@@ -21,25 +21,25 @@ import seedu.address.model.user.User;
 public class ManagementModelManager implements ManagementModel {
     private static final Logger logger = LogsCenter.getLogger(ManagementModelManager.class);
 
-    private final Lessons lessons;
+    private final LessonList lessonList;
     private final UserPrefs userPrefs;
     private final User user;
     /**
      * Initializes a ManagementModelManager with the given userPrefs.
      */
-    public ManagementModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons, User user) {
+    public ManagementModelManager(ReadOnlyUserPrefs userPrefs, LessonList lessonList, User user) {
         super();
         requireAllNonNull(userPrefs);
 
         logger.fine("Initializing with user prefs " + userPrefs);
 
         this.userPrefs = new UserPrefs(userPrefs);
-        this.lessons = lessons;
+        this.lessonList = lessonList;
         this.user = user;
     }
 
     public ManagementModelManager() {
-        this(new UserPrefs(), new Lessons(), new User());
+        this(new UserPrefs(), new LessonList(), new User());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -66,16 +66,16 @@ public class ManagementModelManager implements ManagementModel {
         userPrefs.setGuiSettings(guiSettings);
     }
 
-    //=========== Lessons ==================================================================================
+    //=========== LessonList ==================================================================================
 
     @Override
-    public List<Lesson> getLessons() {
-        return lessons.getLessons();
+    public List<Lesson> getLessonList() {
+        return lessonList.getLessons();
     }
 
     @Override
     public Lesson getLesson(int index) {
-        Lesson lesson = lessons.getLesson(index);
+        Lesson lesson = lessonList.getLesson(index);
         return lesson;
     }
 
@@ -86,17 +86,17 @@ public class ManagementModelManager implements ManagementModel {
 
     @Override
     public void addLesson(Lesson lesson) {
-        lessons.addLesson(lesson);
+        lessonList.addLesson(lesson);
     }
 
     @Override
     public void setLesson(int index, Lesson updatedLesson) {
-        lessons.setLesson(index, updatedLesson);
+        lessonList.setLesson(index, updatedLesson);
     }
 
     @Override
     public void deleteLesson(int index) {
-        lessons.deleteLesson(index);
+        lessonList.deleteLesson(index);
     }
 
     //=========== User ==================================================================================
@@ -140,7 +140,7 @@ public class ManagementModelManager implements ManagementModel {
         // state check
         ManagementModelManager other = (ManagementModelManager) obj;
         return userPrefs.equals(other.userPrefs)
-            && lessons.equals(other.lessons)
+            && lessonList.equals(other.lessonList)
             && user.equals(other.user);
     }
 

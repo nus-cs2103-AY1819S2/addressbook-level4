@@ -16,7 +16,7 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.Lessons;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.modelmanager.ManagementModel;
@@ -62,14 +62,14 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         LessonsStorage lessonsStorage = new CsvLessonsStorage(userPrefs.getLessonsFolderPath());
-        Lessons lessons = initLessons(lessonsStorage);
+        LessonList lessonList = initLessons(lessonsStorage);
         UserStorage userStorage = new CsvUserStorage(userPrefs.getUserFilePath());
         User user = initUser(userStorage);
         storage = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
 
         initLogging(config);
 
-        managementModel = initModelManager(userPrefs, lessons, user);
+        managementModel = initModelManager(userPrefs, lessonList, user);
         quizModel = initQuizModelManager();
 
         logic = new LogicManager(managementModel, quizModel, storage);
@@ -80,8 +80,8 @@ public class MainApp extends Application {
     /**
      * Returns a {@code ManagementModelManager} with the data from {@code userPrefs}.
      */
-    private ManagementModel initModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons, User user) {
-        return new ManagementModelManager(userPrefs, lessons, user);
+    private ManagementModel initModelManager(ReadOnlyUserPrefs userPrefs, LessonList lessonList, User user) {
+        return new ManagementModelManager(userPrefs, lessonList, user);
     }
 
     /**
@@ -165,20 +165,20 @@ public class MainApp extends Application {
 
 
     /**
-     * Returns a {@code Lessons} using the folder at {@code storage}'s Lessons folder path,
-     * or a new {@code Lessons} with no initial lessons if errors occur when
+     * Returns a {@code LessonList} using the folder at {@code storage}'s LessonList folder path,
+     * or a new {@code LessonList} with no initial lessons if errors occur when
      * reading from the file.
      */
-    protected Lessons initLessons(LessonsStorage storage) {
+    protected LessonList initLessons(LessonsStorage storage) {
         Path lessonsFolderPath = storage.getLessonsFolderPath();
         logger.info("Using lessons folder : " + lessonsFolderPath);
 
-        Lessons initializedLessons = null;
-        Optional<Lessons> prefsOptional = storage.readLessons();
-        initializedLessons = prefsOptional.orElse(new Lessons());
+        LessonList initializedLessonList = null;
+        Optional<LessonList> prefsOptional = storage.readLessons();
+        initializedLessonList = prefsOptional.orElse(new LessonList());
 
-        logger.info(initializedLessons.getLessons().size() + " lessons loaded.");
-        return initializedLessons;
+        logger.info(initializedLessonList.getLessons().size() + " lessons loaded.");
+        return initializedLessonList;
     }
 
     /**

@@ -28,7 +28,7 @@ public class Deadline implements Comparable<Deadline> {
      */
     public Deadline() {
         this.date = LocalDate.MIN;
-        this.status = STATUS_READY;
+        this.status = STATUS_REMOVE;
     }
 
 
@@ -39,7 +39,7 @@ public class Deadline implements Comparable<Deadline> {
      */
     public Deadline(String jsonFormat) {
         this.date = LocalDate.parse(jsonFormat.split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
-        this.status = STATUS_READY;
+        this.status = STATUS_REMOVE;
         // this.status = Integer.parseInt(jsonFormat
         //        .split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX]);
     }

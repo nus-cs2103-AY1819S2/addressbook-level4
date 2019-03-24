@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.COMPARATOR_LEXICOGRAPHIC_CARDS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
 import seedu.address.logic.CommandHistory;

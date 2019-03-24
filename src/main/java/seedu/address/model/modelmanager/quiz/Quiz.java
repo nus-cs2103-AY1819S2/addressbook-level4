@@ -170,6 +170,18 @@ public class Quiz {
     }
 
     /**
+     * Toggles between if the card labeled difficult.
+     * @param index of the card
+     * @return result after toggling
+     */
+    public boolean toggleIsCardDifficult(int index) {
+        QuizCard sessionCard = currentSession.get(index);
+        sessionCard.toggleIsCardDifficult();
+
+        return sessionCard.isCardDifficult();
+    }
+
+    /**
      * Returns the current session.
      */
     public List<QuizCard> getCurrentSession() {

@@ -22,6 +22,7 @@ public class QuizCard {
     private int streak;
     private boolean hasAttemptedBefore;
     private boolean isWrongTwice;
+    private boolean isCardDifficult;
 
     public QuizCard(String question, String answer) {
         requireAllNonNull(question, answer);
@@ -32,6 +33,7 @@ public class QuizCard {
         this.index = -1;
         this.totalAttempts = 0;
         this.streak = 0;
+        this.isCardDifficult = false;
     }
 
     public QuizCard(String question, String answer, List<String> opt) {
@@ -44,6 +46,7 @@ public class QuizCard {
         this.index = -1;
         this.totalAttempts = 0;
         this.streak = 0;
+        this.isCardDifficult = false;
     }
 
     public QuizCard(int index, String question, String answer, Quiz.Mode quizMode) {
@@ -56,6 +59,7 @@ public class QuizCard {
         this.quizMode = quizMode;
         this.hasAttemptedBefore = false;
         this.isWrongTwice = false;
+        this.isCardDifficult = false;
     }
 
     public String getQuestion() {
@@ -94,6 +98,24 @@ public class QuizCard {
     }
 
     /**
+     * Returns if the card labeled difficult.
+     */
+    public boolean isCardDifficult() {
+        assert index == -1;
+
+        return isCardDifficult;
+    }
+
+    /**
+     * Toggles between if the card labeled difficult.
+     */
+    public void toggleIsCardDifficult() {
+        assert index == -1;
+
+        isCardDifficult = !isCardDifficult;
+    }
+
+    /**
      * Check if the given answer is the same as the answer of the card.
      * @param answer user's input answer.
      * @return the result after checking.
@@ -107,7 +129,7 @@ public class QuizCard {
     }
 
     /**
-     * Update both totalAttempts and streak depending on isCorrect
+     * Update both totalAttempts and streak depending on isCorrect.
      * @param isCorrect the output of isCorrect method
      */
     public void updateTotalAttemptsAndStreak(boolean isCorrect) {

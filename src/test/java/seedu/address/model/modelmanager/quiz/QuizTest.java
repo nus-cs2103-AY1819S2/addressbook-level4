@@ -222,6 +222,22 @@ public class QuizTest {
     }
 
     @Test
+    public void toggleIsCardDifficult() {
+        final int index = 0;
+        final String correctAnswer = "Tokyo";
+        final String wrongAnswer = "wrong answer";
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
+
+        Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        quiz.getNextCard();
+
+        assertTrue(quiz.toggleIsCardDifficult(index));
+        assertFalse(quiz.toggleIsCardDifficult(index));
+    }
+
+    @Test
     public void equals() {
         Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
 

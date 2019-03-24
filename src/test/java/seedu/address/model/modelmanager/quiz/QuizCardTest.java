@@ -157,6 +157,17 @@ public class QuizCardTest {
     }
 
     @Test
+    public void toggleIsCardDifficult() {
+        assertFalse(VALID_QUIZCARD.isCardDifficult());
+
+        VALID_QUIZCARD.toggleIsCardDifficult();
+        assertTrue(VALID_QUIZCARD.isCardDifficult());
+
+        VALID_QUIZCARD.toggleIsCardDifficult();
+        assertFalse(VALID_QUIZCARD.isCardDifficult());
+    }
+
+    @Test
     public void updateTotalAttemptsAndStreak() {
         QuizCard quizCardWithIndex = VALID_QUIZCARD;
 

@@ -96,6 +96,10 @@ public class QuizModelManager implements QuizModel {
         return quiz.getQuizTotalCorrectQuestions();
     }
 
+    @Override
+    public boolean toggleIsCardDifficult(int index) {
+        return quiz.toggleIsCardDifficult(index);
+    }
 
     @Override
     public boolean isQuizDone() {

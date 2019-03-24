@@ -103,6 +103,14 @@ public class QuizModelManagerTest {
     }
 
     @Test
+    public void toggleIsCardDifficult() {
+        modelManager.init(QUIZ);
+
+        assertTrue(modelManager.toggleIsCardDifficult(0));
+        assertFalse(modelManager.toggleIsCardDifficult(0));
+    }
+
+    @Test
     public void isDone() {
         assertTrue(modelManager.isQuizDone());
 

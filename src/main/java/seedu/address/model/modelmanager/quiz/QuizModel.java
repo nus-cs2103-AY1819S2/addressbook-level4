@@ -78,6 +78,13 @@ public interface QuizModel extends Model {
     int getQuizTotalCorrectQuestions();
 
     /**
+     * Toggles between if the card labeled difficult.
+     * @param index of the current {@code QuizCard}
+     * @return result after toggling
+     */
+    boolean toggleIsCardDifficult(int index);
+
+    /**
      * Returns if User is done with {@code Quiz}.
      */
     boolean isQuizDone();

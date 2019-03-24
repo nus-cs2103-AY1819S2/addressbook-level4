@@ -290,6 +290,11 @@ public class AddLessonCommandTest {
         }
 
         @Override
+        public boolean toggleIsCardDifficult(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean isQuizDone() {
             throw new AssertionError("This method should not be called.");
         }

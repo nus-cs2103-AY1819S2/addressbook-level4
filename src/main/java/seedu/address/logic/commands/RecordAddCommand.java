@@ -36,7 +36,6 @@ public class RecordAddCommand extends Command {
      * @param description the description of the record to be added.
      */
     public RecordAddCommand(Description description) {
-        requireNonNull(MainWindow.getRecordPatient());
         requireNonNull(description);
         toAdd = MainWindow.getRecordPatient();
         this.description = description;

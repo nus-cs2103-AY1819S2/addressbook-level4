@@ -112,7 +112,7 @@ public class Deadline {
      * @return - existence of localdate.
      */
     public boolean exists() {
-        return !(this.date == LocalDate.MIN);
+        return !(this.date.equals(LocalDate.MIN));
     }
 
     @Override

@@ -1,12 +1,6 @@
 package seedu.address.logic.commands.request;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddCommand;
@@ -18,27 +12,17 @@ import seedu.address.model.request.Request;
 /**
  * Creates a new request to the request book.
  */
-public class AddRequestCommand extends AddCommand {
+public class AddRequestCommand extends AddCommand implements RequestCommand {
 
     public static final String COMMAND_WORD = "request";
 
-    public static final String MESSAGE_USAGE = AddCommand.COMMAND_WORD + "3"
-        + ": Creates a new request in the request book. " + "Parameters: "
-        + PREFIX_NAME + "NAME "
-        + PREFIX_NRIC + "NRIC "
-        + PREFIX_PHONE + "PHONE "
-        + PREFIX_ADDRESS + "ADDRESS "
-        + PREFIX_DATE + "DATETIME"
-        + PREFIX_CONDITION + "CONDITION...\n"
-        + "Example: " + RequestCommand.COMMAND_WORD + " " + AddCommand.COMMAND_WORD + " "
-        + PREFIX_NAME + "John Doe "
-        + PREFIX_PHONE + "81234567 "
-        + PREFIX_ADDRESS + "123, Sengkang Ave 3, #04-12, 214632 "
-        + PREFIX_DATE + "01-01-2019 08:00:00 "
-        + PREFIX_CONDITION + "Physiotherapy";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+        + ": Creates a new request in the request book.\n" + "Parameters: "
+        + ADD_COMMAND_PARAMETERS
+        + "Example: " + COMMAND_WORD + " " + COMMAND_OPTION
+        + ADD_COMMAND_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "Created new request successfully: %1$s";
-    public static final String MESSAGE_DUPLICATE_REQUEST = "This request already exists.";
 
     private final Request newRequest;
 

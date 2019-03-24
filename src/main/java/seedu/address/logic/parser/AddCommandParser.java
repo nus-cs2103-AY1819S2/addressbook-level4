@@ -15,13 +15,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddHealthWorkerCommand;
-import seedu.address.logic.commands.AddPersonCommand;
 import seedu.address.logic.commands.request.AddRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.person.healthworker.Organization;
@@ -34,6 +32,9 @@ import seedu.address.model.tag.Skills;
  * Parses input arguments and creates a new AddPersonCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
+
+    public static final String INVALID_COMMAND_USAGE = AddCommand.MESSAGE_USAGE + "\n"
+            + AddHealthWorkerCommand.MESSAGE_USAGE + "\n\n" + AddRequestCommand.MESSAGE_USAGE;
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -52,14 +53,12 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         CommandMode commandMode = ArgumentTokenizer.checkMode(args);
         if (commandMode == CommandMode.HEALTH_WORKER) {
-            return parseAddHealthWorker(ArgumentTokenizer.trimMode(args));
+            return parseAddHealthWorker(" " + ArgumentTokenizer.trimMode(args));
         } else if (commandMode == CommandMode.REQUEST) {
-            return parseAddRequest(args);
+            return parseAddRequest(" " + ArgumentTokenizer.trimMode(args));
         }
 
-        Person person = getPersonFromArgs(args);
-
-        return new AddPersonCommand(person);
+        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, INVALID_COMMAND_USAGE));
     }
 
     /**
@@ -70,8 +69,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     private AddRequestCommand parseAddRequest(String args) throws ParseException {
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args,
-            PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE,
-            PREFIX_CONDITION);
+            PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE, PREFIX_CONDITION);
 
         if (!arePrefixesPresent(argumentMultimap, PREFIX_NAME, PREFIX_NRIC, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_DATE,
             PREFIX_CONDITION)) {
@@ -99,7 +97,6 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @return new AddHealthWorkerCommand for the adding of health worker
      * with the fields specified in args
      * @throws ParseException if there are invalid/unfilled fields.
-     * TODO: Handling of preamble before command mode
      */
     private AddHealthWorkerCommand parseAddHealthWorker(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
@@ -121,26 +118,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         HealthWorker healthWorker = new HealthWorker(name, nric, phone, organization, skills);
 
         return new AddHealthWorkerCommand(healthWorker);
-    }
-
-    /**
-     * Extracts a Person object from the given object and returns it.
-     * @throws ParseException if there are invalid/unfilled fields.
-     */
-    private Person getPersonFromArgs(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_NRIC);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE)
-            || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonCommand.MESSAGE_USAGE));
-        }
-
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
-
-        return new Person(name, nric, phone);
     }
 
 }

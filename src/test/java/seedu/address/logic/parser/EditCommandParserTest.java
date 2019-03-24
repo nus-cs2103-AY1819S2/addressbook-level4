@@ -27,138 +27,204 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BETTY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditHealthWorkerCommand;
 import seedu.address.logic.commands.EditHealthWorkerCommand.EditHealthWorkerDescriptor;
-import seedu.address.logic.commands.EditPersonCommand;
-import seedu.address.logic.commands.EditPersonCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.request.EditRequestCommand;
+import seedu.address.logic.commands.request.EditRequestCommand.EditRequestDescriptor;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditRequestDescriptorBuilder;
 
-// TODO: Modify tests to include command mode after all commands implemented using command mode.
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
-    private static final String MODE_OTHERS = CommandMode.MODE_OTHERS + " ";
     private static final String MODE_HEALTHWORKER = CommandMode.MODE_HEALTHWORKER + " ";
+    private static final String MODE_REQUEST = CommandMode.MODE_REQUEST + " ";
 
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditPersonCommand.MESSAGE_USAGE);
+    private static final String INVALID_EDIT_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommandParser.INVALID_COMMAND_USAGE);
+    private static final String INVALID_HEALTHWORKER_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditHealthWorkerCommand.MESSAGE_USAGE);
+    private static final String INVALID_REQUEST_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditRequestCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
-    public void parse_missingParts_failure() {
+    public void parse_healthWorker_missingParts() {
         // no index specified
-        assertParseFailure(parser, MODE_OTHERS + VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, MODE_HEALTHWORKER + VALID_NAME_AMY, INVALID_HEALTHWORKER_FORMAT);
 
         // no field specified
-        assertParseFailure(parser, MODE_OTHERS + "1", EditPersonCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1", EditHealthWorkerCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "", INVALID_EDIT_FORMAT);
     }
 
     @Test
-    public void parse_invalidPreamble_failure() {
+    public void parse_request_missingParts() {
+        // no index specified
+        assertParseFailure(parser, MODE_REQUEST + VALID_NAME_AMY, INVALID_REQUEST_FORMAT);
+
+        // no field specified
+        assertParseFailure(parser, MODE_REQUEST + "1", EditRequestCommand.MESSAGE_NOT_EDITED);
+
+        // no index and no field specified
+        assertParseFailure(parser, "", INVALID_EDIT_FORMAT);
+    }
+
+    @Test
+    public void parse_healthWorker_invalidPreamble() {
         // negative index
-        assertParseFailure(parser, MODE_OTHERS + "-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, MODE_HEALTHWORKER + "-5" + NAME_DESC_AMY, INVALID_HEALTHWORKER_FORMAT);
 
         // zero index
-        assertParseFailure(parser, MODE_OTHERS + "0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, MODE_HEALTHWORKER + "0" + NAME_DESC_AMY, INVALID_HEALTHWORKER_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, MODE_OTHERS + "1 some random string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1 some random string", INVALID_HEALTHWORKER_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, MODE_OTHERS + "1 d/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1 d/ string", INVALID_HEALTHWORKER_FORMAT);
     }
 
     @Test
-    public void parse_invalidValue_failure() {
+    public void parse_request_invalidPreamble() {
+        // negative index
+        assertParseFailure(parser, MODE_REQUEST + "-5" + NAME_DESC_AMY, INVALID_REQUEST_FORMAT);
+
+        // zero index
+        assertParseFailure(parser, MODE_REQUEST + "0" + NAME_DESC_AMY, INVALID_REQUEST_FORMAT);
+
+        // invalid arguments being parsed as preamble
+        assertParseFailure(parser, MODE_REQUEST + "1 some random string", INVALID_REQUEST_FORMAT);
+
+        // invalid prefix being parsed as preamble
+        assertParseFailure(parser, MODE_REQUEST + "1 d/ string", INVALID_REQUEST_FORMAT);
+    }
+
+    @Test
+    public void parse_healthWorker_invalidValue() {
         // invalid name
-        assertParseFailure(parser, MODE_OTHERS + "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
         // invalid phone
-        assertParseFailure(parser, MODE_OTHERS + "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
         // invalid nric
-        assertParseFailure(parser, MODE_OTHERS + "1" + INVALID_NRIC_DESC, Nric.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1" + INVALID_NRIC_DESC, Nric.MESSAGE_CONSTRAINTS);
 
 
         // invalid phone followed by valid name
-        assertParseFailure(parser, MODE_OTHERS + "1" + INVALID_PHONE_DESC + NAME_DESC_ANDY,
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1" + INVALID_PHONE_DESC + NAME_DESC_ANDY,
                 Phone.MESSAGE_CONSTRAINTS);
 
         // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
-        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
-        assertParseFailure(parser, MODE_OTHERS + "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC,
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC,
                 Phone.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, MODE_OTHERS + "1" + INVALID_NAME_DESC + VALID_PHONE_AMY,
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1" + INVALID_NAME_DESC + VALID_PHONE_AMY,
                 Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() {
+    public void parse_request_invalidValue() {
+        // invalid name
+        assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
+        // invalid phone
+        assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS);
+        // invalid nric
+        assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_NRIC_DESC, Nric.MESSAGE_CONSTRAINTS);
+        // invalid address
+        assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS);
+
+        // invalid phone followed by valid name
+        assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_PHONE_DESC + NAME_DESC_ANDY,
+                Phone.MESSAGE_CONSTRAINTS);
+
+        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
+        assertParseFailure(parser, MODE_REQUEST + "1" + PHONE_DESC_BOB + INVALID_PHONE_DESC,
+                Phone.MESSAGE_CONSTRAINTS);
+
+        // multiple invalid values, but only the first invalid value is captured
+        assertParseFailure(parser, MODE_REQUEST + "1" + INVALID_NAME_DESC + VALID_PHONE_AMY,
+                Name.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_healthWorker_allFields() {
         Index targetIndex = INDEX_SECOND;
-        String userInput = MODE_OTHERS + targetIndex.getOneBased() + PHONE_DESC_BOB + NAME_DESC_AMY + NRIC_DESC_AMY;
+        String userInput = MODE_HEALTHWORKER + targetIndex.getOneBased() + PHONE_DESC_BOB
+                + NAME_DESC_AMY + NRIC_DESC_AMY;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withNric(VALID_NRIC_AMY).build();
-        EditPersonCommand expectedCommand = new EditPersonCommand(targetIndex, descriptor);
+        EditHealthWorkerCommand expectedCommand = new EditHealthWorkerCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() {
+    public void parse_request_allFields() {
+        // TODO: Some fields missing for EditRequestDescriptorBuilder
+    }
+
+    @Test
+    public void parse_healthWorker_someFields() {
         Index targetIndex = INDEX_FIRST;
-        String userInput = MODE_OTHERS + targetIndex.getOneBased() + PHONE_DESC_BOB;
+        String userInput = MODE_HEALTHWORKER + targetIndex.getOneBased() + PHONE_DESC_BOB;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        EditPersonCommand expectedCommand = new EditPersonCommand(targetIndex, descriptor);
+        EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder()
+                .withPhone(VALID_PHONE_BOB).build();
+        EditHealthWorkerCommand expectedCommand = new EditHealthWorkerCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() {
-        // name
-        Index targetIndex = INDEX_THIRD;
-        String userInput = MODE_OTHERS + targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
-        EditPersonCommand expectedCommand = new EditPersonCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // phone
-        userInput = MODE_OTHERS + targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
-        expectedCommand = new EditPersonCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-    }
-
-    @Test
-    public void parse_multipleRepeatedFields_acceptsLast() {
+    public void parse_request_someFields() {
         Index targetIndex = INDEX_FIRST;
-        String userInput = MODE_OTHERS + targetIndex.getOneBased() + PHONE_DESC_AMY + PHONE_DESC_AMY + PHONE_DESC_BOB;
+        String userInput = MODE_REQUEST + targetIndex.getOneBased() + PHONE_DESC_BOB;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        EditPersonCommand expectedCommand = new EditPersonCommand(targetIndex, descriptor);
+        EditRequestDescriptor descriptor = new EditRequestDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
+        EditRequestCommand expectedCommand = new EditRequestCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_healthWorker_repeatedFields() {
+        Index targetIndex = INDEX_FIRST;
+        String userInput = MODE_HEALTHWORKER + targetIndex.getOneBased() + PHONE_DESC_AMY
+                + PHONE_DESC_AMY + PHONE_DESC_BOB;
+
+        EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder()
+                .withPhone(VALID_PHONE_BOB).build();
+        EditHealthWorkerCommand expectedCommand = new EditHealthWorkerCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_request_repeatedFields() {
+        Index targetIndex = INDEX_FIRST;
+        String userInput = MODE_REQUEST + targetIndex.getOneBased() + PHONE_DESC_AMY
+                + PHONE_DESC_AMY + PHONE_DESC_BOB;
+
+        EditRequestDescriptor descriptor = new EditRequestDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
+        EditRequestCommand expectedCommand = new EditRequestCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -167,43 +233,24 @@ public class EditCommandParserTest {
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST;
-        String userInput = MODE_OTHERS + targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        EditPersonCommand expectedCommand = new EditPersonCommand(targetIndex, descriptor);
+        String userInput = MODE_HEALTHWORKER + targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
+        EditHealthWorkerDescriptor descriptor = new EditHealthWorkerDescriptorBuilder()
+                .withPhone(VALID_PHONE_BOB).build();
+        EditHealthWorkerCommand expectedCommand = new EditHealthWorkerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = MODE_OTHERS + targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
-        expectedCommand = new EditPersonCommand(targetIndex, descriptor);
+        userInput = MODE_HEALTHWORKER + targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
+        descriptor = new EditHealthWorkerDescriptorBuilder()
+                .withPhone(VALID_PHONE_BOB).build();
+        expectedCommand = new EditHealthWorkerCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    // ======================================== Tests for parsing HealthWorker ========================================
-    // @author Lookaz
-
-    @Test
-    public void parseEditHealthWorker_invalidPreamble() {
-        // missing index
-        assertParseFailure(parser, VALID_NAME_ANDY, MESSAGE_INVALID_FORMAT);
-
-        // negative index
-        assertParseFailure(parser, "-5" + NAME_DESC_ANDY, MESSAGE_INVALID_FORMAT);
-
-        // zero index
-        assertParseFailure(parser, "0" + NAME_DESC_ANDY, MESSAGE_INVALID_FORMAT);
-
-        // invalid prefix
-        assertParseFailure(parser, "1 d/ string" + NAME_DESC_ANDY, MESSAGE_INVALID_FORMAT);
-
-        // invalid argument as preamble
-        assertParseFailure(parser, "1 some random string" + NAME_DESC_ANDY, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parseEditHealthWorker_invalidFields() {
         // no field specified
-        assertParseFailure(parser, "1 ", EditHealthWorkerCommand.MESSAGE_NOT_EDITED);
+        assertParseFailure(parser, MODE_HEALTHWORKER + "1", EditHealthWorkerCommand.MESSAGE_NOT_EDITED);
 
         // invalid field descriptions
         assertParseFailure(parser, MODE_HEALTHWORKER + "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);

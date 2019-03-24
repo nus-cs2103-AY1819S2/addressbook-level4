@@ -85,6 +85,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     // Default descriptions for Health Worker objects
     public static final String MODE_HEALTHWORKER = " " + PREFIX_ADD_HEALTHWORKER;
+    public static final String INVALID_MODE = " " + "invalid";
     public static final String NAME_DESC_ANDY = " " + PREFIX_NAME + VALID_NAME_ANDY;
     public static final String NAME_DESC_BETTY = " " + PREFIX_NAME + VALID_NAME_BETTY;
     public static final String NRIC_DESC_ANDY = " " + PREFIX_NRIC + VALID_NRIC_ANDY;

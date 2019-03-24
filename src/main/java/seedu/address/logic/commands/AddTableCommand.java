@@ -53,7 +53,7 @@ public class AddTableCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddTableCommand && tableStatusList
-                .equals(((AddTableCommand) other).tableStatusList));
+                || (other instanceof AddTableCommand
+                && tableStatusList.equals(((AddTableCommand) other).tableStatusList));
     }
 }

@@ -77,6 +77,14 @@ public class TableStatus {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return this == other
+                || (other instanceof TableStatus
+                && numberOfSeats.equals(((TableStatus) other).numberOfSeats) && numberOfTakenSeats
+                .equals(((TableStatus) other).numberOfTakenSeats));
+    }
+
+    @Override
     public String toString() {
         return numberOfTakenSeats + "/" + numberOfSeats;
     }

@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORIENTATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -41,12 +42,17 @@ public class PutShipCommandParser implements Parser<PutShipCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Coordinates coordinates = ParserUtil.parseCoordinates(argMultimap.getValue(PREFIX_COORDINATES).get());
         Orientation orientation = ParserUtil.parseOrientation(argMultimap.getValue(PREFIX_ORIENTATION).get());
-        Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        // Default 1 by 1 battleship
-        Battleship battleship = ParserUtil.parseBattleship(name, tagSet);
+        if (arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+            Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        return new PutShipCommand(coordinates, battleship, orientation);
+            // Default 1 by 1 battleship
+            Battleship battleship = ParserUtil.parseBattleship(name, tagSet);
+
+            return new PutShipCommand(coordinates, ParserUtil.parseBattleship(name, tagSet), orientation);
+        }
+
+        return new PutShipCommand(coordinates, ParserUtil.parseBattleship(name, new HashSet<>()), orientation);
     }
 
     /**

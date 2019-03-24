@@ -5,9 +5,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.TopDeckBuilder;
 
 import java.nio.file.Path;
@@ -94,25 +97,49 @@ public class ModelManagerTest {
         modelManager.hasCard(null);
     }
 
-    @Test
-    public void hasCard_cardNotInTopDeck_returnsFalse() {
-        assertFalse(modelManager.hasCard(ADDITION));
-    }
+    //TODO for card
+//    @Test
+//    public void hasCard_cardNotInTopDeck_returnsFalse() {
+//        assertFalse(modelManager.hasCard(ADDITION));
+//    }
 
     @Test
-    public void hasCard_cardInTopDeck_returnsTrue() {
-        modelManager.addCard(ADDITION);
-        assertTrue(modelManager.hasCard(ADDITION));
+    public void hasDeck_deckNotInTopDeck_returnsFalse() {
+        assertFalse(modelManager.hasDeck(DECK_A));
     }
+
+    //TODO for card
+//    @Test
+//    public void hasCard_cardInTopDeck_returnsTrue() {
+//        modelManager.addCard(ADDITION);
+//        assertTrue(modelManager.hasCard(ADDITION));
+//    }
 
     @Test
-    public void deleteCard_cardIsSelectedAndFirstCardInFilteredCardList_selectionCleared() {
-        modelManager.addCard(ADDITION);
-        modelManager.setSelectedItem(ADDITION);
-        modelManager.deleteCard(ADDITION);
-        assertEquals(null, modelManager.getSelectedItem());
+    public void hasDeck_deckInTopDeck_returnsTrue() {
+        modelManager.addDeck(DECK_A);
+        assertTrue(modelManager.hasDeck(DECK_A));
     }
 
+    //TODO for card
+//    @Test
+//    public void deleteCard_cardIsSelectedAndFirstCardInFilteredCardList_selectionCleared() {
+//        modelManager.addCard(ADDITION);
+//        modelManager.setSelectedItem(ADDITION);
+//        modelManager.deleteCard(ADDITION);
+//        assertEquals(null, modelManager.getSelectedItem());
+//    }
+
+    //TODO delete functionality for deck
+//    @Test
+//    public void deleteDeck_deckIsSelectedAndFirstDeckInFilteredDeckList_selectionCleared() {
+//        modelManager.addDeck(DECK_A);
+//        modelManager.setSelectedItem(DECK_A);
+//        modelManager.deleteDeck(DECK_A);
+//        assertEquals(null, modelManager.getSelectedItem());
+//    }
+
+    //TODO for card
     @Test
     public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
         modelManager.addCard(ADDITION);
@@ -123,14 +150,36 @@ public class ModelManagerTest {
         assertEquals(ADDITION, modelManager.getSelectedItem());
     }
 
-    @Test
-    public void setCard_cardIsSelected_selectedCardUpdated() {
-        modelManager.addCard(ADDITION);
-        modelManager.setSelectedItem(ADDITION);
-        Card updatedAddition = new CardBuilder(ADDITION).withAnswer(VALID_ANSWER_MOD).build();
-        modelManager.setCard(ADDITION, updatedAddition);
-        assertEquals(updatedAddition, modelManager.getSelectedItem());
-    }
+    //TODO add delete deck functionality
+//    @Test
+//    public void deleteDeck_deckIsSelectedAndSecondDeckInFilteredDeckList_firstDeckSelected() {
+//        modelManager.addDeck(DECK_A);
+//        modelManager.addDeck(DECK_B);
+//        assertEquals(Arrays.asList(DECK_A, DECK_B), modelManager.getFilteredList());
+//        modelManager.setSelectedItem(DECK_B);
+//        modelManager.deleteDeck(DECK_B);
+//        assertEquals(DECK_A, modelManager.getSelectedItem());
+//    }
+
+    //TODO for card
+//    @Test
+//    public void setCard_cardIsSelected_selectedCardUpdated() {
+//        modelManager.addCard(ADDITION);
+//        modelManager.setSelectedItem(ADDITION);
+//        Card updatedAddition = new CardBuilder(ADDITION).withAnswer(VALID_ANSWER_MOD).build();
+//        modelManager.setCard(ADDITION, updatedAddition);
+//        assertEquals(updatedAddition, modelManager.getSelectedItem());
+//    }
+
+    //TODO add setDeck
+//    @Test
+//    public void setDeck_deckIsSelected_selectedDeckUpdated() {
+//        modelManager.addDeck(DECK_A);
+//        modelManager.setSelectedItem(DECK_A);
+//        Deck updatedAddition = new DeckBuilder(DECK_A).build();
+//        modelManager.setDeck(DECK_A, updatedAddition);
+//        assertEquals(updatedAddition, modelManager.getSelectedItem());
+//    }
 
     @Test
     public void getFilteredList_modifyList_throwsUnsupportedOperationException() {
@@ -144,12 +193,21 @@ public class ModelManagerTest {
         modelManager.setSelectedItem(ADDITION);
     }
 
+    //TODO for card
+//    @Test
+//    public void setSelectedItem_cardInFilteredCardList_setsSelectedCard() {
+//        modelManager.addCard(ADDITION);
+//        assertEquals(Collections.singletonList(ADDITION), modelManager.getFilteredList());
+//        modelManager.setSelectedItem(ADDITION);
+//        assertEquals(ADDITION, modelManager.getSelectedItem());
+//    }
+
     @Test
-    public void setSelectedItem_cardInFilteredCardList_setsSelectedCard() {
-        modelManager.addCard(ADDITION);
-        assertEquals(Collections.singletonList(ADDITION), modelManager.getFilteredList());
-        modelManager.setSelectedItem(ADDITION);
-        assertEquals(ADDITION, modelManager.getSelectedItem());
+    public void setSelectedItem_deckInFilteredDeckList_setsSelectedDeck() {
+        modelManager.addDeck(DECK_A);
+        assertEquals(Collections.singletonList(DECK_A), modelManager.getFilteredList());
+        modelManager.setSelectedItem(DECK_A);
+        assertEquals(DECK_A, modelManager.getSelectedItem());
     }
 
     @Test
@@ -175,9 +233,15 @@ public class ModelManagerTest {
         // different topDeck -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentTopDeck, userPrefs)));
 
+        //TODO for card
+//        // different filteredList -> returns false
+//        String[] keywords = ADDITION.getQuestion().split("\\s+");
+//        modelManager.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+//        assertFalse(modelManager.equals(new ModelManager(topDeck, userPrefs)));
+
         // different filteredList -> returns false
-        String[] keywords = ADDITION.getQuestion().split("\\s+");
-        modelManager.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        String keyword = DECK_A.getName().toString();
+        modelManager.updateFilteredList(new DeckNameContainsKeywordsPredicate((Arrays.asList(keyword))));
         assertFalse(modelManager.equals(new ModelManager(topDeck, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

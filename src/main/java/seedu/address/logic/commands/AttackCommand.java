@@ -2,8 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.EnumSet;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.battle.AttackResult;
+import seedu.address.logic.battle.state.BattleState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.cell.Coordinates;
@@ -27,24 +30,29 @@ public class AttackCommand extends Command {
     private Coordinates coord;
 
     public AttackCommand(Coordinates coord) {
+        requireNonNull(coord);
         this.coord = coord;
+        setPermissibleStates(EnumSet.of(BattleState.PLAYER_ATTACK));
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        // assert canExecuteIn(model.getBattleState());
 
         Player human = model.getHumanPlayer();
+        AttackResult res;
+
+        // check if the coordinate is already hit, prevent duplicate attacks
         if (human.addToTargetHistory(coord)) {
-            AttackResult res = model.getBattle().humanPerformAttack(coord);
+            res = model.getBattle().humanPerformAttack(coord);
         } else {
             throw new CommandException("You have already attacked cell " + coord);
         }
 
         model.updateUi();
 
-        return new CommandResult(
-                String.format("Attacked cell %s", coord.toString()));
+        return new CommandResult(res.toString());
     }
 
     @Override

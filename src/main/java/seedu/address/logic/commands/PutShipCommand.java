@@ -74,11 +74,7 @@ public class PutShipCommand extends Command {
 
         try {
             checkEnoughBattleships(model, battleship, 1);
-            if (this.orientation.isHorizontal()) {
-                putAlongHorizontal(model, coordinates, battleship);
-            } else {
-                putAlongVertical(model, coordinates, battleship);
-            }
+            put(model, coordinates, battleship, orientation);
             model.deployBattleship(battleship, coordinates, orientation);
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
@@ -117,6 +113,29 @@ public class PutShipCommand extends Command {
                     colIndex.getZeroBased());
 
             cellToInspect.putShip(battleship);
+        }
+    }
+
+    /**
+     * Puts the *same* battleship object along horizontal length.
+     * Pre-conditions: there are NO existing battleships along the horizontal length, else will throw
+     * and exception.
+     */
+    public static void put(Model model, Coordinates coordinates,
+                           Battleship battleship, Orientation orientation) {
+        int rowIndexAsInt = coordinates.getRowIndex().getZeroBased();
+        int colIndexAsInt = coordinates.getColIndex().getZeroBased();
+
+        int rowInt = rowIndexAsInt;
+        int colInt = colIndexAsInt;
+
+        for (int i = 0; i < battleship.getLength(); i++) {
+            if (orientation.isHorizontal()) {
+                colInt = colIndexAsInt + i;
+            } else {
+                rowInt = rowIndexAsInt + i;
+            }
+            model.getHumanMapGrid().putShip(new Coordinates(rowInt, colInt), battleship);
         }
     }
 

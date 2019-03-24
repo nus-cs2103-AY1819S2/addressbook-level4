@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.quiz;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class QuizDifficultCommandTest {
 
 
     @Before
-    public void setup() {
+    public void setUp() {
         final QuizCard quizCardJapan = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard quizCardHungary = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> validQuizCard = Arrays.asList(quizCardJapan, quizCardHungary);
@@ -59,5 +61,6 @@ public class QuizDifficultCommandTest {
 
         QuizCommandTestUtil.assertCommandSuccess(new QuizDifficultCommand(), quizModel, commandHistory,
             expectedMessage, expectedModel);
+        assertEquals(expectedModel, quizModel);
     }
 }

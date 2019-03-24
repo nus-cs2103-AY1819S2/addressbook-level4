@@ -224,8 +224,6 @@ public class QuizTest {
     @Test
     public void toggleIsCardDifficult() {
         final int index = 0;
-        final String correctAnswer = "Tokyo";
-        final String wrongAnswer = "wrong answer";
         final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));

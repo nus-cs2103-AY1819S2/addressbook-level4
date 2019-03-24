@@ -99,8 +99,7 @@ public class LogicManagerTest {
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz);
         expectedModel.getNextCard();
-
-        QuizCard expectedCard = expectedModel.getNextCard();
+        expectedModel.getNextCard();
         CommandResult expected = new CommandResult("");
 
         quizModel.init(new Quiz(quizCards, Quiz.Mode.LEARN));

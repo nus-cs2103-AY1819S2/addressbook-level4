@@ -151,7 +151,7 @@ public class MainWindow extends UiPart<Stage> {
      * Changes the Ui setting between management and quiz mode
      */
     private void handleModeSwitching() {
-        if (mode.equals("management")) {
+        if ("management".equals(mode)) {
             splitPane.setDividerPosition(0, 0.1);
             sidePanel.setMinWidth(340);
             sidePanel.setPrefWidth(340);

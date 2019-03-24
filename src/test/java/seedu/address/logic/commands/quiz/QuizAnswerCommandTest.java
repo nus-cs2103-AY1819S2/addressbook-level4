@@ -31,7 +31,7 @@ public class QuizAnswerCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
-    public void setup() {
+    public void setUp() {
         final QuizCard quizCardJapan = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard quizCardHungary = new QuizCard("Hungary", "Budapest");
         validQuizCard = Arrays.asList(quizCardJapan, quizCardHungary);

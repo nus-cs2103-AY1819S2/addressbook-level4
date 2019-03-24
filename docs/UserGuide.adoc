@@ -118,12 +118,10 @@ Examples:
 === Editing book entry : `editBook`
 
 Edits an existing book entry (eg. edit the mark, author or tag). +
-Format: `edit n/BOOKNAME [a/AUTHOR] [m/RATING] [t/TAG]...`
+Format: `editBook INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 ****
-* Edits the book entry with exact name BOOKNAME.
-* The search by book name is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does matter. e.g. `Alice Wonderland` will not match `Wonderland Alice`
+* Edits the book at the specified INDEX. The index refers to the index number shown in the displayed book list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the book will be removed i.e adding of tags is not cumulative.
@@ -132,28 +130,27 @@ Format: `edit n/BOOKNAME [a/AUTHOR] [m/RATING] [t/TAG]...`
 
 Examples:
 
-* `edit n/Alice in Wonderland a/some author t/some tag` +
-Change the author of book called “Alice in Wonderland” to some author and some tags.
-* `edit n/Alice in Wonderland t/` +
-Clear all the existing tags of the book named Alice in Wonderland.
+* `edit 1 n/Alice in Wonderland a/some author t/some tag` +
+Change the name, author, tag of the first book to Alice in Wonderland, some author, some tag.
+* `edit 2 t/` +
+Clear all the existing tags of the second book in the result list.
 
 === Deleting a book : `deleteBook`
 
 Deletes the specified book from the book list. +
-Format: `deleteBook n/BOOKNAME`
+Format: `deleteBook INDEX`
 
 ****
-* Deletes the book of the specified `BOOKNAME`.
-* Edits the book entry with exact name BOOKNAME.
-* The search by book name is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does matter. e.g. `Alice Wonderland` will not match `Wonderland Alice`
-* The `BOOKNAME` refers to the name of the book.
+* Deletes the book of the specified `INDEX`.
+* The index refers to the index number shown in the displayed book list.
+* The index must be a positive integer 1, 2, 3, …​
 ****
 
 Examples:
 
-* `deleteBook n/Alice in Wonderland` +
-Deletes the entry of Alice in Wonderland.
+* `listBook n/Computer Security` +
+`deleteBook 1` +
+Deletes the 1st person in the results of the listBook command.
 
 === Deleting a book review: `deleteReview`
 
@@ -168,6 +165,9 @@ Format: `deleteReview rt/REVIEW TITLE`
 
 Examples:
 
+* `listBook` +
+`deleteBook 2` +
+Deletes the 2nd person in the book shelf.
 * `listReview n/Alice in Wonderland` +
 `deleteReview rt/An interesting children's book` +
 Deletes the review with the title "An interesting children's book"

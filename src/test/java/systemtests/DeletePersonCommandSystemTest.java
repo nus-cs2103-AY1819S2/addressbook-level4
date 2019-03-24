@@ -30,7 +30,8 @@
 //     * TODO: Phased out. To be replaced with DeleteHealthWorker/DeleteRequestSystemTest.
 //     */
 //    public void delete() {
-//        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+//        /* ----------------- Performing delete operation while an unfiltered list is being shown ----------
+//        ---------- */
 //
 //        /* Case: delete the first person in the list, command witAh leading spaces and trailing spaces -> deleted */
 //        Model expectedModel = getModel();
@@ -60,7 +61,8 @@
 //        Index middlePersonIndex = getMidIndex(getModel());
 //        assertCommandSuccess(middlePersonIndex);
 //
-//        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
+//        /* ------------------ Performing delete operation while a filtered list is being shown ------
+//        ---------------- */
 //
 //        /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
 //        showPersonsWithName(KEYWORD_MATCHING_MEIER);
@@ -76,7 +78,8 @@
 //        command = DeletePersonCommand.COMMAND_WORD + " " + invalidIndex;
 //        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 //
-//        /* --------------------- Performing delete operation while a person card is selected ------------------------ */
+//        /* --------------------- Performing delete operation while a person card is selected ---------------------
+//        --- */
 //
 //        /* Case: delete the selected person -> person list panel selects the person before the deleted person */
 //        showAllPersons();
@@ -89,7 +92,8 @@
 //        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 //        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
 //
-//        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+//        /* --------------------------------- Performing invalid delete operation ------------------
+//        ------------------ */
 //
 //        /* Case: invalid index (0) -> rejected */
 //        command = DeletePersonCommand.COMMAND_WORD + " 0";
@@ -158,8 +162,10 @@
 //    }
 //
 //    /**
-//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
-//     * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
+//     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the
+//     browser url
+//     * and selected card are expected to update accordingly depending on the card at
+//     {@code expectedSelectedCardIndex}.
 //     * @see DeletePersonCommandSystemTest#assertCommandSuccess(String, Model, String)
 //     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
 //     */

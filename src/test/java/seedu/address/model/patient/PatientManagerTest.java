@@ -167,7 +167,7 @@ public class PatientManagerTest {
 
         assertEquals(patientManager.findPatientsByName("Pe"), sb.toString());
 
-        assertEquals(patientManager.findPatientsByName("Be"), "No patient record found\n");
+        assertEquals(patientManager.findPatientsByName("Be"), "No patient record found");
     }
 
     @Test
@@ -213,8 +213,9 @@ public class PatientManagerTest {
 
         assertEquals(patientManager.findPatientsByNric("S92"), sb.toString());
 
-        assertEquals(patientManager.findPatientsByNric("S88"), "No patient record found\n");
+        assertEquals(patientManager.findPatientsByNric("S88"), "No patient record found");
     }
+
 
     @Test
     public void findPatientByTag() {
@@ -266,7 +267,7 @@ public class PatientManagerTest {
         Tag tag = new Tag("Diabetes");
         Tag otherTag = new Tag("Highcholesterol");
         assertEquals(patientManager.findPatientsByTag(tag), sb.toString());
-        assertEquals(patientManager.findPatientsByTag(otherTag), "No patient record found\n");
+        assertEquals(patientManager.findPatientsByTag(otherTag), "No patient record found");
     }
 
     @Test

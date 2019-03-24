@@ -1,13 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.commands.ListPatientCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 public class ListPatientParserTest {
@@ -22,56 +21,40 @@ public class ListPatientParserTest {
     @Test
     public void defaultConstruction() {
         String userInput = " ";
-        try {
-            Assert.assertTrue(parser.parse(userInput).equals(new ListPatientCommand()));
-        } catch (ParseException pe) {
-            Assert.fail();
-        }
+        assertParseSuccess(parser, userInput, new ListPatientCommand());
     }
 
     @Test
     public void constructionByIndex() {
         String userInput = "1";
-        try {
-            Assert.assertTrue(parser.parse(userInput).equals(new ListPatientCommand(1)));
-        } catch (ParseException pe) {
-            Assert.fail();
-        }
+        assertParseSuccess(parser, userInput, new ListPatientCommand(1));
 
         //invalid index
         userInput = "a";
-        assertParseFailure(parser, userInput, "Index should be numeric");
+        assertParseFailure(parser, userInput, ListPatientParser.INDEX_NUMERIC);
     }
 
+    // even if the name does not seemed to follow the constraints of name, we still allow it
+    // to be parsed in to allow pattern checking when searching for records
+    // same applies for nric
     @Test
     public void constructionByName() {
+
         String userInput = " n/Be";
-        try {
-            Assert.assertTrue(parser.parse(userInput).equals(new ListPatientCommand("Be", true)));
-        } catch (ParseException pe) {
-            Assert.fail();
-        }
+        assertParseSuccess(parser, userInput, new ListPatientCommand("Be", true));
     }
 
     @Test
     public void constructionByNric() {
         String userInput = " r/S92";
-        try {
-            Assert.assertTrue(parser.parse(userInput).equals(new ListPatientCommand("S92", false)));
-        } catch (ParseException pe) {
-            Assert.fail();
-        }
+        assertParseSuccess(parser, userInput, new ListPatientCommand("S92", false));
     }
 
     @Test
     public void constructionByTag() {
         String userInput = " t/Diabetes";
         Tag tag = new Tag("Diabetes");
-        try {
-            Assert.assertTrue(parser.parse(userInput).equals(new ListPatientCommand(tag)));
-        } catch (ParseException pe) {
-            Assert.fail();
-        }
+        assertParseSuccess(parser, userInput, new ListPatientCommand(tag));
     }
 
 }

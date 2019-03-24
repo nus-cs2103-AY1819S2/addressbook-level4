@@ -23,6 +23,9 @@ public class ListPatientCommandTest {
 
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
+    private Patient patient1;
+    private Patient patient2;
+    private Patient patient3;
 
     @Before
     public void init() {
@@ -35,20 +38,20 @@ public class ListPatientCommandTest {
         Dob dob = new Dob("1991-01-01");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
         tagList.add(new Tag("Diabetes"));
-        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
 
         Name name2 = new Name("Jack Tan");
         Nric nric2 = new Nric("S9142356B");
         ArrayList<Tag> tagList2 = new ArrayList<Tag>();
         tagList2.add(new Tag("Highbloodpressure"));
-        Patient patient2 = new Patient(name2, nric2, email, address, contact, gender, dob, tagList2);
+        patient2 = new Patient(name2, nric2, email, address, contact, gender, dob, tagList2);
 
         Name name3 = new Name("Jeremy Toh");
         Nric nric3 = new Nric("S9132456C");
         ArrayList<Tag> tagList3 = new ArrayList<Tag>();
         tagList3.add(new Tag("Highbloodpressure"));
         tagList3.add(new Tag("Diabetes"));
-        Patient patient3 = new Patient(name3, nric3, email, address, contact, gender, dob, tagList3);
+        patient3 = new Patient(name3, nric3, email, address, contact, gender, dob, tagList3);
 
         modelManager.addPatient(patient1);
         modelManager.addPatient(patient2);
@@ -57,18 +60,24 @@ public class ListPatientCommandTest {
 
     @Test
     public void noPatientsToList() {
-        try {
-            ListPatientCommand listcommand = new ListPatientCommand();
-            //remove the three patients that were added in init
-            modelManager = new ModelManager();
-            listcommand.execute(modelManager, history);
-        } catch (CommandException ce) {
-            Assert.assertEquals(ce.getMessage().toString(), "No medical records to list");
-        }
+
+        // empty patient list
+
+        ListPatientCommand listcommand = new ListPatientCommand();
+        modelManager = new ModelManager();
+        seedu.address.testutil.Assert.assertThrows(CommandException.class, () ->
+                listcommand.execute(modelManager, history));
     }
 
     @Test
-    public void nameListing() {
+    public void noPatientFoundName() {
+        ListPatientCommand listcommand = new ListPatientCommand("Ba", true);
+        seedu.address.testutil.Assert.assertThrows(CommandException.class, () ->
+                listcommand.execute(modelManager, history));
+    }
+
+    @Test
+    public void findPatientsStartingWithJ() {
         try {
             ListPatientCommand listPatientCommand = new ListPatientCommand("J", true);
 
@@ -95,9 +104,15 @@ public class ListPatientCommandTest {
             // list all patients starting with j
             Assert.assertEquals(listPatientCommand.execute(modelManager, history).getFeedbackToUser(),
                     sb.toString());
+        } catch (Exception e) {
+            Assert.fail();
+        }
+    }
 
+    @Test
+    public void findPatientsStartingWithJo() {
+        try {
             // list a single patient that fulfills the search criteria
-
             Name name = new Name("John Tan");
             Nric nric = new Nric("S9123456A");
             Email email = new Email("jtan@gmail.com");
@@ -109,8 +124,8 @@ public class ListPatientCommandTest {
             tagList.add(new Tag("Diabetes"));
             Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
 
-            listPatientCommand = new ListPatientCommand("Jo", true);
-            sb = new StringBuilder();
+            ListPatientCommand listPatientCommand = new ListPatientCommand("Jo", true);
+            StringBuilder sb = new StringBuilder();
             sb.append("Listing patients:\n");
             sb.append("==============================\n");
             sb.append(patient1.toString());
@@ -118,12 +133,16 @@ public class ListPatientCommandTest {
             Assert.assertEquals(listPatientCommand.execute(modelManager, history).getFeedbackToUser(),
                     sb.toString());
 
-            listPatientCommand = new ListPatientCommand("Ba", true);
-            listPatientCommand.execute(modelManager, history);
-
-        } catch (CommandException ce) {
-            Assert.assertEquals(ce.toString(), "No patient record found");
+        } catch (Exception e) {
+            Assert.fail();
         }
+    }
+
+    @Test
+    public void noPatientWithGivenNric() {
+        ListPatientCommand listPatientCommand = new ListPatientCommand("S88", true);
+        seedu.address.testutil.Assert.assertThrows(CommandException.class, () ->
+                listPatientCommand.execute(modelManager, history));
     }
 
     @Test
@@ -177,12 +196,17 @@ public class ListPatientCommandTest {
             Assert.assertEquals(listPatientCommand.execute(modelManager, history).getFeedbackToUser(),
                     sb.toString());
 
-            listPatientCommand = new ListPatientCommand("S88", true);
-            listPatientCommand.execute(modelManager, history);
-
         } catch (CommandException ce) {
-            Assert.assertEquals(ce.toString(), "No patient record found");
+            Assert.fail();
         }
+    }
+
+    @Test
+    public void noPatientsFoundWithTag() {
+        Tag tag = new Tag("Gout");
+        ListPatientCommand listPatientCommand = new ListPatientCommand(tag);
+        seedu.address.testutil.Assert.assertThrows(CommandException.class, () ->
+                listPatientCommand.execute(modelManager, history));
     }
 
     @Test
@@ -208,13 +232,8 @@ public class ListPatientCommandTest {
             sb.append("\n");
             Assert.assertEquals(listPatientCommand.execute(modelManager, history).getFeedbackToUser(),
                     sb.toString());
-
-            tag = new Tag("Gout");
-            listPatientCommand = new ListPatientCommand(tag);
-            listPatientCommand.execute(modelManager, history);
-
         } catch (CommandException ce) {
-            Assert.assertEquals(ce.toString(), "No patient record found");
+            Assert.fail();
         }
     }
 

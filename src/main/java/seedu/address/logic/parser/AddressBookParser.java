@@ -106,6 +106,7 @@ public class AddressBookParser {
             return new EditPatientParser().parse(arguments);
 
         case ListPatientCommand.COMMAND_WORD:
+        case ListPatientCommand.COMMAND_ALIAS:
             return new ListPatientParser().parse(arguments);
 
         case ConsultationCommand.COMMAND_WORD:

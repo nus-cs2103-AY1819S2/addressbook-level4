@@ -33,9 +33,10 @@ public class EditPatientCommand extends Command {
 
     public static final String COMMAND_WORD = "editpat";
     public static final String COMMAND_ALIAS = "ep";
-    public static final String NO_PATIENT_FOUND = "No patient with NRIC: %s found";
-    public static final String CONFLICTING_NRIC = "Edited NRIC will conflict with another existing entry";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a patient by first specifying the NRIC. \n"
+    public static final String NO_PATIENTS = "No patients records found to edit.\n";
+    public static final String NO_PATIENT_FOUND = "No patient with NRIC: %s found.\n";
+    public static final String CONFLICTING_NRIC = "Edited NRIC will conflict with another existing entry.\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a patient by first specifying the NRIC.\n"
             + "Parameters: "
             + "ORIGINAL NRIC "
             + PREFIX_NAME + "NEW NAME "
@@ -66,7 +67,7 @@ public class EditPatientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (model.isPatientListEmpty()) {
-            throw new CommandException("No patients records found to edit");
+            throw new CommandException(NO_PATIENTS);
         }
 
         //if (!model.checkValidIndex(index)) {
@@ -82,7 +83,7 @@ public class EditPatientCommand extends Command {
         Patient editedPatient = createEditedPatient(patient, editedFields);
 
         if (model.checkDuplicatePatientAfterEdit(index, editedPatient)) {
-            throw new CommandException("Edited NRIC will conflict with another existing entry");
+            throw new CommandException(CONFLICTING_NRIC);
         }
 
         model.replacePatient(index, editedPatient);

@@ -108,7 +108,7 @@ public class PatientManager {
         }
 
         if (foundPatients.size() == 0) {
-            return "No patient record found\n";
+            return "No patient record found";
         }
 
         if (foundPatients.size() > 1) {
@@ -136,7 +136,7 @@ public class PatientManager {
         }
 
         if (foundPatients.size() == 0) {
-            return "No patient record found\n";
+            return "No patient record found";
         }
 
         if (foundPatients.size() > 1) {
@@ -203,7 +203,7 @@ public class PatientManager {
         }
 
         if (foundPatients.size() == 0) {
-            return "No patient record found\n";
+            return "No patient record found";
         }
 
         if (foundPatients.size() > 1) {

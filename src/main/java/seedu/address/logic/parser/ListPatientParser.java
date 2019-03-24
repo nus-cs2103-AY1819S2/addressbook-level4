@@ -10,6 +10,7 @@ import seedu.address.model.tag.Tag;
  */
 public class ListPatientParser implements Parser<ListPatientCommand> {
 
+    public static final String INDEX_NUMERIC = "Index should be numeric";
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_NRIC = new Prefix("r/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
@@ -22,7 +23,7 @@ public class ListPatientParser implements Parser<ListPatientCommand> {
         if (!argMultimap.getPreamble().isEmpty()) {
 
             if (!argMultimap.getPreamble().trim().matches("\\d+")) {
-                throw new ParseException("Index should be numeric");
+                throw new ParseException(INDEX_NUMERIC);
             }
 
             int index = Integer.valueOf(argMultimap.getPreamble());

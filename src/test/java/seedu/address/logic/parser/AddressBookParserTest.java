@@ -168,23 +168,23 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_listPatient() throws Exception {
-        String userInput = "plist r/S92";
+        String userInput = "listpat r/S92";
         ListPatientCommand command1 = new ListPatientCommand("S92", false);
         assertEquals(command1, parser.parseCommand(userInput));
 
-        userInput = "plist n/pe";
+        userInput = "listpat n/pe";
         ListPatientCommand command2 = new ListPatientCommand("pe", true);
         assertEquals(command2, parser.parseCommand(userInput));
 
-        userInput = "plist t/diabetes";
+        userInput = "listpat t/diabetes";
         ListPatientCommand command3 = new ListPatientCommand(new Tag("diabetes"));
         assertEquals(command3, parser.parseCommand(userInput));
 
-        userInput = "plist 1";
+        userInput = "listpat 1";
         ListPatientCommand command4 = new ListPatientCommand(1);
         assertEquals(command4, parser.parseCommand(userInput));
 
-        userInput = "plist";
+        userInput = "listpat";
         ListPatientCommand command5 = new ListPatientCommand();
         assertEquals(command5, parser.parseCommand(userInput));
     }

@@ -20,7 +20,7 @@ import seedu.address.logic.commands.request.EditRequestCommand.EditRequestDescri
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EditPersonCommand object
+ * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser implements Parser<EditCommand> {
 

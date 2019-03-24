@@ -163,21 +163,15 @@ public class Pdf {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Directory: ")
+                .append("\nDirectory: ")
                 .append(getDirectory())
-                .append(" Size: ")
+                .append("\nSize: ")
                 .append(getSize())
-                .append(" Tags: ");
-        //.append(" Phone: ")
-        //.append(getPhone())
-        //.append(" Email: ")
-        //.append(getEmail())
-        //.append(" Address: ")
-        //.append(getAddress())
+                .append("\nTags: ");
         getTags().forEach(builder::append);
 
         if (getDeadline().exists()) {
-            builder.append(" Deadline: ").append(getDeadline().getValue().toString());
+            builder.append("\nDeadline: ").append(getDeadline().getValue().toString());
         }
 
         return builder.toString();

@@ -4,8 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_4;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_5;
+import static seedu.address.testutil.TypicalPdfs.*;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -67,26 +66,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Pdf dpdf = SAMPLE_PDF_4;
-        Pdf epdf = SAMPLE_PDF_5;
-        AddCommand addDCommand = new AddCommand(dpdf);
-        AddCommand addECommand = new AddCommand(epdf);
+        Pdf samplePdf6 = SAMPLE_PDF_6;
+        Pdf samplePdf7 = SAMPLE_PDF_7;
+        AddCommand addCommandSamplePdf6 = new AddCommand(samplePdf6);
+        AddCommand addCommandSamplePdf7 = new AddCommand(samplePdf7);
 
         // same object -> returns true
-        assertTrue(addDCommand.equals(addDCommand));
+        assertTrue(addCommandSamplePdf6.equals(addCommandSamplePdf6));
 
         // same values -> returns true
-        AddCommand addDCommandCopy = new AddCommand(dpdf);
-        assertTrue(addDCommand.equals(addDCommandCopy));
+        AddCommand addDCommandCopy = new AddCommand(samplePdf6);
+        assertTrue(addCommandSamplePdf6.equals(addDCommandCopy));
 
         // different types -> returns false
-        assertFalse(addDCommand.equals(1));
+        assertFalse(addCommandSamplePdf6.equals(1));
 
         // null -> returns false
-        assertFalse(addDCommand.equals(null));
+        assertFalse(addCommandSamplePdf6.equals(null));
 
         // different pdf -> returns false
-        assertFalse(addDCommand.equals(addECommand));
+        assertFalse(addCommandSamplePdf6.equals(addCommandSamplePdf7));
     }
 
     /**

@@ -56,7 +56,7 @@ public class Weblink {
     /**
      * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
      */
-    public static boolean isValidWeblinkURL(String urlString) {
+    public static boolean isValidWeblinkUrl(String urlString) {
         try {
             URL u = new URL(urlString);
             HttpURLConnection huc = (HttpURLConnection) u.openConnection();

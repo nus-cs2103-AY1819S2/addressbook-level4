@@ -144,7 +144,6 @@ Format: `list`
 
 ====
 * This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort.
-* The default ordering is by questions alphabetically.
 ====
 
 ==== Exit folder : `change ..`

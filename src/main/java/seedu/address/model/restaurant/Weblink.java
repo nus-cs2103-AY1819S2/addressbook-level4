@@ -14,6 +14,7 @@ import java.net.URL;
 public class Weblink {
 
     public static final String NO_WEBLINK_STRING = "No weblink added";
+    public static final String INVALID_URL_MESSAGE = "Weblink entered is not found. Please enter a correct weblink";
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Weblinks should be of the format https://local-part.domain "
             + "and adhere to the following constraints:\n"
@@ -52,6 +53,26 @@ public class Weblink {
         return test.matches(VALIDATION_REGEX) || test.matches(NO_WEBLINK_STRING);
     }
 
+    /**
+     * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
+     */
+    public static boolean isValidWeblinkURL(String urlString) {
+        try {
+            URL u = new URL(urlString);
+            HttpURLConnection huc = (HttpURLConnection) u.openConnection();
+            huc.setRequestMethod("HEAD");
+            huc.connect();
+            if (huc.getResponseCode() < 400) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+
     public static Weblink makeDefaultWeblink() {
         return new Weblink(NO_WEBLINK_STRING);
     }
@@ -68,21 +89,6 @@ public class Weblink {
                 && value.equals(((Weblink) other).value)); // state check
     }
 
-    public boolean isValidWeblinkURL(String urlString) {
-        try {
-            URL u = new URL(urlString);
-            HttpURLConnection huc = (HttpURLConnection) u.openConnection();
-            huc.setRequestMethod("HEAD");
-            huc.connect();
-            if (huc.getResponseCode() < 400) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (IOException e) {
-            return false;
-        }
-    }
 
     @Override
     public int hashCode() {

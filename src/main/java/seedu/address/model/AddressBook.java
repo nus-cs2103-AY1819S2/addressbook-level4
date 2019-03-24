@@ -152,7 +152,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The medical history identity of {@code editedMedHist} must not be the same as another existing medical history
      * in the address book.
      */
-    public void setMedHists(MedicalHistory target, MedicalHistory editedMedHist) {
+    public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
         requireNonNull(editedMedHist);
 
         medHists.setMedHist(target, editedMedHist);

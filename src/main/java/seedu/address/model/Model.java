@@ -10,7 +10,6 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.Doctor;
 
-
 /**
  * The API of the Model component.
  */

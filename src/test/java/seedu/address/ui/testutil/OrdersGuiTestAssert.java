@@ -37,9 +37,9 @@ public class OrdersGuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedOrderItem}.
      */
-    public static void assertCardDisplaysTable(Table expecteedTable, TableCardHandle actualCard) {
-        assertEquals(expecteedTable.getTableNumber().toString(), actualCard.getTableNumber());
-        assertEquals(expecteedTable.getTableStatus().toString(), actualCard.getTableStatus());
+    public static void assertCardDisplaysTable(Table expectedTable, TableCardHandle actualCard) {
+        assertEquals(expectedTable.getTableNumber().toString(), actualCard.getTableNumber());
+        assertEquals(expectedTable.getTableStatus().toString(), actualCard.getTableStatus());
     }
 
     /**

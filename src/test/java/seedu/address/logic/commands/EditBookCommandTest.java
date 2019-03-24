@@ -242,6 +242,6 @@ public class EditBookCommandTest {
         assertFalse(standardCommand.equals(new EditBookCommand(INDEX_SECOND_BOOK, DESC_ALI)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditBookCommand(INDEX_FIRST_BOOK, DESC_CS));
+        assertFalse(standardCommand.equals(new EditBookCommand(INDEX_FIRST_BOOK, DESC_CS)));
     }
 }

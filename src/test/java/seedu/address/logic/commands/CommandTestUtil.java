@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_HEALTHWORKER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_OTHERS;
@@ -14,19 +13,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.request.EditRequestCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
 import seedu.address.testutil.EditRequestDescriptorBuilder;
@@ -192,36 +186,6 @@ public class CommandTestUtil {
             assertEquals(expectedSelectedPerson, actualModel.getSelectedPerson());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-     */
-    public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
-
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
-
-        assertEquals(1, model.getFilteredPersonList().size());
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the HealthWorker at the given {@code targetIndex} in the
-     * {@code model}'s address book.
-     */
-    public static void showHealthWorkerAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredHealthWorkerList().size());
-
-        HealthWorker healthWorker = model.getFilteredHealthWorkerList().get(targetIndex.getZeroBased());
-        final String[] splitName = healthWorker.getName().fullName.split("\\s+");
-        model.updateFilteredHealthWorkerList(p -> Arrays.asList(splitName[0]).stream().anyMatch(
-            keyword -> StringUtil.containsWordIgnoreCase(p.getName().fullName, keyword)
-        ));
-
-        assertEquals(1, model.getFilteredHealthWorkerList().size());
     }
 
     /**

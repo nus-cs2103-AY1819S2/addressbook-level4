@@ -101,22 +101,20 @@ public class MainApp extends Application {
             healthWorkerBookOptional = storage.readHealthWorkerBook();
             requestBookOptional = storage.readRequestBook();
             if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+                logger.info("AddressBook file not found. Will be starting with a sample AddressBook");
             }
 
             if (!requestBookOptional.isPresent()) {
-                logger.info("Request file not found. Will be starting with sample RequestBook");
+                logger.info("RequestBook file not found. Will be starting with sample RequestBook");
             }
-            initialRequestBook = requestBookOptional.get();
-            // TODO: Jing to Implement SampleDataUtil for HealthHub
+            if (!healthWorkerBookOptional.isPresent()) {
+                logger.info("HealthWorkerBook file not found. Will be starting with a sample HealthWorkerBook");
+            }
+            initialRequestBook = requestBookOptional.orElseGet(SampleDataUtil::getSampleRequestBook);
             initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample HealthWorkerBook");
-            }
-            // initialHealthWorkerBook =
-            // healthWorkerBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialHealthWorkerBook = healthWorkerBookOptional.orElseGet(SampleDataUtil::getSampleHealthWorkerBook);
 
-            initialHealthWorkerBook = healthWorkerBookOptional.get();
+
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with empty books");
             initialAddressBook = new AddressBook();

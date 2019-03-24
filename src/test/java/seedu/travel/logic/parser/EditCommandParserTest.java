@@ -5,11 +5,15 @@ import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.DATE_VISITED_DESC_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.DATE_VISITED_DESC_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.DESCRIPTION_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.DESCRIPTION_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_COUNTRY_CODE_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_DESCRIPTION;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_FORMAT_DATE_VISITED_DESC;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_FUTURE_DATE_VISITED_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -22,6 +26,8 @@ import static seedu.travel.logic.commands.CommandTestUtil.VALID_ADDRESS_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_COUNTRY_CODE_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_DATE_VISITED_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_DATE_VISITED_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_DESCRIPTION_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_NAME_AMK;
@@ -43,6 +49,7 @@ import seedu.travel.logic.commands.EditCommand;
 import seedu.travel.logic.commands.EditCommand.EditPlaceDescriptor;
 import seedu.travel.model.place.Address;
 import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
 import seedu.travel.model.place.Rating;
@@ -91,6 +98,8 @@ public class EditCommandParserTest {
             + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1"
             + INVALID_COUNTRY_CODE_DESC, CountryCode.MESSAGE_CONSTRAINTS); // invalid country code
+        assertParseFailure(parser, "1"
+            + INVALID_FORMAT_DATE_VISITED_DESC, DateVisited.MESSAGE_INCORRECT_FORMAT); // invalid date format
         assertParseFailure(parser, "1" + INVALID_RATING_DESC, Rating.MESSAGE_CONSTRAINTS); // invalid rating
         assertParseFailure(parser, "1" + INVALID_DESCRIPTION,
                 Description.MESSAGE_CONSTRAINTS); // invalid description
@@ -102,12 +111,20 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_COUNTRY_CODE_DESC
             + DESCRIPTION_AMK, CountryCode.MESSAGE_CONSTRAINTS);
 
+        // invalid date visited followed by valid description
+        assertParseFailure(parser, "1" + INVALID_FORMAT_DATE_VISITED_DESC
+            + DESCRIPTION_AMK, DateVisited.MESSAGE_INCORRECT_FORMAT);
+
         // invalid rating followed by valid description
         assertParseFailure(parser, "1" + INVALID_RATING_DESC + DESCRIPTION_AMK, Rating.MESSAGE_CONSTRAINTS);
 
         // valid country code followed by invalid country code.
         assertParseFailure(parser, "1" + COUNTRY_CODE_DESC_BEDOK
             + INVALID_COUNTRY_CODE_DESC, CountryCode.MESSAGE_CONSTRAINTS);
+
+        // valid date visited followed by invalid date visited.
+        assertParseFailure(parser, "1" + DATE_VISITED_DESC_BEDOK
+            + INVALID_FUTURE_DATE_VISITED_DESC, DateVisited.MESSAGE_FUTURE_DATE_ADDED);
 
         // valid rating followed by invalid rating. The test case for invalid rating followed by valid rating
         // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
@@ -123,22 +140,24 @@ public class EditCommandParserTest {
                 + TAG_DESC_EWL, Tag.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_DESCRIPTION
-                + VALID_ADDRESS_AMK + VALID_RATING_AMK, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_COUNTRY_CODE_DESC
+            + INVALID_FUTURE_DATE_VISITED_DESC + INVALID_DESCRIPTION + VALID_ADDRESS_AMK + VALID_RATING_AMK,
+            Name.MESSAGE_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PLACE;
-        String userInput = targetIndex.getOneBased() + RATING_DESC_BEDOK + COUNTRY_CODE_DESC_AMK + TAG_DESC_EWL
-                + DESCRIPTION_AMK + ADDRESS_DESC_AMK + NAME_DESC_AMK + TAG_DESC_MRT;
+        String userInput = targetIndex.getOneBased() + RATING_DESC_AMK + COUNTRY_CODE_DESC_AMK
+                + DATE_VISITED_DESC_AMK + TAG_DESC_EWL + DESCRIPTION_AMK + ADDRESS_DESC_AMK
+                + NAME_DESC_AMK + TAG_DESC_MRT;
 
         EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withName(VALID_NAME_AMK)
                 .withCountryCode(VALID_COUNTRY_CODE_AMK)
-                .withRating(VALID_RATING_BEDOK).withDescription(VALID_DESCRIPTION_AMK).withAddress(VALID_ADDRESS_AMK)
+                .withDateVisited(VALID_DATE_VISITED_AMK)
+                .withRating(VALID_RATING_AMK).withDescription(VALID_DESCRIPTION_AMK).withAddress(VALID_ADDRESS_AMK)
                 .withTags(VALID_TAG_EWL, VALID_TAG_MRT).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -164,12 +183,17 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        /*
-        userInput = targetIndex.getOneBased() + COUNTRY_CODE_DESC_AMK;
-        descriptor = new EditPlaceDescriptorBuilder().withCountryCode(VALID_COUNTRY_CODE_AMK).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-        */
+        // Country Code
+        // userInput = targetIndex.getOneBased() + COUNTRY_CODE_DESC_AMK;
+        // descriptor = new EditPlaceDescriptorBuilder().withCountryCode(VALID_COUNTRY_CODE_AMK).build();
+        // expectedCommand = new EditCommand(targetIndex, descriptor);
+        // assertParseSuccess(parser, userInput, expectedCommand);
+
+        // Date visited
+        // userInput = targetIndex.getOneBased() + DATE_VISITED_DESC_AMK;
+        // descriptor = new EditPlaceDescriptorBuilder().withDateVisited(VALID_DATE_VISITED_AMK).build();
+        // expectedCommand = new EditCommand(targetIndex, descriptor);
+        // assertParseSuccess(parser, userInput, expectedCommand);
 
         // rating
         userInput = targetIndex.getOneBased() + RATING_DESC_AMK;
@@ -183,7 +207,7 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // travel
+        // address
         userInput = targetIndex.getOneBased() + ADDRESS_DESC_AMK;
         descriptor = new EditPlaceDescriptorBuilder().withAddress(VALID_ADDRESS_AMK).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -201,11 +225,12 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_PLACE;
         String userInput =
             targetIndex.getOneBased() + COUNTRY_CODE_DESC_AMK + RATING_DESC_AMK + ADDRESS_DESC_AMK + DESCRIPTION_AMK
-                + TAG_DESC_MRT + RATING_DESC_AMK + ADDRESS_DESC_AMK + COUNTRY_CODE_DESC_AMK
+                + TAG_DESC_MRT + RATING_DESC_AMK + DATE_VISITED_DESC_AMK + ADDRESS_DESC_BEDOK + COUNTRY_CODE_DESC_BEDOK
                 + DESCRIPTION_AMK + TAG_DESC_MRT + RATING_DESC_BEDOK + ADDRESS_DESC_BEDOK + DESCRIPTION_BEDOK
-                + TAG_DESC_EWL;
+                + DATE_VISITED_DESC_BEDOK + TAG_DESC_EWL;
 
         EditPlaceDescriptor descriptor = new EditPlaceDescriptorBuilder().withCountryCode(VALID_COUNTRY_CODE_BEDOK)
+                .withDateVisited(VALID_DATE_VISITED_BEDOK)
                 .withRating(VALID_RATING_BEDOK)
                 .withDescription(VALID_DESCRIPTION_BEDOK).withAddress(VALID_ADDRESS_BEDOK)
                 .withTags(VALID_TAG_MRT, VALID_TAG_EWL).build();
@@ -224,10 +249,13 @@ public class EditCommandParserTest {
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
-        userInput = targetIndex.getOneBased() + DESCRIPTION_BEDOK + INVALID_RATING_DESC + ADDRESS_DESC_BEDOK
-                + RATING_DESC_BEDOK;
+        userInput = targetIndex.getOneBased() + COUNTRY_CODE_DESC_BEDOK + DESCRIPTION_BEDOK
+                + INVALID_RATING_DESC + ADDRESS_DESC_BEDOK + DATE_VISITED_DESC_BEDOK + RATING_DESC_BEDOK;
         descriptor = new EditPlaceDescriptorBuilder().withRating(VALID_RATING_BEDOK)
-                .withDescription(VALID_DESCRIPTION_BEDOK).withAddress(VALID_ADDRESS_BEDOK).build();
+                .withCountryCode(VALID_COUNTRY_CODE_BEDOK)
+                .withDateVisited(VALID_DATE_VISITED_BEDOK)
+                .withDescription(VALID_DESCRIPTION_BEDOK)
+                .withAddress(VALID_ADDRESS_BEDOK).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

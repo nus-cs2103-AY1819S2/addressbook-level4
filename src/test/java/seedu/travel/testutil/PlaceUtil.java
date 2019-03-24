@@ -2,6 +2,7 @@ package seedu.travel.testutil;
 
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
@@ -33,6 +34,7 @@ public class PlaceUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + place.getName().fullName + " ");
         sb.append(PREFIX_COUNTRY_CODE + place.getCountryCode().code + " ");
+        sb.append(PREFIX_DATE_VISITED + place.getDateVisited().date + " ");
         sb.append(PREFIX_RATING + place.getRating().value + " ");
         sb.append(PREFIX_DESCRIPTION + place.getDescription().value + " ");
         sb.append(PREFIX_ADDRESS + place.getAddress().value + " ");
@@ -50,6 +52,8 @@ public class PlaceUtil {
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getCountryCode().ifPresent(countryCode -> sb.append(PREFIX_COUNTRY_CODE)
             .append(countryCode.code).append(" "));
+        descriptor.getDateVisited().ifPresent(dateVisited -> sb.append(PREFIX_DATE_VISITED)
+            .append(dateVisited.date).append(" "));
         descriptor.getRating().ifPresent(rating -> sb.append(PREFIX_RATING).append(rating.value).append(" "));
         descriptor.getDescription().ifPresent(description -> sb.append(PREFIX_DESCRIPTION).append(description.value)
                 .append(" "));

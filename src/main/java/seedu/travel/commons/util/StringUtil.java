@@ -8,6 +8,8 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Set;
 
+import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
 
 /**
@@ -87,6 +89,8 @@ public class StringUtil {
         checkArgument(!preppedRating.isEmpty(), "Rating parameter cannot be empty");
         checkArgument(preppedRating.split("\\s+").length == 1,
                 "Rating parameter should be a single value from 1 to 5");
+        checkArgument(Rating.isValidRating(preppedRating),
+                "Rating parameter should be a single value from 1 to 5");
 
         String preppedRatingsList = ratingsList;
         String[] ratingsInPreppedRatingsList = preppedRatingsList.split("\\s+");
@@ -116,6 +120,8 @@ public class StringUtil {
         checkArgument(!preppedCountryCode.isEmpty(), "Country Code parameter cannot be empty");
         checkArgument(preppedCountryCode.split("\\s+").length == 1,
             "Country Code parameter should be a single word");
+        checkArgument(CountryCode.isValidCountryCode(preppedCountryCode),
+                "Country codes should only contain a three-letter alphabets");
 
         String preppedCountryCodeList = countryCodeList;
         String[] countryCodesInPreppedCountryCodeList = preppedCountryCodeList.split("\\s+");

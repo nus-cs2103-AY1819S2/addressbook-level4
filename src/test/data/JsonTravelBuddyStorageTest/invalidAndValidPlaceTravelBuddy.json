@@ -2,12 +2,14 @@
   "places": [ {
     "name": "Valid Place",
     "countryCode" : "SGP",
+    "dateVisited" : "10/10/2015",
     "rating": "4",
     "description": "No description",
     "address": "4th street"
   }, {
     "name": "Place With Invalid Rating Field",
     "countryCode" : "SGP",
+    "dateVisited" : "10/10/2015",
     "rating": "9",
     "description": "No description",
     "address": "4th street"

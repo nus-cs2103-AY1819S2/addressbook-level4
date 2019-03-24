@@ -9,6 +9,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import seedu.travel.logic.commands.SearchRatingCommand;
+import seedu.travel.model.place.Rating;
 import seedu.travel.model.place.RatingContainsKeywordsPredicate;
 
 public class SearchRatingCommandParserTest {
@@ -18,6 +19,12 @@ public class SearchRatingCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SearchRatingCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidArg_throwsParseException() {
+        assertParseFailure(parser, "7 5", String.format(Rating.MESSAGE_CONSTRAINTS,
                 SearchRatingCommand.MESSAGE_USAGE));
     }
 

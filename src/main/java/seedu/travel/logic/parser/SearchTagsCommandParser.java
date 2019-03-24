@@ -9,7 +9,7 @@ import seedu.travel.logic.parser.exceptions.ParseException;
 import seedu.travel.model.place.TagContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new SearchRatingCommand object
+ * Parses input arguments and creates a new SearchTagsCommand object
  */
 public class SearchTagsCommandParser implements Parser<SearchTagsCommand> {
 

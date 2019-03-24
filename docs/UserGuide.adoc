@@ -19,13 +19,15 @@ By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 
 == Introduction
 
-*Know-It-All* is a solution for those who find carrying physical flashcards around troublesome and prefer an application to help them store and organize their learning material. *Know-It-All*’s easy to use interface and digital storage allow users to effectively utilize intermittent breaks between lessons to cramp in that last bit of knowledge. *Know-It-All* is targeted at medicine students in NUS as their studies requires a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
+*Know-It-All* is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, *Know-It-All* is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. *Know-It-All* targets medicine students in NUS as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
 
-Head over to <<Quick Start>> to get started!
+== About
+
+Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide closely and the rest will be a breeze.  Head over to <<Quick Start>> to get started.
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+.  Ensure that you have Java version `9` or later installed in your Computer.
 .  Download the latest `know-it-all.jar` here (to be coming in v2.0).
 .  Copy the file to the folder you want to use as the home folder for *Know-It-All*.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -34,10 +36,10 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Some commands you can try:
 
 * *`change`* `1` : enter the 1st flashcard folder
-* *`list`* : lists all flashcards in that folder
+* *`list`* : lists all flashcards in the current folder
 * **`add`**`q/How many chambers are there in a heart? a/Four` : adds a new flashcard to the current folder.
 * **`delete`**`3` : deletes the 3rd flashcard shown in the current folder
 * *`exit`* : exits the app
@@ -50,13 +52,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add f/Human Anatomy`.
+* Commands are written in monospaced font, e.g. `sort`
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addfolder FOLDER_NAME`, `FOLDER_NAME` is a parameter which can be used as `add Human Anatomy`.
 * Items in square brackets are optional e.g HINTS in `add q/QUESTION a/ANSWER [h/HINTS]`.
 * Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
 ====
 
 === Card Operations
-Commands listed in this section affect the cards within a single folder.
+Commands listed in this section affect the <<flashcard, flashcards>> within a single <<folder, folder>>.
 
 [NOTE]
 The commands in this section can only be executed when the user is within a folder
@@ -79,7 +82,7 @@ Examples:
 
 ==== Editing a flashcard : `edit`
 
-Edits the flashcard specified by the index in the current folder.
+Edits the flashcard specified by the <<index, index>> in the current folder.
 
 Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 
@@ -117,17 +120,17 @@ Deletes the flashcard identified by index from the current folder.
 
 Format: `delete INDEX`
 
-****
+====
 * Deletes the card at the specified `INDEX`.
 * The index refers to the index number shown in the displayed card list.
 * The index *must be a positive integer* 1, 2, 3, ...
-****
+====
 
 * `list` +
 `delete 2` +
 Deletes the 2nd card in the address book.
 
-==== Sort cards by score within a folder : `sort`
+==== Sort flashcards by score within a folder : `sort`
 
 Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.
 
@@ -154,7 +157,7 @@ Examples:
 
 * `change 2` +
 `change ..` +
-The first command enters the second folder in the folder list on the home directory. The second command then returns the user back to the home directory by exiting the folder.
+The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns the user back to the home directory by exiting the folder.
 
 === Folder Operations
 Commands listed in this section affect the application and not a single folder.
@@ -219,7 +222,7 @@ This feature will enable users to join multiple folders together, reducing the n
 Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
 
 === Test Operations
-As medical students, loads of time are spent memorising the content of these flashcards. It is time to test how much information have been internalised and retained in a timed setting. The following commands detail the Test functionality in our application.
+After memorising the content of the flashcards, it is helpful to test how much information have been internalised and retained in a timed setting. The following commands show just how this can be done with the <<testsession, Test Session>> functionality of *Know-It-All*.
 
 ==== Test flashcards in a folder : `test`
 
@@ -256,8 +259,8 @@ currently displayed flashcard question. Know-It-All compares the attempt with th
 shows if it is correct or wrong.
 
 ====
-* The total number of attempts will be incremented. If the answer is correct, the number of correct attempts will also be incremented.
-* Answer matching is case insensitive
+* Answering a flashcard will increase the total number of attempts. If the answer is correct, the action will also increase the number of correct attempt.
+* Answer matching is case insensitive.
 ====
 
 
@@ -307,6 +310,7 @@ Quits the current test session.
 Format: `end`
 
 === Global Operations
+The commands shown in this section are applicable irregardless of whether the user is inside a folder or at the home directory.
 
 ==== Search by keywords : `search`
 
@@ -328,7 +332,7 @@ Creates a json file containing the flashcards from the specified folder, which c
 Format: `export FOLDER_INDEX FILENAME`
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+==== Undoing previous command : `undo`
 
 Restores the application to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -354,7 +358,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+==== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -386,6 +390,18 @@ Format: `help`
 Exits the program.
 
 Format: `exit`
+
+
+== Glossary
+
+* [[flashcard]] **Flashcard/Card**: An object containing a single question and answer, and optionally hints.
+* [[folder]] **Folder**: A collections of flashcards, grouped topically. There are no
+sub-folders.
+* [[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
+questions displayed. The user is required to key in an answer for each question.
+* [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
+* [[index]] **Index**: The unique number associated with an item in a list. The first item in a list has an index of 1.
+
 
 == Command Summary
 [width="100%",cols="20%,<30%",options="header",]

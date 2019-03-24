@@ -8,9 +8,10 @@ import java.util.function.Predicate;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 
 /**
- * Tests that a module matches all of the description given.
+ * Tests that a module matches all description given.
  */
 public class FindModulePredicate implements Predicate<Person> {
+
     private final FindModuleDescriptor findModuleDescriptor;
 
     public FindModulePredicate(FindModuleDescriptor findModuleDescriptor) {
@@ -23,13 +24,13 @@ public class FindModulePredicate implements Predicate<Person> {
         requireNonNull(module);
         Name moduleCode = module.getModuleInfo();
 
-        Optional<String> code = findModuleDescriptor.getCode();
+        Optional<String> subCode = findModuleDescriptor.getSubCode();
         Optional<Semester> semester = findModuleDescriptor.getSemester();
         Optional<Grade> grade = findModuleDescriptor.getGrade();
         Optional<Boolean> isFinished = findModuleDescriptor.isFinished();
 
-        if (code.isPresent()
-                && !moduleCode.fullName.toLowerCase().contains(code.get())) {
+        if (subCode.isPresent()
+                && !moduleCode.fullName.toLowerCase().contains(subCode.get())) {
             return false;
         }
         if (semester.isPresent()
@@ -41,7 +42,7 @@ public class FindModulePredicate implements Predicate<Person> {
             return false;
         }
         if (isFinished.isPresent()
-                && (module.isFinished() != isFinished.get().booleanValue())) {
+                && (module.isFinished() != isFinished.get())) {
             return false;
         }
 

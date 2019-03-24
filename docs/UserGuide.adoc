@@ -186,16 +186,14 @@ Format: `exit`
 
 === Find module: `find`
 
-Finds module(s) in the module plan based on module code, semester, grade or finished status. +
-Module code can be entered partially, but semester and grade must be exact.
-Finished status must be 'y' (YES) or 'n' (NO).
-
+Finds module(s) in the module plan matching all given module code, semester, grade or finished status. +
 Format: `find [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]`
 
 ****
 * Parameters can be in any order.
 * Parameters are case-insensitive.
-* Modules matching ALL of the above parameters will be listed.
+* Module code can be entered partially, but semester and grade must be exact.
+* Enter 'y' for finished status to indicate finished module, or any other value to indicate unfinished.
 ****
 
 Examples:

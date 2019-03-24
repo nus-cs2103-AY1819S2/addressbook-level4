@@ -57,8 +57,8 @@ public class FindCommandTest {
         assertTrue(fc1.equals(fc1));
 
         // same values -> returns true
-        FindCommand f1Copy = new FindCommand(new FindModulePredicate(fd1));
-        assertTrue(fc1.equals(f1Copy));
+        FindCommand fc1Copy = new FindCommand(new FindModulePredicate(fd1));
+        assertTrue(fc1.equals(fc1Copy));
 
         // same values (ignoring case) -> returns true
         assertTrue(fc4.equals(fc5));
@@ -77,7 +77,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_invalidCode_noModuleFound() {
+    public void execute_nonExistingCode_noModuleFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
 
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode("2103cs").build();
@@ -133,7 +133,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
 
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode(KEYWORD_MATCHING_MEIER)
-                .withSemester("Y1S1").withGrade("A").build();
+                .withSemester("Y1S1").withGrade("A").withFinishedStatus("y").build();
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);
@@ -147,7 +147,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
 
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withSemester("Y4S2")
-                .withGrade("D").build();
+                .withGrade("D").withFinishedStatus("n").build();
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);
@@ -161,7 +161,7 @@ public class FindCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
 
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode(KEYWORD_MATCHING_MEIER)
-                .withSemester("Y3S2").build();
+                .withSemester("Y3S2").withFinishedStatus("n").build();
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);

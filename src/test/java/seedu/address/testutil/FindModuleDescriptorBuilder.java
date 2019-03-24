@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.person.Grade;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Semester;
@@ -25,16 +26,17 @@ public class FindModuleDescriptorBuilder {
      */
     public FindModuleDescriptorBuilder(Person module) {
         descriptor = new FindModuleDescriptor();
-        descriptor.setCode(module.getModuleInfo().fullName);
+        descriptor.setSubCode(module.getModuleInfo().fullName);
         descriptor.setSemester(module.getSemester());
         descriptor.setGrade(module.getExpectedMinGrade());
+        descriptor.setFinished(module.isFinished());
     }
 
     /**
-     * Sets the {@code code} of the {@code FindModuleDescriptor} that we are building.
+     * Sets the {@code subCode} of the {@code FindModuleDescriptor} that we are building.
      */
-    public FindModuleDescriptorBuilder withCode(String code) {
-        descriptor.setCode(code);
+    public FindModuleDescriptorBuilder withCode(String subCode) {
+        descriptor.setSubCode(subCode);
         return this;
     }
 
@@ -51,6 +53,14 @@ public class FindModuleDescriptorBuilder {
      */
     public FindModuleDescriptorBuilder withGrade(String grade) {
         descriptor.setGrade(Grade.valueOf(grade));
+        return this;
+    }
+
+    /**
+     * Sets the {@code isFinished} of the {@code FindModuleDescriptor} that we are building.
+     */
+    public FindModuleDescriptorBuilder withFinishedStatus(String finishedStatus) {
+        descriptor.setFinished(ParserUtil.parseFinishedStatus(finishedStatus));
         return this;
     }
 

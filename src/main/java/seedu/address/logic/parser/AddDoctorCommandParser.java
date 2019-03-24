@@ -13,9 +13,11 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddDoctorCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Age;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
 
@@ -47,9 +49,9 @@ public class AddDoctorCommandParser implements Parser<AddDoctorCommand> {
         Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_AGE).get());
         Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Set<Tag> specList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_SPECIALISATION));
+        Set<Specialisation> specList = ParserUtil.parseSpecialisations(argMultimap.getAllValues(PREFIX_SPECIALISATION));
 
-        return new AddDoctorCommand(name, gender, age, phone, specList);
+        return new AddDoctorCommand(new Doctor(name, phone, gender, age, specList));
     }
 
     /**

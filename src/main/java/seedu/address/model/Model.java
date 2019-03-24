@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Person;
 
 /**
@@ -139,4 +140,15 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Returns true if a doctor with the same identity as {@code doctor} exists in docX.
+     */
+    boolean hasDoctor(Doctor toAdd);
+
+    /**
+     * Adds the given doctor.
+     * {@code doctor} must not already exist in docX.
+     */
+    void addDoctor(Doctor toAdd);
 }

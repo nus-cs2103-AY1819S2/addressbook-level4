@@ -84,6 +84,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
+     */
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return doctors.contains(doctor);
+    }
+
+    /**
      * Adds a doctor to the address book.
      * The doctor must not already exist in the address book.
      */
@@ -141,6 +149,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+//    @Override
+    public ObservableList<Doctor> getDoctorList() {
+        return doctors.asUnmodifiableObservableList();
     }
 
     @Override

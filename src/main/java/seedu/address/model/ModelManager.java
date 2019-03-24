@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -29,6 +30,8 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<Doctor> filteredDoctors;
+    private final SimpleObjectProperty<Doctor> selectedDoctor = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -43,6 +46,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
+        filteredDoctors.addListener(this::ensureSelectedDoctorIsValid);
     }
 
     public ModelManager() {
@@ -111,6 +116,18 @@ public class ModelManager implements Model {
     @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return versionedAddressBook.hasDoctor(doctor);
+    }
+
+    @Override
+    public void addDoctor(Doctor doctor) {
+        versionedAddressBook.addDoctor(doctor);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -221,6 +238,35 @@ public class ModelManager implements Model {
                 // Select the person that came before it in the list,
                 // or clear the selection if there is no such person.
                 selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    /**
+     * Ensures {@code selectedDoctor} is a valid doctor in {@code filteredDoctors}.
+     */
+    private void ensureSelectedDoctorIsValid(ListChangeListener.Change<? extends Doctor> change) {
+        while (change.next()) {
+            if (selectedDoctor.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedDoctorReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedDoctor.getValue());
+            if (wasSelectedDoctorReplaced) {
+                // Update selectedPerson to its new value.
+                int index = change.getRemoved().indexOf(selectedPerson.getValue());
+                selectedDoctor.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedDoctorRemoved = change.getRemoved().stream()
+                    .anyMatch(removedDoctor -> selectedDoctor.getValue().isSameDoctor(removedDoctor));
+            if (wasSelectedDoctorRemoved) {
+                // Select the doctor that came before it in the list,
+                // or clear the selection if there is no such doctor.
+                selectedDoctor.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

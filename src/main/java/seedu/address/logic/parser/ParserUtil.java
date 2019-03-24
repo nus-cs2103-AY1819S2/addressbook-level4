@@ -17,6 +17,7 @@ import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.prescription.Description;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -167,6 +168,33 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String specialisation} into a {@code Specialisation}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code spec} is invalid.
+     */
+    public static Specialisation parseSpecialisation(String spec) throws ParseException {
+        requireNonNull(spec);
+        String trimmedSpec = spec.trim();
+        if (!Tag.isValidTagName(trimmedSpec)) {
+            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+        }
+        return new Specialisation(trimmedSpec);
+    }
+
+    /**
+     * Parses {@code Collection<String> specialisations} into a {@code Set<Specialisation>}.
+     */
+    public static Set<Specialisation> parseSpecialisations(Collection<String> specs) throws ParseException {
+        requireNonNull(specs);
+        final Set<Specialisation> specSet = new HashSet<>();
+        for (String spec : specs) {
+            specSet.add(parseSpecialisation(spec));
+        }
+        return specSet;
     }
 
     /**

@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.description.Description;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new RecordAddCommand object
  */
 public class RecordAddCommandParser implements Parser<RecordAddCommand> {
 

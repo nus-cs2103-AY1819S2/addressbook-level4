@@ -32,7 +32,7 @@ public class JsonSerializableTravelBuddyTest {
         TravelBuddy travelBuddyFromFile = dataFromFile.toModelType();
         TravelBuddy typicalPlacesTravelBuddy = TypicalPlaces.getTypicalTravelBuddy();
 
-        assertEquals(travelBuddyFromFile.toString(), typicalPlacesTravelBuddy.toString());
+        assertEquals(travelBuddyFromFile, typicalPlacesTravelBuddy);
     }
 
     @Test

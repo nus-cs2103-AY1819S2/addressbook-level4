@@ -280,4 +280,16 @@ public class PatientManagerTest {
         patient2 = patientManager.getPatientByNric(nric);
         assertFalse(patient1.equals(patient2));
     }
+
+    @Test
+    public void deletePatientByNric() {
+
+        // no matching nric
+        patientManager.deletePatientByNric("S9123457A");
+        assertTrue(patientManager.getPatientList().size() != 0);
+
+        // patient deleted
+        patientManager.deletePatientByNric("S9123456A");
+        assertTrue(patientManager.getPatientList().size() == 0);
+    }
 }

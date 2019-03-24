@@ -402,6 +402,43 @@ there might be requirements that are difficult to set properly.
 older CourseRequirement defined by user. Also alot of dependency issues in Storage and other areas
 //end::CourseRequirement[]
 
+//tag::recommend[]
+=== Module recommendation feature
+==== Current implementation
+The module recommendation feature generates a list of module codes representing the modules which the user is recommended to take,
+based on the user's module plan and course requirements. The entire list is printed on the GUI upon
+entering the `rec` command.
+
+Whenever the `rec` command is called, a `RecModulePredicate` and a `RecModuleComparator` are generated from the
+`ModelManager` given the user's `Course` and `ModulePlan`. This ensures that the recommendation list is updated
+according to any changes in `Course` and `ModulePlan`.
+
+The `RecModulePredicate` is applied to a `FilteredList` of `ModuleInfo` stored in `ModelManager`, to remove modules which
+the user is ineligible to take or does not contribute to the `CourseRequirement`.
+This `FilteredList` is wrapped in a `SortedList` which accepts the `RecModuleComparator`, sorting the list in
+decreasing priority of the `CourseReqType` satisfied by the module.
+If a module satisfies more than one `CourseReqType`, the one with the highest priority is selected.
+The order of priority is determined by the enum ordering in `CourseReqType`: Core, TE (covers TE/PE/FA), GE, UE.
+Modules with equal priority are sorted lexicographically, considering the fact that lower-level modules should usually be taken first.
+
+Within each test by the `RecModulePredicate`, a module is checked for the `CourseReqType`(s) it satisfies.
+The `CourseReqType` with highest priority, which has yet to be fully completed, is then selected.
+A mapping of the module code to this requirement is put into a `HashMap` stored in `Course`.
+Subsequently, within each comparison by the `RecModuleComparator`, the `CourseReqType` satisfied by the two modules are
+retrieved from the `HashMap` and compared. A new `HashMap` is created at the beginning of each `rec` command.
+
+==== Design considerations
+===== Aspect:
+
+
+
+
+
+
+
+
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.

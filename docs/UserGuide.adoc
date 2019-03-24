@@ -12,13 +12,13 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/cs2103-ay1819s2-t12-3/main
+:repoURL: https://github.com/CS2103-AY1819S2-T12-3/main
 
 By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-Welcome to the _MediTabs User Guide_. You can find step by step instructions on how to set up MediTabs and take advantage of the features provided by MediTabs to optimise your clinic's medicine stock taking workflow. Interested? You can jump to the <<Quick Start>> to start get started. Enjoy!
+Welcome to the _MediTabs User Guide_. You can find step by step instructions on how to set up MediTabs and take advantage of the features provided by MediTabs to optimise your clinic's medicine stock taking workflow. Interested? You can jump to the <<Quick Start>> to get started. Enjoy!
 
 === What is MediTabs?
 
@@ -49,7 +49,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
-.  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:https://github.com/CS2103-AY1819S2-T12-3/main/issues[here] and our team would do our best to assist you.
+.  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:{repoURL}/issues[here] and our team would do our best to assist you.
 
 [[Features]]
 == Features
@@ -254,14 +254,14 @@ Exports the current Medicine Inventory data shown in the GUI to a CSV file which
 Exports the current list shown in the GUI to a CSV file which has the filename `example`.
 
 [WARNING]
-If a file with the specified file name already exists in the default `exported` folder, the file would not exported and an error message `"Could not export data to csv file: {Specified File Name} already exists in "exported" directory"`
+If a file with the specified file name already exists in the default `exported` folder, the file would not be exported and an error message `"Could not export data to csv file: {Specified File Name} already exists in "exported" directory"`
 
 A sample image of how the Medicine Inventory data in the exported CSV file is organised:
 
 image::SampleCSVFileImage.png[width="790"]
 
 [NOTE]
-From the image above, you can observe that different batches of the same medicine have their own row in the CSV file. This provides a more detailed information on the quantity and expiry date for each batch of the same medicine as different batches of the same medicine can have different expiry dates and quantity.
+From the image above, you can observe that different batches of the same medicine have their own row in the CSV file. This provides more detailed information on the quantity and expiry date for each batch of the same medicine as different batches of the same medicine can have different expiry dates and quantity.
 
 === Printing labels : `label`
 

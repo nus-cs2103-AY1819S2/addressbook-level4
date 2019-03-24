@@ -1,5 +1,7 @@
 package seedu.address.model.pdf;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -92,7 +94,7 @@ public class Deadline {
      * @return - Number of Days to Deadline as long.
      */
     public long getDaysToDeadline() {
-        return LocalDate.now().datesUntil(this.date).count();
+        return DAYS.between(LocalDate.now(), this.date);
     }
 
     /**

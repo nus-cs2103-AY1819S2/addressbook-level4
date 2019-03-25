@@ -29,7 +29,7 @@ public class EndCommandTest {
         expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
 
         expectedModel.endTestSession();
-
+        expectedModel.exitFoldersToHome();
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, false, false,
                 false, false, null, true, AnswerCommandResultType.NOT_ANSWER_COMMAND);
         assertCommandSuccess(new EndCommand(), model, commandHistory, expectedCommandResult, expectedModel);

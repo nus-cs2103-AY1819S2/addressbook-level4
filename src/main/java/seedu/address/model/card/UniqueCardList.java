@@ -14,13 +14,20 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
+<<<<<<< HEAD
  * A card is considered unique by comparing using {@code Card#equals(Card)}. As such, adding and updating of
  * cards uses Card#equals(Card) for equality so as to ensure that the card being added or updated is
  * unique in terms of identity in the UniqueCardList.
+=======
+ * A card is considered unique by comparing using {@code Card#isSameCard(Card)}. As such, adding and updating of
+ * cards uses Card#isSameCard(Card) for equality so as to ensure that the card being added or updated is
+ * unique in terms of identity in the UniqueCardList. However, the removal of a card uses Card#equals(Object) so
+ * as to ensure that the card with exactly the same fields will be removed.
+>>>>>>> parent of 76f8cb02... replace all isSameCard with equal
  *
  * Supports a minimal set of list operations.
  *
- * @see Card#equals(Card)
+ * @see Card#isSameCard(Card)
  */
 public class UniqueCardList implements Iterable<Card> {
 
@@ -33,7 +40,7 @@ public class UniqueCardList implements Iterable<Card> {
      */
     public boolean contains(Card toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isSameCard);
     }
 
     /**
@@ -68,7 +75,7 @@ public class UniqueCardList implements Iterable<Card> {
             throw new CardNotFoundException();
         }
 
-        if (!target.equals(editedCard) && contains(editedCard)) {
+        if (!target.isSameCard(editedCard) && contains(editedCard)) {
             throw new DuplicateCardException();
         }
 
@@ -143,7 +150,7 @@ public class UniqueCardList implements Iterable<Card> {
     private boolean cardsAreUnique(List<Card> cards) {
         for (int i = 0; i < cards.size() - 1; i++) {
             for (int j = i + 1; j < cards.size(); j++) {
-                if (cards.get(i).equals(cards.get(j))) {
+                if (cards.get(i).isSameCard(cards.get(j))) {
                     return false;
                 }
             }

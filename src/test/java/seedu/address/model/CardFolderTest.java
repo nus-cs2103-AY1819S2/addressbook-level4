@@ -5,8 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
 import static seedu.address.testutil.TypicalCards.ALICE;
+import static seedu.address.testutil.TypicalCards.TYPICAL_FOLDER_SCORES;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -91,6 +93,19 @@ public class CardFolderTest {
     public void getCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         cardFolder.getCardList().remove(0);
+    }
+
+    @Test
+    public void setFolderScores_scoresSet() {
+        cardFolder.setFolderScores(TYPICAL_FOLDER_SCORES);
+        assertEquals(TYPICAL_FOLDER_SCORES, cardFolder.getFolderScores());
+    }
+
+    @Test
+    public void addFolderScore_scoreAdded() {
+        cardFolder.addFolderScore(0.5);
+        List<Double> newFolderScores = new ArrayList<>(Arrays.asList(0.5));
+        assertEquals(newFolderScores, cardFolder.getFolderScores());
     }
 
     @Test

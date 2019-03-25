@@ -51,6 +51,8 @@ public class TypicalCards {
 
     public static final String TYPICAL_FOLDER_NAME = "Typical Cards";
 
+    public static final List<Double> TYPICAL_FOLDER_SCORES = new ArrayList<>(Arrays.asList(0.5));
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalCards() {} // prevents instantiation
@@ -65,6 +67,7 @@ public class TypicalCards {
      */
     public static CardFolder getTypicalCardFolder() {
         CardFolder folder = new CardFolder(getTypicalFolderName());
+        folder.setFolderScores(TYPICAL_FOLDER_SCORES);
         for (Card card : getTypicalCards()) {
             folder.addCard(card);
         }

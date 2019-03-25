@@ -5,6 +5,7 @@ import static seedu.travel.commons.core.Messages.MESSAGE_INVALID_PLACE_DISPLAYED
 import static seedu.travel.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.DATE_VISITED_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.DESCRIPTION_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.NAME_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.RATING_DESC_AMK;
@@ -88,8 +89,8 @@ public class LogicManagerTest {
 
         // Execute add command
         String addCommand =
-            AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + RATING_DESC_AMK + DESCRIPTION_AMK
-                + ADDRESS_DESC_AMK;
+            AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK + RATING_DESC_AMK
+                + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         Place expectedPlace = new PlaceBuilder(AMK).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addPlace(expectedPlace);

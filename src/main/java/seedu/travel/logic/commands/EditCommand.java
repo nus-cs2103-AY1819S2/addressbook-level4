@@ -3,6 +3,7 @@ package seedu.travel.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
@@ -23,6 +24,7 @@ import seedu.travel.logic.commands.exceptions.CommandException;
 import seedu.travel.model.Model;
 import seedu.travel.model.place.Address;
 import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
 import seedu.travel.model.place.Place;
@@ -42,12 +44,14 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_COUNTRY_CODE + "COUNTRY_CODE] "
+            + "[" + PREFIX_DATE_VISITED + "DATE_VISITED] "
             + "[" + PREFIX_RATING + "RATING] "
             + "[" + PREFIX_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_COUNTRY_CODE + "SGP "
+            + PREFIX_DATE_VISITED + "23-03-2019 "
             + PREFIX_RATING + "4 "
             + PREFIX_DESCRIPTION + "No description";
 
@@ -101,13 +105,14 @@ public class EditCommand extends Command {
 
         Name updatedName = editPlaceDescriptor.getName().orElse(placeToEdit.getName());
         CountryCode updatedCountryCode = editPlaceDescriptor.getCountryCode().orElse(placeToEdit.getCountryCode());
+        DateVisited updatedDateVisited = editPlaceDescriptor.getDateVisited().orElse(placeToEdit.getDateVisited());
         Rating updatedRating = editPlaceDescriptor.getRating().orElse(placeToEdit.getRating());
         Description updatedDescription = editPlaceDescriptor.getDescription().orElse(placeToEdit.getDescription());
         Address updatedAddress = editPlaceDescriptor.getAddress().orElse(placeToEdit.getAddress());
         Set<Tag> updatedTags = editPlaceDescriptor.getTags().orElse(placeToEdit.getTags());
 
-        return new Place(updatedName, updatedCountryCode, updatedRating, updatedDescription, updatedAddress,
-            updatedTags);
+        return new Place(updatedName, updatedCountryCode, updatedDateVisited, updatedRating, updatedDescription,
+            updatedAddress, updatedTags);
     }
 
     @Override
@@ -135,6 +140,7 @@ public class EditCommand extends Command {
     public static class EditPlaceDescriptor {
         private Name name;
         private CountryCode countryCode;
+        private DateVisited dateVisited;
         private Rating rating;
         private Description description;
         private Address address;
@@ -149,6 +155,7 @@ public class EditCommand extends Command {
         public EditPlaceDescriptor(EditPlaceDescriptor toCopy) {
             setName(toCopy.name);
             setCountryCode(toCopy.countryCode);
+            setDateVisited(toCopy.dateVisited);
             setRating(toCopy.rating);
             setDescription(toCopy.description);
             setAddress(toCopy.address);
@@ -159,7 +166,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, rating, description, address, tags);
+            return CollectionUtil.isAnyNonNull(name, countryCode, rating, description, address, tags);
         }
 
         public void setName(Name name) {
@@ -176,6 +183,14 @@ public class EditCommand extends Command {
 
         public Optional<CountryCode> getCountryCode() {
             return Optional.ofNullable(countryCode);
+        }
+
+        public void setDateVisited(DateVisited dateVisited) {
+            this.dateVisited = dateVisited;
+        }
+
+        public Optional<DateVisited> getDateVisited() {
+            return Optional.ofNullable(dateVisited);
         }
 
         public void setRating(Rating rating) {
@@ -236,6 +251,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getCountryCode().equals(e.getCountryCode())
+                    && getDateVisited().equals(e.getDateVisited())
                     && getRating().equals(e.getRating())
                     && getDescription().equals(e.getDescription())
                     && getAddress().equals(e.getAddress())

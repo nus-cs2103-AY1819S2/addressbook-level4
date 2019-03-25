@@ -62,9 +62,5 @@ public class RatingContainsKeywordsPredicateTest {
         predicate = new RatingContainsKeywordsPredicate(Collections.singletonList("5"));
         assertFalse(predicate.test(new PlaceBuilder().withRating("3").build()));
 
-        // Keywords match name, description and travel, but does not match rating
-        predicate = new RatingContainsKeywordsPredicate(Arrays.asList("Alice", "None", "Main", "Street"));
-        assertFalse(predicate.test(new PlaceBuilder().withName("Alice").withRating("4")
-                .withDescription("None").withAddress("Main Street").build()));
     }
 }

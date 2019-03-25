@@ -5,11 +5,15 @@ import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.ADDRESS_DESC_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.COUNTRY_CODE_DESC_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.DATE_VISITED_DESC_AMK;
+import static seedu.travel.logic.commands.CommandTestUtil.DATE_VISITED_DESC_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.DESCRIPTION_AMK;
 import static seedu.travel.logic.commands.CommandTestUtil.DESCRIPTION_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_COUNTRY_CODE_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_DESCRIPTION;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_FORMAT_DATE_VISITED_DESC;
+import static seedu.travel.logic.commands.CommandTestUtil.INVALID_FUTURE_DATE_VISITED_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
 import static seedu.travel.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
@@ -20,6 +24,7 @@ import static seedu.travel.logic.commands.CommandTestUtil.RATING_DESC_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.TAG_DESC_EWL;
 import static seedu.travel.logic.commands.CommandTestUtil.TAG_DESC_MRT;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_ADDRESS_BEDOK;
+import static seedu.travel.logic.commands.CommandTestUtil.VALID_DATE_VISITED_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_DESCRIPTION_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_NAME_BEDOK;
 import static seedu.travel.logic.commands.CommandTestUtil.VALID_RATING_BEDOK;
@@ -42,6 +47,7 @@ import seedu.travel.logic.commands.UndoCommand;
 import seedu.travel.model.Model;
 import seedu.travel.model.place.Address;
 import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Description;
 import seedu.travel.model.place.Name;
 import seedu.travel.model.place.Place;
@@ -64,7 +70,7 @@ public class AddCommandSystemTest extends TravelBuddySystemTest {
         Place toAdd = AMK;
         String command =
             "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMK + "  " + COUNTRY_CODE_DESC_AMK + "  "
-                + RATING_DESC_AMK + "  "
+                + DATE_VISITED_DESC_AMK + "  " + RATING_DESC_AMK + "  "
                 + DESCRIPTION_AMK + "   " + ADDRESS_DESC_AMK + "   " + TAG_DESC_MRT + " ";
         assertCommandSuccess(command, toAdd);
 
@@ -82,8 +88,8 @@ public class AddCommandSystemTest extends TravelBuddySystemTest {
         /* Case: add a place with all fields same as another place in the travel book except name -> added */
         toAdd = new PlaceBuilder(AMK).withName(VALID_NAME_BEDOK).build();
         command =
-            AddCommand.COMMAND_WORD + NAME_DESC_BEDOK + COUNTRY_CODE_DESC_AMK + RATING_DESC_AMK
-                + DESCRIPTION_AMK + ADDRESS_DESC_AMK + TAG_DESC_MRT;
+            AddCommand.COMMAND_WORD + NAME_DESC_BEDOK + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK
+                + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK + TAG_DESC_MRT;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty travel book -> added */
@@ -94,7 +100,7 @@ public class AddCommandSystemTest extends TravelBuddySystemTest {
         toAdd = BEDOK;
         command =
             AddCommand.COMMAND_WORD + TAG_DESC_MRT + RATING_DESC_BEDOK + COUNTRY_CODE_DESC_BEDOK
-                + ADDRESS_DESC_BEDOK + NAME_DESC_BEDOK + TAG_DESC_EWL + DESCRIPTION_BEDOK;
+                + ADDRESS_DESC_BEDOK + NAME_DESC_BEDOK + TAG_DESC_EWL + DESCRIPTION_BEDOK + DATE_VISITED_DESC_BEDOK;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a place, missing tags -> added */
@@ -118,6 +124,11 @@ public class AddCommandSystemTest extends TravelBuddySystemTest {
         command = PlaceUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PLACE);
 
+        /* Case: add a duplicate place except with different date -> rejected */
+        toAdd = new PlaceBuilder(HOON).withDateVisited(VALID_DATE_VISITED_BEDOK).build();
+        command = PlaceUtil.getAddCommand(toAdd);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PLACE);
+
         /* Case: add a duplicate place except with different rating -> rejected */
         toAdd = new PlaceBuilder(HOON).withRating(VALID_RATING_BEDOK).build();
         command = PlaceUtil.getAddCommand(toAdd);
@@ -138,23 +149,33 @@ public class AddCommandSystemTest extends TravelBuddySystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PLACE);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
+        command = AddCommand.COMMAND_WORD + RATING_DESC_AMK + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK
+                + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing country code  -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + DATE_VISITED_DESC_AMK
+                + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        /* Case: missing date -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + COUNTRY_CODE_DESC_AMK
+            + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing rating -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK
+                + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing description -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + ADDRESS_DESC_AMK;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK
+                + RATING_DESC_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
-        /* Case: missing travel -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + DESCRIPTION_AMK;
+        /* Case: missing address -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + RATING_DESC_AMK + COUNTRY_CODE_DESC_AMK
+                + DATE_VISITED_DESC_AMK + DESCRIPTION_AMK;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -162,32 +183,44 @@ public class AddCommandSystemTest extends TravelBuddySystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + COUNTRY_CODE_DESC_AMK + RATING_DESC_AMK
-                + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK
+                    + RATING_DESC_AMK
+                    + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid country code -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + INVALID_COUNTRY_CODE_DESC + RATING_DESC_AMK
-                + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
+                + DESCRIPTION_AMK + DATE_VISITED_DESC_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, CountryCode.MESSAGE_CONSTRAINTS);
 
+        /* Case: incorrect date visited -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + INVALID_FORMAT_DATE_VISITED_DESC
+                + RATING_DESC_AMK
+                + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
+        assertCommandFailure(command, DateVisited.MESSAGE_INCORRECT_FORMAT);
+
+        /* Case: invalid date visited -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + INVALID_FUTURE_DATE_VISITED_DESC
+                + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
+        assertCommandFailure(command, DateVisited.MESSAGE_FUTURE_DATE_ADDED);
+
         /* Case: invalid rating -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK
                 + INVALID_RATING_DESC + DESCRIPTION_AMK + ADDRESS_DESC_AMK;
         assertCommandFailure(command, Rating.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid description -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK
                 + RATING_DESC_AMK + INVALID_DESCRIPTION + ADDRESS_DESC_AMK;
         assertCommandFailure(command, Description.MESSAGE_CONSTRAINTS);
 
-        /* Case: invalid travel -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK
+        /* Case: invalid address -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK
                 + RATING_DESC_AMK + DESCRIPTION_AMK + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMK + COUNTRY_CODE_DESC_AMK + DATE_VISITED_DESC_AMK
                 + RATING_DESC_AMK + DESCRIPTION_AMK + ADDRESS_DESC_AMK + INVALID_TAG_DESC;
         assertCommandFailure(command, Tag.MESSAGE_CONSTRAINTS);
     }

@@ -2,6 +2,7 @@
   "places": [ {
     "name": "National University of Singapore",
     "countryCode" : "SGP",
+    "dateVisited" : "10/10/2016",
     "rating": "4",
     "description": "The National University of Singapore is an autonomous research university in Singapore.",
     "address": "21 Lower Kent Ridge Rd, Singapore 119077",
@@ -9,6 +10,7 @@
   }, {
     "name": "National University of Singapore",
     "countryCode" : "SGP",
+    "dateVisited" : "10/10/2016",
     "rating": "4",
     "description": "The National University of Singapore is an autonomous research university in Singapore.",
     "address": "4th street"

@@ -8,6 +8,9 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Set;
 
+import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
+import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
 
 /**
@@ -87,6 +90,8 @@ public class StringUtil {
         checkArgument(!preppedRating.isEmpty(), "Rating parameter cannot be empty");
         checkArgument(preppedRating.split("\\s+").length == 1,
                 "Rating parameter should be a single value from 1 to 5");
+        checkArgument(Rating.isValidRating(preppedRating),
+                "Rating parameter should be a single value from 1 to 5");
 
         String preppedRatingsList = ratingsList;
         String[] ratingsInPreppedRatingsList = preppedRatingsList.split("\\s+");
@@ -115,13 +120,45 @@ public class StringUtil {
         String preppedCountryCode = countryCode.trim();
         checkArgument(!preppedCountryCode.isEmpty(), "Country Code parameter cannot be empty");
         checkArgument(preppedCountryCode.split("\\s+").length == 1,
-            "Country Code parameter should be a single word");
+                "Country Code parameter should be a single word");
+        checkArgument(CountryCode.isValidCountryCode(preppedCountryCode),
+                "Country codes should only contain a three-letter alphabets");
 
         String preppedCountryCodeList = countryCodeList;
         String[] countryCodesInPreppedCountryCodeList = preppedCountryCodeList.split("\\s+");
 
         return Arrays.stream(countryCodesInPreppedCountryCodeList)
-            .anyMatch(preppedCountryCode::equalsIgnoreCase);
+                .anyMatch(preppedCountryCode::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns true if the {@code dateList} contains the {@code year}.
+     *   A valid 4-digit year input is required.
+     *   <br>examples:<pre>
+     *       containsYear("2018 2016", "2016") == true
+     *       containsYear("2018 2016", "2018") == true
+     *       containsYear("2018 2016", "201") == false // not a 4-digit year
+     *       containsYear("2017 2016", "2018") == false // year not found in list
+     *       </pre>
+     * @param yearList cannot be null
+     * @param year cannot be null, cannot be empty, must be a 4-digit integer
+     */
+    public static boolean containsYear(String yearList, String year) {
+        requireNonNull(yearList);
+        requireNonNull(year);
+
+        String preppedYear = year.trim();
+        checkArgument(!preppedYear.isEmpty(), "Year parameter cannot be empty");
+        checkArgument(preppedYear.split("\\s+").length == 1,
+                "Years should only contain a year from 1900 to the current year");
+        checkArgument(DateVisited.isValidYear(preppedYear),
+                "Years should only contain a year from 1900 to the current year");
+
+        String preppedYearList = yearList;
+        String[] yearsInPreppedYearList = preppedYearList.split("\\s+");
+
+        return Arrays.stream(yearsInPreppedYearList)
+                .anyMatch(preppedYear::equalsIgnoreCase);
     }
 
     /**

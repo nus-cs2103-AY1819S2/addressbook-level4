@@ -228,8 +228,8 @@ public class StringUtilTest {
     //---------------- Tests for containsRating --------------------------------------
 
     /*
-     * Invalid equivalence partitions for rating: null, empty, multiple ratings
-     * Invalid equivalence partitions for ratingsList: null, characters outside of range 1 to 5
+     * Invalid equivalence partitions for rating: null, empty, multiple ratings, characters outside range of 1 to 5
+     * Invalid equivalence partitions for ratingsList: null
      * The four test cases below test one invalid input at a time.
      */
 
@@ -258,10 +258,15 @@ public class StringUtilTest {
     }
 
     @Test
-    public void containsRatingIgnoreCase_nullSentence_throwsNullPointerException() {
-        assertExceptionForRatingThrown(NullPointerException.class, null, "2", Optional.empty());
+    public void containsRating_charOutsideRange_throwsIllegalArgumentException() {
+        assertExceptionForRatingThrown(IllegalArgumentException.class, "4 5", "7",
+                Optional.of("Rating parameter should be a single value from 1 to 5"));
     }
 
+    @Test
+    public void containsRating_nullSentence_throwsNullPointerException() {
+        assertExceptionForRatingThrown(NullPointerException.class, null, "2", Optional.empty());
+    }
     /*
      * Valid equivalence partitions for rating:
      *   - any value between 1 to 5 inclusive
@@ -305,6 +310,190 @@ public class StringUtilTest {
 
         // Matches multiple ratings in ratingsList
         assertTrue(StringUtil.containsRating("1 2 3  2", "2"));
+    }
+
+    //---------------- Tests for containsCountryCode --------------------------------------
+
+    /*
+     * Invalid equivalence partitions for countryCode: null, empty, multiple countryCode,
+     * keywords longer or shorter than 3 characters
+     * Invalid equivalence partitions for countryCodeList: null
+     * 3 character words that do not correspond to ISO-3166 country codes
+     * The four test cases below test one invalid input at a time.
+     */
+
+    @Test
+    public void containsCountryCode_nullWord_throwsNullPointerException() {
+        assertExceptionForCountryCodeThrown(NullPointerException.class, "SGP JPN", null, Optional.empty());
+    }
+
+    private void assertExceptionForCountryCodeThrown(Class<? extends Throwable> exceptionClass, String countryCodeList,
+                                                String countryCode, Optional<String> errorMessage) {
+        thrown.expect(exceptionClass);
+        errorMessage.ifPresent(message -> thrown.expectMessage(message));
+        StringUtil.containsCountryCode(countryCodeList, countryCode);
+    }
+
+    @Test
+    public void containsCountryCode_emptyWord_throwsIllegalArgumentException() {
+        assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN", "  ",
+                Optional.of("Country Code parameter cannot be empty"));
+    }
+
+    @Test
+    public void containsCountryCode_multipleCountryCode_throwsIllegalArgumentException() {
+        assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN CHN",
+                "SGP JPN", Optional.of("Country Code parameter should be a single word"));
+    }
+
+    @Test
+    public void containsCountryCode_countryCodeLongerThanThreeLetter_throwsIllegalArgumentException() {
+        assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN USA",
+                "SGXX", Optional.of("Country codes should only contain a three-letter alphabets"));
+    }
+
+    @Test
+    public void containsCountryCode_countryCodeShorterThanThreeLetter_throwsIllegalArgumentException() {
+        assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN USA",
+                "SG", Optional.of("Country codes should only contain a three-letter alphabets"));
+    }
+
+    @Test
+    public void containsCountryCodeIgnoreCase_nullSentence_throwsNullPointerException() {
+        assertExceptionForCountryCodeThrown(NullPointerException.class, null,
+                "SGP", Optional.empty());
+    }
+
+    /*
+     * Valid equivalence partitions for countryCode:
+     *   - any 3 letter keyword that matches ISO-3166 country code
+     *   - 3 letter keyword that matches ISO-3166 country code with leading/trailing spaces
+     *
+     * Valid equivalence partitions for countryCodeList:
+     *   - empty string
+     *   - one countryCode
+     *   - multiple countryCode
+     *   - countryCodeList with extra spaces
+     *
+     * Possible scenarios returning true:
+     *   - matches first countryCode in countryCodeList
+     *   - last countryCode in countryCodeList
+     *   - middle countryCode in countryCodeList
+     *   - matches multiple countryCode
+     *
+     * Possible scenarios returning false:
+     *   - query rating not found in countryCodeList
+     *
+     * The test method below tries to verify all above with a reasonably low number of test cases.
+     */
+
+    @Test
+    public void containsCountryCode_validInputs_correctResult() {
+
+        // Empty countryCodeList
+        assertFalse(StringUtil.containsCountryCode("", "SGP")); // Boundary case
+        assertFalse(StringUtil.containsCountryCode("    ", "JPN"));
+
+        // Query countryCode not in countryCodeList
+        assertFalse(StringUtil.containsCountryCode("SGP JPN USA", "KOR"));
+        assertFalse(StringUtil.containsCountryCode("DEU CHN IND", "SGP"));
+
+        // Matches countryCode in the countryCodeList
+        assertTrue(StringUtil.containsCountryCode("DEU JPN CHN", "DEU")); // First rating (boundary case)
+        assertTrue(StringUtil.containsCountryCode("CHN SGP USA", "USA")); // Last rating (boundary case)
+        assertTrue(StringUtil.containsCountryCode("  FRA   CHN   ITA  ", "FRA")); // countryCodeList has extra spaces
+        assertTrue(StringUtil.containsCountryCode("SGP", "SGP")); // One countryCode in countryCodeList (boundary case)
+        assertTrue(StringUtil.containsCountryCode("SGP DEU IND", "  IND  ")); // Leading/trailing spaces in countryCode
+
+        // Matches multiple countryCode in countryCodeList
+        assertTrue(StringUtil.containsCountryCode("DEU JPN USA  JPN", "JPN"));
+    }
+
+    //---------------- Tests for containsYear --------------------------------------
+
+    /*
+     * Invalid equivalence partitions for year: null, empty, multiple years, years outside the range of 1900-current
+     * Invalid equivalence partitions for yearList: null
+     * The four test cases below test one invalid input at a time.
+     */
+
+    @Test
+    public void containsYear_nullWord_throwsNullPointerException() {
+        assertExceptionForYearThrown(NullPointerException.class, "2018 2019", null, Optional.empty());
+    }
+
+    private void assertExceptionForYearThrown(Class<? extends Throwable> exceptionClass, String yearList,
+                                                String year, Optional<String> errorMessage) {
+        thrown.expect(exceptionClass);
+        errorMessage.ifPresent(message -> thrown.expectMessage(message));
+        StringUtil.containsYear(yearList, year);
+    }
+
+    @Test
+    public void containsYear_emptyWord_throwsIllegalArgumentException() {
+        assertExceptionForYearThrown(IllegalArgumentException.class, "2017 2019", "  ",
+                Optional.of("Year parameter cannot be empty"));
+    }
+
+    @Test
+    public void containsYear_multipleYears_throwsIllegalArgumentException() {
+        assertExceptionForYearThrown(IllegalArgumentException.class, "2018 2019", "2018 2017",
+                Optional.of("Years should only contain a year from 1900 to the current year"));
+    }
+
+    @Test
+    public void containsYear_charOutsideRange_throwsIllegalArgumentException() {
+        assertExceptionForYearThrown(IllegalArgumentException.class, "2018 2019", "1805",
+                Optional.of("Years should only contain a year from 1900 to the current year"));
+    }
+
+    @Test
+    public void containsYear_nullSentence_throwsNullPointerException() {
+        assertExceptionForYearThrown(NullPointerException.class, null, "2018", Optional.empty());
+    }
+    /*
+     * Valid equivalence partitions for year:
+     *   - any year value between 1900 - current year
+     *   - any year value between 1900 - current year with leading/trailing spaces
+     *
+     * Valid equivalence partitions for yearList:
+     *   - empty string
+     *   - one year
+     *   - multiple years
+     *   - yearList with extra spaces
+     *
+     * Possible scenarios returning true:
+     *   - matches first year in yearList
+     *   - last year in yearList
+     *   - middle year in yearList
+     *   - matches multiple years
+     *
+     * Possible scenarios returning false:
+     *   - query year not found in yearList
+     *
+     * The test method below tries to verify all above with a reasonably low number of test cases.
+     */
+
+    @Test
+    public void containsYear_validInputs_correctResult() {
+
+        // Empty yearList
+        assertFalse(StringUtil.containsYear("", "2018")); // Boundary case
+        assertFalse(StringUtil.containsYear("    ", "2019"));
+
+        // Query year not in yearList
+        assertFalse(StringUtil.containsYear("2017 2018 2019", "2016"));
+        assertFalse(StringUtil.containsYear("2015 2017 2018", "2019"));
+
+        // Matches year in the yearList
+        assertTrue(StringUtil.containsYear("2016 2018 2019", "2016")); // First rating (boundary case)
+        assertTrue(StringUtil.containsYear("2016 2018 2019", "2019")); // Last rating (boundary case)
+        assertTrue(StringUtil.containsYear("  2013   2017   2018  ", "2013")); // ratingsList has extra spaces
+        assertTrue(StringUtil.containsYear("2018", "2018")); // One rating in ratingsList (boundary case)
+        assertTrue(StringUtil.containsYear("2011 2012 2019", "  2019  ")); // Leading/trailing spaces in rating
+
+        // Matches multiple years in yearList
+        assertTrue(StringUtil.containsYear("2011 2014 2017  2014", "2014"));
     }
 
     //---------------- Tests for getDetails --------------------------------------

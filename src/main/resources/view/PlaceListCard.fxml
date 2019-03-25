@@ -30,6 +30,14 @@
                <String fx:value="cell_small_label" />
                <String fx:value="label-field-header" />
             </styleClass></Label>
+      <Label text="Date">
+            <padding>
+              <Insets bottom="1.0" top="1.0" />
+            </padding>
+            <styleClass>
+              <String fx:value="cell_small_label" />
+              <String fx:value="label-field-header" />
+            </styleClass></Label>
       <Label text="Rating">
             <padding>
                <Insets bottom="1.0" top="1.0" />
@@ -90,10 +98,15 @@
          </padding>
          <children>
             <Label fx:id="countryCode" styleClass="cell_small_label" text="\$countryCode">
-               <padding>
-                  <Insets bottom="1.0" top="1.0" />
-               </padding>
+              <padding>
+                <Insets bottom="1.0" top="1.0" />
+              </padding>
             </Label>
+           <Label fx:id="dateVisited" styleClass="cell_small_label" text="\$dateVisited">
+             <padding>
+               <Insets bottom="1.0" top="1.0" />
+             </padding>
+           </Label>
             <Label fx:id="rating" styleClass="cell_small_label" text="\$rating">
                <padding>
                   <Insets bottom="1.0" top="1.0" />

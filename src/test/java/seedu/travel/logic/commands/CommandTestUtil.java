@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
@@ -36,6 +37,11 @@ public class CommandTestUtil {
     public static final String VALID_COUNTRY_CODE_CLEMENTI = "SGP";
     public static final String VALID_COUNTRY_CODE_DG = "SGP";
     public static final String VALID_COUNTRY_CODE_AMERICA = "USA";
+    public static final String VALID_DATE_VISITED_AMK = "09/01/2016";
+    public static final String VALID_DATE_VISITED_BEDOK = "06/01/2017";
+    public static final String VALID_DATE_VISITED_CLEMENTI = "07/01/2018";
+    public static final String VALID_DATE_VISITED_DG = "04/01/2018";
+    public static final String VALID_DATE_VISITED_AMERICA = "02/02/2018";
     public static final String VALID_RATING_AMK = "5";
     public static final String VALID_RATING_BEDOK = "3";
     public static final String VALID_RATING_CLEMENTI = "4";
@@ -59,6 +65,11 @@ public class CommandTestUtil {
     public static final String COUNTRY_CODE_DESC_BEDOK = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_BEDOK;
     public static final String COUNTRY_CODE_DESC_CLEMENTI = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_CLEMENTI;
     public static final String COUNTRY_CODE_DESC_DG = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_DG;
+    public static final String COUNTRY_CODE_DESC_AMERICA = " " + PREFIX_COUNTRY_CODE + VALID_COUNTRY_CODE_AMERICA;
+    public static final String DATE_VISITED_DESC_AMK = " " + PREFIX_DATE_VISITED + VALID_DATE_VISITED_AMK;
+    public static final String DATE_VISITED_DESC_BEDOK = " " + PREFIX_DATE_VISITED + VALID_DATE_VISITED_BEDOK;
+    public static final String DATE_VISITED_DESC_CLEMENTI = " " + PREFIX_DATE_VISITED + VALID_DATE_VISITED_CLEMENTI;
+    public static final String DATE_VISITED_DESC_DG = " " + PREFIX_DATE_VISITED + VALID_DATE_VISITED_DG;
     public static final String RATING_DESC_AMK = " " + PREFIX_RATING + VALID_RATING_AMK;
     public static final String RATING_DESC_BEDOK = " " + PREFIX_RATING + VALID_RATING_BEDOK;
     public static final String RATING_DESC_CLEMENTI = " " + PREFIX_RATING + VALID_RATING_CLEMENTI;
@@ -76,7 +87,11 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_COUNTRY_CODE_DESC = " " + PREFIX_COUNTRY_CODE + "S1P"; // '1' not allowed in
-    // names
+    // Country Code
+    public static final String INVALID_FORMAT_DATE_VISITED_DESC = " " + PREFIX_DATE_VISITED + "20*12/1992"; // '*' not
+    // allowed in Date Visited
+    public static final String INVALID_FUTURE_DATE_VISITED_DESC = " " + PREFIX_DATE_VISITED + "20/12/2091"; // Future
+    // date is not allowed in Date Visited
     public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "4a"; // 'a' not allowed in ratings
     public static final String INVALID_DESCRIPTION = " " + PREFIX_DESCRIPTION + ".I love this place";
     // must begin with alphabet
@@ -92,10 +107,12 @@ public class CommandTestUtil {
     static {
         DESC_AMK = new EditPlaceDescriptorBuilder().withName(VALID_NAME_AMK)
                 .withCountryCode(VALID_COUNTRY_CODE_AMK)
+                .withDateVisited(VALID_DATE_VISITED_AMK)
                 .withRating(VALID_RATING_AMK).withDescription(VALID_DESCRIPTION_AMK).withAddress(VALID_ADDRESS_AMK)
                 .withTags(VALID_TAG_MRT).build();
         DESC_BEDOK = new EditPlaceDescriptorBuilder().withName(VALID_NAME_BEDOK)
                 .withCountryCode(VALID_COUNTRY_CODE_BEDOK)
+                .withDateVisited(VALID_DATE_VISITED_BEDOK)
                 .withRating(VALID_RATING_BEDOK).withDescription(VALID_DESCRIPTION_BEDOK)
                 .withAddress(VALID_ADDRESS_BEDOK).withTags(VALID_TAG_MRT, VALID_TAG_EWL).build();
     }

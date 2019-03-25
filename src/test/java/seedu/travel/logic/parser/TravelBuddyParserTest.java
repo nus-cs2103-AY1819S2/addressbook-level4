@@ -25,15 +25,19 @@ import seedu.travel.logic.commands.HistoryCommand;
 import seedu.travel.logic.commands.ListCommand;
 import seedu.travel.logic.commands.RedoCommand;
 import seedu.travel.logic.commands.SearchCommand;
+import seedu.travel.logic.commands.SearchCountryCommand;
 import seedu.travel.logic.commands.SearchRatingCommand;
 import seedu.travel.logic.commands.SearchTagsCommand;
+import seedu.travel.logic.commands.SearchYearCommand;
 import seedu.travel.logic.commands.SelectCommand;
 import seedu.travel.logic.commands.UndoCommand;
 import seedu.travel.logic.parser.exceptions.ParseException;
+import seedu.travel.model.place.CountryCodeContainsKeywordsPredicate;
 import seedu.travel.model.place.NameContainsKeywordsPredicate;
 import seedu.travel.model.place.Place;
 import seedu.travel.model.place.RatingContainsKeywordsPredicate;
 import seedu.travel.model.place.TagContainsKeywordsPredicate;
+import seedu.travel.model.place.YearContainsKeywordsPredicate;
 import seedu.travel.testutil.EditPlaceDescriptorBuilder;
 import seedu.travel.testutil.PlaceBuilder;
 import seedu.travel.testutil.PlaceUtil;
@@ -140,6 +144,24 @@ public class TravelBuddyParserTest {
         SearchTagsCommand command = (SearchTagsCommand) parser.parseCommand(SearchTagsCommand.COMMAND_WORD
                 + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchTagsCommand(new TagContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchCountry() throws Exception {
+        List<String> keywords = Arrays.asList("DEU", "FRA", "ITA");
+        SearchCountryCommand command = (SearchCountryCommand) parser.parseCommand(
+                SearchCountryCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchCountryCommand(new CountryCodeContainsKeywordsPredicate(keywords)), command);
+    }
+
+    @Test
+    public void parseCommand_searchYear() throws Exception {
+        List<String> keywords = Arrays.asList("2011", "2015", "2017");
+        SearchYearCommand command = (SearchYearCommand) parser.parseCommand(
+                SearchYearCommand.COMMAND_WORD + " "
+                        + keywords.stream().collect(Collectors.joining(" ")));
+        assertEquals(new SearchYearCommand(new YearContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

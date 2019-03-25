@@ -169,6 +169,7 @@ Saves patient 1 and patient 3 to patient 5 from the current patients list to "pa
 Writes all entries from the address book to patients1.json. +
 
 === Patient Management
+
 ==== add
 
 Adds a patient to the patients list.
@@ -283,6 +284,16 @@ the current patient list with a copy tag.
 * `copy 3 4` +
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
+
+=== Dentist Information
+
+You can specify the name you want to reflect in your patients' dental record when you create them.
+
+Format: `dentist name/YOUR_NAME`
+
+* If there is no dentist name specified, the program will prompt you to enter one.
+
+* This should only happen once, during the first startup of the application.
 
 === Patient Records Management
 

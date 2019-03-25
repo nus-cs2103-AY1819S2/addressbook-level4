@@ -58,6 +58,25 @@ If you need the full list of available commands and their associated details, pl
 
 == Commands and Features
 
+=== Breakdown of attributes used within TeethHub
+[cols=",,,", options="header",]
+|===
+4+^|List of valid prefixes
+
+4+^|Unique Prefixes
+2+| *Patient* 2+| *Record*
+|Prefix | Attribute | Prefix | Attribute
+|a/ | Address 2.7+|
+|dob/ | Date of Birth
+|e/ | Email
+|ic/ | Nric
+|n/ | Name
+|p/ | Phone
+|sex/ | Sex
+4+^|Common Prefixes
+
+|===
+
 === Help
 
 Displays the help text for all available commands.
@@ -441,8 +460,7 @@ Shows a list of all patients or medical stored in TeethHub.
 
 Format: `list [dental]`
 
-Command shows patient details by default, add dental to see dental
-records.
+Command shows patient details by default, add dental to see dental records.
 
 Example:
 
@@ -462,6 +480,7 @@ Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
 * Add “dental” to search dental records instead.
 * Search is case insensitive.
 * Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
 
 Example:
 
@@ -479,6 +498,8 @@ Sorts the records by an input parameter in an input order.
 
 Format: `sort PARAM ORDER`
 
+* valid PARAM options: address, date of birth, email, name, nric, phone, sex
+* valid ORDER options: asce, desc
 
 Example:
 

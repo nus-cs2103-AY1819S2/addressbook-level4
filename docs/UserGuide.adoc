@@ -386,11 +386,7 @@ Universal Numbering System.
 ==== The Universal Numbering System
 
 ifdef::env-github[]
-image::image1.png[width="200"]
-endif::[]
-
-ifndef::env-github[]
-image::image1.png[width="200"]
+image::BaseLayer.png[width="200"]
 endif::[]
 
 The upper-case letters A through T are used for primary teeth and the

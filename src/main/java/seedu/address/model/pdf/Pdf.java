@@ -11,7 +11,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Pdf in the pdf book.
+ * Represents a Pdf in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Pdf {

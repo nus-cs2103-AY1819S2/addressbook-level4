@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_COMPLETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_REMOVE;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeadlineCommand;
@@ -25,7 +24,7 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
     public DeadlineCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_DEADLINE_NEW, PREFIX_DEADLINE_COMPLETE, PREFIX_DEADLINE_REMOVE);
+                ArgumentTokenizer.tokenize(args, PREFIX_DEADLINE_NEW, PREFIX_DEADLINE_COMPLETE);
 
         Index index;
         Deadline deadline = null;
@@ -38,14 +37,11 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
 
         if (argMultimap.getValue(PREFIX_DEADLINE_NEW).isPresent()) {
             deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE_NEW).get(),
-                    Deadline.STATUS_READY);
+                    argMultimap.getValue(PREFIX_DEADLINE_COMPLETE).isPresent());
+
             return new DeadlineCommand(index, deadline);
         } else if (argMultimap.getValue(PREFIX_DEADLINE_COMPLETE).isPresent()) {
-            System.out.println(argMultimap.getValue(PREFIX_DEADLINE_COMPLETE).get());
-            return new DeadlineCommand(index, deadline, Deadline.STATUS_COMPLETE);
-        } else if (argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent()) {
-            System.out.println(argMultimap.getValue(PREFIX_DEADLINE_REMOVE).get());
-            return new DeadlineCommand(index, deadline, Deadline.STATUS_REMOVE);
+            return new DeadlineCommand(index, deadline, argMultimap.getValue(PREFIX_DEADLINE_COMPLETE).isPresent());
         } else {
             throw new ParseException("Missing Prefix(s)");
         }

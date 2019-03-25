@@ -44,9 +44,9 @@ Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
 == Quick Start Guide
 
-. Download the latest TeethHub.jar file from our https://github.com/CS2103-AY1819S2-W17-2/main[GitHub page]
+. Download the latest TeethHub.jar file from our https://github.com/CS2103-AY1819S2-W17-2/main[GitHub page].
 
-. Copy the file to the folder you want to use as the home folder for TeethHub (all data will be stored there)
+. Copy the file to the folder you want to use as the home folder for TeethHub (all data will be stored there).
 
 . Double-click the file to launch TeethHub.
 It should start in a few seconds and begin the initialization set-up.
@@ -266,7 +266,7 @@ p/12345 +
 e/newemail@gmail.com +
 done` +
 Edits the phone number and email of the first patient listed to become
-12345 and newemail@gmail.com respectively across 2 inputs
+12345 and newemail@gmail.com respectively across 2 inputs.
 
 
 * `find Betsy +
@@ -274,7 +274,7 @@ edit 2 +
 p/987654 e/mymail@gmail.com +
 done` +
 Edits the phone number and email of the first patient listed to become
-987654 and mymail@gmail.com respectively with a single input
+987654 and mymail@gmail.com respectively with a single input.
 
 
 ==== copy
@@ -313,7 +313,7 @@ was noticeably smelly, might have halitosis`
 
 Format: `record delete n/NRIC INDEX`
 
-* Deletes the patient’s dental record at the specified index
+* Deletes the patient’s dental record at the specified index.
 
 * The index refers to the index number shown in the displayed dental
 record list.
@@ -335,20 +335,20 @@ Format: `record edit n/NRIC INDEX`
 
 * Goes into record edit mode for the specified patient at the specified
 index shown from list or find command. Must be a positive integer (e.g
-1, 2 or 3)
+1, 2 or 3).
 
-* Input the field followed by the new value to replace the existing data
+* Input the field followed by the new value to replace the existing data.
 
 * Multiple fields can be edited in a single input or across multiple
-inputs
+inputs.
 
 * When editing tags, the existing tags of the patient will be removed i.e
-adding of tags is not cumulative
+adding of tags is not cumulative.
 
 * All tags can be removed by keying in t/ without specifying any tags
-following it
+following it.
 
-* Exit the edit mode by entering done
+* Exit the edit mode by entering "done".
 
 Example:
 
@@ -361,7 +361,7 @@ Edits the first dental record under the patient Jon and replaces the old
 doctor and detail fields with the new Debang and new details data.
 
 ==== record copy
-Makes an exact copy of a patient’s dental record
+Makes an exact copy of a patient’s dental record.
 
 Format: `record copy n/NRIC INDEX`
 
@@ -370,7 +370,7 @@ Example:
 
 * `record copy n/S1234567H 2` +
 Makes a copy of the patient’s dental record at index 2 and inserts it at
-the bottom of the current dental records with a copy tag
+the bottom of the current dental records with a copy tag.
 
 
 === Teeth Management
@@ -411,28 +411,28 @@ healthy by default.
 ** `teeth add n/NRIC <Template>`
 
 ** Note that if a teeth layout already exist, a warning will be thrown to
-confirm your overwriting intention
+confirm your overwriting intention.
 
 * To edit a new specific tooth:
 
 ** `teeth edit n/NRIC t/TEETH_LABEL s/STATUS -d/DESCRIPTION`
 
 ** Valid <Teeth Label> are letters A through T (case-insensitive, for
-primary teeth), and numbers 1 - 32 (for permanent teeth)
+primary teeth), and numbers 1 - 32 (for permanent teeth).
 
 ** Note that if a teeth layout does not exist, a new layout will be created
 based on the teeth label group used, before the edit is applied on the
 newly created teeth layout.
 
 ** <Status> reflects overall health of the indicated tooth, and valid
-<Status> are "healthy", "problem" and "absent"
+<Status> are "healthy", "problem" and "absent".
 
 ** <Description> is an optional field that allows you to
 write a note describing more detail on the patient’s teeth
 health.
 
 === List
-Shows a list of all patients or medical stored in TeethHub
+Shows a list of all patients or medical stored in TeethHub.
 
 Format: `list [dental]`
 
@@ -442,11 +442,11 @@ records.
 Example:
 
 * `list` +
-Shows details of all patients
+Shows details of all patients.
 
 
 * `list dental` +
-Shows details of patient's dental records
+Shows details of patient's dental records.
 
 
 === Find
@@ -454,15 +454,15 @@ Shows patients whose data contains any of the given keywords according to a spec
 
 Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
 
-* Add “dental” to search dental records instead
-* Search is case insensitive
-* Order of keywords does not matter
+* Add “dental” to search dental records instead.
+* Search is case insensitive.
+* Order of keywords does not matter.
 
 Example:
 
 
 * `find a/Yishun` +
-Show all the people with an address containing the keyword Yishun
+Show all the people with an address containing the keyword Yishun.
 
 
 * `find dental cleaning` +
@@ -512,7 +512,7 @@ Format: `stat INDEX`
 
 === History
 Lists all the commands that have been entered since starting the
-application in reverse chronological order
+application in reverse chronological order.
 
 Format: `history`
 
@@ -522,7 +522,7 @@ Undo the latest command.
 
 Format: `undo`
 
-* The following commands are affected by undo: add edit delete and clear
+* The following commands are affected by undo: add edit delete and clear.
 
 
 Examples:
@@ -569,8 +569,8 @@ undo` (reverses the clear command) +
 === Clear
 Clears all patients and records from TeethHub.
 
-* Will prompt you to confirm
-* Input `y` to proceed to the clear all records or `n` to abort
+* You will be prompted to confirm.
+* Input `y` to proceed to the clear all records or `n` to abort.
 
 Format: `clear`
 

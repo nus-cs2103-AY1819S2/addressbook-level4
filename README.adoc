@@ -1,4 +1,4 @@
-= OurTeeth (Morphed from Address Book Level 4)
+= TeethHub (Morphed from Address Book Level 4)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S2-W17-2/main[image:https://travis-ci.org/CS2103-AY1819S2-W17-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/CS2103-AY1819S2-W17-2/main"]]
@@ -12,7 +12,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop OurTeeth application. It has a GUI but most of the user interactions happen using a CLI (Command
+* This is a desktop TeethHub application. It has a GUI but most of the user interactions happen using a CLI (Command
 Line Interface).
 * Targeted towards Dentists who prefer to type.
 * It is developed in Java through the efforts of a five man team from NUS

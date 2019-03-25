@@ -338,6 +338,10 @@
     -fx-border-width: 0;
 }
 
+#folderList{
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;

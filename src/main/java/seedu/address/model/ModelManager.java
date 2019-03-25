@@ -109,7 +109,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        this.medicineManager = new MedicineManager();
+        this.medicineManager = quickDocs.getMedicineManager();
         //this.patientManager = new PatientManager(addressBook.getPatients());
         this.patientManager = quickDocs.getPatientManager();
         this.consultationManager = quickDocs.getConsultationManager();

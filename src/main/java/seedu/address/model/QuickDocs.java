@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import seedu.address.model.appointment.AppointmentManager;
 import seedu.address.model.consultation.ConsultationManager;
+import seedu.address.model.medicine.MedicineManager;
 import seedu.address.model.patient.PatientManager;
 import seedu.address.model.reminder.ReminderManager;
 
@@ -14,6 +15,15 @@ public class QuickDocs {
     private ConsultationManager consultationManager = new ConsultationManager();
     private AppointmentManager appointmentManager = new AppointmentManager();
     private ReminderManager reminderManager = new ReminderManager();
+    private MedicineManager medicineManager = new MedicineManager();
+
+    public MedicineManager getMedicineManager() {
+        return medicineManager;
+    }
+
+    public void setMedicineManager(MedicineManager medicineManager) {
+        this.medicineManager = medicineManager;
+    }
 
     private boolean isModified = false;
 

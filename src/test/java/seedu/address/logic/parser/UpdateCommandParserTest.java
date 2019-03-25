@@ -23,11 +23,11 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.UpdateCommand;
-import seedu.address.model.medicine.Batch;
+import seedu.address.logic.commands.UpdateCommand.UpdateBatchDescriptor;
 import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Quantity;
-import seedu.address.testutil.BatchBuilder;
+import seedu.address.testutil.UpdateBatchDescriptorBuilder;
 
 public class UpdateCommandParserTest {
 
@@ -50,7 +50,7 @@ public class UpdateCommandParserTest {
         // no batch number
         assertParseFailure(parser, "1" + " " + QUANTITY_DESC_AMOXICILLIN, UpdateCommand.MESSAGE_MISSING_PARAMETER);
 
-        // no quantity
+        // no quantity and expiry
         assertParseFailure(parser, "1" + " " + BATCHNUMBER_DESC_AMOXICILLIN, UpdateCommand.MESSAGE_MISSING_PARAMETER);
     }
 
@@ -78,7 +78,7 @@ public class UpdateCommandParserTest {
         assertParseFailure(parser, "1" + BATCHNUMBER_DESC_AMOXICILLIN + INVALID_QUANTITY_DESC + EXPIRY_DESC_AMOXICILLIN,
                 Quantity.MESSAGE_CONSTRAINTS); // invalid quantity
         assertParseFailure(parser, "1" + BATCHNUMBER_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN + INVALID_EXPIRY_DESC,
-                Expiry.MESSAGE_CONSTRAINTS); // invalid tag
+                Expiry.MESSAGE_CONSTRAINTS); // invalid expiry
     }
 
     @Test
@@ -87,9 +87,10 @@ public class UpdateCommandParserTest {
         String userInput = targetIndex.getOneBased() + BATCHNUMBER_DESC_AMOXICILLIN + QUANTITY_DESC_AMOXICILLIN
                 + EXPIRY_DESC_AMOXICILLIN;
 
-        Batch newBatch = new BatchBuilder().withBatchNumber(VALID_BATCHNUMBER_AMOXICILLIN)
-                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
-        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder()
+                .withBatchNumber(VALID_BATCHNUMBER_AMOXICILLIN).withQuantity(VALID_QUANTITY_AMOXICILLIN)
+                .withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, newBatchDetails);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -98,9 +99,20 @@ public class UpdateCommandParserTest {
     public void parse_expiryNotSpecified_success() {
         Index targetIndex = INDEX_FIRST_MEDICINE;
         String userInput = targetIndex.getOneBased() + BATCHNUMBER_DESC_GABAPENTIN + QUANTITY_DESC_GABAPENTIN;
-        Batch newBatch = new BatchBuilder().withBatchNumber(VALID_BATCHNUMBER_GABAPENTIN)
-                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry("-").build();
-        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder()
+                .withBatchNumber(VALID_BATCHNUMBER_GABAPENTIN).withQuantity(VALID_QUANTITY_GABAPENTIN).build();
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, newBatchDetails);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_quantityNotSpecified_success() {
+        Index targetIndex = INDEX_FIRST_MEDICINE;
+        String userInput = targetIndex.getOneBased() + BATCHNUMBER_DESC_GABAPENTIN + EXPIRY_DESC_AMOXICILLIN;
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder()
+                .withBatchNumber(VALID_BATCHNUMBER_GABAPENTIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, newBatchDetails);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -112,10 +124,11 @@ public class UpdateCommandParserTest {
                 + EXPIRY_DESC_AMOXICILLIN + BATCHNUMBER_DESC_GABAPENTIN + QUANTITY_DESC_AMOXICILLIN
                 + BATCHNUMBER_DESC_GABAPENTIN + EXPIRY_DESC_AMOXICILLIN;
 
-        Batch newBatch = new BatchBuilder().withBatchNumber(VALID_BATCHNUMBER_GABAPENTIN)
-                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder()
+                .withBatchNumber(VALID_BATCHNUMBER_GABAPENTIN).withQuantity(VALID_QUANTITY_AMOXICILLIN)
+                .withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
 
-        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, newBatch);
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, newBatchDetails);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -127,18 +140,19 @@ public class UpdateCommandParserTest {
         String userInput = targetIndex.getOneBased() + QUANTITY_DESC_AMOXICILLIN + INVALID_BATCHNUMBER_DESC
                 + BATCHNUMBER_DESC_GABAPENTIN;
 
-        Batch newBatch = new BatchBuilder().withBatchNumber(VALID_BATCHNUMBER_GABAPENTIN)
-                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry("-").build();
-        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder()
+                .withBatchNumber(VALID_BATCHNUMBER_GABAPENTIN).withQuantity(VALID_QUANTITY_AMOXICILLIN).build();
+        UpdateCommand expectedCommand = new UpdateCommand(targetIndex, newBatchDetails);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + QUANTITY_DESC_AMOXICILLIN + INVALID_BATCHNUMBER_DESC
                 + BATCHNUMBER_DESC_GABAPENTIN + QUANTITY_DESC_GABAPENTIN + BATCHNUMBER_DESC_AMOXICILLIN
                 + EXPIRY_DESC_AMOXICILLIN;
-        newBatch = new BatchBuilder().withBatchNumber(VALID_BATCHNUMBER_AMOXICILLIN)
-                .withQuantity(VALID_QUANTITY_GABAPENTIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
-        expectedCommand = new UpdateCommand(targetIndex, newBatch);
+        newBatchDetails = new UpdateBatchDescriptorBuilder()
+                .withBatchNumber(VALID_BATCHNUMBER_AMOXICILLIN).withQuantity(VALID_QUANTITY_GABAPENTIN)
+                .withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
+        expectedCommand = new UpdateCommand(targetIndex, newBatchDetails);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

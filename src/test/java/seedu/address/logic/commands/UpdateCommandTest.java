@@ -4,8 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BATCHNUMBER_AMOXICILLIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BATCHNUMBER_GABAPENTIN;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPIRY_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUANTITY_AMOXICILLIN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -25,6 +23,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.UpdateCommand.UpdateBatchDescriptor;
 import seedu.address.model.Inventory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -32,8 +31,10 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.BatchNumber;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.testutil.BatchBuilder;
 import seedu.address.testutil.MedicineBuilder;
+import seedu.address.testutil.UpdateBatchDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -42,17 +43,18 @@ import seedu.address.testutil.MedicineBuilder;
 public class UpdateCommandTest {
     private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+    private Batch defaultBatch = new BatchBuilder().build();
 
     @Test
     public void execute_addNewBatchUnfilteredList_success() {
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(0);
-        Batch newBatch = new BatchBuilder().build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).build();
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_SUCCESS, newBatch);
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatch);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_SUCCESS, defaultBatch);
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
 
         Medicine updatedMedicine = new MedicineBuilder(medicineToUpdate)
-                .withAddedQuantity(BatchBuilder.DEFAULT_QUANTITY).withAddedBatch(new BatchBuilder().build())
+                .withAddedQuantity(BatchBuilder.DEFAULT_QUANTITY).withAddedBatch(defaultBatch)
                 .withExpiry(BatchBuilder.DEFAULT_EXPIRY).build();
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
@@ -65,14 +67,12 @@ public class UpdateCommandTest {
     @Test
     public void execute_addNewBatchUnfilteredListNoExpiry_failure() {
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(0);
-        Batch newBatch = new BatchBuilder().withExpiry("-").build();
-        assertFalse(medicineToUpdate.getBatches().containsKey(newBatch.getBatchNumber()));
+        assertFalse(medicineToUpdate.getBatches().containsKey(defaultBatch.getBatchNumber()));
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_MISSING_EXPIRY);
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).withNoExpiry().build();
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
-        expectedModel.commitInventory();
+        String expectedMessage = UpdateCommand.MESSAGE_NEW_BATCH_MISSING_PARAMETER;
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
 
         assertCommandFailure(updateCommand, model, commandHistory, expectedMessage);
     }
@@ -80,28 +80,42 @@ public class UpdateCommandTest {
     @Test
     public void execute_addNewBatchUnfilteredListNoQuantity_failure() {
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(0);
-        Batch newBatch = new BatchBuilder().withQuantity("0").build();
-        assertFalse(medicineToUpdate.getBatches().containsKey(newBatch.getBatchNumber()));
+        assertFalse(medicineToUpdate.getBatches().containsKey(defaultBatch.getBatchNumber()));
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_MISSING_QUANTITY);
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).withNoQuantity().build();
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
-        expectedModel.commitInventory();
+        String expectedMessage = UpdateCommand.MESSAGE_NEW_BATCH_MISSING_PARAMETER;
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
 
         assertCommandFailure(updateCommand, model, commandHistory, expectedMessage);
     }
 
     @Test
-    public void execute_updateExistingBatchUnfilteredList_success() {
+    public void execute_addNewBatchUnfilteredListZeroQuantity_failure() {
+        Medicine medicineToUpdate = model.getFilteredMedicineList().get(0);
+        Batch newBatch = new BatchBuilder().withQuantity("0").build();
+        assertFalse(medicineToUpdate.getBatches().containsKey(newBatch.getBatchNumber()));
+
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(newBatch).build();
+
+        String expectedMessage = UpdateCommand.MESSAGE_NEW_BATCH_ZERO_QUANTITY;
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
+
+        assertCommandFailure(updateCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void execute_updateExistingBatchUnfilteredListNoExpiry_success() {
         Index indexLastMedicine = Index.fromOneBased(model.getFilteredMedicineList().size());
         Medicine lastMedicine = model.getFilteredMedicineList().get(indexLastMedicine.getZeroBased());
 
+        // Get an existing batch from lastMedicine
         Iterator<Batch> iter = lastMedicine.getBatches().values().iterator();
         assertTrue(iter.hasNext());
         Batch batchToUpdate = iter.next();
 
         Batch updatedBatch = new BatchBuilder(batchToUpdate).withQuantity(VALID_QUANTITY_AMOXICILLIN).build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(updatedBatch).withNoExpiry().build();
 
         int changeInQuantity = updatedBatch.getQuantity().getNumericValue() - batchToUpdate.getQuantity()
                 .getNumericValue();
@@ -110,7 +124,7 @@ public class UpdateCommandTest {
                 .withAddedQuantity(Integer.toString(changeInQuantity))
                 .withAddedBatch(updatedBatch).build();
 
-        UpdateCommand updateCommand = new UpdateCommand(indexLastMedicine, updatedBatch);
+        UpdateCommand updateCommand = new UpdateCommand(indexLastMedicine, newBatchDetails);
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_SUCCESS, updatedBatch);
 
@@ -122,26 +136,25 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_updateExistingBatchNoExpiryUnfilteredList_success() {
+    public void execute_updateExistingBatchUnfilteredListNoQuantity_success() {
         Index index = INDEX_FIRST_MEDICINE;
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(index.getZeroBased());
 
+        // Get an existing batch from medicineToUpdate
         Iterator<Batch> iter = medicineToUpdate.getBatches().values().iterator();
         assertTrue(iter.hasNext());
         Batch batchToUpdate = iter.next();
 
-        Batch updatedBatch = new BatchBuilder(batchToUpdate).withQuantity(VALID_QUANTITY_AMOXICILLIN).build();
-
-        int changeInQuantity = updatedBatch.getQuantity().getNumericValue() - batchToUpdate.getQuantity()
-                .getNumericValue();
+        Batch updatedBatch = new BatchBuilder(batchToUpdate).withExpiry(defaultBatch.getExpiry().toString()).build();
 
         Medicine updatedMedicine = new MedicineBuilder(medicineToUpdate)
-                .withAddedQuantity(Integer.toString(changeInQuantity))
+                .withExpiry(defaultBatch.getExpiry().toString())
                 .withAddedBatch(updatedBatch).build();
 
-        Batch inputBatch = new BatchBuilder(updatedBatch).withExpiry("-").build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(updatedBatch).withNoQuantity()
+                .build();
 
-        UpdateCommand updateCommand = new UpdateCommand(index, inputBatch);
+        UpdateCommand updateCommand = new UpdateCommand(index, newBatchDetails);
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_SUCCESS, updatedBatch);
 
@@ -153,11 +166,13 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_removeBatchNoOtherBatchUnfilteredList_success() {
+    public void execute_removeBatchUnfilteredListNoOtherBatch_success() {
         Index index = INDEX_SECOND_MEDICINE;
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(index.getZeroBased());
 
         Map<BatchNumber, Batch> batches = new HashMap<>(medicineToUpdate.getBatches());
+
+        // Get an existing batch from medicineToUpdate
         Iterator<Batch> iter = batches.values().iterator();
         assertTrue(iter.hasNext());
         Batch batchToRemove = iter.next();
@@ -171,8 +186,9 @@ public class UpdateCommandTest {
                 .withBatches(batches).build();
 
         Batch inputBatch = new BatchBuilder(batchToRemove).withQuantity("0").build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(inputBatch).withNoExpiry().build();
 
-        UpdateCommand updateCommand = new UpdateCommand(index, inputBatch);
+        UpdateCommand updateCommand = new UpdateCommand(index, newBatchDetails);
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_SUCCESS, inputBatch);
 
@@ -184,7 +200,7 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void execute_removeBatchOneOtherBatchUnfilteredList_success() {
+    public void execute_removeBatchUnfilteredListOneOtherBatch_success() {
         Index index = INDEX_FOURTH_MEDICINE;
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(index.getZeroBased());
 
@@ -207,8 +223,9 @@ public class UpdateCommandTest {
                 .withBatches(batches).build();
 
         Batch inputBatch = new BatchBuilder(batchToRemove).withQuantity("0").build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(inputBatch).withNoExpiry().build();
 
-        UpdateCommand updateCommand = new UpdateCommand(index, inputBatch);
+        UpdateCommand updateCommand = new UpdateCommand(index, newBatchDetails);
 
         String expectedMessage = String.format(UpdateCommand.MESSAGE_SUCCESS, inputBatch);
 
@@ -224,21 +241,21 @@ public class UpdateCommandTest {
         showMedicineAtIndex(model, INDEX_FIRST_MEDICINE);
         Medicine medicineInFilteredList = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
 
-        Batch newBatch = new BatchBuilder().build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).build();
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
 
         Medicine updatedMedicine = new MedicineBuilder(medicineInFilteredList)
                 .withAddedQuantity(BatchBuilder.DEFAULT_QUANTITY)
                 .withExpiry(BatchBuilder.DEFAULT_EXPIRY)
-                .withAddedBatch(newBatch)
+                .withAddedBatch(defaultBatch)
                 .build();
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_SUCCESS, newBatch);
+        String expectedMessage = String.format(UpdateCommand.MESSAGE_SUCCESS, defaultBatch);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.setMedicine(medicineInFilteredList, updatedMedicine);
         expectedModel.commitInventory();
-        showMedicineAtIndex(expectedModel, INDEX_FIRST_MEDICINE);
+        showMedicineAtIndex(expectedModel, INDEX_FIRST_MEDICINE); // List should remain filtered after update
 
         assertCommandSuccess(updateCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -246,22 +263,21 @@ public class UpdateCommandTest {
     @Test
     public void execute_invalidMedicineIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredMedicineList().size() + 1);
-        Batch newBatch = new BatchBuilder().build();
-        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).build();
+        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, newBatchDetails);
 
         assertCommandFailure(updateCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_exceedMaxQuantityUnfilteredList_success() {
-        Batch newBatch = new BatchBuilder().withQuantity("999999999").build();
+        Batch newBatch = new BatchBuilder().withQuantity(Integer.toString(Quantity.MAX_QUANTITY)).build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(newBatch).build();
 
-        String expectedMessage = String.format(UpdateCommand.MESSAGE_MAX_QUANTITY_EXCEEDED, newBatch);
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatch);
+        String expectedMessage = UpdateCommand.MESSAGE_MAX_QUANTITY_EXCEEDED;
 
-        Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
-        expectedModel.commitInventory();
-
+        // Try to add max quantity to the first medicine in the inventory.
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
         assertCommandFailure(updateCommand, model, commandHistory, expectedMessage);
     }
 
@@ -276,23 +292,22 @@ public class UpdateCommandTest {
         // ensures that outOfBoundIndex is still in bounds of inventory list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getInventory().getMedicineList().size());
 
-        Batch newBatch = new BatchBuilder().build();
-        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).build();
+        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, newBatchDetails);
 
         assertCommandFailure(updateCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
     }
 
     @Test
-    public void executeUndoRedo_validIndexNewBatchUnfilteredList_success() throws Exception {
+    public void executeUndoRedo_validIndexUnfilteredListNewBatch_success() throws Exception {
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased());
-        Batch newBatch = new BatchBuilder().withBatchNumber(VALID_BATCHNUMBER_GABAPENTIN)
-                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(BatchBuilder.DEFAULT_EXPIRY).build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).build();
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
 
         Medicine updatedMedicine = new MedicineBuilder(medicineToUpdate)
-                .withAddedQuantity(VALID_QUANTITY_AMOXICILLIN)
+                .withAddedQuantity(BatchBuilder.DEFAULT_QUANTITY)
                 .withExpiry(BatchBuilder.DEFAULT_EXPIRY)
-                .withAddedBatch(newBatch)
+                .withAddedBatch(defaultBatch)
                 .build();
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
@@ -312,7 +327,7 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_validIndexExistingBatchUnfilteredList_success() throws Exception {
+    public void executeUndoRedo_validIndexUnfilteredListExistingBatch_success() throws Exception {
         Index index = INDEX_SECOND_MEDICINE;
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(index.getZeroBased());
 
@@ -329,16 +344,15 @@ public class UpdateCommandTest {
                 .withAddedQuantity(Integer.toString(changeInQuantity))
                 .withAddedBatch(updatedBatch).build();
 
-        Batch inputBatch = new BatchBuilder(updatedBatch).withExpiry("-").build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(updatedBatch).withNoExpiry().build();
 
-        UpdateCommand updateCommand = new UpdateCommand(index, inputBatch);
-
+        UpdateCommand updateCommand = new UpdateCommand(index, newBatchDetails);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.setMedicine(medicineToUpdate, updatedMedicine);
         expectedModel.commitInventory();
 
-        // update -> first medicine updated
+        // update -> second medicine updated
         updateCommand.execute(model, commandHistory);
 
         // undo -> reverts Inventory back to previous state and filtered medicine list to show all medicines
@@ -351,7 +365,7 @@ public class UpdateCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_validIndexRemoveBatchUnfilteredList_success() throws Exception {
+    public void executeUndoRedo_validIndexUnfilteredListRemoveBatch_success() throws Exception {
         Index index = INDEX_FIRST_MEDICINE;
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(index.getZeroBased());
 
@@ -377,9 +391,10 @@ public class UpdateCommandTest {
                 .withExpiry(updatedExpiry)
                 .withBatches(batches).build();
 
-        Batch inputBatch = new BatchBuilder(batchToRemove).withQuantity("0").build();
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(batchToRemove).withQuantity("0")
+                .withNoExpiry().build();
 
-        UpdateCommand updateCommand = new UpdateCommand(index, inputBatch);
+        UpdateCommand updateCommand = new UpdateCommand(index, newBatchDetails);
 
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
         expectedModel.setMedicine(medicineToUpdate, updatedMedicine);
@@ -403,8 +418,9 @@ public class UpdateCommandTest {
         // ensures that outOfBoundIndex is still in bounds of inventory list
         assertTrue(outOfBoundIndex.getZeroBased() >= model.getInventory().getMedicineList().size());
 
-        Batch newBatch = new BatchBuilder().build();
-        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).build();
+
+        UpdateCommand updateCommand = new UpdateCommand(outOfBoundIndex, newBatchDetails);
 
         // execution failed -> inventory state not added into model
         assertCommandFailure(updateCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
@@ -424,15 +440,15 @@ public class UpdateCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameMedicineUpdated() throws Exception {
         Medicine medicineToUpdate = model.getFilteredMedicineList().get(INDEX_SECOND_MEDICINE.getZeroBased());
-        Batch newBatch = new BatchBuilder().withBatchNumber(VALID_BATCHNUMBER_AMOXICILLIN)
-                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(BatchBuilder.DEFAULT_EXPIRY).build();
-        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).build();
+        UpdateCommand updateCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
 
         Medicine updatedMedicine = new MedicineBuilder(medicineToUpdate)
-                .withAddedQuantity(VALID_QUANTITY_AMOXICILLIN)
+                .withAddedQuantity(BatchBuilder.DEFAULT_QUANTITY)
                 .withExpiry(BatchBuilder.DEFAULT_EXPIRY)
-                .withAddedBatch(newBatch)
+                .withAddedBatch(defaultBatch)
                 .build();
+
         Model expectedModel = new ModelManager(new Inventory(model.getInventory()), new UserPrefs());
 
         showMedicineAtIndex(model, INDEX_SECOND_MEDICINE);
@@ -446,8 +462,8 @@ public class UpdateCommandTest {
         // undo -> reverts Inventory back to previous state and filtered medicine list to show all medicines
         expectedModel.undoInventory();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
-
         assertNotEquals(model.getFilteredMedicineList().get(INDEX_FIRST_MEDICINE.getZeroBased()), medicineToUpdate);
+
         // redo -> updates same second medicine in unfiltered medicine list
         expectedModel.redoInventory();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -455,11 +471,11 @@ public class UpdateCommandTest {
 
     @Test
     public void equals() {
-        Batch newBatch = new BatchBuilder().build();
-        final UpdateCommand standardCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatch);
+        UpdateBatchDescriptor newBatchDetails = new UpdateBatchDescriptorBuilder(defaultBatch).build();
+        final UpdateCommand standardCommand = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
 
         // same values -> returns true
-        UpdateCommand commandWithSameValues = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatch);
+        UpdateCommand commandWithSameValues = new UpdateCommand(INDEX_FIRST_MEDICINE, newBatchDetails);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -472,12 +488,12 @@ public class UpdateCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_SECOND_MEDICINE, newBatch)));
+        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_SECOND_MEDICINE, newBatchDetails)));
 
-        // different batch -> returns false
-        Batch differentBatch = new BatchBuilder().withBatchNumber(VALID_BATCHNUMBER_AMOXICILLIN)
-                .withQuantity(VALID_QUANTITY_AMOXICILLIN).withExpiry(VALID_EXPIRY_AMOXICILLIN).build();
-        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_FIRST_MEDICINE, differentBatch)));
+        // different UpdateBatchDescriptor -> returns false
+        Batch differentBatch = new BatchBuilder().withBatchNumber(VALID_BATCHNUMBER_AMOXICILLIN).build();
+        UpdateBatchDescriptor differentBatchDetails = new UpdateBatchDescriptorBuilder(differentBatch).build();
+        assertFalse(standardCommand.equals(new UpdateCommand(INDEX_FIRST_MEDICINE, differentBatchDetails)));
     }
 }
 

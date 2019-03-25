@@ -26,6 +26,13 @@ public class SearchYearCommandParserTest {
     public void parse_invalidArg_throwsParseException() {
         assertParseFailure(parser, "1819", String.format(DateVisited.MESSAGE_CONSTRAINTS_SEARCH,
                 SearchYearCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "2017-2016", String.format(DateVisited.MESSAGE_CONSTRAINTS_SEARCH,
+                SearchYearCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1819-2000", String.format(DateVisited.MESSAGE_CONSTRAINTS_SEARCH,
+                SearchYearCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "2000-9999", String.format(DateVisited.MESSAGE_CONSTRAINTS_SEARCH,
+                SearchYearCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -39,4 +46,14 @@ public class SearchYearCommandParserTest {
         assertParseSuccess(parser, " \n 2018 \n \t 2019  \t", expectedSearchYearCommand);
     }
 
+    @Test
+    public void parse_validArgsRange_returnsSearchYearCommand() {
+        // no leading and trailing whitespaces
+        SearchYearCommand expectedSearchYearCommand =
+                new SearchYearCommand(new YearContainsKeywordsPredicate(Arrays.asList("2016", "2017", "2018")));
+        assertParseSuccess(parser, "2016-2018", expectedSearchYearCommand);
+
+        // leading and trailing whitespaces
+        assertParseSuccess(parser, " \n 2016-2018  \t", expectedSearchYearCommand);
+    }
 }

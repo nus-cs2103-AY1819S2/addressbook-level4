@@ -62,6 +62,13 @@ public class SearchYearCommandSystemTest extends TravelBuddySystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
+        /* Case: find multiple places in travel book, valid range of years
+         * -> 5 places found
+         */
+        command = SearchYearCommand.COMMAND_WORD + " 2016-2017";
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
         /* Case: undo previous search rating command -> rejected */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;

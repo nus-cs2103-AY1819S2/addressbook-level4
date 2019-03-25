@@ -15,9 +15,11 @@ public class SearchYearCommand extends Command {
 
     public static final String COMMAND_WORD = "searchyear";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all places whose year visited contain "
-            + "the specified year and displays them as a list with index numbers.\n"
+            + "the specified year or year range and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " 2018 2019";
+            + "Parameters: KEYWORD-KEYWORD\n"
+            + "Example: " + COMMAND_WORD + " 2018 2019"
+            + "Example: " + COMMAND_WORD + " 2016-2018";
 
     private final YearContainsKeywordsPredicate predicate;
 

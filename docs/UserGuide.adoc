@@ -645,7 +645,7 @@ Format: `taskedit INDEX PARAMETERS`
 * Multiple fields can be provided in a single command and they will all be edited.
 * Refer to *Table 1* in <<taskadd, taskadd>> to see the fields that can be modified
   along with their format and restrictions
-  
+
 Examples:
 
 * `taskedit 1 ti/Tooth Extraction for Alex`

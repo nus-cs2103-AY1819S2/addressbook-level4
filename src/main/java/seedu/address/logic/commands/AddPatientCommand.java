@@ -20,7 +20,7 @@ import seedu.address.model.patient.Patient;
 public class AddPatientCommand extends Command {
     public static final String COMMAND_WORD = "addpat";
     public static final String COMMAND_ALIAS = "ap";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to QuickDocs. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to QuickDocs.\n"
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_NRIC + "NRIC "
@@ -37,7 +37,7 @@ public class AddPatientCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_CONTACT + "92344321 "
             + PREFIX_GENDER + "M "
-            + PREFIX_TAG + "highbloodpressure ";
+            + PREFIX_TAG + "highbloodpressure\n";
     public static final String CONFLICTING_NRIC = "Patient with same NRIC already existed";
 
     private Patient toAdd;

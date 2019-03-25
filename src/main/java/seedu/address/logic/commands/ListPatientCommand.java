@@ -22,8 +22,8 @@ public class ListPatientCommand extends Command {
 
     public static final String INVALID_INDEX = "Invalid index to find patient records.\n";
     public static final String MESSAGE_USAGE =
-            COMMAND_WORD + ": List patient details using a particular index, name or nric."
-                    + " A list of patients with the same tags can also be displayed by entering the tag. "
+            COMMAND_WORD + ": List patient details using a particular index, name or nric.\n"
+                    + " A list of patients with the same tags can also be displayed by entering the tag.\n"
                     + " If no parameters are entered, QuickDocs will try to list at least 50 patients\n"
                     + "Parameters: "
                     + "INDEX OR"

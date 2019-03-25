@@ -54,7 +54,7 @@ public class EditPatientCommand extends Command {
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_CONTACT + "92344321 "
             + PREFIX_GENDER + "M "
-            + PREFIX_TAG + "highbloodpressure ";
+            + PREFIX_TAG + "highbloodpressure\n";
 
     private Nric toEdit;
     private PatientEditedFields editedFields;

@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-OurTeeth was developed by the W17-02 Team
+TeethHub was developed by the W17-02 Team
 
 The basis of our product, AddressBook - Level 4, was developed by the https://se-edu.github.io/docs/Team.html[se-edu]
 team. +

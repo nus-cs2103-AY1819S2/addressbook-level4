@@ -59,7 +59,7 @@ public class PersonCard extends UiPart<Region> {
             //Orange = #b36b00
             //Red = #b30000
 
-            if (pdf.getDeadline().isMet()) {
+            if (pdf.getDeadline().isDone()) {
                 deadline.setStyle("-fx-text-fill: white;"
                         + "-fx-background-color: #2952a3;"
                         + "-fx-padding: 1;"

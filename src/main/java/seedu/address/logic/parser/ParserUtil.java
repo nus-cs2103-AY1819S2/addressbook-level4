@@ -13,6 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.Deadline;
+import seedu.address.model.pdf.DeadlineStatus;
 import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.tag.Tag;
@@ -119,7 +120,8 @@ public class ParserUtil {
      * @return Constructed valid Deadline Object
      * @throws ParseException - If input does not match requirements.
      */
-    public static Deadline parseDeadline(String deadline, boolean status) throws ParseException {
+    public static Deadline parseDeadline(String deadline, DeadlineStatus status) throws ParseException {
+
         requireNonNull(deadline);
 
         final int positionDay = 0;

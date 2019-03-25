@@ -13,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdf.Deadline;
+import seedu.address.model.pdf.DeadlineStatus;
 import seedu.address.model.pdf.Pdf;
 
 /**
@@ -32,7 +33,7 @@ public class DeadlineCommand extends Command {
 
     private final Index index;
     private final Deadline deadline;
-    private final Boolean status;
+    private final DeadlineStatus status;
 
     public DeadlineCommand(Index index, Deadline deadline) {
         requireNonNull(index);
@@ -40,10 +41,10 @@ public class DeadlineCommand extends Command {
 
         this.index = index;
         this.deadline = deadline;
-        this.status = null;
+        this.status = DeadlineStatus.READY;
     }
 
-    public DeadlineCommand(Index index, Deadline deadline, Boolean status) {
+    public DeadlineCommand(Index index, Deadline deadline, DeadlineStatus status) {
         requireNonNull(index);
         requireNonNull(status);
 

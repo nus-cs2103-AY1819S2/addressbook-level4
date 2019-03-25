@@ -13,5 +13,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG_REMOVE = new Prefix("-t/");
     public static final Prefix PREFIX_DEADLINE_NEW = new Prefix("date/");
     public static final Prefix PREFIX_DEADLINE_COMPLETE = new Prefix("done");
-
+    public static final Prefix PREFIX_DEADLINE_REMOVE = new Prefix("remove");
 }

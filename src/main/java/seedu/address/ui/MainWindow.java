@@ -217,7 +217,6 @@ public class MainWindow extends UiPart<Stage> {
      * Show the page with correct answer.
      */
     private void handleCorrectAnswer() {
-        //TODO: Change UI to display correct answer
         assert testSession != null;
         testSession.handleCorrectAnswer();
     }
@@ -226,7 +225,6 @@ public class MainWindow extends UiPart<Stage> {
      * Show the page with wrong answer.
      */
     private void handleWrongAnswer() {
-        //TODO: Change UI to display wrong answer
         assert testSession != null;
         testSession.handleWrongAnswer();
     }

@@ -365,7 +365,6 @@ public class ModelManager implements Model {
         String correctAnswerInCapitals = correctAnswer.toString().toUpperCase();
         String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
 
-        //LOOSEN MORE CRITERIAS?
         if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
             return true;
         }

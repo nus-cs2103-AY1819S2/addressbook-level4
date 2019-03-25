@@ -69,10 +69,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         // TODO: To replace with filter tests
-//        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-//        FilterHealthWorkerCommand command = (FilterHealthWorkerCommand) parser.parseCommand(
-//                FilterHealthWorkerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-//        assertEquals(new FilterHealthWorkerCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        // List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        // FilterHealthWorkerCommand command = (FilterHealthWorkerCommand) parser.parseCommand(
+        //        FilterHealthWorkerCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+        // assertEquals(new FilterHealthWorkerCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

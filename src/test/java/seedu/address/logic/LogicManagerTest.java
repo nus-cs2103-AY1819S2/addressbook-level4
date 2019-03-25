@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -58,7 +57,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
-         String invalidCommand = "uicfhmowqewca";
+         String invalidCommand = "wnfookdasd";
          assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
          assertHistoryCorrect(invalidCommand);
     }
@@ -143,7 +142,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), model.getHealthWorkerBook(),
-            getTypicalRequestBook(), new UserPrefs());
+            model.getRequestBook(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

@@ -131,8 +131,8 @@ public class FilterCommandParserTest {
         Predicate<HealthWorker> thirdPredicate = x -> x.getSkills().containsAll(Arrays.asList(
                 Specialisation.GENERAL_PRACTICE, Specialisation.PHYSIOTHERAPY));
 
-        FilterHealthWorkerCommand command = (FilterHealthWorkerCommand) parser.parse(MODE_HEALTHWORKER +
-                NAME_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY);
+        FilterHealthWorkerCommand command = (FilterHealthWorkerCommand) parser.parse(MODE_HEALTHWORKER
+                + NAME_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY);
         expectedModel.updateFilteredHealthWorkerList(FilterHealthWorkerCommand
                 .reducePredicates(Arrays.asList(firstPredicate, secondPredicate, thirdPredicate)));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

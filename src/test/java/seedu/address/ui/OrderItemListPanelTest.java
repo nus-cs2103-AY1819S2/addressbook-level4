@@ -11,6 +11,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.menu.Code;
+import seedu.address.model.menu.Name;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.table.TableNumber;
 
@@ -73,8 +74,9 @@ public class OrderItemListPanelTest extends GuiUnitTest {
         for (int i = 1; i <= orderItemCount; i++) {
             TableNumber tableNumber = new TableNumber(i + "");
             Code menuItemCode = new Code("W09");
+            Name menuItemName = new Name("Chicken Wings");
             int quantityOrdered = 3;
-            OrderItem orderItem = new OrderItem(tableNumber, menuItemCode, quantityOrdered);
+            OrderItem orderItem = new OrderItem(tableNumber, menuItemCode, menuItemName, quantityOrdered);
             backingList.add(orderItem);
         }
         return backingList;

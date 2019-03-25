@@ -264,6 +264,11 @@ public class AddTableCommandTest {
         }
 
         @Override
+        public void clearOrderItemsFrom(TableNumber tableNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteMenuItem(MenuItem menuItem) {
             throw new AssertionError("This method should not be called.");
         }

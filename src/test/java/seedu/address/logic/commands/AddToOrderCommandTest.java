@@ -289,6 +289,11 @@ public class AddToOrderCommandTest {
         }
 
         @Override
+        public void clearOrderItemsFrom(TableNumber tableNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+        
+        @Override
         public void addTable(Table table) {
             throw new AssertionError("This method should not be called.");
         }

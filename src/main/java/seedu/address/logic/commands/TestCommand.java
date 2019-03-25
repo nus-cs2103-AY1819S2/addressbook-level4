@@ -49,8 +49,10 @@ public class TestCommand extends Command {
         model.setActiveCardFolderIndex(targetIndex.getZeroBased());
         model.testCardFolder(targetIndex.getZeroBased());
         Card cardToTest = model.getCurrentTestedCard();
-        return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, false, cardToTest, false,
-                AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        CommandResult commandResult = new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
+                CommandResult.TYPE.TEST_SESSION_CARD);
+        commandResult.setTestSessionCard(cardToTest);
+        return commandResult;
     }
 
     @Override

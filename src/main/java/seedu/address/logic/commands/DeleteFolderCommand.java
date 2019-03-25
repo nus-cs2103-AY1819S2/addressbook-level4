@@ -47,8 +47,7 @@ public class DeleteFolderCommand extends Command {
         ReadOnlyCardFolder cardFolderToDelete = cardFolderList.get(targetIndex.getZeroBased());
 
         model.deleteFolder(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_DELETE_FOLDER_SUCCESS, cardFolderToDelete),
-                false, false, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        return new CommandResult(String.format(MESSAGE_DELETE_FOLDER_SUCCESS, cardFolderToDelete));
     }
 
     @Override

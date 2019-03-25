@@ -18,7 +18,6 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false, false, null, false,
-                AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        return new CommandResult(SHOWING_HELP_MESSAGE, CommandResult.TYPE.SHOW_HELP);
     }
 }

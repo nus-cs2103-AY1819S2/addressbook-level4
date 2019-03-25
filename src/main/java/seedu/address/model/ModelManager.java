@@ -353,7 +353,7 @@ public class ModelManager implements Model {
     @Override
     public void endTestSession() {
         insideTestSession = false;
-        cardAlreadyAnswered = false;
+        setCardAsNotAnswered();
         setCurrentTestedCard(null);
         currentTestedCardFolder = null;
         exitFoldersToHome();
@@ -377,6 +377,10 @@ public class ModelManager implements Model {
         cardAlreadyAnswered = true;
     }
 
+    private void setCardAsNotAnswered() {
+        cardAlreadyAnswered = false;
+    }
+
     @Override
     public boolean checkIfCardAlreadyAnswered() {
         return cardAlreadyAnswered;
@@ -394,6 +398,7 @@ public class ModelManager implements Model {
         }
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
+        setCardAsNotAnswered();
     }
 
     //=========== Selected card ===========================================================================

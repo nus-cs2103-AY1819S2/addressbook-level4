@@ -17,6 +17,7 @@ import seedu.address.logic.Mode;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -118,17 +119,25 @@ public class RestOrRantParserTest {
     }
 
     @Test
-    public void parseCommand_clear() throws Exception {
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, ClearCommand.COMMAND_ALIAS) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
-                ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
-        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
-                ClearCommand.COMMAND_ALIAS + " 3") instanceof ClearCommand);
-        assertTrue(parser.parseCommand(Mode.TABLE_MODE, ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(Mode.TABLE_MODE, ClearCommand.COMMAND_ALIAS) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(Mode.MENU_MODE, ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(Mode.MENU_MODE, ClearCommand.COMMAND_ALIAS) instanceof ClearCommand);
+    public void parseCommand_clearOrder() throws Exception {
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, ClearOrderCommand.COMMAND_WORD) instanceof ClearOrderCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE, ClearOrderCommand.COMMAND_ALIAS) instanceof ClearOrderCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE,
+                ClearOrderCommand.COMMAND_WORD + " 3") instanceof ClearOrderCommand);
+        assertTrue(parser.parseCommand(Mode.TABLE_MODE,
+                ClearOrderCommand.COMMAND_ALIAS + " 3") instanceof ClearOrderCommand);
+        try {
+            parser.parseCommand(Mode.RESTAURANT_MODE, ClearOrderCommand.COMMAND_WORD);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.MENU_MODE, ClearOrderCommand.COMMAND_WORD);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
     }
 
     // TODO: keep for future use

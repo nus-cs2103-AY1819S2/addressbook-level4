@@ -3,46 +3,55 @@
   "orderItems" : [ {
     "tableNumber" : "1",
     "menuItemCode" : "W09",
+    "menuItemName" : "Chicken Wings",
     "quantityOrdered" : "2",
     "quantityUnserved" : "0"
   }, {
     "tableNumber" : "1",
     "menuItemCode" : "W12",
+    "menuItemName" : "French Fries",
     "quantityOrdered" : "2",
     "quantityUnserved" : "0"
   }, {
     "tableNumber" : "2",
     "menuItemCode" : "A05",
+    "menuItemName" : "Salad",
     "quantityOrdered" : "1",
     "quantityUnserved" : "0"
   }, {
     "tableNumber" : "2",
     "menuItemCode" : "M17",
+    "menuItemName" : "Cheese Nachos",
     "quantityOrdered" : "1",
     "quantityUnserved" : "0"
   }, {
     "tableNumber" : "2",
     "menuItemCode" : "C02",
+    "menuItemName" : "Shrimp Fried Rice",
     "quantityOrdered" : "2",
     "quantityUnserved" : "0"
   }, {
     "tableNumber" : "4",
     "menuItemCode" : "T01",
+    "menuItemName" : "Mee Sua",
     "quantityOrdered" : "3",
     "quantityUnserved" : "0"
   }, {
     "tableNumber" : "7",
     "menuItemCode" : "F11",
+    "menuItemName" : "Crepes",
     "quantityOrdered" : "4",
     "quantityUnserved" : "0"
   }, {
     "tableNumber" : "1",
     "menuItemCode" : "K12",
+    "menuItemName" : "Kimchi Fried Rice",
     "quantityOrdered" : "1",
     "quantityUnserved" : "0"
   }, {
     "tableNumber" : "8",
     "menuItemCode" : "W09",
+    "menuItemName" : "Chicken Wings",
     "quantityOrdered" : "3",
     "quantityUnserved" : "0"
   } ]

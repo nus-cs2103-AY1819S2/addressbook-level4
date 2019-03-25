@@ -21,8 +21,9 @@ import seedu.address.model.table.TableNumber;
 public class TableModeCommand extends ChangeModeCommand {
     public static final String COMMAND_WORD = "tableMode"; // change to standardize with other modes
     public static final String COMMAND_ALIAS = "TM";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change to Table Mode for the specified table. "
-            + "Parameters: TABLE_NUMBER\n" + "Example: " + COMMAND_WORD + " 3";
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Change to Table Mode for the specified table. " + "Parameters: TABLE_NUMBER\n"
+                    + "Example: " + COMMAND_WORD + " 3";
     public static final String MESSAGE_SUCCESS = "Mode changed to Table Mode!\nCurrently on Table %1$s";
 
     private final TableNumber tableNumber;
@@ -47,7 +48,7 @@ public class TableModeCommand extends ChangeModeCommand {
         if (!tableOptional.isPresent()) {
             throw new CommandException(MESSAGE_INVALID_TABLE_NUMBER);
         }
-        
+
         Table chosenTable = tableOptional.get();
         if (!chosenTable.isOccupied()) {
             throw new CommandException(String.format(MESSAGE_INVALID_TABLE_UNOCCUPIED, tableNumber.toString()));
@@ -75,7 +76,6 @@ public class TableModeCommand extends ChangeModeCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TableModeCommand && tableNumber
-                .equals(((TableModeCommand) other).tableNumber));
+                || (other instanceof TableModeCommand && tableNumber.equals(((TableModeCommand) other).tableNumber));
     }
 }

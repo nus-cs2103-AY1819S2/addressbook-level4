@@ -12,7 +12,6 @@ import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
@@ -54,8 +53,8 @@ public class RestOrRantParser {
         // General commands that work in all modes
 
         switch (commandWord) {
-            
-        case HelpCommand.COMMAND_WORD: // Fallthrough 
+
+        case HelpCommand.COMMAND_WORD: // Fallthrough
         case HelpCommand.COMMAND_ALIAS:
             return new HelpCommand();
 

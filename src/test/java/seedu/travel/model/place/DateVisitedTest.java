@@ -3,6 +3,9 @@ package seedu.travel.model.place;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import org.junit.Test;
 
 import seedu.travel.testutil.Assert;
@@ -50,5 +53,23 @@ public class DateVisitedTest {
         // valid date visited
         assertTrue(DateVisited.isValidDateVisited("10/10/2009"));
         assertTrue(DateVisited.isValidDateVisited("01/01/2018"));
+    }
+
+    @Test
+    public void isValidYearVisited() {
+        // null year visited
+        Assert.assertThrows(NullPointerException.class, () -> DateVisited.isValidYear(null));
+
+        // invalid year visited
+        assertFalse(DateVisited.isValidYear("")); // empty string
+        assertFalse(DateVisited.isValidYear(" ")); // spaces only
+        assertFalse(DateVisited.isValidYear("invalidyear")); // non-integer input
+        assertFalse(DateVisited.isValidYear("1819")); // date before 1900
+        assertFalse(DateVisited.isValidYear(String.valueOf(LocalDateTime.now().getYear() + 1))); // future date
+
+        // valid year visited
+        assertTrue(DateVisited.isValidYear("1900")); // lower boundary case
+        assertTrue(DateVisited.isValidYear("2001")); // middle case
+        assertTrue(DateVisited.isValidYear(String.valueOf(LocalDateTime.now().getYear()))); // upper boundary case
     }
 }

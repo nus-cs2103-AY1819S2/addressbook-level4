@@ -13,7 +13,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 
 /**
- * Selects a card identified using it's displayed index from the card folder.
+ * Selects a folder identified using it's displayed index in the home directory. Also used to navigate from
+ * within a folder back to the home directory.
  */
 public class ChangeCommand extends Command {
 
@@ -52,7 +53,7 @@ public class ChangeCommand extends Command {
             }
             model.exitFoldersToHome();
             return new CommandResult(MESSAGE_EXIT_FOLDER_SUCCESS,
-                    false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                    false, false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
         } else {
             if (model.isInFolder()) {
                 throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
@@ -63,7 +64,7 @@ public class ChangeCommand extends Command {
             }
             model.setActiveCardFolderIndex(targetIndex.getZeroBased());
             return new CommandResult(String.format(MESSAGE_ENTER_FOLDER_SUCCESS, targetIndex.getOneBased()),
-                    false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                    false, false, true, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
         }
     }
 

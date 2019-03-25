@@ -15,6 +15,7 @@ import seedu.address.logic.parser.CommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
+import seedu.address.model.VersionedCardFolder;
 import seedu.address.model.card.Card;
 import seedu.address.storage.Storage;
 
@@ -92,8 +93,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObservableList<Card> getFilteredCardList() {
+    public ObservableList<Card> getFilteredCards() {
         return model.getFilteredCards();
+    }
+
+    @Override
+    public ObservableList<VersionedCardFolder> getFilteredCardFolders() {
+        return model.getFilteredFolders();
     }
 
     @Override

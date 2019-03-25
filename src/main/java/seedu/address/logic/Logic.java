@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyCardFolder;
+import seedu.address.model.VersionedCardFolder;
 import seedu.address.model.card.Card;
 
 /**
@@ -32,7 +33,10 @@ public interface Logic {
     ReadOnlyCardFolder getCardFolder();
 
     /** Returns an unmodifiable view of the filtered list of cards */
-    ObservableList<Card> getFilteredCardList();
+    ObservableList<Card> getFilteredCards();
+
+    /** Returns an unmodifiable view of the filtered folders list */
+    ObservableList<VersionedCardFolder> getFilteredCardFolders();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

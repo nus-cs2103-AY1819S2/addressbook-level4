@@ -107,7 +107,7 @@ public class LogicManagerTest {
     @Test
     public void getFilteredCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredCardList().remove(0);
+        logic.getFilteredCards().remove(0);
     }
 
     /**

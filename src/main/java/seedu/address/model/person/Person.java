@@ -117,8 +117,12 @@ public class Person {
         return otherPerson.getName().equals(getName())
                 && otherPerson.getMatricNumber().equals(getMatricNumber())
                 && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail());
-
+                && otherPerson.getEmail().equals(getEmail())
+                && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getGender().equals(getGender())
+                && otherPerson.getYearOfStudy().equals(getYearOfStudy())
+                && otherPerson.getMajor().equals(getMajor())
+                && otherPerson.getTags().equals(getTags());
     }
 
     @Override

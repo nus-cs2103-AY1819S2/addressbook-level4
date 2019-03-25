@@ -13,12 +13,6 @@ public class CardSrsDataTest {
     private CardSrsData testCardData = new CardSrsData(1, 1, 1, date);
 
     @Test
-    public void constructor_invalidHashCode_throwsIllegalArgumentException(){
-
-      //  Assert.assertThrows(IllegalArgumentException.class, () -> )
-
-    }
-    @Test
     public void equals() {
         //Different type of object -> returns false
         assertFalse(testCardData.equals(new Object()));

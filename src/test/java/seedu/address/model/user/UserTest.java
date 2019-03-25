@@ -12,11 +12,7 @@ public class UserTest {
     private User user = new User();
     private Instant date = Instant.now();
     private final CardSrsData testCardData = new CardSrsData(1, 1, 1, date);
-    private final HashMap<Integer, CardSrsData> testHashMap = new HashMap<>() {
-        {
-            put(1, testCardData);
-        }
-    };
+    private final HashMap<Integer, CardSrsData> testHashMap = new HashMap<>();
 
     @Test
     public void addCard() {

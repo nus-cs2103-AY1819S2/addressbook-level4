@@ -23,7 +23,7 @@ Last Updated: 2/19/2019 15:35:35
 Welcome to TeethHub! 
 If you are a dental practitioner who prefers to use a Command Line Interface (CLI),
 then TeethHub is an application for you!
-The application works primarily through a [CLI](Command Line Interface)
+The application works primarily through a [CLI]("Command Line Interface")
 while having elements of a Graphical User Interface (GUI).
 For example, you can select and view patients and records by clicking on them,
 but you would need to type type the edit command to edit them.

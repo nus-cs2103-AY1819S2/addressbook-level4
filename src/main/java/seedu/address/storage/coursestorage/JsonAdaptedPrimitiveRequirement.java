@@ -49,7 +49,7 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
      * Converts this Jackson-friendly adapted primitive requirement object
      * into the model's {@code PrimitiveRequirement} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted moduleTaken.
      */
     @Override
     public CourseRequirement toModelType() throws IllegalValueException {

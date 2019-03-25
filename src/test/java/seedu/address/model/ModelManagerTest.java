@@ -3,11 +3,11 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MIN_GRADE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MIN_GRADE_CS1010;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalModuleTaken.CS2101;
+import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
+import static seedu.address.testutil.TypicalModuleTaken.DEFAULT_MODULE_CS1010;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,11 +20,11 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.moduleinfo.ModuleInfoList;
+import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ModuleTakenBuilder;
 
 public class ModelManagerTest {
     @Rule
@@ -94,39 +94,40 @@ public class ModelManagerTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+        assertFalse(modelManager.hasPerson(CS2103T));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+        modelManager.addPerson(CS2103T);
+        assertTrue(modelManager.hasPerson(CS2103T));
     }
 
     @Test
     public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        modelManager.deletePerson(ALICE);
+        modelManager.addPerson(CS2103T);
+        modelManager.setSelectedPerson(CS2103T);
+        modelManager.deletePerson(CS2103T);
         assertEquals(null, modelManager.getSelectedPerson());
     }
 
     @Test
     public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
-        modelManager.addPerson(ALICE);
-        modelManager.addPerson(BOB);
-        assertEquals(Arrays.asList(ALICE, BOB), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(BOB);
-        modelManager.deletePerson(BOB);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+        modelManager.addPerson(CS2103T);
+        modelManager.addPerson(DEFAULT_MODULE_CS1010);
+        assertEquals(Arrays.asList(CS2103T, DEFAULT_MODULE_CS1010), modelManager.getFilteredPersonList());
+        modelManager.setSelectedPerson(DEFAULT_MODULE_CS1010);
+        modelManager.deletePerson(DEFAULT_MODULE_CS1010);
+        assertEquals(CS2103T, modelManager.getSelectedPerson());
     }
 
     @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
-        modelManager.addPerson(ALICE);
-        modelManager.setSelectedPerson(ALICE);
-        Person updatedAlice = new PersonBuilder(ALICE).withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_BOB).build();
-        modelManager.setPerson(ALICE, updatedAlice);
+        modelManager.addPerson(CS2103T);
+        modelManager.setSelectedPerson(CS2103T);
+        ModuleTaken updatedAlice = new ModuleTakenBuilder(CS2103T)
+                .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS1010).build();
+        modelManager.setPerson(CS2103T, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedPerson());
     }
 
@@ -139,20 +140,20 @@ public class ModelManagerTest {
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
         thrown.expect(PersonNotFoundException.class);
-        modelManager.setSelectedPerson(ALICE);
+        modelManager.setSelectedPerson(CS2103T);
     }
 
     @Test
     public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
-        modelManager.addPerson(ALICE);
-        assertEquals(Collections.singletonList(ALICE), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(ALICE);
-        assertEquals(ALICE, modelManager.getSelectedPerson());
+        modelManager.addPerson(CS2103T);
+        assertEquals(Collections.singletonList(CS2103T), modelManager.getFilteredPersonList());
+        modelManager.setSelectedPerson(CS2103T);
+        assertEquals(CS2103T, modelManager.getSelectedPerson());
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withPerson(CS2103T).withPerson(CS2101).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
         ModuleInfoList moduleInfoList = new ModuleInfoList();
@@ -175,7 +176,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, moduleInfoList)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getModuleInfo().fullName.split("\\s+");
+        String[] keywords = CS2103T.getModuleInfo().toString().split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, moduleInfoList)));
 

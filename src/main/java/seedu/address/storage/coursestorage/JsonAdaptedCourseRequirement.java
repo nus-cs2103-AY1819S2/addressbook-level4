@@ -8,7 +8,7 @@ import seedu.address.model.course.CourseRequirement;
  */
 public interface JsonAdaptedCourseRequirement {
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code CourseRequirement}
+     * Converts this Jackson-friendly adapted moduleTaken object into the model's {@code CourseRequirement}
      * interface objects.
      * @throws IllegalValueException if unacceptable values of CourseRequirements are used
      */

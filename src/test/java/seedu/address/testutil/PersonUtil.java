@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPECTED_MIN_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FINISHED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LECTURE_HOUR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_INFO_CODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -15,31 +15,31 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for ModuleTaken.
  */
 public class PersonUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code moduleTaken}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(ModuleTaken moduleTaken) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(moduleTaken);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code moduleTaken}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getPersonDetails(ModuleTaken moduleTaken) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getModuleInfo().fullName + " ");
-        sb.append(PREFIX_SEMESTER + person.getSemester().toString() + " ");
-        sb.append(PREFIX_EXPECTED_MIN_GRADE + person.getExpectedMinGrade().name() + " ");
-        sb.append(PREFIX_EXPECTED_MAX_GRADE + person.getExpectedMaxGrade().name() + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_MODULE_INFO_CODE + moduleTaken.getModuleInfo().toString() + " ");
+        sb.append(PREFIX_SEMESTER + moduleTaken.getSemester().toString() + " ");
+        sb.append(PREFIX_EXPECTED_MIN_GRADE + moduleTaken.getExpectedMinGrade().name() + " ");
+        sb.append(PREFIX_EXPECTED_MAX_GRADE + moduleTaken.getExpectedMaxGrade().name() + " ");
+        moduleTaken.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
@@ -50,7 +50,8 @@ public class PersonUtil {
      */
     public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getModuleInfoCode().ifPresent(infoCode ->
+                sb.append(PREFIX_MODULE_INFO_CODE).append(infoCode.toString()).append(" "));
         descriptor.getSemester().ifPresent(semester ->
                 sb.append(PREFIX_SEMESTER)
                         .append(semester.name())
@@ -80,7 +81,7 @@ public class PersonUtil {
 
     public static String getFindModuleDescriptorDetails(FindModuleDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getSubCode().ifPresent(code -> sb.append(PREFIX_NAME).append(code).append(" "));
+        descriptor.getSubCode().ifPresent(code -> sb.append(PREFIX_MODULE_INFO_CODE).append(code).append(" "));
         descriptor.getSemester().ifPresent(semester ->
                 sb.append(PREFIX_SEMESTER)
                         .append(semester.name())

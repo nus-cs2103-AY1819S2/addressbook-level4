@@ -36,7 +36,7 @@ public class TypicalModules {
     public static final Module CS2030 = new Module(new ModuleCode("CS2030"),
             new ModuleTitle("Programming Methodology II"),
             new ModuleDescription(
-                    "This module is a follow up to CS1010. "
+                    "This module is a follow up to DEFAULT_MODULE_CS1010. "
                             + "It explores two modern programming paradigms, "
                             + "object-oriented programming and functional programming. "
                             + "Through a series of integrated assignments, "
@@ -49,7 +49,7 @@ public class TypicalModules {
                             + "effect-free programming, first class functions, "
                             + "closures, continuations, monad, etc."
             ),
-            new ModulePrereq("CS1010", new LinkedList<Module>(Arrays.asList(CS1010))),
+            new ModulePrereq("DEFAULT_MODULE_CS1010", new LinkedList<Module>(Arrays.asList(CS1010))),
             new ModuleDepartment("Computer Science"), new ModuleCredits("4"));
 
 
@@ -61,7 +61,7 @@ public class TypicalModules {
                             + "The module covers basic data structures "
                             + "(linked lists, stacks, queues, hash tables, binary heaps, trees, and graphs), "
                             + "searching and sorting algorithms, and basic analysis of algorithms."),
-            new ModulePrereq("CS1010",
+            new ModulePrereq("DEFAULT_MODULE_CS1010",
                     new LinkedList<Module>(Arrays.asList(CS1010))),
             new ModuleDepartment("Computer Science"), new ModuleCredits("4"));
 
@@ -75,7 +75,7 @@ public class TypicalModules {
                             + "searching and sorting algorithms, basic analysis of algorithms, "
                             + "and basic object-oriented programming concepts."
             ),
-            new ModulePrereq("CS1010",
+            new ModulePrereq("DEFAULT_MODULE_CS1010",
                     new LinkedList<Module>(Arrays.asList(CS1010))),
             new ModuleDepartment("Computer Science"), new ModuleCredits("4"));
 

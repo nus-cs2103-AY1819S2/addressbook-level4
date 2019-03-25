@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalModuleTaken.CS1010S;
+import static seedu.address.testutil.TypicalModuleTaken.DEFAULT_MODULE_CS1010;
+import static seedu.address.testutil.TypicalModuleTaken.DEFAULT_MODULE_CS2103T;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,9 +18,12 @@ import seedu.address.testutil.AddressBookBuilder;
 
 public class VersionedAddressBookTest {
 
-    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
-    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
-    private final ReadOnlyAddressBook addressBookWithCarl = new AddressBookBuilder().withPerson(CARL).build();
+    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder()
+            .withPerson(DEFAULT_MODULE_CS2103T).build();
+    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder()
+            .withPerson(DEFAULT_MODULE_CS1010).build();
+    private final ReadOnlyAddressBook addressBookWithCarl = new AddressBookBuilder()
+            .withPerson(CS1010S).build();
     private final ReadOnlyAddressBook emptyAddressBook = new AddressBookBuilder().build();
 
     @Test

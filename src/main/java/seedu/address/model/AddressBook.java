@@ -9,7 +9,7 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -46,11 +46,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the moduleTaken list with {@code moduleTakens}.
+     * {@code moduleTakens} must not contain duplicate moduleTakens.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<ModuleTaken> moduleTakens) {
+        this.persons.setPersons(moduleTakens);
         indicateModified();
     }
 
@@ -63,34 +63,35 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// moduleTaken-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a moduleTaken with the same identity as {@code moduleTaken} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(ModuleTaken moduleTaken) {
+        requireNonNull(moduleTaken);
+        return persons.contains(moduleTaken);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a moduleTaken to the address book.
+     * The moduleTaken must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(ModuleTaken p) {
         persons.add(p);
         indicateModified();
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given moduleTaken {@code target} in the list with {@code editedModuleTaken}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The moduleTaken identity of {@code editedModuleTaken} must not be the same as another
+     * existing moduleTaken in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void setPerson(ModuleTaken target, ModuleTaken editedModuleTaken) {
+        requireNonNull(editedModuleTaken);
 
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, editedModuleTaken);
         indicateModified();
     }
 
@@ -98,7 +99,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(ModuleTaken key) {
         persons.remove(key);
         indicateModified();
     }
@@ -106,9 +107,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     public List<ModuleInfoCode> getPassedModuleList() {
         List<ModuleInfoCode> codeList = new ArrayList<>();
 
-        for (Person module : getPersonList()) {
+        for (ModuleTaken module : getPersonList()) {
             if (module.isPassed()) {
-                codeList.add(new ModuleInfoCode(module.getModuleInfo().fullName)); // temporary
+                codeList.add(new ModuleInfoCode(module.getModuleInfo().toString())); // temporary
             }
         }
 
@@ -120,8 +121,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPassedModule(String code) {
         requireNonNull(code);
-        for (Person module : getPersonList()) {
-            if (module.getModuleInfo().fullName.equals(code)
+        for (ModuleTaken module : getPersonList()) {
+            if (module.getModuleInfo().toString().equals(code)
                     && module.isPassed()) {
                 return true;
             }
@@ -135,8 +136,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public boolean hasPlannedModule(String code) {
         requireNonNull(code);
-        for (Person module : getPersonList()) {
-            if (module.getModuleInfo().fullName.equals(code)
+        for (ModuleTaken module : getPersonList()) {
+            if (module.getModuleInfo().toString().equals(code)
                     && !module.isFinished()) {
                 return true;
             }
@@ -170,7 +171,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<ModuleTaken> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

@@ -29,9 +29,9 @@ import seedu.address.model.RecModuleComparator;
 import seedu.address.model.RecModulePredicate;
 import seedu.address.model.course.Course;
 import seedu.address.model.moduleinfo.ModuleInfo;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.Semester;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ModuleTakenBuilder;
 
 public class AddCommandTest {
 
@@ -51,20 +51,20 @@ public class AddCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+        ModuleTaken validModuleTaken = new ModuleTakenBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validModuleTaken).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validModuleTaken), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validModuleTaken), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+        ModuleTaken validModuleTaken = new ModuleTakenBuilder().build();
+        AddCommand addCommand = new AddCommand(validModuleTaken);
+        ModelStub modelStub = new ModelStubWithPerson(validModuleTaken);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
@@ -73,26 +73,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        ModuleTaken cs2103t = new ModuleTakenBuilder().withModuleInfoCode("CS2103T").build();
+        ModuleTaken cs1010 = new ModuleTakenBuilder().withModuleInfoCode("CS1010").build();
+        AddCommand addCS2103T = new AddCommand(cs2103t);
+        AddCommand addCS1010 = new AddCommand(cs1010);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addCS2103T.equals(addCS2103T));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddCommand addAliceCommandCopy = new AddCommand(cs2103t);
+        assertTrue(addCS2103T.equals(addAliceCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addCS2103T.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addCS2103T.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different moduleTaken -> returns false
+        assertFalse(addCS2103T.equals(addCS1010));
     }
 
     /**
@@ -160,7 +160,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addPerson(ModuleTaken moduleTaken) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -175,27 +175,27 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasPerson(ModuleTaken moduleTaken) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deletePerson(ModuleTaken target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setPerson(ModuleTaken target, ModuleTaken editedModuleTaken) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<ModuleTaken> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredPersonList(Predicate<ModuleTaken> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -225,17 +225,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Person> selectedPersonProperty() {
+        public ReadOnlyProperty<ModuleTaken> selectedPersonProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public Person getSelectedPerson() {
+        public ModuleTaken getSelectedPerson() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(Person person) {
+        public void setSelectedPerson(ModuleTaken moduleTaken) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -271,39 +271,39 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single moduleTaken.
      */
     private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+        private final ModuleTaken moduleTaken;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithPerson(ModuleTaken moduleTaken) {
+            requireNonNull(moduleTaken);
+            this.moduleTaken = moduleTaken;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasPerson(ModuleTaken moduleTaken) {
+            requireNonNull(moduleTaken);
+            return this.moduleTaken.isSamePerson(moduleTaken);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the moduleTaken being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+        final ArrayList<ModuleTaken> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasPerson(ModuleTaken moduleTaken) {
+            requireNonNull(moduleTaken);
+            return personsAdded.stream().anyMatch(moduleTaken::isSamePerson);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addPerson(ModuleTaken moduleTaken) {
+            requireNonNull(moduleTaken);
+            personsAdded.add(moduleTaken);
         }
 
         @Override

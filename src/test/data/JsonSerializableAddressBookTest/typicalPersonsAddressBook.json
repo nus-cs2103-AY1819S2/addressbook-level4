@@ -1,49 +1,49 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
-    "name" : "Alice Pauline",
+    "moduleInfoCode" : "CS2103T",
     "semester" : "Y1S2",
     "expectedMinGrade" : "F",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
     "tagged" : [ "friends" ]
   }, {
-    "name" : "Benson Meier",
+    "moduleInfoCode" : "CS2101",
     "semester" : "Y3S2",
     "expectedMinGrade" : "D",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
-    "name" : "Carl Kurz",
+    "moduleInfoCode" : "CS1010S",
     "semester" : "Y5S2",
     "expectedMinGrade" : "D",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
     "tagged" : [ ]
   }, {
-    "name" : "Daniel Meier",
+    "moduleInfoCode" : "CS1010X",
     "semester" : "Y4S2",
     "expectedMinGrade" : "F",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
     "tagged" : [ "friends" ]
   }, {
-    "name" : "Elle Meyer",
+    "moduleInfoCode" : "MA1521",
     "semester" : "Y3S1",
     "expectedMinGrade" : "C",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
     "tagged" : [ ]
   }, {
-    "name" : "Fiona Kunz",
+    "moduleInfoCode" : "LSM1301",
     "semester" : "Y4S2",
     "expectedMinGrade" : "D",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
     "tagged" : [ ]
   }, {
-    "name" : "George Best",
+    "moduleInfoCode" : "GER1000",
     "semester" : "Y4S1",
     "expectedMinGrade" : "C",
     "expectedMaxGrade" : "B",

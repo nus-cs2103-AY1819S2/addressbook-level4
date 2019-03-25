@@ -29,7 +29,7 @@ public class ModuleBuilder {
                     + "such as Unified Modelling Language (UML), program specification, and testing methods, "
                     + "will be taught. Major software engineering issues such as modularisation criteria, "
                     + "program correctness, and software quality will also be covered.";
-    public static final String DEFAULT_MODULEPREREQUISITE = "CS1010";
+    public static final String DEFAULT_MODULEPREREQUISITE = "DEFAULT_MODULE_CS1010";
     public static final String DEFAULT_MODULEDEPARTMENT = "Computer Science";
     public static final String DEFAULT_MODULECREDITS = "4";
 

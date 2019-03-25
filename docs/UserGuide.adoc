@@ -26,7 +26,7 @@ If you are a dental practitioner who prefers to use a Command Line Interface (CL
 then TeethHub is an application for you!
 
 TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
-For example, you can select and find patients and records by clicking on them, but you would need to type type the edit command to edit them.
+For example, you can select patients and records by clicking on them, but you would need to type the edit command to edit them.
 TeethHub allows you to keep track of your patient's particulars along with their dental records.
 An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
 In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
@@ -57,15 +57,53 @@ It should start in a few seconds and begin the initialization set-up.
 If you need the full list of available commands and their associated details, please proceed to <<quick-start-guide>>!
 
 == Commands and Features
+
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in add n/NAME, NAME is
+a parameter which can be used as add n/John Doe.
+
+* Items in square brackets are optional.
+
+* Parameters can be in any order e.g. if the command specifies `n/NAME ic/NRIC dob/DATE_OF_BIRTH`,
+`dob/DATE_OF_BIRTH n/NAME ic/NRIC ` is also acceptable.
+
+=== Breakdown of attributes used within TeethHub
+[cols=",,,", options="header",]
+|===
+4+^|List of valid prefixes
+
+4+^|Unique Prefixes
+2+| *Patient* 2+| *Record*
+|Prefix | Attribute | Prefix | Attribute
+|a/ | Address 2.7+|
+|dob/ | Date of Birth
+|e/ | Email
+|ic/ | Nric
+|n/ | Name
+|p/ | Phone
+|sex/ | Sex
+4+^|Common Prefixes
+
+|===
+
 === General Commands
-
-
 
 ==== help
 
 Displays the help text for all available commands.
 
 Format: `help`
+
+==== dentist
+
+You can specify the name you want to reflect in your patients' dental record when you create them.
+
+Format: `dentist n/YOUR_NAME`
+
+* If there is no dentist name specified, the program will prompt you to enter one.
+
+* This should only happen once, during the first startup of the application.
 
 ==== history
 Lists all the commands that have been entered since starting the
@@ -239,29 +277,30 @@ Saves patient 1 to patient 4 from the current patients list to "patients1.pdf".
 * `export patients1.pdf 1,3-5` +
 Saves patient 1 and patient 3 to patient 5 from the current patients list to "patients1.pdf".
 
-* `Export patients1.json all` +
+* `export patients1.json all` +
 Writes all entries from the address book to patients1.json. +
 
 === Patient Management
+
 ==== add
 
 Adds a patient to the patients list.
 
-Format: `add PARAMETERS [t/TAG] …`
+Name, NRIC, and Date of Birth fields are compulsory. The rest are optional fields.
+
+Format: `add PARAMETERS …`
 
 Parameters:
 
 [cols=",",options=""]
 |===
-|Tag |Example
 |n/NAME |n/Keith Choo Shen Hao
 |s/SEX |s/Male
 |p/PHONE_NUMBER |p/98765432
 |e/EMAIL |e/KeithCSH@debang.com
 |a/ADDRESS |a/1 Pulau Tekong Besar 508449
 |ic/NRIC |ic/S1234567Z
-|age/AGE |age/25
-|dob/DATE_OF_BIRTH_DDMMYYYY |dob/28061994
+|dob/DATE_OF_BIRTH_DD-MM-YYYY |dob/28-06-1994
 |da/DRUG_ALLERGY |da/Insulin
 |nokn/NEXT_OF_KIN_NAME |nokn/Choo Debang
 |nokp/NEXT_OF_KIN_PHONE_NUMBER |nokp/97654321
@@ -269,34 +308,25 @@ Parameters:
 |noka/NEXT_OF_KIN_ADDRESS |noka/21 Lower Kent Ridge Rd 119077
 |===
 
-
-A patient can have any number of tags.
-
-Note: If a patient’s next of kin lives at the same address, use `same` to
-indicate that.
+Note: If a patient’s next of kin lives at the same address, use `same` to indicate that.
 
 Examples:
-
 
 * `add n/John Choo p/98425871 e/jonC@example.com a/IDA street block 13
 #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo nokp/84875215
 nokr/Father noka/same`
 
-
 ==== delete
-
 
 Deletes the specified patient from the patients list.
 
 Format: delete INDEX
-
 
 * Deletes the patient at the specified index.
 
 * The index refers to the index number shown in the displayed patient list.
 
 * The given index must be a positive integer (e.g 1, 2 or 3…).
-
 
 Examples:
 
@@ -307,14 +337,11 @@ Deletes the patient shown with index 1 from the displayed list.
 `delete 2` +
 Deletes the patient shown with index 2 found using the find command.
 
-
 ==== edit
-
 
 Edits data from an existing patient.
 
 Format: `edit INDEX`
-
 
 * Goes into edit mode for the patient at the specified index shown from
 list or find command. Must be a positive integer (e.g 1, 2 or 3).
@@ -350,7 +377,6 @@ Edits the phone number and email of the first patient listed to become
 Edits the phone number and email of the first patient listed to become
 987654 and mymail@gmail.com respectively with a single input.
 
-
 ==== copy
 
 Makes an exact copy of a patient and adds them to the patient list.
@@ -371,170 +397,101 @@ the current patient list with a copy tag.
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
 
-==== list
-Shows a list of all patients or medical stored in TeethHub.
-
-Format: `list [dental]`
-
-Command shows patient details by default, add dental to see dental
-records.
-
-Example:
-
-* `list` +
-Shows details of all patients.
-
-
-* `list dental` +
-Shows details of patient's dental records.
-
-
-==== find
-Shows patients whose data contains any of the given keywords according to a specified parameter.
-
-Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
-
-* Add “dental” to search dental records instead.
-* Search is case insensitive.
-* Order of keywords does not matter.
-
-Example:
-
-
-* `find a/Yishun` +
-Show all the people with an address containing the keyword Yishun.
-
-
-* `find dental cleaning` +
-Shows all the dental records with cleaning
-
-
-==== sort
-Sorts the records by an input parameter in an input order.
-
-Format: `sort PARAM ORDER`
-
-Example:
-
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|0 |Alice |19 |03/07/2003
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-|===
-
-* sort name desc
-
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-|0 |Alice |19 |03/07/2003
-|===
-
-
-* sort age asce
-
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|0 |Alice |19 |03/07/2003
-|2 |Bob |24 |11/02/2019
-|===
-
-==== stat
-Generates a statistics report based on the specified patient's data.
-
-Format: `stat INDEX`
-
 === Patient Records Management
-==== record add
 
-Adds a new dental record for the patient.
+==== goto
 
-Format: `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
-doc/SERVING_DENTIST det/DETAILS`
+Specifies a patient of interest, in order to modify his or her dental records and information.
 
-Example
-*  `record add n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler det/Mouth
-was noticeably smelly, might have halitosis`
+When the `goto` mode is active, the patient list is replaced by a dental records list. The dental records list displays all dental records of the patient of interest.
 
-==== record delete
+To go back to the patient list, use the command `back`.
 
-Format: `record delete n/NRIC INDEX`
+Format: `goto 1`
 
-* Deletes the patient’s dental record at the specified index.
-
-* The index refers to the index number shown in the displayed dental
-record list.
+* Specifies the patient of interest to be the patient at index 1.
 
 * The given index must be a positive integer (e.g 1, 2 or 3…)
 
-Examples:
+* Enters all the records of the patient of interest in the `goto` mode.
 
-* `<<find, find>> dental Jon` +
-`record delete n/NRIC 1` +
-Deletes the 1st record from the displayed list
+==== record add
 
+Adds a new dental record to the patient.
+
+Record contains the patient's personal information, name of the dentist on duty, the date of the record, and the description of the dental treatment the patient has went through during that session.
+
+Note: `recordadd` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+
+Format: `recordadd desc/DETAILS`
+
+* The program assigns the name of the dentist stored in the dentist information
+
+* The program assigns the date of record as the date the record is created.
+
+* When records of a patient is accessed, the stored records are sorted from newest to oldest.
+
+* New dental records will appear on the top of the list upon entry.
+
+Example
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+
+* `back` - Go back to the patient list.
+
+==== record delete
+
+Deletes a dental record of a specified patient.
+
+Note: `recorddelete` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+
+Format: `recorddelete INDEX`
+
+* Deletes the patient’s dental record at the specified index.
+
+* The index refers to the index number shown in the displayed dental record list.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+Example:
+
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
+
+* `recorddelete 1` - Delete the latest dental record of the specified patient
+
+* `back` - Go back to the patient list.
 
 ==== record edit
+
 Edits a patient’s dental record.
 
-Format: `record edit n/NRIC INDEX`
+Note: `recordedit` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
 
+Format: `recordedit INDEX desc/DETAILS`
 
-* Goes into record edit mode for the specified patient at the specified
-index shown from list or find command. Must be a positive integer (e.g
-1, 2 or 3).
+* Edits the patient's dental record at the specified index.
 
-* Input the field followed by the new value to replace the existing data.
+* The index refers to the index number shown in the displayed dental record list.
 
-* Multiple fields can be edited in a single input or across multiple
-inputs.
+* The given index must be a positive integer (e.g 1, 2 or 3…)
 
-* When editing tags, the existing tags of the patient will be removed i.e
-adding of tags is not cumulative.
-
-* All tags can be removed by keying in t/ without specifying any tags
-following it.
-
-* Exit the edit mode by entering "done".
+* The new description stated in the command will replace the old description in the specified dental record.
 
 Example:
 
-* `<<find, find>> dental n/Jon +
-record edit n/S1234567H 1 +
-doc/Debang +
-det/new details +
-done` +
-Edits the first dental record under the patient Jon and replaces the old
-doctor and detail fields with the new Debang and new details data.
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
-==== record copy
-Makes an exact copy of a patient’s dental record.
+* `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
 
-Format: `record copy n/NRIC INDEX`
-
-Example:
-
-
-* `record copy n/S1234567H 2` +
-Makes a copy of the patient’s dental record at index 2 and inserts it at
-the bottom of the current dental records with a copy tag.
-
+* `back` - Go back to the patient list.
 
 === Teeth Management
 
 ==== Brief Description
 
-
-TeethHub complies with the most popular standard of the
-three the Dental Numbering Systems utilised in Dentistry - The
-Universal Numbering System.
-
+TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
 
 ==== The Universal Numbering System
 
@@ -550,32 +507,25 @@ mandibular left third molar, designated number 17, and continues along
 the bottom teeth to the right side. Each tooth has a unique number or
 letter, allowing for easier use on keyboards.
 
-
 ==== Creating and Editing Teeth Layout
-There are two templates provided by TeethHub: primary and
-permanent.
 
-All primary or permanent teeth in template will all be present and
-healthy by default.
+There is one template provided by TeethHub: permanent teeth.
 
+All permanent teeth in template will all be present and healthy by default.
 
 * To create a new teeth layout for patient:
 
-** `teeth add n/NRIC <Template>`
-
-** Note that if a teeth layout already exist, a warning will be thrown to
-confirm your overwriting intention.
+** The program automatically creates a new permanent teeth template for new patients added.
 
 * To edit a new specific tooth:
 
-** `teeth edit n/NRIC t/TEETH_LABEL s/STATUS -d/DESCRIPTION`
+** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
-** Valid <Teeth Label> are letters A through T (case-insensitive, for
-primary teeth), and numbers 1 - 32 (for permanent teeth).
+** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
-** Note that if a teeth layout does not exist, a new layout will be created
-based on the teeth label group used, before the edit is applied on the
-newly created teeth layout.
+** `back` - Exits the record edit mode, and returns to the patient list.
+
+** Valid <Teeth Label> are numbers 1 - 32 (permanent teeth).
 
 ** <Status> reflects overall health of the indicated tooth, and valid
 <Status> are "healthy", "problem" and "absent".
@@ -603,9 +553,14 @@ keying in certain tags after the `taskadd` command. Do note the following:
 Table 1 shows the list of parameters along with their respective descriptions.
 Mandatory parameters are marked with an asterisk `*` in the attribute section of the table.
 
+<<<<<<< HEAD
 [cols="",options=""]
 .Task parameters
+=======
+>>>>>>> abec55791d31d971b703070af168776c07872b81
 |===
+
+.Task parameters
 |Attribute |Description |Tag |Example
 
 |Title*
@@ -702,9 +657,8 @@ Examples:
 
 * `taskedit 2 sd/15-09-2019 ed/15-09-2019 st/1400 et/1500`
 
-* `taskfind pri/high` +
+* `<<taskfind, taskfind>> pri/high` +
   `taskedit 1 ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600 pri/MED`
-
 
 ==== taskdelete
 Deletes a task from the task list
@@ -718,7 +672,7 @@ Format: `taskdelete 2`
 Example:
 
 * `taskdelete 1`
-* `taskfind pri/low` +
+* `<<taskfind, taskfind>> pri/low` +
   `taskdelete 2`
 
 ==== tasklist
@@ -739,16 +693,90 @@ Examples:
 * `taskfind pri/HIGH`
 * `taskfind ti/Extraction`
 
+=== Viewing and Locating Information
+The commands listed below deal with displaying and finding data for you to view.
+They do not deal with the adding or modification of any information currently already
+stored within the program.
+
+==== list
+Shows a list of all patients or medical stored in TeethHub.
+
+Format: `list [dental]`
+
+Command shows patient details by default, add dental to see dental records.
+
+Example:
+
+* `list` +
+Shows details of all patients.
+
+* `list dental` +
+Shows details of patient's dental records.
+
+==== find
+
+Shows patients whose data contains any of the given keywords according to a specified parameter.
+
+Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
+
+* Add “dental” to search dental records instead.
+* Search is case insensitive.
+* Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
+
+Example:
+
+* `find a/Yishun` +
+Show all the people with an address containing the keyword Yishun.
+
+* `find dental cleaning` +
+Shows all the dental records with cleaning
+
+==== sort
+Sorts the records by an input parameter in an input order.
+
+Format: `sort PARAM ORDER`
+
+* valid PARAM options: address, date of birth, email, name, nric, phone, sex
+* valid ORDER options: asce, desc
+
+Example:
+
+[cols=",,,",options="header",]
+|===
+|*ID* |*Name* |*Age* |*Last Modified*
+|0 |Alice |19 |03/07/2003
+|1 |Clara |12 |05/02/2021
+|2 |Bob |24 |11/02/2019
+
+|*ID* |*Name* |*Age* |*Last Modified*
+|1 |Clara |12 |05/02/2021
+|2 |Bob |24 |11/02/2019
+|0 |Alice |19 |03/07/2003
+|===
+
+* sort age asce
+
+[cols=",,,",options="header",]
+|===
+|*ID* |*Name* |*Age* |*Last Modified*
+|1 |Clara |12 |05/02/2021
+|0 |Alice |19 |03/07/2003
+|2 |Bob |24 |11/02/2019
+|===
+
+==== stat
+Generates a statistics report based on the specified patient's data.
+
+Format: `stat INDEX`
+
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,
 you will be able to synchronise your data with a cloud account.
 
-
 == Spell-Checker Functionality [Coming in v2.0]
 
-
 Automatically correct an improperly typed command(e.g. sirt to sort).
-
 
 == Frequently Asked Questions (FAQ)
 

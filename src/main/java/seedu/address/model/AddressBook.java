@@ -8,13 +8,12 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 
-import seedu.address.model.person.Patient;
-import seedu.address.model.person.UniquePatientList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniqueDoctorList;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePatientList;
 
 /**
  * Wraps all data at the address-book level
@@ -33,14 +32,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         patients = new UniquePatientList();
         doctors = new UniqueDoctorList();
         medHists = new UniqueMedHistList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Patients in the {@code toBeCopied}

@@ -431,7 +431,12 @@ newly created teeth layout.
 write a note describing more detail on the patient’s teeth
 health.
 
-=== List
+=== Viewing and Locating Information
+The commands listed below deal with displaying and finding data for you to view.
+They do not deal with the adding or modification of any information currently already
+stored within the program.
+
+==== List
 Shows a list of all patients or medical stored in TeethHub.
 
 Format: `list [dental]`
@@ -449,7 +454,7 @@ Shows details of all patients.
 Shows details of patient's dental records.
 
 
-=== Find
+==== Find
 Shows patients whose data contains any of the given keywords according to a specified parameter.
 
 Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
@@ -469,10 +474,11 @@ Show all the people with an address containing the keyword Yishun.
 Shows all the dental records with cleaning
 
 
-=== Sort
+==== Sort
 Sorts the records by an input parameter in an input order.
 
 Format: `sort PARAM ORDER`
+
 
 Example:
 
@@ -505,7 +511,7 @@ Example:
 |2 |Bob |24 |11/02/2019
 |===
 
-=== Stat
+==== Stat
 Generates a statistics report based on the specified patient's data.
 
 Format: `stat INDEX`

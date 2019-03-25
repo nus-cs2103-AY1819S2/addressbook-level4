@@ -32,7 +32,8 @@ public class CsvManager implements CsvCommands {
             throw new FileNotFoundException();
         }
         String filePath = getDefaultFilePath() + "/" + csvFile.filename;
-        String folderName = filePath.split(".")[0];
+        String filename = csvFile.filename;
+        String folderName = filename.split("\\.")[0];
         CardFolder cardFolder = new CardFolder(folderName);
         bufferedReader = new BufferedReader(new FileReader(filePath));
         String line;

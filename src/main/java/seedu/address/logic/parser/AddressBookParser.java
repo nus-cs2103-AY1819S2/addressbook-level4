@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CopyCommand;
@@ -16,11 +17,13 @@ import seedu.address.logic.commands.ExitAnywayCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.OpenCommand;
+import seedu.address.logic.commands.RecordAddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -95,6 +98,12 @@ public class AddressBookParser {
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
+        case GoToCommand.COMMAND_WORD:
+            return new GoToCommandParser().parse(arguments);
+
+        case BackCommand.COMMAND_WORD:
+            return new BackCommand();
+
         case StatsCommand.COMMAND_WORD:
             return new StatsCommandParser().parse(arguments);
 
@@ -130,6 +139,9 @@ public class AddressBookParser {
 
         case ExitAnywayCommand.COMMAND_WORD:
             return new ExitAnywayCommand();
+
+        case RecordAddCommand.COMMAND_WORD:
+            return new RecordAddCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

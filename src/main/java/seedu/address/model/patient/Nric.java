@@ -2,6 +2,7 @@ package seedu.address.model.patient;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 
 /**
  * Represents a Person's Nric in the address book.
@@ -10,7 +11,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Nric {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Nric is compulsory, denoted by \\nric and should be in standard format.";
+        "Nric is compulsory, denoted by " + PREFIX_NRIC + " and should be in standard format.";
     private static final String VALIDATION_REGEX = "^[STFG]\\d{7}[A-Z]$";
     private final String value;
 

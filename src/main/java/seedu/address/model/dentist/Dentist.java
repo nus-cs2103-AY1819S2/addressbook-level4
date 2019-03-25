@@ -27,7 +27,7 @@ public class Dentist {
             String dentistName = br.readLine();
 
             if (!dentistName.equals("")) {
-                return br.readLine();
+                return dentistName;
             } else {
                 throw new DentistNotFoundException("Dentist name is empty");
             }

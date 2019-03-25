@@ -2,6 +2,9 @@ package seedu.address.model.medicine;
 
 import java.util.function.Predicate;
 
+/**
+ * Tests that a {@code Medicine}'s {@code Quantity} is less than the threshold given.
+ */
 public class MedicineLowStockThresholdPredicate implements Predicate<Medicine> {
     private final Integer threshold;
 

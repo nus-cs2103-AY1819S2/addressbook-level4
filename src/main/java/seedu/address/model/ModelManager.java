@@ -15,9 +15,9 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
-import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 
 /**
  * Represents the in-memory model of the inventory data.

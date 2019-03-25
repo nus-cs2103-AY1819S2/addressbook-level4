@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Medicine}'s {@code Name} matches any of the keywords given.
+ * Tests that number of days from {@code Batch}'s {@code Expiry} to today is less than the threshold given.
  */
 public class BatchExpiryThresholdPredicate implements Predicate<Batch> {
     private final Integer threshold;

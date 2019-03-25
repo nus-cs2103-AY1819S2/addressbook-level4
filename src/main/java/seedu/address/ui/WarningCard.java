@@ -9,9 +9,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import seedu.address.commons.util.warning.WarningPanelListType;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 
 /**
  * An UI component that displays information of a {@code Medicine}.
@@ -43,8 +43,8 @@ public class WarningCard extends UiPart<Region> {
 
         switch (listType) {
             case EXPIRY:
-                FilteredList<Batch> filteredBatch = medicine.
-                        getFilteredBatch(warningPanelPredicateAccessor.getBatchExpiringPredicate());
+                FilteredList<Batch> filteredBatch = medicine
+                        .getFilteredBatch(warningPanelPredicateAccessor.getBatchExpiringPredicate());
                 field.setText(getFormattedBatch(filteredBatch));
                 break;
 

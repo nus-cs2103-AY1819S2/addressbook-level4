@@ -1,10 +1,12 @@
 package seedu.address.commons.util.warning;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
 
-import seedu.address.model.medicine.*;
+import seedu.address.model.medicine.Batch;
+import seedu.address.model.medicine.BatchExpiryThresholdPredicate;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
+import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
 
 /**
  * Accessor to all predicates used in the warning panel for filtration.

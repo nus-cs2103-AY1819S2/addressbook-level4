@@ -5,12 +5,12 @@ import java.nio.file.Path;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.medicine.Medicine;
-import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 
 /**
  * API of the Logic component

@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.medicine.Medicine;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * The API of the Model component.

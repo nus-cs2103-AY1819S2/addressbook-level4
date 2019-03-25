@@ -9,9 +9,9 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.medicine.Medicine;
 import seedu.address.commons.util.warning.WarningPanelListType;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.model.medicine.Medicine;
 
 /**
  * Cell containing content of warning.

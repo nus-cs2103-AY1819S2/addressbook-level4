@@ -249,6 +249,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return doctors.asUnmodifiableObservableList();
     }
 
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

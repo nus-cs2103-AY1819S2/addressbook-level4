@@ -127,7 +127,6 @@ public class AddressBookTest {
             this.patients.setAll(patients);
         }
 
-
         @Override
         public ObservableList<Patient> getPatientList() {
             return patients;

@@ -7,10 +7,12 @@ import java.util.stream.Collectors;
 
 import guitests.guihandles.PatientCardHandle;
 import guitests.guihandles.PatientListPanelHandle;
+
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.Patient;
 
 //import javax.print.Doc;
+
 
 
 /**

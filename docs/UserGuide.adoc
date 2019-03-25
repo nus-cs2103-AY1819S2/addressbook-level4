@@ -152,7 +152,7 @@ Examples:
 * `memberAdd n/John Doe mn/A0123456Z p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 g/Male
 y/Year 2 m/Chemistry t/Swimming`
 * `memberAdd n/Betsy Crower mn/A0654321B p/98765432 e/betsy@example.com a/311, Jurong West Avenue 2, #02-25
-g/Female y/Year 2 m/Mathematics t/Swimming`
+g/Female y/Year 2 m/Mathematics t/Running`
 
 ==== Deleting a member : `memberDelete`
 

@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -52,7 +51,7 @@ public class ChangeCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER);
             }
             model.exitFoldersToHome();
-            return new CommandResult(MESSAGE_EXIT_FOLDER_SUCCESS, CommandResult.TYPE.EXITED_FOLDER);
+            return new CommandResult(MESSAGE_EXIT_FOLDER_SUCCESS, CommandResult.Type.EXITED_FOLDER);
         } else {
             if (model.isInFolder()) {
                 throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
@@ -63,7 +62,7 @@ public class ChangeCommand extends Command {
             }
             model.setActiveCardFolderIndex(targetIndex.getZeroBased());
             return new CommandResult(String.format(MESSAGE_ENTER_FOLDER_SUCCESS, targetIndex.getOneBased()),
-                    CommandResult.TYPE.ENTERED_FOLDER);
+                    CommandResult.Type.ENTERED_FOLDER);
         }
     }
 

@@ -241,31 +241,31 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             switch (commandResult.getType()) {
-                case SHOW_HELP:
-                    handleHelp();
-                    break;
-                case IS_EXIT:
-                    handleExit();
-                    break;
-                case ENTERED_FOLDER:
-                    handleEnterFolder();
-                    break;
-                case EXITED_FOLDER:
-                    handleExitFolder();
-                    break;
-                case TEST_SESSION_CARD:
-                    handleStartTestSession(commandResult.getTestSessionCard());
-                    break;
-                case END_TEST_SESSION:
-                    handleEndTestSession();
-                    break;
-                case ANSWER_CORRECT:
-                    handleCorrectAnswer();
-                    break;
-                case ANSWER_WRONG:
-                    handleWrongAnswer();
-                    break;
-
+            case SHOW_HELP:
+                handleHelp();
+                break;
+            case IS_EXIT:
+                handleExit();
+                break;
+            case ENTERED_FOLDER:
+                handleEnterFolder();
+                break;
+            case EXITED_FOLDER:
+                handleExitFolder();
+                break;
+            case TEST_SESSION_CARD:
+                handleStartTestSession(commandResult.getTestSessionCard());
+                break;
+            case END_TEST_SESSION:
+                handleEndTestSession();
+                break;
+            case ANSWER_CORRECT:
+                handleCorrectAnswer();
+                break;
+            case ANSWER_WRONG:
+                handleWrongAnswer();
+                break;
+            default:
             }
 
             return commandResult;

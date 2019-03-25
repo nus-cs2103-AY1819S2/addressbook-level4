@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -50,7 +49,7 @@ public class TestCommand extends Command {
         model.testCardFolder(targetIndex.getZeroBased());
         Card cardToTest = model.getCurrentTestedCard();
         CommandResult commandResult = new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
-                CommandResult.TYPE.TEST_SESSION_CARD);
+                CommandResult.Type.TEST_SESSION_CARD);
         commandResult.setTestSessionCard(cardToTest);
         return commandResult;
     }

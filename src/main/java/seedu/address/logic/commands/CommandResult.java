@@ -4,9 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.AnswerCommandResultType;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 
 /**
@@ -16,32 +13,35 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    public enum TYPE {
-        SHOW_HELP, /** Help information should be shown to the user. */
-        IS_EXIT, /** The application should exit. */
-        ENTERED_FOLDER, /** The side panel should be updated as folder was entered. */
-        EXITED_FOLDER, /** The side panel should be updated as folder was exited. */
-        TEST_SESSION_CARD, /** The application should enter a test session. */
-        END_TEST_SESSION,  /** The current test session should end. */
+    /**
+     * {@code Type } representing the type of CommandResult and what response should be displayed.
+     */
+    public enum Type {
+        SHOW_HELP, // Help information should be shown to the user.
+        IS_EXIT, // The application should exit.
+        ENTERED_FOLDER, // The side panel should be updated as folder was entered.
+        EXITED_FOLDER, // The side panel should be updated as folder was exited.
+        TEST_SESSION_CARD, // The application should enter a test session.
+        END_TEST_SESSION, // The current test session should end.
         ANSWER_CORRECT,
         ANSWER_WRONG,
         NONE // use for "nothing to do"
     }
 
-    private Card testSessionCard;
+    private Type type;
 
-    public TYPE type;
+    private Card testSessionCard;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, TYPE type) {
+    public CommandResult(String feedbackToUser, Type type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.type = type;
     }
 
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, TYPE.NONE);
+        this(feedbackToUser, Type.NONE);
     }
 
     public String getFeedbackToUser() {
@@ -56,7 +56,7 @@ public class CommandResult {
         return testSessionCard;
     }
 
-    public TYPE getType() {
+    public Type getType() {
         return this.type;
     }
 

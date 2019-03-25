@@ -3,6 +3,10 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.background-test {
+    -fx-background-color: #0894A1;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -14,6 +18,28 @@
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-dark {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+}
+
+.label-test-ans {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+    -fx-text-alignment: "center";
+}
+
+.label-test {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: black;
     -fx-opacity: 1;
 }
 

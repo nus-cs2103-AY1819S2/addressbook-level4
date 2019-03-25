@@ -63,6 +63,10 @@ public class EditCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (!model.isInFolder()) {
+            throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER);
+        }
+
         List<Card> lastShownList = model.getFilteredCards();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -72,7 +76,7 @@ public class EditCommand extends Command {
         Card cardToEdit = lastShownList.get(index.getZeroBased());
         Card editedCard = createEditedCard(cardToEdit, editCardDescriptor);
 
-        if (!cardToEdit.equals(editedCard) && model.hasCard(editedCard)) {
+        if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }
 

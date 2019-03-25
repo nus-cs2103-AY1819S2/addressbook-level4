@@ -1,0 +1,58 @@
+= Donald Lee - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Know-It-All
+
+---
+
+== Overview
+
+Know-It-All is a flashcard application that helps students manage, store, and use flash cards effectively. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to generate scoring report for a folder of cards* (Coming in v1.3)
+** What it does: Collates the scoring data of cards in the folder and generates a performance report for that folder with very statistical statistics.
+** Justification: This feature improves the product significantly because a user can see the outcome of the spaced-repetition technique employed by Know-It-All. They are able to view their performance change over time.
+** Highlights: This enhancement has graphs. We know graphs. We have the best graphs.
+
+* *Major enhancement*: added *the ability to sort by scoring performance*
+** What it does: allows the user to sort the cards by scoring performance. Other features can make use of this feature by using any appropriate comparator.
+** Justification: This feature improves the product significantly because many other features can be built on top of this one.
+** Highlights: This enhancement affects the existing list. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changing the way cards are naturally ordered.
+
+* *Minor enhancement*: added a score attribute that allows the application to track the number of correct and incorrect attempts for individual cards.
+
+* *Code contributed*: [https://github.com/cs2103-ay1819s2-w10-4/main/pull/75[ability to sort]] [https://github.com/cs2103-ay1819s2-w10-4/main/pull/46[add score attribute]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Wrote additional tests for new features to increase coverage from 80% to 82% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/75[#75])
+** Documentation:
+*** Did cosmetic tweaks to the project README: https://github.com/cs2103-ay1819s2-w10-4/main/pull/36[#36]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/cs2103-ay1819s2-w10-4/main/pull/57[#57], https://github.com/cs2103-ay1819s2-w10-4/main/pull/49[#49], https://github.com/cs2103-ay1819s2-w10-4/main/pull/72[#72]
+** Tools:
+*** Integrated Github plugins Travis CI, AppVeyor and Coveralls to the team repo: https://github.com/cs2103-ay1819s2-w10-4/main/pull/2[#2]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=undoredo]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=score]

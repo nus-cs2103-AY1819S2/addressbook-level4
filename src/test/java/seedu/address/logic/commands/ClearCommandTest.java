@@ -29,7 +29,7 @@ public class ClearCommandTest {
     public void execute_nonEmptyCardFolder_success() {
         Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
-        expectedModel.setCardFolder(new CardFolder(getTypicalFolderName()));
+        expectedModel.resetCardFolder(new CardFolder(getTypicalFolderName()));
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel);

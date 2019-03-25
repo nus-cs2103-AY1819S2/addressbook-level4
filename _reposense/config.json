@@ -1,0 +1,29 @@
+{
+  "authors": [
+    {
+      "githubId": "afterdusk",
+      "displayName": "AU ...JUN",
+      "authorNames": ["Liang Jun Au", "Liang Jun", "afterdusk"]
+    },
+    {
+      "githubId": "dlqs",
+      "displayName": "DON...ANG",
+      "authorNames": ["Donald", "dlqs"]
+    },
+    {
+      "githubId": "KerrynEer",
+      "displayName": "KER...EER",
+      "authorNames": ["KerrynEer"]
+    },
+    {
+      "githubId": "mmdlow",
+      "displayName": "MAT... DE",
+      "authorNames": ["Matthew Low", "mmdlow"]
+    },
+    {
+      "githubId": "yichong96",
+      "displayName": "ONG...ONG",
+      "authorNames": ["Yi Chong Ong", "yichong96"]
+    }
+  ]
+}

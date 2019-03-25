@@ -23,8 +23,9 @@ import seedu.address.storage.csvmanager.CsvFile;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_NOT_AN_INTEGER = "Cannot parse string to integer";
     public static final String MESSAGE_INDEX_LESS_THAN_ZERO = "Index is less than zero";
+    public static final String HOME_SYMBOL = "..";
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -37,6 +38,14 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses {@code args} and checks whether it is equal to {@code HOME_SYMBOL}
+     */
+    public static boolean parseHomeSymbol(String args) {
+        String trimmedArgs = args.trim();
+        return (trimmedArgs.equals(HOME_SYMBOL));
     }
 
     /**

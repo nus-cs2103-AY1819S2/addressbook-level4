@@ -4,9 +4,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_NO_NEGATIVE_INDEX;
 
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Set;
+
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ExportCommand;
@@ -40,10 +40,5 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         } catch (IllegalValueException e) {
             throw new ParseException(MESSAGE_NO_NEGATIVE_INDEX);
         }
-
-
-
-
-        // return new ExportCommand(folderNames, filename);
     }
 }

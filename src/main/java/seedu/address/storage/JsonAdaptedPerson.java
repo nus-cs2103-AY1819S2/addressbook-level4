@@ -30,6 +30,7 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
+    @JsonProperty("index") private int index;
     private final String name;
     private final String nric;
     private final String dateOfBirth;
@@ -174,6 +175,13 @@ class JsonAdaptedPerson {
 
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNric,
                 modelDob, modelRecords, modelTeeth);
+    }
+
+    /**
+     * Sets the index of a JsonAdaptedPerson for exporting.
+     */
+    public void setIndex(int index) {
+        this.index = index;
     }
 
 }

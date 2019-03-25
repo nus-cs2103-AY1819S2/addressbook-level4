@@ -48,11 +48,5 @@
     "menuItemName" : "Kimchi Fried Rice",
     "quantityOrdered" : "1",
     "quantityUnserved" : "0"
-  }, {
-    "tableNumber" : "8",
-    "menuItemCode" : "W09",
-    "menuItemName" : "Chicken Wings",
-    "quantityOrdered" : "3",
-    "quantityUnserved" : "0"
   } ]
 }

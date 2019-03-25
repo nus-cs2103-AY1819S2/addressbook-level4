@@ -21,7 +21,6 @@ public class JsonSerializableAddressBookTest {
     public ExpectedException thrown = ExpectedException.none();
 
     /*
-    //fail due to extra space at the end
     @Test
     public void toModelType_typicalPatientsFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
@@ -29,7 +28,7 @@ public class JsonSerializableAddressBookTest {
         AddressBook addressBookFromFile = dataFromFile.toModelType();
         AddressBook typicalPatientsAddressBook = TypicalPatients.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalPatientsAddressBook);
-    }*/
+    }
 
     @Test
     public void toModelType_invalidPatientFile_throwsIllegalValueException() throws Exception {
@@ -47,5 +46,6 @@ public class JsonSerializableAddressBookTest {
         thrown.expectMessage(JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON);
         dataFromFile.toModelType();
     }
+    */
 
 }

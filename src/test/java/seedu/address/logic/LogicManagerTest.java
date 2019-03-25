@@ -137,11 +137,12 @@ public class LogicManagerTest {
 
         // Execute addToOrder command
         logic.changeMode(Mode.TABLE_MODE);
-        logic.setSelectedTable(expectedTable);
+        model.setSelectedTable(expectedTable);
+        expectedModel.setSelectedTable(expectedTable);
         expectedModel.addOrderItem(expectedOrderItem);
         assertCommandBehavior(CommandException.class, addToOrderCommand, expectedMessage, expectedModel);
-        assertHistoryCorrect(addToOrderCommand + "\n" + addToMenuCommand + "\n"
-                + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
+        assertHistoryCorrect(addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
+                + addToMenuCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
 //        expectedModel.addDailyRevenue(expectedDailyRevenue);
     }
 

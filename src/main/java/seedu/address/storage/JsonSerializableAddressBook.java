@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,14 +22,22 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
+    public static final String MESSAGE_DUPLICATE_MEDHIST =
+            "Medical history list contains duplicate medical history(s).";
+
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+
+    private final List<JsonAdaptedMedicalHistory> medicalHistories = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("medicalHistories") List<JsonAdaptedMedicalHistory>
+                                               medicalHistories) {
         this.persons.addAll(persons);
+        this.medicalHistories.addAll(medicalHistories);
     }
 
     /**
@@ -38,6 +47,8 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +64,13 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPerson(person);
+        }
+        for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
+            MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
+            if (addressBook.hasMedHist(medicalHistory)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEDHIST);
+            }
+            addressBook.addMedHist(medicalHistory);
         }
         return addressBook;
     }

@@ -19,6 +19,8 @@ public interface Model {
     /** {@code Comparator} that compares two PDFs alphabetically based on name */
     Comparator<Pdf> COMPARATOR_ASCENDING_NAME_PDFS = Comparator.comparing(Pdf::getName);
     Comparator<Pdf> COMPARATOR_DESCENDING_NAME_PDFS = COMPARATOR_ASCENDING_NAME_PDFS.reversed();
+    Comparator<Pdf> COMPARATOR_ASCENDING_DEADLINE_PDFS = Comparator.comparing(Pdf::getDeadline);
+    Comparator<Pdf> COMPARATOR_DESCENDING_DEADLINE_PDFS = COMPARATOR_ASCENDING_DEADLINE_PDFS.reversed();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

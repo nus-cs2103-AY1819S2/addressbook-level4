@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_COMPLETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_REMOVE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 import java.util.List;
@@ -16,7 +18,7 @@ import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Pdf;
 
 /**
- * Edits the deadline of an existing pdf in the address book.
+ * Edits the deadline of an existing pdf in the pdf book.
  */
 public class DeadlineCommand extends Command {
 
@@ -27,12 +29,14 @@ public class DeadlineCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DEADLINE_NEW + "DEADLINE] (In dd-mm-yyyy format)\n"
-            + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_DEADLINE_NEW + "13-02-2020";
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DEADLINE_NEW + "13-02-2020\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DEADLINE_COMPLETE + "\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DEADLINE_REMOVE;
+
 
     private final Index index;
     private final Deadline deadline;
-    private final Boolean status;
+    private final int status;
 
     public DeadlineCommand(Index index, Deadline deadline) {
         requireNonNull(index);
@@ -40,10 +44,10 @@ public class DeadlineCommand extends Command {
 
         this.index = index;
         this.deadline = deadline;
-        this.status = null;
+        this.status = Deadline.STATUS_READY;
     }
 
-    public DeadlineCommand(Index index, Deadline deadline, Boolean status) {
+    public DeadlineCommand(Index index, Deadline deadline, int status) {
         requireNonNull(index);
         requireNonNull(status);
 

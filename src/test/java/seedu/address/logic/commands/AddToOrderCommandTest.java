@@ -154,12 +154,12 @@ public class AddToOrderCommandTest {
         private final Table table = new TableBuilder().build();
 
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -214,12 +214,12 @@ public class AddToOrderCommandTest {
         }
 
         @Override
-        public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
+        public ReadOnlyRestOrRant getRestOrRant() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyRestOrRant getRestOrRant() {
+        public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -292,7 +292,7 @@ public class AddToOrderCommandTest {
         public void clearOrderItemsFrom(TableNumber tableNumber) {
             throw new AssertionError("This method should not be called.");
         }
-        
+
         @Override
         public void addTable(Table table) {
             throw new AssertionError("This method should not be called.");
@@ -500,6 +500,7 @@ public class AddToOrderCommandTest {
         }
 
     }
+
     /**
      * A menu stub that always returns an item for any given code.
      */

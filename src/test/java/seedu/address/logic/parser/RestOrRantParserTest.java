@@ -16,7 +16,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;

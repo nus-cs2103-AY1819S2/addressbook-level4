@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TABLE_NUMBER;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.TableModeCommand.MESSAGE_SUCCESS;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
 import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 import org.junit.Rule;
@@ -19,7 +18,6 @@ import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 
 /**

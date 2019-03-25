@@ -25,6 +25,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.tag.Tag;
@@ -42,8 +43,9 @@ public class MapGridTest {
     public void putShipTest() {
         MapGrid sizeTenmap = getSizeTenMapGrid();
         Battleship battleship = new Battleship();
+        Orientation orientation = new Orientation("vertical");
 
-        sizeTenmap.putShip(new Coordinates("a1"), battleship);
+        sizeTenmap.putShip(battleship, new Coordinates("a1"), orientation);
 
         assertEquals(sizeTenmap.get2dArrayMapGridCopy()[0][0].getBattleship().get(), battleship);
     }
@@ -52,10 +54,10 @@ public class MapGridTest {
     public void attackCellTest() {
         MapGrid sizeTenmap = getSizeTenMapGrid();
         Battleship battleship = new Battleship();
-
+        Orientation orientation = new Orientation("vertical");
         assertFalse(sizeTenmap.attackCell(new Coordinates("a1")));
 
-        sizeTenmap.putShip(new Coordinates("a1"), battleship);
+        sizeTenmap.putShip(battleship, new Coordinates("a1"), orientation);
         assertTrue(sizeTenmap.attackCell(new Coordinates("a1")));
     }
 

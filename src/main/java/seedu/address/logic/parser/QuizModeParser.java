@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -8,6 +7,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
+import seedu.address.logic.commands.quiz.QuizDifficultCommand;
 import seedu.address.logic.commands.quiz.QuizHelpCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -17,21 +17,18 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class QuizModeParser implements Parser<Command> {
 
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\\\\\w*)|(?<answer>^\\S.+)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\\\\\w*)|(?<answer>.*)");
     private static Matcher matcher;
 
     /**
      * Checks if userInput is valid
-     * @param userInput
-     * @return
-     * @throws ParseException
+     * @param userInput from commandBox
+     * @return the correct parser
+     * @throws ParseException if the user input does not conform the expected format
      */
     public Command parse(String userInput) throws ParseException {
         matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, QuizHelpCommand.MESSAGE_USAGE));
-        }
-
+        matcher.matches();
 
         final String commandWord = matcher.group("commandWord");
         final String answer = matcher.group("answer");
@@ -56,10 +53,12 @@ public class QuizModeParser implements Parser<Command> {
      */
     private Command parseCommand(String commandWord) throws ParseException {
         switch (commandWord) {
-        case QuizStatusCommand.COMMAND_WORD:
-            return new QuizStatusCommand();
+        case QuizDifficultCommand.COMMAND_WORD:
+            return new QuizDifficultCommand();
         case QuizHelpCommand.COMMAND_WORD:
             return new QuizHelpCommand();
+        case QuizStatusCommand.COMMAND_WORD:
+            return new QuizStatusCommand();
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

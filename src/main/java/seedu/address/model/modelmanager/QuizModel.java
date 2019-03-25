@@ -1,8 +1,11 @@
-package seedu.address.model.modelmanager.quiz;
+package seedu.address.model.modelmanager;
 
 import java.util.List;
 
-import seedu.address.model.modelmanager.Model;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 
 /**
@@ -17,7 +20,7 @@ public interface QuizModel extends Model {
     /**
      * Return mode of {@code session}.
      */
-    Quiz.Mode getMode();
+    QuizMode getMode();
 
     /**
      * Return card count of {@code session}.
@@ -78,6 +81,13 @@ public interface QuizModel extends Model {
     int getQuizTotalCorrectQuestions();
 
     /**
+     * Toggles between if the card labeled difficult.
+     * @param index of the current {@code QuizCard}
+     * @return result after toggling
+     */
+    boolean toggleIsCardDifficult(int index);
+
+    /**
      * Returns if User is done with {@code Quiz}.
      */
     boolean isQuizDone();
@@ -86,4 +96,14 @@ public interface QuizModel extends Model {
      * Returns data needed by {@code Session} when {@code Quiz} end.
      */
     List<List<Integer>> end();
+
+    /**
+     * Sets formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.
+     */
+    void setDisplayFormatter(QuizUiDisplayFormatter formatter);
+
+    /**
+     * Returns formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.
+     */
+    QuizUiDisplayFormatter getDisplayFormatter();
 }

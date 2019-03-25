@@ -5,14 +5,14 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 /**
- * A handler for the {@code QuizResultDisplay} of the UI
+ * A handler for the {@code MainPanel} of the UI
  */
-public class QuizResultDisplayHandle extends NodeHandle<TextFlow> {
+public class MainPanelHandle extends NodeHandle<TextFlow> {
 
-    public static final String RESULT_DISPLAY_ID = "#quizResultDisplay";
+    public static final String RESULT_DISPLAY_ID = "#mainPanel";
 
-    public QuizResultDisplayHandle(TextFlow quizResultDisplayNode) {
-        super(quizResultDisplayNode);
+    public MainPanelHandle(TextFlow mainPanelNode) {
+        super(mainPanelNode);
     }
 
     /**

@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.quiz;
+package seedu.address.model.modelmanager;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -12,17 +12,23 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.SessionBuilder;
 
-public class QuizManagementModelManagerTest {
-    private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
+public class QuizModelManagerTest {
+    private static final QuizMode MODE = QuizMode.PREVIEW;
     private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo",
             Arrays.asList("JP", "Asia"));
     private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");
     private static final List<QuizCard> VALID_QUIZCARD = Arrays.asList(QUIZCARD_1, QUIZCARD_2);
-    private static final Quiz QUIZ = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+    private static final Quiz QUIZ = new Quiz(VALID_QUIZCARD, QuizMode.LEARN);
+    private static final QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter("Question", "some question",
+        "Answer", "some answer", QuizMode.LEARN);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -42,7 +48,7 @@ public class QuizManagementModelManagerTest {
         modelManager.initWithSession(quiz, session);
         assertEquals("01-01-Learn", modelManager.getName());
         assertEquals(1, modelManager.getCount());
-        assertEquals(Quiz.Mode.LEARN, modelManager.getMode());
+        assertEquals(QuizMode.LEARN, modelManager.getMode());
     }
 
     @Test
@@ -72,7 +78,7 @@ public class QuizManagementModelManagerTest {
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
 
-        modelManager.init(new Quiz(quizCards, Quiz.Mode.LEARN));
+        modelManager.init(new Quiz(quizCards, QuizMode.LEARN));
         assertEquals("0/6", modelManager.getCurrentProgress());
 
         modelManager.getNextCard();
@@ -93,11 +99,19 @@ public class QuizManagementModelManagerTest {
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
 
-        modelManager.init(new Quiz(quizCards, Quiz.Mode.LEARN));
+        modelManager.init(new Quiz(quizCards, QuizMode.LEARN));
         QuizCard expected = modelManager.getNextCard();
 
         assertEquals(new QuizCard(0, "Japan", "Tokyo", MODE), modelManager.getCurrentQuizCard());
         assertEquals(expected, modelManager.getCurrentQuizCard());
+    }
+
+    @Test
+    public void toggleIsCardDifficult() {
+        modelManager.init(QUIZ);
+
+        assertTrue(modelManager.toggleIsCardDifficult(0));
+        assertFalse(modelManager.toggleIsCardDifficult(0));
     }
 
     @Test
@@ -116,7 +130,7 @@ public class QuizManagementModelManagerTest {
         final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
-        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
         modelManager.init(quiz);
 
         assertTrue(modelManager.hasCardLeft());
@@ -155,8 +169,14 @@ public class QuizManagementModelManagerTest {
     }
 
     @Test
+    public void getDisplayFormatter() {
+        modelManager.setDisplayFormatter(formatter);
+        assertEquals(formatter, modelManager.getDisplayFormatter());
+    }
+
+    @Test
     public void equals() {
-        Quiz quiz = new Quiz(VALID_QUIZCARD, Quiz.Mode.LEARN);
+        Quiz quiz = new Quiz(VALID_QUIZCARD, QuizMode.LEARN);
 
         // same values -> returns true
         modelManager = new QuizModelManager();

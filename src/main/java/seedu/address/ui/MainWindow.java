@@ -5,17 +5,19 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -30,10 +32,11 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private LogicManager.Mode mode;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
-    private QuizResultDisplay quizResultDisplay;
+    private MainPanel mainPanel;
     private HelpWindow helpWindow;
 
     @FXML
@@ -46,13 +49,19 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
+    private SplitPane splitPane;
+
+    @FXML
+    private VBox sidePanel;
+
+    @FXML
     private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane quizResultDisplayPlaceholder;
+    private StackPane mainPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -63,6 +72,9 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+
+        // Set default mode
+        mode = LogicManager.Mode.MANAGEMENT;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -117,8 +129,8 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        quizResultDisplay = new QuizResultDisplay();
-        quizResultDisplayPlaceholder.getChildren().add(quizResultDisplay.getRoot());
+        mainPanel = new MainPanel();
+        mainPanelPlaceholder.getChildren().add(mainPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -133,6 +145,21 @@ public class MainWindow extends UiPart<Stage> {
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
+        }
+    }
+
+    /**
+     * Changes the Ui setting between management and quiz mode
+     */
+    private void handleModeSwitching() {
+        if (mode.equals(LogicManager.Mode.MANAGEMENT)) {
+            splitPane.setDividerPosition(0, 0.1);
+            sidePanel.setMinWidth(340);
+            sidePanel.setPrefWidth(340);
+        } else {
+            splitPane.setDividerPosition(0, 0);
+            sidePanel.setMinWidth(0);
+            sidePanel.setPrefWidth(0);
         }
     }
 
@@ -172,32 +199,17 @@ public class MainWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
             CommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            LogicManager.Mode currentMode = logic.getMode();
+
+            if (!currentMode.equals(mode)) {
+                this.mode = currentMode;
+                handleModeSwitching();
+            }
 
             if (commandResult.isShowQuiz()) {
-                String feedback = commandResult.getFeedbackToUser();
-                // TODO refactor this
-                if (feedback.contains(QuizAnswerCommand.MESSAGE_CORRECT)) {
-                    resultDisplay.setFeedbackToUser(QuizAnswerCommand.MESSAGE_CORRECT);
-                    feedback = feedback.replace(QuizAnswerCommand.MESSAGE_CORRECT, "");
-                } else if (feedback.contains(QuizAnswerCommand.MESSAGE_WRONG_ONCE)) {
-                    resultDisplay.setFeedbackToUser(QuizAnswerCommand.MESSAGE_WRONG_ONCE);
-                    feedback = feedback.replace(QuizAnswerCommand.MESSAGE_WRONG_ONCE, "");
-                } else if (feedback.contains("The correct answer is")) {
-                    int startIndex = feedback.indexOf("The correct answer is ");
-                    int endIndex = feedback.indexOf("Question: ");
-                    String removeThisString = feedback.substring(startIndex, endIndex);
-
-                    resultDisplay.setFeedbackToUser(removeThisString);
-                    feedback = feedback.replace(removeThisString, "");
-                }
-
-                quizResultDisplay.setFeedbackToUser(feedback);
-            } else {
-                logger.info("Result: " + commandResult.getFeedbackToUser());
-                resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-                // clear
-                quizResultDisplay.setFeedbackToUser("");
+                mainPanel.setFeedbackToUser(logic.getDisplayFormatter());
             }
 
             if (commandResult.isShowHelp()) {

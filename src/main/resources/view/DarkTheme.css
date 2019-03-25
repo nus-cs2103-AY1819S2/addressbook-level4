@@ -157,20 +157,12 @@
     -fx-text-fill: black !important;
 }
 
-.quiz-result-display {
+.main-panel {
     -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 20pt;
     -fx-text-fill: white;
 }
-
-/*.quiz-result-display *.text {*/
-    /*-fx-text-alignment: center;*/
-/*}*/
-
-/*.quiz-result-display .label {*/
-    /*-fx-text-fill: black !important;*/
-/*}*/
 
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
@@ -347,16 +339,16 @@
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#resultDisplay .content, #quizResultDisplay .content {
+#resultDisplay .content, #mainPanel .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
 }
 
-#quizResultDisplay {
+#mainPanel {
     -fx-padding: 0 10 10 10;
 }
 
-#quizResultDisplay > Text {
+#mainPanel > Text {
     -fx-fill: DCDCDC;
 }
 

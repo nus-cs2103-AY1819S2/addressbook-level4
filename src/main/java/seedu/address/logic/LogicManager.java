@@ -121,7 +121,7 @@ public class LogicManager implements Logic {
         });
 
         for (Pdf pdf : this.model.getPdfBook().getPdfList()) {
-            if (pdf.getDeadline().exists() && !pdf.getDeadline().isMet()) {
+            if (pdf.getDeadline().exists() && !pdf.getDeadline().isDone()) {
                 pq.add(pdf);
             }
         }

@@ -297,6 +297,85 @@ the current patient list with a copy tag.
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
 
+==== list
+Shows a list of all patients or medical stored in TeethHub.
+
+Format: `list [dental]`
+
+Command shows patient details by default, add dental to see dental
+records.
+
+Example:
+
+* `list` +
+Shows details of all patients.
+
+
+* `list dental` +
+Shows details of patient's dental records.
+
+
+==== find
+Shows patients whose data contains any of the given keywords according to a specified parameter.
+
+Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
+
+* Add “dental” to search dental records instead.
+* Search is case insensitive.
+* Order of keywords does not matter.
+
+Example:
+
+
+* `find a/Yishun` +
+Show all the people with an address containing the keyword Yishun.
+
+
+* `find dental cleaning` +
+Shows all the dental records with cleaning
+
+
+==== sort
+Sorts the records by an input parameter in an input order.
+
+Format: `sort PARAM ORDER`
+
+Example:
+
+[cols=",,,",options="header",]
+|===
+|*ID* |*Name* |*Age* |*Last Modified*
+|0 |Alice |19 |03/07/2003
+|1 |Clara |12 |05/02/2021
+|2 |Bob |24 |11/02/2019
+|===
+
+* sort name desc
+
+[cols=",,,",options="header",]
+|===
+|*ID* |*Name* |*Age* |*Last Modified*
+|1 |Clara |12 |05/02/2021
+|2 |Bob |24 |11/02/2019
+|0 |Alice |19 |03/07/2003
+|===
+
+
+* sort age asce
+
+[cols=",,,",options="header",]
+|===
+|*ID* |*Name* |*Age* |*Last Modified*
+|1 |Clara |12 |05/02/2021
+|0 |Alice |19 |03/07/2003
+|2 |Bob |24 |11/02/2019
+|===
+
+==== stat
+Generates a statistics report based on the specified patient's data.
+
+Format: `stat INDEX`
+
 === Patient Records Management
 ==== record add
 
@@ -567,93 +646,16 @@ Example:
 * `taskfind pri/low` +
   `taskdelete 2`
 
-=== List
-Shows a list of all patients or medical stored in TeethHub.
+=== General Commands
 
-Format: `list [dental]`
-
-Command shows patient details by default, add dental to see dental
-records.
-
-Example:
-
-* `list` +
-Shows details of all patients.
-
-
-* `list dental` +
-Shows details of patient's dental records.
-
-
-=== Find
-Shows patients whose data contains any of the given keywords according to a specified parameter.
-
-Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
-
-* Add “dental” to search dental records instead.
-* Search is case insensitive.
-* Order of keywords does not matter.
-
-Example:
-
-
-* `find a/Yishun` +
-Show all the people with an address containing the keyword Yishun.
-
-
-* `find dental cleaning` +
-Shows all the dental records with cleaning
-
-
-=== Sort
-Sorts the records by an input parameter in an input order.
-
-Format: `sort PARAM ORDER`
-
-Example:
-
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|0 |Alice |19 |03/07/2003
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-|===
-
-* sort name desc
-
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|2 |Bob |24 |11/02/2019
-|0 |Alice |19 |03/07/2003
-|===
-
-
-* sort age asce
-
-[cols=",,,",options="header",]
-|===
-|*ID* |*Name* |*Age* |*Last Modified*
-|1 |Clara |12 |05/02/2021
-|0 |Alice |19 |03/07/2003
-|2 |Bob |24 |11/02/2019
-|===
-
-=== Stat
-Generates a statistics report based on the specified patient's data.
-
-Format: `stat INDEX`
-
-=== History
+==== history
 Lists all the commands that have been entered since starting the
 application in reverse chronological order.
 
 Format: `history`
 
 
-=== Undo
+==== undo
 Undo the latest command.
 
 Format: `undo`
@@ -678,7 +680,7 @@ previously.
 `undo` (reverses the clear command) +
 `undo` (reverses the delete 1 command)
 
-=== Redo
+==== redo
 Reverses the most recent undo command.
 
 Format: `redo`
@@ -701,23 +703,24 @@ previously.
 `redo` (reapplies the delete 1 command) +
 `redo` (reapplies the clear command)
 
-=== Clear
-Clears all patients and records from TeethHub.
+==== clear
+Clears all patients, records and tasks from TeethHub.
 
 * You will be prompted to confirm.
 * Input `y` to proceed to the clear all records or `n` to abort.
 
 Format: `clear`
 
-=== Exit
+==== exit
 Exits the program. You won't be able to exit if copies exist.
 
 Format: `exit`
 
-=== Exit anyway
-Exits the program, disregarding any copies.
+====
+You can also use `exit!` to forcefully exit the application
+====
 
-Format: `exit!`
+
 
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,

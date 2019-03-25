@@ -23,7 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Card;
-import seedu.address.model.deck.CardNameContainsKeywordsPredicate;
+import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
 import seedu.address.model.deck.Deck;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.CardUtil;
@@ -104,7 +104,7 @@ public class TopDeckParserTest {
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")),
             model);
-        assertEquals(new FindCommand(new CardNameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new QuestionContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

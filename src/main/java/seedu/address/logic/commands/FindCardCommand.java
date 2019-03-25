@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.deck.CardNameContainsKeywordsPredicate;
+import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
 
 import static java.util.Objects.requireNonNull;
 
@@ -20,9 +20,9 @@ public class FindCardCommand extends Command {
         + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
         + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final CardNameContainsKeywordsPredicate predicate;
+    private final QuestionContainsKeywordsPredicate predicate;
 
-    public FindCardCommand(CardNameContainsKeywordsPredicate predicate) {
+    public FindCardCommand(QuestionContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 

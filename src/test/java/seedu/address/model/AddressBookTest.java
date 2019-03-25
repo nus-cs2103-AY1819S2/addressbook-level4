@@ -27,7 +27,6 @@ import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.DuplicatePatientException;
 import seedu.address.testutil.PatientBuilder;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Person;
 
 public class AddressBookTest {
 
@@ -122,12 +121,12 @@ public class AddressBookTest {
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Patient> patients = FXCollections.observableArrayList();
         private final ObservableList<MedicalHistory> medHists = FXCollections.observableArrayList();
+        private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Patient> patients) {
             this.patients.setAll(patients);
         }
-
-        private final ObservableList<Doctor> doctors = FXCollections.observableArrayList();
+        
 
         @Override
         public ObservableList<Patient> getPatientList() {

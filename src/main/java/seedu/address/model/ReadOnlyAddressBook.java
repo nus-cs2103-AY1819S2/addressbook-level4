@@ -23,7 +23,7 @@ public interface ReadOnlyAddressBook extends Observable {
      * This list will not contain any duplicate persons.
      */
     ObservableList<MedicalHistory> getMedHistList();
-    
+
     /**
      * Returns an unmodifiable view of the doctors list.
      * This list will not contain any duplicate doctors.

@@ -19,9 +19,12 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Specialisation;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import seedu.address.model.tag.Tag;
 >>>>>>> implementing addDoctor logic under Logic
+=======
+>>>>>>> b0218e781c950dc48a1ec1c59fb4f2ecc2a66825
 
 
 /**

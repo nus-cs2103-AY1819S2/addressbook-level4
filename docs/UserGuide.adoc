@@ -13,7 +13,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W17-2/main
 
 By: `Team W17-2`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -44,7 +44,7 @@ Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
 == Quick Start Guide
 
-. Download the latest TeethHub.jar file from our GitHub page
+. Download the latest TeethHub.jar file from our https://github.com/CS2103-AY1819S2-W17-2/main[GitHub page]
 
 . Copy the file to the folder you want to use as the home folder for TeethHub (all data will be stored there)
 

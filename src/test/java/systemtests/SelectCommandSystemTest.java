@@ -120,16 +120,16 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
+        // int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
-        if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
-            assertSelectedCardUnchanged();
-        } else {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
-        }
+        // if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
+        //     assertSelectedCardUnchanged();
+        // } else {
+        //     assertSelectedCardChanged(expectedSelectedCardIndex);
+        //}
 
         assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchanged();

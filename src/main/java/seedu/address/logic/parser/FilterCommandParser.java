@@ -24,7 +24,8 @@ import seedu.address.model.tag.Specialisation;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
-    private static final String MESSAGE_USAGE = "";
+    public static final String MESSAGE_USAGE = FilterCommand.INVALID_MESSAGE_FORMAT +"\n"
+            + FilterHealthWorkerCommand.MESSAGE_USAGE;
 
     /**
      * Parses the given {@code String} of arguments in the context of the FilterHealthWorkerCommand
@@ -35,7 +36,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterHealthWorkerCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.INVALID_MESSAGE_FORMAT));
         }
 
         CommandMode commandMode = ArgumentTokenizer.checkMode(trimmedArgs);
@@ -52,30 +53,31 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Method that parses a string of parameters into a list of predicates for filtering health workes in a list.
      */
-    public List<Predicate> parseHealthWorkerPredicates(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(trimmedArgs, PREFIX_NAME,
+    public static List<Predicate> parseHealthWorkerPredicates(String args) throws ParseException {
+        ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
                 PREFIX_SKILLS, PREFIX_ORGANIZATION);
 
         if (!anyPrefixPresent(argumentMultimap, PREFIX_NAME,
                 PREFIX_SKILLS, PREFIX_ORGANIZATION)) {
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                    FilterCommand.EMPTY_PARAMETERS));
+                    FilterHealthWorkerCommand.MESSAGE_USAGE));
         }
 
         List<Predicate> predicateList = new ArrayList<>();
 
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
-            predicateList.add(x -> ((HealthWorker) x).getName().equals(argumentMultimap.getValue(PREFIX_NAME)));
-        }
+            predicateList.add(x -> ((HealthWorker) x).getName().contains(argumentMultimap.getValue(PREFIX_NAME).get()));
+    }
         if (argumentMultimap.getValue(PREFIX_ORGANIZATION).isPresent()) {
-            predicateList.add(x -> ((HealthWorker) x).getOrganization().equals(argumentMultimap
-                    .getValue(PREFIX_ORGANIZATION)));
+            predicateList.add(x -> ((HealthWorker) x).getOrganization().contains(argumentMultimap
+                    .getValue(PREFIX_ORGANIZATION).get()));
         }
         if (argumentMultimap.getValue(PREFIX_SKILLS).isPresent()) {
             Set<Specialisation> otherSkills = new HashSet<>();
             for (String s : argumentMultimap.getAllValues(PREFIX_SKILLS)) {
-                otherSkills.add(Specialisation.parseString(s));
+                if (Specialisation.isValidSpecialisation(s)) {
+                    otherSkills.add(Specialisation.parseString(s));
+                }
             }
             predicateList.add(x -> ((HealthWorker) x).getSkills().containsAll(otherSkills));
         }

@@ -16,12 +16,12 @@ import seedu.address.model.person.healthworker.HealthWorker;
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-public class FilterHealthWorkerCommand extends FilterCommand {
+public class FilterHealthWorkerCommand extends FilterCommand implements HealthWorkerCommand {
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + COMMAND_OPTION + ": "
+            + "Parameters used to filter the current list of health workers by.\n"
+            + "Parameters: PARAMETER [MORE_PARAMETERS]...\n"
+            + "Example: " + COMMAND_WORD + " " + COMMAND_OPTION + " n/John";
 
     private final List<Predicate> predicateList;
 

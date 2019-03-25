@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 public abstract class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
-    public static final String EMPTY_PARAMETERS = "Filter command must contain at least 1 parameter to filter by";
+    public static final String INVALID_MESSAGE_FORMAT = "Filter command must contain at least 1 parameter.\n";
 
     /**
      * Method that filters a given list using the given predicate p.

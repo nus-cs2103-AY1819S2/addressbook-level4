@@ -34,6 +34,11 @@ public class Fleet {
     public Fleet() {
         this(5, 2, 1);
     }
+
+    public Fleet(int mapSize) {
+        this(1, mapSize - 5, (mapSize + 2) / 5);
+    }
+
     /**
      * Constructor for a fleet with placeholder ship names.
      */

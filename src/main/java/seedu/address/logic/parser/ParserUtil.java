@@ -120,11 +120,8 @@ public class ParserUtil {
      * @return Constructed valid Deadline Object
      * @throws ParseException - If input does not match requirements.
      */
-<<<<<<< HEAD
     public static Deadline parseDeadline(String deadline, DeadlineStatus status) throws ParseException {
-=======
-    public static Deadline parseDeadline(String deadline, boolean status) throws ParseException {
->>>>>>> c1d67181374cf73a822f657e9698b684e8109320
+
         requireNonNull(deadline);
 
         final int positionDay = 0;

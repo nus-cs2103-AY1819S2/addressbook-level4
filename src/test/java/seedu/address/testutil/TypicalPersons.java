@@ -32,7 +32,7 @@ import seedu.address.model.person.Person;
 public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
-            .withMatricNumber("A0122111Z")
+            .withMatricNumber("A0123123Z")
             .withPhone("94351253")
             .withEmail("alice@example.com")
             .withAddress("123, Jurong West Ave 6, #08-111")

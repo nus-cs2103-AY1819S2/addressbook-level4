@@ -229,8 +229,8 @@ public class MemberEditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, MemberEditCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: edit a person with new values same as another person's values but with different email -> rejected */
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
+        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB
+                + PHONE_DESC_BOB + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
                 + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
         assertCommandFailure(command, MemberEditCommand.MESSAGE_DUPLICATE_PERSON);
     }

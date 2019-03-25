@@ -43,7 +43,7 @@ public class MemberAddCommandParser implements Parser<MemberAddCommand> {
                         PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_YEAROFSTUDY, PREFIX_MAJOR, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MATRICNUMBER, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_YEAROFSTUDY, PREFIX_MAJOR, PREFIX_TAG)
+                PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_YEAROFSTUDY, PREFIX_MAJOR)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberAddCommand.MESSAGE_USAGE));
         }

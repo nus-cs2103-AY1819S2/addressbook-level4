@@ -4,8 +4,8 @@ import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.medicalhistory.MedicalHistory;
-import seedu.address.model.person.Patient;
 import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Patient;
 
 /**
  * Unmodifiable view of an address book

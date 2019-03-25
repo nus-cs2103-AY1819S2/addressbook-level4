@@ -11,6 +11,9 @@ import seedu.address.model.card.Card;
  */
 public interface ReadOnlyCardFolder extends Observable {
 
+    /** Maximum number of scores to keep in list */
+    int MAX_NUM_FOLDER_SCORES = 10;
+
     /**
      * Returns an unmodifiable view of the cards list.
      * This list will not contain any duplicate cards.

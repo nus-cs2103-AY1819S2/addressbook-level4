@@ -109,7 +109,7 @@ public class CardFolder implements ReadOnlyCardFolder {
     }
 
     public void addFolderScore(Double folderScore) {
-        while (folderScores.size() >= 3) {
+        while (folderScores.size() >= MAX_NUM_FOLDER_SCORES) {
             folderScores.remove(0);
         }
         folderScores.add(folderScore);

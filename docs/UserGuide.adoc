@@ -12,13 +12,13 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/cs2103-ay1819s2-w09-3/main
 
 By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-RestOrRant (ROR) is for those who *prefer to use a desktop app for managing contacts*. More importantly, ROR is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ROR can get your restaurant management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+RestOrRant (ROR) is for those who *prefer to use a desktop app for managing a restaurant's front-end operations*. More importantly, ROR is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, ROR can get your restaurant management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -31,11 +31,11 @@ image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  The application has three modes: Restaurant Mode, Table Mode and Menu Mode. RestOrRant starts in Restaurant Mode by default. You can switch between the modes using the *`xxxMode` commands. Each mode comes with a set of commands to perform mode-specific operations.
+.  The application has three modes: Restaurant Mode, Table Mode and Menu Mode. RestOrRant starts in Restaurant Mode by default. You can switch between the modes using the `xxxMode` commands. Each mode comes with a set of commands to perform mode-specific operations.
 .  Some example commands you can try:
 
 * *`addTables 2 1 4`* (in Restaurant Mode): adds 3 tables to the restaurant with 2, 1 and 4 seats respectively.
-* *`menuMode`: switches RestOrRant to Menu Mode and displays the list of menu items for the restaurant.
+* *`menuMode`*: switches RestOrRant to Menu Mode and displays the list of menu items for the restaurant.
 * *`addToMenu c/W09 n/Chicken Wings p/12.50`* (in Menu Mode): adds a new item "W09 Chicken Wings - $12.50" to the menu.
 * *`tableMode 2`*: switches RestOrRant to Table Mode for the table with table number 2 and displays the list of order items for table 2.
 * *`addToOrder W09 1`* (in Table Mode): adds an order of 1x W09 to table 2.
@@ -54,14 +54,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[ITEM_CODE QUANTITY]...` can be used as `{nbsp}` (i.e. 0 times), `W09 3`, `W09 3 A02 4` etc.
 ====
 
-=== Viewing help : `help`
+=== General
+
+The following commands can be used in any RestOrRant mode.
+
+==== Viewing help : `help`
 
 Format: `help`
 
-=== Switching to Restaurant Mode : `restaurantMode`
+==== Switching to Restaurant Mode : `restaurantMode`
 
-Changes RestOrRant to Restaurant Mode which allows the user to add tables and update the tables' statuses.
-Format: `restaurantMode`
+Changes RestOrRant to Restaurant Mode which allows the user to add tables and update the tables' statuses. +
+Format: `restaurantMode` (or `RM`)
 
 ****
 * The RestOrRant application's default mode is Restaurant Mode. At start up, the application is already in Restaurant Mode.
@@ -71,10 +75,10 @@ Examples:
 
 * `restaurantMode`
 
-=== Switching to Table Mode : `tableMode`
+==== Switching to Table Mode : `tableMode`
 
-Changes RestOrRant to Table Mode for the table given by the specified table number and displays the list of order items from that table.
-Format: `tableMode TABLE_NUMBER`
+Changes RestOrRant to Table Mode for the table given by the specified table number and displays the list of order items from that table. +
+Format: `tableMode TABLE_NUMBER` (or `TM TABLE_NUMBER`)
 
 ****
 * The table with the specified table number must already exist in the restaurant (can be created in Restaurant Mode).
@@ -85,23 +89,38 @@ Examples:
 * `tableMode` 2 +
 Switches to Table Mode for table 2 and displays the list of order items from table 2.
 
-=== Switching to Menu Mode : `menuMode`
+==== Switching to Menu Mode : `menuMode`
 
-Changes RestOrRant to Menu Mode in order to edit the menu.
-Format: `menuMode`
+Changes RestOrRant to Menu Mode in order to edit the menu. +
+Format: `menuMode` (or `MM`)
 
 ****
 * RestOrRant should not already be in Menu Mode.
 ****
 
-=== Features executable in RestaurantMode
-==== Adding tableList : `addTables`
+==== Exiting the program : `exit`
 
-Adds tableList to the restaurant. +
+Exits the program. +
+Format: `exit`
+
+==== Saving the data
+
+RestOrRant data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+
+=== Restaurant Mode
+
+In Restaurant Mode, which is the default mode, you can perform table-related operations and view the order items across all tables.
+
+image::RMUi.png[width="790"]
+
+==== Adding tables : `addTables`
+
+Adds tables to the restaurant. +
 Format: `addTables NUMBER_OF_SEATS [NUMBER_OF_SEATS]...`
 
 ****
-* Command can only be used in Restaurant Mode.
 * Table number increases from the last added table number.
 * There is no limit to the number of tables that can be added.
 ****
@@ -111,22 +130,12 @@ Examples:
 * `addTables 4`
 * `addTables 4 2 4`
 
-==== Listing all tableList in the restaurant : `listTables`
-
-Shows a list of all tableList in the restaurant as well as their current occupancy. +
-Format: `listTables`
-
-****
-* Command can only be used in Restaurant Mode.
-****
-
 ==== Updating the table: `updateTable`
 
 Updates the status of the table. +
 Format: `updateTable TABLE_NUMBER NEW_OCCUPANCY`
 
 ****
-* Command can only be used in Restaurant Mode.
 * Checks if the specified table exists before updating.
 * Checks if the specified `NEW_OCCUPANCY` is greater than 0 and not more than the capacity of the table.
 ****
@@ -142,7 +151,6 @@ Removes an existing table in the restaurant. +
 Format: `removeTable TABLE_NUMBER`
 
 ****
-* Command can only be used in Restaurant Mode.
 * Checks that the table exists.
 * Checks that the table is not occupied.
 ****
@@ -151,14 +159,18 @@ Examples:
 
 * `removeTable 3`
 
-=== Features executable in TableMode
+=== Table Mode
+
+In Table Mode, you can perform order-related operations for the chosen table. The application will display the list of items ordered by the table, as well as the restaurant's menu for ease of reference.
+
+image::TMUi.png[width="790"]
+
 ==== Adding item(s) to an order: `addToOrder`
 
 Adds the specified item(s) to the order of the current selected table and displays the new list of order items. +
 Format: `addToOrder ITEM_CODE QUANTITY [ITEM_CODE QUANTITY]…`
 
 ****
-* RestOrRant has to be in Table Mode to use this command (can switch using `tableMode`).
 * Item has to exist in the menu, i.e. item code has to be valid (can be created in Menu Mode).
 * If the item is already in the order, the quantity for that item is increased.
 * There is no limit to the number of items added.
@@ -232,7 +244,6 @@ Checks if all menu items on the order has been served. +
 Format: `isTableServed`
 
 ****
-* Command can only be used in Table Mode.
 * Checks if the table exists.
 ****
 
@@ -243,27 +254,19 @@ Returns `Table is fully served`, `Table is not fully served` or `Table is empty`
 
 ==== Calculating the bill of an order : `bill`
 
-Calculates the bill of an order from the specified table in TableMode. +
+Calculates the bill of an order from the specified table and displays the receipt. +
 Format: `bill`
-
-****
-* Only works in TableMode.
-****
 
 Examples:
 
 * `TableMode 1` then `bill` +
 Returns the total price of the order from table 1.
 
-=== Features executable in MenuMode
-==== Listing all items in menu : `printMenu`
+=== Menu Mode
 
-Lists all the items in the menu currently. +
-Format: `printMenu`
+In Menu Mode, you can perform menu-related operations. The application will display the current items on the menu.
 
-****
-* “Menu is empty” is printed if there is no item in current menu.
-****
+image::MMUi.png[width="790"]
 
 ==== Adding menu items to the menu : `addToMenu`
 
@@ -271,7 +274,6 @@ Adds the specified item to the menu. +
 Format: `addToMenu ITEM_CODE ITEM_NAME ITEM_PRICE`
 
 ****
-* RestOrRant has to be in Mable Mode to use this command (can switch using `menuMode`).
 * Item code, name and price must be valid (follow the format specified).
 ****
 
@@ -300,7 +302,10 @@ Examples:
 * `itemExists A02` +
 Checks if item with code A02 exists in the menu.
 
-=== Features executable in StatisticsMode
+=== Statistics Mode
+
+In Statistics Mode, you can obtain statistics related to your restaurant, such as daily revenue and the popularity of dishes.
+
 ==== Getting the most popular item ordered: `getMostPopularItem`
 
 Returns the item on the menu that has the most orders. +
@@ -394,52 +399,32 @@ Returns All the statistics it has computed.
   `2. W12 Pork Chop Rice` +
   `3. A01 Dumpling Noodles` +
 
-=== Exiting the program : `exit`
-
-Exits the program. +
-Format: `exit`
-
-=== Saving the data
-
-RestOrRant data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous RestOrRant folder.
+*A*: Install the application in the other computer and overwrite the empty data files it creates with the files that contains the data of your previous RestOrRant folder.
 
 == Command Summary
 
 * *Changing to RestaurantMode* : `restaurantMode`
-* *Add tableList* : `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` +
+* *Add tables* : `addTable NUMBER_OF_SEATS [NUMBER_OF_SEATS] ...` +
 e.g. `addTables 2 4 6 8`
 * *Remove table* : `removeTable TABLE_NUMBER` +
 e.g. `removeTable 3`
 * *Update table* : `updateTable TABLE_NUMBER NEW_OCCUPANCY` +
 e.g. `updateTable 3 2`
-* *List tableList* : `listTables`
 * *Add items to order* : `addToOrder TABLE_NUMBER ITEM_CODE QUANTITY [ITEM_CODE QUANTITY] …` +
 e.g. `addToOrder 5 W09 1 N01 1 C04 2`
 * *Add note to order* : `addNote TABLE_NUMBER ITEM_CODE NOTE` +
 e.g. `addNote 1 W09 Less spicy`
 * *Delete item from order* : `deleteFromOrder TABLE_NUMBER ITEM_CODE [QUANTITY]` +
 e.g. `deleteFromOrder 1 W09 1`
-* *View order* : `viewOrder TABLE_NUMBER` +
-e.g. `viewOrder 1`
 * *Clear order* : `clearOrder TABLE_NUMBER` +
 e.g. `clearOrder 1`
 * *Update item served status* : `serve TABLE_NUMBER ITEM_CODE [QUANTITY]` +
 e.g. `serve 5 C04 2`
 * *Table serve status* : `isTableServed`
-* *List items in menu* : `printMenu` +
-* *Add item to Menu* : `addToMenu` +
+* *Add item to menu* : `addToMenu` +
 e.g. `addToMenu c/A02 n/French Fries p/2.00`
 * *Remove item from menu* : `removeFromMenu` +
 e.g. `removeFromMenu c/A02 n/French Fries`

@@ -63,14 +63,15 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPatient(patient);
         }
-    /*    for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
+        /*
+        for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
             MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
             if (addressBook.hasMedHist(medicalHistory)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEDHIST);
             }
             addressBook.addMedHist(medicalHistory);
         }
-    */
+        */
         return addressBook;
     }
 

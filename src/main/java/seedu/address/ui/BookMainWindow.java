@@ -32,6 +32,7 @@ public class BookMainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BookListPanel bookListPanel;
+    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -46,6 +47,9 @@ public class BookMainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane bookListPanelPlaceholder;
+
+    @FXML
+    private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -116,6 +120,10 @@ public class BookMainWindow extends UiPart<Stage> {
         bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
             logic::setSelectedBook);
         bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+                logic::setSelectedPerson);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

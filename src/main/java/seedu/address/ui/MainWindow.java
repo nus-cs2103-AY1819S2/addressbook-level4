@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BookBrowserPanel browserPanel;
     private BookListPanel bookListPanel;
+    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,8 +44,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private StackPane personListPanelPlaceholder;
 
+    @FXML
+    private MenuItem helpMenuItem;
 
     @FXML
     private StackPane bookListPanelPlaceholder;
@@ -112,13 +115,17 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BookBrowserPanel(logic.selectedBookProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+//        browserPanel = new BookBrowserPanel(logic.selectedBookProperty());
+//        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
                 logic::setSelectedBook);
 
         bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
+
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+                logic::setSelectedPerson);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -172,6 +179,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public BookListPanel getBookListPanel() {
         return bookListPanel;
+    }
+
+    public PersonListPanel getPersonListPanel() {
+        return personListPanel;
     }
 
     /**

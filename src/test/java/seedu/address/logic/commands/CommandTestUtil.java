@@ -23,6 +23,7 @@ import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
+import seedu.address.testutil.EditDeckDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -90,6 +91,16 @@ public class CommandTestUtil {
                 .withAnswer(VALID_ANSWER_MOD).withTags(VALID_TAG_MOD, VALID_TAG_SUBJECT).build();
         DESC_ADDITION = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_ADDITION)
                 .withAnswer(VALID_ANSWER_ADDITION).withTags(VALID_TAG_MATH).build();
+    }
+
+    public static final EditDeckCommand.EditDeckDescriptor DESC_A;
+    public static final EditDeckCommand.EditDeckDescriptor DESC_B;
+
+    static {
+        DESC_A = new EditDeckDescriptorBuilder().withName(VALID_NAME_DECK_A)
+                .withCards(VALID_CARD_LIST).build();
+        DESC_B = new EditDeckDescriptorBuilder().withName(VALID_NAME_DECK_B)
+                .withCards(VALID_CARD_LIST).build();
     }
 
     /**

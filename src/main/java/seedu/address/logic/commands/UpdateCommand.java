@@ -9,9 +9,11 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -34,7 +36,7 @@ public class UpdateCommand extends Command {
             + "Parameters: "
             + "INDEX "
             + PREFIX_BATCHNUMBER + "BATCH_NUMBER "
-            + PREFIX_QUANTITY + "QUANTITY "
+            + "[" + PREFIX_QUANTITY + "QUANTITY] "
             + "[" + PREFIX_EXPIRY + "EXPIRY] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_BATCHNUMBER + "HH-156224 "
@@ -42,20 +44,21 @@ public class UpdateCommand extends Command {
             + PREFIX_EXPIRY + "13/11/2019 ";
 
     public static final String MESSAGE_SUCCESS = "Batch updated: %1$s";
-    public static final String MESSAGE_MISSING_PARAMETER = "Must include batch number and quantity of the batch "
-            + "used for updating.";
-    public static final String MESSAGE_MISSING_EXPIRY = "Must include expiry date for new batches.";
-    public static final String MESSAGE_MISSING_QUANTITY = "Batch not found. Cannot remove batch.";
+    public static final String MESSAGE_MISSING_PARAMETER = "Must include batch number and quantity or expiry of the "
+            + "batch used for updating.";
+    public static final String MESSAGE_NEW_BATCH_MISSING_PARAMETER = "Must include expiry date and quantity for new "
+            + "batches.";
+    public static final String MESSAGE_NEW_BATCH_ZERO_QUANTITY = "Batch not found. Cannot remove batch.";
     public static final String MESSAGE_MAX_QUANTITY_EXCEEDED = "Max quantity exceeded. Max quantity: "
             + Quantity.MAX_QUANTITY;
 
     private final Index targetIndex;
-    private final Batch newBatchDetails;
+    private final UpdateBatchDescriptor newBatchDetails;
 
     /**
      * Creates an UpdateCommand to update the {@code Medicine} at the specified {@index} with new batch details.
      */
-    public UpdateCommand(Index targetIndex, Batch newBatchDetails) {
+    public UpdateCommand(Index targetIndex, UpdateBatchDescriptor newBatchDetails) {
         requireNonNull(targetIndex);
         requireNonNull(newBatchDetails);
 
@@ -76,15 +79,11 @@ public class UpdateCommand extends Command {
         Batch batchToUpdate = medicineToUpdate.getBatches().get(newBatchDetails.getBatchNumber());
 
         if (batchToUpdate == null) {
-            checkNewBatchCommand();
+            checkCommandForNewBatch();
         }
 
-        Batch updatedBatch = newBatchDetails;
-        if (!updatedBatch.hasExpiry()) {
-            updatedBatch = getExistingBatchExpiry(batchToUpdate);
-        }
-
-        Medicine updatedMedicine = getUpdatedMedicine(medicineToUpdate, batchToUpdate, updatedBatch);
+        Batch updatedBatch = createUpdatedBatch(batchToUpdate);
+        Medicine updatedMedicine = createUpdatedMedicine(medicineToUpdate, batchToUpdate, updatedBatch);
 
         model.setMedicine(medicineToUpdate, updatedMedicine);
         model.commitInventory();
@@ -94,26 +93,41 @@ public class UpdateCommand extends Command {
     /**
      * Throws CommandException if fields needed to add a new batch is not input correctly.
      */
-    private void checkNewBatchCommand() throws CommandException {
-        if (!newBatchDetails.hasNonZeroQuantity()) {
-            throw new CommandException(MESSAGE_MISSING_QUANTITY);
+    private void checkCommandForNewBatch() throws CommandException {
+        if (!newBatchDetails.getQuantity().isPresent() || !newBatchDetails.getExpiry().isPresent()) {
+            throw new CommandException(MESSAGE_NEW_BATCH_MISSING_PARAMETER);
         }
-        if (!newBatchDetails.hasExpiry()) {
-            throw new CommandException(MESSAGE_MISSING_EXPIRY);
+        if (newBatchDetails.getQuantity().get().getNumericValue() == 0) {
+            throw new CommandException(MESSAGE_NEW_BATCH_ZERO_QUANTITY);
         }
     }
 
     /**
-     * Returns a new {@code Batch} with existing batch's {@code Expiry} added to {@code newBatchDetails}.
+     * Returns a {@code Batch} with the details of {@code batchToUpdate} updated with {@code newBatchDetails}.
      */
-    private Batch getExistingBatchExpiry(Batch batchToUpdate) {
-        return new Batch(newBatchDetails.getBatchNumber(), batchToUpdate.getExpiry(), newBatchDetails.getQuantity());
+    private Batch createUpdatedBatch(Batch batchToUpdate) {
+        Quantity quantity;
+        Expiry expiry;
+
+        if (newBatchDetails.getExpiry().isPresent()) {
+            expiry = newBatchDetails.getExpiry().get();
+        } else {
+            expiry = batchToUpdate.getExpiry();
+        }
+
+        if (newBatchDetails.getQuantity().isPresent()) {
+            quantity = newBatchDetails.getQuantity().get();
+        } else {
+            quantity = batchToUpdate.getQuantity();
+        }
+
+        return new Batch(newBatchDetails.getBatchNumber(), expiry, quantity);
     }
 
     /**
      * Returns a {@code Medicine} with the details of {@code medicineToUpdate} updated with {@code updatedBatch}.
      */
-    private Medicine getUpdatedMedicine(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch) throws
+    private Medicine createUpdatedMedicine(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch) throws
             CommandException {
         Map<BatchNumber, Batch> updatedBatches = getNewMedicineBatches(medicineToUpdate, updatedBatch);
         Quantity updatedQuantity = getNewMedicineQuantity(medicineToUpdate, batchToUpdate, updatedBatch);
@@ -149,9 +163,15 @@ public class UpdateCommand extends Command {
         }
     }
 
-    private Expiry getNewMedicineExpiry(Medicine medicineToUpdate, Batch batchToUpdate,
-            Batch updatedBatch, Map<BatchNumber, Batch> updatedBatches) {
-
+    /**
+     * There are 4 possible scenarios for finding the next nearest expiry date after the update.
+     * 1. There are no more batches after the update and so next expiry date is "-".
+     * 2. There was previously no batches and so the added batch is the first batch. Thus expiry is the added batch's.
+     * 3. The batch which had the current next expiry is being updated. Iterate through all batches to find next min.
+     * 4. The batch which had the current next expiry is not being updated. Return the new batch expiry if it is nearer.
+     */
+    private Expiry getNewMedicineExpiry(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch,
+            Map<BatchNumber, Batch> updatedBatches) {
         if (updatedBatches.size() == 0) {
             return new Expiry("-");
         }
@@ -181,4 +201,77 @@ public class UpdateCommand extends Command {
                 && targetIndex.equals(((seedu.address.logic.commands.UpdateCommand) other).targetIndex)
                 && newBatchDetails.equals(((seedu.address.logic.commands.UpdateCommand) other).newBatchDetails));
     }
+
+    /**
+     * Stores the details to update the batch with. Each non-empty field value will replace the
+     * corresponding field value of the batch.
+     */
+    public static class UpdateBatchDescriptor {
+        private BatchNumber batchNumber;
+        private Quantity quantity;
+        private Expiry expiry;
+
+        public UpdateBatchDescriptor() {}
+
+        /**
+         * Copy constructor.
+         */
+        public UpdateBatchDescriptor(UpdateBatchDescriptor toCopy) {
+            setBatchNumber(toCopy.batchNumber);
+            setQuantity(toCopy.quantity);
+            setExpiry(toCopy.expiry);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(batchNumber, quantity, expiry);
+        }
+
+        public void setBatchNumber(BatchNumber batchNumber) {
+            this.batchNumber = batchNumber;
+        }
+
+        public BatchNumber getBatchNumber() {
+            return batchNumber;
+        }
+
+        public void setQuantity(Quantity quantity) {
+            this.quantity = quantity;
+        }
+
+        public Optional<Quantity> getQuantity() {
+            return Optional.ofNullable(quantity);
+        }
+
+        public void setExpiry(Expiry expiry) {
+            this.expiry = expiry;
+        }
+
+        public Optional<Expiry> getExpiry() {
+            return Optional.ofNullable(expiry);
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof UpdateBatchDescriptor)) {
+                return false;
+            }
+
+            // state check
+            UpdateBatchDescriptor e = (UpdateBatchDescriptor) other;
+
+            return getBatchNumber().equals(e.getBatchNumber())
+                    && getQuantity().equals(e.getQuantity())
+                    && getExpiry().equals(e.getExpiry());
+        }
+    }
 }
+

@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.COMPARATOR_ASC_SCORE_CARDS;
 
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class TestCommand extends Command {
         }
 
         model.setActiveCardFolderIndex(targetIndex.getZeroBased());
+        model.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
         model.testCardFolder(targetIndex.getZeroBased());
         Card cardToTest = model.getCurrentTestedCard();
         return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, false, cardToTest, false,

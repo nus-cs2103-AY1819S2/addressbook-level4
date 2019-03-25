@@ -3,6 +3,8 @@ package seedu.address.storage.csvmanager;
 import java.io.*;
 import java.util.List;
 
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
 
@@ -19,39 +21,43 @@ public class CsvManager implements CsvCommands {
 
 
     @Override
-    public void readFoldersToCsv(CsvFile csvFile) throws IOException {
+    public void readFoldersToCsv(CsvFile csvFile) throws IOException, FileNotFoundException, CommandException {
         String filePath = getDefaultFilePath() + "/" + csvFile.filename;
-        try {
-            bufferedReader = new BufferedReader(new FileReader(filePath));
-            String line;
-            String header = bufferedReader.readLine();
+        bufferedReader = new BufferedReader(new FileReader(filePath));
+        String line;
+        String header = bufferedReader.readLine();
 
-            while ((line = bufferedReader.readLine()) != null) {
+        if (!checkCorrectHeaders(header)) {
+            throw new CommandException("hekki");
+        }
 
-                // use comma as separator
-                String[] card = line.split(COMMA_DELIMITTER);
+        while ((line = bufferedReader.readLine()) != null) {
 
-                System.out.println("card : " + card[0] + " " + card[1]);
-            }
+            // use comma as separator
+            String[] card = line.split(COMMA_DELIMITTER);
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (bufferedReader != null) {
-                try {
-                    bufferedReader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            System.out.println("card : " + card[0] + " " + card[1]);
+        }
+        if (bufferedReader != null) {
+            bufferedReader.close();
         }
     }
 
+
     private boolean checkCorrectHeaders(String header) {
         String[] cardHeaders = CARD_HEADERS.split(",");
-        String[] fileHeaders = header.split(",")
+        String[] fileHeaders = header.split(",");
+
+        if (cardHeaders.length != fileHeaders.length) {
+            return false;
+        }
+
+        for (int i = 0; i < cardHeaders.length; i++) {
+            if (!cardHeaders[i].toLowerCase().equals(fileHeaders[i].toLowerCase())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

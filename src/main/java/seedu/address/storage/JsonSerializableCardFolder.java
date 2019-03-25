@@ -22,6 +22,7 @@ class JsonSerializableCardFolder {
     public static final String MESSAGE_DUPLICATE_CARD = "Cards list contains duplicate card(s).";
 
     private final String folderName;
+    private final List<Double> folderScores = new ArrayList<>();
     private final List<JsonAdaptedCard> cards = new ArrayList<>();
 
     /**
@@ -29,8 +30,10 @@ class JsonSerializableCardFolder {
      */
     @JsonCreator
     public JsonSerializableCardFolder(@JsonProperty("folderName") String folderName,
-                                      @JsonProperty("cards") List<JsonAdaptedCard> cards) {
+                                      @JsonProperty("cards") List<JsonAdaptedCard> cards,
+                                      @JsonProperty("folderScores") List<Double> folderScores) {
         this.folderName = folderName;
+        this.folderScores.addAll(folderScores);
         this.cards.addAll(cards);
     }
 
@@ -42,6 +45,7 @@ class JsonSerializableCardFolder {
     public JsonSerializableCardFolder(ReadOnlyCardFolder source) {
         cards.addAll(source.getCardList().stream().map(JsonAdaptedCard::new).collect(Collectors.toList()));
         folderName = source.getFolderName();
+        folderScores.addAll(source.getFolderScores());
     }
 
     /**
@@ -51,6 +55,7 @@ class JsonSerializableCardFolder {
      */
     public CardFolder toModelType() throws IllegalValueException {
         CardFolder cardFolder = new CardFolder(folderName);
+        cardFolder.setFolderScores(folderScores);
         for (JsonAdaptedCard jsonAdaptedCard : cards) {
             Card card = jsonAdaptedCard.toModelType();
             if (cardFolder.hasCard(card)) {

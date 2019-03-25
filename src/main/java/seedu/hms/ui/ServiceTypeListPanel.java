@@ -25,8 +25,7 @@ public class ServiceTypeListPanel extends UiPart<Region> {
 
     public ServiceTypeListPanel(ObservableList<ServiceType> serviceTypeList,
                                 ObservableValue<ServiceType> selectedServiceType,
-                                Consumer<ServiceType> onSelectedServiceTypeChange,
-                                CommandBox.CommandExecutor commandExecutor) {
+                                Consumer<ServiceType> onSelectedServiceTypeChange) {
         super(FXML);
         serviceTypeListView.setItems(serviceTypeList);
         serviceTypeListView.setCellFactory(listView -> new ServiceTypeListViewCell());

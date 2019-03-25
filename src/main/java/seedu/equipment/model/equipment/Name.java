@@ -7,7 +7,7 @@ import static seedu.equipment.commons.util.AppUtil.checkArgument;
  * Represents a Equipment's name in the Equipment Manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class Name implements Comparable<Name> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Name should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -56,4 +56,8 @@ public class Name {
         return name.hashCode();
     }
 
+    @Override
+    public int compareTo(Name otherName) {
+        return name.compareTo(otherName.name);
+    }
 }

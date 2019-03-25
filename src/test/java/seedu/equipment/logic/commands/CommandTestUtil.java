@@ -158,4 +158,22 @@ public class CommandTestUtil {
         model.commitEquipmentManager();
     }
 
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertCommandSuccessWithChanges(Command command, Model actualModel,
+                                                           CommandHistory actualCommandHistory,
+                                                           String expectedMessage) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            assertEquals(expectedMessage, result.getFeedbackToUser());
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
 }

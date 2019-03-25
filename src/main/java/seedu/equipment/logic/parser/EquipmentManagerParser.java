@@ -93,7 +93,7 @@ public class EquipmentManagerParser {
             return new RedoCommand();
 
         case SortCommand.COMMAND_WORD:
-            return new SortCommand();
+            return new SortCommandParser().parse(arguments);
 
         case DisplayCommand.COMMAND_WORD:
             return new DisplayCommand();

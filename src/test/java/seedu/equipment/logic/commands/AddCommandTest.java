@@ -118,6 +118,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void resetData(ReadOnlyEquipmentManager newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Path getEquipmentManagerFilePath() {
 
             throw new AssertionError("This method should not be called.");
@@ -172,10 +177,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void sortByName() {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public ObservableList<Equipment> getFilteredPersonList() {

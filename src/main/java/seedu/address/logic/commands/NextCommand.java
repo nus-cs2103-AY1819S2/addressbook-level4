@@ -24,7 +24,7 @@ public class NextCommand extends Command {
         }
         model.testNextCard();
         Card cardToTest = model.getCurrentTestedCard();
-        return new CommandResult(MESSAGE_NEXT_QUESTION_SUCCESS, false, false, false, false, cardToTest, false,
+        return new CommandResult(MESSAGE_NEXT_QUESTION_SUCCESS, false, false, false, false, false, cardToTest, false,
                 AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 

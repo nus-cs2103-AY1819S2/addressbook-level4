@@ -407,13 +407,13 @@ public class Lesson {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(name)
-                .append(": Cores [").append(String.join(", ", coreHeaders))
-                .append("], Optionals [");
+                .append("\nCores: ").append(String.join(", ", coreHeaders))
+                .append("\nOptionals: ");
         if (optionalHeaders.size() > 0) {
             builder.append(String.join(", ", optionalHeaders));
         }
 
-        builder.append("], Cards [").append(getCardCount()).append("]");
+        builder.append("\nCards: ").append(getCardCount());
 
         return builder.toString();
     }

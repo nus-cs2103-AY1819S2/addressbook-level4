@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -31,16 +32,12 @@ public class ListLessonsCommand extends ManagementCommand {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Listed all lessons";
+    public static final String MESSAGE_SUCCESS = "Listed %1$s lesson(s):\n";
     /**
-     * Used to separate {@link #MESSAGE_SUCCESS} and either {@link #MESSAGE_NO_LESSONS}
-     * or list of lessons when forming the result message in {@link #buildList(List)}.
+     * Used to separate {@link #MESSAGE_SUCCESS} and list of lessons when forming the
+     * result message in {@link #buildList(List)}.
      */
     public static final String MESSAGE_DELIMITER = ":\n";
-    /**
-     * Shown when {@link #buildList(List)} is called and there are no lessons yet.
-     */
-    public static final String MESSAGE_NO_LESSONS = "There are no lessons yet.";
 
     /**
      * Executes the command and returns the result message.
@@ -49,20 +46,20 @@ public class ListLessonsCommand extends ManagementCommand {
      * @return a String representing {@code lessons}
      */
     public String buildList(List<Lesson> lessons) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(MESSAGE_SUCCESS).append(MESSAGE_DELIMITER);
-
         if (lessons.isEmpty()) {
-            builder.append(MESSAGE_NO_LESSONS);
+            return Messages.MESSAGE_NO_LESSONS;
         } else {
+            StringBuilder builder = new StringBuilder();
+            builder.append(String.format(MESSAGE_SUCCESS, lessons.size()));
+
             int i = 1;
             for (Lesson lesson : lessons) {
-                builder.append(i).append(".\t").append(lesson).append("\n");
+                builder.append(i).append(".\t").append(lesson.getName()).append("\n");
                 i++;
             }
-        }
 
-        return builder.toString();
+            return builder.toString();
+        }
     }
 
     /**

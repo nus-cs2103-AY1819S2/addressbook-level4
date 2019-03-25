@@ -2,9 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertNotEquals;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_DELIMITER;
-import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
-import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_SUCCESS;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_LESSONS;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 
 import java.util.ArrayList;
@@ -36,8 +34,8 @@ public class ListLessonListCommandTest {
         ManagementModel modelStub = new MgtModelStubWithNoLessons();
 
         // attempt to list all lessons when there are no lessons -> return feedback that there are no lessons
-        assertCommandSuccess(new ListLessonsCommand(), modelStub, commandHistory,
-                MESSAGE_SUCCESS + MESSAGE_DELIMITER + MESSAGE_NO_LESSONS, modelStub);
+        assertCommandSuccess(new ListLessonsCommand(), modelStub,
+                commandHistory, MESSAGE_NO_LESSONS, modelStub);
     }
 
     @Test

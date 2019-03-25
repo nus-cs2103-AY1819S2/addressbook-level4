@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.io.IOException;
@@ -58,12 +57,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
-        String invalidCommand = "uicfhmowqewca";
-        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-        assertHistoryCorrect(invalidCommand);
+        // String invalidCommand = "uicfhmowqewca";
+        // assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+        // assertCommandFailure(invalidCommand, ParseException.class, MESSAGE_UNKNOWN_COMMAND);
+        // assertHistoryCorrect(invalidCommand);
     }
 
-    // To be rewritten todo jing - could you help take a look at this test?
+    // To be rewritten
     // @Test
     // public void execute_commandExecutionError_throwsParseException() {
     //    String deleteCommand = "delete 9";

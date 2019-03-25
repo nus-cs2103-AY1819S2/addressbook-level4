@@ -2,7 +2,8 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
-import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;
+import static seedu.address.logic.commands.CommandTestUtil.showDeckAtIndex;
+import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Before;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TopDeck;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -25,7 +27,7 @@ public class ListCommandTest {
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
-        expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
+        expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
     }
 
     @Test
@@ -35,7 +37,7 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
-        showCardAtIndex(model, INDEX_FIRST_CARD);
+        showDeckAtIndex(model, INDEX_FIRST_CARD);
         assertCommandSuccess(new ListCommand(), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 }

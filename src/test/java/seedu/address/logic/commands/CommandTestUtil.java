@@ -178,8 +178,9 @@ public class CommandTestUtil {
         assertTrue(model.isAtCardsView());
 
         Card card = (Card) model.getFilteredList().get(targetIndex.getZeroBased());
-        final String[] splitName = card.getQuestion().split("\\s+");
-        model.updateFilteredList(new QuestionContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        final String question = card.getQuestion().replace("?", "")
+            .replace(".", "");
+        model.updateFilteredList(new QuestionContainsKeywordsPredicate(Arrays.asList(question)));
 
         //Gets all the question that starts with what
         assertEquals(1, model.getFilteredList().size());

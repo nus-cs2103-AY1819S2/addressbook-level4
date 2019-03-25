@@ -32,9 +32,10 @@ public class SelectCardCommandTest {
 
     @Before
     public void initialize() {
-        model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
         model.changeDeck(getTypicalDeck());
-        assertTrue(!model.isAtDecksView());
+        assertTrue(model.isAtCardsView());
+        expectedModel.changeDeck(getTypicalDeck());
+        assertTrue(expectedModel.isAtCardsView());
     }
 
     @Test
@@ -68,7 +69,8 @@ public class SelectCardCommandTest {
 
         Index outOfBoundsIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of TopDeck list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getFilteredList().size());
+        assertTrue(outOfBoundsIndex.getZeroBased() <
+            model.getTopDeck().getDeckList().get(0).getCards().internalList.size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
     }
@@ -102,7 +104,7 @@ public class SelectCardCommandTest {
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCardCommand(index, (CardsView) model.getViewState());
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_SUCCESS, index.getOneBased());
-        //expectedModel.setSelectedCard(model.getFilteredList().get(index.getZeroBased()));
+        expectedModel.setSelectedItem(model.getFilteredList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }

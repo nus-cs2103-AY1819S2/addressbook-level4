@@ -431,6 +431,93 @@ newly created teeth layout.
 write a note describing more detail on the patient’s teeth
 health.
 
+=== Task Management
+==== Task Add
+Adds a task to the application's list of tasks.
+
+Format: `taskadd PARAMETERS`
+
+You can specify information that describes the task you wish to add to the application by
+keying in certain parameters after the `taskadd` command.
+
+Some parameters have specific patterns that should be followed when you include them.
+Do note that some parameters are also mandatory when adding a task. Non-mandatory tasks will be assigned
+a default value if you do not include them when adding the task. You can also <<taskedit, edit>> the task afterwards if
+needed.
+
+Table 1 shows the list of parameters along with their respective descriptions.
+Mandatory parameters are marked with an asterisk `*` in the attribute section of the table.
+
+.Task parameters
+|===
+|Attribute |Description |Tag |Example
+
+|Title*
+|General description for the task to be added.
+
+You can provide any alphanumeric characters and the special characters:
+`( ,@, !, ?, ., -` when giving the title for the task. Other characters not specified will not be allowed
+due to security reasons.
+|ti/TEXT
+|ti/Tooth Extraction
+
+|Start date*
+|The date in which the task is set to begin.
+
+You should provide the date in the format `DD-MM-YYYY` and should not be a date that is BEFORE the current date.
+Invalid dates such as 33-02-1995 or 25-13-2020 for example, will also be rejected as these are invalid date values
+|sd/DD-MM-YYYY
+|sd/19-12-2019
+
+|End date*
+|The date in which the task is set to end.
+
+You should provide the date in the format `DD-MM-YYYY`, following standard date values should not be a date
+that is BEFORE the current date OR the given START DATE.
+Invalid dates such as 33-02-1995 or 25-13-2020 for example, will also be rejected as these are invalid date values.
+|ed/DD-MM-YYYY
+|ed/19-12-2019
+
+|Start time*
+|The specific time in which the task is set to begin.
+
+You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
+Invalid time values such as 2500 or 2388 will also be rejected as these are not valid time values.
+|st/HHMM
+|st/0845
+
+|End time*
+|The specific time in which the task is set to end
+
+You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
+If the task's start date and end date are the same, the end time should also not be BEFORE the start time.
+Invalid time values such as 2500 or 2388 will also be rejected as these are not valid time values.
+|et/HHMM
+|et/1245
+
+|Priority
+|The priority level of the task to be performed
+
+You should provide the priority as `high`, `med` or `low` in either upper or lowercase.
+Tasks with different priority will be marked with different colors on the task list.
+High priority will be marked [red]#red#, Medium priority be marked [yellow]#yellow# and
+Low priority will be marked [green]#green#.
+
+As the priority is not a mandatory parameter, if you do not specify a priority when you add a task,
+it will be given a defualt priority of [green]#Medium#
+|pi/PRIORITY
+|pi/MED
+
+|Details
+|The details of the task to be performed. You can add additional details regarding the task that might be too lengthy
+to put in the title.
+You can provide any alphanumeric characters and the special characters:
+`( ,@, !, ?, ., -` when giving the title for the task. Other characters not specified will not be allowed
+due to security reasons.
+|det/TEXT
+|det/Patient involved is Alex Yeoh, tools should be prepared 15 minutes in advance.
+
+|===
 === List
 Shows a list of all patients or medical stored in TeethHub.
 

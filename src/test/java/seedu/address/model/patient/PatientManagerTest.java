@@ -91,6 +91,8 @@ public class PatientManagerTest {
         assertFalse(patientManager.checkValidIndex(2));
 
         assertFalse(patientManager.checkValidIndex(1));
+
+        assertFalse(patientManager.checkValidIndex(-1));
     }
 
     @Test
@@ -168,6 +170,8 @@ public class PatientManagerTest {
         assertEquals(patientManager.findPatientsByName("Pe"), sb.toString());
 
         assertEquals(patientManager.findPatientsByName("Be"), "No patient record found");
+
+        assertEquals(patientManager.findPatientsByName("Peter"), patientManager.getPatientAtIndex(0).toString());
     }
 
     @Test

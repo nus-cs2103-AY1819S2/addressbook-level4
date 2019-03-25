@@ -60,4 +60,15 @@ public class DeletePatientCommandTest {
 
     }
 
+    @Test
+    public void equalsTest() {
+        DeletePatientCommand dc = new DeletePatientCommand(new Nric("S9123456A"));
+        org.junit.Assert.assertTrue(dc.equals(dc));
+
+        org.junit.Assert.assertFalse(dc.equals(new Object()));
+
+        DeletePatientCommand dc2 = new DeletePatientCommand(new Nric("S9123456A"));
+        org.junit.Assert.assertTrue(dc.equals(dc2));
+    }
+
 }

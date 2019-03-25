@@ -77,6 +77,26 @@ public class ListPatientCommandTest {
     }
 
     @Test
+    public void findPatientByIndex() {
+        // invalid index
+        ListPatientCommand listcommand = new ListPatientCommand(50);
+        seedu.address.testutil.Assert.assertThrows(CommandException.class, () ->
+                listcommand.execute(modelManager, history));
+
+        try {
+            ListPatientCommand listcommand2 = new ListPatientCommand(1);
+            CommandResult cr = listcommand2.execute(modelManager, history);
+            StringBuilder sb = new StringBuilder();
+            sb.append("Listing patients:\n");
+            sb.append("==============================\n");
+            sb.append(patient1.toString());
+            Assert.assertEquals(sb.toString(), cr.getFeedbackToUser());
+        } catch (Exception ce) {
+            Assert.fail();
+        }
+    }
+
+    @Test
     public void findPatientsStartingWithJ() {
         try {
             ListPatientCommand listPatientCommand = new ListPatientCommand("J", true);

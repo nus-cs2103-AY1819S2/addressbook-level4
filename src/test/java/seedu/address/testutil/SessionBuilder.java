@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import java.util.List;
 
-import seedu.address.model.modelmanager.quiz.Quiz;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
 
@@ -12,12 +12,12 @@ import seedu.address.model.srscard.SrsCard;
 public class SessionBuilder {
     public static final String DEFAULT_NAME = "01-01-Learn";
     public static final int DEFAULT_COUNT = 1;
-    public static final Quiz.Mode DEFAULT_MODE = Quiz.Mode.LEARN;
+    public static final QuizMode DEFAULT_MODE = QuizMode.LEARN;
     public static final List<SrsCard> DEFAULT_SRSCARDS = List.of();
 
     private String name;
     private int count;
-    private Quiz.Mode mode;
+    private QuizMode mode;
     private List<SrsCard> srsCards;
 
     public SessionBuilder() {
@@ -48,7 +48,7 @@ public class SessionBuilder {
     /**
      * Sets the {@code Sessionn}'s mode.
      */
-    public SessionBuilder withMode(Quiz.Mode mode) {
+    public SessionBuilder withMode(QuizMode mode) {
         this.mode = mode;
         return this;
     }

@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.quiz;
+package seedu.address.model.quiz;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,14 +16,14 @@ public class QuizCardTest {
 
     private static final String QUESTION = "Japan";
     private static final String ANSWER = "Tokyo";
-    private static final Quiz.Mode MODE = Quiz.Mode.PREVIEW;
+    private static final QuizMode MODE = QuizMode.PREVIEW;
 
     private static final List<String> FIELDS_OPTIONALS = Arrays.asList("JP", "Asia");
     private static final List<String> FIELDS_OPTIONALS_EMPTY = Arrays.asList("", "");
 
     private static final QuizCard VALID_QUIZCARD_NO_OPT = new QuizCard(QUESTION, ANSWER);
     private static final QuizCard VALID_QUIZCARD = new QuizCard(QUESTION, ANSWER, FIELDS_OPTIONALS);
-    private static final QuizCard VALID_QUIZCARD_INDEX = new QuizCard(1, QUESTION, ANSWER, Quiz.Mode.PREVIEW);
+    private static final QuizCard VALID_QUIZCARD_INDEX = new QuizCard(1, QUESTION, ANSWER, QuizMode.PREVIEW);
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -157,6 +157,17 @@ public class QuizCardTest {
     }
 
     @Test
+    public void toggleIsCardDifficult() {
+        assertFalse(VALID_QUIZCARD.isCardDifficult());
+
+        VALID_QUIZCARD.toggleIsCardDifficult();
+        assertTrue(VALID_QUIZCARD.isCardDifficult());
+
+        VALID_QUIZCARD.toggleIsCardDifficult();
+        assertFalse(VALID_QUIZCARD.isCardDifficult());
+    }
+
+    @Test
     public void updateTotalAttemptsAndStreak() {
         QuizCard quizCardWithIndex = VALID_QUIZCARD;
 
@@ -187,7 +198,7 @@ public class QuizCardTest {
         assertTrue(VALID_QUIZCARD_NO_OPT.equals(anotherValidQuizCard));
 
         // different obj
-        assertFalse(VALID_QUIZCARD.equals(new Quiz(Arrays.asList(VALID_QUIZCARD, VALID_QUIZCARD), Quiz.Mode.LEARN)));
+        assertFalse(VALID_QUIZCARD.equals(new Quiz(Arrays.asList(VALID_QUIZCARD, VALID_QUIZCARD), QuizMode.LEARN)));
 
         // different types
         assertFalse("random things".equals(VALID_QUIZCARD));

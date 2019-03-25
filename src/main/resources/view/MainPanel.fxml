@@ -10,13 +10,5 @@
 <?import javafx.scene.text.Text?>
 
 <StackPane fx:id="placeHolder" prefHeight="155.0" prefWidth="488.0" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <TextFlow fx:id="quizResultDisplay" styleClass="quiz-result-display" />
-    <!--<children>-->
-       <!--<VBox >-->
-          <!--<children>-->
-             <!--<TextArea fx:id="quizResultDisplay" editable="false"-->
-                       <!--styleClass="quiz-result-display" />-->
-         <!--</children>-->
-      <!--</VBox>-->
-   <!--</children>-->
+    <TextFlow fx:id="mainPanel" styleClass="main-panel" />
 </StackPane>

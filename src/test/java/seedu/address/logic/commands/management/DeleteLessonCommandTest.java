@@ -21,10 +21,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.management.ManagementModel;
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
-import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
@@ -240,7 +242,7 @@ public class DeleteLessonCommandTest {
         /**
          * This method should not be called.
          */
-        public Quiz.Mode getMode() {
+        public QuizMode getMode() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -318,14 +320,12 @@ public class DeleteLessonCommandTest {
         }
 
         @Override
-        public boolean isQuizDone() {
+        public boolean toggleIsCardDifficult(int index) {
             throw new AssertionError("This method should not be called.");
         }
 
-        /**
-         * Returns if User is done with {@code Quiz}.
-         */
-        public boolean isDone() {
+        @Override
+        public boolean isQuizDone() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -333,6 +333,16 @@ public class DeleteLessonCommandTest {
          * Returns data needed by {@code Session} when {@code Quiz} end.
          */
         public List<List<Integer>> end() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDisplayFormatter(QuizUiDisplayFormatter formatter) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public QuizUiDisplayFormatter getDisplayFormatter() {
             throw new AssertionError("This method should not be called.");
         }
     }

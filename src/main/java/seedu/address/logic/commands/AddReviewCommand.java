@@ -30,8 +30,8 @@ public class AddReviewCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review to a certain book. \n "
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_REVIEWTITLE + "TITLE "
+            + PREFIX_NAME + "BOOK NAME "
+            + PREFIX_REVIEWTITLE + "REVIEW TITLE "
             + PREFIX_REVIEW + "REVIEW \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "Alice in Wonderland "
@@ -70,7 +70,7 @@ public class AddReviewCommand extends Command {
         model.setBook(bookToEdit, addedReview);
         model.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
         model.commitBookShelf();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.title));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.title.fullName));
 
     }
 
@@ -78,7 +78,8 @@ public class AddReviewCommand extends Command {
      * Creates and returns a {@code Book} with added review {@code toAdd}
      */
     private static Book createdAddedReview(Book bookToEdit, Review toAdd) {
-        assert bookToEdit != null;
+        requireNonNull(bookToEdit);
+        requireNonNull(toAdd);
 
         BookName updatedName = bookToEdit.getBookName();
         Author updatedAuthor = bookToEdit.getAuthor();
@@ -96,5 +97,10 @@ public class AddReviewCommand extends Command {
                 || (other instanceof AddReviewCommand // instanceof handles nulls
                 && toAdd.equals(((AddReviewCommand) other).toAdd)
                 && predicate.equals(((AddReviewCommand) other).predicate));
+    }
+
+    @Override
+    public String toString() {
+        return ("Add: " + toAdd.toString() + " to: " + predicate.toString());
     }
 }

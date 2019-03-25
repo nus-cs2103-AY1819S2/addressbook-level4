@@ -65,7 +65,7 @@ public class CommandTestUtil {
             + "about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, "
             + "wonderful people and animals.";
     public static final String VALID_REVIEWMESSAGE_CS = "It provides a great introduction to computer science. "
-            + "The legendary SICP reminded me of the the Bible in many respects. ";
+            + "The legendary SICP reminded me of the the Bible in many respects.";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;

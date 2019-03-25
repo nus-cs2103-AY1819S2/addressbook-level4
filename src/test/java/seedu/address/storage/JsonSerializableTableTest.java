@@ -33,9 +33,12 @@ public class JsonSerializableTableTest {
         Tables tablesFromFile = dataFromFile.toModelType();
         Tables typicalTableTables = new Tables();
         for (Table table : getTypicalTables()) {
+            System.out.println(table);
             typicalTableTables.addTable(table);
         }
 
+        typicalTableTables.getTableList().forEach(System.out::println);
+        tablesFromFile.getTableList().forEach(System.out::println);
         assertEquals(tablesFromFile, typicalTableTables);
     }
 

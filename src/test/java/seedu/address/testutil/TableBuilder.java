@@ -42,11 +42,6 @@ public class TableBuilder {
      */
     public TableBuilder withTableStatus(String tableStatus) {
         this.tableStatus = new TableStatus(tableStatus);
-        try {
-            this.tableStatus.changeOccupancy(tableStatus.substring(0, 1));
-        } catch (CommandException e) {
-            throw new IllegalArgumentException();
-        }
         return this;
     }
 

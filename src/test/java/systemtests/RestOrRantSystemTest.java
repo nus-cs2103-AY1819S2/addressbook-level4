@@ -29,6 +29,7 @@ import seedu.address.model.RestOrRant;
 import seedu.address.testutil.TypicalRestOrRant;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.testutil.OrdersGuiTestAssert;
+import seedu.address.ui.testutil.TablesGuiTestAssert;
 
 /**
  * A system test class for RestOrRant, which provides access to handles of GUI components and helper methods

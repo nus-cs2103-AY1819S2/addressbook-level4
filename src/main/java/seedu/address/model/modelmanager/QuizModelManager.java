@@ -11,6 +11,7 @@ import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
+import seedu.address.model.srscard.SrsCard;
 
 /**
  * Represents the in-memory management of quiz data
@@ -30,13 +31,6 @@ public class QuizModelManager implements QuizModel {
 
         logger.fine("Initializing empty constructor");
     }
-
-    // todo include session
-    @Override
-    public List<QuizCard> generateSession() {
-        return session.generateSession();
-    }
-
     @Override
     public QuizMode getMode() {
         return session.getMode();
@@ -50,6 +44,10 @@ public class QuizModelManager implements QuizModel {
     @Override
     public String getName() {
         return session.getName();
+    }
+    @Override
+    public List<SrsCard> getQuizSrsCards() {
+        return session.getQuizSrsCards();
     }
 
     @Override

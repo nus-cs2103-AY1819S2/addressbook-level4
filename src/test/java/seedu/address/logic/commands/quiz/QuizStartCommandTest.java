@@ -16,6 +16,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
+import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
@@ -35,8 +37,7 @@ public class QuizStartCommandTest {
         Assert.assertThrows(NullPointerException.class, () ->
                 new QuizStartCommand(null));
     }
-
-    //TODO: after obtaining data from model manager of lesson and user.
+    //TODO: fix it.
     /*@Test
     public void execute_success() throws Exception {
         ManagementModel managementModel = new ManagementModelManager();
@@ -58,12 +59,13 @@ public class QuizStartCommandTest {
         final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(quiz);
+        expectedModel.initWithSession(quiz, session);
         expectedModel.getNextCard();
         CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,
                 commandHistory);
         QuizModel actualModel = new QuizModelManager();
         QuizStartCommand quizStartCommand = new QuizStartCommand(session);
+        assertEquals(quizStartCommand.getSession(), session);
 
         CommandHistory expectedCommandHistory = new CommandHistory(commandHistory);
         CommandResult result = quizStartCommand.executeActual(actualModel, commandHistory);
@@ -105,7 +107,7 @@ public class QuizStartCommandTest {
         final Quiz quiz = new Quiz(quizCards, QuizMode.REVIEW);
 
         QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(quiz);
+        expectedModel.initWithSession(quiz, session);
         expectedModel.getNextCard();
         CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,
             commandHistory);

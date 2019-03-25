@@ -28,6 +28,7 @@ import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
+import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
@@ -235,13 +236,6 @@ public class DeleteLessonCommandTest {
         /**
          * This method should not be called.
          */
-        public List<QuizCard> generateSession() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        /**
-         * This method should not be called.
-         */
         public QuizMode getMode() {
             throw new AssertionError("This method should not be called.");
         }
@@ -259,7 +253,11 @@ public class DeleteLessonCommandTest {
         public String getName() {
             throw new AssertionError("This method should not be called.");
         }
-
+        /**
+         * Return a list of SrsCards for updating user progress.
+         */
+        public List<SrsCard> getQuizSrsCards() {
+            throw new AssertionError("This method should not be called."); }
         /**
          * Sets the {@code Quiz} information.
          */

@@ -7,15 +7,12 @@ import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
+import seedu.address.model.srscard.SrsCard;
 
 /**
  * The API of the QuizModel component.
  */
 public interface QuizModel extends Model {
-    /**
-     * Generate a list of quizCards that will be tested in quiz.
-     */
-    List<QuizCard> generateSession();
 
     /**
      * Return mode of {@code session}.
@@ -31,6 +28,11 @@ public interface QuizModel extends Model {
      * Return name of {@code session}.
      */
     String getName();
+
+    /**
+     * Return a list of SrsCards for updating user progress.
+     */
+    List<SrsCard> getQuizSrsCards();
 
     /**
      * Sets the {@code Quiz} information.

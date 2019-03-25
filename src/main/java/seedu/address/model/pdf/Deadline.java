@@ -6,7 +6,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 
 /**
- * Represents a Pdf's address in the address book.
+ * Represents a Pdf's deadline in the pdf book.
  * Guarantees: immutable;
  */
 public class Deadline {
@@ -39,17 +39,17 @@ public class Deadline {
 
         String stringStatus = jsonFormat.split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX];
         switch(stringStatus) {
-            case "REMOVE":
-                this.status = DeadlineStatus.REMOVE;
-                break;
-            case "READY":
-                this.status = DeadlineStatus.READY;
-                break;
-            case "COMPLETE":
-                this.status = DeadlineStatus.COMPLETE;
-                break;
-            default:
-                throw new AssertionError("Unknown DeadlineStatus " + stringStatus);
+        case "REMOVE":
+            this.status = DeadlineStatus.REMOVE;
+            break;
+        case "READY":
+            this.status = DeadlineStatus.READY;
+            break;
+        case "COMPLETE":
+            this.status = DeadlineStatus.COMPLETE;
+            break;
+        default:
+            throw new AssertionError("Unknown DeadlineStatus " + stringStatus);
         }
     }
 

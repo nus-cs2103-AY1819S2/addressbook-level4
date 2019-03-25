@@ -57,6 +57,7 @@ It should start in a few seconds and begin the initialization set-up.
 If you need the full list of available commands and their associated details, please proceed to <<quick-start-guide>>!
 
 == Commands and Features
+
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in add n/NAME, NAME is
@@ -86,11 +87,94 @@ a parameter which can be used as add n/John Doe.
 
 |===
 
-=== Help
+=== General Commands
+
+==== help
 
 Displays the help text for all available commands.
 
 Format: `help`
+
+==== dentist
+
+You can specify the name you want to reflect in your patients' dental record when you create them.
+
+Format: `dentist n/YOUR_NAME`
+
+* If there is no dentist name specified, the program will prompt you to enter one.
+
+* This should only happen once, during the first startup of the application.
+
+==== history
+Lists all the commands that have been entered since starting the
+application in reverse chronological order.
+
+Format: `history`
+
+==== undo
+Undo the latest command.
+
+Format: `undo`
+
+* The following commands are affected by undo: add edit delete and clear.
+
+
+Examples:
+
+* `<<delete, delete>> 1` +
+`<<list, list>>` +
+`undo` (reverses the delete 1 command)
+
+* `<<list, list>>` +
+`undo` +
+The undo command fails as there are no undo-able commands executed
+previously.
+
+
+* `<<delete, delete>> 1` +
+`<<clear, clear>>` +
+`undo` (reverses the clear command) +
+`undo` (reverses the delete 1 command)
+
+==== redo
+Reverses the most recent undo command.
+
+Format: `redo`
+
+Examples:
+
+* `<<delete, delete>> 1` +
+`<<undo, undo>>` (reverses the delete 1 command) +
+`redo` (reapplies the delete 1 command)
+
+* `<<delete, delete>> 1` +
+`redo` +
+The redo command fails as there are no undo commands executed
+previously.
+
+* `<<delete, delete>> 1` +
+`<<clear, clear>> +
+`<<undo, undo>>` (reverses the clear command) +
+`<<undo, undo>>` (reverses the delete 1 command) +
+`redo` (reapplies the delete 1 command) +
+`redo` (reapplies the clear command)
+
+==== clear
+Clears all patients, records and tasks from TeethHub.
+
+* You will be prompted to confirm.
+* Input `y` to proceed to the clear all records or `n` to abort.
+
+Format: `clear`
+
+==== exit
+Exits the program. You won't be able to exit if copies exist.
+
+Format: `exit`
+
+====
+You can also use `exit!` to forcefully exit the application
+====
 
 === File Management
 
@@ -313,16 +397,6 @@ the current patient list with a copy tag.
 Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
 
-=== Dentist Information
-
-You can specify the name you want to reflect in your patients' dental record when you create them.
-
-Format: `dentist name/YOUR_NAME`
-
-* If there is no dentist name specified, the program will prompt you to enter one.
-
-* This should only happen once, during the first startup of the application.
-
 === Patient Records Management
 
 ==== goto
@@ -460,6 +534,160 @@ All permanent teeth in template will all be present and healthy by default.
 write a note describing more detail on the patient’s teeth
 health.
 
+=== Task Management
+==== taskadd
+Adds a task to the application's list of tasks.
+
+Format: `taskadd PARAMETERS`
+
+You can specify information that describes the task you wish to add by
+keying in certain tags after the `taskadd` command. Do note the following:
+
+* All parameters have certain patterns that **MUST** be followed. +
+
+* Some parameters are mandatory when adding a task. +
+
+* Non-mandatory tasks will be assigned a default value if not specified
+
+
+Table 1 shows the list of parameters along with their respective descriptions.
+Mandatory parameters are marked with an asterisk `*` in the attribute section of the table.
+
+|===
+
+.Task parameters
+|Attribute |Description |Tag |Example
+
+|Title*
+|General description for the task to be added.
+
+You can provide any alphanumeric characters and the special characters:
+`( ,@, !, ?, ., -` when giving the title for the task. Other characters not specified will not be allowed
+due to security reasons.
+|ti/TEXT
+|ti/Tooth Extraction
+
+|Start date*
+|The date in which the task is set to begin.
+
+You should provide the date in the format `DD-MM-YYYY` and should not be a date that is BEFORE the current date.
+Invalid dates such as 33-02-1995 or 25-13-2020 for example, will also be rejected as these are invalid date values
+|sd/DD-MM-YYYY
+|sd/19-12-2019
+
+|End date*
+|The date in which the task is set to end.
+
+You should provide the date in the format `DD-MM-YYYY`, following standard date values should not be a date
+that is BEFORE the current date OR the given START DATE.
+Invalid dates such as 33-02-1995 or 25-13-2020 for example, will also be rejected as these are invalid date values.
+|ed/DD-MM-YYYY
+|ed/19-12-2019
+
+|Start time*
+|The specific time in which the task is set to begin.
+
+You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
+Invalid time values such as 2500 or 2388 will also be rejected as these are not valid time values.
+|st/HHMM
+|st/0845
+
+|End time*
+|The specific time in which the task is set to end.
+
+You should provide the time in the format `HHMM` (hours and minutes) and should also follow standard time values.
+If the task's start date and end date are the same, the end time should also not be BEFORE the start time.
+Invalid time values such as 2500 or 2388 will also be rejected as these are not valid time values.
+|et/HHMM
+|et/1245
+
+|Priority
+|The priority level of the task to be performed.
+
+You should provide the priority as `high`, `med` or `low` in either upper or lowercase.
+Tasks with different priority will be marked with different colors on the task list.
+High priority will be marked [red]#red#, Medium priority be marked [yellow]#yellow# and
+Low priority will be marked [green]#green#.
+
+As the priority is not a mandatory parameter, if you do not specify a priority when you add a task,
+it will be given a defualt priority of [green]#Medium#
+|pri/PRIORITY
+|pri/high
+
+|Details
+|The details of the task to be performed. You can specify additional details about the task here.
+You can provide any alphanumeric characters and the special characters:
+`( ,@, !, ?, ., -` when giving the title for the task. Other characters not specified will not be allowed
+due to security reasons. If not specified, the task will have no additional details.
+|det/TEXT
+|det/Patient involved is Alex Yeoh, tools should be prepared 15 minutes in advance.
+
+|===
+
+Examples:
+
+* `taskadd ti/Teeth Filling for Alex sd/14-09-2019 ed/14-09-2019 st/1200 et/1300 pri/HIGH
+   det/Tooth 12 and 14 are to be filled. Perform a quick check-up prior to procedure.` +
+
+* `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
+
+* `taskadd ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600`
+
+==== taskedit
+Edits a task currently stored in the application
+
+Format: `taskedit INDEX PARAMETERS`
+
+* Index of a task shown in the list **MUST** be specified +
+* Index should be a positive integer (e.g. 1,2...5)
+* Index of the tasks will be shown next to task's title in the task list
+* Input tag of the field to modify followed by the new value to replace the old value
+* Multiple fields can be provided in a single command and they will all be edited.
+* Refer to *Table 1* in <<taskadd, taskadd>> to see the fields that can be modified
+  along with their format and restrictions
+
+Examples:
+
+* `taskedit 1 ti/Tooth Extraction for Alex`
+
+* `taskedit 2 sd/15-09-2019 ed/15-09-2019 st/1400 et/1500`
+
+* `taskfind pri/high` +
+  `taskedit 1 ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600 pri/MED`
+
+==== taskdelete
+Deletes a task from the task list
+
+Format: `taskdelete 2`
+
+* Index of a task shown in the list **MUST** be specified +
+* Index should be a positive integer (e.g. 1,2...5)
+* Index of the tasks will be shown next to task's title in the task list
+
+Example:
+
+* `taskdelete 1`
+* `taskfind pri/low` +
+  `taskdelete 2`
+
+==== tasklist
+Shows a list of all the task stored in the application.
+
+Format: `tasklist`
+
+==== taskfind
+Searches for and displays a list of tasks according to a specified parameter
+
+Format: `taskfind PARAMETER`
+
+You can specify any parameter that a task contains when using this command.
+No tasks will be display if none of the tasks match the search conditions.
+
+Examples:
+
+* `taskfind pri/HIGH`
+* `taskfind ti/Extraction`
+
 === Viewing and Locating Information
 The commands listed below deal with displaying and finding data for you to view.
 They do not deal with the adding or modification of any information currently already
@@ -515,18 +743,12 @@ Example:
 |0 |Alice |19 |03/07/2003
 |1 |Clara |12 |05/02/2021
 |2 |Bob |24 |11/02/2019
-|===
 
-* sort name desc
-
-[cols=",,,",options="header",]
-|===
 |*ID* |*Name* |*Age* |*Last Modified*
 |1 |Clara |12 |05/02/2021
 |2 |Bob |24 |11/02/2019
 |0 |Alice |19 |03/07/2003
 |===
-
 
 * sort age asce
 
@@ -542,77 +764,6 @@ Example:
 Generates a statistics report based on the specified patient's data.
 
 Format: `stat INDEX`
-
-=== history
-Lists all the commands that have been entered since starting the
-application in reverse chronological order.
-
-Format: `history`
-
-=== undo
-
-Undo the latest command.
-
-Format: `undo`
-
-* The following commands are affected by undo: add edit delete and clear.
-
-Examples:
-
-* `<<delete, delete>> 1` +
-`<<list, list>>` +
-`undo` (reverses the delete 1 command)
-
-* `<<list, list>>` +
-`undo` +
-The undo command fails as there are no undo-able commands executed
-previously.
-
-* `<<delete, delete>> 1` +
-`<<clear, clear>>` +
-`undo` (reverses the clear command) +
-`undo` (reverses the delete 1 command)
-
-=== redo
-Reverses the most recent undo command.
-
-Format: `redo`
-
-Examples:
-
-* `<<delete, delete>> 1` +
-`<<undo, undo>>` (reverses the delete 1 command) +
-`redo` (reapplies the delete 1 command)
-
-* `<<delete, delete>> 1` +
-`redo` +
-The redo command fails as there are no undo commands executed
-previously.
-
-* `<<delete, delete>> 1` +
-`<<clear, clear>> +
-`<<undo, undo>>` (reverses the clear command) +
-`<<undo, undo>>` (reverses the delete 1 command) +
-`redo` (reapplies the delete 1 command) +
-`redo` (reapplies the clear command)
-
-=== clear
-Clears all patients and records from TeethHub.
-
-* You will be prompted to confirm.
-* Input `y` to proceed to the clear all records or `n` to abort.
-
-Format: `clear`
-
-=== exit
-Exits the program. You won't be able to exit if copies exist.
-
-Format: `exit`
-
-=== exit anyway
-Exits the program, disregarding any copies.
-
-Format: `exit!`
 
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,
@@ -684,13 +835,13 @@ det/Mouth was noticeably foul, might have halitosis`
 E.g. `record delete n/S1235467H 4`
 
 * *Record Edit* : `record edit n/NRIC INDEX` +
-E.g. `record edit n/S1234657H 3 +
+e.g. `record edit n/S1234657H 3 +
 doc/Debang +
 det/new details +
 Done`
 
 * *Record Copy* : `record copy n/NRIC INDEX` +
-E.g. `record copy n/S1235467H 2`
+e.g. `record copy n/S1235467H 2`
 
 * *Redo* : `redo`
 
@@ -698,9 +849,18 @@ E.g. `record copy n/S1235467H 2`
 e.g. `save \mnt\clinicRecords.txt`
 
 * *Sort* : `sort PARAM ORDER` +
-E.g. `sort name ascend` or `sort age descend`
+e.g. `sort name ascend` or `sort age descend`
+
+* *Task Add*:  `taskadd PARAM` +
+e.g. `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
+
+* *Task Edit*: `taskedit INDEX PARAM` +
+e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
+
+* *Task Delete*: `taskdelete INDEX` +
+e.g. `taskdelete 1`
 
 * *Teeth* : `teeth add <Template>` +
-E.g. `teeth add primary`
+e.g. `teeth add primary`
 
 * *Undo* : `undo`

@@ -73,7 +73,7 @@ Example: `init 10`
 
 The maps will be displayed as follows:
 
-image::initmapresult.png[width=600]
+image::initmapresult.png[width=650]
 
 Throughout the course of the game, the cells in the map will change colour based on their status. +
 
@@ -90,7 +90,7 @@ Throughout the course of the game, the cells in the map will change colour based
 
 The diagram below shows which colour represents which status.
 
-image::maplegend.png[width=300]
+image::maplegend.png[width=400]
 === Listing all ships : `list`
 
 Shows a list of all the player's battleships that are currently deployed on the map +

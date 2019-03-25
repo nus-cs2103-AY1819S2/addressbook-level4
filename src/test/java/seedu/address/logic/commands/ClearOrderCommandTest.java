@@ -35,7 +35,7 @@ public class ClearOrderCommandTest {
         expectedModel.addTable(table);
         expectedModel.setSelectedTable(table);
         expectedModel.updateOrders();
-        
+
         assertCommandSuccess(Mode.TABLE_MODE, new ClearOrderCommand(), model, commandHistory,
                 String.format(ClearOrderCommand.MESSAGE_SUCCESS, table.getTableNumber()), expectedModel);
     }

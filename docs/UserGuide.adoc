@@ -277,7 +277,7 @@ Saves patient 1 to patient 4 from the current patients list to "patients1.pdf".
 * `export patients1.pdf 1,3-5` +
 Saves patient 1 and patient 3 to patient 5 from the current patients list to "patients1.pdf".
 
-* `Export patients1.json all` +
+* `export patients1.json all` +
 Writes all entries from the address book to patients1.json. +
 
 === Patient Management
@@ -521,7 +521,7 @@ All permanent teeth in template will all be present and healthy by default.
 
 ** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
-** `teeth edit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
+** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
 ** `back` - Exits the record edit mode, and returns to the patient list.
 
@@ -652,7 +652,7 @@ Examples:
 
 * `taskedit 2 sd/15-09-2019 ed/15-09-2019 st/1400 et/1500`
 
-* `taskfind pri/high` +
+* `<<taskfind, taskfind>> pri/high` +
   `taskedit 1 ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600 pri/MED`
 
 ==== taskdelete
@@ -667,7 +667,7 @@ Format: `taskdelete 2`
 Example:
 
 * `taskdelete 1`
-* `taskfind pri/low` +
+* `<<taskfind, taskfind>> pri/low` +
   `taskdelete 2`
 
 ==== tasklist

@@ -553,14 +553,10 @@ keying in certain tags after the `taskadd` command. Do note the following:
 Table 1 shows the list of parameters along with their respective descriptions.
 Mandatory parameters are marked with an asterisk `*` in the attribute section of the table.
 
-<<<<<<< HEAD
-[cols="",options=""]
-.Task parameters
-=======
->>>>>>> abec55791d31d971b703070af168776c07872b81
-|===
+
 
 .Task parameters
+|===
 |Attribute |Description |Tag |Example
 
 |Title*

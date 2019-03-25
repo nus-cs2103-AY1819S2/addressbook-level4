@@ -56,7 +56,7 @@ public class SampleDataUtil {
                             "Commendable service.", "4.5", "2019-03-04T13:37:20.323")),
             new Restaurant(new Name("Itacho"), new Phone("62492021"), new Email("itacho@example.com"),
                     new Address("Blk 47 Tampines Street 20, #17-35"),
-                    getTagSet("Cravings", "Treat"), new Weblink("https://itacho.com.sg"),
+                    getTagSet("Cravings", "Treat"), new Weblink("No weblink added"),
                     new OpeningHours("1200 to 0000"), getCategories("Japanese", "Premium Casual"),
                     getReviewList("Lovely staff, great tender chicken.", "4.8", "2019-03-04T13:38:10.100",
                             "Amazing delivery. 10/10 service.", "5.0", "2019-03-04T13:39:25.421")),

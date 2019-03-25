@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -55,6 +56,7 @@ public class Weblink {
 
     /**
      * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
+     * The only acceptable malformed Url is the default placeholder for no weblinks, NO_WEBLINK_STRING
      */
     public static boolean isValidWeblinkUrl(String urlString) {
         try {
@@ -62,13 +64,10 @@ public class Weblink {
             HttpURLConnection huc = (HttpURLConnection) u.openConnection();
             huc.setRequestMethod("HEAD");
             huc.connect();
-            if (huc.getResponseCode() < 400) {
-                return true;
-            } else {
-                return false;
-            }
+            return huc.getResponseCode() < 400;
+        } catch (MalformedURLException e) {
+            return urlString.equals(NO_WEBLINK_STRING);
         } catch (IOException e) {
-            System.out.println(e);
             return false;
         }
     }

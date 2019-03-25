@@ -1,18 +1,25 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Teeth;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.record.Record;
+import seedu.address.model.tag.StatusTag;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TeethTag;
+import seedu.address.model.tag.TemplateTags;
 
 /**
  * A utility class to help with building Person objects.
@@ -33,6 +40,8 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
+    private List<Record> records;
+    private Teeth teeth;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -42,6 +51,12 @@ public class PersonBuilder {
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
+        tags.add(new TeethTag(TemplateTags.ADULT));
+        tags.add(new StatusTag(TemplateTags.HEALTHY));
+        records = new ArrayList<>();
+
+        int[] teethLayout = new int[Teeth.PERMANENTTEETHCOUNT];
+        teeth = new Teeth(teethLayout);
     }
 
     /**
@@ -56,6 +71,7 @@ public class PersonBuilder {
             email = personToCopy.getEmail();
             address = personToCopy.getAddress();
             tags = new HashSet<>(personToCopy.getTags());
+            records = new ArrayList<>();
         } else {
             throw new PersonIsNotPatient();
         }
@@ -110,7 +126,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Patient(name, phone, email, address, tags, nric, dateOfBirth);
+        return new Patient(name, phone, email, address, tags, nric, dateOfBirth, records, teeth);
     }
 
 }

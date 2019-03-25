@@ -3,10 +3,13 @@ package seedu.address.model.patient;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.description.Description;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -27,13 +30,16 @@ public class Patient extends Person {
     private static final String NONE = "none";
     private static final String CHILD = "child";
     private static final String ADULT = "adult";
+
+    private Sex sex;
     private Nric nric;
     private DateOfBirth dateOfBirth;
     private Teeth teeth = null;
-    private ArrayList<Record> records = new ArrayList<>();
+    private List<Record> records = new ArrayList<>();
 
     /**
      * Every field must be present and not null.
+     * Used by add command.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
                    DateOfBirth dateOfBirth) {
@@ -41,7 +47,23 @@ public class Patient extends Person {
         requireAllNonNull(nric, dateOfBirth);
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
-        inferTeethBuild();
+        buildAdultTeeth();
+        records.add(new Record(new Description("Patient is added today")));
+    }
+
+    /**
+     * Used by JSON.
+     * Every field must be present and not null.
+     */
+    public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
+                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth) {
+        super(name, phone, email, address, tags);
+        requireAllNonNull(nric, dateOfBirth, records);
+        this.nric = nric;
+        this.dateOfBirth = dateOfBirth;
+        this.records = records;
+        this.records.sort(Comparator.comparing(Record::getRecordDate));
+        this.teeth = teeth;
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
@@ -50,7 +72,7 @@ public class Patient extends Person {
         requireAllNonNull(nric, dateOfBirth);
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
-        inferTeethBuild();
+        buildAdultTeeth();
     }
 
     /**
@@ -58,72 +80,41 @@ public class Patient extends Person {
      * @param record the medical record to be added.
      */
     public void addRecord(Record record) {
-        this.records.add(record);
+        this.records.add(0, record);
+        this.records.sort(Comparator.comparing(Record::getRecordDate));
     }
 
     /**
-     * Age inferred teeth layout.
-     * Takes in the age of the patient and infers the teeth build he/she has.
+     * Adds a new medical record to a patient.
+     * @param record the medical record to be added.
      */
-    private void inferTeethBuild() {
-        int age = getPatientAge();
-        if (age < 2) {
-            buildTeeth(NONE);
-        } else if (age < 13) {
-            buildTeeth(CHILD);
-        } else {
-            buildTeeth(ADULT);
-        }
-    }
-
-    /**
-     * Create a copy of this instance
-     * @return another copy of this instance
-     */
-    public Patient copy() {
-        if (isCopy()) {
-            return ((Patient) copyInfo.getOriginalPerson()).copy();
-        }
-        copyCount++;
-        return new Patient(name, phone, email, address, tags, nric, dateOfBirth, this, copyCount);
-    }
-
-    /**
-     * User specified teeth layout.
-     * Build a default none/child/adult teeth layout, according to the parameters.
-     */
-    private void specifyBuild(String teethLayout) {
-        buildTeeth(teethLayout);
+    public void removeRecord(Record record) {
+        this.records.remove(record);
     }
 
     /**
      * Build a default none/child/adult teeth layout, according to the parameters.
      * Adds relevant tags to patient if not initialised.
+     * Should be run only when a new Patient is created, not when it is retrieved from storage.
      */
-    private void buildTeeth(String teethLayout) {
-        teeth = new Teeth(teethLayout);
-        if (this.tags.size() == 0) {
-            addRelevantTags(teethLayout);
-        }
+    private void buildAdultTeeth() {
+        teeth = new Teeth();
+        addRelevantTags();
     }
 
     /**
      * Add relevant teeth type and health tags to a patient.
      */
-    private void addRelevantTags(String teethLayout) {
-        if (teethLayout.equals(CHILD)) {
-            editTags(new TeethTag(TemplateTags.CHILD));
-        } else {
-            editTags(new TeethTag(TemplateTags.ADULT));
-        }
-        editTags(new StatusTag(TemplateTags.HEALTHY));
+    private void addRelevantTags() {
+        addTag(new TeethTag(TemplateTags.ADULT));
+        addTag(new StatusTag(TemplateTags.HEALTHY));
     }
 
     /**
      * Adds or replace similar tags of the patient.
      * @param tag the tag to be added or overwrite the existing.
      */
-    private void editTags(Tag tag) {
+    private void addTag(Tag tag) {
         if (tag instanceof TeethTag) {
             for (Tag t : tags) {
                 if (t instanceof TeethTag) {
@@ -142,14 +133,6 @@ public class Patient extends Person {
         tags.add(tag);
     }
 
-    /**
-     * Using the patient's year of birth and the current year, derive his or her age.
-     * @return the age of the patient.
-     */
-    private int getPatientAge() {
-        return dateOfBirth.getAge();
-    }
-
     public void setRecords(ArrayList<Record> records) {
         this.records = records;
     }
@@ -166,8 +149,12 @@ public class Patient extends Person {
         return dateOfBirth;
     }
 
-    public ArrayList<Record> getRecords() {
+    public List<Record> getRecords() {
         return records;
+    }
+
+    public Sex getSex() {
+        return sex;
     }
 
     /**

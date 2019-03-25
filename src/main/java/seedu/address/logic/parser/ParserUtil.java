@@ -15,6 +15,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.description.Description;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -318,5 +319,21 @@ public class ParserUtil {
         }
 
         throw new ParseException("Wrong number of arguments");
+    }
+
+    /**
+     * Parses a {@code String desc} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code desc} is invalid.
+     */
+    public static Description parseDesc(String desc) throws ParseException {
+        requireNonNull(desc);
+        String trimmedDesc = desc.trim();
+        if (!Description.isValidDescription(trimmedDesc)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        } else {
+            return new Description(trimmedDesc);
+        }
     }
 }

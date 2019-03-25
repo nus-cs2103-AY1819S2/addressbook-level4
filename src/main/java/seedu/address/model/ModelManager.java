@@ -19,7 +19,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.record.Record;
 import seedu.address.model.task.Task;
+import seedu.address.ui.MainWindow;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -33,6 +35,8 @@ public class ModelManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
+
+    private FilteredList<Record> filteredRecords;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -150,6 +154,44 @@ public class ModelManager implements Model {
         versionedAddressBook.setTask(task, editedTask);
     }
 
+    // For records manipulation methods.
+
+    /**
+     * Returns true if a record with the same identity as {@code record} exists in the address book.
+     *
+     * @param record the record to be checked whether exist.
+     */
+    @Override
+    public boolean hasRecord(Record record) {
+        requireAllNonNull(record);
+        return versionedAddressBook.hasRecord(record);
+    }
+
+    /**
+     * Adds the given record.
+     * {@code record} must not already exist in the address book.
+     *
+     * @param record the record to be added.
+     */
+    @Override
+    public void addRecord(Record record) {
+        if (MainWindow.getRecordPatient() != null) {
+            versionedAddressBook.addRecord(record);
+        }
+    }
+
+    /**
+     * Deletes the given record.
+     * The record must exist in the address book.
+     *
+     * @param record the record to be deleted.
+     */
+    @Override
+    public void deleteRecord(Record record) {
+        if (MainWindow.getRecordPatient() != null) {
+            versionedAddressBook.removeRecord(record);
+        }
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -194,6 +236,21 @@ public class ModelManager implements Model {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+    }
+
+    //=========== Filtered Record List Accessors ============================================================
+
+    /**
+     * Returns an unmodifiable view of the filtered record list
+     */
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        if (MainWindow.getRecordPatient() != null) {
+            versionedAddressBook.setRecords(MainWindow.getRecordPatient().getRecords());
+            filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
+            return filteredRecords;
+        }
+        return null;
     }
 
     //=========== Undo/Redo =================================================================================

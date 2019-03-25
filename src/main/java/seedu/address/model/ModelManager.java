@@ -41,6 +41,9 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
+    //Card related
+    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+
     // CardFolder related
     private ObservableList<VersionedCardFolder> folders;
     private final FilteredList<VersionedCardFolder> filteredFolders;
@@ -49,7 +52,6 @@ public class ModelManager implements Model {
     private boolean inFolder;
 
     // Test Session related
-    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;

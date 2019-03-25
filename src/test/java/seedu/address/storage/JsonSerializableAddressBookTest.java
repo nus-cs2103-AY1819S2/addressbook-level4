@@ -19,7 +19,6 @@ public class JsonSerializableAddressBookTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    
     /*
     @Test
     public void toModelType_typicalPatientsFile_success() throws Exception {

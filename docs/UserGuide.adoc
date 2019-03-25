@@ -26,7 +26,7 @@ If you are a dental practitioner who prefers to use a Command Line Interface (CL
 then TeethHub is an application for you!
 
 TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
-For example, you can select and find patients and records by clicking on them, but you would need to type type the edit command to edit them.
+For example, you can select patients and records by clicking on them, but you would need to type the edit command to edit them.
 TeethHub allows you to keep track of your patient's particulars along with their dental records.
 An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
 In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
@@ -277,7 +277,7 @@ Saves patient 1 to patient 4 from the current patients list to "patients1.pdf".
 * `export patients1.pdf 1,3-5` +
 Saves patient 1 and patient 3 to patient 5 from the current patients list to "patients1.pdf".
 
-* `Export patients1.json all` +
+* `export patients1.json all` +
 Writes all entries from the address book to patients1.json. +
 
 === Patient Management
@@ -435,7 +435,7 @@ Format: `recordadd desc/DETAILS`
 
 Example
 
-* `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
 * `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
 
@@ -457,7 +457,7 @@ Format: `recorddelete INDEX`
 
 Example:
 
-* `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
 * `recorddelete 1` - Delete the latest dental record of the specified patient
 
@@ -481,7 +481,7 @@ Format: `recordedit INDEX desc/DETAILS`
 
 Example:
 
-* `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
 * `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
 
@@ -519,9 +519,9 @@ All permanent teeth in template will all be present and healthy by default.
 
 * To edit a new specific tooth:
 
-** `goto 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
+** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
-** `teeth edit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
+** `teethedit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
 ** `back` - Exits the record edit mode, and returns to the patient list.
 
@@ -652,7 +652,7 @@ Examples:
 
 * `taskedit 2 sd/15-09-2019 ed/15-09-2019 st/1400 et/1500`
 
-* `taskfind pri/high` +
+* `<<taskfind, taskfind>> pri/high` +
   `taskedit 1 ti/Braces removal for Bernice sd/05-05-2020 ed/05-05-2020 st/1500 et/1600 pri/MED`
 
 ==== taskdelete
@@ -667,7 +667,7 @@ Format: `taskdelete 2`
 Example:
 
 * `taskdelete 1`
-* `taskfind pri/low` +
+* `<<taskfind, taskfind>> pri/low` +
   `taskdelete 2`
 
 ==== tasklist

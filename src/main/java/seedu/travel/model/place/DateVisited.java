@@ -16,7 +16,10 @@ public class DateVisited {
 
     public static final String MESSAGE_INCORRECT_FORMAT = "Date visited must follow the DD/MM/YYYY format";
     public static final String MESSAGE_FUTURE_DATE_ADDED = "Date visited must a present or past date";
+    public static final Integer YEAR_MINIMUM = 1900;
+    public static final Integer YEAR_MAXIMUM = 9999;
     public final String date;
+    public final String year;
 
     /**
     * Constructs a {@code DateVisited}.
@@ -28,6 +31,7 @@ public class DateVisited {
         checkArgument(isCorrectDateFormat(strDateVisited), MESSAGE_INCORRECT_FORMAT);
         checkArgument(isValidDateVisited(strDateVisited), MESSAGE_FUTURE_DATE_ADDED);
         date = strDateVisited;
+        year = date.substring(6);
     }
 
     /**
@@ -88,6 +92,26 @@ public class DateVisited {
         }
 
         if (todayDate.before(birthDate)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean isValidYear(String strDate) {
+        if (!(strDate instanceof String)) {
+            throw new java.lang.NullPointerException();
+        }
+
+        Integer intYear;
+
+        try {
+            intYear = Integer.parseInt(strDate);
+        } catch (NumberFormatException nfe){
+            return false;
+        }
+
+        if (intYear < YEAR_MINIMUM || intYear > YEAR_MAXIMUM) {
             return false;
         }
 

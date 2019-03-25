@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Set;
 
 import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.Rating;
 import seedu.travel.model.tag.Tag;
 
@@ -119,7 +120,7 @@ public class StringUtil {
         String preppedCountryCode = countryCode.trim();
         checkArgument(!preppedCountryCode.isEmpty(), "Country Code parameter cannot be empty");
         checkArgument(preppedCountryCode.split("\\s+").length == 1,
-            "Country Code parameter should be a single word");
+                "Country Code parameter should be a single word");
         checkArgument(CountryCode.isValidCountryCode(preppedCountryCode),
                 "Country codes should only contain a three-letter alphabets");
 
@@ -127,7 +128,37 @@ public class StringUtil {
         String[] countryCodesInPreppedCountryCodeList = preppedCountryCodeList.split("\\s+");
 
         return Arrays.stream(countryCodesInPreppedCountryCodeList)
-            .anyMatch(preppedCountryCode::equalsIgnoreCase);
+                .anyMatch(preppedCountryCode::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns true if the {@code dateList} contains the {@code year}.
+     *   A valid 4-digit year input is required.
+     *   <br>examples:<pre>
+     *       containsYear("2018 2016", "2016") == true
+     *       containsYear("2018 2016", "2018") == true
+     *       containsYear("2018 2016", "201") == false // not a 4-digit year
+     *       containsYear("2017 2016", "2018") == false // year not found in list
+     *       </pre>
+     * @param yearList cannot be null
+     * @param year cannot be null, cannot be empty, must be a 4-digit integer
+     */
+    public static boolean containsYear(String yearList, String year) {
+        requireNonNull(yearList);
+        requireNonNull(year);
+
+        String preppedYear = year.trim();
+        checkArgument(!preppedYear.isEmpty(), "Date visited must follow the DD/MM/YYYY format");
+        checkArgument(preppedYear.split("\\s+").length == 1,
+                "Date visited must follow the DD/MM/YYYY format");
+        checkArgument(DateVisited.isValidYear(preppedYear),
+                "Date visited must a present or past date");
+
+        String preppedYearList = yearList;
+        String[] yearsInPreppedYearList = preppedYearList.split("\\s+");
+
+        return Arrays.stream(yearsInPreppedYearList)
+                .anyMatch(preppedYear::equalsIgnoreCase);
     }
 
     /**

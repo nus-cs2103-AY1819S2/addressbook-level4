@@ -23,34 +23,31 @@ Last Updated: 2/19/2019 15:35:35
 Welcome to TeethHub! 
 If you are a dental practitioner who prefers to use a Command Line Interface (CLI),
 then TeethHub is an application for you!
-The application works primarily through a [CLI]("Command Line Interface")
+The application works primarily through a CLI
 while having elements of a Graphical User Interface (GUI).
 For example, you can select and view patients and records by clicking on them,
 but you would need to type type the edit command to edit them.
-TeethHub allows you to keep track of their patients’
-personal particulars along with their dental records. Conditions of each
-patients’ teeth (e.g decaying, removed or filled) are also stored for
-ease of reference when providing treatments or follow-ups. As the
-application uses CLI, users who prefer using command line interface will
-be able to comfortably navigate through the many features the offered by
-the application.
+TeethHub allows you to keep track of your patients’
+personal particulars along with their dental records.
+An image of each patients’ teeth will also be displayed according to what
+you input for each tooth's status(Absent, Problem, Healthy).
+In addition to that, TeethHub also allows you to keep track of your upcoming tasks,
+just like a calendar.
 
-Interested in trying TeethHub out? Check section 2 [Prerequisites] to
-see what programs you need to have installed in order for TeethHub to
+Interested in trying TeethHub out? Check out section 2 <<_prerequisites>> to
+see what programs you need in order for TeethHub to
 work properly. Once that’s settled, or you’re confident in your computer
-set-up, jump to section 3 [Quick Start] to begin!
+set-up, jump to section 3 [Quick Start Guide] to begin!
 
 ==  Prerequisites
 
 Before downloading and installing TeethHub, please check that you have
 the following programs installed:
 
-* Java version *9* or later
-* The secret to the universe and more…
+* Java Runtime Environment version *9* or later.
 
-
-Once you have ensured everything is in order, kindly proceed to the
-section 3 [Quick Start Guide].
+Once you have it installed, you can now proceed to the
+section 3 [Quick Start Guide]!
 
 == Quick Start Guide
 

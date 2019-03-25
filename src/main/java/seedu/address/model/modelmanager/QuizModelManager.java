@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.quiz;
+package seedu.address.model.modelmanager;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 
 /**
@@ -15,6 +19,7 @@ public class QuizModelManager implements QuizModel {
     private static final Logger logger = LogsCenter.getLogger(QuizModelManager.class);
 
     private Quiz quiz;
+    private QuizUiDisplayFormatter formatter;
     private Session session;
 
     /**
@@ -33,7 +38,7 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
-    public Quiz.Mode getMode() {
+    public QuizMode getMode() {
         return session.getMode();
     }
 
@@ -95,6 +100,10 @@ public class QuizModelManager implements QuizModel {
         return quiz.getQuizTotalCorrectQuestions();
     }
 
+    @Override
+    public boolean toggleIsCardDifficult(int index) {
+        return quiz.toggleIsCardDifficult(index);
+    }
 
     @Override
     public boolean isQuizDone() {
@@ -109,6 +118,16 @@ public class QuizModelManager implements QuizModel {
     @Override
     public List<List<Integer>> end() {
         return quiz.end();
+    }
+
+    @Override
+    public void setDisplayFormatter(QuizUiDisplayFormatter formatter) {
+        this.formatter = formatter;
+    }
+
+    @Override
+    public QuizUiDisplayFormatter getDisplayFormatter() {
+        return formatter;
     }
 
     @Override

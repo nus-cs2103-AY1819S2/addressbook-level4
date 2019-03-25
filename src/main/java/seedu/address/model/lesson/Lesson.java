@@ -10,7 +10,7 @@ import java.util.Objects;
 import seedu.address.model.card.Card;
 
 /**
- * Represents a lesson which contains multiple flash cards and can be loaded into Quiz Mode
+ * Represents a lesson which contains multiple flash cards and can be loaded into Quiz QuizMode
  * for testing. It stores multiple {@link Card} objects, and also {@link #coreHeaders} and
  * {@link #optionalHeaders} which are headers for the core and optional fields in the {@link Card} objects.
  *

@@ -27,8 +27,8 @@ then TeethHub is an application for you!
 
 TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
 For example, you can select and find patients and records by clicking on them, but you would need to type type the edit command to edit them.
-TeethHub allows you to keep track of your patients’ patiental particulars along with their dental records.
-An image of each patients’ teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
+TeethHub allows you to keep track of your patient's particulars along with their dental records.
+An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
 In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
 
 Interested in trying TeethHub out? Check out <<prerequisites>> to see what programs you need in order for TeethHub to work properly. 
@@ -65,6 +65,19 @@ Displays the help text for all available commands.
 Format: `help`
 
 === File Management
+
+TeethHub automatically saves all data in AddressBook.json when you close the program.
+However, you can manage them manually with Open, Save, Import and Export. +
+ +
+You can use *open* to open another patient list that you may have transferred over from another computer. +
+ +
+You can use *save* to save your current patient list to another .json, so that you can transfer them to another computer. +
+You can also use *save* to save your current patient list to a .pdf, which is nicer on the eyes.
+ +
+You can use *Import* to add select patients from another patient list to your current patient list. +
+ +
+You can use *Export* to save select patients to a .json or .pdf file.
+
 ==== Open
 Opens the file in the specified file path and overwrites the current patients list.
 ** Note that 'open' always searches inside the data folder.
@@ -360,13 +373,13 @@ Makes a copy of the patient’s dental record at index 2 and inserts it at
 the bottom of the current dental records with a copy tag
 
 
-=== Teeth
+=== Teeth Management
 
 ==== Brief Description
 
 
-The TeethHub application complies with the most popular standard of the
-three the Dental Numbering Systems utilised in the dentistry field - The
+TeethHub complies with the most popular standard of the
+three the Dental Numbering Systems utilised in Dentistry - The
 Universal Numbering System.
 
 
@@ -380,7 +393,7 @@ ifndef::env-github[]
 image::image1.png[width="200"]
 endif::[]
 
-The uppercase letters A through T are used for primary teeth and the
+The upper-case letters A through T are used for primary teeth and the
 numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
 the maxillary right third molar ("wisdom tooth") and the count continues
 along the upper teeth to the left side. Then the count begins at the
@@ -390,7 +403,7 @@ letter, allowing for easier use on keyboards.
 
 
 ==== Creating and Editing Teeth Layout
-There are two templates provided by the application: primary and
+There are two templates provided by TeethHub: primary and
 permanent.
 
 All primary or permanent teeth in template will all be present and
@@ -402,7 +415,7 @@ healthy by default.
 ** `teeth add n/NRIC <Template>`
 
 ** Note that if a teeth layout already exist, a warning will be thrown to
-confirm the user’s overwriting intention
+confirm your overwriting intention
 
 * To edit a new specific tooth:
 
@@ -416,18 +429,18 @@ based on the teeth label group used, before the edit is applied on the
 newly created teeth layout.
 
 ** <Status> reflects overall health of the indicated tooth, and valid
-<Status> are “healthy”, “absent”, “treatment” and “refind”
+<Status> are "healthy", "problem" and "absent"
 
-** <Description> is an optional field to present dentists with a feature to
-indicate patientalised note describing more detail on the patient’s teeth
+** <Description> is an optional field that allows you to
+write a note describing more detail on the patient’s teeth
 health.
 
 === List
-Shows a list of all patientnel or medical stored in the application
+Shows a list of all patients or medical stored in TeethHub
 
 Format: `list [dental]`
 
-Command shows patientnel details by default, add dental to see dental
+Command shows patient details by default, add dental to see dental
 records.
 
 Example:
@@ -437,7 +450,7 @@ Shows details of all patients
 
 
 * `list dental` +
-Shows details of patients’ dental records
+Shows details of patient's dental records
 
 
 === Find
@@ -525,7 +538,7 @@ undo` (reverses the delete 1 command)
 * `select 1 +
 list +
 undo` +
-The undo command fails as there are no undoable commands executed
+The undo command fails as there are no undo-able commands executed
 previously.
 
 
@@ -558,9 +571,9 @@ undo` (reverses the clear command) +
 `redo` (reapplies the clear command)
 
 === Clear
-Clears all patientnel data and records from the application.
+Clears all patients and records from TeethHub.
 
-* Will prompt the user to confirm
+* Will prompt you to confirm
 * Input `y` to proceed to the clear all records or `n` to abort
 
 Format: `clear`
@@ -571,43 +584,29 @@ Exits the program. You won't be able to exit if copies exist.
 Format: `exit`
 
 === Exit anyway
-Exits the program, disregardign any copies.
+Exits the program, disregarding any copies.
 
 Format: `exit!`
 
-
-=== Cloud [Coming in v2.0]
-Synchronises the data stored with the cloud database
-
-
 == Cloud Functionality [Coming in v2.0]
-To increase data redundancy and reduce the risk of data being lost, we
-will allow users to synchronise their data with a cloud account. From
-there, should the worst happen and the user’s local data be lost, it can
-be downloaded from the cloud.
+To increase data redundancy and reduce the risk of data being lost, 
+you will be able to synchronise your data with a cloud account. 
 
 
 == Spell-Checker Functionality [Coming in v2.0]
 
 
-Upon keying in an improperly typed command it will automatically correct
-it (e.g. sirt to sort) and run the program.
+Automatically correct an improperly typed command(e.g. sirt to sort).
 
 
 == Frequently Asked Questions (FAQ)
 
 *Q*: How do I transfer my data to another Computer?
 
-*A*: Install the app in the other computer and overwrite the empty data
+*A*: Install TeethHub in the other computer and overwrite the empty data
 file it creates with the file that contains the data of your previous
 Address Book folder. Alternatively, upload your data to the cloud and
 download it from there.
-
-*Q*: How can I be sure my patient’s records are secure?
-
-*A*: The application’s login feature ensures only that particular user
-will be able to access his or her own patients. Records of other users
-will be encrypted and unfindable unless one logs in.
 
 == Command Summary
 
@@ -632,30 +631,31 @@ done`
 
 * *Exit* : `exit`
 
-* *Export* : `export FILE_PATH FILE_NAME` +
-e.g. `export /mnt/ext_drive/ clinicRecords.txt`
+* *Export* : `export FILE_PATH INDEX_RANGE`` +
+e.g. `export \mnt\clinicRecords.txt 1,3-5`
 
 * *Find* : `find [dental] KEYWORD [MORE_KEYWORDS]` +
 e.g. `find yishun`
+
+* *Help* : `help`
+
+* *History* : `history`
+
+* *Import* : `import FILE_PATH INDEX_RANGE` +
+e.g. `import \mnt\newData.json 1,3-5`
 
 * *List* : `list [dental]`
 
 * *Login* : `login USERNAME PASSWORD` +
 e.g `login kthSIM cavities!2`
 
-* *Help* : `help`
-
-* *History* : `history`
-
-* *Import* : `import FILE_PATH [append]` +
-e.g. `import /mnt/sample/newData`
-
+* *Open* : `open FILE_PATH` +
+e.g. `import \mnt\sample\newData.json`
 
 * *Record Add* : `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
 doc/SERVING_DENTIST det/DETAILS` +
 e.g. `record add n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler
 det/Mouth was noticeably foul, might have halitosis`
-
 
 * *Record Delete* : `record delete n/NRIC INDEX` +
 E.g. `record delete n/S1235467H 4`
@@ -670,6 +670,9 @@ Done`
 E.g. `record copy n/S1235467H 2`
 
 * *Redo* : `redo`
+
+* *Save* : `save FILE_PATH`` +
+e.g. `save \mnt\clinicRecords.txt`
 
 * *Sort* : `sort PARAM ORDER` +
 E.g. `sort name ascend` or `sort age descend`

@@ -172,9 +172,9 @@ Exits the program. You won't be able to exit if copies exist.
 
 Format: `exit`
 
-====
+****
 You can also use `exit!` to forcefully exit the application
-====
+****
 
 === File Management
 

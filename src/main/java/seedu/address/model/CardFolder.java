@@ -71,10 +71,10 @@ public class CardFolder implements ReadOnlyCardFolder {
         setFolderName(newData.getFolderName());
     }
 
-    //// folder-level operations
+    //// card-level operations
 
     /**
-     * Returns true if a folder with the same identity as {@code folder} exists in the folder folder.
+     * Returns true if a card with the same identity as {@code folder} exists in the folder folder.
      */
     public boolean hasCard(Card card) {
         requireNonNull(card);
@@ -82,8 +82,8 @@ public class CardFolder implements ReadOnlyCardFolder {
     }
 
     /**
-     * Adds a folder to the folder folder.
-     * The folder must not already exist in the folder folder.
+     * Adds a card to the card folder.
+     * The card must not already exist in the folder folder.
      */
     public void addCard(Card p) {
         cards.add(p);
@@ -91,9 +91,9 @@ public class CardFolder implements ReadOnlyCardFolder {
     }
 
     /**
-     * Replaces the given folder {@code target} in the list with {@code editedCard}.
-     * {@code target} must exist in the folder folder.
-     * The folder identity of {@code editedCard} must not be the same as another existing folder in the folder folder.
+     * Replaces the given card {@code target} in the list with {@code editedCard}.
+     * {@code target} must exist in the card folder.
+     * The card identity of {@code editedCard} must not be the same as another existing card in the card folder.
      */
     public void setCard(Card target, Card editedCard) {
         requireNonNull(editedCard);
@@ -104,7 +104,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     /**
      * Removes {@code key} from this {@code CardFolder}.
-     * {@code key} must exist in the folder folder.
+     * {@code key} must exist in the card folder.
      */
     public void removeCard(Card key) {
         cards.remove(key);
@@ -122,7 +122,7 @@ public class CardFolder implements ReadOnlyCardFolder {
     }
 
     /**
-     * Notifies listeners that the folder folder has been modified.
+     * Notifies listeners that the card folder has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);

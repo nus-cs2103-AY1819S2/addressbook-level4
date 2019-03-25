@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
 
 /**
- * Unmodifiable view of an folder folder
+ * Unmodifiable view of an card folder
  */
 public interface ReadOnlyCardFolder extends Observable {
 

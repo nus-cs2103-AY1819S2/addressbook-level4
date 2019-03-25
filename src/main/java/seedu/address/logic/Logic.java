@@ -60,7 +60,7 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected card in the filtered folder list.
+     * Selected card in the filtered card list.
      * null if no card is selected.
      *
      * @see seedu.address.model.Model#selectedCardProperty()

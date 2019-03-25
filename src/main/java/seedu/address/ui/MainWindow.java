@@ -18,11 +18,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-<<<<<<< HEAD
 import seedu.address.model.patient.Teeth;
-=======
 import seedu.address.model.patient.Patient;
->>>>>>> 8a229316c666245aba2badc65095bf8de4a34e32
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -79,11 +76,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane taskListPanelPlaceholder;
 
     @FXML
-<<<<<<< HEAD
     private StackPane teethPanelPlaceholder;
-=======
+
+    @FXML
     private StackPane recordListPanelPlaceholder;
->>>>>>> 8a229316c666245aba2badc65095bf8de4a34e32
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -150,8 +146,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedPersonProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        teethPanel = new TeethPanel(logic.selectedPersonProperty());
-        teethPanelPlaceholder.getChildren().add(teethPanel.getRoot());
+        //teethPanel = new TeethPanel(logic.selectedPersonProperty());
+        //teethPanelPlaceholder.getChildren().add(teethPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);

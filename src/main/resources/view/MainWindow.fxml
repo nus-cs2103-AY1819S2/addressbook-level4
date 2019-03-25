@@ -48,19 +48,13 @@
 
                 <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
 
-<<<<<<< HEAD
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" visible="false" managed="false" >
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-          </StackPane>
 
-          <StackPane fx:id="teethPanelPlaceholder" prefWidth="340" >
+
+      <!--    <StackPane fx:id="teethPanelPlaceholder" prefWidth="340" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-          </StackPane>
-=======
+          </StackPane> !-->
                     <StackPane fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
@@ -68,7 +62,6 @@
                         <StackPane fx:id="recordListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                         <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </StackPane>
->>>>>>> 8a229316c666245aba2badc65095bf8de4a34e32
 
                     <StackPane fx:id="browserPlaceholder" prefWidth="340">
                         <padding>

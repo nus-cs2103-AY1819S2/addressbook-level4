@@ -2,10 +2,9 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ListReviewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.book.BookName;
-import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new ListReviewCommand object
@@ -17,12 +16,12 @@ public class ListReviewCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ListReviewCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new ListReviewCommand(index);
+        } catch (ParseException pe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListReviewCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListReviewCommand.MESSAGE_USAGE), pe);
         }
-
-        return new ListReviewCommand(new BookNameContainsExactKeywordsPredicate(new BookName(trimmedArgs)));
     }
 }

@@ -3,9 +3,13 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
+import seedu.address.model.book.Book;
+
+import java.util.List;
 
 /**
  * Lists the review of the book.
@@ -13,31 +17,38 @@ import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 public class ListReviewCommand extends Command {
     public static final String COMMAND_WORD = "listReview";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": list all reviews whose name equals"
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: NAME\n"
-            + "Example: " + COMMAND_WORD + " Alice in Wonderland";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Lists the reviews of the book identified by the index number used in the displayed book list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Listed all review satisfy the requirement";
+    public static final String MESSAGE_SUCCESS = "Listed reviews of book number: %1$s";
 
-    private final BookNameContainsExactKeywordsPredicate predicate;
+    private final Index targetIndex;
 
-    public ListReviewCommand(BookNameContainsExactKeywordsPredicate predicate) {
-        this.predicate = predicate;
+    public ListReviewCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredBookList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_BOOKS_LISTED_OVERVIEW, model.getFilteredBookList().size()));
+
+        List<Book> filteredBookList = model.getFilteredBookList();
+
+        if (targetIndex.getZeroBased() >= filteredBookList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
+        }
+
+        model.setSelectedBook(filteredBookList.get(targetIndex.getZeroBased()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));
+
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListReviewCommand // instanceof handles nulls
-                && predicate.equals(((ListReviewCommand) other).predicate)); // state check
+                && targetIndex.equals(((ListReviewCommand) other).targetIndex)); // state check
     }
 }

@@ -108,11 +108,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasMatricNumber(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasMatricNumber(person);
-    }
-    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
     }

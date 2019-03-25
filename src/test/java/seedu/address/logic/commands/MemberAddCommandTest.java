@@ -143,11 +143,6 @@ public class MemberAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public boolean hasMatricNumber(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
 
         @Override
         public void deletePerson(Person target) {
@@ -181,6 +176,7 @@ public class MemberAddCommandTest {
 
         @Override
         public void addActivity(Activity activity) {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -206,6 +202,7 @@ public class MemberAddCommandTest {
 
         @Override
         public Activity getSelectedActivity() {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -216,11 +213,13 @@ public class MemberAddCommandTest {
 
         @Override
         public boolean canUndoAddressBook() {
+
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean canRedoAddressBook() {
+
             throw new AssertionError("This method should not be called.");
         }
 
@@ -255,6 +254,7 @@ public class MemberAddCommandTest {
 
         @Override
         public void setSelectedPerson(Person person) {
+
             throw new AssertionError("This method should not be called.");
         }
 

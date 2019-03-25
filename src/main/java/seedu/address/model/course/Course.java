@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.model.moduleinfo.ModuleInfoCode;
@@ -18,9 +17,6 @@ public class Course {
     private final CourseName courseName;
     private final CourseDescription courseDescription;
     private final List<CourseRequirement> courseRequirements;
-
-    /* Latest map of module code to req type satisfied */
-    private HashMap<ModuleInfoCode, CourseReqType> codeToReqMap;
 
     public Course(CourseName courseName, CourseDescription courseDescription,
                   CourseRequirement... courseRequirements) {
@@ -78,30 +74,5 @@ public class Course {
         }
 
         return false; // should not reach here
-    }
-
-    /**
-     * Initialises or resets the codeToReqMap.
-     */
-    public void resetCodeToReqMap() {
-        codeToReqMap = new HashMap<>();
-    }
-
-    /**
-     * Put a key-value into the codeToReqMap.
-     * @param moduleInfoCode The module code.
-     * @param reqType The req type.
-     */
-    public void putCodeToReqMap(ModuleInfoCode moduleInfoCode, CourseReqType reqType) {
-        assert (codeToReqMap != null);
-        codeToReqMap.put(moduleInfoCode, reqType);
-    }
-
-    /**
-     * Returns the codeToReqMap.
-     * @return codeToReqMap.
-     */
-    public HashMap<ModuleInfoCode, CourseReqType> getCodeToReqMap() {
-        return codeToReqMap;
     }
 }

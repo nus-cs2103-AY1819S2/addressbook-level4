@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -20,6 +19,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.course.Course;
 import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.Semester;
@@ -44,7 +44,9 @@ public class ModelManager implements Model {
     private final ObservableList<ModuleInfo> allModules;
     private final FilteredList<ModuleInfo> displayList;
     private final ModuleInfoList moduleInfoList;
-    private final SortedList<ModuleInfo> sortedDisplayList;
+
+    private final FilteredList<ModuleInfoCode> recModuleList;
+    private final SortedList<ModuleInfoCode> recModuleListSorted;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -64,7 +66,9 @@ public class ModelManager implements Model {
         this.allModules = allModules.getObservableList();
         this.displayList = new FilteredList<>(this.allModules);
         this.moduleInfoList = allModules;
-        this.sortedDisplayList = new SortedList<>(displayList);
+
+        this.recModuleList = new FilteredList<>(allModules.getObservableCodeList());
+        this.recModuleListSorted = new SortedList<>(recModuleList);
     }
 
     public ModelManager() {
@@ -251,24 +255,15 @@ public class ModelManager implements Model {
 
     //=========== Module recommendation ===========================================================================
     @Override
-    public ObservableList<ModuleInfo> getSortedDisplayList() {
-        return sortedDisplayList;
+    public ObservableList<ModuleInfoCode> getRecModuleListSorted() {
+        return recModuleListSorted;
     }
 
     @Override
-    public void sortDisplayList(Comparator<ModuleInfo> comparator) {
-        requireNonNull(comparator);
-        sortedDisplayList.setComparator(comparator);
-    }
-
-    @Override
-    public RecModulePredicate getRecModulePredicate() {
-        return new RecModulePredicate(course, versionedAddressBook);
-    }
-
-    @Override
-    public RecModuleComparator getRecModuleComparator() {
-        return new RecModuleComparator(course);
+    public void updateRecModuleList() {
+        RecModuleManager recModuleManager = new RecModuleManager(course, versionedAddressBook);
+        recModuleList.setPredicate(recModuleManager.getRecModulePredicate());
+        recModuleListSorted.setComparator(recModuleManager.getRecModuleComparator());
     }
 
     /**

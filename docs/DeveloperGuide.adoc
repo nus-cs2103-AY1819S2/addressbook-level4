@@ -409,11 +409,11 @@ The module recommendation feature generates a list of module codes representing 
 based on the user's module plan and course requirements. The entire list is printed on the GUI upon
 entering the `rec` command.
 
-Whenever the `rec` command is called, a `RecModulePredicate` and a `RecModuleComparator` are generated from the
-`ModelManager` given the user's `Course` and `ModulePlan`. This ensures that the recommendation list is updated
+Whenever the `rec` command is called, a `RecModuleManager` is created which generates a `RecModulePredicate` and
+a `RecModuleComparator` given the user's `Course` and `ModulePlan`. This ensures that the recommendation list is updated
 according to any changes in `Course` and `ModulePlan`.
 
-The `RecModulePredicate` is applied to a `FilteredList` of `ModuleInfo` stored in `ModelManager`, to remove modules which
+The `RecModulePredicate` is applied to a `FilteredList` of `ModuleInfoCode` stored in `ModelManager`, to remove modules which
 the user is ineligible to take or does not contribute to the `CourseRequirement`.
 This `FilteredList` is wrapped in a `SortedList` which accepts the `RecModuleComparator`, sorting the list in
 decreasing priority of the `CourseReqType` satisfied by the module.
@@ -423,9 +423,9 @@ Modules with equal priority are sorted lexicographically, considering the fact t
 
 Within each test by the `RecModulePredicate`, a module is checked for the `CourseReqType`(s) it satisfies.
 The `CourseReqType` with highest priority, which has yet to be fully completed, is then selected.
-A mapping of the module code to this requirement is put into a `HashMap` stored in `Course`.
+A mapping of `ModuleInfoCode` to this `CourseReqType` is put into a `HashMap` stored in `RecModuleManager`.
 Subsequently, within each comparison by the `RecModuleComparator`, the `CourseReqType` satisfied by the two modules are
-retrieved from the `HashMap` and compared. A new `HashMap` is created at the beginning of each `rec` command.
+retrieved from the `HashMap` and compared.
 
 ==== Design considerations
 ===== Aspect:

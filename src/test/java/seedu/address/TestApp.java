@@ -77,7 +77,7 @@ public class TestApp extends MainApp {
 
         initLogging(config);
 
-        model = initModelManager(false, storage, userPrefs);
+        model = initModelManager(storage, userPrefs);
 
         logic = new LogicManager(model, storage);
 
@@ -107,11 +107,15 @@ public class TestApp extends MainApp {
     public CardFolder readStorageCardFolder() {
         try {
             // TODO: Address hardcoding in the following line
-            return new CardFolder(storage.readCardFolders().get(0));
+            List<ReadOnlyCardFolder> folders = new ArrayList<>();
+            storage.readCardFolders(folders);
+            return new CardFolder(folders.get(0));
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the CardFolder format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
+        } catch (Exception e) {
+            throw new AssertionError("Unknown error encountered.", e);
         }
     }
 

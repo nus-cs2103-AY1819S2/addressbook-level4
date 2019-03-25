@@ -64,12 +64,14 @@ public class StorageManagerTest {
         CardFolder original = getTypicalCardFolder();
         // TODO: Address hardcoding in the following lines
         storageManager.saveCardFolder(original, 0);
-        ReadOnlyCardFolder retrieved = storageManager.readCardFolders().get(0);
+        List<ReadOnlyCardFolder> folders = new ArrayList<>();
+        storageManager.readCardFolders(folders);
+        ReadOnlyCardFolder retrieved = folders.get(0);
         assertEquals(original, new CardFolder(retrieved));
     }
 
     @Test
-    public void getcardFolderFilesPath() {
+    public void getCardFolderFilesPath() {
         assertNotNull(storageManager.getcardFolderFilesPath());
     }
 

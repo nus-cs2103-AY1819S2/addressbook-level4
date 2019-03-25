@@ -58,13 +58,19 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public List<ReadOnlyCardFolder> readCardFolders() throws DataConversionException, IOException {
-        List<ReadOnlyCardFolder> cardFolders = new ArrayList<>();
+    public void readCardFolders(List<ReadOnlyCardFolder> readFolders) throws Exception {
+        Exception exception = null;
         for (CardFolderStorage cardFolderStorage : cardFolderStorageList) {
-            Optional<ReadOnlyCardFolder> cardFolder = readCardFolder(cardFolderStorage);
-            cardFolder.ifPresent(cardFolders::add);
+            try {
+                Optional<ReadOnlyCardFolder> cardFolder = readCardFolder(cardFolderStorage);
+                cardFolder.ifPresent(readFolders::add);
+            } catch (DataConversionException | IOException e) {
+                exception = e;
+            }
         }
-        return cardFolders;
+        if (exception != null) {
+            throw exception;
+        }
     }
 
     /**

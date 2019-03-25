@@ -20,7 +20,7 @@ public interface Storage {
 
     Path getcardFolderFilesPath();
 
-    List<ReadOnlyCardFolder> readCardFolders() throws DataConversionException, IOException;
+    void readCardFolders(List<ReadOnlyCardFolder> readFolders) throws Exception;
 
     void saveCardFolder(ReadOnlyCardFolder cardFolder, int index) throws IOException;
 

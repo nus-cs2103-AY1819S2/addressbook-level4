@@ -9,6 +9,8 @@ import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import javax.xml.crypto.Data;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
@@ -82,7 +84,11 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        model = initModelManager(withSample, storage, userPrefs);
+        if (withSample) {
+            model = initModelManagerWithSample(userPrefs);
+        } else {
+            model = initModelManager(storage, userPrefs);
+        }
 
         logic = new LogicManager(model, storage);
 
@@ -91,31 +97,43 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s card folder and {@code userPrefs}. <br>
-     * The data from the sample card folder will be used instead if {@code storage}'s card folder is not found,
-     * or an empty card folder will be used instead if errors occur when reading {@code storage}'s card folder.
+     * All folders in valid formats that are found will be read. If none are found, the data from the sample card folder
+     * will be used instead.
      */
-    Model initModelManager(boolean withSample, Storage storage, ReadOnlyUserPrefs userPrefs) {
+    Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         List<ReadOnlyCardFolder> initialCardFolders;
+        initialCardFolders = new ArrayList<>();
 
-        if (withSample) {
-            initialCardFolders = new ArrayList<>();
-            initialCardFolders.add(SampleDataUtil.getSampleCardFolder());
-        } else {
-            // TODO: In exception scenarios, make sure cardFolderStorageList agrees
-            try {
-                initialCardFolders = storage.readCardFolders();
-            } catch (DataConversionException e) {
-                logger.warning("Data file not in the correct format. Will not be starting with any CardFolder");
-                initialCardFolders = new ArrayList<>();
-                initialCardFolders.add(SampleDataUtil.getSampleCardFolder());
-            } catch (IOException e) {
-                logger.warning("Problem while reading from the file. Will not be starting with any CardFolder");
-                initialCardFolders = new ArrayList<>();
-                initialCardFolders.add(SampleDataUtil.getSampleCardFolder());
+        // read all valid card folders
+        try {
+            storage.readCardFolders(initialCardFolders);
+        } catch (Exception e) {
+            if (e instanceof DataConversionException) {
+                logger.warning("Data file not in the correct format.");
+            } else if (e instanceof IOException) {
+                logger.warning("Problem while reading from the file.");
+            } else {
+                logger.warning("Unknown error while reading from file.");
             }
         }
 
+        // if no card folder is valid, then start with a sample one.
+        if (initialCardFolders.isEmpty()) {
+            logger.warning("No CardFolders read. Will be starting with a sample CardFolder");
+            return initModelManagerWithSample(userPrefs);
+        }
+
         return new ModelManager(initialCardFolders, userPrefs);
+    }
+
+    /**
+     * Returns a {@code ModelManager} with data from the sample card folder.
+     */
+    Model initModelManagerWithSample(ReadOnlyUserPrefs userPrefs) {
+        List<ReadOnlyCardFolder> sampleCardFolders = new ArrayList<>();
+        sampleCardFolders.add(SampleDataUtil.getSampleCardFolder());
+
+        return new ModelManager(sampleCardFolders, userPrefs);
     }
 
     void initLogging(Config config) {

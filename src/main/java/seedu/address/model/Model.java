@@ -92,8 +92,6 @@ public interface Model extends Observable {
      */
     void setCard(Card target, Card editedCard);
 
-    // TODO: Implement hasFolder and setFolder
-
     /**
      * Returns true if a card folder with the same identity as {@code cardFolder} exists.
      */

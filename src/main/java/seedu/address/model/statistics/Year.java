@@ -50,6 +50,15 @@ public class Year {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if a given string is a leap year.
+     */
+    public static boolean isLeapYear(String year)
+    {
+        return (((Integer.parseInt(year) % 4 == 0) &&
+                (Integer.parseInt(year) % 100 != 0)) ||
+                (Integer.parseInt(year) % 400 == 0));
+    }
 
     @Override
     public String toString() {

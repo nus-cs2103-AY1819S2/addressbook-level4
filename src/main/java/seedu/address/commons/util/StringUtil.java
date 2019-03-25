@@ -24,7 +24,7 @@ public class StringUtil {
      * @param sentence cannot be null
      * @param keyword
      */
-    public static boolean containsWordIgnoreCase(String sentence, String keyword) {
+    public static boolean containsKeywordsInQuestionIgnoreCase(String sentence, String keyword) {
         requireNonNull(sentence);
         requireNonNull(keyword);
 

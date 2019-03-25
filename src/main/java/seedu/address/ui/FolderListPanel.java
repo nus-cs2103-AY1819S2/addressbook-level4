@@ -6,8 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.VersionedCardFolder;
@@ -21,16 +19,16 @@ public class FolderListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<VersionedCardFolder> folderListView;
-//
-//    @FXML
-//    private FlowPane folderListPanel;
+    //
+    //    @FXML
+    //    private FlowPane folderListPanel;
 
     public FolderListPanel(ObservableList<VersionedCardFolder> folderList) {
         super(FXML);
 
-//        for (int i = 0; i < folderList.size(); i++) {
-//            folderListPanel.getChildren().add(new FolderThumbnail(folderList.get(i), i + 1).getRoot());
-//        }
+        //        for (int i = 0; i < folderList.size(); i++) {
+        //            folderListPanel.getChildren().add(new FolderThumbnail(folderList.get(i), i + 1).getRoot());
+        //        }
         folderListView.setItems(folderList);
         folderListView.setCellFactory(listView -> new FolderListViewCell());
     }

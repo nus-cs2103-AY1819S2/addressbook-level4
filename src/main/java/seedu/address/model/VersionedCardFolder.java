@@ -3,8 +3,6 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.card.Card;
-
 /**
  * {@code CardFolder} that keeps track of its own history.
  */

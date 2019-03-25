@@ -40,8 +40,9 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean enteredFolder,
-                         boolean exitedFolder, Card testSessionCard, boolean endTestSession, AnswerCommandResultType answerCommandResult) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean enteredFolder, boolean exitedFolder,
+                         Card testSessionCard, boolean endTestSession, AnswerCommandResultType answerCommandResult) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;

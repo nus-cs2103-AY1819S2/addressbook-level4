@@ -69,8 +69,8 @@ public class MemberEditCommandParser implements Parser<MemberEditCommand> {
             editPersonDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
         }
         if (argMultimap.getValue(PREFIX_YEAROFSTUDY).isPresent()) {
-            editPersonDescriptor.setYearOfStudy
-                    (ParserUtil.parseYearOfStudy(argMultimap.getValue(PREFIX_YEAROFSTUDY).get()));
+            editPersonDescriptor.setYearOfStudy(ParserUtil.parseYearOfStudy
+                    (argMultimap.getValue(PREFIX_YEAROFSTUDY).get()));
         }
         if (argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
             editPersonDescriptor.setMajor(ParserUtil.parseMajor(argMultimap.getValue(PREFIX_MAJOR).get()));

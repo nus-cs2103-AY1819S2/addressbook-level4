@@ -18,12 +18,6 @@ public class HealthWorker extends Person {
     private Organization organization;
     private Skills skills;
 
-    public HealthWorker(Name name, Nric nric, Phone phone, Organization organization) {
-        super(name, nric, phone);
-        this.organization = organization;
-        this.skills = new Skills();
-    }
-
     public HealthWorker(Name name, Nric nric, Phone phone, Organization organization, Skills skills) {
         super(name, nric, phone);
         this.organization = organization;

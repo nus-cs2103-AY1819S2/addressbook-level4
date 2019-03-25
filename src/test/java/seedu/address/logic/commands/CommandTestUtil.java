@@ -46,7 +46,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
     // Default strings for Health Worker objects
     public static final String VALID_NAME_ANDY = "Andy Tan";
-    public static final String VALID_NAME_BETTY = "Health Worker B";
+    public static final String VALID_NAME_BETTY = "Betty Meier";
     public static final String VALID_NRIC_ANDY = "S8312942G";
     public static final String VALID_NRIC_BETTY = "S9898222A";
     public static final String VALID_PHONE_ANDY = "94358253";

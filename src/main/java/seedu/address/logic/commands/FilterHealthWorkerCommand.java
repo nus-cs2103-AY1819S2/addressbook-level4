@@ -53,7 +53,7 @@ public class FilterHealthWorkerCommand extends FilterCommand {
     /**
      * Method that reduces a collection of predicates in to a single predicate that fulfils all the predicates.
      */
-    private Predicate<HealthWorker> reducePredicates(Collection<Predicate> predicates) {
+    public static Predicate<HealthWorker> reducePredicates(Collection<Predicate> predicates) {
         return predicates.stream().reduce(x -> true, Predicate::and);
     }
 }

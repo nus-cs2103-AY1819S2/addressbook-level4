@@ -1,10 +1,24 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_HEALTHWORKER_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ORGANIZATION_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BETTY;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
+import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
+import static seedu.address.testutil.TypicalHealthWorkers.ELLA;
+import static seedu.address.testutil.TypicalHealthWorkers.PANIEL;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 
@@ -12,12 +26,14 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.tag.Specialisation;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FilterHealthWorkerCommand}.
  */
 public class FilterHealthWorkerCommandTest {
+
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
@@ -26,55 +42,71 @@ public class FilterHealthWorkerCommandTest {
 
     @Test
     public void equals() {
-//        NameContainsKeywordsPredicate firstPredicate =
-//                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-//        NameContainsKeywordsPredicate secondPredicate =
-//                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
-//
-//        FilterHealthWorkerCommand findFirstCommand = new FilterHealthWorkerCommand(firstPredicate);
-//        FilterHealthWorkerCommand findSecondCommand = new FilterHealthWorkerCommand(secondPredicate);
-//
-//        // same object -> returns true
-//        assertTrue(findFirstCommand.equals(findFirstCommand));
-//
-//        // same values -> returns true
-//        FilterHealthWorkerCommand findFirstCommandCopy = new FilterHealthWorkerCommand(firstPredicate);
-//        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
-//
-//        // different types -> returns false
-//        assertFalse(findFirstCommand.equals(1));
-//
-//        // null -> returns false
-//        assertFalse(findFirstCommand.equals(null));
-//
-//        // different person -> returns false
-//        assertFalse(findFirstCommand.equals(findSecondCommand));
+        List<Predicate> firstList = Arrays.asList(x -> ((HealthWorker) x).getName().equals(VALID_NAME_ANDY));
+        List<Predicate> secondList = Arrays.asList(x -> ((HealthWorker) x).getName().equals(VALID_PHONE_BETTY));
+        FilterHealthWorkerCommand firstCommand = new FilterHealthWorkerCommand(firstList);
+        FilterHealthWorkerCommand secondCommand = new FilterHealthWorkerCommand(secondList);
+
+        // same object -> returns true
+        assertTrue(firstCommand.equals(firstCommand));
+
+        // same values -> return true
+        FilterHealthWorkerCommand firstCommandCopy = new FilterHealthWorkerCommand(firstList);
+        assertTrue(firstCommand.equals(firstCommandCopy));
+
+        // different predicates -> return false
+        assertFalse(firstCommand.equals(secondCommand));
+
+        // null -> returns false
+        assertFalse(firstCommand.equals(null));
+
+        // different types -> returns false
+        assertFalse(firstCommand.equals(5));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-//        String expectedMessage = String.format(MESSAGE_HEALTHWORKER_LISTED_OVERVIEW, 0);
-//        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-//        FilterHealthWorkerCommand command = new FilterHealthWorkerCommand(predicate);
-//        expectedModel.updateFilteredPersonList(predicate);
-//        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+    public void reducePredicates() {
+        Predicate<HealthWorker> firstPredicate = x -> x.getName().contains(VALID_NAME_ANDY);
+        Predicate<HealthWorker> secondPredicate = x -> x.hasSkill(Specialisation.GENERAL_PRACTICE);
+
+        // combine multiple predicates
+        expectedModel.updateFilteredHealthWorkerList(FilterHealthWorkerCommand
+                .reducePredicates(Arrays.asList(firstPredicate, secondPredicate)));
+        assertEquals(Arrays.asList(ANDY), expectedModel.getFilteredHealthWorkerList());
+
+        Predicate<HealthWorker> thirdPredicate = x -> x.getOrganization().contains(VALID_ORGANIZATION_ANDY);
+        expectedModel.updateFilteredHealthWorkerList(FilterHealthWorkerCommand
+                .reducePredicates(Arrays.asList(firstPredicate, secondPredicate, thirdPredicate)));
+        assertEquals(Arrays.asList(ANDY), expectedModel.getFilteredHealthWorkerList());
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-//        String expectedMessage = String.format(MESSAGE_HEALTHWORKER_LISTED_OVERVIEW, 3);
-//        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-//        FilterHealthWorkerCommand command = new FilterHealthWorkerCommand(predicate);
-//        expectedModel.updateFilteredPersonList(predicate);
-//        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-//        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
+    public void execute_singleParameter() {
+        String expectedMessage = String.format(MESSAGE_HEALTHWORKER_LISTED_OVERVIEW, 3);
+        Predicate<HealthWorker> predicate = x -> x.hasSkill(Specialisation.PHYSIOTHERAPY);
+        FilterHealthWorkerCommand command = new FilterHealthWorkerCommand(Arrays.asList(predicate));
+        expectedModel.updateFilteredHealthWorkerList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ANDY, PANIEL, ELLA), model.getFilteredHealthWorkerList());
+
+        expectedMessage = String.format(MESSAGE_HEALTHWORKER_LISTED_OVERVIEW, 3);
+        predicate = x -> x.getName().contains("Me");
+        command = new FilterHealthWorkerCommand(Arrays.asList(predicate));
+        expectedModel.updateFilteredHealthWorkerList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BETTY, PANIEL, ELLA), model.getFilteredHealthWorkerList());
     }
 
-    /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
-     */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    @Test
+    public void execute_multipleParameters() {
+        String expectedMessage = String.format(MESSAGE_HEALTHWORKER_LISTED_OVERVIEW, 2);
+        Predicate<HealthWorker> firstPredicate = x -> x.hasSkill(Specialisation.PHYSIOTHERAPY);
+        Predicate<HealthWorker> secondPredicate = x -> x.getName().contains("Me");
+        FilterHealthWorkerCommand command = new FilterHealthWorkerCommand(Arrays
+                .asList(firstPredicate, secondPredicate));
+        expectedModel.updateFilteredHealthWorkerList(FilterHealthWorkerCommand
+                .reducePredicates(Arrays.asList(firstPredicate, secondPredicate)));
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(PANIEL, ELLA), model.getFilteredHealthWorkerList());
     }
 }

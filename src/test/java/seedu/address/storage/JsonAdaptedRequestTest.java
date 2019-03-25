@@ -80,7 +80,7 @@ public class JsonAdaptedRequestTest {
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         JsonAdaptedRequest request = new JsonAdaptedRequest(ALICE_REQUEST.getName().toString(),
-            ALICE_REQUEST.getNric().getNric(), ALICE_REQUEST.getPhone().value,
+            ALICE_REQUEST.getNric().toString(), ALICE_REQUEST.getPhone().value,
             INVALID_ADDRESS,
             ALICE_REQUEST.getRequestDate().toString(), ALICE_REQUEST.getConditions().toString(),
             new RequestStatus("PENDING").toString(), ALICE_REQUEST.getHealthStaff());
@@ -91,7 +91,7 @@ public class JsonAdaptedRequestTest {
     @Test
     public void toModelType_invalidDate_throwsIllegalValueException() {
         JsonAdaptedRequest request = new JsonAdaptedRequest(ALICE_REQUEST.getName().toString(),
-            ALICE_REQUEST.getNric().getNric(), ALICE_REQUEST.getPhone().value,
+            ALICE_REQUEST.getNric().toString(), ALICE_REQUEST.getPhone().value,
             ALICE_REQUEST.getAddress().value,
             INVALID_DATE, ALICE_REQUEST.getConditions().toString(),
             new RequestStatus("PENDING").toString(), ALICE_REQUEST.getHealthStaff());
@@ -102,7 +102,7 @@ public class JsonAdaptedRequestTest {
     @Test
     public void toModelType_invalidStatus_throwsIllegalValueException() {
         JsonAdaptedRequest request = new JsonAdaptedRequest(ALICE_REQUEST.getName().toString(),
-            ALICE_REQUEST.getNric().getNric(), ALICE_REQUEST.getPhone().value,
+            ALICE_REQUEST.getNric().toString(), ALICE_REQUEST.getPhone().value,
             ALICE_REQUEST.getAddress().value,
             ALICE_REQUEST.getRequestDate().toString(), ALICE_REQUEST.getConditions().toString(),
             INVALID_STATUS, ALICE_REQUEST.getHealthStaff());

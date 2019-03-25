@@ -65,9 +65,9 @@ class JsonAdaptedRequest {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedRequest(Request source) {
-        this.name = source.getName().fullName;
+        this.name = source.getName().toString();
         this.address = source.getAddress().value;
-        this.nric = source.getNric().getNric();
+        this.nric = source.getNric().toString();
         this.phone = source.getPhone().value;
         this.requestDate = source.getRequestDate().toString();
         this.requestStatus = source.getRequestStatus().toString();

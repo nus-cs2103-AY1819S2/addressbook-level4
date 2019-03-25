@@ -25,7 +25,7 @@ class JsonAdaptedCondition {
      * Converts a given {@code Condition} into this class for Jackson use.
      */
     public JsonAdaptedCondition(Condition source) {
-        conditionName = source.conditionName;
+        conditionName = source.toString();
     }
 
     @JsonValue

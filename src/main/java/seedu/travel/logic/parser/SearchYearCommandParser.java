@@ -11,7 +11,7 @@ import seedu.travel.model.place.DateVisited;
 import seedu.travel.model.place.YearContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new SearchRatingCommand object
+ * Parses input arguments and creates a new SearchYearCommand object
  */
 public class SearchYearCommandParser implements Parser<SearchYearCommand> {
 
@@ -21,8 +21,8 @@ public class SearchYearCommandParser implements Parser<SearchYearCommand> {
     private static final int YEAR_UPPER_BOUND_INDEX = 1;
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SearchRatingCommand
-     * and returns an SearchRatingCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SearchYearCommand
+     * and returns an SearchYearCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SearchYearCommand parse(String args) throws ParseException {
@@ -48,6 +48,10 @@ public class SearchYearCommandParser implements Parser<SearchYearCommand> {
         return new SearchYearCommand(new YearContainsKeywordsPredicate(Arrays.asList(yearKeywords)));
     }
 
+    /**
+     * Parses the given {@code String} of range of years in the context of the SearchYearCommand
+     * and returns an SearchYearCommand object for execution.
+     */
     private SearchYearCommand parseYearRange(String args) {
 
         String[] yearKeywords = args.split("-");
@@ -64,7 +68,12 @@ public class SearchYearCommandParser implements Parser<SearchYearCommand> {
         return new SearchYearCommand(new YearContainsKeywordsPredicate(yearKeywordsArray));
     }
 
-    private boolean isYearARange(String args) throws ParseException {
+    /**
+     * Checks if the user input values are a valid range of years
+     * @param args user input values
+     * @return true if arguments are a valid range of years
+     */
+    public boolean isYearARange(String args) {
 
         if (args.length() != YEAR_RANGE_LENGTH) {
             return false;

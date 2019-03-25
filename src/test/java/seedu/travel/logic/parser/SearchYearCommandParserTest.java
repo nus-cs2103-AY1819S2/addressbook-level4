@@ -1,5 +1,7 @@
 package seedu.travel.logic.parser;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.travel.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.travel.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.travel.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -55,5 +57,24 @@ public class SearchYearCommandParserTest {
 
         // leading and trailing whitespaces
         assertParseSuccess(parser, " \n 2016-2018  \t", expectedSearchYearCommand);
+    }
+
+    @Test
+    public void isYearARange_invalidYearRange_returnsFalse() {
+        // invalid year range input
+        assertFalse(parser.isYearARange("1819-2000")); // invalid lower bound
+        assertFalse(parser.isYearARange("19332-2000"));// invalid lower bound format
+        assertFalse(parser.isYearARange("1999-2999")); // invalid upper bound
+        assertFalse(parser.isYearARange("1999-29999"));// invalid upper bound format
+        assertFalse(parser.isYearARange("1994*2000")); // invalid format
+        assertFalse(parser.isYearARange("2000-1994")); // upper bound less than lower bound
+    }
+
+    @Test
+    public void isYearARange_validYearRange_returnsTrue() {
+        // valid year range input
+        assertTrue(parser.isYearARange("1999-2004")); // valid arguments
+        assertTrue(parser.isYearARange("1900-1910")); // lower bound boundary case
+        assertTrue(parser.isYearARange("2006-2019")); // upper bound boundary case
     }
 }

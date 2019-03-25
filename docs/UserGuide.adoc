@@ -300,78 +300,66 @@ the current patient list with a copy tag.
 === Patient Records Management
 ==== record add
 
-Adds a new dental record for the patient.
+* Adds a new dental record to the patient.
 
-Format: `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
-doc/SERVING_DENTIST det/DETAILS`
+* Record contains the patient's personal information, name of the dentist on duty, the date of the record, and the description of the dental treatment the patient has went through during that session.
+
+* Note: `recordadd` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+
+Format: `recordadd desc/DETAILS`
+
+* The program assigns the name of the dentist stored in the dentist information
+
+* The program assigns the date of record as the date the record is created.
+
+* When records of a patient is accessed, the stored records are sorted from newest to oldest.
+
+* New dental records will appear on the top of the list upon entry.
 
 Example
-*  `record add n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler det/Mouth
-was noticeably smelly, might have halitosis`
+* `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+* `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+* `back` - Go back to the patient list.
 
 ==== record delete
 
-Format: `record delete n/NRIC INDEX`
+* Deletes a dental record of a specified patient.
+
+* Note: `recorddelete` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+
+Format: `recorddelete INDEX`
 
 * Deletes the patient’s dental record at the specified index.
 
-* The index refers to the index number shown in the displayed dental
-record list.
+* The index refers to the index number shown in the displayed dental record list.
 
 * The given index must be a positive integer (e.g 1, 2 or 3…)
 
-Examples:
-
-* `<<find, find>> dental Jon` +
-`record delete n/NRIC 1` +
-Deletes the 1st record from the displayed list
-
+Example:
+* `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+* `recorddelete 1` - Delete the latest dental record of the specified patient
+* `back` - Go back to the patient list.
 
 ==== record edit
-Edits a patient’s dental record.
 
-Format: `record edit n/NRIC INDEX`
+* Edits a patient’s dental record.
 
+* Note: `recordedit` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
 
-* Goes into record edit mode for the specified patient at the specified
-index shown from list or find command. Must be a positive integer (e.g
-1, 2 or 3).
+Format: `recordedit INDEX desc/DETAILS`
 
-* Input the field followed by the new value to replace the existing data.
+* Edits the patient's dental record at the specified index.
 
-* Multiple fields can be edited in a single input or across multiple
-inputs.
+* The index refers to the index number shown in the displayed dental record list.
 
-* When editing tags, the existing tags of the patient will be removed i.e
-adding of tags is not cumulative.
+* The given index must be a positive integer (e.g 1, 2 or 3…)
 
-* All tags can be removed by keying in t/ without specifying any tags
-following it.
-
-* Exit the edit mode by entering "done".
+* The new description stated in the command will replace the old description in the specified dental record.
 
 Example:
-
-* `<<find, find>> dental n/Jon +
-record edit n/S1234567H 1 +
-doc/Debang +
-det/new details +
-done` +
-Edits the first dental record under the patient Jon and replaces the old
-doctor and detail fields with the new Debang and new details data.
-
-==== record copy
-Makes an exact copy of a patient’s dental record.
-
-Format: `record copy n/NRIC INDEX`
-
-Example:
-
-
-* `record copy n/S1234567H 2` +
-Makes a copy of the patient’s dental record at index 2 and inserts it at
-the bottom of the current dental records with a copy tag.
-
+* `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+* `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
+* `back` - Go back to the patient list.
 
 === Teeth Management
 

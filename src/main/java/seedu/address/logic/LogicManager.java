@@ -9,7 +9,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
@@ -68,10 +67,6 @@ public class LogicManager implements Logic {
             if (command instanceof QuizStartCommand) {
                 QuizStartCommand quizStartCommand = (QuizStartCommand) command;
                 commandResult = quizStartCommand.executeActual(quizModel, history);
-            }
-            if (command instanceof QuizAnswerCommand) {
-                QuizAnswerCommand quizAnswerCommand = (QuizAnswerCommand) command;
-                quizAnswerCommand.executeActual(managementModel, history);
             }
         } finally {
             history.add(commandText);

@@ -84,13 +84,13 @@ public class PersonListPanelTest extends GuiUnitTest {
         ObservableList<Person> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < personCount; i++) {
             Name name = new Name(i + "a");
-            MatricNumber matricNumber = new MatricNumber("");
+            MatricNumber matricNumber = new MatricNumber("A0111111Z");
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
             Gender gender = new Gender("male");
-            YearOfStudy yearOfStudy = new YearOfStudy((i + "a"));
-            Major major = new Major((i + "a"));
+            YearOfStudy yearOfStudy = new YearOfStudy("year 1");
+            Major major = new Major(("computing"));
             Person person = new Person(name, matricNumber, phone, email, address, gender, yearOfStudy, major,
                     Collections.emptySet());
             backingList.add(person);

@@ -22,10 +22,10 @@ class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Patients list contains duplicate patient(s).";
 
-    private final List<JsonAdaptedPatient> patients = new ArrayList<>();
-
     public static final String MESSAGE_DUPLICATE_MEDHIST =
             "Medical history list contains duplicate medical history(s).";
+    
+    private final List<JsonAdaptedPatient> patients = new ArrayList<>();
 
     private final List<JsonAdaptedMedicalHistory> medicalHistories = new ArrayList<>();
 

@@ -26,6 +26,11 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
 
     public static final String MESSAGE_EDIT_HEALTHWORKER_SUCCESS = "Edited Health Worker: %1$s";
 
+    public static final String MESSAGE_USAGE = EditCommand.COMMAND_WORD + " " + COMMAND_OPTION + ": "
+            + "Edits the details health worker at the specified index number used in the displayed HealthWorker list "
+            + "Parameters: INDEX (must be a positive integer) " + EDIT_COMMAND_PARAMETERS
+            + "Example: " + EditCommand.COMMAND_WORD + ": " + EDIT_COMMAND_EXAMPLE;
+
     private final EditHealthWorkerDescriptor editHealthWorkerDescriptor;
 
     public EditHealthWorkerCommand(Index index, EditHealthWorkerDescriptor editHealthWorkerDescriptor) {
@@ -98,22 +103,52 @@ public class EditHealthWorkerCommand extends EditCommand implements HealthWorker
      * Stores the details to edit the HealthWorker with. Each non-empty field value will replace the
      * corresponding field value of the HealthWorker.
      */
-    public static class EditHealthWorkerDescriptor extends EditPersonCommand.EditPersonDescriptor {
+    public static class EditHealthWorkerDescriptor {
 
+        protected Name name;
+        protected Nric nric;
+        protected Phone phone;
         private Organization organization;
         private Skills skills;
+
+
 
         public EditHealthWorkerDescriptor() {}
 
         public EditHealthWorkerDescriptor(EditHealthWorkerDescriptor toCopy) {
-            super(toCopy);
+            setName(toCopy.name);
+            setPhone(toCopy.phone);
+            setNric(toCopy.nric);
             this.organization = toCopy.organization;
             this.skills = toCopy.skills;
         }
 
-        @Override
         public boolean isAnyFieldEdited() {
-            return super.isAnyFieldEdited() || CollectionUtil.isAnyNonNull(this.organization, this.skills);
+            return CollectionUtil.isAnyNonNull(name, nric, phone, organization, skills);
+        }
+
+        public void setName(Name name) {
+            this.name = name;
+        }
+
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
+
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
+
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
+        }
+
+        public void setNric(Nric nric) {
+            this.nric = nric;
+        }
+
+        public Optional<Nric> getNric() {
+            return Optional.ofNullable(nric);
         }
 
         public void setOrganization(Organization organization) {

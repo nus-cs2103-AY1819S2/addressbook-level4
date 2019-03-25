@@ -267,6 +267,13 @@ the subclasses for `AddCommand` for `Request` are as follows:
 ** `EditRequestCommand`
 ** `DeleteRequestCommand`
 
+=== Select Request feature
+
+The select request feature allows the administrator to view a specific request by keying in the index of the request.
+The select request mechanism is facilitated by the `filteredRequestList` in the `ModelManager`. The `filteredRequestList`
+stores information on a request, that can be viewed on the Request UI panel. Select simply retrieves the information of
+the request stored at that particular index of this list.
+
 // tag::undoredo[]
 === Undo/Redo feature
 

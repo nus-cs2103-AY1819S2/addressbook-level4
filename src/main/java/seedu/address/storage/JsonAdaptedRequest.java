@@ -110,7 +110,7 @@ class JsonAdaptedRequest {
         final Address modelAddress = new Address(address);
 
         if (nric == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
         if (!Nric.isValidNric(nric)) {
             throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);

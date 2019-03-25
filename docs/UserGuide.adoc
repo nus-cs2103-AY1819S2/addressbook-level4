@@ -119,6 +119,11 @@ certifications they possess
 * `list 3` lists all patients registered in the system, their NRIC and any
 medical statuses or past conditions.
 
+[TIP]
+====
+As a shortcut, you can use `lr` to list all requests!
+====
+
 === Adding a request/health worker/patient: `add`
 
 Before you can jump right into the core feature of our application, which is
@@ -294,6 +299,11 @@ Deletes the 2nd health worker in the application.
 * `delete 3 1` +
 Deletes the 1st patient in the results of the `list` command.
 
+[TIP]
+====
+As a shortcut, you can use `dr [INDEX]` to delete the request with a particular index!
+====
+
 === Assigning a health worker to an existing open request : `assign`
 
 After registering a new request using the `add 2` command, you may proceed to
@@ -332,6 +342,11 @@ Format: `history`
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
+
+=== Selecting a request to view it : `sr`
+Using the select command, you can select a particular request for you to view it's details in full.
+
+Format: `sr`
 
 === Exiting the program : `exit`
 

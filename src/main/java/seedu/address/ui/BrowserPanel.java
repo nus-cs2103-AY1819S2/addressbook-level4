@@ -104,6 +104,11 @@ public class BrowserPanel extends UiPart<Region> {
         deadlines.setText(sb.toString());
     }
 
+    /**
+     * Updates the individual Java Page on select.
+     *
+     * @param pdf - selected pdf
+     */
     public void updateSelectedPage(Pdf pdf) {
 
         this.selectedName.setText("Name: " + pdf.getName().getFullName());

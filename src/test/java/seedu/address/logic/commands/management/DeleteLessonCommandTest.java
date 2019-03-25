@@ -26,6 +26,8 @@ import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
 import seedu.address.model.session.Session;
+import seedu.address.model.user.CardSrsData;
+import seedu.address.model.user.User;
 
 public class DeleteLessonCommandTest {
 
@@ -158,6 +160,31 @@ public class DeleteLessonCommandTest {
          */
         @Override
         public void deleteLesson(int index) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public User getUser() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public CardSrsData getCardSrsData(int hashCode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addCardSrsData(CardSrsData card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCardSrsData(CardSrsData card) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteCardSrsData(CardSrsData card) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -71,7 +71,7 @@ public class CsvLessonsStorage implements LessonsStorage {
         try {
             data = CsvUtil.readCsvFile(filePath);
         } catch (IOException e) {
-            logger.warning("Unable to read file at: " + filePath.toString());
+            logger.warning("Unable to read lesson file at: " + filePath.toString());
             return Optional.empty();
         }
         if (data == null) {

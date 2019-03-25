@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Paths;
@@ -58,12 +59,17 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setLessonImportExportFilePath_nullLessonImportExportFilePath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> userPref.setLessonImportExportFilePath(null));
+    public void setUserFilePath_nullUserFilePath_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> userPref.setUserFilePath(null));
     }
 
     @Test
     public void setLessonsFolderPath_nullLessonsFolderPath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> userPref.setLessonsFolderPath(null));
+    }
+
+    @Test
+    public void toStringTest() {
+        assertNotNull(userPref.toString());
     }
 }

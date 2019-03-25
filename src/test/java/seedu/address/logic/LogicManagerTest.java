@@ -22,16 +22,14 @@ import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Lessons;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.modelmanager.quiz.Quiz;
 import seedu.address.model.modelmanager.quiz.QuizCard;
 import seedu.address.model.modelmanager.quiz.QuizModel;
 import seedu.address.model.modelmanager.quiz.QuizModelManager;
-import seedu.address.storage.CsvLessonImportExport;
 import seedu.address.storage.CsvLessonsStorage;
+import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 
@@ -51,9 +49,9 @@ public class LogicManagerTest {
     public void setUp() throws Exception {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(temporaryFolder.newFile().toPath());
-        CsvLessonImportExport lessonImportExport = new CsvLessonImportExport(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(userPrefsStorage, lessonsStorage, lessonImportExport);
-        logic = new LogicManager(managementModel, quizModel);
+        CsvUserStorage userStorage = new CsvUserStorage(temporaryFolder.newFile().toPath());
+        StorageManager storage = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
+        logic = new LogicManager(managementModel, quizModel, storage);
     }
 
     @Test
@@ -202,7 +200,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, ManagementModel)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        ManagementModel expectedManagementModel = new ManagementModelManager(new UserPrefs(), new Lessons());
+        ManagementModel expectedManagementModel = new ManagementModelManager();
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedManagementModel);
     }
 

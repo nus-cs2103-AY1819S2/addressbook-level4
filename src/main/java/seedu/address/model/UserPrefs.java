@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path lessonsFolderPath = Paths.get("data");
-    private Path lessonImportExportFilePath = Paths.get("import", "test-lesson.csv");
+    private Path userFilePath = Paths.get("data", "user", "savedata.csv");
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -35,7 +35,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setLessonsFolderPath(newUserPrefs.getLessonsFolderPath());
-        setLessonImportExportFilePath(newUserPrefs.getLessonImportExportFilePath());
+        setUserFilePath(newUserPrefs.getUserFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -56,13 +56,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.lessonsFolderPath = lessonsFolderPath;
     }
 
-    public Path getLessonImportExportFilePath() {
-        return lessonImportExportFilePath;
+    public Path getUserFilePath() {
+        return userFilePath;
     }
 
-    public void setLessonImportExportFilePath(Path lessonImportExportFilePath) {
-        requireNonNull(lessonImportExportFilePath);
-        this.lessonImportExportFilePath = lessonImportExportFilePath;
+    public void setUserFilePath(Path userFilePath) {
+        requireNonNull(userFilePath);
+        this.userFilePath = userFilePath;
     }
 
 
@@ -82,7 +82,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, lessonsFolderPath, lessonImportExportFilePath);
+        return Objects.hash(guiSettings, lessonsFolderPath, userFilePath);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal data file location : " + lessonsFolderPath);
-        sb.append("\nLocal import/export file location : " + lessonsFolderPath);
+        sb.append("\nLocal user file location : " + userFilePath);
         return sb.toString();
     }
 

@@ -211,6 +211,18 @@ public class MainWindow extends UiPart<Stage> {
         return reservationListPanel;
     }
 
+    public ServiceTypeListPanel getServiceTypeListPanel() {
+        return serviceTypeListPanel;
+    }
+
+    public RoomTypeListPanel getRoomTypeListPanel() {
+        return roomTypeListPanel;
+    }
+
+    public ServiceTypeAndRoomTypePanel getServiceTypeAndRoomTypePanel() {
+        return serviceTypeAndRoomTypePanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *

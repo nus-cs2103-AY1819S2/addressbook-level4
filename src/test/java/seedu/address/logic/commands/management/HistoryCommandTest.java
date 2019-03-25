@@ -8,6 +8,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
 
+/**
+ * Unit tests for the {@link HistoryCommand}.
+ */
 public class HistoryCommandTest {
     private CommandHistory history = new CommandHistory();
     private ManagementModel managementModel = new ManagementModelManager();

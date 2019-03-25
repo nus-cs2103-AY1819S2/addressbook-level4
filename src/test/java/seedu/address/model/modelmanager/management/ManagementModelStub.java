@@ -53,6 +53,16 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     /**
+     * Returns the opened lesson. A lesson is opened by calling {@link #openLesson(int)} and
+     * closed by calling {@link #closeLesson()}. If there is no lesson currently opened,
+     * this returns null.
+     *
+     * @return the opened {@link Lesson}. Null if there is no opened lesson.
+     */
+    @Override
+    public Lesson getOpenedLesson() { throw new AssertionError("This method should not be called."); }
+
+    /**
      * Closes the opened {@link Lesson} object.
      * @return the name of the closed {@link Lesson} object
      */

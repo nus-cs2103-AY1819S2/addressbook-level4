@@ -2,9 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
-import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
 
@@ -19,6 +17,9 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.management.ManagementModelStub;
 import seedu.address.model.modelmanager.quiz.QuizModelStub;
 
+/**
+ * Unit tests for the {@link CloseLessonCommand}.
+ */
 public class CloseLessonCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -43,6 +44,22 @@ public class CloseLessonCommandTest {
     @Test
     public void execute_lessonClosedByModel_closeUnsuccessful() throws Exception {
         MgtModelStub modelStub = new MgtModelStub();
+
+        // attempts to close a lesson when no lesson is opened -> CommandException thrown
+        thrown.expect(CommandException.class);
+        new CloseLessonCommand().execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_lessonClosedByModelTwice_closeUnsuccessful() throws Exception {
+        MgtModelStub modelStub = new MgtModelStub();
+        modelStub.openLesson(1); // always work regardless of index
+        assertEquals(modelStub.getOpenedLesson(), modelStub.toBeOpenedLesson); // always work
+
+        // closes the opened lesson -> lesson closed successfully without exception
+        new CloseLessonCommand().execute(modelStub, commandHistory);
+        // openedLesson is now null
+        assertNull(modelStub.getOpenedLesson());
 
         // attempts to close a lesson when no lesson is opened -> CommandException thrown
         thrown.expect(CommandException.class);

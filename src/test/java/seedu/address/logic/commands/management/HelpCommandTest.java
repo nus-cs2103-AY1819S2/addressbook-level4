@@ -10,6 +10,9 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
 
+/**
+ * Unit tests for the {@link HelpCommand}.
+ */
 public class HelpCommandTest {
     private ManagementModel managementModel = new ManagementModelManager();
     private ManagementModel expectedManagementModel = new ManagementModelManager();

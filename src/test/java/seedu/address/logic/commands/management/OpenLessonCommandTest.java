@@ -22,6 +22,9 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.management.ManagementModelStub;
 import seedu.address.model.modelmanager.quiz.QuizModelStub;
 
+/**
+ * Unit tests for the {@link OpenLessonCommand}.
+ */
 public class OpenLessonCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();

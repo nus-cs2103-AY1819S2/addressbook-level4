@@ -21,6 +21,9 @@ import seedu.address.model.modelmanager.quiz.QuizModelStub;
 import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.TypicalLessons;
 
+/**
+ * Unit tests for the {@link AddLessonCommand}.
+ */
 public class AddLessonCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();

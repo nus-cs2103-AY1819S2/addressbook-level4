@@ -22,6 +22,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 
 /**
@@ -57,11 +58,7 @@ public class TeethPanel extends UiPart<Region> {
         stack.setMaxWidth(Double.MAX_VALUE);
         stack.setMaxHeight(Double.MAX_VALUE);
         String basepath = System.getProperty("user.dir");
-        int[] teethList = new int[32];
-        //int[] teethList = person.getTeeth();
-        for (int i = 0; i < teethList.length; i++) {
-            teethList[i] = ThreadLocalRandom.current().nextInt(-1, 3 + 1);
-        }
+        int[] teethList = ((Patient) person).getTeeth().exportTeeth();
         File imgFile = new File(basepath + "/src/main/resources/images/teeth/BaseLayer2.png");
         try {
             BufferedImage main = ImageIO.read(imgFile);

@@ -146,8 +146,8 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedPersonProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        //teethPanel = new TeethPanel(logic.selectedPersonProperty());
-        //teethPanelPlaceholder.getChildren().add(teethPanel.getRoot());
+        teethPanel = new TeethPanel(logic.selectedPersonProperty());
+        teethPanelPlaceholder.getChildren().add(teethPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);

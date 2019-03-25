@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
 
 /**
@@ -77,6 +78,9 @@ public interface Model {
      */
     void setMedicine(Medicine target, Medicine editedMedicine);
 
+    /** Returns predicates used by the warning panel */
+    WarningPanelPredicateAccessor getWarningPanelPredicateAccessor();
+
     /** Returns an unmodifiable view of the filtered medicine list to be used for the medicine panel */
     ObservableList<Medicine> getFilteredMedicineList();
 
@@ -91,6 +95,18 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredMedicineList(Predicate<Medicine> predicate);
+
+    /**
+     * Updates the filter of the medicine list filtered by expiry date by the give {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredExpiringMedicineList(Predicate<Medicine> predicate);
+
+    /**
+     * Updates the filter of the medicine list filtered by quantity by the give {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredLowStockMedicineList(Predicate<Medicine> predicate);
 
     /**
      * Returns true if the model has previous inventory states to restore.

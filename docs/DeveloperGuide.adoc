@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team BrainTrain`      Since: `Jan 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -181,8 +181,8 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses either the `BrainTrainParser` or `QuizModeParser` class to parse the user command.
-..  If `BrainTrainParser` is used to parse the user command:
+.  `Logic` uses either the `ManagementModeParser` or `QuizModeParser` class to parse the user command.
+..  If `ManagementParser` is used to parse the user command:
 ...  This results in a `Command` object which is executed by the `LogicManager`.
 ...  The command execution can affect the `Model` (e.g. adding a person).
 ..  If `QuizModeParser` is used to parse the user command:
@@ -315,7 +315,33 @@ All remaining data is treated as card data. Any invalid data found in memory or 
 // end::csvstorage[]
 
 
+// tag::session[]
+=== Session feature
+Session feature generates cards for users in quiz session based on their requirement.
 
+==== Current Implementation
+The session feature implements the following functions:
+
+* Combining data from lesson and user together.
+* Generating a list of cards for quiz based on SRS(Space-Repetition technique) method and updating user data after quiz ends.
+
+==== SRS method
+The SRS method allows users to be tested with the most urgent questions. The method gives each card a `srsDueDate` field which contains
+an instant value representing the deadline of testing this card again.
+
+The SRS method updates users profile using link:https://en.wikipedia.org/wiki/Leitner_system[Leitner_system].
+
+==== Design Consideration
+
+===== Aspect: SRS method for updating
+* **Alternative1: Leinter System (current choice)**
+** Pros: Efficient in calculation and easy to understand.
+** Cons: The time interval between levels cannot be long.
+* **Alternative2: Pimsleur's graduated-interval recall**
+** Pros: Short times interval between the first few repetitions.
+** Cons: No level attribute to value the element clearly.
+
+//end::session[]
 
 
 

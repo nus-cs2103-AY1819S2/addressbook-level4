@@ -89,6 +89,9 @@ public class Session {
     public int getCount() {
         return cardCount;
     }
+    public void setCount(int count) {
+        cardCount = count;
+    }
 
     public String getName() {
         return name;
@@ -96,5 +99,12 @@ public class Session {
 
     public List<SrsCard> getSrsCards() {
         return srsCards;
+    }
+    public List<SrsCard> getQuizSrsCards() {
+        List<SrsCard> quizSrsCards = new ArrayList<>();
+        for (int i = 0; i < cardCount; i++) {
+            quizSrsCards.add(srsCards.get(i));
+        }
+        return quizSrsCards;
     }
 }

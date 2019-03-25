@@ -9,13 +9,15 @@ public enum DeadlineStatus {
     READY("READY"),
     COMPLETE("COMPLETE");
 
-    String status;
+    private String status;
 
     DeadlineStatus(String status) {
         this.status = status;
     }
 
-    public String getStatus() { return this.status; }
+    public String getStatus() {
+        return this.status;
+    }
 
     @Override
     public String toString() {

@@ -1,4 +1,4 @@
-= OurTeeth - User Guide
+= TeethHub - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -20,11 +20,14 @@ Last Updated: 2/19/2019 15:35:35
 
 == Introduction
 
-OurTeeth is for dental practitioners who want to manage patient records
-through a desktop or mobile app. The application works primarily through
-a Command Line Interface (CLI) while having elements of a Graphical User
-Interface (GUI) for greater visualization of data. The application
-provides a platform for dentists to keep track of their patients’
+Welcome to TeethHub! 
+If you are a dental practitioner who prefers to use a Command Line Interface (CLI),
+then TeethHub is an application for you!
+The application works primarily through a [CLI](Command Line Interface)
+while having elements of a Graphical User Interface (GUI).
+For example, you can select and view patients and records by clicking on them,
+but you would need to type type the edit command to edit them.
+TeethHub allows you to keep track of their patients’
 personal particulars along with their dental records. Conditions of each
 patients’ teeth (e.g decaying, removed or filled) are also stored for
 ease of reference when providing treatments or follow-ups. As the
@@ -32,14 +35,14 @@ application uses CLI, users who prefer using command line interface will
 be able to comfortably navigate through the many features the offered by
 the application.
 
-Interested in trying OurTeeth out? Check section 2 [Prerequisites] to
-see what programs you need to have installed in order for OurTeeth to
+Interested in trying TeethHub out? Check section 2 [Prerequisites] to
+see what programs you need to have installed in order for TeethHub to
 work properly. Once that’s settled, or you’re confident in your computer
 set-up, jump to section 3 [Quick Start] to begin!
 
 ==  Prerequisites
 
-Before downloading and installing OurTeeth, please check that you have
+Before downloading and installing TeethHub, please check that you have
 the following programs installed:
 
 * Java version *9* or later
@@ -52,7 +55,7 @@ section 3 [Quick Start Guide].
 == Quick Start Guide
 
 
-. Download the latest ourteeth.jar file from our GitHub page
+. Download the latest TeethHub.jar file from our GitHub page
 
 . Copy the file to the folder you want to use as the home folder for the
 application (all data will be stored there)
@@ -292,7 +295,7 @@ the bottom of the current dental records with a copy tag
 ==== Brief Description
 
 
-The OurTeeth application complies with the most popular standard of the
+The TeethHub application complies with the most popular standard of the
 three the Dental Numbering Systems utilised in the dentistry field - The
 Universal Numbering System.
 
@@ -371,7 +374,7 @@ Saves the current records to the specified filepath.
 it will be created. Otherwise, it will overwrite the existing file.
 ** You can only save to .json and .pdf.
 .json files allow you to open or import them.
-.pdf files are easier for humans to read, but you cannot open or import them with OurTeeth.
+.pdf files are easier for humans to read, but you cannot open or import them with TeethHub.
 
 Format: `save FILE_PATH`
 
@@ -415,7 +418,7 @@ Saves the specified patients in the current records to the specified filepath.
 it will be created. Otherwise, it will overwrite the existing file.
 ** You can only export to .json and .pdf.
 .json files allow you to open or import them.
-.pdf files are easier for humans to read, but you cannot open or import them with OurTeeth.
+.pdf files are easier for humans to read, but you cannot open or import them with TeethHub.
 
 Format: `export FILE_PATH INDEX_RANGE`
 

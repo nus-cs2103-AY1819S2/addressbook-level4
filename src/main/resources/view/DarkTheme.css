@@ -361,3 +361,11 @@
     -fx-font-size: 15;
     -fx-padding: 7, 0 ,0 ,0;
 }
+
+#image {
+    -fx-padding: 40, 0 ,0 ,0;
+}
+
+#parameters {
+    -fx-padding: 40, 0 ,0 ,0;
+}

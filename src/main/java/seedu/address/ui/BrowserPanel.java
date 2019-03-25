@@ -36,6 +36,18 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private VBox selected;
 
+    @FXML
+    private Label selectedName;
+
+    @FXML
+    private Label selectedDirectory;
+
+    @FXML
+    private Label selectedSize;
+
+    @FXML
+    private Label selectedDeadline;
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     //@FXML
@@ -48,18 +60,27 @@ public class BrowserPanel extends UiPart<Region> {
         /*getRoot().setOnKeyPressed(Event::consume);*/
         // Load pdf page when selected pdf changes.
         this.updateDefaultPage(duePdfs);
+        this.selected.setVisible(false);
 
         selectedPerson.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
+
                 this.updateDefaultPage(duePdfs);
                 initial.setVisible(true);
                 selected.setVisible(false);
                 //loadDefaultPage();
                 return;
+
+            } else {
+
+                this.updateSelectedPage(newValue);
+                initial.setVisible(false);
+                selected.setVisible(true);
+
             }
 
-            initial.setVisible(false);
-            selected.setVisible(true);
+
+
             //loadPersonPage(newValue);
         });
 
@@ -81,6 +102,25 @@ public class BrowserPanel extends UiPart<Region> {
         }
 
         deadlines.setText(sb.toString());
+    }
+
+    /**
+     * Updates the individual Java Page on select.
+     *
+     * @param pdf - selected pdf
+     */
+    public void updateSelectedPage(Pdf pdf) {
+
+        this.selectedName.setText("Name: " + pdf.getName().getFullName());
+        this.selectedDirectory.setText("Directory: " + pdf.getDirectory().getDirectory());
+        this.selectedSize.setText("Size: " + pdf.getSize().getValue());
+        if (pdf.getDeadline().exists()) {
+            this.selectedDeadline.setText("Deadline: " + pdf.getDeadline().getValue().toString());
+        } else {
+            this.selectedDeadline.setText("Deadline: NONE");
+        }
+
+
     }
 
     /*private void loadPersonPage(Pdf pdf) {

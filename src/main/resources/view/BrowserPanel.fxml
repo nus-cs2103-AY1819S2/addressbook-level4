@@ -4,6 +4,7 @@
 
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1">
   <!--<WebView fx:id="browser"/>-->
   <VBox fx:id="initial">
@@ -14,9 +15,19 @@
 
   </VBox>
   <VBox fx:id="selected">
+    <VBox fx:id="image">
 
+    <ImageView fx:id="thumbnail"/>
 
+    </VBox>
+    <VBox fx:id="parameters">
 
+      <Label styleClass="defaultpage" fx:id="selectedName" text="Name: "/>
+      <Label styleClass="defaultpage" fx:id="selectedDirectory" text="Directory: "/>
+      <Label styleClass="defaultpage" fx:id="selectedSize" text="Size: "/>
+      <Label styleClass="defaultpage" fx:id="selectedDeadline" text="Deadline: "/>
+
+    </VBox>
 
   </VBox>
 </StackPane>

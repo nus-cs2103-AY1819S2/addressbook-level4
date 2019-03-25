@@ -69,7 +69,7 @@ public class TeethPanel extends UiPart<Region> {
                     } else {
                         type = "P";
                     }
-                    String filepath = "/src/main/resources/images/teeth/" + type + "_" + String.valueOf(i + 1) + ".png";
+                    String filepath = "/src/main/resources/images/teeth/" + type + "_" + ( i + 1) + ".png";
                     String path = basepath + filepath;
                     File imgFile2 = new File(path);
                     BufferedImage layer = ImageIO.read(imgFile2);

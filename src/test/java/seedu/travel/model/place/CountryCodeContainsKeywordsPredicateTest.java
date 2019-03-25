@@ -55,7 +55,7 @@ public class CountryCodeContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_ratingDoesNotContainKeywords_returnsFalse() {
+    public void test_countryCodeDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         CountryCodeContainsKeywordsPredicate predicate = new CountryCodeContainsKeywordsPredicate(
                 Collections.emptyList());

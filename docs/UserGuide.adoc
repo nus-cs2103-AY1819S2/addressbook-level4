@@ -204,6 +204,25 @@ Returns a list of places with rating of `5`
 * `searchr 4 5` +
 Returns a list of places with ratings of `4` or `5`
 
+=== Searching places by country: `searchc`
+
+The `searchc` command helps you to search for places whose country matches the specified ISO-3166 3-letter country code. +
+
+Format: `searchc KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search country is from a list of ISO-3166 country codes. e.g `JPN` will return places located in Japan.
+* Only the country is searched.
+****
+
+Examples:
+
+* `searchc CHN` +
+Returns a list of places located in `China`
+* `searchc JPN DEU` +
+Returns a list of places located in either `Japan` or `Germany`
+
+
 === Deleting a place : `delete`
 
 The `delete` command deletes the specified place from TravelBuddy. +

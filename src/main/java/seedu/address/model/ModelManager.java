@@ -323,8 +323,9 @@ public class ModelManager implements Model {
 
     @Override
     public void testCardFolder(int cardFolderToTestIndex) {
-        ObservableList<Card> currentTestedCardFolder = getActiveCardFolder().getCardList();
-        Card cardToTest = currentTestedCardFolder.get(0);
+        currentTestedCardFolder = getActiveCardFolder().getCardList();
+        currentTestedCardIndex = 0;
+        Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
     }
@@ -347,7 +348,7 @@ public class ModelManager implements Model {
         insideTestSession = false;
         cardAlreadyAnswered = false;
         setCurrentTestedCard(null);
-        //TODO: exit card folder
+        currentTestedCardFolder = null;
     }
 
     @Override

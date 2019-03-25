@@ -33,11 +33,6 @@ public class StorageManager implements Storage {
 
     // ================ UserPrefs methods ==============================
 
-
-    public Path getUserPrefsFilePath() {
-        return userPrefsStorage.getUserPrefsFilePath();
-    }
-
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
         return userPrefsStorage.readUserPrefs();
@@ -50,12 +45,6 @@ public class StorageManager implements Storage {
 
 
     // ================ CardFolder methods ==============================
-
-    @Override
-    public Path getcardFolderFilesPath() {
-        // TODO: Remove hardcoding. Note that this method is only used for tests.
-        return cardFolderStorageList.get(0).getcardFolderFilesPath();
-    }
 
     @Override
     public void readCardFolders(List<ReadOnlyCardFolder> readFolders) throws Exception {

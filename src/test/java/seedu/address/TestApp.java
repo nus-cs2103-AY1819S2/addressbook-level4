@@ -120,10 +120,10 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns the file path of the storage file.
+     * Returns the file path of the storage files.
      */
     public Path getStorageSaveLocation() {
-        return storage.getcardFolderFilesPath();
+        return saveFileLocation;
     }
 
     /**

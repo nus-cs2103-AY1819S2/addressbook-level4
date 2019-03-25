@@ -70,7 +70,7 @@ public class MainApp extends Application {
             Stream<Path> stream = Files.walk(cardFolderFilesPath);
             if (stream != null) {
                 stream.filter(Files::isRegularFile)
-                        .forEach(file -> cardFolderStorageList.add(new JsonCardFolderStorage(file)));
+                      .forEach(file -> cardFolderStorageList.add(new JsonCardFolderStorage(file)));
             }
         }
         if (cardFolderStorageList.isEmpty()) {

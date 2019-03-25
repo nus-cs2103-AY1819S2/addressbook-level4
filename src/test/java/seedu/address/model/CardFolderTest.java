@@ -128,6 +128,11 @@ public class CardFolderTest {
         }
 
         @Override
+        public List<Double> getFolderScores() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public String getFolderName() {
             throw new AssertionError("This method should not be called.");
         }

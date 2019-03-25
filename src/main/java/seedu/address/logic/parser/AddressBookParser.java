@@ -130,10 +130,11 @@ public class AddressBookParser {
             return new PrescriptionCommandParser().parse(arguments);
 
         case EndConsultationCommand.COMMAND_WORD:
+        case EndConsultationCommand.COMMAND_ALIAS:
             return new EndConsultationCommand();
 
-        case ListConsultationCommand.ALIAS_WORD:
         case ListConsultationCommand.COMMAND_WORD:
+        case ListConsultationCommand.COMMAND_ALIAS:
             return new ListConsultationCommandParser().parse(arguments);
 
         case AddMedicineCommand.COMMAND_WORD:

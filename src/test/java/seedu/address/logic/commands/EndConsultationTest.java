@@ -46,23 +46,50 @@ public class EndConsultationTest {
     }
 
     @Test
-    public void endConsultation() {
-
+    public void noConsultation() {
         modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
 
         EndConsultationCommand command = new EndConsultationCommand();
 
         Assert.assertThrows(CommandException.class, () -> command.execute(modelManager, history));
+    }
 
+    @Test
+    public void endConsultWithoutPrescription() {
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
+        EndConsultationCommand command = new EndConsultationCommand();
         Assessment assessment = new Assessment("migrane");
 
+        // no prescription
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));
-
         modelManager.diagnosePatient(new Diagnosis(assessment, symptoms));
-
         Assert.assertThrows(CommandException.class, () -> command.execute(modelManager, history));
+    }
 
+    @Test
+    public void endConsultWithoutDiagnosis() {
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
+        EndConsultationCommand command = new EndConsultationCommand();
+
+        ArrayList<Prescription> prescriptions = new ArrayList<>();
+        Medicine med1 = new Medicine("migrane medicine", 1);
+        med1.setPrice(BigDecimal.valueOf(20.00));
+        prescriptions.add(new Prescription(med1, 1));
+        modelManager.prescribeMedicine(prescriptions);
+        Assert.assertThrows(CommandException.class, () -> command.execute(modelManager, history));
+    }
+
+    @Test
+    public void endConsultation() {
+
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
+        EndConsultationCommand command = new EndConsultationCommand();
+
+        Assessment assessment = new Assessment("migrane");
+        ArrayList<Symptom> symptoms = new ArrayList<>();
+        symptoms.add(new Symptom("constant headache"));
+        modelManager.diagnosePatient(new Diagnosis(assessment, symptoms));
         ArrayList<Prescription> prescriptions = new ArrayList<>();
         Medicine med1 = new Medicine("migrane medicine", 1);
         med1.setPrice(BigDecimal.valueOf(20.00));

@@ -720,6 +720,21 @@ Example:
 * `taskfind pri/low` +
   `taskdelete 2`
 
+==== tasklist
+Shows a list of all the task stored in the application.
+
+Format: `tasklist`
+
+==== taskfind
+Searches for and displays a list of tasks according to a specified parameter
+
+Format: `taskfind PARAMETER`
+
+Examples:
+
+* `taskfind pri/HIGH`
+* `taskfind ti/Extraction`
+
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,
 you will be able to synchronise your data with a cloud account.

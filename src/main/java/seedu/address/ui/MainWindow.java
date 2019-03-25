@@ -199,6 +199,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private void handleExitFolder() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+        folderListPanel.refreshContent();
     }
 
 

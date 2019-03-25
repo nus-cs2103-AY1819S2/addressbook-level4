@@ -33,6 +33,10 @@ public class FolderListPanel extends UiPart<Region> {
         folderListView.setCellFactory(listView -> new FolderListViewCell());
     }
 
+    public void refreshContent() {
+        folderListView.setCellFactory(listView -> new FolderListViewCell());
+    }
+
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code CardFolder} using a {@code CardFolderThumbnail}.
      */

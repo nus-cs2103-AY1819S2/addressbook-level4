@@ -71,33 +71,35 @@ Format: `add PARAMETERS [t/TAG] …`
 
 Parameters:
 
-[cols=",,,",options=""]
+[cols=",",options=""]
 |===
-|n/NAME |Example: n/Keith Choo Shen Hao
+|Tag |Example
 
-|s/SEX |Example: s/Male
+|n/NAME |n/Keith Choo Shen Hao
 
-|p/PHONE_NUMBER |Example: p/98765432
+|s/SEX |s/Male
 
-|e/EMAIL |Example: e/KeithCSH@debang.com
+|p/PHONE_NUMBER |p/98765432
 
-|a/ADDRESS |Example: a/1 Pulau Tekong Besar 508449
+|e/EMAIL |e/KeithCSH@debang.com
 
-|ic/NRIC |Example: ic/S1234567Z
+|a/ADDRESS |a/1 Pulau Tekong Besar 508449
 
-|age/AGE |Example: age/25
+|ic/NRIC |ic/S1234567Z
 
-|dob/DATE_OF_BIRTH_DDMMYYYY |Example: dob/28061994
+|age/AGE |age/25
 
-|da/DRUG_ALLERGY |Example: da/Insulin
+|dob/DATE_OF_BIRTH_DDMMYYYY |dob/28061994
 
-|nokn/NEXT_OF_KIN_NAME |Example: nokn/Choo Debang
+|da/DRUG_ALLERGY |da/Insulin
 
-|nokp/NEXT_OF_KIN_PHONE_NUMBER |Example: nokp/97654321
+|nokn/NEXT_OF_KIN_NAME |nokn/Choo Debang
 
-|nokr/NEXT_OF_KIN_RELATION |Example: nokr/Brother
+|nokp/NEXT_OF_KIN_PHONE_NUMBER |nokp/97654321
 
-|noka/NEXT_OF_KIN_ADDRESS |Example: noka/21 Lower Kent Ridge Rd 119077
+|nokr/NEXT_OF_KIN_RELATION |nokr/Brother
+
+|noka/NEXT_OF_KIN_ADDRESS |noka/21 Lower Kent Ridge Rd 119077
 |===
 
 
@@ -134,9 +136,8 @@ Examples:
 * `delete 1`
 Deletes the person shown with index 1 from the displayed list.
 
-* `view John
-
-delete 2`
+* `view John` +
+`delete 2`
 Deletes the person shown with index 2 found using the view command.
 
 

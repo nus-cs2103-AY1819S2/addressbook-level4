@@ -91,7 +91,7 @@ public class RequestListPanelHandle extends NodeHandle<ListView<Request>> {
     }
 
     /**
-     * Selects the {@code PersonCard} at {@code index} in the list.
+     * Selects the {@code RequestCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);

@@ -27,7 +27,7 @@ public class RequestListPanelTest extends GuiUnitTest {
     private static final ObservableList<Request> TYPICAL_REQUESTS =
             FXCollections.observableList(getTypicalRequests());
 
-    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 3500;
 
     private final SimpleObjectProperty<Request> selectedRequest = new SimpleObjectProperty<>();
     private RequestListPanelHandle requestListPanelHandle;

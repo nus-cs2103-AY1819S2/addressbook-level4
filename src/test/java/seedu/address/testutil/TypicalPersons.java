@@ -46,7 +46,7 @@ public class TypicalPersons {
             .withPhone("98765432")
             .withEmail("johnd@example.com")
             .withAddress("311, Clementi Ave 2, #02-25")
-            .withGender("Female")
+            .withGender("male")
             .withYearOfStudy("year 1")
             .withMajor("computing")
             .withTags("swimming", "running").build();
@@ -83,7 +83,7 @@ public class TypicalPersons {
 
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
             .withMatricNumber("A0777777R")
-            .withPhone("9482427")
+            .withPhone("94812427")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo")
             .withGender("female")
@@ -93,7 +93,7 @@ public class TypicalPersons {
 
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
             .withMatricNumber("A0888888R")
-            .withPhone("9482442")
+            .withPhone("94182442")
             .withEmail("anna@example.com")
             .withAddress("4th street")
             .withGender("Male")

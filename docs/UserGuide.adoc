@@ -20,71 +20,46 @@ Last Updated: 2/19/2019 15:35:35
 
 == Introduction
 
-Welcome to TeethHub! 
+Welcome to TeethHub!
 If you are a dental practitioner who prefers to use a Command Line Interface (CLI),
 then TeethHub is an application for you!
-The application works primarily through a CLI
-while having elements of a Graphical User Interface (GUI).
-For example, you can select and view patients and records by clicking on them,
-but you would need to type type the edit command to edit them.
-TeethHub allows you to keep track of your patients’
-personal particulars along with their dental records.
-An image of each patients’ teeth will also be displayed according to what
-you input for each tooth's status(Absent, Problem, Healthy).
-In addition to that, TeethHub also allows you to keep track of your upcoming tasks,
-just like a calendar.
 
-Interested in trying TeethHub out? Check out section 2 <<prerequisites>> to
-see what programs you need in order for TeethHub to
-work properly. Once that’s settled, or you’re confident in your computer
-set-up, jump to section 3 [Quick Start Guide] to begin!
+TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
+For example, you can select and view patients and records by clicking on them, but you would need to type type the edit command to edit them.
+TeethHub allows you to keep track of your patients’ personal particulars along with their dental records.
+An image of each patients’ teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
+In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
+
+Interested in trying TeethHub out? Check out <<prerequisites>> to see what programs you need in order for TeethHub to work properly. 
+If you’re confident in your computer set-up, jump to <<quick-start-guide>> to begin!
 
 ==  Prerequisites
 
-Before downloading and installing TeethHub, please check that you have
-the following programs installed:
+Before downloading and installing TeethHub, you will need the following programs installed:
 
 * Java Runtime Environment version *9* or later.
 
-Once you have it installed, you can now proceed to the
-section 3 [Quick Start Guide]!
+Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
 == Quick Start Guide
 
-
 . Download the latest TeethHub.jar file from our GitHub page
 
-. Copy the file to the folder you want to use as the home folder for the
-application (all data will be stored there)
+. Copy the file to the folder you want to use as the home folder for TeethHub (all data will be stored there)
 
-. Double-click the file to launch the application.The application’s GUI
-should start in a few seconds and begin the initialization set-up. (for
-users who have already finished the set-up phase, please go to step 6)
+. Double-click the file to launch TeethHub. 
+It should start in a few seconds and begin the initialization set-up. 
 
-. The application will prompt the user to input details of the
-clinic/hospital/place of practice such as the name and address of the
-location. (e.g ABC Hospital, 11 Baker Street, Singapore 308433)
-
-. User will then have to create a user account to begin using the
-application.
-
-. Simply login to your account and begin using the application
+. You can now start adding patients and tasks!
 
 
-For the full list of available commands and their associated details,
-please look at section 4 [Commands]
+If you need the full list of available commands and their associated details, please proceed to <<quick-start-guide>>!
 
 == Commands and Features
 
-=== Login
-
-Logs into a specific user’s account to access records
-
-Format: `login USERNAME PASSWORD`
-
 === Help
 
-Displays the help text for the usage of all available commands.
+Displays the help text for all available commands.
 
 Format: `help`
 
@@ -98,20 +73,26 @@ Parameters:
 
 [cols=",,,",options=""]
 |===
-|n/NAME |s/SEX |p/PHONE_NUMBER |e/EMAIL
-|a/ADDRESS |ic/NRIC |age/AGE |dob/DATE_OF_BIRTH_DDMMYYYY
-
-|da/DRUG_ALLERGY |nokn/NEXT_OF_KIN_NAME |nokp/NEXT_OF_KIN_PHONE_NUMBER
-|nokr/NEXT_OF_KIN_RELATION
-
-|noka/NEXT_OF_KIN_ADDRESS | | |
+|n/NAME |Example: Keith Choo Shen Hao
+|s/SEX |Example: Male
+|p/PHONE_NUMBER |Example: 98765432
+|e/EMAIL |Example: KeithCSH@debang.com
+|a/ADDRESS |Example: 1 Pulau Tekong Besar 508449
+|ic/NRIC |Example: S1234567Z
+|age/AGE |Example: 25
+|dob/DATE_OF_BIRTH_DDMMYYYY |Example: 28061994
+|da/DRUG_ALLERGY |Example: Insulin
+|nokn/NEXT_OF_KIN_NAME |Example: Choo Debang
+|nokp/NEXT_OF_KIN_PHONE_NUMBER |Example: 97654321
+|nokr/NEXT_OF_KIN_RELATION |Example: Brother
+|noka/NEXT_OF_KIN_ADDRESS |Example: 21 Lower Kent Ridge Rd 119077
 |===
 
 
 A person can have any number of tags.
 
 Note: If a person’s next of kin lives at the same address, use `same` to
-indicate
+indicate that.
 
 Examples:
 
@@ -124,27 +105,27 @@ nokr/Father noka/same`
 === Deleting a person: delete
 
 
-Deletes the specified person from the personnel data records.
+Deletes the specified person from the patients list.
 
 Format: delete INDEX
 
 
-* Deletes the person at the specified index
+* Deletes the person at the specified index.
 
 * The index refers to the index number shown in the displayed person list.
 
-* The given index must be a positive integer (e.g 1, 2 or 3…)
+* The given index must be a positive integer (e.g 1, 2 or 3…).
 
 
 Examples:
 
-* `list +
-delete 1` +
-Deletes the 1st person from the displayed list
+* `delete 1`
+Deletes the person shown with index 1 from the displayed list.
 
+[%hardbreaks]
 * `view John +
-delete 1` +
-Deletes the 2nd person found using the view command
+delete 2`
+Deletes the person shown with index 2 found using the view command.
 
 
 === Editing a person’s data: edit
@@ -192,8 +173,7 @@ Edits the phone number and email of the first person listed to become
 
 === Copying a person’s data: copy
 
-Makes an exact copy of a person’s data and adds it to the personnel data
-records. This is implemented in the case that multiple people share
+Makes an exact copy of a patient and adds them to the records. You may need this if multiple people share
 similar details.
 
 Format: `copy INDEX [Count]`

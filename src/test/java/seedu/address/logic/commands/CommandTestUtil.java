@@ -189,6 +189,36 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showPersonAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+
+        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        final String[] splitName = person.getName().toString().split("\\s+");
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the HealthWorker at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showHealthWorkerAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredHealthWorkerList().size());
+
+        HealthWorker healthWorker = model.getFilteredHealthWorkerList().get(targetIndex.getZeroBased());
+        final String[] splitName = healthWorker.getName().toString().split("\\s+");
+        model.updateFilteredHealthWorkerList(p -> Arrays.asList(splitName[0]).stream().anyMatch(
+            keyword -> StringUtil.containsWordIgnoreCase(p.getName().toString(), keyword)
+        ));
+
+        assertEquals(1, model.getFilteredHealthWorkerList().size());
+    }
+
+    /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {

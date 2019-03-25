@@ -18,6 +18,12 @@ public class HealthWorker extends Person {
     private Organization organization;
     private Skills skills;
 
+    public HealthWorker(HealthWorker toCopy) {
+        super(toCopy.getName(), toCopy.getNric(), toCopy.getPhone());
+        this.organization = toCopy.getOrganization();
+        this.skills = toCopy.getSkills();
+    }
+  
     public HealthWorker(Name name, Nric nric, Phone phone, Organization organization, Skills skills) {
         super(name, nric, phone);
         this.organization = organization;

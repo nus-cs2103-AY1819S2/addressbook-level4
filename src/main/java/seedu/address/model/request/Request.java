@@ -9,6 +9,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.tag.Condition;
 
 /**
@@ -38,6 +39,21 @@ public class Request {
         this.name = name;
         this.nric = nric;
         this.address = address;
+    }
+
+    /**
+     * Constructor that takes in a {@code Request} object and copies over it's values.
+     */
+    public Request(Request toCopy) {
+        requireNonNull(toCopy);
+        this.phone = toCopy.getPhone();
+        this.conditions = toCopy.getConditions();
+        this.requestStatus = toCopy.getRequestStatus();
+        this.requestDate = toCopy.getRequestDate();
+        this.name = toCopy.getName();
+        this.nric = toCopy.getNric();
+        this.address = toCopy.getAddress();
+        this.healthWorker = toCopy.getHealthStaff();
     }
 
     /**
@@ -173,8 +189,17 @@ public class Request {
         this.healthWorker = healthStaff;
     }
 
+    public void setHealthWorker(HealthWorker healthWorker) {
+        requireNonNull(healthWorker);
+        this.healthWorker = healthWorker.getName().toString();
+    }
+
     public boolean isOngoingStatus() {
         return this.requestStatus.isOngoingStatus();
+    }
+
+    public boolean isCompleted() {
+        return this.requestStatus.isCompletedStatus();
     }
 
     public Phone getPhone() {

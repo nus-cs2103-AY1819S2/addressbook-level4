@@ -43,8 +43,8 @@
           </padding>
         </StackPane>
 
-          <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" minHeight="100" prefHeight="100"
-                     maxHeight="100">
+          <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" minHeight="135" prefHeight="135"
+                     maxHeight="135">
           <padding>
             <Insets top="5" right="10" bottom="5" left="10"/>
           </padding>

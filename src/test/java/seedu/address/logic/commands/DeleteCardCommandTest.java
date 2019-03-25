@@ -18,6 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TopDeck;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Card;
 
@@ -132,7 +133,7 @@ public class DeleteCardCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
         DeleteCardCommand deleteCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
-        Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
+        Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
 
         showCardAtIndex(model, INDEX_SECOND_CARD);
         Card cardToDelete = (Card)model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());

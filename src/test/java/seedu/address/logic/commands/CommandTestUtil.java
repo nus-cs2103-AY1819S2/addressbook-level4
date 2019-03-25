@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -185,11 +186,11 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first card in {@code model}'s filtered list from {@code model}'s deck.
+     * Deletes the first deck in {@code model}'s filtered list from {@code model}'s deck.
      */
-    public static void deleteFirstCard(Model model) {
-        Card firstCard = (Card) model.getFilteredList().get(0);
-        model.deleteCard(firstCard);
+    public static void deleteFirstDeck(Model model) {
+        Deck firstDeck = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        model.deleteDeck(firstDeck);
         model.commitTopDeck();
     }
 

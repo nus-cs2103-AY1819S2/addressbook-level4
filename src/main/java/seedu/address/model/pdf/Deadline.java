@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * Represents a Pdf's deadline in the pdf book.
  * Guarantees: immutable;
  */
-public class Deadline {
+public class Deadline implements Comparable<Deadline> {
     public static final String MESSAGE_CONSTRAINTS = "Deadline can take any valid date, "
             + "and it should not be blank";
     private static final String PROPERTY_SEPARATOR_PREFIX = "/";
@@ -160,6 +160,12 @@ public class Deadline {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Deadline); // instanceof handles nulls;
+                || (other instanceof Deadline // instanceof handles nulls;
+                && date.equals(((Deadline) other).date));
+    }
+
+    @Override
+    public int compareTo(Deadline other) {
+        return this.date.compareTo(other.date);
     }
 }

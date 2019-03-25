@@ -150,8 +150,7 @@ public class ManagementCommandsIntegrationTest {
 
         // opens a lesson which exists in model -> lesson opened successfully
         Index toOpenIndex = Index.fromZeroBased(0);
-        commandResult =
-                new OpenLessonCommand(toOpenIndex).execute(model, commandHistory);
+        new OpenLessonCommand(toOpenIndex).execute(model, commandHistory);
 
         // delete a lesson which exists in model -> lesson deleted successfully
         Index toDeleteIndex = Index.fromZeroBased(0);

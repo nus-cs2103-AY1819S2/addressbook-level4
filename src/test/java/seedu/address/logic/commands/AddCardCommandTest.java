@@ -223,6 +223,16 @@ public class AddCardCommandTest {
         }
 
         @Override
+        public void updateDeck(Deck target, Deck editedDeck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDeck(Deck target, Deck editedDeck) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public Command parse(String commandWord, String arguments) throws ParseException {
             throw new AssertionError("This method should not be called.");
         }

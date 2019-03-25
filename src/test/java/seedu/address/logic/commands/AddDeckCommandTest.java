@@ -222,6 +222,16 @@ public class AddDeckCommandTest {
         }
 
         @Override
+        public void updateDeck(Deck target, Deck editedDeck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDeck(Deck target, Deck editedDeck) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public Command parse(String commandWord, String arguments) throws ParseException {
             throw new AssertionError("This method should not be called.");
         }
@@ -278,7 +288,7 @@ public class AddDeckCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the deck being added.
      */
     private class ModelStubAcceptingDeckAdded extends ModelStub {
         final ArrayList<Deck> decksAdded = new ArrayList<>();

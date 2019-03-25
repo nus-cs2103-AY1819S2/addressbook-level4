@@ -47,8 +47,6 @@ public class TestCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
         }
 
-        model.setActiveCardFolderIndex(targetIndex.getZeroBased());
-        model.sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
         model.testCardFolder(targetIndex.getZeroBased());
         Card cardToTest = model.getCurrentTestedCard();
         return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, false, cardToTest, false,

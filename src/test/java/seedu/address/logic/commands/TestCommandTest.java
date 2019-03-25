@@ -28,8 +28,6 @@ public class TestCommandTest {
     @Test
     public void execute_validTestCommand_success() {
         TestCommand testCommand = new TestCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
-        expectedModel.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        expectedModel.sortFilteredCard(Model.COMPARATOR_ASC_SCORE_CARDS);
         expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         Card cardToTest = expectedModel.getCurrentTestedCard();
 
@@ -41,8 +39,6 @@ public class TestCommandTest {
     @Test
     public void execute_invalidTestCommandInsideTestSession_fail() {
         TestCommand testCommand = new TestCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
-        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        model.sortFilteredCard(Model.COMPARATOR_ASC_SCORE_CARDS);
         model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
         assertCommandFailure(testCommand, model, commandHistory, expectedMessage);

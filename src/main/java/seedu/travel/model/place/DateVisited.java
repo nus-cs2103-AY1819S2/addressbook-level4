@@ -6,6 +6,7 @@ import static seedu.travel.commons.util.AppUtil.checkArgument;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -14,9 +15,14 @@ import java.util.Date;
  */
 public class DateVisited {
 
+    public static final String MESSAGE_CONSTRAINTS_SEARCH =
+            "Years should only contain a year from 1900 to the current year";
     public static final String MESSAGE_INCORRECT_FORMAT = "Date visited must follow the DD/MM/YYYY format";
-    public static final String MESSAGE_FUTURE_DATE_ADDED = "Date visited must a present or past date";
+    public static final String MESSAGE_FUTURE_DATE_ADDED = "Date visited must be a present or past date after 1900";
+    public static final Integer YEAR_MINIMUM = 1900;
+    public static final Integer YEAR_INDEX = 6;
     public final String date;
+    public final String year;
 
     /**
     * Constructs a {@code DateVisited}.
@@ -28,6 +34,7 @@ public class DateVisited {
         checkArgument(isCorrectDateFormat(strDateVisited), MESSAGE_INCORRECT_FORMAT);
         checkArgument(isValidDateVisited(strDateVisited), MESSAGE_FUTURE_DATE_ADDED);
         date = strDateVisited;
+        year = date.substring(YEAR_INDEX);
     }
 
     /**
@@ -56,8 +63,7 @@ public class DateVisited {
     }
 
     /**
-     * Returns true if a given string is a present or past date.
-     * Assume that the person is born after the date 01/01/1900.
+     * Returns true if a given string is a present or past date after 1900.
      */
     public static boolean isValidDateVisited(String strDate) {
         if (!(strDate instanceof String)) {
@@ -74,10 +80,6 @@ public class DateVisited {
             return false;
         }
 
-        if (dateVisit.after(todayDate)) {
-            return false;
-        }
-
         String noPersonBornBeforeThisDate = "01/01/1900";
         Date birthDate;
         try {
@@ -87,7 +89,38 @@ public class DateVisited {
             return false;
         }
 
+        if (dateVisit.after(todayDate) || dateVisit.before(birthDate)) {
+            return false;
+        }
+
         if (todayDate.before(birthDate)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns true if a given string is a year that is after 1900 and before current year
+     */
+    public static boolean isValidYear(String strDate) {
+        if (!(strDate instanceof String)) {
+            throw new java.lang.NullPointerException();
+        }
+
+        LocalDateTime currentTime = LocalDateTime.now();
+        int maxYear = currentTime.getYear();
+        Integer queryYear;
+
+        // checks if input string is an integer
+        try {
+            queryYear = Integer.parseInt(strDate);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+
+        // checks if input year is within the range of 1900-current year
+        if (queryYear < YEAR_MINIMUM || queryYear > maxYear) {
             return false;
         }
 

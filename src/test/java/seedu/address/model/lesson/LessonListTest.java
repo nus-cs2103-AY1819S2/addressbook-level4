@@ -3,6 +3,7 @@ package seedu.address.model.lesson;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -148,6 +149,21 @@ public class LessonListTest {
 
         // get openedLesson which has been set to null by closeLesson -> return null
         assertEquals(lessonList.getOpenedLesson(), null);
+    }
+
+    @Test
+    public void openAndDeleteLesson_returnNull() {
+        addTestLesson();
+        assertEquals(1, lessonList.getLessons().size());
+        assertEquals(getTestLesson(), lessonList.getLesson(0));
+
+        // open valid lesson at valid index -> openedLesson = Lesson at index 0
+        lessonList.openLesson(0);
+        assertNotNull(lessonList.getOpenedLesson());
+
+        // delete lesson at valid index -> openedLesson = null
+        lessonList.deleteLesson(0);
+        assertNull(lessonList.getOpenedLesson());
     }
 
     @Test

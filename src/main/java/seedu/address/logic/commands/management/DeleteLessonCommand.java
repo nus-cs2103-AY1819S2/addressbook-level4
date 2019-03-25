@@ -26,8 +26,8 @@ public class DeleteLessonCommand extends ManagementCommand {
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the lesson identified by its index number in the numbered list"
-            + " shown when the command \'listLessons\' is entered.\n"
+            + ": Deletes the lesson at INDEX number.\n"
+            + "To find out the INDEX number, enter \'listLessons\'\n"
             + "Parameter: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
     /**

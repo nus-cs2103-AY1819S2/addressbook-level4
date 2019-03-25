@@ -25,6 +25,12 @@ public class LessonList {
     private Lesson openedLesson = null; // The lesson currently being edited
 
     /**
+     * The index of the  {@link #openedLesson} object. Used when {@link #deleteLesson(int)} is
+     * called to determine if {@link #openedLesson} should be set to null.
+     */
+    private int openedLessonIndex = -1;
+
+    /**
      * Creates a new {@link LessonList} which is used to store a list of {@link Lesson} objects.
      */
     public LessonList() {
@@ -71,6 +77,10 @@ public class LessonList {
      */
     public void deleteLesson(int index) {
         try {
+            if (openedLessonIndex == index) {
+                closeLesson();
+            }
+
             lessons.remove(index);
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
@@ -108,6 +118,7 @@ public class LessonList {
     public String openLesson(int index) {
         try {
             openedLesson = lessons.get(index);
+            openedLessonIndex = index;
             return openedLesson.getName();
         } catch (IndexOutOfBoundsException e) {
             throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
@@ -120,6 +131,7 @@ public class LessonList {
     public String closeLesson() {
         requireNonNull(openedLesson);
         String lessonName = openedLesson.getName();
+        setLesson(openedLessonIndex, openedLesson); // Save
         openedLesson = null;
         return lessonName;
     }

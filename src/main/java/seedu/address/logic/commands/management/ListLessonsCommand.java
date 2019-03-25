@@ -33,11 +33,6 @@ public class ListLessonsCommand extends ManagementCommand {
      * Feedback message displayed to the user upon successful execution of this command
      */
     public static final String MESSAGE_SUCCESS = "Listed %1$s lesson(s):\n";
-    /**
-     * Used to separate {@link #MESSAGE_SUCCESS} and list of lessons when forming the
-     * result message in {@link #buildList(List)}.
-     */
-    public static final String MESSAGE_DELIMITER = ":\n";
 
     /**
      * Executes the command and returns the result message.

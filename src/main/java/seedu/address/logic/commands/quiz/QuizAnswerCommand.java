@@ -21,7 +21,7 @@ public class QuizAnswerCommand implements Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": * any character except word that starts with \\\n";
     public static final String MESSAGE_CORRECT = "Your answer is correct.\n";
     public static final String MESSAGE_WRONG_ONCE = "Your answer %1$s is wrong, "
-        + "you have one more chance to answer it\n";
+        + "you have one more chance to answer it.\n";
     public static final String MESSAGE_WRONG = "Your answer is %1$s but the correct answer is %2$s.\n";
     public static final String MESSAGE_COMPLETE = "You have completed all the questions in this quiz.\n";
 

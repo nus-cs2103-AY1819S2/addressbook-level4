@@ -15,8 +15,8 @@ import seedu.address.model.quiz.QuizCard;
  */
 public class QuizDifficultCommand implements Command {
     public static final String COMMAND_WORD = "\\difficult";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Label this current question as difficult\n";
-    public static final String MESSAGE_SUCCESS = "Current question is labelled as %1$s.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Label this current question as difficult.\n";
+    public static final String MESSAGE_SUCCESS = "This question is labelled as %1$s.";
     /**
      * Executes the command and returns the result message.
      *

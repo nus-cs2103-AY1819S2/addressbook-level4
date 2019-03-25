@@ -45,7 +45,6 @@ public class QuizStartCommand implements Command {
             + PREFIX_START_COUNT + "15 "
             + PREFIX_START_MODE + "LEARN";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
-    public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
     protected List<QuizCard> quizCards;
     private Session session;
     public QuizStartCommand(Session session) {

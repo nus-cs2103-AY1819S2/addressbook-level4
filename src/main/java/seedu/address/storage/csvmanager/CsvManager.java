@@ -1,8 +1,6 @@
 package seedu.address.storage.csvmanager;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 import seedu.address.model.ReadOnlyCardFolder;
@@ -17,12 +15,43 @@ public class CsvManager implements CsvCommands {
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Hints";
+    private BufferedReader bufferedReader;
 
 
     @Override
     public void readFoldersToCsv(CsvFile csvFile) throws IOException {
+        String filePath = getDefaultFilePath() + "/" + csvFile.filename;
+        try {
+            bufferedReader = new BufferedReader(new FileReader(filePath));
+            String line;
+            String header = bufferedReader.readLine();
 
+            while ((line = bufferedReader.readLine()) != null) {
 
+                // use comma as separator
+                String[] card = line.split(COMMA_DELIMITTER);
+
+                System.out.println("card : " + card[0] + " " + card[1]);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (bufferedReader != null) {
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private boolean checkCorrectHeaders(String header) {
+        String[] cardHeaders = CARD_HEADERS.split(",");
+        String[] fileHeaders = header.split(",")
     }
 
     @Override

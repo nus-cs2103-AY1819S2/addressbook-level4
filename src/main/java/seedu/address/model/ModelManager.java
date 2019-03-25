@@ -53,6 +53,8 @@ public class ModelManager implements Model {
 
     // Test Session related
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
+    private ObservableList<Card> currentTestedCardFolder;
+    private int currentTestedCardIndex;
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;
 

@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting folder folder as requested ...";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting card folder as requested ...";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

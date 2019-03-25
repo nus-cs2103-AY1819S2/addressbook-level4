@@ -181,7 +181,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Ends test session and display back folder main screen.
+     * Ends test session and display back card main screen.
      */
     private void handleEndTestSession() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);

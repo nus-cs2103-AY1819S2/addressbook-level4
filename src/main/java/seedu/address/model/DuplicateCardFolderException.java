@@ -6,6 +6,6 @@ package seedu.address.model;
  */
 public class DuplicateCardFolderException extends RuntimeException {
     public DuplicateCardFolderException() {
-        super("Operation would result in duplicate folder folders");
+        super("Operation would result in duplicate card folders");
     }
 }

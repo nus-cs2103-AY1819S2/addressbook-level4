@@ -32,7 +32,7 @@ import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.storage.csvmanager.CsvManager;
 
 /**
- * Represents the in-memory model of the folder folder data.
+ * Represents the in-memory model of the card folder data.
  */
 public class ModelManager implements Model {
 
@@ -64,7 +64,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(cardFolders, userPrefs);
 
-        logger.fine("Initializing with folder folder: " + cardFolders + " and user prefs " + userPrefs);
+        logger.fine("Initializing with card folder: " + cardFolders + " and user prefs " + userPrefs);
 
         List<VersionedCardFolder> versionedCardFolders = new ArrayList<>();
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
@@ -82,7 +82,7 @@ public class ModelManager implements Model {
         }
 
 
-        // ModelManager initialises to first folder folder
+        // ModelManager initialises to first card folder
         activeCardFolderIndex = 0;
         inFolder = true;
     }
@@ -249,7 +249,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Notifies listeners that the list of folder folders has been modified.
+     * Notifies listeners that the list of card folders has been modified.
      */
     private void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -343,7 +343,7 @@ public class ModelManager implements Model {
         insideTestSession = false;
         cardAlreadyAnswered = false;
         setCurrentTestedCard(null);
-        //TODO: exit folder folder
+        //TODO: exit card folder
     }
 
     @Override
@@ -374,7 +374,7 @@ public class ModelManager implements Model {
         return insideTestSession;
     }
 
-    //=========== Selected folder ===========================================================================
+    //=========== Selected card ===========================================================================
 
     @Override
     public ReadOnlyProperty<Card> selectedCardProperty() {
@@ -395,12 +395,12 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedCard} is a valid folder in {@code filteredCardsList}.
+     * Ensures {@code selectedCard} is a valid card in {@code filteredCardsList}.
      */
     private void ensureSelectedCardIsValid(ListChangeListener.Change<? extends Card> change) {
         while (change.next()) {
             if (selectedCard.getValue() == null) {
-                // null is always a valid selected folder, so we do not need to check that it is valid anymore.
+                // null is always a valid selected card, so we do not need to check that it is valid anymore.
                 return;
             }
 
@@ -416,8 +416,8 @@ public class ModelManager implements Model {
             boolean wasSelectedCardRemoved = change.getRemoved().stream()
                     .anyMatch(removedCard -> selectedCard.getValue().equals(removedCard));
             if (wasSelectedCardRemoved) {
-                // Select the folder that came before it in the list,
-                // or clear the selection if there is no such folder.
+                // Select the card that came before it in the list,
+                // or clear the selection if there is no such card.
                 selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
@@ -444,7 +444,7 @@ public class ModelManager implements Model {
     }
 
 
-    //=========== Export / Import folder folders ========================================================================
+    //=========== Export / Import card folders ========================================================================
     @Override
     public void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException {
         List<ReadOnlyCardFolder> cardFolderObject = returnValidCardFolders(cardFolderExports);
@@ -467,8 +467,8 @@ public class ModelManager implements Model {
 
 
     /**
-     * Private method to check if name of folder folder to export matches name of ReadOnlyCardFolder in model.
-     * Throws folder Folder not found exception if folder folder cannot be found.
+     * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
+     * Throws card Folder not found exception if card folder cannot be found.
      */
     private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
         String exportFolderName = cardFolderExport.folderName;

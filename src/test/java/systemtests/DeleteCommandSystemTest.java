@@ -30,42 +30,42 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
     public void delete() {
         /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
 
-        /* Case: delete the first folder in the list, command with leading spaces and trailing spaces -> deleted */
+        /* Case: delete the first card in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_CARD.getOneBased() + "       ";
         Card deletedCard = removeCard(expectedModel, INDEX_FIRST_CARD);
         String expectedResultMessage = String.format(MESSAGE_DELETE_CARD_SUCCESS, deletedCard);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
-        /* Case: delete the last folder in the list -> deleted */
+        /* Case: delete the last card in the list -> deleted */
         Model modelBeforeDeletingLast = getModel();
         Index lastCardIndex = getLastIndex(modelBeforeDeletingLast);
         assertCommandSuccess(lastCardIndex);
 
-        /* Case: undo deleting the last folder in the list -> last folder restored */
+        /* Case: undo deleting the last card in the list -> last card restored */
         command = UndoCommand.COMMAND_WORD;
         expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: redo deleting the last folder in the list -> last folder deleted again */
+        /* Case: redo deleting the last card in the list -> last card deleted again */
         command = RedoCommand.COMMAND_WORD;
         removeCard(modelBeforeDeletingLast, lastCardIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
-        /* Case: delete the middle folder in the list -> deleted */
+        /* Case: delete the middle card in the list -> deleted */
         Index middleCardIndex = getMidIndex(getModel());
         assertCommandSuccess(middleCardIndex);
 
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
-        /* Case: filtered folder list, delete index within bounds of folder folder and folder list -> deleted */
+        /* Case: filtered card list, delete index within bounds of card folder and card list -> deleted */
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredCards().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered folder list, delete index within bounds of folder folder but out of bounds of folder list
+        /* Case: filtered card list, delete index within bounds of card folder but out of bounds of card list
          * -> rejected
          */
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
@@ -73,9 +73,9 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
-        /* --------------------- Performing delete operation while a folder folder is selected ------------------------ */
+        /* --------------------- Performing delete operation while a card card is selected ------------------------ */
 
-        /* Case: delete the selected folder -> folder list panel selects the folder before the deleted folder */
+        /* Case: delete the selected card -> card list panel selects the card before the deleted card */
         showAllCards();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -113,8 +113,8 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
     }
 
     /**
-     * Removes the {@code Card} at the specified {@code index} in {@code model}'s folder folder.
-     * @return the removed folder
+     * Removes the {@code Card} at the specified {@code index} in {@code model}'s card folder.
+     * @return the removed card
      */
     private Card removeCard(Model model, Index index) {
         Card targetCard = getCard(model, index);
@@ -123,7 +123,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
     }
 
     /**
-     * Deletes the folder at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
+     * Deletes the card at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
@@ -140,7 +140,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url and selected folder remains unchanged.<br>
+     * 3. Asserts that the browser url and selected card remains unchanged.<br>
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
@@ -153,7 +153,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
-     * and selected folder are expected to update accordingly depending on the folder at {@code expectedSelectedCardIndex}.
+     * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      * @see CardFolderSystemTest#assertSelectedCardChanged(Index)
      */
@@ -176,7 +176,7 @@ public class DeleteCommandSystemTest extends CardFolderSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
      * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url, selected folder and status bar remain unchanged.<br>
+     * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

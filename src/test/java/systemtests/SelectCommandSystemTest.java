@@ -23,13 +23,13 @@ public class SelectCommandSystemTest extends CardFolderSystemTest {
     public void select() {
         /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
-        /* Case: select the first folder in the folder list, command with leading spaces and trailing spaces
+        /* Case: select the first card in the card list, command with leading spaces and trailing spaces
          * -> selected
          */
         String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST_CARD);
 
-        /* Case: select the last folder in the folder list -> selected */
+        /* Case: select the last card in the card list -> selected */
         Index cardCount = getLastIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + cardCount.getOneBased();
         assertCommandSuccess(command, cardCount);
@@ -39,29 +39,29 @@ public class SelectCommandSystemTest extends CardFolderSystemTest {
         String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: redo selecting last folder in the list -> rejected */
+        /* Case: redo selecting last card in the list -> rejected */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: select the middle folder in the folder list -> selected */
+        /* Case: select the middle card in the card list -> selected */
         Index middleIndex = getMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
 
-        /* Case: select the current selected folder -> selected */
+        /* Case: select the current selected card -> selected */
         assertCommandSuccess(command, middleIndex);
 
         /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
-        /* Case: filtered folder list, select index within bounds of folder folder but out of bounds of folder list
+        /* Case: filtered card list, select index within bounds of card folder but out of bounds of card list
          * -> rejected
          */
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         int invalidIndex = getModel().getActiveCardFolder().getCardList().size();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
-        /* Case: filtered folder list, select index within bounds of folder folder and folder list -> selected */
+        /* Case: filtered card list, select index within bounds of card folder and card list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredCards().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -92,7 +92,7 @@ public class SelectCommandSystemTest extends CardFolderSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty folder folder -> rejected */
+        /* Case: select from empty card folder -> rejected */
         deleteAllCards();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased(),
                 MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
@@ -103,9 +103,9 @@ public class SelectCommandSystemTest extends CardFolderSystemTest {
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
      * 3. Result display box displays the success message of executing select command with the
-     * {@code expectedSelectedCardIndex} of the selected folder.<br>
+     * {@code expectedSelectedCardIndex} of the selected card.<br>
      * 4. {@code Storage} and {@code CardListPanel} remain unchanged.<br>
-     * 5. Selected folder is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
+     * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
      * 6. Status bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
@@ -137,7 +137,7 @@ public class SelectCommandSystemTest extends CardFolderSystemTest {
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
      * 4. {@code Storage} and {@code CardListPanel} remain unchanged.<br>
-     * 5. Browser url, selected folder and status bar remain unchanged.<br>
+     * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)

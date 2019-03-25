@@ -19,7 +19,7 @@ import seedu.address.model.card.Card;
 @JsonRootName(value = "cardfolder")
 class JsonSerializableCardFolder {
 
-    public static final String MESSAGE_DUPLICATE_CARD = "Cards list contains duplicate folder(s).";
+    public static final String MESSAGE_DUPLICATE_CARD = "Cards list contains duplicate card(s).";
 
     private final String folderName;
     private final List<JsonAdaptedCard> cards = new ArrayList<>();
@@ -45,7 +45,7 @@ class JsonSerializableCardFolder {
     }
 
     /**
-     * Converts this folder folder into the model's {@code CardFolder} object.
+     * Converts this card folder into the model's {@code CardFolder} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

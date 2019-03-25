@@ -56,7 +56,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         // initial state
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
 
-        // after folder folder is updated
+        // after card folder is updated
         guiRobot.interact(() -> cardFolder.addCard(ALICE));
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));

@@ -36,8 +36,8 @@ public class TestSession extends UiPart<Region> {
     }
 
     /**
-     * Updates the UI to show test session page with the question of the specified folder
-     * @param cardToTest folder to be tested in this page of test session
+     * Updates the UI to show test session page with the question of the specified card
+     * @param cardToTest card to be tested in this page of test session
      */
     public void displayCard(Card cardToTest) {
         testSessionPage.getChildren().clear();
@@ -47,7 +47,7 @@ public class TestSession extends UiPart<Region> {
     }
 
     /**
-     * Updates the UI to show the answer for a correctly answered folder.
+     * Updates the UI to show the answer for a correctly answered card.
      */
     public void handleCorrectAnswer() {
         testSessionPage.setStyle("-fx-background-color: #47AB6C;");
@@ -56,7 +56,7 @@ public class TestSession extends UiPart<Region> {
     }
 
     /**
-     * Updates the UI to show the answer for a wrongly answered folder.
+     * Updates the UI to show the answer for a wrongly answered card.
      */
     public void handleWrongAnswer() {
         testSessionPage.setStyle("-fx-background-color: #ED553B;");

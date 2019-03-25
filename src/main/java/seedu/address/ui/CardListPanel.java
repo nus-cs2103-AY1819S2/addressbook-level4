@@ -29,13 +29,13 @@ public class CardListPanel extends UiPart<Region> {
         cardListView.setItems(cardList);
         cardListView.setCellFactory(listView -> new CardListViewCell());
         cardListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in folder list panel changed to : '" + newValue + "'");
+            logger.fine("Selection in card list panel changed to : '" + newValue + "'");
             onSelectedCardChange.accept(newValue);
         });
         selectedCard.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected folder changed to: " + newValue);
+            logger.fine("Selected card changed to: " + newValue);
 
-            // Don't modify selection if we are already selecting the selected folder,
+            // Don't modify selection if we are already selecting the selected card,
             // otherwise we would have an infinite loop.
             if (Objects.equals(cardListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;

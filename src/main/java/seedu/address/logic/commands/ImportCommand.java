@@ -9,14 +9,14 @@ import seedu.address.storage.csvmanager.CsvFile;
 
 
 /**
- * Imports a .json file containing folder folders data into the application
+ * Imports a .json file containing card folders data into the application
  */
 public class ImportCommand extends Command {
 
 
     public static final String COMMAND_WORD = "import";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports a .json file containing "
-            + "folder folders information.\n"
+            + "card folders information.\n"
             + "File imported must have a .csv extension.\n"
             + "Default file path if not specified will be in the root folder of this application\n"
             + "Parameters: JSON_FILE_NAME\n"

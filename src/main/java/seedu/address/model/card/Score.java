@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.Objects;
 
 /**
- * Represents a Card's score in the folder folder.
+ * Represents a Card's score in the card folder.
  * Guarantees: immutable; is valid as declared in {@link #isValidScore(String)}
  */
 public class Score implements Comparable<Score> {

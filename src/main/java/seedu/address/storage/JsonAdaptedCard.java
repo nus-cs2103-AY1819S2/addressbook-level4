@@ -29,7 +29,7 @@ class JsonAdaptedCard {
     private final List<JsonAdaptedHint> hintList = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedCard} with the given folder details.
+     * Constructs a {@code JsonAdaptedCard} with the given card details.
      */
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
@@ -55,9 +55,9 @@ class JsonAdaptedCard {
     }
 
     /**
-     * Converts this Jackson-friendly adapted folder object into the model's {@code Card} object.
+     * Converts this Jackson-friendly adapted card object into the model's {@code Card} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted folder.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted card.
      */
     public Card toModelType() throws IllegalValueException {
         final List<Hint> cardHints = new ArrayList<>();

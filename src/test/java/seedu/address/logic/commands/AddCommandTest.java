@@ -93,7 +93,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different folder -> returns false
+        // different card -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -328,7 +328,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single folder.
+     * A Model stub that contains a single card.
      */
     private class ModelStubWithCard extends ModelStub {
         private final Card card;
@@ -351,7 +351,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the folder being added.
+     * A Model stub that always accept the card being added.
      */
     private class ModelStubAcceptingCardAdded extends ModelStub {
         final ArrayList<Card> cardsAdded = new ArrayList<>();

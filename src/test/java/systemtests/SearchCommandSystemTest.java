@@ -25,7 +25,7 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple cards in folder folder, command with leading spaces and trailing spaces
+        /* Case: find multiple cards in card folder, command with leading spaces and trailing spaces
          * -> 2 cards found
          */
         String command = "   " + SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
@@ -34,36 +34,36 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where folder list is displaying the cards we are finding
+        /* Case: repeat previous find command where card list is displaying the cards we are finding
          * -> 2 cards found
          */
         command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find folder where folder list is not displaying the folder we are finding -> 1 folder found */
+        /* Case: find card where card list is not displaying the card we are finding -> 1 card found */
         command = SearchCommand.COMMAND_WORD + " Carl";
         ModelHelper.setFilteredList(expectedModel, CARL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple cards in folder folder, 2 keywords -> 2 cards found */
+        /* Case: find multiple cards in card folder, 2 keywords -> 2 cards found */
         command = SearchCommand.COMMAND_WORD + " Benson Daniel";
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple cards in folder folder, 2 keywords in reversed order -> 2 cards found */
+        /* Case: find multiple cards in card folder, 2 keywords in reversed order -> 2 cards found */
         command = SearchCommand.COMMAND_WORD + " Daniel Benson";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple cards in folder folder, 2 keywords with 1 repeat -> 2 cards found */
+        /* Case: find multiple cards in card folder, 2 keywords with 1 repeat -> 2 cards found */
         command = SearchCommand.COMMAND_WORD + " Daniel Benson Daniel";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple cards in folder folder, 2 matching keywords and 1 non-matching keyword
+        /* Case: find multiple cards in card folder, 2 matching keywords and 1 non-matching keyword
          * -> 2 cards found
          */
         command = SearchCommand.COMMAND_WORD + " Daniel Benson NonMatchingKeyWord";
@@ -80,7 +80,7 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same cards in folder folder after deleting 1 of them -> 1 folder found */
+        /* Case: find same cards in card folder after deleting 1 of them -> 1 card found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getActiveCardFolder().getCardList().contains(BENSON));
         command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
@@ -89,41 +89,41 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find folder in folder folder, keyword is same as question but of different case -> 1 folder found */
+        /* Case: find card in card folder, keyword is same as question but of different case -> 1 card found */
         command = SearchCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find folder in folder folder, keyword is substring of question -> 0 cards found */
+        /* Case: find card in card folder, keyword is substring of question -> 0 cards found */
         command = SearchCommand.COMMAND_WORD + " Mei";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find folder in folder folder, question is substring of keyword -> 0 cards found */
+        /* Case: find card in card folder, question is substring of keyword -> 0 cards found */
         command = SearchCommand.COMMAND_WORD + " Meiers";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find folder not in folder folder -> 0 cards found */
+        /* Case: find card not in card folder -> 0 cards found */
         command = SearchCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find answer number of folder in folder folder -> 0 cards found */
+        /* Case: find answer number of card in card folder -> 0 cards found */
         command = SearchCommand.COMMAND_WORD + " " + DANIEL.getAnswer().fullAnswer;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
 
-        /* Case: find hints of folder in folder folder -> 0 cards found */
+        /* Case: find hints of card in card folder -> 0 cards found */
         List<Hint> hints = new ArrayList<>(DANIEL.getHints());
         command = SearchCommand.COMMAND_WORD + " " + hints.get(0).hintName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find while a folder is selected -> selected folder deselected */
+        /* Case: find while a card is selected -> selected card deselected */
         showAllCards();
         selectCard(Index.fromOneBased(1));
         assertFalse(
@@ -133,7 +133,7 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find folder in empty folder folder -> 0 cards found */
+        /* Case: find card in empty card folder -> 0 cards found */
         deleteAllCards();
         command = SearchCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
@@ -153,7 +153,7 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
      * These verifications are done by
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
-     * selected folder updated accordingly, depending on {@code cardStatus}.
+     * selected card updated accordingly, depending on {@code cardStatus}.
      * @see CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
@@ -171,7 +171,7 @@ public class SearchCommandSystemTest extends CardFolderSystemTest {
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the browser url, selected folder and status bar remain unchanged, and the command box has the
+     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
      * @see CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */

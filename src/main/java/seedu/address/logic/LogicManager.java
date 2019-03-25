@@ -39,12 +39,12 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         commandParser = new CommandParser();
 
-        // Set cardFolderModified to true whenever the models' folder folder is modified.
+        // Set cardFolderModified to true whenever the models' card folder is modified.
         for (ReadOnlyCardFolder cardFolder : model.getCardFolders()) {
             cardFolder.addListener(observable -> cardFolderModified = true);
         }
 
-        // Set modelModified whenever the models' folder folders are modified
+        // Set modelModified whenever the models' card folders are modified
         model.addListener(observable -> modelModified = true);
     }
 
@@ -63,7 +63,7 @@ public class LogicManager implements Logic {
         }
 
         if (cardFolderModified) {
-            logger.info("folder folder modified, saving to file.");
+            logger.info("card folder modified, saving to file.");
             try {
                 storage.saveCardFolder(model.getActiveCardFolder(), model.getActiveCardFolderIndex());
             } catch (IOException ioe) {
@@ -78,7 +78,7 @@ public class LogicManager implements Logic {
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
-            // re-register listeners to all folder folders
+            // re-register listeners to all card folders
             for (ReadOnlyCardFolder cardFolder : model.getCardFolders()) {
                 cardFolder.addListener(observable -> cardFolderModified = true);
             }

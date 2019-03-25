@@ -8,7 +8,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Lists all cards in the folder folder to the user.
+ * Lists all cards in the card folder to the user.
  */
 public class ListCommand extends Command {
 

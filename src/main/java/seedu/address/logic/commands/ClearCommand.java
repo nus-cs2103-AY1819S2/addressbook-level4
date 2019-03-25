@@ -9,12 +9,12 @@ import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 
 /**
- * Clears the folder folder.
+ * Clears the card folder.
  */
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_SUCCESS = "folder folder has been cleared!";
+    public static final String MESSAGE_SUCCESS = "card folder has been cleared!";
 
 
     @Override

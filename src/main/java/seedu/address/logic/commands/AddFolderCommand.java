@@ -9,20 +9,20 @@ import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 
 /**
- * Adds a folder folder.
+ * Adds a card folder.
  */
 public class AddFolderCommand extends Command {
 
     public static final String COMMAND_WORD = "addfolder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a folder folder. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card folder. "
             + "Parameters: "
             + "FOLDER_NAME \n"
             + "Example: " + COMMAND_WORD + " "
             + "Nervous System ";
 
-    public static final String MESSAGE_SUCCESS = "New folder folder added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CARD_FOLDER = "This folder folder already exists";
+    public static final String MESSAGE_SUCCESS = "New card folder added: %1$s";
+    public static final String MESSAGE_DUPLICATE_CARD_FOLDER = "This card folder already exists";
 
     private final CardFolder toAdd;
 

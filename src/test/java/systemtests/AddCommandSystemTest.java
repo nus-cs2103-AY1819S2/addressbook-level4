@@ -44,7 +44,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
-        /* Case: add a folder without hints to a non-empty folder folder, command with leading spaces and trailing spaces
+        /* Case: add a card without hints to a non-empty card folder, command with leading spaces and trailing spaces
          * -> added
          */
         Card toAdd = CARD_1;
@@ -63,54 +63,54 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: add a folder with all fields same as another folder in the folder folder except question -> added */
+        /* Case: add a card with all fields same as another card in the card folder except question -> added */
         toAdd = new CardBuilder(CARD_1).withQuestion(VALID_QUESTION_2).build();
         command = AddCommand.COMMAND_WORD + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1 + HINT_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a folder with all fields same as another folder in the folder folder except answer -> added */
+        /* Case: add a card with all fields same as another card in the card folder except answer -> added */
         toAdd = new CardBuilder(CARD_1).withAnswer(VALID_ANSWER_2).build();
         command = CardUtil.getAddCommand(toAdd);
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add to empty folder folder -> added */
+        /* Case: add to empty card folder -> added */
         deleteAllCards();
         assertCommandSuccess(ALICE);
 
-        /* Case: add a folder with hints, command with parameters in random order -> added */
+        /* Case: add a card with hints, command with parameters in random order -> added */
         toAdd = CARD_2;
         command = AddCommand.COMMAND_WORD + HINT_DESC_FRIEND + ANSWER_DESC_SAMPLE_2 + QUESTION_DESC_SAMPLE_2
                 + HINT_DESC_HUSBAND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: add a folder, missing hints -> added */
+        /* Case: add a card, missing hints -> added */
         assertCommandSuccess(HOON);
 
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
-        /* Case: filters the folder list before adding -> added */
+        /* Case: filters the card list before adding -> added */
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a folder folder is selected --------------------------- */
+        /* ------------------------ Perform add operation while a card card is selected --------------------------- */
 
-        /* Case: selects first folder in the folder list, add a folder -> added, folder selection remains unchanged */
+        /* Case: selects first card in the card list, add a card -> added, card selection remains unchanged */
         selectCard(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
-        /* Case: add a duplicate folder -> rejected */
+        /* Case: add a duplicate card -> rejected */
         command = CardUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: add a duplicate folder except with different answer -> rejected */
+        /* Case: add a duplicate card except with different answer -> rejected */
         // Problem with this test due to comparison implementation for Card -> to be fixed
         // toAdd = new CardBuilder(HOON).withAnswer(VALID_ANSWER_BOB).build();
         // command = CardUtil.getAddCommand(toAdd);
         // assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: add a duplicate folder except with different hints -> rejected */
+        /* Case: add a duplicate card except with different hints -> rejected */
         command = CardUtil.getAddCommand(HOON) + " " + PREFIX_HINT.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
 
@@ -148,7 +148,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
      * {@code toAdd}.<br>
      * 4. {@code Storage} and {@code CardListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
-     * 5. Browser url and selected folder remain unchanged.<br>
+     * 5. Browser url and selected card remain unchanged.<br>
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
@@ -193,7 +193,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
      * 2. Command box has the error style class.<br>
      * 3. Result display box displays {@code expectedResultMessage}.<br>
      * 4. {@code Storage} and {@code CardListPanel} remain unchanged.<br>
-     * 5. Browser url, selected folder and status bar remain unchanged.<br>
+     * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)

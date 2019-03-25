@@ -45,7 +45,7 @@ public interface Logic {
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' folder folder file path.
+     * Returns the user prefs' card folder file path.
      */
     Path getcardFolderFilesPath();
 
@@ -60,15 +60,15 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected folder in the filtered folder list.
-     * null if no folder is selected.
+     * Selected card in the filtered folder list.
+     * null if no card is selected.
      *
      * @see seedu.address.model.Model#selectedCardProperty()
      */
     ReadOnlyProperty<Card> selectedCardProperty();
 
     /**
-     * Sets the selected folder in the filtered folder list.
+     * Sets the selected card in the filtered card list.
      *
      * @see seedu.address.model.Model#setSelectedCard(Card)
      */

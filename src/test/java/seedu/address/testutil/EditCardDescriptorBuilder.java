@@ -27,7 +27,7 @@ public class EditCardDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditCardDescriptor} with fields containing {@code folder}'s details
+     * Returns an {@code EditCardDescriptor} with fields containing {@code card}'s details
      */
     public EditCardDescriptorBuilder(Card card) {
         descriptor = new EditCommand.EditCardDescriptor();

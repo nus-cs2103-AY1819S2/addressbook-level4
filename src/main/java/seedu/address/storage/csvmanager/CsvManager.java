@@ -20,14 +20,14 @@ public class CsvManager implements CsvCommands {
 
 
     /**
-     * Writes folder folders as csv file.
+     * Writes card folders as csv file.
      */
     @Override
     public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) throws IOException {
         String filepath = getFilePathAsString(filename);
         FileWriter fileWriter = new FileWriter(filepath);
 
-        // get folder folder objects
+        // get card folder objects
         for (ReadOnlyCardFolder readOnlyCardFolder : cardFolders) {
             List<Card> cardList = readOnlyCardFolder.getCardList();
             String foldername = readOnlyCardFolder.getFolderName();

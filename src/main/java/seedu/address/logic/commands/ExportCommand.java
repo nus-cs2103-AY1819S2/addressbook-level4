@@ -14,13 +14,13 @@ import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.storage.csvmanager.CsvFile;
 
 /**
- * Exports single or multiple folder folders into a .json file. Users must specify file name to export folder folders to.
+ * Exports single or multiple card folders into a .json file. Users must specify file name to export card folders to.
  */
 public class ExportCommand extends Command {
 
     public static final String COMMAND_WORD = "export";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports single or multiple folder folders into"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports single or multiple card folders into"
             + "a .csv file. "
             + "Users must include the .csv extension.\n"
             + "Parameters: "
@@ -28,7 +28,7 @@ public class ExportCommand extends Command {
             + PREFIX_FILENAME + "Filename.csv\n"
             + "Example: " + COMMAND_WORD + "f/Human_anatomy f/Bone_structure n/myfilename.csv";
 
-    public static final String MESSAGE_SUCCESS = "Successfully exported folder folders to: $1%s";
+    public static final String MESSAGE_SUCCESS = "Successfully exported card folders to: $1%s";
 
     public static final String MESSAGE_MISSING_CARD_FOLDERS = "Could not find the specified folder: ";
 
@@ -44,7 +44,7 @@ public class ExportCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        // check whether model contains the folder folders desired. Catch exception thrown
+        // check whether model contains the card folders desired. Catch exception thrown
         try {
             model.exportCardFolders(cardFolders, filename);
         } catch (CardFolderNotFoundException e) {

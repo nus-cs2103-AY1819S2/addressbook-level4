@@ -13,7 +13,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 
 /**
- * Selects a folder identified using it's displayed index from the folder folder.
+ * Selects a folder identified using it's displayed index in the home directory. Also used to navigate from
+ * within a folder back to the home directory.
  */
 public class ChangeCommand extends Command {
 
@@ -21,7 +22,7 @@ public class ChangeCommand extends Command {
 
     // TODO: Include use case for changing to home directory
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Changes the folder folder that the user is in.\n"
+            + ": Changes the card folder that the user is in.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

@@ -56,24 +56,24 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         Card editedCard = new CardBuilder(CARD_2).withHint(VALID_HINT_HUSBAND).build();
         assertCommandSuccess(command, index, editedCard);
 
-        /* Case: undo editing the last folder in the list -> last folder restored */
+        /* Case: undo editing the last card in the list -> last card restored */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: redo editing the last folder in the list -> last folder edited again */
+        /* Case: redo editing the last card in the list -> last card edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.setCard(getModel().getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased()), editedCard);
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: edit a folder with new values same as existing values -> edited */
+        /* Case: edit a card with new values same as existing values -> edited */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2
                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
         assertCommandSuccess(command, index, CARD_2);
 
-        /* Case: edit a folder with new values same as another folder's values but with different question -> edited */
+        /* Case: edit a card with new values same as another card's values but with different question -> edited */
         assertTrue(getModel().getActiveCardFolder().getCardList().contains(CARD_2));
         index = INDEX_SECOND_CARD;
         assertNotEquals(getModel().getFilteredCards().get(index.getZeroBased()), CARD_2);
@@ -83,7 +83,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         editedCard = new CardBuilder(CARD_2).withQuestion(VALID_QUESTION_1).build();
         assertCommandSuccess(command, index, editedCard);
 
-        /* Case: edit a folder with new values same as another folder's values but with different answer -> edited */
+        /* Case: edit a card with new values same as another card's values but with different answer -> edited */
         index = INDEX_SECOND_CARD;
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1
@@ -100,7 +100,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered folder list, edit index within bounds of folder folder and folder list -> edited */
+        /* Case: filtered card list, edit index within bounds of card folder and card list -> edited */
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_CARD;
         assertTrue(index.getZeroBased() < getModel().getFilteredCards().size());
@@ -109,7 +109,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         editedCard = new CardBuilder(cardToEdit).withQuestion(VALID_QUESTION_2).build();
         assertCommandSuccess(command, index, editedCard);
 
-        /* Case: filtered folder list, edit index within bounds of folder folder but out of bounds of folder list
+        /* Case: filtered card list, edit index within bounds of card folder but out of bounds of card list
          * -> rejected
          */
         showCardsWithQuestion(KEYWORD_MATCHING_MEIER);
@@ -117,9 +117,9 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + QUESTION_DESC_SAMPLE_2,
                 Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
-        /* --------------------- Performing edit operation while a folder folder is selected -------------------------- */
+        /* --------------------- Performing edit operation while a card card is selected -------------------------- */
 
-        /* Case: selects first folder in the folder list, edit a folder -> edited, folder selection remains unchanged but
+        /* Case: selects first card in the card list, edit a card -> edited, card selection remains unchanged but
          * browser url changes
          */
         showAllCards();
@@ -128,8 +128,8 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_1 + ANSWER_DESC_SAMPLE_1
                        + HINT_DESC_FRIEND;
-        // this can be misleading: folder selection actually remains unchanged but the
-        // browser's url is updated to reflect the new folder's question
+        // this can be misleading: card selection actually remains unchanged but the
+        // browser's url is updated to reflect the new card's question
         assertCommandSuccess(command, index, CARD_1, index);
 
         /* --------------------------------- Performing invalid edit operation -------------------------------------- */
@@ -167,7 +167,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased()
                 + INVALID_HINT_DESC, Hint.MESSAGE_CONSTRAINTS);
 
-        /* Case: edit a folder with new values same as another folder's values -> rejected */
+        /* Case: edit a card with new values same as another card's values -> rejected */
         executeCommand(CardUtil.getAddCommand(CARD_2));
         assertTrue(getModel().getActiveCardFolder().getCardList().contains(CARD_2));
         index = INDEX_FIRST_CARD;
@@ -177,13 +177,13 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: edit a folder with new values same as another folder's values but with different hints -> rejected */
+        /* Case: edit a card with new values same as another card's values but with different hints -> rejected */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2
                        + HINT_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_CARD);
 
-        /* Case: edit a folder with new values same as another folder's values but with different answer -> rejected */
+        /* Case: edit a card with new values same as another card's values but with different answer -> rejected */
         command =
                 EditCommand.COMMAND_WORD + " " + index.getOneBased() + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1
                        + HINT_DESC_FRIEND + HINT_DESC_HUSBAND;
@@ -192,7 +192,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Card, Index)} except that
-     * the browser url and selected folder remain unchanged.
+     * the browser url and selected card remain unchanged.
      *
      * @param toEdit the index of the current model's filtered list
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Card, Index)
@@ -204,7 +204,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} and in addition,<br>
      * 1. Asserts that result display box displays the success message of executing {@code EditCommand}.<br>
-     * 2. Asserts that the model related components are updated to reflect the folder at index {@code toEdit} being
+     * 2. Asserts that the model related components are updated to reflect the card at index {@code toEdit} being
      * updated to values specified {@code editedCard}.<br>
      *
      * @param toEdit the index of the current model's filtered list.
@@ -222,7 +222,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
-     * browser url and selected folder remain unchanged.
+     * browser url and selected card remain unchanged.
      *
      * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
@@ -234,7 +234,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url and selected folder update accordingly depending on the folder at
+     * 3. Asserts that the browser url and selected card update accordingly depending on the card at
      * {@code expectedSelectedCardIndex}.<br>
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
@@ -262,7 +262,7 @@ public class EditCommandSystemTest extends CardFolderSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
      * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the browser url, selected folder and status bar remain unchanged.<br>
+     * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
      * {@code CardFolderSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

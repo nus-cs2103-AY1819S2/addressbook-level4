@@ -25,14 +25,14 @@ import seedu.address.model.card.Score;
 import seedu.address.model.hint.Hint;
 
 /**
- * Edits the details of an existing folder in the folder folder.
+ * Edits the details of an existing card in the card folder.
  */
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the folder identified "
-            + "by the index number used in the displayed folder list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the card identified "
+            + "by the index number used in the displayed card list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_QUESTION + "QUESTION] "
@@ -43,14 +43,14 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_CARD_SUCCESS = "Edited Card: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_CARD = "This folder already exists in the folder folder.";
+    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the card folder.";
 
     private final Index index;
     private final EditCardDescriptor editCardDescriptor;
 
     /**
-     * @param index of the folder in the filtered folder list to edit
-     * @param editCardDescriptor details to edit the folder with
+     * @param index of the card in the filtered card list to edit
+     * @param editCardDescriptor details to edit the card with
      */
     public EditCommand(Index index, EditCardDescriptor editCardDescriptor) {
         requireNonNull(index);
@@ -121,8 +121,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the folder with. Each non-empty field value will replace the
-     * corresponding field value of the folder.
+     * Stores the details to edit the card with. Each non-empty field value will replace the
+     * corresponding field value of the card.
      */
     public static class EditCardDescriptor {
         private Question question;

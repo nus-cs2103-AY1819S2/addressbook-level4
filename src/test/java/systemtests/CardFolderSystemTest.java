@@ -171,7 +171,7 @@ public abstract class CardFolderSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readStorageCardFolder());
+        assertEquals(new CardFolder(expectedModel.getActiveCardFolder()), testApp.readFirstStorageCardFolder());
         assertListMatching(getCardListPanel(), expectedModel.getFilteredCards());
     }
 

@@ -77,7 +77,7 @@ public class StorageManager implements Storage {
      */
     @Override
     public void saveCardFolder(ReadOnlyCardFolder cardFolder, int index) throws IOException {
-        // TODO: Handle IOOB exception
+        assert index < cardFolderStorageList.size();
         Path filePath = cardFolderStorageList.get(index).getcardFolderFilesPath();
         logger.fine("Attempting to write to data file: " + filePath);
         cardFolderStorageList.get(index).saveCardFolder(cardFolder, filePath);
@@ -94,8 +94,7 @@ public class StorageManager implements Storage {
             Files.deleteIfExists(pathToDelete);
         }
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
-            // TODO: Address hardcoding and add check for orphaned folders
-            Path filePath = path.resolve(cardFolder.getFolderName() + ".json");
+            Path filePath = path.resolve(cardFolder.getFolderName() + Storage.FILE_FORMAT);
             CardFolderStorage cardFolderStorage = new JsonCardFolderStorage(filePath);
             cardFolderStorageList.add(cardFolderStorage);
             cardFolderStorage.saveCardFolder(cardFolder);

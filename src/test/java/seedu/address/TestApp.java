@@ -104,9 +104,8 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the card folder data stored inside the storage file.
      */
-    public CardFolder readStorageCardFolder() {
+    public CardFolder readFirstStorageCardFolder() {
         try {
-            // TODO: Address hardcoding in the following line
             List<ReadOnlyCardFolder> folders = new ArrayList<>();
             storage.readCardFolders(folders);
             return new CardFolder(folders.get(0));

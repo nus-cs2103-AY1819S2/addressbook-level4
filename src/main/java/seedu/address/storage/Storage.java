@@ -14,6 +14,9 @@ import seedu.address.model.UserPrefs;
  * API of the Storage component
  */
 public interface Storage {
+
+    String FILE_FORMAT = ".json";
+
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;

@@ -96,7 +96,20 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
+                && otherPerson.getMatricNumber().equals((getMatricNumber()))
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+    }
+
+    /**
+     * Returns true if both persons has the same matricNumber.
+     */
+    public boolean isSameMatricNumber(Person otherPerson) {
+        if (otherPerson == this) {
+            return true;
+        }
+
+        return otherPerson != null
+                && otherPerson.getMatricNumber().equals((getMatricNumber()));
     }
 
     /**

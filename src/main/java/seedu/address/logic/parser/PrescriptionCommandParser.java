@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.commands.PrescriptionCommand.MESSAGE_USAGE;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,6 +18,11 @@ public class PrescriptionCommandParser implements Parser<PrescriptionCommand> {
     public static final Prefix PREFIX_MEDICINE = new Prefix("m/");
     public static final Prefix PREFIX_QUANTITY = new Prefix("q/");
 
+    public static final String INVALID_ARGUMENTS_PRESCRIPTION =
+            "Invalid arguments entered\n" + MESSAGE_USAGE;
+    public static final String INSUFFICIENT_QUANTITIES = "Some medicine do not have assigned quantity.\n";
+    public static final String EXTRA_QUANTITIES = "Additional quantities specified.\n";
+
     @Override
     public PrescriptionCommand parse(String args) throws ParseException {
 
@@ -23,7 +30,7 @@ public class PrescriptionCommandParser implements Parser<PrescriptionCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_MEDICINE, PREFIX_QUANTITY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_MEDICINE, PREFIX_QUANTITY)) {
-            throw new ParseException("Some details are left out, please retype the command");
+            throw new ParseException(INVALID_ARGUMENTS_PRESCRIPTION);
         }
 
         ArrayList<String> medList = (ArrayList<String>) argMultimap.getAllValues(PREFIX_MEDICINE);
@@ -31,11 +38,11 @@ public class PrescriptionCommandParser implements Parser<PrescriptionCommand> {
                 .map(Integer::valueOf).collect(Collectors.toList());
 
         if (medList.size() > qtyList.size()) {
-            throw new ParseException("Some medicine do not have assigned quantity, please reenter command");
+            throw new ParseException(INSUFFICIENT_QUANTITIES);
         }
 
         if (medList.size() < qtyList.size()) {
-            throw new ParseException("Additional quantities specified, please retype the command");
+            throw new ParseException(EXTRA_QUANTITIES);
         }
 
         return new PrescriptionCommand(medList, qtyList);

@@ -50,19 +50,6 @@ public class ConsultationManagerTest {
     }
 
     @Test
-    public void diagnosePatient() {
-
-        // will only fail when diagnosis is created before a consultation begun
-
-        ArrayList<Symptom> symptoms = new ArrayList<>();
-        symptoms.add(new Symptom("Runny nose"));
-        Assessment assessment = new Assessment("Cold");
-        Diagnosis diagnosis = new Diagnosis(assessment, symptoms);
-
-        Assert.assertThrows(IllegalArgumentException.class, () -> consultationManager.diagnosePatient(diagnosis));
-    }
-
-    @Test
     public void checkConsultation() {
         org.junit.Assert.assertFalse(consultationManager.checkConsultation());
 

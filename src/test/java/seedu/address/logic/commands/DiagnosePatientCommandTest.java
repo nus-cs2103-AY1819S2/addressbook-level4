@@ -52,8 +52,8 @@ public class DiagnosePatientCommandTest {
         symptoms.add(new Symptom("constant headache"));
         symptoms.add(new Symptom("blurred vision"));
 
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                modelManager.diagnosePatient(new Diagnosis(assessment, symptoms)));
+        DiagnosePatientCommand diagnose = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
+        Assert.assertThrows(CommandException.class, () -> diagnose.execute(modelManager, history));
     }
 
     @Test

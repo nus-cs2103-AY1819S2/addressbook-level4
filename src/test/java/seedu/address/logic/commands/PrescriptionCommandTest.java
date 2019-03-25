@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.consultation.Prescription;
 import seedu.address.model.medicine.Medicine;
@@ -19,6 +20,7 @@ import seedu.address.model.patient.Name;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.Assert;
 
 public class PrescriptionCommandTest {
 
@@ -45,24 +47,53 @@ public class PrescriptionCommandTest {
     }
 
     @Test
-    public void executeTest() {
+    public void noConsultation() {
         // no consultation
         ArrayList<String> medList = new ArrayList<>();
         ArrayList<Integer> qtyList = new ArrayList<>();
         medList.add("antibiotics");
         qtyList.add(1);
 
-        PrescriptionCommand prescriptionCommand;
+        PrescriptionCommand prescriptionCommand = new PrescriptionCommand(medList, qtyList);
 
-        try {
-            prescriptionCommand = new PrescriptionCommand(medList, qtyList);
+        Assert.assertThrows(CommandException.class, () -> prescriptionCommand.execute(modelManager, history));
+    }
 
-        } catch (Exception ex) {
-            org.junit.Assert.assertEquals(ex.toString(),
-                    "There is no ongoing consultation to prescribe medicine to");
-        }
-
+    @Test
+    public void noMedFound() {
+        ArrayList<String> medList = new ArrayList<>();
+        ArrayList<Integer> qtyList = new ArrayList<>();
+        medList.add("nasal spray");
+        qtyList.add(1);
         modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
+
+        PrescriptionCommand prescriptionCommand = new PrescriptionCommand(medList, qtyList);
+
+        Assert.assertThrows(CommandException.class, () -> prescriptionCommand.execute(modelManager, history));
+    }
+
+    @Test
+    public void insufficientMed() {
+        ArrayList<String> medList = new ArrayList<>();
+        ArrayList<Integer> qtyList = new ArrayList<>();
+        medList.add("antibiotics");
+        qtyList.add(3);
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
+
+        PrescriptionCommand prescriptionCommand = new PrescriptionCommand(medList, qtyList);
+
+        Assert.assertThrows(CommandException.class, () -> prescriptionCommand.execute(modelManager, history));
+    }
+
+    @Test
+    public void successfulPrescription() {
+        ArrayList<String> medList = new ArrayList<>();
+        ArrayList<Integer> qtyList = new ArrayList<>();
+        medList.add("antibiotics");
+        qtyList.add(1);
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
+
+        PrescriptionCommand prescriptionCommand;
         try {
             Medicine med = new Medicine("antibiotics", 2);
             prescriptionCommand = new PrescriptionCommand(medList, qtyList);
@@ -75,8 +106,6 @@ public class PrescriptionCommandTest {
         } catch (Exception ex) {
             org.junit.Assert.fail();
         }
-
-
     }
 
 }

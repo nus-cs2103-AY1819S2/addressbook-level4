@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.parser.PrescriptionCommandParser.PREFIX_MEDICINE;
+import static seedu.address.logic.parser.PrescriptionCommandParser.PREFIX_QUANTITY;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
@@ -17,8 +20,17 @@ import seedu.address.model.medicine.Medicine;
 public class PrescriptionCommand extends Command {
 
     public static final String COMMAND_WORD = "prescribe";
+    public static final String COMMAND_ALIAS = "p";
     public static final String MEDICINE_NOT_FOUND = "Medicine: %s not found";
     public static final String INSUFFICIENT_MEDICINE = "Insufficient %s to prescribe";
+    public static final String NO_ONGOING_CONSULTATION = "There is no ongoing consultation to prescribe medicine to\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds prescribed medicine and its quantities for current patient.\n"
+            + "Parameters: "
+            + PREFIX_MEDICINE + "MEDICINE 1" + "... "
+            + PREFIX_QUANTITY + "QUANTITY FOR MEDICINE 1" + "... \n"
+            + "Example: "
+            + COMMAND_WORD + " m/Ibuprofen q/1 m/Afrin Spray q/2\n";
 
     private ArrayList<String> medicineList;
     private ArrayList<Integer> quantityList;
@@ -41,7 +53,7 @@ public class PrescriptionCommand extends Command {
 
         // check if there is a current consultation session
         if (model.checkConsultation() == false) {
-            throw new CommandException("There is no ongoing consultation to prescribe medicine to");
+            throw new CommandException(NO_ONGOING_CONSULTATION);
         }
 
         ArrayList<Prescription> prescriptions = new ArrayList<>();
@@ -60,10 +72,6 @@ public class PrescriptionCommand extends Command {
 
             prescriptions.add(new Prescription(foundMedicine.get(), quantityList.get(i)));
         }
-
-        //for (int i = 0; i < medicineList.size(); i++) {
-        //    prescriptions.add(new Prescription(medicineList.get(i), quantityList.get(i)));
-        //}
 
         model.prescribeMedicine(prescriptions);
 

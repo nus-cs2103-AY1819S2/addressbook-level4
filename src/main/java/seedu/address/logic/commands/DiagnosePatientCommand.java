@@ -23,6 +23,7 @@ public class DiagnosePatientCommand extends Command {
             + PREFIX_SYMPTOM + "runny nose "
             + PREFIX_SYMPTOM + "sore throat "
             + PREFIX_ASSESSMENT + "flu\n";
+    public static final String NO_ONGOING_CONSULTATION = "There is no ongoing consultation to record diagnosis\n";
 
     private Diagnosis patientDiagnosis;
 
@@ -32,6 +33,10 @@ public class DiagnosePatientCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+
+        if (model.checkConsultation() == false) {
+            throw new CommandException(NO_ONGOING_CONSULTATION);
+        }
 
         model.diagnosePatient(patientDiagnosis);
 

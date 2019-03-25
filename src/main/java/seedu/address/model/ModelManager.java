@@ -455,6 +455,7 @@ public class ModelManager implements Model {
 
     @Override
     public void importCardFolders(CsvFile csvFile) throws IOException {
+
     }
 
 

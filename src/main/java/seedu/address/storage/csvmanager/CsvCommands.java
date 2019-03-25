@@ -11,9 +11,7 @@ import seedu.address.model.ReadOnlyCardFolder;
  */
 interface CsvCommands {
 
-    public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) throws IOException;
-
-    public void readFoldersToCsv(CsvFile csvFile);
+    public void readFoldersToCsv(CsvFile csvFile) throws IOException;
 
     public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders) throws IOException;
 

@@ -18,38 +18,10 @@ public class CsvManager implements CsvCommands {
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Hints";
 
-    /*
-    @Override
-    public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) throws IOException {
-        String filepath = getFilePathAsString(filename);
-        FileWriter fileWriter = new FileWriter(filepath);
-
-        // get card folder objects
-        for (ReadOnlyCardFolder readOnlyCardFolder : cardFolders) {
-            List<Card> cardList = readOnlyCardFolder.getCardList();
-            String foldername = readOnlyCardFolder.getFolderName();
-            fileWriter.append(foldername + NEW_LINE_SEPARATOR);
-            fileWriter.append(CARD_HEADERS + NEW_LINE_SEPARATOR);
-            for (Card card : cardList) {
-                String cardRepresentation = getCardString(card);
-                fileWriter.append(cardRepresentation);
-                fileWriter.append(NEW_LINE_SEPARATOR);
-            }
-            fileWriter.append(NEW_LINE_SEPARATOR);
-        }
-        fileWriter.flush();
-        fileWriter.close();
-    }
-    */
-
 
     @Override
-    public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders, CsvFile filename) throws IOException {
+    public void readFoldersToCsv(CsvFile csvFile) throws IOException {
 
-    }
-
-    @Override
-    public void readFoldersToCsv(CsvFile csvFile) {
 
     }
 

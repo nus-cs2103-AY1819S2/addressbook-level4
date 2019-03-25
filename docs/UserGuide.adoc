@@ -229,7 +229,7 @@ Examples:
 * `delete 1` +
 Deletes the patient shown with index 1 from the displayed list.
 
-* `<<find>> John` +
+* `<<find, find>> John` +
 `delete 2` +
 Deletes the patient shown with index 2 found using the find command.
 
@@ -260,7 +260,7 @@ following it.
 
 Example:
 
-* `<<list>>` +
+* `<<list, list>>` +
 `edit 1` +
 `p/12345` +
 `e/newemail@gmail.com` +
@@ -269,7 +269,7 @@ Edits the phone number and email of the first patient listed to become
 12345 and newemail@gmail.com respectively across 2 inputs.
 
 
-* `<<find>> Betsy` +
+* `<<find, find>> Betsy` +
 `edit 2` +
 `p/987654 e/mymail@gmail.com` +
 `done` +

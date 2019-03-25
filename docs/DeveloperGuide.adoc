@@ -245,6 +245,7 @@ This 2D array is encapsulated within the `MapGrid` class.
 
 The following sequence diagram shows how a map is initialised:
 
+image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 ===== Aspect: How initialise map works

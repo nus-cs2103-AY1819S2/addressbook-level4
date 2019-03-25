@@ -285,7 +285,8 @@ public class MapGrid implements ReadOnlyAddressBook {
     /**
      * Put battleship on map grid.
      */
-    public void putShip(Battleship battleship, Coordinates coordinates, Orientation orientation) throws ArrayIndexOutOfBoundsException {
+    public void putShip(Battleship battleship, Coordinates coordinates, Orientation orientation)
+            throws ArrayIndexOutOfBoundsException {
         int rowIndexAsInt = coordinates.getRowIndex().getZeroBased();
         int colIndexAsInt = coordinates.getColIndex().getZeroBased();
 

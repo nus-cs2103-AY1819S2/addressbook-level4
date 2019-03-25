@@ -26,7 +26,6 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.Orientation;
-import seedu.address.model.battleship.OrientationTest;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.tag.Tag;

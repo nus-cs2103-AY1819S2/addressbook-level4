@@ -3,7 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
-:toclevels: 4 
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -31,7 +31,7 @@ TeethHub allows you to keep track of your patient's particulars along with their
 An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
 In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
 
-Interested in trying TeethHub out? Check out <<prerequisites>> to see what programs you need in order for TeethHub to work properly. 
+Interested in trying TeethHub out? Check out <<prerequisites>> to see what programs you need in order for TeethHub to work properly.
 If you’re confident in your computer set-up, jump to <<quick-start-guide>> to begin!
 
 ==  Prerequisites
@@ -48,8 +48,8 @@ Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
 . Copy the file to the folder you want to use as the home folder for TeethHub (all data will be stored there)
 
-. Double-click the file to launch TeethHub. 
-It should start in a few seconds and begin the initialization set-up. 
+. Double-click the file to launch TeethHub.
+It should start in a few seconds and begin the initialization set-up.
 
 . You can now start adding patients and tasks!
 
@@ -279,7 +279,7 @@ Edits the phone number and email of the first patient listed to become
 
 ==== copy
 
-Makes an exact copy of a patient and adds them to the patient list. 
+Makes an exact copy of a patient and adds them to the patient list.
 This may be useful if multiple people share similar details.
 
 Format: `copy INDEX [Count]`
@@ -585,8 +585,8 @@ Exits the program, disregarding any copies.
 Format: `exit!`
 
 == Cloud Functionality [Coming in v2.0]
-To increase data redundancy and reduce the risk of data being lost, 
-you will be able to synchronise your data with a cloud account. 
+To increase data redundancy and reduce the risk of data being lost,
+you will be able to synchronise your data with a cloud account.
 
 
 == Spell-Checker Functionality [Coming in v2.0]

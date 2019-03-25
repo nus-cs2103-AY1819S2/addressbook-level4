@@ -60,6 +60,7 @@ public class Dentist {
      */
     private static String promptDentistName() {
         TextInputDialog dialog = new TextInputDialog("Strange");
+        dialog.getDialogPane().getStylesheets().add("view/DarkTheme.css");
         dialog.setTitle("Set Dentist Name");
         dialog.setHeaderText("Please enter your name to continue. This will be used when you create reports.");
         dialog.setContentText("Your preferred name: ");

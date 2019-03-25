@@ -18,8 +18,6 @@ import seedu.address.model.request.Request;
  */
 public class DeleteRequestCommand extends DeleteCommand {
 
-    public static final String COMMAND_WORD = "dr";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the request identified "
         + "by the index number used in the displayed request list.\n"
         + "Parameters: INDEX (must be a positive integer)\n"

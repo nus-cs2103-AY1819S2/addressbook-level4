@@ -13,6 +13,7 @@ public abstract class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_USAGE = "The different modes for editing an existing item are as follows:\n";
 
     protected final Index index;
 

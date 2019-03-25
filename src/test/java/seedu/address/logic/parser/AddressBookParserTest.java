@@ -15,12 +15,12 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -49,9 +49,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_delete() throws Exception {
-        DeletePersonCommand command = (DeletePersonCommand) parser.parseCommand(
-                DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
-        assertEquals(new DeletePersonCommand(INDEX_FIRST), command);
+        // TODO: To be phased out
+        // DeletePersonCommand command = (DeletePersonCommand) parser.parseCommand(
+        //        DeletePersonCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased());
+        // assertEquals(new DeletePersonCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -100,8 +101,10 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " healthworker")
+                instanceof ListHealthWorkerCommand);
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " h")
+                instanceof ListHealthWorkerCommand);
     }
 
     @Test

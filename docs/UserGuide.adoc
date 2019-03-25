@@ -229,7 +229,7 @@ Examples:
 * `delete 1` +
 Deletes the patient shown with index 1 from the displayed list.
 
-* `find John` +
+* `<<find>> John` +
 `delete 2` +
 Deletes the patient shown with index 2 found using the find command.
 
@@ -260,19 +260,19 @@ following it.
 
 Example:
 
-* `list +
-edit 1 +
-p/12345 +
-e/newemail@gmail.com +
-done` +
+* `<<list>>` +
+`edit 1` +
+`p/12345` +
+`e/newemail@gmail.com` +
+`done` +
 Edits the phone number and email of the first patient listed to become
 12345 and newemail@gmail.com respectively across 2 inputs.
 
 
-* `find Betsy +
-edit 2 +
-p/987654 e/mymail@gmail.com +
-done` +
+* `<<find>> Betsy` +
+`edit 2` +
+`p/987654 e/mymail@gmail.com` +
+`done` +
 Edits the phone number and email of the first patient listed to become
 987654 and mymail@gmail.com respectively with a single input.
 
@@ -322,7 +322,7 @@ record list.
 
 Examples:
 
-* `find dental Jon` +
+* `<<find>> dental Jon` +
 `record delete n/NRIC 1` +
 Deletes the 1st record from the displayed list
 
@@ -352,7 +352,7 @@ following it.
 
 Example:
 
-* `find dental n/Jon +
+* `<<find>> dental n/Jon +
 record edit n/S1234567H 1 +
 doc/Debang +
 det/new details +
@@ -527,20 +527,19 @@ Format: `undo`
 
 Examples:
 
-* `delete 1 +
-list +
-undo` (reverses the delete 1 command)
+* `<<delete>> 1` +
+`<<list>>` +
+`undo` (reverses the delete 1 command)
 
-* `select 1 +
-list +
-undo` +
+* `<<list>>` +
+`undo` +
 The undo command fails as there are no undo-able commands executed
 previously.
 
 
-* `delete 1 +
-clear +
-undo` (reverses the clear command) +
+* `<<delete>> 1` +
+`<<clear>>` +
+`undo` (reverses the clear command) +
 `undo` (reverses the delete 1 command)
 
 === Redo
@@ -550,19 +549,19 @@ Format: `redo`
 
 Examples:
 
-* `delete 1 +
-undo` (reverses the delete 1 command) +
+* `<<delete>> 1` +
+`<<undo>>` (reverses the delete 1 command) +
 `redo` (reapplies the delete 1 command)
 
-* `delete 1 +
-redo` +
+* `<<delete>> 1` +
+`redo` +
 The redo command fails as there are no undo commands executed
 previously.
 
-* `delete 1 +
-clear +
-undo` (reverses the clear command) +
-`undo` (reverses the delete 1 command) +
+* `<<delete>> 1` +
+`<<clear>> +
+`<<undo>>` (reverses the clear command) +
+`<<undo>>` (reverses the delete 1 command) +
 `redo` (reapplies the delete 1 command) +
 `redo` (reapplies the clear command)
 
@@ -620,10 +619,10 @@ e.g. `copy 3`
 e.g. `delete 3`
 
 * *Edit* : `edit INDEX` +
-e.g. `edit 2 +
-p/12345 +
-e/newemail@gmail.com +
-done`
+e.g. `edit 2` +
+`p/12345` +
+`e/newemail@gmail.com` +
+`done`
 
 * *Exit* : `exit`
 

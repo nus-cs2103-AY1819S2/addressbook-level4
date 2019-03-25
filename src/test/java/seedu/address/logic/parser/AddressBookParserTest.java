@@ -243,12 +243,21 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_diagnosepatientcommand() throws Exception {
-        String userInput = "diagnose a/migrane s/constant headache s/blurred vision";
+        String userInput = DiagnosePatientCommand.COMMAND_WORD + " a/migrane s/constant headache s/blurred vision";
         Assessment assessment = new Assessment("migrane");
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));
         symptoms.add(new Symptom("blurred vision"));
         DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
+        assertEquals(command, parser.parseCommand(userInput));
+
+        //alias test
+        userInput = DiagnosePatientCommand.COMMAND_ALIAS + " a/migrane s/constant headache s/blurred vision";
+        assessment = new Assessment("migrane");
+        symptoms = new ArrayList<>();
+        symptoms.add(new Symptom("constant headache"));
+        symptoms.add(new Symptom("blurred vision"));
+        command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
         assertEquals(command, parser.parseCommand(userInput));
     }
 

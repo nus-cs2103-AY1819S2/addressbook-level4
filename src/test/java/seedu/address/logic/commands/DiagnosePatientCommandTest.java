@@ -46,9 +46,7 @@ public class DiagnosePatientCommandTest {
     }
 
     @Test
-    public void diagnosePatient() {
-        // no consultation session
-        String input = " a/migrane s/constant headache s/blurred vision";
+    public void noOngoingSession() {
         Assessment assessment = new Assessment("migrane");
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));
@@ -60,7 +58,6 @@ public class DiagnosePatientCommandTest {
 
     @Test
     public void executeTest() {
-        String userInput = "diagnose a/migrane s/constant headache s/blurred vision";
         Assessment assessment = new Assessment("migrane");
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));

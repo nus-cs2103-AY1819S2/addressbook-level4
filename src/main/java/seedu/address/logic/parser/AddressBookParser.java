@@ -114,6 +114,7 @@ public class AddressBookParser {
             return new ConsultationCommandParser().parse(arguments);
 
         case DiagnosePatientCommand.COMMAND_WORD:
+        case DiagnosePatientCommand.COMMAND_ALIAS:
             return new DiagnosePatientCommandParser().parse(arguments);
 
         case StatisticsCommand.COMMAND_WORD:

@@ -63,9 +63,9 @@ public class SearchYearCommandParserTest {
     public void isYearARange_invalidYearRange_returnsFalse() {
         // invalid year range input
         assertFalse(parser.isYearARange("1819-2000")); // invalid lower bound
-        assertFalse(parser.isYearARange("19332-2000"));// invalid lower bound format
+        assertFalse(parser.isYearARange("19332-2000")); // invalid lower bound format
         assertFalse(parser.isYearARange("1999-2999")); // invalid upper bound
-        assertFalse(parser.isYearARange("1999-29999"));// invalid upper bound format
+        assertFalse(parser.isYearARange("1999-29999")); // invalid upper bound format
         assertFalse(parser.isYearARange("1994*2000")); // invalid format
         assertFalse(parser.isYearARange("2000-1994")); // upper bound less than lower bound
     }

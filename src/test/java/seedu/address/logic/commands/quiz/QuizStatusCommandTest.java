@@ -13,10 +13,11 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.Model;
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
-import seedu.address.model.modelmanager.quiz.QuizModel;
-import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.model.modelmanager.QuizModel;
+import seedu.address.model.modelmanager.QuizModelManager;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.testutil.Assert;
 
 public class QuizStatusCommandTest {
@@ -29,7 +30,7 @@ public class QuizStatusCommandTest {
         final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
-        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
         model.init(quiz);
         expectedModel.init(quiz);
     }

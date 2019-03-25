@@ -16,8 +16,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
-import seedu.address.model.modelmanager.management.ManagementModelStub;
-import seedu.address.model.modelmanager.quiz.QuizModelStub;
+import seedu.address.model.modelmanager.ManagementModelStub;
+import seedu.address.model.modelmanager.QuizModelStub;
 import seedu.address.testutil.TypicalLessons;
 
 /**

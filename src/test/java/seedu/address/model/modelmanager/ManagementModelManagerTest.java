@@ -1,8 +1,8 @@
-package seedu.address.model.modelmanager.management;
+package seedu.address.model.modelmanager;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -15,7 +15,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
-import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
@@ -29,9 +28,8 @@ public class ManagementModelManagerTest {
         ArrayList<String> testFields = new ArrayList<>();
         testFields.add("test 1");
         testFields.add("test 2");
-        Lesson lesson = new Lesson("test", 2, testFields);
 
-        return lesson;
+        return new Lesson("test", 2, testFields);
     }
 
     @Test
@@ -118,15 +116,15 @@ public class ManagementModelManagerTest {
         // same values -> returns true
         modelManager = new ManagementModelManager(userPrefs, lessonList, user);
         ManagementModelManager modelManagerCopy = new ManagementModelManager(userPrefs, lessonList, user);
-        assertTrue(modelManager.equals(modelManagerCopy));
+        assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
+        assertEquals(modelManager, modelManager);
 
         // null -> returns false
-        assertFalse(modelManager == null);
+        assertNotNull(modelManager);
 
         // different types -> returns false
-        assertFalse(modelManager.equals(5));
+        assertNotEquals(5, modelManager);
     }
 }

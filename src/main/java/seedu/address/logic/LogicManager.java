@@ -14,7 +14,8 @@ import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelmanager.ManagementModel;
-import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.modelmanager.QuizModel;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.storage.Storage;
 
 /**
@@ -31,6 +32,14 @@ public class LogicManager implements Logic {
     private final ManagementModeParser managementModeParser;
     private final QuizModeParser quizModeParser;
 
+    /**
+     * Different mode that will show different UI and have access to different commands.
+     */
+    public enum Mode {
+        MANAGEMENT,
+        QUIZ
+    }
+
     public LogicManager(ManagementModel managementModel, QuizModel quizModel, Storage storageManager) {
         this.storageManager = storageManager;
         this.managementModel = managementModel;
@@ -46,8 +55,8 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = null;
-            if (quizModel.isQuizDone()) {
+            Command command;
+            if (getMode() == Mode.MANAGEMENT) {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
             } else {
@@ -55,7 +64,6 @@ public class LogicManager implements Logic {
                 commandResult = command.execute(quizModel, history);
             }
 
-            // very ugly way
             if (command instanceof QuizStartCommand) {
                 QuizStartCommand quizStartCommand = (QuizStartCommand) command;
                 commandResult = quizStartCommand.executeActual(quizModel, history);
@@ -65,6 +73,16 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public Mode getMode() {
+        return quizModel.isQuizDone() ? Mode.MANAGEMENT : Mode.QUIZ;
+    }
+
+    @Override
+    public QuizUiDisplayFormatter getDisplayFormatter() {
+        return quizModel.getDisplayFormatter();
     }
 
     @Override

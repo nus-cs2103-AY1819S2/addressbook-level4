@@ -1,11 +1,15 @@
-package seedu.address.model.modelmanager.quiz;
+package seedu.address.model.modelmanager;
 
 import java.util.List;
 
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 
 /**
- * A default quiz model stub that has all of the methods failing.
+ * A default model stub that have all of the methods failing.
  */
 public class QuizModelStub implements QuizModel {
     /**
@@ -18,7 +22,7 @@ public class QuizModelStub implements QuizModel {
     /**
      * This method should not be called.
      */
-    public Quiz.Mode getMode() {
+    public QuizMode getMode() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -96,14 +100,12 @@ public class QuizModelStub implements QuizModel {
     }
 
     @Override
-    public boolean isQuizDone() {
+    public boolean toggleIsCardDifficult(int index) {
         throw new AssertionError("This method should not be called.");
     }
 
-    /**
-     * Returns if User is done with {@code Quiz}.
-     */
-    public boolean isDone() {
+    @Override
+    public boolean isQuizDone() {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -111,6 +113,16 @@ public class QuizModelStub implements QuizModel {
      * Returns data needed by {@code Session} when {@code Quiz} end.
      */
     public List<List<Integer>> end() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setDisplayFormatter(QuizUiDisplayFormatter formatter) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public QuizUiDisplayFormatter getDisplayFormatter() {
         throw new AssertionError("This method should not be called.");
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -24,10 +25,12 @@ import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
-import seedu.address.model.modelmanager.quiz.QuizModel;
-import seedu.address.model.modelmanager.quiz.QuizModelManager;
+import seedu.address.model.modelmanager.QuizModel;
+import seedu.address.model.modelmanager.QuizModelManager;
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.storage.CsvLessonsStorage;
 import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -71,7 +74,7 @@ public class LogicManagerTest {
         final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
         final QuizCard card4 = new QuizCard("中国", "北京");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
-        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz);
@@ -83,7 +86,7 @@ public class LogicManagerTest {
     }*/
 
     @Test
-    public void execute_quizCommand_success() throws Exception {
+    public void execute_quizCommand_success() {
         final String answer = "Budapest";
         // TODO change to session
         // this hardcoded values matched QuizStartCommand
@@ -93,17 +96,15 @@ public class LogicManagerTest {
         final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
         final QuizCard card4 = new QuizCard("中国", "北京");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
-        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz);
         expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        CommandResult expected = new CommandResult("");
 
-        QuizCard expectedCard = expectedModel.getNextCard();
-        CommandResult expected = new CommandResult(String.format(QuizAnswerCommand.MESSAGE_QUESTION_ANSWER,
-            expectedCard.getQuestion(), expectedCard.getAnswer()));
-
-        quizModel.init(new Quiz(quizCards, Quiz.Mode.LEARN));
+        quizModel.init(new Quiz(quizCards, QuizMode.LEARN));
         quizModel.getNextCard();
 
         assertCommandSuccess(answer, expected.getFeedbackToUser(), expectedModel);
@@ -119,7 +120,7 @@ public class LogicManagerTest {
         final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
         final QuizCard card4 = new QuizCard("中国", "北京");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
-        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz);
@@ -129,7 +130,7 @@ public class LogicManagerTest {
             expectedModel.getQuizTotalAttempts(), expectedModel.getQuizTotalCorrectQuestions(),
             expectedModel.getCurrentProgress()));
 
-        quizModel.init(new Quiz(quizCards, Quiz.Mode.LEARN));
+        quizModel.init(new Quiz(quizCards, QuizMode.LEARN));
         quizModel.getNextCard();
 
         assertCommandSuccess("\\status", expected.getFeedbackToUser(), expectedModel);
@@ -154,6 +155,61 @@ public class LogicManagerTest {
         assertTrue(new ExitCommand().execute(managementModel, history).isExit());
     }
 
+    @Test
+    public void getMode() {
+        // TODO change to session
+        // this hardcoded values matched StartCommand
+        // when session is implemented then this will change to session instead
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
+        final QuizCard card4 = new QuizCard("中国", "北京");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
+        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
+
+        QuizModelManager expectedModel = new QuizModelManager();
+        expectedModel.init(quiz);
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary", "answer", "Budapest",
+            QuizMode.PREVIEW));
+
+        // before quiz starts
+        assertEquals(LogicManager.Mode.MANAGEMENT, logic.getMode());
+
+        quizModel.init(new Quiz(quizCards, QuizMode.LEARN));
+        quizModel.getNextCard();
+
+        // after quiz started
+        assertCommandSuccess("", "", expectedModel);
+        assertEquals(LogicManager.Mode.QUIZ, logic.getMode());
+    }
+
+    @Test
+    public void getDisplayFormatter() {
+        // TODO change to session
+        // this hardcoded values matched StartCommand
+        // when session is implemented then this will change to session instead
+        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
+        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
+        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
+        final QuizCard card4 = new QuizCard("中国", "北京");
+        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
+        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
+
+        QuizModelManager expectedModel = new QuizModelManager();
+        expectedModel.init(quiz);
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary", "answer", "Budapest",
+            QuizMode.PREVIEW));
+
+        quizModel.init(new Quiz(quizCards, QuizMode.LEARN));
+        quizModel.getNextCard();
+
+        assertCommandSuccess("", "", expectedModel);
+        assertEquals(expectedModel.getDisplayFormatter(), logic.getDisplayFormatter());
+    }
     @Test
     public void getHistory() {
         CommandHistory empty = new CommandHistory();
@@ -215,7 +271,7 @@ public class LogicManagerTest {
 
         try {
             CommandResult result = logic.execute(inputCommand);
-            assertEquals(expectedException, null);
+            assertNull(expectedException);
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (CommandException | ParseException e) {
             assertEquals(expectedException, e.getClass());
@@ -236,7 +292,7 @@ public class LogicManagerTest {
 
         try {
             CommandResult result = logic.execute(inputCommand);
-            assertEquals(expectedException, null);
+            assertNull(expectedException);
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (CommandException | ParseException e) {
             assertEquals(expectedException, e.getClass());

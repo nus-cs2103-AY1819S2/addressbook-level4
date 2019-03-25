@@ -1,4 +1,4 @@
-package seedu.address.model.modelmanager.quiz;
+package seedu.address.model.quiz;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -13,7 +13,7 @@ public class QuizCard {
 
     public static final String MESSAGE_CONSTRAINTS = "Question/answer can take any values, and it"
         + " should not be blank or contain only whitespaces";
-    private Quiz.Mode quizMode;
+    private QuizMode quizMode;
     private String question;
     private String answer;
     private List<String> opt;
@@ -22,6 +22,7 @@ public class QuizCard {
     private int streak;
     private boolean hasAttemptedBefore;
     private boolean isWrongTwice;
+    private boolean isCardDifficult;
 
     public QuizCard(String question, String answer) {
         requireAllNonNull(question, answer);
@@ -32,6 +33,7 @@ public class QuizCard {
         this.index = -1;
         this.totalAttempts = 0;
         this.streak = 0;
+        this.isCardDifficult = false;
     }
 
     public QuizCard(String question, String answer, List<String> opt) {
@@ -44,9 +46,10 @@ public class QuizCard {
         this.index = -1;
         this.totalAttempts = 0;
         this.streak = 0;
+        this.isCardDifficult = false;
     }
 
-    public QuizCard(int index, String question, String answer, Quiz.Mode quizMode) {
+    public QuizCard(int index, String question, String answer, QuizMode quizMode) {
         requireAllNonNull(index, question, answer, quizMode);
         checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
 
@@ -56,6 +59,7 @@ public class QuizCard {
         this.quizMode = quizMode;
         this.hasAttemptedBefore = false;
         this.isWrongTwice = false;
+        this.isCardDifficult = false;
     }
 
     public String getQuestion() {
@@ -88,9 +92,27 @@ public class QuizCard {
         return isWrongTwice;
     }
 
-    public Quiz.Mode getQuizMode() {
+    public QuizMode getQuizMode() {
         requireAllNonNull(quizMode);
         return quizMode;
+    }
+
+    /**
+     * Returns if the card labeled difficult.
+     */
+    public boolean isCardDifficult() {
+        assert index == -1;
+
+        return isCardDifficult;
+    }
+
+    /**
+     * Toggles between if the card labeled difficult.
+     */
+    public void toggleIsCardDifficult() {
+        assert index == -1;
+
+        isCardDifficult = !isCardDifficult;
     }
 
     /**
@@ -107,11 +129,11 @@ public class QuizCard {
     }
 
     /**
-     * Update both totalAttempts and streak depending on isCorrect
+     * Update both totalAttempts and streak depending on isCorrect.
      * @param isCorrect the output of isCorrect method
      */
     public void updateTotalAttemptsAndStreak(boolean isCorrect) {
-        if (quizMode != Quiz.Mode.PREVIEW) {
+        if (quizMode != QuizMode.PREVIEW) {
             if (isCorrect) {
                 streak += 1;
             } else {

@@ -1,10 +1,12 @@
 package seedu.address.logic.commands.quiz;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.Model;
-import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.modelmanager.QuizModel;
 
 /**
  * Display the total attempts, streak and progress of the current session
@@ -20,6 +22,7 @@ public class QuizStatusCommand extends QuizCommand {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+        requireNonNull(model);
         QuizModel quizModel = requireQuizModel(model);
 
         return new CommandResult(String.format(MESSAGE_RESULT, quizModel.getQuizTotalAttempts(),

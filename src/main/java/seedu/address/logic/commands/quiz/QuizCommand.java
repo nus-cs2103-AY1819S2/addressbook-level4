@@ -2,7 +2,7 @@ package seedu.address.logic.commands.quiz;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.modelmanager.QuizModel;
 
 /**
  * Represents a quiz command with hidden internal logic and the ability to be executed.

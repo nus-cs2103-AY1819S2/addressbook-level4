@@ -1,11 +1,10 @@
-package seedu.address.model.modelmanager.management;
+package seedu.address.model.modelmanager;
 
 import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
@@ -60,7 +59,9 @@ public class ManagementModelStub implements ManagementModel {
      * @return the opened {@link Lesson}. Null if there is no opened lesson.
      */
     @Override
-    public Lesson getOpenedLesson() { throw new AssertionError("This method should not be called."); }
+    public Lesson getOpenedLesson() {
+        throw new AssertionError("This method should not be called.");
+    }
 
     /**
      * Closes the opened {@link Lesson} object.

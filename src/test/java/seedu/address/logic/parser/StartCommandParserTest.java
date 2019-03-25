@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import org.junit.Test;
 
 import seedu.address.logic.commands.quiz.QuizStartCommand;
-//import seedu.address.model.modelmanager.quiz.Quiz;
+//import seedu.address.model.quiz.Quiz;
 //import seedu.address.model.session.Session;
 
 public class StartCommandParserTest {
@@ -21,7 +21,7 @@ public class StartCommandParserTest {
     /*@Test
     public void parseArguments() {
         QuizStartCommand expected = new QuizStartCommand(new Session("02-03-LEARN", 15,
-                Quiz.Mode.LEARN));
+                Quiz.QuizMode.LEARN));
         assertParseSuccess(parser, "02-03-LEARN 15 LEARN", expected);
         assertParseSuccess(parser, " \n 02-03-LEARN \n \t 15  \t LEARN", expected);
     }*/

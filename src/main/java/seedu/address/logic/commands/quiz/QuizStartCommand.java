@@ -5,8 +5,6 @@ import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_NAME;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HashMap;
@@ -17,19 +15,19 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import seedu.address.logic.commands.management.ManagementCommand;
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
-//import seedu.address.model.modelmanager.ManagementModelManager;
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
-import seedu.address.model.modelmanager.quiz.QuizModel;
+
+import seedu.address.model.modelmanager.QuizModel;
+
+import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.session.SrsCardsManager;
 import seedu.address.model.user.CardSrsData;
-//import seedu.address.storage.CsvLessonsStorage;
 
 /**
  * TODO: implement the actual start command
@@ -46,9 +44,6 @@ public class QuizStartCommand implements Command {
             + PREFIX_START_COUNT + "15 "
             + PREFIX_START_MODE + "LEARN";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
-    public static final String MESSAGE_QUESTION_ANSWER = "Question: %1$s\nAnswer: %2$s";
-    private static final Path INVALID_CORE_CHAR_FIELD_DATA_FOLDER = Paths.get("src", "test", "data",
-            "CsvLessonsStorageTest", "invalidCoreCharInField");
     protected List<QuizCard> quizCards;
     private Session session;
     public QuizStartCommand(Session session) {
@@ -65,11 +60,17 @@ public class QuizStartCommand implements Command {
         model.init(quiz);
         QuizCard card = model.getNextCard();
 
-        return new CommandResult(String.format(MESSAGE_QUESTION_ANSWER, card.getQuestion(), card.getAnswer()),
-            true, false, false);
+        if (card.getQuizMode() == QuizMode.PREVIEW) {
+            model.setDisplayFormatter(new QuizUiDisplayFormatter("Question", card.getQuestion(),
+                "Answer", card.getAnswer(), QuizMode.PREVIEW));
+        } else {
+            model.setDisplayFormatter(new QuizUiDisplayFormatter("Question", card.getQuestion(),
+                "Answer", QuizMode.REVIEW));
+        }
+
+        return new CommandResult("", true, false, false);
     }
 
-    @Override
     /**
      * Executes the command and returns the result message.
      *
@@ -78,14 +79,8 @@ public class QuizStartCommand implements Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
-        // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
-        // In other words, only incorrect code will result in a CommandException being thrown
-        if (!(model instanceof ManagementModel)) {
-            throw new CommandException(ManagementCommand.MESSAGE_EXPECTED_MODEL);
-        }
-
         //CsvLessonsStorage storage = new CsvLessonsStorage(INVALID_CORE_CHAR_FIELD_DATA_FOLDER);
         //ManagementModel mgtModel = new ManagementModelManager(null, storage.readLessons().get());
         //Lesson lesson = mgtModel.getLesson(0);

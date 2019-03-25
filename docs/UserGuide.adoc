@@ -232,7 +232,7 @@ Medicines with quanities of less than or equal to 20 will be displayed in the wa
 
 You can export the current medicine inventory data shown in the GUI as Comma-separated values (CSV) file format which is supported by many commonly used spreadsheet applications such as Microsoft Excel (Windows), LibreOffice (Linux) or Numbers (MacOS).
 
-This feature is especially useful if you want to save the current medicine inventory data in a file so that it can be printed later or if you want to organise the medicine inventory data using a spreadsheet application for you, your superior or your supplier's reference.
+This feature is especially useful if you want to save the current medicine inventory data shown in the GUI in a file so that it can be printed later or if you want to organise the medicine inventory data using a spreadsheet application for you, your superior or your supplier's reference.
 
 In addition, you can even use the spreadsheet application to convert the CSV file to Microsoft Excel format and use all the functionalities provided by Microsoft Excel such as drawing graphs or chart to display the overview of your clinic's medicine inventory. +
 Format: `export [FILE_NAME]`

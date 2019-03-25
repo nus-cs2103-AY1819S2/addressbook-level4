@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -17,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
@@ -29,11 +28,13 @@ public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Imports specific patients by index to text file in the \"data\" folder, "
-            + "overwriting if filename exists \n"
-            + "Parameters: FILENAME INDEX_RANGE(must be a positive integer)\n"
+            + ": Imports specific patients by index from a .json or .pdf file in the \"data\" folder, "
+            + "and appends them to the current list. \n"
+            + "Parameters: FILENAME [INDEX_RANGE(must be a positive integer) OR all]\n"
             + "Example: " + COMMAND_WORD + " records1.json + 1-5"
-            + "Example: " + COMMAND_WORD + " records1.json + 1,3,5";
+            + "Example: " + COMMAND_WORD + " records1.json + 1,3,5"
+            + "Example: " + COMMAND_WORD + " records1.json + 1,3-5"
+            + "Example: " + COMMAND_WORD + " records1.json + all";
 
     public static final String MESSAGE_SUCCESS = "Imported the records!";
 
@@ -46,7 +47,7 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        readFile(model, parsedInput.getParsedIndex());
+        readFile(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
@@ -55,8 +56,8 @@ public class ImportCommand extends Command {
     /**
      * readFile() appends the current address book with the contents of the file.
      */
-    private void readFile(Model model, HashSet<Integer> parsedIndex) {
-        AddressBookStorage importStorage = new JsonAddressBookStorage(parsedInput.getFile().toPath());
+    private void readFile(Model model) {
+        AddressBookStorage importStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
         StorageManager importStorageManager = new StorageManager(importStorage, null);
 
@@ -72,15 +73,18 @@ public class ImportCommand extends Command {
             }
             importData = importOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format.");
+            logger.warning("Data file not in the correct format."
+                                + "Will be starting with an empty AddressBook");
             importData = new AddressBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file.");
+            logger.warning("Problem while reading from the file."
+                                + "Will be starting with an empty AddressBook");
             importData = new AddressBook();
         }
 
         for (int i = 0; i < importData.getPersonList().size(); i++) {
-            if (parsedIndex.contains(i) && !model.hasPerson(importData.getPersonList().get(i))) {
+            if (!model.hasPerson(importData.getPersonList().get(i))
+                && (parsedInput.getArgIsAll() || parsedInput.getParsedIndex().contains(i))) {
                 model.addPerson(importData.getPersonList().get(i));
             }
         }

@@ -173,21 +173,21 @@ Writes all entries from the address book to patients1.json. +
 
 Adds a patient to the patients list.
 
-Format: `add PARAMETERS [t/TAG] …`
+Name, NRIC, and Date of Birth fields are compulsory. The rest are optional fields.
+
+Format: `add PARAMETERS …`
 
 Parameters:
 
 [cols=",",options=""]
 |===
-|Tag |Example
 |n/NAME |n/Keith Choo Shen Hao
 |s/SEX |s/Male
 |p/PHONE_NUMBER |p/98765432
 |e/EMAIL |e/KeithCSH@debang.com
 |a/ADDRESS |a/1 Pulau Tekong Besar 508449
 |ic/NRIC |ic/S1234567Z
-|age/AGE |age/25
-|dob/DATE_OF_BIRTH_DDMMYYYY |dob/28061994
+|dob/DATE_OF_BIRTH_DD-MM-YYYY |dob/28-06-1994
 |da/DRUG_ALLERGY |da/Insulin
 |nokn/NEXT_OF_KIN_NAME |nokn/Choo Debang
 |nokp/NEXT_OF_KIN_PHONE_NUMBER |nokp/97654321
@@ -195,34 +195,25 @@ Parameters:
 |noka/NEXT_OF_KIN_ADDRESS |noka/21 Lower Kent Ridge Rd 119077
 |===
 
-
-A patient can have any number of tags.
-
-Note: If a patient’s next of kin lives at the same address, use `same` to
-indicate that.
+Note: If a patient’s next of kin lives at the same address, use `same` to indicate that.
 
 Examples:
-
 
 * `add n/John Choo p/98425871 e/jonC@example.com a/IDA street block 13
 #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo nokp/84875215
 nokr/Father noka/same`
 
-
 ==== delete
-
 
 Deletes the specified patient from the patients list.
 
 Format: delete INDEX
-
 
 * Deletes the patient at the specified index.
 
 * The index refers to the index number shown in the displayed patient list.
 
 * The given index must be a positive integer (e.g 1, 2 or 3…).
-
 
 Examples:
 
@@ -233,14 +224,11 @@ Deletes the patient shown with index 1 from the displayed list.
 `delete 2` +
 Deletes the patient shown with index 2 found using the find command.
 
-
 ==== edit
-
 
 Edits data from an existing patient.
 
 Format: `edit INDEX`
-
 
 * Goes into edit mode for the patient at the specified index shown from
 list or find command. Must be a positive integer (e.g 1, 2 or 3).
@@ -276,7 +264,6 @@ Edits the phone number and email of the first patient listed to become
 Edits the phone number and email of the first patient listed to become
 987654 and mymail@gmail.com respectively with a single input.
 
-
 ==== copy
 
 Makes an exact copy of a patient and adds them to the patient list.
@@ -298,13 +285,14 @@ Makes 4 copies of the patient at index 3 and inserts them at the bottom of
 the current patient list with a copy tag.
 
 === Patient Records Management
+
 ==== record add
 
-* Adds a new dental record to the patient.
+Adds a new dental record to the patient.
 
-* Record contains the patient's personal information, name of the dentist on duty, the date of the record, and the description of the dental treatment the patient has went through during that session.
+Record contains the patient's personal information, name of the dentist on duty, the date of the record, and the description of the dental treatment the patient has went through during that session.
 
-* Note: `recordadd` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+Note: `recordadd` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
 
 Format: `recordadd desc/DETAILS`
 
@@ -317,15 +305,18 @@ Format: `recordadd desc/DETAILS`
 * New dental records will appear on the top of the list upon entry.
 
 Example
+
 * `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+
 * `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
+
 * `back` - Go back to the patient list.
 
 ==== record delete
 
-* Deletes a dental record of a specified patient.
+Deletes a dental record of a specified patient.
 
-* Note: `recorddelete` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+Note: `recorddelete` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
 
 Format: `recorddelete INDEX`
 
@@ -336,15 +327,18 @@ Format: `recorddelete INDEX`
 * The given index must be a positive integer (e.g 1, 2 or 3…)
 
 Example:
+
 * `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+
 * `recorddelete 1` - Delete the latest dental record of the specified patient
+
 * `back` - Go back to the patient list.
 
 ==== record edit
 
-* Edits a patient’s dental record.
+Edits a patient’s dental record.
 
-* Note: `recordedit` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
+Note: `recordedit` requires the program to first be in `goto` mode, where a patient is specified for his or her dental information to be modified.
 
 Format: `recordedit INDEX desc/DETAILS`
 
@@ -357,19 +351,18 @@ Format: `recordedit INDEX desc/DETAILS`
 * The new description stated in the command will replace the old description in the specified dental record.
 
 Example:
+
 * `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+
 * `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
+
 * `back` - Go back to the patient list.
 
 === Teeth Management
 
 ==== Brief Description
 
-
-TeethHub complies with the most popular standard of the
-three the Dental Numbering Systems utilised in Dentistry - The
-Universal Numbering System.
-
+TeethHub complies with the most popular standard of the three the Dental Numbering Systems utilised in Dentistry - The Universal Numbering System.
 
 ==== The Universal Numbering System
 
@@ -385,39 +378,28 @@ mandibular left third molar, designated number 17, and continues along
 the bottom teeth to the right side. Each tooth has a unique number or
 letter, allowing for easier use on keyboards.
 
-
 ==== Creating and Editing Teeth Layout
-There are two templates provided by TeethHub: primary and
-permanent.
 
-All primary or permanent teeth in template will all be present and
-healthy by default.
+There is one template provided by TeethHub: permanent teeth.
 
+All permanent teeth in template will all be present and healthy by default.
 
 * To create a new teeth layout for patient:
 
-** `teeth add n/NRIC <Template>`
-
-** Note that if a teeth layout already exist, a warning will be thrown to
-confirm your overwriting intention.
+** The program automatically creates a new permanent teeth template for new patients added.
 
 * To edit a new specific tooth:
 
-** `teeth edit n/NRIC t/TEETH_LABEL s/STATUS -d/DESCRIPTION`
+** `goto 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
-** Valid <Teeth Label> are letters A through T (case-insensitive, for
-primary teeth), and numbers 1 - 32 (for permanent teeth).
+** `teeth edit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 
-** Note that if a teeth layout does not exist, a new layout will be created
-based on the teeth label group used, before the edit is applied on the
-newly created teeth layout.
+** `back` - Exits the record edit mode, and returns to the patient list.
+
+** Valid <Teeth Label> are numbers 1 - 32 (permanent teeth).
 
 ** <Status> reflects overall health of the indicated tooth, and valid
 <Status> are "healthy", "problem" and "absent".
-
-** <Description> is an optional field that allows you to
-write a note describing more detail on the patient’s teeth
-health.
 
 === List
 Shows a list of all patients or medical stored in TeethHub.
@@ -432,12 +414,11 @@ Example:
 * `list` +
 Shows details of all patients.
 
-
 * `list dental` +
 Shows details of patient's dental records.
 
-
 === Find
+
 Shows patients whose data contains any of the given keywords according to a specified parameter.
 
 Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
@@ -448,14 +429,11 @@ Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
 
 Example:
 
-
 * `find a/Yishun` +
 Show all the people with an address containing the keyword Yishun.
 
-
 * `find dental cleaning` +
 Shows all the dental records with cleaning
-
 
 === Sort
 Sorts the records by an input parameter in an input order.
@@ -504,14 +482,12 @@ application in reverse chronological order.
 
 Format: `history`
 
-
 === Undo
 Undo the latest command.
 
 Format: `undo`
 
 * The following commands are affected by undo: add edit delete and clear.
-
 
 Examples:
 
@@ -523,7 +499,6 @@ Examples:
 `undo` +
 The undo command fails as there are no undo-able commands executed
 previously.
-
 
 * `<<delete, delete>> 1` +
 `<<clear, clear>>` +
@@ -575,12 +550,9 @@ Format: `exit!`
 To increase data redundancy and reduce the risk of data being lost,
 you will be able to synchronise your data with a cloud account.
 
-
 == Spell-Checker Functionality [Coming in v2.0]
 
-
 Automatically correct an improperly typed command(e.g. sirt to sort).
-
 
 == Frequently Asked Questions (FAQ)
 

@@ -4,9 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MATRICNUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAROFSTUDY;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -32,7 +36,8 @@ public class MemberEditCommandParser implements Parser<MemberEditCommand> {
     public MemberEditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_MATRICNUMBER, PREFIX_PHONE, PREFIX_EMAIL,
+                        PREFIX_ADDRESS, PREFIX_GENDER, PREFIX_YEAROFSTUDY, PREFIX_MAJOR, PREFIX_TAG);
 
         Index index;
 
@@ -47,6 +52,10 @@ public class MemberEditCommandParser implements Parser<MemberEditCommand> {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         }
+        if (argMultimap.getValue(PREFIX_MATRICNUMBER).isPresent()) {
+            editPersonDescriptor.setMatricNumber(ParserUtil.parseMatricNumber
+                    (argMultimap.getValue(PREFIX_MATRICNUMBER).get()));
+        }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
@@ -55,6 +64,16 @@ public class MemberEditCommandParser implements Parser<MemberEditCommand> {
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+        if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+            editPersonDescriptor.setGender(ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get()));
+        }
+        if (argMultimap.getValue(PREFIX_YEAROFSTUDY).isPresent()) {
+            editPersonDescriptor.setYearOfStudy
+                    (ParserUtil.parseYearOfStudy(argMultimap.getValue(PREFIX_YEAROFSTUDY).get()));
+        }
+        if (argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
+            editPersonDescriptor.setMajor(ParserUtil.parseMajor(argMultimap.getValue(PREFIX_MAJOR).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 

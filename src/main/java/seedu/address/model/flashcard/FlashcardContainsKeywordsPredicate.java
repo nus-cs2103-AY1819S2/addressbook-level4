@@ -35,10 +35,10 @@ public class FlashcardContainsKeywordsPredicate implements Predicate<Flashcard> 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                // || (other instanceof FlashcardContainsKeywordsPredicate // instanceof handles nulls
+                || (other instanceof FlashcardContainsKeywordsPredicate // instanceof handles nulls
                 && frontFaceKeywords.equals(((FlashcardContainsKeywordsPredicate) other).frontFaceKeywords)
                 && backFaceKeywords.equals(((FlashcardContainsKeywordsPredicate) other).backFaceKeywords)
-                && tagKeywords.equals(((FlashcardContainsKeywordsPredicate) other).tagKeywords); // state check
+                && tagKeywords.equals(((FlashcardContainsKeywordsPredicate) other).tagKeywords)); // state check
     }
 
 }

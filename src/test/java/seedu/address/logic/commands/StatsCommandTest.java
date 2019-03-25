@@ -1,9 +1,14 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.StatsCommand.MESSAGE_STATISTICS_FORMAT;
+import static seedu.address.testutil.TypicalFlashcards.EMAIL;
+import static seedu.address.testutil.TypicalFlashcards.HELLO;
 import static seedu.address.testutil.TypicalFlashcards.getTypicalCardCollection;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,6 +19,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.flashcard.Flashcard;
+import seedu.address.model.flashcard.FlashcardContainsKeywordsPredicate;
 import seedu.address.model.flashcard.Statistics;
 
 public class StatsCommandTest {
@@ -26,21 +32,46 @@ public class StatsCommandTest {
 
     @Test
     public void execute() {
+        // overall flashcards
         double successRate = getOverallSuccessRateFromModel(model);
         String feedbackToUser = String.format(MESSAGE_STATISTICS_FORMAT, successRate);
         CommandResult expectedCommandResult = new CommandResult(feedbackToUser, false, false);
         assertCommandSuccess(new StatsCommand(), model, commandHistory, expectedCommandResult, expectedModel);
+
+        // run stats command with some predicates.
+        FlashcardContainsKeywordsPredicate predicate = new FlashcardContainsKeywordsPredicate(
+                Arrays.asList(HELLO.getFrontFace().text),
+                Arrays.asList(EMAIL.getBackFace().text),
+                Collections.emptyList());
+
+        expectedModel.updateFilteredFlashcardList(predicate);
+        successRate = getFilteredSuccessRateFromModel(expectedModel);
+        feedbackToUser = String.format(MESSAGE_STATISTICS_FORMAT, successRate);
+        expectedCommandResult = new CommandResult(feedbackToUser, false, false);
+        assertCommandSuccess(new StatsCommand(predicate), model, commandHistory, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void equals() {
         StatsCommand command = new StatsCommand();
 
-        // same object true
-        assertTrue(command.equals(command));
+        // no predicate stats
+        assertEquals(command, new StatsCommand());
 
-        // different object true
-        assertTrue(command.equals(new StatsCommand()));
+        // with predicate stats
+        FlashcardContainsKeywordsPredicate predicate1 = new FlashcardContainsKeywordsPredicate(
+                Arrays.asList("Klungs", "Robin"), Arrays.asList("Sergio"), Arrays.asList("Luca")
+        );
+
+        assertEquals(new StatsCommand(predicate1), new StatsCommand(predicate1));
+    }
+
+    private double getFilteredSuccessRateFromModel(Model model) {
+        Statistics stats = new Statistics();
+        for (Flashcard card : model.getFilteredFlashcardList()) {
+            stats = stats.merge(card.getStatistics());
+        }
+        return stats.getSuccessRate() * 100;
     }
 
     private double getOverallSuccessRateFromModel(Model model) {

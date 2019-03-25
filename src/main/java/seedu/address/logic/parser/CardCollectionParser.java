@@ -91,7 +91,7 @@ public class CardCollectionParser {
             return new RedoCommand();
 
         case StatsCommand.COMMAND_WORD:
-            return new StatsCommand();
+            return new StatsCommandParser().parse(arguments);
 
         case QuizCommand.COMMAND_WORD:
             return new QuizCommand();

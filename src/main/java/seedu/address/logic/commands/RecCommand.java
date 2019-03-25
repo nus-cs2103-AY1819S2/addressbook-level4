@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
  * Lists modules that the user is recommended to take based on completed modules and course requirements.
@@ -20,10 +20,7 @@ public class RecCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-
-        model.getCourse().resetCodeToReqMap();
-        model.updateDisplayList(model.getRecModulePredicate());
-        model.sortDisplayList(model.getRecModuleComparator());
+        model.updateRecModuleList();
 
         return new CommandResult(generateResultString(model));
     }
@@ -35,9 +32,9 @@ public class RecCommand extends Command {
      */
     private static String generateResultString(Model model) {
         String result = "Recommended modules to take (decreasing priority):\n";
-        ObservableList<ModuleInfo> sortedList = model.getSortedDisplayList();
-        for (ModuleInfo mod : sortedList) {
-            result += mod.getCodeString() + "\n";
+        ObservableList<ModuleInfoCode> sortedList = model.getRecModuleListSorted();
+        for (ModuleInfoCode moduleInfoCode : sortedList) {
+            result += moduleInfoCode.toString() + "\n";
         }
 
         return result;

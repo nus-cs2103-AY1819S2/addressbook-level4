@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -25,10 +24,9 @@ import seedu.address.model.Cap;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.RecModuleComparator;
-import seedu.address.model.RecModulePredicate;
 import seedu.address.model.course.Course;
 import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.Semester;
 import seedu.address.testutil.ModuleTakenBuilder;
@@ -250,22 +248,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<ModuleInfo> getSortedDisplayList() {
+        public ObservableList<ModuleInfoCode> getRecModuleListSorted() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
-        public void sortDisplayList(Comparator<ModuleInfo> comparator) {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public RecModulePredicate getRecModulePredicate() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public RecModuleComparator getRecModuleComparator() {
+        public void updateRecModuleList() {
             throw new AssertionError("This method should not be called");
         }
     }

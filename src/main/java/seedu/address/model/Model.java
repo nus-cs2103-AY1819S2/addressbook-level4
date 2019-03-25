@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -9,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
 import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.Semester;
 
@@ -175,11 +175,7 @@ public interface Model {
      */
     void updateDisplayList(Predicate<ModuleInfo> predicate);
 
-    ObservableList<ModuleInfo> getSortedDisplayList();
+    ObservableList<ModuleInfoCode> getRecModuleListSorted();
 
-    void sortDisplayList(Comparator<ModuleInfo> comparator);
-
-    RecModulePredicate getRecModulePredicate();
-
-    RecModuleComparator getRecModuleComparator();
+    void updateRecModuleList();
 }

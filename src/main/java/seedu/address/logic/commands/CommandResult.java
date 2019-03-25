@@ -28,8 +28,11 @@ public class CommandResult {
     /** The side panel should be updated as folder was exited. */
     private final boolean exitedFolder;
 
-    /** The application should enter a test session. */
+    /** The application should display this current test card in a test session. */
     private final Card testSessionCard;
+
+    /** The application should start a test session. */
+    private final boolean startTestSession;
 
     /** The current test session should end. */
     private final boolean endTestSession;
@@ -41,13 +44,14 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean enteredFolder, boolean exitedFolder,
+                         boolean enteredFolder, boolean exitedFolder, boolean startTestSession,
                          Card testSessionCard, boolean endTestSession, AnswerCommandResultType answerCommandResult) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.enteredFolder = enteredFolder;
         this.exitedFolder = exitedFolder;
+        this.startTestSession = startTestSession;
         this.testSessionCard = testSessionCard;
         this.endTestSession = endTestSession;
         this.answerCommandResult = answerCommandResult;
@@ -58,7 +62,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        this(feedbackToUser, false, false, false, false, false, null, false, AnswerCommandResultType
+                .NOT_ANSWER_COMMAND);
     }
 
     public String getFeedbackToUser() {

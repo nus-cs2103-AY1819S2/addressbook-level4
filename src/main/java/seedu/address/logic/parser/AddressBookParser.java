@@ -26,6 +26,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.RotateCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.TabCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -115,6 +116,9 @@ public class AddressBookParser {
 
         case BrightnessCommand.COMMAND_WORD:
             return new BrightnessCommandParser().parse(arguments);
+
+        case TabCommand.COMMAND_WORD:
+            return new TabCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

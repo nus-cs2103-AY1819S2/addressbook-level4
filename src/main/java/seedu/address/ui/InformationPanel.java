@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
@@ -32,12 +33,15 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
     private final Tab detailsTab = informationPanel.getTabs().get(1);
     private final Tab historyTab = informationPanel.getTabs().get(2);
     private final Album album = Album.getInstance();
+    private int selectedIndex = 0;
 
 
     public InformationPanel() {
         super(FXML);
         Notifier.addPropertyChangeListener(this);
         refresh();
+        // Tab is already preset to index 0 on launch - increment to select next tab.
+        selectedIndex++;
     }
 
     /**
@@ -65,6 +69,9 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
         if (event.getPropertyName().equals("refresh")) {
             refresh();
         }
+        if (event.getPropertyName().equals("switch")) {
+            switchTab();
+        }
     }
 
     /**
@@ -75,6 +82,18 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
         imageListView.setItems(FXCollections.observableArrayList(tempList));
         imageListView.setCellFactory(listView -> new ImageListViewCell());
         albumTab.setContent(imageListView);
+    }
+
+    /**
+     * Helper method to switch the information tabs.
+     */
+    private void switchTab() {
+        int tabLength = informationPanel.getTabs().size();
+        if (selectedIndex >= tabLength) {
+            selectedIndex = 0;
+        }
+        informationPanel.getSelectionModel().select(selectedIndex);
+        selectedIndex++;
     }
 }
 

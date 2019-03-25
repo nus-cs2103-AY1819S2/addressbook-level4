@@ -181,4 +181,5 @@ public interface Model {
     //=========== Filtered Person List Accessors =============================================================
 
     void refreshAlbum();
+    void switchTab();
 }

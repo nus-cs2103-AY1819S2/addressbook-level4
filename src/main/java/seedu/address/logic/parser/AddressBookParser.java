@@ -51,8 +51,7 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case SelectRequestCommand
-        .COMMAND_WORD:
+        case SelectRequestCommand.COMMAND_WORD:
             return new SelectRequestCommandParser().parse(arguments);
 
         case DeleteRequestCommand.COMMAND_WORD:

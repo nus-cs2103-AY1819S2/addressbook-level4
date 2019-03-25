@@ -28,7 +28,7 @@ class SelectRequestCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_validIndex_UnfilteredList_success() {
+    public void execute_validIndexUnfilteredList_success() {
         Index lastRequestIndex = Index.fromOneBased(model.getFilteredRequestList().size());
 
         assertExecutionSuccess(INDEX_FIRST);

@@ -13,7 +13,6 @@ import seedu.address.model.person.UniquePatientList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePersonList;
 
@@ -24,7 +23,6 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePatientList patients;
-    private final UniquePersonList persons;
     private final UniqueDoctorList doctors;
     private final UniqueMedHistList medHists;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -38,7 +36,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         patients = new UniquePatientList();
-        persons = new UniquePersonList();
         doctors = new UniqueDoctorList();
         medHists = new UniqueMedHistList();
     }
@@ -79,7 +76,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setPatients(newData.getPatientList());
-        setPersons(newData.getPersonList());
         setMedHists(newData.getMedHistList());
     }
 
@@ -215,7 +211,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && patients.equals(((AddressBook) other).patients)
-                && persons.equals(((AddressBook) other).persons)
                 && medHists.equals(((AddressBook) other).medHists));
     }
 

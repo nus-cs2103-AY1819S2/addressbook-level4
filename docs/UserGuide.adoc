@@ -71,7 +71,7 @@ Initialises both player's maps to the specified size. +
 Format: `init MAP_SIZE` +
 Example: `init 10`
 
-Figure 1 below shows how the maps will be displayed.
+_Figure 1_ below shows how the maps will be displayed in the UI.
 
 .Player and enemy maps
 image::initmapresult.png[width=650]
@@ -89,7 +89,7 @@ Throughout the course of the game, the cells in the map will change colour based
 - Ship Destroyed - Ship cell that has been destroyed
 ====
 
-_Figure 2_ below shows the colour used for each status
+_Figure 2_ below shows which colour is used for each status.
 
 .Cell colours
 image::maplegend.png[width=400]

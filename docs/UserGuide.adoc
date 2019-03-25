@@ -68,7 +68,7 @@ Format: `help`
 === Map : `init`
 
 Initialises both player's maps to the specified size. +
-Format: `init [s/MAP_SIZE]` +
+Format: `init MAP_SIZE` +
 Example: `init 10`
 
 The maps will be displayed as follows:

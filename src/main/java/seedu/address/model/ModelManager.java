@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -17,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 
@@ -28,9 +27,10 @@ public class ModelManager implements Model {
 
     private final VersionedInventory versionedInventory;
     private final UserPrefs userPrefs;
+    private final WarningPanelPredicateAccessor warningPanelPredicateAccessor;
     private final FilteredList<Medicine> filteredMedicines;
     private final FilteredList<Medicine> medicinesExpiring;
-    private final FilteredList<Medicine> medicinesLowQuantity;
+    private final FilteredList<Medicine> medicinesLowStock;
     private final SimpleObjectProperty<Medicine> selectedMedicine = new SimpleObjectProperty<>();
 
     /**
@@ -44,12 +44,15 @@ public class ModelManager implements Model {
 
         versionedInventory = new VersionedInventory(inventory);
         this.userPrefs = new UserPrefs(userPrefs);
+
         filteredMedicines = new FilteredList<>(versionedInventory.getMedicineList());
         filteredMedicines.addListener(this::ensureSelectedMedicineIsValid);
-        medicinesExpiring = new FilteredList<>(versionedInventory.getMedicineList());
-        medicinesLowQuantity = new FilteredList<>(versionedInventory.getMedicineList());
-        setPredicates();
 
+        warningPanelPredicateAccessor = new WarningPanelPredicateAccessor();
+        medicinesExpiring = new FilteredList<>(versionedInventory.getMedicineList());
+        updateFilteredExpiringMedicineList(warningPanelPredicateAccessor.getMedicineExpiringPredicate());
+        medicinesLowStock = new FilteredList<>(versionedInventory.getMedicineList());
+        updateFilteredLowStockMedicineList(warningPanelPredicateAccessor.getMedicineLowStockPredicate());
     }
 
     public ModelManager() {
@@ -123,7 +126,6 @@ public class ModelManager implements Model {
     @Override
     public void setMedicine(Medicine target, Medicine editedMedicine) {
         requireAllNonNull(target, editedMedicine);
-
         versionedInventory.setMedicine(target, editedMedicine);
     }
 
@@ -145,7 +147,12 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Medicine> getLowQuantityMedicinesList() {
-        return medicinesLowQuantity;
+        return medicinesLowStock;
+    }
+
+    @Override
+    public WarningPanelPredicateAccessor getWarningPanelPredicateAccessor() {
+        return warningPanelPredicateAccessor;
     }
 
     @Override
@@ -154,23 +161,16 @@ public class ModelManager implements Model {
         filteredMedicines.setPredicate(predicate);
     }
 
-    /**
-     * Sets initial predicates for all filtered lists.
-     */
-    private void setPredicates() {
-        filteredMedicines.setPredicate(PREDICATE_SHOW_ALL_MEDICINES);
-        medicinesLowQuantity.setPredicate(medicine -> medicine.getTotalQuantity().getNumericValue() < 20);
-        medicinesExpiring.setPredicate(medicine ->
-                medicine.getNextExpiry().getExpiryDate() != null && calculateDaysToExpiry(medicine) < 10);
+    @Override
+    public void updateFilteredExpiringMedicineList(Predicate<Medicine> predicate) {
+        requireNonNull(predicate);
+        medicinesExpiring.setPredicate(predicate);
     }
 
-    /**
-     * Calculates and returns number of days from medicine's expiry date to today.
-     * @param medicine
-     * @return
-     */
-    private float calculateDaysToExpiry(Medicine medicine) {
-        return ChronoUnit.DAYS.between(LocalDate.now(), medicine.getNextExpiry().getExpiryDate());
+    @Override
+    public void updateFilteredLowStockMedicineList(Predicate<Medicine> predicate) {
+        requireNonNull(predicate);
+        medicinesLowStock.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================

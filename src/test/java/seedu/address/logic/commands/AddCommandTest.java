@@ -17,6 +17,7 @@ import org.junit.rules.ExpectedException;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Inventory;
@@ -153,6 +154,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public WarningPanelPredicateAccessor getWarningPanelPredicateAccessor() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Medicine> getFilteredMedicineList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -169,6 +175,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredMedicineList(Predicate<Medicine> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredExpiringMedicineList(Predicate<Medicine> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredLowStockMedicineList(Predicate<Medicine> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

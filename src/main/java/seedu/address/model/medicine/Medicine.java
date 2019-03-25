@@ -9,6 +9,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import seedu.address.model.tag.Tag;
 
@@ -72,6 +77,11 @@ public class Medicine {
      */
     public Map<BatchNumber, Batch> getBatches() {
         return Collections.unmodifiableMap(batches);
+    }
+
+    public FilteredList<Batch> getFilteredBatch(Predicate<Batch> predicate) {
+        ObservableList<Batch> batches = FXCollections.observableArrayList(getBatches().values());
+        return batches.filtered(predicate);
     }
 
     /**

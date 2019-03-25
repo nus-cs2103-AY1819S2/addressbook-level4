@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.tag.Tag;
 
@@ -73,6 +74,10 @@ public class Book {
      */
     public Set<Review> getReviews() {
         return Collections.unmodifiableSet(reviews);
+    }
+
+    public Set<Review> getModifiableReviews() {
+        return reviews.stream().collect(Collectors.toSet());
     }
 
 

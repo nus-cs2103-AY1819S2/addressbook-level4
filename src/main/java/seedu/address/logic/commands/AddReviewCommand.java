@@ -85,7 +85,7 @@ public class AddReviewCommand extends Command {
         Author updatedAuthor = bookToEdit.getAuthor();
         Rating updatedRating = bookToEdit.getRating();
         Set<Tag> updatedTags = bookToEdit.getTags();
-        Set<Review> updatedReviews = bookToEdit.getReviews();
+        Set<Review> updatedReviews = bookToEdit.getModifiableReviews();
         updatedReviews.add(toAdd);
 
         return new Book(updatedName, updatedAuthor, updatedRating, updatedTags, updatedReviews);

@@ -2,13 +2,17 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
+
+import java.util.HashSet;
 
 import org.junit.Rule;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -19,13 +23,12 @@ import seedu.address.model.book.Review;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.ReviewBuilder;
 
+
 public class AddReviewCommandTest {
 
     private Model model = new ModelManager(getTypicalBookShelf(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    private BookNameContainsExactKeywordsPredicate validPredicate =
-            new BookNameContainsExactKeywordsPredicate(new BookName("A send off fit for a wizard"));
     private Review validReview = ReviewBuilder.build();
 
     @Rule
@@ -71,7 +74,20 @@ public class AddReviewCommandTest {
 
     @Test
     public void execute_success() {
-        Book addedReviewBook = new BookBuilder().build();
-        
+        HashSet<Review> reviewSet = new HashSet<>();
+        reviewSet.add(validReview);
+        Book addedReviewBook = new BookBuilder().withReview(reviewSet).buildLifePi();
+        BookNameContainsExactKeywordsPredicate predicate =
+                new BookNameContainsExactKeywordsPredicate(addedReviewBook.getBookName());
+        AddReviewCommand addReviewCommand = new AddReviewCommand(validReview, predicate);
+
+        String expectedMessage = String.format(AddReviewCommand.MESSAGE_SUCCESS, validReview.getTitle());
+
+        Model expectedModel = new ModelManager(new BookShelf(model.getBookShelf()), new UserPrefs());
+        expectedModel.updateFilteredBookList(predicate);
+        expectedModel.setBook(expectedModel.getFilteredBookList().get(0), addedReviewBook);
+        expectedModel.commitBookShelf();
+
+        assertCommandSuccess(addReviewCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 }

@@ -86,7 +86,13 @@ public class BookBuilder {
     }
 
     public Book build() {
-        return new Book(bookName, author, rating, tags);
+        return new Book(bookName, author, rating, tags, reviews);
+    }
+
+    public Book buildLifePi() {
+        HashSet<Tag> newtags = new HashSet<>();
+        newtags.add(new Tag("fantasy"));
+        return new Book(new BookName("Life of Pi"), new Author("Yann Martel"), new Rating("9"), newtags, reviews);
     }
 
 }

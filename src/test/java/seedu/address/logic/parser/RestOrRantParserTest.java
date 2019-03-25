@@ -33,9 +33,11 @@ import seedu.address.testutil.OrderItemBuilder;
 import seedu.address.testutil.RestOrRantUtil;
 
 public class RestOrRantParserTest {
-    private final RestOrRantParser parser = new RestOrRantParser();
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private final RestOrRantParser parser = new RestOrRantParser();
 
     //    @Test
     //    public void parseCommand_add() throws Exception {

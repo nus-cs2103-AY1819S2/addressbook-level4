@@ -12,10 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.RestOrRant;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.table.Table;
-import seedu.address.testutil.TypicalRestOrRant;
 
 public class ClearOrderCommandTest {
 

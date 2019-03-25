@@ -1,5 +1,13 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.nio.file.Path;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.logging.Logger;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -19,14 +27,6 @@ import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingCardException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
 
-import java.nio.file.Path;
-import java.util.Objects;
-import java.util.function.Predicate;
-import java.util.logging.Logger;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 /**
  * Represents the in-memory model of top deck data.
  */
@@ -40,7 +40,7 @@ public class ModelManager implements Model {
     private ViewState viewState;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given topDeck and userPrefs.
      */
     public ModelManager(ReadOnlyTopDeck topDeck, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -66,6 +66,9 @@ public class ModelManager implements Model {
         return viewState.parse(commandWord, arguments);
     }
 
+    /**
+     * Updates the given ViewState to CardsView with the given deck.
+     */
     public void changeDeck(Deck deck) {
         viewState = new CardsView(this, deck);
 

@@ -18,10 +18,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 
+/**
+ * Stores the state of the Deck's view.
+ */
 public class DecksView implements ListViewState {
-    private Model model;
-    public final FilteredList<Deck> filteredDecks;
+
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
+    private Model model;
+
+    public final FilteredList<Deck> filteredDecks;
 
     public DecksView(Model model, FilteredList<Deck> deckList) {
         this.model = model;

@@ -35,25 +35,26 @@ public class WarningCard extends UiPart<Region> {
     private Text field;
 
     public WarningCard(Medicine medicine, int displayedIndex,
-                       WarningPanelListType listType, WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
+                       WarningPanelListType listType,
+                       WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
         super(FXML);
         this.medicine = medicine;
         id.setText(displayedIndex + ". ");
         name.setText(medicine.getName().fullName);
 
         switch (listType) {
-            case EXPIRY:
-                FilteredList<Batch> filteredBatch = medicine
-                        .getFilteredBatch(warningPanelPredicateAccessor.getBatchExpiringPredicate());
-                field.setText(getFormattedBatch(filteredBatch));
-                break;
+        case EXPIRY:
+            FilteredList<Batch> filteredBatch = medicine
+                    .getFilteredBatch(warningPanelPredicateAccessor.getBatchExpiringPredicate());
+            field.setText(getFormattedBatch(filteredBatch));
+            break;
 
-            case LOW_STOCK:
-                field.setText("Qty: " + medicine.getTotalQuantity().value);
-                break;
+        case LOW_STOCK:
+            field.setText("Qty: " + medicine.getTotalQuantity().value);
+            break;
 
-            default:
-                break;
+        default:
+            break;
         }
 
         setStyle(new ArrayList<>(Arrays.asList(id, name, field)));

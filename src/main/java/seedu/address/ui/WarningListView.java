@@ -26,7 +26,8 @@ public class WarningListView extends UiPart<Region> {
     private final WarningPanelListType listType;
     private final WarningPanelPredicateAccessor warningPanelPredicateAccessor;
 
-    public WarningListView(ObservableList<Medicine> medicineList, WarningPanelListType listType,
+    public WarningListView(ObservableList<Medicine> medicineList,
+                           WarningPanelListType listType,
                            WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
         super(FXML);
 

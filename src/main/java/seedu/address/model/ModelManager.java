@@ -168,11 +168,17 @@ public class ModelManager implements Model {
 
         CardsView cardsView = (CardsView)viewState;
         versionedTopDeck.deleteCard(target, cardsView.getActiveDeck());
+
+        cardsView.filteredCards.remove(target);
+
+        setSelectedItem(cardsView.selectedCard.getValue());
         updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
     public void addCard(Card card) {
+        requireNonNull(card);
+
         if (!(viewState instanceof CardsView)) {
             throw new IllegalOperationWhileReviewingDeckException();
         }
@@ -283,6 +289,17 @@ public class ModelManager implements Model {
             throw new CardNotFoundException();
         }
         selectedItem.setValue(card);
+
+
+        if (card instanceof Card && isAtCardsView()) {
+            CardsView cardsView = (CardsView) viewState;
+            cardsView.selectedCard.set((Card)card);
+        } else if (card instanceof Deck && isAtDecksView()){
+            //TODO: Deck has to set its selection
+
+        } else if (card != null) {
+            throw new IllegalOperationWhileReviewingCardException();
+        }
     }
 
     @Override

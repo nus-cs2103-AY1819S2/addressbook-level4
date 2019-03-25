@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
@@ -21,10 +19,13 @@ import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+
 public class CardsView implements ListViewState {
     private final Model model;
     public final FilteredList<Card> filteredCards;
-    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    public final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final Deck activeDeck;
 
     public CardsView(Model model, Deck deck) {

@@ -100,6 +100,8 @@ public class TopDeck implements ReadOnlyTopDeck {
         activeDeck.addCard(card);
 
         decks.setDeck(activeDeck, activeDeck);
+
+        indicateModified();
     }
 
     /**
@@ -118,6 +120,8 @@ public class TopDeck implements ReadOnlyTopDeck {
         activeDeck.removeCard(target);
 
         decks.setDeck(activeDeck, activeDeck);
+
+        indicateModified();
     }
 
     /**
@@ -137,6 +141,8 @@ public class TopDeck implements ReadOnlyTopDeck {
         activeDeck.addCard(newCard);
 
         decks.setDeck(activeDeck, activeDeck);
+
+        indicateModified();
     }
 
     //// deck operations

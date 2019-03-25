@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Optional;
 
-import seedu.address.model.dentist.exceptions.DentistNotFoundException;
+import javafx.scene.control.TextInputDialog;
 
 
 /**
@@ -25,15 +26,17 @@ public class Dentist {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             String dentistName = br.readLine();
+            br.close();
 
-            if (!dentistName.equals("")) {
+            if (dentistName != null && !dentistName.equals("")) {
                 return dentistName;
             } else {
-                throw new DentistNotFoundException("Dentist name is empty");
+                throw new IOException();
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            return "NIL";
+            String name = promptDentistName();
+            setDentistName(name);
+            return getDentistName();
         }
     }
 
@@ -49,5 +52,20 @@ public class Dentist {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Prompts user to enter his or her name if it is not specified.
+     * @return the name of the user.
+     */
+    private static String promptDentistName() {
+        TextInputDialog dialog = new TextInputDialog("Strange");
+        dialog.setTitle("Set Dentist Name");
+        dialog.setHeaderText("Please enter your name to continue. This will be used when you create reports.");
+        dialog.setContentText("Your preferred name: ");
+
+        Optional<String> name = dialog.showAndWait();
+
+        return name.orElseGet(Dentist::promptDentistName);
     }
 }

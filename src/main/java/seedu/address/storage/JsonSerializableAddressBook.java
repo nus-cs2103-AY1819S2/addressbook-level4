@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.medicalhistory.MedicalHistory;
+//import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
 
 /**
@@ -33,11 +33,9 @@ class JsonSerializableAddressBook {
      * Constructs a {@code JsonSerializableAddressBook} with the given patients.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("patients") List<JsonAdaptedPatient> patients,
-                                       @JsonProperty("medicalHistories") List<JsonAdaptedMedicalHistory>
-                                               medicalHistories) {
+    public JsonSerializableAddressBook(@JsonProperty("patients") List<JsonAdaptedPatient> patients) {
         this.patients.addAll(patients);
-        this.medicalHistories.addAll(medicalHistories);
+        //this.medicalHistories.addAll(medicalHistories);
     }
 
     /**
@@ -47,8 +45,8 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         patients.addAll(source.getPatientList().stream().map(JsonAdaptedPatient::new).collect(Collectors.toList()));
-        medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
-                .collect(Collectors.toList()));
+        //medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
+        //        .collect(Collectors.toList()));
     }
 
     /**
@@ -65,6 +63,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addPatient(patient);
         }
+        /*
         for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
             MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
             if (addressBook.hasMedHist(medicalHistory)) {
@@ -72,6 +71,7 @@ class JsonSerializableAddressBook {
             }
             addressBook.addMedHist(medicalHistory);
         }
+        */
         return addressBook;
     }
 

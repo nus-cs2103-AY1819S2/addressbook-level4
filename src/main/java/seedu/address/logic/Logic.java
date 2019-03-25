@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 
 /**
  * API of the Logic component
@@ -30,6 +31,9 @@ public interface Logic {
      * @see seedu.address.model.Model#getInventory()
      */
     ReadOnlyInventory getInventory();
+
+    /** Return the accessor to predicates used in the warning pane*/
+    WarningPanelPredicateAccessor getWarningPanelPredicateAccessor();
 
     /** Returns an unmodifiable view of the filtered list of medicines for medicine pane*/
     ObservableList<Medicine> getFilteredMedicineList();

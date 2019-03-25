@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.storage.Storage;
 
 /**
@@ -72,14 +73,15 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public WarningPanelPredicateAccessor getWarningPanelPredicateAccessor() { return model.getWarningPanelPredicateAccessor(); }
+
+    @Override
     public ObservableList<Medicine> getFilteredMedicineList() {
         return model.getFilteredMedicineList();
     }
 
     @Override
-    public ObservableList<Medicine> getExpiringMedicinesList() {
-        return model.getExpiringMedicinesList();
-    }
+    public ObservableList<Medicine> getExpiringMedicinesList() { return model.getExpiringMedicinesList(); }
 
     @Override
     public ObservableList<Medicine> getLowQuantityMedicinesList() {

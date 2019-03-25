@@ -10,6 +10,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.commons.util.warning.WarningPanelListType;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 
 /**
  * Cell containing content of warning.
@@ -21,12 +23,15 @@ public class WarningListView extends UiPart<Region> {
     @FXML
     private ListView<Medicine> warningListView;
 
-    private String listType;
+    private final WarningPanelListType listType;
+    private final WarningPanelPredicateAccessor warningPanelPredicateAccessor;
 
-    public WarningListView(ObservableList<Medicine> medicineList, String listType) {
+    public WarningListView(ObservableList<Medicine> medicineList, WarningPanelListType listType,
+                           WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
         super(FXML);
 
         this.listType = listType;
+        this.warningPanelPredicateAccessor = warningPanelPredicateAccessor;
 
         // placeholder if the list is empty
         warningListView.setPlaceholder(new Label("Nothing to show"));
@@ -47,7 +52,8 @@ public class WarningListView extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new WarningCard(medicine, getIndex() + 1, listType).getRoot());
+                setGraphic(new WarningCard(medicine, getIndex() + 1,
+                        listType, warningPanelPredicateAccessor).getRoot());
             }
         }
     }

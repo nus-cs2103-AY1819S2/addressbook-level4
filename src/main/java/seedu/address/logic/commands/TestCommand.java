@@ -49,7 +49,8 @@ public class TestCommand extends Command {
         try {
             model.testCardFolder(targetIndex.getZeroBased());
             Card cardToTest = model.getCurrentTestedCard();
-            return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, false, cardToTest, false,
+            return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, false, true, cardToTest,
+                    false,
                     AnswerCommandResultType.NOT_ANSWER_COMMAND);
         } catch (EmptyCardFolderException e) {
             model.endTestSession();

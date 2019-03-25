@@ -10,7 +10,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
@@ -21,9 +20,6 @@ import seedu.address.model.modelmanager.quiz.QuizModelStub;
  * Unit tests for the {@link CloseLessonCommand}.
  */
 public class CloseLessonCommandTest {
-
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -69,7 +65,6 @@ public class CloseLessonCommandTest {
     @Test
     public void execute_incorrectModel_throwsCommandException() throws Exception {
         QuizModelStub modelStub = new QuizModelStub();
-        Index toOpenIndex = Index.fromZeroBased(0);
         CloseLessonCommand closeLessonCommand = new CloseLessonCommand();
 
         // attempting to execute CloseLessonCommand on a QuizModel instead of a ManagementModel ->

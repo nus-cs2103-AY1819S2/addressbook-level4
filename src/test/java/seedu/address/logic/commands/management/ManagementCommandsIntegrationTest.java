@@ -31,17 +31,15 @@ public class ManagementCommandsIntegrationTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     private CommandHistory commandHistory = new CommandHistory();
+    private ManagementModelManager model = new ManagementModelManager();
+    private Lesson validLesson = new LessonBuilder().build();
 
     /**
      * Tests {@link AddLessonCommand} and {@link DeleteLessonCommand}.
      */
     @Test
     public void execute_lessonDeletedByModel_deleteSuccessful() throws Exception {
-        ManagementModelManager model = new ManagementModelManager();
-        Lesson validLesson = new LessonBuilder().build();
-
         // add valid lesson -> lesson added successfully
         CommandResult commandResult =
                 new AddLessonCommand(validLesson).execute(model, commandHistory);
@@ -70,9 +68,6 @@ public class ManagementCommandsIntegrationTest {
      */
     @Test
     public void execute_addAndOpenLesson_openSuccessful() throws Exception {
-        ManagementModelManager model = new ManagementModelManager();
-        Lesson validLesson = new LessonBuilder().build();
-
         // add valid lesson -> lesson added successfully
         CommandResult commandResult =
                 new AddLessonCommand(validLesson).execute(model, commandHistory);
@@ -104,9 +99,6 @@ public class ManagementCommandsIntegrationTest {
      */
     @Test
     public void execute_addAndOpenAndCloseLesson_closeSuccessful() throws Exception {
-        ManagementModelManager model = new ManagementModelManager();
-        Lesson validLesson = new LessonBuilder().build();
-
         // add valid lesson -> lesson added successfully
         CommandResult commandResult =
                 new AddLessonCommand(validLesson).execute(model, commandHistory);
@@ -144,9 +136,6 @@ public class ManagementCommandsIntegrationTest {
      */
     @Test
     public void execute_addAndDeleteAndOpenLesson_openUnsuccessful() throws Exception {
-        ManagementModelManager model = new ManagementModelManager();
-        Lesson validLesson = new LessonBuilder().build();
-
         // add valid lesson -> lesson added successfully
         CommandResult commandResult =
                 new AddLessonCommand(validLesson).execute(model, commandHistory);
@@ -185,9 +174,6 @@ public class ManagementCommandsIntegrationTest {
      */
     @Test
     public void execute_addAndOpenAndDeleteAndCloseLesson_closeUnsuccessful() throws Exception {
-        ManagementModelManager model = new ManagementModelManager();
-        Lesson validLesson = new LessonBuilder().build();
-
         // add valid lesson -> lesson added successfully
         CommandResult commandResult =
                 new AddLessonCommand(validLesson).execute(model, commandHistory);

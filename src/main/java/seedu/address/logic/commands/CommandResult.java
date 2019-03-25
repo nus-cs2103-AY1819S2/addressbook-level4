@@ -34,6 +34,8 @@ public class CommandResult {
     /** The current test session should end. */
     private final boolean endTestSession;
 
+    private final boolean inReport;
+
     /** The application should show to user whether answer attempted is correct or wrong. */
     private final AnswerCommandResultType answerCommandResult;
 
@@ -42,12 +44,14 @@ public class CommandResult {
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
                          boolean enteredFolder, boolean exitedFolder,
-                         Card testSessionCard, boolean endTestSession, AnswerCommandResultType answerCommandResult) {
+                         Card testSessionCard, boolean endTestSession, boolean inReport,
+                         AnswerCommandResultType answerCommandResult) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
         this.enteredFolder = enteredFolder;
         this.exitedFolder = exitedFolder;
+        this.inReport = inReport;
         this.testSessionCard = testSessionCard;
         this.endTestSession = endTestSession;
         this.answerCommandResult = answerCommandResult;
@@ -58,7 +62,8 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        this(feedbackToUser, false, false, false, false, null, false, false,
+                AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 
     public String getFeedbackToUser() {
@@ -75,6 +80,14 @@ public class CommandResult {
 
     public boolean isEndTestSession() {
         return endTestSession;
+    }
+
+    public boolean isReport() {
+        return inReport;
+    }
+
+    public boolean isEndReport() {
+        return !inReport;
     }
 
     /**

@@ -24,6 +24,7 @@ public class AddMedHistCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_WRITEUP + "Fever";
     public static final String MESSAGE_SUCCESS = "New medical history added: %1$s";
+    public static final String MESSAGE_DUPLICATE_MEDHIST = "This medical history already exists in the address book";
 
     private final MedicalHistory toAdd;
 
@@ -37,24 +38,17 @@ public class AddMedHistCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        throw new CommandException("Medical History:\n " + "Name: " + toAdd.getName()
-                + "\nShort Write Up: " + toAdd.getWriteUp());
-    }
-
-    /*
-    @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasMedHist(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_MEDHIST);
         }
 
-        model.addPerson(toAdd);
+        model.addMedHist(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
-    */
+
 
     @Override
     public boolean equals(Object other) {

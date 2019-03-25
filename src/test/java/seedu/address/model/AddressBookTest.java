@@ -21,9 +21,14 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.DuplicatePatientException;
 import seedu.address.testutil.PatientBuilder;
+import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
 
@@ -117,6 +122,8 @@ public class AddressBookTest {
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<Patient> persons = FXCollections.observableArrayList();
+        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<MedicalHistory> medHists = FXCollections.observableArrayList();
 
         AddressBookStub(Collection<Patient> persons) {
             this.persons.setAll(persons);
@@ -125,6 +132,11 @@ public class AddressBookTest {
         @Override
         public ObservableList<Patient> getPatientList() {
             return persons;
+        }
+
+        @Override
+        public ObservableList<MedicalHistory> getMedHistList() {
+            return medHists;
         }
 
         @Override

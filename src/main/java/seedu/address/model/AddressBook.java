@@ -7,8 +7,15 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniquePatientList;
+import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.UniqueMedHistList;
+import seedu.address.model.person.Doctor;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.UniqueDoctorList;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
@@ -17,6 +24,9 @@ import seedu.address.model.person.UniquePatientList;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePatientList patients;
+    private final UniquePersonList persons;
+    private final UniqueDoctorList doctors;
+    private final UniqueMedHistList medHists;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -28,6 +38,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         patients = new UniquePatientList();
+        persons = new UniquePersonList();
+        doctors = new UniqueDoctorList();
+        medHists = new UniqueMedHistList();
     }
 
     public AddressBook() {}
@@ -52,12 +65,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the medical history list with {@code medHists}.
+     * {@code medHists} must not contain duplicate medical histories.
+     */
+    public void setMedHists(List<MedicalHistory> medHists) {
+        this.medHists.setMedHists(medHists);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-
         setPatients(newData.getPatientList());
+        setPersons(newData.getPersonList());
+        setMedHists(newData.getMedHistList());
     }
 
     //// patient-level operations
@@ -81,6 +104,16 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given patient {@code target} in the list with {@code editedPatient}.
+     * Adds a doctor to the address book.
+     * The doctor must not already exist in the address book.
+     */
+    public void addDoctor(Doctor d) {
+        doctors.add(d);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The patient identity of {@code editedPatient} must not be the same
      * as another existing patient in the address book.
@@ -98,6 +131,47 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePatient(Patient key) {
         patients.remove(key);
+        indicateModified();
+    }
+
+    //// medical history-level operations
+
+    /**
+     * Returns true if a medical history with the same identity as {@code person} exists in the address book.
+     */
+    public boolean hasMedHist(MedicalHistory medHist) {
+        requireNonNull(medHist);
+        return medHists.contains(medHist);
+    }
+
+    /**
+     * Adds a medical history to the address book.
+     * The medical history must not already exist in the address book.
+     */
+    public void addMedHist(MedicalHistory medHist) {
+        medHists.add(medHist);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given medical history {@code target} in the list with {@code editedMedHist}.
+     * {@code target} must exist in the address book.
+     * The medical history identity of {@code editedMedHist} must not be the same as another existing medical history
+     * in the address book.
+     */
+    public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
+        requireNonNull(editedMedHist);
+
+        medHists.setMedHist(target, editedMedHist);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeMedHist(MedicalHistory key) {
+        medHists.remove(key);
         indicateModified();
     }
 
@@ -132,10 +206,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<MedicalHistory> getMedHistList() {
+        return medHists.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && patients.equals(((AddressBook) other).patients));
+                && persons.equals(((AddressBook) other).persons)
+                && medHists.equals(((AddressBook) other).medHists));
     }
 
     @Override

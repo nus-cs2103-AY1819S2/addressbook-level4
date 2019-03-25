@@ -12,6 +12,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Patient;
+import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.person.Person;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -23,12 +25,25 @@ class JsonSerializableAddressBook {
 
     private final List<JsonAdaptedPatient> patients = new ArrayList<>();
 
+    public static final String MESSAGE_DUPLICATE_MEDHIST =
+            "Medical history list contains duplicate medical history(s).";
+
+    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+
+    private final List<JsonAdaptedMedicalHistory> medicalHistories = new ArrayList<>();
+
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given patients.
      */
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("patients") List<JsonAdaptedPatient> patients) {
         this.patients.addAll(patients);
+
+    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons,
+                                       @JsonProperty("medicalHistories") List<JsonAdaptedMedicalHistory>
+                                               medicalHistories) {
+        this.persons.addAll(persons);
+        this.medicalHistories.addAll(medicalHistories);
     }
 
     /**
@@ -38,6 +53,9 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         patients.addAll(source.getPatientList().stream().map(JsonAdaptedPatient::new).collect(Collectors.toList()));
+        persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
+        medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +71,13 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
             }
             addressBook.addPatient(patient);
+        }
+        for (JsonAdaptedMedicalHistory jsonAdaptedMedicalHistory : medicalHistories) {
+            MedicalHistory medicalHistory = jsonAdaptedMedicalHistory.toModelType();
+            if (addressBook.hasMedHist(medicalHistory)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_MEDHIST);
+            }
+            addressBook.addMedHist(medicalHistory);
         }
         return addressBook;
     }

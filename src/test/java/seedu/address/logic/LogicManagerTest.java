@@ -57,9 +57,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
-         String invalidCommand = "wnfookdasd";
-         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-         assertHistoryCorrect(invalidCommand);
+        String invalidCommand = "wnfookdasd";
+        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertHistoryCorrect(invalidCommand);
     }
 
     // To be rewritten

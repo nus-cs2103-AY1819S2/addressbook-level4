@@ -19,16 +19,17 @@ public class JsonSerializableAddressBookTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-
-/*    @Test
+    
+    /*
+    @Test
     public void toModelType_typicalPatientsFile_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
         AddressBook typicalPatientsAddressBook = TypicalPatients.getTypicalAddressBook();
         assertEquals(addressBookFromFile, typicalPatientsAddressBook);
-    }*/
+    }
+    */
 
     @Test
     public void toModelType_invalidPatientFile_throwsIllegalValueException() throws Exception {

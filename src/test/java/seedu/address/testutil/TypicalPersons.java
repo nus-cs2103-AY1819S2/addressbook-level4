@@ -42,7 +42,7 @@ public class TypicalPersons {
             .withTags("running").build();
 
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
-            .withMatricNumber("A0123456Z")
+            .withMatricNumber("A0222222B")
             .withPhone("98765432")
             .withEmail("johnd@example.com")
             .withAddress("311, Clementi Ave 2, #02-25")
@@ -52,7 +52,7 @@ public class TypicalPersons {
             .withTags("swimming", "running").build();
 
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz")
-            .withMatricNumber("A0123456Z")
+            .withMatricNumber("A0333333C")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
             .withAddress("wall street")
@@ -62,7 +62,7 @@ public class TypicalPersons {
             .withTags("swimming", "running").build();
 
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier")
-            .withMatricNumber("A0123456Z")
+            .withMatricNumber("A0444444D")
             .withPhone("87652533")
             .withEmail("cornelia@example.com")
             .withAddress("10th street")
@@ -72,7 +72,7 @@ public class TypicalPersons {
             .withTags("hockey").build();
 
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer")
-            .withMatricNumber("A0123456Z")
+            .withMatricNumber("A0555555E")
             .withPhone("9482224")
             .withEmail("werner@example.com")
             .withAddress("michegan ave")
@@ -82,7 +82,7 @@ public class TypicalPersons {
             .withTags("hockey").build();
 
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz")
-            .withMatricNumber("A0123456Z")
+            .withMatricNumber("A0777777R")
             .withPhone("9482427")
             .withEmail("lydia@example.com")
             .withAddress("little tokyo")
@@ -92,7 +92,7 @@ public class TypicalPersons {
             .withTags("hockey").build();
 
     public static final Person GEORGE = new PersonBuilder().withName("George Best")
-            .withMatricNumber("A0123456Z")
+            .withMatricNumber("A0888888R")
             .withPhone("9482442")
             .withEmail("anna@example.com")
             .withAddress("4th street")
@@ -103,7 +103,7 @@ public class TypicalPersons {
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier")
-            .withMatricNumber("A0123456Z")
+            .withMatricNumber("A0999999P")
             .withPhone("8482424")
             .withEmail("stefan@example.com")
             .withAddress("little india")
@@ -113,7 +113,7 @@ public class TypicalPersons {
             .withTags("hockey").build();
 
     public static final Person IDA = new PersonBuilder().withName("Ida Mueller")
-            .withMatricNumber("A0123456Z")
+            .withMatricNumber("A0321654S")
             .withPhone("8482131")
             .withEmail("hans@example.com")
             .withAddress("chicago ave")

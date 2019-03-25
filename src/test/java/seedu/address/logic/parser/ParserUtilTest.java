@@ -16,20 +16,20 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.person.Grade;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_MODULE_INFO_CODE = "CS123A";
     private static final String INVALID_SEMESTER = "+651234";
     private static final String INVALID_EXPECTED_MAX_GRADE = " ";
     private static final String INVALID_EXPECTED_MIN_GRADE = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_MODULE_INFO_CODE = "CS1231";
     private static final String VALID_SEMESTER = "Y2S2";
     private static final String VALID_EXPECTED_MAX_GRADE = "A_PLUS";
     private static final String VALID_EXPECTED_MIN_GRADE = "F";
@@ -65,25 +65,25 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseName((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.moduleInfoCode((String) null));
     }
 
     @Test
     public void parseName_invalidValue_throwsParseException() {
-        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.moduleInfoCode(INVALID_MODULE_INFO_CODE));
     }
 
     @Test
     public void parseName_validValueWithoutWhitespace_returnsName() throws Exception {
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(VALID_NAME));
+        ModuleInfoCode expectedName = new ModuleInfoCode(VALID_MODULE_INFO_CODE);
+        assertEquals(expectedName, ParserUtil.moduleInfoCode(VALID_MODULE_INFO_CODE));
     }
 
     @Test
     public void parseName_validValueWithWhitespace_returnsTrimmedName() throws Exception {
-        String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
-        Name expectedName = new Name(VALID_NAME);
-        assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+        String nameWithWhitespace = WHITESPACE + VALID_MODULE_INFO_CODE + WHITESPACE;
+        ModuleInfoCode expectedName = new ModuleInfoCode(VALID_MODULE_INFO_CODE);
+        assertEquals(expectedName, ParserUtil.moduleInfoCode(nameWithWhitespace));
     }
 
     @Test

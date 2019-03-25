@@ -26,10 +26,10 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.FindModulePredicate;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.FindModuleDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ModuleTakenBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class AddressBookParserTest {
@@ -40,9 +40,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
-        assertEquals(new AddCommand(person), command);
+        ModuleTaken moduleTaken = new ModuleTakenBuilder().build();
+        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(moduleTaken));
+        assertEquals(new AddCommand(moduleTaken), command);
     }
 
     @Test
@@ -60,8 +60,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
+        ModuleTaken moduleTaken = new ModuleTakenBuilder().build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(moduleTaken).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
@@ -75,8 +75,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        Person person = new PersonBuilder().build();
-        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder(person).build();
+        ModuleTaken moduleTaken = new ModuleTakenBuilder().build();
+        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder(moduleTaken).build();
 
         FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " "
                 + PersonUtil.getFindModuleDescriptorDetails(descriptor));

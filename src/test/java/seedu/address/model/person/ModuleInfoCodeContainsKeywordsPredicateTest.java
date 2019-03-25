@@ -9,9 +9,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ModuleTakenBuilder;
 
-public class NameContainsKeywordsPredicateTest {
+public class ModuleInfoCodeContainsKeywordsPredicateTest {
 
     @Test
     public void equals() {
@@ -34,42 +34,44 @@ public class NameContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different moduleTaken -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        NameContainsKeywordsPredicate predicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("CS2103T"));
+        assertTrue(predicate.test(new ModuleTakenBuilder().withModuleInfoCode("CS2103T").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2030", "CS2103T"));
+        assertTrue(predicate.test(new ModuleTakenBuilder().withModuleInfoCode("CS2103T").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2040", "CS2103T"));
+        assertTrue(predicate.test(new ModuleTakenBuilder().withModuleInfoCode("CS2040").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("cs2103T", "cs2040C"));
+        assertTrue(predicate.test(new ModuleTakenBuilder().withModuleInfoCode("CS2040C").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
+        assertFalse(predicate.test(new ModuleTakenBuilder().withModuleInfoCode("CS2040").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2010"));
+        assertFalse(predicate.test(new ModuleTakenBuilder().withModuleInfoCode("CS2101").build()));
 
         // Keywords match semester, min & max expected grade, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").withSemester("Y2S2")
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("cs2012", "CS2103",
+                "DEFAULT_MODULE_CS1010", "cs2040"));
+        assertFalse(predicate.test(new ModuleTakenBuilder().withModuleInfoCode("CS2101").withSemester("Y2S2")
                 .withExpectedMinGrade("C").withExpectedMaxGrade("B").build()));
     }
 }

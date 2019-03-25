@@ -4,7 +4,7 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalModulesTaken;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
@@ -17,40 +17,40 @@ import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.person.Grade;
 import seedu.address.model.person.Hour;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.Semester;
 
-public class PersonListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Person> TYPICAL_PERSONS =
-            FXCollections.observableList(getTypicalPersons());
+public class ModuleTakenListPanelTest extends GuiUnitTest {
+    private static final ObservableList<ModuleTaken> TYPICAL_MODULE_TAKENS =
+            FXCollections.observableList(getTypicalModulesTaken());
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<ModuleTaken> selectedPerson = new SimpleObjectProperty<>();
     private PersonListPanelHandle personListPanelHandle;
 
     @Test
     public void display() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_MODULE_TAKENS);
 
-        for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
-            personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            Person expectedPerson = TYPICAL_PERSONS.get(i);
+        for (int i = 0; i < TYPICAL_MODULE_TAKENS.size(); i++) {
+            personListPanelHandle.navigateToCard(TYPICAL_MODULE_TAKENS.get(i));
+            ModuleTaken expectedModuleTaken = TYPICAL_MODULE_TAKENS.get(i);
             PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
 
-            assertCardDisplaysPerson(expectedPerson, actualCard);
+            assertCardDisplaysPerson(expectedModuleTaken, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
 
     @Test
     public void selection_modelSelectedPersonChanged_selectionChanges() {
-        initUi(TYPICAL_PERSONS);
-        Person secondPerson = TYPICAL_PERSONS.get(INDEX_SECOND_PERSON.getZeroBased());
-        guiRobot.interact(() -> selectedPerson.set(secondPerson));
+        initUi(TYPICAL_MODULE_TAKENS);
+        ModuleTaken secondModuleTaken = TYPICAL_MODULE_TAKENS.get(INDEX_SECOND_PERSON.getZeroBased());
+        guiRobot.interact(() -> selectedPerson.set(secondModuleTaken));
         guiRobot.pauseForHuman();
 
         PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
@@ -64,29 +64,29 @@ public class PersonListPanelTest extends GuiUnitTest {
      */
     @Test
     public void performanceTest() {
-        ObservableList<Person> backingList = createBackingList(10000);
+        ObservableList<ModuleTaken> backingList = createBackingList(8999);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+        }, "Creation and deletion of moduleTaken cards exceeded time limit");
     }
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
      * {@code PersonListPanel}.
      */
-    private ObservableList<Person> createBackingList(int personCount) {
-        ObservableList<Person> backingList = FXCollections.observableArrayList();
-        for (int i = 0; i < personCount; i++) {
-            Name name = new Name(i + "a");
+    private ObservableList<ModuleTaken> createBackingList(int personCount) {
+        ObservableList<ModuleTaken> backingList = FXCollections.observableArrayList();
+        for (int i = 1000; i < personCount; i++) {
+            ModuleInfoCode moduleInfoCode = new ModuleInfoCode("CS" + i);
             Semester semester = Semester.valueOf("Y1S1");
             Grade expectedMinGrade = Grade.getGrade("D");
             Grade expectedMaxGrade = Grade.getGrade("A");
             Hour lectureHour = new Hour("3");
-            Person person = new Person(name, semester, expectedMinGrade, expectedMaxGrade,
-                    lectureHour, Collections.emptySet());
-            backingList.add(person);
+            ModuleTaken moduleTaken = new ModuleTaken(moduleInfoCode, semester,
+                    expectedMinGrade, expectedMaxGrade, lectureHour, Collections.emptySet());
+            backingList.add(moduleTaken);
         }
         return backingList;
     }
@@ -95,7 +95,7 @@ public class PersonListPanelTest extends GuiUnitTest {
      * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
-    private void initUi(ObservableList<Person> backingList) {
+    private void initUi(ObservableList<ModuleTaken> backingList) {
         PersonListPanel personListPanel =
                 new PersonListPanel(backingList, selectedPerson, selectedPerson::set);
         uiPartRule.setUiPart(personListPanel);

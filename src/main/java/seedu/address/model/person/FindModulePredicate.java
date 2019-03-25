@@ -6,11 +6,11 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
-
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 /**
  * Tests that a module matches all description given.
  */
-public class FindModulePredicate implements Predicate<Person> {
+public class FindModulePredicate implements Predicate<ModuleTaken> {
 
     private final FindModuleDescriptor findModuleDescriptor;
 
@@ -20,9 +20,9 @@ public class FindModulePredicate implements Predicate<Person> {
     }
 
     @Override
-    public boolean test(Person module) {
+    public boolean test(ModuleTaken module) {
         requireNonNull(module);
-        Name moduleCode = module.getModuleInfo();
+        ModuleInfoCode moduleCode = module.getModuleInfo();
 
         Optional<String> subCode = findModuleDescriptor.getSubCode();
         Optional<Semester> semester = findModuleDescriptor.getSemester();
@@ -30,7 +30,7 @@ public class FindModulePredicate implements Predicate<Person> {
         Optional<Boolean> isFinished = findModuleDescriptor.isFinished();
 
         if (subCode.isPresent()
-                && !moduleCode.fullName.toLowerCase().contains(subCode.get())) {
+                && !moduleCode.toString().toLowerCase().contains(subCode.get())) {
             return false;
         }
         if (semester.isPresent()

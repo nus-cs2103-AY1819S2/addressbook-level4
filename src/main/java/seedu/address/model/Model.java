@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
 import seedu.address.model.moduleinfo.ModuleInfo;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 import seedu.address.model.person.Semester;
 
 /**
@@ -17,7 +17,7 @@ import seedu.address.model.person.Semester;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<ModuleTaken> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
      * Replaces course data with the data in {@code course}.
@@ -88,37 +88,38 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a moduleTaken with the same identity as {@code moduleTaken} exists in the address book.
      */
-    boolean hasPerson(Person person);
+    boolean hasPerson(ModuleTaken moduleTaken);
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given moduleTaken.
+     * The moduleTaken must exist in the address book.
      */
-    void deletePerson(Person target);
+    void deletePerson(ModuleTaken target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given moduleTaken.
+     * {@code moduleTaken} must not already exist in the address book.
      */
-    void addPerson(Person person);
+    void addPerson(ModuleTaken moduleTaken);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given moduleTaken {@code target} with {@code editedModuleTaken}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The moduleTaken identity of {@code editedModuleTaken} must not be the same as another
+     * existing moduleTaken in the address book.
      */
-    void setPerson(Person target, Person editedPerson);
+    void setPerson(ModuleTaken target, ModuleTaken editedModuleTaken);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered moduleTaken list */
+    ObservableList<ModuleTaken> getFilteredPersonList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered moduleTaken list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateFilteredPersonList(Predicate<ModuleTaken> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -146,21 +147,21 @@ public interface Model {
     void commitAddressBook();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
+     * Selected moduleTaken in the filtered moduleTaken list.
+     * null if no moduleTaken is selected.
      */
-    ReadOnlyProperty<Person> selectedPersonProperty();
+    ReadOnlyProperty<ModuleTaken> selectedPersonProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected moduleTaken in the filtered moduleTaken list.
+     * null if no moduleTaken is selected.
      */
-    Person getSelectedPerson();
+    ModuleTaken getSelectedPerson();
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected moduleTaken in the filtered moduleTaken list.
      */
-    void setSelectedPerson(Person person);
+    void setSelectedPerson(ModuleTaken moduleTaken);
 
     /**
      * Returns an Observable list of all module information from storage

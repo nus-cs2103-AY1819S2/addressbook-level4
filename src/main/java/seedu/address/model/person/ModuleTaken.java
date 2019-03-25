@@ -7,17 +7,16 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
+ * Represents a ModuleTaken in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class ModuleTaken {
 
-    // Identity fields
-    //TODO: change Name to ModuleInfoCode
-    private final Name moduleInfo;
+    private final ModuleInfoCode moduleInfo;
     private final Semester semester;
 
     // Data fields
@@ -28,8 +27,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name moduleInfo, Semester semester, Grade expectedMinGrade, Grade expectedMaxGrade,
-                  Hour lectureHour, Set<Tag> tags) {
+    public ModuleTaken(ModuleInfoCode moduleInfo, Semester semester, Grade expectedMinGrade, Grade expectedMaxGrade,
+                       Hour lectureHour, Set<Tag> tags) {
         requireAllNonNull(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
         this.moduleInfo = moduleInfo;
         this.semester = semester;
@@ -39,7 +38,7 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public Name getModuleInfo() {
+    public ModuleInfoCode getModuleInfo() {
         return moduleInfo;
     }
 
@@ -92,14 +91,14 @@ public class Person {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(ModuleTaken otherModuleTaken) {
+        if (otherModuleTaken == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getModuleInfo().equals(getModuleInfo())
-                && (otherPerson.getSemester().equals(getSemester()));
+        return otherModuleTaken != null
+                && otherModuleTaken.getModuleInfo().equals(getModuleInfo())
+                && (otherModuleTaken.getSemester().equals(getSemester()));
     }
 
     /**
@@ -112,17 +111,17 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof ModuleTaken)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return otherPerson.getModuleInfo().equals(getModuleInfo())
-                && otherPerson.getSemester().equals(getSemester())
-                && otherPerson.getExpectedMinGrade().equals(getExpectedMinGrade())
-                && otherPerson.getExpectedMaxGrade().equals(getExpectedMaxGrade())
-                && otherPerson.getLectureHour().equals(getLectureHour())
-                && otherPerson.getTags().equals(getTags());
+        ModuleTaken otherModuleTaken = (ModuleTaken) other;
+        return otherModuleTaken.getModuleInfo().equals(getModuleInfo())
+                && otherModuleTaken.getSemester().equals(getSemester())
+                && otherModuleTaken.getExpectedMinGrade().equals(getExpectedMinGrade())
+                && otherModuleTaken.getExpectedMaxGrade().equals(getExpectedMaxGrade())
+                && otherModuleTaken.getLectureHour().equals(getLectureHour())
+                && otherModuleTaken.getTags().equals(getTags());
     }
 
     @Override

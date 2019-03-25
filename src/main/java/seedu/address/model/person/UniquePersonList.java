@@ -13,34 +13,35 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A moduleTaken is considered unique by comparing using {@code ModuleTaken#isSamePerson(ModuleTaken)}.
+ * As such, adding and updating of persons uses ModuleTaken#isSamePerson(ModuleTaken) for equality so as to ensure
+ * that the moduleTaken being added or updated is unique in terms of identity in the UniquePersonList.
+ * However, the removal of a moduleTaken uses ModuleTaken#equals(Object) so
+ * as to ensure that the moduleTaken with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
+ * @see ModuleTaken#isSamePerson(ModuleTaken)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<ModuleTaken> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Person> internalUnmodifiableList =
+    private final ObservableList<ModuleTaken> internalList = FXCollections.observableArrayList();
+    private final ObservableList<ModuleTaken> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent moduleTaken as the given argument.
      */
-    public boolean contains(Person toCheck) {
+    public boolean contains(ModuleTaken toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a moduleTaken to the list.
+     * The moduleTaken must not already exist in the list.
      */
-    public void add(Person toAdd) {
+    public void add(ModuleTaken toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -49,30 +50,31 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the moduleTaken {@code target} in the list with {@code editedModuleTaken}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The moduleTaken identity of {@code editedModuleTaken} must not be the same as
+     * another existing moduleTaken in the list.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPerson(ModuleTaken target, ModuleTaken editedModuleTaken) {
+        requireAllNonNull(target, editedModuleTaken);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!target.isSamePerson(editedModuleTaken) && contains(editedModuleTaken)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedModuleTaken);
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent moduleTaken from the list.
+     * The moduleTaken must exist in the list.
      */
-    public void remove(Person toRemove) {
+    public void remove(ModuleTaken toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
@@ -85,27 +87,27 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code moduleTakens}.
+     * {@code moduleTakens} must not contain duplicate moduleTakens.
      */
-    public void setPersons(List<Person> persons) {
-        requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
+    public void setPersons(List<ModuleTaken> moduleTakens) {
+        requireAllNonNull(moduleTakens);
+        if (!personsAreUnique(moduleTakens)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.setAll(persons);
+        internalList.setAll(moduleTakens);
     }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asUnmodifiableObservableList() {
+    public ObservableList<ModuleTaken> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<ModuleTaken> iterator() {
         return internalList.iterator();
     }
 
@@ -122,12 +124,12 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code moduleTakens} contains only unique moduleTakens.
      */
-    private boolean personsAreUnique(List<Person> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+    private boolean personsAreUnique(List<ModuleTaken> moduleTakens) {
+        for (int i = 0; i < moduleTakens.size() - 1; i++) {
+            for (int j = i + 1; j < moduleTakens.size(); j++) {
+                if (moduleTakens.get(i).isSamePerson(moduleTakens.get(j))) {
                     return false;
                 }
             }

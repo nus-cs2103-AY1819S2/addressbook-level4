@@ -8,21 +8,21 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.ModuleTaken;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a moduleTaken card in the moduleTaken list panel.
  */
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
-    private static final String NAME_FIELD_ID = "#name";
+    private static final String MODULE_INFO_CODE_ID = "#moduleInfoCode";
     private static final String SEMESTER_FIELD_ID = "#semester";
     private static final String EXPECTED_MIN_GRADE_FIELD_ID = "#expectedMinGrade";
     private static final String EXPECTED_MAX_GRADE_FIELD_ID = "#expectedMaxGrade";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
-    private final Label nameLabel;
+    private final Label moduleInfoCodeLabel;
     private final Label expectedMaxGradeLabel;
     private final Label semesterLabel;
     private final Label expectedMinGradeLabel;
@@ -32,7 +32,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
-        nameLabel = getChildNode(NAME_FIELD_ID);
+        moduleInfoCodeLabel = getChildNode(MODULE_INFO_CODE_ID);
         expectedMaxGradeLabel = getChildNode(EXPECTED_MAX_GRADE_FIELD_ID);
         semesterLabel = getChildNode(SEMESTER_FIELD_ID);
         expectedMinGradeLabel = getChildNode(EXPECTED_MIN_GRADE_FIELD_ID);
@@ -49,8 +49,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return idLabel.getText();
     }
 
-    public String getName() {
-        return nameLabel.getText();
+    public String getModuleInfoCode() {
+        return moduleInfoCodeLabel.getText();
     }
 
     public String getExpectedMaxGrade() {
@@ -73,14 +73,14 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code person}.
+     * Returns true if this handle contains {@code moduleTaken}.
      */
-    public boolean equals(Person person) {
-        return getName().equals(person.getModuleInfo().fullName)
-                && getSemester().equals(person.getSemester().toString())
-                && getExpectedMinGrade().equals(person.getExpectedMinGrade().toString())
-                && getExpectedMaxGrade().equals(person.getExpectedMaxGrade().toString())
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
+    public boolean equals(ModuleTaken moduleTaken) {
+        return getModuleInfoCode().equals(moduleTaken.getModuleInfo().toString())
+                && getSemester().equals(moduleTaken.getSemester().toString())
+                && getExpectedMinGrade().equals(moduleTaken.getExpectedMinGrade().toString())
+                && getExpectedMaxGrade().equals(moduleTaken.getExpectedMaxGrade().toString())
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(moduleTaken.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));
     }

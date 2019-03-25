@@ -274,6 +274,33 @@ The select request mechanism is facilitated by the `filteredRequestList` in the 
 stores information on a request, that can be viewed on the Request UI panel. Select simply retrieves the information of
 the request stored at that particular index of this list.
 
+=== Assign Request feature
+
+The assign request feature allows an administrator to assign a request to a particular healthworker.
+
+==== Current Implementation
+
+1. When `LogicManager` receives the `execute` command, it calls the `parseCommand` method in `RequestBookParser`.
+2. `RequestBookParser` will receive `assign` as the command and instantiate `AssignRequestParser` to further parse the command.
+3. If the arguments specified in the `assign` command are invalid, a `AssignCommand` will be created and returned back to the `LogicManager`.
+4. `LogicManager` will proceed to call the `execute` command of `AssignCommand`
+5. `AssignRequestCommand` will proceed to call the `getFilteredRequestList` method of `Model`.
+6. Iterate through the `requestIds`, if valid, add the `request` corresponding to that `index` to the set of `Request`.
+7. Writes the updated request to the `RequestBook` in `ModelManager`
+
+==== Design Consideration
+
+===== Aspect: Relationship between `Request` and `Healthworker`
+* Alternative 1 (current choice): The `Request` holds only some of the details of the healthworker assigned to it.
+** Pros: Simplification of implementation.
+** Pros: Does not violate the Law of Demeter (LOD), as the Request should only have limited knowledge of another object (`HealthWorker`, in this case).
+** Cons: Makes it difficult to implement certain features, like obtaining the requests assigned to a particular healthworker, for example.
+
+* Alternative 2: The `Request` does holds the details of the `HealthWorker` and the `HealthWorker` keeps track of a list of `Request`s.
+** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
+** Cons: Violates the LOD principle, as the `Request` object should contain limited knowledge of the `HealthWorker` object.
+** Cons: Complicates the code base, making it difficult to maintain in the long run.
+
 // tag::undoredo[]
 === Undo/Redo feature
 

@@ -53,7 +53,7 @@ public class ChangeCommand extends Command {
             }
             model.exitFoldersToHome();
             return new CommandResult(MESSAGE_EXIT_FOLDER_SUCCESS,
-                    false, false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                    false, false, false, true, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
         } else {
             if (model.isInFolder()) {
                 throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
@@ -64,7 +64,7 @@ public class ChangeCommand extends Command {
             }
             model.setActiveCardFolderIndex(targetIndex.getZeroBased());
             return new CommandResult(String.format(MESSAGE_ENTER_FOLDER_SUCCESS, targetIndex.getOneBased()),
-                    false, false, true, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                    false, false, true, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
         }
     }
 

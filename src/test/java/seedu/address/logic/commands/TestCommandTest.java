@@ -32,7 +32,7 @@ public class TestCommandTest {
         Card cardToTest = expectedModel.getCurrentTestedCard();
 
         CommandResult expectedCommandResult = new CommandResult(TestCommand.MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false,
-                false, false, false, cardToTest, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                false, false, false, true, cardToTest, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
         assertCommandSuccess(testCommand, model, commandHistory, expectedCommandResult, expectedModel);
     }
 

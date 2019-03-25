@@ -1,21 +1,19 @@
 /* @@author Carrein */
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
 /**
- * Imports a image to FomoFoto.
+ * Switches between tabs in the informationPanel.
  */
 public class TabCommand extends Command {
     public static final String COMMAND_WORD = "tab";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Switches between open tabs in the information panel.";
+            + ": Switches between tabs in the information panel.";
 
     public static final String MESSAGE_SUCCESS = "Tab switched.";
 

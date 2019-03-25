@@ -131,6 +131,9 @@ public interface Model extends Observable {
     /** Returns an unmodifiable view of the filtered card list */
     ObservableList<Card> getFilteredCards();
 
+    /** Returns an unmodifiable view of the filtered folders list */
+    ObservableList<VersionedCardFolder> getFilteredFolders();
+
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.

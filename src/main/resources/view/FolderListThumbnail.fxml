@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardThumbnailPane" fx:id="cardThumbnailPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="folderThumbnailPane" fx:id="folderThumbnailPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -24,8 +24,9 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="question" text="\$first" styleClass="cell_big_label" />
+        <Label fx:id="folderName" text="\$first" styleClass="cell_big_label" />
       </HBox>
+      <Label fx:id="folderSize" styleClass="cell_small_label" text="\$folderSize" />
     </VBox>
   </GridPane>
 </HBox>

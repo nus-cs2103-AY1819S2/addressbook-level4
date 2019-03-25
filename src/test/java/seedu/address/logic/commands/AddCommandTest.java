@@ -21,7 +21,6 @@ import org.junit.rules.ExpectedException;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -29,6 +28,7 @@ import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.VersionedCardFolder;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CardFolderExport;
@@ -263,6 +263,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Card> getFilteredCards() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<VersionedCardFolder> getFilteredFolders() {
             throw new AssertionError("This method should not be called.");
         }
 

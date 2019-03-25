@@ -31,7 +31,7 @@ public class EndCommandTest {
         expectedModel.endTestSession();
 
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, false, false,
-                false, null, true, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                false, false, null, true, AnswerCommandResultType.NOT_ANSWER_COMMAND);
         assertCommandSuccess(new EndCommand(), model, commandHistory, expectedCommandResult, expectedModel);
     }
 

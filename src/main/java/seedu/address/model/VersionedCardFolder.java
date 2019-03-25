@@ -84,9 +84,18 @@ public class VersionedCardFolder extends CardFolder {
 
         VersionedCardFolder otherVersionedCardFolder = (VersionedCardFolder) other;
 
-        // state check
+        // check past states have same folder name and cards
+        for (int i = 0; i < cardFolderStateList.size(); i++) {
+            ReadOnlyCardFolder state = cardFolderStateList.get(i);
+            ReadOnlyCardFolder otherState = otherVersionedCardFolder.cardFolderStateList.get(i);
+            if (!state.equals(otherState) || !state.hasSameCards(otherState.getCardList())) {
+                return false;
+            }
+        }
+
+        // present state check
         return super.equals(otherVersionedCardFolder)
-                && cardFolderStateList.equals(otherVersionedCardFolder.cardFolderStateList)
+                && hasSameCards(otherVersionedCardFolder.getCardList())
                 && currentStatePointer == otherVersionedCardFolder.currentStatePointer;
     }
 

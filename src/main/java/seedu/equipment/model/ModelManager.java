@@ -117,6 +117,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void resetData(ReadOnlyEquipmentManager newData) {
+        versionedEquipmentManager.resetData(newData);
+
+    }
+    @Override
     public void setEquipment(Equipment target, Equipment editedEquipment) {
         CollectionUtil.requireAllNonNull(target, editedEquipment);
 
@@ -243,11 +248,6 @@ public class ModelManager implements Model {
         }
     }
 
-    @Override
-    public void sortByName() {
-        versionedEquipmentManager.sortByName();
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
 
     @Override
     public boolean equals(Object obj) {

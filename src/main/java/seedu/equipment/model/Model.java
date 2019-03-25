@@ -57,6 +57,9 @@ public interface Model {
     /** Returns the EquipmentManager */
     ReadOnlyEquipmentManager getEquipmentManager();
 
+    /** Clears existing backing model and replaces with the provided new data. */
+    void resetData(ReadOnlyEquipmentManager newData);
+
     /**
      * Returns true if a equipment with the same identity as {@code equipment} exists in the equipment book.
      */
@@ -147,6 +150,4 @@ public interface Model {
 
     void updateEquipment(Equipment target, Equipment editedEquipment);
 
-    /** Sorts the equipment list by name. */
-    void sortByName();
 }

@@ -293,18 +293,33 @@ We have implemented a `SortCommand` that allow users to sort the current shown l
 
 ==== Current Implementation
 
-`SortCommand` sorts the list by client name in lexicographical order.
-
-The following sequence diagram shows how the sort command works:
-
-image::SortCommandSequenceDiagram.png[width="800"]
-
+`SortCommand` sorts the list by specified field in lexicographical order.
 
 Step 1. The user launches the application and add equipment.
 
-Step 2. The user executes `sort`
+Step 2. The user executes `sort [FIELD]`
 
-Step 3. The list is sorted by specific field and returned to the GUI.
+Step 3. The list is sorted by specified field and returned to the GUI.
+
+Test cases:
+
+- Input: `sort`
+
+Output: By default, the list is sorted in alphabetical order of the client names.
+
+- Input: `sort address`
+
+Output: The list is sorted in alphabetical order.
+
+- Input: `sort email`
+
+Output: The list is sorted in alphabetical order.
+
+- Input: `sort phone`
+
+Output: The list is sorted in ascending order.
+
+
 
 ==== Design Considerations
 *Implementation of `SortCommand`*

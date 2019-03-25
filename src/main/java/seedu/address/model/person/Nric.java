@@ -30,10 +30,6 @@ public class Nric {
         this.nric = nric;
     }
 
-    public String getNric() {
-        return nric;
-    }
-
     /**
      * Returns true if the Nric entered matches is valid.
      * @param test Nric string to be tested

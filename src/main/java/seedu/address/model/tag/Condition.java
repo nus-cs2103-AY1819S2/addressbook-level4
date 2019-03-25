@@ -17,7 +17,7 @@ public class Condition {
      */
     public static final String VALIDATION_CONDITION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String conditionName;
+    private final String conditionName;
 
     /**
      * Constructs a {@code Condition}.

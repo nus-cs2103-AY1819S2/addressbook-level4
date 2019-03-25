@@ -14,6 +14,8 @@ public class ListRequestCommand extends ListCommand implements RequestCommand {
 
     public static final String MESSAGE_SUCCESS = "Listed all requests";
 
+    public static final String COMMAND_WORD = "lr";
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);

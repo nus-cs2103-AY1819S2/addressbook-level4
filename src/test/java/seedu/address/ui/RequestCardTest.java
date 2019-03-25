@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
-import guitests.guihandles.RequestCardHandle;
 import org.junit.Test;
 
+import guitests.guihandles.RequestCardHandle;
 import seedu.address.model.request.Request;
 import seedu.address.testutil.RequestBuilder;
 

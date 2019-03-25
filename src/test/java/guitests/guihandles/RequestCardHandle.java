@@ -47,7 +47,9 @@ public class RequestCardHandle extends NodeHandle<Node> {
         return idLabel.getText();
     }
 
-    public String getName() { return nameLabel.getText(); }
+    public String getName() {
+        return nameLabel.getText();
+    }
 
     public String getNric() {
         return nricLabel.getText();

@@ -8,7 +8,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.request.Request;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Request}.
  */
 public class RequestCard extends UiPart<Region> {
 
@@ -46,7 +46,7 @@ public class RequestCard extends UiPart<Region> {
         this.request = request;
         this.id.setText(displayedIndex + ". ");
         this.name.setText(request.getName().toString());
-        this.date.setText(request.getRequestDate().getDate().toString());
+        this.date.setText(request.getRequestDate().getTruncatedDate().toString());
         this.nric.setText(request.getNric().toString());
         this.phone.setText(request.getPhone().value);
         this.address.setText(request.getAddress().toString());

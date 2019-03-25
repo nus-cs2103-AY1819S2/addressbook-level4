@@ -11,11 +11,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
 import seedu.address.model.request.Request;
 
 /**
- * Panel containing the list of persons.
+ * A panel containing the list of requests on the UI.
+ * @author Hui Chun
  */
 public class RequestListPanel extends UiPart<Region> {
     private static final String FXML = "RequestListPanel.fxml";

@@ -52,7 +52,6 @@ public class JsonSerializableAddressBookTest {
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON);
         dataFromFile.toModelType();
-        */
     }
 
 }

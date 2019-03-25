@@ -17,7 +17,7 @@ import seedu.address.model.order.OrderItem;
 import seedu.address.model.table.TableNumber;
 
 /**
- * Adds an order to Orders.
+ * Adds an order item to Orders.
  */
 public class AddToOrderCommand extends Command {
 
@@ -57,7 +57,7 @@ public class AddToOrderCommand extends Command {
                     model.getRestOrRant().getMenu().getNameFromItem(itemOptional.get()), itemQuantities.get(i));
             if (model.hasOrderItem(orderItem)) { // add quantity to existing order item
                 OrderItem oldItem = model.getRestOrRant().getOrders().getOrderItem(tableNumber,
-                        orderItem.getMenuItemCode());
+                        orderItem.getMenuItemCode()).get();
                 OrderItem newItem = new OrderItem(oldItem, orderItem.getQuantity());
                 model.setOrderItem(oldItem, newItem);
             } else {

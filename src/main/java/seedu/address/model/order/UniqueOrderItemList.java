@@ -103,8 +103,8 @@ public class UniqueOrderItemList implements Iterable<OrderItem> {
     }
 
     public Optional<OrderItem> getOrderItem(TableNumber tableNumber, Code itemCode) {
-        return internalList.stream().filter(item -> item.getTableNumber().equals(tableNumber) &&
-                item.getMenuItemCode().equals(itemCode)).findFirst();
+        return internalList.stream().filter(item -> item.getTableNumber().equals(tableNumber)
+                && item.getMenuItemCode().equals(itemCode)).findFirst();
     }
 
     /**

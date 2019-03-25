@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
@@ -98,9 +99,9 @@ public class Orders implements ReadOnlyOrders {
      * Retrieves the order item in the list with the table number {@code tableNumber} and item code {@code itemCode}.
      * {@code orderItem} must exist in the RestOrRant's orders.
      */
-    public OrderItem getOrderItem(TableNumber tableNumber, Code itemCode) {
+    public Optional<OrderItem> getOrderItem(TableNumber tableNumber, Code itemCode) {
         requireAllNonNull(tableNumber, itemCode);
-        return orderItems.getOrderItem(tableNumber, itemCode).get();
+        return orderItems.getOrderItem(tableNumber, itemCode);
     }
 
     /**

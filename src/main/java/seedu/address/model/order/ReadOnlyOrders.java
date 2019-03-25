@@ -1,5 +1,7 @@
 package seedu.address.model.order;
 
+import java.util.Optional;
+
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.menu.Code;
@@ -18,5 +20,5 @@ public interface ReadOnlyOrders extends Observable {
     /**
      * Retrieves the order item in the list that has table number {@code tableNumber} and item code {@code itemCode}.
      */
-    OrderItem getOrderItem(TableNumber tableNumber, Code itemCode);
+    Optional<OrderItem> getOrderItem(TableNumber tableNumber, Code itemCode);
 }

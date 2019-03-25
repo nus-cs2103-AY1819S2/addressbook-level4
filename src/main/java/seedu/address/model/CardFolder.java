@@ -74,7 +74,7 @@ public class CardFolder implements ReadOnlyCardFolder {
     //// card-level operations
 
     /**
-     * Returns true if a card with the same identity as {@code folder} exists in the folder folder.
+     * Returns true if a card with the same identity as {@code card} exists in the card folder.
      */
     public boolean hasCard(Card card) {
         requireNonNull(card);
@@ -83,7 +83,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     /**
      * Adds a card to the card folder.
-     * The card must not already exist in the folder folder.
+     * The card must not already exist in the card folder.
      */
     public void addCard(Card p) {
         cards.add(p);

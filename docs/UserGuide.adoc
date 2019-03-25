@@ -124,7 +124,38 @@ Usage rules:
 Examples:
 
 * `deleteLesson 2` +
-Deletes the 2nd lesson in the numbered list displayed by `listLessons`.
+Deletes the second lesson in the numbered list displayed by `listLessons`.
+
+==== Opening a lesson: `openLesson`
+
+Opens a lesson for editing. +
+Format: `openLesson INDEX`
+
+Usage rules:
+
+* Opens the lesson at the specified `INDEX`.
+* To find the `INDEX` number of a lesson, type `listLessons` to list all lessons loaded in memory.
+
+Examples:
+
+* `openLesson 1` +
+Opens the first lesson in the numbered list displayed by `listLessons`.
+
+==== Closing a lesson: `closeLesson`
+
+Closes and saves a lesson after editing it. +
+Format: `closeLesson INDEX`
+
+Usage rules:
+
+* Closes the lesson at the specified `INDEX`.
+* To find the `INDEX` number of a lesson, type `listLessons` to list all lessons loaded in memory.
+
+Examples:
+
+* `closeLesson 1` +
+Closes the first lesson in the numbered list displayed by `listLessons`.
+
 
 [[list_cards]]
 ==== Listing all flashcards: `listCards`

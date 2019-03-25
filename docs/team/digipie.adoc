@@ -22,7 +22,7 @@ BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an
 *** Allows users to modify an existing card in a lesson
 *** Allows users to delete a card in a lesson
 ** Justification: // To do
-** Highlights: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/34[#34], https://github.com/CS2103-AY1819S2-W14-1/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-1/main/pull/77[#77], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85]
+** Highlights: Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/34[#34], https://github.com/CS2103-AY1819S2-W14-1/main/pull/39[#39], https://github.com/CS2103-AY1819S2-W14-1/main/pull/77[#77], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85], https://github.com/CS2103-AY1819S2-W14-1/main/pull/107[#107]
 
 * *Minor enhancement*: // To do
 ** // To do
@@ -38,7 +38,7 @@ BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an
 *** Wrote the User Guide's Introduction and Quick Start sections (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/15[#15], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85])
 *** Updated User Guide with management mode commands (Pull request
 ,
-https://github.com/CS2103-AY1819S2-W14-1/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85])
+https://github.com/CS2103-AY1819S2-W14-1/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#85], https://github.com/CS2103-AY1819S2-W14-1/main/pull/85[#107])
 *** Updated Developer Guide with management mode implementation (Pull request // To do)
 ** Community:
 *** Fix a bug in teammate's pull request (Pull request https://github.com/CS2103-AY1819S2-W14-1/main/pull/33[#33])

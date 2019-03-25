@@ -57,6 +57,34 @@ It should start in a few seconds and begin the initialization set-up.
 If you need the full list of available commands and their associated details, please proceed to <<quick-start-guide>>!
 
 == Commands and Features
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in add n/NAME, NAME is
+a parameter which can be used as add n/John Doe.
+
+* Items in square brackets are optional.
+
+* Parameters can be in any order e.g. if the command specifies `n/NAME ic/NRIC dob/DATE_OF_BIRTH`,
+`dob/DATE_OF_BIRTH n/NAME ic/NRIC ` is also acceptable.
+
+=== Breakdown of attributes used within TeethHub
+[cols=",,,", options="header",]
+|===
+4+^|List of valid prefixes
+
+4+^|Unique Prefixes
+2+| *Patient* 2+| *Record*
+|Prefix | Attribute | Prefix | Attribute
+|a/ | Address 2.7+|
+|dob/ | Date of Birth
+|e/ | Email
+|ic/ | Nric
+|n/ | Name
+|p/ | Phone
+|sex/ | Sex
+4+^|Common Prefixes
+
+|===
 
 === Help
 
@@ -78,7 +106,7 @@ You can use *Import* to add select patients from another patient list to your cu
  +
 You can use *Export* to save select patients to a .json or .pdf file.
 
-==== Open
+==== open
 Opens the file in the specified file path and overwrites the current patients list.
 ** Note that 'open' always searches inside the data folder.
 ** You can only open .json files.
@@ -94,7 +122,7 @@ Replaces the current patients list with the patients list in "patients1.json".
 Replaces the current patients list with the patients list in "patients2.json" found in the "february" folder.
 
 
-==== Save
+==== save
 Saves the current patients list to the specified filepath.
 ** Note that 'save' always saves inside the data folder. If no such filepath exists,
 it will be created. Otherwise, it will overwrite the existing file.
@@ -113,7 +141,7 @@ Saves the current patients list to "patients1.json".
 Saves the current patients list to "patients2.json" found in the "february" folder.
 
 
-==== Import
+==== import
 Opens the file in the specified file path and adds the specified patients to the patients list.
 ** Note that 'import' always searches inside the data folder.
 ** You can only import .json files.
@@ -138,7 +166,7 @@ Adds patient 1 to patient 4 from "patients1.json" to the current patients list.
 Adds patient 1 and patient 3 to patient 5 from "patients1.json" to the current patients list.
 
 
-==== Export
+==== export
 Saves the specified patients in the current patients list to the specified filepath.
 ** Note that 'export' always saves inside the data folder. If no such filepath exists,
 it will be created. Otherwise, it will overwrite the existing file.
@@ -428,13 +456,21 @@ All permanent teeth in template will all be present and healthy by default.
 ** <Status> reflects overall health of the indicated tooth, and valid
 <Status> are "healthy", "problem" and "absent".
 
-=== List
+** <Description> is an optional field that allows you to
+write a note describing more detail on the patient’s teeth
+health.
+
+=== Viewing and Locating Information
+The commands listed below deal with displaying and finding data for you to view.
+They do not deal with the adding or modification of any information currently already
+stored within the program.
+
+==== list
 Shows a list of all patients or medical stored in TeethHub.
 
 Format: `list [dental]`
 
-Command shows patient details by default, add dental to see dental
-records.
+Command shows patient details by default, add dental to see dental records.
 
 Example:
 
@@ -444,7 +480,7 @@ Shows details of all patients.
 * `list dental` +
 Shows details of patient's dental records.
 
-=== Find
+==== find
 
 Shows patients whose data contains any of the given keywords according to a specified parameter.
 
@@ -453,6 +489,7 @@ Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
 * Add “dental” to search dental records instead.
 * Search is case insensitive.
 * Order of keywords does not matter.
+* Valid `Prefix` values: See <<Breakdown of attributes used within TeethHub>>
 
 Example:
 
@@ -462,10 +499,13 @@ Show all the people with an address containing the keyword Yishun.
 * `find dental cleaning` +
 Shows all the dental records with cleaning
 
-=== Sort
+==== sort
 Sorts the records by an input parameter in an input order.
 
 Format: `sort PARAM ORDER`
+
+* valid PARAM options: address, date of birth, email, name, nric, phone, sex
+* valid ORDER options: asce, desc
 
 Example:
 
@@ -498,18 +538,19 @@ Example:
 |2 |Bob |24 |11/02/2019
 |===
 
-=== Stat
+==== stat
 Generates a statistics report based on the specified patient's data.
 
 Format: `stat INDEX`
 
-=== History
+=== history
 Lists all the commands that have been entered since starting the
 application in reverse chronological order.
 
 Format: `history`
 
-=== Undo
+=== undo
+
 Undo the latest command.
 
 Format: `undo`
@@ -532,7 +573,7 @@ previously.
 `undo` (reverses the clear command) +
 `undo` (reverses the delete 1 command)
 
-=== Redo
+=== redo
 Reverses the most recent undo command.
 
 Format: `redo`
@@ -555,7 +596,7 @@ previously.
 `redo` (reapplies the delete 1 command) +
 `redo` (reapplies the clear command)
 
-=== Clear
+=== clear
 Clears all patients and records from TeethHub.
 
 * You will be prompted to confirm.
@@ -563,12 +604,12 @@ Clears all patients and records from TeethHub.
 
 Format: `clear`
 
-=== Exit
+=== exit
 Exits the program. You won't be able to exit if copies exist.
 
 Format: `exit`
 
-=== Exit anyway
+=== exit anyway
 Exits the program, disregarding any copies.
 
 Format: `exit!`

@@ -30,7 +30,7 @@ public class SearchYearCommandParser implements Parser<SearchYearCommand> {
 
         for (String year : yearKeywords) {
             if (!DateVisited.isValidYear(year)) {
-                throw new ParseException(String.format(DateVisited.MESSAGE_FUTURE_DATE_ADDED,
+                throw new ParseException(String.format(DateVisited.MESSAGE_CONSTRAINTS_SEARCH,
                         SearchYearCommand.MESSAGE_USAGE));
             }
         }

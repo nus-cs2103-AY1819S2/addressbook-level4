@@ -148,11 +148,11 @@ public class StringUtil {
         requireNonNull(year);
 
         String preppedYear = year.trim();
-        checkArgument(!preppedYear.isEmpty(), "Date visited must follow the DD/MM/YYYY format");
+        checkArgument(!preppedYear.isEmpty(), "Year parameter cannot be empty");
         checkArgument(preppedYear.split("\\s+").length == 1,
-                "Date visited must follow the DD/MM/YYYY format");
+                "Years should only contain a year from 1900 to the current year");
         checkArgument(DateVisited.isValidYear(preppedYear),
-                "Date visited must a present or past date");
+                "Years should only contain a year from 1900 to the current year");
 
         String preppedYearList = yearList;
         String[] yearsInPreppedYearList = preppedYearList.split("\\s+");

@@ -71,8 +71,9 @@ Initialises both player's maps to the specified size. +
 Format: `init MAP_SIZE` +
 Example: `init 10`
 
-The maps will be displayed as follows:
+Figure 1 below shows how the maps will be displayed.
 
+.Player and enemy maps
 image::initmapresult.png[width=650]
 
 Throughout the course of the game, the cells in the map will change colour based on their status. +
@@ -81,15 +82,16 @@ Throughout the course of the game, the cells in the map will change colour based
 ====
 .Cell statuses:
 - Hidden - Enemy map cell that has not been hit
-- Water - Empty (no ship) player cell that has not been hit
-- Water Hit - Empty player cell that has been hit
+- Water - Empty (i.e cell with no ship) player cell that has not been hit
+- Water Hit - Empty cell that has been hit
 - Ship - Player cell that has a ship and has not been hit
 - Ship Hit - Ship cell that has been hit but not yet destroyed
 - Ship Destroyed - Ship cell that has been destroyed
 ====
 
-The diagram below shows which colour represents which status.
+_Figure 2_ below shows the colour used for each status
 
+.Cell colours
 image::maplegend.png[width=400]
 === Listing all ships : `list`
 

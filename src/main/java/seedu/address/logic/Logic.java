@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -30,6 +31,9 @@ public interface Logic {
      * @see seedu.address.model.Model#getInventory()
      */
     ReadOnlyInventory getInventory();
+
+    /** Return the accessor to predicates used in the warning pane*/
+    WarningPanelPredicateAccessor getWarningPanelPredicateAccessor();
 
     /** Returns an unmodifiable view of the filtered list of medicines for medicine pane*/
     ObservableList<Medicine> getFilteredMedicineList();

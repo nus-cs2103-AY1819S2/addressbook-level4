@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.warning.WarningPanelListType;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
 
 /**
@@ -16,14 +18,17 @@ import seedu.address.model.medicine.Medicine;
 public class WarningPanel extends UiPart<Region> {
     private static final String FXML = "WarningPanel.fxml";
     private static final Logger logger = LogsCenter.getLogger(WarningPanel.class);
+    private final WarningPanelPredicateAccessor warningPanelPredicateAccessor;
 
     @FXML
     private VBox warningVBox;
 
     public WarningPanel(ObservableList<Medicine> expiringMedicineList,
-                        ObservableList<Medicine> lowQuantityMedicineList) {
+                        ObservableList<Medicine> lowQuantityMedicineList,
+                        WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
         super(FXML);
 
+        this.warningPanelPredicateAccessor = warningPanelPredicateAccessor;
         setUpVBox(expiringMedicineList, lowQuantityMedicineList);
 
     }
@@ -37,13 +42,13 @@ public class WarningPanel extends UiPart<Region> {
         expiringListTitle.getStyleClass().add("label-bright");
         warningVBox.getChildren().addAll(expiringListTitle,
                 new WarningListView(expiringMedicineList,
-                "expiry").getRoot());
+                WarningPanelListType.EXPIRY, warningPanelPredicateAccessor).getRoot());
 
         Label lowQuantityListTitle = new Label("Low in Stock");
         lowQuantityListTitle.getStyleClass().add("label-bright");
         warningVBox.getChildren().addAll(lowQuantityListTitle,
                 new WarningListView(lowQuantityMedicineList,
-                "stock").getRoot());
+                WarningPanelListType.LOW_STOCK, warningPanelPredicateAccessor).getRoot());
 
     }
 

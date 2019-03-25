@@ -9,5 +9,5 @@
         <Text fx:id="id" />
         <Text fx:id="name" text="\$name" />
     </HBox>
-    <Text fx:id="filter" text="\$filter" />
+    <Text fx:id="field" text="\$field" />
 </VBox>

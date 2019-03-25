@@ -47,6 +47,12 @@ public interface ManagementModel extends Model {
     String openLesson(int index);
 
     /**
+     * Closes the opened {@link Lesson} object.
+     * @return the name of the closed {@link Lesson} object
+     */
+    String closeLesson();
+
+    /**
      * Gets the entire list of lessons.
      */
     List<Lesson> getLessonList();

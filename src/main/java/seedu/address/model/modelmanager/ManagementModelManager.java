@@ -90,6 +90,15 @@ public class ManagementModelManager implements ManagementModel {
         return lessonList.openLesson(index);
     }
 
+    /**
+     * Closes the opened {@link Lesson} object.
+     * @return the name of the closed {@link Lesson} object
+     */
+    @Override
+    public String closeLesson() {
+        return lessonList.closeLesson();
+    }
+
     @Override
     public void addLesson(Lesson lesson) {
         lessonList.addLesson(lesson);

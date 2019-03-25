@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.commands.management.AddLessonCommand;
+import seedu.address.logic.commands.management.CloseLessonCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
@@ -75,6 +76,12 @@ public class ManagementModeParserTest {
     public void parseCommand_openLessons() throws Exception {
         String command = OpenLessonCommand.COMMAND_WORD + " 2";
         assertTrue(parser.parse(command) instanceof OpenLessonCommand);
+    }
+
+    @Test
+    public void parseCommand_closeLessons() throws Exception {
+        assertTrue(parser.parse(CloseLessonCommand.COMMAND_WORD)
+                instanceof CloseLessonCommand);
     }
 
 

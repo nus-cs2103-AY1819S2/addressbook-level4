@@ -45,6 +45,9 @@ public class OpenLessonCommandTest {
         assertEquals(String.format(OpenLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
                 commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+
+        // get opened lesson which was added -> same as lesson which was added
+        assertEquals(modelStub.getOpenedLesson(), LESSON_DEFAULT);
     }
 
     @Test
@@ -144,13 +147,6 @@ public class OpenLessonCommandTest {
             } catch (IndexOutOfBoundsException e) {
                 throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
             }
-        }
-
-        /**
-         * Sets {@link #openedLesson} to null.
-         */
-        public void closeLesson() {
-            openedLesson = null;
         }
 
         @Override

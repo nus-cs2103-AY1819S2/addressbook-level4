@@ -42,9 +42,9 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     /**
-     * Opens the {@link Lesson} object at the specified index of {@link #lessonList}.
+     * Opens the {@link Lesson} object at the specified index.
      *
-     * @param index the index of the {@link Lesson} object in {@link #lessonList} to open
+     * @param index the index of the {@link Lesson} object to open
      * @return the name of the {@link Lesson} object
      */
     @Override
@@ -52,6 +52,14 @@ public class ManagementModelStub implements ManagementModel {
         throw new AssertionError("This method should not be called.");
     }
 
+    /**
+     * Closes the opened {@link Lesson} object.
+     * @return the name of the closed {@link Lesson} object
+     */
+    @Override
+    public String closeLesson() {
+        throw new AssertionError("This method should not be called.");
+    }
 
     /**
      * Gets the entire list of lessons.

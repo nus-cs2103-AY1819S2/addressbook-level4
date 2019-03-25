@@ -117,8 +117,11 @@ public class LessonList {
     /**
      * Sets {@link #openedLesson} to null.
      */
-    public void closeLesson() {
+    public String closeLesson() {
+        requireNonNull(openedLesson);
+        String lessonName = openedLesson.getName();
         openedLesson = null;
+        return lessonName;
     }
 
     @Override

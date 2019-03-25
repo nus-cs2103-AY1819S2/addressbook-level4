@@ -1,6 +1,8 @@
 package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -41,6 +43,7 @@ public class SampleDataUtil {
 
     public static ReadOnlyCardFolder getSampleCardFolder() {
         CardFolder sampleAb = new CardFolder(getSampleFolderName());
+        sampleAb.setFolderScores(getSampleFolderScore());
         for (Card sampleCard : getSampleCards()) {
             sampleAb.addCard(sampleCard);
         }
@@ -53,6 +56,10 @@ public class SampleDataUtil {
 
     public static String getSampleFolderFileName() {
         return "Sample Folder.json";
+    }
+    
+    public static List<Double> getSampleFolderScore() {
+        return new ArrayList<>(Arrays.asList(0.5, 0.6, 0.7));
     }
 
     /**

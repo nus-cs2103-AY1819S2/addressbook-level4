@@ -113,17 +113,17 @@ public class UpdateCommand extends Command {
     /**
      * Returns a {@code Medicine} with the details of {@code medicineToUpdate} updated with {@code updatedBatch}.
      */
-    Medicine getUpdatedMedicine(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch) throws
+    private Medicine getUpdatedMedicine(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch) throws
             CommandException {
         Map<BatchNumber, Batch> updatedBatches = getNewMedicineBatches(medicineToUpdate, updatedBatch);
         Quantity updatedQuantity = getNewMedicineQuantity(medicineToUpdate, batchToUpdate, updatedBatch);
-        Expiry updatedExpiry = getNewMedicineExpiry(medicineToUpdate, updatedBatch, updatedBatches);
+        Expiry updatedExpiry = getNewMedicineExpiry(medicineToUpdate, batchToUpdate, updatedBatch, updatedBatches);
 
         return new Medicine(medicineToUpdate.getName(), updatedQuantity, updatedExpiry, medicineToUpdate.getCompany(),
                 medicineToUpdate.getTags(), updatedBatches);
     }
 
-    Map<BatchNumber, Batch> getNewMedicineBatches(Medicine medicineToUpdate, Batch updatedBatch) {
+    private Map<BatchNumber, Batch> getNewMedicineBatches(Medicine medicineToUpdate, Batch updatedBatch) {
         HashMap<BatchNumber, Batch> newBatches = new HashMap<>(medicineToUpdate.getBatches());
         if (updatedBatch.hasNonZeroQuantity()) {
             newBatches.put(updatedBatch.getBatchNumber(), updatedBatch);
@@ -133,7 +133,7 @@ public class UpdateCommand extends Command {
         return newBatches;
     }
 
-    Quantity getNewMedicineQuantity(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch) throws
+    private Quantity getNewMedicineQuantity(Medicine medicineToUpdate, Batch batchToUpdate, Batch updatedBatch) throws
             CommandException {
         int quantity = medicineToUpdate.getTotalQuantity().getNumericValue();
 
@@ -142,25 +142,31 @@ public class UpdateCommand extends Command {
         }
         quantity += updatedBatch.getQuantity().getNumericValue();
 
-        if (quantity > Quantity.MAX_QUANTITY) {
+        try {
+            return new Quantity(Integer.toString(quantity));
+        } catch (IllegalArgumentException e) {
             throw new CommandException(MESSAGE_MAX_QUANTITY_EXCEEDED);
         }
-
-        return new Quantity(Integer.toString(quantity));
     }
 
-    Expiry getNewMedicineExpiry(Medicine medicineToUpdate, Batch updatedBatch, Map<BatchNumber, Batch> updatedBatches) {
+    private Expiry getNewMedicineExpiry(Medicine medicineToUpdate, Batch batchToUpdate,
+            Batch updatedBatch, Map<BatchNumber, Batch> updatedBatches) {
+
         if (updatedBatches.size() == 0) {
             return new Expiry("-");
         }
 
         Expiry currentExpiry = medicineToUpdate.getNextExpiry();
 
-        if (updatedBatch.getExpiry().equals(currentExpiry) && !updatedBatch.hasNonZeroQuantity()) {
+        if (currentExpiry.getExpiryDate() == null) {
+            return updatedBatch.getExpiry();
+        }
+
+        if (batchToUpdate != null && batchToUpdate.getExpiry().equals(currentExpiry)){
             return updatedBatches.values().stream().min(Comparator.comparing(Batch::getExpiry)).get().getExpiry();
         }
 
-        if (updatedBatch.getExpiry().compareTo(currentExpiry) < 0 && updatedBatch.hasNonZeroQuantity()) {
+        if (updatedBatch.getExpiry().compareTo(currentExpiry) < 0) {
             return updatedBatch.getExpiry();
         } else {
             return currentExpiry;

@@ -57,12 +57,86 @@ It should start in a few seconds and begin the initialization set-up.
 If you need the full list of available commands and their associated details, please proceed to <<quick-start-guide>>!
 
 == Commands and Features
+=== General Commands
 
-=== Help
+
+
+==== help
 
 Displays the help text for all available commands.
 
 Format: `help`
+
+==== history
+Lists all the commands that have been entered since starting the
+application in reverse chronological order.
+
+Format: `history`
+
+==== undo
+Undo the latest command.
+
+Format: `undo`
+
+* The following commands are affected by undo: add edit delete and clear.
+
+
+Examples:
+
+* `<<delete, delete>> 1` +
+`<<list, list>>` +
+`undo` (reverses the delete 1 command)
+
+* `<<list, list>>` +
+`undo` +
+The undo command fails as there are no undo-able commands executed
+previously.
+
+
+* `<<delete, delete>> 1` +
+`<<clear, clear>>` +
+`undo` (reverses the clear command) +
+`undo` (reverses the delete 1 command)
+
+==== redo
+Reverses the most recent undo command.
+
+Format: `redo`
+
+Examples:
+
+* `<<delete, delete>> 1` +
+`<<undo, undo>>` (reverses the delete 1 command) +
+`redo` (reapplies the delete 1 command)
+
+* `<<delete, delete>> 1` +
+`redo` +
+The redo command fails as there are no undo commands executed
+previously.
+
+* `<<delete, delete>> 1` +
+`<<clear, clear>> +
+`<<undo, undo>>` (reverses the clear command) +
+`<<undo, undo>>` (reverses the delete 1 command) +
+`redo` (reapplies the delete 1 command) +
+`redo` (reapplies the clear command)
+
+==== clear
+Clears all patients, records and tasks from TeethHub.
+
+* You will be prompted to confirm.
+* Input `y` to proceed to the clear all records or `n` to abort.
+
+Format: `clear`
+
+==== exit
+Exits the program. You won't be able to exit if copies exist.
+
+Format: `exit`
+
+====
+You can also use `exit!` to forcefully exit the application
+====
 
 === File Management
 
@@ -78,7 +152,7 @@ You can use *Import* to add select patients from another patient list to your cu
  +
 You can use *Export* to save select patients to a .json or .pdf file.
 
-==== Open
+==== open
 Opens the file in the specified file path and overwrites the current patients list.
 ** Note that 'open' always searches inside the data folder.
 ** You can only open .json files.
@@ -94,7 +168,7 @@ Replaces the current patients list with the patients list in "patients1.json".
 Replaces the current patients list with the patients list in "patients2.json" found in the "february" folder.
 
 
-==== Save
+==== save
 Saves the current patients list to the specified filepath.
 ** Note that 'save' always saves inside the data folder. If no such filepath exists,
 it will be created. Otherwise, it will overwrite the existing file.
@@ -113,7 +187,7 @@ Saves the current patients list to "patients1.json".
 Saves the current patients list to "patients2.json" found in the "february" folder.
 
 
-==== Import
+==== import
 Opens the file in the specified file path and adds the specified patients to the patients list.
 ** Note that 'import' always searches inside the data folder.
 ** You can only import .json files.
@@ -138,7 +212,7 @@ Adds patient 1 to patient 4 from "patients1.json" to the current patients list.
 Adds patient 1 and patient 3 to patient 5 from "patients1.json" to the current patients list.
 
 
-==== Export
+==== export
 Saves the specified patients in the current patients list to the specified filepath.
 ** Note that 'export' always saves inside the data folder. If no such filepath exists,
 it will be created. Otherwise, it will overwrite the existing file.
@@ -646,82 +720,6 @@ Example:
 * `taskfind pri/low` +
   `taskdelete 2`
 
-=== General Commands
-
-==== history
-Lists all the commands that have been entered since starting the
-application in reverse chronological order.
-
-Format: `history`
-
-
-==== undo
-Undo the latest command.
-
-Format: `undo`
-
-* The following commands are affected by undo: add edit delete and clear.
-
-
-Examples:
-
-* `<<delete, delete>> 1` +
-`<<list, list>>` +
-`undo` (reverses the delete 1 command)
-
-* `<<list, list>>` +
-`undo` +
-The undo command fails as there are no undo-able commands executed
-previously.
-
-
-* `<<delete, delete>> 1` +
-`<<clear, clear>>` +
-`undo` (reverses the clear command) +
-`undo` (reverses the delete 1 command)
-
-==== redo
-Reverses the most recent undo command.
-
-Format: `redo`
-
-Examples:
-
-* `<<delete, delete>> 1` +
-`<<undo, undo>>` (reverses the delete 1 command) +
-`redo` (reapplies the delete 1 command)
-
-* `<<delete, delete>> 1` +
-`redo` +
-The redo command fails as there are no undo commands executed
-previously.
-
-* `<<delete, delete>> 1` +
-`<<clear, clear>> +
-`<<undo, undo>>` (reverses the clear command) +
-`<<undo, undo>>` (reverses the delete 1 command) +
-`redo` (reapplies the delete 1 command) +
-`redo` (reapplies the clear command)
-
-==== clear
-Clears all patients, records and tasks from TeethHub.
-
-* You will be prompted to confirm.
-* Input `y` to proceed to the clear all records or `n` to abort.
-
-Format: `clear`
-
-==== exit
-Exits the program. You won't be able to exit if copies exist.
-
-Format: `exit`
-
-====
-You can also use `exit!` to forcefully exit the application
-====
-
-
-
 == Cloud Functionality [Coming in v2.0]
 To increase data redundancy and reduce the risk of data being lost,
 you will be able to synchronise your data with a cloud account.
@@ -795,13 +793,13 @@ det/Mouth was noticeably foul, might have halitosis`
 E.g. `record delete n/S1235467H 4`
 
 * *Record Edit* : `record edit n/NRIC INDEX` +
-E.g. `record edit n/S1234657H 3 +
+e.g. `record edit n/S1234657H 3 +
 doc/Debang +
 det/new details +
 Done`
 
 * *Record Copy* : `record copy n/NRIC INDEX` +
-E.g. `record copy n/S1235467H 2`
+e.g. `record copy n/S1235467H 2`
 
 * *Redo* : `redo`
 
@@ -809,9 +807,18 @@ E.g. `record copy n/S1235467H 2`
 e.g. `save \mnt\clinicRecords.txt`
 
 * *Sort* : `sort PARAM ORDER` +
-E.g. `sort name ascend` or `sort age descend`
+e.g. `sort name ascend` or `sort age descend`
+
+* *Task Add*:  `taskadd PARAM` +
+e.g. `taskadd ti/Regular review of all patients' records sd/10-10-2019 ed/15-10-2019 st/1200 et/0800 pri/low`
+
+* *Task Edit*: `taskedit INDEX PARAM` +
+e.g. `taskedit 1 ti/Tooth extraction for Alex pri/HIGH`
+
+* *Task Delete*: `taskdelete INDEX` +
+e.g. `taskdelete 1`
 
 * *Teeth* : `teeth add <Template>` +
-E.g. `teeth add primary`
+e.g. `teeth add primary`
 
 * *Undo* : `undo`

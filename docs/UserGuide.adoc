@@ -1,8 +1,9 @@
-= OurTeeth - User Guide
+= TeethHub - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -12,7 +13,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S2-W17-2/main
 
 By: `Team W17-2`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -20,156 +21,242 @@ Last Updated: 2/19/2019 15:35:35
 
 == Introduction
 
-OurTeeth is for dental practitioners who want to manage patient records
-through a desktop or mobile app. The application works primarily through
-a Command Line Interface (CLI) while having elements of a Graphical User
-Interface (GUI) for greater visualization of data. The application
-provides a platform for dentists to keep track of their patients’
-personal particulars along with their dental records. Conditions of each
-patients’ teeth (e.g decaying, removed or filled) are also stored for
-ease of reference when providing treatments or follow-ups. As the
-application uses CLI, users who prefer using command line interface will
-be able to comfortably navigate through the many features the offered by
-the application.
+Welcome to TeethHub!
+If you are a dental practitioner who prefers to use a Command Line Interface (CLI),
+then TeethHub is an application for you!
 
-Interested in trying OurTeeth out? Check section 2 [Prerequisites] to
-see what programs you need to have installed in order for OurTeeth to
-work properly. Once that’s settled, or you’re confident in your computer
-set-up, jump to section 3 [Quick Start] to begin!
+TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
+For example, you can select and find patients and records by clicking on them, but you would need to type type the edit command to edit them.
+TeethHub allows you to keep track of your patient's particulars along with their dental records.
+An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
+In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
+
+Interested in trying TeethHub out? Check out <<prerequisites>> to see what programs you need in order for TeethHub to work properly.
+If you’re confident in your computer set-up, jump to <<quick-start-guide>> to begin!
 
 ==  Prerequisites
 
-Before downloading and installing OurTeeth, please check that you have
-the following programs installed:
+Before downloading and installing TeethHub, you will need the following programs installed:
 
-* Java version *9* or later
-* The secret to the universe and more…
+* Java Runtime Environment version *9* or later.
 
-
-Once you have ensured everything is in order, kindly proceed to the
-section 3 [Quick Start Guide].
+Once you have it installed, you can now proceed to <<quick-start-guide>>!
 
 == Quick Start Guide
 
+. Download the latest TeethHub.jar file from our https://github.com/CS2103-AY1819S2-W17-2/main[GitHub page].
 
-. Download the latest ourteeth.jar file from our GitHub page
+. Copy the file to the folder you want to use as the home folder for TeethHub (all data will be stored there).
 
-. Copy the file to the folder you want to use as the home folder for the
-application (all data will be stored there)
+. Double-click the file to launch TeethHub.
+It should start in a few seconds and begin the initialization set-up.
 
-. Double-click the file to launch the application.The application’s GUI
-should start in a few seconds and begin the initialization set-up. (for
-users who have already finished the set-up phase, please go to step 6)
-
-. The application will prompt the user to input details of the
-clinic/hospital/place of practice such as the name and address of the
-location. (e.g ABC Hospital, 11 Baker Street, Singapore 308433)
-
-. User will then have to create a user account to begin using the
-application.
-
-. Simply login to your account and begin using the application
+. You can now start adding patients and tasks!
 
 
-For the full list of available commands and their associated details,
-please look at section 4 [Commands]
+If you need the full list of available commands and their associated details, please proceed to <<quick-start-guide>>!
 
 == Commands and Features
 
-=== Login
-
-Logs into a specific user’s account to access records
-
-Format: `login USERNAME PASSWORD`
-
 === Help
 
-Displays the help text for the usage of all available commands.
+Displays the help text for all available commands.
 
 Format: `help`
 
-=== Adding a person: add
+=== File Management
 
-Adds a person to the application’s personnel data records
+TeethHub automatically saves all data in AddressBook.json when you close the program.
+However, you can manage them manually with Open, Save, Import and Export. +
+ +
+You can use *open* to open another patient list that you may have transferred over from another computer. +
+ +
+You can use *save* to save your current patient list to another .json, so that you can transfer them to another computer. +
+You can also use *save* to save your current patient list to a .pdf, which is nicer on the eyes.
+ +
+You can use *Import* to add select patients from another patient list to your current patient list. +
+ +
+You can use *Export* to save select patients to a .json or .pdf file.
+
+==== Open
+Opens the file in the specified file path and overwrites the current patients list.
+** Note that 'open' always searches inside the data folder.
+** You can only open .json files.
+
+Format: `open FILE_PATH`
+
+Examples:
+
+* `open patients1.json` +
+Replaces the current patients list with the patients list in "patients1.json".
+
+* `open february\patients2.json` +
+Replaces the current patients list with the patients list in "patients2.json" found in the "february" folder.
+
+
+==== Save
+Saves the current patients list to the specified filepath.
+** Note that 'save' always saves inside the data folder. If no such filepath exists,
+it will be created. Otherwise, it will overwrite the existing file.
+** You can only save to .json and .pdf. +
+.json files allow you to open or import them. +
+.pdf files are easier for humans to read, but you cannot open or import them with TeethHub.
+
+Format: `save FILE_PATH`
+
+Examples:
+
+* `save patients1.json` +
+Saves the current patients list to "patients1.json".
+
+* `save february\patients2.pdf` +
+Saves the current patients list to "patients2.json" found in the "february" folder.
+
+
+==== Import
+Opens the file in the specified file path and adds the specified patients to the patients list.
+** Note that 'import' always searches inside the data folder.
+** You can only import .json files.
+
+Format: `import FILE_PATH INDEX_RANGE`
+
+Examples:
+
+* `import patients1.json 1` +
+Adds patient 1 from "patients1.json" to the current patients list.
+
+* `import february\patients1.json 1` +
+Adds patient 1 from "patients1.json" found in the "february" folder to the current patients list.
+
+* `import patients1.json 1,4` +
+Adds patient 1 and patient 4 from "patients1.json" to the current patients list.
+
+* `import patients1.json 1-4` +
+Adds patient 1 to patient 4 from "patients1.json" to the current patients list.
+
+* `import patients1.json 1,3-5` +
+Adds patient 1 and patient 3 to patient 5 from "patients1.json" to the current patients list.
+
+
+==== Export
+Saves the specified patients in the current patients list to the specified filepath.
+** Note that 'export' always saves inside the data folder. If no such filepath exists,
+it will be created. Otherwise, it will overwrite the existing file.
+** You can only export to .json and .pdf. +
+.json files allow you to open or import them. +
+.pdf files are easier for humans to read, but you cannot open or import them with TeethHub.
+
+Format: `export FILE_PATH INDEX_RANGE`
+
+Examples:
+
+* `export patients1.json 1` +
+Saves patient 1 from the current patients list to "patients1.json".
+
+* `export february\patients1.pdf 1` +
+Saves patient 1 from the current patients list to "patients1.pdf" found in the "february" folder.
+
+* `export patients1.json 1,4` +
+Saves patient 1 and patient 4 from the current patients list to "patients1.json".
+
+* `export patients1.pdf 1-4` +
+Saves patient 1 to patient 4 from the current patients list to "patients1.pdf".
+
+* `export patients1.pdf 1,3-5` +
+Saves patient 1 and patient 3 to patient 5 from the current patients list to "patients1.pdf".
+
+* `Export patients1.json all` +
+Writes all entries from the address book to patients1.json. +
+
+=== Patient Management
+==== add
+
+Adds a patient to the patients list.
 
 Format: `add PARAMETERS [t/TAG] …`
 
 Parameters:
 
-[cols=",,,",options=""]
+[cols=",",options=""]
 |===
-|n/NAME |s/SEX |p/PHONE_NUMBER |e/EMAIL
-|a/ADDRESS |ic/NRIC |age/AGE |dob/DATE_OF_BIRTH_DDMMYYYY
-
-|da/DRUG_ALLERGY |nokn/NEXT_OF_KIN_NAME |nokp/NEXT_OF_KIN_PHONE_NUMBER
-|nokr/NEXT_OF_KIN_RELATION
-
-|noka/NEXT_OF_KIN_ADDRESS | | |
+|Tag |Example
+|n/NAME |n/Keith Choo Shen Hao
+|s/SEX |s/Male
+|p/PHONE_NUMBER |p/98765432
+|e/EMAIL |e/KeithCSH@debang.com
+|a/ADDRESS |a/1 Pulau Tekong Besar 508449
+|ic/NRIC |ic/S1234567Z
+|age/AGE |age/25
+|dob/DATE_OF_BIRTH_DDMMYYYY |dob/28061994
+|da/DRUG_ALLERGY |da/Insulin
+|nokn/NEXT_OF_KIN_NAME |nokn/Choo Debang
+|nokp/NEXT_OF_KIN_PHONE_NUMBER |nokp/97654321
+|nokr/NEXT_OF_KIN_RELATION |nokr/Brother
+|noka/NEXT_OF_KIN_ADDRESS |noka/21 Lower Kent Ridge Rd 119077
 |===
 
 
-A person can have any number of tags.
+A patient can have any number of tags.
 
-Note: If a person’s next of kin lives at the same address, use `same` to
-indicate
+Note: If a patient’s next of kin lives at the same address, use `same` to
+indicate that.
 
 Examples:
 
 
-* `add n/John Choo p/98425871 e/jonC@example.com a/IDA street, block 13,
+* `add n/John Choo p/98425871 e/jonC@example.com a/IDA street block 13
 #02-05 ic/S1234567H age/32 dob/26021987 nokn/Jacky Choo nokp/84875215
 nokr/Father noka/same`
 
 
-=== Deleting a person: delete
+==== delete
 
 
-Deletes the specified person from the personnel data records.
+Deletes the specified patient from the patients list.
 
 Format: delete INDEX
 
 
-* Deletes the person at the specified index
+* Deletes the patient at the specified index.
 
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed patient list.
 
-* The given index must be a positive integer (e.g 1, 2 or 3…)
+* The given index must be a positive integer (e.g 1, 2 or 3…).
 
 
 Examples:
 
-* `list +
-delete 1` +
-Deletes the 1st person from the displayed list
+* `delete 1` +
+Deletes the patient shown with index 1 from the displayed list.
 
-* `view John +
-delete 1` +
-Deletes the 2nd person found using the view command
-
-
-=== Editing a person’s data: edit
+* `find John` +
+`delete 2` +
+Deletes the patient shown with index 2 found using the find command.
 
 
-Edits data from an existing person
+==== edit
+
+
+Edits data from an existing patient.
 
 Format: `edit INDEX`
 
 
-* Goes into edit mode for the person at the specified index shown from
-list or view command. Must be a positive integer (e.g 1, 2 or 3)
+* Goes into edit mode for the patient at the specified index shown from
+list or find command. Must be a positive integer (e.g 1, 2 or 3).
 
-* Input the field followed by the new value to replace the existing data
+* Input the field followed by the new value to replace the existing data.
 
 * Multiple fields can be edited in a single input or across multiple
-inputs
+inputs.
 
-* When editing tags, the existing tags of the person will be removed i.e
-adding of tags is not cumulative
+* When editing tags, the existing tags of the patient will be removed i.e
+adding of tags is not cumulative.
 
 * All tags can be removed by keying in t/ without specifying any tags
-following it
+following it.
 
-* Exit the edit mode by entering done
+* Exit the edit mode by entering done.
 
 Example:
 
@@ -178,23 +265,22 @@ edit 1 +
 p/12345 +
 e/newemail@gmail.com +
 done` +
-Edits the phone number and email of the first person listed to become
-12345 and newemail@gmail.com respectively across 2 inputs
+Edits the phone number and email of the first patient listed to become
+12345 and newemail@gmail.com respectively across 2 inputs.
 
 
-* `view Betsy +
+* `find Betsy +
 edit 2 +
-p/987654 e/mymaill@gmail.com +
+p/987654 e/mymail@gmail.com +
 done` +
-Edits the phone number and email of the first person listed to become
-987654 and mymaill@gmail.com respectively with a single input
+Edits the phone number and email of the first patient listed to become
+987654 and mymail@gmail.com respectively with a single input.
 
 
-=== Copying a person’s data: copy
+==== copy
 
-Makes an exact copy of a person’s data and adds it to the personnel data
-records. This is implemented in the case that multiple people share
-similar details.
+Makes an exact copy of a patient and adds them to the patient list.
+This may be useful if multiple people share similar details.
 
 Format: `copy INDEX [Count]`
 
@@ -204,17 +290,17 @@ there will be a confirmation.
 Example:
 
 * `copy 3` +
-Makes a copy of the person at index 3 and inserts it at the bottom of
-the current personnel records with a copy tag.
+Makes a copy of the patient at index 3 and inserts it at the bottom of
+the current patient list with a copy tag.
 
 * `copy 3 4` +
-Makes 4 copies of the person at index 3 and inserts them at the bottom of
-the current personnel records with a copy tag.
+Makes 4 copies of the patient at index 3 and inserts them at the bottom of
+the current patient list with a copy tag.
 
-=== Record: Access a person’s dental records
+=== Patient Records Management
 ==== record add
 
-Adds a new dental record to the program’s medical dental records
+Adds a new dental record for the patient.
 
 Format: `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
 doc/SERVING_DENTIST det/DETAILS`
@@ -227,7 +313,7 @@ was noticeably smelly, might have halitosis`
 
 Format: `record delete n/NRIC INDEX`
 
-* Deletes the person’s dental record at the specified index
+* Deletes the patient’s dental record at the specified index.
 
 * The index refers to the index number shown in the displayed dental
 record list.
@@ -236,37 +322,37 @@ record list.
 
 Examples:
 
-* `view dental Jon` +
+* `find dental Jon` +
 `record delete n/NRIC 1` +
 Deletes the 1st record from the displayed list
 
 
 ==== record edit
-Edits a person’s dental record.
+Edits a patient’s dental record.
 
 Format: `record edit n/NRIC INDEX`
 
 
-* Goes into record edit mode for the specified person at the specified
-index shown from list or view command. Must be a positive integer (e.g
-1, 2 or 3)
+* Goes into record edit mode for the specified patient at the specified
+index shown from list or find command. Must be a positive integer (e.g
+1, 2 or 3).
 
-* Input the field followed by the new value to replace the existing data
+* Input the field followed by the new value to replace the existing data.
 
 * Multiple fields can be edited in a single input or across multiple
-inputs
+inputs.
 
-* When editing tags, the existing tags of the person will be removed i.e
-adding of tags is not cumulative
+* When editing tags, the existing tags of the patient will be removed i.e
+adding of tags is not cumulative.
 
 * All tags can be removed by keying in t/ without specifying any tags
-following it
+following it.
 
-* Exit the edit mode by entering done
+* Exit the edit mode by entering "done".
 
 Example:
 
-* `view dental n/Jon +
+* `find dental n/Jon +
 record edit n/S1234567H 1 +
 doc/Debang +
 det/new details +
@@ -275,7 +361,7 @@ Edits the first dental record under the patient Jon and replaces the old
 doctor and detail fields with the new Debang and new details data.
 
 ==== record copy
-Makes an exact copy of a person’s dental record
+Makes an exact copy of a patient’s dental record.
 
 Format: `record copy n/NRIC INDEX`
 
@@ -283,31 +369,27 @@ Example:
 
 
 * `record copy n/S1234567H 2` +
-Makes a copy of the person’s dental record at index 2 and inserts it at
-the bottom of the current dental records with a copy tag
+Makes a copy of the patient’s dental record at index 2 and inserts it at
+the bottom of the current dental records with a copy tag.
 
 
-=== Teeth
+=== Teeth Management
 
 ==== Brief Description
 
 
-The OurTeeth application complies with the most popular standard of the
-three the Dental Numbering Systems utilised in the dentistry field - The
+TeethHub complies with the most popular standard of the
+three the Dental Numbering Systems utilised in Dentistry - The
 Universal Numbering System.
 
 
 ==== The Universal Numbering System
 
 ifdef::env-github[]
-image::image1.png[width="200"]
+image::BaseLayer.png[width="200"]
 endif::[]
 
-ifndef::env-github[]
-image::image1.png[width="200"]
-endif::[]
-
-The uppercase letters A through T are used for primary teeth and the
+The upper-case letters A through T are used for primary teeth and the
 numbers 1 - 32 are used for permanent teeth. The tooth designated "1" is
 the maxillary right third molar ("wisdom tooth") and the count continues
 along the upper teeth to the left side. Then the count begins at the
@@ -317,7 +399,7 @@ letter, allowing for easier use on keyboards.
 
 
 ==== Creating and Editing Teeth Layout
-There are two templates provided by the application: primary and
+There are two templates provided by TeethHub: primary and
 permanent.
 
 All primary or permanent teeth in template will all be present and
@@ -329,149 +411,58 @@ healthy by default.
 ** `teeth add n/NRIC <Template>`
 
 ** Note that if a teeth layout already exist, a warning will be thrown to
-confirm the user’s overwriting intention
+confirm your overwriting intention.
 
 * To edit a new specific tooth:
 
 ** `teeth edit n/NRIC t/TEETH_LABEL s/STATUS -d/DESCRIPTION`
 
 ** Valid <Teeth Label> are letters A through T (case-insensitive, for
-primary teeth), and numbers 1 - 32 (for permanent teeth)
+primary teeth), and numbers 1 - 32 (for permanent teeth).
 
 ** Note that if a teeth layout does not exist, a new layout will be created
 based on the teeth label group used, before the edit is applied on the
 newly created teeth layout.
 
 ** <Status> reflects overall health of the indicated tooth, and valid
-<Status> are “healthy”, “absent”, “treatment” and “review”
+<Status> are "healthy", "problem" and "absent".
 
-** <Description> is an optional field to present dentists with a feature to
-indicate personalised note describing more detail on the patient’s teeth
+** <Description> is an optional field that allows you to
+write a note describing more detail on the patient’s teeth
 health.
 
-=== Open
-Opens the file in the specified file path and overwrites the current records.
-** Note that 'open' always searches inside the data folder.
-** You can only open .json files.
-
-Format: `open FILE_PATH`
-
-Examples:
-
-* `open records1.json` +
-Replaces the current records with the records in "records1.json".
-
-* `open february\records2.json` +
-Replaces the current records with the records in "records2.json" found in the "february" folder.
-
-
-=== Save
-Saves the current records to the specified filepath.
-** Note that 'save' always saves inside the data folder. If no such filepath exists,
-it will be created. Otherwise, it will overwrite the existing file.
-** You can only save to .json and .pdf.
-.json files allow you to open or import them.
-.pdf files are easier for humans to read, but you cannot open or import them with OurTeeth.
-
-Format: `save FILE_PATH`
-
-Examples:
-
-* `save records1.json` +
-Saves the current records to "records1.json".
-
-* `save february\records2.pdf` +
-Saves the current records to "records1.json" found in the "february" folder.
-
-
-=== Import
-Opens the file in the specified file path and adds the specified patients to the current records.
-** Note that 'import' always searches inside the data folder.
-** You can only import .json files.
-
-Format: `import FILE_PATH INDEX_RANGE`
-
-Examples:
-
-* `import records1.json 1` +
-Adds patient 1 from "records1.json" to the current records.
-
-* `import february\records1.json 1` +
-Adds patient 1 from "records1.json" found in the "february" folder to the current records.
-
-* `import records1.json 1,4` +
-Adds patient 1 and patient 4 from "records1.json" to the current records.
-
-* `import records1.json 1-4` +
-Adds patient 1 to patient 4 from "records1.json" to the current records.
-
-* `import records1.json 1,3-5` +
-Adds patient 1 and patient 3 to patient 5 from "records1.json" to the current records..
-
-
-=== Export
-Saves the specified patients in the current records to the specified filepath.
-** Note that 'export' always saves inside the data folder. If no such filepath exists,
-it will be created. Otherwise, it will overwrite the existing file.
-** You can only export to .json and .pdf.
-.json files allow you to open or import them.
-.pdf files are easier for humans to read, but you cannot open or import them with OurTeeth.
-
-Format: `export FILE_PATH INDEX_RANGE`
-
-Examples:
-
-* `export records1.json 1` +
-Saves patient 1 from the current records to "records1.json".
-
-* `export february\records1.pdf 1` +
-Saves patient 1 from the current records to "records1.pdf" found in the "february" folder.
-
-* `export records1.json 1,4` +
-Saves patient 1 and patient 4 from the current records to "records1.json".
-
-* `export records1.pdf 1-4` +
-Saves patient 1 to patient 4 from the current records to "records1.pdf".
-
-* `export records1.pdf 1,3-5` +
-Saves patient 1 and patient 3 to patient 5 from the current records to "records1.pdf".
-
-* `Export records2.json all` +
-Writes all entries from the address book to records2.json. +
-
-
 === List
-Shows a list of all personnel or medical stored in the application
+Shows a list of all patients or medical stored in TeethHub.
 
 Format: `list [dental]`
 
-Command shows personnel details by default, add dental to see dental
+Command shows patient details by default, add dental to see dental
 records.
 
 Example:
 
 * `list` +
-Shows details of all patients
+Shows details of all patients.
 
 
 * `list dental` +
-Shows details of patients’ dental records
+Shows details of patient's dental records.
 
 
 === Find
-Shows patients whose data contains any of the given keywords according to a specified paramter.
+Shows patients whose data contains any of the given keywords according to a specified parameter.
 
 Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
 
-* Add “dental” to search dental records instead
-* Search is case insensitive
-* Order of keywords does not matter
+* Add “dental” to search dental records instead.
+* Search is case insensitive.
+* Order of keywords does not matter.
 
 Example:
 
 
 * `find a/Yishun` +
-Show all the people with an address containing the keyword Yishun
+Show all the people with an address containing the keyword Yishun.
 
 
 * `find dental cleaning` +
@@ -521,18 +512,17 @@ Format: `stat INDEX`
 
 === History
 Lists all the commands that have been entered since starting the
-application in reverse chronological order
+application in reverse chronological order.
 
 Format: `history`
 
 
 === Undo
-Restores data to the state before the previous undoable command was
-executed.
+Undo the latest command.
 
 Format: `undo`
 
-* The following commands are affected by undo: add edit delete and clear
+* The following commands are affected by undo: add edit delete and clear.
 
 
 Examples:
@@ -544,7 +534,7 @@ undo` (reverses the delete 1 command)
 * `select 1 +
 list +
 undo` +
-The undo command fails as there are no undoable commands executed
+The undo command fails as there are no undo-able commands executed
 previously.
 
 
@@ -554,7 +544,7 @@ undo` (reverses the clear command) +
 `undo` (reverses the delete 1 command)
 
 === Redo
-Reverses the most recent undo command
+Reverses the most recent undo command.
 
 Format: `redo`
 
@@ -577,59 +567,42 @@ undo` (reverses the clear command) +
 `redo` (reapplies the clear command)
 
 === Clear
-Clears all personnel data and records from the application
+Clears all patients and records from TeethHub.
 
-* Will prompt the user to confirm
-* Input `y` to proceed to the clear all records or `n` to abort
+* You will be prompted to confirm.
+* Input `y` to proceed to the clear all records or `n` to abort.
 
 Format: `clear`
 
 === Exit
-Exits the program. You won't be able to exit if copies exist
+Exits the program. You won't be able to exit if copies exist.
 
 Format: `exit`
 
 === Exit anyway
-Exits the program. You can exit under no circumstances
+Exits the program, disregarding any copies.
 
 Format: `exit!`
 
-=== Appointments [Coming in v2.0]
-Schedule patient appointments.
-
-
-=== Cloud [Coming in v2.0]
-Synchronises the data stored with the cloud database
-
-
 == Cloud Functionality [Coming in v2.0]
-To increase data redundancy and reduce the risk of data being lost, we
-will allow users to synchronise their data with a cloud account. From
-there, should the worst happen and the user’s local data be lost, it can
-be downloaded from the cloud.
+To increase data redundancy and reduce the risk of data being lost,
+you will be able to synchronise your data with a cloud account.
 
 
 == Spell-Checker Functionality [Coming in v2.0]
 
 
-Upon keying in an improperly typed command it will automatically correct
-it (e.g. sirt to sort) and run the program.
+Automatically correct an improperly typed command(e.g. sirt to sort).
 
 
 == Frequently Asked Questions (FAQ)
 
 *Q*: How do I transfer my data to another Computer?
 
-*A*: Install the app in the other computer and overwrite the empty data
+*A*: Install TeethHub in the other computer and overwrite the empty data
 file it creates with the file that contains the data of your previous
 Address Book folder. Alternatively, upload your data to the cloud and
 download it from there.
-
-*Q*: How can I be sure my patient’s records are secure?
-
-*A*: The application’s login feature ensures only that particular user
-will be able to access his or her own patients. Records of other users
-will be encrypted and unviewable unless one logs in.
 
 == Command Summary
 
@@ -654,30 +627,31 @@ done`
 
 * *Exit* : `exit`
 
-* *Export* : `export FILE_PATH FILE_NAME` +
-e.g. `export /mnt/ext_drive/ clinicRecords.txt`
+* *Export* : `export FILE_PATH INDEX_RANGE`` +
+e.g. `export \mnt\clinicRecords.txt 1,3-5`
 
 * *Find* : `find [dental] KEYWORD [MORE_KEYWORDS]` +
 e.g. `find yishun`
+
+* *Help* : `help`
+
+* *History* : `history`
+
+* *Import* : `import FILE_PATH INDEX_RANGE` +
+e.g. `import \mnt\newData.json 1,3-5`
 
 * *List* : `list [dental]`
 
 * *Login* : `login USERNAME PASSWORD` +
 e.g `login kthSIM cavities!2`
 
-* *Help* : `help`
-
-* *History* : `history`
-
-* *Import* : `import FILE_PATH [append]` +
-e.g. `import /mnt/sample/newData`
-
+* *Open* : `open FILE_PATH` +
+e.g. `import \mnt\sample\newData.json`
 
 * *Record Add* : `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
 doc/SERVING_DENTIST det/DETAILS` +
 e.g. `record add n/S1234567H d/10022019 t/1705 p/Cleaning doc/Kyler
 det/Mouth was noticeably foul, might have halitosis`
-
 
 * *Record Delete* : `record delete n/NRIC INDEX` +
 E.g. `record delete n/S1235467H 4`
@@ -692,6 +666,9 @@ Done`
 E.g. `record copy n/S1235467H 2`
 
 * *Redo* : `redo`
+
+* *Save* : `save FILE_PATH`` +
+e.g. `save \mnt\clinicRecords.txt`
 
 * *Sort* : `sort PARAM ORDER` +
 E.g. `sort name ascend` or `sort age descend`

@@ -45,9 +45,9 @@ public class ConsultationCommandTest {
 
         modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
 
-        // command exception thrown when consultation is recreated with a ongoing session
-        //Assert.assertThrows(IllegalArgumentException.class, () ->
-        //        modelManager.createConsultation(modelManager.getPatientAtIndex(1)));
+        // exception thrown when consultation is recreated with an ongoing session
+        Assert.assertThrows(IllegalArgumentException.class, () -> modelManager.createConsultation(
+                modelManager.getPatientByNric(patient1.getNric().toString())));
     }
 
     @Test
@@ -56,6 +56,7 @@ public class ConsultationCommandTest {
         Assert.assertThrows(CommandException.class, ()->cr.execute(modelManager, history));
 
         ConsultationCommand cr2 = new ConsultationCommand("S9123456A");
+
         try {
             String consultationResult = "Consultation session for: " + "S9123456A" + " started\n";
             org.junit.Assert.assertEquals(cr2.execute(modelManager, history).getFeedbackToUser(),

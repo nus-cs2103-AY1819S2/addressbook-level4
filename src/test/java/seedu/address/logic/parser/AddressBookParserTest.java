@@ -140,6 +140,17 @@ public class AddressBookParserTest {
         AddPatientCommand command = (AddPatientCommand) parser.parseCommand(userInput);
 
         assertEquals(new AddPatientCommand(patient1), command);
+
+        // alias test
+        userInput = AddPatientCommand.COMMAND_ALIAS + " n/" + name.getName() + " "
+                + "r/" + nric.getNric() + " "
+                + "e/" + email.getEmail() + " "
+                + "a/" + address.getAddress() + " "
+                + "c/" + contact.getContact() + " "
+                + "g/" + gender.getGender() + " "
+                + "d/" + dob.getDob();
+        command = (AddPatientCommand) parser.parseCommand(userInput);
+        assertEquals(new AddPatientCommand(patient1), command);
     }
 
     @Test
@@ -164,35 +175,69 @@ public class AddressBookParserTest {
 
         EditPatientCommand command = (EditPatientCommand) parser.parseCommand(userInput);
         assertEquals(expectedCommand, command);
+
+        //alias test
+        userInput = EditPatientCommand.COMMAND_ALIAS + " S9123456A " + "n/" + name.getName() + " "
+                + "r/" + nric.getNric() + " "
+                + "e/" + email.getEmail() + " "
+                + "a/" + address.getAddress();
+        command = (EditPatientCommand) parser.parseCommand(userInput);
+        assertEquals(expectedCommand, command);
     }
 
     @Test
     public void parseCommand_listPatient() throws Exception {
-        String userInput = "listpat r/S92";
+        String userInput = ListPatientCommand.COMMAND_WORD + " r/S92";
         ListPatientCommand command1 = new ListPatientCommand("S92", false);
         assertEquals(command1, parser.parseCommand(userInput));
 
-        userInput = "listpat n/pe";
+        userInput = ListPatientCommand.COMMAND_WORD + " n/pe";
         ListPatientCommand command2 = new ListPatientCommand("pe", true);
         assertEquals(command2, parser.parseCommand(userInput));
 
-        userInput = "listpat t/diabetes";
+        userInput = ListPatientCommand.COMMAND_WORD + " t/diabetes";
         ListPatientCommand command3 = new ListPatientCommand(new Tag("diabetes"));
         assertEquals(command3, parser.parseCommand(userInput));
 
-        userInput = "listpat 1";
+        userInput = ListPatientCommand.COMMAND_WORD + " 1";
         ListPatientCommand command4 = new ListPatientCommand(1);
         assertEquals(command4, parser.parseCommand(userInput));
 
-        userInput = "listpat";
+        userInput = ListPatientCommand.COMMAND_WORD;
         ListPatientCommand command5 = new ListPatientCommand();
+        assertEquals(command5, parser.parseCommand(userInput));
+
+        // alias tests
+        userInput = ListPatientCommand.COMMAND_ALIAS + " r/S92";
+        ListPatientCommand command6 = new ListPatientCommand("S92", false);
+        assertEquals(command1, parser.parseCommand(userInput));
+
+        userInput = ListPatientCommand.COMMAND_ALIAS + " n/pe";
+        ListPatientCommand command7 = new ListPatientCommand("pe", true);
+        assertEquals(command2, parser.parseCommand(userInput));
+
+        userInput = ListPatientCommand.COMMAND_ALIAS + " t/diabetes";
+        ListPatientCommand command8 = new ListPatientCommand(new Tag("diabetes"));
+        assertEquals(command3, parser.parseCommand(userInput));
+
+        userInput = ListPatientCommand.COMMAND_ALIAS + " 1";
+        ListPatientCommand command9 = new ListPatientCommand(1);
+        assertEquals(command4, parser.parseCommand(userInput));
+
+        userInput = ListPatientCommand.COMMAND_ALIAS;
+        ListPatientCommand command10 = new ListPatientCommand();
         assertEquals(command5, parser.parseCommand(userInput));
     }
 
     @Test
     public void parseCommand_consultationcommand() throws Exception {
-        String userInput = "consult r/S9123456A";
+        String userInput = ConsultationCommand.COMMAND_WORD + " r/S9123456A";
         ConsultationCommand command = new ConsultationCommand("S9123456A");
+        assertEquals(command, parser.parseCommand(userInput));
+
+        // alias test
+        userInput = ConsultationCommand.COMMAND_ALIAS + " r/S9123456A";
+        ConsultationCommand command2 = new ConsultationCommand("S9123456A");
         assertEquals(command, parser.parseCommand(userInput));
     }
 

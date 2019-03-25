@@ -18,8 +18,8 @@ public class StartCommandParserTest {
         assertParseFailure(parser, "start n/02-03-LEARN c/15 m/LEARN", format(MESSAGE_INVALID_COMMAND_FORMAT,
                 QuizStartCommand.MESSAGE_USAGE));
     }
-    @Test
+    //TODO:
+    /*@Test
     public void parseAnswer() throws Exception {
-        //TODO
-    }
+    }*/
 }

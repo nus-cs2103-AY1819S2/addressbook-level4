@@ -22,6 +22,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -111,6 +112,9 @@ public class CommandParser {
 
         case EndCommand.COMMAND_WORD:
             return new EndCommand();
+
+        case NextCommand.COMMAND_WORD:
+            return new NextCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();

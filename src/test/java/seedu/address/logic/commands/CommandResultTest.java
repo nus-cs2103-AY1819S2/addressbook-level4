@@ -20,7 +20,7 @@ public class CommandResultTest {
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult("feedback", false, false, false,
-                null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
+                false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -35,25 +35,25 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
         // different showHelp value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", true, false, false,
-                null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
+                false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true, false,
-                null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
+                false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
 
         // different testSessionCard value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false,
-                sampleTestCard, false, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
+                false, sampleTestCard, false, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
 
         // different endTestSession value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false,
-                null, true, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
+                false, null, true, AnswerCommandResultType.NOT_ANSWER_COMMAND)));
 
         // different AnswerCommandResult value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false,
-                null, false, AnswerCommandResultType.ANSWER_CORRECT)));
+                false, null, false, AnswerCommandResultType.ANSWER_CORRECT)));
         assertFalse(commandResult.equals(new CommandResult("feedback", false, false, false,
-                null, false, AnswerCommandResultType.ANSWER_WRONG)));
+                false, null, false, AnswerCommandResultType.ANSWER_WRONG)));
     }
 
     @Test
@@ -69,24 +69,24 @@ public class CommandResultTest {
 
         // different showHelp value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false, false,
-                null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
+                false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true, false,
-                null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
+                false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
 
         // different testSessionCard value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, false,
-                sampleTestCard, false, AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
+                false, sampleTestCard, false, AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
 
         // different endTestSession value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, false,
-                null, true, AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
+                false, null, true, AnswerCommandResultType.NOT_ANSWER_COMMAND).hashCode());
 
         // different AnswerCommandResult value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, false,
-                null, false, AnswerCommandResultType.ANSWER_CORRECT).hashCode());
+                false, null, false, AnswerCommandResultType.ANSWER_CORRECT).hashCode());
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, false, false,
-                null, false, AnswerCommandResultType.ANSWER_WRONG).hashCode());
+                false, null, false, AnswerCommandResultType.ANSWER_WRONG).hashCode());
     }
 }

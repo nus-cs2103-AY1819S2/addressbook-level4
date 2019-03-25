@@ -44,6 +44,13 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
+     * Returns the number of cards in the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
      * Adds a card to the list.
      * The card must not already exist in the list.
      */

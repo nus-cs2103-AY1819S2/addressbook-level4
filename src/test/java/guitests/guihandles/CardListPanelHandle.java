@@ -14,7 +14,7 @@ import seedu.address.model.card.Card;
 public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
     public static final String CARD_LIST_VIEW_ID = "#cardListView";
 
-    private static final String CARD_PANE_ID = "#thumbnailPane";
+    private static final String CARD_PANE_ID = "#cardThumbnailPane";
 
     private Optional<Card> lastRememberedSelectedCardCard;
 
@@ -98,7 +98,7 @@ public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
     }
 
     /**
-     * Returns the card card handle of a card associated with the {@code index} in the list.
+     * Returns the card handle of a card associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public CardThumbnailHandle getCardCardHandle(int index) {

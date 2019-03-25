@@ -34,6 +34,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private FolderListPanel folderListPanel;
     private CardListPanel cardListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -122,9 +123,11 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         browserPanel = new BrowserPanel(logic.selectedCardProperty());
-        cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
+        folderListPanel = new FolderListPanel(logic.getFilteredCardFolders());
+        cardListPanel = new CardListPanel(logic.getFilteredCards(), logic.selectedCardProperty(),
                 logic::setSelectedCard);
         cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
+        fullScreenPlaceholder.getChildren().add(folderListPanel.getRoot());
         fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
     }
 
@@ -185,14 +188,18 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Refreshes the side panel to display the new active folder.
+     * Refreshes the side panel to display the contents of the new active folder.
      */
-    private void handleSidePanelUpdate() {
-        cardListPanel = new CardListPanel(logic.getFilteredCardList(), logic.selectedCardProperty(),
+    private void handleEnterFolder() {
+        cardListPanel = new CardListPanel(logic.getFilteredCards(), logic.selectedCardProperty(),
                 logic::setSelectedCard);
         cardMainScreen = new CardMainScreen(cardListPanel, browserPanel);
-        fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
         fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
+    }
+
+    private void handleExitFolder() {
+        fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+        folderListPanel.refreshContent();
     }
 
 
@@ -241,8 +248,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isSidePanelUpdated()) {
-                handleSidePanelUpdate();
+            if (commandResult.enteredFolder()) {
+                handleEnterFolder();
+            }
+
+            if (commandResult.exitedFolder()) {
+                handleExitFolder();
             }
 
             if (commandResult.isTestSession()) {

@@ -29,4 +29,11 @@ public interface ReadOnlyCardFolder extends Observable {
      * Returns a list of folder scores
      */
     List<Double> getFolderScores();
+
+    /**
+     * Returns true if passed in list of cards has the same cards as the folder.
+     * Used to test equality between a folder's contents over time, since folder
+     * equality is enforced via folder name.
+     */
+    boolean hasSameCards(ObservableList<Card> otherCardList);
 }

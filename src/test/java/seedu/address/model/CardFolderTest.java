@@ -153,6 +153,11 @@ public class CardFolderTest {
         }
 
         @Override
+        public boolean hasSameCards(ObservableList<Card> otherCardList) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }

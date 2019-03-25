@@ -49,7 +49,14 @@ public class CardFolder implements ReadOnlyCardFolder {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the card list with {@code cards}.
+     * Returns the number of {@code cards} within the folder.
+     */
+    public int countCards() {
+        return cards.size();
+    }
+
+    /**
+     * Replaces the contents of the folder list with {@code cards}.
      * {@code cards} must not contain duplicate cards.
      */
     public void setCards(List<Card> cards) {
@@ -141,7 +148,6 @@ public class CardFolder implements ReadOnlyCardFolder {
     @Override
     public String toString() {
         return getFolderName();
-        // TODO: refine later
     }
 
     @Override
@@ -180,15 +186,19 @@ public class CardFolder implements ReadOnlyCardFolder {
         return folderName;
     }
 
+    @Override
+    public boolean hasSameCards(ObservableList<Card> otherCardList) {
+        return cards.asUnmodifiableObservableList().equals(otherCardList);
+    }
+
     /**
-     * Equivalence of {@code CardFolder} is determined by folderName and cards.
+     * Equivalence of {@code CardFolder} is determined by folderName.
      */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof CardFolder // instanceof handles nulls
-                && folderName.equals(((CardFolder) other).folderName)
-                && cards.equals(((CardFolder) other).cards));
+                && folderName.equals(((CardFolder) other).folderName));
     }
 
     @Override

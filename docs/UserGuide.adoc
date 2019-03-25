@@ -26,7 +26,7 @@ If you are a dental practitioner who prefers to use a Command Line Interface (CL
 then TeethHub is an application for you!
 
 TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
-For example, you can select and find patients and records by clicking on them, but you would need to type type the edit command to edit them.
+For example, you can select patients and records by clicking on them, but you would need to type the edit command to edit them.
 TeethHub allows you to keep track of your patient's particulars along with their dental records.
 An image of each patient's teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
 In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.

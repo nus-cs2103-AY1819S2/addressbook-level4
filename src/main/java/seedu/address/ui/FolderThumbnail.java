@@ -12,6 +12,7 @@ import seedu.address.model.CardFolder;
 public class FolderThumbnail extends UiPart<Region> {
 
     private static final String FXML = "FolderListThumbnail.fxml";
+    private static final String CARD_COUNT_POSTFIX_SINGLE = " card";
     private static final String CARD_COUNT_POSTFIX = " cards";
 
     public final CardFolder folder;
@@ -30,7 +31,12 @@ public class FolderThumbnail extends UiPart<Region> {
         this.folder = folder;
         id.setText(displayedIndex + ". ");
         folderName.setText(folder.getFolderName());
-        folderSize.setText(folder.countCards() + CARD_COUNT_POSTFIX);
+
+        int cardCount = folder.countCards();
+        if (cardCount == 1) {
+            folderSize.setText(cardCount + CARD_COUNT_POSTFIX_SINGLE);
+        }
+        folderSize.setText(cardCount + CARD_COUNT_POSTFIX);
     }
 
     @Override

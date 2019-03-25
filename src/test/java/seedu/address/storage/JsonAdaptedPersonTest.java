@@ -124,7 +124,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_MATRICNUMBER, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                         INVALID_GENDER, VALID_YEAROFSTUDY, VALID_MAJOR, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Gender.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -141,7 +141,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_MATRICNUMBER, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                         VALID_GENDER, INVALID_YEAROFSTUDY, VALID_MAJOR, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
+        String expectedMessage = YearOfStudy.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -158,7 +158,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, INVALID_MATRICNUMBER, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                         VALID_GENDER, VALID_YEAROFSTUDY, VALID_MAJOR, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
+        String expectedMessage = MatricNumber.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -175,7 +175,7 @@ public class JsonAdaptedPersonTest {
         JsonAdaptedPerson person =
                 new JsonAdaptedPerson(VALID_NAME, VALID_MATRICNUMBER, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS,
                         VALID_GENDER, VALID_YEAROFSTUDY, INVALID_MAJOR, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Major.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

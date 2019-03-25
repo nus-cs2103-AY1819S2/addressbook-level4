@@ -135,7 +135,7 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Gender.class.getSimpleName()));
         }
         if (!Gender.isValidGender(gender)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Gender.MESSAGE_CONSTRAINTS);
         }
         final Gender modelGender = new Gender(gender);
 
@@ -144,7 +144,7 @@ class JsonAdaptedPerson {
                     YearOfStudy.class.getSimpleName()));
         }
         if (!YearOfStudy.isValidYearOfStudy(yearOfStudy)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(YearOfStudy.MESSAGE_CONSTRAINTS);
         }
         final YearOfStudy modelYearOfStudy = new YearOfStudy(yearOfStudy);
 

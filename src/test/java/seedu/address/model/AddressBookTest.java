@@ -126,7 +126,7 @@ public class AddressBookTest {
         AddressBookStub(Collection<Patient> patients) {
             this.patients.setAll(patients);
         }
-        
+
 
         @Override
         public ObservableList<Patient> getPatientList() {

@@ -466,6 +466,47 @@ Step5. execute() calls hasMedHist() of Model. If medical history doesn't exist, 
 
 {Explain here how view medical history will be implemented}
 
+==== CRUD Doctor features
+
+Doctor is one of the two valid types of Persons to be stored in the docX record.
+The following features are implemented or will be implemented for doctors of docX:
+* Add doctor
+* List all doctors
+* Edit existing doctors
+* Search doctors by keywords
+* Delete existing doctors
+
+===== Current(Proposed) Implementation
+
+When a user executes 'add-doctor n/John Doe g/M p/98765432 a/32 s/'acupuncture''
+
+Step1. LogicManager calls parseCommand("add-doctor") in AddressBookParser.
+
+Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddDoctorCommandParser() and call function parse(arguments) of AddDoctorCommandParser;
+
+Step3. AddDoctorCommandParser parses the argument and get doctor's name, gender, age, phone and his/her specialisations. AddDoctorCommandParser calls constructors of Age, Gender, Phone, Specialisation and then calls the constructor of Doctor.
+	   Then, AddDoctorCommandParser calls AddDoctorCommand(Doctor).
+
+Step4. LogicManager calls execute() of AddDoctorCommand.
+
+Step5. execute() calls hasDoctor() of Model. If doctor does not exist, call addDoctor() of Model.
+
+==== List Doctor feature
+
+list-doctor
+
+==== Edit Doctor feature
+
+edit-doctor
+
+==== Search Doctor feature
+
+search-doctor
+
+==== Delete Doctor feature
+
+delete-doctor
+
 === Appointments
 
 Appointments are created to facilitate future appointments between patients and doctors. A patient can have none or multiple appointments, a doctor can have none or multiple appointments. An appointment cannot overlap with a patient's or doctor's existing appointments. This is determined if the date and time overlaps. An appointment must specify a date, time, patient, doctor, and short write-up.

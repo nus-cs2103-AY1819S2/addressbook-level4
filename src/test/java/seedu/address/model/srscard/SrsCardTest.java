@@ -47,7 +47,7 @@ public class SrsCardTest {
     @Test
     public void checkCardData() {
         SrsCard currentSrsCard = new SrsCardBuilder().build();
-        assertEquals(CARD_BELGIUM.hashCode(), currentSrsCard.getHashcode());
+        //assertEquals(CARD_BELGIUM.hashCode(), currentSrsCard.getHashcode());
         assertEquals(1, currentSrsCard.getNumOfAttempts());
         assertEquals(1, currentSrsCard.getStreak());
         assertEquals(Instant.ofEpochMilli(123), currentSrsCard.getSrsDueDate());

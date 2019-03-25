@@ -90,46 +90,12 @@ public class CsvUserStorage implements UserStorage {
      * @return a String array with the cardData(hashcode, numAttempts, streak, srs)
      */
     private String[] parseCardIntoString(CardSrsData card) {
-        boolean hasInvalid = false;
         String[] cardArray = new String[4];
 
-        if (card.getHashCode() < 0) {
-            logger.warning("Card Hashcode provided cannot be negative. Setting it to -1");
-            cardArray[0] = Integer.toString(-1);
-        }
         cardArray[0] = Integer.toString(card.getHashCode());
-
-        if (card.getNumOfAttempts() < 0) {
-            logger.warning("Number of attempts provided cannot be negative. Setting it to -1");
-            cardArray[1] = Integer.toString(-1);
-        }
         cardArray[1] = Integer.toString(card.getNumOfAttempts());
-
-        if (card.getStreak() < 0) {
-            logger.warning("Current streak provided cannot be negative. Setting it to -1");
-            cardArray[2] = Integer.toString(-1);
-        }
         cardArray[2] = Integer.toString(card.getStreak());
-
-        if (card.getSrsDueDate().toString().equals(null)) {
-            logger.warning("SrsDueDate provided cannot be null. Setting it to -1");
-            cardArray[3] = Integer.toString(-1);
-        }
-        if (card.getSrsDueDate().toString().equals("")) {
-            logger.warning("SrsDuedate provided cannot be empty. Setting it to -1");
-            cardArray[3] = Integer.toString(-1);
-        }
         cardArray[3] = card.getSrsDueDate().toString();
-
-        for (String checker: cardArray) {
-            if (checker.equals("-1")) {
-                hasInvalid = true;
-                break;
-            }
-        }
-        if (hasInvalid == true) {
-            logger.warning("Card array data returned with -1 as undesired parameters.");
-        }
 
         return cardArray;
     }
@@ -144,50 +110,14 @@ public class CsvUserStorage implements UserStorage {
         int numOfAttempts;
         int streak;
         Instant srs;
-        boolean hasInvalid = false;
 
         hashCode = Integer.parseInt(cardArray[0]);
-
-        if (hashCode < 0) {
-            logger.warning("Card Hashcode provided cannot be negative. Setting it to -1");
-            hashCode = -1;
-            hasInvalid = true;
-        }
-
         numOfAttempts = Integer.parseInt(cardArray[1]);
-
-        if (numOfAttempts < 0) {
-            logger.warning("Number of attempts provided cannot be negative. Setting it to -1");
-            numOfAttempts = -1;
-            hasInvalid = true;
-        }
-
         streak = Integer.parseInt(cardArray[2]);
-
-        if (streak < 0) {
-            logger.warning("Streak cannot be negative. Setting it to -1");
-            streak = -1;
-            hasInvalid = true;
-        }
-
         srs = Instant.parse(cardArray[3]);
 
-        if (srs.toString() == null) {
-            logger.warning("SrsDueDate provided cannot be null. Setting it to -1");
-            srs = Instant.parse("-1");
-            hasInvalid = true;
-        }
-
-        if (srs.toString() == "") {
-            logger.warning("SrsDueDate provided cannot be empty. Setting it to -1");
-            srs = Instant.parse("-1");
-            hasInvalid = true;
-        }
         CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs);
 
-        if (hasInvalid == true) {
-            logger.warning("Card returned with undesired parameters as -1");
-        }
         return card;
     }
 

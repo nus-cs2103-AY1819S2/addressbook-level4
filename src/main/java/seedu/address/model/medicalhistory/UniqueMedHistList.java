@@ -1,15 +1,17 @@
 package seedu.address.model.medicalhistory;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Iterator;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.medicalhistory.exceptions.DuplicateMedHistException;
 import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 
-import java.util.Iterator;
-import java.util.List;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * A list of medical histories that enforces uniqueness between its elements and does not allow nulls.
@@ -22,7 +24,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
  * @see MedicalHistory#isSameMedHist(MedicalHistory)
  */
 
-public class UniqueMedHistList implements Iterable<MedicalHistory>{
+public class UniqueMedHistList implements Iterable<MedicalHistory> {
 
     private final ObservableList<MedicalHistory> internalList = FXCollections.observableArrayList();
     private final ObservableList<MedicalHistory> internalUnmodifiableList =

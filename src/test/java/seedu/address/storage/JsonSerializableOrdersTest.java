@@ -19,7 +19,7 @@ public class JsonSerializableOrdersTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableOrdersTest");
     private static final Path TYPICAL_ORDER_ITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalOrderItemsOrders.json");
-    private static final Path INVALID_ORDER_ITEM_FILE = TEST_DATA_FOLDER.resolve("InvalidOrderItemOrders.json");
+    private static final Path INVALID_ORDER_ITEM_FILE = TEST_DATA_FOLDER.resolve("invalidOrderItemOrders.json");
     private static final Path DUPLICATE_ORDER_ITEM_FILE = TEST_DATA_FOLDER.resolve("duplicateOrderItemOrders.json");
 
     @Rule

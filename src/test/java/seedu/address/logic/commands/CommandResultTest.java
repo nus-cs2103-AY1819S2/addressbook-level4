@@ -60,19 +60,25 @@ public class CommandResultTest {
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
 
         // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CommandResult.Type.SHOW_HELP).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                CommandResult.Type.SHOW_HELP).hashCode());
 
         // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CommandResult.Type.IS_EXIT).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                CommandResult.Type.IS_EXIT).hashCode());
 
         // different testSessionCard value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CommandResult.Type.TEST_SESSION_CARD).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                CommandResult.Type.TEST_SESSION_CARD).hashCode());
 
         // different endTestSession value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CommandResult.Type.END_TEST_SESSION).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                CommandResult.Type.END_TEST_SESSION).hashCode());
 
         // different AnswerCommandResult value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CommandResult.Type.ANSWER_CORRECT).hashCode());
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", CommandResult.Type.ANSWER_WRONG).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                CommandResult.Type.ANSWER_CORRECT).hashCode());
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
+                CommandResult.Type.ANSWER_WRONG).hashCode());
     }
 }

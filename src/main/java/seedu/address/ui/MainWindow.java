@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -31,7 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
-    private String mode;
+    private LogicManager.Mode mode;
 
     // Independent Ui parts residing in this Ui container
     private ResultDisplay resultDisplay;
@@ -73,7 +74,7 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
 
         // Set default mode
-        mode = "management";
+        mode = LogicManager.Mode.MANAGEMENT;
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
@@ -200,9 +201,9 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            String currentMode = logic.getMode();
+            LogicManager.Mode currentMode = logic.getMode();
 
-            if (!currentMode.equals(mode)) {
+            if (currentMode != mode) {
                 this.mode = currentMode;
                 handleModeSwitching();
             }

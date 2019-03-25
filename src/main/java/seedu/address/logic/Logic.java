@@ -24,7 +24,7 @@ public interface Logic {
     /**
      * Returns either management or quiz mode dependent on isQuizDone
      */
-    String getMode();
+    LogicManager.Mode getMode();
 
     /**
      * Returns the Quiz Display formatter for QuizDisplayResult

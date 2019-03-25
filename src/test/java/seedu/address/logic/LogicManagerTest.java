@@ -174,14 +174,14 @@ public class LogicManagerTest {
             QuizMode.PREVIEW));
 
         // before quiz starts
-        assertEquals("management", logic.getMode());
+        assertEquals(LogicManager.Mode.MANAGEMENT, logic.getMode());
 
         quizModel.init(new Quiz(quizCards, QuizMode.LEARN));
         quizModel.getNextCard();
 
         // after quiz started
         assertCommandSuccess("", "", expectedModel);
-        assertEquals("quiz", logic.getMode());
+        assertEquals(LogicManager.Mode.QUIZ, logic.getMode());
     }
 
     @Test

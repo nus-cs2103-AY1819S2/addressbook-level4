@@ -32,6 +32,14 @@ public class LogicManager implements Logic {
     private final ManagementModeParser managementModeParser;
     private final QuizModeParser quizModeParser;
 
+    /**
+     * Different mode that will show different UI and have access to different commands.
+     */
+    public enum Mode {
+        MANAGEMENT,
+        QUIZ
+    }
+
     public LogicManager(ManagementModel managementModel, QuizModel quizModel, Storage storageManager) {
         this.storageManager = storageManager;
         this.managementModel = managementModel;
@@ -47,8 +55,8 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = null;
-            if (getMode().equals("management")) {
+            Command command;
+            if (getMode() == Mode.MANAGEMENT) {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
             } else {
@@ -68,8 +76,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String getMode() {
-        return quizModel.isQuizDone() ? "management" : "quiz";
+    public Mode getMode() {
+        return quizModel.isQuizDone() ? Mode.MANAGEMENT : Mode.QUIZ;
     }
 
     @Override

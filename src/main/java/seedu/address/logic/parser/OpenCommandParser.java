@@ -17,10 +17,14 @@ public class OpenCommandParser implements Parser<OpenCommand> {
     public OpenCommand parse(String args) throws ParseException {
         try {
             ParsedInOut parsedInOut = ParserUtil.parseOpenSave(args);
-            openValidation(parsedInOut);
-            return new OpenCommand(parsedInOut.getFile());
+            try {
+                openValidation(parsedInOut);
+                return new OpenCommand(parsedInOut.getFile());
+            } catch (ParseException pe) {
+                throw new ParseException(String.format("%s\n%s", pe.getMessage(), OpenCommand.MESSAGE_USAGE), pe);
+            }
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage());
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), OpenCommand.MESSAGE_USAGE), pe);
         }
     }
 

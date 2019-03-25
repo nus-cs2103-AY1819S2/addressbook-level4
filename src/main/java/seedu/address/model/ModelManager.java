@@ -441,7 +441,7 @@ public class ModelManager implements Model {
         List<Index> indexList = cardFolderExports.stream().map(Index::fromOneBased).collect(Collectors.toList());
         for (Index index : indexList) {
             try {
-                ReadOnlyCardFolder cardFolder = filteredFoldersList.get(index.getZeroBased());
+                ReadOnlyCardFolder cardFolder = filteredFolders.get(index.getZeroBased());
                 readOnlyCardFolders.add(cardFolder);
             } catch (IndexOutOfBoundsException e) {
                 throw new CardFolderNotFoundException(index.displayIndex());

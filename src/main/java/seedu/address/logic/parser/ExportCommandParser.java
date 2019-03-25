@@ -35,7 +35,7 @@ public class ExportCommandParser implements Parser<ExportCommand> {
         try {
             List<Integer> folderIndexes = ParserUtil.parseFolderIndex(userInput);
             return new ExportCommand(folderIndexes);
-        } catch (ParseException e) {
+        } catch (NumberFormatException e) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE), e);
         } catch (IllegalValueException e) {
             throw new ParseException(MESSAGE_NO_NEGATIVE_INDEX);

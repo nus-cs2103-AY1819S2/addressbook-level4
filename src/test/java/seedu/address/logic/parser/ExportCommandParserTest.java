@@ -14,6 +14,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_FOLDER_NAME_2;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,18 +33,17 @@ public class ExportCommandParserTest {
     private ExportCommandParser parser = new ExportCommandParser();
 
     @Test
-    public void parse_allFields_present() {
-        ExportCommand exportCommandWithOneFolder = buildExportCommand(VALID_FILENAME, VALID_FOLDER_NAME_1);
-        ExportCommand exportCommandWithMultipleFolder = buildExportCommand(VALID_FILENAME,
-                VALID_FOLDER_NAME_1, VALID_FOLDER_NAME_2);
+    public void parse_validArgs_returnsExportCommand() {
+        assertParseSuccess(parser, "1", new ExportCommand(new ArrayList<Integer>(Arrays.asList(1))));
 
-        // whitespace preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + FOLDER_DESC_SAMPLE_1
-                + FILENAME_DESC_SAMPLE, exportCommandWithOneFolder);
+        assertParseSuccess(parser, "1 3 5", new ExportCommand(new ArrayList<Integer>(Arrays.asList(1,3,5))));
+    }
 
-        // multiple folders
-        assertParseSuccess(parser, FOLDER_DESC_SAMPLE_1 + FOLDER_DESC_SAMPLE_2
-                + FILENAME_DESC_SAMPLE, exportCommandWithMultipleFolder);
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, "1 a 3", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -77,16 +78,4 @@ public class ExportCommandParserTest {
                 CsvFile.MESSAGE_CONSTRAINTS);
     }
 
-
-    /**
-     *
-     * helper method to build export command for testing
-     */
-    private ExportCommand buildExportCommand(String validFileName, String... validFolderDescriptions) {
-        Set<CardFolderExport> cardFolderExports = Stream.of(validFolderDescriptions)
-                .map(CardFolderExport::new)
-                .collect(Collectors.toSet());
-        CsvFile csvFile = new CsvFile(validFileName);
-        return new ExportCommand(cardFolderExports, csvFile);
-    }
 }

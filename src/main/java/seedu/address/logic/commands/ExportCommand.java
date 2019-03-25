@@ -59,16 +59,14 @@ public class ExportCommand extends Command {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    /*
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || other instanceof ExportCommand // instanceof handles nulls
-                && (cardFolders.containsAll(((ExportCommand) other).cardFolders)
-                && filename.equals(((ExportCommand) other).filename));
+                && cardFolderIndexes.containsAll(((ExportCommand) other).cardFolderIndexes);
     }
-    */
 }

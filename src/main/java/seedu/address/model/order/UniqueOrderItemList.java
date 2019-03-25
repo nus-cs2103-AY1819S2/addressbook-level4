@@ -5,11 +5,14 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.menu.Code;
 import seedu.address.model.order.exceptions.DuplicateOrderItemException;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
+import seedu.address.model.table.TableNumber;
 
 /**
  * A list of order items that enforces uniqueness between its elements and does not allow nulls.
@@ -26,8 +29,8 @@ import seedu.address.model.order.exceptions.OrderItemNotFoundException;
 public class UniqueOrderItemList implements Iterable<OrderItem> {
 
     private final ObservableList<OrderItem> internalList = FXCollections.observableArrayList();
-    private final ObservableList<OrderItem> internalUnmodifiableList = FXCollections
-            .unmodifiableObservableList(internalList);
+    private final ObservableList<OrderItem> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
     /**
      * Returns true if the list contains an equivalent order item as the given argument.
@@ -97,6 +100,11 @@ public class UniqueOrderItemList implements Iterable<OrderItem> {
         }
 
         internalList.setAll(orderItems);
+    }
+
+    public Optional<OrderItem> getOrderItem(TableNumber tableNumber, Code itemCode) {
+        return internalList.stream().filter(item -> item.getTableNumber().equals(tableNumber) &&
+                item.getMenuItemCode().equals(itemCode)).findFirst();
     }
 
     /**

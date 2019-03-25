@@ -28,7 +28,6 @@ public class AddToOrderCommand extends Command {
             + " W09 2 C18 1 C02 1";
 
     public static final String MESSAGE_SUCCESS = "New order items added:\n%1$s";
-    public static final String MESSAGE_DUPLICATE_ORDER_ITEM = "Item [%1$s] already exists in table %2$s's order";
     public static final String MESSAGE_INVALID_ITEM_CODE = "The item code [%1$s] is invalid";
 
     private final List<Code> itemCodes;
@@ -56,16 +55,18 @@ public class AddToOrderCommand extends Command {
             }
             OrderItem orderItem = new OrderItem(tableNumber, itemCodes.get(i),
                     model.getRestOrRant().getMenu().getNameFromItem(itemOptional.get()), itemQuantities.get(i));
-            if (model.hasOrderItem(orderItem)) { // add order items until encountering a duplicate
-                throw new CommandException(
-                        String.format(MESSAGE_DUPLICATE_ORDER_ITEM, itemCodes.get(i), tableNumber.toString()));
+            if (model.hasOrderItem(orderItem)) { // add quantity to existing order item
+                OrderItem oldItem = model.getRestOrRant().getOrders().getOrderItem(tableNumber,
+                        orderItem.getMenuItemCode());
+                OrderItem newItem = new OrderItem(oldItem, orderItem.getQuantity());
+                model.setOrderItem(oldItem, newItem);
+            } else {
+                model.addOrderItem(orderItem);
             }
-            model.addOrderItem(orderItem);
             orderItems.add(orderItem);
         }
 
         model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
-        model.updateOrders();
         return new CommandResult(String.format(MESSAGE_SUCCESS, orderItems));
     }
 

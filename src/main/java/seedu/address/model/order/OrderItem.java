@@ -31,6 +31,17 @@ public class OrderItem {
         this.quantityOrdered = quantityOrdered;
     }
 
+    /**
+     * Constructs a new order item with the identity of {@code itemToUpdate} but with the quantity modified.
+     */
+    public OrderItem(OrderItem itemToUpdate, int quantityToChange) {
+        requireAllNonNull(itemToUpdate, quantityToChange);
+        this.tableNumber = itemToUpdate.getTableNumber();
+        this.menuItemCode = itemToUpdate.getMenuItemCode();
+        this.menuItemName = itemToUpdate.getMenuItemName();
+        this.quantityOrdered = itemToUpdate.getQuantity() + quantityToChange;
+    }
+
     public TableNumber getTableNumber() {
         return tableNumber;
     }

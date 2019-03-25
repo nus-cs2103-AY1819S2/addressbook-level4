@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.CardFolder;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
@@ -26,11 +27,13 @@ public class CsvManager implements CsvCommands {
 
 
     @Override
-    public void readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException, FileNotFoundException {
+    public CardFolder readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException {
         if (!fileExists(csvFile)) {
             throw new FileNotFoundException();
         }
         String filePath = getDefaultFilePath() + "/" + csvFile.filename;
+        String folderName = filePath.split(".")[0];
+        CardFolder cardFolder = new CardFolder(folderName);
         bufferedReader = new BufferedReader(new FileReader(filePath));
         String line;
         String header = bufferedReader.readLine();
@@ -42,14 +45,17 @@ public class CsvManager implements CsvCommands {
         while ((line = bufferedReader.readLine()) != null) {
 
             // use comma as separator
-            String[] card = line.split(COMMA_DELIMITTER);
+            String[] stringCard = line.split(COMMA_DELIMITTER);
 
-            System.out.println("card : " + card[0] + " " + card[1]);
+            Card card = buildCard(stringCard);
+            cardFolder.addCard(card);
         }
         if (bufferedReader != null) {
             bufferedReader.close();
         }
+        return cardFolder;
     }
+
 
     private Card buildCard(String[] cardValues) {
         Question question = new Question(cardValues[0]);

@@ -4,16 +4,15 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
-import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.storage.csvmanager.CsvFile;
 
 /**
@@ -234,7 +233,7 @@ public interface Model extends Observable {
 
     void exportCardFolders(List<Integer> cardFolderExports) throws IOException;
 
-    void importCardFolders(CsvFile csvFile) throws IOException;
+    void importCardFolders(CsvFile csvFile) throws IOException, CommandException;
 
 
 }

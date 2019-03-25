@@ -455,8 +455,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void importCardFolders(CsvFile csvFile) throws IOException, CommandExceptionƒ {
-        csvManager.readFoldersToCsv(csvFile);
+    public void importCardFolders(CsvFile csvFile) throws IOException, CommandException {
+        CardFolder cardFolder = csvManager.readFoldersToCsv(csvFile);
     }
 
 

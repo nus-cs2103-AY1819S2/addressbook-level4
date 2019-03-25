@@ -271,7 +271,7 @@ public class ModelManagerTest {
         //TODO for card
 //        // different filteredList -> returns false
 //        String[] keywords = ADDITION.getQuestion().split("\\s+");
-//        modelManager.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+//        modelManager.updateFilteredList(new CardNameContainsKeywordsPredicate(Arrays.asList(keywords)));
 //        assertFalse(modelManager.equals(new ModelManager(topDeck, userPrefs)));
 
         // different filteredList -> returns false

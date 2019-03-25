@@ -19,9 +19,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.CardNameContainsKeywordsPredicate;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
-import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
@@ -179,7 +179,7 @@ public class CommandTestUtil {
 
         Card card = (Card) model.getFilteredList().get(targetIndex.getZeroBased());
         final String[] splitName = card.getQuestion().split("\\s+");
-        model.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredList(new CardNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         //Gets all the question that starts with what
         assertEquals(1, model.getFilteredList().size());

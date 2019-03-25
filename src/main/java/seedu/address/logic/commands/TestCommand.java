@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.COMPARATOR_ASC_SCORE_CARDS;
 
 import java.util.List;
 
@@ -10,6 +9,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.EmptyCardFolderException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
@@ -46,11 +46,15 @@ public class TestCommand extends Command {
         if (model.checkIfInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
         }
-
-        model.testCardFolder(targetIndex.getZeroBased());
-        Card cardToTest = model.getCurrentTestedCard();
-        return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, false, cardToTest, false,
-                AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        try {
+            model.testCardFolder(targetIndex.getZeroBased());
+            Card cardToTest = model.getCurrentTestedCard();
+            return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, false, cardToTest, false,
+                    AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        } catch (EmptyCardFolderException e) {
+            model.endTestSession();
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_ON_EMPTY_FOLDER);
+        }
     }
 
     @Override

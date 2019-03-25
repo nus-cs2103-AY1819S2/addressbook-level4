@@ -324,9 +324,13 @@ public class ModelManager implements Model {
     @Override
     public void testCardFolder(int cardFolderToTestIndex) {
         setActiveCardFolderIndex(cardFolderToTestIndex);
+        currentTestedCardFolder = getActiveCardFolder().getCardList();
+        if (currentTestedCardFolder.isEmpty()) {
+            throw new EmptyCardFolderException();
+        }
+
         sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
 
-        currentTestedCardFolder = getActiveCardFolder().getCardList();
         currentTestedCardIndex = 0;
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);

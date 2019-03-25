@@ -86,11 +86,19 @@ public class CommandResult {
      * Check if command is to enter test session
      * @return a boolean variable to state if command is test or not
      */
-    public boolean isTestSession() {
-        if (testSessionCard == null) {
-            return false;
+    public boolean isStartTestSession() {
+        return startTestSession;
+    }
+
+    /**
+     * Check if command is a next command to display the next question in test session.
+     * @return a boolean variable to state if command is test or not
+     */
+    public boolean isDisplayNextTestSessionCard() {
+        if (!isStartTestSession() && testSessionCard != null) {
+            return true;
         }
-        return true;
+        return false;
     }
 
     public Card getTestSessionCard() {
@@ -146,6 +154,7 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
+                && startTestSession == otherCommandResult.startTestSession
                 && testSessionCard == otherCommandResult.testSessionCard
                 && endTestSession == otherCommandResult.endTestSession
                 && answerCommandResult == otherCommandResult.answerCommandResult;
@@ -153,7 +162,8 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, testSessionCard, endTestSession, answerCommandResult);
+        return Objects.hash(feedbackToUser, showHelp, exit, startTestSession, testSessionCard, endTestSession,
+                answerCommandResult);
     }
 
 }

@@ -266,8 +266,12 @@ public class MainWindow extends UiPart<Stage> {
                 handleExitFolder();
             }
 
-            if (commandResult.isTestSession()) {
+            if (commandResult.isStartTestSession()) {
                 handleStartTestSession(commandResult.getTestSessionCard());
+            }
+
+            if (commandResult.isDisplayNextTestSessionCard()) {
+                handleNextCardTestSession(commandResult.getTestSessionCard());
             }
 
             if (commandResult.isEndTestSession()) {

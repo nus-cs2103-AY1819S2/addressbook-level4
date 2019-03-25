@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 4 
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -26,7 +27,7 @@ then TeethHub is an application for you!
 
 TeethHub works primarily through a CLI while having elements of a Graphical User Interface (GUI).
 For example, you can select and find patients and records by clicking on them, but you would need to type type the edit command to edit them.
-TeethHub allows you to keep track of your patients’ personal particulars along with their dental records.
+TeethHub allows you to keep track of your patients’ patiental particulars along with their dental records.
 An image of each patients’ teeth will also be displayed according to what you input for each tooth's status(Absent, Problem, Healthy).
 In addition to that, TeethHub also allows you to keep track of your upcoming tasks, just like a calendar.
 
@@ -65,7 +66,7 @@ Format: `help`
 
 === File Management
 ==== Open
-Opens the file in the specified file path and overwrites the current records.
+Opens the file in the specified file path and overwrites the current patients list.
 ** Note that 'open' always searches inside the data folder.
 ** You can only open .json files.
 
@@ -73,34 +74,34 @@ Format: `open FILE_PATH`
 
 Examples:
 
-* `open records1.json` +
-Replaces the current records with the records in "records1.json".
+* `open patients1.json` +
+Replaces the current patients list with the patients list in "patients1.json".
 
-* `open february\records2.json` +
-Replaces the current records with the records in "records2.json" found in the "february" folder.
+* `open february\patients2.json` +
+Replaces the current patients list with the patients list in "patients2.json" found in the "february" folder.
 
 
 ==== Save
-Saves the current records to the specified filepath.
+Saves the current patients list to the specified filepath.
 ** Note that 'save' always saves inside the data folder. If no such filepath exists,
 it will be created. Otherwise, it will overwrite the existing file.
-** You can only save to .json and .pdf.
-.json files allow you to open or import them.
+** You can only save to .json and .pdf. +
+.json files allow you to open or import them. +
 .pdf files are easier for humans to read, but you cannot open or import them with TeethHub.
 
 Format: `save FILE_PATH`
 
 Examples:
 
-* `save records1.json` +
-Saves the current records to "records1.json".
+* `save patients1.json` +
+Saves the current patients list to "patients1.json".
 
-* `save february\records2.pdf` +
-Saves the current records to "records1.json" found in the "february" folder.
+* `save february\patients2.pdf` +
+Saves the current patients list to "patients2.json" found in the "february" folder.
 
 
 ==== Import
-Opens the file in the specified file path and adds the specified patients to the current records.
+Opens the file in the specified file path and adds the specified patients to the patients list.
 ** Note that 'import' always searches inside the data folder.
 ** You can only import .json files.
 
@@ -108,56 +109,56 @@ Format: `import FILE_PATH INDEX_RANGE`
 
 Examples:
 
-* `import records1.json 1` +
-Adds patient 1 from "records1.json" to the current records.
+* `import patients1.json 1` +
+Adds patient 1 from "patients1.json" to the current patients list.
 
-* `import february\records1.json 1` +
-Adds patient 1 from "records1.json" found in the "february" folder to the current records.
+* `import february\patients1.json 1` +
+Adds patient 1 from "patients1.json" found in the "february" folder to the current patients list.
 
-* `import records1.json 1,4` +
-Adds patient 1 and patient 4 from "records1.json" to the current records.
+* `import patients1.json 1,4` +
+Adds patient 1 and patient 4 from "patients1.json" to the current patients list.
 
-* `import records1.json 1-4` +
-Adds patient 1 to patient 4 from "records1.json" to the current records.
+* `import patients1.json 1-4` +
+Adds patient 1 to patient 4 from "patients1.json" to the current patients list.
 
-* `import records1.json 1,3-5` +
-Adds patient 1 and patient 3 to patient 5 from "records1.json" to the current records..
+* `import patients1.json 1,3-5` +
+Adds patient 1 and patient 3 to patient 5 from "patients1.json" to the current patients list.
 
 
 ==== Export
-Saves the specified patients in the current records to the specified filepath.
+Saves the specified patients in the current patients list to the specified filepath.
 ** Note that 'export' always saves inside the data folder. If no such filepath exists,
 it will be created. Otherwise, it will overwrite the existing file.
-** You can only export to .json and .pdf.
-.json files allow you to open or import them.
+** You can only export to .json and .pdf. +
+.json files allow you to open or import them. +
 .pdf files are easier for humans to read, but you cannot open or import them with TeethHub.
 
 Format: `export FILE_PATH INDEX_RANGE`
 
 Examples:
 
-* `export records1.json 1` +
-Saves patient 1 from the current records to "records1.json".
+* `export patients1.json 1` +
+Saves patient 1 from the current patients list to "patients1.json".
 
-* `export february\records1.pdf 1` +
-Saves patient 1 from the current records to "records1.pdf" found in the "february" folder.
+* `export february\patients1.pdf 1` +
+Saves patient 1 from the current patients list to "patients1.pdf" found in the "february" folder.
 
-* `export records1.json 1,4` +
-Saves patient 1 and patient 4 from the current records to "records1.json".
+* `export patients1.json 1,4` +
+Saves patient 1 and patient 4 from the current patients list to "patients1.json".
 
-* `export records1.pdf 1-4` +
-Saves patient 1 to patient 4 from the current records to "records1.pdf".
+* `export patients1.pdf 1-4` +
+Saves patient 1 to patient 4 from the current patients list to "patients1.pdf".
 
-* `export records1.pdf 1,3-5` +
-Saves patient 1 and patient 3 to patient 5 from the current records to "records1.pdf".
+* `export patients1.pdf 1,3-5` +
+Saves patient 1 and patient 3 to patient 5 from the current patients list to "patients1.pdf".
 
-* `Export records2.json all` +
-Writes all entries from the address book to records2.json. +
+* `Export patients1.json all` +
+Writes all entries from the address book to patients1.json. +
 
+=== Patient Management
+==== add
 
-=== Adding a person: add
-
-Adds a person to the application’s personnel data records
+Adds a patient to the patients list.
 
 Format: `add PARAMETERS [t/TAG] …`
 
@@ -166,38 +167,25 @@ Parameters:
 [cols=",",options=""]
 |===
 |Tag |Example
-
 |n/NAME |n/Keith Choo Shen Hao
-
 |s/SEX |s/Male
-
 |p/PHONE_NUMBER |p/98765432
-
 |e/EMAIL |e/KeithCSH@debang.com
-
 |a/ADDRESS |a/1 Pulau Tekong Besar 508449
-
 |ic/NRIC |ic/S1234567Z
-
 |age/AGE |age/25
-
 |dob/DATE_OF_BIRTH_DDMMYYYY |dob/28061994
-
 |da/DRUG_ALLERGY |da/Insulin
-
 |nokn/NEXT_OF_KIN_NAME |nokn/Choo Debang
-
 |nokp/NEXT_OF_KIN_PHONE_NUMBER |nokp/97654321
-
 |nokr/NEXT_OF_KIN_RELATION |nokr/Brother
-
 |noka/NEXT_OF_KIN_ADDRESS |noka/21 Lower Kent Ridge Rd 119077
 |===
 
 
-A person can have any number of tags.
+A patient can have any number of tags.
 
-Note: If a person’s next of kin lives at the same address, use `same` to
+Note: If a patient’s next of kin lives at the same address, use `same` to
 indicate that.
 
 Examples:
@@ -208,17 +196,17 @@ Examples:
 nokr/Father noka/same`
 
 
-=== Deleting a person: delete
+==== delete
 
 
-Deletes the specified person from the patients list.
+Deletes the specified patient from the patients list.
 
 Format: delete INDEX
 
 
-* Deletes the person at the specified index.
+* Deletes the patient at the specified index.
 
-* The index refers to the index number shown in the displayed person list.
+* The index refers to the index number shown in the displayed patient list.
 
 * The given index must be a positive integer (e.g 1, 2 or 3…).
 
@@ -226,36 +214,36 @@ Format: delete INDEX
 Examples:
 
 * `delete 1` +
-Deletes the person shown with index 1 from the displayed list.
+Deletes the patient shown with index 1 from the displayed list.
 
 * `find John` +
 `delete 2` +
-Deletes the person shown with index 2 found using the find command.
+Deletes the patient shown with index 2 found using the find command.
 
 
-=== Editing a person’s data: edit
+==== edit
 
 
-Edits data from an existing person
+Edits data from an existing patient.
 
 Format: `edit INDEX`
 
 
-* Goes into edit mode for the person at the specified index shown from
-list or find command. Must be a positive integer (e.g 1, 2 or 3)
+* Goes into edit mode for the patient at the specified index shown from
+list or find command. Must be a positive integer (e.g 1, 2 or 3).
 
-* Input the field followed by the new value to replace the existing data
+* Input the field followed by the new value to replace the existing data.
 
 * Multiple fields can be edited in a single input or across multiple
-inputs
+inputs.
 
-* When editing tags, the existing tags of the person will be removed i.e
-adding of tags is not cumulative
+* When editing tags, the existing tags of the patient will be removed i.e
+adding of tags is not cumulative.
 
 * All tags can be removed by keying in t/ without specifying any tags
-following it
+following it.
 
-* Exit the edit mode by entering done
+* Exit the edit mode by entering done.
 
 Example:
 
@@ -264,22 +252,22 @@ edit 1 +
 p/12345 +
 e/newemail@gmail.com +
 done` +
-Edits the phone number and email of the first person listed to become
+Edits the phone number and email of the first patient listed to become
 12345 and newemail@gmail.com respectively across 2 inputs
 
 
 * `find Betsy +
 edit 2 +
-p/987654 e/mymaill@gmail.com +
+p/987654 e/mymail@gmail.com +
 done` +
-Edits the phone number and email of the first person listed to become
-987654 and mymaill@gmail.com respectively with a single input
+Edits the phone number and email of the first patient listed to become
+987654 and mymail@gmail.com respectively with a single input
 
 
-=== Copying a person’s data: copy
+==== copy
 
-Makes an exact copy of a patient and adds them to the records. You may need this if multiple people share
-similar details.
+Makes an exact copy of a patient and adds them to the patient list. 
+This may be useful if multiple people share similar details.
 
 Format: `copy INDEX [Count]`
 
@@ -289,17 +277,17 @@ there will be a confirmation.
 Example:
 
 * `copy 3` +
-Makes a copy of the person at index 3 and inserts it at the bottom of
-the current personnel records with a copy tag.
+Makes a copy of the patient at index 3 and inserts it at the bottom of
+the current patient list with a copy tag.
 
 * `copy 3 4` +
-Makes 4 copies of the person at index 3 and inserts them at the bottom of
-the current personnel records with a copy tag.
+Makes 4 copies of the patient at index 3 and inserts them at the bottom of
+the current patient list with a copy tag.
 
-=== Record: Access a person’s dental records
+=== Patient Records Management
 ==== record add
 
-Adds a new dental record to the program’s medical dental records
+Adds a new dental record for the patient.
 
 Format: `record add n/NRIC d/DATE_DDMMYYYY t/TIME_HHMM p/PROCEDURE
 doc/SERVING_DENTIST det/DETAILS`
@@ -312,7 +300,7 @@ was noticeably smelly, might have halitosis`
 
 Format: `record delete n/NRIC INDEX`
 
-* Deletes the person’s dental record at the specified index
+* Deletes the patient’s dental record at the specified index
 
 * The index refers to the index number shown in the displayed dental
 record list.
@@ -327,12 +315,12 @@ Deletes the 1st record from the displayed list
 
 
 ==== record edit
-Edits a person’s dental record.
+Edits a patient’s dental record.
 
 Format: `record edit n/NRIC INDEX`
 
 
-* Goes into record edit mode for the specified person at the specified
+* Goes into record edit mode for the specified patient at the specified
 index shown from list or find command. Must be a positive integer (e.g
 1, 2 or 3)
 
@@ -341,7 +329,7 @@ index shown from list or find command. Must be a positive integer (e.g
 * Multiple fields can be edited in a single input or across multiple
 inputs
 
-* When editing tags, the existing tags of the person will be removed i.e
+* When editing tags, the existing tags of the patient will be removed i.e
 adding of tags is not cumulative
 
 * All tags can be removed by keying in t/ without specifying any tags
@@ -360,7 +348,7 @@ Edits the first dental record under the patient Jon and replaces the old
 doctor and detail fields with the new Debang and new details data.
 
 ==== record copy
-Makes an exact copy of a person’s dental record
+Makes an exact copy of a patient’s dental record
 
 Format: `record copy n/NRIC INDEX`
 
@@ -368,7 +356,7 @@ Example:
 
 
 * `record copy n/S1234567H 2` +
-Makes a copy of the person’s dental record at index 2 and inserts it at
+Makes a copy of the patient’s dental record at index 2 and inserts it at
 the bottom of the current dental records with a copy tag
 
 
@@ -431,15 +419,15 @@ newly created teeth layout.
 <Status> are “healthy”, “absent”, “treatment” and “refind”
 
 ** <Description> is an optional field to present dentists with a feature to
-indicate personalised note describing more detail on the patient’s teeth
+indicate patientalised note describing more detail on the patient’s teeth
 health.
 
 === List
-Shows a list of all personnel or medical stored in the application
+Shows a list of all patientnel or medical stored in the application
 
 Format: `list [dental]`
 
-Command shows personnel details by default, add dental to see dental
+Command shows patientnel details by default, add dental to see dental
 records.
 
 Example:
@@ -453,7 +441,7 @@ Shows details of patients’ dental records
 
 
 === Find
-Shows patients whose data contains any of the given keywords according to a specified paramter.
+Shows patients whose data contains any of the given keywords according to a specified parameter.
 
 Format: `find [dental] PREFIX/KEYWORD [MORE_KEYWORDS]`
 
@@ -521,8 +509,7 @@ Format: `history`
 
 
 === Undo
-Restores data to the state before the previous undoable command was
-executed.
+Undo the latest command.
 
 Format: `undo`
 
@@ -548,7 +535,7 @@ undo` (reverses the clear command) +
 `undo` (reverses the delete 1 command)
 
 === Redo
-Reverses the most recent undo command
+Reverses the most recent undo command.
 
 Format: `redo`
 
@@ -571,7 +558,7 @@ undo` (reverses the clear command) +
 `redo` (reapplies the clear command)
 
 === Clear
-Clears all personnel data and records from the application
+Clears all patientnel data and records from the application.
 
 * Will prompt the user to confirm
 * Input `y` to proceed to the clear all records or `n` to abort
@@ -579,17 +566,14 @@ Clears all personnel data and records from the application
 Format: `clear`
 
 === Exit
-Exits the program. You won't be able to exit if copies exist
+Exits the program. You won't be able to exit if copies exist.
 
 Format: `exit`
 
 === Exit anyway
-Exits the program. You can exit under no circumstances
+Exits the program, disregardign any copies.
 
 Format: `exit!`
-
-=== Appointments [Coming in v2.0]
-Schedule patient appointments.
 
 
 === Cloud [Coming in v2.0]

@@ -29,7 +29,7 @@ public class ImportCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Imports specific patients by index from a .json or .pdf file in the \"data\" folder, "
-            + "and appends them to the current list \n"
+            + "and appends them to the current list. \n"
             + "Parameters: FILENAME [INDEX_RANGE(must be a positive integer) OR all]\n"
             + "Example: " + COMMAND_WORD + " records1.json + 1-5"
             + "Example: " + COMMAND_WORD + " records1.json + 1,3,5"
@@ -73,10 +73,12 @@ public class ImportCommand extends Command {
             }
             importData = importOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format.");
+            logger.warning("Data file not in the correct format."
+                                + "Will be starting with an empty AddressBook");
             importData = new AddressBook();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file.");
+            logger.warning("Problem while reading from the file."
+                                + "Will be starting with an empty AddressBook");
             importData = new AddressBook();
         }
 

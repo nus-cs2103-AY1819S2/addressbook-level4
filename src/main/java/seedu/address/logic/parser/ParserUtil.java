@@ -222,7 +222,7 @@ public class ParserUtil {
             if (filePath.matches(pdfRegex)) {
                 return new ParsedInOut(file, "pdf");
             } else {
-                throw new ParseException("Input file type is not a .json or .pdf");
+                throw new ParseException("Input file type is not a .json or .pdf.");
             }
         }
     }
@@ -254,10 +254,10 @@ public class ParserUtil {
                     return new ParsedInOut(new File(filepath), fileType);
                 } else {
                     // This shouldn't be possible after validationRegex
-                    throw new ParseException("Input file type is not a .json or .pdf");
+                    throw new ParseException("Input file type is not a .json or .pdf.");
                 }
             } else {
-                throw new ParseException("Input file type is not a .json or .pdf");
+                throw new ParseException("Input file type is not a .json or .pdf.");
             }
         }
 
@@ -273,7 +273,7 @@ public class ParserUtil {
             indexRange = splitMatcher.group(3);
         } else {
             // This shouldn't be possible after validationRegex
-            throw new ParseException("Input file type is not a .json or .pdf");
+            throw new ParseException("Input file type is not a .json or .pdf.");
         }
 
         HashSet<Integer> parsedIndex = new HashSet<>();

@@ -4,11 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
-import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.InOutAddressBookStorage;
@@ -30,7 +29,6 @@ public class SaveCommand extends Command {
             + "Example: " + COMMAND_WORD + " records1.pdf";
 
     public static final String MESSAGE_SUCCESS = "Saved the records!";
-    private static final String MESSAGE_FAILURE = "Problem while writing to the file.";
 
     private final ParsedInOut parsedInput;
 
@@ -39,9 +37,13 @@ public class SaveCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        writeFile(model);
+        try {
+            writeFile(model);
+        } catch (IOException e) {
+            throw new CommandException(Messages.MESSAGE_INVALID_FILE_TYPE);
+        }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -49,12 +51,10 @@ public class SaveCommand extends Command {
     /**
      * writeFile() writes or overwrites a file with the contents of the current address book.
      */
-    private void writeFile(Model model) {
+    private void writeFile(Model model) throws IOException {
         AddressBookStorage addressBookStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
         StorageManager storage = new StorageManager(addressBookStorage, null);
-
-        final Logger logger = LogsCenter.getLogger(MainApp.class);
 
         try {
             if (parsedInput.getType().equals("json")) {
@@ -63,7 +63,7 @@ public class SaveCommand extends Command {
                 storage.saveAsPdf(model.getAddressBook(), parsedInput.getFile().toPath());
             }
         } catch (IOException e) {
-            logger.warning(MESSAGE_FAILURE);
+            throw new IOException();
         }
     }
 }

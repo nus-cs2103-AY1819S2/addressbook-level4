@@ -17,10 +17,14 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public ImportCommand parse(String args) throws ParseException {
         try {
             ParsedInOut parsedInOut = ParserUtil.parseImportExport(args);
-            importValidation(parsedInOut);
-            return new ImportCommand(parsedInOut);
+            try {
+                importValidation(parsedInOut);
+                return new ImportCommand(parsedInOut);
+            } catch (ParseException pe) {
+                throw new ParseException(String.format("%s\n%s", pe.getMessage(), ImportCommand.MESSAGE_USAGE), pe);
+            }
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage());
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), ImportCommand.MESSAGE_USAGE), pe);
         }
     }
 

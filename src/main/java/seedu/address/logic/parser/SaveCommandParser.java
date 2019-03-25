@@ -19,10 +19,14 @@ public class SaveCommandParser implements Parser<SaveCommand> {
     public SaveCommand parse(String args) throws ParseException {
         try {
             ParsedInOut parsedInOut = ParserUtil.parseOpenSave(args);
-            saveValidation(parsedInOut.getFile());
-            return new SaveCommand(parsedInOut);
+            try {
+                saveValidation(parsedInOut.getFile());
+                return new SaveCommand(parsedInOut);
+            } catch (ParseException pe) {
+                throw new ParseException(String.format("%s\n%s", pe.getMessage(), SaveCommand.MESSAGE_USAGE), pe);
+            }
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage());
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), SaveCommand.MESSAGE_USAGE), pe);
         }
     }
 

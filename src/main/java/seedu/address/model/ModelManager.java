@@ -334,7 +334,7 @@ public class ModelManager implements Model {
     @Override
     public void endTestSession() {
         getActiveVersionedCardFolder()
-                .addFolderScore((double) numAnsweredCorrectly/getActiveCardFolder().getCardList().size());
+                .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
         getActiveVersionedCardFolder().commit();
         insideTestSession = false;
         cardAlreadyAnswered = false;

@@ -20,7 +20,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     private final UniqueCardList cards;
     private String folderName;
-    public List<Double> folderScores;
+    private List<Double> folderScores;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -108,6 +108,10 @@ public class CardFolder implements ReadOnlyCardFolder {
         indicateModified();
     }
 
+    /**
+     * Adds a folder score to a list of the last {@code MAX_NUM_FOLDER_SCORES} folder scores.
+     * A folder score is a double representing the percentage of questions answered correctly in the last test session.
+     */
     public void addFolderScore(Double folderScore) {
         while (folderScores.size() >= MAX_NUM_FOLDER_SCORES) {
             folderScores.remove(0);

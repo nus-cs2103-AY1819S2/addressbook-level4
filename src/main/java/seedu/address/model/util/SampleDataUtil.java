@@ -57,7 +57,7 @@ public class SampleDataUtil {
     public static String getSampleFolderFileName() {
         return "Sample Folder.json";
     }
-    
+
     public static List<Double> getSampleFolderScore() {
         return new ArrayList<>(Arrays.asList(0.5, 0.6, 0.7));
     }

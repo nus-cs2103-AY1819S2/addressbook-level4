@@ -61,12 +61,13 @@ public class MemberAddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB + PHONE_DESC_BOB
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB + TAG_DESC_RUNNING,
+                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB
+                        + TAG_DESC_RUNNING,
                 new MemberAddCommand(expectedPerson));
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB
+        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB + MAJOR_DESC_BOB
                 + TAG_DESC_RUNNING, new MemberAddCommand(expectedPerson));
 
         // multiple phones - last phone accepted

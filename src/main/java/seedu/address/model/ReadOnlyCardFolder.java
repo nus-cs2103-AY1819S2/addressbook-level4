@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.List;
+
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.card.Card;
@@ -19,4 +21,9 @@ public interface ReadOnlyCardFolder extends Observable {
      * Returns the name of the folder.
      */
     String getFolderName();
+
+    /**
+     * Returns a list of folder scores
+     */
+    List<Double> getFolderScores();
 }

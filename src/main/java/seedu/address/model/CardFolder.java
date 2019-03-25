@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     private final UniqueCardList cards;
     private String folderName;
+    public List<Double> folderScores;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -34,6 +36,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     public CardFolder(String folderName) {
         setFolderName(folderName);
+        folderScores = new ArrayList<>();
     }
 
     /**
@@ -62,6 +65,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
         setCards(newData.getCardList());
         setFolderName(newData.getFolderName());
+        setFolderScores(newData.getFolderScores());
     }
 
     //// card-level operations
@@ -104,6 +108,13 @@ public class CardFolder implements ReadOnlyCardFolder {
         indicateModified();
     }
 
+    public void addFolderScore(Double folderScore) {
+        while (folderScores.size() >= 3) {
+            folderScores.remove(0);
+        }
+        folderScores.add(folderScore);
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -127,6 +138,20 @@ public class CardFolder implements ReadOnlyCardFolder {
     public String toString() {
         return getFolderName();
         // TODO: refine later
+    }
+
+    @Override
+    public List<Double> getFolderScores() {
+        return folderScores;
+    }
+
+    /**
+     * Sets the folderScores of {@code CardFolder } and overwrites the previous scores.
+     * @param folderScores
+     */
+    public void setFolderScores(List<Double> folderScores) {
+        this.folderScores = folderScores;
+        indicateModified();
     }
 
     @Override

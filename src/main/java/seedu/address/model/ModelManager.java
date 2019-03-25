@@ -53,6 +53,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;
+    private int numAnsweredCorrectly = 0;
 
     // Export related
     private CsvManager csvManager = new CsvManager();
@@ -314,6 +315,7 @@ public class ModelManager implements Model {
         Card cardToTest = currentTestedCardFolder.get(0);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
+        numAnsweredCorrectly = 0;
     }
 
     @Override
@@ -331,8 +333,12 @@ public class ModelManager implements Model {
 
     @Override
     public void endTestSession() {
+        getActiveVersionedCardFolder()
+                .addFolderScore((double) numAnsweredCorrectly/getActiveCardFolder().getCardList().size());
+        getActiveVersionedCardFolder().commit();
         insideTestSession = false;
         cardAlreadyAnswered = false;
+        numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
         //TODO: exit card folder
     }
@@ -345,6 +351,7 @@ public class ModelManager implements Model {
 
         //LOOSEN MORE CRITERIAS?
         if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
+            numAnsweredCorrectly++;
             return true;
         }
         return false;

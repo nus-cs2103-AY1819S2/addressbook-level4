@@ -5,6 +5,7 @@ import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.card.Card;
 
 /**
  * Displays to the user the next question in the folder during the test session.
@@ -21,8 +22,9 @@ public class NextCommand extends Command {
         if (!model.checkIfInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
         }
-
-        return new CommandResult(MESSAGE_NEXT_QUESTION_SUCCESS, false, false, false, false, null, false,
+        model.testNextCard();
+        Card cardToTest = model.getCurrentTestedCard();
+        return new CommandResult(MESSAGE_NEXT_QUESTION_SUCCESS, false, false, false, false, cardToTest, false,
                 AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 

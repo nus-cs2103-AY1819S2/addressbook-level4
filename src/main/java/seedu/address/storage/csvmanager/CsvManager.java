@@ -1,12 +1,17 @@
 package seedu.address.storage.csvmanager;
 
 import java.io.*;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ReadOnlyCardFolder;
+import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Question;
+import seedu.address.model.card.Score;
+import seedu.address.model.hint.Hint;
 
 
 /**
@@ -44,6 +49,16 @@ public class CsvManager implements CsvCommands {
         if (bufferedReader != null) {
             bufferedReader.close();
         }
+    }
+
+    private Card buildCard(String[] cardValues) {
+        Question question = new Question(cardValues[0]);
+        Answer answer = new Answer(cardValues[1]);
+        String[] hintArray = Arrays.copyOfRange(cardValues, 2, cardValues.length);
+
+        Set<Hint> hintSet = Arrays.stream(hintArray).map(Hint::new).collect(Collectors.toSet());
+        Card card = new Card(question, answer, new Score(0, 0), hintSet);
+        return card;
     }
 
 

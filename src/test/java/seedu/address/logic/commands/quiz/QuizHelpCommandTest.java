@@ -16,6 +16,7 @@ import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 
 public class QuizHelpCommandTest {
     private QuizModel model = new QuizModelManager();
@@ -27,7 +28,7 @@ public class QuizHelpCommandTest {
         final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
-        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
         model.init(quiz);
         expectedModel.init(quiz);
     }

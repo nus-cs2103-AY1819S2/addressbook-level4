@@ -9,8 +9,8 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
-import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 /**
@@ -55,17 +55,17 @@ public class QuizAnswerCommand implements Command {
         String questionHeader = "question"; //TODO get the header from quiz from session
         String answerHeader = "answer"; //TODO get the header from quiz from session
 
-        if (card.getQuizMode() == Quiz.Mode.PREVIEW) {
+        if (card.getQuizMode() == QuizMode.PREVIEW) {
             // don't need to update totalAttempts and streak
             if (quizModel.hasCardLeft()) {
                 card = quizModel.getNextCard();
-                if (card.getQuizMode() == Quiz.Mode.PREVIEW) {
+                if (card.getQuizMode() == QuizMode.PREVIEW) {
                     quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                        answerHeader, card.getAnswer(), Quiz.Mode.PREVIEW));
+                        answerHeader, card.getAnswer(), QuizMode.PREVIEW));
                     return new CommandResult("", true, false, false);
                 }
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                    answerHeader, Quiz.Mode.REVIEW));
+                    answerHeader, QuizMode.REVIEW));
                 return new CommandResult("", true, false, false);
             }
 
@@ -86,7 +86,7 @@ public class QuizAnswerCommand implements Command {
             if (quizModel.hasCardLeft()) {
                 card = quizModel.getNextCard();
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                    answerHeader, Quiz.Mode.REVIEW));
+                    answerHeader, QuizMode.REVIEW));
             } else {
                 sb.append(MESSAGE_COMPLETE);
 
@@ -102,11 +102,11 @@ public class QuizAnswerCommand implements Command {
             if (!card.isWrongTwice()) {
                 sb.append(String.format(MESSAGE_WRONG_ONCE, answer));
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                    answerHeader, Quiz.Mode.REVIEW));
+                    answerHeader, QuizMode.REVIEW));
             } else {
                 sb.append(String.format(MESSAGE_WRONG, answer, card.getAnswer()));
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
-                    answerHeader, card.getAnswer(), Quiz.Mode.PREVIEW));
+                    answerHeader, card.getAnswer(), QuizMode.PREVIEW));
             }
         }
 

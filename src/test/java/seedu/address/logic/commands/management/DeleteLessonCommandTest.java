@@ -25,6 +25,7 @@ import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.user.CardSrsData;
@@ -241,7 +242,7 @@ public class DeleteLessonCommandTest {
         /**
          * This method should not be called.
          */
-        public Quiz.Mode getMode() {
+        public QuizMode getMode() {
             throw new AssertionError("This method should not be called.");
         }
 

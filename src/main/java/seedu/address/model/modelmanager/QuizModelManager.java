@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 
@@ -37,7 +38,7 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
-    public Quiz.Mode getMode() {
+    public QuizMode getMode() {
         return session.getMode();
     }
 

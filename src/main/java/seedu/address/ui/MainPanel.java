@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 /**
@@ -31,7 +31,7 @@ public class MainPanel extends UiPart<Region> {
 
         if (formatter != null) {
             // contains only question
-            Quiz.Mode mode = formatter.getMode();
+            QuizMode mode = formatter.getMode();
             Text questionAnswer = new Text();
 
             switch (mode) {

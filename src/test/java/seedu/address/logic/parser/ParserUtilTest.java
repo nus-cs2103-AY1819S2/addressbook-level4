@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizMode;
 
 public class ParserUtilTest {
     @Rule
@@ -48,7 +48,7 @@ public class ParserUtilTest {
         assertEquals(expectedName, name);
         int expectedCount = parserUtil.parseCount(count);
         assertEquals(expectedCount, 1);
-        Quiz.Mode expectedMode = parserUtil.parseMode(mode);
-        assertEquals(expectedMode, Quiz.Mode.LEARN);
+        QuizMode expectedMode = parserUtil.parseMode(mode);
+        assertEquals(expectedMode, QuizMode.LEARN);
     }
 }

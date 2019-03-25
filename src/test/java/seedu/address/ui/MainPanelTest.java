@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.MainPanelHandle;
-import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 public class MainPanelTest extends GuiUnitTest {
@@ -24,8 +24,8 @@ public class MainPanelTest extends GuiUnitTest {
         mainPanelHandle = new MainPanelHandle(getChildNode(mainPanel.getRoot(),
             MainPanelHandle.RESULT_DISPLAY_ID));
 
-        formatter = new QuizUiDisplayFormatter("Question", "some question", "Answer", "some answer", Quiz.Mode.PREVIEW);
-        formatterReview = new QuizUiDisplayFormatter("Question", "some question", "Answer", Quiz.Mode.REVIEW);
+        formatter = new QuizUiDisplayFormatter("Question", "some question", "Answer", "some answer", QuizMode.PREVIEW);
+        formatterReview = new QuizUiDisplayFormatter("Question", "some question", "Answer", QuizMode.REVIEW);
     }
 
     @Test

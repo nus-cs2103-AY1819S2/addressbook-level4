@@ -17,6 +17,7 @@ import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.testutil.Assert;
 
 public class QuizDifficultCommandTest {
@@ -33,7 +34,7 @@ public class QuizDifficultCommandTest {
         final QuizCard quizCardJapan = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard quizCardHungary = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> validQuizCard = Arrays.asList(quizCardJapan, quizCardHungary);
-        quiz = new Quiz(validQuizCard, Quiz.Mode.LEARN);
+        quiz = new Quiz(validQuizCard, QuizMode.LEARN);
     }
 
     @Test

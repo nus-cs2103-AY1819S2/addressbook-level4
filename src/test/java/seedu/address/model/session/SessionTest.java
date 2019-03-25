@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.srscard.SrsCard;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.SessionBuilder;
@@ -49,7 +49,7 @@ public class SessionTest {
     @Test
     public void generateSession() {
         SrsCard currentSrsCard = new SrsCardBuilder().build();
-        Session newSession = new Session("01-01-Learn", 1, Quiz.Mode.LEARN, List.of(currentSrsCard));
+        Session newSession = new Session("01-01-Learn", 1, QuizMode.LEARN, List.of(currentSrsCard));
         List<QuizCard> quizCards = newSession.generateSession();
         assertEquals(quizCards.get(0).getQuestion(), CARD_BELGIUM.getCore(0));
         assertEquals(quizCards.get(0).getAnswer(), CARD_BELGIUM.getCore(1));

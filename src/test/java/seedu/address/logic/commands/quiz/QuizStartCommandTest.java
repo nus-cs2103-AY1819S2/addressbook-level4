@@ -18,6 +18,7 @@ import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
@@ -48,13 +49,13 @@ public class QuizStartCommandTest {
     public void executeActual_learn_success() {
         Lesson lesson = new LessonBuilder().build();
         final Session session = new SessionBuilder(new Session("01-01-Learn", 2,
-                Quiz.Mode.LEARN, List.of(new SrsCardBuilder().build(),
+                QuizMode.LEARN, List.of(new SrsCardBuilder().build(),
                 new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
                         1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
         final QuizCard card1 = new QuizCard("Belgium", "Brussels");
         final QuizCard card2 = new QuizCard("Japan", "Tokyo");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
-        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz);
@@ -74,7 +75,7 @@ public class QuizStartCommandTest {
         final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
         final QuizCard card4 = new QuizCard("中国", "北京");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
-        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.LEARN);
+        final Quiz quiz = new Quiz(quizCards, Quiz.QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz);
@@ -95,13 +96,13 @@ public class QuizStartCommandTest {
     public void executeActual_review_success() {
         Lesson lesson = new LessonBuilder().build();
         final Session session = new SessionBuilder(new Session("01-01-Learn", 2,
-            Quiz.Mode.REVIEW, List.of(new SrsCardBuilder().build(),
+            QuizMode.REVIEW, List.of(new SrsCardBuilder().build(),
             new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
                 1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
         final QuizCard card1 = new QuizCard("Belgium", "Brussels");
         final QuizCard card2 = new QuizCard("Japan", "Tokyo");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
-        final Quiz quiz = new Quiz(quizCards, Quiz.Mode.REVIEW);
+        final Quiz quiz = new Quiz(quizCards, QuizMode.REVIEW);
 
         QuizModelManager expectedModel = new QuizModelManager();
         expectedModel.init(quiz);

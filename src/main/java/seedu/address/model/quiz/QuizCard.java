@@ -13,7 +13,7 @@ public class QuizCard {
 
     public static final String MESSAGE_CONSTRAINTS = "Question/answer can take any values, and it"
         + " should not be blank or contain only whitespaces";
-    private Quiz.Mode quizMode;
+    private QuizMode quizMode;
     private String question;
     private String answer;
     private List<String> opt;
@@ -49,7 +49,7 @@ public class QuizCard {
         this.isCardDifficult = false;
     }
 
-    public QuizCard(int index, String question, String answer, Quiz.Mode quizMode) {
+    public QuizCard(int index, String question, String answer, QuizMode quizMode) {
         requireAllNonNull(index, question, answer, quizMode);
         checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
 
@@ -92,7 +92,7 @@ public class QuizCard {
         return isWrongTwice;
     }
 
-    public Quiz.Mode getQuizMode() {
+    public QuizMode getQuizMode() {
         requireAllNonNull(quizMode);
         return quizMode;
     }
@@ -133,7 +133,7 @@ public class QuizCard {
      * @param isCorrect the output of isCorrect method
      */
     public void updateTotalAttemptsAndStreak(boolean isCorrect) {
-        if (quizMode != Quiz.Mode.PREVIEW) {
+        if (quizMode != QuizMode.PREVIEW) {
             if (isCorrect) {
                 streak += 1;
             } else {

@@ -12,7 +12,7 @@ public class QuizUiDisplayFormatterTest {
     private static final String QUESTION = "some question";
     private static final String ANSWER_HEADER = "Answer";
     private static final String ANSWER = "some answer";
-    private static final Quiz.Mode MODE = Quiz.Mode.LEARN;
+    private static final QuizMode MODE = QuizMode.LEARN;
 
     private static final QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter(QUESTION_HEADER, QUESTION,
         ANSWER_HEADER, ANSWER, MODE);

@@ -19,6 +19,7 @@ import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.testutil.Assert;
 
 public class QuizAnswerCommandTest {
@@ -35,8 +36,8 @@ public class QuizAnswerCommandTest {
         final QuizCard quizCardJapan = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard quizCardHungary = new QuizCard("Hungary", "Budapest");
         validQuizCard = Arrays.asList(quizCardJapan, quizCardHungary);
-        actualQuiz = new Quiz(validQuizCard, Quiz.Mode.LEARN);
-        expectedQuiz = new Quiz(validQuizCard, Quiz.Mode.LEARN);
+        actualQuiz = new Quiz(validQuizCard, QuizMode.LEARN);
+        expectedQuiz = new Quiz(validQuizCard, QuizMode.LEARN);
     }
 
     @Test
@@ -75,10 +76,10 @@ public class QuizAnswerCommandTest {
     public void execute_validPreview_success() {
         final String answer = "";
         QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(new Quiz(validQuizCard, Quiz.Mode.PREVIEW));
+        expectedModel.init(new Quiz(validQuizCard, QuizMode.PREVIEW));
 
         QuizModel actual = new QuizModelManager();
-        actual.init(new Quiz(validQuizCard, Quiz.Mode.PREVIEW));
+        actual.init(new Quiz(validQuizCard, QuizMode.PREVIEW));
         actual.getNextCard();
 
         QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(answer);

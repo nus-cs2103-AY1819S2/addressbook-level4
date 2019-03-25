@@ -22,6 +22,7 @@ import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.session.SrsCardsManager;
@@ -61,12 +62,12 @@ public class QuizStartCommand implements Command {
         model.init(quiz);
         QuizCard card = model.getNextCard();
 
-        if (card.getQuizMode() == Quiz.Mode.PREVIEW) {
+        if (card.getQuizMode() == QuizMode.PREVIEW) {
             model.setDisplayFormatter(new QuizUiDisplayFormatter("Question", card.getQuestion(),
-                "Answer", card.getAnswer(), Quiz.Mode.PREVIEW));
+                "Answer", card.getAnswer(), QuizMode.PREVIEW));
         } else {
             model.setDisplayFormatter(new QuizUiDisplayFormatter("Question", card.getQuestion(),
-                "Answer", Quiz.Mode.REVIEW));
+                "Answer", QuizMode.REVIEW));
         }
 
         return new CommandResult("", true, false, false);

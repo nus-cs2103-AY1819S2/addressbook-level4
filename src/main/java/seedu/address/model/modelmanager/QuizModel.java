@@ -4,6 +4,7 @@ import java.util.List;
 
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 
@@ -19,7 +20,7 @@ public interface QuizModel extends Model {
     /**
      * Return mode of {@code session}.
      */
-    Quiz.Mode getMode();
+    QuizMode getMode();
 
     /**
      * Return card count of {@code session}.

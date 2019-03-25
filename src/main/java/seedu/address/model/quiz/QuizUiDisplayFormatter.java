@@ -12,10 +12,10 @@ public class QuizUiDisplayFormatter {
     private String question;
     private String answerHeader;
     private String answer;
-    private Quiz.Mode mode;
+    private QuizMode mode;
 
     public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, String answer,
-                                  Quiz.Mode mode) {
+                                  QuizMode mode) {
         requireAllNonNull(questionHeader, question, answerHeader, answer);
         this.questionHeader = questionHeader;
         this.question = question;
@@ -24,7 +24,7 @@ public class QuizUiDisplayFormatter {
         this.mode = mode;
     }
 
-    public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, Quiz.Mode mode) {
+    public QuizUiDisplayFormatter(String questionHeader, String question, String answerHeader, QuizMode mode) {
         requireAllNonNull(questionHeader, question, answerHeader);
         this.questionHeader = questionHeader;
         this.question = question;
@@ -48,7 +48,7 @@ public class QuizUiDisplayFormatter {
         return answer;
     }
 
-    public Quiz.Mode getMode() {
+    public QuizMode getMode() {
         return mode;
     }
 

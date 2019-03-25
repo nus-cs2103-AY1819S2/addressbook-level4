@@ -21,7 +21,7 @@ public class StartCommandParserTest {
     /*@Test
     public void parseArguments() {
         QuizStartCommand expected = new QuizStartCommand(new Session("02-03-LEARN", 15,
-                Quiz.Mode.LEARN));
+                Quiz.QuizMode.LEARN));
         assertParseSuccess(parser, "02-03-LEARN 15 LEARN", expected);
         assertParseSuccess(parser, " \n 02-03-LEARN \n \t 15  \t LEARN", expected);
     }*/

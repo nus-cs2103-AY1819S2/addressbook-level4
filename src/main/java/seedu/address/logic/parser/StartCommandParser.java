@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.quiz.Quiz;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.session.Session;
 
 
@@ -32,7 +32,7 @@ public class StartCommandParser implements Parser {
         String name = ParserUtil.parseName(argMultimap.getValue(PREFIX_START_NAME).get());
         int count = ParserUtil.parseCount(argMultimap.getValue(PREFIX_START_COUNT)
             .orElse(String.valueOf(Session.CARD_COUNT_MINIMUM)));
-        Quiz.Mode mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_START_MODE).get());
+        QuizMode mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_START_MODE).get());
         Session session = new Session(name, count, mode);
         return new QuizStartCommand(session);
     }

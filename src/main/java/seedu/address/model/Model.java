@@ -189,11 +189,6 @@ public interface Model extends Observable {
     void setSelectedCard(Card card);
 
     /**
-     * Checks whether list of card folder names specified is found inside model
-     */
-    List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders);
-
-    /**
      * Enters a test session using the specified card folder index.
      */
     void testCardFolder(int cardFolderToTestIndex);
@@ -236,8 +231,6 @@ public interface Model extends Observable {
      * false if otherwise
      */
     boolean checkIfCardAlreadyAnswered();
-
-    void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException;
 
     void exportCardFolders(List<Integer> cardFolderExports) throws IOException;
 

@@ -19,7 +19,7 @@ public class ImportCommand extends Command {
             + "card folders information.\n"
             + "File imported must have a .csv extension.\n"
             + "Default file path if not specified will be in the root folder of this application\n"
-            + "Parameters: JSON_FILE_NAME\n"
+            + "Parameters: CSV_FILE_NAME\n"
             + "Example: " + COMMAND_WORD + "alice.csv";
     public static final String MESSAGE_FILE_OPS_FAILURE = "Could not import from specified file. Check that it exists "
             + "in root directory";

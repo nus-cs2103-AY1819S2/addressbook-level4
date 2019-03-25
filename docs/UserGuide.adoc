@@ -297,6 +297,22 @@ Format: `dentist name/YOUR_NAME`
 
 === Patient Records Management
 
+==== goto
+
+Specifies a patient of interest, in order to modify his or her dental records and information.
+
+When the `goto` mode is active, the patient list is replaced by a dental records list. The dental records list displays all dental records of the patient of interest.
+
+To go back to the patient list, use the command `back`.
+
+Format: `goto 1`
+
+* Specifies the patient of interest to be the patient at index 1.
+
+* The given index must be a positive integer (e.g 1, 2 or 3…)
+
+* Enters all the records of the patient of interest in the `goto` mode.
+
 ==== record add
 
 Adds a new dental record to the patient.

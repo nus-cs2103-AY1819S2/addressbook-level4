@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 import seedu.hms.commons.util.InvalidationListenerManager;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingList;
+import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.ServiceTypeList;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.UniqueCustomerList;
 
@@ -21,6 +23,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     private final BookingList bookings;
     private final UniqueCustomerList customers;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private final ServiceTypeList serviceTypes;
 
     /**
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -33,6 +36,8 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     {
         bookings = new BookingList();
         customers = new UniqueCustomerList();
+        serviceTypes = new ServiceTypeList();
+        serviceTypes.setServiceTypes();
     }
 
     public HotelManagementSystem() {
@@ -176,6 +181,11 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     @Override
     public ObservableList<Booking> getBookingList() {
         return bookings.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<ServiceType> getServiceTypeList() {
+        return serviceTypes.asUnmodifiableObservableList();
     }
 
     /**

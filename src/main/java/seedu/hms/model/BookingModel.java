@@ -35,6 +35,11 @@ public interface BookingModel extends Model {
     ObservableList<Booking> getFilteredBookingList();
 
     /**
+     * Returns an unmodifiable view of the serviceType list
+     */
+    ObservableList<ServiceType> getServiceTypeList();
+
+    /**
      * Updates the filter of the filtered booking list to filter by the given {@code predicate}.
      *
      * @throws NullPointerException if {@code predicate} is null.

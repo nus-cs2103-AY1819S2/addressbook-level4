@@ -23,6 +23,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.exceptions.DuplicateCustomerException;
 import seedu.hms.testutil.CustomerBuilder;
@@ -118,6 +119,7 @@ public class HotelManagementSystemTest {
     private static class HotelManagementSystemStub implements ReadOnlyHotelManagementSystem {
         private final ObservableList<Customer> customers = FXCollections.observableArrayList();
         private final ObservableList<Booking> bookings = FXCollections.observableArrayList();
+        private final ObservableList<ServiceType> serviceTypes = FXCollections.observableArrayList();
 
         HotelManagementSystemStub(Collection<Customer> customers, Collection<Booking> bookings) {
             this.customers.setAll(customers);
@@ -132,6 +134,11 @@ public class HotelManagementSystemTest {
         @Override
         public ObservableList<Booking> getBookingList() {
             return bookings;
+        }
+
+        @Override
+        public ObservableList<ServiceType> getServiceTypeList() {
+            return serviceTypes;
         }
 
         @Override

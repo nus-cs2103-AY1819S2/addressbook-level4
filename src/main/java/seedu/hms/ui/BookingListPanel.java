@@ -14,6 +14,7 @@ import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 
 /**
@@ -28,6 +29,7 @@ public class BookingListPanel extends UiPart<Region> {
 
     public BookingListPanel(ObservableList<Booking> bookingList, ObservableValue<Booking> selectedBooking,
                             Consumer<Booking> onSelectedBookingChange, ObservableValue<Customer> selectedCustomer,
+                            ObservableValue<ServiceType> selectedServiceType,
                             CommandBox.CommandExecutor commandExecutor) {
         super(FXML);
         bookingListView.setItems(bookingList);
@@ -54,12 +56,24 @@ public class BookingListPanel extends UiPart<Region> {
             }
         });
         selectedCustomer.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected booking changed to: " + newValue);
+            logger.fine("Selected customer changed to: " + newValue);
 
 
             if (newValue != null) {
                 try {
                     commandExecutor.execute("fbcp " + newValue.getIdNum().toString());
+                } catch (CommandException | ParseException e) {
+                    return;
+                }
+            }
+        });
+        selectedServiceType.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected serviceType changed to: " + newValue);
+
+
+            if (newValue != null) {
+                try {
+                    commandExecutor.execute("fbwt " + newValue.getName().toString());
                 } catch (CommandException | ParseException e) {
                     return;
                 }

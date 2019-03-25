@@ -9,7 +9,7 @@ public class BookingContainsPayerPredicate implements Predicate<Booking> {
     private final String payerId;
 
     public BookingContainsPayerPredicate(String payerId) {
-        this.payerId = payerId.substring(1);
+        this.payerId = payerId;
     }
 
     @Override

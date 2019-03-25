@@ -11,7 +11,7 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
     <TabPane prefWidth="340.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
         <tabs>
-            <Tab text="Booking">
+            <Tab text="Service Type">
                 <content>
                     <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
                         <padding>
@@ -23,7 +23,7 @@
                     </VBox>
                 </content>
             </Tab>
-            <Tab text="Reservation">
+            <Tab text="Room Type">
                 <content>
                     <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
                         <padding>
@@ -32,15 +32,6 @@
                         <children>
                             <StackPane fx:id="roomTypeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                         </children>
-                    </VBox>
-                </content>
-            </Tab>
-            <Tab text="Bill">
-                <content>
-                    <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
                     </VBox>
                 </content>
             </Tab>

@@ -5,7 +5,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 /**
- * The Browser Panel of the App.
+ * The ServiceTypeAndRoomType Panel of the App.
  */
 public class ServiceTypeAndRoomTypePanel extends UiPart<Region> {
     private static final String FXML = "ServiceTypeAndRoomTypePanel.fxml";

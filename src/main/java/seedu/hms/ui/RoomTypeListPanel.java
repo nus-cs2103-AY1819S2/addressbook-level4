@@ -14,8 +14,8 @@ import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.model.booking.ServiceType;
 
 /**
+ * todo: need to be changed to shown roomType after room commands are implemented
  * Panel containing the list of serviceTypes.
- * Will be changed to show roomTypes in v1.3.
  */
 public class RoomTypeListPanel extends UiPart<Region> {
     private static final String FXML = "ServiceTypeListPanel.fxml";
@@ -25,8 +25,9 @@ public class RoomTypeListPanel extends UiPart<Region> {
     private ListView<ServiceType> serviceTypeListView;
 
     public RoomTypeListPanel(ObservableList<ServiceType> serviceTypeList,
+                                ObservableValue<ServiceType> selectedServiceType,
                                 Consumer<ServiceType> onSelectedServiceTypeChange,
-                                ObservableValue<ServiceType> selectedServiceType) {
+                                CommandBox.CommandExecutor commandExecutor) {
         super(FXML);
         serviceTypeListView.setItems(serviceTypeList);
         serviceTypeListView.setCellFactory(listView -> new ServiceTypeListViewCell());

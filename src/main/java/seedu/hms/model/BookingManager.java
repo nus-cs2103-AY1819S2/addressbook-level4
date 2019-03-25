@@ -18,6 +18,7 @@ import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.booking.exceptions.BookingNotFoundException;
+import seedu.hms.model.booking.exceptions.ServiceTypeNotFoundException;
 
 /**
  * Represents the in-memory model of the hms book data.
@@ -28,6 +29,7 @@ public class BookingManager implements BookingModel {
     private final VersionedHotelManagementSystem versionedHotelManagementSystem;
     private final UserPrefs userPrefs;
     private final FilteredList<Booking> filteredBookings;
+    private final FilteredList<ServiceType> serviceTypeList;
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<ServiceType> selectedServiceType = new SimpleObjectProperty<>();
 
@@ -43,6 +45,7 @@ public class BookingManager implements BookingModel {
         versionedHotelManagementSystem = hotelManagementSystem;
         this.userPrefs = new UserPrefs(userPrefs);
         filteredBookings = new FilteredList<>(versionedHotelManagementSystem.getBookingList());
+        serviceTypeList = new FilteredList<>(versionedHotelManagementSystem.getServiceTypeList());
         filteredBookings.addListener(this::ensureSelectedBookingIsValid);
     }
 
@@ -129,6 +132,14 @@ public class BookingManager implements BookingModel {
         return filteredBookings;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code ServiceType} backed by the internal list of
+     * {@code versionedHotelManagementSystem}
+     */
+    public ObservableList<ServiceType> getServiceTypeList() {
+        return serviceTypeList;
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -206,18 +217,18 @@ public class BookingManager implements BookingModel {
     //=========== Selected ServiceType ===========================================================================
 
     public ReadOnlyProperty<ServiceType> selectedServiceTypeProperty() {
-        return selectedServiceTypeProperty();
+        return selectedServiceType;
     }
 
     @Override
     public ServiceType getSelectedServiceType() {
-        return selectedBooking.getValue();
+        return selectedServiceType.getValue();
     }
 
     @Override
     public void setSelectedServiceType(ServiceType serviceType) {
-        if (serviceType != null && !filteredBookings.contains(serviceType)) {
-            throw new BookingNotFoundException();
+        if (serviceType != null && !serviceTypeList.contains(serviceType)) {
+            throw new ServiceTypeNotFoundException();
         }
         selectedServiceType.setValue(serviceType);
     }

@@ -18,6 +18,7 @@ import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
 import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.storage.Storage;
 
@@ -92,6 +93,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<ServiceType> getServiceTypeList() {
+        return bookingModel.getServiceTypeList();
+    }
+
+    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }
@@ -122,6 +128,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<ServiceType> selectedServiceTypeProperty() {
+        return bookingModel.selectedServiceTypeProperty();
+    }
+
+    @Override
     public void setSelectedCustomer(Customer customer) {
         customerModel.setSelectedCustomer(customer);
     }
@@ -129,5 +140,10 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedBooking(Booking booking) {
         bookingModel.setSelectedBooking(booking);
+    }
+
+    @Override
+    public void setSelectedServiceType(ServiceType serviceType) {
+        bookingModel.setSelectedServiceType(serviceType);
     }
 }

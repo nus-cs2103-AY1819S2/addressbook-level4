@@ -23,7 +23,7 @@ public class FindBookingContainsPayerParser implements Parser<FindBookingContain
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindBookingContainsPayerCommand.MESSAGE_USAGE));
         }
-        String payerId = args;
+        String payerId = args.substring(1);
         return new FindBookingContainsPayerCommand(new BookingContainsPayerPredicate(payerId));
     }
 

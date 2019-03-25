@@ -8,8 +8,6 @@ import static seedu.hms.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.hms.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.hms.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -37,7 +35,6 @@ import seedu.hms.logic.commands.SelectCustomerCommand;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.testutil.TypicalCustomers;
-import seedu.hms.ui.ServiceTypeAndRoomTypePanel;
 import seedu.hms.ui.CommandBox;
 
 /**
@@ -200,28 +197,22 @@ public abstract class HotelManagementSystemSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      */
     protected void assertSelectedCardDeselected() {
-        assertEquals(ServiceTypeAndRoomTypePanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        //Todo: ServiceTypeAndRoomTypePanel test
+        //assertEquals(ServiceTypeAndRoomTypePanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertFalse(getCustomerListPanel().isAnyCardSelected());
     }
 
+    //Todo: ServiceTypeAndRoomTypeListPanel
     /**
      * Asserts that the browser's url is changed to display the details of the customer in the customer list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      *
      * @see BrowserPanelHandle#isUrlChanged()
      * @see CustomerListPanelHandle#isSelectedCustomerCardChanged()
-     */
+     * */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCustomerListPanel().navigateToCard(getCustomerListPanel().getSelectedCardIndex());
         String selectedCardName = getCustomerListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(ServiceTypeAndRoomTypePanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
-
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getCustomerListPanel().getSelectedCardIndex());
     }
 
@@ -278,7 +269,8 @@ public abstract class HotelManagementSystemSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCustomerListPanel(), getModel().getFilteredCustomerList());
-        assertEquals(ServiceTypeAndRoomTypePanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        //Todo ServiceTypeAndRoomTypePanel test
+        //assertEquals(ServiceTypeAndRoomTypePanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
             getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

@@ -10,6 +10,7 @@ import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
 import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 
 /**
@@ -44,6 +45,11 @@ public interface Logic {
     ObservableList<Booking> getFilteredBookingList();
 
     /**
+     * Returns an unmodifiable view of the filtered list of bookings
+     */
+    ObservableList<ServiceType> getServiceTypeList();
+
+    /**
      * Returns an unmodifiable view of the list of commands entered by the user.
      * The list is ordered from the least recent command to the most recent command.
      */
@@ -76,9 +82,17 @@ public interface Logic {
      * Selected bookings in the filtered booking list.
      * null if no booking is selected.
      *
-     * @see seedu.hms.model.CustomerModel#selectedCustomerProperty()
+     * @see seedu.hms.model.BookingModel#selectedBookingProperty()
      */
     ReadOnlyProperty<Booking> selectedBookingProperty();
+
+    /**
+     * Selected serviceType in the serviceType list.
+     * null if no serviceType is selected.
+     *
+     * @see seedu.hms.model.BookingModel#selectedServiceTypeProperty()
+     */
+    ReadOnlyProperty<ServiceType> selectedServiceTypeProperty();
 
     /**
      * Sets the selected customer in the filtered customer list.
@@ -87,8 +101,16 @@ public interface Logic {
      */
     void setSelectedCustomer(Customer customer);
 
+
     /**
-     * Sets the selected customer in the filtered customer list.
+     * Sets the selected serviceType in the filtered serviceType list.
+     *
+     * @see seedu.hms.model.BookingModel#setSelectedServiceType(ServiceType)
+     */
+    void setSelectedServiceType(ServiceType serviceType);
+
+    /**
+     * Sets the selected booking in the filtered booking list.
      *
      * @see seedu.hms.model.BookingModel#setSelectedBooking(Booking)
      */

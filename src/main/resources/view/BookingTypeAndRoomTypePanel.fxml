@@ -14,9 +14,6 @@
             <Tab text="Booking">
                 <content>
                     <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
                         <children>
                             <StackPane fx:id="serviceTypePanelPlaceholder" VBox.vgrow="ALWAYS"/>
                         </children>
@@ -26,9 +23,6 @@
             <Tab text="Reservation">
                 <content>
                     <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
                         <children>
                             <StackPane fx:id="roomTypePanelPlaceholder" VBox.vgrow="ALWAYS"/>
                         </children>
@@ -38,9 +32,6 @@
             <Tab text="Bill">
                 <content>
                     <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
                     </VBox>
                 </content>
             </Tab>

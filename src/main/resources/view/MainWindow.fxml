@@ -12,7 +12,7 @@
 <?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
-         title="hms App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="hms App" minWidth="1080" minHeight="600" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/hms_book_32.png"/>
     </icons>
@@ -55,14 +55,19 @@
                     </VBox>
 
                     <VBox fx:id="bookingAndReservation" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-                        <StackPane fx:id="bookingAndReservationPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                    </VBox>
-
-                    <StackPane fx:id="serviceTypeAndRoomTypePlaceholder" prefWidth="340">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
-                    </StackPane>
+                        <StackPane fx:id="bookingAndReservationPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+
+
+                    <VBox fx:id="serviceTypeAndRoomType" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <StackPane fx:id="serviceTypeAndRoomTypePlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
                 </SplitPane>
 
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>

@@ -65,11 +65,32 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Opens a help window that displays this User Guide. +
 Format: `help`
 
-=== Initialising the maps : `init`
+=== Map : `init`
 
 Initialises both player's maps to the specified size. +
-Format: `init [s/MAP_SIZE]`
+Format: `init [s/MAP_SIZE]` +
+Example: `init 10`
 
+The maps will be displayed as follows:
+
+image::initmapresult.png[width=600]
+
+Throughout the course of the game, the cells in the map will change colour based on their status. +
+
+[NOTE]
+====
+.Cell statuses:
+- Hidden - Enemy map cell that has not been hit
+- Water - Empty (no ship) player cell that has not been hit
+- Water Hit - Empty player cell that has been hit
+- Ship - Player cell that has a ship and has not been hit
+- Ship Hit - Ship cell that has been hit but not yet destroyed
+- Ship Destroyed - Ship cell that has been destroyed
+====
+
+The diagram below shows which colour represents which status.
+
+image::maplegend.png[width=300]
 === Listing all ships : `list`
 
 Shows a list of all the player's battleships that are currently deployed on the map +

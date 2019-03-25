@@ -35,7 +35,7 @@ public class RecordUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + record.getName().fullName + " ");
         sb.append(PREFIX_AMOUNT + record.getAmount().value + " ");
-        sb.append(PREFIX_DATE + record.getDate().value + " ");
+        sb.append(PREFIX_DATE + record.getDate().toString() + " ");
         record.getCategories().stream().forEach(
             s -> sb.append(PREFIX_CATEGORY + s.categoryName + " ")
         );
@@ -49,7 +49,7 @@ public class RecordUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
         descriptor.getAmount().ifPresent(amount -> sb.append(PREFIX_AMOUNT).append(amount.value).append(" "));
-        descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.value).append(" "));
+        descriptor.getDate().ifPresent(date -> sb.append(PREFIX_DATE).append(date.toString()).append(" "));
         if (descriptor.getCategories().isPresent()) {
             Set<Category> categories = descriptor.getCategories().get();
             if (categories.isEmpty()) {

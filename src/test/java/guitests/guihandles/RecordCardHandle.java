@@ -93,8 +93,8 @@ public class RecordCardHandle extends NodeHandle<Node> {
     public boolean equals(Record record) {
         return getName().equals(record.getName().fullName)
                 && getAmount().equals(record.getAmount().value)
-                && getDate().equals(record.getDate().value)
-                && getDate().equals(record.getDate().value)
+                && getDate().equals(record.getDate().toString())
+                && getDate().equals(record.getDate().toString())
                 && ImmutableMultiset.copyOf(getCategories())
                         .equals(ImmutableMultiset.copyOf(record.getCategories().stream()
                         .map(category -> category.categoryName)

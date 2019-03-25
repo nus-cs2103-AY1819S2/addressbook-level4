@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 0%);
-    background-color: #424d5f; /* Used in the default.html file */
+    background-color: #577287; /* Used in the default.html file */
 }
 
 .label {
@@ -78,7 +78,7 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-background-color: derive(#1d1d1d, 0%);
-    -fx-border-color: transparent transparent transparent #1d1d1d;
+    -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
@@ -90,7 +90,7 @@
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 0;
-    -fx-background-color: derive(#1d1d1d, 0%);
+    -fx-background-color: derive(#1c3334, 0%);
 }
 
 .list-cell {
@@ -100,11 +100,11 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #333c56;
+    -fx-background-color: #2f4454;
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #707ea5;
+    -fx-background-color: #577287;
 }
 
 .list-cell:filled:selected {
@@ -151,7 +151,7 @@
 }
 
 .status-bar {
-    -fx-background-color: derive(#323a4f, 0%);
+    -fx-background-color: derive(#2b4356, 0%);
 }
 
 .result-display {
@@ -320,13 +320,7 @@
 }
 
 #tableCardPane {
-    -fx-background-color: #515658;
-    -fx-border-color: #1d1d1d;
-    -fx-scale-shape: false;
-}
-
-#menuItemCardPane {
-    -fx-background-color: #333c56;
+    -fx-background-color: #2f4454;
     -fx-border-color: #1d1d1d;
     -fx-scale-shape: false;
 }
@@ -370,7 +364,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #333c56, transparent, #333c56;
+    -fx-background-color: transparent, #2f4454, transparent, #2f4454;
     -fx-background-radius: 0;
 }
 

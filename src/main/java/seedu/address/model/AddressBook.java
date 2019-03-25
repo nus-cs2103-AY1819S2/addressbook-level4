@@ -31,8 +31,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */ {
+     * among constructors.
+     */ 
+    {
         patients = new UniquePatientList();
         doctors = new UniqueDoctorList();
         medHists = new UniqueMedHistList();

@@ -379,6 +379,15 @@ public class ModelManager implements Model {
         return insideTestSession;
     }
 
+    public void testNextCard() {
+        currentTestedCardIndex += 1;
+        if (currentTestedCardIndex == currentTestedCardFolder.size()) {
+            endTestSession();
+        }
+        Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
+        setCurrentTestedCard(cardToTest);
+    }
+
     //=========== Selected card ===========================================================================
 
     @Override

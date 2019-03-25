@@ -221,6 +221,11 @@ public interface Model extends Observable {
     void endTestSession();
 
     /**
+     * Test the next card in the current folder in this test session.
+     */
+    void testNextCard();
+
+    /**
      * Returns true if the given answer is right
      * false if answer is wrong
      */

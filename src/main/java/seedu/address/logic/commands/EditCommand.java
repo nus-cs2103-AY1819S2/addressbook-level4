@@ -26,10 +26,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Hour;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -89,7 +89,7 @@ public class EditCommand extends Command {
         ModuleTaken moduleTakenToEdit = lastShownList.get(index.getZeroBased());
         ModuleTaken editedModuleTaken = createEditedPerson(moduleTakenToEdit, editPersonDescriptor);
 
-        if (!moduleTakenToEdit.isSamePerson(editedModuleTaken) && model.hasPerson(editedModuleTaken)) {
+        if (!moduleTakenToEdit.isSameModuleTaken(editedModuleTaken) && model.hasPerson(editedModuleTaken)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

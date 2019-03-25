@@ -1,0 +1,16 @@
+{
+  "modulesTaken": [ {
+    "moduleInfoCode": "CS2103T",
+    "semester" : "Y3S2",
+    "expectedMinGrade" : "D",
+    "expectedMaxGrade" : "A",
+    "lectureHour" : "0",
+    "tagged": [ "friends" ]
+  }, {
+    "moduleInfoCode": "CS2103T",
+    "semester" : "Y3S2",
+    "expectedMinGrade" : "C",
+    "expectedMaxGrade" : "B",
+    "lectureHour" : "1"
+  } ]
+}

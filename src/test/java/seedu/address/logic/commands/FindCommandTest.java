@@ -26,7 +26,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.moduleinfo.ModuleInfoList;
-import seedu.address.model.person.FindModulePredicate;
+import seedu.address.model.moduletaken.FindModulePredicate;
 import seedu.address.testutil.FindModuleDescriptorBuilder;
 
 /**

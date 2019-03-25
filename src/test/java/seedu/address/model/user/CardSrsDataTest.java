@@ -7,17 +7,17 @@ import java.time.Instant;
 
 import org.junit.Test;
 
-public class CardDataTest {
+public class CardSrsDataTest {
 
-    private Instant instant = Instant.ofEpochMilli(123);
-    private CardSrsData cardData = new CardSrsData(1, 1, 1, instant);
+    private Instant date = Instant.now();
+    private CardSrsData testCardData = new CardSrsData(1, 1, 1, date);
 
     @Test
     public void equals() {
         //Different type of object -> returns false
-        assertFalse(cardData.equals(new Object()));
+        assertFalse(testCardData.equals(new Object()));
 
         //Same type of object -> returns true
-        assertTrue(cardData.equals(cardData));
+        assertTrue(testCardData.equals(testCardData));
     }
 }

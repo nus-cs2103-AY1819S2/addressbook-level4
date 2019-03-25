@@ -73,6 +73,7 @@ public class CsvUserStorage implements UserStorage {
      * @throws IOException
      */
     private void parseUserIntoFile(User user, Path filePath) throws IOException {
+        requireNonNull(filePath);
         user.getCards();
         List<String[]> data = new ArrayList<>();
 

@@ -13,12 +13,6 @@ import guitests.guihandles.ResultDisplayHandle;
 
 import seedu.address.model.person.Patient;
 
-<<<<<<< HEAD
-=======
-//import javax.print.Doc;
-
-
->>>>>>> b0218e781c950dc48a1ec1c59fb4f2ecc2a66825
 
 /**
  * A set of assertion methods useful for writing GUI tests.

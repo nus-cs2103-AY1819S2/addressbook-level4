@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COORDINATES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORIENTATION;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.BoundaryValueChecker;
@@ -74,7 +73,7 @@ public class PutShipCommand extends Command {
 
         try {
             checkEnoughBattleships(model, battleship, 1);
-            put(model, coordinates, battleship, orientation);
+            model.getHumanMapGrid().putShip(battleship, coordinates, orientation);
             model.deployBattleship(battleship, coordinates, orientation);
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             throw new CommandException(MESSAGE_OUT_OF_BOUNDS);
@@ -83,6 +82,7 @@ public class PutShipCommand extends Command {
         }
 
         Cell cellToEdit = model.getHumanMapGrid().getCell(coordinates);
+        model.updateUi();
 
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, cellToEdit));
     }
@@ -94,67 +94,6 @@ public class PutShipCommand extends Command {
             throws Exception {
         if (!model.isEnoughBattleships(battleship, numBattleship)) {
             throw new Exception("Not enough " + battleship.getName() + "s.");
-        }
-    }
-
-    /**
-     * Puts the *same* battleship object along vertical length.
-     * Pre-conditions: there are NO existing battleships along the vertical length, else will throw
-     * and exception.
-     */
-    public static void putAlongVertical(Model model, Coordinates coordinates, Battleship battleship) {
-        Index rowIndex = coordinates.getRowIndex();
-        Index colIndex = coordinates.getColIndex();
-
-        int length = battleship.getLength();
-
-        for (int i = 0; i < length; i++) {
-            Cell cellToInspect = model.getHumanMapGrid().getCell(rowIndex.getZeroBased() + i,
-                    colIndex.getZeroBased());
-
-            cellToInspect.putShip(battleship);
-        }
-    }
-
-    /**
-     * Puts the *same* battleship object along horizontal length.
-     * Pre-conditions: there are NO existing battleships along the horizontal length, else will throw
-     * and exception.
-     */
-    public static void put(Model model, Coordinates coordinates,
-                           Battleship battleship, Orientation orientation) {
-        int rowIndexAsInt = coordinates.getRowIndex().getZeroBased();
-        int colIndexAsInt = coordinates.getColIndex().getZeroBased();
-
-        int rowInt = rowIndexAsInt;
-        int colInt = colIndexAsInt;
-
-        for (int i = 0; i < battleship.getLength(); i++) {
-            if (orientation.isHorizontal()) {
-                colInt = colIndexAsInt + i;
-            } else {
-                rowInt = rowIndexAsInt + i;
-            }
-            model.getHumanMapGrid().putShip(new Coordinates(rowInt, colInt), battleship);
-        }
-    }
-
-    /**
-     * Puts the *same* battleship object along horizontal length.
-     * Pre-conditions: there are NO existing battleships along the horizontal length, else will throw
-     * and exception.
-     */
-    public static void putAlongHorizontal(Model model, Coordinates coordinates, Battleship battleship) {
-        Index rowIndex = coordinates.getRowIndex();
-        Index colIndex = coordinates.getColIndex();
-
-        int length = battleship.getLength();
-
-        for (int i = 0; i < length; i++) {
-            Cell cellToInspect = model.getHumanMapGrid().getCell(rowIndex.getZeroBased(),
-                    colIndex.getZeroBased() + i);
-
-            cellToInspect.putShip(battleship);
         }
     }
 

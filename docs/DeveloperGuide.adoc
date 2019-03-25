@@ -379,47 +379,48 @@ To be updated later
 
 === CRUD of patients
 
-Patients is one of the two valid types of Persons to store in the docX record.
-The following features are implemented or will be implemented for users of docX:
+Patients is one of the two valid types of Persons to be stored in the docX record.
+The following features are implemented or will be implemented for patients of docX:
 * Add patient
 * List all patients
-* Edit existing patient entries
+* Edit existing patients
 * Search patients by keywords
-* Delete existing patient entries
+* Delete existing patients
 
 ==== CRUD Patient features
 
 ===== Current(Proposed) Implementation
 
-When a user executes 'add-patient n/John Doe g/Male a/21 p/98765432'
+When a user executes 'add-patient n/John Doe g/Male a/21 p/98765432 adr/Utown College 2'
 
-Step1. LogicManager calls parseCommand("add") in AddressBookParser.
+Step1. LogicManager calls parseCommand("add-patient") in AddressBookParser.
 
 Step2. Based on the COMMAND_WORD, AddressBookParser builds a new AddCommandParser() and call function parse(arguments) of AddCommandParser;
 
-Step3. AddCommandParser parses the argument and get patient name, patient gender, age, phone and an optional tag. AddCommandParser calls constructors of Age, Gender, Phone and Tag and then calls the constructor of Patient. Then, AddCommandParser calls AddCommand(Patient).
+Step3. AddCommandParser parses the argument and get patient name, patient gender, age, phone, address and an optional tag. AddCommandParser calls constructors of Age, Gender, Phone, Address and Tag and then calls the constructor of Patient.
+	   Then, AddPatientCommandParser calls AddPatientCommand(Patient).
 
-Step4. LogicManager calls execute() of AddtCommand.
+Step4. LogicManager calls execute() of AddCPatientommand.
 
 Step5. execute() calls hasPatient() of Model. If patient does not exist, call addPatient() of Model.
 
 ==== List Patient feature
 
-{Explain here how list will be implemented}
+list-patient
 
 ==== Edit Patient feature
 
-{Explain here how edit will be implemented}
+edit-patient
 
 ==== Search Patient feature
 
-{Explain here how search will be implemented}
+search-patient
 
 ==== Delete Patient feature
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete")` API call.
 
-.Interactions Inside the Logic Component for the `delete` Command
+.Interactions Inside the Logic Component for the `delete-patient` Command
 image::DeletePersonSdForLogic.png[width="700"]
 
 === Medical History of patients

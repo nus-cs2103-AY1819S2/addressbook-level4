@@ -1,0 +1,15 @@
+{
+  "patients": [ {
+    "name": "Valid Patient",
+    "gender": "M",
+    "age": "24",
+    "phone": "94824241",
+    "address": "4th street"
+  }, {
+    "name": "Patient With Invalid Phone Field",
+    "gender": "M",
+    "age": "24",
+    "phone": "948asdf2424",
+    "address": "4th street"
+  } ]
+}

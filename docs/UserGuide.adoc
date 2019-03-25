@@ -34,7 +34,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add-patient`**`n/John Doe p/98765432 a/22 g/M ` : adds a patient named `John Doe` to docX.
+* **`add-patient`**`n/John Doe p/98765432 a/22 g/M adr/Utown College ` : adds a patient named `John Doe` to docX.
 * **`delete-doctor`**`3` : deletes the 3rd doctor shown in the current list
 * *`exit`* : exits the app
 
@@ -59,15 +59,15 @@ Format: `help`
 === Adding a patient: `add-patient`
 
 Adds a patient to docX +
-Format: `add-patient n/NAME g/GENDER [a/AGE] p/PHONE_NUMBER`
+Format: `add-patient n/NAME g/GENDER [a/AGE] p/PHONE_NUMBER adr/ADDRESS`
 
 // [TIP]
 // A person can have any number of tags (including 0)
 
 Examples:
 
-* `add-patient n/John Doe g/Male a/21 p/98765432`
-* `add-patient n/Betsy Crowe g/Female p/1234567 a/32`
+* `add-patient n/John Doe g/Male a/21 p/98765432 adr/Utown College 2`
+* `add-patient n/Betsy Crowe g/Female p/1234567 a/32 adr/RVRC House 12`
 
 === Listing all patients : `list-patient`
 
@@ -77,7 +77,7 @@ Format: `list-patient`
 === Editing a patient : `edit-patient`
 
 Edits an existing patient in docX. +
-Format: `edit-patient INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE]`
+Format: `edit-patient INDEX [n/NAME] [g/GENDER] [a/AGE] [p/PHONE] [adr/ADDRESS]`
 
 ****
 * Edits the patient at the specified `INDEX`. The index refers to the identification number (ID) of the patient. The index *must be a positive integer* 1, 2, 3, ...
@@ -94,8 +94,8 @@ Edits the name and phone number of the patient with ID of '2' to be `Betsy Crowe
 
 === Locating patient by name: `search-patient`
 
-Finds patient(s) whose names contain any of the given keywords. +
-Format: `search-patient NAME [PHONE_NUMBER]`
+Search and return patient(s) whose names contain any of the given keywords. +
+Format: `search-patient [NAME] [PHONE_NUMBER]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`

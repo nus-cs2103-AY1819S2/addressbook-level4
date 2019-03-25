@@ -1,3 +1,4 @@
+/*
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -14,9 +15,11 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
+*/
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
- */
+ *//*
+
 public class AddCommandIntegrationTest {
 
     private Model model;
@@ -47,3 +50,4 @@ public class AddCommandIntegrationTest {
     }
 
 }
+*/

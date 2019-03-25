@@ -1,3 +1,4 @@
+/*
 package seedu.address.model.person;
 
 import static org.junit.Assert.assertFalse;
@@ -97,3 +98,4 @@ public class PersonTest {
         assertFalse(ALICE.equals(editedAlice));
     }
 }
+*/

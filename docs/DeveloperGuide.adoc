@@ -236,7 +236,15 @@ This section describes some noteworthy details on how certain features are imple
 // tag::initmap[]
 === Map Feature
 ==== Current Implementation
-A map grid is a 2D array made up of `Cell` objects. This 2D array is encapsulated within the `MapGrid` class.
+The map feature is facilitated by `MapGrid`.
+The map grid is stored as a 2D array of `Cell`.
+This 2D array is encapsulated within the `MapGrid` class.
+`MapGrid` implements the following method to initialise the map.
+
+* `MapGrid#initialise(Cell[][] map)` -- initialises the map using the given `Cell` 2D array.
+
+The following sequence diagram shows how a map is initialised:
+
 
 ==== Design Considerations
 ===== Aspect: How initialise map works

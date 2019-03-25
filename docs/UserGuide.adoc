@@ -34,7 +34,7 @@ you input for each tooth's status(Absent, Problem, Healthy).
 In addition to that, TeethHub also allows you to keep track of your upcoming tasks,
 just like a calendar.
 
-Interested in trying TeethHub out? Check out section 2 <<_prerequisites>> to
+Interested in trying TeethHub out? Check out section 2 <<prerequisites>> to
 see what programs you need in order for TeethHub to
 work properly. Once that’s settled, or you’re confident in your computer
 set-up, jump to section 3 [Quick Start Guide] to begin!

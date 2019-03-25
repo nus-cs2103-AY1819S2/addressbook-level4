@@ -361,7 +361,7 @@ Format: `recordadd desc/DETAILS`
 
 Example
 
-* `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
 * `recordadd desc/Mouth was noticeably smelly, might have halitosis` - Adds a new dental record.
 
@@ -383,7 +383,7 @@ Format: `recorddelete INDEX`
 
 Example:
 
-* `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
 * `recorddelete 1` - Delete the latest dental record of the specified patient
 
@@ -407,7 +407,7 @@ Format: `recordedit INDEX desc/DETAILS`
 
 Example:
 
-* `goto 1` - Displays dental records of the first patient in the list and hides the patient list.
+* `<<goto, goto>> 1` - Displays dental records of the first patient in the list and hides the patient list.
 
 * `recordedit 1 desc/corrected description` - Modifies the description of the first dental record of the specified patient.
 
@@ -445,7 +445,7 @@ All permanent teeth in template will all be present and healthy by default.
 
 * To edit a new specific tooth:
 
-** `goto 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
+** `<<goto, goto>> 1` - Specifies patient 1 to edit his or her teeth status. Enters the record edit mode.
 
 ** `teeth edit t/TEETH_LABEL s/STATUS` - Edits the status of the indicated tooth of patient.
 

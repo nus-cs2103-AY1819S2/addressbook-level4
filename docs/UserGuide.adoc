@@ -222,6 +222,25 @@ Returns a list of places located in `China`
 * `searchc JPN DEU` +
 Returns a list of places located in either `Japan` or `Germany`
 
+=== Searching places by year of visit: `searchyear`
+
+The `searchyear` command helps you to search for places whose year of visit matches the specified year of interest.
+
+Format: `searchyear KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search year ranges from 1900 to the current year. e.g `2016` will return places visited in the year 2016.
+* Searches outside the range will issue a warning.
+* Only the year of visit is searched.
+****
+
+Examples:
+
+* `searchyear 2017` +
+Returns a list of places visited in the year `2017`
+* `searchyear 2016 2018` +
+Returns a list of places visited in the year `2016` or `2018`
+
 
 === Deleting a place : `delete`
 

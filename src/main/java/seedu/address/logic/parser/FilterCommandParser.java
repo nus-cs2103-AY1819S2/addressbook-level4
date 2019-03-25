@@ -24,7 +24,7 @@ import seedu.address.model.tag.Specialisation;
  */
 public class FilterCommandParser implements Parser<FilterCommand> {
 
-    public static final String MESSAGE_USAGE = FilterCommand.INVALID_MESSAGE_FORMAT +"\n"
+    public static final String MESSAGE_USAGE = FilterCommand.INVALID_MESSAGE_FORMAT + "\n"
             + FilterHealthWorkerCommand.MESSAGE_USAGE;
 
     /**
@@ -66,7 +66,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         if (argumentMultimap.getValue(PREFIX_NAME).isPresent()) {
             predicateList.add(x -> ((HealthWorker) x).getName().contains(argumentMultimap.getValue(PREFIX_NAME).get()));
-    }
+        }
         if (argumentMultimap.getValue(PREFIX_ORGANIZATION).isPresent()) {
             predicateList.add(x -> ((HealthWorker) x).getOrganization().contains(argumentMultimap
                     .getValue(PREFIX_ORGANIZATION).get()));

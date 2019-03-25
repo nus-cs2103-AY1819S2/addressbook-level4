@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 
 /**
- * Finds and lists all cards in card folder whose question contains any of the argument keywords.
+ * Finds and lists all cards in folder folder whose question contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class SearchCommand extends Command {

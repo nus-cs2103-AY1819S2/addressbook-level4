@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 
 /**
- * Selects a card identified using it's displayed index from the card folder.
+ * Selects a folder identified using it's displayed index from the folder folder.
  */
 public class ChangeCommand extends Command {
 
@@ -21,7 +21,7 @@ public class ChangeCommand extends Command {
 
     // TODO: Include use case for changing to home directory
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Changes the card folder that the user is in.\n"
+            + ": Changes the folder folder that the user is in.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -52,7 +52,7 @@ public class ChangeCommand extends Command {
             }
             model.exitFoldersToHome();
             return new CommandResult(MESSAGE_EXIT_FOLDER_SUCCESS,
-                    false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                    false, false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
         } else {
             if (model.isInFolder()) {
                 throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
@@ -63,7 +63,7 @@ public class ChangeCommand extends Command {
             }
             model.setActiveCardFolderIndex(targetIndex.getZeroBased());
             return new CommandResult(String.format(MESSAGE_ENTER_FOLDER_SUCCESS, targetIndex.getOneBased()),
-                    false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                    false, false, true, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
         }
     }
 

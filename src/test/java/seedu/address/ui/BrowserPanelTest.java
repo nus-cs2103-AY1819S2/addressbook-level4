@@ -25,10 +25,10 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     @Test
     public void display() throws Exception {
-        // default (empty) card page
+        // default (empty) folder page
         assertEquals("", browserPanelHandle.getCurrentQuestion());
 
-        // associated web page of a card
+        // associated web page of a folder
         guiRobot.interact(() -> selectedCard.set(ALICE));
 
         String expectedCardQuestion = ALICE.getQuestion().fullQuestion;

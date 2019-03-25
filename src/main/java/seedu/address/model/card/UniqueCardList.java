@@ -14,8 +14,8 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
- * A card is considered unique by comparing using {@code Card#equals(Card)}. As such, adding and updating of
- * cards uses Card#equals(Card) for equality so as to ensure that the card being added or updated is
+ * A folder is considered unique by comparing using {@code Card#equals(Card)}. As such, adding and updating of
+ * cards uses Card#equals(Card) for equality so as to ensure that the folder being added or updated is
  * unique in terms of identity in the UniqueCardList.
  *
  * Supports a minimal set of list operations.
@@ -29,7 +29,7 @@ public class UniqueCardList implements Iterable<Card> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent card as the given argument.
+     * Returns true if the list contains an equivalent folder as the given argument.
      */
     public boolean contains(Card toCheck) {
         requireNonNull(toCheck);
@@ -37,8 +37,15 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Adds a card to the list.
-     * The card must not already exist in the list.
+     * Returns the number of cards in the list.
+     */
+    public int size() {
+        return internalList.size();
+    }
+
+    /**
+     * Adds a folder to the list.
+     * The folder must not already exist in the list.
      */
     public void add(Card toAdd) {
         requireNonNull(toAdd);
@@ -49,9 +56,9 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Replaces the card {@code target} in the list with {@code editedCard}.
+     * Replaces the folder {@code target} in the list with {@code editedCard}.
      * {@code target} must exist in the list.
-     * The card identity of {@code editedCard} must not be the same as another existing card in the list.
+     * The folder identity of {@code editedCard} must not be the same as another existing folder in the list.
      */
     public void setCard(Card target, Card editedCard) {
         requireAllNonNull(target, editedCard);
@@ -69,8 +76,8 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Removes the equivalent card from the list.
-     * The card must exist in the list.
+     * Removes the equivalent folder from the list.
+     * The folder must exist in the list.
      */
     public void remove(Card toRemove) {
         requireNonNull(toRemove);
@@ -122,7 +129,7 @@ public class UniqueCardList implements Iterable<Card> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueCardList // instanceof handles nulls
-                        && internalList.equals(((UniqueCardList) other).internalList));
+                    && internalList.equals(((UniqueCardList) other).internalList));
     }
 
     @Override

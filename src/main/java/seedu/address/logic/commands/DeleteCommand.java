@@ -12,14 +12,14 @@ import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 
 /**
- * Deletes a card identified using it's displayed index from the card folder.
+ * Deletes a folder identified using it's displayed index from the folder folder.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the card identified by the index number used in the displayed card list.\n"
+            + ": Deletes the folder identified by the index number used in the displayed folder list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

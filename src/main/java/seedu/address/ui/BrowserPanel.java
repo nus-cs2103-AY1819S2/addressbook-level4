@@ -42,7 +42,7 @@ public class BrowserPanel extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // Load card page when selected card changes.
+        // Load folder page when selected folder changes.
         selectedCard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadDefaultCard();
@@ -55,7 +55,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
-     * Load the current selected {@code Card} into the browser panel with all card info.
+     * Load the current selected {@code Card} into the browser panel with all folder info.
      * @param card selected to be displayed.
      */
     private void loadCardPage(Card card) {
@@ -75,7 +75,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
-     * Loads a default blank card with a background that matches the general theme.
+     * Loads a default blank folder with a background that matches the general theme.
      */
     private void loadDefaultCard() {
         cardPage.getChildren().clear();

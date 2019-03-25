@@ -14,14 +14,14 @@ import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
 
 /**
- * Test a card folder identified using it's displayed index from the card folder list.
+ * Test a folder folder identified using it's displayed index from the folder folder list.
  */
 public class TestCommand extends Command {
 
     public static final String COMMAND_WORD = "test";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Tests the card folder identified by the index number used in the displayed card folders list.\n"
+            + ": Tests the folder folder identified by the index number used in the displayed folder folders list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -49,7 +49,7 @@ public class TestCommand extends Command {
         model.setActiveCardFolderIndex(targetIndex.getZeroBased());
         model.testCardFolder(targetIndex.getZeroBased());
         Card cardToTest = model.getCurrentTestedCard();
-        return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, cardToTest, false,
+        return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, false, cardToTest, false,
                 AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 

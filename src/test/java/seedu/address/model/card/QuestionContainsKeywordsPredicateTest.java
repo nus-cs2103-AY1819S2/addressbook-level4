@@ -37,7 +37,7 @@ public class QuestionContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different card -> returns false
+        // different folder -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 

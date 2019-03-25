@@ -105,7 +105,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the card folder, filtered card list and selected card in {@code actualModel} remain unchanged <br>
+     * - the folder folder, filtered folder list and selected folder in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -131,8 +131,8 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the card at the given {@code targetIndex} in the
-     * {@code model}'s card folder.
+     * Updates {@code model}'s filtered list to show only the folder at the given {@code targetIndex} in the
+     * {@code model}'s folder folder.
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredCards().size());
@@ -145,7 +145,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Deletes the first card in {@code model}'s filtered list from {@code model}'s card folder.
+     * Deletes the first folder in {@code model}'s filtered list from {@code model}'s folder folder.
      */
     public static void deleteFirstCard(Model model) {
         Card firstCard = model.getFilteredCards().get(0);

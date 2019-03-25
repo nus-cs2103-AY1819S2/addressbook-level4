@@ -14,7 +14,7 @@ import seedu.address.model.card.Card;
 public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
     public static final String CARD_LIST_VIEW_ID = "#cardListView";
 
-    private static final String CARD_PANE_ID = "#thumbnailPane";
+    private static final String CARD_PANE_ID = "#cardThumbnailPane";
 
     private Optional<Card> lastRememberedSelectedCardCard;
 
@@ -25,8 +25,8 @@ public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
     /**
      * Returns a handle to the selected {@code CardThumbnailHandle}.
      * A maximum of 1 item can be selected at any time.
-     * @throws AssertionError if no card is selected, or more than 1 card is selected.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
+     * @throws AssertionError if no folder is selected, or more than 1 folder is selected.
+     * @throws IllegalStateException if the selected folder is currently not in the scene graph.
      */
     public CardThumbnailHandle getHandleToSelectedCard() {
         List<Card> selectedCardList = getRootNode().getSelectionModel().getSelectedItems();
@@ -43,14 +43,14 @@ public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
     }
 
     /**
-     * Returns the index of the selected card.
+     * Returns the index of the selected folder.
      */
     public int getSelectedCardIndex() {
         return getRootNode().getSelectionModel().getSelectedIndex();
     }
 
     /**
-     * Returns true if a card is currently selected.
+     * Returns true if a folder is currently selected.
      */
     public boolean isAnyCardSelected() {
         List<Card> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
@@ -63,7 +63,7 @@ public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
     }
 
     /**
-     * Navigates the listview to display {@code card}.
+     * Navigates the listview to display {@code folder}.
      */
     public void navigateToCard(Card card) {
         if (!getRootNode().getItems().contains(card)) {
@@ -98,8 +98,8 @@ public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
     }
 
     /**
-     * Returns the card card handle of a card associated with the {@code index} in the list.
-     * @throws IllegalStateException if the selected card is currently not in the scene graph.
+     * Returns the folder folder handle of a folder associated with the {@code index} in the list.
+     * @throws IllegalStateException if the selected folder is currently not in the scene graph.
      */
     public CardThumbnailHandle getCardCardHandle(int index) {
         return getAllCardNodes().stream()
@@ -114,7 +114,7 @@ public class CardListPanelHandle extends NodeHandle<ListView<Card>> {
     }
 
     /**
-     * Returns all card nodes in the scene graph.
+     * Returns all folder nodes in the scene graph.
      * Card nodes that are visible in the listview are definitely in the scene graph, while some nodes that are not
      * visible in the listview may also be in the scene graph.
      */

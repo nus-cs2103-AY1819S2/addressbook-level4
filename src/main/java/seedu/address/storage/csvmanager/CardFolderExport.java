@@ -3,7 +3,7 @@ package seedu.address.storage.csvmanager;
 import static java.util.Objects.requireNonNull;
 
 /**
- * represents a card folder for export
+ * represents a folder folder for export
  */
 public class CardFolderExport {
 

@@ -90,9 +90,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s card folder and {@code userPrefs}. <br>
-     * The data from the sample card folder will be used instead if {@code storage}'s card folder is not found,
-     * or an empty card folder will be used instead if errors occur when reading {@code storage}'s card folder.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s folder folder and {@code userPrefs}. <br>
+     * The data from the sample folder folder will be used instead if {@code storage}'s folder folder is not found,
+     * or an empty folder folder will be used instead if errors occur when reading {@code storage}'s folder folder.
      */
     Model initModelManager(boolean withSample, Storage storage, ReadOnlyUserPrefs userPrefs) {
         List<ReadOnlyCardFolder> initialCardFolders;
@@ -198,7 +198,7 @@ public class MainApp extends Application {
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping card folder ] =============================");
+        logger.info("============================ [ Stopping folder folder ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

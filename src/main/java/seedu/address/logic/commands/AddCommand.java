@@ -12,13 +12,13 @@ import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 
 /**
- * Adds a card to the card folder.
+ * Adds a folder to the folder folder.
  */
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the card folder. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a folder to the folder folder. "
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_ANSWER + "ANSWER "
@@ -28,8 +28,8 @@ public class AddCommand extends Command {
             + PREFIX_ANSWER + "Mitochondria "
             + PREFIX_HINT + "Rhymes with Hypochondria ";
 
-    public static final String MESSAGE_SUCCESS = "New card added: %1$s";
-    public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the card folder";
+    public static final String MESSAGE_SUCCESS = "New folder added: %1$s";
+    public static final String MESSAGE_DUPLICATE_CARD = "This folder already exists in the folder folder";
 
     private final Card toAdd;
 

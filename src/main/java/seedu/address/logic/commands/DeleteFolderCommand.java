@@ -20,7 +20,7 @@ public class DeleteFolderCommand extends Command {
     public static final String COMMAND_WORD = "deletefolder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the card folder identified by the index number used in the displayed list.\n"
+            + ": Deletes the folder folder identified by the index number used in the displayed list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -48,7 +48,7 @@ public class DeleteFolderCommand extends Command {
 
         model.deleteFolder(targetIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_DELETE_FOLDER_SUCCESS, cardFolderToDelete),
-                false, false, true, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                false, false, true, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 
     @Override

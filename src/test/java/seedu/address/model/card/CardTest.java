@@ -69,7 +69,7 @@ public class CardTest {
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
-        // different card -> returns false
+        // different folder -> returns false
         assertFalse(ALICE.equals(CARD_2));
 
         // different question -> returns false

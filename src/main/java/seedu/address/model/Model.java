@@ -48,17 +48,17 @@ public interface Model extends Observable {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' card folder file path.
+     * Returns the user prefs' folder folder file path.
      */
     Path getcardFolderFilesPath();
 
     /**
-     * Sets the user prefs' card folder file path.
+     * Sets the user prefs' folder folder file path.
      */
     void setcardFolderFilesPath(Path cardFolderFilesPath);
 
     /**
-     * Replaces card folder data with the data in {@code cardFolder}.
+     * Replaces folder folder data with the data in {@code cardFolder}.
      */
     void resetCardFolder(ReadOnlyCardFolder cardFolder);
 
@@ -69,33 +69,33 @@ public interface Model extends Observable {
     List<ReadOnlyCardFolder> getCardFolders();
 
     /**
-     * Returns true if a card with the same identity as {@code card} exists in the card folder.
+     * Returns true if a folder with the same identity as {@code folder} exists in the folder folder.
      */
     boolean hasCard(Card card);
 
     /**
-     * Deletes the given card.
-     * The card must exist in the card folder.
+     * Deletes the given folder.
+     * The folder must exist in the folder folder.
      */
     void deleteCard(Card target);
 
     /**
-     * Adds the given card.
-     * {@code card} must not already exist in the card folder.
+     * Adds the given folder.
+     * {@code folder} must not already exist in the folder folder.
      */
     void addCard(Card card);
 
     /**
-     * Replaces the given card {@code target} with {@code editedCard}.
-     * {@code target} must exist in the card folder.
-     * The card identity of {@code editedCard} must not be the same as another existing card in the card folder.
+     * Replaces the given folder {@code target} with {@code editedCard}.
+     * {@code target} must exist in the folder folder.
+     * The folder identity of {@code editedCard} must not be the same as another existing folder in the folder folder.
      */
     void setCard(Card target, Card editedCard);
 
     // TODO: Implement hasFolder and setFolder
 
     /**
-     * Returns true if a card folder with the same identity as {@code cardFolder} exists.
+     * Returns true if a folder folder with the same identity as {@code cardFolder} exists.
      */
     boolean hasFolder(CardFolder cardFolder);
 
@@ -128,80 +128,83 @@ public interface Model extends Observable {
 
     boolean isInFolder();
 
-    /** Returns an unmodifiable view of the filtered card list */
+    /** Returns an unmodifiable view of the filtered folder list */
     ObservableList<Card> getFilteredCards();
 
+    /** Returns an unmodifiable view of the filtered folders list */
+    ObservableList<VersionedCardFolder> getFilteredFolders();
+
     /**
-     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered folder list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredCard(Predicate<Card> predicate);
 
     /**
-     * Updates the filter of the filtered card list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered folder list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void sortFilteredCard(Comparator<Card> cardComparator);
 
     /**
-     * Returns true if the model has previous card folder states to restore.
+     * Returns true if the model has previous folder folder states to restore.
      */
     boolean canUndoActiveCardFolder();
 
     /**
-     * Returns true if the model has undone card folder states to restore.
+     * Returns true if the model has undone folder folder states to restore.
      */
     boolean canRedoActiveCardFolder();
 
     /**
-     * Restores the model's card folder to its previous state.
+     * Restores the model's folder folder to its previous state.
      */
     void undoActiveCardFolder();
 
     /**
-     * Restores the model's card folder to its previously undone state.
+     * Restores the model's folder folder to its previously undone state.
      */
     void redoActiveCardFolder();
 
     /**
-     * Saves the current card folder state for undo/redo.
+     * Saves the current folder folder state for undo/redo.
      */
     void commitActiveCardFolder();
 
     /**
-     * Selected card in the filtered card list.
-     * null if no card is selected.
+     * Selected folder in the filtered folder list.
+     * null if no folder is selected.
      */
     ReadOnlyProperty<Card> selectedCardProperty();
 
     /**
-     * Returns the selected card in the filtered card list.
-     * null if no card is selected.
+     * Returns the selected folder in the filtered folder list.
+     * null if no folder is selected.
      */
     Card getSelectedCard();
 
     /**
-     * Sets the selected card in the filtered card list.
+     * Sets the selected folder in the filtered folder list.
      */
     void setSelectedCard(Card card);
 
     /**
-     * Checks whether list of card folder names specified is found inside model
+     * Checks whether list of folder folder names specified is found inside model
      */
     List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders);
 
     /**
-     * Enters a test session using the specified card folder index.
+     * Enters a test session using the specified folder folder index.
      */
     void testCardFolder(int cardFolderToTestIndex);
 
     /**
-     * Sets the current card in the test session.
+     * Sets the current folder in the test session.
      */
     void setCurrentTestedCard(Card card);
 
     /**
-     * Returns the current card in the test session
+     * Returns the current folder in the test session
      * null if there is no cards in folder or user is not in a test session.
      */
     Card getCurrentTestedCard();
@@ -224,12 +227,12 @@ public interface Model extends Observable {
     boolean markAttemptedAnswer(Answer attemptedAnswer);
 
     /**
-     * Set cardAlreadyAnswered variable to true to indicate current card as answered
+     * Set cardAlreadyAnswered variable to true to indicate current folder as answered
      */
     void setCardAsAnswered();
 
     /**
-     * Returns true if the answer has already been input for that card
+     * Returns true if the answer has already been input for that folder
      * false if otherwise
      */
     boolean checkIfCardAlreadyAnswered();
@@ -237,6 +240,4 @@ public interface Model extends Observable {
     void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException;
 
     void importCardFolders(CsvFile csvFile) throws IOException;
-
-
 }

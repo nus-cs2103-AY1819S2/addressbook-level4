@@ -12,14 +12,14 @@ import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 
 /**
- * Selects a card identified using it's displayed index from the card folder.
+ * Selects a folder identified using it's displayed index from the folder folder.
  */
 public class SelectCommand extends Command {
 
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the card identified by the index number used in the displayed card list.\n"
+            + ": Selects the folder identified by the index number used in the displayed folder list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

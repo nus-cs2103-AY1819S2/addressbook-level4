@@ -52,7 +52,7 @@ public class SearchCommandTest {
         // null -> returns false
         assertFalse(searchFirstCommand.equals(null));
 
-        // different card -> returns false
+        // different folder -> returns false
         assertFalse(searchFirstCommand.equals(searchSecondCommand));
     }
 

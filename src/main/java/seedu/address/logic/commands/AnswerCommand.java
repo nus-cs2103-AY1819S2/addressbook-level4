@@ -13,8 +13,8 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.Score;
 
 /**
- * Allows user to input an answer for the currently displayed card, compares it with the
- * correct answer in that card and tell the user if it is correct or wrong.
+ * Allows user to input an answer for the currently displayed folder, compares it with the
+ * correct answer in that folder and tell the user if it is correct or wrong.
  * Answer matching is case insensitive.
  */
 public class AnswerCommand extends Command {
@@ -22,7 +22,7 @@ public class AnswerCommand extends Command {
     public static final String COMMAND_WORD = "ans";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": User inputs an answer for the"
-            + " currently displayed card.\n"
+            + " currently displayed folder.\n"
             + "Parameters: ANSWER \n"
             + "Example: " + COMMAND_WORD + " Mitochondrion";
 
@@ -54,10 +54,10 @@ public class AnswerCommand extends Command {
         model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         model.commitActiveCardFolder();
         if (isAttemptCorrect) {
-            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, null,
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, false, null,
                     false, AnswerCommandResultType.ANSWER_CORRECT);
         } else {
-            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, null,
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, false, null,
                     false, AnswerCommandResultType.ANSWER_WRONG);
         }
     }
@@ -65,7 +65,7 @@ public class AnswerCommand extends Command {
     /**
      *
      * @param cardToMark {@code Card} which is being marked correct or wrong
-     * @param markCorrect Boolean representing if card should be graded correct or wrong
+     * @param markCorrect Boolean representing if folder should be graded correct or wrong
      * @return Card created with new score
      */
     private static Card createScoredCard(Card cardToMark, boolean markCorrect) {

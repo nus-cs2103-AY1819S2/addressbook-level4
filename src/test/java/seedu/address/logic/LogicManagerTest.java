@@ -107,7 +107,7 @@ public class LogicManagerTest {
     @Test
     public void getFilteredCardList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredCardList().remove(0);
+        logic.getFilteredCards().remove(0);
     }
 
     /**
@@ -149,7 +149,7 @@ public class LogicManagerTest {
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
      *      - the internal model manager data are same as those in the {@code expectedModel} <br>
-     *      - {@code expectedModel}'s card folder was saved to the storage file.
+     *      - {@code expectedModel}'s folder folder was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
                                            String expectedMessage, Model expectedModel) {

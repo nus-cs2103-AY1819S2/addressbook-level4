@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import seedu.address.model.card.Card;
 
 /**
- * Provides a handle to a card card in the card list panel.
+ * Provides a handle to a folder folder in the folder list panel.
  */
 public class CardThumbnailHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
@@ -30,7 +30,7 @@ public class CardThumbnailHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this handle contains {@code card}.
+     * Returns true if this handle contains {@code folder}.
      */
     public boolean equals(Card card) {
         return getQuestion().equals(card.getQuestion().fullQuestion);

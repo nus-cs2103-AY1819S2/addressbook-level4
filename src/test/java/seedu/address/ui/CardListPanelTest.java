@@ -72,7 +72,7 @@ public class CardListPanelTest extends GuiUnitTest {
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of card cards exceeded time limit");
+        }, "Creation and deletion of folder cards exceeded time limit");
     }
 
     /**

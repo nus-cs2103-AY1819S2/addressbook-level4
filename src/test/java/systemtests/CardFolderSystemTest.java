@@ -131,7 +131,7 @@ public abstract class CardFolderSystemTest {
     }
 
     /**
-     * Displays all cards in the card folder.
+     * Displays all cards in the folder folder.
      */
     protected void showAllCards() {
         executeCommand(ListCommand.COMMAND_WORD);
@@ -147,7 +147,7 @@ public abstract class CardFolderSystemTest {
     }
 
     /**
-     * Selects the card at {@code index} of the displayed list.
+     * Selects the folder at {@code index} of the displayed list.
      */
     protected void selectCard(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
@@ -155,7 +155,7 @@ public abstract class CardFolderSystemTest {
     }
 
     /**
-     * Deletes all cards in the card folder.
+     * Deletes all cards in the folder folder.
      */
     protected void deleteAllCards() {
         executeCommand(ClearCommand.COMMAND_WORD);
@@ -164,8 +164,8 @@ public abstract class CardFolderSystemTest {
 
     /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
-     * {@code expectedResultMessage}, the storage contains the same card objects as {@code expectedModel}
-     * and the card list panel displays the cards in the model correctly.
+     * {@code expectedResultMessage}, the storage contains the same folder objects as {@code expectedModel}
+     * and the folder list panel displays the cards in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
             Model expectedModel) {
@@ -188,7 +188,7 @@ public abstract class CardFolderSystemTest {
     }
 
     /**
-     * Asserts that the previously selected card is now deselected and the browser's url is now displaying the
+     * Asserts that the previously selected folder is now deselected and the browser's url is now displaying the
      * default page.
      * @see BrowserPanelHandle#isQuestionChanged()
      */
@@ -198,8 +198,8 @@ public abstract class CardFolderSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the card in the card list panel at
-     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * Asserts that the browser's url is changed to display the details of the folder in the folder list panel at
+     * {@code expectedSelectedCardIndex}, and only the folder at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isQuestionChanged()
      * @see CardListPanelHandle#isSelectedCardCardChanged()
      */
@@ -212,7 +212,7 @@ public abstract class CardFolderSystemTest {
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the card list panel remain unchanged.
+     * Asserts that the browser's url and the selected folder in the folder list panel remain unchanged.
      * @see BrowserPanelHandle#isQuestionChanged()
      * @see CardListPanelHandle#isSelectedCardCardChanged()
      */

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Hint in the card folder.
+ * Represents a Hint in the folder folder.
  * Guarantees: immutable; question is valid as declared in {@link #isValidHintName(String)}
  */
 public class Hint {

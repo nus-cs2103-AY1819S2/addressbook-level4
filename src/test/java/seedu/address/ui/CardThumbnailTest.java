@@ -34,7 +34,7 @@ public class CardThumbnailTest extends GuiUnitTest {
         Card card = new CardBuilder().build();
         CardThumbnail cardThumbnail = new CardThumbnail(card, 0);
 
-        // same card, same index -> returns true
+        // same folder, same index -> returns true
         CardThumbnail copy = new CardThumbnail(card, 0);
         assertTrue(cardThumbnail.equals(copy));
 
@@ -47,11 +47,11 @@ public class CardThumbnailTest extends GuiUnitTest {
         // different types -> returns false
         assertFalse(cardThumbnail.equals(0));
 
-        // different card, same index -> returns false
+        // different folder, same index -> returns false
         Card differentCard = new CardBuilder().withQuestion("differentName").build();
         assertFalse(cardThumbnail.equals(new CardThumbnail(differentCard, 0)));
 
-        // same card, different index -> returns false
+        // same folder, different index -> returns false
         assertFalse(cardThumbnail.equals(new CardThumbnail(card, 1)));
     }
 
@@ -67,7 +67,7 @@ public class CardThumbnailTest extends GuiUnitTest {
         // verify id is displayed correctly
         assertEquals(Integer.toString(expectedId) + ". ", cardThumbnailHandle.getId());
 
-        // verify card details are displayed correctly
+        // verify folder details are displayed correctly
         assertCardDisplaysCard(expectedCard, cardThumbnailHandle);
     }
 }

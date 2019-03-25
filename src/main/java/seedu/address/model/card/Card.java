@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.hint.Hint;
 
 /**
- * Represents a Card in the card folder.
+ * Represents a Card in the folder folder.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Card {

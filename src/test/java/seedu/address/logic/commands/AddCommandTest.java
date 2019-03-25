@@ -21,7 +21,6 @@ import org.junit.rules.ExpectedException;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -29,6 +28,7 @@ import seedu.address.model.CardFolder;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.VersionedCardFolder;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CardFolderExport;
@@ -93,7 +93,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different card -> returns false
+        // different folder -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -262,6 +262,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<VersionedCardFolder> getFilteredFolders() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredCard(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
         }
@@ -323,7 +328,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single card.
+     * A Model stub that contains a single folder.
      */
     private class ModelStubWithCard extends ModelStub {
         private final Card card;
@@ -346,7 +351,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always accept the card being added.
+     * A Model stub that always accept the folder being added.
      */
     private class ModelStubAcceptingCardAdded extends ModelStub {
         final ArrayList<Card> cardsAdded = new ArrayList<>();

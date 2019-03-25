@@ -124,7 +124,7 @@ public class EditCommandTest {
     public void execute_duplicateCardFilteredList_failure() {
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
-        // edit card in filtered list into a duplicate in card folder
+        // edit folder in filtered list into a duplicate in folder folder
         Card cardInList = model.getActiveCardFolder().getCardList().get(INDEX_SECOND_CARD.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD,
                 new EditCardDescriptorBuilder(cardInList).build());
@@ -144,13 +144,13 @@ public class EditCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of card folder
+     * but smaller than size of folder folder
      */
     @Test
     public void execute_invalidCardIndexFilteredList_failure() {
         showCardAtIndex(model, INDEX_FIRST_CARD);
         Index outOfBoundIndex = INDEX_SECOND_CARD;
-        // ensures that outOfBoundIndex is still in bounds of card folder list
+        // ensures that outOfBoundIndex is still in bounds of folder folder list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getActiveCardFolder().getCardList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
@@ -170,14 +170,14 @@ public class EditCommandTest {
         expectedModel.setCard(cardToEdit, editedCard);
         expectedModel.commitActiveCardFolder();
 
-        // edit -> first card edited
+        // edit -> first folder edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts cardfolder back to previous state and filtered card list to show all cards
+        // undo -> reverts cardfolder back to previous state and filtered folder list to show all cards
         expectedModel.undoActiveCardFolder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first card edited again
+        // redo -> same first folder edited again
         expectedModel.redoActiveCardFolder();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -189,10 +189,10 @@ public class EditCommandTest {
                 .withQuestion(VALID_QUESTION_2).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> card folder state not added into model
+        // execution failed -> folder folder state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
-        // single card folder state in model -> undoCommand and redoCommand fail
+        // single folder folder state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -200,9 +200,9 @@ public class EditCommandTest {
     /**
      * 1. Edits a {@code Card} from a filtered list.
      * 2. Undo the edit.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously edited card in the
+     * 3. The unfiltered list should be shown now. Verify that the index of the previously edited folder in the
      * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the edit. This ensures {@code RedoCommand} edits the card object regardless of indexing.
+     * 4. Redo the edit. This ensures {@code RedoCommand} edits the folder object regardless of indexing.
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameCardEdited() throws Exception {
@@ -217,15 +217,15 @@ public class EditCommandTest {
         expectedModel.setCard(cardToEdit, editedCard);
         expectedModel.commitActiveCardFolder();
 
-        // edit -> edits second card in unfiltered card list / first card in filtered card list
+        // edit -> edits second folder in unfiltered folder list / first folder in filtered folder list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts cardfolder back to previous state and filtered card list to show all cards
+        // undo -> reverts cardfolder back to previous state and filtered folder list to show all cards
         expectedModel.undoActiveCardFolder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased()), cardToEdit);
-        // redo -> edits same second card in unfiltered card list
+        // redo -> edits same second folder in unfiltered folder list
         expectedModel.redoActiveCardFolder();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }

@@ -17,14 +17,14 @@ import seedu.address.model.hint.Hint;
 public class CardUtil {
 
     /**
-     * Returns an add command string for adding the {@code card}.
+     * Returns an add command string for adding the {@code folder}.
      */
     public static String getAddCommand(Card card) {
         return AddCommand.COMMAND_WORD + " " + getCardDetails(card);
     }
 
     /**
-     * Returns the part of command string for the given {@code card}'s details.
+     * Returns the part of command string for the given {@code folder}'s details.
      */
     public static String getCardDetails(Card card) {
         StringBuilder sb = new StringBuilder();

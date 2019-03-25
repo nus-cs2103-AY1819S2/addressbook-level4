@@ -73,7 +73,7 @@ public class DeleteCommandTest {
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
         Index outOfBoundIndex = INDEX_SECOND_CARD;
-        // ensures that outOfBoundIndex is still in bounds of card folder list
+        // ensures that outOfBoundIndex is still in bounds of folder folder list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getActiveCardFolder().getCardList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
@@ -89,14 +89,14 @@ public class DeleteCommandTest {
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitActiveCardFolder();
 
-        // delete -> first card deleted
+        // delete -> first folder deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts cardfolder back to previous state and filtered card list to show all cards
+        // undo -> reverts cardfolder back to previous state and filtered folder list to show all cards
         expectedModel.undoActiveCardFolder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // redo -> same first card deleted again
+        // redo -> same first folder deleted again
         expectedModel.redoActiveCardFolder();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -106,10 +106,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredCards().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> card folder state not added into model
+        // execution failed -> folder folder state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
 
-        // single card folder state in model -> undoCommand and redoCommand fail
+        // single folder folder state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -117,9 +117,9 @@ public class DeleteCommandTest {
     /**
      * 1. Deletes a {@code Card} from a filtered list.
      * 2. Undo the deletion.
-     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted card in the
+     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted folder in the
      * unfiltered list is different from the index at the filtered list.
-     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the card object regardless of indexing.
+     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the folder object regardless of indexing.
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameCardDeleted() throws Exception {
@@ -131,15 +131,15 @@ public class DeleteCommandTest {
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitActiveCardFolder();
 
-        // delete -> deletes second card in unfiltered card list / first card in filtered card list
+        // delete -> deletes second folder in unfiltered folder list / first folder in filtered folder list
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts cardfolder back to previous state and filtered card list to show all cards
+        // undo -> reverts cardfolder back to previous state and filtered folder list to show all cards
         expectedModel.undoActiveCardFolder();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(cardToDelete, model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased()));
-        // redo -> deletes same second card in unfiltered card list
+        // redo -> deletes same second folder in unfiltered folder list
         expectedModel.redoActiveCardFolder();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -162,7 +162,7 @@ public class DeleteCommandTest {
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));
 
-        // different card -> returns false
+        // different folder -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 

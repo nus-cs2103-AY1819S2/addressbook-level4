@@ -22,7 +22,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     }
 
     /**
-     * @return the string form of the {@code Question} of the card currently in the {@code BrowserPanel}
+     * @return the string form of the {@code Question} of the folder currently in the {@code BrowserPanel}
      */
     public String getCurrentQuestion() {
         Label currentCardQuestion = getChildNode(CURRENT_CARD_QUESTION);
@@ -30,14 +30,14 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns the question of the currently loaded card.
+     * Returns the question of the currently loaded folder.
      */
     public URL getLoadedUrl() {
         return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
     }
 
     /**
-     * Remembers the question of the currently loaded card.
+     * Remembers the question of the currently loaded folder.
      */
     public void rememberQuestion() {
         lastRememberedQuestion = getCurrentQuestion();

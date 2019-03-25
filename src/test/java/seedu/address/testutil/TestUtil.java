@@ -33,21 +33,21 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the card in the {@code model}'s card list.
+     * Returns the middle index of the folder in the {@code model}'s folder list.
      */
     public static Index getMidIndex(Model model) {
         return Index.fromOneBased(model.getFilteredCards().size() / 2);
     }
 
     /**
-     * Returns the last index of the card in the {@code model}'s card list.
+     * Returns the last index of the folder in the {@code model}'s folder list.
      */
     public static Index getLastIndex(Model model) {
         return Index.fromOneBased(model.getFilteredCards().size());
     }
 
     /**
-     * Returns the card in the {@code model}'s card list at {@code index}.
+     * Returns the folder in the {@code model}'s folder list at {@code index}.
      */
     public static Card getCard(Model model, Index index) {
         return model.getFilteredCards().get(index.getZeroBased());

@@ -7,7 +7,7 @@ import seedu.address.model.ReadOnlyCardFolder;
 
 
 /**
- * API for export and import of card folders
+ * API for export and import of folder folders
  */
 interface CsvCommands {
 

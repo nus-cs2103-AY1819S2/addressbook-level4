@@ -22,8 +22,11 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
-    /** The side panel should be updated. */
-    private final boolean sidePanelUpdated;
+    /** The side panel should be updated as folder was entered. */
+    private final boolean enteredFolder;
+
+    /** The side panel should be updated as folder was exited. */
+    private final boolean exitedFolder;
 
     /** The application should enter a test session. */
     private final Card testSessionCard;
@@ -37,12 +40,13 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean sidePanelUpdated,
-                         Card testSessionCard, boolean endTestSession, AnswerCommandResultType answerCommandResult) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean enteredFolder,
+                         boolean exitedFolder, Card testSessionCard, boolean endTestSession, AnswerCommandResultType answerCommandResult) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.sidePanelUpdated = sidePanelUpdated;
+        this.enteredFolder = enteredFolder;
+        this.exitedFolder = exitedFolder;
         this.testSessionCard = testSessionCard;
         this.endTestSession = endTestSession;
         this.answerCommandResult = answerCommandResult;
@@ -53,7 +57,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        this(feedbackToUser, false, false, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 
     public String getFeedbackToUser() {
@@ -113,8 +117,12 @@ public class CommandResult {
         }
     }
 
-    public boolean isSidePanelUpdated() throws CommandException {
-        return sidePanelUpdated;
+    public boolean enteredFolder() throws CommandException {
+        return enteredFolder;
+    }
+
+    public boolean exitedFolder() {
+        return exitedFolder;
     }
 
     @Override

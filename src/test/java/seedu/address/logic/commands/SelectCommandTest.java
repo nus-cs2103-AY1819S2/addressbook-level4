@@ -57,7 +57,7 @@ public class SelectCommandTest {
         showCardAtIndex(expectedModel, INDEX_FIRST_CARD);
 
         Index outOfBoundsIndex = INDEX_SECOND_CARD;
-        // ensures that outOfBoundIndex is still in bounds of card folder list
+        // ensures that outOfBoundIndex is still in bounds of folder folder list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getActiveCardFolder().getCardList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
@@ -81,13 +81,13 @@ public class SelectCommandTest {
         // null -> returns false
         assertFalse(selectFirstCommand.equals(null));
 
-        // different card -> returns false
+        // different folder -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index},
-     * and checks that the model's selected card is set to the card at {@code index} in the filtered card list.
+     * and checks that the model's selected folder is set to the folder at {@code index} in the filtered folder list.
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);

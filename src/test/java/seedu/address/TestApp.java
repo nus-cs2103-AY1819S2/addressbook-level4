@@ -102,7 +102,7 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the card folder data stored inside the storage file.
+     * Returns a defensive copy of the folder folder data stored inside the storage file.
      */
     public CardFolder readStorageCardFolder() {
         try {

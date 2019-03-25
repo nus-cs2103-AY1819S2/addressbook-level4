@@ -42,7 +42,7 @@ public class OpenLessonCommand extends ManagementCommand {
     private final Index targetIndex;
 
     /**
-     * Creates an OpenLessonCommand to delete the specified {@link Lesson}
+     * Creates an OpenLessonCommand to open the specified {@link Lesson}
      *
      * @param targetIndex the index of the {@link Lesson} to be opened
      */
@@ -71,8 +71,7 @@ public class OpenLessonCommand extends ManagementCommand {
         try {
             lessonName = mgtModel.openLesson(toOpenIndex);
         } catch (IllegalArgumentException e) {
-            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    OpenLessonCommand.MESSAGE_USAGE), e);
+            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), e);
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));

@@ -88,13 +88,14 @@ public class QuizStartCommand implements Command {
 
         //CsvLessonsStorage storage = new CsvLessonsStorage(INVALID_CORE_CHAR_FIELD_DATA_FOLDER);
         //ManagementModel mgtModel = new ManagementModelManager(null, storage.readLessons().get());
-        //Lesson lesson = mgtModel.getLesson(0);
+        ManagementModel mgtModel = (ManagementModel) model;
+        Lesson lesson = mgtModel.getLesson(0);
         //HashMap<Integer, CardSrsData> cardData = null;
         //TODO: implement these hard code after updates
         Card card1 = new Card(List.of("Japan", "Tokyo"), List.of("T"));
         Card card2 = new Card(List.of("Belgium", "Brussels"), List.of("B"));
-        Lesson lesson = new Lesson("Capitals", List.of("Country", "Capitals"), List.of("Hint"),
-                0, 1, List.of(card1, card2));
+        //Lesson lesson = new Lesson("Capitals", List.of("Country", "Capitals"), List.of("Hint"),
+        //        0, 1, List.of(card1, card2));
         Instant current = Instant.now();
         CardSrsData cardData1 = new CardSrsData(card1.hashCode(), 1, 1, current);
         CardSrsData cardData2 = new CardSrsData(card2.hashCode(), 1, 1,

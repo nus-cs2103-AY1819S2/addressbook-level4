@@ -77,12 +77,20 @@ public class Deadline {
      */
 
     public Deadline(int date, int month, int year, DeadlineStatus status) throws DateTimeException {
-        this.status = status;
-
-        if (this.status == DeadlineStatus.REMOVE) {
+        if (status == DeadlineStatus.COMPLETE) {
+            if (LocalDate.of(year, month, date).equals(LocalDate.MIN)) {
+                this.date = LocalDate.MIN;
+                this.status = DeadlineStatus.REMOVE;
+            } else {
+                this.date = LocalDate.of(year, month, date);
+                this.status = DeadlineStatus.COMPLETE;
+            }
+        } else if (status == DeadlineStatus.REMOVE) {
             this.date = LocalDate.MIN;
+            this.status = DeadlineStatus.REMOVE;
         } else {
             this.date = LocalDate.of(year, month, date);
+            this.status = DeadlineStatus.READY;
         }
     }
 
@@ -133,7 +141,7 @@ public class Deadline {
      * @return - existence of localdate.
      */
     public boolean exists() {
-        return !(this.status == DeadlineStatus.REMOVE);
+        return this.status != DeadlineStatus.REMOVE;
     }
 
     @Override

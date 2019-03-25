@@ -124,8 +124,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        //browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         teethPanel = new TeethPanel(logic.selectedPersonProperty());
         teethPanelPlaceholder.getChildren().add(teethPanel.getRoot());

@@ -58,7 +58,7 @@ public class JsonAdaptedOrderItemTest {
 
     @Test
     public void toModelType_nullCode_throwsIllegalValueException() {
-        JsonAdaptedOrderItem orderItem = new JsonAdaptedOrderItem(VALID_TABLE_NUMBER, null, VALID_NAME, 
+        JsonAdaptedOrderItem orderItem = new JsonAdaptedOrderItem(VALID_TABLE_NUMBER, null, VALID_NAME,
                 VALID_QUANTITY_ORDERED, VALID_QUANTITY_UNSERVED);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Code.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, orderItem::toModelType);

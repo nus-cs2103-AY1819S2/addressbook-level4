@@ -730,6 +730,9 @@ Searches for and displays a list of tasks according to a specified parameter
 
 Format: `taskfind PARAMETER`
 
+You can specify any parameter that a task contains when using this command.
+No tasks will be display if none of the tasks match the search conditions.
+
 Examples:
 
 * `taskfind pri/HIGH`

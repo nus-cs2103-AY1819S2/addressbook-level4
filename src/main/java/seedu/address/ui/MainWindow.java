@@ -18,12 +18,23 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.patient.Patient;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart<Stage> {
+
+    /**
+     * The patient of records to be shown
+     */
+    private static Patient recordPatient = null;
+
+    /**
+     * Indicates if current mode is showing patient records
+     */
+    private static boolean goToMode = false;
 
     private static final String FXML = "MainWindow.fxml";
 
@@ -34,6 +45,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private RecordListPanel recordListPanel;
     private PersonListPanel personListPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
@@ -61,6 +73,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane taskListPanelPlaceholder;
 
+    @FXML
+    private StackPane recordListPanelPlaceholder;
+
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
 
@@ -75,6 +90,9 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statWindow = new StatWindow(new Stage(), this.logic);
+
+        // Hidden panel by default.
+        recordListPanelPlaceholder.setVisible(false);
     }
 
     public Stage getPrimaryStage() {
@@ -87,6 +105,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -175,12 +194,43 @@ public class MainWindow extends UiPart<Stage> {
         statWindow.show();
     }
 
+    /**
+     * Opens the record panel and hides the patient list.
+     */
+    @FXML
+    public void handleRecord() {
+        populateRecords();
+        personListPanelPlaceholder.setVisible(false);
+        recordListPanelPlaceholder.setVisible(true);
+        goToMode = true;
+    }
+
+    /**
+     * Generates the record using the stored patient.
+     */
+    private void populateRecords() {
+        if (MainWindow.getRecordPatient() != null) {
+            recordListPanel = new RecordListPanel(logic.getFilteredRecordList());
+            recordListPanelPlaceholder.getChildren().clear();
+            recordListPanelPlaceholder.getChildren().add(recordListPanel.getRoot());
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
 
     /**
-     * Closes the application.
+     * Returns records list to patient list.
+     */
+    @FXML
+    private void handleBack() {
+        backToPatientList();
+    }
+
+    /**
+     * If at GoTo mode -> Goes back to patient list.
+     * Else closes the application.
      */
     @FXML
     private void handleExit() {
@@ -207,6 +257,16 @@ public class MainWindow extends UiPart<Stage> {
         if (exitAnyway) {
             exit();
         }
+    }
+
+    /**
+     * Returns to Patient list from Records list.
+     */
+    private void backToPatientList() {
+        personListPanelPlaceholder.setVisible(true);
+        recordListPanelPlaceholder.setVisible(false);
+        MainWindow.setRecordPatient(null);
+        goToMode = false;
     }
 
     /**
@@ -243,8 +303,16 @@ public class MainWindow extends UiPart<Stage> {
                 handleStat();
             }
 
+            if (commandResult.isShowRecord()) {
+                handleRecord();
+            }
+
             if (commandResult.isExit()) {
-                handleExit(true);
+                handleExit();
+            }
+
+            if (commandResult.isBack()) {
+                handleBack();
             }
 
             return commandResult;
@@ -253,5 +321,22 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    /**
+     * Sets the patient who records are going to show.
+     *
+     * @param patient the patient who records will be shown.
+     */
+    public static void setRecordPatient(Patient patient) {
+        MainWindow.recordPatient = patient;
+    }
+
+    public static Patient getRecordPatient() {
+        return MainWindow.recordPatient;
+    }
+
+    public static boolean isGoToMode() {
+        return goToMode;
     }
 }

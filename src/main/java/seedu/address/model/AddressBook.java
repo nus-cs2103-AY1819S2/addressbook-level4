@@ -11,8 +11,11 @@ import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.record.Record;
+import seedu.address.model.record.UniqueRecordList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.ui.MainWindow;
 
 /**
  * Wraps all data at the address-book level
@@ -22,6 +25,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTaskList tasks;
+    private final UniqueRecordList records;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -34,6 +38,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         tasks = new UniqueTaskList();
+        records = new UniqueRecordList();
     }
 
     public AddressBook() {}
@@ -63,7 +68,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setTasks(List<Task> tasks) {
         this.tasks.setTasks(tasks);
-        indicateModified();;
+        indicateModified();
+    }
+
+    /**
+     * Replaces the contents of the record list with {@code record}.
+     * {@code record} must not contain duplicate record.
+     */
+    public void setRecords(List<Record> records) {
+        this.records.setRecords(records);
+        indicateModified();
     }
 
     /**
@@ -77,6 +91,37 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     //// task-level operations
 
+    /**
+     * Returns true if a record with the same identity as {@code record} exists in the address book.
+     */
+    public boolean hasRecord(Record record) {
+        requireNonNull(record);
+        return records.contains(record);
+    }
+
+    /**
+     * Adds a record to the address book.
+     * The record must not already exist in the address book.
+     * Adds the record to the patient as well.
+     */
+    public void addRecord(Record record) {
+        records.add(record);
+        MainWindow.getRecordPatient().addRecord(record);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code record} from this {@code AddressBook}.
+     * {@code record} must exist in the address book.
+     * Removes the record from the patient as well.
+     */
+    public void removeRecord(Record record) {
+        records.remove(record);
+        MainWindow.getRecordPatient().removeRecord(record);
+        indicateModified();
+    }
+
+    //// record-level operations
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.
      */
@@ -214,6 +259,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Task> getTaskList() {
         return tasks.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Record> getRecordList() {
+        return records.asUnmodifiableObservableList();
     }
 
     @Override

@@ -21,7 +21,10 @@ public class CsvManager implements CsvCommands {
 
 
     @Override
-    public void readFoldersToCsv(CsvFile csvFile) throws IOException, FileNotFoundException, CommandException {
+    public void readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException, FileNotFoundException {
+        if (!fileExists(csvFile)) {
+            throw new FileNotFoundException();
+        }
         String filePath = getDefaultFilePath() + "/" + csvFile.filename;
         bufferedReader = new BufferedReader(new FileReader(filePath));
         String line;
@@ -81,6 +84,10 @@ public class CsvManager implements CsvCommands {
 
     public static String getFilePathAsString(CsvFile csvFile) throws IOException {
         return new File("./" + csvFile.filename).getCanonicalPath();
+    }
+
+    public static boolean fileExists(CsvFile csvFile) throws IOException {
+        return new File(getDefaultFilePath() + "/" +  csvFile.filename).isFile();
     }
 
     public static String getDefaultFilePath() throws IOException {

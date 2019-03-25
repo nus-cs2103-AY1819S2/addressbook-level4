@@ -50,7 +50,9 @@ public class AddDoctorCommandParser implements Parser<AddDoctorCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Set<Specialisation> specList = ParserUtil.parseSpecialisations(argMultimap.getAllValues(PREFIX_SPECIALISATION));
 
-        return new AddDoctorCommand(new Doctor(name, phone, gender, age, specList));
+        Doctor doctor = new Doctor(name, phone, gender, age, specList);
+
+        return new AddDoctorCommand(doctor);
     }
 
     /**

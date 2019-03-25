@@ -191,7 +191,7 @@ public class Request {
 
     public void setHealthWorker(HealthWorker healthWorker) {
         requireNonNull(healthWorker);
-        this.healthWorker = healthWorker.getName().fullName;
+        this.healthWorker = healthWorker.getName().toString();
     }
 
     public boolean isOngoingStatus() {

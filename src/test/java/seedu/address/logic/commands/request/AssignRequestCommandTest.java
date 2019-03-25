@@ -83,7 +83,7 @@ class AssignRequestCommandTest {
         expectedModel.updateRequest(validRequest, toAssign);
         expectedModel.commitRequestBook();
 
-        assertEquals(toAssign.getHealthStaff(), assignedHealthWorker.getName().fullName);
+        assertEquals(toAssign.getHealthStaff(), assignedHealthWorker.getName().toString());
         assertCommandSuccess(assignRequestCommand, model, commandHistory, expectedMessage,
             expectedModel);
     }

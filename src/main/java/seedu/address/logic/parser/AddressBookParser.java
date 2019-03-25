@@ -22,6 +22,7 @@ import seedu.address.logic.commands.MemberFindCommand;
 import seedu.address.logic.commands.MemberListCommand;
 import seedu.address.logic.commands.MemberSelectCommand;
 import seedu.address.logic.commands.MemberSortCommand;
+import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.activity.ActivityAddCommandParser;
@@ -54,6 +55,9 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case ModeCommand.COMMAND_WORD:
+            return new ModeCommandParser().parse(arguments);
 
         case MemberAddCommand.COMMAND_WORD:
             return new MemberAddCommandParser().parse(arguments);

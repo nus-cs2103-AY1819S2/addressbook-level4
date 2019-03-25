@@ -15,7 +15,7 @@ import seedu.address.model.activity.Activity;
 /**
  * Adds an to the club manager.
  */
-public class ActivityAddCommand extends Command {
+public class ActivityAddCommand extends ActivityCommand {
 
     public static final String COMMAND_WORD = "activityAdd";
 

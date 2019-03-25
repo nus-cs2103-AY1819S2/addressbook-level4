@@ -174,7 +174,7 @@ public class CommandTestUtil {
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
-        assertTrue(!model.isAtDecksView());
+        assertTrue(model.isAtCardsView());
 
         Card card = (Card) model.getFilteredList().get(targetIndex.getZeroBased());
         final String[] splitName = card.getQuestion().split("\\s+");

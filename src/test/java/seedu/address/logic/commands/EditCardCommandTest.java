@@ -45,7 +45,7 @@ public class EditCardCommandTest {
     public void initialize() {
         model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
         model.changeDeck(getTypicalDeck());
-        assertTrue(!model.isAtDecksView());
+        assertTrue(model.isAtCardsView());
     }
 
     @Test
@@ -59,7 +59,7 @@ public class EditCardCommandTest {
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.changeDeck(getTypicalDeck());
 
-        assertFalse(expectedModel.isAtDecksView());
+        assertTrue(expectedModel.isAtCardsView());
         Card currentCard = (Card)expectedModel.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
 
         expectedModel.setCard(currentCard, editedCard);
@@ -82,7 +82,8 @@ public class EditCardCommandTest {
 
         String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
-        Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
+        expectedModel.changeDeck(getTypicalDeck());
         expectedModel.setCard(lastCard, editedCard);
         expectedModel.commitTopDeck();
 
@@ -121,6 +122,7 @@ public class EditCardCommandTest {
         String expectedMessage = String.format(EditCardCommand.MESSAGE_EDIT_CARD_SUCCESS, editedCard);
 
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
+        expectedModel.changeDeck(getTypicalDeck());
         expectedModel.setCard((Card)model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased()), editedCard);
         expectedModel.commitTopDeck();
 
@@ -138,10 +140,11 @@ public class EditCardCommandTest {
 
     @Test
     public void execute_duplicateCardFilteredList_failure() {
+        Card cardInList = (Card)model.getFilteredList().get(INDEX_SECOND_CARD.getZeroBased());
+
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
-        // edit card in filtered list into a duplicate in address book
-        Card cardInList = (Card)model.getFilteredList().get(INDEX_SECOND_CARD.getZeroBased());
+        // edit card in filtered list into a duplicate card in typical deck
         EditCardCommand editCommand = new EditCardCommand(INDEX_FIRST_CARD,
                 new EditCardDescriptorBuilder(cardInList).build());
 
@@ -149,7 +152,7 @@ public class EditCardCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndexUnfilteredList_failure() {
+    public void execute_invalidCardIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder()
             .withQuestion(VALID_QUESTION_MOD).build();
@@ -166,8 +169,9 @@ public class EditCardCommandTest {
     public void execute_invalidCardIndexFilteredList_failure() {
         showCardAtIndex(model, INDEX_FIRST_CARD);
         Index outOfBoundIndex = INDEX_SECOND_CARD;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getFilteredList().size());
+        // ensures that outOfBoundIndex is still in bounds of deck list
+        assertTrue(outOfBoundIndex.getZeroBased() <
+            model.getTopDeck().getDeckList().get(0).getCards().internalList.size());
 
         EditCardCommand editCommand = new EditCardCommand(outOfBoundIndex,
                 new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_MOD).build());
@@ -181,7 +185,9 @@ public class EditCardCommandTest {
         Card cardToEdit = (Card)model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
         EditCardCommand editCommand = new EditCardCommand(INDEX_FIRST_CARD, descriptor);
+
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
+        expectedModel.changeDeck(getTypicalDeck());
         expectedModel.setCard(cardToEdit, editedCard);
         expectedModel.commitTopDeck();
 
@@ -220,14 +226,15 @@ public class EditCardCommandTest {
      * 4. Redo the edit. This ensures {@code RedoCommand} edits the card object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
+    public void executeUndoRedo_validIndexFilteredList_sameCardEdited() throws Exception {
         Card editedCard = new CardBuilder().build();
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
         EditCardCommand editCommand = new EditCardCommand(INDEX_FIRST_CARD, descriptor);
-        Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
 
+        Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
         showCardAtIndex(model, INDEX_SECOND_CARD);
         Card cardToEdit = (Card)model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
+        expectedModel.changeDeck(getTypicalDeck());
         expectedModel.setCard(cardToEdit, editedCard);
         expectedModel.commitTopDeck();
 

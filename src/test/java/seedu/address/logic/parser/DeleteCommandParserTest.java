@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.MODE_HEALTHWORKER;
+import static seedu.address.logic.parser.CommandMode.MODE_REQUEST;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
@@ -8,7 +10,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import org.junit.Test;
 
 import seedu.address.logic.commands.DeleteHealthWorkerCommand;
-import seedu.address.logic.commands.DeletePersonCommand;
+import seedu.address.logic.commands.request.DeleteRequestCommand;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -22,26 +24,38 @@ public class DeleteCommandParserTest {
     private DeleteCommandParser parser = new DeleteCommandParser();
 
     @Test
-    public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new DeletePersonCommand(INDEX_FIRST));
+    public void parse_healthWorker_validInput() {
+        assertParseSuccess(parser, MODE_HEALTHWORKER + " 1", new DeleteHealthWorkerCommand(INDEX_FIRST));
+
+        assertParseSuccess(parser, "healthworker" + " 1", new DeleteHealthWorkerCommand(INDEX_FIRST));
     }
 
     @Test
-    public void parse_invalidArgs_throwsParseException() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeletePersonCommand.MESSAGE_USAGE));
+    public void parse_healthWorker_invalidInput() {
+        // non numeric
+        assertParseFailure(parser, MODE_HEALTHWORKER + " a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteHealthWorkerCommand.MESSAGE_USAGE));
+
+        // negative index
+        assertParseFailure(parser, MODE_HEALTHWORKER + " -1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteHealthWorkerCommand.MESSAGE_USAGE));
     }
 
-    // ================================= Tests for parsing HealthWorker =================================
-    // @author Lookaz
+    @Test
+    public void parse_request_validInput() {
+        assertParseSuccess(parser, MODE_REQUEST + " 1", new DeleteRequestCommand(INDEX_FIRST));
+
+        assertParseSuccess(parser, "request" + " 1", new DeleteRequestCommand(INDEX_FIRST));
+    }
 
     @Test
-    public void parse_healthWorker() {
-        // valid index
-        assertParseSuccess(parser, "1 1", new DeleteHealthWorkerCommand(INDEX_FIRST));
+    public void parse_request_invalidInput() {
+        // non numeric
+        assertParseFailure(parser, MODE_REQUEST + " a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteRequestCommand.MESSAGE_USAGE));
 
-        // invalid index
-        assertParseFailure(parser, "1 a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeletePersonCommand.MESSAGE_USAGE));
+        // negative index
+        assertParseFailure(parser, MODE_REQUEST + " -1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteRequestCommand.MESSAGE_USAGE));
     }
 }

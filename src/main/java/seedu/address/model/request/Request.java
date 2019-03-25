@@ -3,7 +3,6 @@ package seedu.address.model.request;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -11,7 +10,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Condition;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * Represents a request made by a patient in the request book.
@@ -23,7 +21,7 @@ public class Request {
     private final Address address;
     private final Phone phone;
     private final RequestDate requestDate;
-    private Set<Condition> conditions = new HashSet<>();
+    private Set<Condition> conditions;
     private String healthWorker = null;
     private RequestStatus requestStatus;
 
@@ -34,7 +32,7 @@ public class Request {
                    Set<Condition> conditions, RequestStatus status) {
         requireAllNonNull(name, phone, nric, address, requestDate, conditions, status);
         this.phone = phone;
-        this.conditions = SampleDataUtil.getConditionsFromConditionSet(conditions);
+        this.conditions = conditions;
         this.requestStatus = status;
         this.requestDate = requestDate;
         this.name = name;
@@ -51,7 +49,7 @@ public class Request {
                    Set<Condition> conditions) {
         requireAllNonNull(name, nric, address, requestDate, conditions, phone);
         this.phone = phone;
-        this.conditions = SampleDataUtil.getConditionsFromConditionSet(conditions);
+        this.conditions = conditions;
         this.requestStatus = new RequestStatus("PENDING");
         this.name = name;
         this.nric = nric;
@@ -110,8 +108,9 @@ public class Request {
 
     @Override
     public String toString() {
+        String hw = (healthWorker == null) ? "Unassigned" : healthWorker;
         final StringBuilder builder = new StringBuilder();
-        builder.append("----------Request----------\n")
+        builder.append("\n----------Request----------\n")
                 .append("Name: ")
                 .append(getName() + "\n")
                 .append("Nric: ")
@@ -121,11 +120,10 @@ public class Request {
                 .append("Address: ")
                 .append(getAddress() + "\n")
                 .append("Assigned staff: ")
-                .append(getHealthStaff() + "\n")
+            .append(hw + "\n")
                 .append("Request Date: ")
                 .append(getRequestDate() + "\n")
                 .append("Condition(s): ");
-        getConditions().forEach(builder::append);
         builder.append(getConditions() + "\n")
                 .append("Status: ")
                 .append(getRequestStatus() + "\n")

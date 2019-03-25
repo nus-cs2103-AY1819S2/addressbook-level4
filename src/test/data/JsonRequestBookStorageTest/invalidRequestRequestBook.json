@@ -1,27 +1,12 @@
 {
   "requests" : [ {
-  "id" : "aslkdjaslaskd",
-  "patient" : {
-    "email" : "alice@example.com",
-    "name" : "Alice Pauline",
-    "phone" : "94351253",
-    "nric" :  "S1234567A",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "Physiotherapy"
-    , "Dialysis" ]
-  },
-  "requestDate" : "01-01-2019 10:00:00",
-  "conditions" : [ "Physiotherapy" ],
-  "healthWorker" : {
-    "email" : "andye@example.com",
-    "name" : "Andy Tan",
-    "phone" : "94358253",
-    "nric" : "S8312942G",
-    "address" : "125, Jurong West Ave 6, #08-111",
-    "tagged" : [ ],
-    "organization" : "NUH",
-    "skills" :  "PHYSIOTHERAPY GENERAL_PRACTICE"
-  },
-  "requestStatus" : "asdflkj"
-} ]
+    "name": "Alice Pauline",
+    "nric": "S9670515H",
+    "phone": "94351253",
+    "address": "123, Jurong West Ave 6, #08-111",
+    "conditions" : "Physiotherapy ",
+    "requestStatus" : "263597652896",
+    "requestDate" : "01-01-2019 10:00:00",
+    "healthWorker": "Andy Tan"
+  }]
 }

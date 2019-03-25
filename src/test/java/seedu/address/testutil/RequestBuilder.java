@@ -61,10 +61,10 @@ public class RequestBuilder {
      * Initializes the RequestBuilder with the data of {@code requestToCopy}.
      */
     public RequestBuilder(Request requestToCopy) {
-        this.name = new Name(DEFAULT_PATIENT_NAME);
-        this.phone = new Phone(DEFAULT_PATIENT_PHONE);
-        this.nric = new Nric(DEFAULT_PATIENT_NRIC);
-        this.address = new Address(DEFAULT_PATIENT_ADDRESS);
+        this.name = requestToCopy.getName();
+        this.phone = requestToCopy.getPhone();
+        this.nric = requestToCopy.getNric();
+        this.address = requestToCopy.getAddress();
         this.healthWorker = requestToCopy.getHealthStaff();
         this.conditions = requestToCopy.getConditions();
         this.requestDate = requestToCopy.getRequestDate();

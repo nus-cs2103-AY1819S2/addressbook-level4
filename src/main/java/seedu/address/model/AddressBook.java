@@ -71,12 +71,22 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Replaces the contents of the doctor list with {@code doctors}.
+     * {@code doctors} must not contain duplicate doctors.
+     */
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors.setDoctors(doctors);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setPatients(newData.getPatientList());
         setMedHists(newData.getMedHistList());
+        setDoctors(newData.getDoctorList());
     }
 
     //// patient-level operations
@@ -99,7 +109,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given patient {@code target} in the list with {@code editedPatient}.
+     * Returns true if a doctor with the same identity as {@code doctor} exists in the address book.
+     */
+    public boolean hasDoctor(Doctor doctor) {
+        requireNonNull(doctor);
+        return doctors.contains(doctor);
+    }
+
+    /**
      * Adds a doctor to the address book.
      * The doctor must not already exist in the address book.
      */
@@ -109,7 +126,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given patient {@code target} in the list with {@code editedPatient}.
      * {@code target} must exist in the address book.
      * The patient identity of {@code editedPatient} must not be the same
      * as another existing patient in the address book.
@@ -118,6 +135,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPatient);
 
         patients.setPatient(target, editedPatient);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     */
+    public void setDoctor(Doctor target, Doctor editedDoctor) {
+        requireNonNull(editedDoctor);
+
+        doctors.setDoctor(target, editedDoctor);
         indicateModified();
     }
 
@@ -171,6 +200,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * {@code key} must exist in the address book.
+     */
+    public void removeDoctor(Doctor key) {
+        doctors.remove(key);
+        indicateModified();
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -205,6 +243,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<MedicalHistory> getMedHistList() {
         return medHists.asUnmodifiableObservableList();
     }
+
+    @Override
+    public ObservableList<Doctor> getDoctorList() {
+        return doctors.asUnmodifiableObservableList();
+    }
+
 
     @Override
     public boolean equals(Object other) {

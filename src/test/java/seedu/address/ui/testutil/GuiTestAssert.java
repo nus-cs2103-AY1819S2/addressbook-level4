@@ -7,8 +7,12 @@ import java.util.stream.Collectors;
 
 import guitests.guihandles.PatientCardHandle;
 import guitests.guihandles.PatientListPanelHandle;
+
 import guitests.guihandles.ResultDisplayHandle;
+//import javax.print.Doc;
+
 import seedu.address.model.person.Patient;
+
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -73,4 +77,5 @@ public class GuiTestAssert {
     public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
         assertEquals(expected, resultDisplayHandle.getText());
     }
+
 }

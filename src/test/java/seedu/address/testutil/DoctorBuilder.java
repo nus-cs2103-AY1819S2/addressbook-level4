@@ -37,6 +37,7 @@ public class DoctorBuilder {
         gender = new Gender(DEFAULT_GENDER);
         age = new Age(DEFAULT_AGE);
         specialisations = new HashSet<>();
+        specialisations.add(new Specialisation("acupuncture"));
         appointments = new ArrayList<>();
     }
 

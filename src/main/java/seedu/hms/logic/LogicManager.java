@@ -43,7 +43,7 @@ public class LogicManager implements Logic {
                         Storage storage) {
         this.customerModel = customerModel;
         this.bookingModel = bookingModel;
-        this.reservationModel = reservationModel
+        this.reservationModel = reservationModel;
         this.storage = storage;
         history = new CommandHistory();
         hotelManagementSystemParser = new HotelManagementSystemParser();

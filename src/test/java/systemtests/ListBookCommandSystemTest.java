@@ -2,15 +2,21 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_BOOKS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalBooks.BOOKTHIEF;
 import static seedu.address.testutil.TypicalBooks.HUNGERGAME;
 import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_COLLINS;
+import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_FANTASY;
 import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_LIFE;
+import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_SIX;
 import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_ZUSAK;
 import static seedu.address.testutil.TypicalBooks.LIFEPI;
 import static seedu.address.testutil.TypicalBooks.LIFEWAO;
+import static seedu.address.testutil.TypicalBooks.MIDDLESEX;
 
 import org.junit.Test;
 
@@ -86,7 +92,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         assertCommandFailure(command, expectedResultMessage);
 
         /* Case: find same books in book shelf after deleting 1 of them -> 1 person found */
-        command = DeleteBookCommand.COMMAND_WORD + " " + PREFIX_NAME + BOOKTHIEF.getBookName().fullName;
+        command = DeleteBookCommand.COMMAND_WORD + " 1";
         executeCommand(command);
         assertFalse(getModel().getBookShelf().getBookList().contains(BOOKTHIEF));
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + KEYWORD_MATCHING_COLLINS + "   ";
@@ -95,10 +101,51 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find person in book shelf, keyword is same as name but of different case -> 1 book found */
+        /* Case: find book in book shelf, keyword is same as name but of different case -> 1 book found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + "cOLLIns";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+
+        /* Case: find book in book shelf, keyword is substring of name -> 0 books found */
+        command = ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + "Hun";
+        ModelHelper.setFilteredBookList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find book in address book, author name is substring of keyword -> 0 books found */
+        command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + "CollinsMoreLetters";
+        ModelHelper.setFilteredBookList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find book not in book shelf -> 0 books found */
+        command = ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + "NoBooksFound";
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find rating of book in book shelf -> 2 books found */
+        command = ListBookCommand.COMMAND_WORD + " " + PREFIX_RATING + KEYWORD_MATCHING_SIX;
+        ModelHelper.setFilteredBookList(expectedModel, HUNGERGAME, MIDDLESEX);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find tag of BOOK in book shelf -> 2 books found */
+        command = ListBookCommand.COMMAND_WORD + " " + PREFIX_TAG + KEYWORD_MATCHING_FANTASY;
+        ModelHelper.setFilteredBookList(expectedModel, HUNGERGAME, LIFEPI);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find BOOK in empty book shelf -> 0 books found */
+        deleteAllBooks();
+        command = ListBookCommand.COMMAND_WORD + " " + PREFIX_TAG + KEYWORD_MATCHING_FANTASY;
+        expectedModel = getModel();
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: mixed case command word -> rejected */
+        command = "LIstBOOk";
+        assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**

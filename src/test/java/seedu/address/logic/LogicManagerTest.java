@@ -1,7 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_ALICE;
@@ -72,8 +72,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
-        String deleteBookCommand = "deleteBook n/Alice";
-        assertCommandException(deleteBookCommand, MESSAGE_INVALID_BOOK);
+        String deleteBookCommand = "deleteBook 20";
+        assertCommandException(deleteBookCommand, MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteBookCommand);
     }
 

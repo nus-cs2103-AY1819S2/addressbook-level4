@@ -204,6 +204,21 @@ public class CommandTestUtil {
     }
 
     /**
+     * Updates {@code model}'s filtered list to show only the book at the given {@code targetIndex} in the
+     * {@code model}'s address book.
+     */
+    public static void showBookAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredBookList().size());
+
+        Book book = model.getFilteredBookList().get(targetIndex.getZeroBased());
+        model.updateFilteredBookList(new BookNameContainsExactKeywordsPredicate(book.getBookName()));
+
+        assertEquals(1, model.getFilteredBookList().size());
+
+    }
+
+
+    /**
      * Updates {@code model}'s filtered list to show only the book of the given {@code name} in the
      * {@code model}'s book shelf. The book should be present in the book shelf.
      */

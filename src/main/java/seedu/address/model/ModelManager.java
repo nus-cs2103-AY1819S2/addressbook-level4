@@ -609,6 +609,24 @@ public class ModelManager implements Model {
         quickDocs.indicateModification(true);
     }
 
+    /**
+     * Add a reminder for a medicine with insufficient amount
+     * @param medicine medicine that is below threshold
+     */
+    public void reminderForMedicine(Medicine medicine) {
+        reminderManager.reminderForMedicine(medicine);
+        quickDocs.indicateModification(true);
+    }
+
+    /**
+     * delete outdated medicine amount reminder
+     * @param medicine medicine that is no longer in need of reminder
+     */
+    public void deleteExistingReminderForMedicine(Medicine medicine) {
+        if (reminderManager.deleteExistingMedicineReminder(medicine)) {
+            quickDocs.indicateModification(true);
+        }
+    }
     //==========Record module================================================================================
     public Statistics getStatistics(YearMonth from, YearMonth to) {
         return recordManager.getStatistics(from, to);

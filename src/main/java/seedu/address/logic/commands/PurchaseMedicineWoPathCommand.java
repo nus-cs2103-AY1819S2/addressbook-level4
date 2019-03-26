@@ -36,6 +36,7 @@ public class PurchaseMedicineWoPathCommand extends PurchaseMedicineCommand {
         }
         try {
             medicine.get().addQuantity(quantity);
+            model.reminderForMedicine(medicine.get());
         } catch (Exception ex) {
             throw new CommandException(ex.getMessage());
         }

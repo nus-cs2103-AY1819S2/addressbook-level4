@@ -261,6 +261,9 @@ public interface Model {
 
     void deleteReminder(Reminder reminder);
 
+    void reminderForMedicine(Medicine medicine);
+
+    void deleteExistingReminderForMedicine(Medicine medicine);
     //===========Record module operations=============================
     Statistics getStatistics(YearMonth from, YearMonth to);
 

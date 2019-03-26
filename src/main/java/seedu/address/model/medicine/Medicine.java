@@ -18,6 +18,8 @@ public class Medicine {
             "Current quantity is at %1$d.\nThe minimum treshold is %2$d.";
     private static final int DEFAULT_THRESHOLD = 50;
 
+    //private static ReminderManager reminderManager = new ReminderManager();
+    //
     public final String name;
     private int quantity;
     private int threshold;
@@ -50,7 +52,11 @@ public class Medicine {
         setQuantity(amount);
         this.threshold = DEFAULT_THRESHOLD;
     }
-
+    /**
+    public static void setReminderManager(ReminderManager newReminderManager) {
+        reminderManager = newReminderManager;
+    }
+    */
     public static boolean isValidMedicine(String test) {
         return test.matches(VALIDATION_REGEX);
     }
@@ -60,6 +66,7 @@ public class Medicine {
             throw new IllegalArgumentException("Quantity must be positive");
         }
         quantity = amount;
+        //generateOrDeleteReminder();
     }
 
     public int getQuantity() {
@@ -112,6 +119,17 @@ public class Medicine {
         this.threshold = threshold;
     }
 
+    /**
+     * deal with reminders.
+     */
+    /**public void generateOrDeleteReminder() {
+        if (isSufficient()) {
+            reminderManager.deleteExistingMedicineReminder(this);
+        } else {
+            reminderManager.reminderForMedicine(this);
+        }
+    }
+*/
     @Override
     public String toString() {
         return String.format(TO_STRING, name, quantity, price.toString());

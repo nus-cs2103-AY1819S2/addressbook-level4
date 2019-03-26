@@ -50,6 +50,7 @@ public class AlarmCommand extends Command {
                     throw new CommandException("No medicine/directory found at the given path");
                 }
                 medicine.get().setThreshold(alarmLevel);
+                model.reminderForMedicine(medicine.get());
                 return new CommandResult(String.format(MESSAGE_SUCCESS, alarmLevel, medicine.get().toString()));
             } else {
                 directory.get().setThresholdForAll(alarmLevel);

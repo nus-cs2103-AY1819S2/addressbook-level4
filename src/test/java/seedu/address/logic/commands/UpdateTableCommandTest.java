@@ -26,16 +26,15 @@ public class UpdateTableCommandTest {
 
     private Model model = new ModelManager(getTypicalRestOrRant(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    private String[] tableStatusInString = new String[]{"1", "0"};
-    private Table originalTable = new TableBuilder(TABLE1).build();
-
 
     @Test
     public void execute_tableUpdatedByModel_updateSuccessful() {
+        String[] tableStatusInString = new String[]{"1", "0"};
         Table editedTable = new TableBuilder(TABLE1).withTableStatus("0/4").build();
         UpdateTableCommand updateTableCommand = new UpdateTableCommand(tableStatusInString);
         ModelManager expectedModel = new ModelManager(getTypicalRestOrRant(), new UserPrefs());
-        expectedModel.setTable(originalTable, editedTable);
+        expectedModel.setTable(TABLE1, editedTable);
+        expectedModel.clearOrderItemsFrom(TABLE1.getTableNumber());
         assertCommandSuccess(Mode.RESTAURANT_MODE, updateTableCommand, model, commandHistory,
                 new CommandResult(String.format(MESSAGE_SUCCESS, editedTable.getTableNumber(),
                         editedTable.getTableStatus())), expectedModel);
@@ -55,7 +54,7 @@ public class UpdateTableCommandTest {
         UpdateTableCommand updateTableCommand = new UpdateTableCommand(invaliDTableStatusInString);
         assertCommandFailure(Mode.RESTAURANT_MODE, updateTableCommand, model, commandHistory,
                 String.format(TableStatus.MESSAGE_INVALID_NUMBER_OF_CUSTOMERS,
-                        originalTable.getTableStatus().numberOfSeats));
+                        TABLE1.getTableStatus().numberOfSeats));
     }
 
     @Test

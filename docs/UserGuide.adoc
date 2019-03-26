@@ -172,6 +172,24 @@ Deletes the 2nd person in the book shelf.
 `deleteReview rt/An interesting children's book` +
 Deletes the review with the title "An interesting children's book"
 
+=== Sort books commands : `sortBook`
+
+sort bookList in specify order. +
+Format: `sortBook st/TYPE o/ORDER`
+
+****
+* TYPE can be either *AUTHOR*, *NAME* or *RATING*.
+* ORDER can be either *ASC*(ascending) and *DES*(descending).
+* TYPE and ORDER are all case-insensitive.
+****
+
+Examples:
+
+* `sortBook st/name o/asc` 
+sort bookList by book name in ascending order.
+* `sortBook st/RATING o/des` 
+sort bookList by rating of the book in descending order.
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -275,6 +293,8 @@ e.g. `edit n/Alice in Wonderland a/some author`
 e.g. `listBook t/textbook m/5`
 * *ListReview* : `listReview n/BOOKNAME` +
 e.g. `listReview n/Alice in Wonderland`
+* *sortBook* : `sortBook st/TYPE o/ORDER` +
+e.g. `sortBook st/AUTHOR o/ASC`
 * *Help* : `help`
 * *History* : `history`
 * *Undo* : `undo`

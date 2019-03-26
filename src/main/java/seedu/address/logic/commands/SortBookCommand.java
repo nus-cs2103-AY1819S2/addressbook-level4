@@ -15,6 +15,8 @@ public class SortBookCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": sort all books in certain order"
         + "the specified keywords (case-insensitive).\n"
         + "Parameters: [st/TYPE]...[o/ORDER]...\n"
+        + "TYPE can only be author, name or rating\n"
+        + "ORDER can only be asc or des\n"
         + "Example: " + COMMAND_WORD + " st/rating o/asc";
 
     public static final String MESSAGE_SUCCESS = "sorted successfully";

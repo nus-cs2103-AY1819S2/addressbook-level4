@@ -114,22 +114,16 @@ The orientation of the battleship can be horizontal or vertical. The orientation
 
 === Listing all ships : `list`
 
-Shows a list of all the player's battleships that are currently deployed on the map +
+Shows a list of all the player's battleships that are have been deployed on the map. +
 
-Format: `list`
+Format: `list` +
 
-=== Placing a ship: `put`
+The list will show the battleship's head coordinate, the battleship's orientation, and the battleship's tags in square brackets. +
 
-Adds a ship onto the player's map. The coordinates specified is the position of the ship's head. +
+The format of each entry in the list is: `[NAME] [CURRENT LIFE] at [HEAD COORDINATE] [ORIENTATION] [TAGS]`.
 
-The orientation of the ship (horizontal or vertical) must be specified. The orientation may be shortened to `h` or `v`. +
-
-Format: `put n/NAME c/COORDINATES r/ORIENTATION`
-
-Examples:
-
-* `put n/Destroyer c/A1 r/vertical`
-* `put n/Aircraft Carrier c/B1 r/h`
+.The `list` command
+image::listexample.png[width=750]
 
 === Locating ships by name: `find`
 

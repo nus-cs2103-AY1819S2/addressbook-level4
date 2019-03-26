@@ -25,11 +25,12 @@ public class ListPanel extends UiPart<Region> {
     @FXML
     private ListView<ListItem> listView;
 
-    public ListPanel(ObservableList<ListItem> list, ObservableValue<ListItem> selectedItem, Consumer<ListItem> onSelectedItemChange) {
+    public ListPanel(ObservableList<ListItem> list, ObservableValue<ListItem> selectedItem,
+                     Consumer<ListItem> onSelectedItemChange) {
         super(FXML);
 
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in card list panel changed to : '" + newValue + "'");
+            logger.fine("Selection in list panel changed to : '" + newValue + "'");
             onSelectedItemChange.accept(newValue);
         });
 
@@ -68,9 +69,9 @@ public class ListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 if (item instanceof Card) {
-                    setGraphic(new CardDisplay((Card)item, getIndex() + 1).getRoot());
+                    setGraphic(new CardDisplay((Card) item, getIndex() + 1).getRoot());
                 } else if (item instanceof Deck) {
-                    setGraphic(new DeckDisplay((Deck)item, getIndex() + 1).getRoot());
+                    setGraphic(new DeckDisplay((Deck) item, getIndex() + 1).getRoot());
                 }
             }
         }

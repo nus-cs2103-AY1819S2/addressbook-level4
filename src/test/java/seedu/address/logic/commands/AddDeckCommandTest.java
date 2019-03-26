@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.ListItem;
+import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.*;
@@ -211,8 +212,23 @@ public class AddDeckCommandTest {
         }
 
         @Override
+        public void deleteDeck(Deck deck) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public boolean hasDeck(Deck deck) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateDeck(Deck target, Deck editedDeck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDeck(Deck target, Deck editedDeck) {
+            throw new AssertionError("This method should not be called");
         }
 
         @Override
@@ -229,6 +245,26 @@ public class AddDeckCommandTest {
         public void goToDecksView() {
             throw new AssertionError("This method should not be called.");
 
+        }
+
+        @Override
+        public void studyDeck(Deck deck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isAtDecksView() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ViewState getViewState() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean isAtCardsView() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
@@ -251,7 +287,7 @@ public class AddDeckCommandTest {
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the deck being added.
      */
     private class ModelStubAcceptingDeckAdded extends ModelStub {
         final ArrayList<Deck> decksAdded = new ArrayList<>();

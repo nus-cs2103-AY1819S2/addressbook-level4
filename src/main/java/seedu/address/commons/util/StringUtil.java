@@ -14,6 +14,38 @@ public class StringUtil {
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
+     *   Ignores case, "?" and "." but a full word match is required.
+     *   <br>examples:<pre>
+     *       containsWordIgnoreCase("ABc def", "abc") == true
+     *       containsWordIgnoreCase("ABc def", "DEF") == true
+     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       containsWordIgnoreCase("ABc def?", "def") == true
+     *       </pre>
+     * @param sentence cannot be null
+     * @param keyword
+     */
+    public static boolean containsKeywordsInQuestionIgnoreCase(String sentence, String keyword) {
+        requireNonNull(sentence);
+        requireNonNull(keyword);
+
+        String preppedWord = keyword.toLowerCase().trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+
+        String preppedSentence = sentence.toLowerCase().replaceAll("[\\.|\\?]", "");
+
+        if (!preppedSentence.contains(preppedWord)) {
+            return false;
+        }
+
+        return Arrays.stream(preppedWord.split("\\s+")).allMatch(
+            key -> Arrays.stream(preppedSentence.split("\\s+")).anyMatch(
+                sentenceWord -> sentenceWord.equals(key)
+            )
+        );
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case, but a full word match is required.
      *   <br>examples:<pre>
      *       containsWordIgnoreCase("ABc def", "abc") == true
@@ -35,8 +67,9 @@ public class StringUtil {
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(preppedWord::equalsIgnoreCase);
+            .anyMatch(preppedWord::equalsIgnoreCase);
     }
+
 
     /**
      * Returns a detailed message of the t, including the stack trace.

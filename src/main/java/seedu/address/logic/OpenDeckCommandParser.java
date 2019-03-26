@@ -7,6 +7,9 @@ import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parser creates a new OpenDeckCommand Object.
+ */
 public class OpenDeckCommandParser {
 
     private DecksView viewState;
@@ -15,6 +18,11 @@ public class OpenDeckCommandParser {
         this.viewState = viewState;
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the OpenDeckCommand
+     * and returns an OpenDeckCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     public OpenDeckCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);

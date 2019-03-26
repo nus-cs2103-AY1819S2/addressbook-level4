@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,11 +19,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
-import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
+import seedu.address.testutil.EditDeckDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -79,9 +81,9 @@ public class CommandTestUtil {
 
     public static final List<Card> VALID_CARD_LIST = new ArrayList<>();
 
-    public static final EditCommand.EditCardDescriptor DESC_HELLO;
-    public static final EditCommand.EditCardDescriptor DESC_MOD;
-    public static final EditCommand.EditCardDescriptor DESC_ADDITION;
+    public static final EditCardCommand.EditCardDescriptor DESC_HELLO;
+    public static final EditCardCommand.EditCardDescriptor DESC_MOD;
+    public static final EditCardCommand.EditCardDescriptor DESC_ADDITION;
 
     static {
         DESC_HELLO = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_HELLO)
@@ -90,6 +92,16 @@ public class CommandTestUtil {
                 .withAnswer(VALID_ANSWER_MOD).withTags(VALID_TAG_MOD, VALID_TAG_SUBJECT).build();
         DESC_ADDITION = new EditCardDescriptorBuilder().withQuestion(VALID_QUESTION_ADDITION)
                 .withAnswer(VALID_ANSWER_ADDITION).withTags(VALID_TAG_MATH).build();
+    }
+
+    public static final EditDeckCommand.EditDeckDescriptor DESC_A;
+    public static final EditDeckCommand.EditDeckDescriptor DESC_B;
+
+    static {
+        DESC_A = new EditDeckDescriptorBuilder().withName(VALID_NAME_DECK_A)
+                .withCards(VALID_CARD_LIST).build();
+        DESC_B = new EditDeckDescriptorBuilder().withName(VALID_NAME_DECK_B)
+                .withCards(VALID_CARD_LIST).build();
     }
 
     /**
@@ -174,22 +186,23 @@ public class CommandTestUtil {
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
-        assertTrue(!model.isAtDecksView());
+        assertTrue(model.isAtCardsView());
 
         Card card = (Card) model.getFilteredList().get(targetIndex.getZeroBased());
-        final String[] splitName = card.getQuestion().split("\\s+");
-        model.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        final String question = card.getQuestion().replace("?", "")
+            .replace(".", "");
+        model.updateFilteredList(new QuestionContainsKeywordsPredicate(Arrays.asList(question)));
 
         //Gets all the question that starts with what
         assertEquals(1, model.getFilteredList().size());
     }
 
     /**
-     * Deletes the first card in {@code model}'s filtered list from {@code model}'s deck.
+     * Deletes the first deck in {@code model}'s filtered list from {@code model}'s deck.
      */
-    public static void deleteFirstCard(Model model) {
-        Card firstCard = (Card) model.getFilteredList().get(0);
-        model.deleteCard(firstCard);
+    public static void deleteFirstDeck(Model model) {
+        Deck firstDeck = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        model.deleteDeck(firstDeck);
         model.commitTopDeck();
     }
 

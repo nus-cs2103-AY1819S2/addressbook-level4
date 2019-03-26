@@ -6,11 +6,9 @@ import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.UniqueCardList;
 import seedu.address.model.deck.UniqueDeckList;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.DeckNotFoundException;
@@ -50,7 +48,7 @@ public class TopDeck implements ReadOnlyTopDeck {
 
     /**
      * Replaces the contents of the deck list with {@code decks}.
-     * {@code decks} must not contain duplicate cards.
+     * {@code decks} must not contain duplicate decks.
      */
     public void setDecks(List<Deck> decks) {
         this.decks.setDecks(decks);
@@ -100,11 +98,13 @@ public class TopDeck implements ReadOnlyTopDeck {
         activeDeck.addCard(card);
 
         decks.setDeck(activeDeck, activeDeck);
+
+        indicateModified();
     }
 
     /**
      * Deletes a card in TopDeck
-     * The {@code Card} target should exist in the  {@code deck} activeDeck.
+     * The {@code Card} target should exist in the {@code deck} activeDeck.
      */
     public void deleteCard(Card target, Deck activeDeck) throws DeckNotFoundException, CardNotFoundException {
         if (!decks.contains(activeDeck)) {
@@ -118,6 +118,30 @@ public class TopDeck implements ReadOnlyTopDeck {
         activeDeck.removeCard(target);
 
         decks.setDeck(activeDeck, activeDeck);
+
+        indicateModified();
+    }
+
+    /**
+     * Sets a card in TopDeck
+     * The {@code Card} target should exist in the {@code deck} activeDeck.
+     */
+    public void setCard(Card target, Card newCard, Deck activeDeck) throws DeckNotFoundException,
+        CardNotFoundException {
+        if (!decks.contains(activeDeck)) {
+            throw new DeckNotFoundException();
+        }
+
+        if (!activeDeck.hasCard(target)) {
+            throw new CardNotFoundException();
+        }
+
+        activeDeck.removeCard(target);
+        activeDeck.addCard(newCard);
+
+        decks.setDeck(activeDeck, activeDeck);
+
+        indicateModified();
     }
 
     //// deck operations
@@ -132,13 +156,34 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     /**
-     * Returns true if a deck with the same identity as {@code deck} exists in Anakin.
+     * Returns true if a deck with the same identity as {@code deck} exists in TopDeck.
      */
     public boolean hasDeck(Deck deck) {
         requireNonNull(deck);
         return decks.contains(deck);
     }
 
+    /**
+     * Deletes {@code deck} from this {@code TopDeck}.
+     * The {@code deck} target should exist in {@code TopDeck}.
+     */
+    public void deleteDeck(Deck target) throws DeckNotFoundException {
+        if (!decks.contains(target)) {
+            throw new DeckNotFoundException();
+        }
+
+        decks.remove(target);
+    }
+
+    /**
+     * Replaces the given deck {@code target} in the list with {@code editedDeck}.
+     * {@code target} must exist in TopDeck.
+     * The deck identity of {@code editedDeck} must not be the same as another existing deck in TopDeck.
+     */
+    public void updateDeck(Deck target, Deck editedDeck) {
+        requireNonNull(editedDeck);
+        decks.setDeck(target, editedDeck);
+    }
 
     //// util methods
 

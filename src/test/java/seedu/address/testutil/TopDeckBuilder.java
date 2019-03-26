@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * A utility class to help with building TopDeck objects.
@@ -21,10 +22,10 @@ public class TopDeckBuilder {
     }
 
     /**
-     * Adds a new {@code Card} to the {@code TopDeck} that we are building.
+     * Adds a new {@code Deck} to the {@code TopDeck} that we are building.
      */
-    public TopDeckBuilder withCard(Card card) {
-        topDeck.addCard(card);
+    public TopDeckBuilder withDeck(Deck deck) {
+        topDeck.addDeck(deck);
         return this;
     }
 

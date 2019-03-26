@@ -7,19 +7,28 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteDeckCommand;
+import seedu.address.logic.commands.EditDeckCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
 import seedu.address.logic.parser.AddDeckCommandParser;
+import seedu.address.logic.parser.DeleteDeckCommandParser;
+import seedu.address.logic.parser.EditDeckCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 
+/**
+ * Stores the state of the Deck's view.
+ */
 public class DecksView implements ListViewState {
-    private Model model;
-    public final FilteredList<Deck> filteredDecks;
+
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
+    private Model model;
+
+    public final FilteredList<Deck> filteredDecks;
 
     public DecksView(Model model, FilteredList<Deck> deckList) {
         this.model = model;
@@ -38,6 +47,10 @@ public class DecksView implements ListViewState {
                 return new OpenDeckCommandParser(this).parse(arguments);
             case StudyDeckCommand.COMMAND_WORD:
                 return new StudyDeckCommandParser(this).parse(arguments);
+            case DeleteDeckCommand.COMMAND_WORD:
+                return new DeleteDeckCommandParser().parse(arguments);
+            case EditDeckCommand.COMMAND_WORD:
+                return new EditDeckCommandParser().parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

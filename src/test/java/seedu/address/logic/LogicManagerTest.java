@@ -1,9 +1,12 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_ADDITION;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_ADDITION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DECK_A;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DECK_NAME_A_ARGS;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 
 import java.io.IOException;
@@ -16,6 +19,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.AddCardCommand;
+import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -26,10 +30,12 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.storage.JsonTopDeckStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.DeckBuilder;
 
 
 public class LogicManagerTest {
@@ -62,7 +68,7 @@ public class LogicManagerTest {
     @Test
     public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        assertCommandException(deleteCommand, MESSAGE_INVALID_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
     }
 
@@ -83,11 +89,12 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCardCommand.COMMAND_WORD + QUESTION_DESC_ADDITION + ANSWER_DESC_ADDITION;
-        Card expectedCard = new CardBuilder(ADDITION).withTags().build();
+        String addCommand = AddDeckCommand.COMMAND_WORD + VALID_DECK_NAME_A_ARGS;
+        Deck expectedDeck = new DeckBuilder(VALID_DECK_A).build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addCard(expectedCard);
+        expectedModel.addDeck(expectedDeck);
         expectedModel.commitTopDeck();
+
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);

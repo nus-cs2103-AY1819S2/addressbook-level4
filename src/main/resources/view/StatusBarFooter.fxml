@@ -11,5 +11,6 @@
   </columnConstraints>
   <Label fx:id="syncStatus" />
   <Label fx:id="totalCardsStatus" GridPane.columnIndex="1" />
-  <Label fx:id="saveLocationStatus" GridPane.columnIndex="2" />
+  <Label fx:id="totalDecksStatus" GridPane.columnIndex="2" />
+  <Label fx:id="saveLocationStatus" GridPane.columnIndex="3" />
 </GridPane>

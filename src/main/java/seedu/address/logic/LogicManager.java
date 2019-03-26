@@ -15,8 +15,6 @@ import seedu.address.logic.parser.TopDeckParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTopDeck;
-import seedu.address.model.deck.Card;
-import seedu.address.model.deck.Deck;
 import seedu.address.storage.Storage;
 
 /**
@@ -124,6 +122,4 @@ public class LogicManager implements Logic {
         StudyView studyView = (StudyView) model.getViewState();
         return studyView.userAnswerProperty();
     }
-
-
 }

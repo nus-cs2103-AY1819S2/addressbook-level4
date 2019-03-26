@@ -16,7 +16,7 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyTopDeck_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.commitTopDeck();
@@ -25,7 +25,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyTopDeck_success() {
         Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
         Model expectedModel = new ModelManager(getTypicalTopDeck(), new UserPrefs());
         expectedModel.setTopDeck(new TopDeck());

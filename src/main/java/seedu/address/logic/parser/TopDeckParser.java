@@ -1,16 +1,19 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.HelpCommand;
-
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses user input.
@@ -42,6 +45,14 @@ public class TopDeckParser {
             return model.parse(commandWord, arguments);
         } catch (ParseException e) {
             switch (commandWord) {
+                case ListCommand.COMMAND_WORD:
+                    return new ListCommand();
+                case HistoryCommand.COMMAND_WORD:
+                    return new HistoryCommand();
+                case UndoCommand.COMMAND_WORD:
+                    return new UndoCommand();
+                case RedoCommand.COMMAND_WORD:
+                    return new RedoCommand();
                 case ExitCommand.COMMAND_WORD:
                     return new ExitCommand();
                 case HelpCommand.COMMAND_WORD:
@@ -57,7 +68,7 @@ public class TopDeckParser {
         case AddCardCommand.COMMAND_WORD:
             return new AddCardCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
+        case EditCardCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
@@ -70,7 +81,7 @@ public class TopDeckParser {
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            return new FindCardCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

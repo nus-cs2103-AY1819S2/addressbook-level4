@@ -138,6 +138,12 @@ The index refers to the index number shown in the displayed deck list. The index
 
 **Outcome**: Selects the deck at `INDEX`
 
+==== Navigating into a deck: `open`
+
+**Format**: `open INDEX`
+
+**Outcome**: Opens the deck at `INDEX`
+
 ==== Studying a deck: `study`
 
 **Format**: `study INDEX`
@@ -324,8 +330,9 @@ A convenient cheat sheet of commands
 |`add n/NAME` | Adds a new deck.
 |`edit INDEX n/NAME` | Edits the name of the deck at INDEX.
 |`delete INDEX` | Deletes the deck at INDEX.
-|`select INDEX` | Navigates into the deck at INDEX. +
-Use `done` to navigate out of the deck.
+|`select INDEX` | Selects the deck at INDEX.
+|`open INDEX` | Navigates into the deck at INDEX. +
+Use `back` to navigate out of the deck.
 |`find NAME` | Finds a deck by name.
 |`add q/QUESTION a/ANSWER` | Adds a new card in the current deck. +
 You must be inside a deck to perform this operation.
@@ -336,7 +343,7 @@ You must be inside a deck to perform this operation.
 You must be inside a deck to perform this operation.
 |`find NAME` | Finding a card in the active deck by name.
 |`study` | Studying the active deck.
-|`done` | Returning to deck view.
+|`done` | Returning to deck view after studying.
 |`export INDEX` | Exports the deck at the specified INDEX. (Default location is the same folder as TopDeck)
 |`import FILEPATH` | Imports a deck from the `json` file at the specified FILEPATH.
 |`history` | List all entered commands in reverse chronological order.

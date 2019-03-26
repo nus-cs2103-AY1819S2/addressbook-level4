@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.model.deck.Card;
 import seedu.address.model.tag.Tag;
 
@@ -13,14 +13,14 @@ import seedu.address.model.tag.Tag;
  */
 public class EditCardDescriptorBuilder {
 
-    private EditCommand.EditCardDescriptor descriptor;
+    private EditCardCommand.EditCardDescriptor descriptor;
 
     public EditCardDescriptorBuilder() {
-        descriptor = new EditCommand.EditCardDescriptor();
+        descriptor = new EditCardCommand.EditCardDescriptor();
     }
 
-    public EditCardDescriptorBuilder(EditCommand.EditCardDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditCardDescriptor(descriptor);
+    public EditCardDescriptorBuilder(EditCardCommand.EditCardDescriptor descriptor) {
+        this.descriptor = new EditCardCommand.EditCardDescriptor(descriptor);
     }
 
     /**
@@ -28,7 +28,7 @@ public class EditCardDescriptorBuilder {
      * @param card
      */
     public EditCardDescriptorBuilder(Card card) {
-        descriptor = new EditCommand.EditCardDescriptor();
+        descriptor = new EditCardCommand.EditCardDescriptor();
         descriptor.setQuestion(card.getQuestion());
         descriptor.setAnswer(card.getAnswer());
         descriptor.setTags(card.getTags());
@@ -61,7 +61,7 @@ public class EditCardDescriptorBuilder {
         return this;
     }
 
-    public EditCommand.EditCardDescriptor build() {
+    public EditCardCommand.EditCardDescriptor build() {
         return descriptor;
     }
 }

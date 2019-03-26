@@ -5,6 +5,6 @@ package seedu.address.model.deck.exceptions;
  */
 public class DuplicateCardException extends RuntimeException {
     public DuplicateCardException() {
-        super("Operation would result in duplicate persons");
+        super("Cards list contains duplicate cards(s).");
     }
 }

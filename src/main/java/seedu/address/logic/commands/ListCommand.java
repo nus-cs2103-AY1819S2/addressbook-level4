@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -19,7 +20,12 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+        if (model.isAtDecksView()) {
+            model.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
+        } else if (model.isAtCardsView()) {
+            model.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+        }
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

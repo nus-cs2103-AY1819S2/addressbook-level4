@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,9 +19,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
-import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.EditCardDescriptorBuilder;
 
@@ -174,22 +175,23 @@ public class CommandTestUtil {
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
-        assertTrue(!model.isAtDecksView());
+        assertTrue(model.isAtCardsView());
 
         Card card = (Card) model.getFilteredList().get(targetIndex.getZeroBased());
-        final String[] splitName = card.getQuestion().split("\\s+");
-        model.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        final String question = card.getQuestion().replace("?", "")
+            .replace(".", "");
+        model.updateFilteredList(new QuestionContainsKeywordsPredicate(Arrays.asList(question)));
 
         //Gets all the question that starts with what
         assertEquals(1, model.getFilteredList().size());
     }
 
     /**
-     * Deletes the first card in {@code model}'s filtered list from {@code model}'s deck.
+     * Deletes the first deck in {@code model}'s filtered list from {@code model}'s deck.
      */
-    public static void deleteFirstCard(Model model) {
-        Card firstCard = (Card) model.getFilteredList().get(0);
-        model.deleteCard(firstCard);
+    public static void deleteFirstDeck(Model model) {
+        Deck firstDeck = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        model.deleteDeck(firstDeck);
         model.commitTopDeck();
     }
 

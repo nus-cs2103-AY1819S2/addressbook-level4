@@ -10,21 +10,27 @@ import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.EditCardCommand;
+import seedu.address.logic.commands.FindCardCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.StudyDeckCommand;
 import seedu.address.logic.parser.AddCardCommandParser;
 import seedu.address.logic.parser.DeleteCardCommandParser;
 import seedu.address.logic.parser.EditCommandParser;
+import seedu.address.logic.parser.FindCardCommandParser;
 import seedu.address.logic.parser.SelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
+/**
+ * Stores the state of the Card's view.
+ */
 public class CardsView implements ListViewState {
-    private final Model model;
+
     public final FilteredList<Card> filteredCards;
-    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    public final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+    private final Model model;
     private final Deck activeDeck;
 
     public CardsView(Model model, Deck deck) {
@@ -43,6 +49,8 @@ public class CardsView implements ListViewState {
                 return new DeleteCardCommandParser().parse(arguments);
             case EditCardCommand.COMMAND_WORD:
                 return new EditCommandParser().parse(arguments);
+            case FindCardCommand.COMMAND_WORD:
+                return new FindCardCommandParser().parse(arguments);
             case SelectCommand.COMMAND_WORD:
                 return new SelectCommandParser(this).parse(arguments);
             case BackCommand.COMMAND_WORD:

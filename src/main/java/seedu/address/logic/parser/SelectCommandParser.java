@@ -31,9 +31,9 @@ public class SelectCommandParser implements Parser<SelectCommand> {
         try {
             Index index = ParserUtil.parseIndex(args);
             if (viewState instanceof CardsView) {
-                return new SelectCardCommand(index, (CardsView)viewState);
+                return new SelectCardCommand(index, (CardsView) viewState);
             } else {
-                return new SelectDeckCommand(index, (DecksView)viewState);
+                return new SelectDeckCommand(index, (DecksView) viewState);
             }
         } catch (ParseException pe) {
             throw new ParseException(

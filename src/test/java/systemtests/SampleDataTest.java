@@ -43,9 +43,10 @@ public class SampleDataTest extends TopDeckSystemTest {
         }
     }
 
-    @Test
-    public void topDeck_dataFileDoesNotExist_loadSampleData() {
-        Deck[] expectedList = SampleDataUtil.getSampleDecks();
-        assertDeckListMatching(getCardListPanel(), expectedList);
-    }
+//    @Test
+//    public void topDeck_dataFileDoesNotExist_loadSampleData() {
+//        Deck[] expectedList = SampleDataUtil.getSampleDecks();
+//        assertDeckListMatching(getCardListPanel(), expectedList);
+//    }
+
 }

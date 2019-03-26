@@ -32,7 +32,8 @@ public class AddEquipmentCommandParser implements Parser<AddEquipmentCommand> {
         if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_PHONE,
                 CliSyntax.PREFIX_EMAIL, CliSyntax.PREFIX_SERIALNUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(
+                    Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());

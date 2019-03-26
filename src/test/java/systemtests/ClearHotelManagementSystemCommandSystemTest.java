@@ -6,13 +6,13 @@ import static seedu.hms.testutil.TypicalCustomers.KEYWORD_MATCHING_MEIER;
 import org.junit.Test;
 
 import seedu.hms.commons.core.index.Index;
-import seedu.hms.logic.commands.ClearCustomerCommand;
+import seedu.hms.logic.commands.ClearHotelManagementSystemCommand;
 import seedu.hms.logic.commands.RedoCommand;
 import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.model.CustomerManager;
 import seedu.hms.model.CustomerModel;
 
-public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
+public class ClearHotelManagementSystemCommandSystemTest extends HotelManagementSystemSystemTest {
     @Test
     public void clear() {
         final CustomerModel defaultModel = getModel();
@@ -21,7 +21,7 @@ public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
         and
          * spaces -> cleared
          */
-        assertCommandSuccess("   " + ClearCustomerCommand.COMMAND_WORD + " ab12   ");
+        assertCommandSuccess("   " + ClearHotelManagementSystemCommand.COMMAND_WORD + " ab12   ");
         assertSelectedCardUnchanged();
 
         /* Case: undo clearing address book -> original address book restored */
@@ -29,7 +29,6 @@ public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
-
         /* Case: redo clearing address book -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
@@ -39,17 +38,17 @@ public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
         /* Case: selects first card in customer list and clears address book -> cleared and no card selected */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         selectCustomer(Index.fromOneBased(1));
-        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
+        assertCommandSuccess(ClearHotelManagementSystemCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
         /* Case: filters the customer list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         showCustomersWithName(KEYWORD_MATCHING_MEIER);
-        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
+        assertCommandSuccess(ClearHotelManagementSystemCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
         /* Case: clear empty address book -> cleared */
-        assertCommandSuccess(ClearCustomerCommand.COMMAND_WORD);
+        assertCommandSuccess(ClearHotelManagementSystemCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
@@ -58,7 +57,7 @@ public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code ClearCustomerCommand#MESSAGE_SUCCESS} and the model related components equal to an empty
+     * box displays {@code ClearHotelManagementSystemCommand#MESSAGE_SUCCESS} and the model related components equal to an empty
      * model.
      * These verifications are done by
      * {@code HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
@@ -67,14 +66,14 @@ public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
      * @see HotelManagementSystemSystemTest#assertApplicationDisplaysExpected(String, String, CustomerModel)
      */
     private void assertCommandSuccess(String command) {
-        assertCommandSuccess(command, ClearCustomerCommand.MESSAGE_SUCCESS, new CustomerManager());
+        assertCommandSuccess(command, ClearHotelManagementSystemCommand.MESSAGE_SUCCESS, new CustomerManager());
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String)} except that the result box displays
      * {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
      *
-     * @see ClearCommandSystemTest#assertCommandSuccess(String)
+     * @see ClearHotelManagementSystemCommandSystemTest#assertCommandSuccess(String)
      */
     private void assertCommandSuccess(String command, String expectedResultMessage, CustomerModel expectedModel) {
         executeCommand(command);
@@ -103,3 +102,4 @@ public class ClearCommandSystemTest extends HotelManagementSystemSystemTest {
         assertStatusBarUnchanged();
     }
 }
+

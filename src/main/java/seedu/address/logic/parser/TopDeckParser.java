@@ -46,13 +46,13 @@ public class TopDeckParser {
         } catch (ParseException e) {
             switch (commandWord) {
                 case ListCommand.COMMAND_WORD:
-                    return new ListCommand();
+                    return new ListCommand(model.getViewState());
                 case HistoryCommand.COMMAND_WORD:
                     return new HistoryCommand();
                 case UndoCommand.COMMAND_WORD:
-                    return new UndoCommand();
+                    return new UndoCommand(model.getViewState());
                 case RedoCommand.COMMAND_WORD:
-                    return new RedoCommand();
+                    return new RedoCommand(model.getViewState());
                 case ExitCommand.COMMAND_WORD:
                     return new ExitCommand();
                 case HelpCommand.COMMAND_WORD:
@@ -80,7 +80,7 @@ public class TopDeckParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
-        case FindCommand.COMMAND_WORD:
+        case FindCardCommand.COMMAND_WORD:
             return new FindCardCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:

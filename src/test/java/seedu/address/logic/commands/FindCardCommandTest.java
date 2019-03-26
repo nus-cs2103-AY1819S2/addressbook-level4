@@ -44,14 +44,14 @@ public class FindCardCommandTest {
         QuestionContainsKeywordsPredicate secondPredicate =
             new QuestionContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+        FindCardCommand findFirstCommand = new FindCardCommand(firstPredicate);
+        FindCardCommand findSecondCommand = new FindCardCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
+        FindCardCommand findFirstCommandCopy = new FindCardCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false

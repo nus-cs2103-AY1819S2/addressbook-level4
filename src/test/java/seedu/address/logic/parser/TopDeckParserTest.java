@@ -11,7 +11,6 @@ import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCardCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;

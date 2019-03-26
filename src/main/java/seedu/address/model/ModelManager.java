@@ -175,7 +175,6 @@ public class ModelManager implements Model {
         cardsView.filteredCards.remove(target);
 
         setSelectedItem(cardsView.selectedCard.getValue());
-        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
@@ -188,7 +187,6 @@ public class ModelManager implements Model {
 
         CardsView cardsView = (CardsView)viewState;
         versionedTopDeck.addCard(card, cardsView.getActiveDeck());
-        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
@@ -200,16 +198,13 @@ public class ModelManager implements Model {
         }
 
         CardsView cardsView = (CardsView)viewState;
-
         versionedTopDeck.setCard(target, editedCard, cardsView.getActiveDeck());
-        updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Override
     public void addDeck(Deck deck) {
         logger.info("Added a new deck to TopDeck.");
         versionedTopDeck.addDeck(deck);
-        updateFilteredList(PREDICATE_SHOW_ALL_DECKS); // TODO: show all decks after adding a deck
         commitTopDeck();
     }
 
@@ -227,7 +222,6 @@ public class ModelManager implements Model {
         logger.info("Deleted a deck.");
 
         versionedTopDeck.deleteDeck(deck);
-        updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
     }
 
     @Override
@@ -241,7 +235,6 @@ public class ModelManager implements Model {
         DecksView decksView = (DecksView)viewState;
 
         versionedTopDeck.setDecks(decksView.filteredDecks);
-        updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
     }
 
     @Override
@@ -249,7 +242,6 @@ public class ModelManager implements Model {
         requireAllNonNull(target, editedDeck);
         logger.info("Updated a deck's name in TopDeck.");
         versionedTopDeck.updateDeck(target, editedDeck);
-        updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
     }
 
     //=========== Filtered Card List Accessors =============================================================
@@ -263,6 +255,7 @@ public class ModelManager implements Model {
         return (ObservableList<ListItem>) filteredItems;
     }
 
+    // todo: This is no longer used by actual code. Update tests
     @Override
     public void updateFilteredList(Predicate<? extends ListItem> predicate) {
         requireNonNull(predicate);

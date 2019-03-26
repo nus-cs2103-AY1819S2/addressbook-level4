@@ -47,6 +47,7 @@ public class AddDeckCommand extends Command {
 
         model.addDeck(toAdd);
         model.commitTopDeck();
+        decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

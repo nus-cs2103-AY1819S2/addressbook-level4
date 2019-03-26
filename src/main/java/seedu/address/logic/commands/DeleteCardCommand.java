@@ -47,6 +47,7 @@ public class DeleteCardCommand extends Command {
         Card cardToDelete = (Card) lastShownList.get(targetIndex.getZeroBased());
         model.deleteCard(cardToDelete);
         model.commitTopDeck();
+        cardsView.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
         return new CommandResult(String.format(MESSAGE_DELETE_CARD_SUCCESS, cardToDelete));
     }
 

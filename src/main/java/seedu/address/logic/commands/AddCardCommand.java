@@ -54,6 +54,7 @@ public class AddCardCommand extends Command {
 
         model.addCard(toAdd);
         model.commitTopDeck();
+        cardsView.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -48,6 +48,7 @@ public class DeleteDeckCommand extends Command {
         Deck deckToDelete = (Deck) currentDeckList.get(targetIndex.getZeroBased());
         model.deleteDeck(deckToDelete);
         model.commitTopDeck();
+        decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
         return new CommandResult(String.format(MESSAGE_DELETE_DECK_SUCCESS, deckToDelete));
     }
 

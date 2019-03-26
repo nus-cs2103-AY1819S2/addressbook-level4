@@ -28,9 +28,6 @@ public class DeleteReviewCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_DELETE_REVIEW_SUCCESS = "Deleted review number %1$s for restaurant: %2$s";
-    public static final String MESSAGE_NO_REVIEWS = "There are no reviews for this restaurant.";
-    public static final String MESSAGE_INDEX_OUT_OF_BOUNDS = "Index indicated is out of bounds.";
-
 
     private final Index index;
 
@@ -52,10 +49,10 @@ public class DeleteReviewCommand extends Command {
         }
 
         if (selectedRestaurant.getReviews().size() == 0) {
-            throw new CommandException(MESSAGE_NO_REVIEWS);
+            throw new CommandException(Messages.MESSAGE_NO_REVIEWS);
         }
         if (selectedRestaurant.getReviews().size() < index.getOneBased()) {
-            throw new CommandException(MESSAGE_INDEX_OUT_OF_BOUNDS);
+            throw new CommandException(Messages.MESSAGE_INVALID_REVIEW_INDEX);
         }
 
         Restaurant restaurantWithDeletedReview = createRestaurantWithDeletedReview(selectedRestaurant, index);

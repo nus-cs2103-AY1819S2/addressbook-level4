@@ -75,7 +75,7 @@ Examples:
 * `addpat n/Gary Goh r/S7332803I g/Male d/01-04-1973 a/20 Upper Changi Road c/92347654 e/ggoh@gmail.com t/highbloodpressure t/diabetes`
 * `addpat n/Chan Mei Hua r/S8865281I d/09-05-1988 g/Female c/92341221 a/2 Simei Street e/cmh@gmail.com`
 
-=== Patient Management - deleting patient `deletepat` or `dp`
+==== Patient Management - deleting patient `deletepat` or `dp`
 
 Delete a patient record into quickdocs by providing his or her NRIC.
 

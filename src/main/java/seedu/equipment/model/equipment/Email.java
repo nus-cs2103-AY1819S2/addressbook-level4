@@ -8,7 +8,7 @@ import seedu.equipment.commons.util.AppUtil;
  * Represents a Equipment's email in the equipment book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
-public class Email {
+public class Email implements Comparable<Email> {
 
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Emails should be of the format local-part@domain "
@@ -63,6 +63,11 @@ public class Email {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public int compareTo(Email otherEmail) {
+        return value.compareTo(otherEmail.value);
     }
 
 }

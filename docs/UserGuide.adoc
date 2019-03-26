@@ -205,15 +205,20 @@ Example:
 
 === Sort the list: `sort`
 Sort the current shown list.
-Format: `sort /[fieldname to be sorted by] [/desc or /asc]`
-The user can sort the current shown list with any fields, and can sort by multiple fields.
+Format: `sort /[fieldname to be sorted by]`
+The user can sort the current shown list with any valid field.
 
+The sort parameters are case-insensitive.
+
+By default, `sort` sorts the list by name in lexicographical order.
 [TIP]
-Equipment, client, and work list can all be sorted, by any fields of them.
+Equipment, client, and work list can only be sorted by address, email and phone at the moment.
 
 Example:
 
-* `sort /region /desc /id /asc`
+* `sort address`
+* `sort email`
+* `sort phone`
 
 === Filtering the list: `filter`
 Filter the current shown list.

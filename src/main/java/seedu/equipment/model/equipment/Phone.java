@@ -8,7 +8,7 @@ import seedu.equipment.commons.util.AppUtil;
  * Represents a Equipment's phone number in the equipment book.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
-public class Phone {
+public class Phone implements Comparable<Phone> {
 
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -50,5 +50,11 @@ public class Phone {
     public int hashCode() {
         return value.hashCode();
     }
+
+    @Override
+    public int compareTo(Phone otherPhone) {
+        return value.compareTo(otherPhone.value);
+    }
+
 
 }

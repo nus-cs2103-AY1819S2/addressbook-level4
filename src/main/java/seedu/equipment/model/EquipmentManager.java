@@ -114,10 +114,6 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
         indicateModified();
     }
 
-    public void sortByName() {
-        equipment.sortByName();
-    }
-
     /**
      * Removes {@code key} from this {@code EquipmentManager}.
      * {@code key} must exist in the equipment book.

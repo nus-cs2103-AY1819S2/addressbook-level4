@@ -20,7 +20,7 @@ public class EndCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (!model.checkIfInsideTestSession() && !model.inReportDisplay()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
 
         if (model.checkIfInsideTestSession()) {

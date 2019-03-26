@@ -10,7 +10,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_CARD_DISPLAYED_INDEX = "The card index provided is invalid";
     public static final String MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX = "The card folder index provided is invalid";
     public static final String MESSAGE_CARDS_LISTED_OVERVIEW = "%1$d cards listed!";
-    public static final String MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION = "This command is not valid outside a test"
+    public static final String MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN = "This command is not valid outside a test or report"
             + " session";
     public static final String MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION = "This command is not valid inside a test"
             + " session";

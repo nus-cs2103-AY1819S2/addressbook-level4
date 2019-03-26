@@ -1127,6 +1127,13 @@ Use case ends.
 +
 Use case resumes at step 3.
 
+* 3b. There are already five people in the pinned list.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case ends.
+
 [discrete]
 === Use case: Unpin contact
 

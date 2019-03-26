@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveBook;
+import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.person.Person;
 import seedu.address.storage.Storage;
 
@@ -32,6 +33,7 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
     private boolean archiveBookModified;
+    private boolean pinBookModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -51,6 +53,7 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         addressBookModified = false;
         archiveBookModified = false;
+        pinBookModified = false;
 
         CommandResult commandResult;
         try {
@@ -78,6 +81,15 @@ public class LogicManager implements Logic {
             }
         }
 
+        if (pinBookModified) {
+            logger.info("Pin book modified, saving to file.");
+            try {
+                storage.savePinBook(model.getPinBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
         return commandResult;
     }
 
@@ -92,8 +104,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyPinBook getPinBook() { return model.getPinBook(); }
+
+    @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Person> getFilteredPinList() {
+        return model.getFilteredPinnedPersonList();
     }
 
     @Override
@@ -110,6 +130,9 @@ public class LogicManager implements Logic {
     public Path getArchiveBookFilePath() {
         return model.getArchiveBookFilePath();
     }
+
+    @Override
+    public Path getPinBookFilePath() { return model.getPinBookFilePath(); }
 
     @Override
     public GuiSettings getGuiSettings() {

@@ -10,6 +10,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveBook;
+import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.person.Person;
 
 /**
@@ -39,8 +40,18 @@ public interface Logic {
      */
     ReadOnlyArchiveBook getArchiveBook();
 
+    /**
+     * Returns the PinBook.
+     *
+     * @see seedu.address.model.Model#getPinBook()
+     */
+    ReadOnlyPinBook getPinBook();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of persons */
+    ObservableList<Person> getFilteredPinList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -57,6 +68,11 @@ public interface Logic {
      * Returns the user prefs' archive book file path.
      */
     Path getArchiveBookFilePath();
+
+    /**
+     * Returns the user prefs' pin book file path.
+     */
+    Path getPinBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

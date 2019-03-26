@@ -15,4 +15,6 @@ public interface ReadOnlyUserPrefs {
 
     Path getArchiveBookFilePath();
 
+    Path getPinBookFilePath();
+
 }

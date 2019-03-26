@@ -24,7 +24,7 @@ public class UnpinCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_UNPIN_PERSON_SUCCESS = "Unpinned Person: %1$s";
-    public static final String MESSAGE_UNPIN_PERSON_ALREADY = "Person: %1$s is already in the unpinned list";
+    public static final String MESSAGE_PERSON_NOT_IN_PIN_LIST = "Person: %1$s is not in the pin list";
 
     private final Index targetIndex;
 
@@ -36,21 +36,21 @@ public class UnpinCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
-        List<Person> pinnedPersonList = PinCommand.getPinnedPersonList();
+        List<Person> lastShownPinList = model.getFilteredPinnedPersonList();
 
-        if (targetIndex.getZeroBased() >= pinnedPersonList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownPinList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToUnpin = lastShownList.get(targetIndex.getZeroBased());
+        Person personToUnpin = lastShownPinList.get(targetIndex.getZeroBased());
 
-        if (pinnedPersonList.contains(personToUnpin)) {
-            pinnedPersonList.remove(personToUnpin);
-            PinCommand.editPinnedPersonList(personToUnpin);
-            model.addPerson(personToUnpin);
+        if (lastShownPinList.contains(personToUnpin)) {
+            model.unpinPerson(personToUnpin);
             model.commitAddressBook();
+            model.commitArchiveBook();
+            model.commitPinBook();
         } else {
-            return new CommandResult(String.format(MESSAGE_UNPIN_PERSON_ALREADY, personToUnpin));
+            return new CommandResult(String.format(MESSAGE_PERSON_NOT_IN_PIN_LIST, personToUnpin));
         }
 
         return new CommandResult(String.format(MESSAGE_UNPIN_PERSON_SUCCESS, personToUnpin));

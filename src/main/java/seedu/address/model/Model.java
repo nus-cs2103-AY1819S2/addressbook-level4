@@ -72,6 +72,24 @@ public interface Model {
     ReadOnlyArchiveBook getArchiveBook();
 
     /**
+     * Returns the user prefs' pin book file path.
+     */
+    Path getPinBookFilePath();
+
+    /**
+     * Sets the user prefs' pin book file path.
+     */
+    void setPinBookFilePath(Path pinBookFilePath);
+
+    /**
+     * Replaces pin book data with the data in {@code pinBook}.
+     */
+    void setPinBook(ReadOnlyPinBook pinBook);
+
+    /** Returns the PinBook */
+    ReadOnlyPinBook getPinBook();
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
@@ -87,6 +105,18 @@ public interface Model {
      * The person must exist in the address book.
      */
     void archivePerson(Person target);
+
+    /**
+     * Pins the given person.
+     * The person must exist in the address book.
+     */
+    void pinPerson(Person target);
+
+    /**
+     * Unpins the given person.
+     * The person must exist in the pin book.
+     */
+    void unpinPerson(Person target);
 
     /**
      * Adds the given person.
@@ -118,6 +148,15 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredArchivedPersonList(Predicate<Person> predicate);
+
+    /** Returns an unmodifiable view of the filtered pinned list */
+    ObservableList<Person> getFilteredPinnedPersonList();
+
+    /**
+     * Updates the filter of the filtered pinned list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredPinnedPersonList(Predicate<Person> predicate);
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -158,6 +197,21 @@ public interface Model {
      * Saves the current archive book state for undo/redo.
      */
     void commitArchiveBook();
+
+    /**
+     * Restores the model's pin book to its previous state.
+     */
+    void undoPinBook();
+
+    /**
+     * Restores the model's pin book to its previously undone state.
+     */
+    void redoPinBook();
+
+    /**
+     * Saves the current pin book state for undo/redo.
+     */
+    void commitPinBook();
 
     /**
      * Selected person in the filtered person list.

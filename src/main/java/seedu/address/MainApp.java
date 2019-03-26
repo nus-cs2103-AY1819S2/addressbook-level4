@@ -17,17 +17,21 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ArchiveBook;
+import seedu.address.model.PinBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveBook;
+import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.ArchiveBookStorage;
+import seedu.address.storage.PinBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonArchiveBookStorage;
+import seedu.address.storage.JsonPinBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -62,7 +66,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         ArchiveBookStorage archiveBookStorage = new JsonArchiveBookStorage(userPrefs.getArchiveBookFilePath());
-        storage = new StorageManager(addressBookStorage, archiveBookStorage, userPrefsStorage);
+        PinBookStorage pinBookStorage = new JsonPinBookStorage(userPrefs.getPinBookFilePath());
+        storage = new StorageManager(addressBookStorage, archiveBookStorage, pinBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -83,6 +88,8 @@ public class MainApp extends Application {
         ReadOnlyAddressBook initialData;
         Optional<ReadOnlyArchiveBook> archiveBookOptional;
         ReadOnlyArchiveBook initialArchiveData;
+        Optional<ReadOnlyPinBook> pinBookOptional;
+        ReadOnlyPinBook initialPinData;
 
         try {
             addressBookOptional = storage.readAddressBook();
@@ -112,7 +119,21 @@ public class MainApp extends Application {
             initialArchiveData = new ArchiveBook();
         }
 
-        return new ModelManager(initialData, initialArchiveData, userPrefs);
+        try {
+            pinBookOptional = storage.readPinBook();
+            if (!pinBookOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with a sample PinBook");
+            }
+            initialPinData = pinBookOptional.orElseGet(SampleDataUtil::getSamplePinBook);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty PinBook");
+            initialPinData = new PinBook();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting with an empty PinBook");
+            initialPinData = new PinBook();
+        }
+
+        return new ModelManager(initialData, initialArchiveData, initialPinData, userPrefs);
     }
 
     private void initLogging(Config config) {

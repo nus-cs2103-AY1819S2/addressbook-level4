@@ -25,6 +25,7 @@ public class BookShelf implements ReadOnlyBookShelf {
     private final UniqueBookList books;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
+
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
@@ -188,6 +189,22 @@ public class BookShelf implements ReadOnlyBookShelf {
         for (Book p: books) {
             removeTagFromBook(tag, p);
         }
+    }
+
+    /**
+     * Sort {@code books} in with {@code order}
+     * @param type
+     * @param order
+     * @throws Exception
+     */
+
+    public void sort(String type, String order) {
+        try {
+            books.sortBooks(type, order);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        indicateModified();
     }
 
     @Override

@@ -185,4 +185,9 @@ public interface Model {
      * Delete the tag{@code tag} of all contacts in the phone book
      */
     void deleteTag(Tag tag);
+
+    /**
+     * Sort the Book list into different order
+     */
+    void sortBook(String type, String order);
 }

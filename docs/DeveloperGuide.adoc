@@ -553,9 +553,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new player |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |player |initialise a new game board / map|start a new game
+|`* * *` | player |initialise a new game board / map|start a new game
 
 |`* * *` | player | put a battleship on the map |play the game
+
+|`* * *` | player | tag my battleships | manage my battleships during the game
+
+|`* * *` | player | list my battleships | check the status of my battleships during the game
+
+|`* * *` | player | list my battleships by tag | check the status of specific battleships during the game
 
 |`* * *` | user | see the number of actions I made |keep track of my play style
 
@@ -614,6 +620,43 @@ Use case ends.
 
 [none]
 * 2a. If there is a ship present in the cell, show an error.
+
+=== Use case: List Battleship
+
+*MSS*
+
+1. User requests to list battleships deployed on map.
+2. Shows all of the user's battleships deployed on map.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. If there are no ships deployed, inform the user.
+
+=== Use case: List tags that Battleships have
+
+*MSS*
+
+1. User requests to list tags of battleships that have already been deployed on map.
+2. Shows all of the tags of battleships that have already been deployed on map.
++
+Use case ends.
+
+=== Use case: List Battleships by tag
+
+*MSS*
+
+1. User requests to list battleships deployed on map that have certain tags.
+2. Shows all of the user's battleships deployed on map that have certain tags.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. If there are no ships deployed, inform the user.
 
 === Use case: End player turn
 
@@ -705,17 +748,23 @@ _{ more test cases ... }_
 .. Other incorrect initialise commands to try: `init`, `init x` (where x is smaller or larger than the specified minimum or maximum map size respectively). +
    Expected: No map will be displayed if this is the first command ran. Otherwise, no changes will be made to the displayed map.
 
-=== Deleting a person
+=== Putting a ship
 
-. Deleting a person while all persons are listed
+. Putting a ship on the map after initialising the map.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: There are ships in your fleet ready to be deployed. This means that the number of battleships in the fleet is more than 0. The map is initialised to a size between 6 and 10.
+.. Test case: `put n/destroyer r/horizontal c/b1` +
+   Expected: Destroyer battleship of size 3 will be put horizontally on coordinates `b1`, `b2` and `b3`. The map is updated with 3 black cells on each of these coordinates representing the Destroyer battleship.
+.. Test case: `put n/aircraft carrier r/horizontal c/c1 t/bluefleet` +
+   Expected: Aircraft Carrier battleship of size 5 will be put horizontally on coordinates `c1`, `c2`, `c3`, `c4` and `c5`. The map is updated with 5 black cells on each of these coordinates representing the Aircraft Carrier battleship.
+.. Test case: `put n/aircraft carrier r/horizontal c/e1 t/nomore` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+.. Test case: `put n/destroyer r/vertical c/b1` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+.. Test case: `put n/destroyer r/vertical c/a1` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+.. Test case: `put n/destroyer r/vertical c/z1` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
 
 _{ more test cases ... }_
 

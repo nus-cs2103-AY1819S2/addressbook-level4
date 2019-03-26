@@ -33,6 +33,8 @@ public class Date {
      * @param date A valid code.
      */
     public Date(String date) {
+
+
         requireNonNull(date);
         String[] data = date.split("\\.", 3);
         this.day = new Day(data[0]);

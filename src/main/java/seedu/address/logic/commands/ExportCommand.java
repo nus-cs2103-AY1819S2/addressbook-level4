@@ -51,7 +51,7 @@ public class ExportCommand extends Command {
             try {
                 writeFile(createTempAddressBook(model, parsedInput.getParsedIndex()));
             } catch (IOException e) {
-                throw new CommandException(Messages.MESSAGE_INVALID_FILE_TYPE);
+                throw new CommandException(e.getMessage());
             }
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         }
@@ -74,7 +74,7 @@ public class ExportCommand extends Command {
                 storage.saveAsPdf(model.getAddressBook());
             }
         } catch (IOException e) {
-            throw new IOException();
+            throw new IOException(e.getMessage());
         }
     }
 

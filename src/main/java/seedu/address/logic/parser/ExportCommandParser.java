@@ -19,12 +19,8 @@ public class ExportCommandParser implements Parser<ExportCommand> {
     public ExportCommand parse(String args) throws ParseException {
         try {
             ParsedInOut parsedInOut = ParserUtil.parseImportExport(args);
-            try {
-                exportValidation(parsedInOut.getFile());
-                return new ExportCommand(parsedInOut);
-            } catch (ParseException pe) {
-                throw new ParseException(String.format("%s\n%s", pe.getMessage(), ExportCommand.MESSAGE_USAGE), pe);
-            }
+            exportValidation(parsedInOut.getFile());
+            return new ExportCommand(parsedInOut);
         } catch (ParseException pe) {
             System.out.println(ExportCommand.MESSAGE_USAGE);
             throw new ParseException(String.format("%s\n%s", pe.getMessage(), ExportCommand.MESSAGE_USAGE), pe);

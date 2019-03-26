@@ -30,7 +30,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class InOutAddressBookStorage implements AddressBookStorage {
 
     private static final String TITLE = "OurTeeth";
-    private static final int TOPMARGIN = 20;
+    private static final int TOP_MARGIN = 20;
     private static final int LINE_SPACING = 3;
     private static final String TEETH_IMAGE_PATH = "src\\main\\resources\\images\\tooth.png";
 
@@ -126,7 +126,7 @@ public class InOutAddressBookStorage implements AddressBookStorage {
 
             doc.save(filePath.toFile());
         } catch (IOException e) {
-            throw new IOException();
+            throw new IOException(e.getMessage());
         }
     }
 
@@ -154,7 +154,7 @@ public class InOutAddressBookStorage implements AddressBookStorage {
             contents.setFont(titleFont, titleFontSize);
             PDImageXObject pdImage = PDImageXObject.createFromFile(TEETH_IMAGE_PATH, doc);
             tx = ((page.getMediaBox().getWidth() - textWidth) - (pdImage.getWidth() * textHeight / 1000)) / 2;
-            ty = page.getMediaBox().getHeight() - TOPMARGIN - textHeight;
+            ty = page.getMediaBox().getHeight() - TOP_MARGIN - textHeight;
             writeLine(contents, TITLE, tx, ty);
             contents.drawImage(pdImage, tx + textWidth + (pdImage.getWidth() * textHeight / 1000) - 7, ty - 1,
                         pdImage.getWidth() * textHeight / 1000,
@@ -165,17 +165,19 @@ public class InOutAddressBookStorage implements AddressBookStorage {
             textWidth = font.getStringWidth(type) / 1000 * subtitleFontSize;
             textHeight = font.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * subtitleFontSize;
             tx = (page.getMediaBox().getWidth() - textWidth) / 2;
-            ty = page.getMediaBox().getHeight() - TOPMARGIN - textHeight - subtitleFontSize - LINE_SPACING * 4;
+            ty = page.getMediaBox().getHeight() - TOP_MARGIN - textHeight - subtitleFontSize - LINE_SPACING * 4;
             writeLine(contents, type, tx, ty);
 
-            contents.addRect(tx, ty, textWidth, 1);
+            contents.moveTo(tx, ty - 1);
+            contents.lineTo(tx + textWidth + 4, ty - 1);
+            contents.stroke();
 
             contents.setFont(font, fontSize);
             for (int i = 0; i < stringArr.size(); i++) {
                 writeLine(contents, stringArr.get(i), 50, 700 - (i * (fontSize + LINE_SPACING)));
             }
         } catch (IOException e) {
-            throw new IOException();
+            throw new IOException(e.getMessage());
         }
     }
 
@@ -194,7 +196,7 @@ public class InOutAddressBookStorage implements AddressBookStorage {
             contents.showText(toWrite);
             contents.endText();
         } catch (IOException e) {
-            throw new IOException();
+            throw new IOException("File cannot be written.");
         }
     }
 }

@@ -31,6 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private static final String TABLE_MODE_THEME = "view/TableModeTheme.css";
     private static final String RESTAURANT_MODE_THEME = "view/DarkTheme.css";
     private static final String MENU_MODE_THEME = "view/MenuModeTheme.css";
+    private static final String STATISTIC_MODE_THEME = "view/StatisticsModeTheme.css";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -253,13 +254,14 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case STATISTICS_MODE:
+
             //TODO: add different cases for the monthly, yearly statistics
             statisticsFlowPanel =
                     new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, true, false, false);
             browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
 
-
             statusBarFooter.updateMode("Statistics Mode");
+            changeTheme(STATISTIC_MODE_THEME);
             break;
 
         default:

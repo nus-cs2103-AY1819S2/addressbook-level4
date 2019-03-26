@@ -213,10 +213,18 @@ Returns `john` and `John Doe`
 * `memberFind Betsy Tim John` +
 Returns any member having names `Betsy`, `Tim`, or `John`
 
-==== Listing all members : `memberList`
+==== Listing members : `memberList`
 
 Shows a list of all members in ClubManager. +
 Format: `memberList`
+
+image::memberList_example_all.png[width="300"]
+
+Shows a list of members by a particular year of study in ClubManager. +
+Format: `memberList yearOfStudy year 4`
+
+Shows a list of members by a particular major
+Format: `memberList major computing`
 
 ==== Selecting a member : `memberSelect`
 
@@ -238,36 +246,6 @@ Selects the 2nd person in the address book.
 `memberSelect 1` +
 Selects the 1st member in the results of the `find` command.
 
-==== Set member as Active : `memberSetActive`
-Sets a member who was inactive, back to active.
-Format: `memberSetActive INDEX`
-
-****
-* Sets the status for the member at the specified `INDEX` as active.
-* The index refers to the index number shown in the displayed member list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Example:
-
-* `list` +
-* `memberSetActive 3`
-
-==== Set member as Active : `memberSetInactive`
-Sets a member who was active, to inactive. Recommended for students who have graduated.
-Format: `memberSetInactive INDEX`
-
-****
-* Sets the status for the member at the specified `INDEX` as active.
-* The index refers to the index number shown in the displayed member list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Example:
-
-* `list` +
-* `memberSetInactive 3`
-
 ==== Sort members’ list : `memberSort`
 
 Sort the members list by a member’s attribute in ascending order
@@ -286,8 +264,8 @@ Example:
 Sorts the list by name.
 
 * `list` +
-`memberSort major` +
-Sorts the list by major.
+`memberSort yearOfStudy` +
+Sorts the list by year of study.
 
 === Activity Management Features
 
@@ -483,11 +461,7 @@ e.g. `memberFind John`
 * *List all members* : `list`
 * *Select a member* : `memberSelect INDEX` +
 e.g.`memberSelect 2`
-* *Set a member as active* :  `memberSetActive INDEX` +
-e.g. `memberSetActive 3`
-* *Set a member as inactive* : `memberSetInactive INDEX` +
-e.g. `memberSetInactive 3`
-* *Sort the member list* : `memberSort n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR` +
+* *Sort the member list* : `memberSort n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER yos/YEAR_OF_STUDY m/MAJOR` +
 e.g. `memberSort NAME`
 
 === Activity Management Commands

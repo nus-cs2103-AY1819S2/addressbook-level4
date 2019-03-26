@@ -30,7 +30,7 @@ public class ReportCommandTest {
     }
 
     @Test
-    public void execute_invalidReportCommandInsideTestSession_fail() {
+    public void execute_invalidReportCommandInsideReportSession_fail() {
         ReportCommand reportCommand = new ReportCommand();
         expectedModel.enterReportDisplay();
         CommandResult expectedCommandResult = new CommandResult(ReportCommand.MESSAGE_SUCCESS,

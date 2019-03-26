@@ -36,4 +36,12 @@ public class SortBookCommand extends Command {
         model.commitBookShelf();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof SortBookCommand // instanceof handles nulls
+            && this.order.equals(((SortBookCommand) other).order)
+            && this.type.equals(((SortBookCommand) other).type));
+    }
 }

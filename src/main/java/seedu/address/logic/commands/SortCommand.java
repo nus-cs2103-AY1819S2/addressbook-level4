@@ -7,8 +7,9 @@ import seedu.address.logic.parser.SortWord;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
-import java.util.List;
 import static java.util.Objects.requireNonNull;
+
+import java.util.List;
 
 /**
  * Sorts all persons in the address book and lists to the user.

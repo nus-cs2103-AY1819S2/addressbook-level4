@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     private final UniqueCardList cards;
     private String folderName;
+    private List<Double> folderScores;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -34,6 +36,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
     public CardFolder(String folderName) {
         setFolderName(folderName);
+        folderScores = new ArrayList<>();
     }
 
     /**
@@ -69,6 +72,7 @@ public class CardFolder implements ReadOnlyCardFolder {
 
         setCards(newData.getCardList());
         setFolderName(newData.getFolderName());
+        setFolderScores(newData.getFolderScores());
     }
 
     //// card-level operations
@@ -111,6 +115,17 @@ public class CardFolder implements ReadOnlyCardFolder {
         indicateModified();
     }
 
+    /**
+     * Adds a folder score to a list of the last {@code MAX_NUM_FOLDER_SCORES} folder scores.
+     * A folder score is a double representing the percentage of questions answered correctly in the last test session.
+     */
+    public void addFolderScore(Double folderScore) {
+        while (folderScores.size() >= MAX_NUM_FOLDER_SCORES) {
+            folderScores.remove(0);
+        }
+        folderScores.add(folderScore);
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -133,6 +148,20 @@ public class CardFolder implements ReadOnlyCardFolder {
     @Override
     public String toString() {
         return getFolderName();
+    }
+
+    @Override
+    public List<Double> getFolderScores() {
+        return folderScores;
+    }
+
+    /**
+     * Sets the folderScores of {@code CardFolder } and overwrites the previous scores.
+     * @param folderScores
+     */
+    public void setFolderScores(List<Double> folderScores) {
+        this.folderScores = folderScores;
+        indicateModified();
     }
 
     @Override

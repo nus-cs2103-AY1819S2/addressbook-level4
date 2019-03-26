@@ -19,7 +19,7 @@ public class SelectDeckCommand extends SelectCommand {
 
     private DecksView viewState;
 
-    public SelectDeckCommand(Index targetIndex, DecksView viewState) {
+    public SelectDeckCommand(DecksView viewState, Index targetIndex) {
         super(targetIndex);
         this.viewState = viewState;
     }

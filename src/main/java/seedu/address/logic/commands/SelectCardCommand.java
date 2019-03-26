@@ -19,7 +19,7 @@ public class SelectCardCommand extends SelectCommand {
 
     private CardsView viewState;
 
-    public SelectCardCommand(Index targetIndex, CardsView viewState) {
+    public SelectCardCommand(CardsView viewState, Index targetIndex) {
         super(targetIndex);
         this.viewState = viewState;
     }

@@ -28,7 +28,6 @@ public class StorageManagerTest {
     public void setUp() {
         JsonCardFolderStorage cardFolderStorage = new JsonCardFolderStorage(getTempFilePath("ab"));
         List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
-        // TODO: Iterate over all files in directory
         cardFolderStorageList.add(cardFolderStorage);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(cardFolderStorageList, userPrefsStorage);

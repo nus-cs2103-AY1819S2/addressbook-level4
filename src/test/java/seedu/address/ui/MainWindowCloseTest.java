@@ -39,7 +39,6 @@ public class MainWindowCloseTest extends GuiUnitTest {
     public void setUp() throws Exception {
         JsonCardFolderStorage jsonCardFolderStorage = new JsonCardFolderStorage(temporaryFolder.newFile().toPath());
         List<CardFolderStorage> jsonCardFolderStorageList = new ArrayList<>();
-        // TODO: Iterate over all files in directory
         jsonCardFolderStorageList.add(jsonCardFolderStorage);
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storageManager = new StorageManager(jsonCardFolderStorageList, jsonUserPrefsStorage);

@@ -53,7 +53,6 @@ public class LogicManagerTest {
     public void setUp() throws Exception {
         JsonCardFolderStorage cardFolderStorage = new JsonCardFolderStorage(temporaryFolder.newFile().toPath());
         List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
-        // TODO: Iterate over all files in directory
         cardFolderStorageList.add(cardFolderStorage);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(cardFolderStorageList, userPrefsStorage);
@@ -87,7 +86,6 @@ public class LogicManagerTest {
         JsonCardFolderStorage cardFolderStorage =
                 new JsonCardFolderIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
-        // TODO: Iterate over all files in directory
         cardFolderStorageList.add(cardFolderStorage);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(cardFolderStorageList, userPrefsStorage);

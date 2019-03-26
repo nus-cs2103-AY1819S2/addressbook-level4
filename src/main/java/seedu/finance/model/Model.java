@@ -91,6 +91,11 @@ public interface Model {
      */
     void addBudget(Amount amount);
 
+    /**
+     * Returns an unmodifiable view of the filtered record list in reverse order.
+     */
+    void reverseFilteredRecordList();
+
     /** Returns the amount value of {@code budget} in a ObjectProperty wrapper */
     ObjectProperty<Amount> getBudget();
 

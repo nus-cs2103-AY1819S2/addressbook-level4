@@ -133,6 +133,11 @@ public class ModelManager implements Model {
         versionedFinanceTracker.addBudget(amount);
     }
 
+    @Override
+    public void reverseFilteredRecordList(){
+        versionedFinanceTracker.reverseRecordList();
+    }
+
     //=========== Filtered Record List Accessors =============================================================
 
     /**

@@ -3,6 +3,7 @@ package seedu.finance.model.record;
 import static java.util.Objects.requireNonNull;
 import static seedu.finance.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -102,6 +103,14 @@ public class UniqueRecordList implements Iterable<Record> {
      */
     public ObservableList<Record> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Returns the reversed list.
+     */
+    public void reverseList(){
+        FXCollections.reverse(internalList);
+
     }
 
     @Override

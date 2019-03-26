@@ -158,6 +158,11 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         return records.asUnmodifiableObservableList();
     }
 
+
+    public void reverseRecordList(){
+        records.reverseList();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

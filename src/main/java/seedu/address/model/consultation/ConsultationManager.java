@@ -37,18 +37,12 @@ public class ConsultationManager {
      */
     public void createConsultation(Patient patient) {
         if (currentConsultation != null) {
-            throw new IllegalArgumentException("There is already an ongoing consultation session");
+            throw new IllegalArgumentException("There is already an ongoing consultation session\n");
         }
         currentConsultation = new Consultation(patient);
     }
 
-    /**
-     * Adds or replace diagnosis on current consultation session
-     */
     public void diagnosePatient(Diagnosis diagnosis) {
-        if (currentConsultation == null) {
-            throw new IllegalArgumentException("There is no ongoing consultation session");
-        }
         currentConsultation.setDiagnosis(diagnosis);
     }
 

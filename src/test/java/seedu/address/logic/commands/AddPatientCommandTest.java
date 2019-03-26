@@ -76,11 +76,16 @@ public class AddPatientCommandTest {
         ArrayList<Tag> tagList = new ArrayList<Tag>();
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
 
+        seedu.address.testutil.Assert.assertThrows(CommandException.class, () ->
+                new AddPatientCommand(patient1).execute(modelManager, history));
+
+
+        /*
         try {
             CommandResult commandResult = new AddPatientCommand(patient1).execute(modelManager, history);
         } catch (CommandException ce) {
             Assert.assertEquals(ce.getMessage(), "Patient with same NRIC already exist");
         }
-
+        */
     }
 }

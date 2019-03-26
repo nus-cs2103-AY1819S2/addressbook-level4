@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-
 <?import javafx.scene.layout.StackPane?>
+
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="quickdocs.RootLayoutController">
     <children>
         <MenuBar layoutY="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -24,9 +25,10 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <TextField fx:id="userInput" layoutX="14.0" layoutY="561.0" onKeyPressed="#enterInput" onKeyReleased="#checkInput" promptText="Enter command" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
-        <TextArea fx:id="display" layoutX="15.0" layoutY="32.0" prefHeight="200.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0" />
-        <StackPane fx:id="reminderList" layoutX="560.0" layoutY="50.0" prefHeight="200.0" prefWidth="225.0" AnchorPane.bottomAnchor="100.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0" />
-        <TextArea fx:id="inputFeedback" editable="false" layoutX="14.0" layoutY="352.0" prefHeight="40.0" prefWidth="200.0" wrapText="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+        <TextField fx:id="userInput" layoutX="14.0" layoutY="561.0" onKeyPressed="#enterInput" onKeyReleased="#checkInput" promptText="Enter command" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="250.0" />
+        <TextArea fx:id="display" layoutX="15.0" layoutY="32.0" prefHeight="200.0" prefWidth="400.0" wrapText="true" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0" />
+        <StackPane fx:id="reminderList" layoutX="560.0" layoutY="50.0" prefHeight="501.0" prefWidth="226.0" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0" />
+        <TextArea fx:id="inputFeedback" editable="false" layoutX="14.0" layoutY="352.0" prefHeight="80.0" prefWidth="535.0" wrapText="true" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="250.0" />
+      <Label fx:id="currentSession" layoutX="559.0" layoutY="564.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="560.0" />
     </children>
 </AnchorPane>

@@ -213,6 +213,10 @@ public interface Model {
 
     Patient getPatientByNric(String nric);
 
+    int getIndexByNric(Nric nric);
+
+    void deletePatientByNric(String nric);
+
     //==========Consultation methods=====================
 
     void createConsultation(Patient patient);
@@ -258,7 +262,7 @@ public interface Model {
     void deleteReminder(Reminder reminder);
 
     //===========Record module operations=============================
-    Statistics getStatistics(String topic, YearMonth from, YearMonth to);
+    Statistics getStatistics(YearMonth from, YearMonth to);
 
     void addRecord(Record record, Clock clock);
 

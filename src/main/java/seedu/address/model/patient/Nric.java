@@ -7,7 +7,7 @@ public class Nric {
     public static final String REGEX_NRIC1 = "^[ST]\\d{7}[ABCDEFGHIZJ]";
     public static final String REGEX_NRIC2 = "^[FG]\\d{7}[KLMNPQRTUWX]$";
     public static final String NRIC_CONSTRAINTS =
-            "NRIC starts with S,T,U or G followed by 7 digits and ends with a letter";
+            "NRIC starts with S,T,U or G followed by 7 digits and must end with a valid letter";
 
     private String nric;
 

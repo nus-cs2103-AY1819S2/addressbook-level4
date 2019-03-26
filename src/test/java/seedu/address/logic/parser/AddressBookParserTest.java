@@ -130,7 +130,7 @@ public class AddressBookParserTest {
         ArrayList<Tag> tagList = new ArrayList<Tag>();
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
 
-        String userInput = "padd n/" + name.getName() + " "
+        String userInput = AddPatientCommand.COMMAND_WORD + " n/" + name.getName() + " "
                 + "r/" + nric.getNric() + " "
                 + "e/" + email.getEmail() + " "
                 + "a/" + address.getAddress() + " "
@@ -141,6 +141,17 @@ public class AddressBookParserTest {
         AddPatientCommand command = (AddPatientCommand) parser.parseCommand(userInput);
 
         assertEquals(new AddPatientCommand(patient1), command);
+
+        // alias test
+        userInput = AddPatientCommand.COMMAND_ALIAS + " n/" + name.getName() + " "
+                + "r/" + nric.getNric() + " "
+                + "e/" + email.getEmail() + " "
+                + "a/" + address.getAddress() + " "
+                + "c/" + contact.getContact() + " "
+                + "g/" + gender.getGender() + " "
+                + "d/" + dob.getDob();
+        command = (AddPatientCommand) parser.parseCommand(userInput);
+        assertEquals(new AddPatientCommand(patient1), command);
     }
 
     @Test
@@ -150,7 +161,7 @@ public class AddressBookParserTest {
         Email email = new Email("ptan@gmail.com");
         Address address = new Address("1 Simei Road");
 
-        String userInput = "pedit 1 n/" + name.getName() + " "
+        String userInput = EditPatientCommand.COMMAND_WORD + " S9123456A " + "n/" + name.getName() + " "
                 + "r/" + nric.getNric() + " "
                 + "e/" + email.getEmail() + " "
                 + "a/" + address.getAddress();
@@ -161,50 +172,93 @@ public class AddressBookParserTest {
         pef.setEmail(email);
         pef.setAddress(address);
 
-        EditPatientCommand expectedCommand = new EditPatientCommand(1, pef);
+        EditPatientCommand expectedCommand = new EditPatientCommand(nric, pef);
 
         EditPatientCommand command = (EditPatientCommand) parser.parseCommand(userInput);
+        assertEquals(expectedCommand, command);
+
+        //alias test
+        userInput = EditPatientCommand.COMMAND_ALIAS + " S9123456A " + "n/" + name.getName() + " "
+                + "r/" + nric.getNric() + " "
+                + "e/" + email.getEmail() + " "
+                + "a/" + address.getAddress();
+        command = (EditPatientCommand) parser.parseCommand(userInput);
         assertEquals(expectedCommand, command);
     }
 
     @Test
     public void parseCommand_listPatient() throws Exception {
-        String userInput = "plist r/S92";
+        String userInput = ListPatientCommand.COMMAND_WORD + " r/S92";
         ListPatientCommand command1 = new ListPatientCommand("S92", false);
         assertEquals(command1, parser.parseCommand(userInput));
 
-        userInput = "plist n/pe";
+        userInput = ListPatientCommand.COMMAND_WORD + " n/pe";
         ListPatientCommand command2 = new ListPatientCommand("pe", true);
         assertEquals(command2, parser.parseCommand(userInput));
 
-        userInput = "plist t/diabetes";
+        userInput = ListPatientCommand.COMMAND_WORD + " t/diabetes";
         ListPatientCommand command3 = new ListPatientCommand(new Tag("diabetes"));
         assertEquals(command3, parser.parseCommand(userInput));
 
-        userInput = "plist 1";
+        userInput = ListPatientCommand.COMMAND_WORD + " 1";
         ListPatientCommand command4 = new ListPatientCommand(1);
         assertEquals(command4, parser.parseCommand(userInput));
 
-        userInput = "plist";
+        userInput = ListPatientCommand.COMMAND_WORD;
         ListPatientCommand command5 = new ListPatientCommand();
+        assertEquals(command5, parser.parseCommand(userInput));
+
+        // alias tests
+        userInput = ListPatientCommand.COMMAND_ALIAS + " r/S92";
+        ListPatientCommand command6 = new ListPatientCommand("S92", false);
+        assertEquals(command1, parser.parseCommand(userInput));
+
+        userInput = ListPatientCommand.COMMAND_ALIAS + " n/pe";
+        ListPatientCommand command7 = new ListPatientCommand("pe", true);
+        assertEquals(command2, parser.parseCommand(userInput));
+
+        userInput = ListPatientCommand.COMMAND_ALIAS + " t/diabetes";
+        ListPatientCommand command8 = new ListPatientCommand(new Tag("diabetes"));
+        assertEquals(command3, parser.parseCommand(userInput));
+
+        userInput = ListPatientCommand.COMMAND_ALIAS + " 1";
+        ListPatientCommand command9 = new ListPatientCommand(1);
+        assertEquals(command4, parser.parseCommand(userInput));
+
+        userInput = ListPatientCommand.COMMAND_ALIAS;
+        ListPatientCommand command10 = new ListPatientCommand();
         assertEquals(command5, parser.parseCommand(userInput));
     }
 
     @Test
     public void parseCommand_consultationcommand() throws Exception {
-        String userInput = "consult r/S9123456A";
+        String userInput = ConsultationCommand.COMMAND_WORD + " r/S9123456A";
         ConsultationCommand command = new ConsultationCommand("S9123456A");
+        assertEquals(command, parser.parseCommand(userInput));
+
+        // alias test
+        userInput = ConsultationCommand.COMMAND_ALIAS + " r/S9123456A";
+        ConsultationCommand command2 = new ConsultationCommand("S9123456A");
         assertEquals(command, parser.parseCommand(userInput));
     }
 
     @Test
     public void parseCommand_diagnosepatientcommand() throws Exception {
-        String userInput = "diagnose a/migrane s/constant headache s/blurred vision";
+        String userInput = DiagnosePatientCommand.COMMAND_WORD + " a/migrane s/constant headache s/blurred vision";
         Assessment assessment = new Assessment("migrane");
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));
         symptoms.add(new Symptom("blurred vision"));
         DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
+        assertEquals(command, parser.parseCommand(userInput));
+
+        //alias test
+        userInput = DiagnosePatientCommand.COMMAND_ALIAS + " a/migrane s/constant headache s/blurred vision";
+        assessment = new Assessment("migrane");
+        symptoms = new ArrayList<>();
+        symptoms.add(new Symptom("constant headache"));
+        symptoms.add(new Symptom("blurred vision"));
+        command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
         assertEquals(command, parser.parseCommand(userInput));
     }
 

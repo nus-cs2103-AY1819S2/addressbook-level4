@@ -21,6 +21,7 @@ public class ConsultationManagerTest {
 
     private static ConsultationManager consultationManager;
     private static PatientManager patientManager;
+    private Patient patient1;
 
     @Before
     public void init() {
@@ -35,37 +36,24 @@ public class ConsultationManagerTest {
         Gender gender = new Gender("M");
         Dob dob = new Dob("1991-01-01");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
 
         patientManager.addPatient(patient1);
     }
 
     @Test
     public void createConsultation() {
-        Patient patient = patientManager.getPatientAtIndex(1);
+        Patient patient = patientManager.getPatientByNric(patient1.getNric().toString());
         consultationManager.createConsultation(patient);
         //attempt to start another consultation when there is an existing current session
         Assert.assertThrows(IllegalArgumentException.class, () -> consultationManager.createConsultation(patient));
     }
 
     @Test
-    public void diagnosePatient() {
-
-        // will only fail when diagnosis is created before a consultation begun
-
-        ArrayList<Symptom> symptoms = new ArrayList<>();
-        symptoms.add(new Symptom("Runny nose"));
-        Assessment assessment = new Assessment("Cold");
-        Diagnosis diagnosis = new Diagnosis(assessment, symptoms);
-
-        Assert.assertThrows(IllegalArgumentException.class, () -> consultationManager.diagnosePatient(diagnosis));
-    }
-
-    @Test
     public void checkConsultation() {
         org.junit.Assert.assertFalse(consultationManager.checkConsultation());
 
-        Patient patient = patientManager.getPatientAtIndex(1);
+        Patient patient = patientManager.getPatientByNric(patient1.getNric().toString());
         consultationManager.createConsultation(patient);
         org.junit.Assert.assertTrue(consultationManager.checkConsultation());
     }
@@ -74,7 +62,7 @@ public class ConsultationManagerTest {
     public void getCurrentConsultation() {
         org.junit.Assert.assertTrue(consultationManager.getCurrentConsultation() == null);
 
-        Patient patient = patientManager.getPatientAtIndex(1);
+        Patient patient = patientManager.getPatientByNric(patient1.getNric().toString());
         consultationManager.createConsultation(patient);
 
         org.junit.Assert.assertTrue(consultationManager.getCurrentConsultation() != null);
@@ -84,7 +72,7 @@ public class ConsultationManagerTest {
     public void endConsultation() {
         Assert.assertThrows(NullPointerException.class, () -> consultationManager.endConsultation());
 
-        Patient patient = patientManager.getPatientAtIndex(1);
+        Patient patient = patientManager.getPatientByNric(patient1.getNric().toString());
         consultationManager.createConsultation(patient);
 
         // diagnosis and prescription null

@@ -32,10 +32,9 @@ class RecordManagerTest {
 
     @Test
     void getStatistics() {
-        String topic = "finances";
-        Statistics stats = new FinancesStatistics(new Statistics(0, BigDecimal.ZERO, BigDecimal.valueOf(10.00)));
+        Statistics stats = new Statistics(0, BigDecimal.ZERO, BigDecimal.valueOf(10.00));
         recordManager.record(record1, clock);
-        Statistics testStats = recordManager.getStatistics(topic, YearMonth.of(2019, 1), YearMonth.of(2019, 1));
+        Statistics testStats = recordManager.getStatistics(YearMonth.of(2019, 1), YearMonth.of(2019, 1));
         Assert.assertEquals(testStats, stats);
     }
 }

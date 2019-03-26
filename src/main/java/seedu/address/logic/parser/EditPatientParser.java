@@ -20,6 +20,7 @@ import seedu.address.model.tag.Tag;
  */
 public class EditPatientParser implements Parser<EditPatientCommand> {
 
+    // use preamble as the original nric to edit
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_NRIC = new Prefix("r/");
     public static final Prefix PREFIX_DOB = new Prefix("d/");
@@ -29,6 +30,10 @@ public class EditPatientParser implements Parser<EditPatientCommand> {
     public static final Prefix PREFIX_GENDER = new Prefix("g/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
+    public static final String INVALID_EDIT_ARGUMENTS = "Invalid input parameters entered.\n"
+            + EditPatientCommand.MESSAGE_USAGE;
+    public static final String NO_EDIT_PARAMETERS = "Nothing to edit\n";
+
     @Override
     public EditPatientCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -36,21 +41,23 @@ public class EditPatientParser implements Parser<EditPatientCommand> {
                         PREFIX_CONTACT, PREFIX_GENDER, PREFIX_TAG);
 
         if (argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException("Some details are left out, please retype the command");
+            throw new ParseException(INVALID_EDIT_ARGUMENTS);
         }
 
-        if (!argMultimap.getPreamble().trim().matches("\\d+")) {
-            throw new ParseException("Index should be numeric");
-        }
+        //if (!argMultimap.getPreamble().trim().matches("\\d+")) {
+        //    throw new ParseException("Index should be numeric");
+        //}
 
-        int index = Integer.valueOf(argMultimap.getPreamble());
+        Nric nric = new Nric(argMultimap.getPreamble());
+
+        //int index = Integer.valueOf(argMultimap.getPreamble());
         PatientEditedFields editedFields = createEditedFields(argMultimap);
 
         if (editedFields.checkEmpty()) {
-            throw new ParseException("Nothing to edit");
+            throw new ParseException(NO_EDIT_PARAMETERS);
         }
 
-        return new EditPatientCommand(index, editedFields);
+        return new EditPatientCommand(nric, editedFields);
     }
 
     /**

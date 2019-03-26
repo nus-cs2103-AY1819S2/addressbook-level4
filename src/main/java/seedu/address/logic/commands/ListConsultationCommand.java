@@ -14,7 +14,7 @@ import seedu.address.model.consultation.Consultation;
 public class ListConsultationCommand extends Command {
 
     public static final String COMMAND_WORD = "listconsult";
-    public static final String ALIAS_WORD = "lc";
+    public static final String COMMAND_ALIAS = "lc";
     public static final String NO_RECORDS = "No past consultation records found.\n";
     public static final String INVALID_INDEX = "Index entered is invalid.\n";
 

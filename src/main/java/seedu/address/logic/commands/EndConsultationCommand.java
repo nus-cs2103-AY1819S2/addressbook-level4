@@ -15,6 +15,7 @@ import seedu.address.model.record.ConsultationRecord;
  */
 public class EndConsultationCommand extends Command {
     public static final String COMMAND_WORD = "endconsult";
+    public static final String COMMAND_ALIAS = "ec";
     public static final String NO_CONSULT_EXCEPTION = "There is no ongoing consultation";
     public static final String DIAGNOSIS_EXCEPTION = "No diagnosis given for current consultation yet";
     public static final String PRESCRIPTION_EXCEPTION = "No prescription given for current consultation yet";
@@ -39,9 +40,10 @@ public class EndConsultationCommand extends Command {
 
         for (Prescription prescription : currentConsultation.getPrescriptions()) {
             prescription.getMedicine().subtractQuantity(prescription.getQuantity());
-            ConsultationRecord record = new ConsultationRecord(prescription);
-            model.addRecord(record, Clock.systemDefaultZone());
         }
+        ConsultationRecord record = new ConsultationRecord(currentConsultation.getPrescriptions(),
+                currentConsultation.getDiagnosis());
+        model.addRecord(record, Clock.systemDefaultZone());
 
         Nric patientNric = currentConsultation.getPatient().getNric();
 

@@ -29,6 +29,8 @@ public class DiagnosePatientCommandTest {
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
 
+    private Patient patient1;
+
     @Before
     public void init() {
         Name name = new Name("Peter Tan");
@@ -39,26 +41,23 @@ public class DiagnosePatientCommandTest {
         Gender gender = new Gender("M");
         Dob dob = new Dob("1991-01-01");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         modelManager.addPatient(patient1);
     }
 
     @Test
-    public void diagnosePatient() {
-        // no consultation session
-        String input = " a/migrane s/constant headache s/blurred vision";
+    public void noOngoingSession() {
         Assessment assessment = new Assessment("migrane");
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));
         symptoms.add(new Symptom("blurred vision"));
 
-        Assert.assertThrows(IllegalArgumentException.class, () ->
-                modelManager.diagnosePatient(new Diagnosis(assessment, symptoms)));
+        DiagnosePatientCommand diagnose = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
+        Assert.assertThrows(CommandException.class, () -> diagnose.execute(modelManager, history));
     }
 
     @Test
     public void executeTest() {
-        String userInput = "diagnose a/migrane s/constant headache s/blurred vision";
         Assessment assessment = new Assessment("migrane");
         ArrayList<Symptom> symptoms = new ArrayList<>();
         symptoms.add(new Symptom("constant headache"));
@@ -67,7 +66,7 @@ public class DiagnosePatientCommandTest {
         Diagnosis diagnosis = new Diagnosis(assessment, symptoms);
         DiagnosePatientCommand command = new DiagnosePatientCommand(new Diagnosis(assessment, symptoms));
 
-        modelManager.createConsultation(modelManager.getPatientAtIndex(1));
+        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
 
         try {
             assertEquals(command.execute(modelManager, history).getFeedbackToUser(), diagnosis.toString());

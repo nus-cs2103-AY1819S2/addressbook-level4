@@ -34,10 +34,10 @@ public class OpenCommand extends Command {
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
-        requireNonNull(model);
-        model.setOriginalName(toOpen.getName().name);
-        model.setCurrentImage(toOpen);
-        model.displayTempImage();
+        requireNonNull(currentEdit);
+        currentEdit.setOriginalImage(toOpen);
+        currentEdit.setTempImage(toOpen);
+        currentEdit.displayTempImage();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toOpen));
     }
 }

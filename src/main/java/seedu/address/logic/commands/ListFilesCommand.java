@@ -21,8 +21,8 @@ public class ListFilesCommand extends Command {
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
-        requireNonNull(model);
-        String[] fileNames = model.getFileNames();
+        requireNonNull(currentEdit);
+        String[] fileNames = currentEdit.getFileNames();
         return new CommandResult(MESSAGE_LIST_FILES_HEADER + Arrays.toString(fileNames) + "\n" + MESSAGE_SUCCESS);
     }
 }

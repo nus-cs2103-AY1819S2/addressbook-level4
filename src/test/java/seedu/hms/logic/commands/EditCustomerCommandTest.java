@@ -265,7 +265,7 @@ public class EditCustomerCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCustomerCommand()));
+        assertFalse(standardCommand.equals(new ClearHotelManagementSystemCommand()));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(new EditCustomerCommand(INDEX_SECOND_CUSTOMER, DESC_AMY)));

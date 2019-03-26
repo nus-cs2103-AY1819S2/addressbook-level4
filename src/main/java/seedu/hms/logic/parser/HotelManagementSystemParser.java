@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import seedu.hms.logic.commands.AddBookingCommand;
 import seedu.hms.logic.commands.AddCustomerCommand;
 import seedu.hms.logic.commands.ClearBookingCommand;
-import seedu.hms.logic.commands.ClearCustomerCommand;
+import seedu.hms.logic.commands.ClearHotelManagementSystemCommand;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.DeleteBookingCommand;
 import seedu.hms.logic.commands.DeleteCustomerCommand;
@@ -86,9 +86,9 @@ public class HotelManagementSystemParser {
         case DeleteBookingCommand.COMMAND_ALIAS:
             return new DeleteBookingCommandParser().parse(arguments);
 
-        case ClearCustomerCommand.COMMAND_WORD:
-        case ClearCustomerCommand.COMMAND_ALIAS:
-            return new ClearCustomerCommand();
+        case ClearHotelManagementSystemCommand.COMMAND_WORD:
+        case ClearHotelManagementSystemCommand.COMMAND_ALIAS:
+            return new ClearHotelManagementSystemCommand();
 
         case ClearBookingCommand.COMMAND_WORD:
         case ClearBookingCommand.COMMAND_ALIAS:

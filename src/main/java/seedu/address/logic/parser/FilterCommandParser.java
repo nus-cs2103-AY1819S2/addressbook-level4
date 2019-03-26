@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.Messages;
@@ -59,11 +58,9 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     public static List<Predicate> parseHealthWorkerPredicates(String args) throws ParseException {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME,
                 PREFIX_SKILLS, PREFIX_ORGANIZATION);
-        Logger.getLogger("T").info(args);
 
         if (!anyPrefixPresent(argumentMultimap, PREFIX_NAME,
                 PREFIX_SKILLS, PREFIX_ORGANIZATION)) {
-            Logger.getLogger("T").info("No Prefix Present");
             throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     FilterHealthWorkerCommand.MESSAGE_USAGE));
         }

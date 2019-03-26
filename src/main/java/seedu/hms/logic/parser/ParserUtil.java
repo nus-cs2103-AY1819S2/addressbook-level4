@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.commons.util.StringUtil;
+import seedu.hms.logic.commands.AddBookingCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Address;

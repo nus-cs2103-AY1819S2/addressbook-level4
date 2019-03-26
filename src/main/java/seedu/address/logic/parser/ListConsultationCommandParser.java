@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.commands.ListConsultationCommand.MESSAGE_USAGE;
+
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ListConsultationCommand;
@@ -10,7 +12,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ListConsultationCommandParser implements Parser<ListConsultationCommand> {
 
-    public static final String NO_LIST_ARGUMENTS = "Search parameters are missing for the listing of consultation";
+    public static final String NO_LIST_ARGUMENTS = "Search parameters are missing for the listing of consultation\n"
+            + MESSAGE_USAGE;
     public static final String INVALID_INDEX = "Index should be numeric";
     public static final Prefix PREFIX_NRIC = new Prefix("r/");
 
@@ -21,6 +24,7 @@ public class ListConsultationCommandParser implements Parser<ListConsultationCom
                 ArgumentTokenizer.tokenize(args, PREFIX_NRIC);
 
         if (argMultimap.getPreamble().isEmpty() && !argMultimap.getValue(PREFIX_NRIC).isPresent()) {
+            System.out.println(PREFIX_NRIC);
             throw new ParseException(NO_LIST_ARGUMENTS);
         }
 

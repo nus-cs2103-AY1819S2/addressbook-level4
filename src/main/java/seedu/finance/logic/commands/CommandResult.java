@@ -17,8 +17,25 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application will change theme **/
+    private boolean changeTheme;
+
+    private String themeToChange;
     /**
      * Constructs a {@code CommandResult} with the specified fields.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
+                         boolean changeTheme, String theme) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = showHelp;
+        this.exit = exit;
+        this.changeTheme = changeTheme;
+        this.themeToChange = theme;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     * For changing of theme
      */
     public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
@@ -34,17 +51,17 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    public String getThemeToChange() { return themeToChange; }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
-    }
+    public boolean isShowHelp() { return showHelp; }
 
-    public boolean isExit() {
-        return exit;
-    }
+    public boolean isExit() { return exit; }
+
+    public boolean isSwitchTheme() { return changeTheme; }
 
     @Override
     public boolean equals(Object other) {

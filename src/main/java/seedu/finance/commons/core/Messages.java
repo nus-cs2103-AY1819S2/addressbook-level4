@@ -9,5 +9,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_RECORD_DISPLAYED_INDEX = "The record index provided is invalid";
     public static final String MESSAGE_RECORDS_LISTED_OVERVIEW = "%1$d records listed!";
+    public static final String MESSAGE_INVALID_THEME = "The theme provided does not exist!\n";
 
 }

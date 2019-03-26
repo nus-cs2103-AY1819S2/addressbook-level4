@@ -30,6 +30,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private Stage primaryStage;
     private Logic logic;
+    private String theme = "Dark";
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -194,6 +195,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            if (commandResult.isSwitchTheme()) {
+                handleSwitchTheme(commandResult.getThemeToChange());
+            }
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -204,11 +208,43 @@ public class MainWindow extends UiPart<Stage> {
 
     //================== Changing Theme ==================//
     //@author Jackimaru96
+
+    /**
+     * Method to handle switching the Finance Tracker to specified theme
+     * @param themeToSwitch the theme to switch to
+     */
+    private void handleSwitchTheme(String themeToSwitch) {
+        if (this.theme == themeToSwitch) {
+            CommandResult r = new CommandResult("Theme is currently already set to "
+                    + themeToSwitch + ". Please choose another theme to switch to.");
+            return;
+        }
+
+        switch (themeToSwitch) {
+            case "Dark":
+                setDarkTheme();
+                return;
+
+            case "Light":
+                setLightTheme();
+                return;
+
+            case "Blue":
+                setBlueTheme();
+                return;
+
+            case "Pink":
+                setPinkTheme();
+                return;
+        }
+
+    }
+
     /**
      * Sets the Finance Tracker to light theme
      */
     @FXML
-    private CommandResult setLightTheme() {
+    private void setLightTheme() {
         currentScene = primaryStage.getScene();
         currentScene.getStylesheets().clear();
         currentScene.getStylesheets().add(getClass()
@@ -216,14 +252,16 @@ public class MainWindow extends UiPart<Stage> {
         currentScene.getStylesheets().add(getClass()
                 .getResource("/view/Extensions.css").toExternalForm());
 
-        return new CommandResult("Light Theme is set.");
+        this.theme = "Light";
+        CommandResult r = new CommandResult("Light Theme is set");
+        resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
     }
 
     /**
      * Sets the FinanceTracker to dark theme
      */
     @FXML
-    private CommandResult setDarkTheme() {
+    private void setDarkTheme() {
         currentScene = primaryStage.getScene();
         currentScene.getStylesheets().clear();
         currentScene.getStylesheets().add(getClass()
@@ -231,14 +269,16 @@ public class MainWindow extends UiPart<Stage> {
         currentScene.getStylesheets().add(getClass()
                 .getResource("/view/Extensions.css").toExternalForm());
 
-        return new CommandResult("Dark Theme is set");
+        this.theme = "Dark";
+        CommandResult r = new CommandResult("Dark Theme is set");
+        resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
     }
 
     /**
      * Sets the FinanceTracker to blue theme
      */
     @FXML
-    private CommandResult setBlueTheme() {
+    private void setBlueTheme() {
         currentScene = primaryStage.getScene();
         currentScene.getStylesheets().clear();
         currentScene.getStylesheets().add(getClass()
@@ -246,14 +286,16 @@ public class MainWindow extends UiPart<Stage> {
         currentScene.getStylesheets().add(getClass()
                 .getResource("/view/Extensions.css").toExternalForm());
 
-        return new CommandResult("Blue Theme is set");
+        this.theme = "Blue";
+        CommandResult r = new CommandResult("Blue Theme is set");
+        resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
     }
 
     /**
      * Sets the FinanceTracker to pink theme
      */
     @FXML
-    private CommandResult setPinkTheme() {
+    private void setPinkTheme() {
         currentScene = primaryStage.getScene();
         currentScene.getStylesheets().clear();
         currentScene.getStylesheets().add(getClass()
@@ -261,6 +303,8 @@ public class MainWindow extends UiPart<Stage> {
         currentScene.getStylesheets().add(getClass()
                 .getResource("/view/Extensions.css").toExternalForm());
 
-        return new CommandResult("Pink Theme is set");
+        this.theme = "Pink";
+        CommandResult r = new CommandResult("Pink Theme is set");
+        resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
     }
 }

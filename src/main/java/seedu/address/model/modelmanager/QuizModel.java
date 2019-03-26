@@ -2,7 +2,6 @@ package seedu.address.model.modelmanager;
 
 import java.util.List;
 
-import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;

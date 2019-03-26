@@ -1,9 +1,8 @@
 package seedu.address.logic.commands.quiz;
 
-import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_QUIZ_MODEL;
+import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.Model;
@@ -13,7 +12,7 @@ import seedu.address.model.quiz.QuizCard;
 /**
  * Label a card as difficult or not
  */
-public class QuizDifficultCommand implements Command {
+public class QuizDifficultCommand extends QuizCommand {
     public static final String COMMAND_WORD = "\\difficult";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Label this current question as difficult.\n";
     public static final String MESSAGE_SUCCESS = "This question is labelled as %1$s.";
@@ -27,13 +26,8 @@ public class QuizDifficultCommand implements Command {
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
-        // In other words, only incorrect code will result in a CommandException being thrown
-        if (!(model instanceof QuizModel)) {
-            throw new CommandException(MESSAGE_EXPECTED_QUIZ_MODEL);
-        }
-
-        QuizModel quizModel = (QuizModel) model;
+        requireNonNull(model);
+        QuizModel quizModel = requireQuizModel(model);
         QuizCard card = quizModel.getCurrentQuizCard();
 
         if (quizModel.toggleIsCardDifficult(card.getIndex())) {

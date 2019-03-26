@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.User;
 
 /**
@@ -46,7 +46,7 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-    // ================ Lessons methods ==============================
+    // ================ LessonList methods ==============================
 
     @Override
     public Path getLessonsFolderPath() {
@@ -59,23 +59,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<Lessons> readLessons() {
+    public Optional<LessonList> readLessons() {
         return lessonsStorage.readLessons();
     }
 
     @Override
-    public Optional<Lessons> readLessons(Path filePath) {
+    public Optional<LessonList> readLessons(Path filePath) {
         return lessonsStorage.readLessons(filePath);
     }
 
     @Override
-    public int saveLessons(Lessons lessons) {
-        return lessonsStorage.saveLessons(lessons);
+    public int saveLessons(LessonList lessonList) {
+        return lessonsStorage.saveLessons(lessonList);
     }
 
     @Override
-    public int saveLessons(Lessons lessons, Path filePath) {
-        return lessonsStorage.saveLessons(lessons, filePath);
+    public int saveLessons(LessonList lessonList, Path filePath) {
+        return lessonsStorage.saveLessons(lessonList, filePath);
     }
 
     // ================ User methods ==============================

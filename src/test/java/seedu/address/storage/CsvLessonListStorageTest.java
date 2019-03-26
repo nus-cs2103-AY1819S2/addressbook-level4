@@ -17,10 +17,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.model.Lessons;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 
-public class CsvLessonsStorageTest {
+public class CsvLessonListStorageTest {
 
     private static final Path EMPTY_LESSON_FILE_FOLDER = Paths.get("src", "test", "data", "CsvLessonsStorageTest",
         "emptyLessonFile");
@@ -50,11 +50,11 @@ public class CsvLessonsStorageTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-    private Optional<Lessons> readLessons(Path lessonsInTestDataFolder) {
+    private Optional<LessonList> readLessons(Path lessonsInTestDataFolder) {
         return new CsvLessonsStorage(lessonsInTestDataFolder).readLessons(lessonsInTestDataFolder);
     }
 
-    private void saveLessons(Path folderPath, Lessons lessons) {
+    private void saveLessons(Path folderPath, LessonList lessons) {
         CsvLessonsStorage cls = new CsvLessonsStorage(folderPath);
         cls.saveLessons(lessons);
     }
@@ -67,8 +67,8 @@ public class CsvLessonsStorageTest {
     }
     */
 
-    private Lessons getTestLessons() {
-        Lessons lessons = new Lessons();
+    private LessonList getTestLessons() {
+        LessonList lessons = new LessonList();
         lessons.addLesson(getTestLesson());
         return lessons;
     }
@@ -116,71 +116,71 @@ public class CsvLessonsStorageTest {
         testFields.add("not core");
         testFields.add("*not core with escape");
         Lesson lesson = new Lesson("test-invalid-core-char-in-field", 2, testFields);
-        Lessons actual = readLessons(INVALID_CORE_CHAR_FIELD_DATA_FOLDER).get();
+        LessonList actual = readLessons(INVALID_CORE_CHAR_FIELD_DATA_FOLDER).get();
         assertEquals(lesson, actual.getLesson(0));
     }
 
     @Test
     public void readLessons_invalidCoreCountLesson_emptyLessons() {
-        Lessons actual = readLessons(INVALID_CORE_COUNT_FOLDER).get();
-        assertEquals(new Lessons(), actual);
+        LessonList actual = readLessons(INVALID_CORE_COUNT_FOLDER).get();
+        assertEquals(new LessonList(), actual);
     }
 
     @Test
     public void readLessons_emptyFolder_emptyResult() throws IOException {
-        Lessons actual = readLessons(testFolder.newFolder().toPath()).get();
-        assertEquals(new Lessons(), actual);
+        LessonList actual = readLessons(testFolder.newFolder().toPath()).get();
+        assertEquals(new LessonList(), actual);
     }
 
     @Test
     public void readLessons_invalidData_cardIgnored() {
-        Lessons lessons = readLessons(INVALID_VALUES_FOLDER).get();
+        LessonList lessons = readLessons(INVALID_VALUES_FOLDER).get();
         assertEquals(1, lessons.getLesson(0).getCards().size());
     }
 
     @Test
     public void readLessons_missingData_cardIgnored() {
-        Lessons lessons = readLessons(MISSING_CORE_VALUE_FOLDER).get();
+        LessonList lessons = readLessons(MISSING_CORE_VALUE_FOLDER).get();
         assertEquals(0, lessons.getLesson(0).getCards().size());
     }
 
     @Test
     public void readLessons_nonDefaultQuestionAnswerIndex_successIndexSet() {
-        Lessons actual = readLessons(NON_DEFAULT_QUESTION_ANSWER_INDEX_FOLDER).get();
+        LessonList actual = readLessons(NON_DEFAULT_QUESTION_ANSWER_INDEX_FOLDER).get();
         assertNotEquals(Lesson.DEFAULT_INDEX_QUESTION, actual.getLesson(0).getQuestionCoreIndex());
         assertNotEquals(Lesson.DEFAULT_INDEX_ANSWER, actual.getLesson(0).getAnswerCoreIndex());
     }
 
     @Test
     public void readLessons_validFile_successfullyRead() {
-        Lessons expected = getTestLessons();
-        Lessons actual = readLessons(SINGLE_TEST_DATA_FOLDER).get();
+        LessonList expected = getTestLessons();
+        LessonList actual = readLessons(SINGLE_TEST_DATA_FOLDER).get();
         assertEquals(expected, actual);
     }
 
     @Test
     public void readLessons_validMultipleFiles_successfullyRead() {
         CsvLessonsStorage csvLessonsStorage = new CsvLessonsStorage(MULTIPLE_FILES_FOLDER);
-        Lessons lessons = csvLessonsStorage.readLessons().get();
+        LessonList lessons = csvLessonsStorage.readLessons().get();
         assertTrue(lessons.getLessons().size() > 1);
     }
 
     @Test
     public void readLessons_noValidFiles_emptyLessons() {
-        Lessons actual = readLessons(NO_VALID_FILES_FOLDER).get();
-        assertEquals(new Lessons(), actual);
+        LessonList actual = readLessons(NO_VALID_FILES_FOLDER).get();
+        assertEquals(new LessonList(), actual);
     }
 
     @Test
     public void readLessons_emptyLessonFile_emptyLessons() {
-        Lessons actual = readLessons(EMPTY_LESSON_FILE_FOLDER).get();
-        assertEquals(new Lessons(), actual);
+        LessonList actual = readLessons(EMPTY_LESSON_FILE_FOLDER).get();
+        assertEquals(new LessonList(), actual);
     }
 
     @Test
     public void saveLessons_validLessonsAndPath_successfullySaved() throws IOException {
         CsvLessonsStorage csvLessonsStorage = new CsvLessonsStorage(testFolder.newFolder().toPath());
-        Lessons lessons = csvLessonsStorage.readLessons(MULTIPLE_FILES_FOLDER).get();
+        LessonList lessons = csvLessonsStorage.readLessons(MULTIPLE_FILES_FOLDER).get();
         assertEquals(3, csvLessonsStorage.saveLessons(lessons));
     }
 
@@ -191,14 +191,14 @@ public class CsvLessonsStorageTest {
             File f = new File(path.toString());
             f.setReadOnly();
         });
-        Lessons lessons = csvLessonsStorage.readLessons().get();
+        LessonList lessons = csvLessonsStorage.readLessons().get();
         assertEquals(0, csvLessonsStorage.saveLessons(lessons));
     }
 
     @Test
     public void saveLessons_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveLessons(null, new Lessons());
+        saveLessons(null, new LessonList());
     }
 
     @Test

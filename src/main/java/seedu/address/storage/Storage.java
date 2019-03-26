@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.User;
 
 /**
@@ -21,10 +21,10 @@ public interface Storage extends UserPrefsStorage, LessonsStorage, UserStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Optional<Lessons> readLessons();
+    Optional<LessonList> readLessons();
 
     @Override
-    int saveLessons(Lessons lessons);
+    int saveLessons(LessonList lessonList);
 
     @Override
     Optional<User> readUser();

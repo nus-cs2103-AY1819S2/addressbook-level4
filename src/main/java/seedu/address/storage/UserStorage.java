@@ -20,7 +20,7 @@ public interface UserStorage {
     void setUserFilePath(Path folderPath);
 
     /**
-     * Returns Lessons data as a {@link User}.
+     * Returns LessonList data as a {@link User}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      */
     Optional<User> readUser();

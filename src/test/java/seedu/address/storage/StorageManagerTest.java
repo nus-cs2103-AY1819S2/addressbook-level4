@@ -13,8 +13,8 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.Lessons;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
@@ -68,9 +68,9 @@ public class StorageManagerTest {
          * {@link CsvLessonsStorage} class.
          * More extensive testing of Lessons saving/reading is done in {@link CsvLessonsStorage} class.
          */
-        Lessons original = new Lessons();
+        LessonList original = new LessonList();
         storageManager.setLessonsFolderPath(NO_VALID_FILES_FOLDER);
-        Lessons retrieved = storageManager.readLessons().get();
+        LessonList retrieved = storageManager.readLessons().get();
         assertEquals(original, retrieved);
         retrieved = storageManager.readLessons(NO_VALID_FILES_FOLDER).get();
         assertEquals(original, retrieved);

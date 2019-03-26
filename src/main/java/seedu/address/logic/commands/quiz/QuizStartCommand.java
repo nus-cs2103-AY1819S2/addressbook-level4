@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_COUNT;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_MODE;
 import static seedu.address.logic.parser.Syntax.PREFIX_START_NAME;
@@ -10,13 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+
+import seedu.address.logic.commands.management.ManagementCommand;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
+
 import seedu.address.model.modelmanager.QuizModel;
-import seedu.address.model.modelmanager.management.ManagementModel;
+
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
@@ -25,11 +27,10 @@ import seedu.address.model.session.Session;
 import seedu.address.model.session.SrsCardsManager;
 import seedu.address.model.user.CardSrsData;
 
-
 /**
  * TODO: implement the actual start command
  */
-public class QuizStartCommand implements Command {
+public class QuizStartCommand extends ManagementCommand {
     public static final String COMMAND_WORD = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + "Parameters: "
@@ -83,7 +84,6 @@ public class QuizStartCommand implements Command {
         return new CommandResult("", true, false, false);
     }
 
-    @Override
     /**
      * Executes the command and returns the result message.
      *
@@ -92,15 +92,17 @@ public class QuizStartCommand implements Command {
      * @return feedback message of the operation result for display
      * @throws CommandException If an error occurs during command execution.
      */
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
         // In other words, only incorrect code will result in a CommandException being thrown
         if (!(model instanceof ManagementModel)) {
-            throw new CommandException(MESSAGE_EXPECTED_MGT_MODEL);
+            throw new CommandException(MESSAGE_EXPECTED_MODEL);
         }
         ManagementModel mgtModel = (ManagementModel) model;
         Lesson lesson = mgtModel.getLesson(0);
+
         //TODO: implement these hard code after updates
         //Card card1 = new Card(List.of("Japan", "Tokyo"), List.of("T"));
         //Card card2 = new Card(List.of("Belgium", "Brussels"), List.of("B"));

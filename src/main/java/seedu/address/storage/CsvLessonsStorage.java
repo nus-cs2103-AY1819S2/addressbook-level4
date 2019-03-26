@@ -14,12 +14,12 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.CsvUtil;
-import seedu.address.model.Lessons;
 import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 
 /**
- * A class to access Lessons stored in the hard disk as a csv file
+ * A class to access LessonList stored in the hard disk as a csv file
  */
 public class CsvLessonsStorage implements LessonsStorage {
     private static final Logger logger = LogsCenter.getLogger(CsvLessonsStorage.class);
@@ -194,15 +194,15 @@ public class CsvLessonsStorage implements LessonsStorage {
     }
 
     @Override
-    public Optional<Lessons> readLessons() {
+    public Optional<LessonList> readLessons() {
         return readLessons(folderPath);
     }
 
     @Override
-    public Optional<Lessons> readLessons(Path folderPath) {
+    public Optional<LessonList> readLessons(Path folderPath) {
         requireNonNull(folderPath);
         List<Path> paths = new ArrayList<>();
-        Lessons lessons = new Lessons();
+        LessonList lessonList = new LessonList();
         try {
             Files.walk(folderPath, 1).filter(path ->
                     path.toString().endsWith(".csv")).forEach(paths::add);
@@ -211,24 +211,24 @@ public class CsvLessonsStorage implements LessonsStorage {
         }
         for (Path filePath : paths) {
             Optional<Lesson> newLesson = parseFileIntoLesson(filePath);
-            newLesson.ifPresent(lessons::addLesson);
+            newLesson.ifPresent(lessonList::addLesson);
         }
-        return Optional.of(lessons);
+        return Optional.of(lessonList);
     }
 
     @Override
-    public int saveLessons(Lessons lessons) {
-        return saveLessons(lessons, folderPath);
+    public int saveLessons(LessonList lessonList) {
+        return saveLessons(lessonList, folderPath);
     }
 
     @Override
-    public int saveLessons(Lessons lessons, Path folderPath) {
-        requireNonNull(lessons);
+    public int saveLessons(LessonList lessonList, Path folderPath) {
+        requireNonNull(lessonList);
         requireNonNull(folderPath);
 
         int saveCount = 0;
 
-        List<Lesson> allLessons = lessons.getLessons();
+        List<Lesson> allLessons = lessonList.getLessons();
 
         for (Lesson lesson : allLessons) {
             try {

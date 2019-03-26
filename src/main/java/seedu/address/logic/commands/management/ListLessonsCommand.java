@@ -1,26 +1,24 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
-import seedu.address.model.modelmanager.management.ManagementModel;
 
 /**
- * This implements a {@link Command} which executes a command to list all {@link Lesson} objects
+ * This implements a {@link ManagementCommand} which executes a command to list all {@link Lesson} objects
  * in the {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
  * to be passed into the {@link #execute(Model, CommandHistory)} command. The actual listing
  * of the {@link Lesson} objects is carried out in the {@link ManagementModel}.
  */
-public class ListLessonsCommand implements Command {
+public class ListLessonsCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
@@ -33,16 +31,11 @@ public class ListLessonsCommand implements Command {
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
-    public static final String MESSAGE_SUCCESS = "Listed all lessons";
+    public static final String MESSAGE_SUCCESS = "Listed %1$s lesson(s):\n";
     /**
-     * Used to separate {@link #MESSAGE_SUCCESS} and either {@link #MESSAGE_NO_LESSONS}
-     * or list of lessons when forming the result message in {@link #buildList(List)}.
+     * Feedback message displayed to the user if there are no lessons found and hence no listing.
      */
-    public static final String MESSAGE_DELIMITER = ":\n";
-    /**
-     * Shown when {@link #buildList(List)} is called and there are no lessons yet.
-     */
-    public static final String MESSAGE_NO_LESSONS = "There are no lessons yet.";
+    public static final String MESSAGE_NO_LESSONS = "No lesson found.";
 
     /**
      * Executes the command and returns the result message.
@@ -51,20 +44,20 @@ public class ListLessonsCommand implements Command {
      * @return a String representing {@code lessons}
      */
     public String buildList(List<Lesson> lessons) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(MESSAGE_SUCCESS).append(MESSAGE_DELIMITER);
-
         if (lessons.isEmpty()) {
-            builder.append(MESSAGE_NO_LESSONS);
+            return MESSAGE_NO_LESSONS;
         } else {
+            StringBuilder builder = new StringBuilder();
+            builder.append(String.format(MESSAGE_SUCCESS, lessons.size()));
+
             int i = 1;
             for (Lesson lesson : lessons) {
-                builder.append(i).append(".\t").append(lesson).append("\n");
+                builder.append(i).append(".\t").append(lesson.getName()).append("\n");
                 i++;
             }
-        }
 
-        return builder.toString();
+            return builder.toString();
+        }
     }
 
     /**
@@ -76,16 +69,10 @@ public class ListLessonsCommand implements Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
-        // In other words, only incorrect code will result in a CommandException being thrown
-        if (!(model instanceof ManagementModel)) {
-            throw new CommandException(MESSAGE_EXPECTED_MGT_MODEL);
-        }
-
-        ManagementModel mgtModel = (ManagementModel) model;
+        ManagementModel mgtModel = requireManagementModel(model);
 
         ArrayList<Lesson> lessons = new ArrayList<>();
-        lessons.addAll(mgtModel.getLessons());
+        lessons.addAll(mgtModel.getLessonList());
 
         return new CommandResult(buildList(lessons));
     }

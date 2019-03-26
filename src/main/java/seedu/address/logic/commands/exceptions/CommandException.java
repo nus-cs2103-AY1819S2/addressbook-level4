@@ -1,20 +1,23 @@
 package seedu.address.logic.commands.exceptions;
 
 /**
- * Represents an error which occurs during execution of a {@link seedu.address.logic.commands.Command}.
+ * Thrown to indicate that the execution of a command has failed.
  */
 public class CommandException extends Exception {
-    public static final String MESSAGE_EXPECTED_MGT_MODEL =
-            "Expected ManagementModel but received QuizModel instead.";
-    public static final String MESSAGE_EXPECTED_QUIZ_MODEL =
-            "Expected QuizModel but received ManagementModel instead.";
-
+    /**
+     * Constructs a CommandException with the specified detail message.
+     *
+     * @param message the detail message
+     */
     public CommandException(String message) {
         super(message);
     }
 
     /**
      * Constructs a new {@code CommandException} with the specified detail {@code message} and {@code cause}.
+     *
+     * @param message the detail message
+     * @param cause the cause for the CommandException occurrence
      */
     public CommandException(String message, Throwable cause) {
         super(message, cause);

@@ -10,7 +10,7 @@ import java.util.Objects;
 import seedu.address.model.card.Card;
 
 /**
- * Represents a lesson which contains multiple flash cards and can be loaded into Quiz QuizMode
+ * Represents a lesson which contains multiple flash cards and can be loaded into Quiz
  * for testing. It stores multiple {@link Card} objects, and also {@link #coreHeaders} and
  * {@link #optionalHeaders} which are headers for the core and optional fields in the {@link Card} objects.
  *
@@ -31,7 +31,7 @@ public class Lesson {
     public static final int DEFAULT_INDEX_ANSWER = 1;
 
     public static final String EXCEPTION_INVALID_NAME = "Invalid name supplied.";
-    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: ";
+    public static final String EXCEPTION_INVALID_INDEX = "Invalid index: %1$s";
     public static final String EXCEPTION_INVALID_CORE_SIZE = "Invalid number of core headers supplied.";
     public static final String EXCEPTION_INVALID_CORE = "Invalid core header supplied.";
     public static final String EXCEPTION_INVALID_OPT = "Invalid optional header supplied.";
@@ -239,7 +239,7 @@ public class Lesson {
      */
     public void setQuestionCoreIndex(int index) {
         if (index < 0 || index >= coreHeaders.size()) {
-            throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
+            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX, index));
         }
 
         questionCoreIndex = index;
@@ -250,7 +250,7 @@ public class Lesson {
      */
     public void setAnswerCoreIndex(int index) {
         if (index < 0 || index >= coreHeaders.size()) {
-            throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
+            throw new IllegalArgumentException(String.format(EXCEPTION_INVALID_INDEX, index));
         }
 
         answerCoreIndex = index;
@@ -317,9 +317,9 @@ public class Lesson {
     }
 
     /**
-     * Adds a {@link Card} object to the lesson.
+     * Adds a {@link Card} object to {@link #cards}.
      *
-     * @param card {@link Card} to be added to the lesson
+     * @param card {@link Card} to be added to {@link #cards}
      */
     public void addCard(Card card) {
         // All Card objects added must have the same number of cores as the number of core headers.
@@ -407,13 +407,13 @@ public class Lesson {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(name)
-                .append(": Cores [").append(String.join(", ", coreHeaders))
-                .append("], Optionals [");
+                .append("\nCores: ").append(String.join(", ", coreHeaders))
+                .append("\nOptionals: ");
         if (optionalHeaders.size() > 0) {
             builder.append(String.join(", ", optionalHeaders));
         }
 
-        builder.append("], Cards [").append(getCardCount()).append("]");
+        builder.append("\nCards: ").append(getCardCount());
 
         return builder.toString();
     }

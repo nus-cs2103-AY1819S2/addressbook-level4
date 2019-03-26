@@ -14,9 +14,10 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.modelmanager.ManagementModel;
+import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
-import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
@@ -59,7 +60,7 @@ public class QuizStartCommandTest {
         final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
-        ManagementModelManager expectedManagementModel = new ManagementModelManager();
+        ManagementModel expectedManagementModel = new ManagementModelManager();
         expectedModel.initWithSession(quiz, session, expectedManagementModel);
         expectedModel.getNextCard();
         CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,

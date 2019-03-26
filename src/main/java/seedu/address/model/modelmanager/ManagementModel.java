@@ -1,11 +1,10 @@
-package seedu.address.model.modelmanager.management;
+package seedu.address.model.modelmanager;
 
 import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelmanager.Model;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
@@ -40,9 +39,32 @@ public interface ManagementModel extends Model {
     Lesson getLesson(int index);
 
     /**
+     * Opens the {@link Lesson} object at the specified index.
+     *
+     * @param index the index of the {@link Lesson} object to open
+     * @return the name of the {@link Lesson} object
+     */
+    String openLesson(int index);
+
+    /**
+     * Returns the opened lesson. A lesson is opened by calling {@link #openLesson(int)} and
+     * closed by calling {@link #closeLesson()}. If there is no lesson currently opened,
+     * this returns null.
+     *
+     * @return the opened {@link Lesson}. Null if there is no opened lesson.
+     */
+    Lesson getOpenedLesson();
+
+    /**
+     * Closes the opened {@link Lesson} object.
+     * @return the name of the closed {@link Lesson} object
+     */
+    String closeLesson();
+
+    /**
      * Gets the entire list of lessons.
      */
-    List<Lesson> getLessons();
+    List<Lesson> getLessonList();
 
     /**
      * Adds the lesson.

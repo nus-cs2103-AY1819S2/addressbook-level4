@@ -1,7 +1,8 @@
 package seedu.address.logic.commands.quiz;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 
 import java.time.Duration;
@@ -16,13 +17,13 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Lessons;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
+import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
-import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
@@ -97,14 +98,14 @@ public class QuizAnswerCommandTest {
 
         QuizModelManager expectedModel = new QuizModelManager();
         ManagementModelManager expectedMgmtModel =
-            new ManagementModelManager(new UserPrefs(), new Lessons(), new User());
+            new ManagementModelManager(new UserPrefs(), new LessonList(), new User());
 
         expectedModel.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session,
             expectedMgmtModel);
 
         QuizModel actual = new QuizModelManager();
         ManagementModelManager actualManagementModel =
-            new ManagementModelManager(new UserPrefs(), new Lessons(), new User());
+            new ManagementModelManager(new UserPrefs(), new LessonList(), new User());
         actual.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session, actualManagementModel);
         actual.getNextCard();
 
@@ -211,19 +212,19 @@ public class QuizAnswerCommandTest {
         QuizAnswerCommand quizAnswerCommandDiff = new QuizAnswerCommand("Something");
 
         // same object -> returns true
-        assertTrue(quizAnswerCommand.equals(quizAnswerCommand));
+        assertEquals(quizAnswerCommand, quizAnswerCommand);
 
         // same values -> returns true
         QuizAnswerCommand quizAnswerCommandCopy = new QuizAnswerCommand("Tokyo");
-        assertTrue(quizAnswerCommand.equals(quizAnswerCommandCopy));
+        assertEquals(quizAnswerCommand, quizAnswerCommandCopy);
 
         // different answer -> returns false
-        assertFalse(quizAnswerCommand.equals(quizAnswerCommandDiff));
+        assertNotEquals(quizAnswerCommand, quizAnswerCommandDiff);
 
         // null -> returns false
-        assertFalse(quizAnswerCommand == null);
+        assertNotNull(quizAnswerCommand);
 
         // differnt type -> returns false
-        assertFalse(quizAnswerCommand.equals(5));
+        assertNotEquals(5, quizAnswerCommand);
     }
 }

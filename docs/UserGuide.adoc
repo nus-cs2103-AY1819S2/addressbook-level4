@@ -87,6 +87,7 @@ Examples:
 
 * `start n/02-03-LEARN c/15 m/LEARN`
 
+[[listLessons]]
 ==== Listing all lessons: `listLessons`
 
 Shows a numbered list of all lessons. +
@@ -118,15 +119,44 @@ Format: `deleteLesson INDEX`
 
 Usage rules:
 
-* Deletes the lesson at the specified `INDEX`.
-* To find the `INDEX` number of a lesson, type `listLessons` to list all lessons loaded in memory.
+* Deletes the lesson at the specified `INDEX` of the numbered lesson list.
+* To view the list, enter the command <<listLessons, `listLessons`>>.
 
 Examples:
 
 * `deleteLesson 2` +
-Deletes the 2nd lesson in the numbered list displayed by `listLessons`.
+Deletes the second lesson in the numbered list displayed by `listLessons`.
 
-[[list_cards]]
+==== Opening a lesson: `openLesson`
+
+Opens a lesson for editing. +
+Format: `openLesson INDEX`
+
+Usage rules:
+
+* Opens the lesson at the specified `INDEX` of the numbered lesson list.
+* To view the list, enter the command <<listLessons, `listLessons`>>.
+
+Examples:
+
+* `openLesson 1` +
+Opens the first lesson in the numbered list displayed by `listLessons`.
+
+==== Closing a lesson: `closeLesson`
+
+Closes and saves a lesson after editing it. +
+Format: `closeLesson INDEX`
+
+Usage rules:
+
+* Closes the lesson at the specified `INDEX`.
+* To find the `INDEX` number of a lesson, type `listLessons` to list all lessons loaded in memory.
+
+Examples:
+
+* `closeLesson 1` +
+Closes the first lesson in the numbered list displayed by `listLessons`.
+
 ==== Listing all flashcards: `listCards`
 
 Shows a numbered list of all flashcards. +

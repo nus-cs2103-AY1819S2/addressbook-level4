@@ -98,7 +98,7 @@ image::maplegend.png[width=400]
 
 Adds a battleship onto the player's map. The coordinates specified is the position of the battleship's head. +
 
-Format: `put n/NAME c/COORDINATES r/ORIENTATION` +
+Format: `put n/NAME c/COORDINATES r/ORIENTATION t/TAG` +
 
 Examples:
 
@@ -114,9 +114,12 @@ The orientation of the battleship can be horizontal or vertical. The orientation
 
 === Listing all ships : `list`
 
-Shows a list of all the player's battleships that are have been deployed on the map. +
+Shows a list of all the player's battleships that are have been deployed on the map. There are two ways of using the `list` command: (1) to list all the battleships and (2) to list all the battleships that match a list of tags.
 
-Format: `list` +
+Format:
+
+* `list`
+* `list t/[TAGS]`
 
 The list will show the battleship's head coordinate, the battleship's orientation, and the battleship's tags in square brackets. +
 
@@ -124,6 +127,11 @@ The format of each entry in the list is: `[NAME] [CURRENT LIFE] at [HEAD COORDIN
 
 .The `list` command
 image::listexample.png[width=750]
+
+The `list` command can also be used with tags. In the example provided, we have added the tag `bluefleet` to our destroyer at `f7`. Using the command `list t/bluefleet` will allow us to list all the battleships tagged with `bluefleet`.
+
+.The `list` command with tags
+image::listwithtagexample.png[width=750]
 
 === Locating ships by name: `find`
 

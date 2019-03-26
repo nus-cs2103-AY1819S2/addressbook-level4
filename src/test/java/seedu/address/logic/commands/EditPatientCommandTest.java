@@ -27,6 +27,8 @@ public class EditPatientCommandTest {
     private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
 
+    private Patient patient1;
+
     @Before
     public void init() {
         Name name = new Name("Bob Tan");
@@ -37,9 +39,48 @@ public class EditPatientCommandTest {
         Gender gender = new Gender("M");
         Dob dob = new Dob("1991-01-01");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         modelManager.addPatient(patient1);
     }
+
+    /**
+     * Check for invalid entries of editing command
+     */
+    @Test
+    public void noPatient() {
+        // empty patientlist
+        modelManager = new ModelManager();
+        PatientEditedFields peft = new PatientEditedFields();
+        seedu.address.testutil.Assert.assertThrows(CommandException.class, () ->
+                new EditPatientCommand(new Nric("S9123456D"), peft).execute(modelManager, history));
+    }
+
+    @Test
+    public void invalidEdit() {
+
+        // no matching nric
+        PatientEditedFields peft = new PatientEditedFields();
+        peft.setName(new Name("Peter Tay"));
+        seedu.address.testutil.Assert.assertThrows(CommandException.class, () ->
+                new EditPatientCommand(new Nric("S9123456D"), peft).execute(modelManager, history));
+
+        // edit current patient's nric to another patient's nric
+        Name name = new Name("Perry Ng");
+        Nric nric = new Nric("S9523456B");
+        Email email = new Email("png@gmail.com");
+        Address address = new Address("2 Simei Road");
+        Contact contact = new Contact("92222222");
+        Gender gender = new Gender("M");
+        Dob dob = new Dob("1995-05-05");
+        ArrayList<Tag> tagList = new ArrayList<Tag>();
+        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        modelManager.addPatient(patient1);
+
+        peft.setNric(new Nric("S9123456A"));
+        seedu.address.testutil.Assert.assertThrows(CommandException.class, () ->
+                new EditPatientCommand(nric, peft).execute(modelManager, history));
+    }
+
 
     @Test
     public void executeValidEditPatient() {
@@ -57,7 +98,7 @@ public class EditPatientCommandTest {
         editedFields.setName(new Name("Bob Toh"));
 
         try {
-            CommandResult commandResult = new EditPatientCommand(1, editedFields)
+            CommandResult commandResult = new EditPatientCommand(patient1.getNric(), editedFields)
                     .execute(modelManager, history);
 
             StringBuilder sb = new StringBuilder();
@@ -71,49 +112,5 @@ public class EditPatientCommandTest {
         }
     }
 
-    @Test
-    public void invalidEdit() {
-        PatientEditedFields peft = new PatientEditedFields();
-        peft.setName(new Name("Peter Tay"));
-        try {
-            CommandResult result = new EditPatientCommand(2, peft).execute(modelManager, history);
-        } catch (CommandException ce) {
-            assertEquals(ce.getMessage(), "Invalid index for editing");
-        }
-
-
-        // edit current patient's nric to another patient's nric
-        Name name = new Name("Perry Ng");
-        Nric nric = new Nric("S9523456B");
-        Email email = new Email("png@gmail.com");
-        Address address = new Address("2 Simei Road");
-        Contact contact = new Contact("92222222");
-        Gender gender = new Gender("M");
-        Dob dob = new Dob("1995-05-05");
-        ArrayList<Tag> tagList = new ArrayList<Tag>();
-        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
-        modelManager.addPatient(patient1);
-
-        peft.setNric(new Nric("S9523456B"));
-        try {
-            CommandResult result = new EditPatientCommand(2, peft).execute(modelManager, history);
-        } catch (CommandException ce) {
-            assertEquals(ce.getMessage(), "Edited NRIC will conflict with another existing entry");
-        }
-    }
-
-    /**
-     * Check for invalid entries of editing command
-     */
-    @Test
-    public void noPatient() {
-        modelManager = new ModelManager();
-        PatientEditedFields peft = new PatientEditedFields();
-        try {
-            CommandResult result = new EditPatientCommand(1, peft).execute(modelManager, history);
-        } catch (CommandException ce) {
-            assertEquals(ce.getMessage(), "No patients records found to edit");
-        }
-    }
 
 }

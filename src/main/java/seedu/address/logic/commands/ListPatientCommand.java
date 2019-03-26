@@ -13,7 +13,29 @@ import seedu.address.model.tag.Tag;
  */
 public class ListPatientCommand extends Command {
 
-    public static final String COMMAND_WORD = "plist";
+    public static final String COMMAND_WORD = "listpat";
+    public static final String COMMAND_ALIAS = "lp";
+    public static final String NO_PATIENTS = "No medical records to list.\n";
+    public static final String NO_PATIENT_FOUND_NAME = "No patient by the name: %s found";
+    public static final String NO_PATIENT_FOUND_NRIC = "No patient by NRIC: %s found";
+    public static final String NO_PATIENT_FOUND_TAG = "No patient with tag: %s found";
+
+    public static final String INVALID_INDEX = "Invalid index to find patient records.\n";
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": List patient details using a particular index, name or nric.\n"
+                    + " A list of patients with the same tags can also be displayed by entering the tag.\n"
+                    + " If no parameters are entered, QuickDocs will try to list at least 50 patients\n"
+                    + "Parameters: "
+                    + "INDEX OR"
+                    + "n/NAME OR"
+                    + "r/NRIC OR"
+                    + "t/TAG\n"
+                    + "Examples: " + COMMAND_WORD + "\n"
+                    + COMMAND_WORD + "10" + "\n"
+                    + COMMAND_WORD + "r/S9214538C" + "\n"
+                    + COMMAND_WORD + "n/Tan Ah Kow" + "\n"
+                    + COMMAND_WORD + "t/diabetes" + "\n";
+
 
     // to indicate which constructor was used to create this command
     private int constructedBy;
@@ -23,7 +45,9 @@ public class ListPatientCommand extends Command {
     private Tag tag;
 
     public ListPatientCommand(int index) {
-        this.index = index;
+        // for user entry, index is always 1 indexed.
+        // since patientmanager uses 0 indexing, 1 indexing is handled here
+        this.index = index - 1;
         constructedBy = 1;
     }
 
@@ -49,13 +73,13 @@ public class ListPatientCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (model.isPatientListEmpty()) {
-            throw new CommandException("No medical records to list");
+            throw new CommandException(NO_PATIENTS);
         }
 
         if (constructedBy == 1) {
 
             if (!model.checkValidIndex(index)) {
-                throw new CommandException("Invalid index to find patient records");
+                throw new CommandException(INVALID_INDEX);
             }
 
             Patient patient = model.getPatientAtIndex(index);
@@ -65,7 +89,7 @@ public class ListPatientCommand extends Command {
         if (constructedBy == 2) {
             String result = model.findPatientsByName(name);
             if (result.equals("No patient record found")) {
-                throw new CommandException("Invalid index to find patient records");
+                throw new CommandException(String.format(NO_PATIENT_FOUND_NAME, name));
             }
             return constructResult(result);
         }
@@ -73,13 +97,17 @@ public class ListPatientCommand extends Command {
         if (constructedBy == 3) {
             String result = model.findPatientsByNric(nric);
             if (result.equals("No patient record found")) {
-                throw new CommandException("Invalid index to find patient records");
+                throw new CommandException(String.format(NO_PATIENT_FOUND_NRIC, nric));
             }
             return constructResult(result);
         }
 
         if (constructedBy == 4) {
             String result = model.findPatientsByTag(tag);
+            if (result.equals("No patient record found")) {
+                throw new CommandException(String.format(NO_PATIENT_FOUND_TAG, tag));
+            }
+
             return constructResult(result);
         }
 

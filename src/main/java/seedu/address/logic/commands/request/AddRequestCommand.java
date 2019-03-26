@@ -15,12 +15,12 @@ import seedu.address.model.request.Request;
  */
 public class AddRequestCommand extends AddCommand implements RequestCommand {
 
-    public static final String COMMAND_WORD = "request";
+    public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Creates a new request in the request book.\n" + "Parameters: "
         + ADD_COMMAND_PARAMETERS
-        + "Example: " + COMMAND_WORD + " " + COMMAND_OPTION
+        + "Example: " + COMMAND_WORD + " " + COMMAND_OPTION + " "
         + ADD_COMMAND_EXAMPLE;
 
     public static final String MESSAGE_SUCCESS = "Created new request successfully: %1$s";

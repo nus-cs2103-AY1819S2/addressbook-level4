@@ -6,7 +6,22 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListCommandParser;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.StatisticsCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.request.DeleteRequestCommand;
+import seedu.address.logic.commands.request.ListRequestCommand;
+import seedu.address.logic.commands.request.SelectRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -39,6 +54,14 @@ public class AddressBookParser {
             case AddCommand.COMMAND_WORD:
                 return new AddCommandParser().parse(arguments);
 
+            case SelectRequestCommand.COMMAND_WORD:
+                return new SelectRequestCommandParser().parse(arguments);
+
+            case DeleteRequestCommand.COMMAND_WORD:
+                return new DeleteRequestParser().parse(arguments);
+
+            case ListRequestCommand.COMMAND_WORD:
+                return new ListRequestCommand();
 
             case SelectCommand.COMMAND_WORD:
                 return new SelectCommandParser().parse(arguments);

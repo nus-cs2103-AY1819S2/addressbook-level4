@@ -343,6 +343,11 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+=== Selecting a request to view it : `sr`
+Using the select command, you can select a particular request for you to view it's details in full.
+
+Format: `sr`
+
 === Exiting the program : `exit`
 
 Once you are done using the application, you can exit the application by

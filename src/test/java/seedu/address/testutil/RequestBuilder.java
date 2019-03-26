@@ -130,7 +130,7 @@ public class RequestBuilder {
      */
     public RequestBuilder withHealthStaff(HealthWorker healthStaff) {
         requireNonNull(healthStaff);
-        this.healthWorker = healthStaff.getName().fullName;
+        this.healthWorker = healthStaff.getName().toString();
         return this;
     }
 

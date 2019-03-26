@@ -12,13 +12,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
  */
 public interface RequestCommand {
 
-    String COMMAND_OPTION = "request/r/2";
+    String COMMAND_OPTION = "request";
 
     String ADD_COMMAND_PARAMETERS = PREFIX_NAME + "NAME "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_PHONE + "PHONE "
             + PREFIX_ADDRESS + "ADDRESS "
-            + PREFIX_DATE + "DATETIME"
+            + PREFIX_DATE + "DATETIME "
             + PREFIX_CONDITION + "CONDITION...\n";
 
     String ADD_COMMAND_EXAMPLE = PREFIX_NAME + "John Doe "

@@ -46,12 +46,11 @@ import seedu.hms.ui.CommandBox;
  */
 
 public abstract class HotelManagementSystemSystemTest {
-    @ClassRule
-    public static ClockRule clockRule = new ClockRule();
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
         Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
-
+    @ClassRule
+    public static ClockRule clockRule = new ClockRule();
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
@@ -216,7 +215,8 @@ public abstract class HotelManagementSystemSystemTest {
         String selectedCardName = getCustomerListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
+            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll
+                (" ", "%20"));
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.", mue);
         }

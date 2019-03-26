@@ -64,10 +64,10 @@ public class HotelManagementSystemParserTest {
 
     @Test
     public void parseCommandClearCustomer() throws Exception {
-        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_WORD, new CustomerManager(), new BookingManager())
-            instanceof ClearHotelManagementSystemCommand);
-        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_WORD + " 3", new CustomerManager(),
+        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_WORD, new CustomerManager(),
             new BookingManager()) instanceof ClearHotelManagementSystemCommand);
+        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_WORD + " 3",
+            new CustomerManager(), new BookingManager()) instanceof ClearHotelManagementSystemCommand);
     }
 
     @Test
@@ -80,10 +80,10 @@ public class HotelManagementSystemParserTest {
 
     @Test
     public void parseCommandClearCustomerAlias() throws Exception {
-        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_ALIAS, new CustomerManager(), new BookingManager())
-            instanceof ClearHotelManagementSystemCommand);
-        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_ALIAS + " 3", new CustomerManager(),
+        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_ALIAS, new CustomerManager(),
             new BookingManager()) instanceof ClearHotelManagementSystemCommand);
+        assertTrue(parser.parseCommand(ClearHotelManagementSystemCommand.COMMAND_ALIAS + " 3",
+            new CustomerManager(), new BookingManager()) instanceof ClearHotelManagementSystemCommand);
     }
 
     @Test

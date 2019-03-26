@@ -30,7 +30,7 @@ public class TypicalRestOrRant {
                                                          .withPrice("7.23").build();
     public static final MenuItem SHRIMP_FRIED_RICE = new MenuItemBuilder().withName("Shrimp Fried Rice").withCode("C02")
                                                              .withPrice("8.90").build();
-    public static final MenuItem MEE_SUA = new MenuItemBuilder().withName("Mee Soi").withCode("T01")
+    public static final MenuItem MEE_SUA = new MenuItemBuilder().withName("Mee Sua").withCode("T01")
                                                    .withPrice("4.99").build();
     public static final MenuItem KIMCHI_FRIED_RICE = new MenuItemBuilder().withName("Kimchi Fried Rice").withCode("K12")
                                                              .withPrice("5.50").build();
@@ -43,27 +43,34 @@ public class TypicalRestOrRant {
     public static final MenuItem AGLIO_OLIO = new MenuItemBuilder().withName("Aglio Olio").withCode("W14")
                                                       .withPrice("7.56").build();
 
-    // Order Items TODO: add item name
+    // Order Items
     public static final OrderItem TABLE1_W09 =
-            new OrderItemBuilder().withTableNumber("1").withCode("W09").withQuantity(2).build();
+            new OrderItemBuilder().withTableNumber("1").withCode("W09").withName("Chicken Wings")
+                    .withQuantity(2).build();
     public static final OrderItem TABLE1_W12 =
-            new OrderItemBuilder().withTableNumber("1").withCode("W12").withQuantity(2).build();
+            new OrderItemBuilder().withTableNumber("1").withCode("W12").withName("French Fries")
+                    .withQuantity(2).build();
     public static final OrderItem TABLE2_A05 =
-            new OrderItemBuilder().withTableNumber("2").withCode("A05").withQuantity(1).build();
+            new OrderItemBuilder().withTableNumber("2").withCode("A05").withName("Salad").withQuantity(1).build();
     public static final OrderItem TABLE2_M17 =
-            new OrderItemBuilder().withTableNumber("2").withCode("M17").withQuantity(1).build();
+            new OrderItemBuilder().withTableNumber("2").withCode("M17").withName("Cheese Nachos")
+                    .withQuantity(1).build();
     public static final OrderItem TABLE2_C02 =
-            new OrderItemBuilder().withTableNumber("2").withCode("C02").withQuantity(2).build();
+            new OrderItemBuilder().withTableNumber("2").withCode("C02").withName("Shrimp Fried Rice")
+                    .withQuantity(2).build();
     public static final OrderItem TABLE4_T01 =
-            new OrderItemBuilder().withTableNumber("4").withCode("T01").withQuantity(3).build();
+            new OrderItemBuilder().withTableNumber("4").withCode("T01").withName("Mee Sua").withQuantity(3).build();
     public static final OrderItem TABLE7_F11 =
-            new OrderItemBuilder().withTableNumber("7").withCode("F11").withQuantity(4).build();
+            new OrderItemBuilder().withTableNumber("7").withCode("F11").withName("Crepes").withQuantity(4).build();
     public static final OrderItem TABLE8_K12 =
-            new OrderItemBuilder().withTableNumber("1").withCode("K12").withQuantity(1).build();
+            new OrderItemBuilder().withTableNumber("1").withCode("K12").withName("Kimchi Fried Rice")
+                    .withQuantity(1).build();
     public static final OrderItem TABLE8_W09 =
-            new OrderItemBuilder().withTableNumber("8").withCode("W09").withQuantity(3).build();
+            new OrderItemBuilder().withTableNumber("8").withCode("W09").withName("Chicken Wings")
+                    .withQuantity(3).build();
     public static final OrderItem TABLE8_W12 =
-            new OrderItemBuilder().withTableNumber("8").withCode("W12").withQuantity(2).build();
+            new OrderItemBuilder().withTableNumber("8").withCode("W12").withName("French Fries")
+                    .withQuantity(2).build();
 
     // Tables (table no and status)
     public static final Table TABLE1 = new TableBuilder().withTableNumber("1").withTableStatus("4/4").build();

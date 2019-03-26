@@ -12,8 +12,9 @@ import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.BillCommand;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteFromOrderCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -54,45 +55,27 @@ public class RestOrRantParser {
 
         switch (commandWord) {
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
-        case ClearCommand.COMMAND_ALIAS:
-            return new ClearCommand();
-
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
-
+        case HelpCommand.COMMAND_WORD: // Fallthrough
         case HelpCommand.COMMAND_ALIAS:
             return new HelpCommand();
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
-
+        case HistoryCommand.COMMAND_WORD: // Fallthrough
         case HistoryCommand.COMMAND_ALIAS:
             return new HistoryCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
-
+        case ExitCommand.COMMAND_WORD: // Fallthrough
         case ExitCommand.COMMAND_ALIAS:
             return new ExitCommand();
 
-        case RestaurantModeCommand.COMMAND_WORD:
-            return new RestaurantModeCommand();
-
+        case RestaurantModeCommand.COMMAND_WORD: // Fallthrough
         case RestaurantModeCommand.COMMAND_ALIAS:
             return new RestaurantModeCommand();
 
-        case MenuModeCommand.COMMAND_WORD:
-            return new MenuModeCommand();
-
+        case MenuModeCommand.COMMAND_WORD: // Fallthrough
         case MenuModeCommand.COMMAND_ALIAS:
             return new MenuModeCommand();
 
-        case TableModeCommand.COMMAND_WORD:
-            return new TableModeCommandParser().parse(arguments);
-
+        case TableModeCommand.COMMAND_WORD: // Fallthrough
         case TableModeCommand.COMMAND_ALIAS:
             return new TableModeCommandParser().parse(arguments);
 
@@ -123,17 +106,37 @@ public class RestOrRantParser {
             }
             return new AddToOrderCommandParser().parse(arguments);
 
-        case BillCommand.COMMAND_WORD:
+        case ClearOrderCommand.COMMAND_WORD: // Fallthrough
+        case ClearOrderCommand.COMMAND_ALIAS:
             if (mode != Mode.TABLE_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
-            return new BillCommand();
+            return new ClearOrderCommand();
 
+        case DeleteFromOrderCommand.COMMAND_WORD:
+            if (mode != Mode.TABLE_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new DeleteFromOrderCommandParser().parse(arguments);
+
+        case BillCommand.COMMAND_WORD: // Fallthrough
         case BillCommand.COMMAND_ALIAS:
             if (mode != Mode.TABLE_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new BillCommand();
+
+        // General alias commands that do different functions in different modes
+        case "add":
+            if (mode == Mode.RESTAURANT_MODE) {
+                return new AddTableCommandParser().parse(arguments);
+            } else if (mode == Mode.MENU_MODE) {
+                return new AddToMenuCommandParser().parse(arguments);
+            } else if (mode == Mode.TABLE_MODE) {
+                return new AddToOrderCommandParser().parse(arguments);
+            } else {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

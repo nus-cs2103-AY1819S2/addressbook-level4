@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -37,7 +36,6 @@ public class BillCommand extends Command {
     private Bill bill;
     private Table tableToBill;
     private float totalBill;
-    private ArrayList<OrderItem> orderItemList = new ArrayList<>();
 
     /**
      * Creates a BillCommand to find the total bill of the specified {@code Table}
@@ -80,7 +78,7 @@ public class BillCommand extends Command {
         }
 
         updateStatusOfTable(model);
-        updateOrderItemList(model);
+        model.clearOrderItemsFrom(tableToBill.getTableNumber());
 
         model.updateTables();
         model.updateStatistics();
@@ -106,7 +104,6 @@ public class BillCommand extends Command {
 
         for (OrderItem orderItem : observableOrderItemList) {
             requireNonNull(orderItem);
-            orderItemList.add(orderItem);
 
             opt = menu.getItemFromCode(orderItem.getMenuItemCode());
             if (!opt.isPresent()) {
@@ -152,15 +149,6 @@ public class BillCommand extends Command {
         updatedTableStatus.changeOccupancy("0");
         Table updatedTable = new Table(tableToBill.getTableNumber(), updatedTableStatus);
         model.setTable(tableToBill, updatedTable);
-    }
-
-    /**
-     * Updates the status of orders by reading the updated ArrayList of OrderItems.
-     */
-    private void updateOrderItemList(Model model) {
-        for (OrderItem oderItem : orderItemList) {
-            model.deleteOrderItem(oderItem);
-        }
     }
 
     @Override

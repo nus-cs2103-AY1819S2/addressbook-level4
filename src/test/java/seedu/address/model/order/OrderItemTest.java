@@ -18,15 +18,19 @@ public class OrderItemTest {
         // null -> returns false
         assertFalse(TABLE1_W09.isSameOrderItem(null));
 
-        // different code -> returns false
+        // different item code -> returns false
         OrderItem editedOrderItem = new OrderItemBuilder(TABLE1_W09).withCode("A05").build();
+        assertFalse(TABLE1_W09.isSameOrderItem(editedOrderItem));
+
+        // different item name -> returns false
+        editedOrderItem = new OrderItemBuilder(TABLE1_W09).withName("Chicken Wings 3pcs").build();
         assertFalse(TABLE1_W09.isSameOrderItem(editedOrderItem));
 
         // different table number -> returns false
         editedOrderItem = new OrderItemBuilder(TABLE1_W09).withTableNumber("2").build();
         assertFalse(TABLE1_W09.isSameOrderItem(editedOrderItem));
 
-        // same table number and code, different quantity -> returns true
+        // same table number, item code and name, different quantity -> returns true
         editedOrderItem = new OrderItemBuilder(TABLE1_W09).withQuantity(5).build();
         assertTrue(TABLE1_W09.isSameOrderItem(editedOrderItem));
     }
@@ -53,8 +57,12 @@ public class OrderItemTest {
         OrderItem editedOrderItem = new OrderItemBuilder(TABLE1_W09).withTableNumber("2").build();
         assertFalse(TABLE1_W09.equals(editedOrderItem));
 
-        // different code -> returns false
+        // different item code -> returns false
         editedOrderItem = new OrderItemBuilder(TABLE1_W09).withCode("A05").build();
+        assertFalse(TABLE1_W09.equals(editedOrderItem));
+
+        // different item name -> returns false
+        editedOrderItem = new OrderItemBuilder(TABLE1_W09).withName("Chicken Wings 3pcs").build();
         assertFalse(TABLE1_W09.equals(editedOrderItem));
 
         // different quantity -> returns false

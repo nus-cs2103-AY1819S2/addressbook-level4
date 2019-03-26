@@ -10,12 +10,12 @@ import seedu.address.model.order.OrderItem;
 public class OrderItemCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String TABLE_NUMBER_FIELD_ID = "#tableNumber";
-    private static final String CODE_FIELD_ID = "#menuItemCode";
+    private static final String ITEM_FIELD_ID = "#menuItem";
     private static final String QUANTITY_FIELD_ID = "#quantity";
 
     private final Label idLabel;
     private final Label tableNumberLabel;
-    private final Label menuItemCodeLabel;
+    private final Label menuItemLabel;
     private final Label quantityLabel;
 
     public OrderItemCardHandle(Node cardNode) {
@@ -23,7 +23,7 @@ public class OrderItemCardHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         tableNumberLabel = getChildNode(TABLE_NUMBER_FIELD_ID);
-        menuItemCodeLabel = getChildNode(CODE_FIELD_ID);
+        menuItemLabel = getChildNode(ITEM_FIELD_ID);
         quantityLabel = getChildNode(QUANTITY_FIELD_ID);
     }
 
@@ -35,8 +35,8 @@ public class OrderItemCardHandle extends NodeHandle<Node> {
         return tableNumberLabel.getText();
     }
 
-    public String getMenuItemCode() {
-        return menuItemCodeLabel.getText();
+    public String getMenuItem() {
+        return menuItemLabel.getText();
     }
 
     public String getQuantity() {
@@ -47,8 +47,8 @@ public class OrderItemCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code orderItem}.
      */
     public boolean equals(OrderItem orderItem) {
-        return getTableNumber().equals(orderItem.getTableNumber().tableNumber) && getMenuItemCode().equals(
-                orderItem.getMenuItemCode().itemCode) && getQuantity().equals(
-                Integer.toString(orderItem.getQuantity()));
+        return getTableNumber().equals("Table " + orderItem.getTableNumber().tableNumber) && getMenuItem().equals(
+                orderItem.getMenuItemCode().itemCode + " " + orderItem.getMenuItemName().itemName)
+                && getQuantity().equals("Qty: " + orderItem.getQuantity());
     }
 }

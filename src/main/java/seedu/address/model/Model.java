@@ -180,6 +180,11 @@ public interface Model {
     void deleteOrderItem(OrderItem target);
 
     /**
+     * Clears all order items from the given table number from Orders.
+     */
+    void clearOrderItemsFrom(TableNumber tableNumber);
+
+    /**
      * Adds the given order item to Orders.
      * {@code orderItem} must not already exist in the RestOrRant's Orders.
      */

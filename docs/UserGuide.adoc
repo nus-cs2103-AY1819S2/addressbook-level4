@@ -184,7 +184,7 @@ Examples:
 ==== Adding a note to an item in an order: `addNote`
 
 Adds a note to an item in the order of the specified table. +
-Format: `addNote TABLE_NUMBER ITEM_CODE NOTE`
+Format: `addNote ITEM_CODE NOTE`
 
 ****
 * Item has to exist both in the menu (i.e. item code has to be valid) and order before the note is added.
@@ -197,19 +197,16 @@ Examples:
 ==== Deleting an item from an order: `deleteFromOrder`
 
 Deletes a specified item from the order of the specified table. +
-Format: `deleteFromOrder TABLE_NUMBER ITEM_CODE [QUANTITY]`
+Format: `deleteFromOrder ITEM_CODE`
 
 ****
 * Item has to exist both in the menu (i.e. item code has to be valid) and order before it is deleted from the order.
-* If no quantity is specified, all quantities of the item will be deleted.
 ****
 
 Examples:
 
 * `deleteFromOrder 1 W09` +
-Deletes all W09 Chicken Wings from table 1’s order.
-* `deleteFromOrder 1 W09 1` +
-Reduces the quantity of W09 Chicken Wings by 1 in table 1’s order.
+Deletes W09 Chicken Wings from table 1’s order.
 
 ==== Clearing all the items in an order: `clearOrder`
 
@@ -223,7 +220,7 @@ Examples:
 ==== Marking an item in an order as served: `serve`
 
 Marks the specified item as served for the specified table. +
-Format: `serve TABLE_NUMBER ITEM_CODE [QUANTITY]`
+Format: `serve ITEM_CODE [QUANTITY]`
 
 ****
 * Item has to exist in both the menu (i.e. item code has to be valid) and order before it is marked as served.

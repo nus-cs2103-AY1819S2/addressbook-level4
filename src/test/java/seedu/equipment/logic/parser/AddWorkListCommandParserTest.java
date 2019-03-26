@@ -13,7 +13,7 @@ import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ASSIGNEE_LIST
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_DATE_LISTA;
 import static seedu.equipment.logic.parser.CommandParserTestUtil.assertParseFailure;
 //import static seedu.equipment.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.equipment.testutil.TypicalWorkLists.listc;
+import static seedu.equipment.testutil.TypicalWorkLists.LISTC;
 
 import org.junit.Test;
 
@@ -28,19 +28,19 @@ public class AddWorkListCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        WorkList expectedWorkList = new WorkListBuilder(listc).build();
+        WorkList expectedWorkList = new WorkListBuilder(LISTC).build();
 
         // whitespace only preamble
         //assertParseSuccess(parser, PREAMBLE_WHITESPACE + DATE_DESC_LISTA + ASSIGNEE_DESC_LISTA,
-                //new AddWorkListCommand(expectedWorkList));
+        //new AddWorkListCommand(expectedWorkList));
 
         // multiple dates - last date accepted
         //assertParseSuccess(parser, DATE_DESC_LISTA + DATE_DESC_LISTB + ASSIGNEE_DESC_LISTA,
-                //new AddWorkListCommand(expectedWorkList));
+        //new AddWorkListCommand(expectedWorkList));
 
         // multiple phones - last phone accepted
         //assertParseSuccess(parser, DATE_DESC_LISTA + ASSIGNEE_DESC_LISTB + ASSIGNEE_DESC_LISTA,
-                //new AddWorkListCommand(expectedWorkList));
+        //new AddWorkListCommand(expectedWorkList));
     }
 
     @Test
@@ -70,6 +70,6 @@ public class AddWorkListCommandParserTest {
 
         // non-empty preamble
         //assertParseFailure(parser, PREAMBLE_NON_EMPTY + DATE_DESC_LISTA + ASSIGNEE_DESC_LISTA,
-                //String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddWorkListCommand.MESSAGE_USAGE));
+        //String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddWorkListCommand.MESSAGE_USAGE));
     }
 }

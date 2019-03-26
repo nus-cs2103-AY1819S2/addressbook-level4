@@ -27,11 +27,12 @@ public class Card {
     /**
      * Every field must be present and not null.
      */
-    public Card(Question question, Answer answer, Score score, Set<Hint> hints) {
-        requireAllNonNull(question, answer, score, hints);
+    public Card(Question question, Answer answer, Score score, Set<Option> options, Set<Hint> hints) {
+        requireAllNonNull(question, answer, score, options, hints);
         this.question = question;
         this.answer = answer;
         this.score = score;
+        this.options.addAll(options);
         this.hints.addAll(hints);
     }
 

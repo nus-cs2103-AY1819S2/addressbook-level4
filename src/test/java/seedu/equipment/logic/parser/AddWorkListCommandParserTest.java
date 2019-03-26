@@ -5,8 +5,8 @@ import static seedu.equipment.logic.commands.CommandTestUtil.ASSIGNEE_DESC_LISTA
 import static seedu.equipment.logic.commands.CommandTestUtil.ASSIGNEE_DESC_LISTB;
 import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_LISTA;
 import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_LISTB;
-import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_ASSIGNEE_DESC;
+import static seedu.equipment.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.equipment.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.equipment.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ASSIGNEE_LISTA;
@@ -17,7 +17,6 @@ import static seedu.equipment.testutil.TypicalWorkLists.LISTA;
 
 import org.junit.Test;
 
-import seedu.equipment.logic.commands.AddEquipmentCommand;
 import seedu.equipment.logic.commands.AddWorkListCommand;
 import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.Name;

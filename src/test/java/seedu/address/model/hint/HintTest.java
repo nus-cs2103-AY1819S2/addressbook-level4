@@ -12,9 +12,9 @@ public class HintTest {
     }
 
     @Test
-    public void constructor_invalidHintName_throwsIllegalArgumentException() {
-        String invalidTagName = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Hint(invalidTagName));
+    public void constructor_invalidHintValue_throwsIllegalArgumentException() {
+        String invalidHintValue = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Hint(invalidHintValue));
     }
 
     @Test

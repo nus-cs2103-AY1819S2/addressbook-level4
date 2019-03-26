@@ -9,9 +9,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.management.AddLessonCommand;
+import seedu.address.logic.commands.management.CloseLessonCommand;
+import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
+import seedu.address.logic.commands.management.ListLessonsCommand;
+import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class ManagementModeParserTest {
@@ -44,6 +49,41 @@ public class ManagementModeParserTest {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }
     }
+
+    @Test
+    public void parseCommand_addLesson() throws Exception {
+        String command = AddLessonCommand.COMMAND_WORD + " "
+                + Syntax.PREFIX_LESSON_NAME + "Capitals of the world "
+                + Syntax.PREFIX_LESSON_CORE_HEADER + "Country "
+                + Syntax.PREFIX_LESSON_CORE_HEADER + "Capital "
+                + Syntax.PREFIX_LESSON_OPT_HEADER + "Hint";
+        assertTrue(parser.parse(command) instanceof AddLessonCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteLesson() throws Exception {
+        String command = DeleteLessonCommand.COMMAND_WORD + " 1";
+        assertTrue(parser.parse(command) instanceof DeleteLessonCommand);
+    }
+
+    @Test
+    public void parseCommand_listLessons() throws Exception {
+        assertTrue(parser.parse(ListLessonsCommand.COMMAND_WORD)
+                instanceof ListLessonsCommand);
+    }
+
+    @Test
+    public void parseCommand_openLessons() throws Exception {
+        String command = OpenLessonCommand.COMMAND_WORD + " 2";
+        assertTrue(parser.parse(command) instanceof OpenLessonCommand);
+    }
+
+    @Test
+    public void parseCommand_closeLessons() throws Exception {
+        assertTrue(parser.parse(CloseLessonCommand.COMMAND_WORD)
+                instanceof CloseLessonCommand);
+    }
+
 
     //    @Test
     //    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {

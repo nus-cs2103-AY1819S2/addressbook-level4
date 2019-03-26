@@ -1,5 +1,7 @@
 package seedu.address.model.user;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.time.Instant;
 import java.util.HashMap;
 
@@ -22,6 +24,7 @@ public class CardSrsData {
      * @param srsDueDate this corresponds to the space repetition storage due date
      */
     public CardSrsData(int hashCode, int numOfAttempts, int streak, Instant srsDueDate) {
+        requireAllNonNull(hashCode, numOfAttempts, streak, srsDueDate);
         this.hashCode = hashCode;
         this.numOfAttempts = numOfAttempts;
         this.streak = streak;

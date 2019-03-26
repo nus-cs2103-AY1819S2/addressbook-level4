@@ -1,11 +1,13 @@
 package seedu.address.model.session;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.model.modelmanager.quiz.Quiz;
-import seedu.address.model.modelmanager.quiz.QuizCard;
+import seedu.address.model.quiz.QuizCard;
+import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.srscard.SrsCard;
+import seedu.address.model.user.CardSrsData;
 
 
 /**
@@ -15,19 +17,19 @@ public class Session {
     public static final int CARD_COUNT_MINIMUM = 1;
 
     private String name;
-    private Quiz.Mode mode;
+    private QuizMode mode;
     private int cardCount;
     private List<QuizCard> quizCards;
     private List<SrsCard> srsCards;
 
-    public Session(String name, int cardCount, Quiz.Mode mode) {
+    public Session(String name, int cardCount, QuizMode mode) {
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Invalid name");
         }
         if (cardCount < CARD_COUNT_MINIMUM) {
             throw new IllegalArgumentException("CardCount should not zero");
         }
-        if ((mode != Quiz.Mode.LEARN) & (mode != Quiz.Mode.REVIEW) & (mode != Quiz.Mode.PREVIEW)) {
+        if ((mode != QuizMode.LEARN) & (mode != QuizMode.REVIEW) & (mode != QuizMode.PREVIEW)) {
             throw new IllegalArgumentException("Invalid mode");
         }
         this.name = name;
@@ -35,14 +37,14 @@ public class Session {
         this.mode = mode;
     }
 
-    public Session(String name, int cardCount, Quiz.Mode mode, List<SrsCard> srsCards) {
+    public Session(String name, int cardCount, QuizMode mode, List<SrsCard> srsCards) {
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Invalid name");
         }
         if (cardCount < CARD_COUNT_MINIMUM) {
             throw new IllegalArgumentException("CardCount should not be less than five in a single session");
         }
-        if ((mode != Quiz.Mode.LEARN) & (mode != Quiz.Mode.REVIEW) & (mode != Quiz.Mode.PREVIEW)) {
+        if ((mode != QuizMode.LEARN) & (mode != QuizMode.REVIEW) & (mode != QuizMode.PREVIEW)) {
             throw new IllegalArgumentException("Invalid mode");
         }
 
@@ -54,11 +56,11 @@ public class Session {
         this.srsCards = srsCards;
     }
 
-    public Session(String name, Quiz.Mode mode, List<SrsCard> srsCards) {
+    public Session(String name, QuizMode mode, List<SrsCard> srsCards) {
         if (name == null || name.length() == 0) {
             throw new IllegalArgumentException("Invalid name");
         }
-        if ((mode != Quiz.Mode.LEARN) & (mode != Quiz.Mode.REVIEW) & (mode != Quiz.Mode.PREVIEW)) {
+        if ((mode != QuizMode.LEARN) & (mode != QuizMode.REVIEW) & (mode != QuizMode.PREVIEW)) {
             throw new IllegalArgumentException("Invalid mode");
         }
 
@@ -82,12 +84,15 @@ public class Session {
         return quizCards;
     }
 
-    public Quiz.Mode getMode() {
+    public QuizMode getMode() {
         return mode;
     }
 
     public int getCount() {
         return cardCount;
+    }
+    public void setCount(int count) {
+        cardCount = count;
     }
 
     public String getName() {
@@ -96,5 +101,22 @@ public class Session {
 
     public List<SrsCard> getSrsCards() {
         return srsCards;
+    }
+    public List<SrsCard> getQuizSrsCards() {
+        List<SrsCard> quizSrsCards = new ArrayList<>();
+        for (int i = 0; i < cardCount; i++) {
+            quizSrsCards.add(srsCards.get(i));
+        }
+        return quizSrsCards;
+    }
+
+    /**
+     * Returns user profile after quiz ends.
+     * @param quizInformation from quiz.
+     */
+    public List<CardSrsData> updateUserProfile(List<List<Integer>> quizInformation) {
+        Instant currentDate = Instant.now();
+        SrsCardsManager updateManager = new SrsCardsManager(this.getQuizSrsCards(), quizInformation, currentDate);
+        return updateManager.updateCardData();
     }
 }

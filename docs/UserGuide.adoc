@@ -25,10 +25,12 @@ BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an
 
 Start using BrainTrain today! To get started, read <<Quick Start>> for installation and setup instructions.
 
+{empty} +
+
 == Quick Start
 
-.  Ensure that Java version `9` or later is installed on your Computer. You can download it link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here].
-.  Download the latest `braintrain.jar` file link:{repoURL}/releases[here].
+. Ensure that Java version `9` or later is installed on your Computer. You can download it link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here].
+. Download the latest `braintrain.jar` file link:{repoURL}/releases[here].
 . Create a folder to use as the home folder for BrainTrain (e.g. `braintrain/`).
 . Move the downloaded file to the created folder.
 . Double-click the file to run BrainTrain. The GUI will appear in a few seconds.
@@ -36,9 +38,11 @@ Start using BrainTrain today! To get started, read <<Quick Start>> for installat
 .BrainTrain's GUI on first run
 [#img-firstlook]
 image::UiFirstLook.png[width="790"]
-+
+
 . Type the command `help` in the command box at the top and press kbd:[Enter] to display usage information on BrainTrain commands.
 . Read <<Features>> to find out more about BrainTrain commands.
+
+{empty} +
 
 [[Features]]
 == Features
@@ -50,14 +54,19 @@ image::UiFirstLook.png[width="790"]
 * Items in square brackets are optional e.g `add card q/QUESTION a/ANSWER [h/HINT]` can be used as `add card q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA.` or as `add card q/What state is Seattle in? a/Washington`.
 * Parameters can be in any order e.g. if the command specifies `add card q/QUESTION a/ANSWER`, `add card a/ANSWER q/QUESTION` is also acceptable.
 ====
+{empty} +
 
 === Management Mode
 
 ==== Viewing help: `help`
 
-Displays usage information on all Management Mode commands. +
+Displays usage information on all commands. +
 Format: `help`
 
+[TIP]
+You can press kbd:[F1] to display usage information on all commands.
+
+[[start]]
 ==== Starting quiz session: `start`
 
 Switches to Quiz Mode and starts a new quiz session. +
@@ -78,6 +87,7 @@ Examples:
 
 * `start n/02-03-LEARN c/15 m/LEARN`
 
+[[listLessons]]
 ==== Listing all lessons: `listLessons`
 
 Shows a numbered list of all lessons. +
@@ -109,15 +119,44 @@ Format: `deleteLesson INDEX`
 
 Usage rules:
 
-* Deletes the lesson at the specified `INDEX`.
-* To find the `INDEX` number of a lesson, type `listLessons` to list all lessons loaded in memory.
+* Deletes the lesson at the specified `INDEX` of the numbered lesson list.
+* To view the list, enter the command <<listLessons, `listLessons`>>.
 
 Examples:
 
 * `deleteLesson 2` +
-Deletes the 2nd lesson in the numbered list displayed by `listLessons`.
+Deletes the second lesson in the numbered list displayed by `listLessons`.
 
-[[list_cards]]
+==== Opening a lesson: `openLesson`
+
+Opens a lesson for editing. +
+Format: `openLesson INDEX`
+
+Usage rules:
+
+* Opens the lesson at the specified `INDEX` of the numbered lesson list.
+* To view the list, enter the command <<listLessons, `listLessons`>>.
+
+Examples:
+
+* `openLesson 1` +
+Opens the first lesson in the numbered list displayed by `listLessons`.
+
+==== Closing a lesson: `closeLesson`
+
+Closes and saves a lesson after editing it. +
+Format: `closeLesson INDEX`
+
+Usage rules:
+
+* Closes the lesson at the specified `INDEX`.
+* To find the `INDEX` number of a lesson, type `listLessons` to list all lessons loaded in memory.
+
+Examples:
+
+* `closeLesson 1` +
+Closes the first lesson in the numbered list displayed by `listLessons`.
+
 ==== Listing all flashcards: `listCards`
 
 Shows a numbered list of all flashcards. +
@@ -192,8 +231,13 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 Quits the program. +
 Format: `quit`
 
+{empty} +
+
 // tag::quiz[]
 === Quiz Mode
+
+When you <<start, `start`>> a quiz session successfully, you will enter quiz mode which allows you
+to enter the following commands.
 
 ==== Viewing help: `\help`
 
@@ -201,7 +245,6 @@ Displays usage information on all Quiz Mode commands and acceptable inputs for a
 Format: `\help`
 
 [[hint]]
-
 ==== Viewing the current flashcard's hint: `\hint`
 
 Reveals the hint for the current flashcard. +
@@ -217,116 +260,41 @@ Format: `\status`
 Any input without the escape character `\` is treated as an answer to the current flashcard. +
 Format: `[*]`
 
+* For each type of question, there is total attempts and streak.
+* The total attempts refers to how many times you have tried this question, getting it wrong is
+also considered as tried.
+* The streak refers to how many times you have gotten it correctly in a row.
+* The streak will be reduced to 0 for getting it wrong twice in a row.
+
+[TIP]
+If you accidentally enter the wrong answer once, your streak for the question will not be affected.
+
+Examples:
+
+* The question is "Japan" and is asking for the capital of "Japan": +
+  `Tokyo` +
+  This is the correct answer, both the streak and total attempts increased by 1.
+
+* The question is "Tokyo" and is asking for the country of "Tokyo": +
+  `Japaan` +
+  `Japan` +
+  This is the correct answer, the streak increased by 1 while total attempts increased by 2.
+
+* The question is "Tokyo" and is asking for the country of "Tokyo": +
+  `Japaan` +
+  `Jappan` +
+  This is the wrong answer, the streak is reduced to 0 while total attempts increased by 2.
+
 ==== Quitting the current quiz session: `\quit`
 
 Quits the current quiz session and switches back to Management Mode. +
 Format: `\quit`
 // end::quiz[]
 
-== Address Book 4 Features
-*Features here will be replaced by equivalent features in BrainTrain document above.*
+{empty} +
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-// tag::undoredo[]
-=== Undoing previous command : `undo`
-
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
-Format: `clear`
-
-=== Saving the data
-
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-== Troubleshooting TODO
+// TODO
+== Troubleshooting
 
 *Q*: Why are my card values shown as `?????` or question marks? +
 *A*: If your lesson contains non-ASCII characters such as:
@@ -342,35 +310,43 @@ Note that the files have to be saved as a UTF-8 encoded csv file before the firs
 If the file is saved without UTF-8 encoding, the data may have already been saved as ?????, and all non-ASCII characters are lost.
 ****
 
+{empty} +
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+{empty} +
+
 == Command Summary
 
 === Management Mode
-* Help: `help`
-* *Start a quiz session*: `start n/NAME [c/COUNT] m/MODE`
+* *View help*: `help`
+* *Start a quiz session*: `start n/NAME [c/COUNT] m/MODE` +
 e.g. `start n/02-03-LEARN c/15 m/LEARN`
-* List all lessons: `listLessons`
-* *Add a lesson*: `addLesson n/NAME c/CORE…​ [o/OPTIONAL]…​`
+* *List all lessons*: `listLessons`
+* *Add a lesson*: `addLesson n/NAME c/CORE…​ [o/OPTIONAL]…​` +
 e.g. `addLesson n/MedicineTrivia c/Proposition c/TrueOrFalse`
-* List all cards: `list cards`
-* *Add a card*: `add card q/QUESTION a/ANSWER [h/HINT]`
+* *List all cards*: `list cards`
+* *Add a card*: `add card q/QUESTION a/ANSWER [h/HINT]` +
 e.g. `add card q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA`
-* *Edit a card*: `edit card INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
+* *Edit a card*: `edit card INDEX [q/QUESTION] [a/ANSWER] [h/HINT]` +
 e.g. `card edit 12 q/How many intercostal spaces are there? h/`
-* *Delete a card*: `delete card INDEX`
+* *Delete a card*: `delete card INDEX` +
 e.g. `delete card 2`
-* Import user profile: `import user`
-* Export user profile: `export user`
-* History: `history`
-* Quit: `quit`
+* *Import user profile*: `import user`
+* *Export user profile*: `export user`
+* *View history*: `history`
+* *Quit BrainTrain*: `quit`
+
+{empty} +
 
 === Quiz Mode
-* Help: `\help`
-* View the hint: `\hint`
-* View status: `\status`
-* Answer: `[*]`
-* Quit: `\quit`
+* *View help*: `\help`
+* *View hint*: `\hint`
+* *View status*: `\status`
+* *Enter answer*: `[*]`
+* *Quit quiz mode*: `\quit`
+
+{empty} +

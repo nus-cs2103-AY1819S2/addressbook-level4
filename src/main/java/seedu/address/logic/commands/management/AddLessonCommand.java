@@ -1,26 +1,24 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_MGT_MODEL;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_CORE_HEADER;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_OPT_HEADER;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
-import seedu.address.model.modelmanager.management.ManagementModel;
 
 /**
- * This implements a {@link Command} which executes a command to add a {@link Lesson} to the
- * {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
+ * This implements a {@link ManagementCommand} which executes a command to add a {@link Lesson}
+ * to the {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
  * to be passed into the {@link #execute(Model, CommandHistory)} command. The actual addition
  * of the {@link Lesson} is carried out in the {@link ManagementModel}.
  */
-public class AddLessonCommand implements Command {
+public class AddLessonCommand extends ManagementCommand {
     /**
      * The word a user must enter to call this command.
      */
@@ -69,13 +67,7 @@ public class AddLessonCommand implements Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        // CommandException will be thrown if and only if LogicManager passes in the incorrect Model
-        // In other words, only incorrect code will result in a CommandException being thrown
-        if (!(model instanceof ManagementModel)) {
-            throw new CommandException(MESSAGE_EXPECTED_MGT_MODEL);
-        }
-
-        ManagementModel mgtModel = (ManagementModel) model;
+        ManagementModel mgtModel = requireManagementModel(model);
 
         mgtModel.addLesson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

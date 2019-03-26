@@ -16,21 +16,22 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.Lessons;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.modelmanager.management.ManagementModel;
-import seedu.address.model.modelmanager.management.ManagementModelManager;
-import seedu.address.model.modelmanager.quiz.QuizModel;
-import seedu.address.model.modelmanager.quiz.QuizModelManager;
-import seedu.address.storage.CsvLessonImportExport;
+import seedu.address.model.lesson.LessonList;
+import seedu.address.model.modelmanager.ManagementModel;
+import seedu.address.model.modelmanager.ManagementModelManager;
+import seedu.address.model.modelmanager.QuizModel;
+import seedu.address.model.modelmanager.QuizModelManager;
+import seedu.address.model.user.User;
 import seedu.address.storage.CsvLessonsStorage;
+import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.LessonImportExport;
 import seedu.address.storage.LessonsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.UserStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -61,16 +62,17 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         LessonsStorage lessonsStorage = new CsvLessonsStorage(userPrefs.getLessonsFolderPath());
-        Lessons lessons = initLessons(lessonsStorage);
-        LessonImportExport lessonImportExport = new CsvLessonImportExport(userPrefs.getLessonImportExportFilePath());
-        storage = new StorageManager(userPrefsStorage, lessonsStorage, lessonImportExport);
+        LessonList lessonList = initLessons(lessonsStorage);
+        UserStorage userStorage = new CsvUserStorage(userPrefs.getUserFilePath());
+        User user = initUser(userStorage);
+        storage = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
 
         initLogging(config);
 
-        managementModel = initModelManager(userPrefs, lessons);
+        managementModel = initModelManager(userPrefs, lessonList, user);
         quizModel = initQuizModelManager();
 
-        logic = new LogicManager(managementModel, quizModel);
+        logic = new LogicManager(managementModel, quizModel, storage);
 
         ui = new UiManager(logic);
     }
@@ -78,8 +80,8 @@ public class MainApp extends Application {
     /**
      * Returns a {@code ManagementModelManager} with the data from {@code userPrefs}.
      */
-    private ManagementModel initModelManager(ReadOnlyUserPrefs userPrefs, Lessons lessons) {
-        return new ManagementModelManager(userPrefs, lessons);
+    private ManagementModel initModelManager(ReadOnlyUserPrefs userPrefs, LessonList lessonList, User user) {
+        return new ManagementModelManager(userPrefs, lessonList, user);
     }
 
     /**
@@ -163,33 +165,36 @@ public class MainApp extends Application {
 
 
     /**
-     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
-     * or a new {@code UserPrefs} with default configuration if errors occur when
+     * Returns a {@code LessonList} using the folder at {@code storage}'s LessonList folder path,
+     * or a new {@code LessonList} with no initial lessons if errors occur when
      * reading from the file.
      */
-    protected Lessons initLessons(LessonsStorage storage) {
+    protected LessonList initLessons(LessonsStorage storage) {
         Path lessonsFolderPath = storage.getLessonsFolderPath();
         logger.info("Using lessons folder : " + lessonsFolderPath);
 
-        Lessons initializedLessons = null;
-        try {
-            Optional<Lessons> prefsOptional = storage.readLessons();
-            initializedLessons = prefsOptional.orElse(new Lessons());
-        } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with a empty BrainTrain");
-            initializedLessons = new Lessons();
-        }
-        /*
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
-        try {
-            storage.saveUserPrefs(initializedPrefs);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }
-        */
+        LessonList initializedLessonList = null;
+        Optional<LessonList> prefsOptional = storage.readLessons();
+        initializedLessonList = prefsOptional.orElse(new LessonList());
 
-        logger.info(initializedLessons.getLessons().size() + " lessons loaded.");
-        return initializedLessons;
+        logger.info(initializedLessonList.getLessons().size() + " lessons loaded.");
+        return initializedLessonList;
+    }
+
+    /**
+     * Returns a {@code User} using the file at {@code storage}'s user file path,
+     * or a new {@code User} with empty data if errors occur when reading from the file.
+     */
+    protected User initUser(UserStorage storage) {
+        Path userFilePath = storage.getUserFilePath();
+        logger.info("Using user data folder : " + userFilePath);
+
+        User initializedUser = null;
+        Optional<User> prefsOptional = storage.readUser();
+        initializedUser = prefsOptional.orElse(new User());
+
+        logger.info("User data successfully loaded " + initializedUser.getCards().size() + " cards.");
+        return initializedUser;
     }
 
     @Override

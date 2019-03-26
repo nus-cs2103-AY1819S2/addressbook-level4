@@ -13,11 +13,12 @@ public class QuizHelpCommand implements Command {
     public static final String COMMAND_WORD = "\\help";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+            + "Example: " + COMMAND_WORD + "\n";
 
     public static final String MESSAGE_QUIZ_USAGE = QuizAnswerCommand.MESSAGE_USAGE
-        + "\n" + QuizStatusCommand.MESSAGE_USAGE
-        + "\n" + QuizHelpCommand.MESSAGE_USAGE;
+        + "\n" + QuizDifficultCommand.MESSAGE_USAGE
+        + "\n" + QuizHelpCommand.MESSAGE_USAGE
+        + "\n" + QuizStatusCommand.MESSAGE_USAGE;
 
     @Override
     /**

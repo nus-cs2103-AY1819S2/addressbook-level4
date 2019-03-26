@@ -43,19 +43,29 @@ public class SrsCardsManager {
         List<Card> cards = lesson.getCards();
         List<SrsCard> srsCards = new ArrayList<>();
         for (int i = 0; i < cards.size(); i++) {
+            SrsCard srsCard;
             Card currentCard = cards.get(i);
-            SrsCard srsCard = new SrsCard(currentCard, cardData.get(currentCard.hashCode()), lesson);
+            if (!cardData.containsKey(currentCard.hashCode())) {
+                srsCard = new SrsCard(currentCard, new CardSrsData(currentCard.hashCode(),
+                        0, 0, Instant.now()) , lesson);
+            } else {
+                srsCard = new SrsCard(currentCard, cardData.get(currentCard.hashCode()), lesson);
+            }
             Instant currentSrsDueDate = srsCard.getSrsDueDate();
             int currentSize = srsCards.size();
+            int update = 0;
             if (srsCards.size() == 0) {
                 srsCards.add(srsCard);
             } else {
                 for (int k = 0; k < currentSize; k++) {
                     if (currentSrsDueDate.compareTo(srsCards.get(k).getSrsDueDate()) < 0) {
                         srsCards.add(k, srsCard);
-                    } else {
-                        srsCards.add(srsCard);
+                        update = 1;
+                        break;
                     }
+                }
+                if (update == 0) {
+                    srsCards.add(srsCard);
                 }
             }
         }
@@ -110,7 +120,6 @@ public class SrsCardsManager {
             updatedCardData.add(new CardSrsData(currentHashCode, currentNumOfAttempts, currentStreak,
                     updatedSrsDueDate));
         }
-
         return updatedCardData;
     }
 }

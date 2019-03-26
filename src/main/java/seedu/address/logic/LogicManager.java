@@ -13,8 +13,10 @@ import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.modelmanager.management.ManagementModel;
-import seedu.address.model.modelmanager.quiz.QuizModel;
+import seedu.address.model.modelmanager.ManagementModel;
+import seedu.address.model.modelmanager.QuizModel;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
+import seedu.address.storage.Storage;
 
 /**
  * The main LogicManager of the app.
@@ -23,13 +25,23 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
+    private final Storage storageManager;
     private final ManagementModel managementModel;
     private final QuizModel quizModel;
     private final CommandHistory history;
     private final ManagementModeParser managementModeParser;
     private final QuizModeParser quizModeParser;
 
-    public LogicManager(ManagementModel managementModel, QuizModel quizModel) {
+    /**
+     * Different mode that will show different UI and have access to different commands.
+     */
+    public enum Mode {
+        MANAGEMENT,
+        QUIZ
+    }
+
+    public LogicManager(ManagementModel managementModel, QuizModel quizModel, Storage storageManager) {
+        this.storageManager = storageManager;
         this.managementModel = managementModel;
         this.quizModel = quizModel;
         history = new CommandHistory();
@@ -43,8 +55,8 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         try {
-            Command command = null;
-            if (quizModel.isQuizDone()) {
+            Command command;
+            if (getMode() == Mode.MANAGEMENT) {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
             } else {
@@ -52,16 +64,25 @@ public class LogicManager implements Logic {
                 commandResult = command.execute(quizModel, history);
             }
 
-            // very ugly way
             if (command instanceof QuizStartCommand) {
                 QuizStartCommand quizStartCommand = (QuizStartCommand) command;
-                commandResult = quizStartCommand.executeActual(quizModel, history);
+                commandResult = quizStartCommand.executeActual(quizModel, managementModel, history);
             }
         } finally {
             history.add(commandText);
         }
 
         return commandResult;
+    }
+
+    @Override
+    public Mode getMode() {
+        return quizModel.isQuizDone() ? Mode.MANAGEMENT : Mode.QUIZ;
+    }
+
+    @Override
+    public QuizUiDisplayFormatter getDisplayFormatter() {
+        return quizModel.getDisplayFormatter();
     }
 
     @Override

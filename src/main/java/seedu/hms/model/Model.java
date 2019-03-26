@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.reservation.Reservation;
 
 /**
  * The API of the Model component.
@@ -16,6 +17,7 @@ public interface Model {
      */
     Predicate<Customer> PREDICATE_SHOW_ALL_CUSTOMERS = unused -> true;
     Predicate<Booking> PREDICATE_SHOW_ALL_BOOKINGS = unused -> true;
+    Predicate<Reservation> PREDICATE_SHOW_ALL_RESERVATIONS = unused -> true;
 
     /**
      * Returns the user prefs.

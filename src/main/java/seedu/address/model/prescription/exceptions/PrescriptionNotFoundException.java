@@ -8,3 +8,4 @@ public class PrescriptionNotFoundException extends RuntimeException {
         super("The prescription to remove does not exist");
     }
 }
+

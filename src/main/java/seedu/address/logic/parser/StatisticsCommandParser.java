@@ -14,7 +14,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class StatisticsCommandParser implements Parser<StatisticsCommand> {
 
-    private static final String[] TOPICS = {"finances", "consultations", "all"};
     private static final String MMYY_REGEX = "^(0[1-9]|1[0-2])(\\d{2})$";
     private static final DateTimeFormatter MMYY_FORMATTER = DateTimeFormatter.ofPattern("MMyy");
     /**
@@ -25,32 +24,26 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
     public StatisticsCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         final String[] tokens = trimmedArgs.split("\\s+");
-        // check if there are at least 2 arguments
-        if (tokens.length < 2) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
-        }
-        // check if the topic is valid
-        if (Arrays.stream(TOPICS).noneMatch(tokens[0]::equalsIgnoreCase)) {
+        // check if there are at least 1 arguments
+        if (tokens.length < 1) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
         }
         // check if the FROM MMYY is valid
-        String topic = tokens[0].toLowerCase();
-        if (!tokens[1].matches(MMYY_REGEX)) {
+        if (!tokens[0].matches(MMYY_REGEX)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
         }
-        YearMonth fromYearMonth = YearMonth.parse(tokens[1], MMYY_FORMATTER);
+        YearMonth fromYearMonth = YearMonth.parse(tokens[0], MMYY_FORMATTER);
         YearMonth toYearMonth = fromYearMonth;
         // if there is a TO MMYY, check if it is valid
-        if (tokens.length == 3) {
-            if (!tokens[2].matches(MMYY_REGEX)) {
+        if (tokens.length == 2) {
+            if (!tokens[1].matches(MMYY_REGEX)) {
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
             }
-            toYearMonth = YearMonth.parse(tokens[2], MMYY_FORMATTER);
+            toYearMonth = YearMonth.parse(tokens[1], MMYY_FORMATTER);
         }
-        return new StatisticsCommand(topic, fromYearMonth, toYearMonth);
+        return new StatisticsCommand(fromYearMonth, toYearMonth);
     }
 }

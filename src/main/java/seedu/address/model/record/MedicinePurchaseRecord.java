@@ -23,7 +23,7 @@ public class MedicinePurchaseRecord extends Record {
         this.cost = cost;
     }
     @Override
-    public Statistics toStatistics() {
+    public Statistics toStatistics(RecordManager recordManager) {
         BigDecimal totalCost = cost.multiply(new BigDecimal(quantity));
         return new Statistics(0, BigDecimal.ZERO , totalCost);
     }

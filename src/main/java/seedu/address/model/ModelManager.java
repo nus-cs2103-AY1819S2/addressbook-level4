@@ -605,8 +605,8 @@ public class ModelManager implements Model {
     }
 
     //==========Record module================================================================================
-    public Statistics getStatistics(String topic, YearMonth from, YearMonth to) {
-        return recordManager.getStatistics(topic, from, to);
+    public Statistics getStatistics(YearMonth from, YearMonth to) {
+        return recordManager.getStatistics(from, to);
     }
 
     public void addRecord(Record record, Clock clock) {

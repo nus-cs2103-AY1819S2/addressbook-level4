@@ -17,21 +17,16 @@ public class StatisticsCommand extends Command {
     public static final String COMMAND_WORD = "statistics";
     public static final String COMMAND_ALIAS = "stats";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": displays the statistics of the queried topic from the"
-            + "given date range.\n"
-            + "Parameters: TOPIC MMYY [MMYY]\n"
-            + "List of TOPICS: finances, consultations, all"
-            + "Example: " + COMMAND_WORD + " all 0119";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": displays the statistics from the given date range.\n"
+            + "Parameters: MMYY [MMYY]\n"
+            + "Example: " + COMMAND_WORD + " 0119";
 
-    private final String topic;
     private final YearMonth fromYearMonth;
     private final YearMonth toYearMonth;
 
-    public StatisticsCommand(String topic, YearMonth from, YearMonth to) {
-        requireNonNull(topic);
+    public StatisticsCommand(YearMonth from, YearMonth to) {
         requireNonNull(from);
         requireNonNull(to);
-        this.topic = topic;
         this.fromYearMonth = from;
         this.toYearMonth = to;
     }
@@ -39,11 +34,9 @@ public class StatisticsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        Statistics stats = model.getStatistics(this.topic, this.fromYearMonth, this.toYearMonth);
+        Statistics stats = model.getStatistics(this.fromYearMonth, this.toYearMonth);
         StringBuilder sb = new StringBuilder();
-        sb.append("Displaying result for ")
-                .append(this.topic)
-                .append(" from ")
+        sb.append("Displaying result from ")
                 .append(this.fromYearMonth.toString())
                 .append(" to ")
                 .append(this.toYearMonth.toString())
@@ -61,8 +54,6 @@ public class StatisticsCommand extends Command {
             return false;
         }
         StatisticsCommand sc = (StatisticsCommand) other;
-        return this.topic.equals(sc.topic)
-                && this.toYearMonth.equals(sc.toYearMonth)
-                && this.fromYearMonth.equals(sc.fromYearMonth);
+        return this.toYearMonth.equals(sc.toYearMonth) && this.fromYearMonth.equals(sc.fromYearMonth);
     }
 }

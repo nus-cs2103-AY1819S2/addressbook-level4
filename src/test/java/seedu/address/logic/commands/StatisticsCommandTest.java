@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.YearMonth;
 import java.time.ZoneId;
+import java.util.ArrayList;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
+import seedu.address.model.consultation.Assessment;
+import seedu.address.model.consultation.Diagnosis;
 import seedu.address.model.consultation.Prescription;
+import seedu.address.model.consultation.Symptom;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.record.ConsultationRecord;
 import seedu.address.model.record.MedicinePurchaseRecord;
@@ -38,12 +42,18 @@ class StatisticsCommandTest {
      */
     @BeforeEach
     void init() {
-        String topic = "all";
         Medicine medicine = new Medicine("test");
-        record1 = new ConsultationRecord(new Prescription(medicine, 1));
+        ArrayList<Prescription> prescriptions = new ArrayList<>();
+        Prescription prescription = new Prescription(medicine, 1);
+        prescriptions.add(prescription);
+        Assessment testAssessment = new Assessment("Test");
+        ArrayList <Symptom> testSymptoms = new ArrayList<>();
+        testSymptoms.add(new Symptom("Vomitting blood"));
+        Diagnosis diagnosis = new Diagnosis(testAssessment, testSymptoms);
+        record1 = new ConsultationRecord(prescriptions, diagnosis);
         record2 = new MedicinePurchaseRecord(medicine, 1, BigDecimal.valueOf(10.00));
-        command1 = new StatisticsCommand(topic, from, to);
-        command2 = new StatisticsCommand(topic, from, to);
+        command1 = new StatisticsCommand(from, to);
+        command2 = new StatisticsCommand(from, to);
         clock = Clock.fixed(Instant.parse("2019-01-01T10:15:30.00Z"), ZoneId.systemDefault());
     }
 
@@ -55,7 +65,7 @@ class StatisticsCommandTest {
         try {
             CommandResult commandResult = command1.execute(modelManager, history);
             StringBuilder sb = new StringBuilder();
-            sb.append("Displaying result for all from 2019-01 to 2019-02.\n")
+            sb.append("Displaying result from 2019-01 to 2019-02.\n")
                     .append("Number of consultations: ")
                     .append(1)
                     .append("\n")

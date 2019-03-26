@@ -13,14 +13,13 @@ import seedu.address.logic.commands.StatisticsCommand;
 class StatisticsCommandParserTest {
 
     private StatisticsCommandParser parser = new StatisticsCommandParser();
-    private String topic = "finances";
     private YearMonth from = YearMonth.of(2019, 1);
     private YearMonth to = YearMonth.of(2019, 1);
 
     @Test
     public void parse_validArgs_returnsStatisticsCommand() {
-        assertParseSuccess(parser, "finances 0119",
-                new StatisticsCommand(topic, from, to));
+        assertParseSuccess(parser, "0119",
+                new StatisticsCommand(from, to));
     }
 
     @Test

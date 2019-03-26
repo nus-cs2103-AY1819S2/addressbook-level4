@@ -2,64 +2,43 @@
   "healthWorkers" : [ {
     "name" : "Andy Tan",
     "phone" : "94358253",
-    "email" : "andye@example.com",
     "nric" : "S8312942G",
-    "address" : "125, Jurong West Ave 6, #08-111",
-    "tagged" : [ ],
     "organization" : "NUH",
-    "skills": "PHYSIOTHERAPY "
+    "skills" : "PHYSIOTHERAPY "
   }, {
     "name" : "Betty Meier",
     "phone" : "98761232",
-    "email" : "betty@example.com",
     "nric" : "S8312942G",
-    "address" : "312, Clementi Ave 2, #02-25",
-    "tagged" : [ "Stroke", "Eldercare" ],
     "organization" : "NUH",
-    "skills": "ORTHOPAEDIC "
+    "skills" : "ORTHOPAEDIC "
   }, {
     "name" : "Carlie Kurz",
     "phone" : "95358463",
-    "email" : "Kurz@example.com",
     "nric" : "S9312942G",
-    "address" : "wall street",
-    "tagged" : [ "Palliative" ],
     "organization" : "NUH",
     "skills" : "GENERAL_PRACTICE "
   }, {
     "name" : "Paniel Meier",
     "phone" : "87652133",
-    "email" : "panda@example.com",
     "nric" : "S8412942G",
-    "address" : "10th street",
-    "tagged" : [ "Doctor" ],
     "organization" : "NUH",
     "skills" : "GENERAL_PRACTICE "
   }, {
     "name" : "Ella Meyer",
     "phone" : "94824524",
-    "email" : "meyer@example.com",
     "nric" : "S9112942G",
-    "address" : "michegan ave",
-    "tagged" : [ "Nurse", "Dementia" ],
     "organization" : "NUH",
     "skills" : "GENERAL_PRACTICE "
   }, {
     "name" : "Fione Kunz",
     "phone" : "94822371",
-    "email" : "fione@example.com",
     "nric" : "S7812942G",
-    "address" : "little tokyo",
-    "tagged" : [ "Alzheimers", "Nurse" ],
     "organization" : "NUH",
     "skills" : "GENERAL_PRACTICE "
   }, {
     "name" : "George Best",
     "phone" : "94824422",
-    "email" : "george@example.com",
     "nric" : "S8812942G",
-    "address" : "4th street",
-    "tagged" : [ "Cancer" ],
     "organization" : "NUH",
     "skills" : "GENERAL_PRACTICE "
   } ]

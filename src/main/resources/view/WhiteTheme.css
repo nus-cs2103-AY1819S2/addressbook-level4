@@ -49,16 +49,19 @@
 .background {
     font-family: "Comic Sans MS";
     padding-left: 20px;
-    font-size: 12pt;
+    font-size: 13pt;
 }
 
 .welcome-message {
     font-family: "Segoe UI Light";
+    margin: 10px 5px 10px 5px;
 }
 
 span.command {
-    font-family: "Lucida Console";
-    color: #00b894;
+    font-family: "Inconsolata";
+    font-weight: 400;
+    font-size: 12pt;
+    color: #079992;
 }
 
 /* For the healthWorkerListPanel */

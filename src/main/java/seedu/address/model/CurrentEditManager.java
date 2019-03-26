@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.core.Config.TEMP_FILENAME;
 import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 
@@ -58,10 +59,10 @@ public class CurrentEditManager implements CurrentEdit {
         saveOriginal();
     }
 
-    public void setTempImage(com.sksamuel.scrimage.Image image) {
-        image.output(tempImage.getUrl(),
-            new JpegWriter(100, true));
-    }
+//    public void setTempImage(com.sksamuel.scrimage.Image image) {
+//        image.output(tempImage.getUrl(),
+//            new JpegWriter(100, true));
+//    }
 
     public void displayTempImage() {
         Notifier.firePropertyChangeListener("import", null, tempImage.getUrl());
@@ -70,6 +71,11 @@ public class CurrentEditManager implements CurrentEdit {
     public void addCommand(Command command) { }
 
     public void replaceTempWithOriginal() { }
+
+    public String[] getFileNames() {
+        File file = new File(ASSETS_FILEPATH);
+        return file.list();
+    }
 
 
 }

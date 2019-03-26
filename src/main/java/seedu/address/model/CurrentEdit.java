@@ -20,11 +20,13 @@ public interface CurrentEdit {
 
     void setOriginalImage(Image image);
 
-    void setTempImage(com.sksamuel.scrimage.Image image);
+//    void setTempImage(com.sksamuel.scrimage.Image image);
 
     void displayTempImage();
 
     void addCommand(Command command);
 
     void replaceTempWithOriginal();
+
+    String[] getFileNames();
 }

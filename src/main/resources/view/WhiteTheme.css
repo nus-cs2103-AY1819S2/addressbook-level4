@@ -87,6 +87,13 @@ span.command {
     -fx-background-color: #c7ecee;
 }
 
+/* removes cell styling for empty cells */
+.list-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-style: none;
+    -fx-border-width: 0;
+}
+
 .list-view .scroll-bar:horizontal .increment-arrow,
 .list-view .scroll-bar:horizontal .decrement-arrow,
 .list-view .scroll-bar:horizontal .increment-button,

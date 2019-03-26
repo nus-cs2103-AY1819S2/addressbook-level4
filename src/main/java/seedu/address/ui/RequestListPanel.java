@@ -53,7 +53,7 @@ public class RequestListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Request} using a {@code RequestCard}.
      */
     class RequestListViewCell extends ListCell<Request> {
         @Override

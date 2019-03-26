@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,7 +20,9 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.menu.Code;
 import seedu.address.model.order.exceptions.DuplicateOrderItemException;
+import seedu.address.model.table.TableNumber;
 import seedu.address.testutil.OrderItemBuilder;
 
 public class OrdersTest {
@@ -123,6 +126,11 @@ public class OrdersTest {
         @Override
         public ObservableList<OrderItem> getOrderItemList() {
             return orderItems;
+        }
+
+        @Override
+        public Optional<OrderItem> getOrderItem(TableNumber tableNumber, Code itemCode) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

@@ -30,7 +30,7 @@ public class TableStatus {
         requireNonNull(tableStatus);
         checkArgument(isValidTableStatus(tableStatus), MESSAGE_CONSTRAINTS);
         this.numberOfSeats = tableStatus.substring(2);
-        this.numberOfTakenSeats = "0";
+        this.numberOfTakenSeats = tableStatus.substring(0, 1);
     }
 
     /**

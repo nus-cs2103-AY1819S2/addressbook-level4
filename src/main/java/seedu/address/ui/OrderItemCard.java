@@ -30,7 +30,7 @@ public class OrderItemCard extends UiPart<Region> {
     @FXML
     private Label tableNumber;
     @FXML
-    private Label menuItemCode;
+    private Label menuItem;
     @FXML
     private Label quantity;
 
@@ -40,7 +40,7 @@ public class OrderItemCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
 
         tableNumber.setText("Table " + item.getTableNumber().tableNumber);
-        menuItemCode.setText(item.getMenuItemCode().itemCode);
+        menuItem.setText(item.getMenuItemCode().itemCode + " " + item.getMenuItemName());
         quantity.setText("Qty: " + item.getQuantity());
     }
 

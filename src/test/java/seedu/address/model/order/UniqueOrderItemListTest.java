@@ -14,8 +14,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.menu.Code;
 import seedu.address.model.order.exceptions.DuplicateOrderItemException;
 import seedu.address.model.order.exceptions.OrderItemNotFoundException;
+import seedu.address.model.table.TableNumber;
 import seedu.address.testutil.OrderItemBuilder;
 
 public class UniqueOrderItemListTest {
@@ -173,6 +175,12 @@ public class UniqueOrderItemListTest {
         List<OrderItem> listWithDuplicateOrderItems = Arrays.asList(TABLE1_W09, TABLE1_W09);
         thrown.expect(DuplicateOrderItemException.class);
         uniqueOrderItemList.setOrderItems(listWithDuplicateOrderItems);
+    }
+
+    @Test
+    public void getOrderItem_itemInList_success() {
+        uniqueOrderItemList.add(TABLE1_W09);
+        assertEquals(uniqueOrderItemList.getOrderItem(new TableNumber("1"), new Code("W09")).get(), TABLE1_W09);
     }
 
     @Test

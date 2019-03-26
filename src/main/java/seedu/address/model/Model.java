@@ -147,9 +147,19 @@ public interface Model {
     void generateInterviews();
 
     /**
-     * Returns the InterviewManager
+     * Returns Interviews.
      */
     Interviews getInterviews();
+
+    /**
+     * Sets the maximum number of interviews a day.
+     */
+    void setMaxInterviewsADay(int maxInterviewsADay);
+
+    /**
+     * Clears the generated interviews.
+     */
+    void clearInterviews();
 
     /**
      * Generates analytics.

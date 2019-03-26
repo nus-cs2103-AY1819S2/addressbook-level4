@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.job.UniqueJobList;
 import seedu.address.model.person.Person;
@@ -23,6 +24,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueNricMap nrics;
     private final UniquePersonList persons;
     private final UniqueJobList jobs;
+    private final Interviews interviews;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -36,6 +38,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons = new UniquePersonList();
         nrics = new UniqueNricMap();
         jobs = new UniqueJobList();
+        interviews = new Interviews();
     }
 
     public AddressBook() {}
@@ -60,6 +63,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    public void setInterviews(Interviews interviews) {
+        this.interviews.setInterviews(interviews);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -67,6 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setInterviews(newData.getInterviews());
     }
 
     //// person-level operations
@@ -127,6 +135,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
         nrics.remove(key.getNric());
         indicateModified();
+    }
+
+    /**
+     * Generates interviews
+     */
+    public void generateInterviews() {
+        interviews.generate(getPersonList());
+    }
+
+    public Interviews getInterviews() {
+        return interviews;
+    }
+
+    public void setMaxInterviewsADay(int maxInterviewsADay) {
+        interviews.setMaxInterviewsADay(maxInterviewsADay);
+    }
+
+    public void clearInterviews() {
+        interviews.clear();
     }
 
     @Override

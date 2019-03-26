@@ -30,7 +30,7 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.hms.TestApp;
 import seedu.hms.commons.core.index.Index;
-import seedu.hms.logic.commands.ClearCustomerCommand;
+import seedu.hms.logic.commands.ClearHotelManagementSystemCommand;
 import seedu.hms.logic.commands.FindNameCommand;
 import seedu.hms.logic.commands.ListCustomerCommand;
 import seedu.hms.logic.commands.SelectCustomerCommand;
@@ -163,7 +163,7 @@ public abstract class HotelManagementSystemSystemTest {
      * Deletes all customers in the hms book.
      */
     protected void deleteAllCustomers() {
-        executeCommand(ClearCustomerCommand.COMMAND_WORD);
+        executeCommand(ClearHotelManagementSystemCommand.COMMAND_WORD);
         assertEquals(0, getModel().getHotelManagementSystem().getCustomerList().size());
     }
 

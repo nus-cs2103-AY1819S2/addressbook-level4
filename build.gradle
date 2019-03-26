@@ -77,7 +77,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'bookSquirrel.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

@@ -34,7 +34,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * **`addBook`**`n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/fairy tale` : adds a book named `Alice in Wonderland` to the record.
-* **`deleteBook`**`n/Alice` : deletes the record of books whose name contains 'Alice'
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -195,18 +194,18 @@ Undoable commands: those commands that modify the records content (`addBook`, `a
 
 Examples:
 
-* `deleteBook n/Computer Security` +
-`listBook n/Alice` +
-`undo` (reverses the `deleteBook Computer Security` command) +
+* `listBook n/Alice` +
+`deleteBook 1` +
+`undo` (reverses the `deleteBook 1` command) +
 
 * `listBook a/James` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `deleteBook n/Alice` +
+* `deleteBook 1` +
 `clear` +
 `undo` (reverses the `clear` command) +
-`undo` (reverses the `deleteBook Alice` command) +
+`undo` (reverses the `deleteBook 1` command) +
 
 === Redoing the previously undone command : `redo`
 
@@ -215,11 +214,11 @@ Format: `redo`
 
 Examples:
 
-* `deleteBook n/Alice` +
-`undo` (reverses the `deleteBook Alice` command) +
-`redo` (reapplies the `deleteBook Alice` command) +
+* `deleteBook 1` +
+`undo` (reverses the `deleteBook 1` command) +
+`redo` (reapplies the `deleteBook 1` command) +
 
-* `deleteBook n/Hello World` +
+* `deleteBook 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
@@ -266,11 +265,11 @@ e.g. `addBook n/Alice in Wonderland a/Lewis Carroll m/5 t/fantasy t/textbook`
 * *AddReview* `addReview n/BOOKNAME r/review` +
 e.g. `addReview n/Alice in Wonderland r/While Lewis Carroll purists will scoff at the aging of his curious young protagonist, most movie audiences will enjoy this colorful world.`
 * *Clear* : `clear`
-* *DeleteBook* : `deleteBook n/BOOKNAME` +
-e.g. `deleteBook n/Alice in Wonderland`
+* *DeleteBook* : `deleteBook INDEX` +
+e.g. `deleteBook 4`
 * *DeleteReview* : `deleteReview rt/REVIEW TITLE`
-* *EditBook* : `edit n/BOOKNAME [a/AUTHOR] [m/RATING]...` +
-e.g. `edit n/Alice in Wonderland a/some author`
+* *EditBook* : `edit INDEX [n/BOOKNAME] [a/AUTHOR] [m/RATING]...` +
+e.g. `edit 1 n/Alice in Wonderland a/some author`
 * *ListBook* : `listBook [n/NAME] [t/TAG] [m/RATING] [a/Author]` +
 e.g. `listBook t/textbook m/5`
 * *ListReview* : `listReview n/BOOKNAME` +

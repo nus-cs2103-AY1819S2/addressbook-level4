@@ -45,7 +45,7 @@ public class AddDoctorCommandParser implements Parser<AddDoctorCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_AGE).get());
+        Gender gender = ParserUtil.parseGender(argMultimap.getValue(PREFIX_GENDER).get());
         Age age = ParserUtil.parseAge(argMultimap.getValue(PREFIX_AGE).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Set<Specialisation> specList = ParserUtil.parseSpecialisations(argMultimap.getAllValues(PREFIX_SPECIALISATION));

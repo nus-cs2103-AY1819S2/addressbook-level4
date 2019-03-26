@@ -152,6 +152,12 @@ public class ModelManager implements Model {
         versionedBookShelf.removeTag(tag);
     }
 
+    @Override
+    public void sortBook(String type, String order) {
+        versionedBookShelf.sort(type, order);
+    }
+
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

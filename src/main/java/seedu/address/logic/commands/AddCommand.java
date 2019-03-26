@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_INCORRECT_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import seedu.address.commons.core.Messages;
@@ -22,7 +23,8 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_QUESTION + "QUESTION "
             + PREFIX_ANSWER + "ANSWER "
-            + "[" + PREFIX_HINT + "HINT]...\n"
+            + "[" + PREFIX_HINT + "HINT]\n"
+            + "[" + PREFIX_INCORRECT_OPTION + "INCORRECT_OPTION]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_QUESTION + "What is the powerhouse of the cell? "
             + PREFIX_ANSWER + "Mitochondria "

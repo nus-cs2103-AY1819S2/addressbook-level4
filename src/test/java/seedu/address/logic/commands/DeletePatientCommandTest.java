@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
@@ -20,11 +19,10 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.Assert;
 
-public class ConsultationCommandTest {
+public class DeletePatientCommandTest {
 
-    private Model modelManager = new ModelManager();
+    private ModelManager modelManager = new ModelManager();
     private final CommandHistory history = new CommandHistory();
-    private Patient patient1;
 
     @Before
     public void init() {
@@ -36,35 +34,41 @@ public class ConsultationCommandTest {
         Gender gender = new Gender("M");
         Dob dob = new Dob("1991-01-01");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
-        patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
+        Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
         modelManager.addPatient(patient1);
     }
 
     @Test
-    public void createConsultation() {
-
-        modelManager.createConsultation(modelManager.getPatientByNric(patient1.getNric().toString()));
-
-        // exception thrown when consultation is recreated with an ongoing session
-        Assert.assertThrows(IllegalArgumentException.class, () -> modelManager.createConsultation(
-                modelManager.getPatientByNric(patient1.getNric().toString())));
+    public void noPatientFound() {
+        DeletePatientCommand dc = new DeletePatientCommand(new Nric("S9123456B"));
+        Assert.assertThrows(CommandException.class, ()-> dc.execute(modelManager, history));
     }
 
     @Test
-    public void executeTest() {
-        ConsultationCommand cr = new ConsultationCommand("S9123456B");
-        Assert.assertThrows(CommandException.class, ()->cr.execute(modelManager, history));
+    public void patientFound() {
 
-        ConsultationCommand cr2 = new ConsultationCommand("S9123456A");
+        DeletePatientCommand dc = new DeletePatientCommand(new Nric("S9123456A"));
 
         try {
-            String consultationResult = "Consultation session for: " + "S9123456A" + " started\n";
-            org.junit.Assert.assertEquals(cr2.execute(modelManager, history).getFeedbackToUser(),
-                    new CommandResult(consultationResult).getFeedbackToUser());
-        } catch (CommandException ce) {
+            CommandResult cr = dc.execute(modelManager, history);
+            org.junit.Assert.assertEquals(cr.getFeedbackToUser(),
+                    new CommandResult(String.format(DeletePatientCommand.PATIENT_DELETED, "S9123456A"))
+                            .getFeedbackToUser());
+        } catch (Exception e) {
             org.junit.Assert.fail();
         }
+
     }
 
+    @Test
+    public void equalsTest() {
+        DeletePatientCommand dc = new DeletePatientCommand(new Nric("S9123456A"));
+        org.junit.Assert.assertTrue(dc.equals(dc));
+
+        org.junit.Assert.assertFalse(dc.equals(new Object()));
+
+        DeletePatientCommand dc2 = new DeletePatientCommand(new Nric("S9123456A"));
+        org.junit.Assert.assertTrue(dc.equals(dc2));
+    }
 
 }

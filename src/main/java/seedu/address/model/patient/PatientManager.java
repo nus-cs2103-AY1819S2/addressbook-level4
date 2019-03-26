@@ -53,11 +53,11 @@ public class PatientManager {
      * list of patients
      */
     public boolean checkValidIndex(int index) {
-        if (index - 1 >= patientList.size()) {
+        if (index >= patientList.size()) {
             return false;
         }
 
-        if (index - 1 < 0) {
+        if (index < 0) {
             return false;
         }
 
@@ -65,8 +65,7 @@ public class PatientManager {
     }
 
     public Patient getPatientAtIndex(int index) {
-        // index for patientlist should be 1 based
-        return patientList.get(index - 1);
+        return patientList.get(index);
     }
 
     /**
@@ -74,7 +73,7 @@ public class PatientManager {
      */
     public boolean checkDuplicatePatientAfterEdit(int index, Patient editedPatient) {
         for (int i = 0; i < patientList.size(); i++) {
-            if (i == index - 1) {
+            if (i == index) {
                 continue;
             }
 
@@ -86,7 +85,7 @@ public class PatientManager {
     }
 
     public void replacePatient(int index, Patient editedPatient) {
-        patientList.set(index - 1, editedPatient);
+        patientList.set(index, editedPatient);
     }
 
 
@@ -109,7 +108,7 @@ public class PatientManager {
         }
 
         if (foundPatients.size() == 0) {
-            return "No patient record found\n";
+            return "No patient record found";
         }
 
         if (foundPatients.size() > 1) {
@@ -137,7 +136,7 @@ public class PatientManager {
         }
 
         if (foundPatients.size() == 0) {
-            return "No patient record found\n";
+            return "No patient record found";
         }
 
         if (foundPatients.size() > 1) {
@@ -204,7 +203,7 @@ public class PatientManager {
         }
 
         if (foundPatients.size() == 0) {
-            return "No patient record found\n";
+            return "No patient record found";
         }
 
         if (foundPatients.size() > 1) {
@@ -231,5 +230,27 @@ public class PatientManager {
             }
         }
         return Optional.empty();
+    }
+
+    public int getIndexByNric(Nric nric) {
+        for (int i = 0; i < patientList.size(); i++) {
+            if (patientList.get(i).getNric().toString().equals(nric.toString())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Remove patient with nric specified
+     * @param nric of the patient to be deleted
+     */
+    public void deletePatientByNric(String nric) {
+        for (int i = 0; i < patientList.size(); i++) {
+            if (patientList.get(i).getNric().toString().equals(nric)) {
+                patientList.remove(i);
+                break;
+            }
+        }
     }
 }

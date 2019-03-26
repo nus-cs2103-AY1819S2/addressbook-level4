@@ -213,6 +213,10 @@ public interface Model {
 
     Patient getPatientByNric(String nric);
 
+    int getIndexByNric(Nric nric);
+
+    void deletePatientByNric(String nric);
+
     //==========Consultation methods=====================
 
     void createConsultation(Patient patient);

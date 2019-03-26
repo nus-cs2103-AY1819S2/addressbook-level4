@@ -27,15 +27,15 @@ public class PrescriptionCommandParserTest {
     public void invalidPrescriptions() {
         String userInput = "m/antibiotics";
         assertParseFailure(parser, userInput,
-                "Some details are left out, please retype the command");
+                PrescriptionCommandParser.INVALID_ARGUMENTS_PRESCRIPTION);
 
         userInput = " m/antibiotics m/cough syrup q/1";
         assertParseFailure(parser, userInput,
-                "Some medicine do not have assigned quantity, please reenter command");
+                PrescriptionCommandParser.INSUFFICIENT_QUANTITIES);
 
         userInput = " m/antibiotics q/2 q/1";
         assertParseFailure(parser, userInput,
-                "Additional quantities specified, please retype the command");
+                PrescriptionCommandParser.EXTRA_QUANTITIES);
 
     }
 

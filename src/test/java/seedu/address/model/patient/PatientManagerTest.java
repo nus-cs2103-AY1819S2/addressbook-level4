@@ -86,11 +86,13 @@ public class PatientManagerTest {
     @Test
     public void checkIndex() {
 
-        Assert.assertTrue(patientManager.checkValidIndex(1));
+        Assert.assertTrue(patientManager.checkValidIndex(0));
 
         assertFalse(patientManager.checkValidIndex(2));
 
-        assertFalse(patientManager.checkValidIndex(0));
+        assertFalse(patientManager.checkValidIndex(1));
+
+        assertFalse(patientManager.checkValidIndex(-1));
     }
 
     @Test
@@ -117,7 +119,7 @@ public class PatientManagerTest {
         ArrayList<Tag> tagList2 = new ArrayList<Tag>();
         Patient editedPatient = new Patient(name2, nric2, email2, address2, contact2, gender2, dob2, tagList2);
 
-        Assert.assertTrue(patientManager.checkDuplicatePatientAfterEdit(1, editedPatient));
+        Assert.assertTrue(patientManager.checkDuplicatePatientAfterEdit(0, editedPatient));
         Nric nric3 = new Nric("S9123456C");
         editedPatient = new Patient(name2, nric3, email2, address2, contact2, gender2, dob2, tagList2);
         assertFalse(patientManager.checkDuplicatePatientAfterEdit(1, editedPatient));
@@ -167,7 +169,9 @@ public class PatientManagerTest {
 
         assertEquals(patientManager.findPatientsByName("Pe"), sb.toString());
 
-        assertEquals(patientManager.findPatientsByName("Be"), "No patient record found\n");
+        assertEquals(patientManager.findPatientsByName("Be"), "No patient record found");
+
+        assertEquals(patientManager.findPatientsByName("Peter"), patientManager.getPatientAtIndex(0).toString());
     }
 
     @Test
@@ -213,8 +217,9 @@ public class PatientManagerTest {
 
         assertEquals(patientManager.findPatientsByNric("S92"), sb.toString());
 
-        assertEquals(patientManager.findPatientsByNric("S88"), "No patient record found\n");
+        assertEquals(patientManager.findPatientsByNric("S88"), "No patient record found");
     }
+
 
     @Test
     public void findPatientByTag() {
@@ -266,18 +271,30 @@ public class PatientManagerTest {
         Tag tag = new Tag("Diabetes");
         Tag otherTag = new Tag("Highcholesterol");
         assertEquals(patientManager.findPatientsByTag(tag), sb.toString());
-        assertEquals(patientManager.findPatientsByTag(otherTag), "No patient record found\n");
+        assertEquals(patientManager.findPatientsByTag(otherTag), "No patient record found");
     }
 
     @Test
     public void getPatientByNric() {
         String nric = "S9123456A";
-        Patient patient1 = patientManager.getPatientAtIndex(1);
+        Patient patient1 = patientManager.getPatientAtIndex(0);
         Patient patient2 = patientManager.getPatientByNric(nric);
         assertTrue(patient1.equals(patient2));
 
         nric = "S9123456B";
         patient2 = patientManager.getPatientByNric(nric);
         assertFalse(patient1.equals(patient2));
+    }
+
+    @Test
+    public void deletePatientByNric() {
+
+        // no matching nric
+        patientManager.deletePatientByNric("S9123457A");
+        assertTrue(patientManager.getPatientList().size() != 0);
+
+        // patient deleted
+        patientManager.deletePatientByNric("S9123456A");
+        assertTrue(patientManager.getPatientList().size() == 0);
     }
 }

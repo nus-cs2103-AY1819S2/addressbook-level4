@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.commands.DiagnosePatientCommand.MESSAGE_USAGE;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Stream;
@@ -17,6 +19,8 @@ public class DiagnosePatientCommandParser implements Parser<DiagnosePatientComma
 
     public static final Prefix PREFIX_ASSESSMENT = new Prefix("a/");
     public static final Prefix PREFIX_SYMPTOM = new Prefix("s/");
+    public static final String INVALID_ARGUMENTS_DIAGNOSIS = "Invalid arguments added for diagnosis.\n"
+            + MESSAGE_USAGE;
 
     @Override
     public DiagnosePatientCommand parse(String args) throws ParseException {
@@ -25,7 +29,7 @@ public class DiagnosePatientCommandParser implements Parser<DiagnosePatientComma
                 ArgumentTokenizer.tokenize(args, PREFIX_ASSESSMENT, PREFIX_SYMPTOM);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_ASSESSMENT, PREFIX_SYMPTOM)) {
-            throw new ParseException("Some details are left out, please retype the command");
+            throw new ParseException(INVALID_ARGUMENTS_DIAGNOSIS);
         }
 
         Assessment assessment = new Assessment(argMultimap.getValue(PREFIX_ASSESSMENT).get());

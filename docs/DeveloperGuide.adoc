@@ -553,9 +553,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new player |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |player |initialise a new game board / map|start a new game
+|`* * *` | player |initialise a new game board / map|start a new game
 
 |`* * *` | player | put a battleship on the map |play the game
+
+|`* * *` | player | tag my battleships | manage my battleships during the game
+
+|`* * *` | player | list my battleships | check the status of my battleships during the game
+
+|`* * *` | player | list my battleships by tag | check the status of specific battleships during the game
 
 |`* * *` | user | see the number of actions I made |keep track of my play style
 

@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 /**
  * An model for overall storage of medicine
  */

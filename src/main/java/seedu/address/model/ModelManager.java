@@ -23,7 +23,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentManager;
 import seedu.address.model.consultation.Consultation;

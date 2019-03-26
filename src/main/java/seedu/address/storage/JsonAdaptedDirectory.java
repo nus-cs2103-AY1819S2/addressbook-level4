@@ -11,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.model.medicine.Directory;
 import seedu.address.model.medicine.Medicine;
 
+/**
+ * A Jackson-friendly version of {@link Directory}.
+ */
 public class JsonAdaptedDirectory {
 
     private ArrayList<String> listOfMedicineName;

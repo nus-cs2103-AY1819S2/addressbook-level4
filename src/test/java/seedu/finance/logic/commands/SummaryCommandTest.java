@@ -19,7 +19,7 @@ public class SummaryCommandTest {
     private Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
 
     @Test
-    public void execute(){
+    public void execute() {
         assertCommandFailure(new SummaryCommand(), model, new CommandHistory(), MESSAGE_NOT_IMPLEMENTED_YET);
     }
 }

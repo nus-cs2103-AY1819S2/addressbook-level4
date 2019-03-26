@@ -9,15 +9,21 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_DECK_A;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 
 import org.junit.Test;
 
+import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.AddDeckCommand;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Deck;
 import seedu.address.testutil.DeckBuilder;
 
 public class AddDeckCommandParserTest {
-    private AddDeckCommandParser parser = new AddDeckCommandParser();
+    private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
+    private AddDeckCommandParser parser = new AddDeckCommandParser((DecksView) model.getViewState());
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -25,11 +31,11 @@ public class AddDeckCommandParserTest {
 
         // clean
         assertParseSuccess(parser, VALID_DECK_NAME_A_ARGS,
-                new AddDeckCommand(expectedDeck));
+                new AddDeckCommand((DecksView) model.getViewState(), expectedDeck));
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + VALID_DECK_NAME_A_ARGS,
-                new AddDeckCommand(expectedDeck));
+                new AddDeckCommand((DecksView) model.getViewState(), expectedDeck));
     }
 
 

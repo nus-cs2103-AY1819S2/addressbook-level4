@@ -4,6 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.address.logic.CardsView;
+import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -56,7 +57,7 @@ public class TopDeckParserTest {
         Deck deck = new DeckBuilder().withName(VALID_NAME_DECK_A).build();
         AddDeckCommand command = (AddDeckCommand) parser
                 .parseCommand(AddDeckCommand.COMMAND_WORD + VALID_DECK_NAME_A_ARGS, model);
-        assertEquals(new AddDeckCommand(deck), command);
+        assertEquals(new AddDeckCommand((DecksView) model.getViewState(), deck), command);
     }
 
     @Test
@@ -65,7 +66,7 @@ public class TopDeckParserTest {
 
         Card card = new CardBuilder().build();
         AddCardCommand command = (AddCardCommand) parser.parseCommand(CardUtil.getAddCommand(card), model);
-        assertEquals(new AddCardCommand(card), command);
+        assertEquals(new AddCardCommand((CardsView) model.getViewState(), card), command);
     }
 
 //    @Test
@@ -80,7 +81,7 @@ public class TopDeckParserTest {
 
         DeleteCardCommand command = (DeleteCardCommand) parser.parseCommand(
                 DeleteCardCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased(), model);
-        assertEquals(new DeleteCardCommand(INDEX_FIRST_CARD), command);
+        assertEquals(new DeleteCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD), command);
     }
 
     @Test
@@ -91,7 +92,7 @@ public class TopDeckParserTest {
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(card).build();
         EditCardCommand command = (EditCardCommand) parser.parseCommand(EditCardCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_CARD.getOneBased() + " " + CardUtil.getEditCardDescriptorDetails(descriptor), model);
-        assertEquals(new EditCardCommand(INDEX_FIRST_CARD, descriptor), command);
+        assertEquals(new EditCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD, descriptor), command);
     }
 
     @Test
@@ -108,7 +109,7 @@ public class TopDeckParserTest {
         FindCardCommand command = (FindCardCommand) parser.parseCommand(
                 FindCardCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")),
             model);
-        assertEquals(new FindCardCommand(new QuestionContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCardCommand((CardsView) model.getViewState(), new QuestionContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
@@ -142,7 +143,7 @@ public class TopDeckParserTest {
 
         SelectCardCommand command = (SelectCardCommand) parser.parseCommand(
                 SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD.getOneBased(), model);
-        assertEquals(new SelectCardCommand(INDEX_FIRST_CARD, (CardsView) model.getViewState()), command);
+        assertEquals(new SelectCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD), command);
     }
 
     @Test

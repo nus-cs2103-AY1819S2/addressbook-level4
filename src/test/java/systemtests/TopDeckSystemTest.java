@@ -135,11 +135,14 @@ public abstract class TopDeckSystemTest {
 
     /**
      * Displays all decks with any parts of their names matching {@code keyword} (case-insensitive).
+     * TODO: uncomment when FindDeckCommand is implemented
      */
+    /**
     protected void showDecksWithQuestion(String keyword) {
         executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
     }
+     **/
 
     /**
      * Selects the Deck at {@code index} of the displayed list.

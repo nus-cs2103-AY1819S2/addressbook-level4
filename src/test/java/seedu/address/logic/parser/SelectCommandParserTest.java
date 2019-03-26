@@ -30,9 +30,8 @@ public class SelectCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsSelectCommand() {
-        assertParseSuccess(parser, "1", new SelectDeckCommand(INDEX_FIRST_CARD, (DecksView) model.getViewState()));
+        assertParseSuccess(parser, "1", new SelectDeckCommand((DecksView) model.getViewState(), INDEX_FIRST_CARD));
     }
-
 
     @Test
     public void parse_invalidArgs_throwsParseException() {

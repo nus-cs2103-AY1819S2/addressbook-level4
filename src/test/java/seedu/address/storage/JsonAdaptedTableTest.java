@@ -39,7 +39,7 @@ public class JsonAdaptedTableTest {
     }
 
     @Test
-    public void toModelType_invalidTableStatus_throwsIllegalValueException() {
+    public void toModelType_invalidTableStatus_throwsIllegalArgumentException() {
         JsonAdaptedTable table =
                 new JsonAdaptedTable(VALID_TABLE_NUMBER, INVALID_TABLE_STATUS);
         String expectedMessage = TableStatus.MESSAGE_CONSTRAINTS;
@@ -47,7 +47,7 @@ public class JsonAdaptedTableTest {
     }
 
     @Test
-    public void toModelType_nullTableStatus_throwsIllegalValueException() {
+    public void toModelType_nullTableStatus_throwsIllegalArgumentException() {
         JsonAdaptedTable table = new JsonAdaptedTable(VALID_TABLE_NUMBER, null);
         String expectedMessage = String.format(TableStatus.MESSAGE_CONSTRAINTS);
         Assert.assertThrows(IllegalValueException.class, expectedMessage, table::toModelType);

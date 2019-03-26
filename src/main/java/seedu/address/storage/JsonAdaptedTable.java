@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
@@ -60,11 +59,6 @@ class JsonAdaptedTable {
             throw new IllegalValueException(TableStatus.MESSAGE_CONSTRAINTS);
         }
         final TableStatus modelTableStatus = new TableStatus(tableStatus);
-        try {
-            modelTableStatus.changeOccupancy(tableStatus.split("/")[0]);
-        } catch (CommandException e) {
-            throw new IllegalValueException("Invalid table status.");
-        }
 
         return new Table(modelTableNumber, modelTableStatus);
     }

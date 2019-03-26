@@ -29,7 +29,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String TABLE_MODE_THEME = "view/TableModeTheme.css";
-    private static final String RESTAURANT_MODE_THEME = "view/DarkTheme.css";
+    private static final String RESTAURANT_MODE_THEME = "view/RestaurantModeTheme.css";
     private static final String MENU_MODE_THEME = "view/MenuModeTheme.css";
     private static final String BILL_MODE_THEME = "view/BillModeTheme.css";
     private static final String STATISTIC_MODE_THEME = "view/StatisticsModeTheme.css";

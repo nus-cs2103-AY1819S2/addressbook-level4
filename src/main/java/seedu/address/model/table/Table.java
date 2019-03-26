@@ -44,11 +44,15 @@ public class Table {
     }
 
     @Override
+    public String toString() {
+        return "Table " + tableNumber + ": " + tableStatus;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this
-                || (other != null
-                && other instanceof Table
-                && this.getTableNumber().equals(((Table) other).getTableNumber())
-                && this.getTableStatus().equals(((Table) other).getTableStatus()));
+                || (other instanceof Table
+                && tableNumber.equals(((Table) other).tableNumber)
+                && tableStatus.equals(((Table) other).tableStatus));
     }
 }

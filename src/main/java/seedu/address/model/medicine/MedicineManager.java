@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Optional;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 /**
  * An model for overall storage of medicine
  */
@@ -29,7 +31,7 @@ public class MedicineManager {
      * @param medicineName name of medicine
      * @param path path the madicine to be added to
      */
-    public void addMedicine(String medicineName, String[] path, BigDecimal price) {
+    public void addMedicine(String medicineName, String[] path, BigDecimal price) throws IllegalValueException {
         this.addMedicine(medicineName, 0, path, price);
     }
 
@@ -39,7 +41,8 @@ public class MedicineManager {
      * @param quantity quantity of medicine
      * @param path the path to store to
      */
-    public void addMedicine(String medicineName, int quantity, String[] path, BigDecimal price) {
+    public void addMedicine(String medicineName, int quantity,
+                            String[] path, BigDecimal price) throws IllegalValueException {
         Optional<Medicine> findMedicine = findMedicine(medicineName);
         if (findMedicine.isPresent()) {
             throw new IllegalArgumentException(ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST);

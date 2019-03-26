@@ -27,7 +27,7 @@ public class EndCommand extends Command {
             model.endTestSession();
             return new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS, CommandResult.Type.END_TEST_SESSION);
         } else {
-            model.setInReportDisplay();
+            model.exitReportDisplay();
             return new CommandResult(MESSAGE_END_REPORT_DISPLAY_SUCCESS, CommandResult.Type.EXITED_REPORT);
         }
 

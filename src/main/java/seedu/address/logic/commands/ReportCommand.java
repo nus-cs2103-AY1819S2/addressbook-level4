@@ -17,7 +17,7 @@ public class ReportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.setInReportDisplay();
+        model.enterReportDisplay();
         return new CommandResult(MESSAGE_SUCCESS, CommandResult.Type.ENTERED_REPORT);
     }
 }

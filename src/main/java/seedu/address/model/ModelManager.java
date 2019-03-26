@@ -326,8 +326,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setInReportDisplay() {
-        inReportDisplay = !inReportDisplay;
+    public void enterReportDisplay() {
+        inReportDisplay = true;
+    }
+
+    @Override
+    public void exitReportDisplay() {
+        inReportDisplay = false;
     }
 
 

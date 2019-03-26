@@ -239,7 +239,9 @@ public interface Model extends Observable {
 
     boolean inReportDisplay();
 
-    void setInReportDisplay();
+    void enterReportDisplay();
+    void exitReportDisplay();
+
 
     void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException;
 

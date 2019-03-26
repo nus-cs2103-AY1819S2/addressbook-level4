@@ -58,9 +58,10 @@ public class AnswerCommandTest {
     public void execute_correctAnswerAttempt_markCorrect() {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
                 CommandResult.Type.ANSWER_CORRECT);
-
-        model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.testCardFolder();
+        expectedModel.testCardFolder();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());
@@ -79,9 +80,10 @@ public class AnswerCommandTest {
     public void execute_wrongAnswerAttempt_markWrong() {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
                 CommandResult.Type.ANSWER_WRONG);
-
-        model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.testCardFolder();
+        expectedModel.testCardFolder();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_2));
@@ -106,7 +108,8 @@ public class AnswerCommandTest {
     @Test
     public void execute_invalidAnswerAfterAnsweredAttempt_fail() {
         String expectedMessage = String.format(MESSAGE_INVALID_ANSWER_COMMAND);
-        model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.testCardFolder();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());

@@ -1,36 +1,36 @@
 {
-  "_comment": "Menu save file which contains the same Menu item values as in TypicalRestOrRant#getTypicalMenuItems()",
-  "menu": [ {
-    "name": "Chicken Wings",
-    "code": "W09",
-    "price": "3.99"
+  "_comment" : "Menu save file which contains the same Menu item values as in TypicalRestOrRant#getTypicalMenuItems()",
+  "menuItems" : [ {
+    "name" : "Chicken Wings",
+    "code" : "W09",
+    "price" : "3.99"
   }, {
-    "name": "French Fries",
-    "code": "W12",
-    "price": "2.20"
+    "name" : "French Fries",
+    "code" : "W12",
+    "price" : "2.20"
   }, {
-    "name": "Salad",
-    "code": "A05",
-    "price": "5.50"
+    "name" : "Salad",
+    "code" : "A05",
+    "price" : "5.50"
   }, {
-    "name": "Cheese Nachos",
-    "code": "M17",
-    "price": "7.23"
+    "name" : "Cheese Nachos",
+    "code" : "M17",
+    "price" : "7.23"
   }, {
-    "name": "Shrimp Fried Rice",
-    "code": "C02",
-    "price": "8.90"
+    "name" : "Shrimp Fried Rice",
+    "code" : "C02",
+    "price" : "8.90"
   }, {
-    "name": "Mee Soi",
-    "code": "T01",
-    "price": "4.99"
+    "name" : "Mee Sua",
+    "code" : "T01",
+    "price" : "4.99"
   }, {
-    "name": "Kimchi Fried Rice",
-    "code": "K12",
-    "price": "5.50"
+    "name" : "Kimchi Fried Rice",
+    "code" : "K12",
+    "price" : "5.50"
   }, {
-    "name": "Crepes",
-    "code": "F11",
-    "price": "7.50"
+    "name" : "Crepes",
+    "code" : "F11",
+    "price" : "7.50"
   } ]
 }

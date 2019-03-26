@@ -233,9 +233,9 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case MENU_MODE:
-            // TODO: change to browser panel to app logo in future versions (for now keep the tables?)
-            tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), scrollPane);
-            browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
+            // TODO: change to browser panel to app logo
+            // tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), scrollPane);
+            // browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
 
             menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
                     logic::setSelectedMenuItem);

@@ -55,10 +55,10 @@ public class AnswerCommand extends Command {
         model.commitActiveCardFolder();
         if (isAttemptCorrect) {
             return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, false, null,
-                    false, false, AnswerCommandResultType.ANSWER_CORRECT);
+                    false, AnswerCommandResultType.ANSWER_CORRECT);
         } else {
             return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, false, null,
-                    false, false, AnswerCommandResultType.ANSWER_WRONG);
+                    false, AnswerCommandResultType.ANSWER_WRONG);
         }
     }
 

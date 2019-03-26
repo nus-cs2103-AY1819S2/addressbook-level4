@@ -48,7 +48,7 @@ public class DeleteFolderCommand extends Command {
 
         model.deleteFolder(targetIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_DELETE_FOLDER_SUCCESS, cardFolderToDelete),
-                false, false, false, false, null, false, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+                false, false, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
     }
 
     @Override

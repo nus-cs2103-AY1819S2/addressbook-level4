@@ -20,7 +20,7 @@ public interface CurrentEdit {
 
     void setOriginalImage(Image image);
 
-//    void setTempImage(com.sksamuel.scrimage.Image image);
+    void setTempImage(com.sksamuel.scrimage.Image image);
 
     void displayTempImage();
 
@@ -29,4 +29,6 @@ public interface CurrentEdit {
     void replaceTempWithOriginal();
 
     String[] getFileNames();
+
+    String saveToAssets(String name);
 }

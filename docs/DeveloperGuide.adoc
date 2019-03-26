@@ -1,4 +1,4 @@
-= slaveFinder() - Developer Guide
+﻿= slaveFinder() - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -837,7 +837,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |HR |get the best people for a job |please my boss
 
-|`* * *` |HR |look at the analytics of the hired applicants |ensure a fair hiring process
+|`* * *` |HR |look at the analytics of the job applicants | to review the quality of job applicants and ensure a better hiring process
 
 |`* * *` |HR |easily store all txt resumes in slaveFinder() |be more efficient
 
@@ -848,6 +848,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
 |=======================================================================
 
 _{More to be added}_
@@ -930,6 +931,18 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+
+=== Use case: View Analytics
+
+*MSS*
+
+1. User requests to list persons
+2. slaveFinder() shows a list of persons
+3. User requests to view analytics for list of persons
+4. slaveFinder() shows analytics results
++
+Use case ends.
 
 _{More to be added}_
 

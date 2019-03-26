@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_COMPLETE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
@@ -12,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REMOVE;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
@@ -37,11 +39,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         File file = null;
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FILE, PREFIX_TAG_NEW,
-                PREFIX_DEADLINE_NEW, PREFIX_DEADLINE_COMPLETE, PREFIX_NAME, PREFIX_TAG_REMOVE, PREFIX_DIRECTORY);
+        /*ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FILE, PREFIX_TAG_NEW,
+                PREFIX_DEADLINE_NEW, PREFIX_DEADLINE_COMPLETE, PREFIX_NAME, PREFIX_TAG_REMOVE, PREFIX_DIRECTORY);*/
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.getAllPrefixes());
 
-        if (arePrefixesPresent(argMultimap, PREFIX_TAG_NEW, PREFIX_DEADLINE_NEW, PREFIX_DEADLINE_COMPLETE, PREFIX_NAME,
-                PREFIX_TAG_REMOVE, PREFIX_DIRECTORY)) {
+        if (arePrefixesPresent(argMultimap, invalidPrefixesForAddCommand())) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         if (arePrefixesPresent(argMultimap, PREFIX_FILE) && argMultimap.getPreamble().isEmpty()) {
@@ -88,5 +90,15 @@ public class AddCommandParser implements Parser<AddCommand> {
      */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Returns all the invalid prefixes for the add command
+     */
+    private static Prefix[] invalidPrefixesForAddCommand() {
+        return Stream.of(PREFIX_TAG_NEW, PREFIX_DEADLINE_NEW, PREFIX_DEADLINE_COMPLETE, PREFIX_NAME,
+                PREFIX_TAG_REMOVE, PREFIX_DIRECTORY)
+                .collect(Collectors.toList())
+                .toArray(new Prefix[PREFIX_COUNT]);
     }
 }

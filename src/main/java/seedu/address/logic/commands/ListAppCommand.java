@@ -62,8 +62,6 @@ public class ListAppCommand extends Command {
         requireNonNull(model);
 
         if (start != null) {
-            System.out.println(start);
-            System.out.println(end);
             String result = model.listApp(start, end);
             return new CommandResult(String.format(MESSAGE_SUCCESS_BY_DATE, start, end) + result, false, false);
         } else {
@@ -75,5 +73,20 @@ public class ListAppCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS_BY_NRIC, patientToList.get().getName()) + result,
                     false, false);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListAppCommand // instanceof handles nulls
+                && ((nric != null && ((ListAppCommand) other).nric != null
+                && nric.equals(((ListAppCommand) other).nric))
+                || (nric == null && ((ListAppCommand) other).nric == null))
+                && ((start != null && ((ListAppCommand) other).start != null
+                && start.equals(((ListAppCommand) other).start))
+                || (start == null && ((ListAppCommand) other).start == null))
+                && ((end != null && ((ListAppCommand) other).end != null
+                && end.equals(((ListAppCommand) other).end))
+                || (end == null && ((ListAppCommand) other).end == null)));
     }
 }

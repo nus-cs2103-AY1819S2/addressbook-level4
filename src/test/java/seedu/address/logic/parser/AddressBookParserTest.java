@@ -258,8 +258,25 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_listApp() throws Exception {
+        String formatString = "day";
+        String dateString = "2019-03-15";
+        String nricString = "S9234568C";
+
+        LocalDate date = LocalDate.parse(dateString);
+        Nric nric = new Nric(nricString);
+
+        String userInput = ListAppCommand.COMMAND_WORD
+                + " f/" + formatString
+                + " d/" + dateString;
+        ListAppCommand command = (ListAppCommand) parser.parseCommand(userInput);
+        assertEquals(new ListAppCommand(date, date), command);
+
+        userInput = ListAppCommand.COMMAND_WORD
+                + " r/" + nricString;
+        command = (ListAppCommand) parser.parseCommand(userInput);
+        assertEquals(new ListAppCommand(nric), command);
+
         assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD) instanceof ListAppCommand);
-        assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD + " 3") instanceof ListAppCommand);
     }
 
     @Test

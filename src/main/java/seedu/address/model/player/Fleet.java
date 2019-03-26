@@ -11,6 +11,7 @@ import seedu.address.model.battleship.AircraftCarrierBattleship;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.battleship.CruiserBattleship;
 import seedu.address.model.battleship.DestroyerBattleship;
+import seedu.address.model.battleship.Name;
 import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.tag.Tag;
@@ -166,15 +167,16 @@ public class Fleet {
         return tagSet;
     }
 
-    public ArrayList<FleetEntry> getByTags(Set<Tag> tagSet) {
-        ArrayList<FleetEntry> battleshipTagSet = new ArrayList<>();
-        for (FleetEntry fleetEntry : this.getDeployedFleet()) {
-            if (fleetEntry.getBattleship().getTags().containsAll(tagSet)) {
-                battleshipTagSet.add(fleetEntry);
-            }
-        }
+    public List<FleetEntry> getByTags(Set<Tag> tagSet) {
+        return this.getDeployedFleet().stream()
+                .filter(fleetEntry -> fleetEntry.getBattleship().getTags().containsAll(tagSet))
+                .collect(Collectors.toList());
+    }
 
-        return battleshipTagSet;
+    public List<FleetEntry> getByName(Name name) {
+        return this.getDeployedFleet().stream()
+                .filter(fleetEntry -> fleetEntry.getBattleship().getName().equals(name))
+                .collect(Collectors.toList());
     }
 
     @Override

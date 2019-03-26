@@ -3,10 +3,16 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+
+import java.util.stream.Collectors;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.battleship.Name;
 import seedu.address.model.player.Fleet;
 import seedu.address.model.tag.Tag;
 
@@ -17,10 +23,12 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public final Set<Tag> tagSet;
+    private Optional<Set<Tag>> optionalTagSet;
+    private Optional<Name> optionalName;
 
-    public ListCommand(Set<Tag> tagSet) {
-        this.tagSet = tagSet;
+    public ListCommand(Optional<Set<Tag>> optionalTagSet, Optional<Name> optionalName) {
+        this.optionalTagSet = optionalTagSet;
+        this.optionalName = optionalName;
     }
 
     @Override
@@ -35,29 +43,61 @@ public class ListCommand extends Command {
 
         StringBuilder builder = new StringBuilder();
 
-        if (tagSet.isEmpty()) {
+        Set<Fleet.FleetEntry> fleetResult = new HashSet<>();
+
+        if (!optionalTagSet.isPresent() && !optionalName.isPresent()) {
+            // list all battleships
             for (int i = 0; i < fleet.getDeployedFleet().size(); i++) {
                 builder.append(fleet.getDeployedFleet().get(i))
                         .append("\n");
             }
-
             return new CommandResult(builder.toString());
+        } else {
+            List<Fleet.FleetEntry> fleetList = new ArrayList<>();
+            if (optionalName.isPresent() && !optionalTagSet.isPresent()) {
+                // name
+                fleetList = model.getHumanPlayer().getFleet().getByName(optionalName.get());
+                for (Fleet.FleetEntry fleetEntry : fleetList) {
+                    fleetResult.add(fleetEntry);
+                }
+            } else if (optionalTagSet.isPresent() && !optionalName.isPresent()) {
+                // tags only
+                fleetList = model.getHumanPlayer().getFleet().getByTags(optionalTagSet.get());
+                for (Fleet.FleetEntry fleetEntry : fleetList) {
+                    fleetResult.add(fleetEntry);
+                }
+            } else if (optionalName.isPresent() && optionalTagSet.isPresent()) {
+                List<Fleet.FleetEntry> tempFleet = model.getHumanPlayer().getFleet().getByName(optionalName.get());
+                fleetList = tempFleet.stream()
+                        .filter(entry -> entry.getBattleship().getTags().containsAll(optionalTagSet.get()))
+                        .collect(Collectors.toList());
+            }
+
+            for (Fleet.FleetEntry fleetEntry : fleetList) {
+                fleetResult.add(fleetEntry);
+            }
         }
 
-        ArrayList<Fleet.FleetEntry> fleetList = model.getHumanPlayer().getFleet().getByTags(tagSet);
-
-        for (Fleet.FleetEntry fleetEntry : fleetList) {
+        for (Fleet.FleetEntry fleetEntry : fleetResult) {
             builder.append(fleetEntry)
                     .append("\n");
         }
-
         return new CommandResult(builder.toString());
+    }
+
+    public Optional<Name> getOptionalName() {
+        return optionalName;
+    }
+
+    public Optional<Set<Tag>> getOptionalTagSet() {
+        return optionalTagSet;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ListCommand) // instanceof handles nulls
-                && this.tagSet.equals(((ListCommand) other).tagSet);
+                && this.getOptionalName().equals(((ListCommand) other).getOptionalName())
+                && this.getOptionalTagSet().equals(((ListCommand) other).getOptionalTagSet());
     }
 }

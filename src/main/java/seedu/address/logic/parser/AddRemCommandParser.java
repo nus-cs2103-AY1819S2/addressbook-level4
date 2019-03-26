@@ -11,7 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.reminder.Reminder;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddRemCommand object
  */
 public class AddRemCommandParser implements Parser<AddRemCommand> {
     public static final Prefix PREFIX_TITLE = new Prefix("t/");

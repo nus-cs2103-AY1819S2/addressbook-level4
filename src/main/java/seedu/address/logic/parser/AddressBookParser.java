@@ -91,7 +91,7 @@ public class AddressBookParser {
             return new DeleteAppCommandParser().parse(arguments);
 
         case ListAppCommand.COMMAND_WORD:
-            return new ListAppCommand();
+            return new ListAppCommandParser().parse(arguments);
 
         case AddRemCommand.COMMAND_WORD:
             return new AddRemCommandParser().parse(arguments);

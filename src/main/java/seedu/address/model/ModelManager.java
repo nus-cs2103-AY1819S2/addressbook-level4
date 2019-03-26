@@ -266,6 +266,9 @@ public class ModelManager implements Model {
     @Override
     public void clearAssetFolder(File dir) {
         for (File file : dir.listFiles()) {
+            if (file.getName().equals("sample.png") || file.getName().equals("sample2.png")) {
+                continue;
+            }
             file.delete();
         }
     }
@@ -298,6 +301,7 @@ public class ModelManager implements Model {
         try {
             File outputFile = new File(TEMP_FILENAME);
             File directory = new File(TEMP_FILEPATH);
+            System.out.println("Should not be called");
             ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, directory, false);
             outputFile.delete();
@@ -320,6 +324,7 @@ public class ModelManager implements Model {
             File outputFile = new File(name);
             File latestImage = new File(TEMP_FILE);
             File saveDirectory = new File(ASSETS_FILEPATH);
+            System.out.println("Should not be called");
             latestImage.renameTo(outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
             setCurrentImage(currentImage);

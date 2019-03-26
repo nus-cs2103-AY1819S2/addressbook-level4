@@ -93,24 +93,45 @@ _Figure 2_ below shows which colour is used for each status.
 
 .Cell colours
 image::maplegend.png[width=400]
-=== Listing all ships : `list`
 
-Shows a list of all the player's battleships that are currently deployed on the map +
+=== Placing a ship on the map: `put`
 
-Format: `list`
+Adds a battleship onto the player's map. The coordinates specified is the position of the battleship's head. +
 
-=== Placing a ship: `put`
-
-Adds a ship onto the player's map. The coordinates specified is the position of the ship's head. +
-
-The orientation of the ship (horizontal or vertical) must be specified. The orientation may be shortened to `h` or `v`. +
-
-Format: `put n/NAME c/COORDINATES r/ORIENTATION`
+Format: `put n/NAME c/COORDINATES r/ORIENTATION t/TAG` +
 
 Examples:
 
-* `put n/Destroyer c/A1 r/vertical`
-* `put n/Aircraft Carrier c/B1 r/h`
+* `put n/Destroyer c/a1 r/vertical`
+* `put n/Aircraft Carrier c/b1 r/h` +
+
+The head of the battleship is the top-most and left-most part of the ship. _Figure 3_ shows how a battleship is put at coordinate `a5`. The head of the battleship is therefore at `a5`. +
+
+.The `put` command will put the battleship at a5, which is the battleship's head coordinate.
+image::putshipheadexample.png[width=750]
+
+The orientation of the battleship can be horizontal or vertical. The orientation of the battleship must be specified. It may be shortened to `h` or `v`. +
+
+=== Listing all ships : `list`
+
+Shows a list of all the player's battleships that are have been deployed on the map. There are two ways of using the `list` command: (1) to list all the battleships and (2) to list all the battleships that match a list of tags.
+
+Format:
+
+* `list`
+* `list t/[TAGS]`
+
+The list will show the battleship's head coordinate, the battleship's orientation, and the battleship's tags in square brackets. +
+
+The format of each entry in the list is: `[NAME] [CURRENT LIFE] at [HEAD COORDINATE] [ORIENTATION] [TAGS]`.
+
+.The `list` command
+image::listexample.png[width=750]
+
+The `list` command can also be used with tags. In the example provided, we have added the tag `bluefleet` to our destroyer at `f7`. Using the command `list t/bluefleet` will allow us to list all the battleships tagged with `bluefleet`.
+
+.The `list` command with tags
+image::listwithtagexample.png[width=750]
 
 === Locating ships by name: `find`
 
@@ -134,18 +155,16 @@ Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
 [NOTE]
 The position may not be displayed if the ship has not been placed.
 
-=== Locating ships by tags: `findTag`
+=== List all tags: `listTags`
 
-Finds battleships whose tags contain any of the given keywords. +
-Format: `findTag TAG [MORE_TAGS]`
+Lists all the tags that have been used to tag the battleships deployed on the map. +
 
-Examples:
 
-* `findTag bluewater_fleet` +
-Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
+Format: `listTags` +
+Examples: `listTags`
 
 [NOTE]
-The position may not be displayed if the ship has not been placed.
+The list of tags is given in square brackets.
 
 === Selecting a ship : `select`
 

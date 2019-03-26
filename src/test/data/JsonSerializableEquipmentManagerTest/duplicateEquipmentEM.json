@@ -2,14 +2,14 @@
   "persons": [ {
     "name": "Alice Pauline",
     "phone": "94351253",
-    "email": "alice@example.com",
+    "email": "22 April 2019",
     "address": "123, Jurong West Ave 6, #08-111",
     "serial number": "A008844L",
     "tagged": [ "west" ]
   }, {
     "name": "Alice Pauline",
     "phone": "94351253",
-    "email": "pauline@example.com",
+    "email": "22 April 2019",
     "serial number": "A008844L",
     "address": "4th street"
   } ]

@@ -83,7 +83,7 @@ public class EquipmentListPanelTest extends GuiUnitTest {
         for (int i = 0; i < personCount; i++) {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
-            Email email = new Email("a@aa");
+            Email email = new Email("a aaa aaaa");
             Address address = new Address("a");
             SerialNumber serialNumber = new SerialNumber("aaaaaa");
             Equipment equipment = new Equipment(name, phone, email, address, serialNumber, Collections.emptySet());

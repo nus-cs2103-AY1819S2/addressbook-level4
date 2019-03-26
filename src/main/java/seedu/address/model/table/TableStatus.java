@@ -3,10 +3,6 @@ package seedu.address.model.table;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.util.logging.Logger;
-
-import seedu.address.logic.commands.exceptions.CommandException;
-
 /**
  * Represents the current status of a {@code Table}.
  */

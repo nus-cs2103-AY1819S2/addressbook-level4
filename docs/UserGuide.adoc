@@ -246,9 +246,9 @@ Format: `filter KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `filter fast food` +
-Returns restaurants with cuisine matching `fast food`
+Returns restaurants with cuisine or occasion matching `fast food`
 * `filter fast food gathering`
-Returns restaurants with cuisine matching fast food and occasion matching gathering
+Returns restaurants with cuisine or occasion matching fast food gathering
 
 Note:
 

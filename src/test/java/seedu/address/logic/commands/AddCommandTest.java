@@ -197,6 +197,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean inReportDisplay() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void enterReportDisplay() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void exitReportDisplay() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
         public void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException {
             throw new AssertionError("This method should not be called.");
         }

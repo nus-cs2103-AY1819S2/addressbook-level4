@@ -32,7 +32,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_HINT);
+                        args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_OPTION, PREFIX_HINT);
 
         Index index;
 
@@ -49,8 +49,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
             editCardDescriptor.setAnswer(ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get()));
         }
-        parseOptionsForEdit(argMultimap.getAllValues(PREFIX_OPTION))
-                .ifPresent(editCardDescriptor::setOptions);
+        parseOptionsForEdit(argMultimap.getAllValues(PREFIX_OPTION)).ifPresent(editCardDescriptor::setOptions);
         parseHintsForEdit(argMultimap.getAllValues(PREFIX_HINT)).ifPresent(editCardDescriptor::setHints);
 
         if (!editCardDescriptor.isAnyFieldEdited()) {

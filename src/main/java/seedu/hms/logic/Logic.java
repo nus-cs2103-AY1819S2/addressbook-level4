@@ -8,9 +8,12 @@ import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BookingModel;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
+import seedu.hms.model.ReservationModel;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.reservation.Reservation;
 
 /**
  * API of the Logic component
@@ -42,6 +45,11 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of bookings
      */
     ObservableList<Booking> getFilteredBookingList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of reservations
+     */
+    ObservableList<Reservation> getFilteredReservationList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -90,7 +98,14 @@ public interface Logic {
     /**
      * Sets the selected customer in the filtered customer list.
      *
-     * @see seedu.hms.model.BookingModel#setSelectedBooking(Booking)
+     * @see BookingModel#setSelectedBooking(Booking)
      */
     void setSelectedBooking(Booking booking);
+
+    /**
+     * Sets the selected reservation in the filtered reservation list.
+     *
+     * @see ReservationModel#setSelectedReservation(Reservation)
+     */
+    void setSelectedReservation(Reservation reservation);
 }

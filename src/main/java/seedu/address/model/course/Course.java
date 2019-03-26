@@ -14,10 +14,11 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
  */
 public class Course {
 
+    public static final String MESSAGE_REQ_COMPLETED = "All course requirements have been completed.";
+
     private final CourseName courseName;
     private final CourseDescription courseDescription;
     private final List<CourseRequirement> courseRequirements;
-    public static final String MESSAGE_REQ_COMPLETED = "All course requirements have been completed.";
 
     public Course(CourseName courseName, CourseDescription courseDescription,
                   CourseRequirement... courseRequirements) {

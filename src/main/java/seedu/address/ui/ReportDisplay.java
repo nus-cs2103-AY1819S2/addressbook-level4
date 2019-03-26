@@ -47,7 +47,8 @@ public class ReportDisplay extends UiPart<Region> {
     }
 
     private void displayGraph(List<Double> folderScores) {
-        final XYChart.Series<Integer, Double> series = new XYChart.Series<>();
+        graph.getData().clear();
+        XYChart.Series<Integer, Double> series = new XYChart.Series<>();
         for (int x = 0; x < folderScores.size(); x = x + 1) {
             series.getData().add(new XYChart.Data<Integer, Double>(x, folderScores.get(x)));
         }

@@ -12,10 +12,10 @@
         </Label>
         <AreaChart fx:id="graph" legendVisible="false" GridPane.columnIndex="0" GridPane.rowIndex="1" prefHeight="400.0" prefWidth="1000.0">
             <xAxis>
-                <NumberAxis autoRanging="false" lowerBound="0" side="BOTTOM" tickUnit="1" upperBound="10" />
+                <NumberAxis autoRanging="false" lowerBound="0" side="BOTTOM" tickUnit="1" upperBound="9" />
             </xAxis>
             <yAxis>
-                <NumberAxis autoRanging="false" lowerBound="0" side="LEFT" tickUnit="0.01" upperBound="1" />
+                <NumberAxis autoRanging="false" lowerBound="-0.01" side="LEFT" tickUnit="0.01" upperBound="1" />
             </yAxis>
             <cursor>
                 <Cursor fx:constant="CROSSHAIR" />

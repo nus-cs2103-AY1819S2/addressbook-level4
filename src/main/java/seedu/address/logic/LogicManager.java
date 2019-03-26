@@ -69,10 +69,6 @@ public class LogicManager implements Logic {
                 QuizStartCommand quizStartCommand = (QuizStartCommand) command;
                 commandResult = quizStartCommand.executeActual(quizModel, history);
             }
-            if (command instanceof QuizAnswerCommand) {
-                QuizAnswerCommand quizAnswerCommand = (QuizAnswerCommand) command;
-                quizAnswerCommand.executeActual(managementModel, history);
-            }
         } finally {
             history.add(commandText);
         }

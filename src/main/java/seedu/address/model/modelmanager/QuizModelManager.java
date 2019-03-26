@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
@@ -116,6 +117,10 @@ public class QuizModelManager implements QuizModel {
     @Override
     public List<List<Integer>> end() {
         return quiz.end();
+    }
+    @Override
+    public void updateUserProfile(ManagementModel model, List<List<Integer>> quizInformation) {
+        session.updateUserProfile(model, quizInformation);
     }
 
     @Override

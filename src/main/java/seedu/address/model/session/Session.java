@@ -1,11 +1,15 @@
 package seedu.address.model.session;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.modelmanager.management.ManagementModel;
+import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.srscard.SrsCard;
+import seedu.address.model.user.CardSrsData;
 
 
 /**
@@ -106,5 +110,18 @@ public class Session {
             quizSrsCards.add(srsCards.get(i));
         }
         return quizSrsCards;
+    }
+
+    /**
+     * Update user profile after quiz ends.
+     * @param quizInformation from quiz.
+     */
+    public void updateUserProfile(ManagementModel model, List<List<Integer>> quizInformation) {
+        Instant currentDate = Instant.now();
+        SrsCardsManager updateManager = new SrsCardsManager(this.getQuizSrsCards(), quizInformation, currentDate);
+        List<CardSrsData> updatedData = updateManager.updateCardData();
+        for (int i = 0; i < updatedData.size(); i++) {
+            model.addCardSrsData(updatedData.get(i));
+        }
     }
 }

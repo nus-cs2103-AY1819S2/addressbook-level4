@@ -3,19 +3,15 @@ package seedu.address.logic.commands.quiz;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.exceptions.CommandException.MESSAGE_EXPECTED_QUIZ_MODEL;
 
-import java.util.List;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
-import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
-import seedu.address.model.user.CardSrsData;
 
 /**
  * Execute User answer
@@ -30,8 +26,6 @@ public class QuizAnswerCommand implements Command {
     public static final String MESSAGE_COMPLETE = "You have completed all the questions in this quiz.\n";
 
     private String answer;
-    private List<CardSrsData> updateCardSrsData;
-    private boolean complete = false;
     public QuizAnswerCommand(String answer) {
         requireNonNull(answer);
         this.answer = answer;
@@ -55,8 +49,8 @@ public class QuizAnswerCommand implements Command {
         QuizModel quizModel = (QuizModel) model;
         QuizCard card = quizModel.getCurrentQuizCard();
         StringBuilder sb = new StringBuilder();
-        String questionHeader = "question";
-        String answerHeader = "answer";
+        String questionHeader = "question"; //quizModel.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(0);
+        String answerHeader = "answer"; //quizModel.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(1);
         if (card.getQuizMode() == QuizMode.PREVIEW) {
             // don't need to update totalAttempts and streak
             if (quizModel.hasCardLeft()) {
@@ -69,22 +63,15 @@ public class QuizAnswerCommand implements Command {
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
                         answerHeader, QuizMode.REVIEW));
                 return new CommandResult("", true, false, false);
-            } else {
-                /**
-                 * Update the result taken from quiz session and change the storage information in user profile.
-                 */
-                //TODO: update user data
-                /*List<List<Integer>> quizInformation = quizModel.end();
-                Instant currentDate = Instant.now();
-                SrsCardsManager updateManager = new SrsCardsManager(quizModel.getQuizSrsCards(),
-                        quizInformation, currentDate);
-                this.updateCardSrsData = updateManager.updateCardData();
-                this.complete = true;*/
-                // TODO change back to management mode display
-                // set the display to blank
-                quizModel.setDisplayFormatter(null);
-                return new CommandResult(MESSAGE_COMPLETE);
             }
+
+            // TODO return this to session
+            System.out.println(quizModel.end());
+
+            // TODO change back to management mode display
+            // set the display to blank
+            quizModel.setDisplayFormatter(null);
+            return new CommandResult(MESSAGE_COMPLETE);
         }
 
         boolean result = quizModel.updateTotalAttemptsAndStreak(card.getIndex(), answer);
@@ -99,20 +86,12 @@ public class QuizAnswerCommand implements Command {
             } else {
                 sb.append(MESSAGE_COMPLETE);
 
+                // TODO return this to session
+                System.out.println(quizModel.end());
+
                 // TODO change back to management mode display
                 // set the display to blank
                 quizModel.setDisplayFormatter(null);
-
-                /**
-                 * Update the result taken from quiz session and change the storage information in user profile.
-                 */
-                //TODO: update user data
-                /*Instant currentDate = Instant.now();
-                List<List<Integer>> quizInformation = quizModel.end();
-                SrsCardsManager updateManager = new SrsCardsManager(quizModel.getQuizSrsCards(),
-                        quizInformation, currentDate);
-                updateCardSrsData = updateManager.updateCardData();
-                this.complete = true;*/
             }
 
         } else {
@@ -130,17 +109,6 @@ public class QuizAnswerCommand implements Command {
         return new CommandResult(sb.toString(), true, false, false);
     }
 
-
-    /**
-     * Update the cardSrsData of user profile through managementModel.
-     */
-    public void executeActual (ManagementModel model, CommandHistory history) {
-        if (complete) {
-            for (int i = 0; i < updateCardSrsData.size(); i++) {
-                model.addCardSrsData(updateCardSrsData.get(i));
-            }
-        }
-    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

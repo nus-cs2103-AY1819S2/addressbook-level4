@@ -17,7 +17,7 @@ import seedu.address.model.reminder.Reminder;
  */
 public class AddRemCommand extends Command {
 
-    public static final String COMMAND_WORD = "remadd";
+    public static final String COMMAND_WORD = "addrem";
 
     //TODO: Show endtime and comments as optional
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reminder to quickdocs. "

@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  */
 public class ListAppCommand extends Command {
 
-    public static final String COMMAND_WORD = "applist";
+    public static final String COMMAND_WORD = "listapp";
 
     public static final String MESSAGE_SUCCESS = "Listed all appointments\n";
 

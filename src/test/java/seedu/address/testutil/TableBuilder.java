@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;

@@ -3,6 +3,8 @@ package seedu.address.model.table;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.logging.Logger;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
@@ -34,18 +36,6 @@ public class TableStatus {
     }
 
     /**
-     * Changes the number of seats taken in the {@code TableStatus}.
-     */
-    public void changeOccupancy(String numberOfTakenSeats) throws CommandException {
-        requireNonNull(numberOfTakenSeats);
-        checkArgument(isValidNumberOfSeats(numberOfTakenSeats));
-        if (Integer.parseInt(numberOfTakenSeats) > Integer.parseInt(numberOfSeats)) {
-            throw new CommandException(String.format(MESSAGE_INVALID_NUMBER_OF_CUSTOMERS, numberOfSeats));
-        }
-        this.numberOfTakenSeats = numberOfTakenSeats;
-    }
-
-    /**
      * Checks if table is occupied.
      *
      * @return true if table is occupied, false otherwise.
@@ -58,7 +48,9 @@ public class TableStatus {
      * Returns true if a given string is a valid table status.
      */
     public static boolean isValidTableStatus(String test) {
-        return test.matches(STATUS_VALIDATION_REGEX);
+        String[] splitStatus = test.split("/");
+        return test.matches(STATUS_VALIDATION_REGEX)
+                && Integer.parseInt(splitStatus[0]) <= Integer.parseInt(splitStatus[1]);
     }
 
     /**

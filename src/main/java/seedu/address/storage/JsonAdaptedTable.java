@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -60,11 +62,6 @@ class JsonAdaptedTable {
             throw new IllegalValueException(TableStatus.MESSAGE_CONSTRAINTS);
         }
         final TableStatus modelTableStatus = new TableStatus(tableStatus);
-        try {
-            modelTableStatus.changeOccupancy(tableStatus.split("/")[0]);
-        } catch (CommandException e) {
-            throw new IllegalValueException("Invalid table status.");
-        }
 
         return new Table(modelTableNumber, modelTableStatus);
     }

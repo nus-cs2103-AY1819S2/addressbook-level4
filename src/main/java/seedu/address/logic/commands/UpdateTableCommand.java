@@ -45,12 +45,19 @@ public class UpdateTableCommand extends Command {
         if (!optionalTable.isPresent()) {
             throw new CommandException(String.format(MESSAGE_INVALID_TABLE_NUMBER, tableNumber));
         }
-        TableStatus updatedTableStatus = optionalTable.get().getTableStatus();
-        updatedTableStatus.changeOccupancy(newTableStatus[1]);
+        String updatedTableStatusInString =
+                newTableStatus[1] + "/" + optionalTable.get().getTableStatus().toString().substring(2);
+        TableStatus updatedTableStatus;
+        try {
+            updatedTableStatus = new TableStatus(updatedTableStatusInString);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(String.format(TableStatus.MESSAGE_INVALID_NUMBER_OF_CUSTOMERS,
+                    updatedTableStatusInString.substring(2)));
+        }
         Table updatedTable = new Table(tableNumber, updatedTableStatus);
         model.setTable(optionalTable.get(), updatedTable);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, updatedTable.getTableNumber(), optionalTable.get().getTableStatus()));
+                String.format(MESSAGE_SUCCESS, updatedTable.getTableNumber(), updatedTableStatusInString));
     }
 
     @Override

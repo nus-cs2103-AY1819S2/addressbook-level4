@@ -18,7 +18,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_CARDS_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
 import static seedu.address.testutil.TypicalCards.LAYER;
 import static seedu.address.testutil.TypicalCards.OK_STATUS;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
@@ -27,6 +26,8 @@ import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;
 public class FindCardCommandTest {
     private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalTopDeck(), new UserPrefs());
+    private CardsView cardsView;
+    private CardsView expectedCardsView;
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -35,8 +36,10 @@ public class FindCardCommandTest {
         assertTrue(model.isAtCardsView());
         expectedModel.changeDeck(getTypicalDeck());
         assertTrue(model.isAtCardsView());
-        model.updateFilteredList(Model.PREDICATE_SHOW_ALL_CARDS);
-        expectedModel.updateFilteredList(Model.PREDICATE_SHOW_ALL_CARDS);
+        cardsView = (CardsView) model.getViewState();
+        expectedCardsView = (CardsView) expectedModel.getViewState();
+        cardsView.updateFilteredList(Model.PREDICATE_SHOW_ALL_CARDS);
+        expectedCardsView.updateFilteredList(Model.PREDICATE_SHOW_ALL_CARDS);
     }
 
     @Test
@@ -46,14 +49,14 @@ public class FindCardCommandTest {
         QuestionContainsKeywordsPredicate secondPredicate =
             new QuestionContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCardCommand findFirstCommand = new FindCardCommand((CardsView) model.getViewState(), firstPredicate);
-        FindCardCommand findSecondCommand = new FindCardCommand((CardsView) model.getViewState(), secondPredicate);
+        FindCardCommand findFirstCommand = new FindCardCommand(cardsView, firstPredicate);
+        FindCardCommand findSecondCommand = new FindCardCommand(cardsView, secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCardCommand findFirstCommandCopy = new FindCardCommand((CardsView) model.getViewState(), firstPredicate);
+        FindCardCommand findFirstCommandCopy = new FindCardCommand(cardsView, firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -70,20 +73,20 @@ public class FindCardCommandTest {
     public void execute_zeroKeywords_noCardFound() {
         String expectedMessage = String.format(MESSAGE_CARDS_LISTED_OVERVIEW, 0);
         QuestionContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCardCommand command = new FindCardCommand((CardsView) model.getViewState(), predicate);
-        expectedModel.updateFilteredList(predicate);
+        FindCardCommand command = new FindCardCommand(cardsView, predicate);
+        expectedCardsView.updateFilteredList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredList());
+        assertEquals(Collections.emptyList(), cardsView.getFilteredList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleCardsFound() {
         String expectedMessage = String.format(MESSAGE_CARDS_LISTED_OVERVIEW, 2);
         QuestionContainsKeywordsPredicate predicate = preparePredicate("status layer");
-        FindCardCommand command = new FindCardCommand((CardsView) model.getViewState(), predicate);
-        expectedModel.updateFilteredList(predicate);
+        FindCardCommand command = new FindCardCommand(cardsView, predicate);
+        expectedCardsView.updateFilteredList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(LAYER, OK_STATUS), model.getFilteredList());
+        assertEquals(Arrays.asList(LAYER, OK_STATUS), cardsView.getFilteredList());
     }
 
     @Test
@@ -91,10 +94,10 @@ public class FindCardCommandTest {
         String expectedMessage = String.format(MESSAGE_CARDS_LISTED_OVERVIEW, 1);
         String questionString = LAYER.getQuestion().replace("?", "");
         QuestionContainsKeywordsPredicate predicate = prepareStringPredicate(questionString);
-        FindCardCommand command = new FindCardCommand((CardsView) model.getViewState(), predicate);
-        expectedModel.updateFilteredList(predicate);
+        FindCardCommand command = new FindCardCommand(cardsView, predicate);
+        expectedCardsView.updateFilteredList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(LAYER), model.getFilteredList());
+        assertEquals(Arrays.asList(LAYER), cardsView.getFilteredList());
     }
 
     /**

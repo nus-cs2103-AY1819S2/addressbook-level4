@@ -13,7 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.DecksView;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -140,6 +142,7 @@ public class CommandTestUtil {
      * - the topdeck, filtered card list and selected card in {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
+    // TODO: update this
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
@@ -168,16 +171,17 @@ public class CommandTestUtil {
      */
 
     public static void showDeckAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
         assertTrue(model.isAtDecksView());
+        DecksView decksView = (DecksView) model.getViewState();
+        assertTrue(targetIndex.getZeroBased() < decksView.getFilteredList().size());
 
-        Deck deck = (Deck)model.getFilteredList().get(targetIndex.getZeroBased());
+        Deck deck = decksView.getFilteredList().get(targetIndex.getZeroBased());
 
         final String[] splitName = deck.getName().fullName.split("\\s+");
-        model.updateFilteredList(
+        decksView.updateFilteredList(
                 new DeckNameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredList().size());
+        assertEquals(1, decksView.getFilteredList().size());
     }
 
     /**
@@ -185,23 +189,26 @@ public class CommandTestUtil {
      * {@code model}'s deck.
      */
     public static void showCardAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredList().size());
         assertTrue(model.isAtCardsView());
+        CardsView cardsView = (CardsView) model.getViewState();
+        assertTrue(targetIndex.getZeroBased() < cardsView.getFilteredList().size());
 
-        Card card = (Card) model.getFilteredList().get(targetIndex.getZeroBased());
+        Card card = cardsView.getFilteredList().get(targetIndex.getZeroBased());
         final String question = card.getQuestion().replace("?", "")
             .replace(".", "");
-        model.updateFilteredList(new QuestionContainsKeywordsPredicate(Arrays.asList(question)));
+        cardsView.updateFilteredList(new QuestionContainsKeywordsPredicate(Arrays.asList(question)));
 
         //Gets all the question that starts with what
-        assertEquals(1, model.getFilteredList().size());
+        assertEquals(1, cardsView.getFilteredList().size());
     }
 
     /**
      * Deletes the first deck in {@code model}'s filtered list from {@code model}'s deck.
      */
     public static void deleteFirstDeck(Model model) {
-        Deck firstDeck = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        assertTrue(model.isAtDecksView());
+        DecksView decksView = (DecksView) model.getViewState();
+        Deck firstDeck = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
         model.deleteDeck(firstDeck);
         model.commitTopDeck();
     }

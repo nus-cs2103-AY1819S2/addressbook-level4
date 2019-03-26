@@ -51,11 +51,7 @@ public class ModelManager implements Model {
         versionedTopDeck = new VersionedTopDeck(topDeck);
         this.userPrefs = new UserPrefs(userPrefs);
         viewState = new DecksView(this, new FilteredList<>(versionedTopDeck.getDeckList()));
-        // viewState = new CardsView(this, new FilteredList<>(versionedTopDeck.getCardList()));
-        // TODO: move filteredItems into viewState
         filteredItems = ((DecksView) viewState).filteredDecks;
-        // filteredItems = ((CardsView) viewState).filteredCards;
-
     }
 
     public ModelManager() {

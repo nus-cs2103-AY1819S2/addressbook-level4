@@ -5,8 +5,6 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
-import java.util.stream.Stream;
-
 import seedu.hms.logic.commands.FindBookingCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
@@ -18,15 +16,6 @@ import seedu.hms.model.util.TimeRange;
  * Parses input arguments and creates a new AddCustomerCommand object
  */
 public class FindBookingCommandParser implements Parser<FindBookingCommand> {
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
-
     /**
      * Parses the given {@code String} of arguments in the context of the AddCustomerCommand
      * and returns an AddCustomerCommand object for execution.

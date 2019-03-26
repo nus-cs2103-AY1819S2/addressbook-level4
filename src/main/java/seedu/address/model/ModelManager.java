@@ -573,7 +573,7 @@ public class ModelManager implements Model {
      */
     public void addRem(Reminder rem) {
         reminderManager.addReminder(rem);
-        //quickDocs.indicateModification(true);
+        quickDocs.indicateModification(true);
     }
 
     public String listRem() {

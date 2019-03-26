@@ -29,7 +29,7 @@ public class AddRemCommand extends Command {
             + PREFIX_COMMENT + "COMMENT\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Refill MedicineA "
-            + PREFIX_DATE + "2019-5-22 "
+            + PREFIX_DATE + "2019-05-22 "
             + PREFIX_START + "12:00 "
             + PREFIX_END + "13:00 "
             + PREFIX_COMMENT + "<any comments>\n";

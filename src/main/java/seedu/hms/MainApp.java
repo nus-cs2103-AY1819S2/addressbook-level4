@@ -27,7 +27,6 @@ import seedu.hms.model.ReservationManager;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
-import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.util.SampleDataUtil;
 import seedu.hms.storage.HotelManagementSystemStorage;
 import seedu.hms.storage.JsonHotelManagementSystemStorage;

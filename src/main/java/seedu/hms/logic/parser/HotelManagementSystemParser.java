@@ -84,7 +84,7 @@ public class HotelManagementSystemParser {
 
         case EditReservationCommand.COMMAND_WORD:
         case EditReservationCommand.COMMAND_ALIAS:
-        return new EditReservationCommandParser().parse(arguments, customerModel);
+            return new EditReservationCommandParser().parse(arguments, customerModel);
 
         case SelectCustomerCommand.COMMAND_WORD:
         case SelectCustomerCommand.COMMAND_ALIAS:

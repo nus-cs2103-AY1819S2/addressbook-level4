@@ -33,7 +33,8 @@ class JsonSerializableHotelManagementSystem {
     @JsonCreator
     public JsonSerializableHotelManagementSystem(@JsonProperty("customers") List<JsonAdaptedCustomer> customers,
                                                  @JsonProperty("bookings") List<JsonAdaptedBooking> bookings,
-                                                 @JsonProperty("reservations") List<JsonAdaptedReservation> reservations) {
+                                                 @JsonProperty("reservations") List<JsonAdaptedReservation>
+                                                         reservations) {
         this.customers.addAll(customers);
         this.bookings.addAll(bookings);
         this.reservations.addAll(reservations);
@@ -47,7 +48,8 @@ class JsonSerializableHotelManagementSystem {
     public JsonSerializableHotelManagementSystem(ReadOnlyHotelManagementSystem source) {
         customers.addAll(source.getCustomerList().stream().map(JsonAdaptedCustomer::new).collect(Collectors.toList()));
         bookings.addAll(source.getBookingList().stream().map(JsonAdaptedBooking::new).collect(Collectors.toList()));
-        reservations.addAll(source.getReservationList().stream().map(JsonAdaptedReservation::new).collect(Collectors.toList()));
+        reservations.addAll(source.getReservationList().stream().map(JsonAdaptedReservation::new)
+            .collect(Collectors.toList()));
     }
 
     /**

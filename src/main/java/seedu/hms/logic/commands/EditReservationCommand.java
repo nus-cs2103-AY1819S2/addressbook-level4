@@ -70,7 +70,7 @@ public class EditReservationCommand extends ReservationCommand {
      * edited with {@code editReservationDescriptor}.
      */
     private static Reservation createEditedReservation(Reservation reservationToEdit,
-                                                       EditReservationCommand.EditReservationDescriptor editReservationDescriptor) {
+                                                       EditReservationDescriptor editReservationDescriptor) {
         assert reservationToEdit != null;
 
         RoomType updatedRoomType = editReservationDescriptor.getRoomType().orElse(reservationToEdit.getRoom());

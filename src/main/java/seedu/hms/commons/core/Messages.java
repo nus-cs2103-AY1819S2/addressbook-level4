@@ -11,7 +11,8 @@ public class Messages {
     public static final String MESSAGE_INVALID_BOOKING_DISPLAYED_INDEX = "The booking index provided is invalid";
     public static final String MESSAGE_CUSTOMERS_LISTED_OVERVIEW = "%1$d customer(s) listed!";
     public static final String MESSAGE_BOOKINGS_LISTED_OVERVIEW = "%1$d booking(s) listed!";
-    public static final String MESSAGE_INVALID_RESERVATION_DISPLAYED_INDEX = "The reservation index provided is invalid";
+    public static final String MESSAGE_INVALID_RESERVATION_DISPLAYED_INDEX =
+        "The reservation index provided is invalid";
     public static final String MESSAGE_RESERVATIONS_LISTED_OVERVIEW = "%1$d reservation(s) listed!";
 
 }

@@ -1,7 +1,6 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
-//import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,7 +17,6 @@ import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
-//import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.Organization;
 import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestDate;
@@ -26,6 +24,9 @@ import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.Condition;
 import seedu.address.model.tag.Skills;
 import seedu.address.model.tag.Specialisation;
+
+//import java.util.HashMap;
+//import seedu.address.model.person.Person;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

@@ -16,7 +16,6 @@ public class Name {
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
-     * TODO: Fix name regex to only take alphabets and spaces
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
@@ -38,6 +37,13 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Method that returns true if the full name contains the specified substring
+     */
+    public boolean contains(String substring) {
+        return this.fullName.toLowerCase().contains(substring.toLowerCase());
     }
 
 

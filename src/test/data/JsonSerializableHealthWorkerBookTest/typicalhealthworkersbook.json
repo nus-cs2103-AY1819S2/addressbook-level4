@@ -25,7 +25,7 @@
     "address" : "wall street",
     "tagged" : [ "Palliative" ],
     "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE "
+    "skills" : "GENERAL_PRACTICE GYNAECOLOGY"
   }, {
     "name" : "Paniel Meier",
     "phone" : "87652133",
@@ -34,7 +34,7 @@
     "address" : "10th street",
     "tagged" : [ "Doctor" ],
     "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE "
+    "skills" : "PHYSIOTHERAPY HAEMATOLOGY"
   }, {
     "name" : "Ella Meyer",
     "phone" : "94824524",
@@ -43,7 +43,7 @@
     "address" : "michegan ave",
     "tagged" : [ "Nurse", "Dementia" ],
     "organization" : "NUH",
-    "skills" : "GENERAL_PRACTICE "
+    "skills" : "ANAESTHESIOLOGY PHYSIOTHERAPY"
   }, {
     "name" : "Fione Kunz",
     "phone" : "94822373",

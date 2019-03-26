@@ -69,6 +69,13 @@ public class Skills {
         this.skills.add(specialisation);
     }
 
+    /**
+     * Check if another set of skills is a subset of the current set of skills
+     */
+    public boolean containsAll(Collection<Specialisation> other) {
+        return this.skills.containsAll(other);
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

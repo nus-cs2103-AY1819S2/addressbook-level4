@@ -9,10 +9,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BETTY;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.tag.Skills;
+import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.HealthWorkerBuilder;
 
 public class HealthWorkerTest {
@@ -92,5 +97,17 @@ public class HealthWorkerTest {
                 .withOrganization(VALID_ORGANIZATION_BETTY).build();
         assertFalse(ANDY.equals(editedAndy));
 
+    }
+
+    @Test
+    public void hasSkill() {
+        Skills skills = new Skills(new HashSet<>(Arrays.asList(Specialisation.GENERAL_PRACTICE, Specialisation
+                .HAEMATOLOGY, Specialisation.GYNAECOLOGY)));
+        HealthWorker healthWorker = new HealthWorkerBuilder().withSkills(skills).build();
+        assertTrue(healthWorker.hasSkill(Specialisation.GENERAL_PRACTICE));
+        assertTrue(healthWorker.hasSkill(Specialisation.HAEMATOLOGY));
+
+        assertFalse(healthWorker.hasSkill(Specialisation.ORTHOPAEDIC));
+        assertFalse(healthWorker.hasSkill(Specialisation.PHYSIOTHERAPY));
     }
 }

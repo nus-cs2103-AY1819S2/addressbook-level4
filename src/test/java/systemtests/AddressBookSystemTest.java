@@ -31,7 +31,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FilterHealthWorkerCommand;
 import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
@@ -145,7 +145,7 @@ public abstract class AddressBookSystemTest {
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        executeCommand(FilterHealthWorkerCommand.COMMAND_WORD + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
     }
 

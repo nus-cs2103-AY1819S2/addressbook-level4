@@ -104,7 +104,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyPinBook getPinBook() { return model.getPinBook(); }
+    public ReadOnlyPinBook getPinBook() {
+        return model.getPinBook();
+    }
 
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -132,7 +134,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getPinBookFilePath() { return model.getPinBookFilePath(); }
+    public Path getPinBookFilePath() {
+        return model.getPinBookFilePath();
+    }
 
     @Override
     public GuiSettings getGuiSettings() {

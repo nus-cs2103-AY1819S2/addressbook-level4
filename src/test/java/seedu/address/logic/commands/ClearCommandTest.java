@@ -30,8 +30,10 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(), getTypicalPinBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(), getTypicalPinBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
+                getTypicalPinBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
+                getTypicalPinBook(), new UserPrefs());
         expectedModel.setAddressBook(new AddressBook());
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();

@@ -17,7 +17,8 @@ import seedu.address.model.UserPrefs;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(), getTypicalPinBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
+            getTypicalPinBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(),
             getTypicalArchiveBook(), getTypicalPinBook(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();

@@ -57,7 +57,8 @@ public class LogicManagerTest {
         JsonArchiveBookStorage archiveBookStorage = new JsonArchiveBookStorage(temporaryFolder.newFile().toPath());
         JsonPinBookStorage pinBookStorage = new JsonPinBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, archiveBookStorage, pinBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, archiveBookStorage,
+                pinBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -92,7 +93,8 @@ public class LogicManagerTest {
         JsonPinBookStorage pinBookStorage =
                 new JsonPinBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, archiveBookStorage, pinBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, archiveBookStorage,
+                pinBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -144,7 +146,8 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveBook(), model.getPinBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveBook(),
+                model.getPinBook(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

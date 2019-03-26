@@ -26,8 +26,10 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(), getTypicalPinBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveBook(), model.getPinBook(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
+                getTypicalPinBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveBook(),
+                model.getPinBook(), new UserPrefs());
     }
 
     @Test

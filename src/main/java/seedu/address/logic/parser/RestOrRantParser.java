@@ -25,7 +25,6 @@ import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.statistics.Statistics;
 
 /**
  * Parses user input.

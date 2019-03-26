@@ -37,41 +37,43 @@ public class MonthlyStatisticsCard extends UiPart<Region> {
         this.monthlyRevenue = monthlyRevenue;
 
         switch(Integer.parseInt(monthlyRevenue.getMonth().toString())) {
-            case 1:
-                month.setText("JAN ");
-                break;
-            case 2:
-                month.setText("FEB ");
-                break;
-            case 3:
-                month.setText("MAR ");
-                break;
-            case 4:
-                month.setText("APR ");
-                break;
-            case 5:
-                month.setText("MAY ");
-                break;
-            case 6:
-                month.setText("JUN ");
-                break;
-            case 7:
-                month.setText("JUL ");
-                break;
-            case 8:
-                month.setText("AUG ");
-                break;
-            case 9:
-                month.setText("SEP ");
-                break;
-            case 10:
-                month.setText("OCT ");
-                break;
-            case 11:
-                month.setText("NOV ");
-                break;
-            case 12:
-                month.setText("DEC ");
+        case 1:
+            month.setText("JAN ");
+            break;
+        case 2:
+            month.setText("FEB ");
+            break;
+        case 3:
+            month.setText("MAR ");
+            break;
+        case 4:
+            month.setText("APR ");
+            break;
+        case 5:
+            month.setText("MAY ");
+            break;
+        case 6:
+            month.setText("JUN ");
+            break;
+        case 7:
+            month.setText("JUL ");
+            break;
+        case 8:
+            month.setText("AUG ");
+            break;
+        case 9:
+            month.setText("SEP ");
+            break;
+        case 10:
+            month.setText("OCT ");
+            break;
+        case 11:
+            month.setText("NOV ");
+            break;
+        case 12:
+            month.setText("DEC ");
+        default:
+            month.setText(this.monthlyRevenue.getMonth().toString());
         }
         year.setText(this.monthlyRevenue.getYear().toString());
         totalMonthlyRevenue.setText("$ " + String.format("%.2f", this.monthlyRevenue.getTotalMonthlyRevenue()));

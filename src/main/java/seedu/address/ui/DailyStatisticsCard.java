@@ -35,41 +35,45 @@ public class DailyStatisticsCard extends UiPart<Region> {
         this.dailyRevenue = dailyRevenue;
 
         switch(Integer.parseInt(this.dailyRevenue.getMonth().toString())) {
-            case 1:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Jan-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 2:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Feb-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 3:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Mar-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 4:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Apr-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 5:
-                date.setText(this.dailyRevenue.getDay().toString() + "-May-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 6:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Jun-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 7:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Jul-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 8:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Aug-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 9:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Sep-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 10:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Oct-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 11:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Nov-" + this.dailyRevenue.getYear().toString());
-                break;
-            case 12:
-                date.setText(this.dailyRevenue.getDay().toString() + "-Dec-" + this.dailyRevenue.getYear().toString());
+
+        case 1:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Jan-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 2:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Feb-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 3:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Mar-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 4:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Apr-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 5:
+            date.setText(this.dailyRevenue.getDay().toString() + "-May-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 6:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Jun-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 7:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Jul-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 8:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Aug-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 9:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Sep-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 10:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Oct-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 11:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Nov-" + this.dailyRevenue.getYear().toString());
+            break;
+        case 12:
+            date.setText(this.dailyRevenue.getDay().toString() + "-Dec-" + this.dailyRevenue.getYear().toString());
+        default:
+            date.setText(this.dailyRevenue.getDay().toString() + this.dailyRevenue.getMonth().toString()
+                    + this.dailyRevenue.getYear().toString());
         }
 
         totalDailyRevenue.setText("$" + String.format("%.2f", this.dailyRevenue.getTotalDailyRevenue()));

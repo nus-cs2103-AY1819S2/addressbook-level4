@@ -4,6 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Date of requested revenue from the command argument.
+ * Date has to exists in the calendar
+ */
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
@@ -52,7 +56,7 @@ public class Date {
         } else if (Integer.parseInt(month.toString()) == 4 || Integer.parseInt(month.toString()) == 6 ||
                 Integer.parseInt(month.toString()) == 9 || Integer.parseInt(month.toString()) == 11 && Integer
                 .parseInt(day.toString()) > 30) {
-                return isInvalid;
+            return isInvalid;
         }
         return test.matches(VALIDATION_REGEX);
     }

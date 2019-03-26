@@ -9,8 +9,8 @@ import seedu.address.logic.Mode;
 public class StatisticsModeCommand extends ChangeModeCommand {
     public static final String COMMAND_WORD = "statisticsMode"; // change to standardize with other modes
     public static final String COMMAND_ALIAS = "SM";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change to Statistics Mode.\n" + "Example: " +
-            COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change to Statistics Mode.\n" + "Example: "
+            + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Mode changed to Statistics Mode";
 
     @Override

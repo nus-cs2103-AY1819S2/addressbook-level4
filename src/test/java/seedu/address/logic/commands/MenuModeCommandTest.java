@@ -1,14 +1,15 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE_CHANGE;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE_CHANGE;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 public class MenuModeCommandTest {
     private Model model = new ModelManager();

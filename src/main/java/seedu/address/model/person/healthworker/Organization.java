@@ -27,6 +27,13 @@ public class Organization {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Method that returns true if organization name contains the specified substring.
+     */
+    public boolean contains(String substring) {
+        return this.orgName.toLowerCase().contains(substring.toLowerCase());
+    }
+
     public String getOrgName() {
         return orgName;
     }

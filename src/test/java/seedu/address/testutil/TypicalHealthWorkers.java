@@ -33,17 +33,23 @@ public class TypicalHealthWorkers {
             .withName("Carlie Kurz")
             .withPhone("95358463")
             .withNric("S9312942G"))
-            .withOrganization("NUH").build();
+            .withOrganization("NUH")
+            .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation.GYNAECOLOGY,
+                    Specialisation.GENERAL_PRACTICE)))).build();
     public static final HealthWorker PANIEL = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Paniel Meier")
             .withPhone("87652133")
             .withNric("S8412942G"))
-            .withOrganization("NUH").build();
+            .withOrganization("NUH")
+            .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation.PHYSIOTHERAPY,
+                    Specialisation.HAEMATOLOGY)))).build();
     public static final HealthWorker ELLA = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Ella Meyer")
             .withPhone("94824524")
             .withNric("S9112942G"))
-            .withOrganization("NUH").build();
+            .withOrganization("NUH")
+            .withSkills(new Skills(new HashSet<>(Arrays.asList(Specialisation.ANAESTHESIOLOGY,
+                    Specialisation.PHYSIOTHERAPY)))).build();
     public static final HealthWorker FIONE = ((HealthWorkerBuilder) new HealthWorkerBuilder()
             .withName("Fione Kunz")
             .withPhone("94822373")
@@ -67,8 +73,6 @@ public class TypicalHealthWorkers {
             .withPhone("84821316")
             .withNric("S1234567A"))
             .withOrganization("NUH").build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalHealthWorkers() {
     } // prevents instantiation

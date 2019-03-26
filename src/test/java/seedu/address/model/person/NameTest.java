@@ -38,4 +38,21 @@ public class NameTest {
         assertTrue(Name.isValidName("Capital Tan")); // with capital letters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
     }
+
+    @Test
+    public void contains() {
+        Name name = new Name("Samantha");
+
+        // same name
+        assertTrue(name.contains("Samantha"));
+
+        // substring
+        assertTrue(name.contains("Sam"));
+
+        // case-insensitive substring
+        assertTrue(name.contains("sam"));
+
+        // non substring
+        assertFalse(name.contains("Sandy"));
+    }
 }

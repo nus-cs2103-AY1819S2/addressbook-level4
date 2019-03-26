@@ -301,6 +301,50 @@ The assign request feature allows an administrator to assign a request to a part
 ** Cons: Violates the LOD principle, as the `Request` object should contain limited knowledge of the `HealthWorker` object.
 ** Cons: Complicates the code base, making it difficult to maintain in the long run.
 
+=== List Feature
+The `list` command allows the user to be able to display all `HealthWorker`
+or `Request` objects stored in the current application.
+
+==== Listing `HealthWorker` objects
+* Format: `list healthworker/h/1`
+* Displays all `HealthWorker` objects already stored in the current
+application, and the following details:
+** `name` - Name of the `HealthWorker`
+** `nric` - NRIC of the `HealthWorker`
+** `organization` - Organization of the `HealthWorker`
+** `skills` - Skills and Specialisations that the `HealthWorker` object
+possesses
+
+==== Listing `Request` objects
+* Format: `list request/r/2`
+* Displays all `Request` objects already stored in the current
+application, and the following details:
+** `name` - Name of the patient that made the request in `Request` object.
+** `address` - Address of the patient
+** `condition` - Condition of the patient that made the request.
+
+=== Filter Feature
+The `filter` command allows users to filter either the current displayed
+list of `HealthWorker` and `Request` objects and replaces the current list
+shown on the UI with the respective filtered lists.
+
+****
+*Notes*:
+
+* The `<prefix>` and `<parameters>` specified in the command descriptions
+below follow the same valid prefix and parameter formats as the `add`, `edit`
+ and `delete` commands
+****
+
+==== Filtering `HealthWorker` s
+* Format: `filter healthworker/h/1 <prefix>/<parameter> [<prefix/<parameter>]
+...`
+* The `filter` command checks for `HealthWorker` whose field specific to the
+`<specific>` contains or matches the `<parameter>` provided.
+* Example: `filter h n/John` changes the UI to display only `HealthWorker`
+whose name is John, or contains John (Johnny, Johnson, ...)
+
+
 // tag::undoredo[]
 === Undo/Redo feature
 

@@ -487,8 +487,12 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
             && versionedHealthWorkerBook.equals(other.versionedHealthWorkerBook)
+            && versionedRequestBook.equals(other.versionedRequestBook)
             && userPrefs.equals(other.userPrefs)
             && filteredPersons.equals(other.filteredPersons)
+            && filteredRequests.equals(other.filteredRequests)
+            && filteredHealthWorkers.equals(filteredHealthWorkers)
+            && Objects.equals(selectedRequest.get(), other.selectedRequest.get())
             && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

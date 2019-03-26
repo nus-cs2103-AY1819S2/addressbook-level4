@@ -24,12 +24,6 @@ public class HealthWorker extends Person {
         this.skills = toCopy.getSkills();
     }
 
-    public HealthWorker(Name name, Nric nric, Phone phone, Organization organization) {
-        super(name, nric, phone);
-        this.organization = organization;
-        this.skills = new Skills();
-    }
-
     public HealthWorker(Name name, Nric nric, Phone phone, Organization organization, Skills skills) {
         super(name, nric, phone);
         this.organization = organization;

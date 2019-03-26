@@ -26,13 +26,14 @@ public class AddReviewCommandParserTest {
 
         @Test
         public void parse_allFieldsPresent_success() {
-            Review expectedReview = new Review(new ReviewTitle(VALID_REVIEWTITLE_CS), VALID_REVIEWMESSAGE_CS);
+            Review expectedReview = new Review(
+                    new ReviewTitle(VALID_REVIEWTITLE_CS), new BookName(VALID_BOOKNAME_CS), VALID_REVIEWMESSAGE_CS);
             BookNameContainsExactKeywordsPredicate expectedPredicate =
                     new BookNameContainsExactKeywordsPredicate(new BookName(VALID_BOOKNAME_CS));
 
             // whitespace only preamble
             assertParseSuccess(parser, NAME_DESC_CS + REVIEWTITLE_DESC_CS
-                    + REVIEWMESSAGE_DESC_CS, new AddReviewCommand(expectedReview, expectedPredicate));
+                    + REVIEWMESSAGE_DESC_CS, new AddReviewCommand(expectedReview));
         }
 
     @Test

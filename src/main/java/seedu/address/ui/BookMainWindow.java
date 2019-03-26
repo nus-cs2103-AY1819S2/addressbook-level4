@@ -33,6 +33,7 @@ public class BookMainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BookListPanel bookListPanel;
     private ReviewListPanel reviewListPanel;
+    private BookBrowserPanel browserPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 

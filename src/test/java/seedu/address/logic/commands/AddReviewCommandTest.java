@@ -52,14 +52,14 @@ public class AddReviewCommandTest {
                 new BookNameContainsExactKeywordsPredicate(new BookName("Alice"));
         BookNameContainsExactKeywordsPredicate bobPredicate =
                 new BookNameContainsExactKeywordsPredicate(new BookName("Bob"));
-        AddReviewCommand addAliceCommand = new AddReviewCommand(validReview, alicePredicate);
-        AddReviewCommand addBobCommand = new AddReviewCommand(validReview, bobPredicate);
+        AddReviewCommand addAliceCommand = new AddReviewCommand(validReview);
+        AddReviewCommand addBobCommand = new AddReviewCommand(validReview);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddReviewCommand addAliceCommandCopy = new AddReviewCommand(validReview, alicePredicate);
+        AddReviewCommand addAliceCommandCopy = new AddReviewCommand(validReview);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -79,7 +79,7 @@ public class AddReviewCommandTest {
         Book addedReviewBook = new BookBuilder().withReview(reviewSet).buildLifePi();
         BookNameContainsExactKeywordsPredicate predicate =
                 new BookNameContainsExactKeywordsPredicate(addedReviewBook.getBookName());
-        AddReviewCommand addReviewCommand = new AddReviewCommand(validReview, predicate);
+        AddReviewCommand addReviewCommand = new AddReviewCommand(validReview);
 
         String expectedMessage = String.format(AddReviewCommand.MESSAGE_SUCCESS, validReview.getTitle());
 

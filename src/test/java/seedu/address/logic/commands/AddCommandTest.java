@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -209,7 +210,21 @@ public class AddCommandTest {
         }
 
         @Override
+        public Interviews getInterviews() {
+            throw new AssertionError("This method should not be called");
+        }
 
+        @Override
+        public void clearInterviews() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void setMaxInterviewsADay(int maxInterviewsADay) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public String generateAnalytics() {
             throw new AssertionError("This method should not be called.");
         }

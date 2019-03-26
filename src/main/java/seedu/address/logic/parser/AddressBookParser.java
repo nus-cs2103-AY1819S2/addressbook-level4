@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearInterviewsCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateJobCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -22,6 +23,8 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SetMaxInterviewsADayCommand;
+import seedu.address.logic.commands.ShowInterviewsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -138,6 +141,15 @@ public class AddressBookParser {
 
         case GenerateInterviewsCommand.COMMAND_WORD:
             return new GenerateInterviewsCommand();
+
+        case ShowInterviewsCommand.COMMAND_WORD:
+            return new ShowInterviewsCommand();
+
+        case SetMaxInterviewsADayCommand.COMMAND_WORD:
+            return new SetMaxInterviewsADayCommandParser().parse(arguments);
+
+        case ClearInterviewsCommand.COMMAND_WORD:
+            return new ClearInterviewsCommand();
 
         case GenerateAnalyticsCommand.COMMAND_WORD:
             return new GenerateAnalyticsCommand();

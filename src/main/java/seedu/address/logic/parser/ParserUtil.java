@@ -32,6 +32,8 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_MAX_INTERVIEWS_A_DAY =
+            "Maximum number of interviews a day is not a non-zero unsigned integer.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -334,5 +336,20 @@ public class ParserUtil {
             throw new ParseException(JobName.MESSAGE_CONSTRAINTS);
         }
         return new JobName(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String name} into a {@code int}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code maxInterviewsADay} is invalid.
+     */
+    public static int parseMaxInterviewsADay(String maxInterviewsADay) throws ParseException {
+        requireNonNull(maxInterviewsADay);
+        String trimmedMaxInterviewsADay = maxInterviewsADay.trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedMaxInterviewsADay)) {
+            throw new ParseException(MESSAGE_INVALID_MAX_INTERVIEWS_A_DAY);
+        }
+        return Integer.parseInt(trimmedMaxInterviewsADay);
     }
 }

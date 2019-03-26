@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.logic.CardsView;
+import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.FindCardCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -15,6 +17,12 @@ import java.util.regex.Pattern;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCardCommandParser implements Parser<FindCardCommand> {
+
+    private CardsView viewState;
+
+    public FindCardCommandParser(CardsView viewState) {
+        this.viewState = viewState;
+    }
 
     private final String IN_BETWEEN_QUOTES_REGEX = "\"([^\"]*)\"";
 
@@ -46,6 +54,6 @@ public class FindCardCommandParser implements Parser<FindCardCommand> {
             }
         }
 
-        return new FindCardCommand(new QuestionContainsKeywordsPredicate(questionKeywords));
+        return new FindCardCommand(viewState, new QuestionContainsKeywordsPredicate(questionKeywords));
     }
 }

@@ -50,7 +50,7 @@ public class CardsView implements ListViewState {
             case EditCardCommand.COMMAND_WORD:
                 return new EditCardCommandParser().parse(arguments);
             case FindCardCommand.COMMAND_WORD:
-                return new FindCardCommandParser().parse(arguments);
+                return new FindCardCommandParser(this).parse(arguments);
             case SelectCommand.COMMAND_WORD:
                 return new SelectCommandParser(this).parse(arguments);
             case BackCommand.COMMAND_WORD:

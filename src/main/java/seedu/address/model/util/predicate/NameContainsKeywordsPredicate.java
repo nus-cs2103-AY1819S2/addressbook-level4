@@ -20,8 +20,22 @@ public class NameContainsKeywordsPredicate extends ContainsKeywordsPredicate<Per
 
     @Override
     public boolean test(Person person) {
-        return keywords.stream()
+        if (!isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordCaseSensitive(person.getName().fullName, keyword));
+
+        } else if (isIgnoreCase && !isAnd) {
+            return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+
+        } else if (!isIgnoreCase && isAnd) {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsWordCaseSensitive(person.getName().fullName, keyword));
+
+        } else {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
+        }
     }
 
     @Override

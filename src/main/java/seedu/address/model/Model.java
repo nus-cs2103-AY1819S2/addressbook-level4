@@ -214,4 +214,9 @@ public interface Model {
      */
     void setSelectedActivity(Activity activity);
 
+    /**
+     * Update entire activity list
+     */
+    void updateActivityList();
+
 }

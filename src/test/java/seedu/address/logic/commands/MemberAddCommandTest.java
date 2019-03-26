@@ -231,6 +231,9 @@ public class MemberAddCommandTest {
         }
 
         @Override
+        public void updateActivityList() { throw new AssertionError("This method should not be called."); }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }

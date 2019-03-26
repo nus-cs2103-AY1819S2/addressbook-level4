@@ -4,7 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -16,6 +19,11 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.ActivityDateTime;
+import seedu.address.model.activity.ActivityDescription;
+import seedu.address.model.activity.ActivityLocation;
+import seedu.address.model.activity.ActivityName;
+import seedu.address.model.activity.ActivityStatus;
 import seedu.address.model.activity.exceptions.ActivityNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -173,6 +181,32 @@ public class ModelManager implements Model {
         versionedAddressBook.sortAddressBook(predicate);
     }
 
+    @Override
+    public void updateActivityList() {
+        List<Activity> activityList = versionedAddressBook.getActivityList();
+        for (Activity activity: activityList) {
+            ActivityStatus old = activity.getStatus();
+            ActivityStatus current = activity.getCurrentStatus();
+            if (!old.equals(current)) {
+                Activity updated = updateActivity(activity);
+                setActivity(activity, updated);
+            }
+        }
+    }
+
+    /**
+     * Creates and returns an updated {@code Activity} with the details of {@code activity}
+     */
+    private static Activity updateActivity(Activity toUpdate) {
+        ActivityName name = toUpdate.getName();
+        ActivityDateTime dateTime = toUpdate.getDateTime();
+        ActivityLocation location = toUpdate.getLocation();
+        ActivityDescription description = toUpdate.getDescription();
+        Optional<Person> inCharge = toUpdate.getInCharge();
+        Map<Person, Boolean> attendance = toUpdate.getAttendance();
+        return new Activity(name, dateTime, location, description, inCharge, attendance);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -289,6 +323,7 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredActivityList(Predicate<Activity> predicate) {
         requireNonNull(predicate);
+        updateActivityList();
         filteredActivities.setPredicate(predicate);
     }
 

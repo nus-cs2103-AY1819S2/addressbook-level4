@@ -13,6 +13,7 @@ import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.reservation.Reservation;
 
 /**
  * An Immutable HotelManagementSystem that is serializable to JSON format.
@@ -24,15 +25,18 @@ class JsonSerializableHotelManagementSystem {
 
     private final List<JsonAdaptedBooking> bookings = new ArrayList<>();
     private final List<JsonAdaptedCustomer> customers = new ArrayList<>();
+    private final List<JsonAdaptedReservation> reservations = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableHotelManagementSystem} with the given customers.
      */
     @JsonCreator
     public JsonSerializableHotelManagementSystem(@JsonProperty("customers") List<JsonAdaptedCustomer> customers,
-                                                 @JsonProperty("bookings") List<JsonAdaptedBooking> bookings) {
+                                                 @JsonProperty("bookings") List<JsonAdaptedBooking> bookings,
+                                                 @JsonProperty("reservations") List<JsonAdaptedReservation> reservations) {
         this.customers.addAll(customers);
         this.bookings.addAll(bookings);
+        this.reservations.addAll(reservations);
     }
 
     /**
@@ -43,6 +47,7 @@ class JsonSerializableHotelManagementSystem {
     public JsonSerializableHotelManagementSystem(ReadOnlyHotelManagementSystem source) {
         customers.addAll(source.getCustomerList().stream().map(JsonAdaptedCustomer::new).collect(Collectors.toList()));
         bookings.addAll(source.getBookingList().stream().map(JsonAdaptedBooking::new).collect(Collectors.toList()));
+        reservations.addAll(source.getReservationList().stream().map(JsonAdaptedReservation::new).collect(Collectors.toList()));
     }
 
     /**
@@ -62,6 +67,10 @@ class JsonSerializableHotelManagementSystem {
         for (JsonAdaptedBooking jsonAdaptedBooking : bookings) {
             Booking booking = jsonAdaptedBooking.toModelType();
             hotelManagementSystem.addBooking(booking);
+        }
+        for (JsonAdaptedReservation jsonAdaptedReservation : reservations) {
+            Reservation reservation = jsonAdaptedReservation.toModelType();
+            hotelManagementSystem.addReservation(reservation);
         }
         return hotelManagementSystem;
     }

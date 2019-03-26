@@ -987,14 +987,15 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
 Amount::
 The amount of money for expenditure and budget
 
 Entry::
-A listed item/activity tracked by the application. It usually consists of the amount, along with a category tag (if specified)
+A listed item/activity tracked by the application.  It generally consists of the name, amount and date along with a
+category tag (if specified)
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
 
 Records::
 The list of all entries stored in the application

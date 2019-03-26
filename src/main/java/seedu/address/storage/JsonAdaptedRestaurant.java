@@ -172,7 +172,7 @@ class JsonAdaptedRestaurant {
         if (weblink == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Weblink.class.getSimpleName()));
         }
-        if (!Weblink.isValidWeblink(weblink)) {
+        if (!Weblink.isValidWeblinkString(weblink)) {
             throw new IllegalValueException(Weblink.MESSAGE_CONSTRAINTS);
         }
         final Weblink modelWeblink = new Weblink(weblink);

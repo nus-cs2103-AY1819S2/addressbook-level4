@@ -80,7 +80,7 @@ Edit selected fields in a specified entry. +
 Format: `editReview INDEX [re/ENTRY] [rr/RATING]`
 
 ****
-* Edits the review at the specified `INDEX`. The index refers to the index number shown in the displayed reviews list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the review at the specified `INDEX`. The index refers to the index number of the reviews of the selected Restaurant. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -98,15 +98,15 @@ Deletes the review from the Food Diary. +
 Format: `deleteReview INDEX`
 
 ****
-* Deletes the review at the specified `INDEX`.
+* Deletes the review at the specified `INDEX` of the selected Restaurant.
 * The index refers to the index number shown in the displayed reviews list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `delete 2` +
-Deletes the 2nd review in the Food Diary.
+* `deleteReview 2` +
+Deletes the 2nd review of the selected Restaurant in the Food Diary.
 
 === Add a picture of the food to a review : `addImage`
 
@@ -229,6 +229,7 @@ Note:
 
 * setCategory for `Cuisine` and `Occasion` supported as of v1.2
 * `Price range` support coming in v1.3
+* Autocomplete feature planned for v1.4
 
 === Filter restaurants based on category : `filter`
 
@@ -246,9 +247,9 @@ Format: `filter KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `filter fast food` +
-Returns restaurants with cuisine matching `fast food`
+Returns restaurants with cuisine or occasion matching `fast food`
 * `filter fast food gathering`
-Returns restaurants with cuisine matching fast food and occasion matching gathering
+Returns restaurants with cuisine or occasion matching fast food gathering
 
 Note:
 

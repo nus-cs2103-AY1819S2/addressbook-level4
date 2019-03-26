@@ -305,9 +305,9 @@ This command is only considered valid if a card question and answer is currently
 There is no backtracking in the current session so there is no `prev` command.
 
 
-==== End the current session : `end`
+==== End the current test or report session : `end`
 
-Quits the current test session.
+Quits the current test or report session.
 
 Format: `end`
 

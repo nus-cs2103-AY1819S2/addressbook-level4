@@ -28,6 +28,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String TABLE_MODE_THEME = "view/TableModeTheme.css";
+    private static final String RESTAURANT_MODE_THEME = "view/DarkTheme.css";
+    private static final String MENU_MODE_THEME = "view/MenuModeTheme.css";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -83,6 +86,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public void changeTheme(String newTheme) {
+        primaryStage.getScene().getStylesheets().set(0, newTheme);
     }
 
     private void setAccelerators() {
@@ -174,8 +181,9 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        GuiSettings guiSettings =
+                new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(), (int) primaryStage.getX(),
+                        (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -200,23 +208,28 @@ public class MainWindow extends UiPart<Stage> {
             tableFlowPanel = new TableFlowPanel(logic.getFilteredTableList(), scrollPane);
             browserPlaceholder.getChildren().add(tableFlowPanel.getRoot());
 
-            orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(),
-                    logic.selectedOrderItemProperty(), logic::setSelectedOrderItem);
+            orderItemListPanel =
+                    new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
+                            logic::setSelectedOrderItem);
             listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
 
             statusBarFooter.updateMode("Restaurant Mode");
+            changeTheme(RESTAURANT_MODE_THEME);
             break;
 
         case TABLE_MODE:
-            // TODO: actual menuBrowserPanel
             menuItemFlowPanel = new MenuItemFlowPanel(logic.getFilteredMenuItemList(), scrollPane);
             browserPlaceholder.getChildren().add(menuItemFlowPanel.getRoot());
 
-            orderItemListPanel = new OrderItemListPanel(logic.getFilteredOrderItemList(),
-                    logic.selectedOrderItemProperty(), logic::setSelectedOrderItem);
+            orderItemListPanel =
+                    new OrderItemListPanel(logic.getFilteredOrderItemList(), logic.selectedOrderItemProperty(),
+                            logic::setSelectedOrderItem);
             listPanelPlaceholder.getChildren().add(orderItemListPanel.getRoot());
 
-            statusBarFooter.updateMode("Table Mode");
+            statusBarFooter.updateMode(
+                    "Table Mode: Table " + logic.selectedTableProperty().getValue().getTableNumber().toString());
+
+            changeTheme(TABLE_MODE_THEME);
             break;
 
         case MENU_MODE:
@@ -229,6 +242,7 @@ public class MainWindow extends UiPart<Stage> {
             listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
 
             statusBarFooter.updateMode("Menu Mode");
+            changeTheme(MENU_MODE_THEME);
             break;
 
         case BILL_MODE:
@@ -240,8 +254,8 @@ public class MainWindow extends UiPart<Stage> {
 
         case STATISTICS_MODE:
             //TODO: add different cases for the monthly, yearly statistics
-            statisticsFlowPanel = new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, true,
-                    false, false);
+            statisticsFlowPanel =
+                    new StatisticsFlowPanel(logic.getFilteredDailyRevenueList(), scrollPane, true, false, false);
             browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
 
 

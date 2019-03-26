@@ -20,10 +20,7 @@ import seedu.address.model.table.TableNumber;
 public class SampleDataUtil {
 
     public static Table[] getSampleTables() {
-        return new Table[]{
-            new Table("1", "4/4"),
-            new Table("2", "4/5"),
-            new Table("3", "0/4")};
+        return new Table[]{new Table("1", "4/4"), new Table("2", "4/5"), new Table("3", "0/4")};
     }
 
     public static MenuItem[] getSampleMenuItems() {
@@ -33,9 +30,9 @@ public class SampleDataUtil {
     }
 
     public static OrderItem[] getSampleOrderItems() {
-        return new OrderItem[]{new OrderItem(new TableNumber("1"), new Code("W09"), 3),
-            new OrderItem(new TableNumber("1"), new Code("W12"), 2),
-            new OrderItem(new TableNumber("2"), new Code("A05"), 1)};
+        return new OrderItem[]{new OrderItem(new TableNumber("1"), new Code("W09"), new Name("Chicken Wings"), 3),
+            new OrderItem(new TableNumber("1"), new Code("W12"), new Name("French Fries"), 2),
+            new OrderItem(new TableNumber("2"), new Code("A05"), new Name("Salad"), 1)};
     }
 
     public static DailyRevenue[] getSampleDailyReveue() {

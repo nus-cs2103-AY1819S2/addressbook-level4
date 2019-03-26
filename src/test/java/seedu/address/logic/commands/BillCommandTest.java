@@ -231,6 +231,11 @@ public class BillCommandTest {
         }
 
         @Override
+        public void clearOrderItemsFrom(TableNumber tableNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setOrderItem(OrderItem target, OrderItem editedOrderItem) {
             throw new AssertionError("This method should not be called.");
         }

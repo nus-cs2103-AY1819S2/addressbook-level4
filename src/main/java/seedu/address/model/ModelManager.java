@@ -242,8 +242,9 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedTableReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedTable.getValue());
+            boolean wasSelectedTableReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize() && change.getRemoved()
+                            .contains(selectedTable.getValue());
             if (wasSelectedTableReplaced) {
                 //Update selectedTable to its new value.
                 int index = change.getRemoved().indexOf(selectedTable.getValue());
@@ -251,7 +252,8 @@ public class ModelManager implements Model {
                 continue;
             }
 
-            boolean wasSelectedTableRemoved = change.getRemoved().stream()
+            boolean wasSelectedTableRemoved = change.getRemoved()
+                    .stream()
                     .anyMatch(removedTable -> selectedTable.getValue().isSameTable(removedTable));
             if (wasSelectedTableRemoved) {
                 // Select the table that came before it in the list,
@@ -272,6 +274,11 @@ public class ModelManager implements Model {
     @Override
     public void deleteOrderItem(OrderItem target) {
         restOrRant.getOrders().removeOrderItem(target);
+    }
+
+    @Override
+    public void clearOrderItemsFrom(TableNumber tableNumber) {
+        restOrRant.getOrders().clearOrderItemsFrom(tableNumber);
     }
 
     @Override
@@ -405,8 +412,9 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedOrderItemReplaced = change.wasReplaced() && change.getAddedSize() == change
-                    .getRemovedSize() && change.getRemoved().contains(selectedOrderItem.getValue());
+            boolean wasSelectedOrderItemReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize() && change.getRemoved()
+                            .contains(selectedOrderItem.getValue());
             if (wasSelectedOrderItemReplaced) {
                 // Update selectedOrderItem to its new value.
                 int index = change.getRemoved().indexOf(selectedOrderItem.getValue());
@@ -414,7 +422,8 @@ public class ModelManager implements Model {
                 continue;
             }
 
-            boolean wasSelectedOrderItemRemoved = change.getRemoved().stream()
+            boolean wasSelectedOrderItemRemoved = change.getRemoved()
+                    .stream()
                     .anyMatch(removedOrderItem -> selectedOrderItem.getValue().isSameOrderItem(removedOrderItem));
             if (wasSelectedOrderItemRemoved) {
                 // Select the order item that came before it in the list,
@@ -434,8 +443,9 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedMenuItemReplaced = change.wasReplaced() && change.getAddedSize() == change
-                    .getRemovedSize() && change.getRemoved().contains(selectedMenuItem.getValue());
+            boolean wasSelectedMenuItemReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize() && change.getRemoved()
+                            .contains(selectedMenuItem.getValue());
             if (wasSelectedMenuItemReplaced) {
                 // Update selectedMenuItem to its new value.
                 int index = change.getRemoved().indexOf(selectedMenuItem.getValue());
@@ -443,7 +453,8 @@ public class ModelManager implements Model {
                 continue;
             }
 
-            boolean wasSelectedMenuItemRemoved = change.getRemoved().stream()
+            boolean wasSelectedMenuItemRemoved = change.getRemoved()
+                    .stream()
                     .anyMatch(removedMenuItem -> selectedMenuItem.getValue().isSameMenuItem(removedMenuItem));
             if (wasSelectedMenuItemRemoved) {
                 // Select the menu item that came before it in the list,
@@ -534,16 +545,17 @@ public class ModelManager implements Model {
                 return;
             }
 
-            boolean wasSelectedDailyRevenueReplaced = change.wasReplaced()
-                    && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedDailyRevenue.getValue());
+            boolean wasSelectedDailyRevenueReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize() && change.getRemoved()
+                            .contains(selectedDailyRevenue.getValue());
             if (wasSelectedDailyRevenueReplaced) {
                 //Update selectedDailyRevenue to its new value.
                 int index = change.getRemoved().indexOf(selectedDailyRevenue.getValue());
                 selectedDailyRevenue.setValue(change.getAddedSubList().get(index));
             }
 
-            boolean wasSelectedDailyRevenueRemoved = change.getRemoved().stream()
+            boolean wasSelectedDailyRevenueRemoved = change.getRemoved()
+                    .stream()
                     .anyMatch(removedDailyRevenue -> selectedDailyRevenue.getValue()
                             .isSameDailyRevenue(removedDailyRevenue));
             if (wasSelectedDailyRevenueRemoved) {
@@ -588,14 +600,12 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return restOrRant.equals(other.restOrRant) && userPrefs.equals(other.userPrefs) && filteredOrderItems
-                .equals(other.filteredOrderItems) && Objects
-                .equals(selectedOrderItem.get(), other.selectedOrderItem.get()) && filteredMenuItems
-                .equals(other.filteredMenuItems) && Objects.equals(selectedMenuItem.get(), other.selectedMenuItem.get())
-                && filteredTableList.equals(other.filteredTableList) && Objects
-                .equals(selectedTable.get(), other.selectedTable.get()) && filteredDailyRevenueList
-                .equals(other.filteredDailyRevenueList)
-                && Objects.equals(selectedDailyRevenue.get(), other.selectedDailyRevenue.get())
-                && Objects.equals(recentBill.get(), other.recentBill.get());
+        return restOrRant.equals(other.restOrRant) && userPrefs.equals(other.userPrefs) && filteredOrderItems.equals(
+                other.filteredOrderItems) && Objects.equals(selectedOrderItem.get(), other.selectedOrderItem.get())
+                && filteredMenuItems.equals(other.filteredMenuItems) && Objects.equals(selectedMenuItem.get(),
+                other.selectedMenuItem.get()) && filteredTableList.equals(other.filteredTableList) && Objects.equals(
+                selectedTable.get(), other.selectedTable.get()) && filteredDailyRevenueList.equals(
+                other.filteredDailyRevenueList) && Objects.equals(selectedDailyRevenue.get(),
+                other.selectedDailyRevenue.get()) && Objects.equals(recentBill.get(), other.recentBill.get());
     }
 }

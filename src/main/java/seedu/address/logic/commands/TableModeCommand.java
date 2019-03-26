@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE_CHANGE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TABLE_NUMBER;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TABLE_UNOCCUPIED;
 
 import java.util.Optional;
 
@@ -20,8 +21,9 @@ import seedu.address.model.table.TableNumber;
 public class TableModeCommand extends ChangeModeCommand {
     public static final String COMMAND_WORD = "tableMode"; // change to standardize with other modes
     public static final String COMMAND_ALIAS = "TM";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change to Table Mode for the specified table. "
-            + "Parameters: TABLE_NUMBER\n" + "Example: " + COMMAND_WORD + " 3";
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Change to Table Mode for the specified table. " + "Parameters: TABLE_NUMBER\n"
+                    + "Example: " + COMMAND_WORD + " 3";
     public static final String MESSAGE_SUCCESS = "Mode changed to Table Mode!\nCurrently on Table %1$s";
 
     private final TableNumber tableNumber;
@@ -47,8 +49,13 @@ public class TableModeCommand extends ChangeModeCommand {
             throw new CommandException(MESSAGE_INVALID_TABLE_NUMBER);
         }
 
+        Table chosenTable = tableOptional.get();
+        if (!chosenTable.isOccupied()) {
+            throw new CommandException(String.format(MESSAGE_INVALID_TABLE_UNOCCUPIED, tableNumber.toString()));
+        }
+
         model.updateFilteredTableList(Model.PREDICATE_SHOW_ALL_TABLES);
-        model.setSelectedTable(tableOptional.get());
+        model.setSelectedTable(chosenTable);
         model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
 
         model.updateMode();
@@ -69,7 +76,6 @@ public class TableModeCommand extends ChangeModeCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TableModeCommand && tableNumber
-                .equals(((TableModeCommand) other).tableNumber));
+                || (other instanceof TableModeCommand && tableNumber.equals(((TableModeCommand) other).tableNumber));
     }
 }

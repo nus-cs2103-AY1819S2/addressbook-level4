@@ -102,13 +102,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-<<<<<<< HEAD
     public ObservableList<ServiceType> getServiceTypeList() {
         return bookingModel.getServiceTypeList();
-=======
+    }
+
+    @Override
     public ObservableList<Reservation> getFilteredReservationList() {
         return reservationModel.getFilteredReservationList();
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
     }
 
     @Override
@@ -157,12 +157,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-<<<<<<< HEAD
     public void setSelectedServiceType(ServiceType serviceType) {
         bookingModel.setSelectedServiceType(serviceType);
-=======
+    }
+
+    @Override
     public void setSelectedReservation(Reservation reservation) {
         reservationModel.setSelectedReservation(reservation);
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
     }
 }

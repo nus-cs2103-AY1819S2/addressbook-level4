@@ -54,16 +54,10 @@
                         <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
-<<<<<<< HEAD
                     <VBox fx:id="bookingAndReservation" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
-=======
-                    <VBox fx:id="bookingAndReservation" minWidth="340" prefWidth="340"
-                          SplitPane.resizableWithParent="false">
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
-                        <StackPane fx:id="bookingAndReservationPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
 

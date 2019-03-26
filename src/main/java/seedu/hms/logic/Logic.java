@@ -48,15 +48,14 @@ public interface Logic {
     ObservableList<Booking> getFilteredBookingList();
 
     /**
-<<<<<<< HEAD
      * Returns an unmodifiable view of the filtered list of bookings
      */
     ObservableList<ServiceType> getServiceTypeList();
-=======
+
+    /**
      * Returns an unmodifiable view of the filtered list of reservations
      */
     ObservableList<Reservation> getFilteredReservationList();
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.

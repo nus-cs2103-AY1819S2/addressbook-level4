@@ -121,11 +121,8 @@ public class HotelManagementSystemTest {
     private static class HotelManagementSystemStub implements ReadOnlyHotelManagementSystem {
         private final ObservableList<Customer> customers = FXCollections.observableArrayList();
         private final ObservableList<Booking> bookings = FXCollections.observableArrayList();
-<<<<<<< HEAD
         private final ObservableList<ServiceType> serviceTypes = FXCollections.observableArrayList();
-=======
         private final ObservableList<Reservation> reservations = FXCollections.observableArrayList();
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
 
         HotelManagementSystemStub(Collection<Customer> customers, Collection<Booking> bookings,
                                   Collection<Reservation> reservations) {
@@ -145,13 +142,13 @@ public class HotelManagementSystemTest {
         }
 
         @Override
-<<<<<<< HEAD
         public ObservableList<ServiceType> getServiceTypeList() {
             return serviceTypes;
-=======
+        }
+
+        @Override
         public ObservableList<Reservation> getReservationList() {
             return reservations;
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
         }
 
         @Override

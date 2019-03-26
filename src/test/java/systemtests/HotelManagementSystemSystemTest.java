@@ -204,18 +204,7 @@ public abstract class HotelManagementSystemSystemTest {
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         getCustomerListPanel().navigateToCard(getCustomerListPanel().getSelectedCardIndex());
         String selectedCardName = getCustomerListPanel().getHandleToSelectedCard().getName();
-<<<<<<< HEAD
-=======
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll
-                (" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getCustomerListPanel().getSelectedCardIndex());
     }
 

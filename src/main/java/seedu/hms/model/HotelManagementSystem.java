@@ -38,12 +38,9 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     {
         bookings = new BookingList();
         customers = new UniqueCustomerList();
-<<<<<<< HEAD
         serviceTypes = new ServiceTypeList();
         serviceTypes.setServiceTypes();
-=======
         reservations = new ReservationList();
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
     }
 
     public HotelManagementSystem() {

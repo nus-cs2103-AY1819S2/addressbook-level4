@@ -76,7 +76,6 @@ public class EditCustomerDescriptorBuilder {
     }
 
     /**
-     * <<<<<<< HEAD:src/test/java/seedu/address/testutil/EditCustomerDescriptorBuilder.java
      * Sets the {@code DateOfBirth} of the {@code EditCustomerDescriptor} that we are building.
      */
     public EditCustomerDescriptorBuilder withDateOfBirth(String dob) {
@@ -86,10 +85,7 @@ public class EditCustomerDescriptorBuilder {
 
     /**
      * Sets the {@code Address} of the {@code EditCustomerDescriptor} that we are building.
-     * =======
      * Sets the {@code hms} of the {@code EditCustomerDescriptor} that we are building.
-     * >>>>>>> f32e851bb9479d863dbfa54cb18c56bf0c85fbd6:src/test/java/seedu/hms/testutil
-     * /EditCustomerDescriptorBuilder.java
      */
     public EditCustomerDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));

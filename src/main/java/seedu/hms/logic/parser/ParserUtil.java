@@ -228,12 +228,7 @@ public class ParserUtil {
         requireNonNull(customerIndex);
         try {
             int index = Integer.parseInt(customerIndex);
-<<<<<<< HEAD
-            index = index - 1; //Get zero-based Index
-            return customers.get(index);
-=======
             return customers.get(index - 1);
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
         } catch (Exception e) {
             throw new ParseException(String.format("Invalid customer index - %s", customerIndex));
         }
@@ -247,11 +242,7 @@ public class ParserUtil {
         requireNonNull(customerIndices);
         final List<Customer> result = new ArrayList<>();
         for (String customerIndex : customerIndices) {
-<<<<<<< HEAD
-            result.add(customers.get(Integer.parseInt(customerIndex) - 1)); // -1 to get zero-based Index
-=======
             result.add(customers.get(Integer.parseInt(customerIndex) - 1));
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
         }
         return Optional.of(result);
     }

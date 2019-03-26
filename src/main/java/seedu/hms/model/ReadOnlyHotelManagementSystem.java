@@ -24,13 +24,12 @@ public interface ReadOnlyHotelManagementSystem extends Observable {
     ObservableList<Booking> getBookingList();
 
     /**
-<<<<<<< HEAD
-     * Returns an unmodifiable view of the bookings list.
+     * Returns an unmodifiable view of the serviceType list.
      */
     ObservableList<ServiceType> getServiceTypeList();
-=======
+
+    /**
      * Returns an unmodifiable view of the reservations list.
      */
     ObservableList<Reservation> getReservationList();
->>>>>>> f16231261242389059b205acb2980dbab0ff02c6
 }

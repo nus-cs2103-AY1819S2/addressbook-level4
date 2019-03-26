@@ -1,16 +1,15 @@
 package seedu.address.logic.commands;
 
-
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.sortMethods.SortAlphabetical;
-import seedu.address.logic.commands.sortMethods.SortSkills;
+import seedu.address.logic.commands.sortmethods.SortAlphabetical;
+import seedu.address.logic.commands.sortmethods.SortSkills;
 import seedu.address.model.Model;
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Person;
 import seedu.address.logic.parser.SortWord;
 
-import static java.util.Objects.requireNonNull;
 import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Sorts all persons in the address book and lists to the user.
@@ -18,16 +17,14 @@ import java.util.List;
 public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
-
+    public static final String MESSAGE_NOT_SORTED = "Sorting is not successful!";
+    public static final String MESSAGE_SUCCESS = "Sorted all persons";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all persons in address book "
             + "according to the specified keyword and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD \n"
             + "Valid KEYWORD: alphabetical, skills \n"
             + "Example: " + COMMAND_WORD + " alphabetical \n"
             + "Example: " + COMMAND_WORD + " skills ";
-
-    public static final String MESSAGE_SUCCESS = "Sorted all persons";
-    public static final String MESSAGE_NOT_SORTED = "Sorting is not successful!";
 
     private final SortWord method;
 
@@ -37,20 +34,24 @@ public class SortCommand extends Command {
         this.method = method;
     }
 
-    private void ProcessCommand(Model model) {
+    /**
+     * Processes the sort command
+     *
+     * @param model
+     */
+    private void processCommand(Model model) {
         List<Person> lastShownList = model.getAddressBook().getPersonList();
 
         //Maybe use switch statement here?
         if (this.method.getSortWord().equals("alphabetical")) {
             SortAlphabetical sorted = new SortAlphabetical(lastShownList);
             sortedPersons = sorted.getList();
-        }
-
-        else if (this.method.getSortWord().equals("skills")) {
+            model.deleteAllPerson();
+        } else if (this.method.getSortWord().equals("skills")) {
             SortSkills sorted = new SortSkills(lastShownList);
             sortedPersons = sorted.getList();
+            model.deleteAllPerson();
         }
-        model.deleteAllPerson();
         for (Person newPerson : sortedPersons) {
             model.addPersonWithFilter(newPerson);
         }
@@ -61,13 +62,12 @@ public class SortCommand extends Command {
         requireNonNull(model);
         try {
             model.setSortInfo(true);
-            ProcessCommand(model);
-            String MESSAGE_SUCCESS = "Sorted all persons by " + method.toString();
+            processCommand(model);
+            String messageSuccess = "Sorted all persons by " + method.toString();
             model.commitAddressBook();
             model.setSortInfo(false);
-            return new CommandResult(MESSAGE_SUCCESS);
-        }
-        catch(Exception e) {
+            return new CommandResult(messageSuccess);
+        } catch (Exception e) {
             return new CommandResult(MESSAGE_NOT_SORTED);
         }
     }

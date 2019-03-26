@@ -2,7 +2,14 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -21,16 +28,19 @@ import seedu.address.model.tag.SkillsTag;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
-    Set<SkillsTag> allTags = new HashSet<>();
+    private Set<SkillsTag> allTags = new HashSet<>();
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_EDUCATION, PREFIX_GPA, PREFIX_ADDRESS, PREFIX_SKILL, PREFIX_POS);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_EDUCATION,
+                        PREFIX_GPA, PREFIX_ADDRESS, PREFIX_SKILL, PREFIX_POS);
 
         Index index;
 
@@ -52,7 +62,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_GPA).isPresent()) {
-            editPersonDescriptor.setGPA(ParserUtil.parseGPA(argMultimap.getValue(PREFIX_GPA).get()));
+            editPersonDescriptor.setGpa(ParserUtil.parseGpa(argMultimap.getValue(PREFIX_GPA).get()));
         }
 
         if (argMultimap.getValue(PREFIX_EDUCATION).isPresent()) {

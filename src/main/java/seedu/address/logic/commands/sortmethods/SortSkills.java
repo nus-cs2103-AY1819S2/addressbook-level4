@@ -1,9 +1,12 @@
-package seedu.address.logic.commands.sortMethods;
+package seedu.address.logic.commands.sortmethods;
 
 import seedu.address.model.person.*;
+import seedu.address.model.person.Gpa;
 import seedu.address.model.tag.SkillsTag;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 
 /**
@@ -18,11 +21,23 @@ public class SortSkills {
         return this.newList;
     }
 
-    private List<Person> OrderPersonsTags(List<Person> lastShownList) {
+    public SortSkills(List<Person> lastShownList) {
+        //Modify each Person to organise tags alphabetically
+        List<Person> personsWithCorrectTagOrder = orderPersonsTags(lastShownList);
+        //Sort Persons alphabetically by tags
+        List<Person> newList = SortUtil.sortPersonsByTags(personsWithCorrectTagOrder);
+
+        this.newList = newList;
+    }
+
+    /**
+     * Gets from the list the information of person and processes
+     */
+    private List<Person> orderPersonsTags(List<Person> lastShownList) {
         List<Person> personsWithCorrectTagOrder = new ArrayList<>();
-        for (int i=0; i<lastShownList.size(); i++) {
+        for (int i = 0; i < lastShownList.size(); i++) {
             //Change Set to List to utilise stream sorting
-            List<SkillsTag> individualSkills= new ArrayList<>();
+            List<SkillsTag> individualSkills = new ArrayList<>();
             individualSkills.addAll(lastShownList.get(i).getTags());
             List<SkillsTag> individualSortedSkills = SortUtil.sortSkillTags(individualSkills);
 
@@ -30,7 +45,7 @@ public class SortSkills {
             Phone phone = lastShownList.get(i).getPhone();
             Email email = lastShownList.get(i).getEmail();
             Education education = lastShownList.get(i).getEducation();
-            GPA gpa = lastShownList.get(i).getGPA();
+            Gpa gpa = lastShownList.get(i).getGPA();
             Address address = lastShownList.get(i).getAddress();
             //change list back to set
             LinkedHashSet<SkillsTag> tagSet = SortUtil.toTags(individualSortedSkills);
@@ -39,14 +54,5 @@ public class SortSkills {
             personsWithCorrectTagOrder.add(person);
         }
         return personsWithCorrectTagOrder;
-    }
-
-    public SortSkills(List<Person> lastShownList) {
-        //Modify each Person to organise tags alphabetically
-        List<Person> personsWithCorrectTagOrder = OrderPersonsTags(lastShownList);
-        //Sort Persons alphabetically by tags
-        List<Person> newList = SortUtil.sortPersonsByTags(personsWithCorrectTagOrder);
-
-        this.newList = newList;
     }
 }

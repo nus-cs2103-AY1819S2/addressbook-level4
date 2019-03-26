@@ -27,13 +27,12 @@ public class SkillsTag {
         this.tagColor = color;
     }
 
-    public SkillsTag(String tagName){
+    public SkillsTag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
         this.tagName = tagName;
         this.tagColor = "yellow";
     }
-
 
     /**
      * Returns true if a given string is a valid tag name.

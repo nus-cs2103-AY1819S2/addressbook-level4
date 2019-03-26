@@ -16,7 +16,7 @@ public class VersionedAddressBook extends AddressBook {
         super(initialState);
 
         addressBookStateList = new ArrayList<>();
-        filterStateList  = new ArrayList<>();
+        filterStateList = new ArrayList<>();
         addressBookStateList.add(new AddressBook(initialState));
         filterStateList.add(0);
         currentStatePointer = 0;
@@ -30,8 +30,11 @@ public class VersionedAddressBook extends AddressBook {
 
         removeStatesAfterCurrentPointer();
         addressBookStateList.add(new AddressBook(this));
-        if(getFilterInfo()) filterStateList.add(1);
-        else filterStateList.add(0);
+        if (getFilterInfo()) {
+            filterStateList.add(1);
+        } else {
+            filterStateList.add(0);
+        }
         currentStatePointer++;
         indicateModified();
     }
@@ -54,8 +57,7 @@ public class VersionedAddressBook extends AddressBook {
         resetData(addressBookStateList.get(currentStatePointer));
         if (filterStateList.get(currentStatePointer) == 0) {
             setFilterInfo(false);
-        }
-        else {
+        } else {
             setFilterInfo(true);
         }
     }
@@ -70,8 +72,8 @@ public class VersionedAddressBook extends AddressBook {
         }
         currentStatePointer++;
         resetData(addressBookStateList.get(currentStatePointer));
-        if(filterStateList.get(currentStatePointer) == 0) setFilterInfo(false);
-        else  setFilterInfo(true);
+        if (filterStateList.get(currentStatePointer) == 0) setFilterInfo(false);
+        else setFilterInfo(true);
     }
 
     /**

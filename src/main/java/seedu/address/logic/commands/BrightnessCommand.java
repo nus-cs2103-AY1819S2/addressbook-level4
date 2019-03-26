@@ -25,9 +25,9 @@ public class BrightnessCommand extends Command {
     public static final String COMMAND_WORD = "brightness";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Adjust the brightness of the image according to the operators.\n"
+        + ": Adjust the brightness of the image according to ratio value given.\n"
         + "If ratio is not given, default brightness ratio will be 1.1\n"
-        + "[BRIGHTNESS RATIO (double)] "
+        + "Parameters: [BRIGHTNESS RATIO (double)] "
         + "and FILENAME.\n"
         + "Example: " + COMMAND_WORD + " cutedog.jpg"
         + "Example2: " + COMMAND_WORD + " 0.3 cutedog.jpg";
@@ -37,7 +37,7 @@ public class BrightnessCommand extends Command {
     /**
      * Creates a ContrastCommand object.
      * @param brightnessValue brightness value to add on image
-     * @param fileName is the file name of the image.
+     * @param fileName file name of the image
      */
     public BrightnessCommand(OptionalDouble brightnessValue, String fileName) {
         this.brightnessValue = brightnessValue;

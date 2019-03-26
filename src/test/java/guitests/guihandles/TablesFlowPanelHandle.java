@@ -10,7 +10,7 @@ import javafx.scene.layout.FlowPane;
  */
 public class TablesFlowPanelHandle extends NodeHandle<FlowPane> {
 
-    public static final String TABLES_FLOW_PANEL_ID = "#tablesFlowPanel";
+    public static final String TABLE_FLOW_PANEL_ID = "#tableFlowPanel";
 
     private static final String CARD_PANE_ID = "#cardPane";
 

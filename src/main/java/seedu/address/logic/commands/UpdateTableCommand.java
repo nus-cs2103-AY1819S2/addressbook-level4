@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import seedu.address.logic.CommandHistory;
@@ -44,21 +45,28 @@ public class UpdateTableCommand extends Command {
         if (!optionalTable.isPresent()) {
             throw new CommandException(String.format(MESSAGE_INVALID_TABLE_NUMBER, tableNumber));
         }
-        TableStatus updatedTableStatus = optionalTable.get().getTableStatus();
-        updatedTableStatus.changeOccupancy(newTableStatus[1]);
+        String updatedTableStatusInString =
+                newTableStatus[1] + "/" + optionalTable.get().getTableStatus().toString().substring(2);
+        TableStatus updatedTableStatus;
+        try {
+            updatedTableStatus = new TableStatus(updatedTableStatusInString);
+        } catch (IllegalArgumentException e) {
+            throw new CommandException(String.format(TableStatus.MESSAGE_INVALID_NUMBER_OF_CUSTOMERS,
+                    updatedTableStatusInString.substring(2)));
+        }
         Table updatedTable = new Table(tableNumber, updatedTableStatus);
         model.setTable(optionalTable.get(), updatedTable);
         if (Integer.parseInt(newTableStatus[1]) == 0) {
             model.clearOrderItemsFrom(tableNumber);
         }
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, updatedTable.getTableNumber(), optionalTable.get().getTableStatus()));
+                String.format(MESSAGE_SUCCESS, updatedTable.getTableNumber(), updatedTableStatusInString));
     }
 
     @Override
     public boolean equals(Object other) {
-        return other == this || (other instanceof UpdateTableCommand && newTableStatus
-                .equals(((UpdateTableCommand) other).newTableStatus));
+        return other == this || (other instanceof UpdateTableCommand
+                && Arrays.equals(newTableStatus, ((UpdateTableCommand) other).newTableStatus));
     }
 
     @Override

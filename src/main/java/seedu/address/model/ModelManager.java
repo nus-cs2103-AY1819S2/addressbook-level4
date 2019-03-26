@@ -41,6 +41,9 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
+    //Card related
+    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+
     // CardFolder related
     private ObservableList<VersionedCardFolder> folders;
     private final FilteredList<VersionedCardFolder> filteredFolders;
@@ -49,8 +52,9 @@ public class ModelManager implements Model {
     private boolean inFolder;
 
     // Test Session related
-    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
+    private ObservableList<Card> currentTestedCardFolder;
+    private int currentTestedCardIndex;
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
@@ -320,8 +324,16 @@ public class ModelManager implements Model {
 
     @Override
     public void testCardFolder(int cardFolderToTestIndex) {
-        ObservableList<Card> currentTestedCardFolder = getActiveCardFolder().getCardList();
-        Card cardToTest = currentTestedCardFolder.get(0);
+        setActiveCardFolderIndex(cardFolderToTestIndex);
+        currentTestedCardFolder = getActiveCardFolder().getCardList();
+        if (currentTestedCardFolder.isEmpty()) {
+            throw new EmptyCardFolderException();
+        }
+
+        sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
+
+        currentTestedCardIndex = 0;
+        Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
         numAnsweredCorrectly = 0;
@@ -346,10 +358,11 @@ public class ModelManager implements Model {
                 .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
         getActiveVersionedCardFolder().commit();
         insideTestSession = false;
-        cardAlreadyAnswered = false;
+        setCardAsNotAnswered();
         numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
-        //TODO: exit card folder
+        currentTestedCardFolder = null;
+        exitFoldersToHome();
     }
 
     @Override
@@ -358,7 +371,6 @@ public class ModelManager implements Model {
         String correctAnswerInCapitals = correctAnswer.toString().toUpperCase();
         String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
 
-        //LOOSEN MORE CRITERIAS?
         if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
             numAnsweredCorrectly++;
             return true;
@@ -371,6 +383,10 @@ public class ModelManager implements Model {
         cardAlreadyAnswered = true;
     }
 
+    private void setCardAsNotAnswered() {
+        cardAlreadyAnswered = false;
+    }
+
     @Override
     public boolean checkIfCardAlreadyAnswered() {
         return cardAlreadyAnswered;
@@ -379,6 +395,18 @@ public class ModelManager implements Model {
     @Override
     public boolean checkIfInsideTestSession() {
         return insideTestSession;
+    }
+
+    @Override
+    public boolean testNextCard() {
+        currentTestedCardIndex += 1;
+        if (currentTestedCardIndex == currentTestedCardFolder.size()) {
+            return false;
+        }
+        Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
+        setCurrentTestedCard(cardToTest);
+        setCardAsNotAnswered();
+        return true;
     }
 
     //=========== Selected card ===========================================================================

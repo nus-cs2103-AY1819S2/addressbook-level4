@@ -2,7 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
@@ -34,11 +35,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         allPersonsStorage = new UniquePersonList();
         persons = new UniquePersonList();
         isFilterExist = false;
+        sortingExist = false;
     }
 
     public AddressBook() {
@@ -145,6 +146,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * It removes all the persons in the list
+     */
     public void removeAllPerson() {
         List<Person> listToRemove = new ArrayList();
         for (Person person : persons) {
@@ -157,7 +161,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
-    public void filterAnd(String name, String phone, String email, String address, String[] skillList, String[] posList, String gpa, String education) {
+    /**
+     * Makes the filtering process according to and command
+     */
+    public void filterAnd(String name, String phone, String email, String address, String[] skillList,
+                          String[] posList, String gpa, String education) {
 
         isFilterExist = true;
         List<Person> listToRemove = new ArrayList();
@@ -217,7 +225,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
-    public void filterOr(String name, String phone, String email, String address, String[] skillList, String[] posList, String gpa, String education) {
+    /**
+     * Makes the filtering process according to or command
+     */
+    public void filterOr(String name, String phone, String email, String address, String[] skillList,
+                         String[] posList, String gpa, String education) {
 
         isFilterExist = true;
         List<Person> listToRemove = new ArrayList();
@@ -264,8 +276,8 @@ public class AddressBook implements ReadOnlyAddressBook {
                 ifIncluded = true;
             }
 
-            if(gpa != null) {
-                System.out.println("GPA will be printed!");
+            if (gpa != null) {
+                System.out.println("Gpa will be printed!");
                 System.out.println(Float.parseFloat(gpa));
                 System.out.println(Float.parseFloat(person.getGPA().toString()));
             }
@@ -283,6 +295,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * Clears the filter
+     */
     public void clearFilter() {
 
         if (isFilterExist) {
@@ -298,20 +313,32 @@ public class AddressBook implements ReadOnlyAddressBook {
         isFilterExist = false;
     }
 
+    /**
+     * gets filter info
+     */
     public boolean getFilterInfo() {
         return isFilterExist;
     }
 
+    /**
+     * sets filter info
+     */
     public void setFilterInfo(boolean status) {
         isFilterExist = status;
     }
 
+    /**
+     * gets sort info
+     */
     public boolean getSortInfo() {
-        return isFilterExist;
+        return sortingExist;
     }
 
+    /**
+     * sets sort info
+     */
     public void setSortInfo(boolean status) {
-        isFilterExist = status;
+        sortingExist = status;
     }
 
     @Override

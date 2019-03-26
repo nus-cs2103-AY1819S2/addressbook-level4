@@ -107,8 +107,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void removeFilterWhileExiting() throws CommandException{
-
+    public void removeFilterWhileExiting() throws CommandException {
         model.clearFilter();
         try {
             storage.saveAddressBook(model.getAddressBook());

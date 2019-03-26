@@ -10,13 +10,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.GPA;
-import seedu.address.model.person.Education;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
+import seedu.address.model.person.Gpa;
 import seedu.address.model.tag.SkillsTag;
 
 /**
@@ -38,9 +33,10 @@ class JsonAdaptedPerson {
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone, @JsonProperty("education") String education, @JsonProperty("gpa") String gpa,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                             @JsonProperty("education") String education, @JsonProperty("gpa") String gpa,
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -102,13 +98,13 @@ class JsonAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
-        if( gpa == null){
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, GPA.class.getSimpleName()));
+        if (gpa == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Gpa.class.getSimpleName()));
         }
-        if (!GPA.isValidGpa(gpa)) {
+        if (!Gpa.isValidGpa(gpa)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
         }
-        final GPA modelGPA = new GPA(gpa);
+        final Gpa modelGpa = new Gpa(gpa);
 
         if (education == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Education.class.getSimpleName()));
@@ -126,7 +122,7 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
         final Set<SkillsTag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelEducation, modelGPA, modelAddress, modelTags);
+        return new Person(modelName, modelPhone, modelEmail, modelEducation, modelGpa, modelAddress, modelTags);
     }
 
 }

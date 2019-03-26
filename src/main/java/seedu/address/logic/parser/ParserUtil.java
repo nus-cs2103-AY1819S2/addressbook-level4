@@ -9,14 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-
+import seedu.address.model.person.*;
+import seedu.address.model.person.Gpa;
 import seedu.address.model.tag.SkillsTag;
-import seedu.address.model.person.GPA;
-import seedu.address.model.person.Education;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -28,6 +23,7 @@ public class ParserUtil {
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -113,15 +109,27 @@ public class ParserUtil {
         return new SkillsTag(trimmedTag, color);
     }
 
-    public static GPA parseGPA(String gpa) throws ParseException {
+    /**
+     * Parses the Gpa
+     * @param gpa
+     * @return
+     * @throws ParseException
+     */
+    public static Gpa parseGpa(String gpa) throws ParseException {
         requireNonNull(gpa);
         String trimmedGPA = gpa.trim();
-        if (!GPA.isValidGpa(trimmedGPA)) {
-            throw new ParseException(GPA.MESSAGE_CONSTRAINTS);
+        if (!Gpa.isValidGpa(trimmedGPA)) {
+            throw new ParseException(Gpa.MESSAGE_CONSTRAINTS);
         }
-        return new GPA(trimmedGPA);
+        return new Gpa(trimmedGPA);
     }
 
+    /**
+     * Parses the education field
+     * @param education
+     * @return
+     * @throws ParseException
+     */
     public static Education parseEducation(String education) throws ParseException {
         requireNonNull(education);
         String trimmedEducation = education.trim();
@@ -138,9 +146,9 @@ public class ParserUtil {
         requireNonNull(tags);
         final Set<SkillsTag> tagSet = new HashSet<>();
         final String color;
-        if(type.equals("skill")){
+        if (type.equals("skill")) {
             color = "yellow";
-        }else{
+        } else {
             color = "pink";
         }
         for (String tagName : tags) {
@@ -158,5 +166,4 @@ public class ParserUtil {
         String trimmedSortWord = sortWord.trim();
         return new SortWord(trimmedSortWord);
     }
-
 }

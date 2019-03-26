@@ -156,13 +156,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void filterAnd(String name, String phone, String email, String address, String[] skillList, String[] posList, String gpa, String education) {
+    public void filterAnd(String name, String phone, String email, String address, String[] skillList,
+                          String[] posList, String gpa, String education) {
         versionedAddressBook.filterAnd(name, phone, email, address, skillList, posList, gpa, education);
         logger.info("Persons are filtered according to 'AND' condition.");
     }
 
     @Override
-    public void filterOr(String name, String phone, String email, String address, String[] skillList, String[] posList, String gpa, String education) {
+    public void filterOr(String name, String phone, String email, String address, String[] skillList,
+                         String[] posList, String gpa, String education) {
         versionedAddressBook.filterOr(name, phone, email, address, skillList, posList, gpa, education);
         logger.info("Persons are filtered according to 'OR' condition.");
     }

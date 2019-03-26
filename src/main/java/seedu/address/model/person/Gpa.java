@@ -7,20 +7,20 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidGpa(String)}
  */
-public class GPA {
+public class Gpa {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-            "GPA values should only contain numbers, and it should be at least 1 digits long";
+            "Gpa values should only contain numbers, and it should be at least 1 digits long";
     // public static final String VALIDATION_REGEX = "\\d{1,}";
     public final String value;
 
     /**
-     * Constructs a {@code GPA}.
+     * Constructs a {@code Gpa}.
      *
      * @param gpa A valid gpa value.
      */
-    public GPA(String gpa) {
+    public Gpa(String gpa) {
         requireNonNull(gpa);
         checkArgument(isValidGpa(gpa), MESSAGE_CONSTRAINTS);
         value = gpa;
@@ -33,7 +33,7 @@ public class GPA {
 
         try {
             float value = Float.parseFloat(test.trim().toLowerCase());
-            if(value < 0.0 || value > 4.0) {
+            if (value < 0.0 || value > 4.0) {
                 return false;
             }
         } catch (NumberFormatException e) {
@@ -50,8 +50,8 @@ public class GPA {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof GPA // instanceof handles nulls
-                && value.equals(((GPA) other).value)); // state check
+                || (other instanceof Gpa // instanceof handles nulls
+                && value.equals(((Gpa) other).value)); // state check
     }
 
     @Override

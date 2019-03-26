@@ -13,6 +13,7 @@ import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
+import seedu.address.model.user.CardSrsData;
 
 /**
  * Represents the in-memory management of quiz data
@@ -20,9 +21,10 @@ import seedu.address.model.srscard.SrsCard;
 public class QuizModelManager implements QuizModel {
     private static final Logger logger = LogsCenter.getLogger(QuizModelManager.class);
 
+    private ManagementModel managementModel;
     private Quiz quiz;
-    private QuizUiDisplayFormatter formatter;
     private Session session;
+    private QuizUiDisplayFormatter formatter;
 
     /**
      * Initialises empty QuizModelManager
@@ -32,6 +34,9 @@ public class QuizModelManager implements QuizModel {
 
         logger.fine("Initializing empty constructor");
     }
+
+    //=========== Session ==================================================================================
+
     @Override
     public QuizMode getMode() {
         return session.getMode();
@@ -52,16 +57,29 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
+    public void updateUserProfile(List<List<Integer>> quizInformation) {
+        List<CardSrsData> cardSrsDataList = session.updateUserProfile(quizInformation);
+
+        // TODO addCardSrsData should support add list of cards.
+        for (CardSrsData cardSrsData : cardSrsDataList) {
+            managementModel.addCardSrsData(cardSrsData);
+        }
+    }
+
+    //=========== Quiz ==================================================================================
+
+    @Override
     public void init(Quiz quiz) {
         requireAllNonNull(quiz);
         this.quiz = quiz;
     }
 
     @Override
-    public void initWithSession(Quiz quiz, Session session) {
-        requireAllNonNull(quiz, session);
+    public void initWithSession(Quiz quiz, Session session, ManagementModel managementModel) {
+        requireAllNonNull(quiz, session, managementModel);
         this.quiz = quiz;
         this.session = session;
+        this.managementModel = managementModel;
     }
 
     @Override
@@ -117,10 +135,6 @@ public class QuizModelManager implements QuizModel {
     @Override
     public List<List<Integer>> end() {
         return quiz.end();
-    }
-    @Override
-    public void updateUserProfile(ManagementModel model, List<List<Integer>> quizInformation) {
-        session.updateUserProfile(model, quizInformation);
     }
 
     @Override

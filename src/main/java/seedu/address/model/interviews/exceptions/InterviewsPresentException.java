@@ -1,7 +1,6 @@
-package seedu.address.model.job.exceptions;
+package seedu.address.model.interviews.exceptions;
 
-public class InterviewsPresentException extends RuntimeException {
-    public InterviewsPresentException() {
-        super("Interviews already present");
-    }
-}
+/**
+ * Signals that the interview has already been generated
+ */
+public class InterviewsPresentException extends RuntimeException {}

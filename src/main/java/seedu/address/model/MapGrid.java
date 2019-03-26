@@ -13,6 +13,7 @@ import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.battleship.Battleship;
+import seedu.address.model.battleship.Orientation;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
 import seedu.address.model.cell.Row;
@@ -22,8 +23,7 @@ import seedu.address.model.cell.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the map grid level
  */
 public class MapGrid implements ReadOnlyAddressBook {
 
@@ -167,7 +167,7 @@ public class MapGrid implements ReadOnlyAddressBook {
     // Cell operations
     /**
      * Put battleship in the given coordinates
-     */
+
     public void putShip(Coordinates coordinates, Battleship battleship) throws ArrayIndexOutOfBoundsException {
         if (coordinates.getColIndex().getOneBased() > getMapSize()) {
             throw new ArrayIndexOutOfBoundsException("Coordinates are outside of the map");
@@ -177,6 +177,7 @@ public class MapGrid implements ReadOnlyAddressBook {
             .putShip(battleship);
         updateUi();
     }
+     */
 
     /**
      * Attack a specified cell. Returns true if a ship was hit otherwise false.
@@ -277,6 +278,33 @@ public class MapGrid implements ReadOnlyAddressBook {
     public void deleteTag(Tag tag) {
         for (Cell cell : this.getPersonList()) {
             this.removeTag(tag, cell);
+        }
+    }
+
+    /**
+     * Put battleship on map grid.
+     */
+    public void putShip(Battleship battleship, Coordinates coordinates, Orientation orientation)
+            throws ArrayIndexOutOfBoundsException {
+        int rowIndexAsInt = coordinates.getRowIndex().getZeroBased();
+        int colIndexAsInt = coordinates.getColIndex().getZeroBased();
+
+        if ((coordinates.getColIndex().getOneBased() > getMapSize())
+            || (coordinates.getRowIndex().getOneBased() > getMapSize())) {
+            throw new ArrayIndexOutOfBoundsException("Coordinates are outside of the map");
+        }
+
+        int rowInt = rowIndexAsInt;
+        int colInt = colIndexAsInt;
+
+        for (int i = 0; i < battleship.getLength(); i++) {
+            if (orientation.isHorizontal()) {
+                colInt = colIndexAsInt + i;
+            } else {
+                rowInt = rowIndexAsInt + i;
+            }
+
+            cellGrid[rowInt][colInt].putShip(battleship);
         }
     }
 

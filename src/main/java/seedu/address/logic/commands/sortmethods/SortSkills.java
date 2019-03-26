@@ -1,8 +1,8 @@
 package seedu.address.logic.commands.sortmethods;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.ArrayList;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Education;

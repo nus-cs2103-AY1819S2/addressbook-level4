@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_REVERSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL_REVERSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
+
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -90,20 +91,17 @@ public class FilterCommand extends Command {
      */
     private void processCommand(Model model) {
 
-        // or statement will be processed
+
         if (processNum == 1) {
+            // or statement will be processed
             isFilterCleared = false;
             model.filterOr(name, phone, email, address, skillList, posList, gpa, education);
-        }
-
-        // and statement will be processed
-        else if (processNum == 2) {
+        } else if (processNum == 2) {
+            // and statement will be processed
             isFilterCleared = false;
             model.filterAnd(name, phone, email, address, skillList, posList, gpa, education);
-        }
-
-        // clear statement will be processed
-        else {
+        } else {
+            // clear statement will be processed
             if (model.getFilterInfo()) {
                 model.clearFilter();
                 isFilterCleared = true;

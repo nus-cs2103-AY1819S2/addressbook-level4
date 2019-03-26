@@ -33,7 +33,7 @@ public class Year {
     public Year(String year) {
         requireNonNull(year);
         checkArgument(isValidYear(year), MESSAGE_CONSTRAINTS);
-        this.year = year;
+        this.year = String.valueOf(Integer.parseInt(year));
     }
 
     /**
@@ -50,6 +50,14 @@ public class Year {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Returns true if a given string is a leap year.
+     */
+    public static boolean isLeapYear(String year) {
+        requireNonNull(year);
+        return (((Integer.parseInt(year) % 4 == 0) && (Integer.parseInt(year) % 100 != 0))
+                || Integer.parseInt(year) % 400 == 0);
+    }
 
     @Override
     public String toString() {

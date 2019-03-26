@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.Set;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
 import seedu.address.model.hint.Hint;
 
 /**
@@ -45,9 +47,17 @@ public class CardUtil {
         if (descriptor.getHints().isPresent()) {
             Set<Hint> hints = descriptor.getHints().get();
             if (hints.isEmpty()) {
-                sb.append(PREFIX_HINT);
+                sb.append(PREFIX_HINT + " ");
             } else {
                 hints.forEach(s -> sb.append(PREFIX_HINT).append(s.hintName).append(" "));
+            }
+        }
+        if (descriptor.getOptions().isPresent()) {
+            Set<Option> options = descriptor.getOptions().get();
+            if (options.isEmpty()) {
+                sb.append(PREFIX_OPTION + " ");
+            } else {
+                options.forEach(s -> sb.append(PREFIX_OPTION).append(s.optionValue).append(" "));
             }
         }
         return sb.toString();

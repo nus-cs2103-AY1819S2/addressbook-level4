@@ -85,7 +85,7 @@ public class CardListPanelTest extends GuiUnitTest {
             Question question = new Question(i + "a");
             Answer answer = new Answer("000");
             Score score = new Score("0/1");
-            Card card = new Card(question, answer, score, Collections.emptySet());
+            Card card = new Card(question, answer, score, Collections.emptySet(), Collections.emptySet());
             backingList.add(card);
         }
         return backingList;

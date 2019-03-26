@@ -181,6 +181,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Display the next card in this test session.
+     */
+    private void handleNextCardTestSession(Card card) {
+        fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+        testSession = new TestSession(card);
+        Region testSessionRegion = (testSession).getRoot();
+        fullScreenPlaceholder.getChildren().add(testSessionRegion);
+    }
+
+    /**
      * Ends test session and display back card main screen.
      */
     private void handleEndTestSession() {
@@ -207,7 +217,6 @@ public class MainWindow extends UiPart<Stage> {
      * Show the page with correct answer.
      */
     private void handleCorrectAnswer() {
-        //TODO: Change UI to display correct answer
         assert testSession != null;
         testSession.handleCorrectAnswer();
     }
@@ -216,7 +225,6 @@ public class MainWindow extends UiPart<Stage> {
      * Show the page with wrong answer.
      */
     private void handleWrongAnswer() {
-        //TODO: Change UI to display wrong answer
         assert testSession != null;
         testSession.handleWrongAnswer();
     }
@@ -240,36 +248,35 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            switch (commandResult.getType()) {
+            case SHOW_HELP:
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+                break;
+            case IS_EXIT:
                 handleExit();
-            }
-
-            if (commandResult.enteredFolder()) {
+                break;
+            case ENTERED_FOLDER:
                 handleEnterFolder();
-            }
-
-            if (commandResult.exitedFolder()) {
+                break;
+            case EXITED_FOLDER:
                 handleExitFolder();
-            }
-
-            if (commandResult.isTestSession()) {
+                break;
+            case START_TEST_SESSION:
                 handleStartTestSession(commandResult.getTestSessionCard());
-            }
-
-            if (commandResult.isEndTestSession()) {
+                break;
+            case END_TEST_SESSION:
                 handleEndTestSession();
-            }
-
-            if (commandResult.isAnswerCommand()) {
-                if (commandResult.isAnswerCorrect()) {
-                    handleCorrectAnswer();
-                } else {
-                    handleWrongAnswer();
-                }
+                break;
+            case SHOW_NEXT_CARD:
+                handleNextCardTestSession(commandResult.getTestSessionCard());
+                break;
+            case ANSWER_CORRECT:
+                handleCorrectAnswer();
+                break;
+            case ANSWER_WRONG:
+                handleWrongAnswer();
+                break;
+            default:
             }
 
             return commandResult;

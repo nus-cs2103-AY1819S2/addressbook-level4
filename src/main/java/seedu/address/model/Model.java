@@ -219,6 +219,13 @@ public interface Model extends Observable {
     void endTestSession();
 
     /**
+     * Test the next card in the current folder in this test session.
+     * Returns true if successfully found next card,
+     * false if there is no next card.
+     */
+    boolean testNextCard();
+
+    /**
      * Returns true if the given answer is right
      * false if answer is wrong
      */

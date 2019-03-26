@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_OPTION_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
 
 import org.junit.Test;
@@ -40,6 +41,10 @@ public class EditCardDescriptorTest {
 
         // different answer -> returns false
         editedAmy = new EditCardDescriptorBuilder(DESC_AMY).withAnswer(VALID_ANSWER_2).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different option -> returns false
+        editedAmy = new EditCardDescriptorBuilder(DESC_AMY).withOptions(VALID_OPTION_2).build();
         assertFalse(DESC_AMY.equals(editedAmy));
 
         // different hint -> returns false

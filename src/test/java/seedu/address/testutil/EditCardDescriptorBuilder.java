@@ -8,6 +8,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditCardDescriptor;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
 import seedu.address.model.hint.Hint;
 
@@ -33,6 +34,7 @@ public class EditCardDescriptorBuilder {
         descriptor = new EditCommand.EditCardDescriptor();
         descriptor.setQuestion(card.getQuestion());
         descriptor.setAnswer(card.getAnswer());
+        descriptor.setOptions(card.getOptions());
         descriptor.setHints(card.getHints());
     }
 
@@ -49,6 +51,16 @@ public class EditCardDescriptorBuilder {
      */
     public EditCardDescriptorBuilder withAnswer(String answer) {
         descriptor.setAnswer(new Answer(answer));
+        return this;
+    }
+
+    /**
+     * Parses the {@code options} into a {@code Set<Option>} and set it to the {@code EditCardDescriptor}
+     * that we are building.
+     */
+    public EditCardDescriptorBuilder withOptions(String... options) {
+        Set<Option> optionSet = Stream.of(options).map(Option::new).collect(Collectors.toSet());
+        descriptor.setOptions(optionSet);
         return this;
     }
 

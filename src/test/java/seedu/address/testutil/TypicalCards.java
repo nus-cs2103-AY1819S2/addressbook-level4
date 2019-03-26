@@ -24,8 +24,8 @@ public class TypicalCards {
 
     public static final Card ALICE = new CardBuilder().withQuestion("Alice Pauline").withAnswer("94351253")
             .withScore("0/0").withHint("friends").build();
-    public static final Card BENSON = new CardBuilder().withQuestion("Benson Meier")
-            .withAnswer("98765432").withScore("0/0").withHint("owesMoney").build();
+    public static final Card BENSON = new CardBuilder().withQuestion("Benson Meier").withAnswer("98765432")
+            .withScore("0/0").withHint("owesMoney").build();
     public static final Card CARL = new CardBuilder().withQuestion("Carl Kurz").withAnswer("95352563").withScore("0/0")
             .build();
     public static final Card DANIEL = new CardBuilder().withQuestion("Daniel Meier").withAnswer("87652533")
@@ -51,6 +51,8 @@ public class TypicalCards {
 
     public static final String TYPICAL_FOLDER_NAME = "Typical Cards";
 
+    public static final List<Double> TYPICAL_FOLDER_SCORES = new ArrayList<>(Arrays.asList(0.5));
+
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalCards() {} // prevents instantiation
@@ -65,6 +67,7 @@ public class TypicalCards {
      */
     public static CardFolder getTypicalCardFolder() {
         CardFolder folder = new CardFolder(getTypicalFolderName());
+        folder.setFolderScores(TYPICAL_FOLDER_SCORES);
         for (Card card : getTypicalCards()) {
             folder.addCard(card);
         }

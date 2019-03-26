@@ -122,7 +122,6 @@ public class FilterCommandParserTest {
                 (MESSAGE_INVALID_COMMAND_FORMAT, FilterHealthWorkerCommand.MESSAGE_USAGE));
     }
 
-
     @Test
     public void parse_healthWorker_validInput() throws ParseException {
         String expectedMessage = String.format(MESSAGE_HEALTHWORKER_LISTED_OVERVIEW, 1);

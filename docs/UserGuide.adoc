@@ -1,13 +1,9 @@
-= Hotel Management System - User Guide
-
-Welcome to the `HMS+ User Guide`.
-
-Hope you are as excited as we were when we developed this guide for you.
-
+= HMS+ - User Guide
 :site-section: UserGuide
-:toc:
-:toc-title:
+:toc: right
+:toc-title: Contents
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -19,13 +15,13 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-t12-1/main
 
-By: `cs2103-ay1819s2-t12-1`      Since: `Feb 2019`      Licence: `MIT`
+By: `Team T12-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introducing HMS+
 
 You need a world-class property management system to run your hotel’s front desk and back office. We’ve spent years listening to what independent hoteliers need to take their business to the next level. From before check-in to post check out, we have everything you need to get your customers moving and your hotel running.
 
-HMS+ is for hotels that want to use a single, integrated system to *manage all aspects of their requirements*. As a command line app, HMS is highly customisable to match the needs for different hotels and allows easy scripting for batch processing.
+HMS+ is for hotels that want to use a *single, integrated system to manage all aspects of their requirements*.
 
 This user guide provides in-depth documentation on the HMS+ installation process, system configuration and management, monitoring and troubleshooting problems. In addition the <<Getting Started>> will provide the basic knowledge of the setup process and how you can get started.
 
@@ -67,7 +63,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Effect: Displays a help list, which lists all the commands that can be used. +
 Format: `help`
 
-=== Adding a customer : `addcustomer`, `ac`
+=== Clearing all entries : `clear-hms`, `clear-all`
+
+Effect: Clears all entries from the database. +
+Format: `{clear-hms/clear-all}`
+
+=== Customer commands
+==== Adding a customer : `addcustomer`, `ac`
 
 Effect: Adds a customer to the customer database. +
 Format: `{addcustomer/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
@@ -80,12 +82,12 @@ Examples:
 * `addc n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/552526 a/John street, block 123, #01-01`
 * `addc n/Betsy Crowe e/betsy.crowe@example.com p/123456 id/345252`
 
-=== Listing all customers : `listcustomers`, `lc`
+==== Listing all customers : `listcustomers`, `lc`
 
 Effect: Displays a customer list, which lists all customers in the customer database. +
 Format: `{listcustomers/lc}`
 
-=== Editing a customer : `editcustomer`, `ec`
+==== Editing a customer : `editcustomer`, `ec`
 
 Effect: Edits the fields of an existing customer in the customer database. +
 Format: `{editcustomer/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
@@ -105,7 +107,7 @@ Edits the phone number and email address of the 1st customer to be 91234567 and 
 * `listc`, then `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing tags.
 
-=== Finding customers by name: `findname`, `fn`
+==== Finding customers by name: `findname`, `fn`
 
 Effect: Displays a customer list, which consists of customers whose names contain any of the given keywords. +
 Format: `{findname/fn} KEYWORD [MORE_KEYWORDS]`
@@ -124,7 +126,7 @@ Returns John Cena and John Doe
 * `find Betsy Tim John` +
 Returns any person having names Betsy, Tim, or John
 
-=== Deleting a customer : `deletecustomer`, `deletec`
+==== Deleting a customer : `deletecustomer`, `deletec`
 
 Effect: Deletes a customer from the customer database. +
 Format: `{deletecustome/deletec} INDEX`
@@ -140,7 +142,9 @@ Deletes the 2nd person of the customer database.
 * `findname Betsy`, then `deletecustomer 1` +
 Deletes the 1st customer in the customer list returned by the `findname` command.
 
-=== Reserving a room : `add-reservation`, `ar`  `[coming in v2.0]`
+=== Room Reservation commands
+
+==== Reserving a room : `add-reservation`, `ar`  `[coming in v2.0]`
 
 Effect: Adds a booking for a room associated with certain customers. +
 Format: `{add-reservation/ar} r/ROOM_TYPE d/START_DATE-END_DATE i/INDEX_OF_CUSTOMER [i/MORE_INDICIES]… [c/COMMENTS]`
@@ -158,7 +162,7 @@ Adds a booking of Room Type 1, one customer from the complete customer list, fro
 * `findname Jack Rose`, then `add-reservation r/2 d/14.2-15.2 c/1 c/2` +
 Adds a booking of Room Type 3, two customers from the search result of Jack and Rose, from 14 Feb to 15 Feb.
 
-=== Listing all reservations : `list-reservations`, `lr` `[coming in v2.0]`
+==== Listing all reservations : `list-reservations`, `lr` `[coming in v2.0]`
 Effect: Displays a booking list, which lists one of: 1. all the bookings in the booking database; 2. the bookings associated with certain customers; 3. the bookings that contains a certain date. +
 Format: `{list-reservations/lr} [i/INDEX_OF_CUSTOMER]… [d/DATE]`
 
@@ -175,7 +179,7 @@ Lists all the bookings under the name of the 2nd customer.
 * `lr d/05.12` +
 Lists all the bookings that spans across the date 12 May.
 
-=== Editing a room reservation : `edit-reservation`, `er` `[coming in v2.0]`
+==== Editing a room reservation : `edit-reservation`, `er` `[coming in v2.0]`
 
 Effect: Edits the fields of an existing booking in the booking database. +
 Format: `{edit-reservation/er} INDEX [r/ROOM_TYPE] [d/START_DATE-END_DATE] [c/COMMENTS]`
@@ -196,7 +200,7 @@ Edits the room type of the 1st booking to be Type 3.
 * `listb`, then `er 2 d/14.2-14.3 c/` +
 Edits the date of the 2nd booking to be from 14 Feb to 14 Mar and clears all existing comments.
 
-=== Deleting reservations: `delete-reservation`, `dr` `[coming in v2.0]`
+==== Deleting reservations: `delete-reservation`, `dr` `[coming in v2.0]`
 
 Effect: Deletes a booking from the booking database. +
 Format: `{delete-reservation/dr} INDEX`
@@ -212,7 +216,12 @@ Deletes the 2nd person of the booking database
 * `listb i/2`, then `deletebooking 1` +
 Deletes the 1st booking in the results of the listb command.
 
-=== Booking a service: `add-booking`,`ab`
+==== Clearing all reservations: `clear-reservations`, `clear-r`
+Effect: Removes all room reservations from the database. +
+Format: `{clear-reservations/clear-r}`
+
+=== Service Booking commands
+==== Booking a service: `add-booking`,`ab`
 
 Effect: Adds a service associated with certain customers. +
 Format: `{add-booking/ab} s/SERVICE_NAME :/START_TIME-END_TIME $/PAYER INDEX [c/CUSTOMER INDEX] [com/COMMENTS]`
@@ -230,11 +239,11 @@ Adds a booking for service GYM, for the 2nd customer from the complete customer 
 * `findn Jack Rose`, then `add-booking s/GYM h/14-15 $/1 c/2`
 Adds a booking of service GYM for customer index 2 payed by customer index 1, from 14:00 to 15:00.
 
-=== Listing all booked services: `listbookings`,`lb`
+==== Listing all booked services: `listbookings`,`lb`
 Effect: Displays a booking list, which lists all the bookings made till now.
 Format: `{listbookings/lb}`
 
-=== Editing a booked service: `edit-booking`, `eb`
+==== Editing a booked service: `edit-booking`, `eb`
 
 Effect: Edits the fields of a booking in the database. +
 Format: `{edit-booking/eb} INDEX [s/SERVICE_NAME] [:/START_TIME - END_TIME] [p/PAYER INDEX] [c/CUSTOMER INDICES] [com/COMMENTS]`
@@ -254,7 +263,7 @@ Edits the service type of the 1st booking to be GYM.
 * `lb`, then `edit-booking 2 :/14-15 c/`
 Edits the timing of the 2nd booking to be 14:00 - 15:00 and clears all existing comments.
 
-=== Find a booked service contains payer: `findbookingcontainspayer`, `fbcp`
+==== Find a booked service contains payer: `findbookingcontainspayer`, `fbcp`
 
 Effect: Displays a booking list, which is paid by the customer whose identification number is the same as the given number
 Format: `{findbookingcontainspayer/fbcp} PAYER_IDENTIFICATION_NUMBER`
@@ -266,6 +275,7 @@ Format: `{findbookingcontainspayer/fbcp} PAYER_IDENTIFICATION_NUMBER`
 Examples:
 * `fbcs 12345678` +
 Returns any booking which is paid by the customer with identification number 12345678
+
 
 === Find a booked service contains payer: `findbookingwithtype`, `fbwt`
 
@@ -293,7 +303,13 @@ Examples:
 * `lb`, then `deletebooking 2`
 Deletes the 2nd booking of the booking database
 
-=== Generate customer's bill : `generatebill`, `gb`   `[coming in v2.0]`
+==== Clearing all bookings: `clear-bookings`, `clear-b`
+
+Effect: Removes all booked services from the database. +
+Format: `{clear-bookings/clear-b}`
+
+
+=== Generate customer's bil : `generatebill`, `gb`   `[coming in v2.0]`
 
 Effect: Generates the bill for the customer based on his room reservations plus service bookings less the amount the customer has already paid+
 Format: `{generatebill/gb} INDEX`
@@ -365,11 +381,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clearcustomers`
-
-Effect: Clears all entries from the customer database. +
-Format: `clearcustomers`
-
 === Exiting the program : `exit`
 
 Effect: Exits the program. +
@@ -411,6 +422,6 @@ _{explain how the user can enable/disable data encryption}_
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Clear customers* : `clearcustomers`
-* *Clear room reservations* : `clearreservations`
-* *Clear room services* : `clearbookings`
+* *Clear hotel management system database* : `{clear-hms/clear-all}`
+* *Clear room reservations* : `{clear-reservations/clear-r}`
+* *Clear booked services* : `{clear-bookings/clear-b}`

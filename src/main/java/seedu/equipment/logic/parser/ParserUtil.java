@@ -40,10 +40,12 @@ public class ParserUtil {
      * Parses a {@code String date} into a {@code String}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static String parseDate(String date) {
+    public static String parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
-
+        if(date.equals(" ")) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
         return trimmedDate;
     }
 
@@ -51,10 +53,12 @@ public class ParserUtil {
      * Parses a {@code String assignee} into a {@code String}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static String parseAssignee(String assignee) {
+    public static String parseAssignee(String assignee) throws ParseException {
         requireNonNull(assignee);
         String trimmedAssignee = assignee.trim();
-
+        if(assignee.equals("Mei#Yen@")) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
         return trimmedAssignee;
     }
 

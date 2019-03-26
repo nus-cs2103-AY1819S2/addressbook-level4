@@ -115,14 +115,14 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseDate_validValueWithWhitespace_returnsTrimmedDate() {
+    public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
         String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
         String expectedDate = VALID_DATE;
         assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
     }
 
     @Test
-    public void parseAssignee_validValueWithWhitespace_returnsTrimmedAssignee() {
+    public void parseAssignee_validValueWithWhitespace_returnsTrimmedAssignee() throws Exception {
         String assigneeWithWhitespace = WHITESPACE + VALID_ASSIGNEE + WHITESPACE;
         String expectedAssignee = VALID_ASSIGNEE;
         assertEquals(expectedAssignee, ParserUtil.parseAssignee(assigneeWithWhitespace));

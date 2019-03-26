@@ -249,8 +249,21 @@ Selects the 1st member in the results of the `find` command.
 ==== Sort members’ list : `memberSort`
 
 Sort the members list by a member’s attribute in ascending order
-Format: `memberSort n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR`
+[width="59%",cols="30%,<50%",options="header",]
+|=======================================================================
+|Sort By: | Command Example
+|`Name` |memberSort name
+|`Matric Number` |memberSort matricNumber
+|`Year of Study` |memberSort yearOfStudy
+|`Major` |memberSort major
+|=======================================================================
 
+****
+* Sorts the member at the specified sorting criteria. The attribute refers to the name, matric number, phone number, email, year of study, and major. There can only be a single attribute provided.
+* At least one of the sorting criteria are provided.
+* Members will be sorted in ascending order based on the sorting criteria.
+* Within each of the sort criteria, the members are further sorted by name in ascending order.
+****
 ****
 * Sorts the member at the specified attribute. The attribute refers to the name, admin number, phone number, email, year of study, and major. There can only be a single attribute provided.
 * At least one of the attributes are provided.
@@ -263,9 +276,13 @@ Example:
 `memberSort name` +
 Sorts the list by name.
 
+image::MemberSortCommand_sortby_name.png[width="790"]
+
 * `list` +
 `memberSort yearOfStudy` +
 Sorts the list by year of study.
+
+image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
 
 === Activity Management Features
 

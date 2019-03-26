@@ -1,7 +1,6 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.Command;
@@ -32,6 +31,11 @@ public class CloseLessonCommand extends ManagementCommand {
      * Feedback message displayed to the user upon successful execution of this command
      */
     public static final String MESSAGE_SUCCESS = "Closed and saved lesson: %1$s";
+    /**
+     * Feedback message displayed to the user when attempting to close lesson when no lesson is opened.
+     */
+    public static final String MESSAGE_NO_OPENED_LESSON =
+            "Invalid command usage. No lesson is open. \n%1$s";
 
     /**
      * Executes the command and returns the result message.

@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -33,6 +32,10 @@ public class ListLessonsCommand extends ManagementCommand {
      * Feedback message displayed to the user upon successful execution of this command
      */
     public static final String MESSAGE_SUCCESS = "Listed %1$s lesson(s):\n";
+    /**
+     * Feedback message displayed to the user if there are no lessons found and hence no listing.
+     */
+    public static final String MESSAGE_NO_LESSONS = "No lesson found.";
 
     /**
      * Executes the command and returns the result message.
@@ -42,7 +45,7 @@ public class ListLessonsCommand extends ManagementCommand {
      */
     public String buildList(List<Lesson> lessons) {
         if (lessons.isEmpty()) {
-            return Messages.MESSAGE_NO_LESSONS;
+            return MESSAGE_NO_LESSONS;
         } else {
             StringBuilder builder = new StringBuilder();
             builder.append(String.format(MESSAGE_SUCCESS, lessons.size()));

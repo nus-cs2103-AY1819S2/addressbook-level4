@@ -42,9 +42,10 @@ public class Patient extends Person {
      * Used by add command.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth) {
+                   DateOfBirth dateOfBirth, Sex sex) {
         super(name, phone, email, address, tags);
-        requireAllNonNull(nric, dateOfBirth);
+        requireAllNonNull(nric, dateOfBirth, sex);
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         buildAdultTeeth();
@@ -56,9 +57,10 @@ public class Patient extends Person {
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth) {
+                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth, Sex sex) {
         super(name, phone, email, address, tags);
-        requireAllNonNull(nric, dateOfBirth, records);
+        requireAllNonNull(nric, dateOfBirth, records, sex);
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.records = records;
@@ -67,9 +69,10 @@ public class Patient extends Person {
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount) {
+                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount, Sex sex) {
         super(name, phone, email, address, tags, personToCopy, copyCount);
-        requireAllNonNull(nric, dateOfBirth);
+        requireAllNonNull(nric, dateOfBirth, sex);
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         buildAdultTeeth();

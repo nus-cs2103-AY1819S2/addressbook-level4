@@ -37,7 +37,7 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysRecord(Record expectedRecord, RecordCardHandle actualCard) {
         assertEquals(expectedRecord.getName().fullName, actualCard.getName());
-        assertEquals(expectedRecord.getAmount().value, actualCard.getAmount());
+        assertEquals("$"+ expectedRecord.getAmount().value, actualCard.getAmount());
         assertEquals(expectedRecord.getDate().toString(), actualCard.getDate());
         assertEquals(expectedRecord.getDescription().value, actualCard.getDescription());
         assertCategoriesEqual(expectedRecord, actualCard);

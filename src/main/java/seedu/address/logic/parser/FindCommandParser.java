@@ -35,6 +35,8 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         int prefixNum = 0;
+        boolean isIgnoreCase = true;
+        boolean isAnd = false;
 
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
@@ -44,8 +46,28 @@ public class FindCommandParser implements Parser<FindCommand> {
             ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_NRIC,
                 PREFIX_YEAR);
 
-        if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        String preamble = argMultimap.getPreamble().toLowerCase();
+        if (!preamble.isEmpty()) {
+            switch (preamble) {
+
+            case "and cs":
+            case "cs and":
+                isAnd = true;
+                isIgnoreCase = false;
+                break;
+
+            case "and":
+                isAnd = true;
+                break;
+
+            case "cs":
+                isIgnoreCase = false;
+                break;
+
+            default:
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            }
+
         }
 
         Prefix[] prefixArr = new Prefix[] {PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,

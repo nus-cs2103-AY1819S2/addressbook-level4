@@ -80,6 +80,20 @@ Example:
 Shows a list of all PDF files in the app. +
 Format: `list`
 
+=== Sorting all files : `sort`
+
+Sorts all PDF files in the app based on certain criteria. +
+Format: `sort CRITERIA (name/date) ORDER (up/down)`
+****
+* CRITERIA can only be either `name` or `date` corresponding to alphabetical or deadline order +
+* ORDER can only be either `up` or `down` corresponding to ascending or descending order
+****
+
+Example:
+
+* `sort name up` +
+* `sort date down` +
+
 === Opening a file : `open`
 
 Opens an existing file at a specified index in the app with default PDF reader. +

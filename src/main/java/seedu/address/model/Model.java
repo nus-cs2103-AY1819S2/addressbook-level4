@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
 
 /**
@@ -59,6 +60,11 @@ public interface Model {
     boolean hasPerson(Person person);
 
     /**
+     * Returns true if a job with the same identity as {@code job} exists in the address book.
+     */
+    boolean hasJob(Job job);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
@@ -69,6 +75,12 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given job.
+     * {@code job} must not already exist in the address book.
+     */
+    void addJob(Job job);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

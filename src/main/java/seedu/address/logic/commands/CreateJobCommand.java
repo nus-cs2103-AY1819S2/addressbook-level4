@@ -14,7 +14,7 @@ import seedu.address.model.job.Job;
  */
 public class CreateJobCommand extends Command {
 
-    public static final String COMMAND_WORD = "createjob";
+    public static final String COMMAND_WORD = "createJob";
     public static final String COMMAND_ALIAS = "cj";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new job. "
@@ -27,7 +27,7 @@ public class CreateJobCommand extends Command {
             + PREFIX_JOBNAME + "Search Engineer ";
 
     public static final String MESSAGE_SUCCESS = "New job added: %1$s";
-    public static final String MESSAGE_COMMAND_NOT_AVAILABLE = "Command Not Implemented!";
+    public static final String MESSAGE_DUPLICATE_JOB = "This Job already exists in the list";
 
     private final Job toAdd;
 
@@ -43,7 +43,13 @@ public class CreateJobCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        throw new CommandException(MESSAGE_COMMAND_NOT_AVAILABLE);
+        if (model.hasJob(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_JOB);
+        }
+
+        model.addJob(toAdd);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

@@ -28,12 +28,12 @@ public class StudyDeckCommand extends Command {
     private static final String MESSAGE_STUDY_DECK_SUCCESS = "Entered study mode";
 
     private Index targetIndex;
-    private DecksView viewState;
+    private DecksView decksView;
     private Deck targetDeck;
 
-    public StudyDeckCommand(Index targetIndex, DecksView viewState) {
+    public StudyDeckCommand(DecksView decksView, Index targetIndex) {
         this.targetIndex = targetIndex;
-        this.viewState = viewState;
+        this.decksView = decksView;
     }
 
     public StudyDeckCommand(Deck targetDeck) {
@@ -45,7 +45,7 @@ public class StudyDeckCommand extends Command {
         requireNonNull(model);
 
         if (targetIndex!=null){
-            List<Deck> filteredDeckList = viewState.filteredDecks;
+            List<Deck> filteredDeckList = decksView.filteredDecks;
 
             if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);

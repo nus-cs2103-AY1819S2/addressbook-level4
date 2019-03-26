@@ -28,8 +28,10 @@ public class DeleteDeckCommand extends Command {
     public static final String MESSAGE_DELETE_DECK_SUCCESS = "Deleted Deck: %1$s";
 
     private Index targetIndex;
+    private final DecksView decksView;
 
-    public DeleteDeckCommand(Index targetIndex) {
+    public DeleteDeckCommand(DecksView decksView, Index targetIndex) {
+        this.decksView = decksView;
         this.targetIndex = targetIndex;
     }
 
@@ -37,7 +39,7 @@ public class DeleteDeckCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<ListItem> currentDeckList = model.getFilteredList();
+        List<ListItem> currentDeckList = decksView.getFilteredList();
 
         if (targetIndex.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);

@@ -13,6 +13,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.DecksView;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -44,15 +45,17 @@ public class EditDeckCommand extends Command {
 
     private final Index index;
     private final EditDeckDescriptor editDeckDescriptor;
+    private final DecksView decksView;
 
     /**
      * @param index of the deck in the filtered deck list to edit
      * @param editDeckDescriptor details to edit the deck with
      */
-    public EditDeckCommand(Index index, EditDeckDescriptor editDeckDescriptor) {
+    public EditDeckCommand(DecksView decksView, Index index, EditDeckDescriptor editDeckDescriptor) {
         requireNonNull(index);
         requireNonNull(editDeckDescriptor);
 
+        this.decksView = decksView;
         this.index = index;
         this.editDeckDescriptor = new EditDeckDescriptor(editDeckDescriptor);
     }
@@ -72,7 +75,7 @@ public class EditDeckCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<ListItem> currentDeckList = model.getFilteredList();
+        List<ListItem> currentDeckList = decksView.getFilteredList();
 
         if (index.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
@@ -86,7 +89,7 @@ public class EditDeckCommand extends Command {
         }
 
         model.updateDeck(deckToEdit, editedDeck);
-        model.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
+        decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
         model.commitTopDeck();
         return new CommandResult(String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck));
     }

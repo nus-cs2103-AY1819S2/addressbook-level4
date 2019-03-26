@@ -27,11 +27,11 @@ public class OpenDeckCommand extends Command {
     private static final String MESSAGE_OPEN_DECK_SUCCESS = "Opened deck";
 
     private Index targetIndex;
-    private DecksView viewState;
+    private DecksView decksView;
 
-    public OpenDeckCommand(Index targetIndex, DecksView viewState) {
+    public OpenDeckCommand(Index targetIndex, DecksView decksView) {
         this.targetIndex = targetIndex;
-        this.viewState = viewState;
+        this.decksView = decksView;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class OpenDeckCommand extends Command {
 
         requireNonNull(model);
 
-        List<Deck> filteredDeckList = viewState.filteredDecks;
+        List<Deck> filteredDeckList = decksView.filteredDecks;
 
         if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);

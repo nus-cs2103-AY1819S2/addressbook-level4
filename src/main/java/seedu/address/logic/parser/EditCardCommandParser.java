@@ -12,6 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.logic.commands.EditCardCommand.EditCardDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -21,6 +22,12 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new EditCardCommand object
  */
 public class EditCardCommandParser implements Parser<EditCardCommand> {
+
+    private final CardsView cardsView;
+
+    public EditCardCommandParser(CardsView cardsView) {
+        this.cardsView = cardsView;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCardCommand
@@ -53,11 +60,11 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
 
         // Abbreviated version of the command is given, expand full command in the text box
         if (!editCardDescriptor.isAnyFieldEdited()) {
-            return new EditCardCommand(index);
+            return new EditCardCommand(cardsView, index);
 
         }
 
-        return new EditCardCommand(index, editCardDescriptor);
+        return new EditCardCommand(cardsView, index, editCardDescriptor);
     }
 
     /**

@@ -48,9 +48,9 @@ public class DecksView implements ListViewState {
             case StudyDeckCommand.COMMAND_WORD:
                 return new StudyDeckCommandParser(this).parse(arguments);
             case DeleteDeckCommand.COMMAND_WORD:
-                return new DeleteDeckCommandParser().parse(arguments);
+                return new DeleteDeckCommandParser(this).parse(arguments);
             case EditDeckCommand.COMMAND_WORD:
-                return new EditDeckCommandParser().parse(arguments);
+                return new EditDeckCommandParser(this).parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,15 +28,17 @@ public class DeleteCardCommand extends Command {
     public static final String MESSAGE_DELETE_CARD_SUCCESS = "Deleted Card: %1$s";
 
     private final Index targetIndex;
+    private final CardsView cardsView;
 
-    public DeleteCardCommand(Index targetIndex) {
+    public DeleteCardCommand(CardsView cardsView, Index targetIndex) {
+        this.cardsView = cardsView;
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<ListItem> lastShownList = model.getFilteredList();
+        List<ListItem> lastShownList = cardsView.getFilteredList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);

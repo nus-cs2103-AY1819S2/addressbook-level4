@@ -22,6 +22,9 @@ public class NextCommand extends Command {
         if (!model.checkIfInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
         }
+        if (!model.checkIfCardAlreadyAnswered()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_NEXT_COMMAND);
+        }
         model.testNextCard();
         Card cardToTest = model.getCurrentTestedCard();
         return new CommandResult(MESSAGE_NEXT_QUESTION_SUCCESS, false, false, false, false, false, cardToTest, false,

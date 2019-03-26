@@ -397,14 +397,15 @@ public class ModelManager implements Model {
         return insideTestSession;
     }
 
-    public void testNextCard() {
+    public boolean testNextCard() {
         currentTestedCardIndex += 1;
         if (currentTestedCardIndex == currentTestedCardFolder.size()) {
-            endTestSession();
+            return false;
         }
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
         setCardAsNotAnswered();
+        return true;
     }
 
     //=========== Selected card ===========================================================================

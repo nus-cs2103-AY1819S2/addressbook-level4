@@ -177,7 +177,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void testNextCard() {
+        public boolean testNextCard() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -9,24 +9,26 @@ import seedu.address.model.person.Person;
 /**
  * Tests that a {@code Person}'s {@code Gender} matches any of the keywords given.
  */
-public class GenderContainsKeywordsPredicate implements Predicate<Person> {
+public class JobsApplyContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
-    public GenderContainsKeywordsPredicate(List<String> keywords) {
+    public JobsApplyContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
     @Override
     public boolean test(Person person) {
+
         return (keywords == null) || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getGender().value, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(StringUtil.getSetString
+                    (person.getJobsApply()), keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof GenderContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((GenderContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof JobsApplyContainsKeywordsPredicate // instanceof handles nulls
+                && keywords.equals(((JobsApplyContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

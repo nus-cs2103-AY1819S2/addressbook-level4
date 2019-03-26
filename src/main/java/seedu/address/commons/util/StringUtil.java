@@ -6,6 +6,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Set;
+
+import seedu.address.model.person.JobsApply;
+import seedu.address.model.person.KnownProgLang;
+import seedu.address.model.person.PastJob;
 
 /**
  * Helper functions for handling strings.
@@ -46,6 +51,29 @@ public class StringUtil {
         StringWriter sw = new StringWriter();
         t.printStackTrace(new PrintWriter(sw));
         return t.getMessage() + "\n" + sw.toString();
+    }
+
+    /**
+     * Returns a detailed message of the t, including the stack trace.
+     */
+    public static String getSetString(Set s) {
+        requireNonNull(s);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Object obj: s) {
+            if (obj instanceof JobsApply) {
+                String jobsApply = ((JobsApply) obj).value;
+                stringBuilder.append(jobsApply);
+            } else if (obj instanceof KnownProgLang) {
+                String knownProgLang = ((KnownProgLang) obj).value;
+                stringBuilder.append(knownProgLang);
+            } else if (obj instanceof PastJob) {
+                String pastJob = ((PastJob) obj).value;
+                stringBuilder.append(pastJob);
+            }
+            stringBuilder.append(" ");
+        }
+
+        return stringBuilder.toString();
     }
 
     /**

@@ -4,9 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_JOBSAPPLY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_KNOWNPROGLANG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASTJOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RACE;
@@ -21,8 +24,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.GenderContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.JobsApplyContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.KnownProgLangContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.MajorContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.NricContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.PastJobContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.PhoneContainsKeywordsPredicate;
 import seedu.address.model.person.predicate.PredicateManager;
 import seedu.address.model.person.predicate.RaceContainsKeywordsPredicate;
@@ -78,6 +86,26 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         if (argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
             predicator = predicator.and(new MajorContainsKeywordsPredicate(Arrays.asList(
                 argMultimap.getValue(PREFIX_MAJOR).get().split("\\s+"))));
+        }
+        if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
+            predicator = predicator.and(new GenderContainsKeywordsPredicate(Arrays.asList(
+                argMultimap.getValue(PREFIX_GENDER).get().split("\\s+"))));
+        }
+        if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
+            predicator = predicator.and(new NricContainsKeywordsPredicate(Arrays.asList(
+                argMultimap.getValue(PREFIX_NRIC).get().split("\\s+"))));
+        }
+        if (argMultimap.getValue(PREFIX_PASTJOB).isPresent()) {
+            predicator = predicator.and(new PastJobContainsKeywordsPredicate(Arrays.asList(
+                argMultimap.getValue(PREFIX_PASTJOB).get().split("\\s+"))));
+        }
+        if (argMultimap.getValue(PREFIX_JOBSAPPLY).isPresent()) {
+            predicator = predicator.and(new JobsApplyContainsKeywordsPredicate(Arrays.asList(
+                argMultimap.getValue(PREFIX_JOBSAPPLY).get().split("\\s+"))));
+        }
+        if (argMultimap.getValue(PREFIX_KNOWNPROGLANG).isPresent()) {
+            predicator = predicator.and(new KnownProgLangContainsKeywordsPredicate(Arrays.asList(
+                argMultimap.getValue(PREFIX_KNOWNPROGLANG).get().split("\\s+"))));
         }
 
         return new SearchCommand(predicator);

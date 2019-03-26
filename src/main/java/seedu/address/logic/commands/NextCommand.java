@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -27,8 +26,10 @@ public class NextCommand extends Command {
         }
         model.testNextCard();
         Card cardToTest = model.getCurrentTestedCard();
-        return new CommandResult(MESSAGE_NEXT_QUESTION_SUCCESS, false, false, false, false, false, cardToTest, false,
-                AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        CommandResult commandResult = new CommandResult(MESSAGE_NEXT_QUESTION_SUCCESS,
+                CommandResult.Type.SHOW_NEXT_CARD);
+        commandResult.setTestSessionCard(cardToTest);
+        return commandResult;
     }
 
 }

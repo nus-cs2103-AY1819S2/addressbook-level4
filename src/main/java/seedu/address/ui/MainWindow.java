@@ -267,6 +267,9 @@ public class MainWindow extends UiPart<Stage> {
             case END_TEST_SESSION:
                 handleEndTestSession();
                 break;
+            case SHOW_NEXT_CARD:
+                handleNextCardTestSession(commandResult.getTestSessionCard());
+                break;
             case ANSWER_CORRECT:
                 handleCorrectAnswer();
                 break;

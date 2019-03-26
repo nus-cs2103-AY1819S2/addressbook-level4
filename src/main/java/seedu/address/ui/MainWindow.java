@@ -204,7 +204,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     private void handleReport() {
-        reportDisplay = new ReportDisplay();
+        reportDisplay = new ReportDisplay(logic.getCardFolder());
         Region reportRegion = (reportDisplay).getRoot();
         fullScreenPlaceholder.getChildren().add(reportRegion);
     }

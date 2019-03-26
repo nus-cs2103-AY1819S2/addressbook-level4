@@ -171,12 +171,12 @@ public class EditDeckCommandTest {
         // undo -> reverts TopDeck back to previous state and filtered deck list to show all decks
         expectedModel.undoTopDeck();
         assertCommandSuccess(new UndoCommand(), model, commandHistory,
-                UndoCommand.MESSAGE_SUCCESS + EditDeckCommand.COMMAND_WORD, expectedModel);
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first deck edited again
         expectedModel.redoTopDeck();
         assertCommandSuccess(new RedoCommand(), model, commandHistory,
-                seedu.address.logic.commands.RedoCommand.MESSAGE_SUCCESS + EditDeckCommand.COMMAND_WORD, expectedModel);
+                seedu.address.logic.commands.RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -222,13 +222,13 @@ public class EditDeckCommandTest {
         // undo -> reverts TopDeck back to previous state and filtered deck list to show all decks
         expectedModel.undoTopDeck();
         assertCommandSuccess(new seedu.address.logic.commands.UndoCommand(), model, commandHistory,
-                UndoCommand.MESSAGE_SUCCESS + EditDeckCommand.COMMAND_WORD, expectedModel);
+                UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased()), deckToEdit);
         // redo -> edits same second deck in unfiltered deck list
         expectedModel.redoTopDeck();
         assertCommandSuccess(new RedoCommand(), model, commandHistory,
-                seedu.address.logic.commands.RedoCommand.MESSAGE_SUCCESS + EditDeckCommand.COMMAND_WORD, expectedModel);
+                seedu.address.logic.commands.RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

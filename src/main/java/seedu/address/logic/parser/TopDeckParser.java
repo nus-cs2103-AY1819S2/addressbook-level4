@@ -57,10 +57,6 @@ public class TopDeckParser {
                     return new ExitCommand();
                 case HelpCommand.COMMAND_WORD:
                     return new HelpCommand();
-                case UndoCommand.COMMAND_WORD:
-                    return new UndoCommand();
-                case RedoCommand.COMMAND_WORD:
-                    return new RedoCommand();
                 default:
                     throw e;
             }

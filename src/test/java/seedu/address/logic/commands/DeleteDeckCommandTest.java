@@ -63,7 +63,6 @@ public class DeleteDeckCommandTest {
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.deleteDeck(deckToDelete);
         expectedModel.commitTopDeck();
-        showNoDeck(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }

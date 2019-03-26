@@ -10,22 +10,26 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     public static final String STATUS_BAR_PLACEHOLDER = "#statusbarPlaceholder";
 
     private static final String SYNC_STATUS_ID = "#syncStatus";
-    private static final String TOTAL_PERSONS_STATUS_ID = "#totalCardsStatus";
+    private static final String TOTAL_DECKS_STATUS_ID = "#totalDecksStatus";
+    private static final String TOTAL_CARDS_STATUS_ID = "#totalCardsStatus";
     private static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
 
     private final Labeled syncStatusNode;
-    private final Labeled totalPersonsStatusNode;
+    private final Labeled totalCardsStatusNode;
+    private final Labeled totalDecksStatusNode;
     private final Labeled saveLocationNode;
 
     private String lastRememberedSyncStatus;
-    private String lastRememberedTotalPersonsStatus;
+    private String lastRememberedTotalCardsStatus;
+    private String lastRememberedTotalDecksStatus;
     private String lastRememberedSaveLocation;
 
     public StatusBarFooterHandle(Node statusBarFooterNode) {
         super(statusBarFooterNode);
 
         syncStatusNode = getChildNode(SYNC_STATUS_ID);
-        totalPersonsStatusNode = getChildNode(TOTAL_PERSONS_STATUS_ID);
+        totalDecksStatusNode = getChildNode(TOTAL_DECKS_STATUS_ID);
+        totalCardsStatusNode = getChildNode(TOTAL_CARDS_STATUS_ID);
         saveLocationNode = getChildNode(SAVE_LOCATION_STATUS_ID);
     }
 
@@ -37,10 +41,17 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns the text of the 'total persons' portion of the status bar.
+     * Returns the text of the 'total cards' portion of the status bar.
      */
-    public String getTotalPersonsStatus() {
-        return totalPersonsStatusNode.getText();
+    public String getTotalCardsStatus() {
+        return totalCardsStatusNode.getText();
+    }
+
+    /**
+     * Returns the text of the 'total decks' portion of the status bar.
+     */
+    public String getTotalDecksStatus() {
+        return totalDecksStatusNode.getText();
     }
 
     /**
@@ -64,12 +75,17 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     public boolean isSyncStatusChanged() {
         return !lastRememberedSyncStatus.equals(getSyncStatus());
     }
-
     /**
-     * Remembers the content of the 'total persons' portion of the status bar.
+     * Remembers the content of the 'total cards' portion of the status bar.
      */
-    public void rememberTotalPersonsStatus() {
-        lastRememberedTotalPersonsStatus = getTotalPersonsStatus();
+    public void rememberTotalCardsStatus() {
+        lastRememberedTotalCardsStatus = getTotalCardsStatus();
+    }
+    /**
+     * Remembers the content of the 'total decks' portion of the status bar.
+     */
+    public void rememberTotalDecksStatus() {
+        lastRememberedTotalDecksStatus = getTotalDecksStatus();
     }
 
     /**
@@ -77,7 +93,7 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
      * recent {@code rememberTotalPersonsStatus()} call.
      */
     public boolean isTotalPersonsStatusChanged() {
-        return !lastRememberedTotalPersonsStatus.equals(getTotalPersonsStatus());
+        return !lastRememberedTotalCardsStatus.equals(getTotalDecksStatus());
     }
 
     /**

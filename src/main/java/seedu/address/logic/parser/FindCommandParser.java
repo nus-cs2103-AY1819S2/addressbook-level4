@@ -79,7 +79,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         for (Prefix pref: prefixArr) {
             if (argMultimap.getValue(pref).isPresent()) {
                 keywords = argMultimap.getValue(pref).get().split("\\s+");
-                predicate = getKeywordsPredicate(pref, Arrays.asList(keywords));
+                predicate = getKeywordsPredicate(pref, Arrays.asList(keywords), isIgnoreCase, isAnd);
                 prefixNum++;
             }
         }
@@ -92,27 +92,28 @@ public class FindCommandParser implements Parser<FindCommand> {
         return new FindCommand(predicate);
     }
 
-    private static ContainsKeywordsPredicate getKeywordsPredicate(Prefix prefix, List<String> keywords)
+    private static ContainsKeywordsPredicate getKeywordsPredicate(Prefix prefix, List<String> keywords,
+                                                                  boolean isIgnorecase, boolean isAnd)
         throws ParseException {
 
         switch (prefix.getPrefix()) {
         case "n/":
-            return new NameContainsKeywordsPredicate(keywords);
+            return new NameContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
 
         case "p/":
-            return new PhoneContainsKeywordsPredicate(keywords);
+            return new PhoneContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
 
         case "a/":
-            return new AddressContainsKeywordsPredicate(keywords);
+            return new AddressContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
 
         case "e/":
-            return new EmailContainsKeywordsPredicate(keywords);
+            return new EmailContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
 
         case "ic/":
-            return new NricContainsKeywordsPredicate(keywords);
+            return new NricContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
 
         case "dob/":
-            return new DateOfBirthContainsKeywordsPredicate(keywords);
+            return new DateOfBirthContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
 
         default:
             throw new ParseException("");

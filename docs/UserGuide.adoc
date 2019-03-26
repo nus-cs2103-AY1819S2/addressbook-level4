@@ -76,6 +76,7 @@ _Figure 1_ below shows how the maps will be displayed in the UI.
 .Player and enemy maps
 image::initmapresult.png[width=750]
 
+{empty} +
 Throughout the course of the game, the cells in the map will change colour based on their status. +
 
 [NOTE]
@@ -89,10 +90,12 @@ Throughout the course of the game, the cells in the map will change colour based
 - Ship Destroyed - Ship cell that has been destroyed
 ====
 
+{empty} +
 _Figure 2_ below shows which colour is used for each status.
 
 .Cell colours
 image::maplegend.png[width=400]
+{empty} +
 
 === Placing a ship on the map: `put`
 

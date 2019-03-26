@@ -18,6 +18,7 @@ import seedu.address.testutil.Assert;
 public class JsonAdaptedCardTest {
     private static final String INVALID_QUESTION = " ";
     private static final String INVALID_ANSWER = " ";
+    private static final String INVALID_OPTION = " ";
     private static final String INVALID_HINT = "#friend";
 
     private static final String VALID_QUESTION = BENSON.getQuestion().toString();
@@ -72,6 +73,15 @@ public class JsonAdaptedCardTest {
         invalidHint.add(new JsonAdaptedHint(INVALID_HINT));
         JsonAdaptedCard card = new JsonAdaptedCard(VALID_QUESTION, VALID_ANSWER,
                 VALID_SCORE, VALID_OPTION, invalidHint);
+        Assert.assertThrows(IllegalValueException.class, card::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidOption_throwsIllegalValueException() {
+        List<JsonAdaptedOption> invalidOption = new ArrayList<>(VALID_OPTION);
+        invalidOption.add(new JsonAdaptedOption(INVALID_OPTION));
+        JsonAdaptedCard card = new JsonAdaptedCard(VALID_QUESTION, VALID_ANSWER, VALID_SCORE, invalidOption,
+                VALID_HINT);
         Assert.assertThrows(IllegalValueException.class, card::toModelType);
     }
 

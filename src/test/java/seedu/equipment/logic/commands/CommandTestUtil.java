@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_ASSIGNEE;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PM;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PM;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_SERIALNUMBER;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_TAG;
 

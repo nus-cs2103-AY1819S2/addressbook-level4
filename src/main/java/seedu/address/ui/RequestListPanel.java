@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableValue;
@@ -30,11 +31,10 @@ public class RequestListPanel extends UiPart<Region> {
         requestListView.setItems(requestList);
         requestListView.setCellFactory(listView -> new RequestListViewCell());
         requestListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in request list panel changed to : '" + newValue + "'");
+            logger.info("Selection in request list panel changed to: '" + newValue + "'");
             onSelectedRequestChange.accept(newValue);
         });
         selectedRequest.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected request changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected request,
             // otherwise we would have an infinite loop.

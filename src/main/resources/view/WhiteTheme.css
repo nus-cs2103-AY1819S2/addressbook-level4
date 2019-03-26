@@ -82,6 +82,13 @@ span.command {
     -fx-font-size: 10pt;
 }
 
+.status-bar-info  {
+    -fx-font-family: "Segoe UI";
+    -fx-font-style: italic;
+    -fx-font-size: 12pt;
+}
+
+
 .list-cell {
     -fx-border-color: #D0D0D0;
     -fx-border-style: solid;

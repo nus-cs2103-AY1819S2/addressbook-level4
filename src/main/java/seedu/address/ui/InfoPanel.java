@@ -26,6 +26,8 @@ public class InfoPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
+    public static final URL DISPLAY_PAGE =
+            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "DisplayPage.fxml"));
 
     private static final String FXML = "InfoPanel.fxml";
 
@@ -42,6 +44,10 @@ public class InfoPanel extends UiPart<Region> {
 
         // Displays the request details when selected.
         selectedRequest.addListener((observable, oldValue, newValue) -> {
+            logger.info("InfoPanel triggered on request selection.");
+
+            Request request = selectedRequest.getValue();
+
             if (newValue == null) {
                 loadDefaultPage();
                 return;

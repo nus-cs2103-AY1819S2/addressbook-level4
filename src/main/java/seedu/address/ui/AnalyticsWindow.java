@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Controller for a help page
+ * Controller for a analytics page
  */
 public class AnalyticsWindow extends UiPart<Stage> {
 
@@ -19,23 +19,23 @@ public class AnalyticsWindow extends UiPart<Stage> {
     private TextArea analyticsDisplay;
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new AnalyticsWindow.
      *
-     * @param root Stage to use as the root of the HelpWindow.
+     * @param root Stage to use as the root of the AnalyticsWindow.
      */
     public AnalyticsWindow(Stage root) {
         super(FXML, root);
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a new AnalyticsWindow.
      */
     public AnalyticsWindow() {
         this(new Stage());
     }
 
     /**
-     * Shows the help window.
+     * Shows the Analytics window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -59,21 +59,21 @@ public class AnalyticsWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the analytics window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the analytics window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the analytics window.
      */
     public void focus() {
         getRoot().requestFocus();

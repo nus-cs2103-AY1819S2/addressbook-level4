@@ -214,11 +214,6 @@ public class MainWindow extends UiPart<Stage> {
      * @param themeToSwitch the theme to switch to
      */
     private void handleSwitchTheme(String themeToSwitch) {
-        if (this.theme == themeToSwitch) {
-            CommandResult r = new CommandResult("Theme is currently already set to "
-                    + themeToSwitch + ". Please choose another theme to switch to.");
-            return;
-        }
 
         switch (themeToSwitch) {
             case "Dark":
@@ -245,6 +240,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void setLightTheme() {
+        if (this.theme == "Light") {
+            CommandResult r = new CommandResult("Theme is currently already set to "
+                    + theme
+                    + ".\nPlease choose another theme to switch to.");
+            resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
+            return;
+        }
         currentScene = primaryStage.getScene();
         currentScene.getStylesheets().clear();
         currentScene.getStylesheets().add(getClass()
@@ -262,6 +264,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void setDarkTheme() {
+        if (this.theme == "Dark") {
+            CommandResult r = new CommandResult("Theme is currently already set to "
+                    + theme
+                    + ".\nPlease choose another theme to switch to.");
+            resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
+            return;
+        }
         currentScene = primaryStage.getScene();
         currentScene.getStylesheets().clear();
         currentScene.getStylesheets().add(getClass()
@@ -279,6 +288,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void setBlueTheme() {
+        if (this.theme == "Blue") {
+            CommandResult r = new CommandResult("Theme is currently already set to "
+                    + theme
+                    + ".\nPlease choose another theme to switch to.");
+            resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
+            return;
+        }
         currentScene = primaryStage.getScene();
         currentScene.getStylesheets().clear();
         currentScene.getStylesheets().add(getClass()
@@ -296,6 +312,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void setPinkTheme() {
+        if (this.theme == "Pink") {
+            CommandResult r = new CommandResult("Theme is currently already set to "
+                    + theme
+                    + ".\nPlease choose another theme to switch to.");
+            resultDisplay.setFeedbackToUser(r.getFeedbackToUser());
+            return;
+        }
         currentScene = primaryStage.getScene();
         currentScene.getStylesheets().clear();
         currentScene.getStylesheets().add(getClass()

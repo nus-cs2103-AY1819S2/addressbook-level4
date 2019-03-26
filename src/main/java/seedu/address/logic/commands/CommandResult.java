@@ -25,6 +25,8 @@ public class CommandResult {
         END_TEST_SESSION, // The current test session should end.
         ANSWER_CORRECT,
         ANSWER_WRONG,
+        ENTERED_REPORT,
+        EXITED_REPORT,
         NONE // use for "nothing to do"
     }
 

@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
@@ -18,7 +17,7 @@ public class ReportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, false,
-                null, false, true, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        model.setInReportDisplay();
+        return new CommandResult(MESSAGE_SUCCESS, CommandResult.Type.ENTERED_REPORT);
     }
 }

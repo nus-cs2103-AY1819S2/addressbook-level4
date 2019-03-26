@@ -12,13 +12,13 @@ public class HintTest {
     }
 
     @Test
-    public void constructor_invalidTagName_throwsIllegalArgumentException() {
+    public void constructor_invalidHintName_throwsIllegalArgumentException() {
         String invalidTagName = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Hint(invalidTagName));
     }
 
     @Test
-    public void isValidTagName() {
+    public void isValidHintName() {
         // null hint name
         Assert.assertThrows(NullPointerException.class, () -> Hint.isValidHintName(null));
     }

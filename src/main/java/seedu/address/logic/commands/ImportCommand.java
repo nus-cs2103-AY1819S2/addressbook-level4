@@ -41,12 +41,12 @@ public class ImportCommand extends Command {
         return null;
     }
 
-
-
     /**
      * Returns true if file extension is of .json format.
      */
     private boolean isCorrectFileExtension(String filename) {
         return filename.split("\\.(?=[^\\.]+$)")[1].equals("csv");
     }
+
+    
 }

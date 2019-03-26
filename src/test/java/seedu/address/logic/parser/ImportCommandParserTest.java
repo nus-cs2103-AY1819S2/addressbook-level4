@@ -1,0 +1,40 @@
+package seedu.address.logic.parser;
+
+import org.junit.Test;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.logic.commands.ImportCommand;
+import seedu.address.storage.csvmanager.CsvFile;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
+public class ImportCommandParserTest {
+
+    private static String EMPTY_STRING = "";
+    private ImportCommandParser parser = new ImportCommandParser();
+
+    @Test
+    public void parse_validArgs_returnsExportCommand() {
+        String testFile = "myCsvFile.csv";
+
+        assertParseSuccess(parser, testFile, new ImportCommand(new CsvFile(testFile)));
+
+        // assertParseSuccess(parser, "1 3 5", new ExportCommand(new ArrayList<Integer>(Arrays.asList(1,3,5))));
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        String testFileIncorrect = "hello.exe";
+
+        assertParseFailure(parser, EMPTY_STRING, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ImportCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser, testFileIncorrect, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ImportCommand.MESSAGE_USAGE));
+
+    }
+}

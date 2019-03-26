@@ -312,7 +312,7 @@ Quits the current test or report session.
 Format: `end`
 
 === Global Operations
-The commands shown in this section are applicable irregardless of whether the user is inside a folder or at the home directory.
+The commands shown in this section are applicable regardless of whether the user is inside a folder or at the home directory.
 
 ==== Search by keywords : `search`
 

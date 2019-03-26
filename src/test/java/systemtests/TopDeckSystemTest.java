@@ -33,7 +33,6 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.TopDeck;
-import seedu.address.model.deck.Name;
 import seedu.address.testutil.TypicalDecks;
 import seedu.address.ui.CommandBox;
 
@@ -179,7 +178,7 @@ public abstract class TopDeckSystemTest {
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         statusBarFooterHandle.rememberSaveLocation();
-        statusBarFooterHandle.rememberTotalPersonsStatus();
+        statusBarFooterHandle.rememberTotalCardsStatus();
         statusBarFooterHandle.rememberSyncStatus();
         getDeckListPanel().rememberSelectedDeckDisplay();
     }
@@ -261,7 +260,7 @@ public abstract class TopDeckSystemTest {
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
 
         final int totalPersons = testApp.getModel().getTopDeck().getDeckList().size();
-        assertEquals(String.format(TOTAL_DECKS_STATUS, totalPersons), handle.getTotalPersonsStatus());
+        assertEquals(String.format(TOTAL_DECKS_STATUS, totalPersons), handle.getTotalDecksStatus());
 
         assertFalse(handle.isSaveLocationChanged());
     }
@@ -277,7 +276,7 @@ public abstract class TopDeckSystemTest {
                 getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
         assertEquals(String.format(TOTAL_DECKS_STATUS, getModel().getTopDeck().getDeckList().size()),
-                getStatusBarFooter().getTotalPersonsStatus());
+                getStatusBarFooter().getTotalDecksStatus());
     }
 
     /**

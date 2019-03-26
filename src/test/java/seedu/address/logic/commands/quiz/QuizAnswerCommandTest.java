@@ -3,7 +3,10 @@ package seedu.address.logic.commands.quiz;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +17,9 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
@@ -21,8 +27,16 @@ import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
+import seedu.address.model.session.Session;
+import seedu.address.model.srscard.SrsCard;
+import seedu.address.model.user.CardSrsData;
+import seedu.address.model.user.User;
 import seedu.address.testutil.Assert;
+import seedu.address.testutil.LessonBuilder;
+import seedu.address.testutil.SessionBuilder;
+import seedu.address.testutil.SrsCardBuilder;
 
+// TODO CHANGE ALL INIT TO INITWITHSESSION
 public class QuizAnswerCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -76,11 +90,23 @@ public class QuizAnswerCommandTest {
     @Test
     public void execute_validPreview_success() {
         final String answer = "";
+        Lesson lesson = new LessonBuilder().build();
+        final Session session = new SessionBuilder(new Session("01-01-Learn", 2,
+            QuizMode.LEARN, List.of(new SrsCardBuilder().build(),
+            new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
+                1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
+
         QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(new Quiz(validQuizCard, QuizMode.PREVIEW));
+        ManagementModelManager expectedMgmtModel =
+            new ManagementModelManager(new UserPrefs(), new LessonList(), new User());
+
+        expectedModel.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session,
+            expectedMgmtModel);
 
         QuizModel actual = new QuizModelManager();
-        actual.init(new Quiz(validQuizCard, QuizMode.PREVIEW));
+        ManagementModelManager actualManagementModel =
+            new ManagementModelManager(new UserPrefs(), new LessonList(), new User());
+        actual.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session, actualManagementModel);
         actual.getNextCard();
 
         QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(answer);

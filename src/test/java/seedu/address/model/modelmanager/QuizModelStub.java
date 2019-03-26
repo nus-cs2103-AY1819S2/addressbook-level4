@@ -7,6 +7,7 @@ import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
+import seedu.address.model.srscard.SrsCard;
 
 /**
  * A default model stub that have all of the methods failing.
@@ -40,10 +41,20 @@ public class QuizModelStub implements QuizModel {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public List<SrsCard> getQuizSrsCards() {
+        throw new AssertionError("This method should not be called.");
+    }
+
     /**
      * Sets the {@code Quiz} information.
      */
     public void init(Quiz quiz) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void initWithSession(Quiz quiz, Session session, ManagementModel managementModel) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -113,6 +124,11 @@ public class QuizModelStub implements QuizModel {
      * Returns data needed by {@code Session} when {@code Quiz} end.
      */
     public List<List<Integer>> end() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateUserProfile(List<List<Integer>> quizInformation) {
         throw new AssertionError("This method should not be called.");
     }
 

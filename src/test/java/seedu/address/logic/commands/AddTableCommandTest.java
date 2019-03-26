@@ -33,7 +33,6 @@ import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
-import seedu.address.model.table.exceptions.DuplicateTableException;
 import seedu.address.testutil.TableBuilder;
 
 public class AddTableCommandTest {
@@ -404,7 +403,7 @@ public class AddTableCommandTest {
         public void updateMenu() {
             throw new AssertionError("This method should not be called.");
         }
-        
+
     }
 
     /**

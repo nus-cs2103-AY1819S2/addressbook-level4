@@ -229,6 +229,7 @@ Note:
 
 * setCategory for `Cuisine` and `Occasion` supported as of v1.2
 * `Price range` support coming in v1.3
+* Autocomplete feature planned for v1.4
 
 === Filter restaurants based on category : `filter`
 

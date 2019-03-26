@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.EmptyCardFolderException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
@@ -45,13 +46,17 @@ public class TestCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
         }
 
-        model.setActiveCardFolderIndex(targetIndex.getZeroBased());
-        model.testCardFolder(targetIndex.getZeroBased());
-        Card cardToTest = model.getCurrentTestedCard();
-        CommandResult commandResult = new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
-                CommandResult.Type.TEST_SESSION_CARD);
-        commandResult.setTestSessionCard(cardToTest);
-        return commandResult;
+        try {
+            model.testCardFolder(targetIndex.getZeroBased());
+            Card cardToTest = model.getCurrentTestedCard();
+            CommandResult commandResult = new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
+                    CommandResult.Type.START_TEST_SESSION);
+            commandResult.setTestSessionCard(cardToTest);
+            return commandResult;
+        } catch (EmptyCardFolderException e) {
+            model.endTestSession();
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_ON_EMPTY_FOLDER);
+        }
     }
 
     @Override

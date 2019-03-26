@@ -711,17 +711,23 @@ _{ more test cases ... }_
 .. Other incorrect initialise commands to try: `init`, `init x` (where x is smaller or larger than the specified minimum or maximum map size respectively). +
    Expected: No map will be displayed if this is the first command ran. Otherwise, no changes will be made to the displayed map.
 
-=== Deleting a person
+=== Putting a ship
 
-. Deleting a person while all persons are listed
+. Putting a ship on the map after initialising the map.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: There are ships in your fleet ready to be deployed. This means that the number of battleships in the fleet is more than 0. The map is initialised to a size between 6 and 10.
+.. Test case: `put n/destroyer r/horizontal c/b1` +
+   Expected: Destroyer battleship of size 3 will be put horizontally on coordinates `b1`, `b2` and `b3`. The map is updated with 3 black cells on each of these coordinates representing the Destroyer battleship.
+.. Test case: `put n/aircraft carrier r/horizontal c/c1 t/bluefleet` +
+   Expected: Aircraft Carrier battleship of size 5 will be put horizontally on coordinates `c1`, `c2`, `c3`, `c4` and `c5`. The map is updated with 5 black cells on each of these coordinates representing the Aircraft Carrier battleship.
+.. Test case: `put n/aircraft carrier r/horizontal c/e1 t/nomore` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+.. Test case: `put n/destroyer r/vertical c/b1` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+.. Test case: `put n/destroyer r/vertical c/a1` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
+.. Test case: `put n/destroyer r/vertical c/z1` +
+   Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
 
 _{ more test cases ... }_
 

@@ -10,9 +10,9 @@ import static seedu.finance.commons.util.AppUtil.checkArgument;
  */
 public class Amount {
 
-    public static final String MESSAGE_CONSTRAINTS = "Amount starts with dollar sign and is a positive numbers, "
-            + "with either 2 decimal place or none";
-    public static final String VALIDATION_REGEX = "^\\$(([1-9]\\d{0,2}(,\\d{3})*)|(([1-9]\\d*)?\\d))(\\.\\d\\d)?$";
+    public static final String MESSAGE_CONSTRAINTS = "Amount is a positive numbers, " +
+            "with either 2 decimal place or none";
+    public static final String VALIDATION_REGEX = "(([1-9]\\d{0,2}(,\\d{3})*)|(([1-9]\\d*)?\\d))(\\.\\d\\d)?$";
 
     public final String value;
 

@@ -27,8 +27,8 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_AMOUNT_AMY = "$312.00";
-    public static final String VALID_AMOUNT_BOB = "$123.23";
+    public static final String VALID_AMOUNT_AMY = "312.00";
+    public static final String VALID_AMOUNT_BOB = "123.23";
     public static final String VALID_DATE_AMY = "12/01/2005";
     public static final String VALID_DATE_BOB = "23/04/2014";
     public static final String VALID_CATEGORY_HUSBAND = "husband";
@@ -46,7 +46,7 @@ public class CommandTestUtil {
     public static final String CATEGORY_DESC_HUSBAND = " " + PREFIX_CATEGORY + VALID_CATEGORY_HUSBAND;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "42"; // did not start with '$'
+    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "$42"; // did not start with '$'
     public static final String INVALID_DATE_DESC =
             " " + PREFIX_DATE + "29/29/2019"; // invalid date not allowed in dates
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY

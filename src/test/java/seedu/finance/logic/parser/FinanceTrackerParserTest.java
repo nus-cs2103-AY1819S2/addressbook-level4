@@ -63,7 +63,7 @@ public class FinanceTrackerParserTest {
 
     @Test
     public void parseCommand_allocate() throws Exception {
-        assertTrue((parser.parseCommand(AllocateCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "$123.00 "
+        assertTrue((parser.parseCommand(AllocateCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123.00 "
                 + PREFIX_CATEGORY + "Friends") instanceof AllocateCommand));
     }
 
@@ -184,7 +184,7 @@ public class FinanceTrackerParserTest {
 
     @Test
     public void parseCommand_increase() throws Exception {
-        assertTrue((parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "$123")
+        assertTrue((parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123")
                 instanceof IncreaseCommand));
     }
 

@@ -109,7 +109,7 @@ public class CsvManager implements CsvCommands {
     }
 
     public static boolean fileExists(CsvFile csvFile) throws IOException {
-        return new File(getDefaultFilePath() + "/" +  csvFile.filename).isFile();
+        return new File(getDefaultFilePath() + "/" + csvFile.filename).isFile();
     }
 
     public static String getDefaultFilePath() throws IOException {

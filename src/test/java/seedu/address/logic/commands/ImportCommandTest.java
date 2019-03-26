@@ -6,6 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import org.junit.rules.ExpectedException;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.*;
 import seedu.address.storage.csvmanager.CsvFile;
 
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
-import static seedu.address.testutil.TypicalCards.getTypicalCards;
 
 public class ImportCommandTest {
     @Rule
@@ -23,6 +23,8 @@ public class ImportCommandTest {
 
 
     private File file;
+    private final String validFilename = "Typical Cards.csv";
+    private final String invalidFileName = "Fake Cards.csv";
 
     private CommandHistory commandHistory = new CommandHistory();
     private Model model = new ModelManager(new ArrayList<ReadOnlyCardFolder>(), new UserPrefs());
@@ -38,13 +40,20 @@ public class ImportCommandTest {
 
     @Test
     public void execute_importTypicalCards_success() throws Exception {
-        String filename = "Typical Cards.csv";
-        ImportCommand importCommand = new ImportCommand(new CsvFile(filename));
+        ImportCommand importCommand = new ImportCommand(new CsvFile(validFilename));
 
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         CommandResult commandResult = importCommand.execute(model, commandHistory);
-        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, filename);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, validFilename);
         assertCommandSuccess(importCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_importNonExistentCards_failure() throws Exception {
+        ImportCommand importCommand = new ImportCommand(new CsvFile(invalidFileName));
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(ImportCommand.MESSAGE_FILE_OPS_FAILURE);
+        importCommand.execute(model, commandHistory);
     }
 
 

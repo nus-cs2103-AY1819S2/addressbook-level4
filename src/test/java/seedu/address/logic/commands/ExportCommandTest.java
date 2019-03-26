@@ -136,7 +136,9 @@ public class ExportCommandTest {
                         Tag currentTag = (Tag) buildIterator.next();
                         String formattedCurrentTagString = currentTag.toStringUpperCase();
                         builder.append(formattedCurrentTagString);
-                        builder.append(' ');
+                        if (buildIterator.hasNext()) {
+                            builder.append(' ');
+                        }
                     }
                     expectedData = builder.toString().split("\\|");
                     assertArrayEquals(expectedData, actualData);

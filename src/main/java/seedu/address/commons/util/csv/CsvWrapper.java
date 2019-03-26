@@ -29,7 +29,8 @@ import seedu.address.model.tag.Tag;
 public class CsvWrapper {
 
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to csv file: ";
-    private static String[] defaultHeading = {"Name", "Batch Number", "Quantity", "Expiry Date", "Company", "Tags"};
+    private static String[] defaultHeading = {"Name", "Batch Number", "Quantity", "Expiry Date", "Company", "Tags",
+                                              "Notifications"};
     private static final String DEFAULT_EXPORT_FOLDER_NAME = "exported";
     private static final Path DEFAULT_EXPORT_FOLDER_PATH = Paths.get(DEFAULT_EXPORT_FOLDER_NAME);
     private String csvFileName;
@@ -191,7 +192,9 @@ public class CsvWrapper {
             Tag current = (Tag) iterator.next();
             String formattedCurrentTagString = current.toStringUpperCase();
             builder.append(formattedCurrentTagString);
-            builder.append(' ');
+            if (iterator.hasNext()) {
+                builder.append(' ');
+            }
         }
         result = builder.toString().split("\\|");
         return result;

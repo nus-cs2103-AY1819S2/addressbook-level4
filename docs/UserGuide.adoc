@@ -48,7 +48,8 @@ Some example commands you can try:
 
 
 * *`list`* : lists all places
-* **`add`**`n/NUS Computing cc/SGP r/5 d/No Description a/NUS School of Computing, COM1, 13 Computing Drive, 117417` :
+* **`add`**`n/NUS Computing cc/SGP dv/10/10/2018 r/5 d/No Description a/NUS School of Computing, COM1, 13 Computing
+Drive, 117417` :
 adds
  a place named `NUS Computing` to TravelBuddy.
 * **`delete`**`3` : deletes the 3rd place shown in the current list
@@ -85,7 +86,7 @@ around. This can be useful to refer to when using the app.
 The `add` command adds a place to TravelBuddy. +
 
 Shortcut: `a` +
-Format: `add n/NAME cc/COUNTRYCODE r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...`
+Format: `add n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...`
 
 [TIP]
 A place can have any number of tags (including 0).
@@ -94,8 +95,9 @@ image::addCommand.png[width="600"]
 
 Examples:
 
-* `add n/NUS Computing cc/SGP r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417`
-* `add n/Raffles Hotel t/hotel d/This place is lovely cc/SGP a/Raffles Road r/5 t/staycation`
+* `add n/NUS Computing cc/SGP dv/10/10/2018 r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive,
+117417`
+* `add n/Raffles Hotel dv/08/07/2010 t/hotel d/This place is lovely cc/SGP a/Raffles Road r/5 t/staycation`
 
 === Listing all places : `list`
 
@@ -113,7 +115,7 @@ image::listCommand.png[width="600"]
 You can use the `edit` command to edit an existing place in TravelBuddy. +
 
 Shortcut: `e` +
-Format: `edit INDEX [n/NAME] [cc/COUNTRYCODE] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [cc/COUNTRY_CODE] [dv/DATE_VISITED] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...`
 
 ****
 * Edits the place at the specified `INDEX`. The index refers to the index number shown in the displayed place list. The
@@ -310,7 +312,8 @@ Format: `select INDEX`
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
-The image below shows the result of using `select 3` command. The place with an index of 3 is highlighted in a blue box and additional information is shown on the right side of the GUI.
+The image below shows the result of using `select 2` command. The place with an index of 2 is highlighted in a blue
+box and additional information is shown on the right side of the GUI.
 
 image::selectCommand.png[width="600"]
 
@@ -464,7 +467,8 @@ Please do check the file that contains the data of your TravelBuddy.
 *A*: The following details are required for a valid `add` command:
 
 * Name of place (Prefix: `n/`)
-* Country Code of place (Prefix: `cc/`)
+* Country code of place (Prefix: `cc/`)
+* Date the place was visited (Prefix: `dv/`)
 * Rating of place (Prefix: `r/`)
 * Description of place (Prefix: `d/`)
 * Address of place (Prefix: `a/`)
@@ -479,8 +483,9 @@ Please do check the file that contains the data of your TravelBuddy.
 
 Below is a summarized list of all the shortcuts for commands that TravelBuddy supports:
 
-* *Add* - shortcut `a` - `a n/NAME cc/COUNTRYCODE r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...` +
-e.g. `a n/NUS Computing cc/SGP r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417
+* *Add* - shortcut `a` - `a n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...` +
+e.g. `a n/NUS Computing cc/SGP dv/10/10/2017 r/5 d/No description a/NUS School of Computing, COM1, 13 Computing
+Drive, 117417
 t/school`
 
 * *Clear* : shortcut `c`

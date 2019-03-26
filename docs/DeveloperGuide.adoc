@@ -507,10 +507,6 @@ developers of our project.
 ** Cons: Requires more memory as a separate HashMap needs to be stored.
 // end::search[]
 
-<<<<<<< HEAD
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-=======
 // tag::countrycode[]
 === Add Country Code, Rating & Description
 The `add` command is used to add a place to the application. Apart from being able to add the name of the place,
@@ -543,8 +539,8 @@ Step 1. The user launches the application and sees the GUI with no places.
 
 image::AddCommandStep1.png[width="800"]
 
-Step 2. The user types the full add command `add n/NUS Computing cc/SGP r/5 d/No description a/NUS School of
-Computing, COM1, 13 Computing Drive, 117417 t/school` to add the place to TravelBuddy and presses enter.
+Step 2. The user types the full add command `add n/NUS Computing cc/SGP dv/02/01/2018 r/5 d/No description a/NUS
+School of Computing, COM1, 13 Computing Drive, 117417 t/school` to add the place to TravelBuddy and presses enter.
 
 image::AddCommandStep2.png[width="800"]
 
@@ -559,14 +555,15 @@ Step 3. Selecting the specific place allows the user to see more information in 
 
 image::AddCommandStep3.png[width="800"]
 
-// end::countrycode[]
-
 ==== Design Considerations
->>>>>>> b78fbd7ae6e5de6d52441e8f958c4e4658f380be
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+===== Aspect: Data structure to store Country Codes
+* **Alternative 1 (current choice):** Use java.util.Locales.
+** Pros: Easy to implement and contains all country codes specified in ISO-3166.
+** Cons: Slightly slow in locating country code.
+* **Alternative 2:** Create own data structure containing most commonly traveled countries in the world.
+** Pros: Locating country code in data structure would be fast.
+** Cons: Tedious process of typing out country codes in the data structure.
+// end::countrycode[]
 
 // tag::generate[]
 === Generate Feature

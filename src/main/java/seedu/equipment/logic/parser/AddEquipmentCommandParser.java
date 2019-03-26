@@ -26,11 +26,11 @@ public class AddEquipmentCommandParser implements Parser<AddEquipmentCommand> {
      */
     public AddEquipmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_EMAIL,
+                ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_PM,
                         CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_SERIALNUMBER, CliSyntax.PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_PHONE,
-                CliSyntax.PREFIX_EMAIL, CliSyntax.PREFIX_SERIALNUMBER)
+                CliSyntax.PREFIX_PM, CliSyntax.PREFIX_SERIALNUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(
                     Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
@@ -38,7 +38,7 @@ public class AddEquipmentCommandParser implements Parser<AddEquipmentCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_EMAIL).get());
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_PM).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).get());
         SerialNumber serialNumber = ParserUtil.parseSerialNumber(argMultimap.getValue(
                 CliSyntax.PREFIX_SERIALNUMBER).get());

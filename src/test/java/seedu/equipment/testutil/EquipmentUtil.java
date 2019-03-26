@@ -1,7 +1,7 @@
 package seedu.equipment.testutil;
 
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PM;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_SERIALNUMBER;
@@ -33,7 +33,7 @@ public class EquipmentUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_NAME + equipment.getName().name + " ");
         sb.append(PREFIX_PHONE + equipment.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + equipment.getEmail().value + " ");
+        sb.append(PREFIX_PM + equipment.getEmail().value + " ");
         sb.append(PREFIX_ADDRESS + equipment.getAddress().value + " ");
         sb.append(PREFIX_SERIALNUMBER + equipment.getSerialNumber().serialNumber + " ");
         equipment.getTags().stream().forEach(
@@ -49,7 +49,7 @@ public class EquipmentUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.name).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_PM).append(email.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getSerialNumber().ifPresent(serialNumber -> sb.append(PREFIX_SERIALNUMBER)
                 .append(serialNumber.serialNumber).append(" "));

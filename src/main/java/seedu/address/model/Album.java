@@ -19,7 +19,6 @@ public class Album {
     private final String assetsFilePath = "src/main/resources/assets/";
 
     private List<Image> imageList;
-    private File folder;
 
     public Album() {
         imageList = new ArrayList<>();

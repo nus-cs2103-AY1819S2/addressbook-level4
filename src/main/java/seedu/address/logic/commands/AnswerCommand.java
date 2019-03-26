@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -54,11 +53,9 @@ public class AnswerCommand extends Command {
         model.updateFilteredCard(PREDICATE_SHOW_ALL_CARDS);
         model.commitActiveCardFolder();
         if (isAttemptCorrect) {
-            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, false, null,
-                    false, AnswerCommandResultType.ANSWER_CORRECT);
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, CommandResult.Type.ANSWER_CORRECT);
         } else {
-            return new CommandResult(MESSAGE_ANSWER_SUCCESS, false, false, false, false, null,
-                    false, AnswerCommandResultType.ANSWER_WRONG);
+            return new CommandResult(MESSAGE_ANSWER_SUCCESS, CommandResult.Type.ANSWER_WRONG);
         }
     }
 

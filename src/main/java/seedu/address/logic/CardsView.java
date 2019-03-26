@@ -3,7 +3,6 @@ package seedu.address.logic;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.BitSet;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;

@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -41,7 +42,7 @@ public class DeleteCardCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Card cardToDelete = (Card)model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
-        DeleteCardCommand deleteCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
+        DeleteCardCommand deleteCommand = new DeleteCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD);
 
         String expectedMessage = String.format(DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
@@ -56,7 +57,7 @@ public class DeleteCardCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
-        DeleteCardCommand deleteCommand = new DeleteCardCommand(outOfBoundIndex);
+        DeleteCardCommand deleteCommand = new DeleteCardCommand((CardsView) model.getViewState(), outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
     }
@@ -66,7 +67,7 @@ public class DeleteCardCommandTest {
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
         Card cardToDelete = (Card)model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
-        DeleteCardCommand deleteCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
+        DeleteCardCommand deleteCommand = new DeleteCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD);
 
         String expectedMessage = String.format(DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
@@ -87,7 +88,7 @@ public class DeleteCardCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() <
             model.getTopDeck().getDeckList().get(0).getCards().internalList.size());
 
-        DeleteCardCommand deleteCommand = new DeleteCardCommand(outOfBoundIndex);
+        DeleteCardCommand deleteCommand = new DeleteCardCommand((CardsView) model.getViewState(), outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
     }
@@ -95,7 +96,7 @@ public class DeleteCardCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Card cardToDelete = (Card)model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
-        DeleteCardCommand deleteCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
+        DeleteCardCommand deleteCommand = new DeleteCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD);
 
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.changeDeck(getTypicalDeck());
@@ -107,24 +108,24 @@ public class DeleteCardCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered card list to show all persons
         expectedModel.undoTopDeck();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(model.getViewState()), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first card deleted again
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(model.getViewState()), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
-        DeleteCardCommand deleteCommand = new DeleteCardCommand(outOfBoundIndex);
+        DeleteCardCommand deleteCommand = new DeleteCardCommand((CardsView) model.getViewState(), outOfBoundIndex);
 
         // execution failed -> address book state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
 
         // single address book state in model -> undoCommand and redoCommand fail
-        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new UndoCommand(model.getViewState()), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(model.getViewState()), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 
     /**
@@ -136,7 +137,7 @@ public class DeleteCardCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameCardDeleted() throws Exception {
-        DeleteCardCommand deleteCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
+        DeleteCardCommand deleteCommand = new DeleteCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD);
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
 
         showCardAtIndex(model, INDEX_SECOND_CARD);
@@ -151,23 +152,23 @@ public class DeleteCardCommandTest {
 
         // undo -> reverts topdeck back to previous state and filtered card list to show all cards
         expectedModel.undoTopDeck();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(model.getViewState()), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> deletes same second card in unfiltered card list
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(model.getViewState()), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void equals() {
-        DeleteCardCommand deleteFirstCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
-        DeleteCardCommand deleteSecondCommand = new DeleteCardCommand(INDEX_SECOND_CARD);
+        DeleteCardCommand deleteFirstCommand = new DeleteCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD);
+        DeleteCardCommand deleteSecondCommand = new DeleteCardCommand((CardsView) model.getViewState(), INDEX_SECOND_CARD);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCardCommand deleteFirstCommandCopy = new DeleteCardCommand(INDEX_FIRST_CARD);
+        DeleteCardCommand deleteFirstCommandCopy = new DeleteCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

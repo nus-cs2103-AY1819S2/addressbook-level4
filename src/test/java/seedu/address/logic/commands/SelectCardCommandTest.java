@@ -77,14 +77,14 @@ public class SelectCardCommandTest {
 
     @Test
     public void equals() {
-        SelectCommand selectFirstCommand = new SelectCardCommand(INDEX_FIRST_CARD, (CardsView) model.getViewState());
-        SelectCommand selectSecondCommand = new SelectCardCommand(INDEX_SECOND_CARD, (CardsView) model.getViewState());
+        SelectCommand selectFirstCommand = new SelectCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD);
+        SelectCommand selectSecondCommand = new SelectCardCommand((CardsView) model.getViewState(), INDEX_SECOND_CARD);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCardCommand(INDEX_FIRST_CARD, (CardsView) model.getViewState());
+        SelectCommand selectFirstCommandCopy = new SelectCardCommand((CardsView) model.getViewState(), INDEX_FIRST_CARD);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -102,7 +102,7 @@ public class SelectCardCommandTest {
      * and checks that the model's selected card is set to the card at {@code index} in the filtered card list.
      */
     private void assertExecutionSuccess(Index index) {
-        SelectCommand selectCommand = new SelectCardCommand(index, (CardsView) model.getViewState());
+        SelectCommand selectCommand = new SelectCardCommand((CardsView) model.getViewState(), index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_SUCCESS, index.getOneBased());
         expectedModel.setSelectedItem(model.getFilteredList().get(index.getZeroBased()));
 
@@ -114,7 +114,7 @@ public class SelectCardCommandTest {
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        SelectCommand selectCommand = new SelectCardCommand(index, (CardsView) model.getViewState());
+        SelectCommand selectCommand = new SelectCardCommand((CardsView) model.getViewState(), index);
         assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
     }
 }

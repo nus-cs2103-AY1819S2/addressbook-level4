@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -36,14 +37,14 @@ public class AddDeckIntegrationTest {
         expectedModel.addDeck(validDeck);
         expectedModel.commitTopDeck();
 
-        assertCommandSuccess(new AddDeckCommand(validDeck), model, commandHistory,
+        assertCommandSuccess(new AddDeckCommand((DecksView) model.getViewState(), validDeck), model, commandHistory,
                 String.format(AddDeckCommand.MESSAGE_SUCCESS, validDeck), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Deck deckInList = model.getTopDeck().getDeckList().get(0);
-        assertCommandFailure(new AddDeckCommand(deckInList), model, commandHistory, MESSAGE_DUPLICATE_DECK);
+        assertCommandFailure(new AddDeckCommand((DecksView) model.getViewState(), deckInList), model, commandHistory, MESSAGE_DUPLICATE_DECK);
     }
 
 }

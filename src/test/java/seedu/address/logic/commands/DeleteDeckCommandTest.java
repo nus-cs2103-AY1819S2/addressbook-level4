@@ -14,6 +14,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -31,7 +32,7 @@ public class DeleteDeckCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Deck deckToDelete = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
-        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(INDEX_FIRST_DECK);
+        DeleteDeckCommand deleteCommand = new DeleteDeckCommand((DecksView) model.getViewState(), INDEX_FIRST_DECK);
 
         String expectedMessage = String.format(DeleteDeckCommand.MESSAGE_DELETE_DECK_SUCCESS, deckToDelete);
 
@@ -45,7 +46,7 @@ public class DeleteDeckCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
-        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(outOfBoundIndex);
+        DeleteDeckCommand deleteCommand = new DeleteDeckCommand((DecksView) model.getViewState(),outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
@@ -56,7 +57,7 @@ public class DeleteDeckCommandTest {
         showDeckAtIndex(model, INDEX_FIRST_DECK);
 
         Deck deckToDelete = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
-        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(INDEX_FIRST_DECK);
+        DeleteDeckCommand deleteCommand = new DeleteDeckCommand((DecksView) model.getViewState(),INDEX_FIRST_DECK);
 
         String expectedMessage = String.format(DeleteDeckCommand.MESSAGE_DELETE_DECK_SUCCESS, deckToDelete);
 
@@ -75,7 +76,7 @@ public class DeleteDeckCommandTest {
         // ensures that outOfBoundIndex is still in bounds of TopDeck list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTopDeck().getDeckList().size());
 
-        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(outOfBoundIndex);
+        DeleteDeckCommand deleteCommand = new DeleteDeckCommand((DecksView) model.getViewState(),outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
@@ -83,14 +84,14 @@ public class DeleteDeckCommandTest {
 
     @Test
     public void equals() {
-        DeleteDeckCommand deleteFirstCommand = new DeleteDeckCommand(INDEX_FIRST_DECK);
-        DeleteDeckCommand deleteSecondCommand = new DeleteDeckCommand(INDEX_SECOND_DECK);
+        DeleteDeckCommand deleteFirstCommand = new DeleteDeckCommand((DecksView) model.getViewState(),INDEX_FIRST_DECK);
+        DeleteDeckCommand deleteSecondCommand = new DeleteDeckCommand((DecksView) model.getViewState(),INDEX_SECOND_DECK);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteDeckCommand deleteFirstCommandCopy = new DeleteDeckCommand(INDEX_FIRST_DECK);
+        DeleteDeckCommand deleteFirstCommandCopy = new DeleteDeckCommand((DecksView) model.getViewState(),INDEX_FIRST_DECK);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

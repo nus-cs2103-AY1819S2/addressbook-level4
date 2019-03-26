@@ -73,6 +73,16 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseDate_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDate(null));
+    }
+
+    @Test
+    public void parseAssignee_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAssignee(null));
+    }
+
+    @Test
     public void parseName_invalidValue_throwsParseException() {
         Assert.assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
     }

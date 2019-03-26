@@ -6,10 +6,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Question;
@@ -156,7 +156,7 @@ public class ParserUtil {
     public static CsvFile parseFileName(String filename) throws ParseException {
         requireNonNull(filename);
         if (!CsvFile.isValidFileName(filename)) {
-            throw new ParseException(CsvFile.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, CsvFile.MESSAGE_CONSTRAINTS));
         }
         return new CsvFile(filename);
     }

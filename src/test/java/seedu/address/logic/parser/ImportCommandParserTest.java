@@ -31,10 +31,10 @@ public class ImportCommandParserTest {
         String testFileIncorrect = "hello.exe";
 
         assertParseFailure(parser, EMPTY_STRING, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ImportCommand.MESSAGE_USAGE));
+                CsvFile.MESSAGE_CONSTRAINTS));
 
         assertParseFailure(parser, testFileIncorrect, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                ImportCommand.MESSAGE_USAGE));
+                CsvFile.MESSAGE_CONSTRAINTS));
 
     }
 }

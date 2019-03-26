@@ -1,5 +1,15 @@
 package seedu.address.model;
 
+import static seedu.address.commons.core.Config.TEMP_FILENAME;
+import static seedu.address.commons.core.Config.TEMP_FILEPATH;
+
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
+
 import com.sksamuel.scrimage.nio.JpegWriter;
 
 import seedu.address.Notifier;
@@ -14,15 +24,39 @@ public class CurrentEditManager implements CurrentEdit {
     private Image originalImage;
     private Image tempImage;
 
-    public void createTempinTempFolder() { }
+    public void saveTemp() {
+        saveIntoTempFolder(TEMP_FILENAME, tempImage);
+    }
 
-    public void saveOriginalinTempFolder() { }
+    public void saveOriginal() {
+        saveIntoTempFolder(originalImage.getName().toString(), originalImage);
+    }
+
+    public void saveIntoTempFolder(String filename, Image image) {
+        try {
+            File outputFile = new File(filename);
+            File directory = new File(TEMP_FILEPATH);
+            ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
+            FileUtils.copyFileToDirectory(outputFile, directory, false);
+            outputFile.delete();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+    }
 
     public Image getTempImage() {
         return tempImage;
     }
 
-    public void setTempImage(Image image) { }
+    public void setTempImage(Image image) {
+        this.tempImage = image;
+        saveTemp();
+    }
+
+    public void setOriginalImage(Image image) {
+        this.originalImage = image;
+        saveOriginal();
+    }
 
     public void setTempImage(com.sksamuel.scrimage.Image image) {
         image.output(tempImage.getUrl(),

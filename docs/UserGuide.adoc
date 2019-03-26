@@ -1,4 +1,4 @@
-= slaveFinder() - User Guide
+﻿= slaveFinder() - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -335,10 +335,10 @@ Format : `rank`
 Delete a rank command showing on the display board and renew the update display people list. +
 Format: `deleterank RANKNAME1 RANKNAME2...`
 
-==== Display Analytics : `displayAnalytics` `Coming in v1.4`
+==== Display Analytics : `analytics` `Coming in v1.4`
 
-Display the analytics of applicants on the display person borad +
-Format : `displayAnalytics`
+Display the analytics of applicants on a new window
+Format : `analytics`
 
 ==== Select people into "Interview" List: `selectInterview` `Coming in v1.4`
 
@@ -424,4 +424,4 @@ e.g.`select 2`
 [g/GENDER] [r/RACE] [s/SCHOOL] [pj/PAST_JOBS] [t/TAG]...` +
 e.g. `filter r/Chinese`
 * *Display Hiring Process* : `displayProcess`
-* *Display Analytics* : `displayAnalytics`
+* *Display Analytics* : `analytics`

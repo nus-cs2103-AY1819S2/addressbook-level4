@@ -1,9 +1,14 @@
 {
   "persons": [ {
     "name": "Person with invalid name field: Ha!ns Mu@ster",
+    "matricNumber": "A1234569C",
     "phone": "9482424",
     "email": "hans@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "gender" : "male",
+    "yearOfStudy" : "year 1",
+    "major" : "computing",
+    "tagged" : [ "swimming", "running" ]
   } ],
   "activities": []
 }

@@ -139,7 +139,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 ==== Adding a member: `memberAdd`
 
 You can add members to ClubManager. +
-Format: `memberAdd n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
+Format: `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ADDRESS g/GENDER yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
 ****
 * YEAR_OF_STUDY refers to the academic level (in years) in which the member is currently studying in YYYY format.
 * MAJOR refers to the field of discipline in which member is currently enrolled in.
@@ -149,8 +149,10 @@ A member can have any number of tags (including 0)
 
 Examples:
 
-* `memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`
-* `memberAdd n/Betsy Crower an/A0123456Y p/98765432 e/jamesong@example.com yos/year4 m/chemistry t/maincomm`
+* `memberAdd n/John Doe mn/A0123456Z p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 g/Male
+y/Year 2 m/Chemistry t/Swimming`
+* `memberAdd n/Betsy Crower mn/A0654321B p/98765432 e/betsy@example.com a/311, Jurong West Avenue 2, #02-25
+g/Female y/Year 2 m/Mathematics t/Running`
 
 ==== Deleting a member : `memberDelete`
 
@@ -449,6 +451,7 @@ Address book data are saved in the hard disk automatically after any command tha
 There is no need to save manually.
 
 // tag::dataencryption[]
+
 === Encrypting data files `[coming in v2.0]`
 
 _{explain how the user can enable/disable data encryption}_

@@ -140,6 +140,12 @@ public class AddEquipmentCommandTest {
         }
 
         @Override
+        public void addWorkList(WorkList workList) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setEquipmentManager(ReadOnlyEquipmentManager newData) {
             throw new AssertionError("This method should not be called.");
         }

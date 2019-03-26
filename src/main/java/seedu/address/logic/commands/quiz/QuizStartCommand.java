@@ -41,34 +41,43 @@ public class QuizStartCommand implements Command {
             + PREFIX_START_COUNT + "15 "
             + PREFIX_START_MODE + "LEARN";
     public static final String MESSAGE_SUCCESS = "Starting new quiz";
-    protected List<QuizCard> quizCards;
     private Session session;
+
     public QuizStartCommand(Session session) {
         requireNonNull(session);
         this.session = session;
     }
+
     public Session getSession() {
         return session;
     }
+
     /**
      * Executes the command.
      */
-    public CommandResult executeActual(QuizModel model, CommandHistory history) {
-        this.quizCards = session.generateSession();
+    public CommandResult executeActual(QuizModel model, ManagementModel managementModel, CommandHistory history) {
+        List<QuizCard> quizCards = session.generateSession();
         Quiz quiz = new Quiz(quizCards, session.getMode());
 
-        model.initWithSession(quiz, session);
+        model.initWithSession(quiz, session, managementModel);
         QuizCard card = model.getNextCard();
 
+        // TODO save the coreheader info in quizcards
         if (card.getQuizMode() == QuizMode.PREVIEW) {
             model.setDisplayFormatter(new QuizUiDisplayFormatter(
-                    model.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(0), card.getQuestion(),
-                    model.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(1),
+                    // model.getQuizSrsCards().getQuizSrsCards(0).getLesson().getCoreHeaders().get(0),
+                    "Question", card.getQuestion(),
+                    // model.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(1),
+                    "Answer",
                     card.getAnswer(), QuizMode.PREVIEW));
         } else {
             model.setDisplayFormatter(new QuizUiDisplayFormatter(
-                    model.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(0), card.getQuestion(),
-                    model.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(1), QuizMode.REVIEW));
+                    // model.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(0),
+                    "Question",
+                    card.getQuestion(),
+                    // model.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(1),
+                    "Answer",
+                    QuizMode.REVIEW));
         }
 
         return new CommandResult("", true, false, false);

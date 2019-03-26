@@ -43,7 +43,7 @@ public interface QuizModel extends Model {
     /**
      * Sets the {@code Quiz} and {@code Session} information.
      */
-    void initWithSession(Quiz quiz, Session session);
+    void initWithSession(Quiz quiz, Session session, ManagementModel managementModel);
 
     /**
      * Returns if there is still card left in {@code Quiz}.
@@ -101,11 +101,10 @@ public interface QuizModel extends Model {
     List<List<Integer>> end();
 
     /**
-     * Update user profile after quiz ends.
+     * Updates user profile after quiz ends.
      * @param quizInformation from quiz.
-     * @param model to update user profile.
      */
-    void updateUserProfile(ManagementModel model, List<List<Integer>> quizInformation);
+    void updateUserProfile(List<List<Integer>> quizInformation);
 
     /**
      * Sets formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.

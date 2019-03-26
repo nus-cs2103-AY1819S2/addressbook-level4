@@ -67,11 +67,9 @@ public class QuizAnswerCommand implements Command {
                 return new CommandResult("", true, false, false);
             }
 
-            // TODO return this to session
-            System.out.println(quizModel.end());
+            quizModel.updateUserProfile(quizModel.end());
 
-            // TODO change back to management mode display
-            // set the display to blank
+            // set the display to blank for management mode display
             quizModel.setDisplayFormatter(null);
             return new CommandResult(MESSAGE_COMPLETE);
         }

@@ -241,7 +241,7 @@ public class AddLessonCommandTest {
         /**
          * Sets the {@code Quiz} and {@code Session} information.
          */
-        public void initWithSession(Quiz quiz, Session session) {
+        public void initWithSession(Quiz quiz, Session session, ManagementModel managementModel) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -310,9 +310,8 @@ public class AddLessonCommandTest {
         /**
          * Update user profile after quiz ends.
          * @param quizInformation from quiz.
-         * @param model to update user profile.
          */
-        public void updateUserProfile(ManagementModel model, List<List<Integer>> quizInformation) {
+        public void updateUserProfile(List<List<Integer>> quizInformation) {
             throw new AssertionError("This method should not be called.");
         }
         @Override

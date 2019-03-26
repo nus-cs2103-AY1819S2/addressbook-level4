@@ -22,8 +22,22 @@ public class EmailContainsKeywordsPredicate extends ContainsKeywordsPredicate<Pe
 
     @Override
     public boolean test(Person person) {
-        return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().toString(),
-            keyword));
+        if (!isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsStringCaseSensitive(person.getEmail().toString(), keyword));
+
+        } else if (isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsStringIgnoreCase(person.getEmail().toString(), keyword));
+
+        } else if (!isIgnoreCase && isAnd) {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsStringCaseSensitive(person.getEmail().toString(), keyword));
+
+        } else {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsStringIgnoreCase(person.getEmail().toString(), keyword));
+        }
     }
 
     @Override

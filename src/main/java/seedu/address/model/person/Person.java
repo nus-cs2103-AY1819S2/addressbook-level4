@@ -1,13 +1,13 @@
 package seedu.address.model.person;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import seedu.address.model.tag.SkillsTag;
-
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import seedu.address.model.tag.SkillsTag;
 
 /**
  * Represents a Person in the address book.
@@ -62,7 +62,7 @@ public class Person {
         return education;
     }
 
-    public Gpa getGPA() {
+    public Gpa getGpa() {
         return gpa;
     }
 
@@ -84,7 +84,9 @@ public class Person {
     public boolean isTagExist(String tag) {
 
         for (SkillsTag skill : tags) {
-            if (skill.tagName.toLowerCase().contains(tag)) return true;
+            if (skill.tagName.toLowerCase().contains(tag)) {
+                return true;
+            }
         }
 
         return false;
@@ -143,7 +145,7 @@ public class Person {
                 .append(" Education: ")
                 .append(getEducation())
                 .append(" Gpa: ")
-                .append(getGPA())
+                .append(getGpa())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

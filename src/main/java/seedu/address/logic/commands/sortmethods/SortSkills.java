@@ -1,13 +1,17 @@
 package seedu.address.logic.commands.sortmethods;
 
-import seedu.address.model.person.*;
-import seedu.address.model.person.Gpa;
-import seedu.address.model.tag.SkillsTag;
-
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.ArrayList;
 
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Education;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Gpa;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.SkillsTag;
 
 /**
  * Sorts all persons by skill (tag).
@@ -17,10 +21,6 @@ public class SortSkills {
 
     private List<Person> newList;
 
-    public List<Person> getList() {
-        return this.newList;
-    }
-
     public SortSkills(List<Person> lastShownList) {
         //Modify each Person to organise tags alphabetically
         List<Person> personsWithCorrectTagOrder = orderPersonsTags(lastShownList);
@@ -28,6 +28,10 @@ public class SortSkills {
         List<Person> newList = SortUtil.sortPersonsByTags(personsWithCorrectTagOrder);
 
         this.newList = newList;
+    }
+
+    public List<Person> getList() {
+        return this.newList;
     }
 
     /**
@@ -45,7 +49,7 @@ public class SortSkills {
             Phone phone = lastShownList.get(i).getPhone();
             Email email = lastShownList.get(i).getEmail();
             Education education = lastShownList.get(i).getEducation();
-            Gpa gpa = lastShownList.get(i).getGPA();
+            Gpa gpa = lastShownList.get(i).getGpa();
             Address address = lastShownList.get(i).getAddress();
             //change list back to set
             LinkedHashSet<SkillsTag> tagSet = SortUtil.toTags(individualSortedSkills);

@@ -9,8 +9,12 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.*;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Education;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Gpa;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.SkillsTag;
 
 /**
@@ -117,11 +121,11 @@ public class ParserUtil {
      */
     public static Gpa parseGpa(String gpa) throws ParseException {
         requireNonNull(gpa);
-        String trimmedGPA = gpa.trim();
-        if (!Gpa.isValidGpa(trimmedGPA)) {
+        String trimmedGpa = gpa.trim();
+        if (!Gpa.isValidGpa(trimmedGpa)) {
             throw new ParseException(Gpa.MESSAGE_CONSTRAINTS);
         }
-        return new Gpa(trimmedGPA);
+        return new Gpa(trimmedGpa);
     }
 
     /**

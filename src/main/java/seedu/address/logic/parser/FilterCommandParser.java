@@ -5,23 +5,23 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_POS_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL_REVERSE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POS_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_POS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
 
 /**
  * Parses the information in filter command
@@ -34,7 +34,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      * Since there are multiple options in filtering: and, or , clear
      * Decides which type of the filtering process will be executed from above
      */
-    private String FilterTypeDivider(String args, AtomicInteger typeOfProcess) {
+    private String filterTypeDivider(String args, AtomicInteger typeOfProcess) {
 
         typeOfProcess.set(-1);
 
@@ -199,15 +199,17 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         for (int i = beginLoc; i < endLoc; i++) {
             if (args.charAt(i) == ' ') {
                 beginLoc++;
+            } else {
+                break;
             }
-            else break;
         }
 
         for (int j = endLoc - 1; j > beginLoc; j--) {
             if (args.charAt(j) == ' ') {
                 endLoc--;
+            } else {
+                break;
             }
-            else break;
         }
 
         // checks if the Gpa value can be parsed into a float
@@ -227,7 +229,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         args = args.trim().replaceAll(" +", " ");
         AtomicInteger typeOfProcess = new AtomicInteger(-1);
-        args = FilterTypeDivider(args, typeOfProcess);
+        args = filterTypeDivider(args, typeOfProcess);
 
         String[] criterion = {" ", " ", " ", " ", " ", " ", " ", " "};
 

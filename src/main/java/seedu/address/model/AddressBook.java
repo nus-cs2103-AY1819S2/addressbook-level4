@@ -35,7 +35,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */ {
+     */
+    {
         allPersonsStorage = new UniquePersonList();
         persons = new UniquePersonList();
         isFilterExist = false;
@@ -212,7 +213,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 ifExcluded = true;
             }
 
-            if (gpa != null && Float.parseFloat(gpa) > Float.parseFloat(person.getGPA().toString())) {
+            if (gpa != null && Float.parseFloat(gpa) > Float.parseFloat(person.getGpa().toString())) {
                 ifExcluded = true;
             }
 
@@ -279,10 +280,10 @@ public class AddressBook implements ReadOnlyAddressBook {
             if (gpa != null) {
                 System.out.println("Gpa will be printed!");
                 System.out.println(Float.parseFloat(gpa));
-                System.out.println(Float.parseFloat(person.getGPA().toString()));
+                System.out.println(Float.parseFloat(person.getGpa().toString()));
             }
 
-            if (gpa != null && Float.parseFloat(gpa) <= Float.parseFloat(person.getGPA().toString())) {
+            if (gpa != null && Float.parseFloat(gpa) <= Float.parseFloat(person.getGpa().toString())) {
                 ifIncluded = true;
             }
 

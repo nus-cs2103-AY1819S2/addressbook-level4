@@ -21,8 +21,22 @@ public class DateOfBirthContainsKeywordsPredicate extends ContainsKeywordsPredic
 
     @Override
     public boolean test(Patient patient) {
-        return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getDateOfBirth()
-                .getDate(), keyword));
+        if (!isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordCaseSensitive(patient.getDateOfBirth().getDate(), keyword));
+
+        } else if (isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getDateOfBirth().getDate(), keyword));
+
+        } else if (!isIgnoreCase && isAnd) {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsWordCaseSensitive(patient.getDateOfBirth().getDate(), keyword));
+
+        } else {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getDateOfBirth().getDate(), keyword));
+        }
     }
 
     @Override

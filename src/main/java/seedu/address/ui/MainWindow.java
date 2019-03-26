@@ -240,36 +240,32 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
-            if (commandResult.isShowHelp()) {
+            switch (commandResult.getType()) {
+            case SHOW_HELP:
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+                break;
+            case IS_EXIT:
                 handleExit();
-            }
-
-            if (commandResult.enteredFolder()) {
+                break;
+            case ENTERED_FOLDER:
                 handleEnterFolder();
-            }
-
-            if (commandResult.exitedFolder()) {
+                break;
+            case EXITED_FOLDER:
                 handleExitFolder();
-            }
-
-            if (commandResult.isTestSession()) {
+                break;
+            case TEST_SESSION_CARD:
                 handleStartTestSession(commandResult.getTestSessionCard());
-            }
-
-            if (commandResult.isEndTestSession()) {
+                break;
+            case END_TEST_SESSION:
                 handleEndTestSession();
-            }
-
-            if (commandResult.isAnswerCommand()) {
-                if (commandResult.isAnswerCorrect()) {
-                    handleCorrectAnswer();
-                } else {
-                    handleWrongAnswer();
-                }
+                break;
+            case ANSWER_CORRECT:
+                handleCorrectAnswer();
+                break;
+            case ANSWER_WRONG:
+                handleWrongAnswer();
+                break;
+            default:
             }
 
             return commandResult;

@@ -9,7 +9,6 @@ import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 
 import org.junit.Test;
 
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -32,8 +31,8 @@ public class TestCommandTest {
         expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         Card cardToTest = expectedModel.getCurrentTestedCard();
 
-        CommandResult expectedCommandResult = new CommandResult(TestCommand.MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false,
-                false, false, false, cardToTest, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        CommandResult expectedCommandResult = new CommandResult(TestCommand.MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
+                CommandResult.Type.TEST_SESSION_CARD);
         assertCommandSuccess(testCommand, model, commandHistory, expectedCommandResult, expectedModel);
     }
 

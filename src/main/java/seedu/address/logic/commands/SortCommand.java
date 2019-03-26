@@ -9,15 +9,18 @@ import seedu.address.model.pdf.Pdf;
 
 
 /**
- * Sorts all PDF files in alphabetical order.
+ * Sorts all PDF files in alphabetical or deadline order.
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts all the PDFs based on sorting keywords.\n"
-            + "Parameters: up (for ascending order), down (for descending order)\n"
-            + "Example: " + COMMAND_WORD + " up";
+            + ": Sorts all the PDFs based on certain criteria.\n"
+            + "Parameters: CRITERIA (name/date) ORDER (up/down)\n"
+            + "CRITERIA can only be either name or date corresponding to alphabetical or deadline order\n"
+            + "ORDER can only be either up or down corresponding to ascending or descending order\n"
+            + "Example: " + COMMAND_WORD + " name up\n"
+            + "Example: " + COMMAND_WORD + " date down\n";
 
     public static final String MESSAGE_SUCCESS = "Sort success!";
 

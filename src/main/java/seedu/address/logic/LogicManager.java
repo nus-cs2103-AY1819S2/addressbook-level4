@@ -2,6 +2,10 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -104,5 +108,28 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(Pdf pdf) {
         model.setSelectedPdf(pdf);
+    }
+
+    @Override
+    public List<Pdf> getDuePdfs() {
+        ArrayList<Pdf> list = new ArrayList<>();
+        PriorityQueue<Pdf> pq = new PriorityQueue<>(new Comparator<Pdf>() {
+            @Override
+            public int compare(Pdf o1, Pdf o2) {
+                return Long.compare(o1.getDeadline().getDaysToDeadline(), o2.getDeadline().getDaysToDeadline());
+            }
+        });
+
+        for (Pdf pdf : this.model.getPdfBook().getPdfList()) {
+            if (pdf.getDeadline().exists() && !pdf.getDeadline().isDone()) {
+                pq.add(pdf);
+            }
+        }
+
+        while (list.size() < 4 && pq.size() > 0) {
+            list.add(pq.poll());
+        }
+
+        return list;
     }
 }

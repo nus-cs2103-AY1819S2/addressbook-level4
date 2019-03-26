@@ -276,25 +276,7 @@ Examples:
 * `fbcs 12345678` +
 Returns any booking which is paid by the customer with identification number 12345678
 
-<<<<<<< HEAD
 ==== Deleting a booked service: `deletebooking`, `delb`
-=======
-
-=== Find a booked service contains payer: `findbookingwithtype`, `fbwt`
-
-Effect: Displays a booking list
-Format: `{findbookingwithtype/fbwt} SERVICE_TYPE`
-
-****
-*  The searching is done in the filtered booking list.
-****
-
-Examples:
-* `fbwt GYM` +
-Returns any booking which is GYM type
-
-=== Deleting a booked service: `deletebooking`, `delb`
->>>>>>> 1fe864ec9a29498fd690db9a906014f583ed986b
 
 Effect: Deletes a booking from the database.
 Format: `{deletebooking/delb} INDEX`

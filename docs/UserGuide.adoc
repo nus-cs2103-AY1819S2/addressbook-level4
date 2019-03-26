@@ -277,7 +277,7 @@ If the answer has been submitted successfully and it is wrong, you will see the 
 .Wrong Answer page
 image::WrongAnswerPage.png[width="790"]
 
-If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 3).
+If the answer has been submitted successfully and it is correct, you will see the following page (see Figure 3).
 
 .Correct Answer page
 image::CorrectAnswerPage.png[width="790"]

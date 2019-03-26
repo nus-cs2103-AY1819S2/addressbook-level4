@@ -185,6 +185,9 @@ public class Patient extends Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" (")
+                .append(this.sex)
+                .append(")")
                 .append(" NRIC: ")
                 .append(nric.getNric())
                 .append(" Date of Birth: ")

@@ -40,7 +40,7 @@ public class DecksView implements ListViewState {
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
             case AddDeckCommand.COMMAND_WORD:
-                return new AddDeckCommandParser().parse(arguments);
+                return new AddDeckCommandParser(this).parse(arguments);
             case SelectCommand.COMMAND_WORD:
                 return new SelectCommandParser(this).parse(arguments);
             case OpenDeckCommand.COMMAND_WORD:

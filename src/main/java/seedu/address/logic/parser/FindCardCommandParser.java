@@ -18,10 +18,10 @@ import java.util.regex.Pattern;
  */
 public class FindCardCommandParser implements Parser<FindCardCommand> {
 
-    private CardsView viewState;
+    private CardsView cardsView;
 
-    public FindCardCommandParser(CardsView viewState) {
-        this.viewState = viewState;
+    public FindCardCommandParser(CardsView cardsView) {
+        this.cardsView = cardsView;
     }
 
     private final String IN_BETWEEN_QUOTES_REGEX = "\"([^\"]*)\"";
@@ -54,6 +54,6 @@ public class FindCardCommandParser implements Parser<FindCardCommand> {
             }
         }
 
-        return new FindCardCommand(viewState, new QuestionContainsKeywordsPredicate(questionKeywords));
+        return new FindCardCommand(cardsView, new QuestionContainsKeywordsPredicate(questionKeywords));
     }
 }

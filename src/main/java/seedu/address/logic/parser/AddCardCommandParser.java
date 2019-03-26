@@ -20,10 +20,10 @@ import seedu.address.model.tag.Tag;
  */
 public class AddCardCommandParser implements Parser<AddCardCommand> {
 
-    private final CardsView viewState;
+    private final CardsView cardsView;
 
-    public AddCardCommandParser(CardsView viewState) {
-        this.viewState = viewState;
+    public AddCardCommandParser(CardsView cardsView) {
+        this.cardsView = cardsView;
     }
 
     /**
@@ -46,7 +46,7 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
 
         Card card = new Card(question, answer, tagList);
 
-        return new AddCardCommand(viewState, card);
+        return new AddCardCommand(cardsView, card);
     }
 
     /**

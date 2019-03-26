@@ -33,14 +33,14 @@ public class AddCardCommand extends Command {
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the deck";
 
     private final Card toAdd;
-    private final CardsView viewState;
+    private final CardsView cardsView;
 
     /**
      * Creates an AddCardCommand to add the specified {@code Card}
      */
-    public AddCardCommand(CardsView viewState, Card card) {
+    public AddCardCommand(CardsView cardsView, Card card) {
         requireNonNull(card);
-        this.viewState = viewState;
+        this.cardsView = cardsView;
         toAdd = card;
     }
 

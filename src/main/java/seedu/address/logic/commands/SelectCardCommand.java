@@ -17,18 +17,18 @@ import seedu.address.model.deck.Card;
  */
 public class SelectCardCommand extends SelectCommand {
 
-    private CardsView viewState;
+    private CardsView cardsView;
 
-    public SelectCardCommand(CardsView viewState, Index targetIndex) {
+    public SelectCardCommand(CardsView cardsView, Index targetIndex) {
         super(targetIndex);
-        this.viewState = viewState;
+        this.cardsView = cardsView;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Card> filteredCardList = viewState.filteredCards;
+        List<Card> filteredCardList = cardsView.filteredCards;
 
         if (targetIndex.getZeroBased() >= filteredCardList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);

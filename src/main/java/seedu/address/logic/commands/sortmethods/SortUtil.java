@@ -1,15 +1,14 @@
 package seedu.address.logic.commands.sortmethods;
 
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.SkillsTag;
-
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//SHOULD ANY OF THESE BE IN THE MODEL/PERSON/[] CLASS?
+import seedu.address.model.person.Person;
+import seedu.address.model.tag.SkillsTag;
 
+//SHOULD ANY OF THESE BE IN THE MODEL/PERSON/[] CLASS?
 /**
  * One of the sorting helper commands
  */

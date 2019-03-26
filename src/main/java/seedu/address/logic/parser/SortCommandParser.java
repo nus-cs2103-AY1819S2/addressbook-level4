@@ -1,13 +1,14 @@
 package seedu.address.logic.parser;
 
+import java.util.Arrays;
+
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_ALPHABETICAL;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_SKILLS;
-
-import java.util.Arrays;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object

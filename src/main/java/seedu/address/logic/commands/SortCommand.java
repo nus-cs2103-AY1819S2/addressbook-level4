@@ -3,12 +3,11 @@ package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.sortmethods.SortAlphabetical;
 import seedu.address.logic.commands.sortmethods.SortSkills;
+import seedu.address.logic.parser.SortWord;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-import seedu.address.logic.parser.SortWord;
 
 import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 
 /**

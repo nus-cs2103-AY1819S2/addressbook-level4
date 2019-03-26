@@ -3,14 +3,14 @@ package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_REVERSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL_REVERSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
 import static java.util.Objects.requireNonNull;
 
 /**
@@ -19,6 +19,20 @@ import static java.util.Objects.requireNonNull;
 public class FilterCommand extends Command {
 
     public static final String COMMAND_WORD = "filter";
+    public static final String MESSAGE_CLEAR_FILTER_PERSON_SUCCESS = "The Address Book is cleared from "
+            + "all the filters.";
+    public static final String MESSAGE_FILTER_PERSON_SUCCESS = "The Address Book is filtered.";
+    public static final String MESSAGE_NOT_FILTERED = "Filtering is not successful!";
+    public static final String MESSAGE_NO_FILTER_TO_CLEAR = "There is no filter to clear.";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " clear/or/and " + "[prefix/text/prefix] \n"
+            + "Examples: \n"
+            + COMMAND_WORD + " or  " + PREFIX_PHONE + "91234567" + PREFIX_PHONE_REVERSE + " " + PREFIX_SKILL
+            + "C++, MS-Excel" + PREFIX_SKILL_REVERSE
+            + " --> SAVES THE FILTER. IF ONE OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"
+            + COMMAND_WORD + " and " + PREFIX_NAME + "Alex" + PREFIX_NAME_REVERSE + " " + PREFIX_EMAIL
+            + "johndoe@example.com" + PREFIX_EMAIL_REVERSE
+            + " --> SAVES THE FILTER. IF ALL OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"
+            + COMMAND_WORD + " clear " + " --> CLEARS ALL THE PREVIOUSLY MADE FILTERING!";
 
     /**
      * Explanation of process numbers:
@@ -37,21 +51,6 @@ public class FilterCommand extends Command {
     private String education;
     private String address;
     private boolean isFilterCleared;
-
-    public static final String MESSAGE_CLEAR_FILTER_PERSON_SUCCESS = "The Address Book is cleared from " +
-            "all the filters.";
-    public static final String MESSAGE_FILTER_PERSON_SUCCESS = "The Address Book is filtered.";
-    public static final String MESSAGE_NOT_FILTERED = "Filtering is not successful!";
-    public static final String MESSAGE_NO_FILTER_TO_CLEAR = "There is no filter to clear.";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " clear/or/and " + "[prefix/text/prefix] \n"
-            + "Examples: \n"
-            + COMMAND_WORD + " or  " + PREFIX_PHONE + "91234567" + PREFIX_PHONE_REVERSE + " " + PREFIX_SKILL
-            + "C++, MS-Excel" + PREFIX_SKILL_REVERSE
-            + " --> SAVES THE FILTER. IF ONE OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"
-            + COMMAND_WORD + " and " + PREFIX_NAME + "Alex" + PREFIX_NAME_REVERSE + " " + PREFIX_EMAIL
-            + "johndoe@example.com" + PREFIX_EMAIL_REVERSE
-            + " --> SAVES THE FILTER. IF ALL OF THE FILTER TYPES MATCH, IT PRINTS IT! \n"
-            + COMMAND_WORD + " clear " + " --> CLEARS ALL THE PREVIOUSLY MADE FILTERING!";
 
     public FilterCommand(String filteringConditions, String[] criterion, int processNumber) {
 

@@ -22,6 +22,8 @@ public class Messages {
         + " sample.png";
     public static final String MESSAGE_BRIGHTNESS_DOUBLE_ERROR = "Value keyed in is not double. E.g: brightness 1.3"
         + "sample.png";
+    public static final String MESSAGE_BLACKWHITE_INT_ERROR = "Value keyed in is not integer. E.g: bw 123"
+        + "sample.png";
     public static final String MESSAGE_NEGATIVE_ERROR = "Value keyed in is not positive.";
     public static final String MESSAGE_ROTATE_DEGREE_ERROR = "Argument given is an invalid integer or rotating degree. "
             + "Only 90, 180 or 270 is allowed.";

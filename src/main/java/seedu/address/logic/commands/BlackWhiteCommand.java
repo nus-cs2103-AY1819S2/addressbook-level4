@@ -65,6 +65,10 @@ public class BlackWhiteCommand extends Command {
                 .output(TEMP_FILEPATH + "sampleBlackWhite.jpg",
                     new JpegWriter(100, true));
         }
+
+        seedu.address.model.image.Image finalImage = new seedu.address.model
+            .image.Image(TEMP_FILEPATH + "sampleBlackWhite.jpg");
+        model.displayImage(finalImage);
         return new CommandResult(Messages.MESSAGE_BLACKWHITE_SUCCESS);
     }
 }

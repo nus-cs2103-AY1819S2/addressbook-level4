@@ -33,10 +33,6 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label matricNumber;
     @FXML
-    private Label phone;
-    @FXML
-    private Label email;
-    @FXML
     private Label yearOfStudy;
     @FXML
     private Label major;

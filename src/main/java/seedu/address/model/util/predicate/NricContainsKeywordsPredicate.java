@@ -20,8 +20,22 @@ public class NricContainsKeywordsPredicate extends ContainsKeywordsPredicate<Pat
 
     @Override
     public boolean test(Patient patient) {
-        return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getNric()
-            .toString(), keyword));
+        if (!isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsStringCaseSensitive(patient.getNric().toString(), keyword));
+
+        } else if (isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsStringIgnoreCase(patient.getNric().toString(), keyword));
+
+        } else if (!isIgnoreCase && isAnd) {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsStringCaseSensitive(patient.getNric().toString(), keyword));
+
+        } else {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsStringIgnoreCase(patient.getNric().toString(), keyword));
+        }
     }
 
     @Override

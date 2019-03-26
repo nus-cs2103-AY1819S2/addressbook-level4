@@ -2,7 +2,13 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Base64;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -13,6 +19,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.person.Address;
 import seedu.address.model.request.Request;
 
 /**
@@ -26,8 +33,6 @@ public class InfoPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final URL DISPLAY_PAGE =
-            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "DisplayPage.fxml"));
 
     private static final String FXML = "InfoPanel.fxml";
 
@@ -47,9 +52,11 @@ public class InfoPanel extends UiPart<Region> {
             logger.info("InfoPanel triggered on request selection.");
 
             Request request = selectedRequest.getValue();
+            String htmlContent = generateHTML(request);
+            loadContent("");
+            loadContent(htmlContent);
 
             if (newValue == null) {
-                loadDefaultPage();
                 return;
             }
         });
@@ -64,9 +71,87 @@ public class InfoPanel extends UiPart<Region> {
         loadPage(DEFAULT_PAGE.toExternalForm());
     }
 
+    public void loadContent(String htmlContent) {
+        Platform.runLater(() -> webView.getEngine().loadContent(htmlContent));
+    }
 
     public void loadPage(String url) {
         Platform.runLater(() -> webView.getEngine().load(url));
     }
 
+    private String generateHTML(Request request){
+
+        String url = constructMapURL(request.getAddress().toString());
+
+
+        StringBuilder htmlBuilder = new StringBuilder();
+
+        htmlBuilder.append("<!DOCTYPE html><html><head>");
+        htmlBuilder.append("<link href='WhiteTheme.css' rel='stylesheet'></head>");
+        htmlBuilder.append("<body>HELLO WORLD!!!</br></br>");
+        htmlBuilder.append("Request Patient: " + request.getName().toString() + "</br>");
+        htmlBuilder.append("Patient NRIC: " + request.getNric().toString() + "</br>");
+        htmlBuilder.append("Patient Contact: " + request.getPhone().toString() + "</br>");
+        htmlBuilder.append("Patient Address: " + request.getAddress().toString() + "</br>");
+        htmlBuilder.append("Patient Conditions: " + request.getConditions().toString() + "</br>");
+        if (request.getHealthStaff() != null) {
+            htmlBuilder.append("Assigned Staff: " + request.getHealthStaff() + "</br>");
+        } else {
+            htmlBuilder.append("Assigned Staff: Not Assigned </br>");
+        }
+        htmlBuilder.append("Appt. Date: " + request.getRequestDate().getFormattedDate() + "</br>");
+        htmlBuilder.append("Request Status: " + request.getRequestStatus().toString() + "</br></br>");
+
+
+
+        try {
+            htmlBuilder.append(getEncodedImage(url));
+        } catch(IOException e) {
+            logger.info(e.getMessage());
+        }
+        htmlBuilder.append("</body></html>");
+
+
+        return htmlBuilder.toString();
+    }
+
+    private String constructMapURL(String address) {
+
+        String street = address.substring(0, address.indexOf(","));
+        street = street.replaceAll("\\s", "%20");
+        StringBuilder urlBuilder = new StringBuilder();
+        urlBuilder.append("https://gothere.sg/maps/staticmap?center=%22");
+        urlBuilder.append(street + "%22&zoom=16&size=400x200&markers=%22");
+        urlBuilder.append(street + "%22,green&sensor=false");
+        logger.info(urlBuilder.toString());
+        return urlBuilder.toString();
+    }
+
+    // Reference: https://dzone.com/articles/how-to-implement-get-and-post-request-through-simp 
+    private String getEncodedImage(String url) throws IOException {
+        URL urlForGetRequest = new URL(url);
+        byte[] imageBytes = new byte[0];
+
+        try {
+            HttpURLConnection connection = (HttpURLConnection) urlForGetRequest.openConnection();
+            connection.setRequestMethod("GET");
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
+                for (byte[] ba = new byte[bis.available()];
+                     bis.read(ba) != -1; ) {
+                    byte[] baTmp = new byte[imageBytes.length + ba.length];
+                    System.arraycopy(imageBytes, 0, baTmp, 0, imageBytes.length);
+                    System.arraycopy(ba, 0, baTmp, imageBytes.length, ba.length);
+                    imageBytes = baTmp;
+                }
+            } else {
+                return "";
+            }
+        } catch(IOException io) {
+            throw new IOException(io.getMessage());
+        }
+        return "<img src='data:image/png;base64," + Base64.getEncoder().encodeToString(imageBytes) + "' />";
+    }
 }

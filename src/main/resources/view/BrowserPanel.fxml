@@ -10,10 +10,12 @@
   <padding><Insets top="25" bottom="25"/></padding>
   <Label fx:id="cardQuestion" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER" wrapText="true" textAlignment="CENTER">
   </Label>
-  <Label fx:id="answer" styleClass="label-bright" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
+  <Label fx:id="answer" styleClass="label-bright" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER" wrapText="true">
   </Label>
-  <Label fx:id="hint" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="CENTER">
+  <Label fx:id="options" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="CENTER" wrapText="true">
   </Label>
-  <Label fx:id="score" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="CENTER">
+  <Label fx:id="hint" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="CENTER">
+  </Label>
+  <Label fx:id="score" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="CENTER">
   </Label>
 </GridPane>

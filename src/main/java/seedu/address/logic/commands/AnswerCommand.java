@@ -74,7 +74,8 @@ public class AnswerCommand extends Command {
             newScore = new Score(cardToMark.getScore().correctAttempts,
                     cardToMark.getScore().totalAttempts + 1);
         }
-        return new Card(cardToMark.getQuestion(), cardToMark.getAnswer(), newScore, cardToMark.getHints());
+        return new Card(cardToMark.getQuestion(), cardToMark.getAnswer(), newScore, cardToMark.getOptions(),
+                cardToMark.getHints());
     }
 
     @Override

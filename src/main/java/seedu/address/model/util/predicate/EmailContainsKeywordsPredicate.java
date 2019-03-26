@@ -15,6 +15,11 @@ public class EmailContainsKeywordsPredicate extends ContainsKeywordsPredicate<Pe
         super(keywords);
     }
 
+
+    public EmailContainsKeywordsPredicate(List<String> keywords, boolean isIgnoreCase, boolean isAnd) {
+        super(keywords, isIgnoreCase, isAnd);
+    }
+
     @Override
     public boolean test(Person person) {
         return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().toString(),

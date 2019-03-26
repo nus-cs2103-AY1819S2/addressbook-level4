@@ -15,6 +15,10 @@ public class DateOfBirthContainsKeywordsPredicate extends ContainsKeywordsPredic
         super(keywords);
     }
 
+    public DateOfBirthContainsKeywordsPredicate(List<String> keywords, boolean isIgnoreCase, boolean isAnd) {
+        super(keywords, isIgnoreCase, isAnd);
+    }
+
     @Override
     public boolean test(Patient patient) {
         return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getDateOfBirth()

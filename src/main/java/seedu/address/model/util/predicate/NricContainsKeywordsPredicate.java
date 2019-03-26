@@ -14,6 +14,10 @@ public class NricContainsKeywordsPredicate extends ContainsKeywordsPredicate<Pat
         super(keywords);
     }
 
+    public NricContainsKeywordsPredicate(List<String> keywords, boolean isIgnoreCase, boolean isAnd) {
+        super(keywords, isIgnoreCase, isAnd);
+    }
+
     @Override
     public boolean test(Patient patient) {
         return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getNric()

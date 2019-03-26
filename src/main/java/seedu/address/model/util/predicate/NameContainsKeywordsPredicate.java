@@ -14,6 +14,10 @@ public class NameContainsKeywordsPredicate extends ContainsKeywordsPredicate<Per
         super(keywords);
     }
 
+    public NameContainsKeywordsPredicate(List<String> keywords, boolean isIgnoreCase, boolean isAnd) {
+        super(keywords, isIgnoreCase, isAnd);
+    }
+
     @Override
     public boolean test(Person person) {
         return keywords.stream()

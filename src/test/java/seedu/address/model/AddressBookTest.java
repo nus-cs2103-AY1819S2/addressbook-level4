@@ -25,8 +25,9 @@ import javafx.collections.ObservableList;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.DuplicatePatientException;
-import seedu.address.testutil.PatientBuilder;
 import seedu.address.model.person.Doctor;
+import seedu.address.testutil.PatientBuilder;
+
 
 public class AddressBookTest {
 

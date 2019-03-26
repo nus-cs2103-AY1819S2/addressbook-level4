@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Hint in the card folder.
- * Guarantees: immutable; question is valid as declared in {@link #isValidHintName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidHintName(String)}
  */
 public class Hint {
 

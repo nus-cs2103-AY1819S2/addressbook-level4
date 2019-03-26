@@ -25,8 +25,8 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_SORTTYPE, PREFIX_ORDER)
             || !argMultimap.getPreamble().isEmpty()
-            && (!argMultimap.getValue(PREFIX_ORDER).get().toUpperCase().equals("ASC")
-            || !argMultimap.getValue(PREFIX_ORDER).get().toUpperCase().equals("DES"))) {
+            || (!argMultimap.getValue(PREFIX_ORDER).get().toUpperCase().equals("ASC")
+            && !argMultimap.getValue(PREFIX_ORDER).get().toUpperCase().equals("DES"))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortBookCommand.MESSAGE_USAGE));
         }
 

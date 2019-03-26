@@ -95,7 +95,7 @@ public class DeleteBookCommandTest {
         // delete -> first book deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered book list to show all books
+        // undo -> reverts bookShelf back to previous state and filtered book list to show all books
         expectedModel.undoBookShelf();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

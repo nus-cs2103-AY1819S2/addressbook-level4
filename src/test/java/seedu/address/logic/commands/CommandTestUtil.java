@@ -116,6 +116,21 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
 
+    public static final String SORT_NAME_WITH_PREFIX = " st/name";
+    public static final String SORT_AUTHOR_WITH_PREFIX = " st/author";
+    public static final String SORT_RATING_WITH_PREFIX = " st/rating";
+    public static final String INVALID_SORT_TYPE_WITH_PREFIX = " st/type";
+    public static final String ORDER_ASC_WITH_PREFIX = " o/asc";
+    public static final String ORDER_DES_WITH_PREFIX = " o/des";
+    public static final String INVALID_ORDER_WITH_PREFIX = "o/abc";
+    public static final String SORT_NAME_WITHOUT_PREFIX = "name";
+    public static final String SORT_AUTHOR_WITHOUT_PREFIX = "author";
+    public static final String SORT_RATING_WITHOUT_PREFIX = "rating";
+    public static final String ORDER_ASC_WITHOUT_PREFIX = "asc";
+    public static final String ORDER_DES_WITHOUT_PREFIX = "des";
+    public static final String EMPTY_STR = "      ";
+    public static final String SORT_EXCEPTION = "The list is not sorted correctly";
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)

@@ -31,11 +31,35 @@ public class StringUtil {
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
-        String preppedSentence = sentence;
+        String preppedSentence = sentence.trim();
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains the {@code subStr}.
+     *  Ignores case, but substring cannot contain whitespace.
+     *   <br>examples:<pre>
+     *      containsStringIgnoreCase("ABc def", "aB") == true
+     *      containsStringIgnoreCase("ABc def", "Ef") == true
+     *      containsStringIgnoreCase("ABc def", "c de") ==  false //contains whitespace
+     *      </pre>
+     * @param sentence cannot be null
+     * @param subStr cannot be null or empty, must have no whitespaces
+     */
+    public static boolean containsStringIgnoreCase(String sentence, String subStr) {
+        requireNonNull(sentence);
+        requireNonNull(subStr);
+
+        String preppedSubString = subStr.trim().toLowerCase();
+        checkArgument(!preppedSubString.isEmpty(), "Substring parameter cannot be empty");
+        checkArgument(preppedSubString.split("\\s+").length == 1, "Substring parameter should be single word");
+
+        String preppedSentence = sentence.trim().toLowerCase();
+
+        return preppedSentence.contains(preppedSubString);
     }
 
     /**

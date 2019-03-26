@@ -136,19 +136,23 @@ public class AddEquipmentCommandSystemTest extends EquipmentManagerSystemTest {
         assertCommandFailure(command, AddEquipmentCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: missing name -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
+        command = AddEquipmentCommand.COMMAND_WORD + PHONE_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
+        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
+        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY
+                + PHONE_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
 
         /* Case: missing equipment -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
+        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY
+                + PHONE_DESC_AMY + EMAIL_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
 
         /* Case: missing serial number -> rejected */

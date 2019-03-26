@@ -69,16 +69,16 @@ public class AddWorkListCommandTest {
 
     @Test
     public void equals() {
-        WorkList LISTA = new WorkListBuilder().withAssignee("Alice").build();
-        WorkList LISTB = new WorkListBuilder().withAssignee("Bob").build();
-        AddWorkListCommand addAliceCommand = new AddWorkListCommand(LISTA);
-        AddWorkListCommand addBobCommand = new AddWorkListCommand(LISTB);
+        WorkList ListA = new WorkListBuilder().withAssignee("Alice").build();
+        WorkList ListB = new WorkListBuilder().withAssignee("Bob").build();
+        AddWorkListCommand addAliceCommand = new AddWorkListCommand(ListA);
+        AddWorkListCommand addBobCommand = new AddWorkListCommand(ListB);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddWorkListCommand addAliceCommandCopy = new AddWorkListCommand(LISTA);
+        AddWorkListCommand addAliceCommandCopy = new AddWorkListCommand(ListA);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

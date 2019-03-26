@@ -1,10 +1,13 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 import seedu.address.logic.commands.ListConsultationCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 
 public class ListConsultationParserTest {
 
@@ -26,6 +29,14 @@ public class ListConsultationParserTest {
             Assert.fail();
         }
 
+        userInput = "";
+        assertParseFailure(parser, userInput, ListConsultationCommandParser.NO_LIST_ARGUMENTS);
+
+        userInput = " ";
+        assertParseFailure(parser, userInput, ListConsultationCommandParser.NO_LIST_ARGUMENTS);
+
+        userInput = "a";
+        assertParseFailure(parser, userInput, ListConsultationCommandParser.INVALID_INDEX);
     }
 
 }

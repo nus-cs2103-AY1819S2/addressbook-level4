@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.commands.ListConsultationCommand.MESSAGE_USAGE;
 
-import java.util.stream.Stream;
+//import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ListConsultationCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -24,7 +24,6 @@ public class ListConsultationCommandParser implements Parser<ListConsultationCom
                 ArgumentTokenizer.tokenize(args, PREFIX_NRIC);
 
         if (argMultimap.getPreamble().isEmpty() && !argMultimap.getValue(PREFIX_NRIC).isPresent()) {
-            System.out.println(PREFIX_NRIC);
             throw new ParseException(NO_LIST_ARGUMENTS);
         }
 
@@ -45,8 +44,8 @@ public class ListConsultationCommandParser implements Parser<ListConsultationCom
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
-     */
+     *//*
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
+    }*/
 }

@@ -154,7 +154,6 @@ public class TypicalRestOrRant {
     }
 
     public static List<Table> getTypicalTables() {
-        System.out.println(TABLE1);
         return new ArrayList<>(Arrays.asList(TABLE1, TABLE2, TABLE3, TABLE4, TABLE5, TABLE6, TABLE7, TABLE8));
     }
 

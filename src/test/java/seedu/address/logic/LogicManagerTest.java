@@ -15,6 +15,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
+import seedu.address.logic.commands.BillCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -118,10 +119,18 @@ public class LogicManagerTest {
         String addTableCommand = AddTableCommand.COMMAND_WORD + " 4";
         String addToMenuCommand = AddToMenuCommand.COMMAND_WORD + " n/Chicken Wings c/W09 p/3.99";
         String addToOrderCommand = AddToOrderCommand.COMMAND_WORD + " W09 3";
+        String billCommand = BillCommand.COMMAND_WORD;
         Table expectedTable = new TableBuilder().build();
+        Table occupiedTable = new TableBuilder().withTableStatus("3/4").build();
         OrderItem expectedOrderItem = new OrderItemBuilder().build();
         MenuItem expectedMenuItem = new MenuItemBuilder().build();
-        DailyRevenue expectedDailyRevenue = new StatisticsBuilder().build();
+        DailyRevenue expectedDailyRevenue = new StatisticsBuilder()
+                .withDay("26")
+                .withMonth("03")
+                .withYear("2019")
+                .withTotalBill("11.97")
+                .withReceipt("Table 1\n\nW09  Chicken Wings\n $3.99   x 3\n\nTotal Bill: $ 11.97\n\n")
+                .build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTable(expectedTable);
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
@@ -139,11 +148,22 @@ public class LogicManagerTest {
         logic.changeMode(Mode.TABLE_MODE);
         model.setSelectedTable(expectedTable);
         expectedModel.setSelectedTable(expectedTable);
+        model.setTable(expectedTable, occupiedTable);
+        expectedModel.setTable(expectedTable, occupiedTable);
         expectedModel.addOrderItem(expectedOrderItem);
         assertCommandBehavior(CommandException.class, addToOrderCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
                 + addToMenuCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
-//        expectedModel.addDailyRevenue(expectedDailyRevenue);
+
+        // Execute addDailyRevenue command
+        //        expectedModel.addDailyRevenue(expectedDailyRevenue);
+        //        expectedModel.deleteOrderItem(expectedOrderItem);
+        //        expectedModel.setSelectedTable(null);
+        //        expectedModel.setTable(occupiedTable, expectedTable);
+        //        assertCommandBehavior(CommandException.class, billCommand, expectedMessage, expectedModel);
+        //        assertHistoryCorrect(billCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
+        //                + addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addToMenuCommand + "\n"
+        //                + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
     }
 
     @Test
@@ -239,20 +259,6 @@ public class LogicManagerTest {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
     }
-
-    //    /** TODO: delete if not necessary
-    //     * A stub class to throw an {@code IOException} when the save method is called.
-    //     */
-    //    private static class JsonRestOrRantIoExceptionThrowingStub extends JsonRestOrRantStorage {
-    //        private JsonRestOrRantIoExceptionThrowingStub(Path filePath) {
-    //            super(filePath);
-    //        }
-    //
-    //        @Override
-    //        public void saveRestOrRant(ReadOnlyRestOrRant restOrRant, Path filePath) throws IOException {
-    //            throw DUMMY_IO_EXCEPTION;
-    //        }
-    //    }
 
     /**
      * A stub class to throw an {@code IOException} when the save method is called.

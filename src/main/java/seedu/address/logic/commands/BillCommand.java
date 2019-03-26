@@ -148,7 +148,8 @@ public class BillCommand extends Command {
      * Updates the status of table.
      */
     private void updateStatusOfTable(Model model) throws CommandException {
-        TableStatus updatedTableStatus = new TableStatus("0" + tableToBill.getTableStatus().toString().substring(1, 2));
+        String[] numberOfSeats = tableToBill.getTableStatus().toString().split("/");
+        TableStatus updatedTableStatus = new TableStatus("0/" + numberOfSeats[1]);
         Table updatedTable = new Table(tableToBill.getTableNumber(), updatedTableStatus);
         model.setTable(tableToBill, updatedTable);
     }

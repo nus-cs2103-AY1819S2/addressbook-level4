@@ -140,13 +140,11 @@ public class AddressBookParser {
         case GenerateInterviewsCommand.COMMAND_WORD:
             return new GenerateInterviewsCommand();
 
-<<<<<<< HEAD
         case ShowInterviewsCommand.COMMAND_WORD:
             return new ShowInterviewsCommand();
-=======
+
         case GenerateAnalyticsCommand.COMMAND_WORD:
             return new GenerateAnalyticsCommand();
->>>>>>> 5ae6eae35c848602b7b04adb847237164b5800c0
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

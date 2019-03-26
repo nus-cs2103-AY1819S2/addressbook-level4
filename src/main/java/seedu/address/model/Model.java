@@ -6,11 +6,8 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-<<<<<<< HEAD
 import seedu.address.model.interviews.Interviews;
-=======
 import seedu.address.model.job.Job;
->>>>>>> 5ae6eae35c848602b7b04adb847237164b5800c0
 import seedu.address.model.person.Person;
 
 /**
@@ -150,15 +147,13 @@ public interface Model {
     void generateInterviews();
 
     /**
-<<<<<<< HEAD
      * Returns the InterviewManager
      */
     Interviews getInterviews();
-=======
+
+    /**
      * Generates analytics.
      */
     String generateAnalytics();
 
-
->>>>>>> 5ae6eae35c848602b7b04adb847237164b5800c0
 }

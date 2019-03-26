@@ -54,11 +54,11 @@
             <StackPane fx:id="bookListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+          <VBox fx:id="reviewList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="reviewListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
         </SplitPane>
 

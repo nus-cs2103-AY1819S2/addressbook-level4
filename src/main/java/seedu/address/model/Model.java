@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -17,6 +18,7 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Book> PREDICATE_SHOW_ALL_BOOKS = unused -> true;
+    Predicate<Review> PREDICATE_SHOW_ALL_REVIEWS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -67,6 +69,11 @@ public interface Model {
     boolean hasBook(Book book);
 
     /**
+     * Returns true if a book with the same identity as {@code book} exists in the book shelf.
+     */
+    boolean hasReview(Review review);
+
+    /**
      * Deletes the given person.
      * The person must exist in the book shelf.
      */
@@ -79,6 +86,12 @@ public interface Model {
     void deleteBook(Book target);
 
     /**
+     * Deletes the given book.
+     * The book must exist in the book shelf.
+     */
+    void deleteReview(Review target);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the book shelf.
      */
@@ -89,6 +102,12 @@ public interface Model {
      * {@code book} must not already exist in the book shelf.
      */
     void addBook(Book book);
+
+    /**
+     * Adds the given book.
+     * {@code book} must not already exist in the book shelf.
+     */
+    void addReview(Review review);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -110,6 +129,9 @@ public interface Model {
     /** Returns an unmodifiable view of the filtered book list */
     ObservableList<Book> getFilteredBookList();
 
+    /** Returns an unmodifiable view of the filtered book list */
+    ObservableList<Review> getFilteredReviewList();
+
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
@@ -121,6 +143,12 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredBookList(Predicate<Book> predicate);
+
+    /**
+     * Updates the filter of the filtered book list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredReviewList(Predicate<Review> predicate);
 
     /**
      * Returns true if the model has previous book shelf states to restore.
@@ -160,6 +188,12 @@ public interface Model {
     ReadOnlyProperty<Book> selectedBookProperty();
 
     /**
+     * Selected book in the filtered book list.
+     * null if no book is selected.
+     */
+    ReadOnlyProperty<Review> selectedReviewProperty();
+
+    /**
      * Returns the selected person in the filtered person list.
      * null if no person is selected.
      */
@@ -172,6 +206,12 @@ public interface Model {
     Book getSelectedBook();
 
     /**
+     * Returns the selected person in the filtered person list.
+     * null if no person is selected.
+     */
+    Review getSelectedReview();
+
+    /**
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
@@ -180,6 +220,12 @@ public interface Model {
      * Sets the selected book in the filtered person list.
      */
     void setSelectedBook(Book book);
+
+    /**
+     * Sets the selected book in the filtered person list.
+     */
+    void setSelectedReview(Review review);
+
 
     /**
      * Delete the tag{@code tag} of all contacts in the phone book

@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddReviewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.book.BookName;
-import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
 import seedu.address.model.book.Review;
 import seedu.address.model.book.ReviewTitle;
 
@@ -37,9 +36,9 @@ public class AddReviewCommandParser implements Parser<AddReviewCommand> {
         ReviewTitle title = ParserUtil.parseReviewTitle(argMultimap.getValue(PREFIX_REVIEWTITLE).get());
         String reviewMessage = ParserUtil.parseReview(argMultimap.getValue(PREFIX_REVIEW).get());
 
-        Review review = new Review(title, reviewMessage);
+        Review review = new Review(title, name, reviewMessage);
 
-        return new AddReviewCommand(review, new BookNameContainsExactKeywordsPredicate(name));
+        return new AddReviewCommand(review);
     }
 
     /**

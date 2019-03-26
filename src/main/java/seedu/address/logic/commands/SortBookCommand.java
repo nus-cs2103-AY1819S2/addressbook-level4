@@ -17,7 +17,7 @@ public class SortBookCommand extends Command {
         + "Parameters: [st/TYPE]...[o/ORDER]...\n"
         + "Example: " + COMMAND_WORD + " st/rating o/asc";
 
-    public static final String MESSAGE_SUCCESS = "sorted successfully";
+    public static final String MESSAGE_SUCCESS = "Sorted successfully";
 
     private final String type;
 

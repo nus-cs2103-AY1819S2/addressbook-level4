@@ -19,7 +19,7 @@ public class JsonSerializableMenuTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableMenuTest");
     private static final Path TYPICAL_MENU_ITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalMenuItems.json");
-    private static final Path INVALID_MENU_ITEM_FILE = TEST_DATA_FOLDER.resolve("InvalidMenuItem.json");
+    private static final Path INVALID_MENU_ITEM_FILE = TEST_DATA_FOLDER.resolve("invalidMenuItem.json");
     private static final Path DUPLICATE_MENU_ITEM_FILE = TEST_DATA_FOLDER.resolve("duplicateMenuItem.json");
 
     @Rule

@@ -71,6 +71,7 @@ public class DailyStatisticsCard extends UiPart<Region> {
             break;
         case 12:
             date.setText(this.dailyRevenue.getDay().toString() + "-Dec-" + this.dailyRevenue.getYear().toString());
+            break;
         default:
             date.setText(this.dailyRevenue.getDay().toString() + this.dailyRevenue.getMonth().toString()
                     + this.dailyRevenue.getYear().toString());

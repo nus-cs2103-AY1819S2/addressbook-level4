@@ -64,7 +64,6 @@ public class StatisticsFlowPanel extends UiPart<Region> {
                 }
             });
         } else if (isMonthly) {
-            //TODO: Creates a single MonthlyStatisticsCard for DailyStatisticsCard of the same month and adds to Flow
             ObservableList<MonthlyRevenue> monthlyRevenueList = FXCollections.observableArrayList();
 
             //ArrayList<MonthlyRevenue> monthlyRevenueArrayList = new ArrayList<>();
@@ -100,7 +99,6 @@ public class StatisticsFlowPanel extends UiPart<Region> {
             });
 
         } else if (isYearly) {
-            //TODO: Creates a single YearlyStatisticsCard for DailyStatisticsCard of the same year and adds to the Flow Pane
 
             ObservableList<YearlyRevenue> yearlyRevenueList = FXCollections.observableArrayList();
 

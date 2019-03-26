@@ -51,11 +51,11 @@ public class Date {
             if (Year.isLeapYear(year.toString()) && Integer.parseInt(day.toString()) > 29) {
                 return isInvalid;
             } else if (!Year.isLeapYear(year.toString()) && Integer.parseInt(day.toString()) > 28) {
-                    return isInvalid;
+                return isInvalid;
             }
-        } else if (Integer.parseInt(month.toString()) == 4 || Integer.parseInt(month.toString()) == 6 ||
-                Integer.parseInt(month.toString()) == 9 || Integer.parseInt(month.toString()) == 11 && Integer
-                .parseInt(day.toString()) > 30) {
+        } else if (Integer.parseInt(month.toString()) == 4 || Integer.parseInt(month.toString()) == 6
+                || Integer.parseInt(month.toString()) == 9 || Integer.parseInt(month.toString()) == 11
+                && Integer.parseInt(day.toString()) > 30) {
             return isInvalid;
         }
         return test.matches(VALIDATION_REGEX);

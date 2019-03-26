@@ -72,6 +72,7 @@ public class MonthlyStatisticsCard extends UiPart<Region> {
             break;
         case 12:
             month.setText("DEC ");
+            break;
         default:
             month.setText(this.monthlyRevenue.getMonth().toString());
         }

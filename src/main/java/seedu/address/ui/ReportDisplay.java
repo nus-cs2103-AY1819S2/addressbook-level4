@@ -4,12 +4,11 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.scene.chart.AreaChart;
-import seedu.address.model.CardFolder;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Card;
 
@@ -32,20 +31,29 @@ public class ReportDisplay extends UiPart<Region> {
     @FXML
     private Label folderName;
 
+    @FXML
+    private Label tagLine;
+
     public ReportDisplay(ReadOnlyCardFolder cardFolder) {
         super(FXML);
 
-        displayTitle(cardFolder.getFolderName(), cardFolder.getFolderScores().size());
+        displayTitle(cardFolder.getFolderName());
         displayGraph(cardFolder.getFolderScores());
         displayQuestions(cardFolder.getCardList());
+        displayTagLine("Last " + cardFolder.getCardList().size() + " scores, latest on the right");
 
         reportDisplay.getChildren().clear();
         reportDisplay.getChildren().add(folderName);
+        reportDisplay.getChildren().add(tagLine);
         reportDisplay.getChildren().add(graph);
         reportDisplay.getChildren().add(questionsDisplay);
 
     }
 
+    /**
+     * Adds the list of folderScores (as the Y values) to a graph.
+     * @param folderScores List of Double scores to be added
+     */
     private void displayGraph(List<Double> folderScores) {
         graph.getData().clear();
         XYChart.Series<Integer, Double> series = new XYChart.Series<>();
@@ -55,18 +63,26 @@ public class ReportDisplay extends UiPart<Region> {
         graph.getData().add(series);
     }
 
+    /**
+     * Concatenate the questions and their scores to be added below the graph.
+     * @param cards To be concatenated.
+     */
     private void displayQuestions(ObservableList<Card> cards) {
         String result = "";
         for (Card card: cards) {
-            result += card.getQuestion() + " ";
-            result += card.getScore();
+            result += "Question: " + card.getQuestion() + " | ";
+            result += "Score: " + card.getScore();
             result += "\n";
         }
         questionsDisplay.setText(result);
     }
 
-    private void displayTitle(String name, int numScores) {
-        folderName.setText("Report for " + name + "\nLast " + numScores + " scores");
+    private void displayTitle(String name) {
+        folderName.setText("Report for " + name);
+    }
+
+    private void displayTagLine(String string) {
+        tagLine.setText(string);
     }
 }
 

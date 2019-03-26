@@ -31,6 +31,7 @@ import seedu.finance.logic.commands.RedoCommand;
 import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.logic.commands.SelectCommand;
 import seedu.finance.logic.commands.SpendCommand;
+import seedu.finance.logic.commands.SummaryCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.record.Description;
@@ -253,6 +254,12 @@ public class FinanceTrackerParserTest {
         SearchCommand command = (SearchCommand) parser.parseCommand(
                 SearchCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
+    }
+
+    //KIV: May want to add in alias as well
+    @Test
+    public void parseCommand_summary() throws Exception {
+        assertTrue(parser.parseCommand(SummaryCommand.COMMAND_WORD) instanceof SummaryCommand);
     }
 
     @Test

@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
@@ -30,8 +31,7 @@ public class ReviewListPanel extends UiPart<Region> {
             logger.fine("Selected review changed to: " + newValue);
 
             if (newValue == null) {
-                // TODO: Need to remove? Because reviewListView won't be selected
-                reviewListView.getSelectionModel().clearSelection();
+                reviewListView.setItems(null);
             } else {
                 ObservableList<Review> reviewList = FXCollections.observableArrayList();
                 reviewList.addAll(newValue.getReviews());

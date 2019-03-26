@@ -2,13 +2,15 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.*;
+import seedu.address.model.person.GPA;
+
 import java.util.concurrent.atomic.AtomicInteger;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.*;
 
 public class FilterCommandParser implements Parser<FilterCommand> {
 
-    private final int TOTAL_NUMBER_OF_INFO = 5;
+    private final int TOTAL_NUMBER_OF_INFO = 8;
 
     /**
      * Since there are multiple options in filtering: and, or , clear
@@ -41,8 +43,10 @@ public class FilterCommandParser implements Parser<FilterCommand> {
      *  2- Phone
      *  3- Email
      *  4- Address
-     *  5- All tags
-     *
+     *  5- Skills
+     *  6- Positions
+     *  7- GPA
+     *  8- Education
      *  !!! If some of the above ones are not given, then their value will be null
      */
 
@@ -100,14 +104,32 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             criterion[4] = null;
         }
 
-//        if(args.contains(PREFIX_POS.toString()) && args.contains(PREFIX_POS_REVERSE.toString())
-//                && args.indexOf(PREFIX_POS.toString()) < args.indexOf(PREFIX_POS_REVERSE.toString())) {
-//            criterion[4] = "available";
-//            totalNumOfCriterion++;
-//        }
-//        else {
-//            criterion[4] = null;
-//        }
+        if(args.contains(PREFIX_POS.toString()) && args.contains(PREFIX_POS_REVERSE.toString())
+                && args.indexOf(PREFIX_POS.toString()) < args.indexOf(PREFIX_POS_REVERSE.toString())) {
+            criterion[5] = "available";
+            totalNumOfCriterion++;
+        }
+        else {
+            criterion[5] = null;
+        }
+
+        if(args.contains(PREFIX_GPA.toString()) && args.contains(PREFIX_GPA_REVERSE.toString())
+                && args.indexOf(PREFIX_GPA.toString()) < args.indexOf(PREFIX_GPA_REVERSE.toString())) {
+            criterion[6] = "available";
+            totalNumOfCriterion++;
+        }
+        else {
+            criterion[6] = null;
+        }
+
+        if(args.contains(PREFIX_EDUCATION.toString()) && args.contains(PREFIX_EDUCATION_REVERSE.toString())
+                && args.indexOf(PREFIX_EDUCATION.toString()) < args.indexOf(PREFIX_EDUCATION_REVERSE.toString())) {
+            criterion[7] = "available";
+            totalNumOfCriterion++;
+        }
+        else {
+            criterion[7] = null;
+        }
 
         if(totalNumOfCriterion == 0) {
             typeOfProcess.set(-1);
@@ -116,23 +138,33 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         else {
 
             if(criterion[0] != null) {
-                criterion[0] = InfoBetweenPrefixes(args, PREFIX_NAME.toString(), PREFIX_NAME_REVERSE.toString(), typeOfProcess);
+                criterion[0] = InfoBetweenPrefixes(args, PREFIX_NAME.toString(), PREFIX_NAME_REVERSE.toString(), typeOfProcess, false);
             }
 
             if(criterion[1] != null) {
-                criterion[1] = InfoBetweenPrefixes(args, PREFIX_PHONE.toString(), PREFIX_PHONE_REVERSE.toString(), typeOfProcess);
+                criterion[1] = InfoBetweenPrefixes(args, PREFIX_PHONE.toString(), PREFIX_PHONE_REVERSE.toString(), typeOfProcess, false);
             }
 
             if(criterion[2] != null) {
-                criterion[2] = InfoBetweenPrefixes(args, PREFIX_EMAIL.toString(), PREFIX_EMAIL_REVERSE.toString(), typeOfProcess);
+                criterion[2] = InfoBetweenPrefixes(args, PREFIX_EMAIL.toString(), PREFIX_EMAIL_REVERSE.toString(), typeOfProcess, false);
             }
 
             if(criterion[3] != null) {
-                criterion[3] = InfoBetweenPrefixes(args, PREFIX_ADDRESS.toString(), PREFIX_ADDRESS_REVERSE.toString(), typeOfProcess);
+                criterion[3] = InfoBetweenPrefixes(args, PREFIX_ADDRESS.toString(), PREFIX_ADDRESS_REVERSE.toString(), typeOfProcess, false);
             }
 
             if(criterion[4] != null) {
-                criterion[4] = InfoBetweenPrefixes(args, PREFIX_SKILL.toString(), PREFIX_SKILL_REVERSE.toString(), typeOfProcess);
+                criterion[4] = InfoBetweenPrefixes(args, PREFIX_SKILL.toString(), PREFIX_SKILL_REVERSE.toString(), typeOfProcess, false);
+            }
+
+            if(criterion[5] != null) {
+                criterion[5] = InfoBetweenPrefixes(args, PREFIX_POS.toString(), PREFIX_POS_REVERSE.toString(), typeOfProcess, false);
+            }
+            if(criterion[6] != null) {
+                criterion[6] = InfoBetweenPrefixes(args, PREFIX_GPA.toString(), PREFIX_GPA_REVERSE.toString(), typeOfProcess, true);
+            }
+            if(criterion[7] != null) {
+                criterion[7] = InfoBetweenPrefixes(args, PREFIX_EDUCATION.toString(), PREFIX_EDUCATION_REVERSE.toString(), typeOfProcess, false);
             }
         }
 
@@ -142,20 +174,20 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     /**
      * Since filter form is like prefix/text/prefix, this function returns the text between given prefixes.
      */
-    private String InfoBetweenPrefixes(String args, String prefixBegin, String prefixEnd, AtomicInteger typeOfProcess) {
+    private String InfoBetweenPrefixes(String args, String prefixBegin, String prefixEnd, AtomicInteger typeOfProcess, boolean isInputGPA) {
 
         int beginLoc = args.indexOf(prefixBegin) + prefixBegin.length();
-        int endLoc = args.indexOf(prefixEnd);
+            int endLoc = args.indexOf(prefixEnd);
 
-        if(beginLoc >= endLoc) {
-            typeOfProcess.set(-1);
-            return null;
-        }
+            if(beginLoc >= endLoc) {
+                typeOfProcess.set(-1);
+                return null;
+            }
 
-        for(int i = beginLoc; i < endLoc; i++) {
+            for(int i = beginLoc; i < endLoc; i++) {
 
-            if(args.charAt(i) == ' ')
-                beginLoc++;
+                if(args.charAt(i) == ' ')
+                    beginLoc++;
 
             else break;
         }
@@ -168,6 +200,15 @@ public class FilterCommandParser implements Parser<FilterCommand> {
             else break;
         }
 
+        // checks if the GPA value can be parsed into a float
+        if(isInputGPA) {
+            try {
+                Float.parseFloat(args.substring(beginLoc, endLoc));
+            } catch (NumberFormatException e) {
+                typeOfProcess.set(-1);
+                return args.substring(beginLoc, endLoc);
+            }
+        }
         return args.substring(beginLoc, endLoc).toLowerCase();
     }
 
@@ -178,7 +219,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
         AtomicInteger typeOfProcess = new AtomicInteger(-1);
         args = FilterTypeDivider(args, typeOfProcess);
 
-        String[] criterion = {" ", " ", " ", " ", " "};
+        String[] criterion = {" ", " ", " ", " ", " ", " ", " ", " "};
 
         if(typeOfProcess.get() != 0)
             criterion = DivideFilterCriterion(args, typeOfProcess);

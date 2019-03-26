@@ -347,7 +347,7 @@ who are not in `persons` parameter but included in `allPersonsStorage` parameter
 
 Filtering command is taken from the user as follows:
 
-* `filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [a/ADDRESS/a] [skill/ SKILL1, SKILL2, …​ /skill`]
+* `filter or/and [n/NAME/n] [p/PHONE/p] [e/EMAIL/e] [g/GPA/g] [d/EDUCATION/d] [a/ADDRESS/a] [skill/ SKILL1, SKILL2, …​ /skill`] [position/ POSITION1, POSITION2, …​ /position`]
 * `filter clear`
 
 To process the input from user, these steps are followed in the code:

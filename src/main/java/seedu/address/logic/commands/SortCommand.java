@@ -35,7 +35,6 @@ public class SortCommand extends Command {
 
     public SortCommand(SortWord method) {
         this.method = method;
-        AddressBook.sortingExist = true;
     }
 
     private void ProcessCommand(Model model) {
@@ -61,10 +60,11 @@ public class SortCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         try {
+            model.setSortInfo(true);
             ProcessCommand(model);
             String MESSAGE_SUCCESS = "Sorted all persons by " + method.toString();
             model.commitAddressBook();
-            AddressBook.sortingExist = false;
+            model.setSortInfo(false);
             return new CommandResult(MESSAGE_SUCCESS);
         }
         catch(Exception e) {

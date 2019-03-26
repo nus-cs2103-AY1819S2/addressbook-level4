@@ -28,10 +28,12 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveBook;
+import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonArchiveBookStorage;
+import seedu.address.storage.JsonPinBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -53,8 +55,9 @@ public class LogicManagerTest {
     public void setUp() throws Exception {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(temporaryFolder.newFile().toPath());
         JsonArchiveBookStorage archiveBookStorage = new JsonArchiveBookStorage(temporaryFolder.newFile().toPath());
+        JsonPinBookStorage pinBookStorage = new JsonPinBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, archiveBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, archiveBookStorage, pinBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -86,8 +89,10 @@ public class LogicManagerTest {
                 new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonArchiveBookStorage archiveBookStorage =
                 new JsonArchiveBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        JsonPinBookStorage pinBookStorage =
+                new JsonPinBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, archiveBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, archiveBookStorage, pinBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -139,7 +144,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getArchiveBook(), model.getPinBook(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -203,6 +208,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveArchiveBook(ReadOnlyArchiveBook archiveBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class for PinBook to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonPinBookIoExceptionThrowingStub extends JsonPinBookStorage {
+        private JsonPinBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void savePinBook(ReadOnlyPinBook pinBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

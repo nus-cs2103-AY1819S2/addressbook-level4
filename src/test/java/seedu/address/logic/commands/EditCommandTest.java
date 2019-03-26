@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalPinBook;
 
 import org.junit.Test;
 
@@ -26,6 +27,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ArchiveBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.PinBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -36,7 +38,7 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(), getTypicalPinBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -48,10 +50,11 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new ArchiveBook(model.getArchiveBook()), new UserPrefs());
+                new ArchiveBook(model.getArchiveBook()), new PinBook(model.getPinBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
+        expectedModel.commitPinBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -72,10 +75,11 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new ArchiveBook(model.getArchiveBook()), new UserPrefs());
+                new ArchiveBook(model.getArchiveBook()), new PinBook(model.getPinBook()), new UserPrefs());
         expectedModel.setPerson(lastPerson, editedPerson);
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
+        expectedModel.commitPinBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -88,9 +92,10 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new ArchiveBook(model.getArchiveBook()), new UserPrefs());
+                new ArchiveBook(model.getArchiveBook()), new PinBook(model.getPinBook()), new UserPrefs());
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
+        expectedModel.commitPinBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -107,10 +112,11 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new ArchiveBook(model.getArchiveBook()), new UserPrefs());
+                new ArchiveBook(model.getArchiveBook()), new PinBook(model.getPinBook()), new UserPrefs());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
+        expectedModel.commitPinBook();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -169,10 +175,11 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new ArchiveBook(model.getArchiveBook()), new UserPrefs());
+                new ArchiveBook(model.getArchiveBook()), new PinBook(model.getPinBook()), new UserPrefs());
         expectedModel.setPerson(personToEdit, editedPerson);
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
+        expectedModel.commitPinBook();
 
         // edit -> first person edited
         editCommand.execute(model, commandHistory);
@@ -180,11 +187,13 @@ public class EditCommandTest {
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();
         expectedModel.undoArchiveBook();
+        expectedModel.undoPinBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first person edited again
         expectedModel.redoAddressBook();
         expectedModel.redoArchiveBook();
+        expectedModel.redoPinBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -215,13 +224,14 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
-                new ArchiveBook(model.getArchiveBook()), new UserPrefs());
+                new ArchiveBook(model.getArchiveBook()), new PinBook(model.getPinBook()), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         expectedModel.setPerson(personToEdit, editedPerson);
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
+        expectedModel.commitPinBook();
 
         // edit -> edits second person in unfiltered person list / first person in filtered person list
         editCommand.execute(model, commandHistory);
@@ -229,12 +239,14 @@ public class EditCommandTest {
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();
         expectedModel.undoArchiveBook();
+        expectedModel.undoPinBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), personToEdit);
         // redo -> edits same second person in unfiltered person list
         expectedModel.redoAddressBook();
         expectedModel.redoArchiveBook();
+        expectedModel.redoPinBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

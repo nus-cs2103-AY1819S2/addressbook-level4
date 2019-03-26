@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.getTypicalArchiveBook;
+import static seedu.address.testutil.TypicalPersons.getTypicalPinBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +17,9 @@ import seedu.address.model.UserPrefs;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(), getTypicalPinBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(),
-            getTypicalArchiveBook(), new UserPrefs());
+            getTypicalArchiveBook(), getTypicalPinBook(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -26,7 +27,9 @@ public class UndoCommandTest {
         // set up of models' undo/redo history
         deleteFirstPerson(model);
         deleteFirstPerson(model);
+        deleteFirstPerson(model);
 
+        deleteFirstPerson(expectedModel);
         deleteFirstPerson(expectedModel);
         deleteFirstPerson(expectedModel);
     }

@@ -23,6 +23,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveBook;
+import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -159,6 +160,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyPinBook getPinBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Path getPinBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPinBookFilePath(Path pinBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setPinBook(ReadOnlyPinBook pinBook) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
@@ -170,6 +191,16 @@ public class AddCommandTest {
 
         @Override
         public void archivePerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void pinPerson(Person target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void unpinPerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -195,6 +226,16 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredArchivedPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Person> getFilteredPinnedPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredPinnedPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -237,6 +278,22 @@ public class AddCommandTest {
         public void commitArchiveBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void undoPinBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoPinBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitPinBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public ReadOnlyProperty<Person> selectedPersonProperty() {
@@ -297,6 +354,11 @@ public class AddCommandTest {
 
         @Override
         public void commitArchiveBook() {
+            // called by {@code AddCommand#execute()}
+        }
+
+        @Override
+        public void commitPinBook() {
             // called by {@code AddCommand#execute()}
         }
 

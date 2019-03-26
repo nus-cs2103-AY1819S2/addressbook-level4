@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-// TODO: constraints when adding appointment
+import seedu.address.model.patient.Patient;
+
 /**
  * Manages the list of appointments created.
  */
@@ -44,12 +45,42 @@ public class AppointmentManager {
     }
 
     /**
-     * Returns a {@code String} of appointments created.
+     * Returns a {@code String} of appointments with dates between a search range, inclusive.
+     * @param start the start date of the search range
+     * @param end the end date of the search range
+     * @return {@code String} of appointments within the given search range
      */
-    public String list() {
+    public String list(LocalDate start, LocalDate end) {
         StringBuilder sb = new StringBuilder();
+        LocalDate date;
         for (Appointment app : appointments) {
-            sb.append(app.toString() + "\n");
+            date = app.getDate();
+            // Start listing only for appointments with dates between the given range
+            if (date.compareTo(start) >= 0 && date.compareTo(end) <= 0) {
+                sb.append(app.toString() + "\n");
+            }
+
+            // Stop when date of appointment is after given end date, since appointments are already sorted
+            if (date.compareTo(end) > 0) {
+                return sb.toString();
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Returns a {@code String} of appointments booked by a {@code Patient}.
+     * @param patient the {@code Patient} whose appointments to list
+     * @return {@code String} of appointments for the given patient
+     */
+    public String list(Patient patient) {
+        StringBuilder sb = new StringBuilder();
+        Patient p;
+        for (Appointment app : appointments) {
+            p = app.getPatient();
+            if (p.equals(patient)) {
+                sb.append(app.toString() + "\n");
+            }
         }
         return sb.toString();
     }

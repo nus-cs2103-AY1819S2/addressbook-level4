@@ -549,8 +549,12 @@ public class ModelManager implements Model {
         quickDocs.indicateModification(true);
     }
 
-    public String listApp() {
-        return appointmentManager.list();
+    public String listApp(LocalDate start, LocalDate end) {
+        return appointmentManager.list(start, end);
+    }
+
+    public String listApp(Patient patient) {
+        return appointmentManager.list(patient);
     }
 
     public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
@@ -583,7 +587,7 @@ public class ModelManager implements Model {
      */
     public void addRem(Reminder rem) {
         reminderManager.addReminder(rem);
-        //quickDocs.indicateModification(true);
+        quickDocs.indicateModification(true);
     }
 
     public String listRem() {

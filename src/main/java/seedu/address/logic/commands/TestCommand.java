@@ -38,16 +38,12 @@ public class TestCommand extends Command {
         requireNonNull(model);
         List<ReadOnlyCardFolder> cardFoldersList = model.getCardFolders();
 
-        if (model.isInFolder()) {
-            throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
+        if (targetIndex.getZeroBased() >= cardFoldersList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX);
         }
 
         if (model.checkIfInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
-        }
-
-        if (targetIndex.getZeroBased() >= cardFoldersList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FOLDER_DISPLAYED_INDEX);
         }
 
         try {

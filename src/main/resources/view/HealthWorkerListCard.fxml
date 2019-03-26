@@ -22,8 +22,8 @@
     </left>
     <center>
         <VBox fx:id="healthWorkerInfo" alignment="CENTER_LEFT" prefHeight="90.0" prefWidth="104.0">
-            <Label fx:id="name" text="\$name"/>
-            <Label fx:id="organisation" text="\$organisation"/>
+            <Label fx:id="name" styleClass="health_worker_label" text="\$name"/>
+            <Label fx:id="organisation" styleClass="health_worker_label" text="\$organisation"/>
             <FlowPane fx:id="specialisations"/>
             <BorderPane.margin>
                 <Insets left="30.0"/>

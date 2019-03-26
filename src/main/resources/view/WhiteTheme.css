@@ -13,10 +13,6 @@
 }
 
 /* For the requestListPanel */
-#request_date {
-
-}
-
 #conditions, #specialisations {
     -fx-hgap: 7;
     -fx-vgap: 3;
@@ -34,7 +30,7 @@
 
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-size: 16px;
+    -fx-font-size: 15px;
     -fx-text-fill: #010504;
 }
 
@@ -42,6 +38,11 @@
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
+}
+
+.status_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 12pt;
 }
 
 /* For the welcome message in displayInfoPanel */
@@ -61,9 +62,10 @@ span.command {
 }
 
 /* For the healthWorkerListPanel */
-#healthWorkerInfo {
+.health_worker_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 11pt;
+    -fx-text-fill: #010504;
 }
 
 /* For the pink rounded border around specialisations */

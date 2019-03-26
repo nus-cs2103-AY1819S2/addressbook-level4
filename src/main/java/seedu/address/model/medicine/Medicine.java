@@ -11,14 +11,12 @@ import java.math.BigDecimal;
 public class Medicine {
 
     public static final String MESSAGE_CONSTRAINTS = "Medicine name can take any values, and it should not be blank";
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "\\S+";
     public static final String TO_STRING = "Medicine: %1$s, Quantity: %2$d, Price: %3$s";
-
-    private static int defaultThreshold = 50;
+    private static final int DEFAULT_THRESHOLD = 50;
 
     public final String name;
     private int quantity;
-    private boolean thresholdIsDefault = true;
     private int threshold;
     private BigDecimal price;
 
@@ -42,8 +40,12 @@ public class Medicine {
     public Medicine(String name, int amount) {
         requireNonNull(name);
         checkArgument(isValidMedicine(name), MESSAGE_CONSTRAINTS);
+        if (amount < 0) {
+            throw new IllegalArgumentException("Quantity should not be negative.");
+        }
         this.name = name;
         setQuantity(amount);
+        this.threshold = DEFAULT_THRESHOLD;
     }
 
     public static boolean isValidMedicine(String test) {
@@ -95,14 +97,8 @@ public class Medicine {
      */
     private void checkIfSufficient() {
         int current = this.getQuantity();
-        if (thresholdIsDefault) {
-            if (current <= defaultThreshold) {
-                //Throws a reminder
-            }
-        } else {
-            if (current <= threshold) {
-                //Throws a reminder
-            }
+        if (quantity < threshold) {
+            //throw a reminder
         }
     }
 
@@ -110,15 +106,10 @@ public class Medicine {
         return threshold;
     }
 
-    public boolean isThresholdIsDefault() {
-        return thresholdIsDefault;
-    }
-
     public void setThreshold(int threshold) {
         if (threshold < 0) {
             throw new IllegalArgumentException("threshold must be non-negative");
         }
-        thresholdIsDefault = false;
         this.threshold = threshold;
     }
 
@@ -136,6 +127,9 @@ public class Medicine {
     }
 
     public void setPrice(BigDecimal price) {
+        if (price.compareTo(new BigDecimal("0")) == -1) {
+            throw new IllegalArgumentException("Price should not be negative.");
+        }
         this.price = price;
     }
 }

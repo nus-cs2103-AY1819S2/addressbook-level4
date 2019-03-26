@@ -109,7 +109,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        this.medicineManager = new MedicineManager();
+        this.medicineManager = quickDocs.getMedicineManager();
         //this.patientManager = new PatientManager(addressBook.getPatients());
         this.patientManager = quickDocs.getPatientManager();
         this.consultationManager = quickDocs.getConsultationManager();
@@ -209,16 +209,19 @@ public class ModelManager implements Model {
     @Override
     public void addMedicine(String medicineName, String[] path, BigDecimal price) {
         medicineManager.addMedicine(medicineName, path, price);
+        quickDocs.indicateModification(true);
     }
 
     @Override
     public void addMedicine(String medicineName, int quantity, String[] path, BigDecimal price) {
         medicineManager.addMedicine(medicineName, quantity, path, price);
+        quickDocs.indicateModification(true);
     }
 
     @Override
     public void addDirectory(String directoryName, String[] path) {
         medicineManager.addDirectory(directoryName, path);
+        quickDocs.indicateModification(true);
     }
 
     @Override
@@ -234,11 +237,13 @@ public class ModelManager implements Model {
     @Override
     public void purchaseMedicine(String[] path, int quantity) {
         medicineManager.purchaseMedicine(path, quantity);
+        quickDocs.indicateModification(true);
     }
 
     @Override
     public void purchaseMedicine(String medicineName, int quantity) {
         medicineManager.purchaseMedicine(medicineName, quantity);
+        quickDocs.indicateModification(true);
     }
 
     @Override
@@ -416,7 +421,7 @@ public class ModelManager implements Model {
 
     // for adding
     public boolean duplicatePatient(Patient patient) {
-        return this.patientManager.duplicatePatient(patient);
+        return this.patientManager.isDuplicatePatient(patient);
     }
 
     /**

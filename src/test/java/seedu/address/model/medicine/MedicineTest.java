@@ -52,6 +52,6 @@ public class MedicineTest {
     public void setValidThreshold() {
         Medicine medicineTest = new Medicine("test");
         medicineTest.setThreshold(100);
-        assertTrue(medicineTest.getThreshold() == 100 && !medicineTest.isThresholdIsDefault());
+        assertTrue(medicineTest.getThreshold() == 100);
     }
 }

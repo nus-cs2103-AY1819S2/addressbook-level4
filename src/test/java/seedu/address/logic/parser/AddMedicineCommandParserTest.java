@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -15,18 +16,35 @@ public class AddMedicineCommandParserTest {
     private AddMedicineCommandParser parser = new AddMedicineCommandParser();
 
     @Test
-    public void parse_validArgs_returnsAddMedicineCommand() {
-        assertParseSuccess(parser, "root\\test\\test2 panaddol 30 40",
+    public void parse_validArgsForNewMedicine_returnsAddMedicineCommand() {
+        assertParseSuccess(parser, "root\\test\\test2 panaddol p/3.03 q/40",
                 new AddMedicineCommand(
-                        new String[] {"root", "test", "test2"}, "panaddol", 40, new BigDecimal(30)));
+                        new String[] {"root", "test", "test2"}, "panaddol",
+                        Optional.of(40), Optional.of(new BigDecimal("3.03"))));
     }
 
     @Test
-    public void parse_validArgsWithoutQuantity_returnsAddMedicineCommand() {
-        assertParseSuccess(parser, "root\\test\\test2 panaddol 20.3",
+    public void parse_validArgsForExistingMedicine_returnsAddMedicineCommand() {
+        assertParseSuccess(parser, "root\\test bonjela",
                 new AddMedicineCommand(
-                        new String[] {"root", "test", "test2"}, "panaddol", BigDecimal.valueOf(20.3)
-                ));
+                        new String[] {"root", "test"}, "bonjela", Optional.empty(), Optional.empty()));
+    }
+
+    @Test
+    public void parse_invalidArgsWithRedundantInfo_throwParseException() {
+        assertParseFailure(parser, "root\\test bonjela op p/2.34 q/50",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidBigDecimalFormat_throwParseException() {
+        assertParseFailure(parser, "root\\test bonjela p/2.3.4 q/20",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
+    }
+    @Test
+    public void parse_invalidArgsForNewMedicineWithoutQuantity_throwParseException() {
+        assertParseFailure(parser, "root\\test\\test2 panaddol p/20.3",
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMedicineCommand.MESSAGE_USAGE));
     }
 
     @Test

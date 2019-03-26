@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -384,10 +385,10 @@ public class AddressBookParserTest {
         String name = "panaddol";
         StringBuilder sb = new StringBuilder();
         sb.append(AddMedicineCommand.COMMAND_WORD + " " + rawPath + " ");
-        sb.append(name + " 30 ");
+        sb.append(name + " p/30 ");
         int quantity = 60;
-        sb.append(quantity);
-        assertTrue(new AddMedicineCommand(path, name, quantity, new BigDecimal(30))
+        sb.append("q/" + quantity);
+        assertTrue(new AddMedicineCommand(path, name, Optional.of(quantity), Optional.of(new BigDecimal(30)))
                 .equals(parser.parseCommand(sb.toString())));
     }
 }

@@ -16,9 +16,11 @@ public class Directory {
 
     public static final String VALIDATION_REGEX = "[^\\s].*";
     public static final String MESSAGE_CONSTRAINTS = "Directory name can take any values, and it should not be blank";
+    public static final String ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY =
+            "Medicine with same name already exist under the same directory";
 
+    public final String name;
     private ArrayList<Medicine> listOfMedicine;
-    private final String name;
     private ArrayList<Directory> listOfDirectory;
     private Optional<Integer> threshold;
 
@@ -40,7 +42,7 @@ public class Directory {
      */
     public void addMedicine(Medicine medicine) {
         requireNonNull(medicine);
-        checkArgument(isValidMedicine(medicine), "medicine with the same name already in directory");
+        checkArgument(isValidMedicine(medicine), ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY);
         if (threshold.isPresent()) {
             medicine.setThreshold(threshold.get());
         }
@@ -59,6 +61,7 @@ public class Directory {
         if (threshold.isPresent()) {
             newDirectory.setThresholdForAll(threshold.get());
         }
+        //String[] newPath = path;
         listOfDirectory.add(newDirectory);
         listOfDirectory.sort(Comparator.comparing((Directory directory) -> (directory.name)));
     }
@@ -187,5 +190,17 @@ public class Directory {
         for (Directory directory : listOfDirectory) {
             directory.setThresholdForAll(thres);
         }
+    }
+
+    public Optional<Integer> getThreshold() {
+        return threshold;
+    }
+
+    public ArrayList<Medicine> getListOfMedicine() {
+        return listOfMedicine;
+    }
+
+    public ArrayList<Directory> getListOfDirectory() {
+        return listOfDirectory;
     }
 }

@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "ChenWenCUHK",
+      "displayName": "CHE...WEN",
+      "authorNames": ["ChenWenCUHK", "CHEN Wen"]
+    },
+    {
+      "githubId": "yongxiang1095",
+      "displayName": "CHO...ANG",
+      "authorNames": ["yongxiang1095", "Chong Yong Xiang"]
+    },
+    {
+      "githubId": "Sharadkochhar",
+      "displayName": "KOC...RAD",
+      "authorNames": ["Sharadkochhar"]
+    },
+    {
+      "githubId": "tanlongbin",
+      "displayName": "TAN...BIN",
+      "authorNames": ["tanlongbin"]
+    }
+  ]
+}

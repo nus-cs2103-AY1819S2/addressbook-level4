@@ -59,16 +59,18 @@ public class RequestCard extends UiPart<Region> {
         String requestStatus = request.getRequestStatus().toString();
         this.status.setText(requestStatus);
 
-        switch(requestStatus) {
-            case "PENDING":  // red light
-                this.status.setTextFill(Color.web("#F22613"));
-                break;
-            case "ONGOING":  // yellow light
-                this.status.setTextFill(Color.web("#F7CA18"));
-                break;
-            case "COMPLETED":  // green light
-                this.status.setTextFill(Color.web("#00E640"));
-                break;
+        switch (requestStatus) {
+        case "PENDING": // red light
+            this.status.setTextFill(Color.web("#F22613"));
+            break;
+        case "ONGOING": // yellow light
+            this.status.setTextFill(Color.web("#F7CA18"));
+            break;
+        case "COMPLETED": // green light
+            this.status.setTextFill(Color.web("#00E640"));
+            break;
+        default:
+            break;
         }
     }
 

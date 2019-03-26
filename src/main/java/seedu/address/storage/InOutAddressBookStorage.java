@@ -165,6 +165,7 @@ public class InOutAddressBookStorage implements AddressBookStorage {
             for (String toWrite : stringArr) {
                 ty = writeString(contents, toWrite, 50, ty);
             }
+
             drawLine(contents, 10, page.getMediaBox().getWidth() - 10, ty);
         } catch (IOException e) {
             throw new IOException(e.getMessage());
@@ -214,17 +215,34 @@ public class InOutAddressBookStorage implements AddressBookStorage {
         }
     }
 
+    /**
+     * Writes the date and time. Writes 3 lines.
+     * @param contents The content stream for writing
+     * @param page The page to write to
+     * @throws IOException If file cannot be written
+     */
     private void writeDateTime(PDPageContentStream contents, PDPage page) throws IOException {
         try {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy hh:mm:ss");
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
             LocalDateTime now = LocalDateTime.now();
-            String toWrite = "Saved/Exported on:\n" + dtf.format(now);
+            String toWrite = "Date saved/exported:";
             float textWidth = DATE_TIME_FONT.getStringWidth(toWrite) / 1000 * DATE_TIME_FONT_SIZE;
             float textHeight = DATE_TIME_FONT.getFontDescriptor().getFontBoundingBox().getHeight()
                                 / 1000 * DATE_TIME_FONT_SIZE;
             float tx = page.getMediaBox().getWidth() - textWidth - 20;
             float ty = page.getMediaBox().getHeight() - TOP_MARGIN - textHeight;
             writeString(contents, toWrite, tx, ty);
+            ty -= textHeight + LINE_SPACING;
+
+            textWidth = DATE_TIME_FONT.getStringWidth(dtf.format(now)) / 1000 * DATE_TIME_FONT_SIZE;
+            tx = page.getMediaBox().getWidth() - textWidth - 20;
+            writeString(contents, dtf.format(now), tx, ty);
+            ty -= textHeight + LINE_SPACING;
+
+            dtf = DateTimeFormatter.ofPattern("hh:mm:ss");
+            textWidth = DATE_TIME_FONT.getStringWidth(dtf.format(now)) / 1000 * DATE_TIME_FONT_SIZE;
+            tx = page.getMediaBox().getWidth() - textWidth - 20;
+            writeString(contents, dtf.format(now), tx, ty);
         } catch (IOException e) {
             throw new IOException(e.getMessage());
         }

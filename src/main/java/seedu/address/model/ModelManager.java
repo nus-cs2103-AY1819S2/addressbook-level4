@@ -397,6 +397,7 @@ public class ModelManager implements Model {
         return insideTestSession;
     }
 
+    @Override
     public boolean testNextCard() {
         currentTestedCardIndex += 1;
         if (currentTestedCardIndex == currentTestedCardFolder.size()) {

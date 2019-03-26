@@ -39,7 +39,7 @@ public class Fleet {
      * Constructor using formula according to mapSize.
      */
     public Fleet (int mapSize) {
-        this(1, mapSize - 5, (mapSize + 2) / 5);
+        this((mapSize + 2) / 5, mapSize - 5, 1);
     }
 
     /**

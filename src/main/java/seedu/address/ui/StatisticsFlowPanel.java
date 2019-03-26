@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -11,6 +12,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.MonthlyRevenue;
+import seedu.address.model.statistics.YearlyRevenue;
 
 /**
  * The Browser Panel for the statistics.
@@ -47,6 +50,7 @@ public class StatisticsFlowPanel extends UiPart<Region> {
         statisticsFlowPane.prefWidthProperty().bind(scrollPane.widthProperty());
         statisticsFlowPane.prefHeightProperty().bind(scrollPane.heightProperty());
 
+
         if (isDaily) {
             // Creates a DailyStatisticsCard for each DailyStatisticsCard and adds to FlowPane
             for (DailyRevenue dailyRevenue : dailyRevenueObservableList) {
@@ -54,19 +58,80 @@ public class StatisticsFlowPanel extends UiPart<Region> {
             }
 
             dailyRevenueObservableList.addListener((ListChangeListener<DailyRevenue>) c -> {
-                while (c.next()) {
-                    if (c.wasUpdated()) {
-                        logger.info("The List has been updated but not rendered");
-                    }
+                statisticsFlowPane.getChildren().clear();
+                for (DailyRevenue dailyRevenue : dailyRevenueObservableList) {
+                    statisticsFlowPane.getChildren().add(new DailyStatisticsCard(dailyRevenue).getRoot());
                 }
             });
         } else if (isMonthly) {
             //TODO: Creates a single MonthlyStatisticsCard for DailyStatisticsCard of the same month and adds to Flow
-            // Pane
+            ObservableList<MonthlyRevenue> monthlyRevenueList = FXCollections.observableArrayList();
+
+            //ArrayList<MonthlyRevenue> monthlyRevenueArrayList = new ArrayList<>();
+            MonthlyRevenue monthlyRevenue;
+            for (DailyRevenue dailyRevenue : dailyRevenueObservableList) {
+
+                if (monthlyRevenueList.isEmpty()) {
+                    monthlyRevenue = new MonthlyRevenue(dailyRevenue.getMonth(), dailyRevenue.getYear(),
+                            dailyRevenue.getTotalDailyRevenue());
+                    monthlyRevenueList.add(monthlyRevenue);
+                } else {
+                    monthlyRevenue = monthlyRevenueList.get(monthlyRevenueList.size() - 1);
+                    if (dailyRevenue.getYear().equals(monthlyRevenue.getYear()) && dailyRevenue.getMonth().equals
+                            (monthlyRevenue.getMonth())) {
+                        monthlyRevenue.addToRevenue(dailyRevenue.getTotalDailyRevenue());
+                    } else {
+                        monthlyRevenue = new MonthlyRevenue(dailyRevenue.getMonth(), dailyRevenue.getYear(),
+                                dailyRevenue.getTotalDailyRevenue());
+                        monthlyRevenueList.add(monthlyRevenue);
+                    }
+                }
+            }
+
+            for (MonthlyRevenue revenue : monthlyRevenueList) {
+                statisticsFlowPane.getChildren().add(new MonthlyStatisticsCard(revenue).getRoot());
+            }
+
+            monthlyRevenueList.addListener((ListChangeListener<MonthlyRevenue>) c -> {
+                statisticsFlowPane.getChildren().clear();
+                for (MonthlyRevenue revenue : monthlyRevenueList) {
+                    statisticsFlowPane.getChildren().add(new MonthlyStatisticsCard(revenue).getRoot());
+                }
+            });
 
         } else if (isYearly) {
-        //TODO: Creates a single YearlyStatisticsCard for DailyStatisticsCard of the same year and adds to the Flow Pane
+            //TODO: Creates a single YearlyStatisticsCard for DailyStatisticsCard of the same year and adds to the Flow Pane
 
+            ObservableList<YearlyRevenue> yearlyRevenueList = FXCollections.observableArrayList();
+
+            //ArrayList<MonthlyRevenue> monthlyRevenueArrayList = new ArrayList<>();
+            YearlyRevenue yearlyRevenue;
+            for (DailyRevenue dailyRevenue : dailyRevenueObservableList) {
+
+                if (yearlyRevenueList.isEmpty()) {
+                    yearlyRevenue = new YearlyRevenue(dailyRevenue.getYear(), dailyRevenue.getTotalDailyRevenue());
+                    yearlyRevenueList.add(yearlyRevenue);
+                } else {
+                    yearlyRevenue = yearlyRevenueList.get(yearlyRevenueList.size() - 1);
+                    if (yearlyRevenue.getYear().equals(dailyRevenue.getYear())) {
+                        yearlyRevenue.addToRevenue(dailyRevenue.getTotalDailyRevenue());
+                    } else {
+                        yearlyRevenue = new YearlyRevenue(dailyRevenue.getYear(), dailyRevenue.getTotalDailyRevenue());
+                        yearlyRevenueList.add(yearlyRevenue);
+                    }
+                }
+            }
+
+            for (YearlyRevenue revenue : yearlyRevenueList) {
+                statisticsFlowPane.getChildren().add(new YearlyStatisticsCard(revenue).getRoot());
+            }
+
+            yearlyRevenueList.addListener((ListChangeListener<YearlyRevenue>) c -> {
+                statisticsFlowPane.getChildren().clear();
+                for (YearlyRevenue revenue : yearlyRevenueList) {
+                    statisticsFlowPane.getChildren().add(new YearlyStatisticsCard(revenue).getRoot());
+                }
+            });
         }
     }
 }

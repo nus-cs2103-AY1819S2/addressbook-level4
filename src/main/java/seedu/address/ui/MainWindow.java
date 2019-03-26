@@ -244,9 +244,6 @@ public class MainWindow extends UiPart<Stage> {
                     false, false);
             browserPlaceholder.getChildren().add(statisticsFlowPanel.getRoot());
 
-            menuListPanel = new MenuListPanel(logic.getFilteredMenuItemList(), logic.selectedMenuItemProperty(),
-                    logic::setSelectedMenuItem);
-            listPanelPlaceholder.getChildren().add(menuListPanel.getRoot());
 
             statusBarFooter.updateMode("Statistics Mode");
             break;

@@ -126,6 +126,12 @@
     -fx-text-fill: #010504;
 }
 
+.cell_medium_label {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+    -fx-text-fill: #010504;
+}
+
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
@@ -315,6 +321,22 @@
     -fx-background-color: #515658;
     -fx-border-color: #3c3e3f;
     -fx-scale-shape: false;
+}
+
+
+#statisticsFlowPane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+#dailyStatisticsCardPane {
+    -fx-background-color: #515658;
+    -fx-border-color: #3c3e3f;
+    -fx-scale-shape: false;
+}
+
+#dailyStatisticsCard .label {
+    -fx-text-fill: white;
+    -fx-wrap-text: true;
 }
 
 #menuItemCardPane {

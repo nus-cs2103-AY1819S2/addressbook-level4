@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -37,7 +37,7 @@ public class TestCommandTest {
     public void execute_invalidTestCommandNotInFolder_fail() {
         model.exitFoldersToHome();
         TestCommand testCommand = new TestCommand();
-        String expectedMessage = String.format(MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         assertCommandFailure(testCommand, model, commandHistory, expectedMessage);
     }
 

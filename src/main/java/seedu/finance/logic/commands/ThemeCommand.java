@@ -5,6 +5,9 @@ import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
 
+/**
+ * Changes the theme of the application
+ */
 public class ThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "theme";
@@ -25,7 +28,7 @@ public class ThemeCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException  {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (!isValidTheme(this.theme)) {
             throw new CommandException(Messages.MESSAGE_INVALID_THEME);
         }
@@ -40,7 +43,7 @@ public class ThemeCommand extends Command {
      */
     private String formatTheme(String theme) {
         theme = (theme.trim()).toLowerCase();
-        return theme.substring(0,1).toUpperCase() + theme.substring(1);
+        return theme.substring(0, 1).toUpperCase() + theme.substring(1);
     }
 
     /**
@@ -55,7 +58,7 @@ public class ThemeCommand extends Command {
 
     @Override
     public boolean equals(Object other) {
-        if  (other == this) {
+        if (other == this) {
             return true;
         }
 

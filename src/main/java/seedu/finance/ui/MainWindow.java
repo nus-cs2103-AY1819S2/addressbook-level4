@@ -216,21 +216,24 @@ public class MainWindow extends UiPart<Stage> {
     private void handleSwitchTheme(String themeToSwitch) {
 
         switch (themeToSwitch) {
-            case "Dark":
-                setDarkTheme();
-                return;
+        case "Dark":
+            setDarkTheme();
+            return;
 
-            case "Light":
-                setLightTheme();
-                return;
+        case "Light":
+            setLightTheme();
+            return;
 
-            case "Blue":
-                setBlueTheme();
-                return;
+        case "Blue":
+            setBlueTheme();
+            return;
 
-            case "Pink":
-                setPinkTheme();
-                return;
+        case "Pink":
+            setPinkTheme();
+            return;
+
+        default:
+            return;
         }
 
     }

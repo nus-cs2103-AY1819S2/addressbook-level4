@@ -51,17 +51,25 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
-    public String getThemeToChange() { return themeToChange; }
+    public String getThemeToChange() {
+        return themeToChange;
+    }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() { return showHelp; }
+    public boolean isShowHelp() {
+        return showHelp;
+    }
 
-    public boolean isExit() { return exit; }
+    public boolean isExit() {
+        return exit;
+    }
 
-    public boolean isSwitchTheme() { return changeTheme; }
+    public boolean isSwitchTheme() {
+        return changeTheme;
+    }
 
     @Override
     public boolean equals(Object other) {

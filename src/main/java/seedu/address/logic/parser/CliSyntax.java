@@ -8,6 +8,7 @@ public class CliSyntax {
     /* Prefix definitions */
     public static final Prefix PREFIX_QUESTION = new Prefix("q/");
     public static final Prefix PREFIX_ANSWER = new Prefix("a/");
+    public static final Prefix PREFIX_INCORRECT_OPTION = new Prefix("i/");
     public static final Prefix PREFIX_HINT = new Prefix("h/");
     public static final Prefix PREFIX_FILENAME = new Prefix("n/");
     public static final Prefix PREFIX_FOLDERNAME = new Prefix("f/");

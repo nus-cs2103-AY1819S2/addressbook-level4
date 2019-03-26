@@ -270,7 +270,7 @@ the arguments supplied to the command.
 Step 4. The `FilterCommandParser` trims and splits the arguments by white spaces.
 
 Step 5. Then, `EquipmentContainsKeywordsPredicate` checks that the equipment manager has either the respective serial
-number, tags, address, name, email, phone.
+number, tags, address, name, preventive maintenance date, phone.
 
 Step 6. The argument is filtered against the predicate and returned to the GUI.
 
@@ -311,7 +311,7 @@ Output: By default, the list is sorted in alphabetical order of the client names
 
 Output: The list is sorted in alphabetical order.
 
-- Input: `sort email`
+- Input: `sort date`
 
 Output: The list is sorted in alphabetical order.
 

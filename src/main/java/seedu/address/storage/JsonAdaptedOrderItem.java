@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.menu.Code;
+import seedu.address.model.menu.Name;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.table.TableNumber;
 
@@ -17,6 +20,7 @@ class JsonAdaptedOrderItem {
 
     private final String tableNumber;
     private final String menuItemCode;
+    private final String menuItemName;
     private final String quantityOrdered;
     private final String quantityUnserved;
 
@@ -25,10 +29,13 @@ class JsonAdaptedOrderItem {
      */
     @JsonCreator
     public JsonAdaptedOrderItem(@JsonProperty("tableNumber") String tableNumber,
-            @JsonProperty("menuItemCode") String menuItem, @JsonProperty("ordered") String quantityOrdered,
-            @JsonProperty("unserved") String quantityUnserved) {
+                                @JsonProperty("menuItemCode") String menuItemCode,
+                                @JsonProperty("menuItemName") String menuItemName,
+                                @JsonProperty("ordered") String quantityOrdered,
+                                @JsonProperty("unserved") String quantityUnserved) {
         this.tableNumber = tableNumber;
-        this.menuItemCode = menuItem;
+        this.menuItemCode = menuItemCode;
+        this.menuItemName = menuItemName;
         this.quantityOrdered = quantityOrdered;
         this.quantityUnserved = quantityUnserved;
     }
@@ -39,6 +46,7 @@ class JsonAdaptedOrderItem {
     public JsonAdaptedOrderItem(OrderItem source) {
         tableNumber = source.getTableNumber().getTableNumber();
         menuItemCode = source.getMenuItemCode().toString();
+        menuItemName = source.getMenuItemName().toString();
         quantityOrdered = String.valueOf(source.getQuantity());
         quantityUnserved = String.valueOf(0);
     }
@@ -50,34 +58,49 @@ class JsonAdaptedOrderItem {
      */
     public OrderItem toModelType() throws IllegalValueException {
         if (tableNumber == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "tableNumber"));
+            throw new IllegalValueException(
+                    String.format(MISSING_FIELD_MESSAGE_FORMAT, TableNumber.class.getSimpleName()));
         }
-        // TODO: check if table number is valid
-        //if (!Name.isValidName(name)) {
-        //    throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        //}
+        if (!TableNumber.isValidTableNumber(tableNumber)) {
+            throw new IllegalValueException(TableNumber.MESSAGE_CONSTRAINTS);
+        }
         final TableNumber modelTableNumber = new TableNumber(tableNumber);
 
         if (menuItemCode == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "menuItemCode"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Code.class.getSimpleName()));
         }
-        // TODO: check if menu item code is legal
-        //if (!Phone.isValidPhone(phone)) {
-        //    throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        //}
+        if (!Code.isValidCode(menuItemCode)) {
+            throw new IllegalValueException(Code.MESSAGE_CONSTRAINTS);
+        }
         final Code modelMenuItemCode = new Code(menuItemCode);
+
+        if (menuItemName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+        if (!Name.isValidName(menuItemName)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        final Name modelMenuItemName = new Name(menuItemName);
 
         if (quantityOrdered == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "ordered"));
         }
 
-        final int modelQuantityOrdered = Integer.parseInt(quantityOrdered); // TODO: handle NumberFormatException
-
         if (quantityUnserved == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "unserved"));
         }
 
-        return new OrderItem(modelTableNumber, modelMenuItemCode, modelQuantityOrdered);
+        final int modelQuantityOrdered;
+        // final int modelQuantityUnserved;
+
+        try {
+            modelQuantityOrdered = ParserUtil.parseQuantity(quantityOrdered);
+            // modelQuantityUnserved = ParserUtil.parseQuantity(quantityUnserved);
+        } catch (ParseException e) {
+            throw new IllegalValueException(ParserUtil.MESSAGE_INVALID_QUANTITY);
+        }
+
+        return new OrderItem(modelTableNumber, modelMenuItemCode, modelMenuItemName, modelQuantityOrdered);
     }
 
 }

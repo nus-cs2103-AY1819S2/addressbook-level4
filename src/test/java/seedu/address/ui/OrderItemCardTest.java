@@ -13,13 +13,13 @@ import seedu.address.testutil.OrderItemBuilder;
 
 public class OrderItemCardTest extends GuiUnitTest {
 
-    //    @Test TODO
-    //    public void display() {
-    //        OrderItem orderItem = new OrderItemBuilder().build();
-    //        OrderItemCard orderItemCard = new OrderItemCard(orderItem, 2);
-    //        uiPartRule.setUiPart(orderItemCard);
-    //        assertCardDisplay(orderItemCard, orderItem, 2);
-    //    }
+    @Test
+    public void display() {
+        OrderItem orderItem = new OrderItemBuilder().build();
+        OrderItemCard orderItemCard = new OrderItemCard(orderItem, 2);
+        uiPartRule.setUiPart(orderItemCard);
+        assertCardDisplay(orderItemCard, orderItem, 2);
+    }
 
     @Test
     public void equals() {
@@ -57,7 +57,7 @@ public class OrderItemCardTest extends GuiUnitTest {
         OrderItemCardHandle orderItemCardHandle = new OrderItemCardHandle(orderItemCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId) + ". ", orderItemCardHandle.getId());
+        assertEquals(expectedId + ". ", orderItemCardHandle.getId());
 
         // verify orderItem details are displayed correctly
         assertCardDisplaysOrderItem(expectedOrderItem, orderItemCardHandle);

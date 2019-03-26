@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CODE_CHICKEN;
@@ -22,6 +23,8 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.Mode;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyRestOrRant;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -40,6 +43,7 @@ import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
 import seedu.address.testutil.MenuItemBuilder;
+import seedu.address.testutil.OrderItemBuilder;
 import seedu.address.testutil.TableBuilder;
 
 public class AddToOrderCommandTest {
@@ -63,62 +67,64 @@ public class AddToOrderCommandTest {
         new AddToOrderCommand(new ArrayList<>(), null);
     }
 
-    //    @Test TODO
-    //    public void execute_orderItemsAcceptedByModel_addSuccessful() throws Exception {
-    //        ModelStubAcceptingOrderItemAdded modelStub = new ModelStubAcceptingOrderItemAdded();
-    //        List<Code> itemCodes = new ArrayList<>();
-    //        itemCodes.add(new Code(VALID_CODE_CHICKEN));
-    //        List<Integer> itemQuantities = new ArrayList<>();
-    //        itemQuantities.add(3);
-    //        List<OrderItem> orderItems = new ArrayList<>();
-    //        orderItems.add(new OrderItemBuilder().build());
-    //
-    //        // adding single order item
-    //        CommandResult commandResult = new AddToOrderCommand(itemCodes, itemQuantities).execute(
-    //                Mode.TABLE_MODE, modelStub, commandHistory);
-    //
-    //        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems),
-    //                commandResult.getFeedbackToUser());
-    //        assertEquals(orderItems, modelStub.orderItemsAdded);
-    //        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    //
-    //        // adding multiple order items
-    //        itemCodes.add(new Code(VALID_CODE_FRIES));
-    //        itemQuantities.add(3);
-    //        orderItems.add(new OrderItemBuilder().withCode(VALID_CODE_FRIES).build());
-    //        commandResult = new AddToOrderCommand(itemCodes, itemQuantities).execute(
-    //                Mode.TABLE_MODE, modelStub, commandHistory);
-    //
-    //        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems),
-    //                commandResult.getFeedbackToUser());
-    //        assertEquals(orderItems, modelStub.orderItemsAdded);
-    //        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    //    }
+    @Test
+    public void execute_orderItemsAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingOrderItemAdded modelStub = new ModelStubAcceptingOrderItemAdded();
+        List<Code> itemCodes = new ArrayList<>();
+        itemCodes.add(new Code(VALID_CODE_CHICKEN));
+        List<Integer> itemQuantities = new ArrayList<>();
+        itemQuantities.add(3);
+        List<OrderItem> orderItems = new ArrayList<>();
+        orderItems.add(new OrderItemBuilder().build());
 
-    //    @Test TODO
-    //    public void execute_invalidItemCode_throwsCommandException() throws Exception {
-    //        List<Code> itemCodes = Collections.singletonList(new Code(VALID_CODE_CHICKEN));
-    //        List<Integer> itemQuantities = Collections.singletonList(3);
-    //        AddToOrderCommand addToOrderCommand = new AddToOrderCommand(itemCodes, itemQuantities);
-    //        ModelStub modelStub = new ModelStubWithoutItemCode();
-    //
-    //        thrown.expect(CommandException.class);
-    //        thrown.expectMessage(AddToOrderCommand.MESSAGE_INVALID_ITEM_CODE);
-    //        addToOrderCommand.execute(Mode.TABLE_MODE, modelStub, commandHistory);
-    //    }
+        // adding single order item
+        CommandResult commandResult =
+                new AddToOrderCommand(itemCodes, itemQuantities).execute(Mode.TABLE_MODE, modelStub, commandHistory);
 
-    //    @Test TODO
-    //    public void execute_duplicateOrderItem_throwsCommandException() throws Exception {
-    //        List<Code> itemCodes = Collections.singletonList(new Code(VALID_CODE_CHICKEN));
-    //        List<Integer> itemQuantities = Collections.singletonList(3);
-    //        OrderItem validOrderItem = new OrderItemBuilder().build();
-    //        AddToOrderCommand addCommand = new AddToOrderCommand(itemCodes, itemQuantities);
-    //        ModelStub modelStub = new ModelStubWithOrderItem(validOrderItem);
-    //
-    //        thrown.expect(CommandException.class);
-    //        thrown.expectMessage(AddToOrderCommand.MESSAGE_DUPLICATE_ORDER_ITEM);
-    //        addCommand.execute(Mode.TABLE_MODE, modelStub, commandHistory);
-    //    }
+        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), commandResult.getFeedbackToUser());
+        assertEquals(orderItems, modelStub.orderItemsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+
+        // adding multiple order items
+        modelStub = new ModelStubAcceptingOrderItemAdded();
+        itemCodes.add(new Code(VALID_CODE_FRIES));
+        itemQuantities.add(3);
+        orderItems.add(new OrderItemBuilder().withCode(VALID_CODE_FRIES).build());
+        commandResult =
+                new AddToOrderCommand(itemCodes, itemQuantities).execute(Mode.TABLE_MODE, modelStub, commandHistory);
+
+        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, orderItems), commandResult.getFeedbackToUser());
+        assertEquals(orderItems, modelStub.orderItemsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
+
+    @Test
+    public void execute_invalidItemCode_throwsCommandException() throws Exception {
+        List<Code> itemCodes = Collections.singletonList(new Code(VALID_CODE_CHICKEN));
+        List<Integer> itemQuantities = Collections.singletonList(3);
+        AddToOrderCommand addToOrderCommand = new AddToOrderCommand(itemCodes, itemQuantities);
+        ModelStub modelStub = new ModelStubWithoutItemCode();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(String.format(AddToOrderCommand.MESSAGE_INVALID_ITEM_CODE, new Code(VALID_CODE_CHICKEN)));
+        addToOrderCommand.execute(Mode.TABLE_MODE, modelStub, commandHistory);
+    }
+
+    @Test
+    public void execute_existingOrderItem_addSuccessful() throws Exception {
+        List<Code> itemCodes = Collections.singletonList(new Code(VALID_CODE_CHICKEN));
+        List<Integer> itemQuantities = Collections.singletonList(3);
+        OrderItem validOrderItem = new OrderItemBuilder().build();
+        ModelStubWithOrderItem modelStub = new ModelStubWithOrderItem(validOrderItem);
+
+        CommandResult commandResult =
+                new AddToOrderCommand(itemCodes, itemQuantities).execute(Mode.TABLE_MODE, modelStub, commandHistory);
+
+        assertEquals(String.format(AddToOrderCommand.MESSAGE_SUCCESS, Collections.singletonList(validOrderItem)),
+                commandResult.getFeedbackToUser());
+        assertEquals(new OrderItemBuilder().withQuantity(6).build(), modelStub.getOrderItem());
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    }
 
     @Test
     public void equals() {
@@ -154,12 +160,12 @@ public class AddToOrderCommandTest {
         private final Table table = new TableBuilder().build();
 
         @Override
-        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyUserPrefs getUserPrefs() {
+        public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -214,12 +220,12 @@ public class AddToOrderCommandTest {
         }
 
         @Override
-        public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
+        public ReadOnlyRestOrRant getRestOrRant() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyRestOrRant getRestOrRant() {
+        public void setRestOrRant(ReadOnlyRestOrRant restOrRant) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -285,6 +291,11 @@ public class AddToOrderCommandTest {
 
         @Override
         public void deleteDailyRevenue(DailyRevenue target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void clearOrderItemsFrom(TableNumber tableNumber) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -495,6 +506,7 @@ public class AddToOrderCommandTest {
         }
 
     }
+
     /**
      * A menu stub that always returns an item for any given code.
      */
@@ -503,10 +515,58 @@ public class AddToOrderCommandTest {
         public Optional<MenuItem> getItemFromCode(Code code) {
             return Optional.of(new MenuItemBuilder().build());
         }
+
+        @Override
+        public Name getNameFromItem(MenuItem menuItem) {
+            return menuItem.getName();
+        }
     }
 
     /**
-     * A default RestOrRant stub that has all of the methods failing, except getMenu() which returns an empty menu.
+     * A default orders stub that has all methods failing, except getItemFromCode() which returns an empty Optional.
+     */
+    private class OrdersStub implements ReadOnlyOrders {
+
+        @Override
+        public ObservableList<OrderItem> getOrderItemList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Optional<OrderItem> getOrderItem(TableNumber tableNumber, Code itemCode) {
+            return Optional.empty();
+        }
+
+        @Override
+        public void addListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+    }
+
+    /**
+     * A menu stub that always returns an item for any given code.
+     */
+    private class OrdersStubWithOrderItem extends OrdersStub {
+        private final OrderItem orderItem;
+
+        OrdersStubWithOrderItem(OrderItem orderItem) {
+            requireNonNull(orderItem);
+            this.orderItem = orderItem;
+        }
+
+        @Override
+        public Optional<OrderItem> getOrderItem(TableNumber tableNumber, Code itemCode) {
+            return Optional.of(orderItem);
+        }
+    }
+
+    /**
+     * A default RestOrRant stub that has all of the methods failing, except getMenu() and getOrders().
      */
     private class RestOrRantStub implements ReadOnlyRestOrRant {
         @Override
@@ -516,7 +576,7 @@ public class AddToOrderCommandTest {
 
         @Override
         public ReadOnlyOrders getOrders() {
-            throw new AssertionError("This method should not be called.");
+            return new OrdersStub();
         }
 
         @Override
@@ -551,6 +611,23 @@ public class AddToOrderCommandTest {
     }
 
     /**
+     * A RestOrRant stub that contains the existing order item.
+     */
+    private class RestOrRantStubWithOrderItem extends RestOrRantStubWithItemCodes {
+        private final OrderItem orderItem;
+
+        RestOrRantStubWithOrderItem(OrderItem orderItem) {
+            requireNonNull(orderItem);
+            this.orderItem = orderItem;
+        }
+
+        @Override
+        public ReadOnlyOrders getOrders() {
+            return new OrdersStubWithOrderItem(orderItem);
+        }
+    }
+
+    /**
      * A Model stub that does not contain any menu items (and thus all codes are invalid).
      */
     private class ModelStubWithoutItemCode extends ModelStub {
@@ -564,7 +641,7 @@ public class AddToOrderCommandTest {
      * A Model stub that contains a single orderItem.
      */
     private class ModelStubWithOrderItem extends ModelStub {
-        private final OrderItem orderItem;
+        private OrderItem orderItem;
 
         ModelStubWithOrderItem(OrderItem orderItem) {
             requireNonNull(orderItem);
@@ -573,13 +650,26 @@ public class AddToOrderCommandTest {
 
         @Override
         public ReadOnlyRestOrRant getRestOrRant() {
-            return new RestOrRantStubWithItemCodes();
+            return new RestOrRantStubWithOrderItem(orderItem);
         }
 
         @Override
         public boolean hasOrderItem(OrderItem orderItem) {
             requireNonNull(orderItem);
             return this.orderItem.isSameOrderItem(orderItem);
+        }
+
+        @Override
+        public void setOrderItem(OrderItem target, OrderItem editedOrderItem) {
+            orderItem = editedOrderItem;
+        }
+
+        public OrderItem getOrderItem() {
+            return orderItem;
+        }
+
+        @Override
+        public void updateFilteredOrderItemList(Predicate<OrderItem> predicate) {
         }
     }
 
@@ -607,8 +697,7 @@ public class AddToOrderCommandTest {
         }
 
         @Override
-        public void updateOrders() {
-            // called by {@code AddToOrderCommand#execute()}
+        public void updateFilteredOrderItemList(Predicate<OrderItem> predicate) {
         }
     }
 

@@ -240,6 +240,12 @@ public class AddTableCommandTest {
         }
 
         @Override
+        public void clearOrderItemsFrom(TableNumber tableNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+
         public void addOrderItem(OrderItem orderItem) {
             throw new AssertionError("This method should not be called.");
         }

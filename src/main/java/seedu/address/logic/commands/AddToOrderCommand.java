@@ -17,7 +17,7 @@ import seedu.address.model.order.OrderItem;
 import seedu.address.model.table.TableNumber;
 
 /**
- * Adds an order to Orders.
+ * Adds an order item to Orders.
  */
 public class AddToOrderCommand extends Command {
 
@@ -28,7 +28,6 @@ public class AddToOrderCommand extends Command {
             + " W09 2 C18 1 C02 1";
 
     public static final String MESSAGE_SUCCESS = "New order items added:\n%1$s";
-    public static final String MESSAGE_DUPLICATE_ORDER_ITEM = "Item [%1$s] already exists in table %2$s's order";
     public static final String MESSAGE_INVALID_ITEM_CODE = "The item code [%1$s] is invalid";
 
     private final List<Code> itemCodes;
@@ -54,17 +53,20 @@ public class AddToOrderCommand extends Command {
             if (!itemOptional.isPresent()) {
                 throw new CommandException(String.format(MESSAGE_INVALID_ITEM_CODE, itemCodes.get(i)));
             }
-            OrderItem orderItem = new OrderItem(tableNumber, itemCodes.get(i), itemQuantities.get(i));
-            if (model.hasOrderItem(orderItem)) { // add order items until encountering a duplicate
-                throw new CommandException(
-                        String.format(MESSAGE_DUPLICATE_ORDER_ITEM, itemCodes.get(i), tableNumber.toString()));
+            OrderItem orderItem = new OrderItem(tableNumber, itemCodes.get(i),
+                    model.getRestOrRant().getMenu().getNameFromItem(itemOptional.get()), itemQuantities.get(i));
+            if (model.hasOrderItem(orderItem)) { // add quantity to existing order item
+                OrderItem oldItem = model.getRestOrRant().getOrders().getOrderItem(tableNumber,
+                        orderItem.getMenuItemCode()).get();
+                OrderItem newItem = new OrderItem(oldItem, orderItem.getQuantity());
+                model.setOrderItem(oldItem, newItem);
+            } else {
+                model.addOrderItem(orderItem);
             }
-            model.addOrderItem(orderItem);
             orderItems.add(orderItem);
         }
 
         model.updateFilteredOrderItemList(orderItem -> orderItem.getTableNumber().equals(tableNumber));
-        model.updateOrders();
         return new CommandResult(String.format(MESSAGE_SUCCESS, orderItems));
     }
 
@@ -72,7 +74,7 @@ public class AddToOrderCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddToOrderCommand // instanceof handles nulls
-                && itemCodes.equals(((AddToOrderCommand) other).itemCodes) && itemQuantities
-                .equals(((AddToOrderCommand) other).itemQuantities));
+                && itemCodes.equals(((AddToOrderCommand) other).itemCodes) && itemQuantities.equals((
+                        (AddToOrderCommand) other).itemQuantities));
     }
 }

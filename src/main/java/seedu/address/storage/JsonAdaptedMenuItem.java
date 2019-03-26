@@ -12,7 +12,7 @@ import seedu.address.model.menu.Price;
 /**
  * Jackson-friendly version of {@link MenuItem}.
  */
-class JsonAdaptedMenu {
+class JsonAdaptedMenuItem {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Menu Item's %s field is missing!";
 
@@ -24,7 +24,7 @@ class JsonAdaptedMenu {
      * Constructs a {@code JsonAdaptedMenu} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedMenu(@JsonProperty("name") String name, @JsonProperty("code") String code,
+    public JsonAdaptedMenuItem(@JsonProperty("name") String name, @JsonProperty("code") String code,
             @JsonProperty("price") String price) {
         this.name = name;
         this.code = code;
@@ -34,7 +34,7 @@ class JsonAdaptedMenu {
     /**
      * Converts a given {@code MenuItem} into this class for Jackson use.
      */
-    public JsonAdaptedMenu(MenuItem item) {
+    public JsonAdaptedMenuItem(MenuItem item) {
         name = item.getName().itemName;
         code = item.getCode().itemCode;
         price = item.getPrice().itemPrice;

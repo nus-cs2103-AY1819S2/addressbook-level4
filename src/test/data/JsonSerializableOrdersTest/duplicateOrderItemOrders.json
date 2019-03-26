@@ -2,11 +2,13 @@
   "orderItems" : [ {
     "tableNumber" : "2",
     "menuItemCode" : "W09",
+    "menuItemName" : "Chicken Wings",
     "quantityOrdered" : "1",
     "quantityUnserved" : "0"
   }, {
     "tableNumber" : "2",
     "menuItemCode" : "W09",
+    "menuItemName" : "Chicken Wings",
     "quantityOrdered" : "5",
     "quantityUnserved" : "0"
   } ]

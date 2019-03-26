@@ -21,7 +21,7 @@ public class OrdersGuiTestAssert {
     public static void assertCardEquals(OrderItemCardHandle expectedCard, OrderItemCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getTableNumber(), actualCard.getTableNumber());
-        assertEquals(expectedCard.getMenuItemCode(), actualCard.getMenuItemCode());
+        assertEquals(expectedCard.getMenuItem(), actualCard.getMenuItem());
         assertEquals(expectedCard.getQuantity(), actualCard.getQuantity());
     }
 
@@ -29,9 +29,10 @@ public class OrdersGuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedOrderItem}.
      */
     public static void assertCardDisplaysOrderItem(OrderItem expectedOrderItem, OrderItemCardHandle actualCard) {
-        assertEquals(expectedOrderItem.getTableNumber().tableNumber, actualCard.getTableNumber());
-        assertEquals(expectedOrderItem.getMenuItemCode().itemCode, actualCard.getMenuItemCode());
-        assertEquals(Integer.toString(expectedOrderItem.getQuantity()), actualCard.getQuantity());
+        assertEquals("Table " + expectedOrderItem.getTableNumber().tableNumber, actualCard.getTableNumber());
+        assertEquals(expectedOrderItem.getMenuItemCode().itemCode + " " + expectedOrderItem.getMenuItemName().itemName,
+                actualCard.getMenuItem());
+        assertEquals("Qty: " + expectedOrderItem.getQuantity(), actualCard.getQuantity());
     }
 
     /**

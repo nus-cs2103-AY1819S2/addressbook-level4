@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.model.menu.Code;
+import seedu.address.model.menu.Name;
 import seedu.address.model.table.TableNumber;
 
 /**
@@ -15,17 +16,30 @@ public class OrderItem {
 
     private final TableNumber tableNumber;
     private final Code menuItemCode;
+    private final Name menuItemName;
     private final int quantityOrdered; // TODO: implement ItemStatus and change type, quantity part of status
 
     /**
      * Every field must be present and not null.
      * TODO: create constructor with default status as unserved
      */
-    public OrderItem(TableNumber tableNumber, Code menuItemCode, int quantityOrdered) {
+    public OrderItem(TableNumber tableNumber, Code menuItemCode, Name menuItemName, int quantityOrdered) {
         requireAllNonNull(tableNumber, menuItemCode, quantityOrdered);
         this.tableNumber = tableNumber;
         this.menuItemCode = menuItemCode;
+        this.menuItemName = menuItemName;
         this.quantityOrdered = quantityOrdered;
+    }
+
+    /**
+     * Constructs a new order item with the identity of {@code itemToUpdate} but with the quantity modified.
+     */
+    public OrderItem(OrderItem itemToUpdate, int quantityToChange) {
+        requireAllNonNull(itemToUpdate, quantityToChange);
+        this.tableNumber = itemToUpdate.getTableNumber();
+        this.menuItemCode = itemToUpdate.getMenuItemCode();
+        this.menuItemName = itemToUpdate.getMenuItemName();
+        this.quantityOrdered = itemToUpdate.getQuantity() + quantityToChange;
     }
 
     public TableNumber getTableNumber() {
@@ -34,14 +48,18 @@ public class OrderItem {
 
     public Code getMenuItemCode() {
         return menuItemCode;
-    } // TODO: get the individual menu item details by calling from model
+    }
+
+    public Name getMenuItemName() {
+        return menuItemName;
+    }
 
     public int getQuantity() {
         return quantityOrdered;
     }
 
     /**
-     * Returns true if both order items have the same menu item code and table number.
+     * Returns true if both order items have the same menu item code, menu item name and table number.
      * This defines a weaker notion of equality between two order items.
      */
     public boolean isSameOrderItem(OrderItem otherOrderItem) {
@@ -49,12 +67,13 @@ public class OrderItem {
             return true;
         }
 
-        return otherOrderItem != null && otherOrderItem.getTableNumber().equals(getTableNumber()) && otherOrderItem
-                .getMenuItemCode().equals(getMenuItemCode());
+        return otherOrderItem != null && otherOrderItem.getTableNumber().equals(getTableNumber())
+                && otherOrderItem.getMenuItemCode().equals(getMenuItemCode()) && otherOrderItem.getMenuItemName()
+                .equals(getMenuItemName());
     }
 
     /**
-     * Returns true if both order items have the same table number, menu item code and quantity ordered.
+     * Returns true if both order items have the same table number, menu item code, menu item name and quantity ordered.
      * This defines a stronger notion of equality between two order items.
      */
     @Override
@@ -80,8 +99,14 @@ public class OrderItem {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("[Table ").append(getTableNumber()).append("] ").append(getMenuItemCode())
-                .append(" | Qty Ordered: ").append(getQuantity());
+        builder.append("[Table ")
+                .append(getTableNumber())
+                .append("] ")
+                .append(getMenuItemCode())
+                .append(" ")
+                .append(getMenuItemName())
+                .append(" | Qty Ordered: ")
+                .append(getQuantity());
         return builder.toString();
     }
 

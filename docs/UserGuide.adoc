@@ -172,9 +172,10 @@ Exits the program. You won't be able to exit if copies exist.
 
 Format: `exit`
 
-====
+[NOTE]
+============================================================
 You can also use `exit!` to forcefully exit the application
-====
+============================================================
 
 === File Management
 
@@ -553,9 +554,10 @@ keying in certain tags after the `taskadd` command. Do note the following:
 Table 1 shows the list of parameters along with their respective descriptions.
 Mandatory parameters are marked with an asterisk `*` in the attribute section of the table.
 
-|===
+
 
 .Task parameters
+|===
 |Attribute |Description |Tag |Example
 
 |Title*

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.modelmanager.management.ManagementModel;
-import seedu.address.model.modelmanager.management.ManagementModelManager;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.srscard.SrsCard;

@@ -16,3 +16,4 @@
         <Label fx:id="totalMonthlyRevenue" styleClass="cell_big_label" text="\$totalMonthlyRevenue" />
     </VBox>
 </HBox>
+

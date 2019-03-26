@@ -129,7 +129,6 @@ public class ParserUtil {
     }
 
     /**
-<<<<<<< HEAD
      * Parses a {@code String entry} into a {@code Entry}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -197,8 +196,11 @@ public class ParserUtil {
     public static Weblink parseWeblink(String weblink) throws ParseException {
         requireNonNull(weblink);
         String trimmedWeblink = weblink.trim();
-        if (!Weblink.isValidWeblink(trimmedWeblink)) {
+        if (!Weblink.isValidWeblinkString(trimmedWeblink)) {
             throw new ParseException(Weblink.MESSAGE_CONSTRAINTS);
+        }
+        if (!Weblink.isValidWeblinkUrl(trimmedWeblink)) {
+            throw new ParseException(Weblink.INVALID_URL_MESSAGE);
         }
         return new Weblink(trimmedWeblink);
     }

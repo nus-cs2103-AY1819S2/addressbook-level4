@@ -47,14 +47,13 @@ public class TestCommand extends Command {
         }
 
         try {
-            model.testCardFolder(targetIndex.getZeroBased());
+            model.testCardFolder();
             Card cardToTest = model.getCurrentTestedCard();
             CommandResult commandResult = new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
                     CommandResult.Type.START_TEST_SESSION);
             commandResult.setTestSessionCard(cardToTest);
             return commandResult;
         } catch (EmptyCardFolderException e) {
-            model.endTestSession();
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_ON_EMPTY_FOLDER);
         }
     }

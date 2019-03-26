@@ -119,8 +119,7 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered moduleTaken list, edit index within bounds of address book and moduleTaken list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MA1521
-        );
+        showPersonsWithName(KEYWORD_MATCHING_MA1521);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_CS1010;

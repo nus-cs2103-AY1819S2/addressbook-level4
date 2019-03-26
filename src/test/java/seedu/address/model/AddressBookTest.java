@@ -52,7 +52,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two moduleTakens with the same identity fields
+        // Two modulesTaken with the same identity fields
         ModuleTaken editedAlice = new ModuleTakenBuilder(CS2103T)
                 .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS1010)
                 .withTags(VALID_TAG_HUSBAND)
@@ -117,18 +117,18 @@ public class AddressBookTest {
     }
 
     /**
-     * A stub ReadOnlyGradTrak whose moduleTakens list can violate interface constraints.
+     * A stub ReadOnlyGradTrak whose modulesTaken list can violate interface constraints.
      */
     private static class GradTrakStub implements ReadOnlyGradTrak {
-        private final ObservableList<ModuleTaken> moduleTakens = FXCollections.observableArrayList();
+        private final ObservableList<ModuleTaken> modulesTaken = FXCollections.observableArrayList();
 
-        GradTrakStub(Collection<ModuleTaken> moduleTakens) {
-            this.moduleTakens.setAll(moduleTakens);
+        GradTrakStub(Collection<ModuleTaken> modulesTaken) {
+            this.modulesTaken.setAll(modulesTaken);
         }
 
         @Override
         public ObservableList<ModuleTaken> getModulesTakenList() {
-            return moduleTakens;
+            return modulesTaken;
         }
 
         @Override
@@ -141,5 +141,4 @@ public class AddressBookTest {
             throw new AssertionError("This method should not be called.");
         }
     }
-
 }

@@ -104,12 +104,16 @@ public class GradTrak implements ReadOnlyGradTrak {
         indicateModified();
     }
 
+    /**
+     * Returns a List of ModuleInfoCodes representing the modules passed.
+     * @return A List.
+     */
     public List<ModuleInfoCode> getPassedModuleList() {
         List<ModuleInfoCode> codeList = new ArrayList<>();
 
         for (ModuleTaken module : getModulesTakenList()) {
             if (module.isPassed()) {
-                codeList.add(new ModuleInfoCode(module.getModuleInfo().toString())); // temporary
+                codeList.add(module.getModuleInfo());
             }
         }
 

@@ -1,12 +1,14 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -175,7 +177,14 @@ public interface Model {
      */
     void updateDisplayList(Predicate<ModuleInfo> predicate);
 
+    /**
+     * Returns an unmodifiable view of the recommended module list.
+     */
     ObservableList<ModuleInfoCode> getRecModuleListSorted();
 
-    void updateRecModuleList();
+    /**
+     * Updates the recommended module list by creating a new RecModuleManager,
+     * and returns a HashMap of ModuleInfoCode to CourseReqType.
+     */
+    HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList();
 }

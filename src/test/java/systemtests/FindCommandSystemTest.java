@@ -1,13 +1,21 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_INFO_CODE;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
+import static seedu.address.testutil.TypicalModuleTaken.CS1010S;
+import static seedu.address.testutil.TypicalModuleTaken.CS1010X;
+import static seedu.address.testutil.TypicalModuleTaken.CS2101;
 import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS2103T;
+import static seedu.address.testutil.TypicalModuleTaken.LSM1301;
+import static seedu.address.testutil.TypicalModuleTaken.MA1521;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.Model;
 
@@ -15,22 +23,47 @@ public class FindCommandSystemTest extends GradTrakSystemTest {
 
     @Test
     public void find() {
-        /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
-         * -> 2 persons found
-         */
+        // Case: find moduleTaken in GradTrak by code, command with leading spaces and trailing spaces -> 1 found
         String command = "   " + FindCommand.COMMAND_WORD + " "
                 + PREFIX_MODULE_INFO_CODE + KEYWORD_MATCHING_CS2103T + "   ";
         Model expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel, CS2103T); // first names of Benson and Daniel are "Meier"
+        ModelHelper.setFilteredList(expectedModel, CS2103T);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: repeat previous find command where moduleTaken list is displaying the persons we are finding
-         * -> 2 persons found
-         */
+        // Case: repeat previous find command -> 1 found
         command = FindCommand.COMMAND_WORD + " " + PREFIX_MODULE_INFO_CODE + KEYWORD_MATCHING_CS2103T;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+
+        // Case: find non-existing moduleTaken in GradTrak -> 0 found
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_MODULE_INFO_CODE + "abcdefg";
+        ModelHelper.setFilteredList(expectedModel);
+        assertCommandSuccess(command, expectedModel);
+
+        // Case: find moduleTaken by Semester -> 2 found
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_SEMESTER + "Y4S2";
+        ModelHelper.setFilteredList(expectedModel, CS1010X, LSM1301);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        // Case: find moduleTaken by Grade -> 6 found
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_GRADE + "A";
+        ModelHelper.setFilteredList(expectedModel, CS2103T, CS2101, CS1010S, CS1010X, MA1521, LSM1301);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        // Case: find moduleTaken by multiple parameters -> 1 found
+        command = FindCommand.COMMAND_WORD + " " + PREFIX_MODULE_INFO_CODE + "CS " + PREFIX_SEMESTER + "Y3S2 "
+                + PREFIX_GRADE + "A";
+        ModelHelper.setFilteredList(expectedModel, CS2101);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        // Case: find command with empty args
+        command = FindCommand.COMMAND_WORD;
+        assertCommandFailure(command,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     /**

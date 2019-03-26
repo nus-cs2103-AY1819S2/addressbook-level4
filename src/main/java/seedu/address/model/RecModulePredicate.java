@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -14,13 +16,14 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
 public class RecModulePredicate implements Predicate<ModuleInfoCode> {
 
     private Course course;
-    private VersionedGradTrak versionedAddressBook;
+    private VersionedGradTrak versionedGradTrak;
     private HashMap<ModuleInfoCode, CourseReqType> codeToReqMap;
 
-    public RecModulePredicate(Course course, VersionedGradTrak versionedAddressBook,
+    public RecModulePredicate(Course course, VersionedGradTrak versionedGradTrak,
                               HashMap<ModuleInfoCode, CourseReqType> codeToReqMap) {
+        requireAllNonNull(course, versionedGradTrak, codeToReqMap);
         this.course = course;
-        this.versionedAddressBook = versionedAddressBook;
+        this.versionedGradTrak = versionedGradTrak;
         this.codeToReqMap = codeToReqMap;
     }
 
@@ -32,12 +35,12 @@ public class RecModulePredicate implements Predicate<ModuleInfoCode> {
         }
 
         /* module can be taken */
-        if (versionedAddressBook.hasPlannedModule(moduleInfoCode.toString())) {
+        if (versionedGradTrak.hasPlannedModule(moduleInfoCode.toString())) {
             // module already in plan
             return false;
         }
 
-        List<ModuleInfoCode> passedModuleList = versionedAddressBook.getPassedModuleList();
+        List<ModuleInfoCode> passedModuleList = versionedGradTrak.getPassedModuleList();
         List<CourseReqType> reqTypeList = course.getCourseReqTypeOf(moduleInfoCode);
         for (CourseReqType reqType : reqTypeList) { // starting from most important requirement
             if (!course.isReqFulfilled(reqType, passedModuleList)) {
@@ -47,6 +50,6 @@ public class RecModulePredicate implements Predicate<ModuleInfoCode> {
             }
         }
 
-        return false; // all course requirements fulfilled
+        return false;
     }
 }

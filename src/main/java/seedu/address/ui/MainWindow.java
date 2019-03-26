@@ -32,11 +32,11 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent UI parts residing in this UI container
-    private MapPanel mapPanel;
-    private PersonListPanel personListPanel;
-    private HealthWorkerListPanel healthWorkerListPanel;
-    private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ResultDisplay resultDisplay;
+    private MapPanel mapPanel;
+    private RequestListPanel requestListPanel;
+    private HealthWorkerListPanel healthWorkerListPanel;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -130,9 +130,9 @@ public class MainWindow extends UiPart<Stage> {
         displayInfoPlaceholder.getChildren().add(mapPanel.getRoot());
 
         //TODO: Change personListPanel to patientListPanel
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-                logic::setSelectedPerson);
-        requestListPlaceholder.getChildren().add(personListPanel.getRoot());
+        requestListPanel = new RequestListPanel(logic.getFilteredRequestList(), logic.selectedRequestProperty(),
+                logic::setSelectedRequest);
+        requestListPlaceholder.getChildren().add(requestListPanel.getRoot());
 
         healthWorkerListPanel = new HealthWorkerListPanel(logic.getFilteredHealthWorkerList(),
             logic.selectedHealthWorkerProperty(), logic::setSelectedHealthWorker);
@@ -140,10 +140,6 @@ public class MainWindow extends UiPart<Stage> {
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     void show() {

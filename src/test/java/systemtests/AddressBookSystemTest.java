@@ -25,7 +25,7 @@ import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.MapPanelHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.RequestListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
@@ -98,8 +98,8 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    public PersonListPanelHandle getPersonListPanel() {
-        return mainWindowHandle.getPersonListPanel();
+    public RequestListPanelHandle getRequestListPanel() {
+        return mainWindowHandle.getRequestListPanel();
     }
 
     public MainMenuHandle getMainMenu() {
@@ -154,7 +154,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void selectPerson(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(index.getZeroBased(), getRequestListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -175,7 +175,7 @@ public abstract class AddressBookSystemTest {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new AddressBook(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertListMatching(getRequestListPanel(), expectedModel.getFilteredRequestList());
     }
 
     /**
@@ -187,7 +187,7 @@ public abstract class AddressBookSystemTest {
         getMapPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getPersonListPanel().rememberSelectedPersonCard();
+        getRequestListPanel().rememberSelectedRequestCard();
     }
 
     /**
@@ -197,18 +197,18 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertSelectedCardDeselected() {
         assertEquals(MapPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
-        assertFalse(getPersonListPanel().isAnyCardSelected());
+        assertFalse(getRequestListPanel().isAnyCardSelected());
     }
 
     /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see MapPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see RequestListPanelHandle#isSelectedRequestCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
-        String addressText = getPersonListPanel().getHandleToSelectedCard().getAddress();
+        getRequestListPanel().navigateToCard(getRequestListPanel().getSelectedCardIndex());
+        String addressText = getRequestListPanel().getHandleToSelectedCard().getAddress();
 
         if (addressText.contains(",")) {
             addressText = addressText.substring(0, addressText.indexOf(","));
@@ -224,17 +224,17 @@ public abstract class AddressBookSystemTest {
         }
         assertEquals(expectedUrl, getMapPanel().getLoadedUrl());
 
-        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getRequestListPanel().getSelectedCardIndex());
     }
 
     /**
      * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
      * @see MapPanelHandle#isUrlChanged()
-     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     * @see RequestListPanelHandle#isSelectedRequestCardChanged()
      */
     protected void assertSelectedCardUnchanged() {
         assertFalse(getMapPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertFalse(getRequestListPanel().isSelectedRequestCardChanged());
     }
 
     /**
@@ -278,7 +278,7 @@ public abstract class AddressBookSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getRequestListPanel(), getModel().getFilteredRequestList());
         assertEquals(MapPanel.DEFAULT_PAGE, getMapPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

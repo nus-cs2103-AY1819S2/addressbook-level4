@@ -32,6 +32,8 @@ public class LogicManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
+    private boolean requestBookModified;
+    private boolean healthWorkerBookModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
@@ -41,6 +43,9 @@ public class LogicManager implements Logic {
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
+        model.getRequestBook().addListener(observable -> requestBookModified = true);
+        model.getHealthWorkerBook().addListener(observable -> healthWorkerBookModified = true);
+
     }
 
     @Override
@@ -60,6 +65,24 @@ public class LogicManager implements Logic {
             logger.info("Address book modified, saving to file.");
             try {
                 storage.saveAddressBook(model.getAddressBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
+        if (requestBookModified) {
+            logger.info("Request book modified, saving to file.");
+            try {
+                storage.saveRequestBook(model.getRequestBook());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+
+        if (healthWorkerBookModified) {
+            logger.info("Healthworker book modified, saving to file.");
+            try {
+                storage.saveHealthWorkerBook(model.getHealthWorkerBook());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }

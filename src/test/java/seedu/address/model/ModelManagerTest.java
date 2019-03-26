@@ -4,13 +4,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.deck.Card;
-import seedu.address.model.deck.Deck;
+import seedu.address.logic.CardsView;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
-import seedu.address.model.deck.NameContainsKeywordsPredicate;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
-import seedu.address.testutil.CardBuilder;
-import seedu.address.testutil.DeckBuilder;
+import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
 import seedu.address.testutil.TopDeckBuilder;
 
 import java.nio.file.Path;
@@ -21,7 +18,6 @@ import java.util.Collections;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_MOD;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
@@ -88,37 +84,75 @@ public class ModelManagerTest {
         assertEquals(path, modelManager.getTopDeckFilePath());
     }
 
-    //========== Card Management Tests ==================================================================
-
-    //TODO: Card Management tests will only be carried out after Deck management test
-    @Test
-    public void hasCard_nullCard_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
-        modelManager.hasCard(null);
-    }
-
-    //TODO for card
-//    @Test
-//    public void hasCard_cardNotInTopDeck_returnsFalse() {
-//        assertFalse(modelManager.hasCard(ADDITION));
-//    }
-
     @Test
     public void hasDeck_deckNotInTopDeck_returnsFalse() {
         assertFalse(modelManager.hasDeck(DECK_A));
     }
 
-    //TODO for card
-//    @Test
-//    public void hasCard_cardInTopDeck_returnsTrue() {
-//        modelManager.addCard(ADDITION);
-//        assertTrue(modelManager.hasCard(ADDITION));
-//    }
-
     @Test
     public void hasDeck_deckInTopDeck_returnsTrue() {
         modelManager.addDeck(DECK_A);
         assertTrue(modelManager.hasDeck(DECK_A));
+    }
+
+    @Test
+    public void changeDeck_deckInTopDeck_changeViewState() {
+        modelManager.addDeck(DECK_B);
+        modelManager.changeDeck(DECK_B);
+        assertTrue(modelManager.getViewState() instanceof CardsView);
+    }
+
+    //========== Card Management Tests ==================================================================
+    @Test
+    public void hasCard_notInCardsView_throwsIllegalOperationWhileReviewingDeckException() {
+        thrown.expect(IllegalOperationWhileReviewingDeckException.class);
+        modelManager.hasCard(ADDITION);
+    }
+
+
+    @Test
+    public void hasCard_nullCard_throwsNullPointerException() {
+        modelManager.addDeck(DECK_B);
+        modelManager.changeDeck(DECK_B);
+        thrown.expect(NullPointerException.class);
+        modelManager.hasCard(null);
+    }
+
+    @Test
+    public void hasCard_cardInTopDeck_returnsTrue() {
+        modelManager.addDeck(DECK_B);
+        modelManager.changeDeck(DECK_B);
+        modelManager.addCard(ADDITION);
+        assertTrue(modelManager.hasCard(ADDITION));
+    }
+
+    @Test
+    public void hasCard_cardNotInTopDeck_returnsFalse() {
+        modelManager.addDeck(DECK_B);
+        modelManager.changeDeck(DECK_B);
+        assertFalse(modelManager.hasCard(SUBTRACTION));
+    }
+
+    @Test
+    public void addCard_notInCardsView_throwsIllegalOperationWhileReviewingDeckException() {
+        thrown.expect(IllegalOperationWhileReviewingDeckException.class);
+        modelManager.addCard(SUBTRACTION);
+    }
+
+    @Test
+    public void addCard_nullCard_throwsNulPointerException() {
+        modelManager.addDeck(DECK_B);
+        modelManager.changeDeck(DECK_B);
+        thrown.expect(NullPointerException.class);
+        modelManager.addCard(null);
+    }
+
+    @Test
+    public void addCard_validCard_deckContainsNewCard() {
+        modelManager.addDeck(DECK_B);
+        modelManager.changeDeck(DECK_B);
+        modelManager.addCard(SUBTRACTION);
+        assertTrue(modelManager.hasCard(SUBTRACTION));
     }
 
     //TODO for card
@@ -139,10 +173,11 @@ public class ModelManagerTest {
 //        assertEquals(null, modelManager.getSelectedItem());
 //    }
 
-    //TODO for card
+    //TODO: Fix selection of card after delete
     @Test
     public void deleteCard_cardIsSelectedAndSecondCardInFilteredCardList_firstCardSelected() {
-        modelManager.addCard(ADDITION);
+        modelManager.addDeck(DECK_B);
+        modelManager.changeDeck(DECK_B);
         modelManager.addCard(SUBTRACTION);
         assertEquals(Arrays.asList(ADDITION, SUBTRACTION), modelManager.getFilteredList());
         modelManager.setSelectedItem(SUBTRACTION);
@@ -236,7 +271,7 @@ public class ModelManagerTest {
         //TODO for card
 //        // different filteredList -> returns false
 //        String[] keywords = ADDITION.getQuestion().split("\\s+");
-//        modelManager.updateFilteredList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+//        modelManager.updateFilteredList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
 //        assertFalse(modelManager.equals(new ModelManager(topDeck, userPrefs)));
 
         // different filteredList -> returns false

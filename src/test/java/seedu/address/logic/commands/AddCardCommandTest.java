@@ -267,6 +267,10 @@ public class AddCardCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void deleteDeck(Deck target) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

@@ -18,6 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.TopDeck;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Card;
 
@@ -34,7 +35,7 @@ public class DeleteCardCommandTest {
     public void initialize() {
         model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
         model.changeDeck(getTypicalDeck());
-        assertTrue(!model.isAtDecksView());
+        assertTrue(model.isAtCardsView());
     }
 
     @Test
@@ -45,6 +46,7 @@ public class DeleteCardCommandTest {
         String expectedMessage = String.format(DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
+        expectedModel.changeDeck(getTypicalDeck());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitTopDeck();
 
@@ -69,9 +71,9 @@ public class DeleteCardCommandTest {
         String expectedMessage = String.format(DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS, cardToDelete);
 
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
+        expectedModel.changeDeck(getTypicalDeck());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitTopDeck();
-        showNoCard(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -82,7 +84,8 @@ public class DeleteCardCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_CARD;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getFilteredList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() <
+            model.getTopDeck().getDeckList().get(0).getCards().internalList.size());
 
         DeleteCardCommand deleteCommand = new DeleteCardCommand(outOfBoundIndex);
 
@@ -93,7 +96,9 @@ public class DeleteCardCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Card cardToDelete = (Card)model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
         DeleteCardCommand deleteCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
+
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
+        expectedModel.changeDeck(getTypicalDeck());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitTopDeck();
 
@@ -130,12 +135,14 @@ public class DeleteCardCommandTest {
      * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the card object regardless of indexing.
      */
     @Test
-    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
+    public void executeUndoRedo_validIndexFilteredList_sameCardDeleted() throws Exception {
         DeleteCardCommand deleteCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
-        Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
+        Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
 
         showCardAtIndex(model, INDEX_SECOND_CARD);
         Card cardToDelete = (Card)model.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
+
+        expectedModel.changeDeck(getTypicalDeck());
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitTopDeck();
 

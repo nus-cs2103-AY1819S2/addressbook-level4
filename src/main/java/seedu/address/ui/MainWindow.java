@@ -183,11 +183,13 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             if (commandResult instanceof UpdatePanelCommandResult) {
-                listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(), logic::setSelectedItem);
+                listPanel = new ListPanel(logic.getFilteredList(), logic.selectedItemProperty(),
+                    logic::setSelectedItem);
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(listPanel.getRoot());
             } else if (commandResult instanceof StudyPanelCommand) {
-                studyPanel = new StudyPanel(logic.textShownProperty(), logic.studyStateProperty(), logic.userAnswerProperty());
+                studyPanel = new StudyPanel(logic.textShownProperty(), logic.studyStateProperty(),
+                    logic.userAnswerProperty());
                 contentPanelPlaceholder.getChildren().clear();
                 contentPanelPlaceholder.getChildren().add(studyPanel.getRoot());
             } else if (commandResult instanceof HelpCommandResult) {

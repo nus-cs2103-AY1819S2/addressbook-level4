@@ -197,7 +197,7 @@ public abstract class TopDeckSystemTest {
      */
     protected void assertSelectedDeckChanged(Index expectedSelectedDeckIndex) {
         getDeckListPanel().navigateToDeck(getDeckListPanel().getSelectedDeckIndex());
-        //String selectedDeckName = getDeckListPanel().getHandleToSelectedDeck().getName();
+        String selectedDeckName = getDeckListPanel().getHandleToSelectedDeck().getName();
 
         assertEquals(expectedSelectedDeckIndex.getZeroBased(), getDeckListPanel().getSelectedDeckIndex());
     }

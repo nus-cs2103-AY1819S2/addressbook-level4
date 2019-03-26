@@ -25,7 +25,8 @@ public class TestCommandTest {
 
     @Test
     public void execute_validTestCommand_success() {
-        TestCommand testCommand = new TestCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        TestCommand testCommand = new TestCommand();
         expectedModel.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.testCardFolder();
         CommandResult expectedCommandResult = new CommandResult(TestCommand.MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
@@ -35,32 +36,10 @@ public class TestCommandTest {
 
     @Test
     public void execute_invalidTestCommandInsideTestSession_fail() {
-        TestCommand testCommand = new TestCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        TestCommand testCommand = new TestCommand();
         model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         model.testCardFolder();
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
         assertCommandFailure(testCommand, model, commandHistory, expectedMessage);
-    }
-
-    @Test
-    public void equals() {
-        TestCommand testFirstFolderCommand = new TestCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
-        TestCommand testSecondFolderCommand = new TestCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER);
-
-        // same object -> returns true
-        assertTrue(testFirstFolderCommand.equals(testFirstFolderCommand));
-
-        // same values -> returns true
-        TestCommand testFirstFolderCommandCopy = new TestCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
-        assertTrue(testFirstFolderCommand.equals(testFirstFolderCommandCopy));
-
-        // different types -> returns false
-        assertFalse(testFirstFolderCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(testFirstFolderCommand.equals(null));
-
-        // different folder -> returns false
-        assertFalse(testFirstFolderCommand.equals(testSecondFolderCommand));
     }
 }

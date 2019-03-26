@@ -9,11 +9,12 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.request.Request;
 
 /**
  * The Map Panel of the App.
@@ -22,32 +23,30 @@ import seedu.address.model.person.Person;
  * For more info, visit https://gothere.sg/api/maps/staticmaps.html.
  * @author Hui Chun
  */
-public class MapPanel extends UiPart<Region> {
+public class InfoPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
-    public static final String MAP_URL = "https://gothere.sg/maps/staticmap?center=%22";
 
-    private static final String FXML = "MapPanel.fxml";
+    private static final String FXML = "InfoPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private WebView map;
+    private WebView webView;
 
-    public MapPanel(ObservableValue<Person> selectedPatient) {
+    public InfoPanel(ObservableValue<Request> selectedRequest) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // Zooms in to the patient's location when the selected person changes.
-        selectedPatient.addListener((observable, oldValue, newValue) -> {
+        // Displays the request details when selected.
+        selectedRequest.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 loadDefaultPage();
                 return;
             }
-            // Removed loadPatientLocation method
         });
 
         loadDefaultPage();
@@ -62,23 +61,7 @@ public class MapPanel extends UiPart<Region> {
 
 
     public void loadPage(String url) {
-        Platform.runLater(() -> map.getEngine().load(url));
+        Platform.runLater(() -> webView.getEngine().load(url));
     }
 
-
-    /**
-     * Constructs a URL from the mapAddress input by concatenating additional URL parameters.
-     * @param mapAddress the street address
-     * @return a URL to render the map
-     */
-    private String constructLink(String mapAddress) {
-        // https://gothere.sg/maps/staticmap?center=%22bedok%20north%20street%203%22&zoom=15&
-        // size=400x300&markers=%22bedok%20north%20street%203%22,red&sensor=false;
-        StringBuilder builder = new StringBuilder(MAP_URL);
-        builder.append(mapAddress + "%22&zoom=16&size=640x395&markers=%22");
-        builder.append(mapAddress + ",red&sensor=false");
-        logger.info(builder.toString());
-        return builder.toString();
-
-    }
 }

@@ -139,18 +139,48 @@ The `undo` command fails as there are no undoable commands executed previously.
 ==== Adding a member: `memberAdd`
 
 You can add members to ClubManager. +
-Format: `memberAdd n/NAME an/ADMIN_NUMBER p/PHONE_NUMBER e/EMAIL yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
-****
-* YEAR_OF_STUDY refers to the academic level (in years) in which the member is currently studying in YYYY format.
-* MAJOR refers to the field of discipline in which member is currently enrolled in.
-****
-[TIP]
-A member can have any number of tags (including 0)
+[width="100%",cols="30%,<50%, <50%",options="header",]
+|=======================================================================
+|Information of Member| Definition | Example
+|`Name`| NAME refers to the name of the member.
 
-Examples:
+Only alphabets are accepted. | John Sim
+|`Matric Number`| MATRIC_NUMBER refers to the member's matriculation number.
 
-* `memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/year1 m/mathematics`
-* `memberAdd n/Betsy Crower an/A0123456Y p/98765432 e/jamesong@example.com yos/year4 m/chemistry t/maincomm`
+Only 9 Alphanumeric characters are accepted.| A0123456Z
+
+|`Phone Number`| PHONE_NUMBER refers to the member's phone number.
+
+Only 8 digits are accepted. | 91234567
+|`Email Address`| EMAIL_ADDRESS refers to the member's student/personal email address| johnsim@example.com
+|`Address`| ADDRESS refers to the member's home address.
+
+Alphanumeric and Special characters are acceptable.| Jurong East Avenue 1 Block 2 #03-04
+|`Gender`| GENDER refers to the sex of the member, i.e. male or female
+
+Only "Male" or "Female" is accepted (case-insensitive)|Male
+|`Year of Study`| YEAR_OF_STUDY refers to the academic level (in years)
+in which the member is currently studying.
+
+Only Alphabets are accepted in the first input.
+
+Only Digits are accepted in the second input.| Year 1
+|`Major`| MAJOR refers to the field of discipline in which member is currently enrolled in.| Chemistry
+|`Tags`|TAGS refers to the hobbies and interests of the member.
+
+Only Alphabets are acceptable, restricted to a single word.
+
+A member can have any number of tags (including 0).|Swimming
+|=======================================================================
+
+*Format:*
+
+* `memberAdd n/NAME mn/MATRIC_NUMBER p/PHONE_NUMBER e/EMAIL a/ yos/YEAR_OF_STUDY m/MAJOR [t/TAG]...`
+
+*Examples:*
+
+* `memberAdd n/James Ong mn/A0123456Y p/98765432 e/jamesong@example.com a/123, Jurong West Ave 6, #08-111 g/male y/year 2 m/mathematics`
+* `memberAdd n/Jane Lim mn/A0654321T p/91324756 e/janelim@example.com a/123, Sengkang Ave 6, #02-123 g/Female y/Year 3  m/physics t/Swimming`
 
 ==== Deleting a member : `memberDelete`
 
@@ -249,9 +279,12 @@ Selects the 1st member in the results of the `find` command.
 ==== Sort members’ list : `memberSort`
 
 Sort the members list by a member’s attribute in ascending order
+
+*Format*
+
 [width="59%",cols="30%,<50%",options="header",]
 |=======================================================================
-|Sort By: | Command Example
+|Sort By | Command Example
 |`Name` |memberSort name
 |`Matric Number` |memberSort matricNumber
 |`Year of Study` |memberSort yearOfStudy

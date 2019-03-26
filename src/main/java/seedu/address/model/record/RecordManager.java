@@ -11,10 +11,12 @@ import java.util.List;
  */
 public class RecordManager {
     private static final YearMonth START_DATE = YearMonth.of(2019, 1);
+    private BigDecimal consultationFee;
     private List<MonthRecord> monthRecords;
     private int totalNoOfRecords;
 
     public RecordManager() {
+        consultationFee = BigDecimal.valueOf(30.00);
         monthRecords = new ArrayList<>();
         totalNoOfRecords = 0;
     }
@@ -24,6 +26,15 @@ public class RecordManager {
     }
     private List<MonthRecord> copyRecords() {
         return this.monthRecords;
+    }
+    public BigDecimal getConsultationFee() {
+        return this.consultationFee;
+    }
+    public void setConsultationFee(BigDecimal cost) {
+        consultationFee = cost;
+    }
+    public int getTotalNoOfRecords() {
+        return this.totalNoOfRecords;
     }
 
     /**
@@ -35,17 +46,13 @@ public class RecordManager {
         int idx = getYearMonthIndex(YearMonth.now(clock));
         this.updateListSize(clock);
         MonthRecord monthRecord = monthRecords.get(idx);
-        monthRecord.addRecord(record);
-        totalNoOfRecords++;
+        monthRecord.addRecord(record, this);
+        this.totalNoOfRecords++;
     }
     private int getYearMonthIndex(YearMonth now) {
         return ((now.getYear() - START_DATE.getYear()) * 12)
                 + (now.getMonthValue() - START_DATE.getMonthValue());
     }
-    public int getTotalNoOfRecords() {
-        return totalNoOfRecords;
-    }
-
     /**
      * Updates the ArrayList of MonthRecord to the proper size according to the current time.
      * @param clock Clock used to get the month and year from
@@ -56,33 +63,17 @@ public class RecordManager {
         int sizeDifference = expectedSize - monthRecords.size();
         if (sizeDifference > 0) {
             for (int i = sizeDifference - 1; i >= 0; i--) {
-                YearMonth toAdd = now.minusMonths((long) 1);
-                this.monthRecords.add(new MonthRecord(toAdd));
+                this.monthRecords.add(new MonthRecord());
             }
         }
     }
-    public Statistics getStatistics(String topic, YearMonth from, YearMonth to) {
+    public Statistics getStatistics(YearMonth from, YearMonth to) {
         Statistics stats = new Statistics();
         int fromIdx = getYearMonthIndex(from);
         int toIdx = getYearMonthIndex(to);
         for (int idx = fromIdx; idx <= toIdx; idx++) {
             stats = stats.merge(monthRecords.get(idx).getStatistics());
         }
-        Statistics toReturn;
-        switch (topic) {
-        case "finances":
-            toReturn = new FinancesStatistics(stats);
-            break;
-        case "consultations":
-            toReturn = new ConsultationStatistics(stats);
-            break;
-        case "all":
-        default:
-            toReturn = stats;
-        }
-        return toReturn;
-    }
-    public void setConsultationFee(BigDecimal cost) {
-        Statistics.setConsultationFee(cost);
+        return stats;
     }
 }

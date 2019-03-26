@@ -40,9 +40,10 @@ public class EndConsultationCommand extends Command {
 
         for (Prescription prescription : currentConsultation.getPrescriptions()) {
             prescription.getMedicine().subtractQuantity(prescription.getQuantity());
-            ConsultationRecord record = new ConsultationRecord(prescription);
-            model.addRecord(record, Clock.systemDefaultZone());
         }
+        ConsultationRecord record = new ConsultationRecord(currentConsultation.getPrescriptions(),
+                currentConsultation.getDiagnosis());
+        model.addRecord(record, Clock.systemDefaultZone());
 
         Nric patientNric = currentConsultation.getPatient().getNric();
 

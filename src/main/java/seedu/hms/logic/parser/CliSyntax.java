@@ -13,6 +13,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_SERVICE = new Prefix("s/");
     public static final Prefix PREFIX_TIMING = new Prefix(":/");
+    public static final Prefix PREFIX_ROOM = new Prefix("r/");
+    public static final Prefix PREFIX_DATES = new Prefix("d/");
     public static final Prefix PREFIX_PAYER = new Prefix("$/");
     public static final Prefix PREFIX_CUSTOMERS = new Prefix("c/");
     public static final Prefix PREFIX_COMMENT = new Prefix("com/");

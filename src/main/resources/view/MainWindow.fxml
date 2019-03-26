@@ -54,7 +54,8 @@
                         <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 
-                    <VBox fx:id="bookingAndReservation" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                    <VBox fx:id="bookingAndReservation" minWidth="340" prefWidth="340"
+                          SplitPane.resizableWithParent="false">
                         <StackPane fx:id="bookingAndReservationPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </VBox>
 

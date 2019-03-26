@@ -16,7 +16,7 @@ import seedu.hms.model.booking.Booking;
 /**
  * Panel containing the list of reservations.
  * Note: Currently this shows the list of bookings instead of reservation
- *       This will be solved in v1.3
+ * This will be solved in v1.3
  */
 public class ReservationListPanel extends UiPart<Region> {
     private static final String FXML = "BookingListPanel.fxml";
@@ -26,7 +26,7 @@ public class ReservationListPanel extends UiPart<Region> {
     private ListView<Booking> bookingListView;
 
     public ReservationListPanel(ObservableList<Booking> bookingList, ObservableValue<Booking> selectedBooking,
-                            Consumer<Booking> onSelectedBookingChange) {
+                                Consumer<Booking> onSelectedBookingChange) {
         super(FXML);
         bookingListView.setItems(bookingList);
         bookingListView.setCellFactory(listView -> new BookingListViewCell());

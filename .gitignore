@@ -1,6 +1,7 @@
 build/
 .gradle/
 .checkstyle
+.netlify/
 .settings/
 .idea/
 lib/*

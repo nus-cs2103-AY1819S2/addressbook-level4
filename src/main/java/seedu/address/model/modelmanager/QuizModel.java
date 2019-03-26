@@ -2,20 +2,18 @@ package seedu.address.model.modelmanager;
 
 import java.util.List;
 
+import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.model.session.Session;
+import seedu.address.model.srscard.SrsCard;
 
 /**
  * The API of the QuizModel component.
  */
 public interface QuizModel extends Model {
-    /**
-     * Generate a list of quizCards that will be tested in quiz.
-     */
-    List<QuizCard> generateSession();
 
     /**
      * Return mode of {@code session}.
@@ -33,6 +31,11 @@ public interface QuizModel extends Model {
     String getName();
 
     /**
+     * Return a list of SrsCards for updating user progress.
+     */
+    List<SrsCard> getQuizSrsCards();
+
+    /**
      * Sets the {@code Quiz} information.
      */
     void init(Quiz quiz);
@@ -40,7 +43,7 @@ public interface QuizModel extends Model {
     /**
      * Sets the {@code Quiz} and {@code Session} information.
      */
-    void initWithSession(Quiz quiz, Session session);
+    void initWithSession(Quiz quiz, Session session, ManagementModel managementModel);
 
     /**
      * Returns if there is still card left in {@code Quiz}.
@@ -96,6 +99,12 @@ public interface QuizModel extends Model {
      * Returns data needed by {@code Session} when {@code Quiz} end.
      */
     List<List<Integer>> end();
+
+    /**
+     * Updates user profile after quiz ends.
+     * @param quizInformation from quiz.
+     */
+    void updateUserProfile(List<List<Integer>> quizInformation);
 
     /**
      * Sets formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.

@@ -34,11 +34,11 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        String[] data = date.split(".", 3);
-        this.date = date;
+        String[] data = date.split("\\.", 3);
         this.day = new Day(data[0]);
         this.month = new Month(data[1]);
         this.year = new Year(data[2]);
+        this.date = new String(this.day + "." + this.month + this.year);
         checkArgument(isValidDate(date, day, month, year), MESSAGE_CONSTRAINTS);
     }
 
@@ -70,7 +70,8 @@ public class Date {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Date // instanceof handles nulls
-                && date.equals(((Date) other).date)); // state check
+                && date.equals(((Date) other).date) && day.equals(((Date) other).day)
+                && month.equals(((Date) other).month) && year.equals(((Date) other).year)); // state check
     }
 
     @Override

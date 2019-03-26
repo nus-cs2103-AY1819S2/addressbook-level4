@@ -80,9 +80,7 @@ public class RestOrRantParser {
         case TableModeCommand.COMMAND_ALIAS:
             return new TableModeCommandParser().parse(arguments);
 
-        case StatisticsModeCommand.COMMAND_WORD:
-            return new StatisticsModeCommand();
-
+        case StatisticsModeCommand.COMMAND_WORD: //Fallthrough
         case StatisticsModeCommand.COMMAND_ALIAS:
             return new StatisticsModeCommand();
 

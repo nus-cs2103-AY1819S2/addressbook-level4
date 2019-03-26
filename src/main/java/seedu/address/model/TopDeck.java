@@ -48,7 +48,7 @@ public class TopDeck implements ReadOnlyTopDeck {
 
     /**
      * Replaces the contents of the deck list with {@code decks}.
-     * {@code decks} must not contain duplicate cards.
+     * {@code decks} must not contain duplicate decks.
      */
     public void setDecks(List<Deck> decks) {
         this.decks.setDecks(decks);
@@ -156,7 +156,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     /**
-     * Returns true if a deck with the same identity as {@code deck} exists in Anakin.
+     * Returns true if a deck with the same identity as {@code deck} exists in TopDeck.
      */
     public boolean hasDeck(Deck deck) {
         requireNonNull(deck);
@@ -173,6 +173,16 @@ public class TopDeck implements ReadOnlyTopDeck {
         }
 
         decks.remove(target);
+    }
+
+    /**
+     * Replaces the given deck {@code target} in the list with {@code editedDeck}.
+     * {@code target} must exist in TopDeck.
+     * The deck identity of {@code editedDeck} must not be the same as another existing deck in TopDeck.
+     */
+    public void updateDeck(Deck target, Deck editedDeck) {
+        requireNonNull(editedDeck);
+        decks.setDeck(target, editedDeck);
     }
 
     //// util methods

@@ -32,8 +32,8 @@ public class JsonSerializableTopDeckTest {
         JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(TYPICAL_DECKS_FILE,
                 JsonSerializableTopDeck.class).get();
         TopDeck topDeckFromFile = dataFromFile.toModelType();
-        TopDeck typicalCardsTopDeck = TypicalDecks.getTypicalTopDeck();
-        assertEquals(topDeckFromFile, typicalCardsTopDeck);
+        TopDeck typicalDeckTopDeck = TypicalDecks.getTypicalTopDeck();
+        assertEquals(topDeckFromFile, typicalDeckTopDeck);
     }
 
     @Test
@@ -45,7 +45,6 @@ public class JsonSerializableTopDeckTest {
     }
 
     @Test
-    //TODO: Change the JSON file to throw duplicate deck exception instead of cards
     public void toModelType_duplicateDecksFile_throwsIllegalValueException() throws Exception {
         JsonSerializableTopDeck dataFromFile = JsonUtil.readJsonFile(DUPLICATE_DECK_FILE,
                 JsonSerializableTopDeck.class).get();

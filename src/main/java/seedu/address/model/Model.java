@@ -153,10 +153,18 @@ public interface Model {
 
     boolean hasDeck(Deck deck);
 
+    void updateDeck(Deck target, Deck editedDeck);
+
     Command parse(String commandWord, String arguments) throws ParseException;
 
     void changeDeck(Deck deck);
 
+    /**
+     * Replaces the given deck {@code target} with {@code editedDeck}.
+     * {@code target} must exist in the TopDeck.
+     * The deck identity of {@code editedDeck} must not be the same as another existing deck in TopDeck.
+     */
+    void setDeck(Deck target, Deck editedDeck);
 
     /**
      * Changes view state to show a single card at a time

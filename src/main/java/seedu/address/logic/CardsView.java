@@ -44,7 +44,7 @@ public class CardsView implements ListViewState {
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
             case AddCardCommand.COMMAND_WORD:
-                return new AddCardCommandParser().parse(arguments);
+                return new AddCardCommandParser(this).parse(arguments);
             case DeleteCardCommand.COMMAND_WORD:
                 return new DeleteCardCommandParser().parse(arguments);
             case EditCardCommand.COMMAND_WORD:

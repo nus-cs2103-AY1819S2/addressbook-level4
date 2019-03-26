@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -32,12 +33,14 @@ public class AddCardCommand extends Command {
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the deck";
 
     private final Card toAdd;
+    private final CardsView viewState;
 
     /**
      * Creates an AddCardCommand to add the specified {@code Card}
      */
-    public AddCardCommand(Card card) {
+    public AddCardCommand(CardsView viewState, Card card) {
         requireNonNull(card);
+        this.viewState = viewState;
         toAdd = card;
     }
 

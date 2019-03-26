@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -35,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private RecordListPanel recordListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private Scene currentScene;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -198,5 +200,67 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    //================== Changing Theme ==================//
+    //@author Jackimaru96
+    /**
+     * Sets the Finance Tracker to light theme
+     */
+    @FXML
+    private CommandResult setLightTheme() {
+        currentScene = primaryStage.getScene();
+        currentScene.getStylesheets().clear();
+        currentScene.getStylesheets().add(getClass()
+                .getResource("/view/LightTheme.css").toExternalForm());
+        currentScene.getStylesheets().add(getClass()
+                .getResource("/view/Extensions.css").toExternalForm());
+
+        return new CommandResult("Light Theme is set.");
+    }
+
+    /**
+     * Sets the FinanceTracker to dark theme
+     */
+    @FXML
+    private CommandResult setDarkTheme() {
+        currentScene = primaryStage.getScene();
+        currentScene.getStylesheets().clear();
+        currentScene.getStylesheets().add(getClass()
+                .getResource("/view/DarkTheme.css").toExternalForm());
+        currentScene.getStylesheets().add(getClass()
+                .getResource("/view/Extensions.css").toExternalForm());
+
+        return new CommandResult("Dark Theme is set");
+    }
+
+    /**
+     * Sets the FinanceTracker to blue theme
+     */
+    @FXML
+    private CommandResult setBlueTheme() {
+        currentScene = primaryStage.getScene();
+        currentScene.getStylesheets().clear();
+        currentScene.getStylesheets().add(getClass()
+                .getResource("/view/BlueTheme.css").toExternalForm());
+        currentScene.getStylesheets().add(getClass()
+                .getResource("/view/Extensions.css").toExternalForm());
+
+        return new CommandResult("Blue Theme is set");
+    }
+
+    /**
+     * Sets the FinanceTracker to pink theme
+     */
+    @FXML
+    private CommandResult setPinkTheme() {
+        currentScene = primaryStage.getScene();
+        currentScene.getStylesheets().clear();
+        currentScene.getStylesheets().add(getClass()
+                .getResource("/view/PinkTheme.css").toExternalForm());
+        currentScene.getStylesheets().add(getClass()
+                .getResource("/view/Extensions.css").toExternalForm());
+
+        return new CommandResult("Pink Theme is set");
     }
 }

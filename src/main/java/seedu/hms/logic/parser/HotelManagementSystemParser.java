@@ -19,8 +19,7 @@ import seedu.hms.logic.commands.EditBookingCommand;
 import seedu.hms.logic.commands.EditCustomerCommand;
 import seedu.hms.logic.commands.EditReservationCommand;
 import seedu.hms.logic.commands.ExitCommand;
-import seedu.hms.logic.commands.FindBookingContainsPayerCommand;
-import seedu.hms.logic.commands.FindBookingWithTypeCommand;
+import seedu.hms.logic.commands.FindBookingCommand;
 import seedu.hms.logic.commands.FindNameCommand;
 import seedu.hms.logic.commands.GenerateBillCommand;
 import seedu.hms.logic.commands.HelpCommand;
@@ -116,13 +115,9 @@ public class HotelManagementSystemParser {
         case FindNameCommand.COMMAND_ALIAS:
             return new FindNameCommandParser().parse(arguments);
 
-        case FindBookingContainsPayerCommand.COMMAND_WORD:
-        case FindBookingContainsPayerCommand.COMMAND_ALIAS:
-            return new FindBookingContainsPayerParser().parse(arguments);
-
-        case FindBookingWithTypeCommand.COMMAND_WORD:
-        case FindBookingWithTypeCommand.COMMAND_ALIAS:
-            return new FindBookingWithTypeParser().parse(arguments);
+        case FindBookingCommand.COMMAND_WORD:
+        case FindBookingCommand.COMMAND_ALIAS:
+            return new FindBookingCommandParser().parse(arguments);
 
         case GenerateBillCommand.COMMAND_WORD:
         case GenerateBillCommand.COMMAND_ALIAS:

@@ -3,7 +3,7 @@ package seedu.hms.model.booking;
 import java.util.function.Predicate;
 
 /**
- * Tests that a {@code Booking}'s {@code Payer}'s IdentificationNo matches the serviceType given.
+ * Tests that a {@code Booking}'s {@code ServiceType}'s IdentificationNo matches the serviceType given.
  */
 public class BookingWithTypePredicate implements Predicate<Booking> {
     private final String serviceType;
@@ -14,6 +14,9 @@ public class BookingWithTypePredicate implements Predicate<Booking> {
 
     @Override
     public boolean test(Booking booking) {
+        if (serviceType.isEmpty()) {
+            return true; //always return true if serviceType is empty
+        }
         return booking.getService().getName().equalsIgnoreCase(serviceType);
     }
 

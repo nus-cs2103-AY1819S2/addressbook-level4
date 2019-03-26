@@ -61,7 +61,7 @@ public class BookingListPanel extends UiPart<Region> {
 
             if (newValue != null) {
                 try {
-                    commandExecutor.execute("fbcp " + newValue.getIdNum().toString());
+                    commandExecutor.execute("fb id/" + newValue.getIdNum().toString());
                 } catch (CommandException | ParseException e) {
                     return;
                 }
@@ -73,7 +73,7 @@ public class BookingListPanel extends UiPart<Region> {
 
             if (newValue != null) {
                 try {
-                    commandExecutor.execute("fbwt " + newValue.getName().toString());
+                    commandExecutor.execute("fb s/" + newValue.getName().toString());
                 } catch (CommandException | ParseException e) {
                     return;
                 }

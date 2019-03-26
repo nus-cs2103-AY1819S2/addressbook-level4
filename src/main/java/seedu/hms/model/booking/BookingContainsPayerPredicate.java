@@ -14,6 +14,9 @@ public class BookingContainsPayerPredicate implements Predicate<Booking> {
 
     @Override
     public boolean test(Booking booking) {
+        if (payerId.isEmpty()) {
+            return true; //always return true if the payerId is empty
+        }
         return booking.getPayer().getIdNum().toString().equals(payerId);
     }
 

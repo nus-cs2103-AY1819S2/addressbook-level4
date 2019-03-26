@@ -163,6 +163,12 @@ public class AddWorkListCommandTest {
         }
 
         @Override
+        public boolean hasEquipment(Equipment equipment) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteEquipment(Equipment target) {
 
             throw new AssertionError("This method should not be called.");

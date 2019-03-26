@@ -17,6 +17,8 @@ public class QuickDocs {
     private ReminderManager reminderManager = new ReminderManager();
     private MedicineManager medicineManager = new MedicineManager();
 
+    private boolean isModified = false;
+
     public MedicineManager getMedicineManager() {
         return medicineManager;
     }
@@ -24,9 +26,6 @@ public class QuickDocs {
     public void setMedicineManager(MedicineManager medicineManager) {
         this.medicineManager = medicineManager;
     }
-
-    private boolean isModified = false;
-
     public PatientManager getPatientManager() {
         return patientManager;
     }

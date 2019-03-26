@@ -23,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentManager;
 import seedu.address.model.consultation.Consultation;
@@ -209,16 +210,19 @@ public class ModelManager implements Model {
     @Override
     public void addMedicine(String medicineName, String[] path, BigDecimal price) {
         medicineManager.addMedicine(medicineName, path, price);
+        quickDocs.indicateModification(true);
     }
 
     @Override
     public void addMedicine(String medicineName, int quantity, String[] path, BigDecimal price) {
         medicineManager.addMedicine(medicineName, quantity, path, price);
+        quickDocs.indicateModification(true);
     }
 
     @Override
     public void addDirectory(String directoryName, String[] path) {
         medicineManager.addDirectory(directoryName, path);
+        quickDocs.indicateModification(true);
     }
 
     @Override
@@ -234,11 +238,13 @@ public class ModelManager implements Model {
     @Override
     public void purchaseMedicine(String[] path, int quantity) {
         medicineManager.purchaseMedicine(path, quantity);
+        quickDocs.indicateModification(true);
     }
 
     @Override
     public void purchaseMedicine(String medicineName, int quantity) {
         medicineManager.purchaseMedicine(medicineName, quantity);
+        quickDocs.indicateModification(true);
     }
 
     @Override

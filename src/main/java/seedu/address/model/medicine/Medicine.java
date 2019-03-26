@@ -1,7 +1,5 @@
 package seedu.address.model.medicine;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -13,7 +11,7 @@ import java.math.BigDecimal;
 public class Medicine {
 
     public static final String MESSAGE_CONSTRAINTS = "Medicine name can take any values, and it should not be blank";
-    public static final String VALIDATION_REGEX = "\\S*";
+    public static final String VALIDATION_REGEX = "\\S+";
     public static final String TO_STRING = "Medicine: %1$s, Quantity: %2$d, Price: %3$s";
     private static int DEFAULT_THRESHOLD = 50;
 
@@ -30,7 +28,7 @@ public class Medicine {
      * Constructs a medicine with given name and default quantity 0.
      * @param name The name of medicine
      */
-    public Medicine(String name) throws IllegalValueException {
+    public Medicine(String name) {
         this(name, 0);
     }
 
@@ -39,11 +37,11 @@ public class Medicine {
      * @param name The name of medicine
      * @param amount The amount of medicine
      */
-    public Medicine(String name, int amount) throws IllegalValueException {
+    public Medicine(String name, int amount) {
         requireNonNull(name);
         checkArgument(isValidMedicine(name), MESSAGE_CONSTRAINTS);
         if (amount < 0) {
-            throw new IllegalValueException("Quantity should not be negative.");
+            throw new IllegalArgumentException("Quantity should not be negative.");
         }
         this.name = name;
         setQuantity(amount);
@@ -128,9 +126,9 @@ public class Medicine {
         return price;
     }
 
-    public void setPrice(BigDecimal price) throws IllegalValueException {
+    public void setPrice(BigDecimal price) {
         if (price.compareTo(new BigDecimal("0")) == -1) {
-            throw new IllegalValueException("Price should not be negative.");
+            throw new IllegalArgumentException("Price should not be negative.");
         }
         this.price = price;
     }

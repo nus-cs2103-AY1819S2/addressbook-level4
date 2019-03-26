@@ -19,8 +19,8 @@ public class JsonAdaptedMedicine {
     private BigDecimal price;
 
     @JsonCreator
-    public JsonAdaptedMedicine (@JsonProperty String name, @JsonProperty int quantity,
-                                @JsonProperty int threshold, @JsonProperty BigDecimal price) {
+    public JsonAdaptedMedicine (@JsonProperty("name") String name, @JsonProperty("quantity") int quantity,
+                                @JsonProperty("threshold") int threshold, @JsonProperty("price") BigDecimal price) {
         this.name = name;
         this.quantity = quantity;
         this.threshold = threshold;

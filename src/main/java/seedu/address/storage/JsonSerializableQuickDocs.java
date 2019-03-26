@@ -31,10 +31,19 @@ public class JsonSerializableQuickDocs {
     private final List<JsonAdaptedConsultation> consultationList = new ArrayList<>();
     private final List<JsonAdaptedAppointment> appointmentList = new ArrayList<>();
     private final List<JsonAdaptedReminder> reminderList = new ArrayList<>();
+    private final List<JsonAdaptedMedicine> medicineList = new ArrayList<>();
 
     @JsonCreator
-    public JsonSerializableQuickDocs(@JsonProperty("patientList") List<JsonAdaptedPatient> patients) {
+    public JsonSerializableQuickDocs(@JsonProperty("patientList") List<JsonAdaptedPatient> patients,
+                                     @JsonProperty("consultationList") List<JsonAdaptedConsultation> consultations,
+                                     @JsonProperty("appointmentList") List<JsonAdaptedAppointment> appointments,
+                                     @JsonProperty("reminderList") List<JsonAdaptedReminder> reminders,
+                                     @JsonProperty("medicineList") List<JsonAdaptedMedicine> medicines) {
         this.patientList.addAll(patients);
+        this.consultationList.addAll(consultations);
+        this.appointmentList.addAll(appointments);
+        this.reminderList.addAll(reminders);
+        this.medicineList.addAll(medicines);
     }
 
     /**
@@ -49,6 +58,8 @@ public class JsonSerializableQuickDocs {
                 .stream().map(JsonAdaptedAppointment::new).collect(Collectors.toList()));
         reminderList.addAll(source.getReminderManager().getReminderList()
                 .stream().map(JsonAdaptedReminder::new).collect(Collectors.toList()));
+        medicineList.addAll(source.getMedicineManager().getListOfMedicine()
+                .stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
     }
 
     /**

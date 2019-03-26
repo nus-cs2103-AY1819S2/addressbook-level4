@@ -31,7 +31,7 @@ public class MedicineManager {
      * @param medicineName name of medicine
      * @param path path the madicine to be added to
      */
-    public void addMedicine(String medicineName, String[] path, BigDecimal price) throws IllegalValueException {
+    public void addMedicine(String medicineName, String[] path, BigDecimal price) {
         this.addMedicine(medicineName, 0, path, price);
     }
 
@@ -42,7 +42,7 @@ public class MedicineManager {
      * @param path the path to store to
      */
     public void addMedicine(String medicineName, int quantity,
-                            String[] path, BigDecimal price) throws IllegalValueException {
+                            String[] path, BigDecimal price) {
         Optional<Medicine> findMedicine = findMedicine(medicineName);
         if (findMedicine.isPresent()) {
             throw new IllegalArgumentException(ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST);
@@ -116,4 +116,10 @@ public class MedicineManager {
         }
         medicine.get().addQuantity(quantity);
     }
+
+
+    public ArrayList<Medicine> getListOfMedicine() {
+        return listOfMedicine;
+    }
+
 }

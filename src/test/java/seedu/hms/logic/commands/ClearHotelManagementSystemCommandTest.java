@@ -13,7 +13,7 @@ import seedu.hms.model.Model;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
 
-public class ClearCustomerCommandTest {
+public class ClearHotelManagementSystemCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -23,8 +23,8 @@ public class ClearCustomerCommandTest {
         CustomerModel expectedModel = new CustomerManager();
         expectedModel.commitHotelManagementSystem();
 
-        assertCommandSuccess(new ClearCustomerCommand(), model, commandHistory, ClearCustomerCommand.MESSAGE_SUCCESS,
-            expectedModel);
+        assertCommandSuccess(new ClearHotelManagementSystemCommand(), model, commandHistory,
+            ClearHotelManagementSystemCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -36,8 +36,8 @@ public class ClearCustomerCommandTest {
         expectedModel.setHotelManagementSystem(new HotelManagementSystem());
         expectedModel.commitHotelManagementSystem();
 
-        assertCommandSuccess(new ClearCustomerCommand(), model, commandHistory, ClearCustomerCommand.MESSAGE_SUCCESS,
-            expectedModel);
+        assertCommandSuccess(new ClearHotelManagementSystemCommand(), model, commandHistory,
+            ClearHotelManagementSystemCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 }

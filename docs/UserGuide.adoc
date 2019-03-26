@@ -310,7 +310,11 @@ This command is only considered valid if a card question is currently being disp
 
 ==== Go to next flashcard : `next`
 
-Presents the next lowest score flashcard in this current test session and the 20 seconds starts running again before the answer is revealed.
+Presents the next lowest score flashcard in this current test session. Upon a successful next command, you will see a
+ similar page below (see Figure 4).
+
+.Next card question displayed upon a successful next command
+image::NextCommandPage.png[width="790"]
 
 Format: `next`
 

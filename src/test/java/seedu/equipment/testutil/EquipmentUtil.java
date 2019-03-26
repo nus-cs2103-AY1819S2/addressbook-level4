@@ -1,9 +1,9 @@
 package seedu.equipment.testutil;
 
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PM;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PM;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_SERIALNUMBER;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_TAG;
 

@@ -36,9 +36,19 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         CommandMode commandMode = ArgumentTokenizer.checkMode(args);
         if (commandMode == CommandMode.HEALTH_WORKER) {
-            return parseEditHealthWorker(ArgumentTokenizer.trimMode(args));
+            try {
+                return parseEditHealthWorker(ArgumentTokenizer.trimMode(args));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        EditHealthWorkerCommand.MESSAGE_NOT_EDITED), e);
+            }
         } else if (commandMode == CommandMode.REQUEST) {
-            return parseEditRequest(ArgumentTokenizer.trimMode(args));
+            try {
+                return parseEditRequest(ArgumentTokenizer.trimMode(args));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        EditRequestCommand.MESSAGE_NOT_EDITED), e);
+            }
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, INVALID_COMMAND_USAGE));

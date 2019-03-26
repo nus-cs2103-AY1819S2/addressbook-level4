@@ -36,7 +36,7 @@ import static seedu.equipment.testutil.TypicalEquipments.BOB;
 
 import org.junit.Test;
 
-import seedu.equipment.logic.commands.AddEquipmentCommand;
+import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.model.equipment.Address;
 import seedu.equipment.model.equipment.Email;
 import seedu.equipment.model.equipment.Equipment;
@@ -45,8 +45,8 @@ import seedu.equipment.model.equipment.Phone;
 import seedu.equipment.model.tag.Tag;
 import seedu.equipment.testutil.EquipmentBuilder;
 
-public class AddEquipmentCommandParserTest {
-    private AddEquipmentCommandParser parser = new AddEquipmentCommandParser();
+public class AddCommandParserTest {
+    private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
@@ -55,34 +55,34 @@ public class AddEquipmentCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
-                + TAG_DESC_FRIEND, new AddEquipmentCommand(expectedEquipment));
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
-                + TAG_DESC_FRIEND, new AddEquipmentCommand(expectedEquipment));
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
-                + TAG_DESC_FRIEND, new AddEquipmentCommand(expectedEquipment));
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
-                + TAG_DESC_FRIEND, new AddEquipmentCommand(expectedEquipment));
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple addresses - last equipment accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
-                + TAG_DESC_FRIEND, new AddEquipmentCommand(expectedEquipment));
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple tags - all accepted
         Equipment expectedEquipmentMultipleTags = new EquipmentBuilder(BOB).withTags(VALID_TAG_FRIEND,
                 VALID_TAG_HUSBAND).build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + SERIAL_NUMBER_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                new AddEquipmentCommand(expectedEquipmentMultipleTags));
+                new AddCommand(expectedEquipmentMultipleTags));
     }
 
     @Test
@@ -90,12 +90,12 @@ public class AddEquipmentCommandParserTest {
         // zero tags
         Equipment expectedEquipment = new EquipmentBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + SERIAL_NUMBER_DESC_AMY, new AddEquipmentCommand(expectedEquipment));
+                + SERIAL_NUMBER_DESC_AMY, new AddCommand(expectedEquipment));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
         assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
@@ -153,6 +153,6 @@ public class AddEquipmentCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
     }
 }

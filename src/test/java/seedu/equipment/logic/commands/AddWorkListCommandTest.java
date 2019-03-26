@@ -294,7 +294,7 @@ public class AddWorkListCommandTest {
 
         @Override
         public void commitEquipmentManager() {
-            // called by {@code AddEquipmentCommand#execute()}
+            // called by {@code AddCommand#execute()}
         }
 
         @Override

@@ -11,7 +11,7 @@ import seedu.equipment.model.equipment.Equipment;
 /**
  * Adds an equipment to the equipment book.
  */
-public class AddEquipmentCommand extends Command {
+public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add-e";
 
@@ -39,9 +39,9 @@ public class AddEquipmentCommand extends Command {
     private final Equipment toAdd;
 
     /**
-     * Creates an AddEquipmentCommand to add the specified {@code Equipment}
+     * Creates an AddCommand to add the specified {@code Equipment}
      */
-    public AddEquipmentCommand(Equipment equipment) {
+    public AddCommand(Equipment equipment) {
         requireNonNull(equipment);
         toAdd = equipment;
     }
@@ -62,7 +62,7 @@ public class AddEquipmentCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddEquipmentCommand // instanceof handles nulls
-                && toAdd.equals(((AddEquipmentCommand) other).toAdd));
+                || (other instanceof AddCommand // instanceof handles nulls
+                && toAdd.equals(((AddCommand) other).toAdd));
     }
 }

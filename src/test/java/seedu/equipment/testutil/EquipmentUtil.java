@@ -9,7 +9,7 @@ import static seedu.equipment.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.equipment.logic.commands.AddEquipmentCommand;
+import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.logic.commands.EditCommand.EditEquipmentDescriptor;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.tag.Tag;
@@ -23,7 +23,7 @@ public class EquipmentUtil {
      * Returns an add command string for adding the {@code equipment}.
      */
     public static String getAddCommand(Equipment equipment) {
-        return AddEquipmentCommand.COMMAND_WORD + " " + getPersonDetails(equipment);
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(equipment);
     }
 
     /**

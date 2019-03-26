@@ -37,7 +37,7 @@ import org.junit.Test;
 
 import seedu.equipment.commons.core.Messages;
 import seedu.equipment.commons.core.index.Index;
-import seedu.equipment.logic.commands.AddEquipmentCommand;
+import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.logic.commands.RedoCommand;
 import seedu.equipment.logic.commands.UndoCommand;
 import seedu.equipment.model.Model;
@@ -50,7 +50,7 @@ import seedu.equipment.model.equipment.Name;
 import seedu.equipment.testutil.EquipmentBuilder;
 import seedu.equipment.testutil.EquipmentUtil;
 
-public class AddEquipmentCommandSystemTest extends EquipmentManagerSystemTest {
+public class AddCommandSystemTest extends EquipmentManagerSystemTest {
 
     @Test
     public void add() {
@@ -62,7 +62,7 @@ public class AddEquipmentCommandSystemTest extends EquipmentManagerSystemTest {
          * and trailing spaces -> added
          */
         Equipment toAdd = AMY;
-        String command = " " + AddEquipmentCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+        String command = " " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
                 + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + SERIAL_NUMBER_DESC_AMY + "   " + TAG_DESC_FRIEND
                 + " ";
         assertCommandSuccess(command, toAdd);
@@ -81,7 +81,7 @@ public class AddEquipmentCommandSystemTest extends EquipmentManagerSystemTest {
         /* Case: add an equipment with all fields same as another equipment in the equipment manager
          * except serial number -> added */
         toAdd = new EquipmentBuilder(AMY).withSerialNumber(VALID_SERIAL_NUMBER_BOB).build();
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
@@ -91,7 +91,7 @@ public class AddEquipmentCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: add a equipment with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddEquipmentCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
                 + SERIAL_NUMBER_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
@@ -114,66 +114,66 @@ public class AddEquipmentCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: add a duplicate equipment -> rejected */
         command = EquipmentUtil.getAddCommand(HOON);
-        assertCommandFailure(command, AddEquipmentCommand.MESSAGE_DUPLICATE_EQUIPMENT);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: add a duplicate equipment except with different phone -> rejected */
         toAdd = new EquipmentBuilder(HOON).withPhone(VALID_PHONE_BOB).build();
         command = EquipmentUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddEquipmentCommand.MESSAGE_DUPLICATE_EQUIPMENT);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: add a duplicate equipment except with different email -> rejected */
         toAdd = new EquipmentBuilder(HOON).withEmail(VALID_EMAIL_BOB).build();
         command = EquipmentUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddEquipmentCommand.MESSAGE_DUPLICATE_EQUIPMENT);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: add a duplicate equipment except with different equipment -> rejected */
         toAdd = new EquipmentBuilder(HOON).withAddress(VALID_ADDRESS_BOB).build();
         command = EquipmentUtil.getAddCommand(toAdd);
-        assertCommandFailure(command, AddEquipmentCommand.MESSAGE_DUPLICATE_EQUIPMENT);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: add a duplicate equipment except with different tags -> rejected */
         command = EquipmentUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "west";
-        assertCommandFailure(command, AddEquipmentCommand.MESSAGE_DUPLICATE_EQUIPMENT);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
 
         /* Case: missing name -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + PHONE_DESC_AMY
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
                 + PHONE_DESC_AMY + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing equipment -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY
                 + PHONE_DESC_AMY + EMAIL_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing serial number -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
-        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + EquipmentUtil.getPersonDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddEquipmentCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_CONSTRAINTS);
     }
 
     /**
-     * Executes the {@code AddEquipmentCommand} that adds {@code toAdd} to the model and asserts that the,<br>
+     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
-     * 3. Result display box displays the success message of executing {@code AddEquipmentCommand} with the details of
+     * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
      * {@code toAdd}.<br>
      * 4. {@code Storage} and {@code EquipmentListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
@@ -190,12 +190,12 @@ public class AddEquipmentCommandSystemTest extends EquipmentManagerSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(Equipment)}. Executes {@code command}
      * instead.
-     * @see AddEquipmentCommandSystemTest#assertCommandSuccess(Equipment)
+     * @see AddCommandSystemTest#assertCommandSuccess(Equipment)
      */
     private void assertCommandSuccess(String command, Equipment toAdd) {
         Model expectedModel = getModel();
         expectedModel.addEquipment(toAdd);
-        String expectedResultMessage = String.format(AddEquipmentCommand.MESSAGE_SUCCESS, toAdd);
+        String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
@@ -206,7 +206,7 @@ public class AddEquipmentCommandSystemTest extends EquipmentManagerSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code EquipmentListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
-     * @see AddEquipmentCommandSystemTest#assertCommandSuccess(String, Equipment)
+     * @see AddCommandSystemTest#assertCommandSuccess(String, Equipment)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);

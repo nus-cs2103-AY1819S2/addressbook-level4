@@ -65,7 +65,7 @@ public class CommandTestUtil {
     public static final String VALID_CODE_CHICKEN = "W09";
     public static final String VALID_CODE_FRIES = "W12";
     public static final String VALID_PRICE_CHICKEN = "4.50";
-    public static final String VALID_PRICE_FRIES = "3.70";
+    public static final String VALID_PRICE_FRIES = "2.20";
     public static final String VALID_TABLE_NUMBER_1 = "1";
     public static final String VALID_TABLE_NUMBER_2 = "2";
     public static final String VALID_TABLE_STATUS_1 = "0/4";
@@ -91,7 +91,7 @@ public class CommandTestUtil {
     public static final String DATE_DESC_31_DEC_1998 = " " + VALID_DAY_31 + "." + VALID_MONTH_12 + "."
             + VALID_YEAR_1998;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " Chicken Wings"; // ' ' not allowed in front
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "Ch!ck3n W!n95"; // non-alphanumeric characters
     public static final String INVALID_CODE_DESC = " " + PREFIX_CODE + "31A"; // first character should be a letter
     public static final String INVALID_PRICE_DESC = " " + PREFIX_PRICE + "a.50"; // 'a' not allowed in price
     public static final String INVALID_ORDER_CODE_DESC = " " + "31A" + " " + VALID_QUANTITY_2;

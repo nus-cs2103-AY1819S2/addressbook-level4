@@ -1,7 +1,7 @@
 {
-  "menu": [ {
-    "name": "Invalid Name!@",
-    "code": "W06",
-    "price": "3.40"
+  "menuItems" : [ {
+    "name" : "Invalid Name!@",
+    "code" : "W06",
+    "price" : "3.40"
   } ]
 }

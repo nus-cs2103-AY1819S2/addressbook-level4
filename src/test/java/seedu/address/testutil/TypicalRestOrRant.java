@@ -30,7 +30,7 @@ public class TypicalRestOrRant {
                                                          .withPrice("7.23").build();
     public static final MenuItem SHRIMP_FRIED_RICE = new MenuItemBuilder().withName("Shrimp Fried Rice").withCode("C02")
                                                              .withPrice("8.90").build();
-    public static final MenuItem MEE_SUA = new MenuItemBuilder().withName("Mee Soi").withCode("T01")
+    public static final MenuItem MEE_SUA = new MenuItemBuilder().withName("Mee Sua").withCode("T01")
                                                    .withPrice("4.99").build();
     public static final MenuItem KIMCHI_FRIED_RICE = new MenuItemBuilder().withName("Kimchi Fried Rice").withCode("K12")
                                                              .withPrice("5.50").build();

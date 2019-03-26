@@ -389,7 +389,7 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: Where can I find Java version `9`? +
 *A*: You can download Java version `9` link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here]. We recommend installing Java SE Development Kit `9.0.4` on your computer.
 
-*Q*: (Windows Only) I followed the instructions in <<Quick Start>> but the GUI did appear? +
+*Q*: (Windows Only) I followed the instructions in <<Quick Start>> but the GUI did not appear? +
 *A*: This is a commonly known issue with JDK on Windows. You can learn more about the issue here: link:https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4912211[Link]
 
 We recommend following the steps below to solve this issue:

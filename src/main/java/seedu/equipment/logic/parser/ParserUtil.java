@@ -37,6 +37,28 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String date} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parseDate(String date) {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+
+        return trimmedDate;
+    }
+
+    /**
+     * Parses a {@code String assignee} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parseAssignee(String assignee) {
+        requireNonNull(assignee);
+        String trimmedAssignee = assignee.trim();
+
+        return trimmedAssignee;
+    }
+
+    /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *

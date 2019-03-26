@@ -27,8 +27,8 @@ public class AddWorkListCommandParser implements Parser<AddWorkListCommand> {
                     Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddWorkListCommand.MESSAGE_USAGE));
         }
 
-        String date = argMultimap.getValue(CliSyntax.PREFIX_NAME).get();
-        String assignee = argMultimap.getValue(CliSyntax.PREFIX_ASSIGNEE).get();
+        String date = ParserUtil.parseDate(argMultimap.getValue(CliSyntax.PREFIX_DATE).get());
+        String assignee = ParserUtil.parseAssignee(argMultimap.getValue(CliSyntax.PREFIX_ASSIGNEE).get());
 
         WorkList workList = new WorkList(date, assignee);
 

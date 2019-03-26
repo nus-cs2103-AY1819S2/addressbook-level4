@@ -91,11 +91,9 @@ public class ManagementModelManager implements ManagementModel {
     }
 
     /**
-     * Returns the opened lesson. A lesson is opened by calling {@link #openLesson(int)} and
-     * closed by calling {@link #closeLesson()}. If there is no lesson currently opened,
-     * this returns null.
+     * Gets the lesson which is opened by calling {@link #openLesson(int)}.
      *
-     * @return the opened {@link Lesson}. Null if there is no opened lesson.
+     * @return the opened {@link Lesson}. Returns null if there is no opened lesson.
      */
     @Override
     public Lesson getOpenedLesson() {

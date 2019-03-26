@@ -74,7 +74,7 @@ public class VersionedAddressBook extends AddressBook {
         resetData(addressBookStateList.get(currentStatePointer));
         if (filterStateList.get(currentStatePointer) == 0) {
             setFilterInfo(false);
-        }  else {
+        } else {
             setFilterInfo(true);
         }
     }

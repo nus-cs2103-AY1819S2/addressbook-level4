@@ -1,15 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.sortmethods.SortAlphabetical;
 import seedu.address.logic.commands.sortmethods.SortSkills;
 import seedu.address.logic.parser.SortWord;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
-
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
 
 /**
  * Sorts all persons in the address book and lists to the user.

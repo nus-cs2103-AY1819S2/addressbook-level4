@@ -39,7 +39,7 @@ public class ImportCommand extends Command {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
         }
-        return null;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, csvFile.filename));
     }
 
     /**

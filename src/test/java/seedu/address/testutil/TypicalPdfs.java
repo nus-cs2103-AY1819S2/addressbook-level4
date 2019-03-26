@@ -53,6 +53,9 @@ public class TypicalPdfs {
     private static final Path sample_invalidPdf_1_path =
             Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "invalidPathToFile.pdf");
+    private static final Path sample_EditedPdf_1_path =
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+                    "JustEdited.pdf");
 
     //Duplicates - Pdfs that have the same name but in a different location
     private static final Path sample_pdf_1_duplicate_path =
@@ -137,6 +140,10 @@ public class TypicalPdfs {
             .withTags("CS2101", "writing", "UG")
             .withSize(Long.toString(sample_pdf_11_path.toFile().length())).build();
     public static final Pdf SAMPLE_INVALIDPDF_1 = new PdfBuilder().withName(sample_invalidPdf_1_path.toFile().getName())
+            .withDirectory(sample_invalidPdf_1_path.toAbsolutePath().getParent().toString())
+            .withTags("invalid", "pdf")
+            .withSize(Long.toString(sample_invalidPdf_1_path.toFile().length())).build();
+    public static final Pdf SAMPLE_EDITEDPDF = new PdfBuilder().withName(sample_EditedPdf_1_path.toFile().getName())
             .withDirectory(sample_invalidPdf_1_path.toAbsolutePath().getParent().toString())
             .withTags("invalid", "pdf")
             .withSize(Long.toString(sample_invalidPdf_1_path.toFile().length())).build();

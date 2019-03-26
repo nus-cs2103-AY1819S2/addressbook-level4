@@ -70,8 +70,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_1;
-    public static final EditCommand.EditPersonDescriptor DESC_2;
+    public static final EditCommand.EditPdfDescriptor DESC_1;
+    public static final EditCommand.EditPdfDescriptor DESC_2;
 
     static {
         DESC_1 = new EditPdfDescriptorBuilder().withName(VALID_NAME_1).build();

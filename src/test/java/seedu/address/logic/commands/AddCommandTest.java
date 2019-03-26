@@ -103,7 +103,7 @@ public class AddCommandTest {
         // add -> first pdf deleted
         addCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered pdf list to show all persons
+        // undo -> reverts pdfbook back to previous state and filtered pdf list to show all persons
         expectedModel.undoPdfBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

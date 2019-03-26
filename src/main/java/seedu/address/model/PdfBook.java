@@ -87,7 +87,7 @@ public class PdfBook implements ReadOnlyPdfBook {
     public void setPdf(Pdf target, Pdf editedPdf) {
         requireNonNull(editedPdf);
 
-        pdfs.setPerson(target, editedPdf);
+        pdfs.setPdf(target, editedPdf);
         indicateModified();
     }
 

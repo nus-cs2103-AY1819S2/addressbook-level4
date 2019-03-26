@@ -10,15 +10,20 @@ import seedu.address.logic.commands.ConsultationCommand;
 
 public class ConsultationCommandParserTest {
 
-    private ConsultationCommandParser parser;
+    private ConsultationCommandParser parser = new ConsultationCommandParser();
 
     @Test
     public void invalidParses() {
         String args = " ";
-        parser = new ConsultationCommandParser();
-        assertParseFailure(parser, args, "Some details are left out, please retype the command");
+        assertParseFailure(parser, args, ConsultationCommandParser.INVALID_CONSULTATION_ARGUMENTS);
 
-        args = " r/S9123456A";
+        args = "";
+        assertParseFailure(parser, args, ConsultationCommandParser.INVALID_CONSULTATION_ARGUMENTS);
+    }
+
+    @Test
+    public void validParse() {
+        String args = " r/S9123456A";
         assertParseSuccess(parser, args, new ConsultationCommand("S9123456A"));
     }
 }

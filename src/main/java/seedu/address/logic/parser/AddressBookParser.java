@@ -16,6 +16,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ConsultationCommand;
 import seedu.address.logic.commands.DeleteAppCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeletePatientCommand;
 import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.EndConsultationCommand;
@@ -82,6 +83,7 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case AddPatientCommand.COMMAND_WORD:
+        case AddPatientCommand.COMMAND_ALIAS:
             return new AddPatientParser().parse(arguments);
 
         case AddAppCommand.COMMAND_WORD:
@@ -100,15 +102,19 @@ public class AddressBookParser {
             return new ListRemCommand();
 
         case EditPatientCommand.COMMAND_WORD:
+        case EditPatientCommand.COMMAND_ALIAS:
             return new EditPatientParser().parse(arguments);
 
         case ListPatientCommand.COMMAND_WORD:
+        case ListPatientCommand.COMMAND_ALIAS:
             return new ListPatientParser().parse(arguments);
 
         case ConsultationCommand.COMMAND_WORD:
+        case ConsultationCommand.COMMAND_ALIAS:
             return new ConsultationCommandParser().parse(arguments);
 
         case DiagnosePatientCommand.COMMAND_WORD:
+        case DiagnosePatientCommand.COMMAND_ALIAS:
             return new DiagnosePatientCommandParser().parse(arguments);
 
         case StatisticsCommand.COMMAND_WORD:
@@ -120,13 +126,15 @@ public class AddressBookParser {
             return new SetConsultationFeeCommandParser().parse(arguments);
 
         case PrescriptionCommand.COMMAND_WORD:
+        case PrescriptionCommand.COMMAND_ALIAS:
             return new PrescriptionCommandParser().parse(arguments);
 
         case EndConsultationCommand.COMMAND_WORD:
+        case EndConsultationCommand.COMMAND_ALIAS:
             return new EndConsultationCommand();
 
-        case ListConsultationCommand.ALIAS_WORD:
         case ListConsultationCommand.COMMAND_WORD:
+        case ListConsultationCommand.COMMAND_ALIAS:
             return new ListConsultationCommandParser().parse(arguments);
 
         case AddMedicineCommand.COMMAND_WORD:
@@ -146,6 +154,10 @@ public class AddressBookParser {
 
         case SetPriceCommand.COMMAND_WORD:
             return new SetPriceCommandParser().parse(arguments);
+
+        case DeletePatientCommand.COMMAND_WORD:
+        case DeletePatientCommand.COMMAND_ALIAS:
+            return new DeletePatientParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

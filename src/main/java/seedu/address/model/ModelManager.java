@@ -118,7 +118,6 @@ public class ModelManager implements Model {
         this.recordManager = new RecordManager();
 
 
-
         iniQuickDocs();
     }
 
@@ -474,6 +473,19 @@ public class ModelManager implements Model {
         return this.patientManager.getPatientByNric(nric);
     }
 
+    public int getIndexByNric(Nric nric) {
+        return this.patientManager.getIndexByNric(nric); }
+
+    /**
+     * Delete patient from patient records
+     *
+     * @param nric of the patient to be deleted
+     */
+    public void deletePatientByNric(String nric) {
+        this.patientManager.deletePatientByNric(nric);
+        quickDocs.indicateModification(true);
+    }
+
     //==========Consultation module============================================================================
 
     public void createConsultation(Patient patient) {
@@ -551,6 +563,7 @@ public class ModelManager implements Model {
 
     /**
      * Deletes an {@code Appointment} from QuickDocs
+     *
      * @param appointment the {@code Appointment} to delete
      */
     public void deleteAppointment(Appointment appointment) {
@@ -569,6 +582,7 @@ public class ModelManager implements Model {
 
     /**
      * Adds a {@code Reminder} to QuickDocs
+     *
      * @param rem the {@code Reminder} to add
      */
     public void addRem(Reminder rem) {
@@ -586,6 +600,7 @@ public class ModelManager implements Model {
 
     /**
      * Deletes a {@code Reminder} from QuickDocs
+     *
      * @param reminder the {@code Reminder} to be deleted
      */
     public void deleteReminder(Reminder reminder) {
@@ -594,8 +609,8 @@ public class ModelManager implements Model {
     }
 
     //==========Record module================================================================================
-    public Statistics getStatistics(String topic, YearMonth from, YearMonth to) {
-        return recordManager.getStatistics(topic, from, to);
+    public Statistics getStatistics(YearMonth from, YearMonth to) {
+        return recordManager.getStatistics(from, to);
     }
 
     public void addRecord(Record record, Clock clock) {

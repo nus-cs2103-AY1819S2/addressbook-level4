@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import seedu.hms.model.booking.RoomType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.DateRange;
 
@@ -24,7 +23,7 @@ public class Reservation {
     private Optional<String> comment;
 
     public Reservation(RoomType room, DateRange dates, Customer payer, Optional<List<Customer>> otherUsers,
-                   Optional<String> comment) {
+                       Optional<String> comment) {
         this.room = room;
         this.dates = dates;
         this.payer = payer;

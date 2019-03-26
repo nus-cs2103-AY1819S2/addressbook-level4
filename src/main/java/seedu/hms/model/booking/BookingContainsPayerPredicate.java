@@ -20,8 +20,8 @@ public class BookingContainsPayerPredicate implements Predicate<Booking> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof BookingContainsPayerPredicate // instanceof handles nulls
-                && payerId.equals(((BookingContainsPayerPredicate) other).payerId)); // state check
+            || (other instanceof BookingContainsPayerPredicate // instanceof handles nulls
+            && payerId.equals(((BookingContainsPayerPredicate) other).payerId)); // state check
     }
 
     @Override

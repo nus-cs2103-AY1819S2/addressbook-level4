@@ -1,6 +1,5 @@
 package seedu.hms.model.util;
 
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,7 +14,7 @@ public class DateRange {
     private final Calendar startDate;
     private final Calendar endDate;
 
-    public DateRange (String startDate, String endDate) {
+    public DateRange(String startDate, String endDate) {
         String[] sd = startDate.split("/");
         String[] ed = endDate.split("/");
         this.startDate = new GregorianCalendar(Integer.parseInt(sd[2]), Integer.parseInt(sd[1]),
@@ -24,7 +23,7 @@ public class DateRange {
             Integer.parseInt(ed[0]));
     }
 
-    public DateRange (Calendar startDate, Calendar endDate) {
+    public DateRange(Calendar startDate, Calendar endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -61,7 +60,7 @@ public class DateRange {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof DateRange )) {
+        if (!(o instanceof DateRange)) {
             return false;
         }
         DateRange dateRange = (DateRange) o;
@@ -75,10 +74,10 @@ public class DateRange {
     }
 
     public Iterable<DateRange> getEachDay() {
-        List<DateRange > datelySlots = new ArrayList<DateRange >();
-        Calendar startDate = (GregorianCalendar)this.startDate.clone();
+        List<DateRange> datelySlots = new ArrayList<DateRange>();
+        Calendar startDate = (GregorianCalendar) this.startDate.clone();
         while (startDate.before(this.endDate)) {
-            Calendar firstDate = (GregorianCalendar)startDate.clone();
+            Calendar firstDate = (GregorianCalendar) startDate.clone();
             startDate.add(Calendar.DAY_OF_MONTH, 1);
             datelySlots.add(new DateRange(firstDate, startDate));
         }

@@ -12,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;
 import seedu.hms.model.reservation.exceptions.RoomFullException;
-import seedu.hms.model.reservation.exceptions.RoomUnavailableException;
 import seedu.hms.model.util.DateRange;
 
 /**
@@ -26,7 +25,7 @@ public class ReservationList implements Iterable<Reservation> {
     private final ObservableList<Reservation> internalList = FXCollections.observableArrayList();
     private final ObservableList<Reservation> internalUnmodifiableList =
         FXCollections.unmodifiableObservableList(internalList);
-    
+
 
     private List<Reservation> getOverlappingReservations(DateRange t) {
         List<Reservation> overlappingReservations = new ArrayList<Reservation>();
@@ -65,7 +64,8 @@ public class ReservationList implements Iterable<Reservation> {
     /**
      * Replaces the Reservation {@code target} in the list with {@code editedReservation}.
      * {@code target} must exist in the list.
-     * The Reservation identity of {@code editedReservation} must not be the same as another existing Reservation in the list.
+     * The Reservation identity of {@code editedReservation} must not be the same as another existing Reservation in
+     * the list.
      */
     public void setReservation(int reservationIndex, Reservation editedReservation) {
         requireNonNull(editedReservation);

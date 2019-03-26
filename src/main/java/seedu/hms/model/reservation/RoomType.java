@@ -1,16 +1,14 @@
-package seedu.hms.model.booking;
-
-import seedu.hms.model.util.DateRange;
+package seedu.hms.model.reservation;
 
 /**
  * Contains the details of every room in the hotel.
  */
 public enum RoomType {
 
-    GYM(20, "GYM", 5.0),
-    POOL(50, "SWIMMING POOL", 2.5),
-    SPA(40, "SPA", 7.0),
-    GAMES(100, "GAMES ROOM", 6.0);
+    SINGLE(20, "SINGLE ROOM", 500.0),
+    DOUBLE(50, "DOUBLE ROOM", 250.0),
+    DELUXE(40, "DELUXE ROOM", 700.0),
+    SUITE(10, "FAMILY SUITE", 6000.0);
 
     private final int numberOfRooms;
     private final String name;

@@ -11,15 +11,18 @@ import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingList;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.UniqueCustomerList;
+import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.ReservationList;
 
 /**
  * Wraps all data at the hms-book level
  * Duplicates are not allowed (by .isSameCustomer comparison)
  */
-public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManagementSystem {
+public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
 
     private final BookingList bookings;
     private final UniqueCustomerList customers;
+    private final ReservationList reservations;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /**
@@ -28,10 +31,10 @@ public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManag
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         bookings = new BookingList();
         customers = new UniqueCustomerList();
+        reservations = new ReservationList();
     }
 
     public HotelManagementSystem() {
@@ -40,7 +43,7 @@ public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManag
     /**
      * Creates an HotelManagementSystem using the Customers in the {@code toBeCopied}
      */
-    public HotelManagementSystem(seedu.hms.model.ReadOnlyHotelManagementSystem toBeCopied) {
+    public HotelManagementSystem(ReadOnlyHotelManagementSystem toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -65,13 +68,22 @@ public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManag
     }
 
     /**
+     * Replaces the contents of the reservation list with {@code reservations}.
+     */
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations.setReservations(reservations);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code HotelManagementSystem} with {@code newData}.
      */
-    public void resetData(seedu.hms.model.ReadOnlyHotelManagementSystem newData) {
+    public void resetData(ReadOnlyHotelManagementSystem newData) {
         requireNonNull(newData);
 
         setCustomers(newData.getCustomerList());
         setBookings(newData.getBookingList());
+        setReservations(newData.getReservationList());
     }
 
     //// customer-level operations
@@ -145,6 +157,36 @@ public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManag
         indicateModified();
     }
 
+    //// reservation-level operations
+
+    /**
+     * Adds a reservation to the hms book.
+     */
+    public void addReservation(Reservation p) {
+        reservations.add(p);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the reservation at the given {@code reservationIndex} in the list with {@code editedReservation}.
+     * {@code reservationIndex} must be within the list of reservations.
+     */
+    public void setReservation(int reservationIndex, Reservation editedReservation) {
+        requireNonNull(editedReservation);
+
+        reservations.setReservation(reservationIndex, editedReservation);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code HotelManagementSystem}.
+     * {@code key} must exist in the hms book.
+     */
+    public void removeReservation(int removeIndex) {
+        reservations.remove(removeIndex);
+        indicateModified();
+    }
+
     @Override
     public void addListener(InvalidationListener listener) {
         invalidationListenerManager.addListener(listener);
@@ -163,6 +205,11 @@ public class HotelManagementSystem implements seedu.hms.model.ReadOnlyHotelManag
     }
 
     //// util methods
+
+    @Override
+    public ObservableList<Reservation> getReservationList() {
+        return reservations.asUnmodifiableObservableList();
+    }
 
     @Override
     public ObservableList<Booking> getBookingList() {

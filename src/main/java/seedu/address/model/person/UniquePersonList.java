@@ -111,6 +111,7 @@ public class UniquePersonList implements Iterable<Person> {
                         first = o1.getYearOfStudy().value;
                         second = o2.getYearOfStudy().value;
                         break;
+                    default:
                 }
 
                 int result = first.compareTo(second);

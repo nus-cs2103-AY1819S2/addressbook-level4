@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import seedu.equipment.commons.exceptions.IllegalValueException;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
 import seedu.equipment.model.equipment.SerialNumber;
@@ -28,7 +28,7 @@ public class JsonAdaptedEquipmentTest {
 
     private static final String VALID_NAME = HWIYOHCC.getName().toString();
     private static final String VALID_PHONE = HWIYOHCC.getPhone().toString();
-    private static final String VALID_EMAIL = HWIYOHCC.getEmail().toString();
+    private static final String VALID_EMAIL = HWIYOHCC.getDate().toString();
     private static final String VALID_ADDRESS = HWIYOHCC.getAddress().toString();
     private static final String VALID_SERIAL_NUMBER = HWIYOHCC.getSerialNumber().toString();
     private static final List<JsonAdaptedTag> VALID_TAGS = HWIYOHCC.getTags().stream()
@@ -80,7 +80,7 @@ public class JsonAdaptedEquipmentTest {
         JsonAdaptedEquipment person =
                 new JsonAdaptedEquipment(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_SERIAL_NUMBER,
                         VALID_TAGS);
-        String expectedMessage = Email.MESSAGE_CONSTRAINTS;
+        String expectedMessage = Date.MESSAGE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 
@@ -88,7 +88,7 @@ public class JsonAdaptedEquipmentTest {
     public void toModelType_nullEmail_throwsIllegalValueException() {
         JsonAdaptedEquipment person = new JsonAdaptedEquipment(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS,
                 VALID_SERIAL_NUMBER, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

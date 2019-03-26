@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.equipment.commons.exceptions.IllegalValueException;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
@@ -56,7 +56,7 @@ class JsonAdaptedEquipment {
     public JsonAdaptedEquipment(Equipment source) {
         name = source.getName().name;
         phone = source.getPhone().value;
-        email = source.getEmail().value;
+        email = source.getDate().value;
         address = source.getAddress().value;
         serialNumber = source.getSerialNumber().serialNumber;
         tagged.addAll(source.getTags().stream()
@@ -92,12 +92,12 @@ class JsonAdaptedEquipment {
         final Phone modelPhone = new Phone(phone);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(email)) {
-            throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+        if (!Date.isValidDate(email)) {
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        final Date modelDate = new Date(email);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
@@ -117,7 +117,7 @@ class JsonAdaptedEquipment {
         final SerialNumber modelSerialNumber = new SerialNumber(serialNumber);
 
         final Set<Tag> modelTags = new HashSet<>(equipmentTags);
-        return new Equipment(modelName, modelPhone, modelEmail, modelAddress, modelSerialNumber, modelTags);
+        return new Equipment(modelName, modelPhone, modelDate, modelAddress, modelSerialNumber, modelTags);
     }
 
 }

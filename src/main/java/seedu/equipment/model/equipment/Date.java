@@ -6,9 +6,9 @@ import seedu.equipment.commons.util.AppUtil;
 
 /**
  * Represents a Equipment's email in the equipment book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Email implements Comparable<Email> {
+public class Date implements Comparable<Date> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Next preventive maintenance due date should only contain alphanumeric characters and spaces, "
@@ -23,20 +23,20 @@ public class Email implements Comparable<Email> {
     public final String value;
 
     /**
-     * Constructs an {@code Email}.
+     * Constructs an {@code Date}.
      *
      * @param email A valid email equipment.
      */
-    public Email(String email) {
+    public Date(String email) {
         requireNonNull(email);
-        AppUtil.checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
+        AppUtil.checkArgument(isValidDate(email), MESSAGE_CONSTRAINTS);
         value = email;
     }
 
     /**
      * Returns if a given string is a valid email.
      */
-    public static boolean isValidEmail(String test) {
+    public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
@@ -48,8 +48,8 @@ public class Email implements Comparable<Email> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && value.equals(((Email) other).value)); // state check
+                || (other instanceof Date // instanceof handles nulls
+                && value.equals(((Date) other).value)); // state check
     }
 
     @Override
@@ -58,8 +58,8 @@ public class Email implements Comparable<Email> {
     }
 
     @Override
-    public int compareTo(Email otherEmail) {
-        return value.compareTo(otherEmail.value);
+    public int compareTo(Date otherDate) {
+        return value.compareTo(otherDate.value);
     }
 
 }

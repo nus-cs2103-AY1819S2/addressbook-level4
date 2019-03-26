@@ -42,7 +42,7 @@ import seedu.equipment.logic.commands.RedoCommand;
 import seedu.equipment.logic.commands.UndoCommand;
 import seedu.equipment.model.Model;
 //import Address;
-//import Email;
+//import Date;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 //import Phone;

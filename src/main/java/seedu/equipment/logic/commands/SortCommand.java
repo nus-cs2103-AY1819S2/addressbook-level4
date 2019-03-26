@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.equipment.logic.CommandHistory;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
@@ -71,9 +71,9 @@ public class SortCommand extends Command {
             break;
         case EMAIL_SORT_PARAMETER:
             equipmentComparator = (firstEquipment, secondEquipment) -> {
-                Email firstEmail = firstEquipment.getEmail();
-                Email secondEmail = secondEquipment.getEmail();
-                return firstEmail.compareTo(secondEmail);
+                Date firstDate = firstEquipment.getDate();
+                Date secondDate = secondEquipment.getDate();
+                return firstDate.compareTo(secondDate);
             };
             commandResult = String.format(MESSAGE_SUCCESS, size, DEFAULT_SORT_PARAMETER);
             break;

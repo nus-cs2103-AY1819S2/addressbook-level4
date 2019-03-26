@@ -18,7 +18,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
@@ -83,10 +83,10 @@ public class EquipmentListPanelTest extends GuiUnitTest {
         for (int i = 0; i < personCount; i++) {
             Name name = new Name(i + "a");
             Phone phone = new Phone("000");
-            Email email = new Email("a aaa aaaa");
+            Date date = new Date("a aaa aaaa");
             Address address = new Address("a");
             SerialNumber serialNumber = new SerialNumber("aaaaaa");
-            Equipment equipment = new Equipment(name, phone, email, address, serialNumber, Collections.emptySet());
+            Equipment equipment = new Equipment(name, phone, date, address, serialNumber, Collections.emptySet());
             backingList.add(equipment);
         }
         return backingList;

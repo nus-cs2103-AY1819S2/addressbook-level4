@@ -7,7 +7,7 @@ import seedu.equipment.commons.core.Messages;
 import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
@@ -38,13 +38,13 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_PM).get());
+        Date date = ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_PM).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).get());
         SerialNumber serialNumber = ParserUtil.parseSerialNumber(argMultimap.getValue(
                 CliSyntax.PREFIX_SERIALNUMBER).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(CliSyntax.PREFIX_TAG));
 
-        Equipment equipment = new Equipment(name, phone, email, address, serialNumber, tagList);
+        Equipment equipment = new Equipment(name, phone, date, address, serialNumber, tagList);
 
         return new AddCommand(equipment);
     }

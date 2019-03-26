@@ -17,7 +17,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
 import seedu.equipment.model.equipment.SerialNumber;
@@ -204,15 +204,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+        Date expectedDate = new Date(VALID_EMAIL);
+        assertEquals(expectedDate, ParserUtil.parseEmail(VALID_EMAIL));
     }
 
     @Test
     public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
-        Email expectedEmail = new Email(VALID_EMAIL);
-        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+        Date expectedDate = new Date(VALID_EMAIL);
+        assertEquals(expectedDate, ParserUtil.parseEmail(emailWithWhitespace));
     }
 
     @Test

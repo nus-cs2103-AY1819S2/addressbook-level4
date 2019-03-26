@@ -19,7 +19,7 @@ public class AddCommand extends Command {
             + "Parameters: "
             + CliSyntax.PREFIX_NAME + "NAME "
             + CliSyntax.PREFIX_PHONE + "PHONE "
-            + CliSyntax.PREFIX_PM + "EMAIL "
+            + CliSyntax.PREFIX_PM + "PREVENTIVE MAINTENANCE DATE "
             + CliSyntax.PREFIX_ADDRESS + "ADDRESS "
             + CliSyntax.PREFIX_SERIALNUMBER + "SERIAL NUMBER "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"

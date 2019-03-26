@@ -24,7 +24,7 @@ public class Equipment {
     // Identity fields
     private final Name name;
     private final Phone phone;
-    private final Email email;
+    private final Date date;
     private final SerialNumber serialNumber;
 
     // Data fields
@@ -34,11 +34,11 @@ public class Equipment {
     /**
      * Every field must be present and not null.
      */
-    public Equipment(Name name, Phone phone, Email email, Address address, SerialNumber serialNumber, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Equipment(Name name, Phone phone, Date date, Address address, SerialNumber serialNumber, Set<Tag> tags) {
+        requireAllNonNull(name, phone, date, address, tags);
         this.name = name;
         this.phone = phone;
-        this.email = email;
+        this.date = date;
         this.serialNumber = serialNumber;
         this.address = address;
         this.tags.addAll(tags);
@@ -52,8 +52,8 @@ public class Equipment {
         return phone;
     }
 
-    public Email getEmail() {
-        return email;
+    public Date getDate() {
+        return date;
     }
 
     public SerialNumber getSerialNumber() {
@@ -127,7 +127,7 @@ public class Equipment {
         Equipment otherEquipment = (Equipment) other;
         return otherEquipment.getName().equals(getName())
                 && otherEquipment.getPhone().equals(getPhone())
-                && otherEquipment.getEmail().equals(getEmail())
+                && otherEquipment.getDate().equals(getDate())
                 && otherEquipment.getAddress().equals(getAddress())
                 && otherEquipment.getSerialNumber().equals(getSerialNumber())
                 && otherEquipment.getTags().equals(getTags());
@@ -136,7 +136,7 @@ public class Equipment {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, serialNumber, tags);
+        return Objects.hash(name, phone, date, address, serialNumber, tags);
     }
 
     @Override
@@ -145,8 +145,8 @@ public class Equipment {
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
+                .append(" Date: ")
+                .append(getDate())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Serial Number: ")

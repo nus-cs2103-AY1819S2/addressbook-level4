@@ -44,7 +44,7 @@ import seedu.equipment.logic.commands.RedoCommand;
 import seedu.equipment.logic.commands.UndoCommand;
 import seedu.equipment.model.Model;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
@@ -185,7 +185,7 @@ public class EditCommandSystemTest extends EquipmentManagerSystemTest {
 
         /* Case: invalid email -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
-                + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
+                + INVALID_EMAIL_DESC, Date.MESSAGE_CONSTRAINTS);
 
         /* Case: invalid equipment -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()

@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
@@ -25,7 +25,7 @@ public class EquipmentBuilder {
 
     private Name name;
     private Phone phone;
-    private Email email;
+    private Date date;
     private Address address;
     private SerialNumber serialNumber;
     private Set<Tag> tags;
@@ -33,7 +33,7 @@ public class EquipmentBuilder {
     public EquipmentBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        email = new Email(DEFAULT_EMAIL);
+        date = new Date(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
         serialNumber = new SerialNumber(DEFAULT_SERIALNUMBER);
         tags = new HashSet<>();
@@ -45,7 +45,7 @@ public class EquipmentBuilder {
     public EquipmentBuilder(Equipment equipmentToCopy) {
         name = equipmentToCopy.getName();
         phone = equipmentToCopy.getPhone();
-        email = equipmentToCopy.getEmail();
+        date = equipmentToCopy.getDate();
         address = equipmentToCopy.getAddress();
         serialNumber = equipmentToCopy.getSerialNumber();
         tags = new HashSet<>(equipmentToCopy.getTags());
@@ -84,10 +84,10 @@ public class EquipmentBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Equipment} that we are building.
+     * Sets the {@code Date} of the {@code Equipment} that we are building.
      */
     public EquipmentBuilder withEmail(String email) {
-        this.email = new Email(email);
+        this.date = new Date(email);
         return this;
     }
 
@@ -100,7 +100,7 @@ public class EquipmentBuilder {
     }
 
     public Equipment build() {
-        return new Equipment(name, phone, email, address, serialNumber, tags);
+        return new Equipment(name, phone, date, address, serialNumber, tags);
     }
 
 }

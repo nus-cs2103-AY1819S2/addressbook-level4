@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import seedu.address.model.person.Person;
 
@@ -23,7 +24,7 @@ public class Activity implements Comparable<Activity> {
 
     // Data fields
     private Person inCharge;
-    private final Map<Person, Boolean> attendance = new HashMap<>();
+    private Map<Person, Boolean> attendance = new HashMap<>();
 
     /**
      * Every field must be present and not null.
@@ -47,6 +48,18 @@ public class Activity implements Comparable<Activity> {
         this.status = setStatus(dateTime);
     }
 
+    public Activity(ActivityName name, ActivityDateTime dateTime, ActivityLocation location,
+        ActivityDescription description, Optional<Person> inCharge, Map<Person, Boolean> attendance) {
+        requireAllNonNull(name, dateTime, location, description);
+        this.name = name;
+        this.dateTime = dateTime;
+        this.location = location;
+        this.description = description;
+        this.status = setStatus(dateTime);
+        this.attendance = attendance;
+        inCharge.ifPresent(this::setInCharge);
+    }
+
 
     public ActivityName getName() {
         return name;
@@ -64,8 +77,8 @@ public class Activity implements Comparable<Activity> {
         return description;
     }
 
-    public Person getInCharge() {
-        return inCharge;
+    public Optional<Person> getInCharge() {
+        return Optional.ofNullable(inCharge);
     }
 
     public Map<Person, Boolean> getAttendance() {
@@ -74,6 +87,10 @@ public class Activity implements Comparable<Activity> {
 
     public ActivityStatus getStatus() {
         return status;
+    }
+
+    public ActivityStatus getCurrentStatus() {
+        return new ActivityStatus(ActivityDateTime.isPast(dateTime));
     }
 
     public void setInCharge(Person person) {

@@ -120,8 +120,8 @@ public class FinanceTrackerParser {
             return new RedoCommand();
 
         case SummaryCommand.COMMAND_WORD:
-        //Have to add in alias for summary command
-        //case SummaryCommand.COMMAND_ALIAS:
+            //Have to add in alias for summary command
+            //case SummaryCommand.COMMAND_ALIAS:
             return new SummaryCommand();
 
         default:

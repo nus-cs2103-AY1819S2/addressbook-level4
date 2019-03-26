@@ -858,7 +858,6 @@ _{More to be added}_
 
 (For all use cases below, the *System* is the `slaveFinder()` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
 === Use case: Delete person
 
 *MSS*
@@ -905,6 +904,33 @@ Use case resumes at step 4.
 * 5a. User is not satisfied with the dates
 * 5b. User rearranges dates +
 Use case resumes at step 6.
+
+=== Use case: Search person
+
+*MSS*
+
+1.  User requests to list persons
+2.  slaveFinder() shows a list of persons
+3.  User requests to search persons fulfill some requirements in the list
+4.  slaveFinder() shows a list of target persons
++
+Use case ends.
+
+*Extensions*
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given command is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
 
 
 === Use case: View Analytics

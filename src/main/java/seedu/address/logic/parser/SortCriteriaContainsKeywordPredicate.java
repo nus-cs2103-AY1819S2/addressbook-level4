@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  */
 public class SortCriteriaContainsKeywordPredicate implements Predicate<String> {
     private final String criteria;
-    private final String[] keywords = {"name", "matric", "major", "yearOfStudy"};
+    private final String[] keywords = {"name", "matricNumber", "major", "yearOfStudy"};
 
     public SortCriteriaContainsKeywordPredicate(String criteria) {
         this.criteria = criteria;
@@ -28,6 +28,10 @@ public class SortCriteriaContainsKeywordPredicate implements Predicate<String> {
         return other == this // short circuit if same object
                 || (other instanceof SortCriteriaContainsKeywordPredicate // instanceof handles nulls
                 && criteria.equals(((SortCriteriaContainsKeywordPredicate) other).criteria)); // state check
+    }
+    @Override
+    public String toString() {
+        return criteria;
     }
 
 }

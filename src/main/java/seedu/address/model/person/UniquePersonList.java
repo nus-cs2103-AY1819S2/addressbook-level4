@@ -88,8 +88,31 @@ public class UniquePersonList implements Iterable<Person> {
         FXCollections.sort(internalList, new Comparator <Person> () {
             @Override
             public int compare(Person o1, Person o2) {
-                String first = o1.getName().fullName;
-                String second = o2.getName().fullName;
+                String sortCriteria = predicate.toString().toLowerCase();
+                String first = "";
+                String second = "";
+                switch (sortCriteria) {
+                    case "name":
+                        first = o1.getName().fullName;
+                        second = o2.getName().fullName;
+                        break;
+
+                    case "matricnumber":
+                        first = o1.getMatricNumber().value;
+                        second = o2.getMatricNumber().value;
+                        break;
+
+                    case "major":
+                        first = o1.getMajor().value;
+                        second = o2.getMajor().value;
+                        break;
+
+                    case "yearofstudy":
+                        first = o1.getYearOfStudy().value;
+                        second = o2.getYearOfStudy().value;
+                        break;
+                }
+
                 int result = first.compareTo(second);
                 return result;
             }

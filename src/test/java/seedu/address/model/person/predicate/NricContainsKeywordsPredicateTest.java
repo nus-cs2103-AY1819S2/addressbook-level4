@@ -63,7 +63,7 @@ public class NricContainsKeywordsPredicateTest {
 
         // Keywords match other fields, but does not match Nric
         predicate = new NricContainsKeywordsPredicate(Arrays.asList("Alice", "12345", "alice@email.com",
-            "Chinese", "Main", "Street", "NUS", "CEO","Male", "A9671597H"));
+            "Chinese", "Main", "Street", "NUS", "CEO", "Male", "A9671597H"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345").withEmail("alice@email.com")
             .withNric("S9671597H").withRace("Chinese").withAddress("Main Street")
             .withSchool("NUS").withMajor("CS").withGrade("2.35").withJobsApply("CEO").withPastJobs("SE")

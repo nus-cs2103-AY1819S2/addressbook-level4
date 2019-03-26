@@ -66,7 +66,7 @@ public class KnownProgLangContainsKeywordsPredicateTest {
 
         // Keywords match other fields, but does not match KnownProgLang
         predicate = new KnownProgLangContainsKeywordsPredicate(Arrays.asList("Alice", "12345", "alice@email.com",
-            "Chinese", "Main", "Street", "NUS", "CEO","Male", "A9671597H", "Python"));
+            "Chinese", "Main", "Street", "NUS", "CEO", "Male", "A9671597H", "Python"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("12345").withEmail("alice@email.com")
             .withNric("S9671597H").withRace("Chinese").withAddress("Main Street")
             .withSchool("NUS").withMajor("CS").withGrade("2.35").withJobsApply("CEO").withPastJobs("SE")

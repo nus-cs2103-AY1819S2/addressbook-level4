@@ -2,6 +2,7 @@ package seedu.address.model.modelmanager;
 
 import java.util.List;
 
+import seedu.address.model.modelmanager.management.ManagementModel;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
@@ -98,6 +99,13 @@ public interface QuizModel extends Model {
      * Returns data needed by {@code Session} when {@code Quiz} end.
      */
     List<List<Integer>> end();
+
+    /**
+     * Update user profile after quiz ends.
+     * @param quizInformation from quiz.
+     * @param model to update user profile.
+     */
+    void updateUserProfile(ManagementModel model, List<List<Integer>> quizInformation);
 
     /**
      * Sets formatter {@code QuizUiDisplayFormatter} in this {@code Quiz}.

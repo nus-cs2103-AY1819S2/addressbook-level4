@@ -26,7 +26,6 @@ public class QuizAnswerCommand implements Command {
     public static final String MESSAGE_COMPLETE = "You have completed all the questions in this quiz.\n";
 
     private String answer;
-
     public QuizAnswerCommand(String answer) {
         requireNonNull(answer);
         this.answer = answer;
@@ -52,9 +51,8 @@ public class QuizAnswerCommand implements Command {
 
         QuizCard card = quizModel.getCurrentQuizCard();
         StringBuilder sb = new StringBuilder();
-        String questionHeader = "question"; //TODO get the header from quiz from session
-        String answerHeader = "answer"; //TODO get the header from quiz from session
-
+        String questionHeader = "question"; //quizModel.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(0);
+        String answerHeader = "answer"; //quizModel.getQuizSrsCards().get(0).getLesson().getCoreHeaders().get(1);
         if (card.getQuizMode() == QuizMode.PREVIEW) {
             // don't need to update totalAttempts and streak
             if (quizModel.hasCardLeft()) {
@@ -90,12 +88,12 @@ public class QuizAnswerCommand implements Command {
             } else {
                 sb.append(MESSAGE_COMPLETE);
 
+                // TODO return this to session
+                System.out.println(quizModel.end());
+
                 // TODO change back to management mode display
                 // set the display to blank
                 quizModel.setDisplayFormatter(null);
-
-                // TODO return this to session
-                System.out.println(quizModel.end());
             }
 
         } else {

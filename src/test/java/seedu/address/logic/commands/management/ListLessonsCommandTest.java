@@ -280,6 +280,14 @@ public class ListLessonsCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        /**
+         * Update user profile after quiz ends.
+         * @param quizInformation from quiz.
+         * @param model to update user profile.
+         */
+        public void updateUserProfile(ManagementModel model, List<List<Integer>> quizInformation) {
+            throw new AssertionError("This method should not be called.");
+        }
         @Override
         public void setDisplayFormatter(QuizUiDisplayFormatter formatter) {
             throw new AssertionError("This method should not be called.");

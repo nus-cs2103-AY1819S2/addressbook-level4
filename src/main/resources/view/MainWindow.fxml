@@ -14,65 +14,66 @@
 <?import javafx.scene.layout.HBox?>
 <fx:root xmlns:fx="http://javafx.com/fxml/1" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8"
          title="Welcome to Health Hub" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
-  <icons>
-    <Image url="@/images/health_hub_32.png"/>
-  </icons>
-  <scene>
-    <Scene>
-      <stylesheets>
-          <URL value="@WhiteTheme.css"/>
-        <URL value="@Extensions.css"/>
-      </stylesheets>
+    <icons>
+        <Image url="@/images/health_hub_32.png"/>
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@WhiteTheme.css"/>
+                <URL value="@Extensions.css"/>
+            </stylesheets>
 
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Feedback">
-                <MenuItem fx:id="feedbackMenuItem" mnemonicParsing="false" onAction="#handleFeedback" text="Feedback"/>
-            </Menu>
-        </MenuBar>
+            <VBox>
+                <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+                    <Menu mnemonicParsing="false" text="File">
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Help">
+                        <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Feedback">
+                        <MenuItem fx:id="feedbackMenuItem" mnemonicParsing="false" onAction="#handleFeedback"
+                                  text="Feedback"/>
+                    </Menu>
+                </MenuBar>
 
-          <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10"/>
-          </padding>
-        </StackPane>
+                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10"/>
+                    </padding>
+                </StackPane>
 
-          <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" minHeight="135" prefHeight="135"
-                     maxHeight="135">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10"/>
-          </padding>
-        </StackPane>
+                <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" minHeight="135" prefHeight="135"
+                           maxHeight="135">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10"/>
+                    </padding>
+                </StackPane>
 
-          <HBox fx:id="container" id="container">
-              <VBox minWidth="300" prefWidth="350" maxWidth="350">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-                  <StackPane fx:id="requestListPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-              <VBox minWidth="450" prefWidth="450" HBox.hgrow="ALWAYS">
-                  <padding>
-                      <Insets top="10" right="10" bottom="10" left="10"/>
-                  </padding>
-                  <StackPane fx:id="displayInfoPlaceholder" VBox.vgrow="ALWAYS"></StackPane>
-              </VBox>
-              <VBox minWidth="300" prefWidth="350" maxWidth="350">
-                  <padding>
-                      <Insets top="10" right="10" bottom="10" left="10"/>
-              </padding>
-                  <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="ALWAYS"></StackPane>
-          </VBox>
-          </HBox>
+                <HBox fx:id="container" id="container">
+                    <VBox minWidth="350" prefWidth="400" maxWidth="400">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <StackPane fx:id="requestListPlaceholder" VBox.vgrow="ALWAYS"/>
+                    </VBox>
+                    <VBox minWidth="400" prefWidth="400" HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <StackPane fx:id="displayInfoPlaceholder" VBox.vgrow="ALWAYS"></StackPane>
+                    </VBox>
+                    <VBox minWidth="300" prefWidth="350" maxWidth="350">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="ALWAYS"></StackPane>
+                    </VBox>
+                </HBox>
 
-          <StackPane fx:id="statusBarPlaceholder" VBox.vgrow="ALWAYS"/>
-      </VBox>
-    </Scene>
-  </scene>
+                <StackPane fx:id="statusBarPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </Scene>
+    </scene>
 </fx:root>

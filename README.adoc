@@ -50,7 +50,7 @@ IV drip, to higher-level skills like handling dialysis machinery.
 
 == Acknowledgements
 
-* Original Source Code created by SE-EDU initiative: https://github.com/se-edu/[Original Source Code]
+* Original Source Code created by SE-EDU initiative: https://github.com/se-edu/addressbook-level4[addressbook-level4]
 
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 

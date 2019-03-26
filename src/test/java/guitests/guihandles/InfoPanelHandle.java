@@ -9,20 +9,20 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 /**
- * A handler for the {@code MapPanel} of the UI.
+ * A handler for the {@code InfoPanel} of the UI.
  */
-public class MapPanelHandle extends NodeHandle<Node> {
+public class InfoPanelHandle extends NodeHandle<Node> {
 
-    public static final String MAP_ID = "#map";
+    public static final String WEB_VIEW_ID = "#webView";
 
     private boolean isWebViewLoaded = true;
 
     private URL lastRememberedUrl;
 
-    public MapPanelHandle(Node mapPanelNode) {
-        super(mapPanelNode);
+    public InfoPanelHandle(Node infoPanelNode) {
+        super(infoPanelNode);
 
-        WebView webView = getChildNode(MAP_ID);
+        WebView webView = getChildNode(WEB_VIEW_ID);
         WebEngine engine = webView.getEngine();
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.RUNNING) {
@@ -37,7 +37,7 @@ public class MapPanelHandle extends NodeHandle<Node> {
      * Returns the {@code URL} of the currently loaded page.
      */
     public URL getLoadedUrl() {
-        return WebViewUtil.getLoadedUrl(getChildNode(MAP_ID));
+        return WebViewUtil.getLoadedUrl(getChildNode(WEB_VIEW_ID));
     }
 
     /**

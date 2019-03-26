@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.interviews.Interviews;
 import seedu.address.model.person.Person;
 
 /**
@@ -132,4 +133,9 @@ public interface Model {
      * Generates an interview list.
      */
     void generateInterviews();
+
+    /**
+     * Returns the InterviewManager
+     */
+    Interviews getInterviews();
 }

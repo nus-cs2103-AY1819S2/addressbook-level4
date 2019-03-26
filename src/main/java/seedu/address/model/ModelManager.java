@@ -44,7 +44,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        interviews = new Interviews(filteredPersons);
+        interviews = new Interviews();
     }
 
     public ModelManager() {
@@ -216,7 +216,11 @@ public class ModelManager implements Model {
     }
 
     public void generateInterviews() {
-        interviews.generate();
+        interviews.generate(filteredPersons);
+    }
+
+    public Interviews getInterviews() {
+        return interviews;
     }
 
     @Override

@@ -4,17 +4,17 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.GradTrak;
+import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Hour;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods for populating {@code AddressBook} with sample data.
+ * Contains utility methods for populating {@code GradTrak} with sample data.
  */
 public class SampleDataUtil {
     public static ModuleTaken[] getSamplePersons() {
@@ -40,10 +40,10 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
-        AddressBook sampleAb = new AddressBook();
+    public static ReadOnlyGradTrak getSampleAddressBook() {
+        GradTrak sampleAb = new GradTrak();
         for (ModuleTaken sampleModuleTaken : getSamplePersons()) {
-            sampleAb.addPerson(sampleModuleTaken);
+            sampleAb.addModuleTaken(sampleModuleTaken);
         }
         return sampleAb;
     }

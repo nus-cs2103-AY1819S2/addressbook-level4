@@ -12,8 +12,8 @@ import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedModuleTakenTest {

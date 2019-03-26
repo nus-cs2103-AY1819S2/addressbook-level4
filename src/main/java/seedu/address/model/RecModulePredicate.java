@@ -14,10 +14,10 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
 public class RecModulePredicate implements Predicate<ModuleInfoCode> {
 
     private Course course;
-    private VersionedAddressBook versionedAddressBook;
+    private VersionedGradTrak versionedAddressBook;
     private HashMap<ModuleInfoCode, CourseReqType> codeToReqMap;
 
-    public RecModulePredicate(Course course, VersionedAddressBook versionedAddressBook,
+    public RecModulePredicate(Course course, VersionedGradTrak versionedAddressBook,
                               HashMap<ModuleInfoCode, CourseReqType> codeToReqMap) {
         this.course = course;
         this.versionedAddressBook = versionedAddressBook;

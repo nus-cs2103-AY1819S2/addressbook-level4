@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.moduleinfo.ModuleInfoList;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.testutil.ModuleTakenBuilder;
 
 /**
@@ -42,7 +42,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        ModuleTaken moduleTakenInList = model.getAddressBook().getPersonList().get(0);
+        ModuleTaken moduleTakenInList = model.getAddressBook().getModulesTakenList().get(0);
         assertCommandFailure(new AddCommand(moduleTakenInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }

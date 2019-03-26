@@ -22,9 +22,9 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
-import seedu.address.model.person.FindModulePredicate;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.FindModulePredicate;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.testutil.FindModuleDescriptorBuilder;
 
 public class FindCommandParserTest {

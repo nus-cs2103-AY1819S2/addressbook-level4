@@ -1,9 +1,0 @@
-{
-  "persons": [ {
-    "moduleInfoCode": "Hans Muster",
-    "semester": "9482424",
-    "expectedMaxGrade": "invalid@email!3e",
-    "expectedMinGrade": "4th street",
-    "lectureHour" : "f"
-  } ]
-}

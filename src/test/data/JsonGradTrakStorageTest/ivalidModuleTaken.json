@@ -1,0 +1,9 @@
+{
+  "modulesTaken": [ {
+    "moduleInfoCode": "CS213",
+    "semester": "9482424",
+    "expectedMinGrade": "hans@example.com",
+    "expectedMaxGrade": "4th street",
+    "lectureHour" : "d"
+  } ]
+}

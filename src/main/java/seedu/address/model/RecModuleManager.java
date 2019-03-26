@@ -12,10 +12,10 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
 public class RecModuleManager {
 
     private final Course course;
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedGradTrak versionedAddressBook;
     private final HashMap<ModuleInfoCode, CourseReqType> codeToReqMap;
 
-    public RecModuleManager(Course course, VersionedAddressBook versionedAddressBook) {
+    public RecModuleManager(Course course, VersionedGradTrak versionedAddressBook) {
         this.course = course;
         this.versionedAddressBook = versionedAddressBook;
         codeToReqMap = new HashMap<>();

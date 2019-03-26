@@ -20,10 +20,10 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.moduleinfo.ModuleInfoList;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.NameContainsKeywordsPredicate;
+import seedu.address.model.moduletaken.exceptions.PersonNotFoundException;
+import seedu.address.testutil.GradTrakBuilder;
 import seedu.address.testutil.ModuleTakenBuilder;
 
 public class ModelManagerTest {
@@ -36,7 +36,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new GradTrak(), new GradTrak(modelManager.getAddressBook()));
         assertEquals(null, modelManager.getSelectedPerson());
     }
 
@@ -49,14 +49,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setGradTrakFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setGradTrakFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -153,8 +153,8 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(CS2103T).withPerson(CS2101).build();
-        AddressBook differentAddressBook = new AddressBook();
+        GradTrak addressBook = new GradTrakBuilder().withPerson(CS2103T).withPerson(CS2101).build();
+        GradTrak differentAddressBook = new GradTrak();
         UserPrefs userPrefs = new UserPrefs();
         ModuleInfoList moduleInfoList = new ModuleInfoList();
 
@@ -185,7 +185,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setGradTrakFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, moduleInfoList)));
     }
 }

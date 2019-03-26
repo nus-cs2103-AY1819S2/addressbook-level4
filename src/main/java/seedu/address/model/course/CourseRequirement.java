@@ -9,7 +9,6 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
  */
 public interface CourseRequirement {
 
-
     /**
      * Returns CourseReqType of a CourseRequirement
      * @return CourseReqType of CourseRequirement interface object

@@ -18,10 +18,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Hour;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 
 public class ModuleTakenListPanelTest extends GuiUnitTest {
     private static final ObservableList<ModuleTaken> TYPICAL_MODULE_TAKENS =

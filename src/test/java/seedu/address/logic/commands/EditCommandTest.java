@@ -21,12 +21,12 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.AddressBook;
+import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.moduleinfo.ModuleInfoList;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.ModuleTakenBuilder;
 
@@ -46,7 +46,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
                                                new ModuleInfoList());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedModuleTaken);
         expectedModel.commitAddressBook();
@@ -70,7 +70,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
                                                new ModuleInfoList());
         expectedModel.setPerson(lastModuleTaken, editedModuleTaken);
         expectedModel.commitAddressBook();
@@ -85,7 +85,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
                                                new ModuleInfoList());
         expectedModel.commitAddressBook();
 
@@ -104,7 +104,7 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
                                                new ModuleInfoList());
         expectedModel.setPerson(model.getFilteredPersonList().get(0), editedModuleTaken);
         expectedModel.commitAddressBook();
@@ -126,7 +126,8 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit moduleTaken in filtered list into a duplicate in address book
-        ModuleTaken moduleTakenInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
+        ModuleTaken moduleTakenInList = model.getAddressBook().getModulesTakenList()
+                .get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(moduleTakenInList).build());
 
@@ -152,7 +153,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getModulesTakenList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS1010).build());
@@ -166,7 +167,7 @@ public class EditCommandTest {
         ModuleTaken moduleTakenToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
                                                new ModuleInfoList());
         expectedModel.setPerson(moduleTakenToEdit, editedModuleTaken);
         expectedModel.commitAddressBook();
@@ -210,7 +211,7 @@ public class EditCommandTest {
         ModuleTaken editedModuleTaken = new ModuleTakenBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
                                                new ModuleInfoList());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);

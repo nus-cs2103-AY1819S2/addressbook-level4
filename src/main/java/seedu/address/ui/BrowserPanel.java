@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
  * The Browser Panel of the App.

@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import seedu.address.model.Model;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.

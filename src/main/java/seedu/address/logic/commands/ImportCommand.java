@@ -23,6 +23,7 @@ public class ImportCommand extends Command {
             + "Example: " + COMMAND_WORD + "alice.csv";
     public static final String MESSAGE_FILE_OPS_FAILURE = "Could not import from specified file. Check that it exists "
             + "in root directory";
+    public static final String MESSAGE_SUCCESS = "Successfully imported: %1$s";
 
     private CsvFile csvFile;
 

@@ -17,7 +17,7 @@ import seedu.address.model.menu.MenuItem;
  */
 public class AddToMenuCommand extends Command {
     public static final String COMMAND_WORD = "addToMenu";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. " + "Parameters: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a menu item to the menu. " + "Parameters: "
             + PREFIX_CODE + "CODE " + PREFIX_NAME + "NAME " + PREFIX_PRICE + "PRICE " + "Example: " + COMMAND_WORD + " "
             + PREFIX_CODE + "A02 " + PREFIX_NAME + "French Fries " + PREFIX_PRICE + "2.00";
     public static final String MESSAGE_SUCCESS = "New menu item added: %1$s";

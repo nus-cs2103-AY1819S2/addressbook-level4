@@ -40,8 +40,8 @@ public class MenuItemCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
 
         name.setText(item.getName().itemName);
-        code.setText(item.getCode().itemCode);
-        price.setText(item.getPrice().itemPrice);
+        code.setText("Code: " + item.getCode().itemCode);
+        price.setText("Price: " + item.getPrice().itemPrice);
     }
 
     public MenuItemCard(MenuItem item) {

@@ -20,13 +20,13 @@ import seedu.address.model.menu.ReadOnlyMenu;
 class JsonSerializableMenu {
 
     public static final String MESSAGE_DUPLICATE_ITEM = "Menu list contains duplicate items(s).";
-    private final List<JsonAdaptedMenu> menuItems = new ArrayList<>();
+    private final List<JsonAdaptedMenuItem> menuItems = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableMenu} with the given persons.
      */
     @JsonCreator
-    public JsonSerializableMenu(@JsonProperty("menuItems") List<JsonAdaptedMenu> menuItems) {
+    public JsonSerializableMenu(@JsonProperty("menuItems") List<JsonAdaptedMenuItem> menuItems) {
         this.menuItems.addAll(menuItems);
     }
 
@@ -36,7 +36,7 @@ class JsonSerializableMenu {
      * @param source future changes to this will not affect the created {@code JsonSerializableMenu}.
      */
     public JsonSerializableMenu(ReadOnlyMenu source) {
-        menuItems.addAll(source.getMenuItemList().stream().map(JsonAdaptedMenu::new).collect(Collectors.toList()));
+        menuItems.addAll(source.getMenuItemList().stream().map(JsonAdaptedMenuItem::new).collect(Collectors.toList()));
     }
 
     /**
@@ -46,8 +46,8 @@ class JsonSerializableMenu {
      */
     public Menu toModelType() throws IllegalValueException {
         Menu menu = new Menu();
-        for (JsonAdaptedMenu jsonAdaptedMenu : menuItems) {
-            MenuItem item = jsonAdaptedMenu.toModelType();
+        for (JsonAdaptedMenuItem jsonAdaptedMenuItem : menuItems) {
+            MenuItem item = jsonAdaptedMenuItem.toModelType();
             if (menu.hasMenuItem(item)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_ITEM);
             }

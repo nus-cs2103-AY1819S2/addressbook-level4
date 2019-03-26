@@ -1,8 +1,8 @@
 {
-  "_comment": "Menu item has invalid price",
-  "menu": [ {
-    "name": "Chicken Nuggets",
-    "code": "W06",
-    "price": "3.405"
+  "_comment" : "Menu item has invalid price",
+  "menuItems" : [ {
+    "name" : "Chicken Nuggets",
+    "code" : "W06",
+    "price" : "3.405"
   } ]
 }

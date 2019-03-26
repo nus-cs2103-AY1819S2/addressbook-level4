@@ -155,18 +155,16 @@ Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
 [NOTE]
 The position may not be displayed if the ship has not been placed.
 
-=== Locating ships by tags: `findTag`
+=== List all tags: `listTags`
 
-Finds battleships whose tags contain any of the given keywords. +
-Format: `findTag TAG [MORE_TAGS]`
+Lists all the tags that have been used to tag the battleships deployed on the map. +
 
-Examples:
 
-* `findTag bluewater_fleet` +
-Returns `Name: RSS Vengeance, Size: 4, Command: true, Position: d2`
+Format: `listTags` +
+Examples: `listTags`
 
 [NOTE]
-The position may not be displayed if the ship has not been placed.
+The list of tags is given in square brackets.
 
 === Selecting a ship : `select`
 

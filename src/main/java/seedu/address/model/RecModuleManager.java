@@ -7,7 +7,7 @@ import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
- * A class for managing the module recommendation command.
+ * A class for managing the module recommendation feature.
  */
 public class RecModuleManager {
 
@@ -19,6 +19,10 @@ public class RecModuleManager {
         this.course = course;
         this.versionedAddressBook = versionedAddressBook;
         codeToReqMap = new HashMap<>();
+    }
+
+    public HashMap<ModuleInfoCode, CourseReqType> getCodeToReqMap() {
+        return codeToReqMap;
     }
 
     public RecModulePredicate getRecModulePredicate() {

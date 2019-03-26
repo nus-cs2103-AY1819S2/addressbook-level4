@@ -38,7 +38,7 @@ public class DisplaymodCommand extends Command {
             + "Department : %3$s \n"
             + "Module Credits : %4$s \n"
             + "Module Description : %5$s \n"
-            + "WorkLoad : %6$s \n"
+            + "Workload : %6$s \n"
             + "Preclusions : %7$s \n"
             + "Prerequisites : %8$s ";
 
@@ -61,14 +61,12 @@ public class DisplaymodCommand extends Command {
         return new CommandResult(generateResultString(model));
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DisplaymodCommand // instanceof handles nulls
                 && keywords.equals(((DisplaymodCommand) other).keywords)); // state check
     }
-
 
     /**
      * returns a String for the Command result if the list is not empty

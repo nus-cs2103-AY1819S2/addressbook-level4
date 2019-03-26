@@ -1,8 +1,11 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.logic.commands.CommandTestUtil.FINISHED_STATUS_FALSE;
+import static seedu.address.logic.parser.ParserUtil.FINISHED_STATUS_TRUE;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -203,5 +206,17 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseFinishedStatus_returnsCorrectBoolean() {
+        assertTrue(ParserUtil.parseFinishedStatus(FINISHED_STATUS_TRUE));
+        assertFalse(ParserUtil.parseFinishedStatus(FINISHED_STATUS_FALSE));
+        assertFalse(ParserUtil.parseFinishedStatus("abc123"));
+    }
+
+    @Test public void booleanToFinishedStatus_returnsCorrectString() {
+        assertEquals(ParserUtil.booleanToFinishedStatus(true), FINISHED_STATUS_TRUE);
+        assertEquals(ParserUtil.booleanToFinishedStatus(false), "n");
     }
 }

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -18,6 +19,7 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -260,10 +262,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateRecModuleList() {
+    public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
         RecModuleManager recModuleManager = new RecModuleManager(course, versionedAddressBook);
         recModuleList.setPredicate(recModuleManager.getRecModulePredicate());
         recModuleListSorted.setComparator(recModuleManager.getRecModuleComparator());
+
+        return recModuleManager.getCodeToReqMap();
     }
 
     /**

@@ -1,10 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.course.Course.MESSAGE_REQ_COMPLETED;
+
+import java.util.HashMap;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
@@ -20,23 +24,30 @@ public class RecCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateRecModuleList();
+        HashMap<ModuleInfoCode, CourseReqType> codeToReqMap = model.updateRecModuleList();
 
-        return new CommandResult(generateResultString(model));
+        return new CommandResult(generateResultString(model.getRecModuleListSorted(), codeToReqMap));
     }
 
     /**
-     * Returns a String representing a list of module codes.
-     * @param model The model.
+     * Returns a String representing a list of module codes and the req types satisfied.
+     * @param sortedList The List of ModuleInfoCode.
+     * @param codeToReqMap The HashMap of ModuleInfoCode to CourseReqType.
      * @return a String.
      */
-    private static String generateResultString(Model model) {
-        String result = "Recommended modules to take (decreasing priority):\n";
-        ObservableList<ModuleInfoCode> sortedList = model.getRecModuleListSorted();
-        for (ModuleInfoCode moduleInfoCode : sortedList) {
-            result += moduleInfoCode.toString() + "\n";
+    private static String generateResultString(ObservableList<ModuleInfoCode> sortedList,
+                                               HashMap<ModuleInfoCode, CourseReqType> codeToReqMap) {
+        if (sortedList.isEmpty()) {
+            return MESSAGE_REQ_COMPLETED;
         }
 
-        return result;
+        StringBuilder sb = new StringBuilder().append("Recommended modules:\n");
+        for (ModuleInfoCode moduleInfoCode : sortedList) {
+            sb.append(moduleInfoCode.toString())
+                    .append(" [").append(codeToReqMap.get(moduleInfoCode).name()).append("]")
+                    .append("\n");
+        }
+
+        return sb.toString();
     }
 }

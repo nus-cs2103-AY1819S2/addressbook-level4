@@ -155,9 +155,9 @@ public class Analytics {
         for (int i = 0; i < numPeople; i++) {
             String currGender = personList.get(i).getGender().value;
 
-            if (currGender == "Female") {
+            if (currGender.equals("Female")) {
                 genderCount.set(0, genderCount.get(0) + 1);
-            } else if (currGender == "Male") {
+            } else if (currGender.equals("Male")) {
                 genderCount.set(1, genderCount.get(1) + 1);
             } else {
                 genderCount.set(2, genderCount.get(2) + 1);
@@ -180,11 +180,11 @@ public class Analytics {
         for (int i = 0; i < numPeople; i++) {
             String currRace = personList.get(i).getRace().value;
 
-            if (currRace == "Chinese") {
+            if (currRace.equals("Chinese")) {
                 raceCount.set(0, raceCount.get(0) + 1);
-            } else if (currRace == "Malay") {
+            } else if (currRace.equals("Malay")) {
                 raceCount.set(1, raceCount.get(1) + 1);
-            } else if (currRace == "Indian") {
+            } else if (currRace.equals("Indian")) {
                 raceCount.set(2, raceCount.get(2) + 1);
             } else {
                 raceCount.set(3, raceCount.get(3) + 1);

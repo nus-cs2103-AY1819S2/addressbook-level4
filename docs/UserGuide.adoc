@@ -93,6 +93,25 @@ _Figure 2_ below shows which colour is used for each status.
 
 .Cell colours
 image::maplegend.png[width=400]
+
+=== Placing a ship on the map: `put`
+
+Adds a battleship onto the player's map. The coordinates specified is the position of the battleship's head. +
+
+Format: `put n/NAME c/COORDINATES r/ORIENTATION` +
+
+Examples:
+
+* `put n/Destroyer c/a1 r/vertical`
+* `put n/Aircraft Carrier c/b1 r/h` +
+
+The head of the battleship is the top-most and left-most part of the ship. _Figure 3_ shows how a battleship is put at coordinate `a5`. The head of the battleship is therefore at `a5`. +
+
+.The `put` command will put the battleship at a5, which is the battleship's head coordinate.
+image::putshipheadexample.png[width=750]
+
+The orientation of the battleship can be horizontal or vertical. The orientation of the battleship must be specified. It may be shortened to `h` or `v`. +
+
 === Listing all ships : `list`
 
 Shows a list of all the player's battleships that are currently deployed on the map +

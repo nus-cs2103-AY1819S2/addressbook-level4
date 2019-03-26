@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import quickdocs.RootLayoutController;
@@ -219,6 +220,8 @@ public class MainApp extends Application {
         this.primaryStage.setTitle("QuickDocs");
         this.primaryStage.setMinWidth(400);
         this.primaryStage.setMinHeight(300);
+        Image image = new Image("images/quickdocsicon_512.png");
+        this.primaryStage.getIcons().add(image);
         initRootLayout();
     }
 

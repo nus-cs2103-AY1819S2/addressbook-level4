@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.ListConsultationCommandParser.PREFIX_NRIC;
-
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 

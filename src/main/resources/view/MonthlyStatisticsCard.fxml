@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="monthlyStatisticsCardPane" fx:id="monthlyStatisticsCardPane" xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns:fx="http://javafx.com/fxml/1">
+    <VBox id="monthlyStatisticsCard" alignment="CENTER" minHeight="110" minWidth="120" maxWidth="120">
+        <padding>
+            <Insets bottom="5" left="15" right="15" top="5" />
+        </padding>
+        <Label fx:id="year" styleClass="cell_small_label" text="\$year" />
+        <Label fx:id="month" styleClass="cell_medium_label" text="\$month" />
+        <Label fx:id="totalMonthlyRevenue" styleClass="cell_big_label" text="\$totalMonthlyRevenue" />
+    </VBox>
+</HBox>

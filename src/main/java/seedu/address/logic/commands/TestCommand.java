@@ -17,8 +17,7 @@ public class TestCommand extends Command {
     public static final String COMMAND_WORD = "test";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Enters a test session using the current card folder" +
-            ".\n"
+            + ": Enters a test session using the current card folder.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 

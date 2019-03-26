@@ -1,9 +1,14 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.BitSet;
+import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.BackCommand;
@@ -93,5 +98,14 @@ public class CardsView implements ListViewState {
                 selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
+    }
+
+    public void updateFilteredList(Predicate<Card> predicate) {
+        requireNonNull(predicate);
+        filteredCards.setPredicate(predicate);
+    }
+
+    public ObservableList<Card> getFilteredList() {
+        return filteredCards;
     }
 }

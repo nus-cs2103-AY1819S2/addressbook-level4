@@ -73,7 +73,7 @@ public class EditCardCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<ListItem> lastShownList = cardsView.getFilteredList();
+        List<Card> lastShownList = cardsView.getFilteredList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);

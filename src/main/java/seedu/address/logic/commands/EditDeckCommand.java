@@ -75,13 +75,13 @@ public class EditDeckCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<ListItem> currentDeckList = decksView.getFilteredList();
+        List<Deck> currentDeckList = decksView.getFilteredList();
 
         if (index.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
-        Deck deckToEdit = (Deck) currentDeckList.get(index.getZeroBased());
+        Deck deckToEdit = currentDeckList.get(index.getZeroBased());
         Deck editedDeck = createEditedDeck(deckToEdit, editDeckDescriptor);
 
         if (!deckToEdit.isSameDeck(editedDeck) && model.hasDeck(editedDeck)) {

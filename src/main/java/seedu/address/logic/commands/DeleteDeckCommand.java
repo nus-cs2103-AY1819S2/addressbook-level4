@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 
 import java.util.List;
 
@@ -39,13 +40,13 @@ public class DeleteDeckCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<ListItem> currentDeckList = decksView.getFilteredList();
+        List<Deck> currentDeckList = decksView.getFilteredList();
 
         if (targetIndex.getZeroBased() >= currentDeckList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
-        Deck deckToDelete = (Deck) currentDeckList.get(targetIndex.getZeroBased());
+        Deck deckToDelete = currentDeckList.get(targetIndex.getZeroBased());
         model.deleteDeck(deckToDelete);
         model.commitTopDeck();
         decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);

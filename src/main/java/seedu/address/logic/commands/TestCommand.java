@@ -45,25 +45,18 @@ public class TestCommand extends Command {
         if (model.checkIfInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
         }
-//OLD STUFF
-//        try {
-//            model.testCardFolder(targetIndex.getZeroBased());
-//            Card cardToTest = model.getCurrentTestedCard();
-//            return new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS, false, false, false, false, true, cardToTest,
-//                    false,
-//                    AnswerCommandResultType.NOT_ANSWER_COMMAND);
-//        } catch (EmptyCardFolderException e) {
-//            model.endTestSession();
-//            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_ON_EMPTY_FOLDER);
-//        }
 
-        model.setActiveCardFolderIndex(targetIndex.getZeroBased());
-        model.testCardFolder(targetIndex.getZeroBased());
-        Card cardToTest = model.getCurrentTestedCard();
-        CommandResult commandResult = new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
-                CommandResult.Type.START_TEST_SESSION);
-        commandResult.setTestSessionCard(cardToTest);
-        return commandResult;
+        try {
+            model.testCardFolder(targetIndex.getZeroBased());
+            Card cardToTest = model.getCurrentTestedCard();
+            CommandResult commandResult = new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
+                    CommandResult.Type.START_TEST_SESSION);
+            commandResult.setTestSessionCard(cardToTest);
+            return commandResult;
+        } catch (EmptyCardFolderException e) {
+            model.endTestSession();
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_ON_EMPTY_FOLDER);
+        }
     }
 
     @Override

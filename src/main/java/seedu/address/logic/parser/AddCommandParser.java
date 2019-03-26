@@ -35,6 +35,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
     public static final String INVALID_COMMAND_USAGE = AddCommand.MESSAGE_USAGE + "\n"
             + AddHealthWorkerCommand.MESSAGE_USAGE + "\n\n" + AddRequestCommand.MESSAGE_USAGE;
+    private static final String PREAMBLE_WHITESPACE = " ";
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -52,10 +53,21 @@ public class AddCommandParser implements Parser<AddCommand> {
     @Override
     public AddCommand parse(String args) throws ParseException {
         CommandMode commandMode = ArgumentTokenizer.checkMode(args);
+
         if (commandMode == CommandMode.HEALTH_WORKER) {
-            return parseAddHealthWorker(" " + ArgumentTokenizer.trimMode(args));
+            try {
+                return parseAddHealthWorker(PREAMBLE_WHITESPACE + ArgumentTokenizer.trimMode(args));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddHealthWorkerCommand.MESSAGE_USAGE));
+            }
         } else if (commandMode == CommandMode.REQUEST) {
-            return parseAddRequest(" " + ArgumentTokenizer.trimMode(args));
+            try {
+                return parseAddRequest(PREAMBLE_WHITESPACE + ArgumentTokenizer.trimMode(args));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddRequestCommand.MESSAGE_USAGE));
+            }
         }
 
         throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, INVALID_COMMAND_USAGE));
@@ -99,6 +111,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if there are invalid/unfilled fields.
      */
     private AddHealthWorkerCommand parseAddHealthWorker(String args) throws ParseException {
+
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_NAME, PREFIX_PHONE, PREFIX_ORGANIZATION, PREFIX_NRIC, PREFIX_SKILLS);
 

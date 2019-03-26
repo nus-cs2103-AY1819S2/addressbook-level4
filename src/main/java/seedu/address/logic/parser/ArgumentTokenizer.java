@@ -48,7 +48,7 @@ public class ArgumentTokenizer {
      * @param args argument string to trim
      * @return trimmed argument string.
      */
-    public static String trimMode(String args) {
+    public static String trimMode(String args) throws ArrayIndexOutOfBoundsException {
         return args.trim().split("\\s", 2)[1];
     }
 

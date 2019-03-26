@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 import org.junit.rules.ExpectedException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -56,6 +56,10 @@ public class ImportCommandTest {
         importCommand.execute(model, commandHistory);
     }
 
-
-
+    @After
+    public void deleteTempFile() {
+        if (file.exists()) {
+            assert(file.delete());
+        }
+    }
 }

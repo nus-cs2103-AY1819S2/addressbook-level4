@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.text.SimpleDateFormat;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -38,8 +40,8 @@ public class ReviewCard extends UiPart<Region> {
         super(FXML);
         this.review = review;
         id.setText(displayedIndex + ". ");
-        timestamp.setText(review.getTimeStamp().toLocalDateTime().toString());
-        rating.setText(review.getRating().value + " / 5.0");
+        timestamp.setText(new SimpleDateFormat("EEE, d MMM yyyy, h.mm aa").format(review.getTimeStamp()));
+        rating.setText(String.format("%.1f", review.getRating().toFloat()) + " / 5.0");
         entry.setText(review.getEntry().toString());
     }
 

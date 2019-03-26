@@ -27,7 +27,7 @@
                 </Label>
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
-            <FlowPane fx:id="dateCreated" />
+            <Label fx:id="dateCreated" styleClass="cell_small_label" text="\$dateCreated" />
             <Label fx:id="reviewMessage" styleClass="cell_small_label" text="\$reviewMessage" />
             <Label fx:id="bookName" styleClass="cell_small_label" text="\$bookName" />
         </VBox>

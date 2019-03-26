@@ -30,7 +30,7 @@ public class VersionedAddressBook extends AddressBook {
 
         removeStatesAfterCurrentPointer();
         addressBookStateList.add(new AddressBook(this));
-        if(AddressBook.filterExist) filterStateList.add(1);
+        if(getFilterInfo()) filterStateList.add(1);
         else filterStateList.add(0);
         currentStatePointer++;
         indicateModified();
@@ -52,12 +52,12 @@ public class VersionedAddressBook extends AddressBook {
 
         currentStatePointer--;
         resetData(addressBookStateList.get(currentStatePointer));
-        if(filterStateList.get(currentStatePointer) == 0) AddressBook.filterExist = false;
-        else AddressBook.filterExist = true;
-
-//        String temp = "FALSE";
-//        if(AddressBook.filterExist) temp = "TRUE";
-//        System.out.println("Undo --- All: " + this.getAllPersonsStorageList().size() + " - Persons: " + this.getPersonList().size() + " - Filter: "  + temp);
+        if (filterStateList.get(currentStatePointer) == 0) {
+            setFilterInfo(false);
+        }
+        else {
+            setFilterInfo(true);
+        }
     }
 
     /**
@@ -70,8 +70,8 @@ public class VersionedAddressBook extends AddressBook {
         }
         currentStatePointer++;
         resetData(addressBookStateList.get(currentStatePointer));
-        if(filterStateList.get(currentStatePointer) == 0) AddressBook.filterExist = false;
-        else  AddressBook.filterExist = true;
+        if(filterStateList.get(currentStatePointer) == 0) setFilterInfo(false);
+        else  setFilterInfo(true);
     }
 
     /**

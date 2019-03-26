@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -28,7 +27,10 @@ public class FilterCommand extends Command{
     private String name;
     private String phone;
     private String email;
-    private String[] tagList;
+    private String[] skillList;
+    private String[] posList;
+    private String gpa;
+    private String education;
     private String address;
     private boolean isFilterCleared;
 
@@ -53,17 +55,30 @@ public class FilterCommand extends Command{
         phone = criterion[1];
         email = criterion[2];
         address = criterion[3];
+        gpa = criterion[6];
+        education = criterion[7];
         isFilterCleared = false;
 
         if(criterion[4] != null) {
-            tagList = criterion[4].trim().split(",");
+            skillList = criterion[4].trim().split(",");
 
-            for(int i = 0; i < tagList.length; i++) {
-                tagList[i] = tagList[i].trim().toLowerCase();
+            for(int i = 0; i < skillList.length; i++) {
+                skillList[i] = skillList[i].trim().toLowerCase();
             }
         }
         else {
-            tagList = null;
+            skillList = null;
+        }
+
+        if(criterion[5] != null) {
+            posList = criterion[5].trim().split(",");
+
+            for(int i = 0; i < posList.length; i++) {
+                posList[i] = posList[i].trim().toLowerCase();
+            }
+        }
+        else {
+            posList = null;
         }
     }
 
@@ -75,18 +90,18 @@ public class FilterCommand extends Command{
         // or statement will be processed
         if(processNum == 1)  {
             isFilterCleared = false;
-            model.filterOr(name, phone, email, address, tagList);
+            model.filterOr(name, phone, email, address, skillList, posList, gpa, education);
         }
 
         // and statement will be processed
         else if(processNum == 2)  {
             isFilterCleared = false;
-            model.filterAnd(name, phone, email, address, tagList);
+            model.filterAnd(name, phone, email, address, skillList, posList, gpa, education);
         }
 
         // clear statement will be processed
         else {
-            if(AddressBook.filterExist) {
+            if(model.getFilterInfo()) {
                 model.clearFilter();
                 isFilterCleared = true;
             }

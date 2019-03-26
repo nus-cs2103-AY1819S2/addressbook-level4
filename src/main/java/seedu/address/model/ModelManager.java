@@ -156,15 +156,35 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void filterAnd(String name, String phone, String email, String address, String[] tagList) {
-        versionedAddressBook.filterAnd(name, phone, email, address, tagList);
+    public void filterAnd(String name, String phone, String email, String address, String[] skillList, String[] posList, String gpa, String education) {
+        versionedAddressBook.filterAnd(name, phone, email, address, skillList, posList, gpa, education);
         logger.info("Persons are filtered according to 'AND' condition.");
     }
 
     @Override
-    public void filterOr(String name, String phone, String email, String address, String[] tagList) {
-        versionedAddressBook.filterOr(name, phone, email, address, tagList);
+    public void filterOr(String name, String phone, String email, String address, String[] skillList, String[] posList, String gpa, String education) {
+        versionedAddressBook.filterOr(name, phone, email, address, skillList, posList, gpa, education);
         logger.info("Persons are filtered according to 'OR' condition.");
+    }
+
+    @Override
+    public boolean getFilterInfo() {
+        return versionedAddressBook.getFilterInfo();
+    }
+
+    @Override
+    public void setFilterInfo(boolean status) {
+        versionedAddressBook.setFilterInfo(status);
+    }
+
+    @Override
+    public boolean getSortInfo() {
+        return versionedAddressBook.getSortInfo();
+    }
+
+    @Override
+    public void setSortInfo(boolean status) {
+        versionedAddressBook.setSortInfo(status);
     }
 
     //=========== Undo/Redo =================================================================================

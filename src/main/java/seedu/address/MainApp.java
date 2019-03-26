@@ -176,7 +176,8 @@ public class MainApp extends Application {
     public void stop() {
 
         try {
-            if(AddressBook.filterExist) logic.removeFilterWhileExiting();
+            model.setFilterInfo(true);
+            logic.removeFilterWhileExiting();
         } catch (CommandException e) {
             logger.severe("Failed to clear the existing filter before closing the application.");
         }

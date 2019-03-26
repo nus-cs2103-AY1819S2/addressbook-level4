@@ -110,7 +110,6 @@ public class LogicManager implements Logic {
     public void removeFilterWhileExiting() throws CommandException{
 
         model.clearFilter();
-        logger.info("INFO: Address book is restored from filters while exiting.");
         try {
             storage.saveAddressBook(model.getAddressBook());
         } catch (IOException ioe) {

@@ -12,7 +12,7 @@ public class GPA {
 
     public static final String MESSAGE_CONSTRAINTS =
             "GPA values should only contain numbers, and it should be at least 1 digits long";
-    public static final String VALIDATION_REGEX = "\\d{1,}";
+    // public static final String VALIDATION_REGEX = "\\d{1,}";
     public final String value;
 
     /**
@@ -27,10 +27,19 @@ public class GPA {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid gpa.
      */
     public static boolean isValidGpa(String test) {
-        return test.matches(VALIDATION_REGEX);
+
+        try {
+            float value = Float.parseFloat(test.trim().toLowerCase());
+            if(value < 0.0 || value > 4.0) {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override

@@ -198,9 +198,12 @@ Deletes the second folder in the folder list, along with its cards, on the home 
 
 ==== Report user performance for folder : `report`
 
-Displays user performance on the right panel for the folder specified by index.
+Displays user performance in a fullscreen for the current card folder.
 
-Format: `report FOLDER_INDEX`
+Format: `report`
+
+[NOTE]
+This command is only considered valid inside a card folder.
 
 
 ==== Enter folder : `change`
@@ -416,7 +419,7 @@ questions displayed. The user is required to key in an answer for each question.
 |`change FOLDER_INDEX`|Enters the folder specified by index. Side panel on the left will display the list of cards in that folder.
 |`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
 |`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
-|`report FOLDER_INDEX` | Displays user performance on the right panel for the folder specified by index.
+|`report` | Displays user performance on the right panel for the current folder.
 |`test FOLDER_INDEX` | This command begins a test session, where the display area enters a fullscreen.
 |`ans ANSWER` | Enter answer for a flashcard.
 |`reveal` | Immediately reveals the correct answer.

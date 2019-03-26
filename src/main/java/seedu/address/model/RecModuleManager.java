@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.HashMap;
 
 import seedu.address.model.course.Course;
@@ -11,14 +13,15 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
  */
 public class RecModuleManager {
 
-    private final Course course;
-    private final VersionedGradTrak versionedAddressBook;
+    private final RecModulePredicate predicate;
+    private final RecModuleComparator comparator;
     private final HashMap<ModuleInfoCode, CourseReqType> codeToReqMap;
 
-    public RecModuleManager(Course course, VersionedGradTrak versionedAddressBook) {
-        this.course = course;
-        this.versionedAddressBook = versionedAddressBook;
+    public RecModuleManager(Course course, VersionedGradTrak versionedGradTrak) {
+        requireAllNonNull(course, versionedGradTrak);
         codeToReqMap = new HashMap<>();
+        predicate = new RecModulePredicate(course, versionedGradTrak, codeToReqMap);
+        comparator = new RecModuleComparator(codeToReqMap);
     }
 
     public HashMap<ModuleInfoCode, CourseReqType> getCodeToReqMap() {
@@ -26,10 +29,10 @@ public class RecModuleManager {
     }
 
     public RecModulePredicate getRecModulePredicate() {
-        return new RecModulePredicate(course, versionedAddressBook, codeToReqMap);
+        return predicate;
     }
 
     public RecModuleComparator getRecModuleComparator() {
-        return new RecModuleComparator(codeToReqMap);
+        return comparator;
     }
 }

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;

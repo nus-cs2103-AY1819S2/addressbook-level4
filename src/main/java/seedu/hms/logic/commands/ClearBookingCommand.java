@@ -11,8 +11,8 @@ import seedu.hms.model.HotelManagementSystem;
  */
 public class ClearBookingCommand extends BookingCommand {
 
-    public static final String COMMAND_ALIAS = "clearb";
-    public static final String COMMAND_WORD = "clearbookings";
+    public static final String COMMAND_ALIAS = "cb";
+    public static final String COMMAND_WORD = "clear-bookings";
     public static final String MESSAGE_SUCCESS = "Bookings have been cleared!";
 
 

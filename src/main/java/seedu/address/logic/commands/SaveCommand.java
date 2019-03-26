@@ -5,7 +5,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.io.IOException;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -42,7 +41,7 @@ public class SaveCommand extends Command {
         try {
             writeFile(model);
         } catch (IOException e) {
-            throw new CommandException(Messages.MESSAGE_INVALID_FILE_TYPE);
+            throw new CommandException(e.getMessage());
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
@@ -63,7 +62,7 @@ public class SaveCommand extends Command {
                 storage.saveAsPdf(model.getAddressBook(), parsedInput.getFile().toPath());
             }
         } catch (IOException e) {
-            throw new IOException();
+            throw new IOException(e.getMessage());
         }
     }
 }

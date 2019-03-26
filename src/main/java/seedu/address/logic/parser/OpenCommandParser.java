@@ -17,12 +17,8 @@ public class OpenCommandParser implements Parser<OpenCommand> {
     public OpenCommand parse(String args) throws ParseException {
         try {
             ParsedInOut parsedInOut = ParserUtil.parseOpenSave(args);
-            try {
-                openValidation(parsedInOut);
-                return new OpenCommand(parsedInOut.getFile());
-            } catch (ParseException pe) {
-                throw new ParseException(String.format("%s\n%s", pe.getMessage(), OpenCommand.MESSAGE_USAGE), pe);
-            }
+            openValidation(parsedInOut);
+            return new OpenCommand(parsedInOut.getFile());
         } catch (ParseException pe) {
             throw new ParseException(String.format("%s\n%s", pe.getMessage(), OpenCommand.MESSAGE_USAGE), pe);
         }

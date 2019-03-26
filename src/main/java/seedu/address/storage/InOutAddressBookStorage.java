@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -30,7 +32,15 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class InOutAddressBookStorage implements AddressBookStorage {
 
     private static final String TITLE = "OurTeeth";
-    private static final int TOPMARGIN = 20;
+    private static final PDFont TITLE_FONT = PDType1Font.HELVETICA_BOLD;
+    private static final int TITLE_FONT_SIZE = 20;
+    private static final int TOP_MARGIN = 20;
+    private static final PDFont DATE_TIME_FONT = PDType1Font.HELVETICA;
+    private static final int DATE_TIME_FONT_SIZE = 8;
+    private static final PDFont SUBTITLE_FONT = PDType1Font.HELVETICA_BOLD;
+    private static final int SUBTITLE_FONT_SIZE = 16;
+    private static final PDFont FONT = PDType1Font.HELVETICA;
+    private static final int FONT_SIZE = 12;
     private static final int LINE_SPACING = 3;
     private static final String TEETH_IMAGE_PATH = "src\\main\\resources\\images\\tooth.png";
 
@@ -111,71 +121,54 @@ public class InOutAddressBookStorage implements AddressBookStorage {
         FileUtil.createIfMissing(filePath);
 
         try (PDDocument doc = new PDDocument()) {
-            PDFont font = PDType1Font.HELVETICA;
-            int fontSize = 12;
-            PDFont titleFont = PDType1Font.HELVETICA_BOLD;
-            int titleFontSize = 20;
 
             for (PdfAdaptedPerson person : toWrite.getPersons()) {
-                writeModelObject(doc, titleFont, titleFontSize, font, fontSize, person, "Patients");
+                writeModelObject(doc, person, "Patients");
             }
 
             for (PdfAdaptedTask task : toWrite.getTasks()) {
-                writeModelObject(doc, titleFont, titleFontSize, font, fontSize, task, "Tasks");
+                writeModelObject(doc, task, "Tasks");
             }
 
             doc.save(filePath.toFile());
         } catch (IOException e) {
-            throw new IOException();
+            throw new IOException(e.getMessage());
         }
     }
 
     /**
      * Outputs the PDF adapted class object contents to a PDF page.
      * @param doc The PDF document
-     * @param titleFont The font type for the title to be used
-     * @param titleFontSize The font size for the title to be used
-     * @param font The font type to be used
-     * @param fontSize The font size to be used
      * @param pdfAdaptedObj The object to be printed
      * @throws IOException If file cannot be written
      */
-    private void writeModelObject(PDDocument doc, PDFont titleFont, int titleFontSize, PDFont font,
-                                  int fontSize, PdfAdaptedInterface pdfAdaptedObj, String type) throws IOException {
+    private void writeModelObject(PDDocument doc, PdfAdaptedInterface pdfAdaptedObj, String type) throws IOException {
         PDPage page = new PDPage(PDRectangle.A4);
         doc.addPage(page);
         ArrayList<String> stringArr = pdfAdaptedObj.getStrings();
-        float textWidth = font.getStringWidth(TITLE) / 1000 * titleFontSize;
-        float textHeight = font.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * titleFontSize;
-        float tx;
-        float ty;
+        float ty = TOP_MARGIN;
 
         try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
-            contents.setFont(titleFont, titleFontSize);
             PDImageXObject pdImage = PDImageXObject.createFromFile(TEETH_IMAGE_PATH, doc);
-            tx = ((page.getMediaBox().getWidth() - textWidth) - (pdImage.getWidth() * textHeight / 1000)) / 2;
-            ty = page.getMediaBox().getHeight() - TOPMARGIN - textHeight;
-            writeLine(contents, TITLE, tx, ty);
-            contents.drawImage(pdImage, tx + textWidth + (pdImage.getWidth() * textHeight / 1000) - 7, ty - 1,
-                        pdImage.getWidth() * textHeight / 1000,
-                        pdImage.getHeight() * textHeight / 1000);
+            contents.setFont(TITLE_FONT, TITLE_FONT_SIZE);
+            ty = writeTitle(contents, page, pdImage);
 
-            int subtitleFontSize = fontSize + Math.abs((titleFontSize - fontSize) / 2);
-            contents.setFont(titleFont, subtitleFontSize);
-            textWidth = font.getStringWidth(type) / 1000 * subtitleFontSize;
-            textHeight = font.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * subtitleFontSize;
-            tx = (page.getMediaBox().getWidth() - textWidth) / 2;
-            ty = page.getMediaBox().getHeight() - TOPMARGIN - textHeight - subtitleFontSize - LINE_SPACING * 4;
-            writeLine(contents, type, tx, ty);
+            contents.setFont(DATE_TIME_FONT, DATE_TIME_FONT_SIZE);
+            writeDateTime(contents, page);
 
-            contents.addRect(tx, ty, textWidth, 1);
+            contents.setFont(TITLE_FONT, SUBTITLE_FONT_SIZE);
+            ty = writeSubtitle(contents, page, type, ty);
 
-            contents.setFont(font, fontSize);
-            for (int i = 0; i < stringArr.size(); i++) {
-                writeLine(contents, stringArr.get(i), 50, 700 - (i * (fontSize + LINE_SPACING)));
+            ty = drawLine(contents, 10, page.getMediaBox().getWidth() - 10, ty);
+
+            contents.setFont(FONT, FONT_SIZE);
+            for (String toWrite : stringArr) {
+                ty = writeString(contents, toWrite, 50, ty);
             }
+
+            drawLine(contents, 10, page.getMediaBox().getWidth() - 10, ty);
         } catch (IOException e) {
-            throw new IOException();
+            throw new IOException(e.getMessage());
         }
     }
 
@@ -183,18 +176,187 @@ public class InOutAddressBookStorage implements AddressBookStorage {
      * Writes a single line of content.
      * @param contents The content stream for writing
      * @param toWrite The String to write
-     * @param tx The x coordinates to write at
-     * @param ty The y coordinates to write at
+     * @param tx The x coordinate to write at
+     * @param ty The y coordinate to write at
      * @throws IOException If file cannot be written
      */
-    private void writeLine(PDPageContentStream contents, String toWrite, float tx, float ty) throws IOException {
+    private float writeString(PDPageContentStream contents, String toWrite, float tx, float ty) throws IOException {
         try {
             contents.beginText();
             contents.newLineAtOffset(tx, ty);
             contents.showText(toWrite);
             contents.endText();
+            return ty - FONT_SIZE - LINE_SPACING;
         } catch (IOException e) {
-            throw new IOException();
+            throw new IOException("File cannot be written.");
+        }
+    }
+
+    /**
+     * Writes a single line of content followed by an image.
+     * @param contents The content stream for writing
+     * @param page The page to write to
+     * @param pdImage The Image to draw
+     * @throws IOException If file cannot be written
+     */
+    private float writeTitle(PDPageContentStream contents, PDPage page, PDImageXObject pdImage) throws IOException {
+        try {
+            float textWidth = TITLE_FONT.getStringWidth(TITLE) / 1000 * TITLE_FONT_SIZE;
+            float textHeight = TITLE_FONT.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * TITLE_FONT_SIZE;
+            float tx = ((page.getMediaBox().getWidth() - textWidth - (pdImage.getWidth() * textHeight / 1000)) / 2) - 3;
+            float ty = page.getMediaBox().getHeight() - TOP_MARGIN - textHeight;
+            contents.setFont(TITLE_FONT, TITLE_FONT_SIZE);
+            writeString(contents, TITLE, tx, ty);
+            contents.drawImage(pdImage, tx + textWidth + 5, ty - 1,
+                pdImage.getWidth() * textHeight / 1000, pdImage.getHeight() * textHeight / 1000);
+            return ty - TITLE_FONT_SIZE - LINE_SPACING;
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
+    }
+
+    /**
+     * Writes the date and time. Writes 3 lines.
+     * @param contents The content stream for writing
+     * @param page The page to write to
+     * @throws IOException If file cannot be written
+     */
+    private void writeDateTime(PDPageContentStream contents, PDPage page) throws IOException {
+        try {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/mm/yyyy");
+            LocalDateTime now = LocalDateTime.now();
+            String toWrite = "Date saved/exported:";
+            float textWidth = DATE_TIME_FONT.getStringWidth(toWrite) / 1000 * DATE_TIME_FONT_SIZE;
+            float textHeight = DATE_TIME_FONT.getFontDescriptor().getFontBoundingBox().getHeight()
+                                / 1000 * DATE_TIME_FONT_SIZE;
+            float tx = page.getMediaBox().getWidth() - textWidth - 20;
+            float ty = page.getMediaBox().getHeight() - TOP_MARGIN - textHeight;
+            writeString(contents, toWrite, tx, ty);
+            ty -= textHeight + LINE_SPACING;
+
+            textWidth = DATE_TIME_FONT.getStringWidth(dtf.format(now)) / 1000 * DATE_TIME_FONT_SIZE;
+            tx = page.getMediaBox().getWidth() - textWidth - 20;
+            writeString(contents, dtf.format(now), tx, ty);
+            ty -= textHeight + LINE_SPACING;
+
+            dtf = DateTimeFormatter.ofPattern("hh:mm:ss");
+            textWidth = DATE_TIME_FONT.getStringWidth(dtf.format(now)) / 1000 * DATE_TIME_FONT_SIZE;
+            tx = page.getMediaBox().getWidth() - textWidth - 20;
+            writeString(contents, dtf.format(now), tx, ty);
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
+    }
+
+    /**
+     * Writes a single line of content that is underlined.
+     * @param contents The content stream for writing
+     * @param page The page to write to
+     * @param toWrite The String to write
+     * @param ty The y coordinate to write at
+     * @return The next ty
+     * @throws IOException If file cannot be written
+     */
+    private float writeSubtitle(PDPageContentStream contents, PDPage page, String toWrite,
+                                float ty) throws IOException {
+        try {
+            float textWidth = SUBTITLE_FONT.getStringWidth(toWrite) / 1000 * SUBTITLE_FONT_SIZE;
+            float tx = (page.getMediaBox().getWidth() - textWidth) / 2;
+            writeString(contents, toWrite, tx, ty - 1);
+            contents.moveTo(tx, ty - LINE_SPACING);
+            contents.lineTo(tx + textWidth, ty - LINE_SPACING);
+            contents.stroke();
+            return ty - SUBTITLE_FONT_SIZE - LINE_SPACING;
+        } catch (IOException e) {
+            throw new IOException("File cannot be written.");
+        }
+    }
+
+    /**
+     * Draws a single line.
+     * @param contents The content stream for writing
+     * @param start The start x coordinate of the line
+     * @param end The end x coordinate of the line
+     * @param ty The y coordinate to write at
+     * @return The next ty
+     * @throws IOException If file cannot be written
+     */
+    private float drawLine(PDPageContentStream contents, float start, float end, float ty) throws IOException {
+        try {
+            contents.moveTo(start, ty - LINE_SPACING);
+            contents.lineTo(end, ty - LINE_SPACING);
+            contents.stroke();
+            return ty - (10 * LINE_SPACING);
+        } catch (IOException e) {
+            throw new IOException("File cannot be written.");
+        }
+    }
+
+
+    /**
+     * Writes a single line of content followed by an image.
+     * @param contents The content stream for writing
+     * @param page The page to write to
+     * @param toWrite The String to write
+     * @param pdImage The Image to draw
+     * @param ty The y coordinate to write at
+     * @return The next ty
+     * @throws IOException If file cannot be written
+     */
+    private float writeStringWithIcon(PDPageContentStream contents, PDPage page, String toWrite, PDImageXObject pdImage,
+                                    float ty) throws IOException {
+        try {
+            float textWidth = FONT.getStringWidth(toWrite) / 1000 * FONT_SIZE;
+            float textHeight = FONT.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * FONT_SIZE;
+            float tx = (page.getMediaBox().getWidth() - textWidth - (pdImage.getWidth() * textHeight / 1000)) / 2;
+            contents.setFont(FONT, FONT_SIZE);
+            writeString(contents, toWrite, tx, ty);
+            contents.drawImage(pdImage, tx + textWidth, ty - LINE_SPACING,
+                pdImage.getWidth() * textHeight / 1000, pdImage.getHeight() * textHeight / 1000);
+            return ty - FONT_SIZE - LINE_SPACING;
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
+        }
+    }
+
+    /**
+     * Writes a single line of content that is underlined.
+     * @param contents The content stream for writing
+     * @param toWrite The String to write
+     * @param tx The x coordinate to write at
+     * @param ty The y coordinate to write at
+     * @return The next ty
+     * @throws IOException If file cannot be written
+     */
+    private float writeStringWithUnderline(PDPageContentStream contents, String toWrite, float tx,
+                                         float ty) throws IOException {
+        try {
+            float textWidth = FONT.getStringWidth(toWrite) / 1000 * FONT_SIZE;
+            contents.setFont(FONT, FONT_SIZE);
+            writeString(contents, toWrite, tx, ty);
+            contents.moveTo(tx, ty - 1);
+            contents.lineTo(tx + textWidth, ty - 1);
+            contents.stroke();
+            return ty - TITLE_FONT_SIZE - LINE_SPACING;
+        } catch (IOException e) {
+            throw new IOException("File cannot be written.");
+        }
+    }
+
+    /**
+     * Draws an image.
+     * @param contents The content stream for writing
+     * @param image The image to draw
+     * @param tx The x coordinates to draw at
+     * @param ty The y coordinates to draw at
+     * @throws IOException
+     */
+    private void drawImage(PDPageContentStream contents, PDImageXObject image, float tx, float ty) throws IOException {
+        try {
+            contents.drawImage(image, tx + ((float) image.getWidth() / 1000) - 7,
+                            ty - 1, (float) image.getWidth() / 1000, (float) image.getHeight() / 1000);
+        } catch (IOException e) {
+            throw new IOException(e.getMessage());
         }
     }
 }

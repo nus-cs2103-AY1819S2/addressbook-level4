@@ -11,6 +11,9 @@ import java.util.TreeMap;
  */
 public class Statistics {
 
+    private static final String MESSAGE_EMPTY_STATISTICS = "Conditions and their related occurences are not available";
+    private static final String MESSAGE_SUCCESS_STATISTICS = "Conditions and Occurences displayed successfully";
+
     private static Map<Condition, Integer> statistics;
 
     public Statistics() {
@@ -32,10 +35,6 @@ public class Statistics {
             return statistics.get(condition);
         else
             return 0;
-    }
-
-    public static Integer getSize(){
-        return statistics.size();
     }
 
     /**
@@ -67,9 +66,12 @@ public class Statistics {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Conditions and Occurences:\n");
+        if(statistics.isEmpty()) {
+            return MESSAGE_EMPTY_STATISTICS;
+        }
         for (Map.Entry<Condition, Integer> statistic : statistics.entrySet()) {
             stringBuilder.append(statistic.getKey())
-                    .append(": ").append(statistic.getValue()).append(" occurences");
+                    .append(": ").append(statistic.getValue()).append(" occurences\n");
         }
         return stringBuilder.toString();
     }

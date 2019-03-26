@@ -31,6 +31,12 @@
           <Menu mnemonicParsing="false" text="Help">
             <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
           </Menu>
+          <Menu mnemonicParsing="false" text ="Theme">
+            <MenuItem fx:id="LightTheme" mnemonicParsing ='false' onAction ='#setLightTheme' text="Light" />
+            <MenuItem fx:id="DarkTheme" mnemonicParsing="false" onAction="#setDarkTheme" text="Dark" />
+            <MenuItem fx:id="BlueTheme" mnemonicParsing="false" onAction="#setBlueTheme" text="Blue" />
+            <MenuItem fx:id="PinkTheme" mnemonicParsing="false" onAction="#setPinkTheme" text="Pink" />
+          </Menu>
         </MenuBar>
 
         <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">

@@ -328,6 +328,7 @@ public class ModelManager implements Model {
             File outputFile = new File(name);
             File latestImage = new File(TEMP_FILE);
             File saveDirectory = new File(ASSETS_FILEPATH);
+            System.out.println("Should not be called");
             latestImage.renameTo(outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
             setCurrentImage(currentImage);

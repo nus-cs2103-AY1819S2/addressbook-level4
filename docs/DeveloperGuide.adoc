@@ -1,7 +1,7 @@
 = HMS+ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
-:toc-title:
+:toc-title: Contents
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-t12-1/main
 
-By: `cs2103-ay1819s2-t12-1`      Since: `Feb 2019`      Licence: `MIT`
+By: `Team T12-1`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 

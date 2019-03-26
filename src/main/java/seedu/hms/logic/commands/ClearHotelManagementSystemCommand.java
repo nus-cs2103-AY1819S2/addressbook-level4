@@ -9,11 +9,11 @@ import seedu.hms.model.Model;
 /**
  * Clears the hms book.
  */
-public class ClearCustomerCommand extends Command {
+public class ClearHotelManagementSystemCommand extends Command {
 
-    public static final String COMMAND_ALIAS = "clearc";
-    public static final String COMMAND_WORD = "clearcustomers";
-    public static final String MESSAGE_SUCCESS = "hms book has been cleared!";
+    public static final String COMMAND_ALIAS = "clear-all";
+    public static final String COMMAND_WORD = "clear-hms";
+    public static final String MESSAGE_SUCCESS = "HMS+ book has been cleared!";
 
 
     @Override

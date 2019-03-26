@@ -26,6 +26,7 @@ import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.exceptions.DuplicateCustomerException;
+import seedu.hms.model.reservation.Reservation;
 import seedu.hms.testutil.CustomerBuilder;
 
 public class HotelManagementSystemTest {
@@ -57,7 +58,8 @@ public class HotelManagementSystemTest {
         Customer editedAlice = new CustomerBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
             .build();
         List<Customer> newCustomers = Arrays.asList(ALICE, editedAlice);
-        HotelManagementSystemStub newData = new HotelManagementSystemStub(newCustomers, new ArrayList<>());
+        HotelManagementSystemStub newData = new HotelManagementSystemStub(newCustomers, new ArrayList<>(),
+            new ArrayList<>());
 
         thrown.expect(DuplicateCustomerException.class);
         hotelManagementSystem.resetData(newData);
@@ -119,11 +121,17 @@ public class HotelManagementSystemTest {
     private static class HotelManagementSystemStub implements ReadOnlyHotelManagementSystem {
         private final ObservableList<Customer> customers = FXCollections.observableArrayList();
         private final ObservableList<Booking> bookings = FXCollections.observableArrayList();
+<<<<<<< HEAD
         private final ObservableList<ServiceType> serviceTypes = FXCollections.observableArrayList();
+=======
+        private final ObservableList<Reservation> reservations = FXCollections.observableArrayList();
+>>>>>>> f16231261242389059b205acb2980dbab0ff02c6
 
-        HotelManagementSystemStub(Collection<Customer> customers, Collection<Booking> bookings) {
+        HotelManagementSystemStub(Collection<Customer> customers, Collection<Booking> bookings,
+                                  Collection<Reservation> reservations) {
             this.customers.setAll(customers);
             this.bookings.setAll(bookings);
+            this.reservations.setAll(reservations);
         }
 
         @Override
@@ -137,8 +145,13 @@ public class HotelManagementSystemTest {
         }
 
         @Override
+<<<<<<< HEAD
         public ObservableList<ServiceType> getServiceTypeList() {
             return serviceTypes;
+=======
+        public ObservableList<Reservation> getReservationList() {
+            return reservations;
+>>>>>>> f16231261242389059b205acb2980dbab0ff02c6
         }
 
         @Override

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.reservation.Reservation;
 
 /**
  * Unmodifiable view of an hms book
@@ -23,7 +24,13 @@ public interface ReadOnlyHotelManagementSystem extends Observable {
     ObservableList<Booking> getBookingList();
 
     /**
+<<<<<<< HEAD
      * Returns an unmodifiable view of the bookings list.
      */
     ObservableList<ServiceType> getServiceTypeList();
+=======
+     * Returns an unmodifiable view of the reservations list.
+     */
+    ObservableList<Reservation> getReservationList();
+>>>>>>> f16231261242389059b205acb2980dbab0ff02c6
 }

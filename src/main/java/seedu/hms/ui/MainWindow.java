@@ -129,7 +129,7 @@ public class MainWindow extends UiPart<Stage> {
                 this::executeCommand);
 
         reservationListPanel = new ReservationListPanel(logic.getFilteredBookingList(), logic.selectedBookingProperty(),
-                logic::setSelectedBooking);
+            logic::setSelectedBooking);
 
         bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel);
         bookingAndReservationPanelPlaceholder.getChildren().add(bookingAndReservationPanel.getRoot());

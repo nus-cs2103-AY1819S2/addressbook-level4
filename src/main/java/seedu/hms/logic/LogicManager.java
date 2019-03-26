@@ -11,15 +11,18 @@ import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.CommandResult;
 import seedu.hms.logic.commands.CustomerCommand;
+import seedu.hms.logic.commands.ReservationCommand;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.HotelManagementSystemParser;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
+import seedu.hms.model.ReservationModel;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
+import seedu.hms.model.reservation.Reservation;
 import seedu.hms.storage.Storage;
 
 /**
@@ -31,14 +34,17 @@ public class LogicManager implements Logic {
 
     private final CustomerModel customerModel;
     private final BookingModel bookingModel;
+    private final ReservationModel reservationModel;
     private final Storage storage;
     private final CommandHistory history;
     private final HotelManagementSystemParser hotelManagementSystemParser;
     private boolean hotelManagementSystemModified;
 
-    public LogicManager(CustomerModel customerModel, BookingModel bookingModel, Storage storage) {
+    public LogicManager(CustomerModel customerModel, BookingModel bookingModel, ReservationModel reservationModel,
+                        Storage storage) {
         this.customerModel = customerModel;
         this.bookingModel = bookingModel;
+        this.reservationModel = reservationModel;
         this.storage = storage;
         history = new CommandHistory();
         hotelManagementSystemParser = new HotelManagementSystemParser();
@@ -46,6 +52,7 @@ public class LogicManager implements Logic {
         // Set hotelManagementSystemModified to true whenever the models' hms book is modified.
         customerModel.getHotelManagementSystem().addListener(observable -> hotelManagementSystemModified = true);
         bookingModel.getHotelManagementSystem().addListener(observable -> hotelManagementSystemModified = true);
+        reservationModel.getHotelManagementSystem().addListener(observable -> hotelManagementSystemModified = true);
     }
 
     @Override
@@ -58,6 +65,8 @@ public class LogicManager implements Logic {
             Command command = hotelManagementSystemParser.parseCommand(commandText, customerModel, bookingModel);
             if (command instanceof CustomerCommand) {
                 commandResult = command.execute(customerModel, history);
+            } else if (command instanceof ReservationCommand) {
+                commandResult = command.execute(reservationModel, history);
             } else {
                 commandResult = command.execute(bookingModel, history);
             }
@@ -93,8 +102,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
+<<<<<<< HEAD
     public ObservableList<ServiceType> getServiceTypeList() {
         return bookingModel.getServiceTypeList();
+=======
+    public ObservableList<Reservation> getFilteredReservationList() {
+        return reservationModel.getFilteredReservationList();
+>>>>>>> f16231261242389059b205acb2980dbab0ff02c6
     }
 
     @Override
@@ -143,7 +157,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
+<<<<<<< HEAD
     public void setSelectedServiceType(ServiceType serviceType) {
         bookingModel.setSelectedServiceType(serviceType);
+=======
+    public void setSelectedReservation(Reservation reservation) {
+        reservationModel.setSelectedReservation(reservation);
+>>>>>>> f16231261242389059b205acb2980dbab0ff02c6
     }
 }

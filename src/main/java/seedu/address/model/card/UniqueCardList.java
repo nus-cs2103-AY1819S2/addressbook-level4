@@ -14,16 +14,10 @@ import seedu.address.model.card.exceptions.DuplicateCardException;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
-<<<<<<< HEAD
- * A card is considered unique by comparing using {@code Card#equals(Card)}. As such, adding and updating of
- * cards uses Card#equals(Card) for equality so as to ensure that the card being added or updated is
- * unique in terms of identity in the UniqueCardList.
-=======
  * A card is considered unique by comparing using {@code Card#isSameCard(Card)}. As such, adding and updating of
  * cards uses Card#isSameCard(Card) for equality so as to ensure that the card being added or updated is
  * unique in terms of identity in the UniqueCardList. However, the removal of a card uses Card#equals(Object) so
  * as to ensure that the card with exactly the same fields will be removed.
->>>>>>> parent of 76f8cb02... replace all isSameCard with equal
  *
  * Supports a minimal set of list operations.
  *

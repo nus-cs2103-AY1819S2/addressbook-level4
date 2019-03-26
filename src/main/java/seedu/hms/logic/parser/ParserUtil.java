@@ -22,7 +22,9 @@ import seedu.hms.model.customer.Email;
 import seedu.hms.model.customer.IdentificationNo;
 import seedu.hms.model.customer.Name;
 import seedu.hms.model.customer.Phone;
+import seedu.hms.model.reservation.RoomType;
 import seedu.hms.model.tag.Tag;
+import seedu.hms.model.util.DateRange;
 import seedu.hms.model.util.TimeRange;
 
 
@@ -153,6 +155,29 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String roomName} into a {@code RoomType}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code roomName} is invalid.
+     */
+    public static RoomType parseRoom(String roomName) throws ParseException {
+        requireNonNull(roomName);
+        String trimmedRoomName = roomName.trim();
+        switch (trimmedRoomName) {
+        case "SINGLE ROOM":
+            return RoomType.SINGLE;
+        case "DOUBLE ROOM":
+            return RoomType.DOUBLE;
+        case "DELUXE ROOM":
+            return RoomType.DELUXE;
+        case "FAMILY SUITE":
+            return RoomType.SUITE;
+        default:
+            throw new ParseException(String.format("Room Type %s doesn't exist!", trimmedRoomName));
+        }
+    }
+
+    /**
      * Parses a {@code String serviceName} into a {@code ServiceType}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -187,14 +212,25 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String timing} into a {@code TimeRange}.
+     * Parses a {@code String dates} into a {@code DateRange}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateRange parseDates(String dates) throws ParseException {
+        requireNonNull(dates);
+        String trimmedDates = dates.trim();
+        String[] dateRange = trimmedDates.split("-");
+        return new DateRange(dateRange[0].trim(), dateRange[1].trim());
+    }
+
+    /**
+     * Parses a {@code String customerIndex} into a {@code Customer} using the {@code customers}.
      * Leading and trailing whitespaces will be trimmed.
      */
     public static Customer parseCustomer(String customerIndex, List<Customer> customers) throws ParseException {
         requireNonNull(customerIndex);
         try {
             int index = Integer.parseInt(customerIndex);
-            return customers.get(index);
+            return customers.get(index - 1);
         } catch (Exception e) {
             throw new ParseException(String.format("Invalid customer index - %s", customerIndex));
         }
@@ -208,7 +244,7 @@ public class ParserUtil {
         requireNonNull(customerIndices);
         final List<Customer> result = new ArrayList<>();
         for (String customerIndex : customerIndices) {
-            result.add(customers.get(Integer.parseInt(customerIndex)));
+            result.add(customers.get(Integer.parseInt(customerIndex) - 1));
         }
         return Optional.of(result);
     }

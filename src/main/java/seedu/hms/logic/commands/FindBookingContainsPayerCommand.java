@@ -18,9 +18,9 @@ public class FindBookingContainsPayerCommand extends BookingCommand {
     public static final String COMMAND_WORD = "findbookingcontainspayer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all bookings which is paid by the selected "
-            + "customer\n"
-            + "Parameters: CUSTOMER_IDENTIFICATION_NUMBER\n"
-            + "Example: " + COMMAND_WORD + " 1234567";
+        + "customer\n"
+        + "Parameters: CUSTOMER_IDENTIFICATION_NUMBER\n"
+        + "Example: " + COMMAND_WORD + " 1234567";
 
     private final BookingContainsPayerPredicate predicate;
 
@@ -34,13 +34,13 @@ public class FindBookingContainsPayerCommand extends BookingCommand {
         model.updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
         model.updateFilteredBookingList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_BOOKINGS_LISTED_OVERVIEW, model.getFilteredBookingList().size()));
+            String.format(Messages.MESSAGE_BOOKINGS_LISTED_OVERVIEW, model.getFilteredBookingList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FindBookingContainsPayerCommand // instanceof handles nulls
-                && predicate.equals(((FindBookingContainsPayerCommand) other).predicate)); // state check
+            || (other instanceof FindBookingContainsPayerCommand // instanceof handles nulls
+            && predicate.equals(((FindBookingContainsPayerCommand) other).predicate)); // state check
     }
 }

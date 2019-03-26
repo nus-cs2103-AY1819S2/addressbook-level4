@@ -6,11 +6,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.hms.commons.exceptions.IllegalValueException;
-import seedu.hms.model.customer.Customer;
 import seedu.hms.model.util.TimeRange;
 
 /**
- * Jackson-friendly version of {@link Customer}.
+ * Jackson-friendly version of {@link TimeRange}.
  */
 class JsonAdaptedTimeRange {
 

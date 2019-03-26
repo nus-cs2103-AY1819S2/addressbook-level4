@@ -115,7 +115,11 @@ public class UniquePersonList implements Iterable<Person> {
                 }
 
                 int result = first.compareTo(second);
-                return result;
+                if (result != 0) {
+                    return result;
+                } else {
+                    return o1.getName().fullName.compareTo(o2.getName().fullName);
+                }
             }
         });
     }

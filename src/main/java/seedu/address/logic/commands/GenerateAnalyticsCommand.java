@@ -11,11 +11,12 @@ import seedu.address.model.Model;
 public class GenerateAnalyticsCommand extends Command {
 
     public static final String COMMAND_WORD = "analytics";
+    public static final String MESSAGE_SUCCESS = "Analytics generated!";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        return new CommandResult(model.generateAnalytics());
+        return new CommandResult(MESSAGE_SUCCESS, model.generateAnalytics());
     }
 
 }

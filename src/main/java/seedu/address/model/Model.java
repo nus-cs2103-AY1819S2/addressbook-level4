@@ -240,7 +240,9 @@ public interface Model {
 
     void addApp(Appointment app);
 
-    String listApp();
+    String listApp(LocalDate start, LocalDate end);
+
+    String listApp(Patient patient);
 
     Optional<Appointment> getAppointment(LocalDate date, LocalTime start);
 

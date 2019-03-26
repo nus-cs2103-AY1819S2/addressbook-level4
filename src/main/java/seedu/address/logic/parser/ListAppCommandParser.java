@@ -1,5 +1,11 @@
 package seedu.address.logic.parser;
 
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SUNDAY;
+import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.nextOrSame;
+import static java.time.temporal.TemporalAdjusters.previousOrSame;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.LocalDate;
@@ -33,9 +39,7 @@ public class ListAppCommandParser implements Parser<ListAppCommand> {
             return new ListAppCommand();
         }
 
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_FORMAT, PREFIX_DATE, PREFIX_NRIC);
-
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_FORMAT, PREFIX_DATE, PREFIX_NRIC);
         boolean listByDate = arePrefixesPresent(argMultimap, PREFIX_FORMAT, PREFIX_DATE);
         boolean listByNric = arePrefixesPresent(argMultimap, PREFIX_NRIC);
         boolean preamblePresent = argMultimap.getPreamble().isEmpty();
@@ -47,8 +51,9 @@ public class ListAppCommandParser implements Parser<ListAppCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListAppCommand.MESSAGE_USAGE));
         }
 
+        // List appointments by date
         if (listByDate) {
-            LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim());
+            LocalDate start = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim());
             String format = argMultimap.getValue(PREFIX_FORMAT).get().trim();
             // check if the format given is valid
             if (Arrays.stream(TOPICS).noneMatch(format::equalsIgnoreCase)) {
@@ -58,10 +63,26 @@ public class ListAppCommandParser implements Parser<ListAppCommand> {
                         + FORMAT_WEEK + ", "
                         + FORMAT_MONTH));
             }
-            return new ListAppCommand(format, date);
+            LocalDate end;
+            switch (format) {
+            case "day":
+                end = start;
+                break;
+            case "week":
+                end = start.with(nextOrSame(SUNDAY));
+                start = start.with(previousOrSame(MONDAY));
+                break;
+            case "month":
+                end = start.with(lastDayOfMonth());
+                start = start.with(firstDayOfMonth());
+                break;
+            default:
+                end = start;
+            }
+            return new ListAppCommand(start, end);
         }
 
-        // List by nric
+        // List appointments by patient's nric
         Nric nric = new Nric(argMultimap.getValue(PREFIX_NRIC).get().trim());
         return new ListAppCommand(nric);
     }

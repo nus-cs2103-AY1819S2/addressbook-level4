@@ -19,14 +19,14 @@ public class GenderContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return (keywords == null) || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getGender().value, keyword));
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getGender().value, keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof GenderContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((GenderContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof GenderContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((GenderContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

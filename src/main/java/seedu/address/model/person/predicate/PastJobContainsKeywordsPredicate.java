@@ -20,15 +20,15 @@ public class PastJobContainsKeywordsPredicate implements Predicate<Person> {
     public boolean test(Person person) {
 
         return (keywords == null) || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(StringUtil.getSetString
-                    (person.getPastJobs()), keyword));
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(StringUtil.getSetString
+                (person.getPastJobs()), keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof PastJobContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((PastJobContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof PastJobContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((PastJobContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

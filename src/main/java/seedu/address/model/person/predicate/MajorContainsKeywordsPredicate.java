@@ -19,14 +19,14 @@ public class MajorContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return (keywords == null) || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getMajor().value, keyword));
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getMajor().value, keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MajorContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((MajorContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof MajorContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((MajorContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

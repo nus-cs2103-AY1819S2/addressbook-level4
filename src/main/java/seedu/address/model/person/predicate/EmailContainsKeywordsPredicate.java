@@ -19,14 +19,14 @@ public class EmailContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return (keywords == null) || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword));
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().value, keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EmailContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((EmailContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof EmailContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((EmailContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

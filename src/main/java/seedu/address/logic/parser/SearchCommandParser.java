@@ -50,8 +50,9 @@ public class SearchCommandParser implements Parser<SearchCommand> {
     public SearchCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RACE, PREFIX_ADDRESS,
-                        PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_KNOWNPROGLANG, PREFIX_PASTJOB, PREFIX_TAG);
+            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_RACE, PREFIX_ADDRESS,
+                PREFIX_SCHOOL, PREFIX_MAJOR, PREFIX_KNOWNPROGLANG, PREFIX_PASTJOB, PREFIX_TAG, PREFIX_GENDER,
+                PREFIX_NRIC, PREFIX_JOBSAPPLY, PREFIX_KNOWNPROGLANG);
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(

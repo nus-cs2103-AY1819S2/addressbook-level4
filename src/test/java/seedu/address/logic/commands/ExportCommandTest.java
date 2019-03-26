@@ -103,9 +103,12 @@ public class ExportCommandTest {
             }
             assertArrayEquals(expectedData, actualData);
             List<Medicine> currentGuiList = model.getFilteredMedicineList();
+            List<Medicine> lowQuantityMedicineList = model.getLowQuantityMedicinesList();
             Iterator iterator = currentGuiList.listIterator();
             while (iterator.hasNext()) {
                 Medicine current = (Medicine) iterator.next();
+                List<Batch> listOfBatchesExpiringSoon = current.getFilteredBatch(
+                        model.getWarningPanelPredicateAccessor().getBatchExpiringPredicate());
                 if (current.getBatches().size() == 0) {
                     continue;
                 }
@@ -138,6 +141,18 @@ public class ExportCommandTest {
                         builder.append(formattedCurrentTagString);
                         if (buildIterator.hasNext()) {
                             builder.append(' ');
+                        }
+                    }
+                    builder.append(delimiter);
+                    if (lowQuantityMedicineList.contains(current)) {
+                        builder.append(CsvWrapper.getDefaultLowStockNotification());
+                        if (listOfBatchesExpiringSoon.contains(currentBatch)) {
+                            builder.append(' ');
+                            builder.append(CsvWrapper.getDefaultExpiringSoonNotification());
+                        }
+                    } else {
+                        if (listOfBatchesExpiringSoon.contains(currentBatch)) {
+                            builder.append(CsvWrapper.getDefaultExpiringSoonNotification());
                         }
                     }
                     expectedData = builder.toString().split("\\|");

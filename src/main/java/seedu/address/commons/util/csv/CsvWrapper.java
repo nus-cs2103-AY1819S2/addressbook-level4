@@ -29,6 +29,8 @@ import seedu.address.model.tag.Tag;
 public class CsvWrapper {
 
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to csv file: ";
+    public static final String DEFAULT_EXPIRING_SOON_NOTIFICATION = "[EXPIRING SOON]";
+    public static final String DEFAULT_LOW_STOCK_NOTIFICATION = "[LOW STOCK]";
     private static String[] defaultHeading = {"Name", "Batch Number", "Quantity", "Expiry Date", "Company", "Tags",
                                               "Notifications"};
     private static final String DEFAULT_EXPORT_FOLDER_NAME = "exported";
@@ -51,8 +53,9 @@ public class CsvWrapper {
     public void export() throws CommandException {
         try {
             List<Medicine> currentGuiList = model.getFilteredMedicineList();
+            List<Medicine> lowQuantityMedicineList = model.getLowQuantityMedicinesList();
             createCsvFile(csvFileName);
-            writeDataToCsv(currentGuiList);
+            writeDataToCsv(currentGuiList, lowQuantityMedicineList);
         } catch (CommandException ce) {
             doCleanUp();
             throw ce;
@@ -100,9 +103,10 @@ public class CsvWrapper {
      * it will be ignored and not written in the csv file. This is due to the fact that there is no useful information
      * to be compiled to the csv file for those medicines without any batches.
      * @param currentGuiList The current list displayed in the GUI when the export command is called.
+     * @param lowQuantityMedicineList The list of low quantity medicines (Medicines with low stock)
      * @throws CommandException If there is an error exporting the current list in the GUI to a csv file.
      */
-    private void writeDataToCsv(List currentGuiList) throws CommandException {
+    private void writeDataToCsv(List currentGuiList, List lowQuantityMedicineList) throws CommandException {
         try (CSVWriter csvWriter = new CSVWriter(new FileWriter(csvFilePath.toString()))) {
             csvWriter.writeNext(defaultHeading);
             Iterator iterator = currentGuiList.listIterator();
@@ -111,7 +115,8 @@ public class CsvWrapper {
                 if (isMedicineInitialised(current) == false) {
                     continue;
                 }
-                List<String[]> medicineDataStringArray = processMedicineData(current);
+                List<String[]> medicineDataStringArray = processMedicineData(current, isMedicineLowQuantity(current,
+                        lowQuantityMedicineList));
                 csvWriter.writeAll(medicineDataStringArray);
             }
         } catch (IOException ioe) {
@@ -149,18 +154,35 @@ public class CsvWrapper {
     }
 
     /**
+     * Returns a list batch of the input medicine that are expiring soon.
+     * Note: It returns an empty list of the input medicine does not have any batches that is expiring soon.
+     * @param medicine The input medicine .
+     * @return Returns a list batch of the input medicine that are expiring soon.
+     * It returns an empty list of the input medicine does not have any batches that is expiring soon.
+     */
+    private List<Batch> getListOfBatchExpiringSoon(Medicine medicine) {
+        return medicine.getFilteredBatch(model.getWarningPanelPredicateAccessor().getBatchExpiringPredicate());
+    }
+
+    private boolean isMedicineLowQuantity(Medicine medicine, List lowQuantityMedicineList) {
+        return lowQuantityMedicineList.contains(medicine);
+    }
+
+    /**
      * Processes the input medicine data and returns a List of String Array
      * representation of the input medicine data for writing to csv file.
      * @param medicine The input medicine.
+     * @param isMedicineLowQuantity The input medicine low quantity status: It is true, if it is low stock else
+     *                              it is false.
      * @return Returns a list of String Array containing the input medicine data for writing to csv file.
      */
-    private List<String[]> processMedicineData(Medicine medicine) {
+    private List<String[]> processMedicineData(Medicine medicine, boolean isMedicineLowQuantity) {
         List<String[]> result = new ArrayList<>();
         Collection<Batch> batches = medicine.getBatches().values();
         Iterator iterator = batches.iterator();
         while (iterator.hasNext()) {
             Batch currentBatch = (Batch) iterator.next();
-            String[] currentData = buildStringArray(medicine, currentBatch);
+            String[] currentData = buildStringArray(medicine, currentBatch, isMedicineLowQuantity);
             result.add(currentData);
         }
         return result;
@@ -171,11 +193,14 @@ public class CsvWrapper {
      * which will be written to the csv file.
      * @param medicine The input medicine.
      * @param batch The input batch of the input medicine.
+     * @param isMedicineLowQuantity The input medicine low quantity status: It is true, if it is low stock else
+     *                              it is false.
      * @return A String Array containing detailed information of the medicine.
      */
-    private String[] buildStringArray(Medicine medicine, Batch batch) {
+    private String[] buildStringArray(Medicine medicine, Batch batch, boolean isMedicineLowQuantity) {
         final StringBuilder builder = new StringBuilder();
         String delimiter = "|";
+        List<Batch> listOfBatchesExpiringSoon = getListOfBatchExpiringSoon(medicine);
         String[] result;
         builder.append(medicine.getName())
                 .append(delimiter)
@@ -196,11 +221,31 @@ public class CsvWrapper {
                 builder.append(' ');
             }
         }
+        builder.append(delimiter);
+        if (isMedicineLowQuantity) {
+            builder.append(DEFAULT_LOW_STOCK_NOTIFICATION);
+            if (listOfBatchesExpiringSoon.contains(batch)) {
+                builder.append(' ');
+                builder.append(DEFAULT_EXPIRING_SOON_NOTIFICATION);
+            }
+        } else {
+            if (listOfBatchesExpiringSoon.contains(batch)) {
+                builder.append(DEFAULT_EXPIRING_SOON_NOTIFICATION);
+            }
+        }
         result = builder.toString().split("\\|");
         return result;
     }
 
     public static String[] getDefaultHeading() {
         return defaultHeading;
+    }
+
+    public static String getDefaultExpiringSoonNotification() {
+        return DEFAULT_EXPIRING_SOON_NOTIFICATION;
+    }
+
+    public static String getDefaultLowStockNotification() {
+        return DEFAULT_LOW_STOCK_NOTIFICATION;
     }
 }

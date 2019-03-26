@@ -25,7 +25,7 @@ public class ContrastCommand extends Command {
     public static final String COMMAND_WORD = "contrast";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Adjust the contrast of the image according to ratio given.\n"
+        + ": Adjust the contrast of the image according to ratio value given.\n"
         + "If ratio is not given, default contrast ratio will be 1.1\n"
         + "Parameters: [CONTRAST RATIO (double)] "
         + "and FILENAME.\n"
@@ -38,7 +38,7 @@ public class ContrastCommand extends Command {
     /**
      * Creates a ContrastCommand object.
      * @param contrastValue contrast value to put on image
-     * @param image is the file name of the image.
+     * @param image file name of the image
      */
     public ContrastCommand(OptionalDouble contrastValue, String image) {
         this.contrastValue = contrastValue;

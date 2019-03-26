@@ -4,9 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.AnswerCommandResultType;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 
 /**
@@ -16,127 +13,51 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
+    /**
+     * {@code Type } representing the type of CommandResult and what response should be displayed.
+     */
+    public enum Type {
+        SHOW_HELP, // Help information should be shown to the user.
+        IS_EXIT, // The application should exit.
+        ENTERED_FOLDER, // The side panel should be updated as folder was entered.
+        EXITED_FOLDER, // The side panel should be updated as folder was exited.
+        TEST_SESSION_CARD, // The application should enter a test session.
+        END_TEST_SESSION, // The current test session should end.
+        ANSWER_CORRECT,
+        ANSWER_WRONG,
+        NONE // use for "nothing to do"
+    }
 
-    /** The application should exit. */
-    private final boolean exit;
+    private Type type;
 
-    /** The side panel should be updated as folder was entered. */
-    private final boolean enteredFolder;
-
-    /** The side panel should be updated as folder was exited. */
-    private final boolean exitedFolder;
-
-    /** The application should display this current test card in a test session. */
-    private final Card testSessionCard;
-
-    /** The application should start a test session. */
-    private final boolean startTestSession;
-
-    /** The current test session should end. */
-    private final boolean endTestSession;
-
-    /** The application should show to user whether answer attempted is correct or wrong. */
-    private final AnswerCommandResultType answerCommandResult;
+    private Card testSessionCard;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit,
-                         boolean enteredFolder, boolean exitedFolder, boolean startTestSession,
-                         Card testSessionCard, boolean endTestSession, AnswerCommandResultType answerCommandResult) {
+    public CommandResult(String feedbackToUser, Type type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
-        this.enteredFolder = enteredFolder;
-        this.exitedFolder = exitedFolder;
-        this.startTestSession = startTestSession;
-        this.testSessionCard = testSessionCard;
-        this.endTestSession = endTestSession;
-        this.answerCommandResult = answerCommandResult;
+        this.type = type;
     }
 
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
-     */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false, false, false, null, false, AnswerCommandResultType
-                .NOT_ANSWER_COMMAND);
+        this(feedbackToUser, Type.NONE);
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
 
-    public boolean isShowHelp() {
-        return showHelp;
-    }
-
-    public boolean isExit() {
-        return exit;
-    }
-
-    public boolean isEndTestSession() {
-        return endTestSession;
-    }
-
-    /**
-     * Check if command is to enter test session
-     * @return a boolean variable to state if command is test or not
-     */
-    public boolean isStartTestSession() {
-        return startTestSession;
-    }
-
-    /**
-     * Check if command is a next command to display the next question in test session.
-     * @return a boolean variable to state if command is test or not
-     */
-    public boolean isDisplayNextTestSessionCard() {
-        if (!isStartTestSession() && testSessionCard != null) {
-            return true;
-        }
-        return false;
+    public void setTestSessionCard(Card card) {
+        testSessionCard = card;
     }
 
     public Card getTestSessionCard() {
         return testSessionCard;
     }
 
-    /**
-     * Check if command is an ans command
-     * @return a boolean variable to state if command is ans or not
-     */
-    public boolean isAnswerCommand() {
-        if (answerCommandResult == AnswerCommandResultType.NOT_ANSWER_COMMAND) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Check if attempted answer is correct or wrong
-     * This method should be called only if a valid ans command is called
-     * @return a boolean variable to state if command is ans or not
-     */
-    public boolean isAnswerCorrect() throws CommandException {
-        if (answerCommandResult == AnswerCommandResultType.ANSWER_CORRECT) {
-            return true;
-        } else if (answerCommandResult == AnswerCommandResultType.ANSWER_WRONG) {
-            return false;
-        } else {
-            throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);
-        }
-    }
-
-    public boolean enteredFolder() throws CommandException {
-        return enteredFolder;
-    }
-
-    public boolean exitedFolder() {
-        return exitedFolder;
+    public Type getType() {
+        return this.type;
     }
 
     @Override
@@ -152,18 +73,12 @@ public class CommandResult {
 
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit
-                && startTestSession == otherCommandResult.startTestSession
-                && testSessionCard == otherCommandResult.testSessionCard
-                && endTestSession == otherCommandResult.endTestSession
-                && answerCommandResult == otherCommandResult.answerCommandResult;
+                && type == otherCommandResult.getType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, startTestSession, testSessionCard, endTestSession,
-                answerCommandResult);
+        return Objects.hash(feedbackToUser, type);
     }
 
 }

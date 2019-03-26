@@ -57,6 +57,7 @@ public class ModelManager implements Model {
     private int currentTestedCardIndex;
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;
+    private int numAnsweredCorrectly = 0;
 
     // Export related
     private CsvManager csvManager = new CsvManager();
@@ -335,6 +336,7 @@ public class ModelManager implements Model {
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
+        numAnsweredCorrectly = 0;
     }
 
     @Override
@@ -352,8 +354,12 @@ public class ModelManager implements Model {
 
     @Override
     public void endTestSession() {
+        getActiveVersionedCardFolder()
+                .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
+        getActiveVersionedCardFolder().commit();
         insideTestSession = false;
         setCardAsNotAnswered();
+        numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
         currentTestedCardFolder = null;
         exitFoldersToHome();
@@ -366,6 +372,7 @@ public class ModelManager implements Model {
         String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
 
         if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
+            numAnsweredCorrectly++;
             return true;
         }
         return false;

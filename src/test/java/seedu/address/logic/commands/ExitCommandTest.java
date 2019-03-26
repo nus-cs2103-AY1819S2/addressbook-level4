@@ -5,7 +5,6 @@ import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEM
 
 import org.junit.Test;
 
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -17,8 +16,8 @@ public class ExitCommandTest {
 
     @Test
     public void execute_exit_success() {
-        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true, false,
-                false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        CommandResult expectedCommandResult = new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT,
+                CommandResult.Type.IS_EXIT);
         assertCommandSuccess(new ExitCommand(), model, commandHistory, expectedCommandResult, expectedModel);
     }
 }

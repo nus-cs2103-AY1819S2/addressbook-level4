@@ -345,6 +345,11 @@ public class ModelManager implements Model {
     public void refreshAlbum() {
         Notifier.firePropertyChangeListener("refresh", null, null);
     }
+
+    @Override
+    public void switchTab() {
+        Notifier.firePropertyChangeListener("switch", null, null);
+    }
 }
 
 

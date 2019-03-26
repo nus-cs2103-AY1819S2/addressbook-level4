@@ -209,6 +209,11 @@ public class CreateJobCommandTest {
         }
 
         @Override
+        public String generateAnalytics() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasJob(Job job) {
             throw new AssertionError("This method should not be called.");
         }

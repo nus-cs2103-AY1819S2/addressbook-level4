@@ -144,4 +144,11 @@ public interface Model {
      * Generates an interview list.
      */
     void generateInterviews();
+
+    /**
+     * Generates analytics.
+     */
+    String generateAnalytics();
+
+
 }

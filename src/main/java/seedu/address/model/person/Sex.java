@@ -2,16 +2,17 @@ package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 
 /**
- * Represents a Person's Sex in the address book.
+ * Represents a Person's Sex in TeethHub.
  * Guarantees: immutable; is valid as declared in {@link #isValidSex(String)}
  */
 public class Sex {
 
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Sex should only be either M or F";
+        "Indicating patient's sex is compulsory, denoted by " + PREFIX_SEX + ", and should be (M)ale or (F)emale";
     public static final String VALIDATION_REGEX = "^[M,F]$";
     public final String value;
 
@@ -33,9 +34,13 @@ public class Sex {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getSex() {
+        return value;
+    }
+
     @Override
     public String toString() {
-        return value;
+        return "(" + value + ")";
     }
 
     @Override

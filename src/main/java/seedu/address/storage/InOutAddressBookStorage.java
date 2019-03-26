@@ -203,11 +203,11 @@ public class InOutAddressBookStorage implements AddressBookStorage {
         try {
             float textWidth = TITLE_FONT.getStringWidth(TITLE) / 1000 * TITLE_FONT_SIZE;
             float textHeight = TITLE_FONT.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * TITLE_FONT_SIZE;
-            float tx = (page.getMediaBox().getWidth() - textWidth - (pdImage.getWidth() * textHeight / 1000)) / 2;
+            float tx = ((page.getMediaBox().getWidth() - textWidth - (pdImage.getWidth() * textHeight / 1000)) / 2) - 3;
             float ty = page.getMediaBox().getHeight() - TOP_MARGIN - textHeight;
             contents.setFont(TITLE_FONT, TITLE_FONT_SIZE);
             writeString(contents, TITLE, tx, ty);
-            contents.drawImage(pdImage, tx + textWidth, ty - 1,
+            contents.drawImage(pdImage, tx + textWidth + 5, ty - 1,
                 pdImage.getWidth() * textHeight / 1000, pdImage.getHeight() * textHeight / 1000);
             return ty - TITLE_FONT_SIZE - LINE_SPACING;
         } catch (IOException e) {

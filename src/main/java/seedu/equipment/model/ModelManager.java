@@ -106,6 +106,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasWorkList(WorkList workList) {
+        requireNonNull(workList);
+        return versionedEquipmentManager.hasWorkList(workList);
+    }
+
+    @Override
     public void deleteEquipment(Equipment target) {
         versionedEquipmentManager.removePerson(target);
     }
@@ -114,6 +120,12 @@ public class ModelManager implements Model {
     public void addEquipment(Equipment equipment) {
         versionedEquipmentManager.addPerson(equipment);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void addWorkList(WorkList workList) {
+        versionedEquipmentManager.addWorkList(workList);
+        updateFilteredWorkListList(PREDICATE_SHOW_ALL_WORKLISTS);
     }
 
     @Override

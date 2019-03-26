@@ -31,6 +31,8 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_SERIAL_NUMBER = "A0@9484";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_DATE = " ";
+    private static final String INVALID_ASSIGNEE = "Mei#Yen@";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -39,6 +41,8 @@ public class ParserUtilTest {
     private static final String VALID_SERIAL_NUMBER = "A008866L";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_DATE = "2019-01-01";
+    private static final String VALID_ASSIGNEE = "Mei Yen";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -73,8 +77,28 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseDate_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDate(null));
+    }
+
+    @Test
+    public void parseAssignee_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAssignee(null));
+    }
+
+    @Test
     public void parseName_invalidValue_throwsParseException() {
         Assert.assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+    }
+
+    @Test
+    public void parseDate_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseDate(INVALID_DATE));
+    }
+
+    @Test
+    public void parseAssignee_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAssignee(INVALID_ASSIGNEE));
     }
 
     @Test
@@ -88,6 +112,20 @@ public class ParserUtilTest {
         String nameWithWhitespace = WHITESPACE + VALID_NAME + WHITESPACE;
         Name expectedName = new Name(VALID_NAME);
         assertEquals(expectedName, ParserUtil.parseName(nameWithWhitespace));
+    }
+
+    @Test
+    public void parseDate_validValueWithWhitespace_returnsTrimmedDate() throws Exception {
+        String dateWithWhitespace = WHITESPACE + VALID_DATE + WHITESPACE;
+        String expectedDate = VALID_DATE;
+        assertEquals(expectedDate, ParserUtil.parseDate(dateWithWhitespace));
+    }
+
+    @Test
+    public void parseAssignee_validValueWithWhitespace_returnsTrimmedAssignee() throws Exception {
+        String assigneeWithWhitespace = WHITESPACE + VALID_ASSIGNEE + WHITESPACE;
+        String expectedAssignee = VALID_ASSIGNEE;
+        assertEquals(expectedAssignee, ParserUtil.parseAssignee(assigneeWithWhitespace));
     }
 
     @Test

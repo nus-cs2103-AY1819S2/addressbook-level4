@@ -14,7 +14,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.equipment.logic.commands.AddCommand;
+import seedu.equipment.logic.commands.AddEquipmentCommand;
 import seedu.equipment.logic.commands.ClearCommand;
 import seedu.equipment.logic.commands.DeleteCommand;
 import seedu.equipment.logic.commands.EditCommand;
@@ -45,8 +45,8 @@ public class EquipmentManagerParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Equipment equipment = new EquipmentBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(EquipmentUtil.getAddCommand(equipment));
-        assertEquals(new AddCommand(equipment), command);
+        AddEquipmentCommand command = (AddEquipmentCommand) parser.parseCommand(EquipmentUtil.getAddCommand(equipment));
+        assertEquals(new AddEquipmentCommand(equipment), command);
     }
 
     @Test

@@ -12,6 +12,7 @@ import static seedu.equipment.testutil.TypicalEquipments.AMY;
 import static seedu.equipment.testutil.TypicalEquipments.ANCHORVALECC;
 import static seedu.equipment.testutil.TypicalEquipments.BOB;
 import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
+import static seedu.equipment.testutil.TypicalWorkLists.LISTA;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -105,6 +106,23 @@ public class ModelManagerTest {
     public void hasPerson_personInAddressBook_returnsTrue() {
         modelManager.addEquipment(ANCHORVALECC);
         assertTrue(modelManager.hasEquipment(ANCHORVALECC));
+    }
+
+    @Test
+    public void hasWorkList_nullWorkList_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasWorkList(null);
+    }
+
+    @Test
+    public void hasWorkList_workListNotInEquipmentManager_returnsFalse() {
+        assertFalse(modelManager.hasWorkList(LISTA));
+    }
+
+    @Test
+    public void hasWorkList_workListInEquipmentManager_returnsTrue() {
+        modelManager.addWorkList(LISTA);
+        assertTrue(modelManager.hasWorkList(LISTA));
     }
 
     @Test

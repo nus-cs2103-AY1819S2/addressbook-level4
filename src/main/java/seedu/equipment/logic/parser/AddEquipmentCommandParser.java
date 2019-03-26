@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.equipment.commons.core.Messages;
-import seedu.equipment.logic.commands.AddCommand;
+import seedu.equipment.logic.commands.AddEquipmentCommand;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.equipment.Address;
 import seedu.equipment.model.equipment.Email;
@@ -15,16 +15,16 @@ import seedu.equipment.model.equipment.SerialNumber;
 import seedu.equipment.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddEquipmentCommand object
  */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddEquipmentCommandParser implements Parser<AddEquipmentCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddEquipmentCommand
+     * and returns an AddEquipmentCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddCommand parse(String args) throws ParseException {
+    public AddEquipmentCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_PHONE, CliSyntax.PREFIX_EMAIL,
                         CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_SERIALNUMBER, CliSyntax.PREFIX_TAG);
@@ -32,7 +32,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_NAME, CliSyntax.PREFIX_ADDRESS, CliSyntax.PREFIX_PHONE,
                 CliSyntax.PREFIX_EMAIL, CliSyntax.PREFIX_SERIALNUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(
+                    Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddEquipmentCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
@@ -45,7 +46,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Equipment equipment = new Equipment(name, phone, email, address, serialNumber, tagList);
 
-        return new AddCommand(equipment);
+        return new AddEquipmentCommand(equipment);
     }
 
     /**

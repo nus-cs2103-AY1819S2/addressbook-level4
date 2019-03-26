@@ -26,9 +26,9 @@ import seedu.equipment.model.ReadOnlyUserPrefs;
 import seedu.equipment.model.WorkList;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.tag.Tag;
-import seedu.equipment.testutil.EquipmentBuilder;
+import seedu.equipment.testutil.WorkListBuilder;
 
-public class AddCommandTest {
+public class AddWorkListCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -38,47 +38,47 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullWorkList_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddWorkListCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Equipment validEquipment = new EquipmentBuilder().build();
+    public void execute_workListAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingWorkListAdded modelStub = new ModelStubAcceptingWorkListAdded();
+        WorkList validWorkList = new WorkListBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validEquipment).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddWorkListCommand(validWorkList).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validEquipment),
+        assertEquals(String.format(AddWorkListCommand.MESSAGE_SUCCESS, validWorkList),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validEquipment), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validWorkList), modelStub.workListAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Equipment validEquipment = new EquipmentBuilder().build();
-        AddCommand addCommand = new AddCommand(validEquipment);
-        ModelStub modelStub = new ModelStubWithPerson(validEquipment);
+    public void execute_duplicateWorkList_throwsCommandException() throws Exception {
+        WorkList validWorkList = new WorkListBuilder().build();
+        AddWorkListCommand addWorkListCommand = new AddWorkListCommand(validWorkList);
+        ModelStub modelStub = new ModelStubWithWorkList(validWorkList);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_EQUIPMENT);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddWorkListCommand.MESSAGE_DUPLICATE_EQUIPMENT);
+        addWorkListCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Equipment alice = new EquipmentBuilder().withName("Alice").build();
-        Equipment bob = new EquipmentBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        WorkList lista = new WorkListBuilder().withAssignee("Alice").build();
+        WorkList listb = new WorkListBuilder().withAssignee("Bob").build();
+        AddWorkListCommand addAliceCommand = new AddWorkListCommand(lista);
+        AddWorkListCommand addBobCommand = new AddWorkListCommand(listb);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        AddWorkListCommand addAliceCommandCopy = new AddWorkListCommand(lista);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false
@@ -134,6 +134,12 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addWorkList(WorkList workList) {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addEquipment(Equipment equipment) {
 
             throw new AssertionError("This method should not be called.");
@@ -146,6 +152,12 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyEquipmentManager getEquipmentManager() {
+
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasWorkList(WorkList workList) {
 
             throw new AssertionError("This method should not be called.");
         }
@@ -176,7 +188,6 @@ public class AddCommandTest {
         public void updateEquipment(Equipment target, Equipment editedEquipment) {
             throw new AssertionError("This method should not be called.");
         }
-
 
         @Override
         public ObservableList<Equipment> getFilteredPersonList() {
@@ -248,42 +259,42 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single equipment.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Equipment equipment;
+    private class ModelStubWithWorkList extends ModelStub {
+        private final WorkList workList;
 
-        ModelStubWithPerson(Equipment equipment) {
-            requireNonNull(equipment);
-            this.equipment = equipment;
+        ModelStubWithWorkList(WorkList workList) {
+            requireNonNull(workList);
+            this.workList = workList;
         }
 
         @Override
-        public boolean hasEquipment(Equipment equipment) {
-            requireNonNull(equipment);
-            return this.equipment.isSameEquipment(equipment);
+        public boolean hasWorkList(WorkList workList) {
+            requireNonNull(workList);
+            return this.workList.isSameWorkList(workList);
         }
     }
 
     /**
-     * A Model stub that always accept the equipment being added.
+     * A Model stub that always accept the WorkList being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Equipment> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingWorkListAdded extends ModelStub {
+        final ArrayList<WorkList> workListAdded = new ArrayList<>();
 
         @Override
-        public boolean hasEquipment(Equipment equipment) {
-            requireNonNull(equipment);
-            return personsAdded.stream().anyMatch(equipment::isSameEquipment);
+        public boolean hasWorkList(WorkList workList) {
+            requireNonNull(workList);
+            return workListAdded.stream().anyMatch(workList::isSameWorkList);
         }
 
         @Override
-        public void addEquipment(Equipment equipment) {
-            requireNonNull(equipment);
-            personsAdded.add(equipment);
+        public void addWorkList(WorkList workList) {
+            requireNonNull(workList);
+            workListAdded.add(workList);
         }
 
         @Override
         public void commitEquipmentManager() {
-            // called by {@code AddCommand#execute()}
+            // called by {@code AddEquipmentCommand#execute()}
         }
 
         @Override

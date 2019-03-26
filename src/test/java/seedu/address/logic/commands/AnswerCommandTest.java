@@ -12,7 +12,6 @@ import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 
 import org.junit.Test;
 
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -57,8 +56,8 @@ public class AnswerCommandTest {
 
     @Test
     public void execute_correctAnswerAttempt_markCorrect() {
-        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS, false,
-                false, false, false, false, null, false, AnswerCommandResultType.ANSWER_CORRECT);
+        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
+                CommandResult.Type.ANSWER_CORRECT);
 
         model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
@@ -78,8 +77,8 @@ public class AnswerCommandTest {
 
     @Test
     public void execute_wrongAnswerAttempt_markWrong() {
-        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS, false,
-                false, false, false, false, null, false, AnswerCommandResultType.ANSWER_WRONG);
+        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
+                CommandResult.Type.ANSWER_WRONG);
 
         model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());

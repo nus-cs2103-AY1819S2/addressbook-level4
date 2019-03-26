@@ -24,17 +24,17 @@ public class ImportCommand extends Command {
     public static final String MESSAGE_FILE_OPS_FAILURE = "Could not import from specified file. Check that it exists "
             + "in root directory";
 
-    private CsvFile filename;
+    private CsvFile csvFile;
 
-    public ImportCommand(CsvFile filename) {
-        this.filename = filename;
+    public ImportCommand(CsvFile csvFile) {
+        this.csvFile = csvFile;
     }
 
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         try {
-            model.importCardFolders(filename);
+            model.importCardFolders(csvFile);
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
         }
@@ -48,5 +48,11 @@ public class ImportCommand extends Command {
         return filename.split("\\.(?=[^\\.]+$)")[1].equals("csv");
     }
 
-    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || other instanceof ImportCommand // instanceof handles nulls
+                && csvFile.filename.equals()
+        }
+    }
 }

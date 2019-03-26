@@ -399,7 +399,7 @@ CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFol
 [discrete]
 ==== Example Usage
 
-1. User wants to export folders `Human Anatomy` and `Nervous System`. User inputs the following folders and the filename specified that he wants to export the folders to.
+1. User wants to export folders `Human Anatomy` and `Nervous System`. User inputs the following folders and the csvFile specified that he wants to export the folders to.
 
     picture of command box with user inputs
 

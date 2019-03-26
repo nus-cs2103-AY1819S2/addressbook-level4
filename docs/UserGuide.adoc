@@ -229,6 +229,7 @@ Note:
 
 * setCategory for `Cuisine` and `Occasion` supported as of v1.2
 * `Price range` support coming in v1.3
+* Autocomplete feature planned for v1.4
 
 === Filter restaurants based on category : `filter`
 
@@ -246,9 +247,9 @@ Format: `filter KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `filter fast food` +
-Returns restaurants with cuisine matching `fast food`
+Returns restaurants with cuisine or occasion matching `fast food`
 * `filter fast food gathering`
-Returns restaurants with cuisine matching fast food and occasion matching gathering
+Returns restaurants with cuisine or occasion matching fast food gathering
 
 Note:
 

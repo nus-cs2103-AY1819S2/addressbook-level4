@@ -19,8 +19,10 @@ public class CategoryContainsKeywordsPredicate implements Predicate<Restaurant> 
     @Override
     public boolean test(Restaurant restaurant) {
         return keywords.stream()
-                .anyMatch(keyword -> restaurant.getCuisine().isPresent()
-                        && StringUtil.containsWordIgnoreCase(restaurant.getCuisine().get().value, keyword));
+                .anyMatch(keyword -> (restaurant.getCuisine().isPresent()
+                            && StringUtil.containsWordIgnoreCase(restaurant.getCuisine().get().value, keyword))
+                            || (restaurant.getOccasion().isPresent()
+                            && StringUtil.containsWordIgnoreCase(restaurant.getOccasion().get().value, keyword)));
     }
 
     @Override

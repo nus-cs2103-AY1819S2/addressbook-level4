@@ -61,7 +61,7 @@ public class TestCommand extends Command {
         model.testCardFolder(targetIndex.getZeroBased());
         Card cardToTest = model.getCurrentTestedCard();
         CommandResult commandResult = new CommandResult(MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
-                CommandResult.Type.TEST_SESSION_CARD);
+                CommandResult.Type.START_TEST_SESSION);
         commandResult.setTestSessionCard(cardToTest);
         return commandResult;
     }

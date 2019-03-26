@@ -261,7 +261,7 @@ public class MainWindow extends UiPart<Stage> {
             case EXITED_FOLDER:
                 handleExitFolder();
                 break;
-            case TEST_SESSION_CARD:
+            case START_TEST_SESSION:
                 handleStartTestSession(commandResult.getTestSessionCard());
                 break;
             case END_TEST_SESSION:

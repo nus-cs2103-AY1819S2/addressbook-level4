@@ -39,7 +39,7 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("feedback", CommandResult.Type.IS_EXIT)));
 
         // different testSessionCard value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResult.Type.TEST_SESSION_CARD)));
+        assertFalse(commandResult.equals(new CommandResult("feedback", CommandResult.Type.START_TEST_SESSION)));
 
         // different endTestSession value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", CommandResult.Type.END_TEST_SESSION)));
@@ -70,7 +70,7 @@ public class CommandResultTest {
 
         // different testSessionCard value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",
-                CommandResult.Type.TEST_SESSION_CARD).hashCode());
+                CommandResult.Type.START_TEST_SESSION).hashCode());
 
         // different endTestSession value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback",

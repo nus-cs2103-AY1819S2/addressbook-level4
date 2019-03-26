@@ -31,7 +31,7 @@ public class TestCommandTest {
         Card cardToTest = expectedModel.getCurrentTestedCard();
 
         CommandResult expectedCommandResult = new CommandResult(TestCommand.MESSAGE_ENTER_TEST_FOLDER_SUCCESS,
-                CommandResult.Type.TEST_SESSION_CARD);
+                CommandResult.Type.START_TEST_SESSION);
         assertCommandSuccess(testCommand, model, commandHistory, expectedCommandResult, expectedModel);
     }
 

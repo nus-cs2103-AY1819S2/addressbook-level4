@@ -57,15 +57,9 @@ public class ListCommand extends Command {
             if (optionalName.isPresent() && !optionalTagSet.isPresent()) {
                 // name
                 fleetList = model.getHumanPlayer().getFleet().getByName(optionalName.get());
-                for (Fleet.FleetEntry fleetEntry : fleetList) {
-                    fleetResult.add(fleetEntry);
-                }
             } else if (optionalTagSet.isPresent() && !optionalName.isPresent()) {
                 // tags only
                 fleetList = model.getHumanPlayer().getFleet().getByTags(optionalTagSet.get());
-                for (Fleet.FleetEntry fleetEntry : fleetList) {
-                    fleetResult.add(fleetEntry);
-                }
             } else if (optionalName.isPresent() && optionalTagSet.isPresent()) {
                 List<Fleet.FleetEntry> tempFleet = model.getHumanPlayer().getFleet().getByName(optionalName.get());
                 fleetList = tempFleet.stream()
@@ -73,9 +67,7 @@ public class ListCommand extends Command {
                         .collect(Collectors.toList());
             }
 
-            for (Fleet.FleetEntry fleetEntry : fleetList) {
-                fleetResult.add(fleetEntry);
-            }
+            fleetResult.addAll(fleetList);
         }
 
         for (Fleet.FleetEntry fleetEntry : fleetResult) {

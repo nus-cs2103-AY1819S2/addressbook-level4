@@ -49,7 +49,7 @@ public class ExportCommandTest {
 
     @After
     public void deleteExportFile() {
-        File file = new File("./Typical Cards.csv");
+        File file = new File("./Sample Folder.csv");
         if (file.exists()) {
             boolean isDeleted = file.delete();
             assert (isDeleted);

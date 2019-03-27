@@ -48,7 +48,7 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (!model.isInFolder()) {
-            throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
 
         if (model.hasCard(toAdd)) {

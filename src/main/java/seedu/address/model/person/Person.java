@@ -2,7 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.model.tag.SkillsTag;
 
@@ -19,7 +22,7 @@ public class Person {
 
     // new identity fields
     private final Education education;
-    private final GPA gpa;
+    private final Gpa gpa;
 
     //private final Skills skills;
 
@@ -30,7 +33,8 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Education education, GPA gpa, Address address, Set<SkillsTag> tags) {
+    public Person(Name name, Phone phone, Email email, Education education, Gpa gpa, Address address,
+                  Set<SkillsTag> tags) {
 
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
@@ -58,7 +62,7 @@ public class Person {
         return education;
     }
 
-    public GPA getGPA(){
+    public Gpa getGpa() {
         return gpa;
     }
 
@@ -79,8 +83,10 @@ public class Person {
      */
     public boolean isTagExist(String tag) {
 
-        for(SkillsTag skill : tags) {
-            if(skill.tagName.toLowerCase().contains(tag)) return true;
+        for (SkillsTag skill : tags) {
+            if (skill.tagName.toLowerCase().contains(tag)) {
+                return true;
+            }
         }
 
         return false;
@@ -138,8 +144,8 @@ public class Person {
                 .append(getEmail())
                 .append(" Education: ")
                 .append(getEducation())
-                .append(" GPA: ")
-                .append(getGPA())
+                .append(" Gpa: ")
+                .append(getGpa())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

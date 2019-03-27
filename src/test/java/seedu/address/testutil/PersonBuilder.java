@@ -3,13 +3,8 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Education;
-import seedu.address.model.person.GPA;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.*;
+import seedu.address.model.person.Gpa;
 import seedu.address.model.tag.SkillsTag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -29,7 +24,7 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Education education;
-    private GPA gpa;
+    private Gpa gpa;
     private Address address;
     private Set<SkillsTag> tags;
 
@@ -38,7 +33,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         education = new Education(DEFAULT_EDUCATION);
-        gpa = new GPA (DEFAULT_GPA);
+        gpa = new Gpa(DEFAULT_GPA);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
     }
@@ -51,7 +46,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         education  = personToCopy.getEducation();
-        gpa = personToCopy.getGPA();
+        gpa = personToCopy.getGpa();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
     }
@@ -102,7 +97,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withGPA(String gpa) {
-        this.gpa = new GPA(gpa);
+        this.gpa = new Gpa(gpa);
         return this;
     }
 

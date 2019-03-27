@@ -2,13 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GPA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,9 +22,9 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
 import seedu.address.model.person.Education;
-import seedu.address.model.person.GPA;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Gpa;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
@@ -46,7 +45,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_EDUCATION + "EDUCATION] "
-            + "[" + PREFIX_GPA + "GPA] "
+            + "[" + PREFIX_GPA + "Gpa] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_SKILL + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -89,7 +88,6 @@ public class EditCommand extends Command {
         }
 
         model.setPerson(personToEdit, editedPerson);
-        // model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
@@ -105,11 +103,12 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Education updatedEducation = editPersonDescriptor.getEducation().orElse(personToEdit.getEducation());
-        GPA updatedGPA = editPersonDescriptor.getGPA().orElse(personToEdit.getGPA());
+        Gpa updatedGpa = editPersonDescriptor.getGpa().orElse(personToEdit.getGpa());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<SkillsTag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedEducation, updatedGPA, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedEducation,
+                updatedGpa, updatedAddress, updatedTags);
     }
 
     @Override
@@ -139,7 +138,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Education education;
-        private GPA gpa;
+        private Gpa gpa;
         private Address address;
         private Set<SkillsTag> tags;
 
@@ -154,7 +153,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setEducation(toCopy.education);
-            setGPA(toCopy.gpa);
+            setGpa(toCopy.gpa);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
@@ -198,11 +197,11 @@ public class EditCommand extends Command {
             return Optional.ofNullable(education);
         }
 
-        public void setGPA(GPA gpa) {
+        public void setGpa(Gpa gpa) {
             this.gpa = gpa;
         }
 
-        public Optional<GPA> getGPA() {
+        public Optional<Gpa> getGpa() {
             return Optional.ofNullable(gpa);
         }
 
@@ -250,7 +249,7 @@ public class EditCommand extends Command {
                     && getPhone().equals(e.getPhone())
                     && getEmail().equals(e.getEmail())
                     && getEducation().equals(e.getEducation())
-                    && getGPA().equals(e.getGPA())
+                    && getGpa().equals(e.getGpa())
                     && getAddress().equals(e.getAddress())
                     && getTags().equals(e.getTags());
         }

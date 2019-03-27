@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.EditDeckCommand;
 import seedu.address.logic.commands.EditDeckCommand.EditDeckDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -14,6 +15,12 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new EditDeck object
  */
 public class EditDeckCommandParser implements Parser<EditDeckCommand> {
+
+    private final DecksView decksView;
+
+    public EditDeckCommandParser(DecksView decksView) {
+        this.decksView = decksView;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditDeckCommand
@@ -44,6 +51,6 @@ public class EditDeckCommandParser implements Parser<EditDeckCommand> {
             throw new ParseException(MESSAGE_DECK_NOT_EDITED);
         }
 
-        return new EditDeckCommand(index, editDeckDescriptor);
+        return new EditDeckCommand(decksView, index, editDeckDescriptor);
     }
 }

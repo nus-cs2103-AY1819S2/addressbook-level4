@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
+import seedu.address.logic.DecksView;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
@@ -15,6 +16,12 @@ import seedu.address.model.deck.Name;
  * Parses input arguments and creates a new AddDeckCommand object
  */
 public class AddDeckCommandParser implements Parser<AddDeckCommand> {
+
+    private final DecksView decksView;
+
+    public AddDeckCommandParser(DecksView decksView) {
+        this.decksView = decksView;
+    }
 
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
@@ -43,7 +50,7 @@ public class AddDeckCommandParser implements Parser<AddDeckCommand> {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Deck deck = new Deck(name);
 
-        return new AddDeckCommand(deck);
+        return new AddDeckCommand(decksView, deck);
     }
 
 }

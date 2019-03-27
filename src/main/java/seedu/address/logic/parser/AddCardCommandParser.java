@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import seedu.address.logic.CardsView;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -18,6 +19,12 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new AddCardCommand object
  */
 public class AddCardCommandParser implements Parser<AddCardCommand> {
+
+    private final CardsView cardsView;
+
+    public AddCardCommandParser(CardsView cardsView) {
+        this.cardsView = cardsView;
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCardCommand
@@ -39,7 +46,7 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
 
         Card card = new Card(question, answer, tagList);
 
-        return new AddCardCommand(card);
+        return new AddCardCommand(cardsView, card);
     }
 
     /**

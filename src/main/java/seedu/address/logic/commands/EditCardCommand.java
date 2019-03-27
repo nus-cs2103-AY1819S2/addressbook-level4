@@ -15,6 +15,7 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -46,20 +47,25 @@ public class EditCardCommand extends Command {
 
     private final Index index;
     private final Optional<EditCardDescriptor> editCardDescriptor;
+    private final CardsView cardsView;
 
     /**
      * @param index of the card in the filtered card list to edit
      * @param editCardDescriptor details to edit the card with
      */
-    public EditCardCommand(Index index, EditCardDescriptor editCardDescriptor) {
+    public EditCardCommand(CardsView cardsView, Index index, EditCardDescriptor editCardDescriptor) {
         requireNonNull(index);
         requireNonNull(editCardDescriptor);
 
+        this.cardsView = cardsView;
         this.index = index;
         this.editCardDescriptor = Optional.of(new EditCardDescriptor(editCardDescriptor));
     }
-    public EditCardCommand(Index index) {
+
+    public EditCardCommand(CardsView cardsView, Index index) {
         requireNonNull(index);
+
+        this.cardsView = cardsView;
         this.index = index;
         this.editCardDescriptor = Optional.empty();
     }
@@ -67,7 +73,7 @@ public class EditCardCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<ListItem> lastShownList = model.getFilteredList();
+        List<Card> lastShownList = cardsView.getFilteredList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
@@ -82,7 +88,7 @@ public class EditCardCommand extends Command {
             }
 
             model.setCard(cardToEdit, editedCard);
-            model.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+            cardsView.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
             model.commitTopDeck();
             return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
         } else {

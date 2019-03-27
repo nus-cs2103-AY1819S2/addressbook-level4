@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
+import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -32,12 +34,14 @@ public class AddCardCommand extends Command {
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the deck";
 
     private final Card toAdd;
+    private final CardsView cardsView;
 
     /**
      * Creates an AddCardCommand to add the specified {@code Card}
      */
-    public AddCardCommand(Card card) {
+    public AddCardCommand(CardsView cardsView, Card card) {
         requireNonNull(card);
+        this.cardsView = cardsView;
         toAdd = card;
     }
 
@@ -51,6 +55,7 @@ public class AddCardCommand extends Command {
 
         model.addCard(toAdd);
         model.commitTopDeck();
+        cardsView.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

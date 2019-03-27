@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_DECK;
+import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.DecksView;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -36,12 +38,13 @@ public class AddDeckCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullDeck_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddDeckCommand(null);
+        new AddDeckCommand((DecksView) model.getViewState(), null);
     }
 
     @Test
@@ -49,7 +52,7 @@ public class AddDeckCommandTest {
         ModelStubAcceptingDeckAdded modelStub = new ModelStubAcceptingDeckAdded();
         Deck validDeck = new DeckBuilder().build();
 
-        CommandResult commandResult = new AddDeckCommand(validDeck).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddDeckCommand((DecksView) model.getViewState(), validDeck).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddDeckCommand.MESSAGE_SUCCESS, validDeck), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validDeck), modelStub.decksAdded);
@@ -59,7 +62,7 @@ public class AddDeckCommandTest {
     @Test
     public void execute_duplicateDeck_throwsCommandException() throws Exception {
         Deck validDeck = new DeckBuilder().build();
-        AddDeckCommand addDeckCommand = new AddDeckCommand(validDeck);
+        AddDeckCommand addDeckCommand = new AddDeckCommand((DecksView) model.getViewState(), validDeck);
         ModelStub modelStub = new ModelStubWithDeck(validDeck);
 
         thrown.expect(CommandException.class);
@@ -71,14 +74,14 @@ public class AddDeckCommandTest {
     public void equals() {
         Deck firstDeck = new DeckBuilder().withName("Test Deck1").build();
         Deck secondDeck = new DeckBuilder().withName("Test Deck2").build();
-        AddDeckCommand addFirstDeckCommand = new AddDeckCommand(firstDeck);
-        AddDeckCommand addSecondDeckCommand = new AddDeckCommand(secondDeck);
+        AddDeckCommand addFirstDeckCommand = new AddDeckCommand((DecksView) model.getViewState(), firstDeck);
+        AddDeckCommand addSecondDeckCommand = new AddDeckCommand((DecksView) model.getViewState(), secondDeck);
 
         // same object -> returns true
         assertTrue(addFirstDeckCommand.equals(addFirstDeckCommand));
 
         // same values -> returns true
-        AddDeckCommand addFirstDeckCommandCopy = new AddDeckCommand(firstDeck);
+        AddDeckCommand addFirstDeckCommandCopy = new AddDeckCommand((DecksView) model.getViewState(), firstDeck);
         assertTrue(addFirstDeckCommand.equals(addFirstDeckCommandCopy));
 
         // different types -> returns false

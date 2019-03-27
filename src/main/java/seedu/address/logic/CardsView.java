@@ -1,9 +1,13 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.commands.BackCommand;
@@ -44,13 +48,13 @@ public class CardsView implements ListViewState {
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
             case AddCardCommand.COMMAND_WORD:
-                return new AddCardCommandParser().parse(arguments);
+                return new AddCardCommandParser(this).parse(arguments);
             case DeleteCardCommand.COMMAND_WORD:
-                return new DeleteCardCommandParser().parse(arguments);
+                return new DeleteCardCommandParser(this).parse(arguments);
             case EditCardCommand.COMMAND_WORD:
-                return new EditCardCommandParser().parse(arguments);
+                return new EditCardCommandParser(this).parse(arguments);
             case FindCardCommand.COMMAND_WORD:
-                return new FindCardCommandParser().parse(arguments);
+                return new FindCardCommandParser(this).parse(arguments);
             case SelectCommand.COMMAND_WORD:
                 return new SelectCommandParser(this).parse(arguments);
             case BackCommand.COMMAND_WORD:
@@ -93,5 +97,14 @@ public class CardsView implements ListViewState {
                 selectedCard.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
+    }
+
+    public void updateFilteredList(Predicate<Card> predicate) {
+        requireNonNull(predicate);
+        filteredCards.setPredicate(predicate);
+    }
+
+    public ObservableList<Card> getFilteredList() {
+        return filteredCards;
     }
 }

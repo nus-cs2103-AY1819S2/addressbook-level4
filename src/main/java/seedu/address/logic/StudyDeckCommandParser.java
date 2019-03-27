@@ -10,16 +10,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class StudyDeckCommandParser {
 
-    private DecksView viewState;
+    private DecksView decksView;
 
-    StudyDeckCommandParser(DecksView viewState) {
-        this.viewState = viewState;
+    StudyDeckCommandParser(DecksView decksView) {
+        this.decksView = decksView;
     }
 
     public StudyDeckCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
-            return new StudyDeckCommand(index, (DecksView)viewState);
+            return new StudyDeckCommand(decksView, index);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenDeckCommand.MESSAGE_USAGE), pe);

@@ -1,9 +1,13 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.AddDeckCommand;
 import seedu.address.logic.commands.Command;
@@ -40,7 +44,7 @@ public class DecksView implements ListViewState {
     public Command parse(String commandWord, String arguments) throws ParseException {
         switch (commandWord) {
             case AddDeckCommand.COMMAND_WORD:
-                return new AddDeckCommandParser().parse(arguments);
+                return new AddDeckCommandParser(this).parse(arguments);
             case SelectCommand.COMMAND_WORD:
                 return new SelectCommandParser(this).parse(arguments);
             case OpenDeckCommand.COMMAND_WORD:
@@ -48,9 +52,9 @@ public class DecksView implements ListViewState {
             case StudyDeckCommand.COMMAND_WORD:
                 return new StudyDeckCommandParser(this).parse(arguments);
             case DeleteDeckCommand.COMMAND_WORD:
-                return new DeleteDeckCommandParser().parse(arguments);
+                return new DeleteDeckCommandParser(this).parse(arguments);
             case EditDeckCommand.COMMAND_WORD:
-                return new EditDeckCommandParser().parse(arguments);
+                return new EditDeckCommandParser(this).parse(arguments);
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -83,5 +87,14 @@ public class DecksView implements ListViewState {
                 selectedDeck.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
+    }
+
+    public void updateFilteredList(Predicate<Deck> predicate) {
+        requireNonNull(predicate);
+        filteredDecks.setPredicate(predicate);
+    }
+
+    public ObservableList<Deck> getFilteredList() {
+        return filteredDecks;
     }
 }

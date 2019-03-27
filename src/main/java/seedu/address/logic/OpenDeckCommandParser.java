@@ -12,10 +12,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class OpenDeckCommandParser {
 
-    private DecksView viewState;
+    private DecksView decksView;
 
-    OpenDeckCommandParser(DecksView viewState) {
-        this.viewState = viewState;
+    OpenDeckCommandParser(DecksView decksView) {
+        this.decksView = decksView;
     }
 
     /**
@@ -26,7 +26,7 @@ public class OpenDeckCommandParser {
     public OpenDeckCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
-            return new OpenDeckCommand(index, (DecksView)viewState);
+            return new OpenDeckCommand(index, decksView);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenDeckCommand.MESSAGE_USAGE), pe);

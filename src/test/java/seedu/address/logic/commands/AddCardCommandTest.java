@@ -4,12 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalCards.getTypicalDeck;
+import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -17,15 +20,18 @@ import org.junit.rules.ExpectedException;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.ListItem;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTopDeck;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TopDeck;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.testutil.CardBuilder;
@@ -37,12 +43,19 @@ public class AddCardCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Before
+    public void initialize() {
+        model.changeDeck(getTypicalDeck());
+        assertTrue(model.isAtCardsView());
+    }
 
     @Test
     public void constructor_nullCard_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCardCommand(null);
+        new AddCardCommand((CardsView) model.getViewState(), null);
     }
 
     @Test
@@ -50,7 +63,7 @@ public class AddCardCommandTest {
         ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
         Card validCard = new CardBuilder().build();
 
-        CommandResult commandResult = new AddCardCommand(validCard).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCardCommand((CardsView) model.getViewState(), validCard).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
@@ -60,7 +73,7 @@ public class AddCardCommandTest {
     @Test
     public void execute_duplicateCard_throwsCommandException() throws Exception {
         Card validCard = new CardBuilder().build();
-        AddCardCommand addCardCommand = new AddCardCommand(validCard);
+        AddCardCommand addCardCommand = new AddCardCommand((CardsView) model.getViewState(), validCard);
         ModelStub modelStub = new ModelStubWithCard(validCard);
 
         thrown.expect(CommandException.class);
@@ -72,14 +85,14 @@ public class AddCardCommandTest {
     public void equals() {
         Card addition = new CardBuilder().withQuestion("What is 1 + 1?").build();
         Card subtraction = new CardBuilder().withQuestion("What is 10 - 8?").build();
-        AddCardCommand addAdditionCommand = new AddCardCommand(addition);
-        AddCardCommand addSubtractionCommand = new AddCardCommand(subtraction);
+        AddCardCommand addAdditionCommand = new AddCardCommand((CardsView) model.getViewState(), addition);
+        AddCardCommand addSubtractionCommand = new AddCardCommand((CardsView) model.getViewState(), subtraction);
 
         // same object -> returns true
         assertTrue(addAdditionCommand.equals(addAdditionCommand));
 
         // same values -> returns true
-        AddCardCommand addAdditionCommandCopy = new AddCardCommand(addition);
+        AddCardCommand addAdditionCommandCopy = new AddCardCommand((CardsView) model.getViewState(), addition);
         assertTrue(addAdditionCommand.equals(addAdditionCommandCopy));
 
         // different types -> returns false

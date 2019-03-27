@@ -28,19 +28,21 @@ import seedu.address.model.UserPrefs;
 public class SelectCardCommandTest {
     private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalTopDeck(), new UserPrefs());
+    private CardsView cardsView;
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void initialize() {
         model.changeDeck(getTypicalDeck());
         assertTrue(model.isAtCardsView());
+        cardsView = (CardsView) model.getViewState();
         expectedModel.changeDeck(getTypicalDeck());
         assertTrue(expectedModel.isAtCardsView());
     }
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredList().size());
+        Index lastPersonIndex = Index.fromOneBased(cardsView.getFilteredList().size());
 
         assertExecutionSuccess(INDEX_FIRST_CARD);
         assertExecutionSuccess(INDEX_THIRD_CARD);
@@ -49,7 +51,7 @@ public class SelectCardCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
+        Index outOfBoundsIndex = Index.fromOneBased(cardsView.getFilteredList().size() + 1);
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
     }
@@ -77,14 +79,14 @@ public class SelectCardCommandTest {
 
     @Test
     public void equals() {
-        SelectCommand selectFirstCommand = new SelectCardCommand(INDEX_FIRST_CARD, (CardsView) model.getViewState());
-        SelectCommand selectSecondCommand = new SelectCardCommand(INDEX_SECOND_CARD, (CardsView) model.getViewState());
+        SelectCommand selectFirstCommand = new SelectCardCommand(cardsView, INDEX_FIRST_CARD);
+        SelectCommand selectSecondCommand = new SelectCardCommand(cardsView, INDEX_SECOND_CARD);
 
         // same object -> returns true
         assertTrue(selectFirstCommand.equals(selectFirstCommand));
 
         // same values -> returns true
-        SelectCommand selectFirstCommandCopy = new SelectCardCommand(INDEX_FIRST_CARD, (CardsView) model.getViewState());
+        SelectCommand selectFirstCommandCopy = new SelectCardCommand(cardsView, INDEX_FIRST_CARD);
         assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
 
         // different types -> returns false
@@ -102,9 +104,9 @@ public class SelectCardCommandTest {
      * and checks that the model's selected card is set to the card at {@code index} in the filtered card list.
      */
     private void assertExecutionSuccess(Index index) {
-        SelectCommand selectCommand = new SelectCardCommand(index, (CardsView) model.getViewState());
+        SelectCommand selectCommand = new SelectCardCommand(cardsView, index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_SUCCESS, index.getOneBased());
-        expectedModel.setSelectedItem(model.getFilteredList().get(index.getZeroBased()));
+        expectedModel.setSelectedItem(cardsView.getFilteredList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -114,7 +116,7 @@ public class SelectCardCommandTest {
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        SelectCommand selectCommand = new SelectCardCommand(index, (CardsView) model.getViewState());
+        SelectCommand selectCommand = new SelectCardCommand(cardsView, index);
         assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
     }
 }

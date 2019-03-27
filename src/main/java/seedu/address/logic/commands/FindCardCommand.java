@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
@@ -20,18 +21,20 @@ public class FindCardCommand extends Command {
         + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
         + "Example: " + COMMAND_WORD + " alice bob charlie";
 
+    private final CardsView cardsView;
     private final QuestionContainsKeywordsPredicate predicate;
 
-    public FindCardCommand(QuestionContainsKeywordsPredicate predicate) {
+    public FindCardCommand(CardsView cardsView, QuestionContainsKeywordsPredicate predicate) {
+        this.cardsView = cardsView;
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredList(predicate);
+        cardsView.updateFilteredList(predicate);
         return new CommandResult(
-            String.format(Messages.MESSAGE_CARDS_LISTED_OVERVIEW, model.getFilteredList().size()));
+            String.format(Messages.MESSAGE_CARDS_LISTED_OVERVIEW, cardsView.getFilteredList().size()));
     }
 
     @Override

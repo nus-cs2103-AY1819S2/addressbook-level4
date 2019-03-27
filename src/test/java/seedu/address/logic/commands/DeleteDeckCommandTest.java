@@ -14,6 +14,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -26,12 +27,13 @@ import seedu.address.model.deck.Deck;
 public class DeleteDeckCommandTest {
 
     private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
+    private DecksView decksView = (DecksView) model.getViewState();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Deck deckToDelete = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
-        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(INDEX_FIRST_DECK);
+        Deck deckToDelete = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(decksView, INDEX_FIRST_DECK);
 
         String expectedMessage = String.format(DeleteDeckCommand.MESSAGE_DELETE_DECK_SUCCESS, deckToDelete);
 
@@ -44,8 +46,8 @@ public class DeleteDeckCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
-        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(outOfBoundIndex);
+        Index outOfBoundIndex = Index.fromOneBased(decksView.getFilteredList().size() + 1);
+        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(decksView, outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
@@ -55,8 +57,8 @@ public class DeleteDeckCommandTest {
     public void execute_validIndexFilteredList_success() {
         showDeckAtIndex(model, INDEX_FIRST_DECK);
 
-        Deck deckToDelete = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
-        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(INDEX_FIRST_DECK);
+        Deck deckToDelete = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(decksView, INDEX_FIRST_DECK);
 
         String expectedMessage = String.format(DeleteDeckCommand.MESSAGE_DELETE_DECK_SUCCESS, deckToDelete);
 
@@ -75,7 +77,7 @@ public class DeleteDeckCommandTest {
         // ensures that outOfBoundIndex is still in bounds of TopDeck list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTopDeck().getDeckList().size());
 
-        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(outOfBoundIndex);
+        DeleteDeckCommand deleteCommand = new DeleteDeckCommand(decksView, outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
@@ -83,14 +85,14 @@ public class DeleteDeckCommandTest {
 
     @Test
     public void equals() {
-        DeleteDeckCommand deleteFirstCommand = new DeleteDeckCommand(INDEX_FIRST_DECK);
-        DeleteDeckCommand deleteSecondCommand = new DeleteDeckCommand(INDEX_SECOND_DECK);
+        DeleteDeckCommand deleteFirstCommand = new DeleteDeckCommand(decksView, INDEX_FIRST_DECK);
+        DeleteDeckCommand deleteSecondCommand = new DeleteDeckCommand(decksView, INDEX_SECOND_DECK);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteDeckCommand deleteFirstCommandCopy = new DeleteDeckCommand(INDEX_FIRST_DECK);
+        DeleteDeckCommand deleteFirstCommandCopy = new DeleteDeckCommand(decksView, INDEX_FIRST_DECK);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -107,9 +109,9 @@ public class DeleteDeckCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoDeck(Model model) {
-        model.updateFilteredList(p -> false);
+        decksView.updateFilteredList(p -> false);
 
-        assertTrue(model.getFilteredList().isEmpty());
+        assertTrue(decksView.getFilteredList().isEmpty());
     }
 }
 

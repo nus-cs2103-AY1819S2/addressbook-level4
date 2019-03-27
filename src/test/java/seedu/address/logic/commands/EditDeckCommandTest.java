@@ -22,6 +22,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.DecksView;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -37,18 +38,19 @@ import seedu.address.testutil.EditDeckDescriptorBuilder;
 public class EditDeckCommandTest {
 
     private Model model = new ModelManager(getTypicalTopDeck(), new UserPrefs());
+    private DecksView decksView = (DecksView) model.getViewState();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Deck editedDeck = new DeckBuilder().build();
         EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder(editedDeck).build();
-        EditDeckCommand editCommand = new EditDeckCommand(INDEX_FIRST_DECK, descriptor);
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, INDEX_FIRST_DECK, descriptor);
 
         String expectedMessage = String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck);
 
         ModelManager expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
-        expectedModel.updateDeck((Deck) model.getFilteredList().get(0), editedDeck);
+        expectedModel.updateDeck(decksView.getFilteredList().get(0), editedDeck);
         expectedModel.commitTopDeck();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -56,15 +58,15 @@ public class EditDeckCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastTopDeckDeck = Index.fromOneBased(model.getFilteredList().size());
-        Deck lastDeck = (Deck)model.getFilteredList().get(indexLastTopDeckDeck.getZeroBased());
+        Index indexLastTopDeckDeck = Index.fromOneBased(decksView.getFilteredList().size());
+        Deck lastDeck = decksView.getFilteredList().get(indexLastTopDeckDeck.getZeroBased());
 
         DeckBuilder deckInList = new DeckBuilder(lastDeck);
         Deck editedDeck = deckInList.withName(VALID_NAME_JOHN).withCards(VALID_CARD_LIST).build();
 
         EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder().withName(VALID_NAME_JOHN)
                 .withCards(VALID_CARD_LIST).build();
-        EditDeckCommand editCommand = new EditDeckCommand(indexLastTopDeckDeck, descriptor);
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, indexLastTopDeckDeck, descriptor);
 
         String expectedMessage = String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck);
 
@@ -77,8 +79,8 @@ public class EditDeckCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditDeckCommand editCommand = new EditDeckCommand(INDEX_FIRST_DECK, new EditDeckCommand.EditDeckDescriptor());
-        Deck editedDeck = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, INDEX_FIRST_DECK, new EditDeckCommand.EditDeckDescriptor());
+        Deck editedDeck = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
 
         String expectedMessage = String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck);
 
@@ -92,15 +94,15 @@ public class EditDeckCommandTest {
     public void execute_filteredList_success() {
         showDeckAtIndex(model, INDEX_FIRST_DECK);
 
-        Deck deckInFilteredList = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        Deck deckInFilteredList = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
         Deck editedDeck = new DeckBuilder(deckInFilteredList).withName(VALID_NAME_JOHN).build();
-        EditDeckCommand editCommand = new EditDeckCommand(INDEX_FIRST_DECK,
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, INDEX_FIRST_DECK,
                 new EditDeckDescriptorBuilder().withName(VALID_NAME_JOHN).build());
 
         String expectedMessage = String.format(MESSAGE_EDIT_DECK_SUCCESS, editedDeck);
 
         ModelManager expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
-        expectedModel.updateDeck((Deck) model.getFilteredList().get(0), editedDeck);
+        expectedModel.updateDeck(decksView.getFilteredList().get(0), editedDeck);
         expectedModel.commitTopDeck();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -108,9 +110,9 @@ public class EditDeckCommandTest {
 
     @Test
     public void execute_duplicateTopDeckDeckUnfilteredList_failure() {
-        Deck firstDeck = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        Deck firstDeck = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
         EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder(firstDeck).build();
-        EditDeckCommand editCommand = new EditDeckCommand(INDEX_SECOND_DECK, descriptor);
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, INDEX_SECOND_DECK, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, MESSAGE_DUPLICATE_DECK);
     }
@@ -121,7 +123,7 @@ public class EditDeckCommandTest {
 
         // edit deck in filtered list into a duplicate in TopDeck
         Deck deckInList = model.getTopDeck().getDeckList().get(INDEX_SECOND_DECK.getZeroBased());
-        EditDeckCommand editCommand = new EditDeckCommand(INDEX_FIRST_DECK,
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, INDEX_FIRST_DECK,
                 new EditDeckDescriptorBuilder(deckInList).build());
 
         assertCommandFailure(editCommand, model, commandHistory, MESSAGE_DUPLICATE_DECK);
@@ -129,10 +131,10 @@ public class EditDeckCommandTest {
 
     @Test
     public void execute_invalidTopDeckDeckIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(decksView.getFilteredList().size() + 1);
         EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder().withName(VALID_NAME_JOHN)
                 .build();
-        EditDeckCommand editCommand = new EditDeckCommand(outOfBoundIndex, descriptor);
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
     }
@@ -148,7 +150,7 @@ public class EditDeckCommandTest {
         // ensures that outOfBoundIndex is still in bounds of TopDeck list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTopDeck().getDeckList().size());
 
-        EditDeckCommand editCommand = new EditDeckCommand(outOfBoundIndex,
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, outOfBoundIndex,
                 new EditDeckDescriptorBuilder().withName(VALID_NAME_JOHN).build());
 
         assertCommandFailure(editCommand, model, commandHistory,
@@ -158,9 +160,9 @@ public class EditDeckCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Deck editedDeck = new DeckBuilder().build();
-        Deck deckToEdit = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        Deck deckToEdit = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
         EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder(editedDeck).build();
-        EditDeckCommand editCommand = new EditDeckCommand(INDEX_FIRST_DECK, descriptor);
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, INDEX_FIRST_DECK, descriptor);
         ModelManager expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.updateDeck(deckToEdit, editedDeck);
         expectedModel.commitTopDeck();
@@ -170,31 +172,31 @@ public class EditDeckCommandTest {
 
         // undo -> reverts TopDeck back to previous state and filtered deck list to show all decks
         expectedModel.undoTopDeck();
-        assertCommandSuccess(new UndoCommand(), model, commandHistory,
+        assertCommandSuccess(new UndoCommand(decksView), model, commandHistory,
                 UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first deck edited again
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory,
-                seedu.address.logic.commands.RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(decksView), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(decksView.getFilteredList().size() + 1);
         EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder().withName(VALID_NAME_JOHN)
                 .build();
-        EditDeckCommand editCommand = new EditDeckCommand(outOfBoundIndex, descriptor);
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, outOfBoundIndex, descriptor);
 
         // execution failed -> TopDeck state not added into model
         assertCommandFailure(editCommand, model, commandHistory,
                 Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
 
         // single TopDeck state in model -> undoCommand and redoCommand fail
-        assertCommandFailure(new seedu.address.logic.commands.UndoCommand(), model, commandHistory,
-                seedu.address.logic.commands.UndoCommand.MESSAGE_FAILURE);
-        assertCommandFailure(new RedoCommand(), model, commandHistory,
-                seedu.address.logic.commands.RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new UndoCommand(decksView), model, commandHistory,
+                UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(decksView), model, commandHistory,
+                RedoCommand.MESSAGE_FAILURE);
     }
 
     /**
@@ -208,11 +210,11 @@ public class EditDeckCommandTest {
     public void executeUndoRedo_validIndexFilteredList_sameTopDeckDeckEdited() throws Exception {
         Deck editedDeck = new DeckBuilder().build();
         EditDeckCommand.EditDeckDescriptor descriptor = new EditDeckDescriptorBuilder(editedDeck).build();
-        EditDeckCommand editCommand = new EditDeckCommand(INDEX_FIRST_DECK, descriptor);
+        EditDeckCommand editCommand = new EditDeckCommand(decksView, INDEX_FIRST_DECK, descriptor);
         ModelManager expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
 
         showDeckAtIndex(model, INDEX_SECOND_DECK);
-        Deck deckToEdit = (Deck) model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
+        Deck deckToEdit = decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased());
         expectedModel.updateDeck(deckToEdit, editedDeck);
         expectedModel.commitTopDeck();
 
@@ -221,23 +223,23 @@ public class EditDeckCommandTest {
 
         // undo -> reverts TopDeck back to previous state and filtered deck list to show all decks
         expectedModel.undoTopDeck();
-        assertCommandSuccess(new seedu.address.logic.commands.UndoCommand(), model, commandHistory,
+        assertCommandSuccess(new UndoCommand(decksView), model, commandHistory,
                 UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased()), deckToEdit);
+        assertNotEquals(decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased()), deckToEdit);
         // redo -> edits same second deck in unfiltered deck list
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(), model, commandHistory,
-                seedu.address.logic.commands.RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(decksView), model, commandHistory,
+                RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void equals() {
-        final EditDeckCommand standardCommand = new EditDeckCommand(INDEX_FIRST_DECK, DESC_A);
+        final EditDeckCommand standardCommand = new EditDeckCommand(decksView, INDEX_FIRST_DECK, DESC_A);
 
         // same values -> returns true
         EditDeckCommand.EditDeckDescriptor copyDescriptor = new EditDeckCommand.EditDeckDescriptor(DESC_A);
-        EditDeckCommand commandWithSameValues = new EditDeckCommand(INDEX_FIRST_DECK, copyDescriptor);
+        EditDeckCommand commandWithSameValues = new EditDeckCommand(decksView, INDEX_FIRST_DECK, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -250,10 +252,10 @@ public class EditDeckCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditDeckCommand(INDEX_SECOND_DECK, DESC_A)));
+        assertFalse(standardCommand.equals(new EditDeckCommand(decksView, INDEX_SECOND_DECK, DESC_A)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditDeckCommand(INDEX_FIRST_DECK, DESC_B)));
+        assertFalse(standardCommand.equals(new EditDeckCommand(decksView, INDEX_FIRST_DECK, DESC_B)));
     }
 
 }

@@ -70,11 +70,10 @@ public class Slot implements Comparable<Slot> {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDate() + ":\n")
-                .append("Date: ")
-                .append(getDate() + "\n")
+        builder.append("Date: ")
+                .append(getDate()).append("\n")
                 .append("Start Time: ")
-                .append(getStart() + "\n");
+                .append(getStart()).append("\n");
         if (end != null) {
             builder.append("End Time: ").append(getEnd() + "\n");
         }

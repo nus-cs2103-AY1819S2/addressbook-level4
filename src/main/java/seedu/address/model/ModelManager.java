@@ -555,11 +555,15 @@ public class ModelManager implements Model {
     }
 
     public String listApp(LocalDate start, LocalDate end) {
-        return appointmentManager.list(start, end);
+        return appointmentManager.listAppointments(start, end);
     }
 
     public String listApp(Patient patient) {
-        return appointmentManager.list(patient);
+        return appointmentManager.listAppointments(patient);
+    }
+
+    public String freeApp(LocalDate start, LocalDate end) {
+        return appointmentManager.listFreeSlots(start, end);
     }
 
     public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {

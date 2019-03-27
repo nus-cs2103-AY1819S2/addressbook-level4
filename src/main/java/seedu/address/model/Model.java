@@ -248,6 +248,8 @@ public interface Model {
 
     String listApp(Patient patient);
 
+    String freeApp(LocalDate start, LocalDate end);
+
     Optional<Appointment> getAppointment(LocalDate date, LocalTime start);
 
     void deleteAppointment(Appointment appointment);

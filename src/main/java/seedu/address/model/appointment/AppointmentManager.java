@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import seedu.address.model.Slot;
 import seedu.address.model.patient.Patient;
 
 /**
  * Manages the list of appointments created.
  */
 public class AppointmentManager {
+    public static final LocalTime OPENING_HOUR = LocalTime.parse("09:00");
+    public static final LocalTime CLOSING_HOUR = LocalTime.parse("18:00");
+
     private final List<Appointment> appointments;
 
     public AppointmentManager() {
@@ -98,26 +102,35 @@ public class AppointmentManager {
         }
     }
 
+    private List<Appointment> getAppointments(LocalDate start, LocalDate end) {
+        List<Appointment> validApps = new ArrayList<>();
+        LocalDate date;
+        for (Appointment app : appointments) {
+            date = app.getDate();
+            // Start listing only for appointments with dates between the given range
+            if (date.compareTo(start) >= 0 && date.compareTo(end) <= 0) {
+                validApps.add(app);
+            }
+
+            // Stop when date of appointment is after given end date, since appointments are already sorted
+            if (date.compareTo(end) > 0) {
+                break;
+            }
+        }
+        return validApps;
+    }
+
     /**
      * Returns a {@code String} of appointments with dates between a search range, inclusive.
      * @param start the start date of the search range
      * @param end the end date of the search range
      * @return {@code String} of appointments within the given search range
      */
-    public String list(LocalDate start, LocalDate end) {
+    public String listAppointments(LocalDate start, LocalDate end) {
         StringBuilder sb = new StringBuilder();
-        LocalDate date;
-        for (Appointment app : appointments) {
-            date = app.getDate();
-            // Start listing only for appointments with dates between the given range
-            if (date.compareTo(start) >= 0 && date.compareTo(end) <= 0) {
-                sb.append(app.toString() + "\n");
-            }
-
-            // Stop when date of appointment is after given end date, since appointments are already sorted
-            if (date.compareTo(end) > 0) {
-                return sb.toString();
-            }
+        List<Appointment> toList = getAppointments(start, end);
+        for (Appointment app : toList) {
+            sb.append(app.toString()).append("\n");
         }
         return sb.toString();
     }
@@ -127,7 +140,7 @@ public class AppointmentManager {
      * @param patient the {@code Patient} whose appointments to list
      * @return {@code String} of appointments for the given patient
      */
-    public String list(Patient patient) {
+    public String listAppointments(Patient patient) {
         StringBuilder sb = new StringBuilder();
         Patient p;
         for (Appointment app : appointments) {
@@ -138,6 +151,87 @@ public class AppointmentManager {
         }
         return sb.toString();
     }
+
+    private List<Slot> getFreeSlots(LocalDate start, LocalDate end) {
+        LocalDate date = start;
+        List<Slot> freeSlots = new ArrayList<>();
+        List<Appointment> toSearch = getAppointments(start, end);
+        Slot slot = new Slot(start.minusDays(1), OPENING_HOUR, CLOSING_HOUR);
+        Appointment prevApp = new Appointment();
+
+        if (toSearch.isEmpty()) {
+            return freeSlots;
+        }
+
+        int index = 0;
+        Appointment app = toSearch.get(index);
+        // loop through all search dates form the start
+        while (date.compareTo(end) <= 0) {
+
+            // no appointments for given date
+            if (!date.isEqual(app.getDate())) {
+                slot = new Slot(date, OPENING_HOUR, CLOSING_HOUR);
+                freeSlots.add(slot);
+            }
+
+            LocalTime startTime;
+            LocalTime endTime;
+            // there are appointments in given date
+            while (date.isEqual(app.getDate())) {
+
+                // start a new slot for the day
+                if (slot.getDate().isBefore(date)) {
+                    startTime = OPENING_HOUR;
+                } else {
+                    startTime = prevApp.getEnd();
+                }
+                endTime = app.getStart();
+
+                if (startTime != endTime) {
+                    slot = new Slot(date, startTime, endTime);
+                    freeSlots.add(slot);
+                }
+                prevApp = app;
+
+                // no more next appointment, create last slot for the day
+                if (toSearch.size() == index + 1 || date.isBefore(toSearch.get(index + 1).getDate())) {
+                    startTime = app.getEnd();
+                    endTime = CLOSING_HOUR;
+
+                    if (startTime != endTime) {
+                        slot = new Slot(date, startTime, endTime);
+                        freeSlots.add(slot);
+                    }
+
+                    if (toSearch.size() == index + 1) {
+                        break;
+                    }
+                }
+                index++;
+                app = toSearch.get(index);
+            }
+
+            date = date.plusDays(1);
+        }
+        return freeSlots;
+    }
+
+    /**
+     * Returns a {@code String} of free {@code Slot} to be used as appointment slots, given a search range.
+     *
+     * @param start the starting date of the range to search
+     * @param end the ending date of the range to search
+     * @return a string of free slots
+     */
+    public String listFreeSlots(LocalDate start, LocalDate end) {
+        StringBuilder sb = new StringBuilder();
+        List<Slot> freeSlots = getFreeSlots(start, end);
+        for (Slot slot : freeSlots) {
+            sb.append(slot);
+        }
+        return sb.toString();
+    }
+
 
     public void delete(Appointment app) {
         appointments.remove(app);

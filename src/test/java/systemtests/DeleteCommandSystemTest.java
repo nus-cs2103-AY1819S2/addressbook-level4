@@ -169,7 +169,7 @@ public class DeleteCommandSystemTest extends HotelManagementSystemSystemTest {
 
         if (expectedSelectedCardIndex != null) {
             //Todo: ServiceTypeAndRoomTypeListPanel test
-            //assertSelectedCardChanged(expectedSelectedCardIndex);
+            assertSelectedCardChanged(expectedSelectedCardIndex);
         } else {
             assertSelectedCardUnchanged();
         }

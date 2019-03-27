@@ -163,7 +163,7 @@ public abstract class HotelManagementSystemSystemTest {
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
                                                      CustomerModel expectedModel) {
-        //assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(new HotelManagementSystem(expectedModel.getHotelManagementSystem()),
             testApp.readStorageHotelManagementSystem());
@@ -260,8 +260,7 @@ public abstract class HotelManagementSystemSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         assertListMatching(getCustomerListPanel(), getModel().getFilteredCustomerList());
-        //Todo ServiceTypeAndRoomTypePanel test
-        //assertEquals(ServiceTypeAndRoomTypePanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        //Todo ServiceTypeAndRoomTypePanel assert
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
             getStatusBarFooter().getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());

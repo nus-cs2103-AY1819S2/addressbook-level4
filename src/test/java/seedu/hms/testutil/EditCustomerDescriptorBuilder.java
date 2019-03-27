@@ -85,7 +85,6 @@ public class EditCustomerDescriptorBuilder {
 
     /**
      * Sets the {@code Address} of the {@code EditCustomerDescriptor} that we are building.
-     * Sets the {@code hms} of the {@code EditCustomerDescriptor} that we are building.
      */
     public EditCustomerDescriptorBuilder withAddress(String address) {
         descriptor.setAddress(new Address(address));

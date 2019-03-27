@@ -33,7 +33,8 @@ class DeleteRequestCommandTest {
         String expectedMessage =
             String.format(DeleteRequestCommand.MESSAGE_DELETE_REQUEST_SUCCESS, toDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getHealthWorkerBook(), model.getRequestBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getHealthWorkerBook(),
+                model.getRequestBook(), new UserPrefs());
         expectedModel.deleteRequest(toDelete);
         expectedModel.commitRequestBook();
 

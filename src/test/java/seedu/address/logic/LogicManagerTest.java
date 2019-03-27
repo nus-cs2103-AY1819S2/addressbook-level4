@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.io.IOException;
-import java.nio.file.Path;
+//import java.nio.file.Path;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -79,7 +79,7 @@ public class LogicManagerTest {
         // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
         //might be needed to help writing the stub classes
         //JsonAddressBookStorage addressBookStorage =
-          //      new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        //      new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonRequestBookStorage requestBookStorage =
             new JsonRequestBookStorage(temporaryFolder.newFile().toPath());
@@ -140,7 +140,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager( model.getHealthWorkerBook(),
+        Model expectedModel = new ModelManager(model.getHealthWorkerBook(),
             model.getRequestBook(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
@@ -186,13 +186,12 @@ public class LogicManagerTest {
      * TODO:rewrite for other book classes
      */
     //private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-      //  private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-        //    super(filePath);
-        //}
-
-        //@Override
-        //public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-          //  throw DUMMY_IO_EXCEPTION;
-        //}
+    //  private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
+    //    super(filePath);
+    // }
+    //@Override
+    // public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+    //  throw DUMMY_IO_EXCEPTION;
+    // }
     //}
 }

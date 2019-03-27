@@ -55,7 +55,8 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialHealthWorkerBookSupplier.get() != null) {
-            JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage= new JsonHealthWorkerBookStorage(healthWorkerBookPath);
+            JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage =
+                    new JsonHealthWorkerBookStorage(healthWorkerBookPath);
             try {
                 jsonHealthWorkerBookStorage.saveHealthWorkerBook(initialHealthWorkerBookSupplier.get());
             } catch (IOException ioe) {
@@ -63,7 +64,7 @@ public class TestApp extends MainApp {
             }
         }
         if (initialRequestBookSupplier.get() != null) {
-            JsonRequestBookStorage jsonRequestBookStorage= new JsonRequestBookStorage(requestBookPath);
+            JsonRequestBookStorage jsonRequestBookStorage = new JsonRequestBookStorage(requestBookPath);
             try {
                 jsonRequestBookStorage.saveRequestBook(initialRequestBookSupplier.get());
             } catch (IOException ioe) {
@@ -96,20 +97,20 @@ public class TestApp extends MainApp {
      */
     //TODO: implement requestBook and HealthworkerBook for tests
     //public AddressBook readStorageAddressBook() {
-      //  try {
-        //    return new AddressBook(storage.readAddressBook().get());
-        //} catch (DataConversionException dce) {
-         //   throw new AssertionError("Data is not in the AddressBook format.", dce);
-        //} catch (IOException ioe) {
-          //  throw new AssertionError("Storage file cannot be found.", ioe);
-        //}
+    //  try {
+    //    return new AddressBook(storage.readAddressBook().get());
+    //} catch (DataConversionException dce) {
+    //   throw new AssertionError("Data is not in the AddressBook format.", dce);
+    //} catch (IOException ioe) {
+    //  throw new AssertionError("Storage file cannot be found.", ioe);
+    //}
     //}
 
     /**
      * Returns the file path of the storage file.
      */
     //public Path getStorageSaveLocation() {
-      //  return storage.getAddressBookFilePath();
+    //  return storage.getAddressBookFilePath();
     //}
 
     /**

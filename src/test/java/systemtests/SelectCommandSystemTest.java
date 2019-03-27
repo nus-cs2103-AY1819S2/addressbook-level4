@@ -25,7 +25,8 @@
 //     * TODO: Deprecated. To be replaced with new SelectCommandSystemTest after implementing of Select command.
 //     */
 //    public void select() {
-//        /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
+//        /* ------------------------ Perform select operations on the shown unfiltered list
+//        -------------------------- */
 //
 //        /* Case: select the first card in the person list, command with leading spaces and trailing spaces
 //         * -> selected
@@ -56,7 +57,8 @@
 //        /* Case: select the current selected card -> selected */
 //        assertCommandSuccess(command, middleIndex);
 //
-//        /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
+//        /* ------------------------ Perform select operations on the shown filtered list
+//        ---------------------------- */
 //
 //        /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
 //         * -> rejected
@@ -71,7 +73,8 @@
 //        command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
 //        assertCommandSuccess(command, validIndex);
 //
-//        /* ----------------------------------- Perform invalid select operations ------------------------------------ */
+//        /* ----------------------------------- Perform invalid select operations -------------------
+//        ----------------- */
 //
 //        /* Case: invalid index (0) -> rejected */
 //        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,

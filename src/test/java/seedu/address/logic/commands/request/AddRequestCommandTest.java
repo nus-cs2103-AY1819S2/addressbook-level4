@@ -25,7 +25,6 @@ import seedu.address.model.ReadOnlyHealthWorkerBook;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RequestBook;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.testutil.Assert;
@@ -182,17 +181,17 @@ class AddRequestCommandTest {
 
         //@Override
         //public boolean canRedoAddressBook() {
-          //  throw new AssertionError("This method should not be called.");
-        //}
+        //  throw new AssertionError("This method should not be called.");
+        // }
 
         //@Override
         //public void undoAddressBook() {
-           // throw new AssertionError("This method should not be called.");
+        // throw new AssertionError("This method should not be called.");
         //}
 
         //@Override
         //public void redoAddressBook() {
-            //throw new AssertionError("This method should not be called.");
+        //throw new AssertionError("This method should not be called.");
         //}
 
 

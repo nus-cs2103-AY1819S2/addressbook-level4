@@ -23,7 +23,7 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager( getTypicalHealthWorkerBook(),
+    private Model model = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());

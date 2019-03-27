@@ -36,7 +36,6 @@ public class DeleteHealthWorkerCommandTest {
         ModelManager expectedModel = new ModelManager(model.getHealthWorkerBook(),
                 model.getRequestBook(), new UserPrefs());
         expectedModel.deleteHealthWorker(toDelete);
-        expectedModel.commitRequestBook();
         expectedModel.commitHealthWorkerBook();
 
         assertCommandSuccess(deleteHealthWorkerCommand, model, commandHistory, expectedMessage, expectedModel);

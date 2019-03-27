@@ -111,6 +111,11 @@ public class AddHealthWorkerCommandTest {
                     healthWorker::isSameHealthWorker);
         }
 
+        @Override
+        public void commitHealthWorkerBook() {
+           // called by {@code AddHealthWorkerCommand#execute()}
+        }
+
 
     }
 
@@ -187,8 +192,6 @@ public class AddHealthWorkerCommandTest {
         public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
             throw new AssertionError("This method should not be called.");
         }
-
-        //TODO @Lukaz can help me with this Im not sure if this should be implemented or not
 
         @Override
         public void commitHealthWorkerBook() {
@@ -306,5 +309,7 @@ public class AddHealthWorkerCommandTest {
             throw new AssertionError("This method should not be called.");
         }
     }
+
+
 
 }

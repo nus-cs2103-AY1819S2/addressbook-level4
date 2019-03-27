@@ -214,13 +214,13 @@ Edits the phone number and name of the 1st health worker to be `91234567` and `J
 * `edit 3 2 n/Betsy Crower` +
 Edits the name of the 2nd patient to be `Betsy Crower`. +
 
-=== Filtering request/health worker/patient by parameters: `filter`
+=== Filtering health worker by parameters: `filter`
 
 When identifying and sieving health workers to assign to an open request, or
 to look for a particular patient details, it may be useful to filter out only
  items in a list that match a particular constraint.
 
-Using the `filter` command, you can sieve out requests/health workers/patients
+Using the `filter` command, you can sieve out health workers
 whose fields match the `keywords`that are specified in the `filter` command,
 allowing you to find the doctors who are experts in cardiology much quicker. +
 
@@ -229,20 +229,12 @@ Format: `filter <type> <keyword> [<more_keywords>]...` +
 * *Filter a health worker*
 ** `filter 1 <keyword> [<more_keywords>]`
 
-* *Filter a request*
-** `filter 2 <keyword> [<more_keywords>]`
-
-* *Filter a patient*
-** `filter 3 <keyword> [<more_keywords>]`
-
 `<more_keywords>` represents the fields and parameters that can be used to
 identify requests or personnel, using the same prefixes as in add, edit and
 delete commands. Some examples of keywords are shown below.
 
 Examples:
 
-* `filter 3 n/John` +
-Returns patients named `john` and `John Doe`
 * `filter 1 s/GENERAL_PRACTICE s/GYNAECOLOGY` +
 Returns all health workers whose field of expertise include general practice
 or gynaecology.
@@ -259,6 +251,52 @@ parameters will be accepted
 that subword.
 ** `filter 1 n/Tan` may return people with the surnames Tan or Tang
 ****
+
+
+=== Finding a request: `frequest`
+
+When identifying and sieving through requests
+
+Format: `frequest <keyword> [<more_keywords>]...` +
+
+* *Find a request by patient name*
+** `frequest n/alice`
+
+`<more_keywords>` represents the fields and parameters that can be used to
+identify requests or personnel, using the same prefixes as in add, edit and
+delete commands. Some examples of keywords are shown below.
+
+Examples:
+
+* `frequest n/alice` +
+Returns all patients whose name contains "alice".
+* `frequest p/9177` +
+Returns all requests with contacts numbers that have "9177" in it's field.
+* `frequest dt/30-01-2019 10:00:00` +
+Returns all requests scheduled on 30th Jan 2019, at 10 am sharp.
+* `frequest a/jurong` +
+Returns all requests that are located in Jurong.
+* `frequest i/9670` +
+Returns all requests with patients whom have "9670" in their NRIC number.
+* `frequest c/Physiotherapy` +
+Returns all requests requesting for treatment for physiotherapy
+* `frequest st/pending`
+Returns all requests that are pending.
+
+Notes:
+
+****
+* The search is case insensitive for fields. e.g
+`hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Search using partial words will return all results with fields containing
+that subword.
+** `frequest n/Tan` may return requests with patient surnames Tan or Tang
+* Multiple filters can be added simultaneously: e.g `frequest n/alice c/physio` returns all requests with patient names
+Alice and require Physiotherapy treatment.
+****
+
+
 === Deleting a request/health worker/patient : `delete`
 
 Should there be any invalid or expired request, health worker or patient in

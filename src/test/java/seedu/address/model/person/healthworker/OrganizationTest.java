@@ -45,4 +45,21 @@ public class OrganizationTest {
         // long names
     }
 
+    @Test
+    public void contains() {
+        Organization organization = new Organization("National University of Singapore");
+
+        // same organization name
+        assertTrue(organization.contains("National University of Singapore"));
+
+        // substring of orgName
+        assertTrue(organization.contains("National"));
+
+        // case insensitive substring
+        assertTrue(organization.contains("national"));
+
+        // non-substring
+        assertFalse(organization.contains("NTU"));
+    }
+
 }

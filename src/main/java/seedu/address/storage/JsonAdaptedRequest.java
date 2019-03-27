@@ -1,9 +1,8 @@
 package seedu.address.storage;
 
-//import java.util.ArrayList;
-
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,8 +19,6 @@ import seedu.address.model.request.RequestDate;
 import seedu.address.model.request.RequestStatus;
 import seedu.address.model.tag.Condition;
 
-//import java.util.List;
-//import java.util.stream.Collectors;
 
 /**
  * Jackson-friendly version of {@link Request}.
@@ -65,13 +62,16 @@ class JsonAdaptedRequest {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedRequest(Request source) {
+
+
         this.name = source.getName().toString();
         this.address = source.getAddress().value;
         this.nric = source.getNric().toString();
         this.phone = source.getPhone().value;
         this.requestDate = source.getRequestDate().toString();
         this.requestStatus = source.getRequestStatus().toString();
-        this.conditions = source.getConditions().toString();
+        this.conditions = source.getConditions().stream().map(Condition::toString)
+                .collect(Collectors.joining(","));
         this.healthWorker = source.getHealthStaff();
     }
 

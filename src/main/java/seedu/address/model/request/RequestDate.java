@@ -55,13 +55,9 @@ public class RequestDate {
         return this.date;
     }
 
-    public Date getTruncatedDate() {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM");
-            return dateFormat.parse(dateFormat.format(this.date));
-        } catch (ParseException e) {
-            return this.date;
-        }
+    public String getFormattedDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-YYYY, hh:mm a");
+        return dateFormat.format(this.date);
     }
 
     @Override

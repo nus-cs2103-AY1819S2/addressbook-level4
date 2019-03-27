@@ -34,8 +34,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent UI parts residing in this UI container
     private HelpWindow helpWindow;
     private ResultDisplay resultDisplay;
-    private MapPanel mapPanel;
     private RequestListPanel requestListPanel;
+    private InfoPanel infoPanel;
     private HealthWorkerListPanel healthWorkerListPanel;
 
     @FXML
@@ -126,10 +126,9 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        mapPanel = new MapPanel(logic.selectedPersonProperty());
-        displayInfoPlaceholder.getChildren().add(mapPanel.getRoot());
+        infoPanel = new InfoPanel(logic.selectedRequestProperty());
+        displayInfoPlaceholder.getChildren().add(infoPanel.getRoot());
 
-        //TODO: Change personListPanel to patientListPanel
         requestListPanel = new RequestListPanel(logic.getFilteredRequestList(), logic.selectedRequestProperty(),
                 logic::setSelectedRequest);
         requestListPlaceholder.getChildren().add(requestListPanel.getRoot());

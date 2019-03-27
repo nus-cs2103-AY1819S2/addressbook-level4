@@ -86,4 +86,35 @@ public class SkillsTest {
         editedSkillsTest.addSpecialisation(Specialisation.CARDIOLOGY);
         assertFalse(skillsTest.equals(editedSkillsTest));
     }
+
+    @Test
+    public void containsAll() {
+        //initialization
+        Skills skillsTest = new Skills();
+
+        skillsTest.addSpecialisation(Specialisation.NEUROLOGY);
+        skillsTest.addSpecialisation(Specialisation.GYNAECOLOGY);
+        skillsTest.addSpecialisation(Specialisation.ORTHOPAEDIC);
+
+        // contains one
+        Skills otherSkills = new Skills();
+        otherSkills.addSpecialisation(Specialisation.GYNAECOLOGY);
+        assertTrue(skillsTest.containsAll(otherSkills.getSkills()));
+
+        // contains two
+        otherSkills.addSpecialisation(Specialisation.NEUROLOGY);
+        assertTrue(skillsTest.containsAll(otherSkills.getSkills()));
+
+        // contains three
+        otherSkills.addSpecialisation(Specialisation.ORTHOPAEDIC);
+        assertTrue(skillsTest.containsAll(otherSkills.getSkills()));
+
+        // bigger set
+        otherSkills.addSpecialisation(Specialisation.CARDIOLOGY);
+        assertFalse(skillsTest.containsAll(otherSkills.getSkills()));
+
+        // non subset
+        skillsTest.addSpecialisation(Specialisation.OCCUPATIONAL_THERAPY);
+        assertFalse(skillsTest.containsAll(otherSkills.getSkills()));
+    }
 }

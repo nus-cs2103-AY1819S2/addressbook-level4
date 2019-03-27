@@ -80,7 +80,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected PdfBook getInitialData() {
-        return TypicalPdfs.getTypicalAddressBook();
+        return TypicalPdfs.getTypicalPdfBook();
     }
 
     /**

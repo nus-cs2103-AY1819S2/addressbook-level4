@@ -47,18 +47,18 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PDF_FAILURE = "Unable to Edit PDF.";
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditPdfDescriptor editPdfDescriptor;
 
     /**
      * @param index of the pdf in the filtered pdf list to edit
-     * @param editPersonDescriptor details to edit the pdf with
+     * @param editPdfDescriptor details to edit the pdf with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditPdfDescriptor editPdfDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editPdfDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editPdfDescriptor = new EditPdfDescriptor(editPdfDescriptor);
     }
 
     @Override
@@ -67,11 +67,11 @@ public class EditCommand extends Command {
         List<Pdf> lastShownList = model.getFilteredPdfList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
         }
 
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());
-        Pdf editedPdf = createEditedPdf(pdfToEdit, editPersonDescriptor);
+        Pdf editedPdf = createEditedPdf(pdfToEdit, editPdfDescriptor);
 
         if (!pdfToEdit.getName().getFullName().equals(editedPdf.getName().getFullName())
                 && Paths.get(pdfToEdit.getDirectory().getDirectory(), editedPdf.getName().getFullName())
@@ -84,11 +84,9 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PDF);
         }
 
-        File oFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
-        File nFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
-        boolean editSuccess = oFile.renameTo(nFile);
-
-        if (!editSuccess) {
+        File oldFile = Paths.get(pdfToEdit.getDirectory().getDirectory(), pdfToEdit.getName().getFullName()).toFile();
+        File newFile = Paths.get(editedPdf.getDirectory().getDirectory(), editedPdf.getName().getFullName()).toFile();
+        if (!oldFile.renameTo(newFile)) {
             throw new CommandException(MESSAGE_EDIT_PDF_FAILURE);
         }
 
@@ -100,15 +98,15 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Pdf} with the details of {@code pdfToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editPdfDescriptor}.
      */
-    private static Pdf createEditedPdf(Pdf pdfToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Pdf createEditedPdf(Pdf pdfToEdit, EditPdfDescriptor editPdfDescriptor) {
         assert pdfToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(pdfToEdit.getName());
+        Name updatedName = editPdfDescriptor.getName().orElse(pdfToEdit.getName());
         Size updatedSize = new Size(Long.toString(Paths.get(pdfToEdit.getDirectory().getDirectory(),
                 pdfToEdit.getName().getFullName()).toFile().length()));
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(pdfToEdit.getTags());
+        Set<Tag> updatedTags = editPdfDescriptor.getTags().orElse(pdfToEdit.getTags());
         Deadline updatedDeadline = pdfToEdit.getDeadline();
 
         return new Pdf(updatedName, pdfToEdit.getDirectory(), updatedSize, updatedTags, updatedDeadline);
@@ -129,25 +127,27 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editPdfDescriptor.equals(e.editPdfDescriptor);
     }
 
     /**
      * Stores the details to edit the pdf with. Each non-empty field value will replace the
      * corresponding field value of the pdf.
      */
-    public static class EditPersonDescriptor {
+    public static class EditPdfDescriptor {
         private Name name;
+        private Size size;
         private Set<Tag> tags;
 
-        public EditPersonDescriptor() {}
+        public EditPdfDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+        public EditPdfDescriptor(EditPdfDescriptor toCopy) {
             setName(toCopy.name);
+            setSize(toCopy.size);
             setTags(toCopy.tags);
         }
 
@@ -160,6 +160,10 @@ public class EditCommand extends Command {
 
         public void setName(Name name) {
             this.name = name;
+        }
+
+        public void setSize(Size size) {
+            this.size = size;
         }
 
         public Optional<Name> getName() {
@@ -191,12 +195,12 @@ public class EditCommand extends Command {
             }
 
             // instanceof handles nulls
-            if (!(other instanceof EditPersonDescriptor)) {
+            if (!(other instanceof EditPdfDescriptor)) {
                 return false;
             }
 
             // state check
-            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            EditPdfDescriptor e = (EditPdfDescriptor) other;
 
             return getName().equals(e.getName())
                     && getTags().equals(e.getTags());

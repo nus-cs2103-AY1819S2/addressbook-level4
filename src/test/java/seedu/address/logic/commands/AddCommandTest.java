@@ -4,8 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_4;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_5;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_6;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_7;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_8;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -22,18 +26,20 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.PdfBook;
 import seedu.address.model.ReadOnlyPdfBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
 
 public class AddCommandTest {
-
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -67,26 +73,46 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Pdf dpdf = SAMPLE_PDF_4;
-        Pdf epdf = SAMPLE_PDF_5;
-        AddCommand addDCommand = new AddCommand(dpdf);
-        AddCommand addECommand = new AddCommand(epdf);
+        Pdf samplePdf6 = SAMPLE_PDF_6;
+        Pdf samplePdf7 = SAMPLE_PDF_7;
+        AddCommand addCommandSamplePdf6 = new AddCommand(samplePdf6);
+        AddCommand addCommandSamplePdf7 = new AddCommand(samplePdf7);
 
         // same object -> returns true
-        assertTrue(addDCommand.equals(addDCommand));
+        assertTrue(addCommandSamplePdf6.equals(addCommandSamplePdf6));
 
         // same values -> returns true
-        AddCommand addDCommandCopy = new AddCommand(dpdf);
-        assertTrue(addDCommand.equals(addDCommandCopy));
+        AddCommand addDCommandCopy = new AddCommand(samplePdf6);
+        assertTrue(addCommandSamplePdf6.equals(addDCommandCopy));
 
         // different types -> returns false
-        assertFalse(addDCommand.equals(1));
+        assertFalse(addCommandSamplePdf6.equals(1));
 
         // null -> returns false
-        assertFalse(addDCommand.equals(null));
+        assertFalse(addCommandSamplePdf6.equals(null));
 
         // different pdf -> returns false
-        assertFalse(addDCommand.equals(addECommand));
+        assertFalse(addCommandSamplePdf6.equals(addCommandSamplePdf7));
+    }
+
+    @Test
+    public void executeUndoRedo_validFile_success() throws Exception {
+        Pdf pdfToAdd = SAMPLE_PDF_8;
+        AddCommand addCommand = new AddCommand(pdfToAdd);
+        Model expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
+        expectedModel.addPdf(pdfToAdd);
+        expectedModel.commitPdfBook();
+
+        // add -> first pdf deleted
+        addCommand.execute(model, commandHistory);
+
+        // undo -> reverts pdfbook back to previous state and filtered pdf list to show all persons
+        expectedModel.undoPdfBook();
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo -> same first pdf deleted again
+        expectedModel.redoPdfBook();
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     /**

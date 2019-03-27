@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PDF;
-import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import org.junit.Test;
 
@@ -23,8 +23,8 @@ import seedu.address.model.UserPrefs;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -40,7 +40,7 @@ public class SelectCommandTest {
     public void execute_invalidIndexUnfilteredList_failure() {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPdfList().size() + 1);
 
-        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class SelectCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getPdfBook().getPdfList().size());
 
-        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
     }
 
     @Test

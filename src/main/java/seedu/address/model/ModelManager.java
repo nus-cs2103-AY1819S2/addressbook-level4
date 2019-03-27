@@ -45,8 +45,6 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
-    private final Album album;
-
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -60,8 +58,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-
-        album = Album.getInstance();
     }
 
     public ModelManager() {

@@ -28,6 +28,9 @@ public class JsonAdaptedBookTest {
     private static final List<JsonAdaptedTag> VALID_TAGS = CS.getTags().stream()
             .map(JsonAdaptedTag::new)
             .collect(Collectors.toList());
+    private static final List<JsonAdaptedReview> VALID_REVIEWS = CS.getReviews().stream()
+            .map(JsonAdaptedReview::new)
+            .collect(Collectors.toList());
 
     @Test
     public void toModelType_validBookDetails_returnsbook() throws Exception {

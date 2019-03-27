@@ -49,6 +49,14 @@ public class Review {
         return title;
     }
 
+    public String getContent() {
+        return reviewMessage;
+    }
+
+    public String getDate() {
+        return dateCreated;
+    }
+
     @Override
     public String toString() {
         return title.fullName + "\r\n" + dateCreated + ": \r\n" + reviewMessage;

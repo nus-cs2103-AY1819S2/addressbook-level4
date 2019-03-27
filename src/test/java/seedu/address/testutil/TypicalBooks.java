@@ -63,6 +63,11 @@ public class TypicalBooks {
             .withRating(VALID_RATING_CS).withTags(VALID_TAG_TEXTBOOK, VALID_TAG_FANTASY)
             .build();
 
+    public static final Review ALI_REVIEW = new ReviewBuilder();
+    public static final Book ALI_WITH_REVIEW = new BookBuilder().withBookName(VALID_BOOKNAME_ALICE)
+            .withAuthor(VALID_AUTHOR_ALICE).withRating(VALID_RATING_ALICE).withTags(VALID_TAG_FANTASY)
+            .withReview();
+
     public static final String KEYWORD_MATCHING_LIFE = "life"; // A keyword that matches life
     public static final String KEYWORD_MATCHING_PRIDE = "Pride"; // A keyword that matches Pride
     public static final String KEYWORD_MATCHING_ZUSAK = "Zusak"; // A keyword that matches Zusak

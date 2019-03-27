@@ -50,12 +50,12 @@ public class BrightnessCommand extends Command {
             BufferedOpFilter brightnessFilter =
                 new BrightnessFilter(this.brightnessValue.getAsDouble());
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(brightnessFilter);
-            currentEdit.setTempImage(outputImage);
+            currentEdit.updateTempImage(outputImage);
         } else {
             BufferedOpFilter brightnessFilter =
                 new BrightnessFilter(1.1);
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(brightnessFilter);
-            currentEdit.setTempImage(outputImage);
+            currentEdit.updateTempImage(outputImage);
         }
 
         if (this.isNewCommand) {

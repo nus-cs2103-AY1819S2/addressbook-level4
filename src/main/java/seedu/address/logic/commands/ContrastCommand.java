@@ -55,12 +55,12 @@ public class ContrastCommand extends Command {
             BufferedOpFilter contrastFilter =
                 new ContrastFilter(this.contrastValue.getAsDouble());
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(contrastFilter);
-            currentEdit.setTempImage(outputImage);
+            currentEdit.updateTempImage(outputImage);
         } else {
             BufferedOpFilter contrastFilter =
                 new ContrastFilter(1.1);
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(contrastFilter);
-            currentEdit.setTempImage(outputImage);
+            currentEdit.updateTempImage(outputImage);
         }
         if (this.isNewCommand) {
             this.isNewCommand = false;

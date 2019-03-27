@@ -75,9 +75,21 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /* @@author thamsimun */
-    public void setTempImage(com.sksamuel.scrimage.Image image) {
+    /**
+     * Update tempImage instance of temp_img.png located in temp folder.
+     */
+    public void updateTempImage(com.sksamuel.scrimage.Image image) {
         image.output(tempImage.getUrl(), new JpegWriter(100, true));
 
+    }
+
+    //kayheen use this!!
+    /**
+     * Update tempImage instance of temp_img.png located in temp folder.
+     */
+    public void updateTempImage(Image image) {
+        this.tempImage = image;
+        saveIntoTempFolder(image.getName().toString(), tempImage);
     }
 
     /**

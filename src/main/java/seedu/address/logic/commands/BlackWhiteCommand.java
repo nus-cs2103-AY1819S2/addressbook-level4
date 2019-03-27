@@ -52,12 +52,12 @@ public class BlackWhiteCommand extends Command {
             BufferedOpFilter bwFilter =
                 new ThresholdFilter(threshold.getAsInt(), 0xffffff, 0x000000);
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(bwFilter);
-            currentEdit.setTempImage(outputImage);
+            currentEdit.updateTempImage(outputImage);
         } else {
             BufferedOpFilter bwFilter =
                 new ThresholdFilter(127, 0xffffff, 0x000000);
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(bwFilter);
-            currentEdit.setTempImage(outputImage);
+            currentEdit.updateTempImage(outputImage);
         }
 
         if (this.isNewCommand) {

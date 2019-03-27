@@ -19,7 +19,7 @@ public interface CurrentEdit {
 
     void setTempImage();
 
-    void setTempImage(com.sksamuel.scrimage.Image image);
+    void updateTempImage(com.sksamuel.scrimage.Image image);
 
     void setOriginalImage(Image image);
 

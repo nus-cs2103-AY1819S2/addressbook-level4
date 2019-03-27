@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -71,7 +71,8 @@ public class OpenLessonCommand extends ManagementCommand {
         try {
             lessonName = mgtModel.openLesson(toOpenIndex);
         } catch (IllegalArgumentException e) {
-            throw new CommandException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE), e);
+            throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
+                    targetIndex.getOneBased()), e);
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));

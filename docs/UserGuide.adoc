@@ -17,10 +17,10 @@ By: `Team T12-4`      Since: `Feb 2019`      Licence: `MIT`
 
 == Introduction
 
-PDF++ is a desktop application that targets students who are looking for a file manager in organising their PDF files.
-This application integrates both Command Line Interface (CLI) and Graphical User Interface (GUI)
-to provide an unique experience for you. All supported features can be performed via the CLI and
-relevant feedback, based on your command, will be shown via the GUI.
+PDF++ is a desktop application that targets students who are looking for a pdf document manager in organising their PDF files.
+This application integrates both Text Input (TI) and Graphical User Interface (GUI)
+to provide an unique experience for you. All supported features can be performed via the TI and
+relevant feedback, based on your command, will be displayed in the Response Area of the application.
 
 This manager plans to enhance your typical experience managing PDF files.
 It strives to be the last PDF manager you ever need. It includes a multitude of
@@ -56,7 +56,7 @@ from the mentioned directory to the PDF++ list
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `open FILENAME`, `FILENAME` is a parameter which can be used as `open myfile`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add f/FILENAME`, `FILENAME` is a parameter which can be used as `open f/myfile`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `TAG...` can be used as `{nbsp}` (i.e. 0 times), `MyTag`, `TagA TagB TagC` etc.
 ====
 === Viewing help : `help`
@@ -65,38 +65,41 @@ Format: `help`
 
 === Importing a file: `add`
 
-Adds a PDF file to the app +
-Format: `add f/PATH_TO_FILE`
+The add command allows you to add a file through text input into to the application, +
+or through the GUI. +
 
+Format: `add f/PATH_TO_FILE` [Text Input]
+Format: `add` [GUI]
 
-* The file must be a PDF file (with .pdf extension) and does not have duplicate names
+* The file must be a PDF file (with .pdf extension).
 
 Example:
 
-* `add f/C:\Users\Raj\Documents\Tutorial3.pdf`
+* `add f/C:\Users\Raj\Documents\Tutorial3.pdf` for the Windows Operating System.
+* `add f//Users/raj/Desktop/CS2101 Lecture.pdf` for the Mac Operating System.
 
 === Listing all files : `list`
 
-Shows a list of all PDF files in the app. +
+The list command shows you a list of all files that are tracked by the application. +
 Format: `list`
 
 === Sorting all files : `sort`
 
-Sorts all PDF files in the app based on certain criteria. +
-Format: `sort CRITERIA (name/date) ORDER (up/down)`
+The sort command allows you to sort all the files in the application based on the input criteria. +
+Format: `sort CRITERIA ORDER`
 ****
-* CRITERIA can only be either `name` or `date` corresponding to alphabetical or deadline order +
-* ORDER can only be either `up` or `down` corresponding to ascending or descending order
+* CRITERIA: `name`, `deadline`, `size`. +
+* ORDER: `up` or `down` corresponding to an ascending or descending order
 ****
 
 Example:
 
 * `sort name up` +
-* `sort date down` +
+* `sort ddeadline down` +
 
 === Opening a file : `open`
 
-Opens an existing file at a specified index in the app with default PDF reader. +
+The open command allows you to open an existing file at a specified index in the app with the default program that you have set +
 Format: `open INDEX`
 
 Example:

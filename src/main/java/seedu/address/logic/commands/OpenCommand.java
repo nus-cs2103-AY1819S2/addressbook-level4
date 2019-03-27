@@ -35,8 +35,8 @@ public class OpenCommand extends Command {
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
         requireNonNull(currentEdit);
-        currentEdit.setOriginalImage(toOpen);
-        currentEdit.saveTemp();
+        currentEdit.saveAsTemp(toOpen);
+        currentEdit.saveAsOriginal(toOpen);
         currentEdit.displayTempImage();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toOpen));
     }

@@ -12,10 +12,6 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 
-/*
-import com.sksamuel.scrimage.nio.JpegWriter;
-*/
-
 import com.sksamuel.scrimage.nio.JpegWriter;
 
 import seedu.address.Notifier;
@@ -37,18 +33,19 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Saves a copy of tempImage to temp folder.
+     * Saves a copy of {@code image} to temp folder as temp_img.png and instantiate it as tempImage .
      */
-    public void saveTemp() {
-        saveIntoTempFolder(TEMP_FILENAME, originalImage);
-        tempImage = new Image(TEMP_FILEPATH + TEMP_FILENAME);
+    public void saveAsTemp(Image image) {
+        saveIntoTempFolder(TEMP_FILENAME, image);
+        setTempImage();
     }
 
     /**
-     * Saves a copy to originalImage to temp folder.
+     * Saves a copy of {@code image} to temp folder and instantiate it as originalImage.
      */
-    public void saveOriginal() {
-        saveIntoTempFolder(originalImage.getName().toString(), originalImage);
+    public void saveAsOriginal(Image image) {
+        saveIntoTempFolder(image.getName().toString(), image);
+        setOriginalImage(image);
     }
 
     /**
@@ -70,25 +67,25 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Creates tempImage instance of image and saves a copy to temp folder.
+     * Creates tempImage instance of temp_img.png located in temp folder.
      */
-    public void setTempImage(Image image) {
+    public void setTempImage() {
+        Image image = new Image(TEMP_FILE);
         this.tempImage = image;
-        saveIntoTempFolder(image.getName().toString(), tempImage);
     }
 
     /* @@author thamsimun */
     public void setTempImage(com.sksamuel.scrimage.Image image) {
-        image.output(tempImage.getUrl(),
-            new JpegWriter(100, true));
+        image.output(tempImage.getUrl(), new JpegWriter(100, true));
+
     }
 
     /**
-     * Creates originalImage instance of {@code image} and saves a copy to temp folder.
+     * Creates originalImage instance of {@code image} located in temp_folder.
      */
     public void setOriginalImage(Image image) {
-        this.originalImage = image;
-        saveOriginal();
+        Image originalImage = new Image(TEMP_FILEPATH + image.getName().toString());
+        this.originalImage = originalImage;
     }
 
     public void displayTempImage() {
@@ -122,8 +119,8 @@ public class CurrentEditManager implements CurrentEdit {
             File saveDirectory = new File(ASSETS_FILEPATH);
             latestImage.renameTo(outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
-            setTempImage(tempImage);
-            setOriginalImage(tempImage);
+            saveAsTemp(tempImage);
+            saveAsOriginal(tempImage);
             outputFile.delete();
         } catch (IOException e) {
             System.out.println(e.toString());

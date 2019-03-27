@@ -1,7 +1,9 @@
 package seedu.address.commons.util;
 
 import java.util.ArrayList;
-
+/**
+ * Nodes for Prerequisite Tree
+ */
 public class Node {
     private static final int HEAD_CHILD_INDEX = 0;
 

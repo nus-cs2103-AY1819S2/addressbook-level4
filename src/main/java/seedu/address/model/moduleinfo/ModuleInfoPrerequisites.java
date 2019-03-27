@@ -27,11 +27,11 @@ public class ModuleInfoPrerequisites {
     public static final String AND_REGEX = "AND";
     public static final String NOREQUIREMENT_MESSAGE = "No prerequisites needed";
 
-    private ModuleTree Tree;
+    private ModuleTree tree;
     private String prerequisitesString;
 
-    public ModuleInfoPrerequisites(String Code, String prereq) {
-        this.Tree = new ModuleTree(Code);
+    public ModuleInfoPrerequisites(String code, String prereq) {
+        this.tree = new ModuleTree(code);
         this.prerequisitesString = prereq;
     }
 
@@ -47,7 +47,7 @@ public class ModuleInfoPrerequisites {
             if (prerequisitesString.matches(PREREQUISITE_REGEX)) {
                 String[] prerequisiteArray = prerequisiteSplitter(prerequisitesString);
                 Node tempHead = treeGenerator(prerequisiteArray);
-                this.Tree.addTree(tempHead);
+                this.tree.addTree(tempHead);
             }
         }
     }
@@ -185,8 +185,8 @@ public class ModuleInfoPrerequisites {
     public Node createMinorTree(String sequence) {
         Node pesudoHead = new Node(false, false, "");
 
-        Pattern regex_operation = Pattern.compile(OPERATION_REGEX);
-        Matcher matcher = regex_operation.matcher(sequence);
+        Pattern regexOperation = Pattern.compile(OPERATION_REGEX);
+        Matcher matcher = regexOperation.matcher(sequence);
 
         while (matcher.find()) {
             String operation = matcher.group();
@@ -198,8 +198,8 @@ public class ModuleInfoPrerequisites {
             }
         }
 
-        Pattern regex_code = Pattern.compile(MODULECODE_REGEX);
-        matcher = regex_code.matcher(sequence);
+        Pattern regexCode = Pattern.compile(MODULECODE_REGEX);
+        matcher = regexCode.matcher(sequence);
 
         while (matcher.find()) {
             String code = matcher.group();

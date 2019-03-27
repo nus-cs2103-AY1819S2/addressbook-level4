@@ -29,7 +29,7 @@ public class ResizeCommandParser implements Parser<ResizeCommand> {
             }
             return new ResizeCommand(width, height);
         } catch (NumberFormatException e) {
-            throw new ParseException((Messages.MESSAGE_RESIZE_VALUE_ERROR);
+            throw new ParseException(Messages.MESSAGE_RESIZE_VALUE_ERROR);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ParseException(ResizeCommand.MESSAGE_USAGE);
         }

@@ -2,25 +2,26 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.DIRECTORY_DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
 import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_2_PDF;
 import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_PATH_INVALID;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
-import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
+
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 
-import org.junit.Test;
-
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.testutil.PdfBuilder;
+
+import org.junit.Test;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();

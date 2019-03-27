@@ -34,7 +34,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.request.DeleteRequestCommand;
-import seedu.address.logic.commands.request.FindRequestCommand;
+import seedu.address.logic.commands.request.FilterRequestCommand;
 import seedu.address.logic.commands.request.ListRequestCommand;
 import seedu.address.logic.commands.request.SelectRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -59,8 +59,8 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_findRequest() throws Exception {
-        assertTrue(parser.parseCommand(FindRequestCommand.COMMAND_WORD + " n/alice")
-            instanceof FindRequestCommand);
+        assertTrue(parser.parseCommand(FilterRequestCommand.COMMAND_WORD + " n/alice")
+            instanceof FilterRequestCommand);
     }
 
     @Test

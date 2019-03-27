@@ -164,6 +164,12 @@ public class CsvWrapper {
         return medicine.getFilteredBatch(model.getWarningPanelPredicateAccessor().getBatchExpiringPredicate());
     }
 
+    /**
+     * Returns true if the input medicine is in the input list of lowQuantityMedicineList else returns false.
+     * @param medicine The input medicine.
+     * @param lowQuantityMedicineList The list of medicines which are low in quantity/low in stock.
+     * @return Returns true if the input medicine is in the input list of lowQuantityMedicineList else returns false.
+     */
     private boolean isMedicineLowQuantity(Medicine medicine, List lowQuantityMedicineList) {
         return lowQuantityMedicineList.contains(medicine);
     }

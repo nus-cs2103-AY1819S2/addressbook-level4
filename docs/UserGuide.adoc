@@ -291,7 +291,9 @@ From the image above, you can observe that different batches of the same medicin
 
 === Printing labels : `label`
 
-Outputs label to a PDF file. Label will include name of medicine and standard label template. +
+You can label any specific medicine information in the inventory using the Portable Document Format (PDF). +
+Open the PDF file under the PDF folder to view and print your selected medicine +
+Label will include name of medicine and standard label template. +
 This includes the company that manufactured it, expiry date and the tags that was set with it. +
 Format: `label INDEX [f/FILE_NAME]`
 
@@ -300,7 +302,7 @@ Format: `label INDEX [f/FILE_NAME]`
 * If no file name is specified, the default file name is `to_print`.
 * The index refers to the index number shown in the displayed medicine list.
 * The index must be a positive integer 1, 2, 3, …
-* All files output can be found under the main folder
+* All files output can be found under the PDF folder.
 ****
 
 Examples:

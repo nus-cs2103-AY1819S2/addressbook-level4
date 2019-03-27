@@ -3,13 +3,12 @@ package seedu.address.ui;
 import static java.util.Objects.requireNonNull;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Base64;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +19,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.request.Request;
+import seedu.address.model.tag.Condition;
 
 /**
  * The Info Panel of the App.
@@ -72,14 +72,28 @@ public class InfoPanel extends UiPart<Region> {
         loadPage(DEFAULT_PAGE.toExternalForm());
     }
 
-    public void loadContent(String htmlContent) {
-        Platform.runLater(() -> webView.getEngine().loadContent(htmlContent));
-    }
-
+    /**
+     * Loads a normal web page.
+     * @param url
+     */
     public void loadPage(String url) {
         Platform.runLater(() -> webView.getEngine().load(url));
     }
 
+    /**
+     * Loads the given HTML content directly into the web engine.
+     * @param htmlContent
+     */
+    public void loadContent(String htmlContent) {
+        Platform.runLater(() -> webView.getEngine().loadContent(htmlContent));
+    }
+
+    /**
+     * Generates the entire HTML structure via this method.
+     * Takes in a {@code request} object and the StringBuilder appends its properties.
+     * @param request
+     * @return a string of HTML content
+     */
     private String generateHTML(Request request){
 
         String url = constructMapURL(request.getAddress().toString());
@@ -92,7 +106,8 @@ public class InfoPanel extends UiPart<Region> {
         htmlBuilder.append("Patient NRIC: " + request.getNric().toString() + "</br>");
         htmlBuilder.append("Patient Contact: " + request.getPhone().toString() + "</br>");
         htmlBuilder.append("Patient Address: " + request.getAddress().toString() + "</br>");
-        htmlBuilder.append("Patient Conditions: " + request.getConditions().toString() + "</br>");
+        htmlBuilder.append("Patient Conditions: " + request.getConditions().stream().map(Condition::toString)
+                .collect(Collectors.joining(", ")) + "</br>");
         if (request.getHealthStaff() != null) {
             htmlBuilder.append("Assigned Staff: " + request.getHealthStaff() + "</br>");
         } else {
@@ -111,6 +126,12 @@ public class InfoPanel extends UiPart<Region> {
         return htmlBuilder.toString();
     }
 
+    /**
+     * Constructs the URL for accessing the static map.
+     * Takes in an {@code address} string and extracts only the street details.
+     * @param address
+     * @return a url string to access the map
+     */
     private String constructMapURL(String address) {
 
         String street = address.substring(0, address.indexOf(","));
@@ -123,7 +144,15 @@ public class InfoPanel extends UiPart<Region> {
         return urlBuilder.toString();
     }
 
-    // Reference: https://dzone.com/articles/how-to-implement-get-and-post-request-through-simp
+    /**
+     * This method opens a {@code HTTPURLConnection} object by supplying in the url.
+     * Sets the request method as "GET" and retrieves the {@code BufferedInputStream} object
+     * from the connection, then encodes the bytes to a string to display in the HTML content.
+     * Reference: https://dzone.com/articles/how-to-implement-get-and-post-request-through-simp
+     * @param url
+     * @return a base64 representation of an image
+     * @throws IOException
+     */
     private String getEncodedImage(String url) throws IOException {
         URL urlForGetRequest = new URL(url);
         byte[] imageBytes = new byte[0];
@@ -136,7 +165,7 @@ public class InfoPanel extends UiPart<Region> {
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
                 logger.info("AVAILABLE BYTES: " + bis.available());
-                if (bis.available() != 0) {
+                if (bis.available() != 0) { // if there are bytes to read from InputStream
                     for (byte[] byteArray = new byte[bis.available()];
                          bis.read(byteArray) != -1; ) {
                         byte[] temp = new byte[imageBytes.length + byteArray.length];
@@ -145,7 +174,7 @@ public class InfoPanel extends UiPart<Region> {
                         imageBytes = temp;
                     }
                 } else {
-                    return "Unable to load address location in map.";
+                    return "Unable to view address location in map.";
                 }
             }
         } catch(IOException io) {

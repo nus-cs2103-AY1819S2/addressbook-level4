@@ -6,6 +6,7 @@ import seedu.equipment.commons.core.Messages;
 import seedu.equipment.logic.commands.AddWorkListCommand;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.WorkList;
+import seedu.equipment.model.equipment.Date;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -27,10 +28,10 @@ public class AddWorkListCommandParser implements Parser<AddWorkListCommand> {
                     Messages.MESSAGE_INVALID_COMMAND_FORMAT, AddWorkListCommand.MESSAGE_USAGE));
         }
 
-        String date = ParserUtil.parseDate(argMultimap.getValue(CliSyntax.PREFIX_DATE).get());
+        Date date = ParserUtil.parseDate(argMultimap.getValue(CliSyntax.PREFIX_DATE).get());
         String assignee = ParserUtil.parseAssignee(argMultimap.getValue(CliSyntax.PREFIX_ASSIGNEE).get());
 
-        WorkList workList = new WorkList(date, assignee);
+        WorkList workList = new WorkList(date.value, assignee);
 
         return new AddWorkListCommand(workList);
     }

@@ -29,7 +29,7 @@ public class JsonSerializablePdfBookTest {
         JsonSerializablePdfBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializablePdfBook.class).get();
         PdfBook addressBookFromFile = dataFromFile.toModelType();
-        PdfBook typicalPersonsAddressBook = TypicalPdfs.getTypicalAddressBook();
+        PdfBook typicalPersonsAddressBook = TypicalPdfs.getTypicalPdfBook();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

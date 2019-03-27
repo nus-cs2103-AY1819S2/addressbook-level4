@@ -53,7 +53,7 @@ public class UniquePdfList implements Iterable<Pdf> {
      * {@code target} must exist in the list.
      * The pdf identity of {@code editedPdf} must not be the same as another existing pdf in the list.
      */
-    public void setPerson(Pdf target, Pdf editedPdf) {
+    public void setPdf(Pdf target, Pdf editedPdf) {
         requireAllNonNull(target, editedPdf);
 
         int index = internalList.indexOf(target);

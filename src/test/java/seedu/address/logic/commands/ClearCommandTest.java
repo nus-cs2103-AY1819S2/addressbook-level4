@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import org.junit.Test;
 
@@ -27,13 +27,12 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyPdfBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalPdfBook(), new UserPrefs());
         expectedModel.setPdfBook(new PdfBook());
         expectedModel.commitPdfBook();
 
         assertCommandSuccess(new ClearCommand(), model,
                 EMPTY_COMMAND_HISTORY, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
-
 }

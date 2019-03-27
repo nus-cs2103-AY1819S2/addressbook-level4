@@ -20,10 +20,10 @@ package systemtests;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_LECTURE;
 //import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_1;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DIR_2;
 //import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 //import static seedu.address.testutil.TypicalPdfs.ALICE;
 //import static seedu.address.testutil.TypicalPdfs.AMY;
@@ -67,7 +67,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Pdf toAdd = SAMPLE_PDF_1;
 
-        String command = "   " + AddCommand.COMMAND_WORD + "  " + VALID_DIR_1 + " " + TAG_DESC_LECTURE + " ";
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + DIR_1_VALID + " " + TAG_DESC_LECTURE + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding SAMPLE_PDF_1 to the list -> Amy deleted */
@@ -83,7 +83,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add another pdf with different properties */
         toAdd = new PdfBuilder(SAMPLE_PDF_2).build();
-        command = AddCommand.COMMAND_WORD + VALID_DIR_2;
+        command = AddCommand.COMMAND_WORD + DIR_2_VALID;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a pdf with the same name but different directory -> added*/
@@ -98,7 +98,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /*
         *//* Case: add a pdf with tags, command with parameters in random order -> added *//*
         toAdd = SAMPLE_PDF_3;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_CS2103T + VALID_DIR_3;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_CS2103T + DIR_3_VALID;
         assertCommandSuccess(command, toAdd);
 
         *//* Case: add a pdf, missing tags -> added *//*
@@ -161,7 +161,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         *//* Case: invalid keyword -> rejected *//*
-        command = "adds " + PersonUtil.getPersonDetails(toAdd);
+        command = "adds " + PersonUtil.getPdfDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         *//* Case: invalid name -> rejected *//*

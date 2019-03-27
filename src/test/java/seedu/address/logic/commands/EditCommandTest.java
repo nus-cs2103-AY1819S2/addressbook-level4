@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_1;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_1;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
@@ -18,6 +18,7 @@ import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -178,7 +179,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidPdfIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPdfList().size() + 1);
-        EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(VALID_NAME_1).build();
+        EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(NAME_1_VALID).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
@@ -196,7 +197,7 @@ public class EditCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPdfBook().getPdfList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
-                new EditPdfDescriptorBuilder().withName(VALID_NAME_1).build());
+                new EditPdfDescriptorBuilder().withName(NAME_1_VALID).build());
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
     }
@@ -231,7 +232,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPdfList().size() + 1);
-        EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(VALID_NAME_1).build();
+        EditPdfDescriptor descriptor = new EditPdfDescriptorBuilder().withName(NAME_1_VALID).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         // execution failed -> address book state not added into model
@@ -314,16 +315,13 @@ public class EditCommandTest {
     }
 
     /**
-     * Restores the edited file
+     * Moves {@code fileToRevert} back to its original location
      */
     private void revertBackup(Pdf target, Pdf editedFile) {
-        try {
-            Files.copy(Paths.get(editedFile.getDirectory().getDirectory() + "\\" + editedFile.getName()),
-                    Paths.get(target.getDirectory().getDirectory() + "\\" + target.getName()));
-            Files.delete(Paths.get(editedFile.getDirectory().getDirectory() + "\\" + editedFile.getName()));
-        } catch (IOException ioe) {
-            System.out.println("File not reverted.");
-        }
+        File fileToRevert = Paths.get(editedFile.getDirectory().getDirectory(),
+                editedFile.getName().getFullName()).toFile();
+        File revertedFile = Paths.get(target.getDirectory().getDirectory(),
+                target.getName().getFullName()).toFile();
+        fileToRevert.renameTo(revertedFile);
     }
-
 }

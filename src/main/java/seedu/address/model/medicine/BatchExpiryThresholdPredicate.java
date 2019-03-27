@@ -1,10 +1,10 @@
 package seedu.address.model.medicine;
 
-import seedu.address.model.threshold.Threshold;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
+
+import seedu.address.model.threshold.Threshold;
 
 /**
  * Tests that number of days from {@code Batch}'s {@code Expiry} to today is less than the threshold given.

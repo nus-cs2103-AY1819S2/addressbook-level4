@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.logic.CommandHistory;
@@ -11,7 +13,6 @@ import seedu.address.model.Model;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
 import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
 
-import java.util.function.Predicate;
 
 /**
  * Adds a medicine to the inventory.
@@ -87,7 +88,7 @@ public class WarningCommand extends Command {
             predicateAccessor.setBatchExpiringThreshold(threshold);
             model.updateFilteredExpiringMedicineList(predicateAccessor.getMedicineExpiringPredicate());
 
-        } else if (predicate instanceof MedicineLowStockThresholdPredicate){
+        } else if (predicate instanceof MedicineLowStockThresholdPredicate) {
             int threshold = ((MedicineLowStockThresholdPredicate) predicate).getThreshold();
 
             predicateAccessor.setMedicineLowStockThreshold(threshold);

@@ -77,9 +77,6 @@ public class BookShelfParser {
         case DeleteReviewCommand.COMMAND_WORD:
              return new DeleteReviewCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
-
         case EditBookCommand.COMMAND_WORD:
             return new EditBookCommandParser().parse(arguments);
 

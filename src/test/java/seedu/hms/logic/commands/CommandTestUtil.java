@@ -10,6 +10,8 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
+import static seedu.hms.testutil.TypicalCustomers.ALICE;
+import static seedu.hms.testutil.TypicalCustomers.CARL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,9 +26,11 @@ import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.Model;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
+import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
+import seedu.hms.testutil.EditBookingDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -77,6 +81,8 @@ public class CommandTestUtil {
 
     public static final EditCustomerCommand.EditCustomerDescriptor DESC_AMY;
     public static final EditCustomerCommand.EditCustomerDescriptor DESC_BOB;
+    public static final EditBookingCommand.EditBookingDescriptor DESC_ALICE_SPA;
+    public static final EditBookingCommand.EditBookingDescriptor DESC_CARL_SPA;
 
     static {
         DESC_AMY = new EditCustomerDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -86,6 +92,10 @@ public class CommandTestUtil {
             .withPhone(VALID_PHONE_BOB).withDateOfBirth(VALID_DATE_OF_BIRTH_BOB).withEmail(VALID_EMAIL_BOB)
             .withIdNum(VALID_ID_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
+        DESC_ALICE_SPA = new EditBookingDescriptorBuilder().withService(ServiceType.SPA).withTiming(11, 12)
+            .withPayer(ALICE).withOtherUsers().withComment("AliceSPA").build();
+        DESC_CARL_SPA = new EditBookingDescriptorBuilder().withService(ServiceType.SPA).withTiming(12, 13)
+                .withPayer(CARL).withOtherUsers().withComment("CarlSPA").build();
     }
 
     /* -------------------------- CUSTOMER ----------------------- */
@@ -239,10 +249,8 @@ public class CommandTestUtil {
      */
     public static void showBookingForPayer(BookingModel model, Customer payer) {
         String id = payer.getIdNum().toString();
-        System.out.println(id);
         model.updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
         model.updateFilteredBookingList(new BookingContainsPayerPredicate(id));
-        System.out.println("3---" + model.getFilteredBookingList());
     }
 
     /**

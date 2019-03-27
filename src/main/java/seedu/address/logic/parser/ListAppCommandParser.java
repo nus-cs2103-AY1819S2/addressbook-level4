@@ -26,7 +26,7 @@ public class ListAppCommandParser implements Parser<ListAppCommand> {
     public static final String FORMAT_DAY = "day";
     public static final String FORMAT_WEEK = "week";
     public static final String FORMAT_MONTH = "month";
-    private static final String[] TOPICS = {FORMAT_DAY, FORMAT_WEEK, FORMAT_MONTH};
+    private static final String[] FORMATS = {FORMAT_DAY, FORMAT_WEEK, FORMAT_MONTH};
 
     /**
      * Parses the given {@code String} of arguments in the context of the ListAppCommand
@@ -56,7 +56,7 @@ public class ListAppCommandParser implements Parser<ListAppCommand> {
             LocalDate start = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim());
             String format = argMultimap.getValue(PREFIX_FORMAT).get().trim();
             // check if the format given is valid
-            if (Arrays.stream(TOPICS).noneMatch(format::equalsIgnoreCase)) {
+            if (Arrays.stream(FORMATS).noneMatch(format::equalsIgnoreCase)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         "Valid keywords for FORMATS: "
                         + FORMAT_DAY + ", "

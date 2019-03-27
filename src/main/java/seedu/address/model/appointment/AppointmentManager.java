@@ -26,9 +26,6 @@ public class AppointmentManager {
      */
     public void addAppointment(Appointment toAdd) {
         //assert !this.hasTimeConflicts(toAdd);
-        LocalDate date = toAdd.getDate();
-        LocalTime end = toAdd.getEnd();
-
         if (appointments.isEmpty()) {
             appointments.add(toAdd);
             return;
@@ -42,7 +39,7 @@ public class AppointmentManager {
             }
         }
 
-        // toAdd fits at the end of the list
+        // toAdd is to be placed at the end of the list
         appointments.add(toAdd);
     }
 

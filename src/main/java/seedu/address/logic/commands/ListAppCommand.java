@@ -15,7 +15,7 @@ import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 
 /**
- * Lists all appointments in the address book to the user.
+ * Lists all appointments in quickdocs to the user.
  */
 public class ListAppCommand extends Command {
 

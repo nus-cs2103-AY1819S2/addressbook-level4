@@ -12,9 +12,7 @@ import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 
-/*
 import com.sksamuel.scrimage.nio.JpegWriter;
-*/
 
 import seedu.address.Notifier;
 import seedu.address.logic.commands.Command;
@@ -31,15 +29,17 @@ public class CurrentEditManager implements CurrentEdit {
     /**
      * Saves a copy of tempImage to temp folder.
      */
-    public void saveTemp() {
-        saveIntoTempFolder(TEMP_FILENAME, tempImage);
+    public void saveAsTemp(Image image) {
+        saveIntoTempFolder(TEMP_FILENAME, image);
+        setTempImage();
     }
 
     /**
      * Saves a copy to originalImage to temp folder.
      */
-    public void saveOriginal() {
-        saveIntoTempFolder(originalImage.getName().toString(), originalImage);
+    public void saveAsOriginal(Image image) {
+        saveIntoTempFolder(image.getName().toString(), image);
+        setOriginalImage(image);
     }
 
     /**
@@ -62,26 +62,25 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Creates tempImage instance of image and saves a copy to temp folder.
+     * Creates tempImage instance of image {@code image}.
      */
-    public void setTempImage(Image image) {
+    public void setTempImage() {
+        Image image = new Image(TEMP_FILE);
         this.tempImage = image;
-        saveTemp();
+    }
+
+    public void setTempImage(com.sksamuel.scrimage.Image image) {
+        image.output(tempImage.getUrl(),
+                new JpegWriter(100, true));
     }
 
     /**
-     * Creates originalImage instance of {@code image} and saves a copy to temp folder.
+     * Creates originalImage instance of {@code image}.
      */
     public void setOriginalImage(Image image) {
-        this.originalImage = image;
-        saveOriginal();
+        Image originalImage = new Image(TEMP_FILEPATH + image.getName().toString());
+        this.originalImage = originalImage;
     }
-
-    /*
-    public void setTempImage(com.sksamuel.scrimage.Image image) {
-        image.output(tempImage.getUrl(),
-            new JpegWriter(100, true));
-    }*/
 
     public void displayTempImage() {
         Notifier.firePropertyChangeListener("import", null, tempImage.getUrl());
@@ -112,8 +111,8 @@ public class CurrentEditManager implements CurrentEdit {
             File saveDirectory = new File(ASSETS_FILEPATH);
             latestImage.renameTo(outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
-            setTempImage(tempImage);
-            setOriginalImage(tempImage);
+            saveAsTemp(tempImage);
+            saveAsOriginal(tempImage);
             outputFile.delete();
         } catch (IOException e) {
             System.out.println(e.toString());

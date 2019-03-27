@@ -19,6 +19,10 @@ import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.request.DeleteRequestCommand;
+import seedu.address.logic.commands.request.FindRequestCommand;
+import seedu.address.logic.commands.request.ListRequestCommand;
+import seedu.address.logic.commands.request.SelectRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 public class AddressBookParserTest {
@@ -33,6 +37,29 @@ public class AddressBookParserTest {
         // Person person = new PersonBuilder().build();
         // AddPersonCommand command = (AddPersonCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         // assertEquals(new AddPersonCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_findRequest() throws Exception {
+        assertTrue(parser.parseCommand(FindRequestCommand.COMMAND_WORD + " n/alice")
+            instanceof FindRequestCommand);
+    }
+
+    @Test
+    public void parseCommand_selectRequest() throws Exception {
+        assertTrue(parser.parseCommand(SelectRequestCommand.COMMAND_WORD + " 1")
+            instanceof SelectRequestCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteRequest() throws Exception {
+        assertTrue(parser.parseCommand(DeleteRequestCommand.COMMAND_WORD + " 3")
+            instanceof DeleteRequestCommand);
+    }
+
+    @Test
+    public void parseCommand_listRequest() throws Exception {
+        assertTrue(parser.parseCommand(ListRequestCommand.COMMAND_WORD) instanceof ListRequestCommand);
     }
 
     @Test

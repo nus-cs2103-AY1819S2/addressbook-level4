@@ -25,6 +25,7 @@ public class Review {
      * @param message the content of the review.
      */
     public Review(ReviewTitle title, BookName bookname, String message) {
+        requireNonNull(bookname);
         requireNonNull(message);
         requireNonNull(title);
         this.title = title;
@@ -41,8 +42,10 @@ public class Review {
      * @param message the content of the review.
      */
     public Review(ReviewTitle title, BookName bookName, String date, String message) {
+        requireNonNull(bookName);
         requireNonNull(message);
         requireNonNull(title);
+        requireNonNull(date);
         this.title = title;
         this.bookName = bookName;
         reviewMessage = message;

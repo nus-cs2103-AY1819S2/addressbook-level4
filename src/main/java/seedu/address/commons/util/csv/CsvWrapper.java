@@ -8,8 +8,10 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +20,7 @@ import com.opencsv.CSVWriter;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Batch;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.tag.Tag;
 
@@ -30,6 +33,7 @@ public class CsvWrapper {
 
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to csv file: ";
     public static final String DEFAULT_EXPIRING_SOON_NOTIFICATION = "[EXPIRING SOON]";
+    public static final String DEFAULT_EXPIRED_NOTIFICATION = "[EXPIRED]";
     public static final String DEFAULT_LOW_STOCK_NOTIFICATION = "[LOW STOCK]";
     private static String[] defaultHeading = {"Name", "Batch Number", "Quantity", "Expiry Date", "Company", "Tags",
                                               "Notifications"};
@@ -175,6 +179,26 @@ public class CsvWrapper {
     }
 
     /**
+     * Returns true if the input medicine batch is expired else returns false.
+     * Note: A medicine batch is considered expired if the current date is greater than or equal to the medicine
+     * batch expiry date.
+     * @param batch The input medicine batch.
+     * @return Returns true if the input medicine batch is expired else returns false.
+     */
+    private boolean isMedicineBatchExpired(Batch batch) {
+        Expiry currentMedicineBatchExpiry = batch.getExpiry();
+        Expiry currentDate;
+        SimpleDateFormat currentDataAndTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDateString = currentDataAndTimeFormat.format(new Date());
+        currentDate = new Expiry(currentDateString);
+        if (currentDate.compareTo(currentMedicineBatchExpiry) >= 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Processes the input medicine data and returns a List of String Array
      * representation of the input medicine data for writing to csv file.
      * @param medicine The input medicine.
@@ -232,11 +256,19 @@ public class CsvWrapper {
             builder.append(DEFAULT_LOW_STOCK_NOTIFICATION);
             if (listOfBatchesExpiringSoon.contains(batch)) {
                 builder.append(' ');
-                builder.append(DEFAULT_EXPIRING_SOON_NOTIFICATION);
+                if (isMedicineBatchExpired(batch)) {
+                    builder.append(DEFAULT_EXPIRED_NOTIFICATION);
+                } else {
+                    builder.append(DEFAULT_EXPIRING_SOON_NOTIFICATION);
+                }
             }
         } else {
             if (listOfBatchesExpiringSoon.contains(batch)) {
-                builder.append(DEFAULT_EXPIRING_SOON_NOTIFICATION);
+                if (isMedicineBatchExpired(batch)) {
+                    builder.append(DEFAULT_EXPIRED_NOTIFICATION);
+                } else {
+                    builder.append(DEFAULT_EXPIRING_SOON_NOTIFICATION);
+                }
             }
         }
         result = builder.toString().split("\\|");
@@ -253,5 +285,9 @@ public class CsvWrapper {
 
     public static String getDefaultLowStockNotification() {
         return DEFAULT_LOW_STOCK_NOTIFICATION;
+    }
+
+    public static String getDefaultExpiredNotification() {
+        return DEFAULT_EXPIRED_NOTIFICATION;
     }
 }

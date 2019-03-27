@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +30,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.medicine.Batch;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.tag.Tag;
 
@@ -148,11 +151,19 @@ public class ExportCommandTest {
                         builder.append(CsvWrapper.getDefaultLowStockNotification());
                         if (listOfBatchesExpiringSoon.contains(currentBatch)) {
                             builder.append(' ');
-                            builder.append(CsvWrapper.getDefaultExpiringSoonNotification());
+                            if (isMedicineBatchExpired(currentBatch)) {
+                                builder.append(CsvWrapper.getDefaultExpiredNotification());
+                            } else {
+                                builder.append(CsvWrapper.getDefaultExpiringSoonNotification());
+                            }
                         }
                     } else {
                         if (listOfBatchesExpiringSoon.contains(currentBatch)) {
-                            builder.append(CsvWrapper.getDefaultExpiringSoonNotification());
+                            if (isMedicineBatchExpired(currentBatch)) {
+                                builder.append(CsvWrapper.getDefaultExpiredNotification());
+                            } else {
+                                builder.append(CsvWrapper.getDefaultExpiringSoonNotification());
+                            }
                         }
                     }
                     expectedData = builder.toString().split("\\|");
@@ -172,6 +183,26 @@ public class ExportCommandTest {
             if (filePath.exists()) {
                 filePath.delete();
             }
+        }
+    }
+
+    /**
+     * Returns true if the input medicine batch is expired else returns false.
+     * Note: A medicine batch is considered expired if the current date is greater than or equal to the medicine
+     * batch expiry date.
+     * @param batch The input medicine batch.
+     * @return Returns true if the input medicine batch is expired else returns false.
+     */
+    private boolean isMedicineBatchExpired(Batch batch) {
+        Expiry currentMedicineBatchExpiry = batch.getExpiry();
+        Expiry currentDate;
+        SimpleDateFormat currentDataAndTimeFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDateString = currentDataAndTimeFormat.format(new Date());
+        currentDate = new Expiry(currentDateString);
+        if (currentDate.compareTo(currentMedicineBatchExpiry) >= 1) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

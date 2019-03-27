@@ -142,7 +142,6 @@ public class EditBookingCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Booking editedBooking = new BookingBuilder().build();
-        Booking bookingToEdit = model.getFilteredBookingList().get(INDEX_FIRST_BOOKING.getZeroBased());
         EditBookingCommand.EditBookingDescriptor descriptor = new EditBookingDescriptorBuilder(editedBooking)
                 .build();
         EditBookingCommand editBookingCommand = new EditBookingCommand(INDEX_FIRST_BOOKING, descriptor);

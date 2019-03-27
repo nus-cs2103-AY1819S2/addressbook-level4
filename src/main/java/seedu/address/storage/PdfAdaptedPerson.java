@@ -9,11 +9,9 @@ import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Person;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * PDF-friendly version of {@link Person}.
  */
 class PdfAdaptedPerson implements PdfAdaptedInterface {
-
-    public static final int ATTRIBUTES = 7;
 
     private final String name;
     private final String nric;
@@ -64,7 +62,7 @@ class PdfAdaptedPerson implements PdfAdaptedInterface {
      */
     @Override
     public ArrayList<String> getStrings() {
-        ArrayList<String> stringArray = new ArrayList<>(ATTRIBUTES);
+        ArrayList<String> stringArray = new ArrayList<>();
         stringArray.add("NRIC: " + nric);
         stringArray.add("Name: " + name);
         stringArray.add("Date of birth: " + dateOfBirth);

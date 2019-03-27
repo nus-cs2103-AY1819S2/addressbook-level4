@@ -16,6 +16,7 @@ import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.storage.csvmanager.CsvManager;
+import seedu.address.storage.csvmanager.Exceptions.CsvManagerNotInitialized;
 
 /**
  * The API of the Model component.
@@ -240,7 +241,7 @@ public interface Model extends Observable {
      */
     boolean checkIfCardAlreadyAnswered();
 
-    void exportCardFolders(List<Integer> cardFolderExports) throws IOException;
+    void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized;
 
     void importCardFolders(CsvFile csvFile) throws IOException;
 

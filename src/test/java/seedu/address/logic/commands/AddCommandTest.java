@@ -174,19 +174,11 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-<<<<<<< HEAD
-=======
         @Override
         public boolean testNextCard() {
             throw new AssertionError("This method should not be called.");
         }
 
-
-        @Override
-        public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolers) {
-            throw new AssertionError("This method should not be called.");
-        }
->>>>>>> 2ccca9a576e1bced2ba5fa99a6eb573589bcdc5d
 
         public boolean markAttemptedAnswer(Answer attemptedAnswer) {
             throw new AssertionError("This method should not be called.");
@@ -210,6 +202,11 @@ public class AddCommandTest {
 
         @Override
         public void importCardFolders(CsvFile csvFile) throws IOException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setTestCsvPath() throws IOException {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -94,7 +94,7 @@ public class MainApp extends Application {
      * The data from the sample card folder will be used instead if {@code storage}'s card folder is not found,
      * or an empty card folder will be used instead if errors occur when reading {@code storage}'s card folder.
      */
-    Model initModelManager(boolean withSample, Storage storage, ReadOnlyUserPrefs userPrefs) throws IOException {
+    Model initModelManager(boolean withSample, Storage storage, ReadOnlyUserPrefs userPrefs) {
         List<ReadOnlyCardFolder> initialCardFolders;
 
         if (withSample) {

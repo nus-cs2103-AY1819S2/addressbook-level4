@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.List;
 
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolderNotFoundException;
 import seedu.address.model.Model;
+import seedu.address.storage.csvmanager.Exceptions.CsvManagerNotInitialized;
 
 
 /**
@@ -44,6 +46,8 @@ public class ExportCommand extends Command {
             throw new CommandException(MESSAGE_MISSING_CARD_FOLDERS + e.getMessage());
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
+        } catch (CsvManagerNotInitialized e) {
+            throw new CommandException(Messages.MESSAGE_CSV_MANAGER_NOT_INITIALIZED);
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }

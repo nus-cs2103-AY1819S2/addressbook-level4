@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -33,6 +34,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.storage.csvmanager.CsvManager;
+import seedu.address.storage.csvmanager.Exceptions.CsvManagerNotInitialized;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -103,7 +105,7 @@ public class ModelManager implements Model {
         inFolder = true;
     }
 
-    public ModelManager(String newFolderName) throws IOException {
+    public ModelManager(String newFolderName) {
         this(Collections.singletonList(new CardFolder(newFolderName)), new UserPrefs());
     }
 
@@ -491,9 +493,9 @@ public class ModelManager implements Model {
 
     //=========== Export / Import card folders ========================================================================
     @Override
-    public void exportCardFolders(List<Integer> cardFolderExports) throws IOException {
+    public void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized {
         if (csvManager == null) {
-            throw new CommandException()
+            throw new CsvManagerNotInitialized(Messages.MESSAGE_CSV_MANAGER_NOT_INITIALIZED);
         }
         List<ReadOnlyCardFolder> cardFolders = returnValidCardFolders(cardFolderExports);
         csvManager.writeFoldersToCsv(cardFolders);

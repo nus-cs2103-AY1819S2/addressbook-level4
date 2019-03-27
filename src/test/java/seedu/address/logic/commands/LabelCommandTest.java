@@ -1,14 +1,15 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 import java.io.File;
 import java.io.IOException;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
@@ -33,7 +34,8 @@ public class LabelCommandTest {
 
     @Test
     public void execute_labelMedicineAtIndexOneDefaultFileNameUnfilteredList_success()
-            throws IOException, CommandException { Medicine medicineToLabel = model.getFilteredMedicineList().get(0);
+            throws IOException, CommandException {
+        Medicine medicineToLabel = model.getFilteredMedicineList().get(0);
 
         LabelCommand labelCommand = new LabelCommand(INDEX_FIRST_MEDICINE, new FileName(DEFAULT_FILENAME));
         labelCommand.execute(model, commandHistory);
@@ -49,8 +51,10 @@ public class LabelCommandTest {
     }
 
     @Test
-    public void execute_labelMedicineAtIndexTwoDefaultFileNameUnfilteredList_success() throws
-            IOException, CommandException { Medicine medicineToLabel = model.getFilteredMedicineList().get(1);
+    public void execute_labelMedicineAtIndexTwoDefaultFileNameUnfilteredList_success()
+            throws IOException, CommandException {
+
+        Medicine medicineToLabel = model.getFilteredMedicineList().get(1);
 
         LabelCommand labelCommand = new LabelCommand(INDEX_SECOND_MEDICINE, new FileName("secondMedicine"));
         labelCommand.execute(model, commandHistory);

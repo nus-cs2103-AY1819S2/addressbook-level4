@@ -145,7 +145,7 @@ Example:
 This command lets you exits the program. +
 Format: `exit`
 
-=== Assigning and deleting tags to a file : `tag` `[Coming in v1.3]`
+=== Adding and Removing tags to a file : `tag` `[Coming in v1.3]`
 
 Assigns and/or deletes tags to an existing file in the list of the app. Use `-` to
  delete tag. No action will be taken when the tag you want to delete does not exist. +

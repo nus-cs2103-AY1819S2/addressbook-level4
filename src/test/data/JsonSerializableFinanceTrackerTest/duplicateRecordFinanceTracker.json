@@ -1,13 +1,13 @@
 {
   "records": [ {
     "name": "Fries",
-    "amount" : "$3.00",
+    "amount" : "3.00",
     "date" : "03/02/2019",
     "description": "some description",
     "category": [ "friends" ]
   }, {
     "name": "Fries",
-    "amount" : "$3.00",
+    "amount" : "3.00",
     "date" : "12/03/2019",
     "description": "some description"
   } ]

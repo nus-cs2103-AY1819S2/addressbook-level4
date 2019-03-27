@@ -32,7 +32,7 @@ If you are looking for a medicine stock taking application for clinics, MediTabs
 
 == Quick Start
 
-.  Ensure you have Java version `9` or later installed in your Computer.
+.  Ensure you have Java version `9` installed on your computer.
 .  Download the latest version of `meditabs.jar` link:{repoURL}/releases[here].
 .  Copy the `meditabs.jar` file to the folder you want to use as the home folder for your MediTabs application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -212,21 +212,24 @@ Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the
 === Managing warning panel : `warning`
 
 Manage the threshold for expiry date and low stock warnings. +
-Format: `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
-If the thresholds are not set, the default threshold for expiry is 10 days, while threshold for low stock is 20.
+Format: `warning [e/EXPIRY_THRESHOLD] [q/LOW_STOCK_THRESHOLD] [SHOW]` +
+If the thresholds are not set, the default threshold for expiry is 10 days, and 20 for low stock.
 
 ****
-* At least one of the optional fields must be provided.
+* Provide only one of the optional fields.
 * `EXPIRY_THRESHOLD` should be in days before expiry date.
-* `LOWSTOCK_THRESHOLD` should be in number of stock remaining.
+* `LOW_STOCK_THRESHOLD` should be in number of stock remaining.
+* `SHOW` is case insensitive, but there should not be any whitespace in the word "show".
 ****
 
 Examples:
 
 * `warning e/20` +
 Medicines with expiry dates within 10 days to expiry from today will be displayed in the warning panel.
-* `warning s/10` +
+* `warning q/10` +
 Medicines with quanities of less than or equal to 20 will be displayed in the warning panel.
+* `warning show` +
+Current thresholds used for the warning panel will be shown.
 
 === Exporting as CSV file format : `export`
 
@@ -261,7 +264,7 @@ A sample image of how the Medicine Inventory data in the exported CSV file is or
 image::SampleCSVFileImage.png[width="790"]
 
 [NOTE]
-From the image above, you can observe that different batches of the same medicine have their own row in the CSV file. This provides more detailed information on the quantity and expiry date for each batch of the same medicine as different batches of the same medicine can have different expiry dates and quantity.
+From the image above, you can observe that different batches of the same medicine have their own row in the CSV file. This provides more detailed information on the quantity and expiry date for each batch of the same medicine as different batches of the same medicine can have different expiry dates and quantity. Furthermore, the CSV file also includes information such as which medicines are low in stock and which medicines are expiring soon for easier reference.
 
 === Printing labels : `label`
 
@@ -388,9 +391,23 @@ _{explain how the user can enable/disable data encryption}_
 
 == Frequently Asked Questions (FAQ)
 
+*Q*: Where can I find Java version `9`? +
+*A*: You can download Java version `9` link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here]. We recommend installing Java SE Development Kit `9.0.4` on your computer.
+
+*Q*: (Windows Only) I followed the instructions in <<Quick Start>> but the GUI did not appear? +
+*A*: This is a commonly known issue with JDK on Windows. You can learn more about the issue here: link:https://bugs.java.com/bugdatabase/view_bug.do?bug_id=4912211[Link]
+
+We recommend following the steps below to solve this issue:
+
+.   Ensure that you *only* have Java version `9` installed on your computer. Uninstall any other versions of Java which might be present on your computer.
+.   Download the latest version of `jarfix.exe` link:https://johann.loefflmann.net/en/software/jarfix/[here]
+.   Double-click the file to allow the program to fix this issue.
+
+[NOTE]
+If you encounter any problems running `jarfix.exe`, you can read the documentation available on the link:https://johann.loefflmann.net/en/software/jarfix/[website] for more detailed instructions on how to run the program on your computer.
+
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MediTabs folder.
-
 
 == Commands Summary
 

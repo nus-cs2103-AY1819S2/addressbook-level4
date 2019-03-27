@@ -30,11 +30,17 @@ public class CurrentEditManager implements CurrentEdit {
     private Image originalImage;
     private Image tempImage;
 
+    public CurrentEditManager() {
+        this.originalImage = null;
+        this.tempImage = null;
+    }
+
     /**
      * Saves a copy of tempImage to temp folder.
      */
     public void saveTemp() {
-        saveIntoTempFolder(TEMP_FILENAME, tempImage);
+        saveIntoTempFolder(TEMP_FILENAME, originalImage);
+        tempImage = new Image(TEMP_FILEPATH + TEMP_FILENAME);
     }
 
     /**
@@ -58,7 +64,6 @@ public class CurrentEditManager implements CurrentEdit {
             System.out.println(e.toString());
         }
     }
-
     public Image getTempImage() {
         return tempImage;
     }
@@ -68,7 +73,7 @@ public class CurrentEditManager implements CurrentEdit {
      */
     public void setTempImage(Image image) {
         this.tempImage = image;
-        saveTemp();
+        saveIntoTempFolder(image.getName().toString(), tempImage);
     }
 
     public void setTempImage(com.sksamuel.scrimage.Image image) {
@@ -99,6 +104,8 @@ public class CurrentEditManager implements CurrentEdit {
         File file = new File(ASSETS_FILEPATH);
         return file.list();
     }
+
+
 
     /**
      * Saves tempImage to assetsFolder as {@code name} or original name if not specified.

@@ -14,6 +14,8 @@ import org.apache.commons.io.FileUtils;
 
 import com.sksamuel.scrimage.nio.JpegWriter;
 
+import com.sksamuel.scrimage.nio.JpegWriter;
+
 import seedu.address.Notifier;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;
@@ -25,6 +27,11 @@ import seedu.address.model.image.Image;
 public class CurrentEditManager implements CurrentEdit {
     private Image originalImage;
     private Image tempImage;
+
+    public CurrentEditManager() {
+        this.originalImage = null;
+        this.tempImage = null;
+    }
 
     /**
      * Saves a copy of {@code image} to temp folder as temp_img.png and instantiate it as tempImage .
@@ -56,7 +63,6 @@ public class CurrentEditManager implements CurrentEdit {
             System.out.println(e.toString());
         }
     }
-
     public Image getTempImage() {
         return tempImage;
     }
@@ -67,11 +73,19 @@ public class CurrentEditManager implements CurrentEdit {
     public void setTempImage() {
         Image image = new Image(TEMP_FILE);
         this.tempImage = image;
+<<<<<<< HEAD
+=======
+        saveIntoTempFolder(image.getName().toString(), tempImage);
+>>>>>>> upstream/master
     }
 
     public void setTempImage(com.sksamuel.scrimage.Image image) {
         image.output(tempImage.getUrl(),
+<<<<<<< HEAD
                 new JpegWriter(100, true));
+=======
+            new JpegWriter(100, true));
+>>>>>>> upstream/master
     }
 
     /**
@@ -97,6 +111,8 @@ public class CurrentEditManager implements CurrentEdit {
         File file = new File(ASSETS_FILEPATH);
         return file.list();
     }
+
+
 
     /**
      * Saves tempImage to assetsFolder as {@code name} or original name if not specified.

@@ -17,12 +17,10 @@ public interface CurrentEdit {
     Image getTempImage();
 
     void setTempImage();
-    /*
+
     void setTempImage(com.sksamuel.scrimage.Image image);
-    */
 
     void setOriginalImage(Image image);
-
 
     void displayTempImage();
 

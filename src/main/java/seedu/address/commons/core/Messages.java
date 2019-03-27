@@ -17,6 +17,11 @@ public class Messages {
     public static final String MESSAGE_ROTATE_SUCCESS = "Rotated successfully";
     public static final String MESSAGE_CONTRAST_SUCCESS = "Contrast filter applied successfully";
     public static final String MESSAGE_BRIGHTNESS_SUCCESS = "Brightness filter applied successfully";
+    public static final String MESSAGE_BLACKWHITE_SUCCESS = "Black/White filter applied successfully";
+    public static final String MESSAGE_CONTRAST_DOUBLE_ERROR = "Value keyed in is not double. E.g: contrast 1.3";
+    public static final String MESSAGE_BRIGHTNESS_DOUBLE_ERROR = "Value keyed in is not double. E.g: brightness 1.3";
+    public static final String MESSAGE_BLACKWHITE_INT_ERROR = "Value keyed in is not integer. E.g: bw 123";
+    public static final String MESSAGE_NEGATIVE_ERROR = "Value keyed in is not positive.";
     public static final String MESSAGE_ROTATE_DEGREE_ERROR = "Argument given is an invalid integer or rotating degree. "
             + "Only 90, 180 or 270 is allowed.";
     public static final String MESSAGE_FILE_DOES_NOT_EXIST = "File does not exist.";
@@ -27,7 +32,7 @@ public class Messages {
     public static final String MESSAGE_CROP_INSUFFICIENT_INPUTS = "Input file name. E.g: crop 0 0 200 200 "
             + "sample.png";
     public static final String MESSAGE_CROP_SUCCESS = "Cropped successfully.";
-
+    public static final String MESSAGE_DID_NOT_OPEN = "Did not open any image to edit on.";
 
 
 }

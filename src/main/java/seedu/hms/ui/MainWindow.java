@@ -138,8 +138,8 @@ public class MainWindow extends UiPart<Stage> {
         serviceTypeListPanel = new ServiceTypeListPanel(logic.getServiceTypeList(), logic.selectedServiceTypeProperty(),
                 logic::setSelectedServiceType);
 
-        roomTypeListPanel = new RoomTypeListPanel(logic.getServiceTypeList(), logic.selectedServiceTypeProperty(),
-                logic::setSelectedServiceType);
+        roomTypeListPanel = new RoomTypeListPanel(logic.getRoomTypeList(), logic.selectedRoomTypeProperty(),
+                logic::setSelectedRoomType);
 
         serviceTypeAndRoomTypePanel = new ServiceTypeAndRoomTypePanel(serviceTypeListPanel, roomTypeListPanel);
         serviceTypeAndRoomTypePlaceholder.getChildren().add(serviceTypeAndRoomTypePanel.getRoot());

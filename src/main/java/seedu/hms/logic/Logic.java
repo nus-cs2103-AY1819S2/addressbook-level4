@@ -15,6 +15,7 @@ import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.RoomType;
 
 /**
  * API of the Logic component
@@ -48,7 +49,7 @@ public interface Logic {
     ObservableList<Booking> getFilteredBookingList();
 
     /**
-     * Returns an unmodifiable view of the filtered list of bookings
+     * Returns an unmodifiable view of the filtered list of serviceTypes
      */
     ObservableList<ServiceType> getServiceTypeList();
 
@@ -56,6 +57,11 @@ public interface Logic {
      * Returns an unmodifiable view of the filtered list of reservations
      */
     ObservableList<Reservation> getFilteredReservationList();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of roomTypes
+     */
+    ObservableList<RoomType> getRoomTypeList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -111,6 +117,14 @@ public interface Logic {
     ReadOnlyProperty<ServiceType> selectedServiceTypeProperty();
 
     /**
+     * Selected roomType in the roomType list.
+     * null if no roomType is selected.
+     *
+     * @see seedu.hms.model.ReservationModel#selectedRoomTypeProperty()
+     */
+    ReadOnlyProperty<RoomType> selectedRoomTypeProperty();
+
+    /**
      * Sets the selected customer in the filtered customer list.
      *
      * @see seedu.hms.model.CustomerModel#setSelectedCustomer(Customer)
@@ -131,6 +145,13 @@ public interface Logic {
      * @see BookingModel#setSelectedBooking(Booking)
      */
     void setSelectedBooking(Booking booking);
+
+    /**
+     * Sets the selected serviceType in the filtered serviceType list.
+     *
+     * @see seedu.hms.model.ReservationModel#setSelectedRoomType(RoomType)
+     */
+    void setSelectedRoomType (RoomType roomType);
 
     /**
      * Sets the selected reservation in the filtered reservation list.

@@ -24,12 +24,11 @@
                         <Region fx:constant="USE_PREF_SIZE"/>
                     </minWidth>
                 </Label>
-                <Label fx:id="serviceTypeName" text="\$first" styleClass="cell_big_label"/>
+                <Label fx:id="roomTypeName" text="\$first" styleClass="cell_big_label"/>
             </HBox>
             <FlowPane fx:id="allUsers"/>
-            <Label fx:id="capacity" styleClass="cell_small_label" text="\$time"/>
-            <Label fx:id="timeRange" styleClass="cell_small_label" text="\$payerName"/>
-            <Label fx:id="ratePerHour" styleClass="cell_small_label" text="\$phone"/>
+            <Label fx:id="number" styleClass="cell_small_label" text="\$time"/>
+            <Label fx:id="ratePerDay" styleClass="cell_small_label" text="\$phone"/>
         </VBox>
     </GridPane>
 </HBox>

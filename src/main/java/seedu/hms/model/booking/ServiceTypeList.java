@@ -16,9 +16,15 @@ public class ServiceTypeList implements Iterable<ServiceType> {
     private final ObservableList<ServiceType> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
+
+    public ServiceTypeList() {
+        this.setServiceTypes();
+    }
+
     public void setServiceTypes() {
         internalList.setAll(ServiceType.values());
     }
+
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

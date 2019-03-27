@@ -6,6 +6,7 @@ import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.RoomType;
 
 /**
  * Unmodifiable view of an hms book
@@ -32,4 +33,9 @@ public interface ReadOnlyHotelManagementSystem extends Observable {
      * Returns an unmodifiable view of the reservations list.
      */
     ObservableList<Reservation> getReservationList();
+
+    /**
+     * Returns an unmodifiable view of the serviceType list.
+     */
+    ObservableList<RoomType> getRoomTypeList();
 }

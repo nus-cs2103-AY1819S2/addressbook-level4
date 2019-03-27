@@ -16,7 +16,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.RoomType;
 import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;
+import seedu.hms.model.reservation.exceptions.RoomTypeNotFoundException;
 
 /**
  * Represents the in-memory model of the hms book data.
@@ -27,7 +29,9 @@ public class ReservationManager implements ReservationModel {
     private final VersionedHotelManagementSystem versionedHotelManagementSystem;
     private final UserPrefs userPrefs;
     private final FilteredList<Reservation> filteredReservations;
+    private final FilteredList<RoomType> roomTypeList;
     private final SimpleObjectProperty<Reservation> selectedReservation = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<RoomType> selectedRoomType = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given hotelManagementSystem and userPrefs.
@@ -41,6 +45,7 @@ public class ReservationManager implements ReservationModel {
         versionedHotelManagementSystem = hotelManagementSystem;
         this.userPrefs = new UserPrefs(userPrefs);
         filteredReservations = new FilteredList<>(versionedHotelManagementSystem.getReservationList());
+        roomTypeList = new FilteredList<>(versionedHotelManagementSystem.getRoomTypeList());
         filteredReservations.addListener(this::ensureSelectedReservationIsValid);
     }
 
@@ -122,6 +127,14 @@ public class ReservationManager implements ReservationModel {
         return filteredReservations;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code RoomType} backed by the internal list of
+     * {@code versionedHotelManagementSystem}
+     */
+    public ObservableList<RoomType> getRoomTypeList() {
+        return roomTypeList;
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -194,6 +207,25 @@ public class ReservationManager implements ReservationModel {
                 selectedReservation.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
+    }
+
+    //=========== Selected ServiceType ===========================================================================
+
+    public ReadOnlyProperty<RoomType> selectedRoomTypeProperty() {
+        return selectedRoomType;
+    }
+
+    @Override
+    public RoomType getSelectedRoomType() {
+        return selectedRoomType.getValue();
+    }
+
+    @Override
+    public void setSelectedRoomType(RoomType roomType) {
+        if (roomType != null && !roomTypeList.contains(roomType)) {
+            throw new RoomTypeNotFoundException();
+        }
+        selectedRoomType.setValue(roomType);
     }
 
     @Override

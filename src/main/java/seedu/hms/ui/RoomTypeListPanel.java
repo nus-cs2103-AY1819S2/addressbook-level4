@@ -11,44 +11,44 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.hms.commons.core.LogsCenter;
-import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.reservation.RoomType;
 
 /**
  * todo: need to be changed to shown roomType after room commands are implemented
- * Panel containing the list of serviceTypes.
+ * Panel containing the list of roomTypes.
  */
 public class RoomTypeListPanel extends UiPart<Region> {
-    private static final String FXML = "ServiceTypeListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(ServiceTypeListPanel.class);
+    private static final String FXML = "RoomTypeListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(RoomTypeListPanel.class);
 
     @FXML
-    private ListView<ServiceType> serviceTypeListView;
+    private ListView<RoomType> roomTypeListView;
 
-    public RoomTypeListPanel(ObservableList<ServiceType> serviceTypeList,
-                                ObservableValue<ServiceType> selectedServiceType,
-                                Consumer<ServiceType> onSelectedServiceTypeChange) {
+    public RoomTypeListPanel(ObservableList<RoomType> roomTypeList,
+                                ObservableValue<RoomType> selectedRoomType,
+                                Consumer<RoomType> onSelectedRoomTypeChange) {
         super(FXML);
-        serviceTypeListView.setItems(serviceTypeList);
-        serviceTypeListView.setCellFactory(listView -> new ServiceTypeListViewCell());
-        serviceTypeListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in service type list panel changed to : '" + newValue + "'");
-            onSelectedServiceTypeChange.accept(newValue);
+        roomTypeListView.setItems(roomTypeList);
+        roomTypeListView.setCellFactory(listView -> new RoomTypeListViewCell());
+        roomTypeListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selection in room type list panel changed to : '" + newValue + "'");
+            onSelectedRoomTypeChange.accept(newValue);
         });
-        selectedServiceType.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected serviceType changed to: " + newValue);
+        selectedRoomType.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected roomType changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected booking,
             // otherwise we would have an infinite loop.
-            if (Objects.equals(serviceTypeListView.getSelectionModel().getSelectedItem(), newValue)) {
+            if (Objects.equals(roomTypeListView.getSelectionModel().getSelectedItem(), newValue)) {
                 return;
             }
 
             if (newValue == null) {
-                serviceTypeListView.getSelectionModel().clearSelection();
+                roomTypeListView.getSelectionModel().clearSelection();
             } else {
-                int index = serviceTypeListView.getItems().indexOf(newValue);
-                serviceTypeListView.scrollTo(index);
-                serviceTypeListView.getSelectionModel().clearAndSelect(index);
+                int index = roomTypeListView.getItems().indexOf(newValue);
+                roomTypeListView.scrollTo(index);
+                roomTypeListView.getSelectionModel().clearAndSelect(index);
             }
         });
     }
@@ -56,16 +56,16 @@ public class RoomTypeListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code Booking} using a {@code BookingCard}.
      */
-    class ServiceTypeListViewCell extends ListCell<ServiceType> {
+    class RoomTypeListViewCell extends ListCell<RoomType> {
         @Override
-        protected void updateItem(ServiceType serviceType, boolean empty) {
-            super.updateItem(serviceType, empty);
+        protected void updateItem(RoomType roomType, boolean empty) {
+            super.updateItem(roomType, empty);
 
-            if (empty || serviceType == null) {
+            if (empty || roomType == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new ServiceTypeListCard(serviceType).getRoot());
+                setGraphic(new RoomTypeListCard(roomType).getRoot());
             }
         }
     }

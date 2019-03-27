@@ -35,9 +35,9 @@ public class Deadline implements Comparable<Deadline> {
      *
      */
     public Deadline(String jsonFormat) {
-        this.date = LocalDate.parse(jsonFormat.split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
+        this.date = LocalDate.parse(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
 
-        String stringStatus = jsonFormat.split(Deadline.PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX];
+        String stringStatus = jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX];
         switch(stringStatus) {
         case "REMOVE":
             this.status = DeadlineStatus.REMOVE;

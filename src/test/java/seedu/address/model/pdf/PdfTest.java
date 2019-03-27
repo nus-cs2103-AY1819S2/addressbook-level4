@@ -89,7 +89,7 @@ public class PdfTest {
         assertFalse(SAMPLE_PDF_1.equals(SAMPLE_PDF_1_DUPLICATE));
 
         /*// different tags -> returns false
-        comparison = new PdfBuilder(SAMPLE_PDF_1).withTags(VALID_TAG_LECTURE).build();
+        comparison = new PdfBuilder(SAMPLE_PDF_1).withTags(TAG_VALID_LECTURE).build();
         assertFalse(SAMPLE_PDF_1.equals(editedAlice));*/
     }
 }

@@ -45,5 +45,5 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
             }
         }
         return new ContrastCommand(contrastValue);
-    }
-}
+            }
+            }

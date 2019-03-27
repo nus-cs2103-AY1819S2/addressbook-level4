@@ -24,7 +24,7 @@ public class ReportCommand extends Command {
         if (!model.isInFolder()) {
             throw new CommandException(MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
-        
+
         if (model.inReportDisplay()) {
             throw new CommandException(MESSAGE_INVALID_COMMAND_INSIDE_REPORT);
         }

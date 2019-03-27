@@ -6,13 +6,18 @@
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.NumberAxis?>
 
+<?import javafx.scene.text.Text?>
 <GridPane id="reportDisplay" fx:id="reportDisplay" styleClass="background" stylesheets="@DarkTheme.css" alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="folderName" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.halignment="CENTER">
         </Label>
-        <Label fx:id="tagLine" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
+        <Label fx:id="tagLine" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER" GridPane.columnSpan="1">
         </Label>
-        <AreaChart fx:id="graph" legendVisible="false" GridPane.columnIndex="0" GridPane.rowIndex="2" prefHeight="400.0" prefWidth="1000.0">
+        <Label fx:id="performanceLine" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="CENTER">
+        </Label>
+        <Label fx:id="numberLine" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="label-header" GridPane.halignment="CENTER">
+        </Label>
+        <AreaChart fx:id="graph" legendVisible="false" GridPane.columnIndex="0" GridPane.rowIndex="3" prefHeight="400.0" prefWidth="1000.0">
             <xAxis>
                 <NumberAxis autoRanging="false" lowerBound="0" side="BOTTOM" tickUnit="1" upperBound="9" />
             </xAxis>
@@ -23,7 +28,7 @@
                 <Cursor fx:constant="CROSSHAIR" />
             </cursor>
         </AreaChart>
-        <Label fx:id="questionsDisplay" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="CENTER">
+        <Label fx:id="questionsDisplay" styleClass="label-header" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="CENTER">
         </Label>
     </children>
 

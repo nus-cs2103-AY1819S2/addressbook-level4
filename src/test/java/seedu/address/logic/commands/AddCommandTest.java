@@ -166,7 +166,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
         @Override
         public boolean checkIfInsideTestSession() {
             throw new AssertionError("This method should not be called.");
@@ -176,6 +175,12 @@ public class AddCommandTest {
         public void endTestSession() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean testNextCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolers) {

@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
@@ -20,16 +21,18 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code pdf}.
      */
     public static String getAddCommand(Pdf pdf) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(pdf);
+        return AddCommand.COMMAND_WORD + " " + getPdfDetails(pdf);
     }
 
     /**
      * Returns the part of command string for the given {@code pdf}'s details.
      */
-    public static String getPersonDetails(Pdf pdf) {
+    public static String getPdfDetails(Pdf pdf) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + pdf.getName().getFullName() + " ");
-        sb.append(PREFIX_DIRECTORY + pdf.getPhone().value + " ");
+        sb.append("" + PREFIX_NAME + pdf.getName().getFullName())
+                .append(" " + PREFIX_DIRECTORY + pdf.getDirectory().getDirectory())
+                .append(" " + PREFIX_DEADLINE_NEW + pdf.getDeadline());
+
         pdf.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG_NEW + s.tagName + " ")
         );

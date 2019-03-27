@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "chung-ming",
+      "displayName": "ARI...ING",
+      "authorNames": ["chung-ming"]
+    },
+    {
+      "githubId": "shaungohsc",
+      "displayName": "GOH...AUN",
+      "authorNames": ["shaungohsc"]
+    },
+    {
+      "githubId": "nivenang",
+      "displayName": "NIV...HAO",
+      "authorNames": ["nivenang"]
+    },
+    {
+      "githubId": "PremBagda",
+      "displayName": "PRE...ALA",
+      "authorNames": ["PremBagda"]
+    }
+  ]
+}

@@ -14,7 +14,7 @@ import seedu.finance.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path financeTrackerFilePath = Paths.get("data" , "financetracker.json");
+    private Path financeTrackerFilePath = Paths.get("data" , "finance.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.

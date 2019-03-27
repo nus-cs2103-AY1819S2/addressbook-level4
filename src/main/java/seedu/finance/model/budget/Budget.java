@@ -19,6 +19,10 @@ public class Budget {
         value.set(null);
     }
 
+    public Budget(Amount amount) {
+        value.set(amount);
+    }
+
     /**
      * Called to set the budget Amount value wrapped in a ObjectProperty.
      *

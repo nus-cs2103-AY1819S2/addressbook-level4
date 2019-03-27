@@ -24,17 +24,16 @@ import seedu.address.model.book.ReviewTitle;
 public class AddReviewCommandParserTest {
     private AddReviewCommandParser parser = new AddReviewCommandParser();
 
-        @Test
-        public void parse_allFieldsPresent_success() {
-            Review expectedReview = new Review(
-                    new ReviewTitle(VALID_REVIEWTITLE_CS), new BookName(VALID_BOOKNAME_CS), VALID_REVIEWMESSAGE_CS);
-            BookNameContainsExactKeywordsPredicate expectedPredicate =
-                    new BookNameContainsExactKeywordsPredicate(new BookName(VALID_BOOKNAME_CS));
-
-            // whitespace only preamble
-            assertParseSuccess(parser, NAME_DESC_CS + REVIEWTITLE_DESC_CS
-                    + REVIEWMESSAGE_DESC_CS, new AddReviewCommand(expectedReview));
-        }
+    @Test
+    public void parse_allFieldsPresent_success() {
+        Review expectedReview = new Review(
+                new ReviewTitle(VALID_REVIEWTITLE_CS), new BookName(VALID_BOOKNAME_CS), VALID_REVIEWMESSAGE_CS);
+        BookNameContainsExactKeywordsPredicate expectedPredicate =
+                new BookNameContainsExactKeywordsPredicate(new BookName(VALID_BOOKNAME_CS));
+        // whitespace only preamble
+        assertParseSuccess(parser, NAME_DESC_CS + REVIEWTITLE_DESC_CS
+                + REVIEWMESSAGE_DESC_CS, new AddReviewCommand(expectedReview));
+    }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
@@ -57,15 +56,14 @@ public class AddReviewCommandParserTest {
                 + VALID_REVIEWMESSAGE_CS, expectedMessage);
     }
 
-        @Test
-        public void parse_invalidValue_failure() {
-            // invalid name
-            assertParseFailure(parser, INVALID_BOOKNAME_DESC + REVIEWTITLE_DESC_CS
-                    + REVIEWMESSAGE_DESC_CS, BookName.MESSAGE_CONSTRAINTS);
+    @Test
+    public void parse_invalidValue_failure() {
+        // invalid name
+        assertParseFailure(parser, INVALID_BOOKNAME_DESC + REVIEWTITLE_DESC_CS
+                + REVIEWMESSAGE_DESC_CS, BookName.MESSAGE_CONSTRAINTS);
 
-            // non-empty preamble
-            assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_CS + REVIEWTITLE_DESC_CS
-                            + REVIEWMESSAGE_DESC_CS,
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE));
+        // non-empty preamble
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_CS + REVIEWTITLE_DESC_CS
+                + REVIEWMESSAGE_DESC_CS, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE));
         }
 }

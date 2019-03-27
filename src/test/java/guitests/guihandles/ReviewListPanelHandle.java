@@ -1,13 +1,16 @@
 package guitests.guihandles;
 
-import javafx.scene.Node;
-import javafx.scene.control.ListView;
-import seedu.address.model.book.Review;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import seedu.address.model.book.Review;
+
+/**
+ * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ */
 public class ReviewListPanelHandle extends NodeHandle<ListView<Review>> {
     public static final String REVIEW_LIST_VIEW_ID = "#reviewListView";
 

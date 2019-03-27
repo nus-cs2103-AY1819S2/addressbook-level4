@@ -1,14 +1,13 @@
 package guitests.guihandles;
 
-import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Region;
+
 import seedu.address.model.book.Review;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
+/**
+ * Provides a handle to a review card in the person list panel.
+ */
 public class ReviewCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";

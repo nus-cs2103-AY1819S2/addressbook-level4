@@ -85,10 +85,16 @@ public class BookBuilder {
         return this;
     }
 
+    /**
+     * Builds a book.
+     */
     public Book build() {
         return new Book(bookName, author, rating, tags, reviews);
     }
 
+    /**
+     * Build a book Life of Pi.
+     */
     public Book buildLifePi() {
         HashSet<Tag> newtags = new HashSet<>();
         newtags.add(new Tag("fantasy"));

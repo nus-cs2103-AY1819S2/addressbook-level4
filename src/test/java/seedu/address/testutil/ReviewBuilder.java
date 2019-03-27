@@ -14,6 +14,9 @@ public class ReviewBuilder {
     public static final String DEFAULT_MESSAGE = "There are still one or two questions left unanswered "
             + "at the end of Harry Potter's last adventure...";
 
+    /**
+     * Builds a review.
+     */
     public static Review build() {
         return new Review(
                 new ReviewTitle(DEFAULT_TITLE), new BookName(DEFAULT_BOOKNAME), DEFAULT_DATE, DEFAULT_MESSAGE);

@@ -1,3 +1,4 @@
+/* @@author thamsimun */
 package seedu.address.model;
 
 import seedu.address.logic.commands.Command;
@@ -18,7 +19,7 @@ public interface CurrentEdit {
 
     void setTempImage();
 
-    void setTempImage(com.sksamuel.scrimage.Image image);
+    void updateTempImage(com.sksamuel.scrimage.Image image);
 
     void setOriginalImage(Image image);
 

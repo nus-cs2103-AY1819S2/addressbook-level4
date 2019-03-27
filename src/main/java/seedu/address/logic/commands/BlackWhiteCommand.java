@@ -1,7 +1,5 @@
+/* @@author thamsimun */
 package seedu.address.logic.commands;
-
-import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 
 import java.io.File;
 import java.util.OptionalInt;
@@ -9,10 +7,10 @@ import java.util.OptionalInt;
 import com.sksamuel.scrimage.BufferedOpFilter;
 import com.sksamuel.scrimage.Image;
 import com.sksamuel.scrimage.filter.ThresholdFilter;
-import com.sksamuel.scrimage.nio.JpegWriter;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
@@ -28,47 +26,45 @@ public class BlackWhiteCommand extends Command {
         + ": Apply the black and white filter on the image with threshold given.\n"
         + "If threshold is not given, default threshold value is 127.\n"
         + "[THRESHOLD VALUE (int)] "
-        + "and FILENAME.\n"
-        + "Example: " + COMMAND_WORD + " cutedog.jpg"
-        + "Example2: " + COMMAND_WORD + " 130 cutedog.jpg";
+        + "Example: " + COMMAND_WORD
+        + "Example2: " + COMMAND_WORD;
     private OptionalInt threshold;
-    private String fileName;
+    private boolean isNewCommand;
 
     /**
      * Creates a ContrastCommand object.
      * @param threshold pixels lighter than this threshold becomes white and pixels darker than it becomes black.
-     * @param fileName file name of the image
      */
-    public BlackWhiteCommand(OptionalInt threshold, String fileName) {
+    public BlackWhiteCommand(OptionalInt threshold) {
         this.threshold = threshold;
-        this.fileName = fileName;
+        this.isNewCommand = true;
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
+    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history)
+        throws CommandException {
+
+        seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
+        if (initialImage == null) {
+            throw new CommandException(Messages.MESSAGE_DID_NOT_OPEN);
+        }
         if (threshold.isPresent()) {
-            seedu.address.model.image.Image initialImage = new seedu.address
-                .model.image.Image(ASSETS_FILEPATH + fileName);
             BufferedOpFilter bwFilter =
                 new ThresholdFilter(threshold.getAsInt(), 0xffffff, 0x000000);
-            Image.fromFile(new File(ASSETS_FILEPATH
-                + fileName)).filter(bwFilter)
-                .output(TEMP_FILEPATH + "sampleBlackWhite.jpg",
-                    new JpegWriter(100, true));
+            Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(bwFilter);
+            currentEdit.updateTempImage(outputImage);
         } else {
-            seedu.address.model.image.Image initialImage = new seedu.address
-                .model.image.Image(ASSETS_FILEPATH + fileName);
             BufferedOpFilter bwFilter =
                 new ThresholdFilter(127, 0xffffff, 0x000000);
-            Image.fromFile(new File(ASSETS_FILEPATH
-                + fileName)).filter(bwFilter)
-                .output(TEMP_FILEPATH + "sampleBlackWhite.jpg",
-                    new JpegWriter(100, true));
+            Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(bwFilter);
+            currentEdit.updateTempImage(outputImage);
         }
 
-        seedu.address.model.image.Image finalImage = new seedu.address.model
-            .image.Image(TEMP_FILEPATH + "sampleBlackWhite.jpg");
-        model.displayImage(finalImage);
+        if (this.isNewCommand) {
+            this.isNewCommand = false;
+            currentEdit.addCommand(this);
+            currentEdit.displayTempImage();
+        }
         return new CommandResult(Messages.MESSAGE_BLACKWHITE_SUCCESS);
     }
 }

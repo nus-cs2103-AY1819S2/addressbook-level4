@@ -1,3 +1,4 @@
+/* @@author thamsimun */
 package seedu.address.logic.commands;
 
 import java.io.File;
@@ -25,9 +26,8 @@ public class ContrastCommand extends Command {
         + ": Adjust the contrast of the image according to ratio value given.\n"
         + "If ratio is not given, default contrast ratio will be 1.1\n"
         + "Parameters: [CONTRAST RATIO (double)] "
-        + "and FILENAME.\n"
-        + "Example: " + COMMAND_WORD + " + cutedog.jpg"
-        + "Example2: " + COMMAND_WORD + " 0.3 cutedog.jpg";
+        + "Example: " + COMMAND_WORD
+        + "Example2: " + COMMAND_WORD;
 
     private OptionalDouble contrastValue;
     private boolean isNewCommand;
@@ -55,12 +55,12 @@ public class ContrastCommand extends Command {
             BufferedOpFilter contrastFilter =
                 new ContrastFilter(this.contrastValue.getAsDouble());
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(contrastFilter);
-            currentEdit.setTempImage(outputImage);
+            currentEdit.updateTempImage(outputImage);
         } else {
             BufferedOpFilter contrastFilter =
                 new ContrastFilter(1.1);
             Image outputImage = Image.fromFile(new File(initialImage.getUrl())).filter(contrastFilter);
-            currentEdit.setTempImage(outputImage);
+            currentEdit.updateTempImage(outputImage);
         }
         if (this.isNewCommand) {
             this.isNewCommand = false;

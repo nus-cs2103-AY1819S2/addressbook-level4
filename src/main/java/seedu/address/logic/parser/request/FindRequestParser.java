@@ -13,7 +13,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.request.FindRequestCommand;
+import seedu.address.logic.commands.request.FilterRequestCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -23,8 +23,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.request.Request;
 
 /**
- * Parses the given {@code String} of arguments in the context of the FindRequestCommand
- * and returns a FindRequestCommand object for execution.
+ * Parses the given {@code String} of arguments in the context of the FilterRequestCommand
+ * and returns a FilterRequestCommand object for execution.
  *
  * @throws ParseException if the user input does not conform the expected format
  */
@@ -39,8 +39,8 @@ public class FindRequestParser implements Parser<Command> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindRequestCommand
-     * and returns a FindRequestCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FilterRequestCommand
+     * and returns a FilterRequestCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -56,11 +56,11 @@ public class FindRequestParser implements Parser<Command> {
             PREFIX_CONDITION, PREFIX_STATUS)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_REQUEST_COMMAND_FORMAT,
-                FindRequestCommand.MESSAGE_USAGE));
+                FilterRequestCommand.MESSAGE_USAGE));
         }
 
         Predicate<Request> suppliedPredicates = new RequestPredicateUtil().parsePredicate(argMultimap);
-        return new FindRequestCommand(suppliedPredicates);
+        return new FilterRequestCommand(suppliedPredicates);
 
     }
 

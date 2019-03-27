@@ -176,9 +176,6 @@ public class DeleteBookingCommandTest {
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
 
-        // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
-
         // different Booking -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }

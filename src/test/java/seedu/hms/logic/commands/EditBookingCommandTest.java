@@ -199,7 +199,6 @@ public class EditBookingCommandTest {
                         new UserPrefs());
 
         showBookingForPayer(model, ALICE);
-        Booking bookingToEdit = model.getFilteredBookingList().get(INDEX_FIRST_BOOKING.getZeroBased());
         expectedModel.setBooking(INDEX_FIRST_BOOKING.getZeroBased(), editedBooking);
         expectedModel.commitHotelManagementSystem();
 
@@ -229,9 +228,6 @@ public class EditBookingCommandTest {
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
-
-        // null -> returns false
-        assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
         assertFalse(standardCommand.equals(new ClearHotelManagementSystemCommand()));

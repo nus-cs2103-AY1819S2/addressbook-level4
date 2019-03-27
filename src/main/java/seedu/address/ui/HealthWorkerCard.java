@@ -67,6 +67,7 @@ public class HealthWorkerCard extends UiPart<Region> {
 
         // state check
         HealthWorkerCard card = (HealthWorkerCard) other;
-        return true;
+        return name.getText().equals(card.name.getText())
+                && organisation.getText().equals(card.organisation.getText());
     }
 }

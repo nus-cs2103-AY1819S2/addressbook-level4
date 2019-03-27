@@ -57,7 +57,7 @@ public class InfoPanel extends UiPart<Region> {
             logger.info("InfoPanel triggered on request selection.");
 
             Request request = selectedRequest.getValue();
-            String htmlContent = generateHTML(request);
+            String htmlContent = generateHtml(request);
             loadContent(htmlContent);
 
             if (newValue == null) {
@@ -95,9 +95,9 @@ public class InfoPanel extends UiPart<Region> {
      * @param request
      * @return a string of HTML content
      */
-    private String generateHTML(Request request) {
+    private String generateHtml(Request request) {
 
-        String url = constructMapURL(request.getAddress().toString());
+        String url = constructMapUrl(request.getAddress().toString());
         String name = request.getName().toString();
         String nric = request.getNric().toString();
         String phone = request.getPhone().toString();
@@ -146,7 +146,7 @@ public class InfoPanel extends UiPart<Region> {
      * @param address
      * @return a url string to access the map
      */
-    private String constructMapURL(String address) {
+    private String constructMapUrl(String address) {
 
         String street = address.substring(0, address.indexOf(","));
         street = street.replaceAll("\\s", "%20");

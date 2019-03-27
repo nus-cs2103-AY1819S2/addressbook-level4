@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequests;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysRequest;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.HashSet;
@@ -47,7 +47,7 @@ public class RequestListPanelTest extends GuiUnitTest {
             Request expectedRequest = TYPICAL_REQUESTS.get(i);
             RequestCardHandle actualCard = requestListPanelHandle.getRequestCardHandle(i);
 
-            assertCardDisplaysPerson(expectedRequest, actualCard);
+            assertCardDisplaysRequest(expectedRequest, actualCard);
             assertEquals((i + 1) + ". ", actualCard.getId());
         }
     }

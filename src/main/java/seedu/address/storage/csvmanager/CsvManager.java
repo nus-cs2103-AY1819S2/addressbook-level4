@@ -18,6 +18,7 @@ public class CsvManager implements CsvCommands {
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Hints";
     private String defaultPath;
+    private boolean setTestDefaultPath = false;
 
 
     public CsvManager() throws IOException {
@@ -35,7 +36,12 @@ public class CsvManager implements CsvCommands {
         String filepath = defaultPath;
         for (ReadOnlyCardFolder readOnlyCardFolder : cardFolders) {
             List<Card> cardList = readOnlyCardFolder.getCardList();
-            String foldername = readOnlyCardFolder.getFolderName();
+            String foldername;
+            if (setTestDefaultPath) {
+                foldername = readOnlyCardFolder.getFolderName() + " test";
+            } else {
+                foldername = readOnlyCardFolder.getFolderName();
+            }
             FileWriter fileWriter = new FileWriter(filepath + "/" + foldername + ".csv");
             fileWriter.append(CARD_HEADERS + NEW_LINE_SEPARATOR);
             for (Card card : cardList) {
@@ -59,6 +65,7 @@ public class CsvManager implements CsvCommands {
 
     public void setTestDefaultPath() throws IOException {
         defaultPath = new File("./test/data/").getCanonicalPath();
+        setTestDefaultPath = true;
     }
 
     private String getCardString(Card card) {

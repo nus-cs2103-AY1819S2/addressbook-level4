@@ -3,18 +3,22 @@
   [
     {
       "githubId": "ChangDarren",
+      "displayname": "CHA...HEN",
       "authorNames": ["ChangDarren"]
     },
     {
       "githubId": "sciffany",
+      "displayname": "CHO...ANY",
       "authorNames": ["sciffany", "Tiffany Chong"]
     },
     {
       "githubId": "ckjohn000",
+      "displayname": "WON...OHN",
       "authorNames": ["ckjohn000", "Wong Chin Kiat, John"]
     },
     {
       "githubId": "xsot",
+      "displayname": "KUA...ENG",
       "authorNames": ["xsot", "Wei Heng", "Kuan Wei Heng"]
     }
   ]

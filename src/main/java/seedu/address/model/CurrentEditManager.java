@@ -27,7 +27,7 @@ public class CurrentEditManager implements CurrentEdit {
     private Image tempImage;
 
     /**
-     * Saves a copy of tempImage to temp folder.
+     * Saves a copy of {@code image} to temp folder as temp_img.png and instantiate it as tempImage .
      */
     public void saveAsTemp(Image image) {
         saveIntoTempFolder(TEMP_FILENAME, image);
@@ -35,7 +35,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Saves a copy to originalImage to temp folder.
+     * Saves a copy of {@code image} to temp folder and instantiate it as originalImage.
      */
     public void saveAsOriginal(Image image) {
         saveIntoTempFolder(image.getName().toString(), image);
@@ -62,7 +62,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Creates tempImage instance of image {@code image}.
+     * Creates tempImage instance of temp_img.png located in temp folder.
      */
     public void setTempImage() {
         Image image = new Image(TEMP_FILE);
@@ -75,7 +75,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Creates originalImage instance of {@code image}.
+     * Creates originalImage instance of {@code image} located in temp_folder.
      */
     public void setOriginalImage(Image image) {
         Image originalImage = new Image(TEMP_FILEPATH + image.getName().toString());

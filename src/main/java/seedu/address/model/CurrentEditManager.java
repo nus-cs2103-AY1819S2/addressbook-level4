@@ -145,7 +145,11 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /* @@author Carrein */
-    public Metadata getMetadata() {
-        return tempImage.getMetadata();
+
+    /**
+     * Fires a notifier to update the EXIF pane of the Information Panel.
+     */
+    public void updateExif() {
+        Notifier.firePropertyChangeListener("refreshDetails", null, this.tempImage);
     }
 }

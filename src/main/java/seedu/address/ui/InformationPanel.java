@@ -3,6 +3,7 @@ package seedu.address.ui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.collections.FXCollections;
@@ -27,6 +28,7 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
     private TabPane informationPanel;
 
     private final ListView<Image> imageListView = new ListView<>();
+    private final ListView<String> metaListView = new ListView<>();
     private final Tab albumTab = informationPanel.getTabs().get(0);
     private final Tab detailsTab = informationPanel.getTabs().get(1);
     private final Tab historyTab = informationPanel.getTabs().get(2);
@@ -37,7 +39,7 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
     public InformationPanel() {
         super(FXML);
         Notifier.addPropertyChangeListener(this);
-        refresh();
+        refreshAlbum();
         // Tab is already preset to index 0 on launch - increment to select next tab.
         selectedIndex++;
     }
@@ -64,8 +66,11 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
      * @param event url of new image to display.
      */
     public void propertyChange(PropertyChangeEvent event) {
-        if (event.getPropertyName().equals("refresh")) {
-            refresh();
+        if (event.getPropertyName().equals("refreshAlbum")) {
+            refreshAlbum();
+        }
+        if (event.getPropertyName().equals("refreshDetails")) {
+            refreshDetails(event);
         }
         if (event.getPropertyName().equals("switch")) {
             switchTab();
@@ -73,13 +78,23 @@ public class InformationPanel extends UiPart<Region> implements PropertyChangeLi
     }
 
     /**
-     * Helper method to refresh the import list.
+     * Helper method to refresh the EXIF pane of Information Panel.
      */
-    private void refresh() {
-        List<Image> tempList = album.getImageList();
-        imageListView.setItems(FXCollections.observableArrayList(tempList));
+    private void refreshAlbum() {
+        List<Image> imageList = album.getImageList();
+        imageListView.setItems(FXCollections.observableArrayList(imageList));
         imageListView.setCellFactory(listView -> new ImageListViewCell());
         albumTab.setContent(imageListView);
+    }
+
+    /**
+     * Helper method to refresh the EXIF pane of Information Panel.
+     */
+    private void refreshDetails(PropertyChangeEvent event) {
+        Image tempImage = (Image) event.getNewValue();
+        List<String> metaList = tempImage.getMetadataList();
+        metaListView.setItems(FXCollections.observableArrayList(metaList));
+        detailsTab.setContent(metaListView);
     }
 
     /**

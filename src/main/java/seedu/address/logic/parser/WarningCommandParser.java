@@ -45,10 +45,10 @@ public class WarningCommandParser implements Parser<WarningCommand> {
 
         if (optionalExpiryThreshold.isPresent()) {
             threshold = ParserUtil.parseThreshold(optionalExpiryThreshold.get());
-            predicate = new MedicineExpiryThresholdPredicate(threshold.getNumericValue());
+            predicate = new MedicineExpiryThresholdPredicate(threshold);
         } else if (optionalLowStockThreshold.isPresent()){
             threshold = ParserUtil.parseThreshold(optionalLowStockThreshold.get());
-            predicate = new MedicineLowStockThresholdPredicate(threshold.getNumericValue());
+            predicate = new MedicineLowStockThresholdPredicate(threshold);
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, WarningCommand.MESSAGE_USAGE));
         }

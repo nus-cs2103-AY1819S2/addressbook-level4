@@ -19,20 +19,21 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Address;
 import seedu.address.model.request.Request;
 
 /**
- * The Map Panel of the App.
- * Responsible for rendering the map in JavaFX's StackPane.
+ * The Info Panel of the App.
+ * Responsible for displaying the request details when selected.
  * Map is rendered via URL request to gothere.sg.
  * For more info, visit https://gothere.sg/api/maps/staticmaps.html.
- * @author Hui Chun
+ * @@author Hui Chun
  */
 public class InfoPanel extends UiPart<Region> {
 
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
+    public static final URL STYLESHEET =
+            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "WhiteTheme.css"));
 
     private static final String FXML = "InfoPanel.fxml";
 
@@ -83,12 +84,10 @@ public class InfoPanel extends UiPart<Region> {
 
         String url = constructMapURL(request.getAddress().toString());
 
-
         StringBuilder htmlBuilder = new StringBuilder();
-
         htmlBuilder.append("<!DOCTYPE html><html><head>");
-        htmlBuilder.append("<link href='WhiteTheme.css' rel='stylesheet'></head>");
-        htmlBuilder.append("<body>HELLO WORLD!!!</br></br>");
+        htmlBuilder.append("<link href='../../../../resources/view/WhiteTheme.css' rel='stylesheet'></head>");
+        htmlBuilder.append("<body class='request-details'></br>");
         htmlBuilder.append("Request Patient: " + request.getName().toString() + "</br>");
         htmlBuilder.append("Patient NRIC: " + request.getNric().toString() + "</br>");
         htmlBuilder.append("Patient Contact: " + request.getPhone().toString() + "</br>");
@@ -102,15 +101,12 @@ public class InfoPanel extends UiPart<Region> {
         htmlBuilder.append("Appt. Date: " + request.getRequestDate().getFormattedDate() + "</br>");
         htmlBuilder.append("Request Status: " + request.getRequestStatus().toString() + "</br></br>");
 
-
-
         try {
             htmlBuilder.append(getEncodedImage(url));
         } catch(IOException e) {
             logger.info(e.getMessage());
         }
         htmlBuilder.append("</body></html>");
-
 
         return htmlBuilder.toString();
     }
@@ -123,11 +119,11 @@ public class InfoPanel extends UiPart<Region> {
         urlBuilder.append("https://gothere.sg/maps/staticmap?center=%22");
         urlBuilder.append(street + "%22&zoom=16&size=400x200&markers=%22");
         urlBuilder.append(street + "%22,green&sensor=false");
-        logger.info(urlBuilder.toString());
+        //logger.info(urlBuilder.toString());
         return urlBuilder.toString();
     }
 
-    // Reference: https://dzone.com/articles/how-to-implement-get-and-post-request-through-simp 
+    // Reference: https://dzone.com/articles/how-to-implement-get-and-post-request-through-simp
     private String getEncodedImage(String url) throws IOException {
         URL urlForGetRequest = new URL(url);
         byte[] imageBytes = new byte[0];
@@ -139,15 +135,18 @@ public class InfoPanel extends UiPart<Region> {
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
-                for (byte[] ba = new byte[bis.available()];
-                     bis.read(ba) != -1; ) {
-                    byte[] baTmp = new byte[imageBytes.length + ba.length];
-                    System.arraycopy(imageBytes, 0, baTmp, 0, imageBytes.length);
-                    System.arraycopy(ba, 0, baTmp, imageBytes.length, ba.length);
-                    imageBytes = baTmp;
+                logger.info("AVAILABLE BYTES: " + bis.available());
+                if (bis.available() != 0) {
+                    for (byte[] byteArray = new byte[bis.available()];
+                         bis.read(byteArray) != -1; ) {
+                        byte[] temp = new byte[imageBytes.length + byteArray.length];
+                        System.arraycopy(imageBytes, 0, temp, 0, imageBytes.length);
+                        System.arraycopy(byteArray, 0, temp, imageBytes.length, byteArray.length);
+                        imageBytes = temp;
+                    }
+                } else {
+                    return "Unable to load address location in map.";
                 }
-            } else {
-                return "";
             }
         } catch(IOException io) {
             throw new IOException(io.getMessage());

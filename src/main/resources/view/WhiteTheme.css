@@ -45,7 +45,7 @@
     -fx-font-size: 12pt;
 }
 
-/* For the welcome message in displayInfoPanel */
+/* For the welcome message in infoPanel */
 .background {
     font-family: "Comic Sans MS";
     padding-left: 20px;
@@ -62,6 +62,12 @@ span.command {
     font-weight: 400;
     font-size: 12pt;
     color: #079992;
+}
+
+.request-details {
+    font-family: "Segoe UI";
+    font-color: red;
+    margin: 10px 10px 10px 10px;
 }
 
 /* For the healthWorkerListPanel */

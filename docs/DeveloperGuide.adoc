@@ -468,6 +468,46 @@ with the user-default Pdf reader.
 [NOTE]
 For more information about the behavior of launching the Pdf, please refer to Java SE 9 class Desktop.
 
+// tag::clear[]
+=== Clear feature
+==== Current Implementation
+
+// tag::deadline[]
+=== Deadline feature
+==== Current Implementation
+
+// tag::delete[]
+=== Delete feature
+==== Current Implementation
+
+// tag::exit[]
+=== Exit feature
+==== Current Implementation
+
+// tag::help[]
+=== Help feature
+==== Current Implementation
+
+// tag::History[]
+=== History feature
+==== Current Implementation
+
+// tag::list[]
+=== List feature
+==== Current Implementation
+
+// tag::select[]
+=== Select feature
+==== Current Implementation
+
+// tag::sort[]
+=== Sort feature
+==== Current Implementation
+
+// tag::tag[]
+=== Tag feature
+==== Current Implementation
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation

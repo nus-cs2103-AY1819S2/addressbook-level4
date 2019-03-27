@@ -84,4 +84,10 @@ public interface ReservationModel extends Model {
      * book.
      */
     void setReservation(int target, Reservation editedReservation);
+
+
+    /**
+     * Clears all the reservations present in the {@code hotelManagementSystem}.
+     */
+    void setClearReservation(ReadOnlyHotelManagementSystem hotelManagementSystem);
 }

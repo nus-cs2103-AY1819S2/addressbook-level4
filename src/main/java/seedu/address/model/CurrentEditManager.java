@@ -66,7 +66,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Creates tempImage instance of temp_img.png located om temp folder.
+     * Creates tempImage instance of temp_img.png located in temp folder.
      */
     public void setTempImage() {
         Image image = new Image(TEMP_FILE);

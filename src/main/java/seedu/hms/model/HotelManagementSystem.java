@@ -2,6 +2,8 @@ package seedu.hms.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,6 +18,8 @@ import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.UniqueCustomerList;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationList;
+import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.util.TimeRange;
 
 /**
  * Wraps all data at the hms-book level
@@ -229,12 +233,42 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
 
     public Map<ServiceType, Long> getPopularServices() {
         return bookings.asUnmodifiableObservableList().stream()
-            .collect(Collectors.groupingBy(Booking::getService, Collectors.counting()));
+            .collect(Collectors.groupingBy(Booking::getService, Collectors.counting()))
+            .entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                    LinkedHashMap::new));
     }
 
     public Map<RoomType, Long> getPopularRoomTypes() {
         return reservations.asUnmodifiableObservableList().stream()
-            .collect(Collectors.groupingBy(Reservation::getService, Collectors.counting()));
+            .collect(Collectors.groupingBy(Reservation::getRoom, Collectors.counting()))
+            .entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                LinkedHashMap::new));
+    }
+
+    public Map<TimeRange, Long> getPeakHourForService(ServiceType serviceType) {
+        return bookings.asUnmodifiableObservableList().stream().filter(b -> b.getService().equals(serviceType))
+            .collect(Collectors.groupingBy(Booking::getTiming, Collectors.counting()))
+            .entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                LinkedHashMap::new));
+    }
+
+    public Map<Customer, Long> getPopularCustomerForServices() {
+        return bookings.asUnmodifiableObservableList().stream()
+            .collect(Collectors.groupingBy(Booking::getPayer, Collectors.counting()))
+            .entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                LinkedHashMap::new));
+    }
+
+    public Map<Customer, Long> getPopularCustomerForReservations() {
+        return reservations.asUnmodifiableObservableList().stream()
+            .collect(Collectors.groupingBy(Reservation::getPayer, Collectors.counting()))
+            .entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                LinkedHashMap::new));
     }
 
     //// util methods

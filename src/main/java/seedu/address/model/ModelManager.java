@@ -279,26 +279,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Sets the user prefs' request book file path.
-     *
-     * @param requestBookFilePath
-     */
-    @Override
-    public void setRequestBookFilePath(Path requestBookFilePath) {
-
-    }
-
-    /**
-     * Replaces request book data with the data in {@code requestBook}.
-     *
-     * @param requestBook
-     */
-    @Override
-    public void setRequestBook(ReadOnlyRequestBook requestBook) {
-
-    }
-
-    /**
      * Returns the RequestBook
      */
     @Override
@@ -332,7 +312,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void deleteRequest(Request target) {
-
+        versionedRequestBook.removeRequest(target);
     }
 
     @Override
@@ -361,7 +341,8 @@ public class ModelManager implements Model {
      */
     @Override
     public void setRequest(Request target, Request editedRequest) {
-
+        requireAllNonNull(target, editedRequest);
+        versionedRequestBook.setRequest(target, editedRequest);
     }
 
     @Override

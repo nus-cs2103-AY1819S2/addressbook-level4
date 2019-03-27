@@ -99,25 +99,30 @@ Example:
 
 === Opening a file : `open`
 
-The open command allows you to open an existing file at a specified index in the app with the default program that you have set +
+The open command allows you to open an existing file of a specified index in the app with the default program that you have set +
 Format: `open INDEX`
 
 Example:
 
 * `open 3` +
 
-=== Editing a file : `edit`
+=== Renaming a file : `rename`
 
-Edit the name or tags of a file at the specified index of the list. +
-Format: `edit INDEX n/NAME t/TAG`
+The rename command allows you to change the name of the file that you may refer to by its index. +
+Format: `edit INDEX n/NAME`
 
 Example:
 
-* `edit 1 n/new.pdf t/cool`
+* `edit 1 n/newname.pdf`
+
+****
+* NAME: Must end with `.pdf` +
+* NAME: Must be a name that your Operating System deems valid.
+****
 
 === Deleting a file : `delete`
 
-Deletes the file with specified index of the list from the app. +
+The delete command lets you delete a file from the application and your computer. The file that is to be deleted can be specified by its index on the list. +
 Format: `delete INDEX`
 
 Example:
@@ -126,16 +131,18 @@ Example:
 
 === Moving a file : `move`
 
-Move the file at the specified index of the list into another directory. +
+THe move command allows you to move a file at the specified index of the list from its current directory to another directory. +
+
 Format: `move INDEX d/DIRECTORY`
 
 Example:
 
-* `move 1 d/C:\User\Jeremy\Downloads`
+* `move 1 d/C:\User\Jeremy\Downloads` [Windows Operating System]
+* `move 1 d//Users/jet/Documents/Important` [Mac Operating System] 
 
 === Exiting the program : `exit`
 
-Exits the program. +
+This command lets you exits the program. +
 Format: `exit`
 
 === Assigning and deleting tags to a file : `tag` `[Coming in v1.3]`

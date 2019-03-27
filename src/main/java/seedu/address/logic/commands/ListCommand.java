@@ -2,9 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -42,7 +40,6 @@ public class ListCommand extends Command {
         }
 
         StringBuilder builder = new StringBuilder();
-
         Set<Fleet.FleetEntry> fleetResult = new HashSet<>();
 
         if (!optionalTagSet.isPresent() && !optionalName.isPresent()) {
@@ -52,27 +49,26 @@ public class ListCommand extends Command {
                         .append("\n");
             }
             return new CommandResult(builder.toString());
-        } else {
-            List<Fleet.FleetEntry> fleetList = new ArrayList<>();
-            if (optionalName.isPresent() && !optionalTagSet.isPresent()) {
-                // name
-                fleetList = model.getHumanPlayer().getFleet().getByName(optionalName.get());
-            } else if (optionalTagSet.isPresent() && !optionalName.isPresent()) {
-                // tags only
-                fleetList = model.getHumanPlayer().getFleet().getByTags(optionalTagSet.get());
-            } else if (optionalName.isPresent() && optionalTagSet.isPresent()) {
-                List<Fleet.FleetEntry> tempFleet = model.getHumanPlayer().getFleet().getByName(optionalName.get());
-                fleetList = tempFleet.stream()
-                        .filter(entry -> entry.getBattleship().getTags().containsAll(optionalTagSet.get()))
-                        .collect(Collectors.toList());
-            }
 
-            fleetResult.addAll(fleetList);
+        } else if (optionalName.isPresent() && optionalTagSet.isPresent()) {
+            fleetResult.addAll(model.getHumanPlayer().getFleet().getByName(optionalName.get())
+                    .stream()
+                    .filter(entry -> entry.getBattleship().getTags().containsAll(optionalTagSet.get()))
+                    .collect(Collectors.toSet())
+            );
+        } else if (optionalName.isPresent()) {
+            fleetResult.addAll(model.getHumanPlayer().getFleet().getByName(optionalName.get()));
+        } else {
+            fleetResult.addAll(model.getHumanPlayer().getFleet().getByTags(optionalTagSet.get()));
         }
 
         for (Fleet.FleetEntry fleetEntry : fleetResult) {
             builder.append(fleetEntry)
                     .append("\n");
+        }
+
+        if (builder.toString().isEmpty()) {
+            return new CommandResult("There are no results.");
         }
         return new CommandResult(builder.toString());
     }

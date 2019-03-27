@@ -283,6 +283,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case EXITED_REPORT:
                 handleEndReport();
+                break;
             case SHOW_NEXT_CARD:
                 handleNextCardTestSession(commandResult.getTestSessionCard());
                 break;

@@ -10,6 +10,8 @@ import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.Rating;
+import seedu.address.model.book.Review;
+import seedu.address.model.book.ReviewTitle;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -61,16 +63,29 @@ public class SampleDataUtil {
         };
     }
 
+    public static Review[] getSampleReviews() {
+        return new Review[] {
+            new Review(new ReviewTitle("A Childhood Favorite"), new BookName("Green Eggs and Ham"),
+                "This is my favorite book when I was a kid. Read it again with my younger brother. "),
+            new Review(new ReviewTitle("Magical Realism"), new BookName("One Hundred Years of Solitude"),
+                    "One of the best books I've ever read. ")
+        };
+    }
+
     public static ReadOnlyBookShelf getSampleBookShelf() {
-        BookShelf sampleAb = new BookShelf();
+        BookShelf sampleBs = new BookShelf();
         for (Person samplePerson : getSamplePersons()) {
-            sampleAb.addPerson(samplePerson);
+            sampleBs.addPerson(samplePerson);
         }
 
         for (Book sampleBook : getSampleBooks()) {
-            sampleAb.addBook(sampleBook);
+            sampleBs.addBook(sampleBook);
         }
-        return sampleAb;
+
+        for (Review sampleReview : getSampleReviews()) {
+            sampleBs.addReview(sampleReview);
+        }
+        return sampleBs;
     }
 
     /**

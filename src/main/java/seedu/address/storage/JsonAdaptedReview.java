@@ -1,12 +1,10 @@
 package seedu.address.storage;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.book.BookName;
 import seedu.address.model.book.Review;
 import seedu.address.model.book.ReviewTitle;
 
@@ -16,9 +14,8 @@ import seedu.address.model.book.ReviewTitle;
 class JsonAdaptedReview {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Review's %s field is missing!";
-
-    public final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private final String title;
+    private final String bookName;
     private final String message;
     private final String date;
 
@@ -26,9 +23,10 @@ class JsonAdaptedReview {
      * Constructs a {@code JsonAdaptedReview} with the given book details.
      */
     @JsonCreator
-    public JsonAdaptedReview(@JsonProperty("title") String reviewTitle, @JsonProperty("message") String reviewMessage,
-                             @JsonProperty("date") String dateCreated) {
+    public JsonAdaptedReview(@JsonProperty("title") String reviewTitle, @JsonProperty("bookname") String reviewBookName,
+                             @JsonProperty("message") String reviewMessage, @JsonProperty("date") String dateCreated) {
         this.title = reviewTitle;
+        this.bookName = reviewBookName;
         this.message = reviewMessage;
         this.date = dateCreated;
     }
@@ -37,9 +35,10 @@ class JsonAdaptedReview {
      * Converts a given {@code Book} into this class for Jackson use.
      */
     public JsonAdaptedReview(Review source) {
-        title = source.getTitle().toString();
-        message = source.getContent();
-        date = source.getDate();
+        title = source.getTitle().fullName;
+        bookName = source.getBookName().fullName;
+        message = source.getReviewMessage();
+        date = source.getDateCreated();
     }
 
     /**
@@ -57,6 +56,15 @@ class JsonAdaptedReview {
         }
         final ReviewTitle modelReviewTitle = new ReviewTitle(title);
 
+        if (bookName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    BookName.class.getSimpleName()));
+        }
+        if (!BookName.isValidBookName(bookName)) {
+            throw new IllegalValueException(BookName.MESSAGE_CONSTRAINTS);
+        }
+        final BookName modelBookName = new BookName(bookName);
+
         if (message == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Review Content"));
         }
@@ -67,7 +75,7 @@ class JsonAdaptedReview {
         }
         final String modelDateCreated = date;
 
-        return new Review(modelReviewTitle, modelDateCreated, modelReviewMessage);
+        return new Review(modelReviewTitle, modelBookName, modelDateCreated, modelReviewMessage);
     }
 
 }

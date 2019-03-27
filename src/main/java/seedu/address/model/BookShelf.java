@@ -81,6 +81,7 @@ public class BookShelf implements ReadOnlyBookShelf {
 
         setPersons(newData.getPersonList());
         setBooks(newData.getBookList());
+        setReviews(newData.getReviewList());
     }
 
     //// person-level operations

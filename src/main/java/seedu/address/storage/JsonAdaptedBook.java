@@ -14,7 +14,6 @@ import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.Rating;
-import seedu.address.model.book.Review;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -28,23 +27,18 @@ class JsonAdaptedBook {
     private final String author;
     private final String rating;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
-    private final List<JsonAdaptedReview> reviewed = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedBook} with the given book details.
      */
     @JsonCreator
     public JsonAdaptedBook(@JsonProperty("bookname") String bookname, @JsonProperty("author") String author,
-                           @JsonProperty("rating") String rating, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                           @JsonProperty("reviews") List<JsonAdaptedReview> reviewed) {
+                           @JsonProperty("rating") String rating, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.bookname = bookname;
         this.author = author;
         this.rating = rating;
         if (tagged != null) {
             this.tagged.addAll(tagged);
-        }
-        if (reviewed != null) {
-            this.reviewed.addAll(reviewed);
         }
     }
 
@@ -58,9 +52,6 @@ class JsonAdaptedBook {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
-        reviewed.addAll(source.getReviews().stream()
-                .map(JsonAdaptedReview::new)
-                .collect(Collectors.toList()));
     }
 
     /**
@@ -72,11 +63,6 @@ class JsonAdaptedBook {
         final List<Tag> bookTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagged) {
             bookTags.add(tag.toModelType());
-        }
-
-        final List<Review> bookReviews = new ArrayList<>();
-        for (JsonAdaptedReview review : reviewed) {
-            bookReviews.add(review.toModelType());
         }
 
         if (bookname == null) {
@@ -105,8 +91,7 @@ class JsonAdaptedBook {
         final Rating modelRating = new Rating(rating);
 
         final Set<Tag> modelTags = new HashSet<>(bookTags);
-        final Set<Review> modelReviews = new HashSet<>(bookReviews);
-        return new Book(modelBookName, modelAuthor, modelRating, modelTags, modelReviews);
+        return new Book(modelBookName, modelAuthor, modelRating, modelTags);
     }
 
 }

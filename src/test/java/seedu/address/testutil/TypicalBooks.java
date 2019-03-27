@@ -6,6 +6,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_CS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWMESSAGE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWTITLE_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TEXTBOOK;
 
@@ -15,6 +17,7 @@ import java.util.List;
 
 import seedu.address.model.BookShelf;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 
 /**
  * A utility class containing a list of {@code Book} objects to be used in tests.
@@ -62,11 +65,8 @@ public class TypicalBooks {
     public static final Book CS = new BookBuilder().withBookName(VALID_BOOKNAME_CS).withAuthor(VALID_AUTHOR_CS)
             .withRating(VALID_RATING_CS).withTags(VALID_TAG_TEXTBOOK, VALID_TAG_FANTASY)
             .build();
-
-    public static final Review ALI_REVIEW = new ReviewBuilder();
-    public static final Book ALI_WITH_REVIEW = new BookBuilder().withBookName(VALID_BOOKNAME_ALICE)
-            .withAuthor(VALID_AUTHOR_ALICE).withRating(VALID_RATING_ALICE).withTags(VALID_TAG_FANTASY)
-            .withReview();
+    public static final Review ALICE_REVIEW = new ReviewBuilder().withReviewTitle(VALID_REVIEWTITLE_ALICE)
+            .withBookName(VALID_BOOKNAME_ALICE).withReviewMessage(VALID_REVIEWMESSAGE_ALICE).build();
 
     public static final String KEYWORD_MATCHING_LIFE = "life"; // A keyword that matches life
     public static final String KEYWORD_MATCHING_PRIDE = "Pride"; // A keyword that matches Pride

@@ -78,7 +78,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'pdfplusplus.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

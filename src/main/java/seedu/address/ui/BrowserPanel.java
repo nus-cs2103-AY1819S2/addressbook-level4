@@ -11,6 +11,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
 
 /**
  * The Browser Panel of the App.
@@ -31,6 +32,8 @@ public class BrowserPanel extends UiPart<Region> {
     private Label cardQuestion;
     @FXML
     private Label answer;
+    @FXML
+    private Label options;
     @FXML
     private Label hint;
     @FXML
@@ -62,16 +65,25 @@ public class BrowserPanel extends UiPart<Region> {
         cardPage.getChildren().clear();
 
         cardQuestion.setText(card.getQuestion().fullQuestion);
-        answer.setText("Ans: " + card.getAnswer().fullAnswer);
+        answer.setText(card.getAnswer().fullAnswer);
         score.setText("Score: " + card.getScore().toString());
-        // Set empty string for hint by default
+        // Set empty string for hint and options by default
         hint.setText("");
         if (!card.getHints().isEmpty()) {
             assert card.getHints().size() <= 1;
             card.getHints().forEach(hintVal -> hint.setText("Hint: " + hintVal.hintName));
         }
+        options.setText("");
+        if (!card.getOptions().isEmpty()) {
+            answer.setText("1) " + answer.getText());
+            int index = 2;
+            for (Option option : card.getOptions()) {
+                options.setText(options.getText() + index + ") " + option.optionValue + "\n");
+                index++;
+            }
+        }
 
-        cardPage.getChildren().addAll(cardQuestion, answer, score, hint);
+        cardPage.getChildren().addAll(cardQuestion, answer, score, options, hint);
     }
 
     /**
@@ -82,8 +94,9 @@ public class BrowserPanel extends UiPart<Region> {
         cardQuestion.setText("");
         answer.setText("");
         score.setText("");
+        options.setText("");
         hint.setText("");
-        cardPage.getChildren().addAll(cardQuestion, answer, score, hint);
+        cardPage.getChildren().addAll(cardQuestion, answer, score, options, hint);
     }
 
 }

@@ -69,7 +69,7 @@ public class AnswerCommandTest {
         Score newScore = new Score(testedCard.getScore().correctAttempts + 1,
                 testedCard.getScore().totalAttempts + 1);
         expectedModel.setCard(testedCard, new Card(testedCard.getQuestion(), testedCard.getAnswer(), newScore,
-                testedCard.getHints()));
+                testedCard.getOptions(), testedCard.getHints()));
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
@@ -90,7 +90,7 @@ public class AnswerCommandTest {
         Score newScore = new Score(testedCard.getScore().correctAttempts,
                 testedCard.getScore().totalAttempts + 1);
         expectedModel.setCard(testedCard, new Card(testedCard.getQuestion(), testedCard.getAnswer(), newScore,
-                testedCard.getHints()));
+                testedCard.getOptions(), testedCard.getHints()));
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);

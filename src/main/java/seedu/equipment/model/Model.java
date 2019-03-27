@@ -61,9 +61,14 @@ public interface Model {
     void resetData(ReadOnlyEquipmentManager newData);
 
     /**
-     * Returns true if a equipment with the same identity as {@code equipment} exists in the equipment book.
+     * Returns true if a equipment with the same identity as {@code equipment} exists in the equipment manager.
      */
     boolean hasEquipment(Equipment equipment);
+
+    /**
+     * Returns true if a WorkList with the same identity as {@code workList} exists in the equipment manager.
+     */
+    boolean hasWorkList(WorkList workList);
 
     /**
      * Deletes the given equipment.
@@ -73,9 +78,15 @@ public interface Model {
 
     /**
      * Adds the given equipment.
-     * {@code equipment} must not already exist in the equipment book.
+     * {@code equipment} must not already exist in the equipment manager.
      */
     void addEquipment(Equipment equipment);
+
+    /**
+     * Adds the given WorkList.
+     * {@code workList} must not already exist in the equipment manager.
+     */
+    void addWorkList(WorkList workList);
 
     /**
      * Replaces the given equipment {@code target} with {@code editedEquipment}.

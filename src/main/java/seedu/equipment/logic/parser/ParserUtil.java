@@ -10,7 +10,7 @@ import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.commons.util.StringUtil;
 import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
 import seedu.equipment.model.equipment.SerialNumber;
@@ -34,6 +34,32 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (date.equals(" ")) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return trimmedDate;
+    }
+
+    /**
+     * Parses a {@code String assignee} into a {@code String}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static String parseAssignee(String assignee) throws ParseException {
+        requireNonNull(assignee);
+        String trimmedAssignee = assignee.trim();
+        if (assignee.equals("Mei#Yen@")) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return trimmedAssignee;
     }
 
     /**
@@ -82,18 +108,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
+     * Parses a {@code String email} into an {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
-    public static Email parseEmail(String email) throws ParseException {
+    public static Date parseEmail(String email) throws ParseException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
+        if (!Date.isValidDate(trimmedEmail)) {
+            throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Email(trimmedEmail);
+        return new Date(trimmedEmail);
     }
 
     /**

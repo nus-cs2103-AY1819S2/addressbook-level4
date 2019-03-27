@@ -45,7 +45,7 @@ public class EquipmentCard extends UiPart<Region> {
     @FXML
     private Label serialNumber;
     @FXML
-    private Label email;
+    private Label date;
     @FXML
     private FlowPane tags;
 
@@ -57,7 +57,7 @@ public class EquipmentCard extends UiPart<Region> {
         phone.setText(equipment.getPhone().value);
         address.setText(equipment.getAddress().value);
         serialNumber.setText(equipment.getSerialNumber().serialNumber);
-        email.setText(equipment.getEmail().value);
+        date.setText(equipment.getDate().value);
         equipment.getTags().forEach(tag -> {
             String tagName = tag.tagName;
             tags.getChildren().add(new Label(tagName));

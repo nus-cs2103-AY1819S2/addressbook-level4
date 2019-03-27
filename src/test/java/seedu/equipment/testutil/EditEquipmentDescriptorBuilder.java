@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.equipment.logic.commands.EditCommand.EditEquipmentDescriptor;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
@@ -35,7 +35,7 @@ public class EditEquipmentDescriptorBuilder {
         descriptor = new EditEquipmentDescriptor();
         descriptor.setName(equipment.getName());
         descriptor.setPhone(equipment.getPhone());
-        descriptor.setEmail(equipment.getEmail());
+        descriptor.setDate(equipment.getDate());
         descriptor.setAddress(equipment.getAddress());
         descriptor.setSerialNumber(equipment.getSerialNumber());
         descriptor.setTags(equipment.getTags());
@@ -58,10 +58,10 @@ public class EditEquipmentDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code EditEquipmentDescriptor} that we are building.
+     * Sets the {@code Date} of the {@code EditEquipmentDescriptor} that we are building.
      */
     public EditEquipmentDescriptorBuilder withEmail(String email) {
-        descriptor.setEmail(new Email(email));
+        descriptor.setDate(new Date(email));
         return this;
     }
 

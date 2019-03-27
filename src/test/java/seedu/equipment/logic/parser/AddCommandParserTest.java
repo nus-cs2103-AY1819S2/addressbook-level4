@@ -38,7 +38,7 @@ import org.junit.Test;
 
 import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Equipment;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
@@ -54,23 +54,28 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
+                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
+                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple phones - last phone accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
+                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple emails - last email accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
+                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple addresses - last equipment accepted
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
+                + ADDRESS_DESC_BOB + SERIAL_NUMBER_DESC_BOB
+                + TAG_DESC_FRIEND, new AddCommand(expectedEquipment));
 
         // multiple tags - all accepted
         Equipment expectedEquipmentMultipleTags = new EquipmentBuilder(BOB).withTags(VALID_TAG_FRIEND,
@@ -129,7 +134,7 @@ public class AddCommandParserTest {
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + SERIAL_NUMBER_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+                + SERIAL_NUMBER_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Date.MESSAGE_CONSTRAINTS);
 
         // invalid equipment
         assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC

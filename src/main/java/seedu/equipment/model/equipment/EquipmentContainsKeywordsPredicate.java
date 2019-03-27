@@ -23,7 +23,7 @@ public class EquipmentContainsKeywordsPredicate implements Predicate<Equipment> 
         return keywords.stream()
                 .anyMatch(keyword ->
                         StringUtil.containsWordIgnoreCase(equipment.getSerialNumber().serialNumber, keyword)
-                                || StringUtil.containsWordIgnoreCase(equipment.getEmail().value, keyword)
+                                || StringUtil.containsWordIgnoreCase(equipment.getDate().value, keyword)
                                 || StringUtil.containsWordIgnoreCase(equipment.getTags().toString(), keyword)
                                 || StringUtil.containsWordIgnoreCase(equipment.getPhone().value, keyword)
                                 || StringUtil.containsWordIgnoreCase(equipment.getAddress().value, keyword)

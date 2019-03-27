@@ -16,6 +16,8 @@ import org.apache.commons.io.FileUtils;
 import com.sksamuel.scrimage.nio.JpegWriter;
 */
 
+import com.sksamuel.scrimage.nio.JpegWriter;
+
 import seedu.address.Notifier;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;
@@ -69,6 +71,11 @@ public class CurrentEditManager implements CurrentEdit {
         saveTemp();
     }
 
+    public void setTempImage(com.sksamuel.scrimage.Image image) {
+        image.output(tempImage.getUrl(),
+            new JpegWriter(100, true));
+    }
+
     /**
      * Creates originalImage instance of {@code image} and saves a copy to temp folder.
      */
@@ -76,12 +83,6 @@ public class CurrentEditManager implements CurrentEdit {
         this.originalImage = image;
         saveOriginal();
     }
-
-    /*
-    public void setTempImage(com.sksamuel.scrimage.Image image) {
-        image.output(tempImage.getUrl(),
-            new JpegWriter(100, true));
-    }*/
 
     public void displayTempImage() {
         Notifier.firePropertyChangeListener("import", null, tempImage.getUrl());

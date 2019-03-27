@@ -62,9 +62,10 @@ public class StringUtil {
             PDDocument document = PDDocument.load(
                     Paths.get(pdf.getDirectory().getDirectory(), pdf.getName().getFullName()).toFile());
             String preppedContent = new PDFTextStripper().getText(document).trim().toLowerCase();
+            document.close();
             return preppedContent.contains(preppedWord);
         } catch (IOException e) {
-            // Unable to open document
+            // Unable to open document or other parser error
             return false;
         }
     }

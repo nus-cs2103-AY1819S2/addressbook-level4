@@ -94,7 +94,7 @@ public class MainApp extends Application {
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample GradTrak");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleGradTrak);
 
             //If unable to find the data file provide a blank Module Info List
             allModules = allModulesOptional.orElse(new ModuleInfoList());

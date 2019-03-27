@@ -13,15 +13,15 @@ import seedu.address.model.course.CourseList;
 /**
  * An Immutable Course List that is serializable to JSON format.
  */
-@JsonRootName(value = "courselist")
+@JsonRootName(value = "courseList")
 public class JsonSerializableCourseList {
     private final List<JsonAdaptedCourse> courseList = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableModuleInfoList} with the given Module Information.
+     * Constructs a {@code JsonSerializableCourseList} with the given Courses
      */
     @JsonCreator
-    public JsonSerializableCourseList(@JsonProperty("courselist") List<JsonAdaptedCourse> courseList) {
+    public JsonSerializableCourseList(@JsonProperty("courseList") List<JsonAdaptedCourse> courseList) {
         this.courseList.addAll(courseList);
     }
     /**

@@ -21,18 +21,18 @@ public class CourseList {
 
     public CourseList() {}
 
-    /** Adds Course to the List of all the modules
+    /** Adds Course to the List of all the courses
     * @param course
     */
     public void addCourse(Course course) {
         this.courseList.add(course);
-        System.out.println("new module added:" + course.getCourseName().toString());
+        System.out.println("new course added:" + course.getCourseName().toString());
     }
 
     /**
      * Returns Course which has the same course name
      * @param courseName
-     * @return ModuleInfo
+     * @return course
      */
     public Course getCourse(CourseName courseName) {
         Course course = null;

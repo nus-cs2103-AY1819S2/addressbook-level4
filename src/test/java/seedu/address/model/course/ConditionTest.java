@@ -34,7 +34,7 @@ public class ConditionTest {
         Assert.assertThrows(IllegalArgumentException.class, () -> new Condition(1, "ValidName",
                 "regexValid", "regexThatDoesNotContainComma", "[UnclosedRegex"));
         Assert.assertThrows(IllegalArgumentException.class, () -> new Condition("Name can contain commas,",
-                "but not,", "regexes"));
+                "but not]", "regexes"));
         Assert.assertThrows(IllegalArgumentException.class, () -> new Condition("ValidName",
                 "regexValid", "regexThatDoesNotContainComma", "AnotherUnclosed(Regex"));
     }

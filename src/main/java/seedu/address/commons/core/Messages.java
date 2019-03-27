@@ -27,6 +27,9 @@ public class Messages {
     public static final String MESSAGE_CROP_INT_ERROR = "Values keyed in are not all integers. E.g: crop 0 0 200 200";
     public static final String MESSAGE_CROP_SUCCESS = "Cropped successfully.";
     public static final String MESSAGE_DID_NOT_OPEN = "Did not open any image to edit on.";
+    public static final String MESSAGE_RESIZE_SUCCESS = "Resized successfully.";
+    public static final String MESSAGE_RESIZE_VALUE_ERROR = "Values keyed in are not positive integers. "
+            + "E.g: resize 200 200";
 
 
 }

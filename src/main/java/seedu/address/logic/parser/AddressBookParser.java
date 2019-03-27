@@ -76,9 +76,6 @@ public class AddressBookParser {
             case FilterHealthWorkerCommand.COMMAND_WORD:
                 return new FilterCommandParser().parse(arguments);
 
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
-
             case ListCommand.COMMAND_WORD:
                 return new ListCommandParser().parse(arguments);
 

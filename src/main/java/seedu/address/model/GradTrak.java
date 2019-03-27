@@ -11,6 +11,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.moduletaken.SemesterLimitList;
 import seedu.address.model.moduletaken.UniqueModuleTakenList;
 
 /**
@@ -20,8 +21,9 @@ import seedu.address.model.moduletaken.UniqueModuleTakenList;
  */
 public class GradTrak implements ReadOnlyGradTrak {
 
-    private final UniqueModuleTakenList modulesTaken;
     private Semester currentSemester;
+    private final SemesterLimitList semesterLimitList;
+    private final UniqueModuleTakenList modulesTaken;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -33,7 +35,8 @@ public class GradTrak implements ReadOnlyGradTrak {
      */
     {
         modulesTaken = new UniqueModuleTakenList();
-        currentSemester = Semester.Y1S1; // for testing
+        semesterLimitList = new SemesterLimitList();
+        currentSemester = Semester.Y1S1; //TODO get from storage
     }
 
     public GradTrak() {}
@@ -44,10 +47,6 @@ public class GradTrak implements ReadOnlyGradTrak {
     public GradTrak(ReadOnlyGradTrak toBeCopied) {
         this();
         resetData(toBeCopied);
-    }
-
-    public void setCurrentSemester(Semester currentSemester) {
-        this.currentSemester = currentSemester;
     }
 
     public Semester getCurrentSemester() {
@@ -103,6 +102,26 @@ public class GradTrak implements ReadOnlyGradTrak {
         requireNonNull(editedModuleTaken);
 
         modulesTaken.setPerson(target, editedModuleTaken);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given index of semester limit with {@code editedSemesterLimit}.
+     */
+    public void setSemesterLimit(int index, SemLimit editedSemesterLimit) {
+        requireNonNull(editedSemesterLimit);
+
+        semesterLimitList.setSemesterLimit(index, editedSemesterLimit);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given index of semester limit with {@code editedSemesterLimit}.
+     */
+    public void setCurrentSemester(Semester semester) {
+        requireNonNull(semester);
+
+        this.currentSemester = semester;
         indicateModified();
     }
 
@@ -179,6 +198,11 @@ public class GradTrak implements ReadOnlyGradTrak {
     @Override
     public ObservableList<ModuleTaken> getModulesTakenList() {
         return modulesTaken.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<SemLimit> getSemesterLimitList() {
+        return semesterLimitList.asUnmodifiableObservableList();
     }
 
     @Override

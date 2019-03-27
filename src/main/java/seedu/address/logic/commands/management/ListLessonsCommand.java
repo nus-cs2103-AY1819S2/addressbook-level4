@@ -72,7 +72,7 @@ public class ListLessonsCommand extends ManagementCommand {
         ManagementModel mgtModel = requireManagementModel(model);
 
         ArrayList<Lesson> lessons = new ArrayList<>();
-        lessons.addAll(mgtModel.getLessonList());
+        lessons.addAll(mgtModel.getLessons());
 
         return new CommandResult(buildList(lessons));
     }

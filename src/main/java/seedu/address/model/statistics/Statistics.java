@@ -135,8 +135,8 @@ public abstract class Statistics {
         dataSeries1.getData().add(new XYChart.Data("Attacks", getAttacksMade()));
         dataSeries1.getData().add(new XYChart.Data("Hits", getHitCount()));
         dataSeries1.getData().add(new XYChart.Data("Misses", getMissCount()));
-        //dataSeries1.getData().add(new XYChart.Data("Accuracy", getMissCount()));
         dataSeries1.getData().add(new XYChart.Data("Ships Destroyed", getEnemyShipsDestroyed()));
+        dataSeries1.getData().add(new XYChart.Data("Accuracy", getAccuracy()));
         return dataSeries1;
     }
 

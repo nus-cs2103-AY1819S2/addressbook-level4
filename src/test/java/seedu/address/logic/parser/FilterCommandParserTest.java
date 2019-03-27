@@ -47,7 +47,12 @@ public class FilterCommandParserTest {
 
     @Test
     public void parse_emptyArg_throwsParseException() {
+        // empty args
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                FilterCommandParser.MESSAGE_USAGE));
+
+        // command mode present, empty fields
+        assertParseFailure(parser, "h", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 FilterCommandParser.MESSAGE_USAGE));
     }
 

@@ -42,8 +42,12 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         CommandMode commandMode = ArgumentTokenizer.checkMode(trimmedArgs);
         if (commandMode == CommandMode.HEALTH_WORKER) {
-            return new FilterHealthWorkerCommand(parseHealthWorkerPredicates(PREAMBLE_WHITESPACE
-                    + ArgumentTokenizer.trimMode(args)));
+            try {
+                return new FilterHealthWorkerCommand(parseHealthWorkerPredicates(PREAMBLE_WHITESPACE
+                        + ArgumentTokenizer.trimMode(args)));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            }
         } else if (commandMode == CommandMode.REQUEST) {
 
         }

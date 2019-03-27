@@ -6,16 +6,17 @@ import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_FORMAT_INVAL
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import java.time.format.DateTimeParseException;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Deadline;
-
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 
 public class DeadlineCommandTest {

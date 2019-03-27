@@ -4,25 +4,27 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.FILE_DESC_1_PDF;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_1_INVALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.EditCommand;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 
 import org.junit.Test;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.pdf.Name;
 import seedu.address.testutil.EditPdfDescriptorBuilder;
+
 
 public class EditCommandParserTest {
 

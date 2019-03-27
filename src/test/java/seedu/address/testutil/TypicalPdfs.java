@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_1_VALID;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -9,7 +11,6 @@ import java.util.List;
 import seedu.address.model.PdfBook;
 import seedu.address.model.pdf.Pdf;
 
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_1_VALID;
 
 /**
  * A utility class containing a list of {@code Pdf} objects to be used in tests.

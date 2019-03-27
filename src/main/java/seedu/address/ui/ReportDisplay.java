@@ -40,7 +40,7 @@ public class ReportDisplay extends UiPart<Region> {
         displayTitle(cardFolder.getFolderName());
         displayGraph(cardFolder.getFolderScores());
         displayQuestions(cardFolder.getCardList());
-        displayTagLine("Last " + cardFolder.getCardList().size() + " scores, latest on the right");
+        displayTagLine("Last " + cardFolder.getFolderScores().size() + " scores, latest on the right");
 
         reportDisplay.getChildren().clear();
         reportDisplay.getChildren().add(folderName);

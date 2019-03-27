@@ -45,8 +45,8 @@ public class JsonAdaptedReminder {
         this.title = source.getTitle();
         this.comment = source.getComment();
         this.date = source.getDate().toString();
-        this.start = source.getStartTime().toString();
-        LocalTime endTime = source.getEndTime();
+        this.start = source.getStart().toString();
+        LocalTime endTime = source.getEnd();
         if (endTime != null) {
             this.end = endTime.toString();
         }

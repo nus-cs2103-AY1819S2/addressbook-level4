@@ -19,14 +19,13 @@ public class AddRemCommand extends Command {
 
     public static final String COMMAND_WORD = "addrem";
 
-    //TODO: Show endtime and comments as optional
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a reminder to quickdocs. "
             + "Parameters: "
             + PREFIX_TITLE + "TITLE "
             + PREFIX_DATE + "DATE "
             + PREFIX_START + "START "
-            + PREFIX_END + "END "
-            + PREFIX_COMMENT + "COMMENT\n"
+            + "[" + PREFIX_END + "END] "
+            + "[" + PREFIX_COMMENT + "COMMENT]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Refill MedicineA "
             + PREFIX_DATE + "2019-05-22 "

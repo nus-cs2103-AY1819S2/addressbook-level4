@@ -65,7 +65,7 @@ public class AddBookingCommandTest {
         assertFalse(addAliceCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addAliceCommand == null);
 
         // different customer -> returns false
         assertFalse(addAliceCommand.equals(addCarlCommand));

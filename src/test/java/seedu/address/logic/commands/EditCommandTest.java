@@ -18,6 +18,15 @@ import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+
 import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -31,25 +40,16 @@ import seedu.address.model.pdf.Pdf;
 import seedu.address.testutil.EditPdfDescriptorBuilder;
 import seedu.address.testutil.PdfBuilder;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void before() {

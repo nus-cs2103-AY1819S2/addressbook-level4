@@ -188,6 +188,10 @@
     -fx-text-fill: white;
 }
 
+#statusBox {
+    -fx-background-color: #5e8b9e;
+}
+
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 30%);

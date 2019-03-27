@@ -18,12 +18,14 @@ import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
+import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
+import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
@@ -61,6 +63,9 @@ public class RestOrRantParserTest {
         List<TableStatus> tableStatuses = new ArrayList<>();
         tableStatuses.add(table.getTableStatus());
         assertEquals(new AddTableCommand(tableStatuses), command);
+        command = (AddTableCommand) parser.parseCommand(Mode.RESTAURANT_MODE, "add" + " "
+                + RestOrRantUtil.getTableDetails(table));
+        assertEquals(new AddTableCommand(tableStatuses), command);
         try {
             parser.parseCommand(Mode.TABLE_MODE,
                     AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
@@ -71,6 +76,50 @@ public class RestOrRantParserTest {
         try {
             parser.parseCommand(Mode.MENU_MODE,
                     AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_updateTable() throws Exception {
+        Table table = new TableBuilder().build();
+        UpdateTableCommand command = (UpdateTableCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
+                UpdateTableCommand.COMMAND_WORD + " " + table.getTableNumber().toString() + " 4");
+        assertEquals(new UpdateTableCommand(new String[]{"1", "4"}), command);
+        try {
+            parser.parseCommand(Mode.TABLE_MODE,
+                    UpdateTableCommand.COMMAND_WORD + " " + table.getTableNumber().toString() + " 4");
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.MENU_MODE,
+                    UpdateTableCommand.COMMAND_WORD + " " + table.getTableNumber().toString() + " 4");
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+    }
+
+    @Test
+    public void parseCommand_clearTable() throws Exception {
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                ClearTableCommand.COMMAND_WORD) instanceof ClearTableCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, "clear") instanceof ClearTableCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
+                ClearTableCommand.COMMAND_WORD + " 3") instanceof ClearTableCommand);
+        assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE, "clear" + " 3") instanceof ClearTableCommand);
+        try {
+            parser.parseCommand(Mode.TABLE_MODE, ClearTableCommand.COMMAND_WORD);
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.MENU_MODE, ClearTableCommand.COMMAND_WORD);
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());

@@ -107,7 +107,8 @@ public class EditCommand extends Command {
                                                   EditPersonDescriptor editPersonDescriptor) {
         assert moduleTakenToEdit != null;
 
-        ModuleInfoCode updatedName = editPersonDescriptor.getModuleInfoCode().orElse(moduleTakenToEdit.getModuleInfo());
+        ModuleInfoCode updatedName = editPersonDescriptor.getModuleInfoCode()
+                .orElse(moduleTakenToEdit.getModuleInfoCode());
         Semester updatedSemester = editPersonDescriptor.getSemester().orElse(moduleTakenToEdit.getSemester());
         Grade updatedExpectedMinGrade = editPersonDescriptor
                 .getExpectedMinGrade().orElse(moduleTakenToEdit.getExpectedMinGrade());

@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.UniqueModuleTakenList;
 
 /**
@@ -20,6 +21,7 @@ import seedu.address.model.moduletaken.UniqueModuleTakenList;
 public class GradTrak implements ReadOnlyGradTrak {
 
     private final UniqueModuleTakenList modulesTaken;
+    private Semester currentSemester;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -31,6 +33,7 @@ public class GradTrak implements ReadOnlyGradTrak {
      */
     {
         modulesTaken = new UniqueModuleTakenList();
+        currentSemester = Semester.Y1S1; // for testing
     }
 
     public GradTrak() {}
@@ -43,14 +46,22 @@ public class GradTrak implements ReadOnlyGradTrak {
         resetData(toBeCopied);
     }
 
+    public void setCurrentSemester(Semester currentSemester) {
+        this.currentSemester = currentSemester;
+    }
+
+    public Semester getCurrentSemester() {
+        return currentSemester;
+    }
+
     //// list overwrite operations
 
     /**
      * Replaces the contents of the moduleTaken list with {@code moduleTakens}.
      * {@code moduleTakens} must not contain duplicate moduleTakens.
      */
-    public void setModulesTaken(List<ModuleTaken> moduleTakens) {
-        this.modulesTaken.setPersons(moduleTakens);
+    public void setModulesTaken(List<ModuleTaken> modulesTaken) {
+        this.modulesTaken.setPersons(modulesTaken);
         indicateModified();
     }
 
@@ -105,15 +116,14 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Returns a List of ModuleInfoCodes representing the modules passed.
-     * @return A List.
+     * Returns a List of ModuleInfoCode representing passed ModuleTaken.
      */
     public List<ModuleInfoCode> getPassedModuleList() {
         List<ModuleInfoCode> codeList = new ArrayList<>();
 
-        for (ModuleTaken module : getModulesTakenList()) {
-            if (module.isPassed()) {
-                codeList.add(module.getModuleInfo());
+        for (ModuleTaken moduleTaken : getModulesTakenList()) {
+            if (moduleTaken.isPassed(currentSemester)) {
+                codeList.add(moduleTaken.getModuleInfoCode());
             }
         }
 
@@ -121,31 +131,23 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Returns true if the module list contains a passed module corresponding to the given module code string.
+     * Returns true if the module represented by the given ModuleInfoCode has been passed.
      */
-    public boolean hasPassedModule(String code) {
-        requireNonNull(code);
-        for (ModuleTaken module : getModulesTakenList()) {
-            if (module.getModuleInfo().toString().equals(code)
-                    && module.isPassed()) {
-                return true;
-            }
-        }
-        return false;
+    public boolean hasPassedModule(ModuleInfoCode moduleInfoCode) {
+        return getPassedModuleList().contains(moduleInfoCode);
     }
 
     /**
-     * Returns true if the module list contains a planned (unfinished) module
-     * corresponding to the given module code string.
+     * Returns true if modulesTaken contains an unfinished ModuleTaken represented by the given ModuleInfoCode.
      */
-    public boolean hasPlannedModule(String code) {
-        requireNonNull(code);
-        for (ModuleTaken module : getModulesTakenList()) {
-            if (module.getModuleInfo().toString().equals(code)
-                    && !module.isFinished()) {
-                return true;
+    public boolean hasUnfinishedModule(ModuleInfoCode moduleInfoCode) {
+        requireNonNull(moduleInfoCode);
+        for (ModuleTaken moduleTaken : getModulesTakenList()) {
+            if (moduleTaken.getModuleInfoCode().equals(moduleInfoCode)) {
+                return !moduleTaken.isFinished(currentSemester);
             }
         }
+
         return false;
     }
 

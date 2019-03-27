@@ -1,6 +1,7 @@
 package seedu.address.model.moduletaken;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -13,16 +14,18 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
 public class FindModulePredicate implements Predicate<ModuleTaken> {
 
     private final FindModuleDescriptor findModuleDescriptor;
+    private final Semester currentSemester;
 
-    public FindModulePredicate(FindModuleDescriptor findModuleDescriptor) {
-        requireNonNull(findModuleDescriptor);
+    public FindModulePredicate(FindModuleDescriptor findModuleDescriptor, Semester currentSemester) {
+        requireAllNonNull(findModuleDescriptor, currentSemester);
         this.findModuleDescriptor = findModuleDescriptor;
+        this.currentSemester = currentSemester;
     }
 
     @Override
     public boolean test(ModuleTaken module) {
         requireNonNull(module);
-        ModuleInfoCode moduleCode = module.getModuleInfo();
+        ModuleInfoCode moduleCode = module.getModuleInfoCode();
 
         Optional<String> subCode = findModuleDescriptor.getSubCode();
         Optional<Semester> semester = findModuleDescriptor.getSemester();
@@ -42,7 +45,7 @@ public class FindModulePredicate implements Predicate<ModuleTaken> {
             return false;
         }
         if (isFinished.isPresent()
-                && (module.isFinished() != isFinished.get())) {
+                && (module.isFinished(currentSemester) != isFinished.get())) {
             return false;
         }
 
@@ -53,6 +56,7 @@ public class FindModulePredicate implements Predicate<ModuleTaken> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindModulePredicate // instanceof handles nulls
-                && findModuleDescriptor.equals(((FindModulePredicate) other).findModuleDescriptor)); // state check
+                && findModuleDescriptor.equals(((FindModulePredicate) other).findModuleDescriptor)
+                && currentSemester.equals(((FindModulePredicate) other).currentSemester)); // state check
     }
 }

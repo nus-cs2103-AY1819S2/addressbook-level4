@@ -43,7 +43,7 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.moduleTaken = moduleTaken;
         id.setText(displayedIndex + ". ");
-        moduleInfoCode.setText(moduleTaken.getModuleInfo().toString());
+        moduleInfoCode.setText(moduleTaken.getModuleInfoCode().toString());
         semester.setText(moduleTaken.getSemester().toString());
         expectedMinGrade.setText(moduleTaken.getExpectedMinGrade().toString());
         expectedMaxGrade.setText(moduleTaken.getExpectedMaxGrade().toString());

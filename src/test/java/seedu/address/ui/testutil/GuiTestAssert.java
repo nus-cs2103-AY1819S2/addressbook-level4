@@ -30,7 +30,7 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedModuleTaken}.
      */
     public static void assertCardDisplaysPerson(ModuleTaken expectedModuleTaken, PersonCardHandle actualCard) {
-        assertEquals(expectedModuleTaken.getModuleInfo().toString(), actualCard.getModuleInfoCode());
+        assertEquals(expectedModuleTaken.getModuleInfoCode().toString(), actualCard.getModuleInfoCode());
         assertEquals(expectedModuleTaken.getSemester().toString(), actualCard.getSemester());
         assertEquals(expectedModuleTaken.getExpectedMinGrade().toString(), actualCard.getExpectedMinGrade());
         assertEquals(expectedModuleTaken.getExpectedMaxGrade().toString(), actualCard.getExpectedMaxGrade());

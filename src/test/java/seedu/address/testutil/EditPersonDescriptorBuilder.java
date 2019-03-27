@@ -32,7 +32,7 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder(ModuleTaken moduleTaken) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setModuleInfoCode(moduleTaken.getModuleInfo());
+        descriptor.setModuleInfoCode(moduleTaken.getModuleInfoCode());
         descriptor.setSemester(moduleTaken.getSemester());
         descriptor.setExpectedMinGrade(moduleTaken.getExpectedMinGrade());
         descriptor.setExpectedMaxGrade(moduleTaken.getExpectedMaxGrade());

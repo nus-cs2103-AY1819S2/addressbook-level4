@@ -26,10 +26,10 @@ public class FindModuleDescriptorBuilder {
      */
     public FindModuleDescriptorBuilder(ModuleTaken module) {
         descriptor = new FindModuleDescriptor();
-        descriptor.setSubCode(module.getModuleInfo().toString());
+        descriptor.setSubCode(module.getModuleInfoCode().toString());
         descriptor.setSemester(module.getSemester());
         descriptor.setGrade(module.getExpectedMinGrade());
-        descriptor.setFinished(module.isFinished());
+        descriptor.setFinished(module.isFinished(Semester.Y1S1));
     }
 
     /**

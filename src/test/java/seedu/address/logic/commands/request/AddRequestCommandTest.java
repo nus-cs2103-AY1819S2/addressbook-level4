@@ -201,16 +201,6 @@ class AddRequestCommandTest {
         }
 
         @Override
-        public void setRequestBookFilePath(Path requestBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setRequestBook(ReadOnlyRequestBook requestBook) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyRequestBook getRequestBook() {
             throw new AssertionError("This method should not be called.");
         }

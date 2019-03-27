@@ -110,16 +110,6 @@ public interface Model {
      */
     Path getRequestBookFilePath();
 
-    /**
-     * Sets the user prefs' request book file path.
-     */
-    void setRequestBookFilePath(Path requestBookFilePath);
-
-    /**
-     * Replaces request book data with the data in {@code requestBook}.
-     */
-    void setRequestBook(ReadOnlyRequestBook requestBook);
-
     /** Returns the RequestBook */
     ReadOnlyRequestBook getRequestBook();
 

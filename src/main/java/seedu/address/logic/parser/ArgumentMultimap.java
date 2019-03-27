@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
@@ -49,6 +50,13 @@ public class ArgumentMultimap {
             return new ArrayList<>();
         }
         return new ArrayList<>(argMultimap.get(prefix));
+    }
+
+    /**
+     * Returns all keys prefixes.
+     */
+    public Set<Prefix> getAllPrefixes() {
+        return argMultimap.keySet();
     }
 
     /**

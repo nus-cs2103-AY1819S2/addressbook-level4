@@ -26,6 +26,7 @@ import seedu.address.logic.commands.DeleteHealthWorkerCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditHealthWorkerCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -59,7 +60,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_findRequest() throws Exception {
-        assertTrue(parser.parseCommand(FilterRequestCommand.COMMAND_WORD + " n/alice")
+        assertTrue(parser.parseCommand(FilterCommand.COMMAND_WORD + " " + MODE_REQUEST + " n/alice")
             instanceof FilterRequestCommand);
     }
 

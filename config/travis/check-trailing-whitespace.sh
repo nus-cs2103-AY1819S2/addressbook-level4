@@ -14,11 +14,15 @@ awk '
         # (e.g. GitHub web editor)
         if ($1 ~ /\.md$/) {
             severity = "WARN"
+            print severity, $1, $2, " trailing whitespace."
+        } else if ($1 ~ /\.svg$/) { 
+            # do nth for .svg files under /resources/font-awesome/ folder.
         } else {
             severity = "ERROR"
             ret = 1
+            print severity, $1, $2, " trailing whitespace."
         }
-        print severity, $1, $2, " trailing whitespace."
+        
     }
     END {
         exit ret

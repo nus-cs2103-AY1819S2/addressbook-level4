@@ -1,3 +1,4 @@
+/* @@author thamsimun */
 package seedu.address.model;
 
 import seedu.address.logic.commands.Command;

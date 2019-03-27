@@ -1,3 +1,4 @@
+/* @@author thamsimun */
 package seedu.address.logic.commands;
 
 import java.io.File;
@@ -25,9 +26,8 @@ public class BrightnessCommand extends Command {
         + ": Adjust the brightness of the image according to ratio value given.\n"
         + "If ratio is not given, default brightness ratio will be 1.1\n"
         + "Parameters: [BRIGHTNESS RATIO (double)] "
-        + "and FILENAME.\n"
-        + "Example: " + COMMAND_WORD + " cutedog.jpg"
-        + "Example2: " + COMMAND_WORD + " 0.3 cutedog.jpg";
+        + "Example: " + COMMAND_WORD
+        + "Example2: " + COMMAND_WORD;
     private OptionalDouble brightnessValue;
     private boolean isNewCommand;
 
@@ -63,7 +63,7 @@ public class BrightnessCommand extends Command {
             currentEdit.addCommand(this);
             currentEdit.displayTempImage();
         }
-        return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
+        return new CommandResult(Messages.MESSAGE_BRIGHTNESS_SUCCESS);
     }
 
 }

@@ -30,6 +30,7 @@ public class CurrentEditManager implements CurrentEdit {
     private Image originalImage;
     private Image tempImage;
 
+    /* @@author thamsimun */
     public CurrentEditManager() {
         this.originalImage = null;
         this.tempImage = null;
@@ -76,6 +77,7 @@ public class CurrentEditManager implements CurrentEdit {
         saveIntoTempFolder(image.getName().toString(), tempImage);
     }
 
+    /* @@author thamsimun */
     public void setTempImage(com.sksamuel.scrimage.Image image) {
         image.output(tempImage.getUrl(),
             new JpegWriter(100, true));

@@ -11,6 +11,7 @@ import javafx.stage.WindowEvent;
 import seedu.hms.logic.LogicManager;
 import seedu.hms.model.BookingManager;
 import seedu.hms.model.CustomerManager;
+import seedu.hms.model.ReservationManager;
 import seedu.hms.storage.JsonHotelManagementSystemStorage;
 import seedu.hms.storage.JsonUserPrefsStorage;
 import seedu.hms.storage.StorageManager;
@@ -35,7 +36,7 @@ public class MainWindowCloseTest extends GuiUnitTest {
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
             mainWindow = new MainWindow(stage, new LogicManager(new CustomerManager(), new BookingManager(),
-                storageManager));
+                new ReservationManager(), storageManager));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
         });

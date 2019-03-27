@@ -4,11 +4,10 @@ import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.commands.DeleteBookingCommand;
-import seedu.hms.logic.commands.DeleteCustomerCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new DeleteCustomerCommand object
+ * Parses input arguments and creates a new DeleteBookingCommand object
  */
 public class DeleteBookingCommandParser implements Parser<DeleteBookingCommand> {
 
@@ -24,7 +23,7 @@ public class DeleteBookingCommandParser implements Parser<DeleteBookingCommand> 
             return new DeleteBookingCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCustomerCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteBookingCommand.MESSAGE_USAGE), pe);
         }
     }
 

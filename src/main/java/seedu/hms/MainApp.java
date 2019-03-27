@@ -23,6 +23,8 @@ import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.Model;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
 import seedu.hms.model.ReadOnlyUserPrefs;
+import seedu.hms.model.ReservationManager;
+import seedu.hms.model.ReservationModel;
 import seedu.hms.model.UserPrefs;
 import seedu.hms.model.VersionedHotelManagementSystem;
 import seedu.hms.model.util.SampleDataUtil;
@@ -47,6 +49,7 @@ public class MainApp extends Application {
     protected Storage storage;
     protected CustomerModel customerModel;
     protected BookingModel bookingModel;
+    protected ReservationModel reservationModel;
     protected Config config;
 
     public static void main(String[] args) {
@@ -72,8 +75,9 @@ public class MainApp extends Application {
         Model[] models = initModelManager(storage, userPrefs);
         customerModel = (CustomerModel) models[0];
         bookingModel = (BookingModel) models[1];
+        reservationModel = (ReservationModel) models[2];
 
-        logic = new LogicManager(customerModel, bookingModel, storage);
+        logic = new LogicManager(customerModel, bookingModel, reservationModel, storage);
 
         ui = new UiManager(logic);
     }
@@ -101,7 +105,9 @@ public class MainApp extends Application {
         }
         VersionedHotelManagementSystem versionedHotelManagementSystem = new VersionedHotelManagementSystem(initialData);
         Model[] result = {new CustomerManager(versionedHotelManagementSystem, userPrefs),
-            new BookingManager(versionedHotelManagementSystem, userPrefs)};
+            new BookingManager(versionedHotelManagementSystem, userPrefs),
+            new ReservationManager(versionedHotelManagementSystem, userPrefs) {
+            }};
         return result;
     }
 

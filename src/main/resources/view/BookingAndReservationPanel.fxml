@@ -1,49 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ListView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
-   <TabPane prefWidth="340.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-     <tabs>
-       <Tab text="Booking">
-         <content>
-           <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
-               <padding>
-                   <Insets top="10" right="10" bottom="10" left="10"/>
-               </padding>
-                  <children>
-                      <StackPane fx:id="bookingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                  </children>
-               </VBox>
-         </content>
-       </Tab>
-       <Tab text="Reservation">
-         <content>
-           <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
-               <padding>
-                   <Insets top="10" right="10" bottom="10" left="10"/>
-               </padding>
-                  <children>
-                      <StackPane fx:id="reservationListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                  </children>
-               </VBox>
-         </content>
-       </Tab>
-         <Tab text="Bill">
-             <content>
-                 <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
-                     <padding>
-                         <Insets top="10" right="10" bottom="10" left="10"/>
-                     </padding>
-                 </VBox>
-             </content>
-         </Tab>
-     </tabs>
-   </TabPane>
+    <TabPane prefWidth="340.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <tabs>
+            <Tab text="Booking">
+                <content>
+                    <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <children>
+                            <StackPane fx:id="bookingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        </children>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Reservation">
+                <content>
+                    <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <children>
+                            <StackPane fx:id="reservationListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        </children>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Bill">
+                <content>
+                    <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </VBox>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
 </VBox>

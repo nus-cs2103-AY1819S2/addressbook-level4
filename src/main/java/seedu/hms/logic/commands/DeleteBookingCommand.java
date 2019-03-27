@@ -16,8 +16,8 @@ import seedu.hms.model.booking.Booking;
  */
 public class DeleteBookingCommand extends BookingCommand {
 
-    public static final String COMMAND_ALIAS = "delb";
-    public static final String COMMAND_WORD = "deletebooking";
+    public static final String COMMAND_ALIAS = "db";
+    public static final String COMMAND_WORD = "delete-booking";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the booking identified by the index number used in the displayed customer list.\n"

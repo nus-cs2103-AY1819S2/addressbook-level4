@@ -170,7 +170,7 @@ public class SpendCommandTest {
         }
 
         @Override
-        public void reverseFilteredRecordList(){
+        public void reverseFilteredRecordList() {
             throw new AssertionError("This method should not be called.");
         }
 

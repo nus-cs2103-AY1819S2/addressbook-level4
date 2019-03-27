@@ -6,6 +6,7 @@ import static seedu.finance.testutil.TypicalIndexes.INDEX_FIRST_RECORD;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Test;
+
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
@@ -21,21 +22,23 @@ public class ReverseCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_UnfilteredList_success(){
+    public void execute_unfilteredList_success() {
         Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
         expectedModel.reverseFilteredRecordList();
         expectedModel.commitFinanceTracker();
-        assertCommandSuccess(new ReverseCommand(), model, commandHistory, ReverseCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ReverseCommand(), model, commandHistory, ReverseCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
     @Test
-    public void execute_FilteredList_success(){
+    public void execute_filteredList_success() {
         showRecordAtIndex(model, INDEX_FIRST_RECORD);
         Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
         expectedModel.reverseFilteredRecordList();
         expectedModel.commitFinanceTracker();
 
-        assertCommandSuccess(new ReverseCommand(), model, commandHistory, ReverseCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ReverseCommand(), model, commandHistory, ReverseCommand.MESSAGE_SUCCESS,
+                expectedModel);
 
     }
 
@@ -45,7 +48,7 @@ public class ReverseCommandTest {
      * 3. Redo the reversion.
      */
     @Test
-    public void executeUndoRedo_unfilteredList_success(){
+    public void executeUndoRedo_unfilteredList_success() {
         Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
         expectedModel.reverseFilteredRecordList();
         expectedModel.commitFinanceTracker();

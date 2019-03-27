@@ -134,7 +134,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void reverseFilteredRecordList(){
+    public void reverseFilteredRecordList() {
         versionedFinanceTracker.reverseRecordList();
     }
 

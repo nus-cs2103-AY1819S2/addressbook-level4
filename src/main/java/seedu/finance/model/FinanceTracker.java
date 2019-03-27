@@ -159,7 +159,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     }
 
 
-    public void reverseRecordList(){
+    public void reverseRecordList() {
         records.reverseList();
     }
 

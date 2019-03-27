@@ -3,12 +3,12 @@ package seedu.finance.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 
-import java.util.List;
-
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.model.Model;
-import seedu.finance.model.record.Record;
 
+/**
+ * Reverses the records in the finance tracker.
+ */
 public class ReverseCommand extends Command {
 
     public static final String COMMAND_WORD = "reverse";

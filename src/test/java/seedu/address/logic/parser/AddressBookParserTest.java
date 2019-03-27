@@ -19,6 +19,7 @@ import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.request.AssignRequestCommand;
 import seedu.address.logic.commands.request.DeleteRequestCommand;
 import seedu.address.logic.commands.request.FindRequestCommand;
 import seedu.address.logic.commands.request.ListRequestCommand;
@@ -37,6 +38,12 @@ public class AddressBookParserTest {
         // Person person = new PersonBuilder().build();
         // AddPersonCommand command = (AddPersonCommand) parser.parseCommand(PersonUtil.getAddCommand(person));
         // assertEquals(new AddPersonCommand(person), command);
+    }
+
+    @Test
+    public void parseCommand_assignRequest() throws Exception {
+        assertTrue(parser.parseCommand(AssignRequestCommand.COMMAND_WORD + " hw/1 r/1")
+            instanceof AssignRequestCommand);
     }
 
     @Test

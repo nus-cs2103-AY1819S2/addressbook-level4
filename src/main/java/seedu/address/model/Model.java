@@ -8,13 +8,14 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.threshold.Threshold;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
-    int DEFAULT_EXPIRY_THRESHOLD = 10;
-    int DEFAULT_LOW_STOCK_THRESHOLD = 20;
+    Threshold DEFAULT_EXPIRY_THRESHOLD = new Threshold(Integer.valueOf(10));
+    Threshold DEFAULT_LOW_STOCK_THRESHOLD = new Threshold(Integer.valueOf(20));;
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;

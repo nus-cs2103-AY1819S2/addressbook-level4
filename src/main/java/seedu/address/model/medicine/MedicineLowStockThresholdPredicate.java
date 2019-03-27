@@ -1,20 +1,22 @@
 package seedu.address.model.medicine;
 
+import seedu.address.model.threshold.Threshold;
+
 import java.util.function.Predicate;
 
 /**
  * Tests that a {@code Medicine}'s {@code Quantity} is less than the threshold given.
  */
 public class MedicineLowStockThresholdPredicate implements Predicate<Medicine> {
-    private final Integer threshold;
+    private final Threshold threshold;
 
-    public MedicineLowStockThresholdPredicate(int threshold) {
+    public MedicineLowStockThresholdPredicate(Threshold threshold) {
         this.threshold = threshold;
     }
 
     @Override
     public boolean test(Medicine medicine) {
-        return medicine.getTotalQuantity().getNumericValue() < threshold;
+        return medicine.getTotalQuantity().getNumericValue() < threshold.getNumericValue();
     }
 
     @Override
@@ -25,6 +27,6 @@ public class MedicineLowStockThresholdPredicate implements Predicate<Medicine> {
     }
 
     public int getThreshold() {
-        return threshold.intValue();
+        return threshold.getNumericValue();
     }
 }

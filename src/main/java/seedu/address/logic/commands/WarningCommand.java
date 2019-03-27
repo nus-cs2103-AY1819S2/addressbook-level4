@@ -7,10 +7,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
+import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
 
 import java.util.function.Predicate;
 
@@ -21,23 +20,24 @@ public class WarningCommand extends Command {
 
     public static final String COMMAND_WORD = "warning";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes thresholds used in the warning panel. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change or check thresholds used in the warning panel. "
             + "Parameters: "
             + "[" + PREFIX_EXPIRY + "EXPIRY_THRESHOLD" + "] "
-            + "[" + PREFIX_QUANTITY + "LOW_STOCK_THRESHOLD]\n"
+            + "[" + PREFIX_QUANTITY + "LOW_STOCK_THRESHOLD] "
+            + "[" + "SHOW" + "]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_EXPIRY + "10 "
-            + PREFIX_QUANTITY + "20 ";
+            + PREFIX_QUANTITY + "20\n"
+            + "NOTE: only one parameter allowed.";
 
     private final Predicate predicate;
-
-    private boolean showThreshold = false;
+    private final boolean showThreshold;
 
     /**
      * Creates a WarningCommand to change the specified warning threshold.
      */
     public WarningCommand(Predicate predicate) {
         requireNonNull(predicate);
+        this.showThreshold = false;
         this.predicate = predicate;
     }
 
@@ -45,29 +45,56 @@ public class WarningCommand extends Command {
      * Creates a WarningCommand to show the current threshold levels.
      */
     public WarningCommand(String show) {
+        requireNonNull(show);
         this.showThreshold = true;
-        this.predicate = changeThreshold -> false;
+        this.predicate = null;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        WarningPanelPredicateAccessor predicateAccessor = model.getWarningPanelPredicateAccessor();
 
         if (showThreshold) {
-            WarningPanelPredicateAccessor predicateAccessor = model.getWarningPanelPredicateAccessor();
-            return new CommandResult(
-                    String.format(Messages.MESSAGE_SHOW_CURRENT_THRESHOLDS,
-                            predicateAccessor.getExpiryThreshold(), predicateAccessor.getLowStockThreshold()));
-        }
-
-        if (predicate instanceof MedicineExpiryThresholdPredicate) {
-            model.updateFilteredExpiringMedicineList(predicate);
+            return showCurrentThresholds(predicateAccessor);
         } else {
-            model.updateFilteredLowStockMedicineList(predicate);
+            return changeThreshold(model, predicateAccessor);
+        }
+    }
+
+    /**
+     * Show current thresholds used in warning panel.
+     * @param predicateAccessor
+     * @return Message with current thresholds used in warning panel
+     */
+    private CommandResult showCurrentThresholds(WarningPanelPredicateAccessor predicateAccessor) {
+        return new CommandResult(
+                String.format(Messages.MESSAGE_SHOW_CURRENT_THRESHOLDS,
+                        predicateAccessor.getExpiryThreshold(), predicateAccessor.getLowStockThreshold()));
+    }
+
+    /**
+     * Change threshold used in warning panel.
+     * @param model
+     * @param predicateAccessor
+     * @return Message with current thresholds used in warning panel
+     */
+    private CommandResult changeThreshold(Model model, WarningPanelPredicateAccessor predicateAccessor) {
+        if (predicate instanceof MedicineExpiryThresholdPredicate) {
+            int threshold = ((MedicineExpiryThresholdPredicate) predicate).getThreshold();
+
+            predicateAccessor.setMedicineExpiringThreshold(threshold);
+            predicateAccessor.setBatchExpiringThreshold(threshold);
+            model.updateFilteredExpiringMedicineList(predicateAccessor.getMedicineExpiringPredicate());
+
+        } else if (predicate instanceof MedicineLowStockThresholdPredicate){
+            int threshold = ((MedicineLowStockThresholdPredicate) predicate).getThreshold();
+
+            predicateAccessor.setMedicineLowStockThreshold(threshold);
+            model.updateFilteredLowStockMedicineList(predicateAccessor.getMedicineLowStockPredicate());
         }
 
-        return new CommandResult(
-                String.format(Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW, model.getFilteredMedicineList().size()));
+        return showCurrentThresholds(predicateAccessor);
     }
 
     @Override

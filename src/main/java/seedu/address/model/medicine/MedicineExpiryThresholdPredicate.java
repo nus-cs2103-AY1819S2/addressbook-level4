@@ -1,5 +1,7 @@
 package seedu.address.model.medicine;
 
+import seedu.address.model.threshold.Threshold;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Predicate;
@@ -8,15 +10,16 @@ import java.util.function.Predicate;
  * Tests that number of days from {@code Medicine}'s {@code Expiry} to today is less than the threshold given.
  */
 public class MedicineExpiryThresholdPredicate implements Predicate<Medicine> {
-    private final Integer threshold;
+    private final Threshold threshold;
 
-    public MedicineExpiryThresholdPredicate(int threshold) {
+    public MedicineExpiryThresholdPredicate(Threshold threshold) {
         this.threshold = threshold;
     }
 
     @Override
     public boolean test(Medicine medicine) {
-        return medicine.getNextExpiry().getExpiryDate() != null && calculateDaysToExpiry(medicine) < threshold;
+        return medicine.getNextExpiry().getExpiryDate() != null
+                && calculateDaysToExpiry(medicine) < threshold.getNumericValue();
     }
 
     @Override
@@ -27,7 +30,7 @@ public class MedicineExpiryThresholdPredicate implements Predicate<Medicine> {
     }
 
     public int getThreshold() {
-        return threshold.intValue();
+        return threshold.getNumericValue();
     }
 
     /**

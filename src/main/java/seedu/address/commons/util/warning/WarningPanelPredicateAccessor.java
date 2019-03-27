@@ -8,6 +8,7 @@ import seedu.address.model.medicine.BatchExpiryThresholdPredicate;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
 import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
+import seedu.address.model.threshold.Threshold;
 
 /**
  * Accessor to all predicates used in the warning panel for filtration.
@@ -44,15 +45,18 @@ public class WarningPanelPredicateAccessor {
     }
 
     public void setBatchExpiringThreshold(int threshold) {
-        this.batchExpiringPredicate = new BatchExpiryThresholdPredicate(threshold);
+        this.batchExpiringPredicate = new BatchExpiryThresholdPredicate
+                (new Threshold(Integer.valueOf(threshold)));
     }
 
     public void setMedicineExpiringThreshold(int threshold) {
-        this.medicineExpiringPredicate = new MedicineExpiryThresholdPredicate(threshold);
+        this.medicineExpiringPredicate = new MedicineExpiryThresholdPredicate
+                (new Threshold(Integer.valueOf(threshold)));
     }
 
-    public void setMedicinelowStockThreshold(int threshold) {
-        this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(threshold);
+    public void setMedicineLowStockThreshold(int threshold) {
+        this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate
+                (new Threshold(Integer.valueOf(threshold)));
     }
 
     private void setDefaultPredicates() {

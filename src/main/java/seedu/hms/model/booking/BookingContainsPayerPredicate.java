@@ -9,14 +9,11 @@ public class BookingContainsPayerPredicate implements Predicate<Booking> {
     private final String payerId;
 
     public BookingContainsPayerPredicate(String payerId) {
-        this.payerId = payerId;
+        this.payerId = payerId.trim();
     }
 
     @Override
     public boolean test(Booking booking) {
-        if (payerId.isEmpty()) {
-            return true; //always return true if the payerId is empty
-        }
         return booking.getPayer().getIdNum().toString().equals(payerId);
     }
 

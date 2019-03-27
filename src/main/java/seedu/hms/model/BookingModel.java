@@ -53,6 +53,12 @@ public interface BookingModel extends Model {
     void deleteBooking(int target);
 
     /**
+     * Deletes the given booking.
+     * The booking must exist in the hms book.
+     */
+    void deleteBooking(Booking b);
+
+    /**
      * Adds the given booking.
      * {@code booking} must not already exist in the hms book.
      */

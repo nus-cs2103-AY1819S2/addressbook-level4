@@ -104,6 +104,10 @@ public class BookingManager implements BookingModel {
         versionedHotelManagementSystem.removeBooking(bookingIndex);
     }
 
+    public void deleteBooking(Booking b) {
+        versionedHotelManagementSystem.removeBooking(b);
+    }
+
     /*
      * Adds a booking
      */

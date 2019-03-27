@@ -69,10 +69,34 @@ public class Booking {
 
     @Override
     public String toString() {
+        String otherUsersToString = "";
+        if (otherUsers.isPresent()) {
+            for (Customer u : otherUsers.get()) {
+                otherUsersToString += u.getName();
+            }
+        }
         return "Booking for "
             + service.getName()
             + " from " + timing
             + " by " + payer.getName()
+            + " with " + otherUsersToString
             + ". Comment - " + comment.orElse("N/A");
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Booking)) {
+            return false;
+        }
+
+        Booking ob = (Booking) other;
+        return ob.getService().equals(getService())
+                && ob.getTiming().equals(getTiming())
+                && ob.getPayer().equals(getPayer())
+                && ob.getOtherUsers().equals(getOtherUsers());
     }
 }

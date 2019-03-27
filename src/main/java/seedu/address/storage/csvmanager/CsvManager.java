@@ -17,7 +17,8 @@ public class CsvManager implements CsvCommands {
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Hints";
-    private static String defaultPath;
+    private String defaultPath;
+
 
     public CsvManager() throws IOException {
         defaultPath = getDefaultFilePath();
@@ -56,7 +57,7 @@ public class CsvManager implements CsvCommands {
         return new File("./").getCanonicalPath();
     }
 
-    public static void setTestDefaultPath() throws IOException {
+    public void setTestDefaultPath() throws IOException {
         defaultPath = new File("./test/data/").getCanonicalPath();
     }
 

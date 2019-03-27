@@ -66,7 +66,7 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.
      */
-    public ModelManager(List<ReadOnlyCardFolder> cardFolders, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(List<ReadOnlyCardFolder> cardFolders, ReadOnlyUserPrefs userPrefs) throws IOException {
         super();
         requireAllNonNull(cardFolders, userPrefs);
 
@@ -93,7 +93,7 @@ public class ModelManager implements Model {
         inFolder = true;
     }
 
-    public ModelManager(String newFolderName) {
+    public ModelManager(String newFolderName) throws IOException {
         this(Collections.singletonList(new CardFolder(newFolderName)), new UserPrefs());
     }
 
@@ -492,8 +492,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setTestCsvPath(CsvManager csvManager) {
-
+    public void setTestCsvPath() throws IOException {
+        csvManager.setTestDefaultPath();
     }
 
 

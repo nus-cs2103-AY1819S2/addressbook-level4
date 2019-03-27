@@ -244,7 +244,7 @@ public interface Model extends Observable {
 
     void importCardFolders(CsvFile csvFile) throws IOException;
 
-    void setTestCsvPath(CsvManager csvManager);
+    void setTestCsvPath() throws IOException;
 
 
 }

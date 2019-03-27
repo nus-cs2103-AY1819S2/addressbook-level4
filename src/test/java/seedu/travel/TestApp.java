@@ -63,7 +63,7 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(storage);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
+        userPrefs.setGuiSettings(new GuiSettings(1280.0, 720.0, (int) x, (int) y));
         userPrefs.setTravelBuddyFilePath(saveFileLocation);
         return userPrefs;
     }

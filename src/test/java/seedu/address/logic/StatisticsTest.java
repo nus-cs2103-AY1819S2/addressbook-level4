@@ -54,5 +54,17 @@ public class StatisticsTest {
         assertEquals(0, p1.getMissCount());
     }
 
+    @Test
+    public void test_getAccuracy() {
+        PlayerStatistics p1 = new PlayerStatistics();
+        assertEquals(0, (int) p1.getAccuracy());
+    }
+
+    @Test
+    public void test_getEnemyShipsDestroyed() {
+        PlayerStatistics p1 = new PlayerStatistics();
+        assertEquals(0, (int) p1.getEnemyShipsDestroyed());
+    }
+
 
 }

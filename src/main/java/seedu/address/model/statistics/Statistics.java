@@ -108,13 +108,18 @@ public abstract class Statistics {
      * @return the registered result string.
      */
     public String addResultToStats(AttackResult res) {
-        String result = res.toString().split(" ")[1];
+        String result = res.toString().split(" ")[10];
+        System.out.println("Result is : " + result);
         switch (result) {
         case "hit":
             addHit();
             break;
         case "missed":
             addMiss();
+            break;
+        case "destroyed":
+            addHit();
+            enemyShipsDestroyed();
             break;
         default : break;
         }
@@ -130,8 +135,8 @@ public abstract class Statistics {
         dataSeries1.getData().add(new XYChart.Data("Attacks", getAttacksMade()));
         dataSeries1.getData().add(new XYChart.Data("Hits", getHitCount()));
         dataSeries1.getData().add(new XYChart.Data("Misses", getMissCount()));
-        //dataSeries1.getData().add(new XYChart.Data("Accuracy", getMissCount()));
         dataSeries1.getData().add(new XYChart.Data("Ships Destroyed", getEnemyShipsDestroyed()));
+        dataSeries1.getData().add(new XYChart.Data("Accuracy", getAccuracy()));
         return dataSeries1;
     }
 

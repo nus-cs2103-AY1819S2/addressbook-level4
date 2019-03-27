@@ -17,7 +17,11 @@ public class CsvManager implements CsvCommands {
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Hints";
+    private static String defaultPath;
 
+    public CsvManager() throws IOException {
+        defaultPath = getDefaultFilePath();
+    }
 
     @Override
     public void readFoldersToCsv(CsvFile csvFile) throws IOException {
@@ -27,7 +31,7 @@ public class CsvManager implements CsvCommands {
 
     @Override
     public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders) throws IOException {
-        String filepath = getDefaultFilePath();
+        String filepath = defaultPath;
         for (ReadOnlyCardFolder readOnlyCardFolder : cardFolders) {
             List<Card> cardList = readOnlyCardFolder.getCardList();
             String foldername = readOnlyCardFolder.getFolderName();
@@ -50,6 +54,10 @@ public class CsvManager implements CsvCommands {
 
     public static String getDefaultFilePath() throws IOException {
         return new File("./").getCanonicalPath();
+    }
+
+    public static void setTestDefaultPath() throws IOException {
+        defaultPath = new File("./test/data/").getCanonicalPath();
     }
 
     private String getCardString(Card card) {

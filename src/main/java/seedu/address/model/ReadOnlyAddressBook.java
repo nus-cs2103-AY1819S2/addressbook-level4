@@ -15,4 +15,9 @@ public interface ReadOnlyAddressBook extends Observable {
      */
     ObservableList<ModuleTaken> getPersonList();
 
+    /**
+     * Returns an unmodifiable view of the sem limit list.
+     */
+    ObservableList<SemLimit> getSemesterLimitList();
+
 }

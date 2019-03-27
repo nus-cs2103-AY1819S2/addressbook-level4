@@ -21,12 +21,12 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Cap;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RecModuleComparator;
 import seedu.address.model.RecModulePredicate;
+import seedu.address.model.SemLimit;
 import seedu.address.model.course.Course;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.person.ModuleTaken;
@@ -110,26 +110,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Semester getCurrentSemester() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Cap computeCumulativeCap() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Cap computeExpectedMinimumCap() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Cap computeExpectedMaximumCap() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
@@ -190,13 +170,33 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setSemesterLimit(int index, SemLimit editedSemLimit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCurrentSemester(Semester semester) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<ModuleTaken> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<SemLimit> getSemLimitList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredPersonList(Predicate<ModuleTaken> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String checkLimit() {
+            return "";
         }
 
         @Override

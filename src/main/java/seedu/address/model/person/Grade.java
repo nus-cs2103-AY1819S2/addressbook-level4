@@ -37,15 +37,15 @@ public enum Grade {
         this.printedGrade = printedGrade;
     }
 
-    double getGradePoint() {
+    public double getGradePoint() {
         return this.gradePoint;
     }
 
-    boolean isPassingGrade() {
+    public boolean isPassingGrade() {
         return this.isPass;
     }
 
-    boolean isCountedInCap() {
+    public boolean isCountedInCap() {
         return this.isCounted;
     }
 

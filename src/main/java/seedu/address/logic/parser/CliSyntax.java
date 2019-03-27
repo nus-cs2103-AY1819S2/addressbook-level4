@@ -11,6 +11,10 @@ public class CliSyntax {
     public static final Prefix PREFIX_GRADE = new Prefix("g/");
     public static final Prefix PREFIX_EXPECTED_MIN_GRADE = new Prefix("min/");
     public static final Prefix PREFIX_EXPECTED_MAX_GRADE = new Prefix("max/");
+    public static final Prefix PREFIX_MIN_GRADE = new Prefix("ming/");
+    public static final Prefix PREFIX_MAX_GRADE = new Prefix("maxg/");
+    public static final Prefix PREFIX_MIN_LECTURE_HOUR = new Prefix("minlec/");
+    public static final Prefix PREFIX_MAX_LECTURE_HOUR = new Prefix("maxlac/");
     public static final Prefix PREFIX_LECTURE_HOUR = new Prefix("lec/");
     public static final Prefix PREFIX_TUTORIAL_HOUR = new Prefix("tut/");
     public static final Prefix PREFIX_LAB_HOUR = new Prefix("lab/");

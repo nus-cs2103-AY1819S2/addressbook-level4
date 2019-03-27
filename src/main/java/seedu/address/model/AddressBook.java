@@ -10,6 +10,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.person.Semester;
+import seedu.address.model.person.SemesterLimitList;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -19,6 +21,8 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private Semester currentSemester;
+    private final SemesterLimitList semesterLimitList;
     private final UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -31,6 +35,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+        semesterLimitList = new SemesterLimitList();
+        currentSemester = Semester.Y1S1; //TODO get from storage
     }
 
     public AddressBook() {}
@@ -92,6 +98,26 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedModuleTaken);
 
         persons.setPerson(target, editedModuleTaken);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given index of semester limit with {@code editedSemesterLimit}.
+     */
+    public void setSemesterLimit(int index, SemLimit editedSemesterLimit) {
+        requireNonNull(editedSemesterLimit);
+
+        semesterLimitList.setSemesterLimit(index, editedSemesterLimit);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given index of semester limit with {@code editedSemesterLimit}.
+     */
+    public void setCurrentSemester(Semester semester) {
+        requireNonNull(semester);
+
+        this.currentSemester = semester;
         indicateModified();
     }
 
@@ -173,6 +199,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<ModuleTaken> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<SemLimit> getSemesterLimitList() {
+        return semesterLimitList.asUnmodifiableObservableList();
     }
 
     @Override

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
@@ -149,6 +150,15 @@ public class RequestBuilder {
     public RequestBuilder withConditions(Set<Condition> conditions) {
         requireNonNull(conditions);
         this.conditions = conditions;
+        return this;
+    }
+
+    /**
+     * Overloaded constructor that sets the {@code conditions} of the patient in the {@code
+     * Request} we are building.
+     */
+    public RequestBuilder withConditions(String... conditions) {
+        this.conditions = Arrays.stream(conditions).map(Condition::new).collect(Collectors.toSet());
         return this;
     }
 

@@ -103,7 +103,7 @@ public class FilterCommandParserTest {
         assertThrows(ParseException.class, () -> FilterCommandParser.parseRequestPredicates("John"));
     }
 
-        @Test
+    @Test
     public void parseHealthWorkerPredicates_validInput() throws ParseException {
         Predicate<HealthWorker> firstPredicate = x -> x.getName().contains(VALID_NAME_ANDY);
         Predicate<HealthWorker> secondPredicate = x -> x.getOrganization().contains(VALID_ORGANIZATION_ANDY);

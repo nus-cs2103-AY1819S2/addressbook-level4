@@ -23,15 +23,15 @@ public class StringUtil {
      * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case, and a partial word match is sufficient.
      *   <br>examples:<pre>
-     *       containsWordIgnoreCase("ABc def", "abc") == true
-     *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == true
-     *       containsWordIgnoreCase("ABc def", "g") == false
+     *       containsPartialWordIgnoreCase("ABc def", "abc") == true
+     *       containsPartialWordIgnoreCase("ABc def", "DEF") == true
+     *       containsPartialWordIgnoreCase("ABc def", "AB") == true
+     *       containsPartialWordIgnoreCase("ABc def", "g") == false
      *       </pre>
      * @param sentence cannot be null
      * @param word cannot be null, cannot be empty, must be a single word
      */
-    public static boolean containsWordIgnoreCase(String sentence, String word) {
+    public static boolean containsPartialWordIgnoreCase(String sentence, String word) {
         requireNonNull(sentence);
         requireNonNull(word);
 
@@ -44,6 +44,32 @@ public class StringUtil {
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(w-> w.contains(preppedWord));
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains the {@code word}.
+     *   Check is case-sensitive, and a full word match is necessary.
+     *   <br>examples:<pre>
+     *       containsFullWordSameCase("ABc def", "abc") == false
+     *       containsFullWordSameCase("ABc def", "abc def") == false
+     *       containsFullWordSameCase("ABc def", "ABc def") == true
+     *       </pre>
+     * @param sentence cannot be null
+     * @param word cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean containsFullWordSameCase(String sentence, String word) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+
+        String preppedSentence = sentence;
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+
+        return Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(preppedWord::equals);
     }
 
     /**

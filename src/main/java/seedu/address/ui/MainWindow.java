@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BookBrowserPanel browserPanel;
     private BookListPanel bookListPanel;
+    private ReviewListPanel reviewListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -43,8 +44,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private StackPane reviewListPanelPlaceholder;
 
+    @FXML
+    private MenuItem helpMenuItem;
 
     @FXML
     private StackPane bookListPanelPlaceholder;
@@ -120,6 +123,10 @@ public class MainWindow extends UiPart<Stage> {
 
         bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
 
+        reviewListPanel = new ReviewListPanel(logic.getFilteredReviewList(), logic.selectedReviewProperty(),
+                logic::setSelectedReview);
+        reviewListPanelPlaceholder.getChildren().add(reviewListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -172,6 +179,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public BookListPanel getBookListPanel() {
         return bookListPanel;
+    }
+
+    public ReviewListPanel getReviewListPanel() {
+        return reviewListPanel;
     }
 
     /**

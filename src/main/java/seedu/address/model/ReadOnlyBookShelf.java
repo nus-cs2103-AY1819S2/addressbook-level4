@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 import seedu.address.model.person.Person;
 
 /**
@@ -17,4 +18,6 @@ public interface ReadOnlyBookShelf extends Observable {
     ObservableList<Person> getPersonList();
 
     ObservableList<Book> getBookList();
+
+    ObservableList<Review> getReviewList();
 }

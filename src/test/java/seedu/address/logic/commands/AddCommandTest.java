@@ -5,7 +5,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPdfs.*;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_4;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_6;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_7;
+import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_8;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -30,9 +34,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Pdf;
 
 public class AddCommandTest {
-
-    private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+    private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

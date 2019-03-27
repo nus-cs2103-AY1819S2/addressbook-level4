@@ -4,43 +4,28 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
+import seedu.address.model.Slot;
 import seedu.address.model.patient.Patient;
 
 /**
  * Represents an appointment created in QuickDocs.
  */
-public class Appointment {
+public class Appointment extends Slot {
     private Patient patient;
-    private LocalDate date;
-    private LocalTime startTime;
-    private LocalTime endTime;
     private String comment;
 
-    public Appointment(Patient patient, LocalDate date, LocalTime startTime, LocalTime endTime, String comment) {
+    public Appointment(Patient patient, LocalDate date, LocalTime start, LocalTime end, String comment) {
+        super(date, start, end);
         this.patient = patient;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
         this.comment = comment;
     }
 
     public Appointment() {
+        super();
     }
 
     public Patient getPatient() {
         return patient;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
     }
 
     public String getComment() {
@@ -62,31 +47,30 @@ public class Appointment {
         }
 
         Appointment otherApp = (Appointment) other;
-        return otherApp.getPatient().equals(getPatient())
-                && otherApp.getDate().equals(getDate())
-                && otherApp.getStartTime().equals(getStartTime())
-                && otherApp.getEndTime().equals(getEndTime());
+        return super.equals(other)
+                && otherApp.getPatient().equals(getPatient())
+                && otherApp.getDate().equals(getDate());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(patient, startTime, endTime);
+        return Objects.hash(patient, comment, super.hashCode());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getPatient().getName() + " ")
-                .append(getPatient().getNric() + "\n")
+        builder.append(getPatient().getName()).append(" ")
+                .append(getPatient().getNric()).append("\n")
                 .append("Date: ")
-                .append(getDate() + "\n")
+                .append(getDate()).append("\n")
                 .append("Time: ")
-                .append(getStartTime())
+                .append(getStart())
                 .append(" to ")
-                .append(getEndTime() + "\n")
+                .append(getEnd()).append("\n")
                 .append("Comments: ")
-                .append(getComment() + "\n");
+                .append(getComment()).append("\n");
         return builder.toString();
     }
 }

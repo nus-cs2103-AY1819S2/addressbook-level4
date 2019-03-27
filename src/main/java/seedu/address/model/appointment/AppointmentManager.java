@@ -34,7 +34,7 @@ public class AppointmentManager {
     public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
         List<Appointment> filtered = appointments.stream()
                 .filter(a -> a.getDate().equals(date))
-                .filter(a -> a.getStartTime().equals(start))
+                .filter(a -> a.getStart().equals(start))
                 .collect(Collectors.toList());
 
         if (filtered.isEmpty()) {

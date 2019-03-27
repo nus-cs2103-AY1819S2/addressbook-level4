@@ -46,8 +46,8 @@ public class JsonAdaptedAppointment {
 
         this.patient = source.getPatient();
         this.date = source.getDate().toString();
-        this.start = source.getStartTime().toString();
-        this.end = source.getEndTime().toString();
+        this.start = source.getStart().toString();
+        this.end = source.getEnd().toString();
         this.comment = source.getComment();
     }
 

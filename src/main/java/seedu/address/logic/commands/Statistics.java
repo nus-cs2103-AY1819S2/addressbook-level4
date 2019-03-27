@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.tag.Condition;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import seedu.address.model.tag.Condition;
 
 /**
  * Class that represents a TreeMap of conditions and their respective occurences
@@ -14,7 +14,7 @@ public class Statistics {
     private static final String MESSAGE_EMPTY_STATISTICS = "Conditions and their related occurences are not available";
     private static final String MESSAGE_SUCCESS_STATISTICS = "Conditions and Occurences displayed successfully";
 
-    public static Map<String, Integer> statistics = new TreeMap<>();
+    private static Map<String, Integer> statistics = new TreeMap<>();
 
     /*
     public static Map<String, Integer> getStatistics() {
@@ -42,7 +42,6 @@ public class Statistics {
      * Else, the integer value will be incremented
      *
      * @param conditionSet to check for.
-     * @return true if condition is in the map, false otherwise
      */
     public static void updateStatistics(Set<Condition> conditionSet) {
         for (Condition condition : conditionSet) {

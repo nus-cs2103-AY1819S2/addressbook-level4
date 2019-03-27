@@ -3,12 +3,15 @@ package seedu.hms.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.hms.commons.util.InvalidationListenerManager;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingList;
+import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.UniqueCustomerList;
 
@@ -169,6 +172,18 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
+    }
+
+    //// statistics methods
+
+    public Map<ServiceType, Long> getPopularServices() {
+        return bookings.asUnmodifiableObservableList().stream()
+            .collect(Collectors.groupingBy(Booking::getService, Collectors.counting()));
+    }
+
+    public Map<RoomType, Long> getPopularRoomTypes() {
+        return reservations.asUnmodifiableObservableList().stream()
+            .collect(Collectors.groupingBy(Reservation::getService, Collectors.counting()));
     }
 
     //// util methods

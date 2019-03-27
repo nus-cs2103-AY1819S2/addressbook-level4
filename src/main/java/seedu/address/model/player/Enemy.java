@@ -31,7 +31,7 @@ public class Enemy extends Player {
      * Adds Coordinates into targetHistory
      */
     public Coordinates enemyShootAt() {
-        Coordinates newTarget = drawPossbleTarget();
+        Coordinates newTarget = drawPossibleTarget();
         this.addToTargetHistory(newTarget);
         return newTarget;
     }
@@ -42,7 +42,7 @@ public class Enemy extends Player {
      * removes this drawn String coordinate from the list AllPossibleTarget
      * Creates and returns Coord with drawn String Coord
      */
-    private Coordinates drawPossbleTarget() {
+    private Coordinates drawPossibleTarget() {
 
         String targetCoord = (String) allPossibleTargets.get(0);
         allPossibleTargets.remove(0);

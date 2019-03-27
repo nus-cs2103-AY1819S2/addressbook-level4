@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+    <TabPane prefWidth="340.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <tabs>
+            <Tab text="Service Type">
+                <content>
+                    <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <children>
+                            <StackPane fx:id="serviceTypeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        </children>
+                    </VBox>
+                </content>
+            </Tab>
+            <Tab text="Room Type">
+                <content>
+                    <VBox minWidth="340.0" prefWidth="340.0" VBox.vgrow="ALWAYS">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                        <children>
+                            <StackPane fx:id="roomTypeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        </children>
+                    </VBox>
+                </content>
+            </Tab>
+        </tabs>
+    </TabPane>
+</VBox>

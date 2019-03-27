@@ -67,7 +67,7 @@ public class BookingCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof CustomerCard)) {
+        if (!(other instanceof BookingCard)) {
             return false;
         }
 

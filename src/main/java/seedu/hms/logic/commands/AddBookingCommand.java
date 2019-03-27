@@ -31,7 +31,7 @@ public class AddBookingCommand extends BookingCommand {
         + PREFIX_SERVICE + "GYM "
         + PREFIX_TIMING + "08 - 13 "
         + PREFIX_PAYER + "2 "
-        + PREFIX_CUSTOMERS + "1,3 "
+        + PREFIX_CUSTOMERS + "1 "
         + PREFIX_COMMENT + "Please turn on the AC during the booked hours.\n";
 
     public static final String MESSAGE_SUCCESS = "New booking added: %1$s";

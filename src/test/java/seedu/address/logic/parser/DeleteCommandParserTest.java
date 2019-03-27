@@ -1,10 +1,10 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.MODE_HEALTHWORKER;
 import static seedu.address.logic.parser.CommandMode.MODE_REQUEST;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.Test;
@@ -33,12 +33,10 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_healthWorker_invalidInput() {
         // non numeric
-        assertParseFailure(parser, MODE_HEALTHWORKER + " a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteHealthWorkerCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, MODE_HEALTHWORKER + " a", MESSAGE_INVALID_INDEX);
 
         // negative index
-        assertParseFailure(parser, MODE_HEALTHWORKER + " -1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteHealthWorkerCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, MODE_HEALTHWORKER + " -1", MESSAGE_INVALID_INDEX);
     }
 
     @Test
@@ -51,11 +49,9 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_request_invalidInput() {
         // non numeric
-        assertParseFailure(parser, MODE_REQUEST + " a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteRequestCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, MODE_REQUEST + " a", MESSAGE_INVALID_INDEX);
 
         // negative index
-        assertParseFailure(parser, MODE_REQUEST + " -1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteRequestCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, MODE_REQUEST + " -1", MESSAGE_INVALID_INDEX);
     }
 }

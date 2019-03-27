@@ -160,12 +160,12 @@ public class Medicine {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Quantity: ")
-                .append(getTotalQuantity())
-                .append(" Expiry: ")
-                .append(getNextExpiry())
                 .append(" Company: ")
                 .append(getCompany())
+                .append(" Total quantity: ")
+                .append(getTotalQuantity())
+                .append(" Next expiry: ")
+                .append(getNextExpiry())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         builder.append(" Batches: ").append(getBatches().size());

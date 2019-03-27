@@ -134,6 +134,24 @@ public class VersionedTravelBuddy extends TravelBuddy {
     }
 
     /**
+     * Generates a chart by rating.
+     */
+    protected Map<String, Integer> generateYearChart() {
+        ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
+        String year;
+        Map<String, Integer> mapYear = new HashMap<>();
+        for (Place place : placeList) {
+            year = place.getDateVisited().year;
+            if (mapYear.containsKey(year)) {
+                mapYear.put(year, mapYear.get(year) + 1);
+            } else {
+                mapYear.put(year, 1);
+            }
+        }
+        return mapYear;
+    }
+
+    /**
      * Thrown when trying to {@code undo()} but can't.
      */
     public static class NoUndoableStateException extends RuntimeException {

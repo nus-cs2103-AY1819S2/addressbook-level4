@@ -24,7 +24,7 @@ import seedu.travel.model.place.CountryCode;
  */
 public class ChartUi extends Application {
 
-    private static final String FILENAME = "data/countryChart.json";
+    private static final String FILENAME_COUNTRY = "data/countryChart.json";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // final static String austria = "Austria";
@@ -47,7 +47,7 @@ public class ChartUi extends Application {
         Map<CountryCode, Integer> responses = new HashMap<>();
 
         try {
-            FileReader frCountry = new FileReader(FILENAME);
+            FileReader frCountry = new FileReader(FILENAME_COUNTRY);
             JsonReader jsonReader = new JsonReader(frCountry);
             Gson gson = new Gson();
             responses = gson.fromJson(jsonReader, HashMap.class);

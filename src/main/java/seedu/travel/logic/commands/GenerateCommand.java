@@ -28,7 +28,8 @@ public class GenerateCommand extends Command {
         requireNonNull(model);
         Map<CountryCode, Integer> mapCountry = model.generateChartCountry();
         Map<Rating, Integer> mapRating = model.generateChartRating();
-        new Chart(mapCountry, mapRating);
+        Map<String, Integer> mapYear = model.generateChartYear();
+        new Chart(mapCountry, mapRating, mapYear);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

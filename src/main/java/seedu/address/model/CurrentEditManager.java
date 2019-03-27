@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Config.TEMP_FILE;
 import static seedu.address.commons.core.Config.TEMP_FILENAME;
 import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -80,16 +81,24 @@ public class CurrentEditManager implements CurrentEdit {
      */
     public void updateTempImage(com.sksamuel.scrimage.Image image) {
         image.output(tempImage.getUrl(), new JpegWriter(100, true));
-
+        tempImage = new Image(TEMP_FILE);
     }
 
-    //kayheen use this!!
+    /* @@author kayheen */
     /**
      * Update tempImage instance of temp_img.png located in temp folder.
      */
-    public void updateTempImage(Image image) {
-        this.tempImage = image;
-        saveIntoTempFolder(image.getName().toString(), tempImage);
+    public void updateTempImage(BufferedImage bufferedimage) {
+        try {
+            File outputFile = new File(TEMP_FILENAME);
+            File directory = new File(TEMP_FILEPATH);
+            ImageIO.write(bufferedimage, tempImage.getFileType(), outputFile);
+            FileUtils.copyFileToDirectory(outputFile, directory, false);
+            outputFile.delete();
+        } catch (IOException e) {
+            System.out.println(e.toString());
+        }
+        tempImage = new Image(TEMP_FILE);
     }
 
     /**

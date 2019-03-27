@@ -18,6 +18,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListCommandParser;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.request.DeleteRequestCommand;
 import seedu.address.logic.commands.request.ListRequestCommand;
@@ -51,50 +52,56 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
-        case SelectRequestCommand.COMMAND_WORD:
-            return new SelectRequestCommandParser().parse(arguments);
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
 
-        case DeleteRequestCommand.COMMAND_WORD:
-            return new DeleteRequestParser().parse(arguments);
+            case SelectRequestCommand.COMMAND_WORD:
+                return new SelectRequestCommandParser().parse(arguments);
 
-        case ListRequestCommand.COMMAND_WORD:
-            return new ListRequestCommand();
+            case DeleteRequestCommand.COMMAND_WORD:
+                return new DeleteRequestParser().parse(arguments);
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+            case ListRequestCommand.COMMAND_WORD:
+                return new ListRequestCommand();
+  
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
+  
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+            case FilterHealthWorkerCommand.COMMAND_WORD:
+                return new FilterCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
 
-        case FilterHealthWorkerCommand.COMMAND_WORD:
-            return new FilterCommandParser().parse(arguments);
+            case ListCommand.COMMAND_WORD:
+                return new ListCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommandParser().parse(arguments);
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand();
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            case StatisticsCommand.COMMAND_WORD:
+                return new StatisticsCommand();
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

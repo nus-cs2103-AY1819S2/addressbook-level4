@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.Statistics;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.request.Request;
@@ -47,6 +48,7 @@ public class AddRequestCommand extends AddCommand implements RequestCommand {
         }
         model.addRequest(newRequest);
         model.commitRequestBook();
+        Statistics.updateStatistics(newRequest.getConditions());
         return new CommandResult(String.format(MESSAGE_SUCCESS, newRequest));
     }
 

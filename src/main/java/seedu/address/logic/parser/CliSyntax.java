@@ -17,7 +17,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_HEALTHWORKER = new Prefix("hw/");
     public static final Prefix PREFIX_REQUEST = new Prefix("r/");
 
-    // Additional prefixes for HealthWorker and Patient class
+    // Additional prefixes for HealthWorker
     public static final Prefix PREFIX_ORGANIZATION = new Prefix("o/");
     public static final Prefix PREFIX_SKILLS = new Prefix("s/");
 
@@ -26,5 +26,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADD_PATIENT = new Prefix("3");
     public static final Prefix PREFIX_ADD_REQUEST = new Prefix("2");
     public static final Prefix PREFIX_ADD_OTHERS = new Prefix("4");
-
 }

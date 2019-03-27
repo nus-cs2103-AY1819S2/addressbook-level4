@@ -331,6 +331,11 @@ public class AddToOrderCommandTest {
         }
 
         @Override
+        public boolean isRestaurantEmpty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Table> getFilteredTableList() {
             throw new AssertionError("This method should not be called.");
         }

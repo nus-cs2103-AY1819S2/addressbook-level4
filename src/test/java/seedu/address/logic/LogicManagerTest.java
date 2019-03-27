@@ -28,10 +28,12 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.table.ReadOnlyTables;
 import seedu.address.model.table.Table;
+import seedu.address.model.table.TableNumber;
 import seedu.address.storage.JsonMenuStorage;
 import seedu.address.storage.JsonOrdersStorage;
 import seedu.address.storage.JsonStatisticsStorage;
@@ -45,6 +47,14 @@ import seedu.address.testutil.TableBuilder;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
+
+    public static final String ADD_TABLE_ARGS = " 4";
+    public static final String ADD_MENU_ITEM_ARGS = " n/Chicken Wings c/W09 p/3.99";
+    public static final String ADD_ORDER_ITEM_ARGS = " W09 3";
+    public static final String OCCUPIED_TABLE_STATUS = "3/4";
+    public static final float TOTAL_BILL = (float) 11.97;
+    public static final String RECEIPT = "\nTable 1\n\nW09  Chicken Wings\n $3.99   x 3\n\nTotal Bill: $ 11.97\n";
+    public static final Bill bill = new Bill(new TableNumber("1"), TOTAL_BILL, RECEIPT);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -116,20 +126,22 @@ public class LogicManagerTest {
         //        assertHistoryCorrect(addCommand);
 
         // Execute addTable command
-        String addTableCommand = AddTableCommand.COMMAND_WORD + " 4";
-        String addToMenuCommand = AddToMenuCommand.COMMAND_WORD + " n/Chicken Wings c/W09 p/3.99";
-        String addToOrderCommand = AddToOrderCommand.COMMAND_WORD + " W09 3";
+        String addTableCommand = AddTableCommand.COMMAND_WORD + ADD_TABLE_ARGS;
+        String addToMenuCommand = AddToMenuCommand.COMMAND_WORD + ADD_MENU_ITEM_ARGS;
+        String addToOrderCommand = AddToOrderCommand.COMMAND_WORD + ADD_ORDER_ITEM_ARGS;
         String billCommand = BillCommand.COMMAND_WORD;
         Table expectedTable = new TableBuilder().build();
-        Table occupiedTable = new TableBuilder().withTableStatus("3/4").build();
+        Table occupiedTable = new TableBuilder().withTableStatus(OCCUPIED_TABLE_STATUS).build();
         OrderItem expectedOrderItem = new OrderItemBuilder().build();
         MenuItem expectedMenuItem = new MenuItemBuilder().build();
         DailyRevenue expectedDailyRevenue = new StatisticsBuilder()
-                .withDay("26")
-                .withMonth("03")
-                .withYear("2019")
-                .withTotalBill("11.97")
-                .withReceipt("Table 1\n\nW09  Chicken Wings\n $3.99   x 3\n\nTotal Bill: $ 11.97\n\n")
+                .withDay(bill.getDay().toString())
+                .withMonth(bill.getMonth().toString())
+                .withYear(bill.getYear().toString())
+                .withTotalBill(String.valueOf(bill.getTotalBill()))
+                .withTotalDailyRevenue(String.valueOf(TOTAL_BILL))
+                .withTableNumber(bill.getTableNumber().toString())
+                .withReceipt(bill.getReceipt())
                 .build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTable(expectedTable);
@@ -158,7 +170,8 @@ public class LogicManagerTest {
         // Execute addDailyRevenue command
         expectedModel.addDailyRevenue(expectedDailyRevenue);
         expectedModel.deleteOrderItem(expectedOrderItem);
-        expectedModel.setSelectedTable(null);
+//        expectedModel.setSelectedTable(null);
+        expectedModel.setRecentBill(bill);
         expectedModel.setTable(occupiedTable, expectedTable);
         assertCommandBehavior(CommandException.class, billCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(billCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
@@ -239,8 +252,8 @@ public class LogicManagerTest {
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (CommandException | ParseException e) {
             assertEquals(expectedException, e.getClass());
-            assertEquals(expectedMessage, e.getMessage());
-        }
+            assertEquals(expectedMessage, e.getMessage()); 
+        } 
 
         assertEquals(expectedModel, model);
     }

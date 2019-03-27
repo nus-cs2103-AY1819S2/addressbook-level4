@@ -123,6 +123,11 @@ public class TablesTest {
         }
 
         @Override
+        public boolean isRestaurantEmpty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Table> getTableList() {
             return tables;
         }

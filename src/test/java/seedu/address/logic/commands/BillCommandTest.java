@@ -312,6 +312,11 @@ public class BillCommandTest {
         }
 
         @Override
+        public boolean isRestaurantEmpty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Table> getFilteredTableList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -520,6 +525,11 @@ public class BillCommandTest {
 
         private int nextTableNumber = 1;
         private UniqueTableList tableList = new UniqueTableList();
+
+        @Override
+        public boolean isRestaurantEmpty() {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ObservableList<Table> getTableList() {

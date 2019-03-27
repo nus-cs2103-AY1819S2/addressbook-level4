@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
  */
 public class ModuleTaken {
 
-    private final ModuleInfoCode moduleInfo;
+    private final ModuleInfoCode moduleInfoCode;
     private final Semester semester;
 
     // Data fields
@@ -27,10 +27,10 @@ public class ModuleTaken {
     /**
      * Every field must be present and not null.
      */
-    public ModuleTaken(ModuleInfoCode moduleInfo, Semester semester, Grade expectedMinGrade, Grade expectedMaxGrade,
+    public ModuleTaken(ModuleInfoCode moduleInfoCode, Semester semester, Grade expectedMinGrade, Grade expectedMaxGrade,
                        Hour lectureHour, Set<Tag> tags) {
-        requireAllNonNull(moduleInfo, semester, expectedMinGrade, expectedMaxGrade, tags);
-        this.moduleInfo = moduleInfo;
+        requireAllNonNull(moduleInfoCode, semester, expectedMinGrade, expectedMaxGrade, tags);
+        this.moduleInfoCode = moduleInfoCode;
         this.semester = semester;
         this.gradeRange = new GradeRange(expectedMinGrade, expectedMaxGrade);
         this.workload = new Workload(lectureHour, new Hour("0"),
@@ -38,8 +38,8 @@ public class ModuleTaken {
         this.tags.addAll(tags);
     }
 
-    public ModuleInfoCode getModuleInfo() {
-        return moduleInfo;
+    public ModuleInfoCode getModuleInfoCode() {
+        return moduleInfoCode;
     }
 
     public Semester getSemester() {
@@ -71,20 +71,19 @@ public class ModuleTaken {
     }
 
     /**
-     * Checks if this module has been finished.
-     * @return true if the module has been finished, false otherwise.
+     * Checks if this moduleTaken has been finished given the current Semester.
+     * @return true if the moduleTaken has been finished, false otherwise.
      */
-    public boolean isFinished() {
-        // TODO: compare semester taken and current semester
-        return false;
+    public boolean isFinished(Semester currentSemester) {
+        return semester.compareTo(currentSemester) < 0;
     }
 
     /**
      * Checks if this module has been passed.
      * @return true if this module has been passed, false otherwise.
      */
-    public boolean isPassed() {
-        return isFinished() && getGradeRange().getMax().isPassingGrade();
+    public boolean isPassed(Semester currentSemester) {
+        return isFinished(currentSemester) && getExpectedMaxGrade().isPassingGrade();
     }
 
     /**
@@ -97,7 +96,7 @@ public class ModuleTaken {
         }
 
         return otherModuleTaken != null
-                && otherModuleTaken.getModuleInfo().equals(getModuleInfo())
+                && otherModuleTaken.getModuleInfoCode().equals(getModuleInfoCode())
                 && (otherModuleTaken.getSemester().equals(getSemester()));
     }
 
@@ -116,7 +115,7 @@ public class ModuleTaken {
         }
 
         ModuleTaken otherModuleTaken = (ModuleTaken) other;
-        return otherModuleTaken.getModuleInfo().equals(getModuleInfo())
+        return otherModuleTaken.getModuleInfoCode().equals(getModuleInfoCode())
                 && otherModuleTaken.getSemester().equals(getSemester())
                 && otherModuleTaken.getExpectedMinGrade().equals(getExpectedMinGrade())
                 && otherModuleTaken.getExpectedMaxGrade().equals(getExpectedMaxGrade())
@@ -127,13 +126,13 @@ public class ModuleTaken {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(moduleInfo, semester, gradeRange, workload, tags);
+        return Objects.hash(moduleInfoCode, semester, gradeRange, workload, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getModuleInfo())
+        builder.append(getModuleInfoCode())
                 .append(" Semester: ")
                 .append(getSemester())
                 .append(" Expected Min Grade: ")

@@ -32,11 +32,6 @@ public interface Model {
     Course getCourse();
 
     /**
-     * Returns the user's current semester.
-     */
-    Semester getCurrentSemester();
-
-    /**
      * Returns the user's cap up to the current semester.
      */
     Cap computeCumulativeCap();
@@ -88,6 +83,9 @@ public interface Model {
 
     /** Returns the GradTrak */
     ReadOnlyGradTrak getAddressBook();
+
+    /** Returns the current Semester */
+    Semester getCurrentSemester();
 
     /**
      * Returns true if a moduleTaken with the same identity as {@code moduleTaken} exists in the address book.

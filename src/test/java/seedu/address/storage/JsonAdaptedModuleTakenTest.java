@@ -23,7 +23,7 @@ public class JsonAdaptedModuleTakenTest {
     private static final String INVALID_EXPECTED_MIN_GRADE = "example.com";
     private static final String INVALID_TAG = "#friend";
 
-    private static final String VALID_NAME = CS2101.getModuleInfo().toString();
+    private static final String VALID_NAME = CS2101.getModuleInfoCode().toString();
     private static final String VALID_SEMESTER = CS2101.getSemester().name();
     private static final String VALID_EXPECTED_MIN_GRADE = CS2101.getExpectedMinGrade().name();
     private static final String VALID_EXPECTED_MAX_GRADE = CS2101.getExpectedMaxGrade().name();

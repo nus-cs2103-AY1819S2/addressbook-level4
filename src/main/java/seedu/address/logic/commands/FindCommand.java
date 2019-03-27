@@ -23,16 +23,18 @@ public class FindCommand extends Command {
             + "Parameters: [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]\n"
             + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A";
 
-    private final FindModulePredicate predicate;
+    private final FindModuleDescriptor descriptor;
 
-    public FindCommand(FindModulePredicate predicate) {
-        this.predicate = predicate;
+    public FindCommand(FindModuleDescriptor descriptor) {
+        this.descriptor = descriptor;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
         model.updateFilteredPersonList(predicate);
+
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
@@ -41,7 +43,7 @@ public class FindCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FindCommand // instanceof handles nulls
-                && predicate.equals(((FindCommand) other).predicate)); // state check
+                && descriptor.equals(((FindCommand) other).descriptor)); // state check
     }
 
     /**

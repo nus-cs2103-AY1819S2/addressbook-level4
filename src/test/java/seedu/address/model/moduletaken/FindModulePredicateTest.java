@@ -19,6 +19,8 @@ import seedu.address.testutil.ModuleTakenBuilder;
 
 public class FindModulePredicateTest {
 
+    private Semester currentSemester = Semester.Y1S1;
+
     @Test
     public void equals() {
         FindModuleDescriptor fd1 = new FindModuleDescriptorBuilder()
@@ -32,17 +34,17 @@ public class FindModulePredicateTest {
         FindModuleDescriptor fd4 = new FindModuleDescriptorBuilder().withCode("CS").build();
         FindModuleDescriptor fd5 = new FindModuleDescriptorBuilder().withCode("cs").build();
 
-        FindModulePredicate fp1 = new FindModulePredicate(fd1);
-        FindModulePredicate fp2 = new FindModulePredicate(fd2);
-        FindModulePredicate fp3 = new FindModulePredicate(fd3);
-        FindModulePredicate fp4 = new FindModulePredicate(fd4);
-        FindModulePredicate fp5 = new FindModulePredicate(fd5);
+        FindModulePredicate fp1 = new FindModulePredicate(fd1, currentSemester);
+        FindModulePredicate fp2 = new FindModulePredicate(fd2, currentSemester);
+        FindModulePredicate fp3 = new FindModulePredicate(fd3, currentSemester);
+        FindModulePredicate fp4 = new FindModulePredicate(fd4, currentSemester);
+        FindModulePredicate fp5 = new FindModulePredicate(fd5, currentSemester);
 
         // same object -> returns true
         assertTrue(fp1.equals(fp1));
 
         // same values -> returns true
-        FindModulePredicate fp1copy = new FindModulePredicate(fd1);
+        FindModulePredicate fp1copy = new FindModulePredicate(fd1, currentSemester);
         assertTrue(fp1.equals(fp1copy));
 
         // same values (ignoring case) -> returns true
@@ -65,23 +67,23 @@ public class FindModulePredicateTest {
     public void test_singleParameter_returnsTrue() {
         // code only
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode(VALID_MODULE_INFO_CODE_CS2103T).build();
-        FindModulePredicate fp = new FindModulePredicate(fd);
+        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
         assertTrue(fp.test(new ModuleTakenBuilder().withModuleInfoCode(VALID_MODULE_INFO_CODE_CS2103T).build()));
 
         // semester only
         fd = new FindModuleDescriptorBuilder().withSemester(VALID_SEMESTER_CS2103T).build();
-        fp = new FindModulePredicate(fd);
+        fp = new FindModulePredicate(fd, currentSemester);
         assertTrue(fp.test(new ModuleTakenBuilder().withSemester(VALID_SEMESTER_CS2103T).build()));
 
         // grade only
         fd = new FindModuleDescriptorBuilder().withGrade(VALID_GRADE_CS2103T).build();
-        fp = new FindModulePredicate(fd);
+        fp = new FindModulePredicate(fd, currentSemester);
         assertTrue(fp.test(new ModuleTakenBuilder().withExpectedMaxGrade(VALID_GRADE_CS2103T)
                 .withExpectedMinGrade(VALID_GRADE_CS2103T).build()));
 
         // finished status only
         fd = new FindModuleDescriptorBuilder().withFinishedStatus("n").build();
-        fp = new FindModulePredicate(fd);
+        fp = new FindModulePredicate(fd, currentSemester);
         assertTrue(fp.test(new ModuleTakenBuilder().build()));
     }
 
@@ -91,7 +93,7 @@ public class FindModulePredicateTest {
                 .withSemester(VALID_SEMESTER_CS2103T)
                 .withGrade(VALID_GRADE_CS2103T)
                 .withFinishedStatus("n").build();
-        FindModulePredicate fp = new FindModulePredicate(fd);
+        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
         assertTrue(fp.test(new ModuleTakenBuilder()
                 .withModuleInfoCode(VALID_MODULE_INFO_CODE_CS2103T)
                 .withSemester(VALID_SEMESTER_CS2103T)
@@ -101,7 +103,7 @@ public class FindModulePredicateTest {
         fd = new FindModuleDescriptorBuilder().withCode(VALID_MODULE_INFO_CODE_CS1010)
                 .withSemester(VALID_SEMESTER_CS1010).withGrade(VALID_GRADE_CS1010)
                 .withFinishedStatus("n").build();
-        fp = new FindModulePredicate(fd);
+        fp = new FindModulePredicate(fd, currentSemester);
         assertTrue(fp.test(new ModuleTakenBuilder()
                 .withModuleInfoCode(VALID_MODULE_INFO_CODE_CS1010)
                 .withSemester(VALID_SEMESTER_CS1010)
@@ -115,24 +117,24 @@ public class FindModulePredicateTest {
         // code only
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder()
                 .withCode(VALID_MODULE_INFO_CODE_CS2103T).build();
-        FindModulePredicate fp = new FindModulePredicate(fd);
+        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
         assertFalse(fp.test(new ModuleTakenBuilder()
                 .withModuleInfoCode(VALID_MODULE_INFO_CODE_CS1010).build()));
 
         // semester only
         fd = new FindModuleDescriptorBuilder().withSemester(VALID_SEMESTER_CS2103T).build();
-        fp = new FindModulePredicate(fd);
+        fp = new FindModulePredicate(fd, currentSemester);
         assertFalse(fp.test(new ModuleTakenBuilder().withSemester(VALID_SEMESTER_CS1010).build()));
 
         // grade only
         fd = new FindModuleDescriptorBuilder().withGrade(VALID_GRADE_CS2103T).build();
-        fp = new FindModulePredicate(fd);
+        fp = new FindModulePredicate(fd, currentSemester);
         assertFalse(fp.test(new ModuleTakenBuilder().withExpectedMaxGrade(VALID_GRADE_CS1010)
                 .withExpectedMinGrade(VALID_GRADE_CS1010).build()));
 
         // finished status only
         fd = new FindModuleDescriptorBuilder().withFinishedStatus(FINISHED_STATUS_TRUE).build();
-        fp = new FindModulePredicate(fd);
+        fp = new FindModulePredicate(fd, currentSemester);
         assertFalse(fp.test(new ModuleTakenBuilder().build()));
     }
 
@@ -144,7 +146,7 @@ public class FindModulePredicateTest {
                 .withSemester(VALID_SEMESTER_CS2103T)
                 .withGrade(VALID_GRADE_CS2103T)
                 .withFinishedStatus("n").build();
-        FindModulePredicate fp = new FindModulePredicate(fd);
+        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
         assertFalse(fp.test(new ModuleTakenBuilder()
                 .withModuleInfoCode(VALID_MODULE_INFO_CODE_CS1010)
                 .withSemester(VALID_SEMESTER_CS1010)

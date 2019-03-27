@@ -34,7 +34,6 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private Course course;
-    private Semester currentSemester;
     private ArrayList<PlanPreference> planPreferences;
 
     private final VersionedGradTrak versionedAddressBook;
@@ -88,11 +87,6 @@ public class ModelManager implements Model {
     @Override
     public Course getCourse() {
         return course;
-    }
-
-    @Override
-    public Semester getCurrentSemester() {
-        return currentSemester;
     }
 
     @Override
@@ -154,6 +148,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyGradTrak getAddressBook() {
         return versionedAddressBook;
+    }
+
+    @Override
+    public Semester getCurrentSemester() {
+        return versionedAddressBook.getCurrentSemester();
     }
 
     @Override

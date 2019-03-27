@@ -14,8 +14,6 @@ import org.apache.commons.io.FileUtils;
 
 import com.sksamuel.scrimage.nio.JpegWriter;
 
-import com.sksamuel.scrimage.nio.JpegWriter;
-
 import seedu.address.Notifier;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;

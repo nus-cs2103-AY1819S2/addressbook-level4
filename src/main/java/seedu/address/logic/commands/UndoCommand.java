@@ -41,26 +41,26 @@ public class UndoCommand extends Command {
 
     /*
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
+    public CommandResult execute(CurrentEdit current, CommandHistory history) throws CommandException {
+        requireNonNull(current);
         AddressBookParser parser = new AddressBookParser();
         CommandResult commandResult;
 
-        if (!model.canUndoImage()) {
+        if (!current.canUndoImage()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        if (!model.canUndoAddressBook()) {
+        if (!current.canUndoAddressBook()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.replaceTempImage();
-        model.getImage().setUndo();
-        List<String> tempHistory = model.getImage().getHistory();
+        current.replaceTempWithOriginal();
+        current.getTempImage().setUndo();
+        List<String> tempHistory = current.getTempImage().getHistory();
         for (String x :tempHistory) {
             try {
                 Command command = parser.parseCommand(x);
-                commandResult = command.execute(model, history);
+                commandResult = command.execute(current, history);
             } catch (ParseException e) {
                 System.out.println(e.toString());
             }

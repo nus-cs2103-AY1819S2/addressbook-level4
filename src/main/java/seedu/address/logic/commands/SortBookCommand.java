@@ -6,7 +6,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Sort all books in provided order.
+ * Sorts all books in provided order.
  */
 public class SortBookCommand extends Command {
 

@@ -323,8 +323,7 @@ public class ModelManager implements Model {
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder(int cardFolderToTestIndex) {
-        setActiveCardFolderIndex(cardFolderToTestIndex);
+    public void testCardFolder() {
         currentTestedCardFolder = getActiveCardFolder().getCardList();
         if (currentTestedCardFolder.isEmpty()) {
             throw new EmptyCardFolderException();
@@ -362,7 +361,6 @@ public class ModelManager implements Model {
         numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
         currentTestedCardFolder = null;
-        exitFoldersToHome();
     }
 
     @Override

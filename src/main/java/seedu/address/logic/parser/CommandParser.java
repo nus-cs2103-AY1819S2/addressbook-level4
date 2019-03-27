@@ -81,7 +81,7 @@ public class CommandParser {
             return new DeleteFolderCommandParser().parse(arguments);
 
         case TestCommand.COMMAND_WORD:
-            return new TestCommandParser().parse(arguments);
+            return new TestCommand();
 
         case AnswerCommand.COMMAND_WORD:
             return new AnswerCommandParser().parse(arguments);

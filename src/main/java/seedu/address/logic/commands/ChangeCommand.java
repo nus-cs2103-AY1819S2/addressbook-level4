@@ -48,13 +48,13 @@ public class ChangeCommand extends Command {
 
         if (toHome) {
             if (!model.isInFolder()) {
-                throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER);
+                throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
             }
             model.exitFoldersToHome();
             return new CommandResult(MESSAGE_EXIT_FOLDER_SUCCESS, CommandResult.Type.EXITED_FOLDER);
         } else {
             if (model.isInFolder()) {
-                throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
+                throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER);
             }
 
             if (targetIndex.getZeroBased() >= cardFolderList.size()) {

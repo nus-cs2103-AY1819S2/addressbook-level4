@@ -28,7 +28,7 @@ This user guide provides in-depth documentation on the HMS+ installation process
 == Getting Started
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `hms.jar` link:{repoURL}/releases[here].
+.  Download the latest `hms+.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Hotel Management System.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -79,8 +79,8 @@ A person can have any number of tags (including 0)
 
 Examples:
 
-* `addc n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/552526 a/John street, block 123, #01-01`
-* `addc n/Betsy Crowe e/betsy.crowe@example.com p/123456 id/345252`
+* `ac n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/552526 a/John street, block 123, #01-01`
+* `ac n/Betsy Crowe e/betsy.crowe@example.com p/123456 id/345252`
 
 ==== Listing all customers : `listcustomers`, `lc`
 
@@ -387,6 +387,132 @@ _{explain how the user can enable/disable data encryption}_
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HMS folder.
+
+== Prefix List
+
+=== Customer
+* [underline]*Name* +
+  _Prefix_:: `n/` +
+  _Validation_:: Name should adhere to following constraints:
+
+     1: It cannot be blank.
+     2: It should only contain alphanumeric characters and space.
+
+       _Example_:: n/Tejas Bhuwania
+
+   * [underline]*Phone* +
+    _Prefix_:: `p/` +
+    _Validation_:: Phone should adhere to following constraints:
+
+    1: It should contain only digits.
+    2: It should be atleast 3 digits long.
+
+    _Example_:: p/81424394
+
+    * [underline]*Email* +
+      _Prefix_:: `e/` +
+      _Validation_:: Email should  adhere to the following constraints:
+
+                    1: Email should be of the format local-part@domain.
+                    2: The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (!#$%&'*+/=?`{|}~^.-).
+                    3: This is followed by a '@' and then a domain name. The domain name must:
+                        - be at least 2 characters long
+                        - start and end with alphanumeric characters
+                        - consists alphanumeric characters, a period or hyphen for characters in between
+
+     _Example_:: e/tejasbhuwania2805@gmail.com
+
+    * [underline]*Identification Number* +
+      _Prefix_:: `id/` +
+       _Validation_:: Identification Number should adhere to following constraints:
+
+        1: It should contain only digits.
+        2: It should be atleast 3 digits long.
+
+      _Example_:: id/4264533
+
+    * [underline]*Date of Birth* +
+      _Prefix_:: `dob/` +
+       _Validation_:: Date of Birth should adhere to the following constraints:
+
+          1: Date should not exceed the previous year.
+          2: Date of birth should be of the format: DD/MM/YYYY.
+
+      _Example_:: dob/28/05/1999
+
+* [underline]*Tag* +
+  _Prefix_:: `t/` +
+  _Validation_:: Tag should adhere to following constraints:
+
+    1: Tags should be alphanumeric only.
+
+    _Example_:: t/friend
+
+=== Only Service Booking
+
+* [underline]*Service Type* +
+  _Prefix_:: `s/` +
+  _Validation_:: Service Type should adhere to following constraints:
+
+     1: It should be a defined service type already present in the list.
+
+     _Example_:: s/GYM
+
+* [underline]*Timing of Service* +
+  _Prefix_:: `:/` +
+  _Validation_:: Timing of Service adheres to following constraints:
+
+    1: The service timing should be within the operating hours.
+    2: If service type is full during that time, it returns an error message.
+    3: It should be of the format: HH - HH.
+
+    _Example_:: :/08 - 10
+
+=== Only Room Reservation
+
+* [underline]*Room Type* +
+  _Prefix_:: `r/` +
+   _Validation_:: Room Type should adhere to following constraints:
+
+   1: It should be a defined room type already present in the list.
+
+   _Example_:: r/SINGLE ROOM
+
+* [underline]*Date of Reservation* +
+  _Prefix_:: `d/` +
+  _Validation_:: Date of Reservation adheres to the following constraints:
+
+    1: If room type is full during those dates, it returns an error message.
+    2: It should be of the format: DD/MM/YYYY - DD/MM/YYYY.
+
+    _Example_:: d/12/12/2010 - 14/12/2010
+
+=== Both Service Boooking and Room Reservation
+
+* [underline]*Payer of Reservation or Service* +
+  _Prefix_:: `$/` +
+  _Validation_:: Payer of Reservation should adhere to following constraints:
+
+   1: The index number should be valid.
+
+   _Example_:: $/1
+
+* [underline]*Customers involved in Reservation or Service* +
+  _Prefix_:: `c/` +
+  _Validation_:: Customers involved in Reservation or Service should adhere to following constraints:
+
+   1: The index number should be valid.
+
+   _Example_:: c/1
+
+* [underline]*Comment for Reservation or Service* +
+  _Prefix_:: `com/` +
+  _Validation_:: Comment for Reservation or Service  should adhere to following constraints:
+
+   1: No specific validation.
+
+   _Example_:: com/Please turn AC on.
+
 
 == Command Summary
 

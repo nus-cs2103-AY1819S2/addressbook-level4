@@ -5,12 +5,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_PREFIX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
 
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.logic.commands.FilterCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.TagContainsKeywordsPredicate;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Parses input arguments and creates a new FilterCommand object.
@@ -27,18 +27,22 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     public FilterCommand parse(String args) throws ParseException {
         requireNonNull(args);
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()){
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
         }
 
         List<String> tagKeywords = Arrays.asList(trimmedArgs.split("\\s+"));
-        for (String s : tagKeywords){
-            if(!s.startsWith(PREFIX_TAG_NEW.toString())){
+        for (String s : tagKeywords) {
+            if (!s.startsWith(PREFIX_TAG_NEW.toString())) {
                 throw new ParseException(
                         String.format(MESSAGE_MISSING_PREFIX, FilterCommand.MESSAGE_USAGE));
             }
         }
+
+        //Remove prefix to prepare for filter command
+        tagKeywords.replaceAll(
+                x -> x.replaceFirst(PREFIX_TAG_NEW.toString(), ""));
 
         return new FilterCommand(new TagContainsKeywordsPredicate(tagKeywords));
     }

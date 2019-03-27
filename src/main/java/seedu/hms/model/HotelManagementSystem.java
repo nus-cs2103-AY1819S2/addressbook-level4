@@ -182,6 +182,15 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         indicateModified();
     }
 
+    /**
+     * Removes {@code booking} from this {@code HotelManagementSystem}.
+     * {@code booking} must exist in the hms book.
+     */
+    public void removeBooking(Booking b) {
+        bookings.remove(b);
+        indicateModified();
+    }
+
     //// reservation-level operations
 
     /**

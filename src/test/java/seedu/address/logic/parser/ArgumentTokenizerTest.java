@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.Assert;
 
 public class ArgumentTokenizerTest {
@@ -202,7 +203,7 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
-    public void trimMode() {
+    public void trimMode() throws ParseException {
         // null
         Assert.assertThrows(NullPointerException.class, () -> ArgumentTokenizer.trimMode(null));
 

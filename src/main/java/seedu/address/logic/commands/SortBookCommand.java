@@ -19,7 +19,7 @@ public class SortBookCommand extends Command {
         + "ORDER can only be asc or des\n"
         + "Example: " + COMMAND_WORD + " st/rating o/asc";
 
-    public static final String MESSAGE_SUCCESS = "sorted successfully";
+    public static final String MESSAGE_SUCCESS = "Sorted successfully";
 
     private final String type;
 

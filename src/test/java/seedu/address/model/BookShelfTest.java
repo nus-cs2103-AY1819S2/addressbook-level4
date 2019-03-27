@@ -25,6 +25,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 import seedu.address.model.book.exceptions.DuplicateBookException;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.BookBuilder;
@@ -124,6 +125,7 @@ public class BookShelfTest {
     private static class BookShelfStub implements ReadOnlyBookShelf {
         private final ObservableList<Book> books = FXCollections.observableArrayList();
         private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Review> reviews = FXCollections.observableArrayList();
 
         BookShelfStub(Collection<Book> books, int distinguish) {
             this.books.setAll(books);
@@ -137,6 +139,11 @@ public class BookShelfTest {
         @Override
         public ObservableList<Book> getBookList() {
             return books;
+        }
+
+        @Override
+        public ObservableList<Review> getReviewList() {
+            return reviews;
         }
 
         @Override

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Book Squirrel" minWidth="750" minHeight="850" onCloseRequest="#handleExit">
+         title="Book Squirrel" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -46,7 +46,7 @@
           </padding>
         </StackPane>
 
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
+        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="bookList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
@@ -54,19 +54,11 @@
             <StackPane fx:id="bookListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <SplitPane id="splitPane" fx:id="splitPane2" dividerPositions="0.5" VBox.vgrow="ALWAYS">
-            <VBox fx:id="reviewList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-              <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </padding>
-              <StackPane fx:id="reviewListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-            </VBox>
-            <StackPane fx:id="browserPlaceholder" prefWidth="340" >
-              <padding>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </padding>
-            </StackPane>
-          </SplitPane>
+          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+          </StackPane>
         </SplitPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

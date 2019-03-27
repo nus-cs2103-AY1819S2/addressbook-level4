@@ -13,6 +13,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteBookCommand;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DeleteReviewCommand;
 import seedu.address.logic.commands.EditBookCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
@@ -72,6 +73,9 @@ public class BookShelfParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteReviewCommand.COMMAND_WORD:
+            return new DeleteReviewCommandParser().parse(arguments);
 
         case EditBookCommand.COMMAND_WORD:
             return new EditBookCommandParser().parse(arguments);

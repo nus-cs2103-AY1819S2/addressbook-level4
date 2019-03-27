@@ -1,6 +1,7 @@
 package seedu.address.model.record;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.storage.JsonAdaptedConstants.DIVIDER;
 
 import java.util.Objects;
 
@@ -47,6 +48,18 @@ public class Record {
         return recordDate;
     }
 
+    public String getRecord() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Doctor: ")
+                .append(getDoctorName())
+                .append(", Description: ")
+                .append(getDescription())
+                .append(", on: ")
+                .append(getRecordDate());
+
+        return builder.toString();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -66,9 +79,9 @@ public class Record {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDoctorName())
-                .append(":")
+                .append(DIVIDER)
                 .append(getDescription())
-                .append(":")
+                .append(DIVIDER)
                 .append(getRecordDate());
 
         return builder.toString();

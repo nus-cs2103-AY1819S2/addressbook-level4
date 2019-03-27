@@ -48,6 +48,9 @@ public class BookMainWindow extends UiPart<Stage> {
     private StackPane bookListPanelPlaceholder;
 
     @FXML
+    private StackPane reviewListPanelPlaceholder;
+
+    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -110,12 +113,16 @@ public class BookMainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        BookBrowserPanel bookBrowserPanel = new BookBrowserPanel(logic.selectedBookProperty());
-        browserPlaceholder.getChildren().add(bookBrowserPanel.getRoot());
+        BookBrowserPanel browserPanel = new BookBrowserPanel(logic.selectedBookProperty());
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
             logic::setSelectedBook);
         bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
+
+        ReviewListPanel reviewListPanel = new ReviewListPanel(logic.getFilteredReviewList(),
+                logic.selectedReviewProperty(), logic::setSelectedReview);
+        reviewListPanelPlaceholder.getChildren().add(reviewListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

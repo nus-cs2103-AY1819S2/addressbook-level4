@@ -37,7 +37,7 @@ class JsonAdaptedReview {
      * Converts a given {@code Book} into this class for Jackson use.
      */
     public JsonAdaptedReview(Review source) {
-        title = source.getTitle().fullName;
+        title = source.getTitle().toString();
         message = source.getContent();
         date = source.getDate();
     }

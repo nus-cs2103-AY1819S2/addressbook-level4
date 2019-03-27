@@ -26,4 +26,9 @@ public class BookNameContainsExactKeywordsPredicate implements Predicate<Book> {
                 || (other instanceof BookNameContainsExactKeywordsPredicate // instanceof handles nulls
                 && keywords.equals(((BookNameContainsExactKeywordsPredicate) other).keywords)); // state check
     }
+
+    @Override
+    public String toString() {
+        return keywords;
+    }
 }

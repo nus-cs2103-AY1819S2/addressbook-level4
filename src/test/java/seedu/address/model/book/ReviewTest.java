@@ -8,6 +8,6 @@ public class ReviewTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> new Review(null, null));
+        Assert.assertThrows(NullPointerException.class, () -> new Review(null, null, null, null));
     }
 }

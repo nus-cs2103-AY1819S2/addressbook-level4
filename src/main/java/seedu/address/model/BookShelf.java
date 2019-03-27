@@ -10,7 +10,9 @@ import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 import seedu.address.model.book.UniqueBookList;
+import seedu.address.model.book.UniqueReviewList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -23,6 +25,7 @@ public class BookShelf implements ReadOnlyBookShelf {
 
     private final UniquePersonList persons;
     private final UniqueBookList books;
+    private final UniqueReviewList reviews;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
 
@@ -36,6 +39,7 @@ public class BookShelf implements ReadOnlyBookShelf {
     {
         persons = new UniquePersonList();
         books = new UniqueBookList();
+        reviews = new UniqueReviewList();
     }
 
     public BookShelf() {}
@@ -61,6 +65,11 @@ public class BookShelf implements ReadOnlyBookShelf {
 
     public void setBooks(List<Book> books) {
         this.books.setBooks(books);
+        indicateModified();
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews.setReviews(reviews);
         indicateModified();
     }
 
@@ -93,6 +102,14 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     /**
+     * Returns true if a review with the same identity as {@code review} exists in the book shelf.
+     */
+    public boolean hasReview(Review review) {
+        requireNonNull(review);
+        return reviews.contains(review);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */
@@ -107,6 +124,15 @@ public class BookShelf implements ReadOnlyBookShelf {
      */
     public void addBook(Book b) {
         books.add(b);
+        indicateModified();
+    }
+
+    /**
+     * Adds a review to the book shelf.
+     * The book must not already exist in the book shelf.
+     */
+    public void addReview(Review review) {
+        reviews.add(review);
         indicateModified();
     }
 
@@ -149,6 +175,15 @@ public class BookShelf implements ReadOnlyBookShelf {
      */
     public void removeBook(Book key) {
         books.remove(key);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code key} from this {@code BookShelf}.
+     * {@code key} must exist in the book shelf.
+     */
+    public void removeReview(Review key) {
+        reviews.remove(key);
         indicateModified();
     }
 
@@ -242,15 +277,21 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     @Override
+    public ObservableList<Review> getReviewList() {
+        return reviews.asUnmodifiableObservableList();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookShelf // instanceof handles nulls
                 && persons.equals(((BookShelf) other).persons)
-                && books.equals(((BookShelf) other).books));
+                && books.equals(((BookShelf) other).books))
+                && reviews.equals(((BookShelf) other).reviews);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return books.hashCode();
     }
 }

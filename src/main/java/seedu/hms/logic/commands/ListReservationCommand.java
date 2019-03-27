@@ -12,7 +12,7 @@ import seedu.hms.model.ReservationModel;
 public class ListReservationCommand extends ReservationCommand {
 
     public static final String COMMAND_ALIAS = "lr";
-    public static final String COMMAND_WORD = "listreservations";
+    public static final String COMMAND_WORD = "list-reservations";
 
     public static final String MESSAGE_SUCCESS = "Listed all reservations";
 

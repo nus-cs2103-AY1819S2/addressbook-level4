@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.Mode;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -13,14 +14,14 @@ public class ClearTableCommand extends Command {
 
     public static final String COMMAND_WORD = "clearTable";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Remove table(s) to the RestOrRant application.\n"
-            + "Restaurant must be fully unoccupied when this command is being used."
-            + "Parameters: TABLE_NUMBER [TABLE_NUMBER]...\n" + "Example: " + COMMAND_WORD + " 2 3 4";
+    public static final String MESSAGE_USAGE = COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Tables have been cleared";
 
-    public static final String INVALID_RESTORRANT_STATE =
+    public static final String INVALID_RESTAURANT_STATE =
             "Restaurant is still occupied. Clearing of table(s) not allowed";
+
+    public static final String MESSAGE_FAILURE = "There are no tables to clear.";
 
     /**
      * Creates a ClearTableCommand to remove all table(s).
@@ -32,7 +33,10 @@ public class ClearTableCommand extends Command {
         requireNonNull(model);
         StringBuilder sbFinalOutput = new StringBuilder(MESSAGE_SUCCESS);
         if (!model.isRestaurantEmpty()) {
-            throw new CommandException(INVALID_RESTORRANT_STATE);
+            throw new CommandException(INVALID_RESTAURANT_STATE);
+        }
+        if (model.getRestOrRant().getTables().getTableList().isEmpty()) {
+            throw new CommandException(MESSAGE_FAILURE);
         }
 
         model.setTables(new ArrayList<>());

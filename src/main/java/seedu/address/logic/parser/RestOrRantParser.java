@@ -114,7 +114,6 @@ public class RestOrRantParser {
             return new AddToOrderCommandParser().parse(arguments);
 
         case ClearOrderCommand.COMMAND_WORD: // Fallthrough
-        case ClearOrderCommand.COMMAND_ALIAS:
             if (mode != Mode.TABLE_MODE) {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
@@ -141,6 +140,15 @@ public class RestOrRantParser {
                 return new AddToMenuCommandParser().parse(arguments);
             } else if (mode == Mode.TABLE_MODE) {
                 return new AddToOrderCommandParser().parse(arguments);
+            } else {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            
+        case "clear":
+            if (mode == Mode.RESTAURANT_MODE) {
+                return new ClearTableCommand();
+            } else if (mode == Mode.TABLE_MODE) {
+                return new ClearOrderCommand();
             } else {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }

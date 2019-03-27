@@ -17,7 +17,7 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyRestOrRant_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.updateMode();
@@ -27,7 +27,7 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyRestOrRant_success() {
         Model model = new ModelManager(TypicalRestOrRant.getTypicalRestOrRant(), new UserPrefs());
         Model expectedModel = new ModelManager(TypicalRestOrRant.getTypicalRestOrRant(), new UserPrefs());
         expectedModel.setRestOrRant(new RestOrRant());

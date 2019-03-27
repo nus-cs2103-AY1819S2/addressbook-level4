@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -33,38 +32,19 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
+        Index lastIndex = Index.fromOneBased(model.getFilteredRequestList().size());
 
         assertExecutionSuccess(INDEX_FIRST);
         assertExecutionSuccess(INDEX_THIRD);
-        assertExecutionSuccess(lastPersonIndex);
+        assertExecutionSuccess(lastIndex);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        // out of bounds index
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredRequestList().size() + 1);
 
-        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST);
-        showPersonAtIndex(expectedModel, INDEX_FIRST);
-
-        assertExecutionSuccess(INDEX_FIRST);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_failure() {
-        showPersonAtIndex(model, INDEX_FIRST);
-        showPersonAtIndex(expectedModel, INDEX_FIRST);
-
-        Index outOfBoundsIndex = INDEX_SECOND;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
-
-        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_REQUEST_DISPLAYED_INDEX);
     }
 
     @Test
@@ -95,8 +75,8 @@ public class SelectCommandTest {
      */
     private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = new SelectCommand(index);
-        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
-        expectedModel.setSelectedPerson(model.getFilteredPersonList().get(index.getZeroBased()));
+        String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_SUCCESS, index.getOneBased());
+        expectedModel.setSelectedRequest(model.getFilteredRequestList().get(index.getZeroBased()));
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
     }

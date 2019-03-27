@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S2-W09-2/main
+:repoURL: https://github.com/CS2103-AY1819S2-W09-2/main/tree/master
 
 By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
@@ -71,30 +71,6 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
-
-==== Updating documentation to match your fork
-
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
-
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
-
-. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
-
-. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
-
-==== Setting up CI
-
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
-
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
-
-[NOTE]
-Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
-
-Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
-
-[NOTE]
-Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
 ==== Getting started with coding
 
@@ -159,16 +135,16 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/ui[UI Package]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PatientListPanel`, `MapPanel`, `HealthWorkerListPanel`, `RequestListPanel`, `LocationListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `RequestListPanel`, `InfoPanel`, `HealthWorkerListPanel`, `StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data dynamically.
 
 [[Design-Logic]]
 === Logic component
@@ -201,14 +177,15 @@ image::modelUmlDiagram.jpg[width="800"]
 
 The `Model`,
 
-* stores the Address Book data.
 * stores the Request Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Health Worker Book data.
+* stores the Statistics Book data
+* exposes an unmodifiable `ObservableList<T>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
+As a more OOP model, we store a list of `Request` objects in `Request Book`, which stores the details of every request, including the patient's details, request date and status.
+In addition, each `Request` also stores a `Set` of `Conditions` of the patient. +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
@@ -222,7 +199,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address, Request Book data in json format and read it back.
+* can save the Address, Request, HealthWorker Book data in json format and read it back.
 
 
 [[Design-Commons]]
@@ -237,7 +214,7 @@ This section describes some noteworthy details on how certain features are imple
 === Add/Edit/Delete feature
 
 The `add`, `edit` and `delete` command have been tweaked from the original AB4
- to include addition of `HealthWorker`, `Patient` and `Request`.
+ to include addition of and `Request` and `HealthWorker`.
 
 ==== Additional Implementation from v1.1
 
@@ -300,6 +277,50 @@ The assign request feature allows an administrator to assign a request to a part
 ** Pros: Can quickly access details of a `HealthWorker` from a `Request`, and can quickly access the `Requests` assigned to a `HealthWorker` from the `Request`.
 ** Cons: Violates the LOD principle, as the `Request` object should contain limited knowledge of the `HealthWorker` object.
 ** Cons: Complicates the code base, making it difficult to maintain in the long run.
+
+=== List Feature
+The `list` command allows the user to be able to display all `HealthWorker`
+or `Request` objects stored in the current application.
+
+==== Listing `HealthWorker` objects
+* Format: `list healthworker/h/1`
+* Displays all `HealthWorker` objects already stored in the current
+application, and the following details:
+** `name` - Name of the `HealthWorker`
+** `nric` - NRIC of the `HealthWorker`
+** `organization` - Organization of the `HealthWorker`
+** `skills` - Skills and Specialisations that the `HealthWorker` object
+possesses
+
+==== Listing `Request` objects
+* Format: `list request/r/2`
+* Displays all `Request` objects already stored in the current
+application, and the following details:
+** `name` - Name of the patient that made the request in `Request` object.
+** `address` - Address of the patient
+** `condition` - Condition of the patient that made the request.
+
+=== Filter Feature
+The `filter` command allows users to filter either the current displayed
+list of `HealthWorker` and `Request` objects and replaces the current list
+shown on the UI with the respective filtered lists.
+
+****
+*Notes*:
+
+* The `<prefix>` and `<parameters>` specified in the command descriptions
+below follow the same valid prefix and parameter formats as the `add`, `edit`
+ and `delete` commands
+****
+
+==== Filtering `HealthWorker` s
+* Format: `filter healthworker/h/1 <prefix>/<parameter> [<prefix/<parameter>]
+...`
+* The `filter` command checks for `HealthWorker` whose field specific to the
+`<specific>` contains or matches the `<parameter>` provided.
+* Example: `filter h n/John` changes the UI to display only `HealthWorker`
+whose name is John, or contains John (Johnny, Johnson, ...)
+
 
 // tag::undoredo[]
 === Undo/Redo feature

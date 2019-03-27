@@ -15,11 +15,9 @@ import org.junit.Test;
 
 import guitests.guihandles.RequestCardHandle;
 import guitests.guihandles.RequestListPanelHandle;
-
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;

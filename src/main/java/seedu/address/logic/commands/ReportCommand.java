@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_INSIDE_REPORT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,6 +21,10 @@ public class ReportCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
+        if (!model.isInFolder()) {
+            throw new CommandException(MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
+        }
+        
         if (model.inReportDisplay()) {
             throw new CommandException(MESSAGE_INVALID_COMMAND_INSIDE_REPORT);
         }

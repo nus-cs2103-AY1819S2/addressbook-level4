@@ -240,7 +240,7 @@ public interface Model {
     Consultation listConsultation(int index);
 
     //===========Appointment module operations========================
-    boolean duplicateApp(Appointment app);
+    boolean hasTimeConflicts(Appointment app);
 
     void addApp(Appointment app);
 

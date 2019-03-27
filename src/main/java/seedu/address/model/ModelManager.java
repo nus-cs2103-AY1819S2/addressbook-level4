@@ -538,8 +538,8 @@ public class ModelManager implements Model {
     }
 
     //==========Appointment module===========================================================================
-    public boolean duplicateApp(Appointment app) {
-        return appointmentManager.duplicateApp(app);
+    public boolean hasTimeConflicts(Appointment app) {
+        return appointmentManager.hasTimeConflicts(app);
     }
 
     /**
@@ -603,7 +603,7 @@ public class ModelManager implements Model {
         return reminderManager.getReminder(appointment);
     }
 
-    public Reminder createRemFromApp(Appointment app) {
+    private Reminder createRemFromApp(Appointment app) {
         return new Reminder(app.createTitle(), app.getComment(), app.getDate(), app.getStart(), app.getEnd());
     }
 

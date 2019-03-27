@@ -50,7 +50,7 @@ public class AddAppCommandTest {
     @Test
     public void executeValidAddAppointment() throws Exception {
         Nric nric = new Nric("S9367777A");
-        LocalDate date = LocalDate.parse("2019-10-23");
+        LocalDate date = LocalDate.parse("2019-10-24");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
         String comment = "This is a comment";
@@ -78,7 +78,7 @@ public class AddAppCommandTest {
         AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddAppCommand.MESSAGE_DUPLICATE_APP);
+        thrown.expectMessage(AddAppCommand.MESSAGE_CONFLICTING_APP);
         addAppCommand.execute(model, commandHistory);
     }
 

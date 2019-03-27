@@ -32,14 +32,8 @@ public class Appointment extends Slot {
         return comment;
     }
 
-    /**
-     * Returns a {@code String} title of this {@code Appointment}
-     */
     public String createTitle() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Appointment with ")
-                .append(this.getPatient().getName());
-        return sb.toString();
+        return "Appointment with " + this.getPatient().getName();
     }
 
     /**

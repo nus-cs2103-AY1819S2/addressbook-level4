@@ -23,8 +23,41 @@ public class AppointmentManager {
         appointments.add(app);
     }
 
-    public boolean duplicateApp(Appointment app) {
-        return appointments.contains(app);
+    /**
+     * Checks if there is any conflict in appointment timings, given an appointment.
+     *
+     * @param otherApp given appointment to check timing against the existing list of appointments
+     * @return true if there exists a conflict in timing, else return false
+     */
+    public boolean hasTimeConflicts(Appointment otherApp) {
+        LocalDate date = otherApp.getDate();
+        // Note: appointments are sorted by date and time
+        for (Appointment app : appointments) {
+            if (app.getDate().compareTo(date) == 0) {
+                if (hasOverlappingTime(app, otherApp)) {
+                    return true;
+                }
+            } else if (app.getDate().compareTo(date) > 0) {
+                break;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if two {@code Appointment} has an overlap in timing.
+     *
+     * @param appA first appointment
+     * @param appB second appointment
+     * @return true if there is an overlap in timing, else return false
+     */
+    private boolean hasOverlappingTime(Appointment appA, Appointment appB) {
+        LocalTime startA = appA.getStart();
+        LocalTime endA = appA.getEnd();
+        LocalTime startB = appB.getStart();
+        LocalTime endB = appB.getEnd();
+
+        return (startA.compareTo(endB) < 0) && (startB.compareTo(endA) < 0);
     }
 
     public List<Appointment> getAppointmentList() {

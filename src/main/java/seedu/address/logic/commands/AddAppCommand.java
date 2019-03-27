@@ -41,8 +41,11 @@ public class AddAppCommand extends Command {
             + PREFIX_COMMENT + "<any comments>\n";
 
     public static final String MESSAGE_SUCCESS = "Appointment added:\n%1$s\n";
-    public static final String MESSAGE_DUPLICATE_APP = "The time slot has already been taken";
+    public static final String MESSAGE_CONFLICTING_APP = "There are clashes in the time slot chosen."
+            + " Please use 'appfree' to find free slots.";
     public static final String MESSAGE_PATIENT_NOT_FOUND = "No patient with the given nric found";
+    public static final String MESSAGE_START_EQUALS_END = "Appointment start time and end time should not be the same.";
+    public static final String MESSAGE_START_AFTER_END = "Appointment start time should not be after end time.";
 
     private final Nric nric;
     private final LocalDate date;
@@ -70,9 +73,17 @@ public class AddAppCommand extends Command {
             throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
         }
 
+        if (start.equals(end)) {
+            throw new CommandException(MESSAGE_START_EQUALS_END);
+        }
+
+        if (start.isAfter(end)) {
+            throw new CommandException(MESSAGE_START_AFTER_END);
+        }
+
         Appointment appToAdd = new Appointment(patientToAdd.get(), date, start, end, comment);
-        if (model.duplicateApp(appToAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_APP);
+        if (model.hasTimeConflicts(appToAdd)) {
+            throw new CommandException(MESSAGE_CONFLICTING_APP);
         }
 
         model.addApp(appToAdd);

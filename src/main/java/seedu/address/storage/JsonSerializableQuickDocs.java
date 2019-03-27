@@ -93,7 +93,7 @@ public class JsonSerializableQuickDocs {
         for (JsonAdaptedAppointment jsonAdaptedAppointment : appointmentList) {
             Appointment appointment = jsonAdaptedAppointment.toModelType();
 
-            if (appointmentManager.duplicateApp(appointment)) {
+            if (appointmentManager.hasTimeConflicts(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
             appointmentManager.addAppointment(appointment);

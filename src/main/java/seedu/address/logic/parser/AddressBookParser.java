@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.BlackWhiteCommand;
 import seedu.address.logic.commands.BrightnessCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -116,6 +117,9 @@ public class AddressBookParser {
 
         case BrightnessCommand.COMMAND_WORD:
             return new BrightnessCommandParser().parse(arguments);
+
+        case BlackWhiteCommand.COMMAND_WORD:
+            return new BlackWhiteCommandParser().parse(arguments);
 
         case TabCommand.COMMAND_WORD:
             return new TabCommand();

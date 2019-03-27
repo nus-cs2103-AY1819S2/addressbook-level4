@@ -3,7 +3,7 @@ package seedu.address.storage;
 import seedu.address.model.tag.Tag;
 
 /**
- * Jackson-friendly version of {@link Tag}.
+ * PDF-friendly version of {@link Tag}.
  */
 class PdfAdaptedTag {
 

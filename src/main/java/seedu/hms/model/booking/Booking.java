@@ -94,8 +94,6 @@ public class Booking {
         }
 
         Booking ob = (Booking) other;
-        System.out.println(getOtherUsers());
-        System.out.println(ob.getOtherUsers());
         return ob.getService().equals(getService())
                 && ob.getTiming().equals(getTiming())
                 && ob.getPayer().equals(getPayer())

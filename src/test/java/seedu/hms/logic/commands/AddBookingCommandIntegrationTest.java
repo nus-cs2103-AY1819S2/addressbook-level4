@@ -36,7 +36,6 @@ public class AddBookingCommandIntegrationTest {
                 .withOtherUsers()
                 .withComment("CoolComment")
                 .build();
-        System.out.println(validBooking);
         BookingModel expectedModel = new BookingManager(
                 new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
         expectedModel.addBooking(validBooking);

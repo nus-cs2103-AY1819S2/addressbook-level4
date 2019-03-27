@@ -88,8 +88,6 @@ public class JsonHotelManagementSystemStorageTest {
         jsonHotelManagementSystemStorage.saveHotelManagementSystem(original, filePath);
         ReadOnlyHotelManagementSystem readBack =
             jsonHotelManagementSystemStorage.readHotelManagementSystem(filePath).get();
-        System.out.println(original.getBookingList());
-        System.out.println((new HotelManagementSystem(readBack)).getBookingList());
         assertEquals(original, new HotelManagementSystem(readBack));
 
         // Modify data, overwrite exiting file, and read back

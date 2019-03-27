@@ -175,8 +175,6 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
-            System.out.println("ABCS1" + actualModel.getFilteredBookingList());
-            System.out.println("ABCS2" + expectedModel.getFilteredBookingList());
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);

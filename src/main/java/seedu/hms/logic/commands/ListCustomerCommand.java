@@ -12,7 +12,7 @@ import seedu.hms.model.CustomerModel;
 public class ListCustomerCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "lc";
-    public static final String COMMAND_WORD = "listcustomers";
+    public static final String COMMAND_WORD = "list-customers";
 
     public static final String MESSAGE_SUCCESS = "Listed all customers";
 

@@ -20,7 +20,7 @@ import seedu.hms.model.customer.Customer;
 public class AddCustomerCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "ac";
-    public static final String COMMAND_WORD = "addcustomer";
+    public static final String COMMAND_WORD = "add-customer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a customer to the hms book. "
         + "Parameters: "

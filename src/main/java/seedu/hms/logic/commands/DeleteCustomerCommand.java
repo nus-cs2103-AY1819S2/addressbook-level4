@@ -16,8 +16,8 @@ import seedu.hms.model.customer.Customer;
  */
 public class DeleteCustomerCommand extends CustomerCommand {
 
-    public static final String COMMAND_ALIAS = "deletec";
-    public static final String COMMAND_WORD = "deletecustomer";
+    public static final String COMMAND_ALIAS = "dc";
+    public static final String COMMAND_WORD = "delete-customer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the customer identified by the index number used in the displayed customer list.\n"

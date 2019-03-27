@@ -37,7 +37,7 @@ import seedu.hms.model.tag.Tag;
 public class EditCustomerCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "ec";
-    public static final String COMMAND_WORD = "editcustomer";
+    public static final String COMMAND_WORD = "edit-customer";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the customer identified "
         + "by the index number used in the displayed customer list. "

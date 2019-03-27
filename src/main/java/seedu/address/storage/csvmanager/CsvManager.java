@@ -19,6 +19,8 @@ public class CsvManager implements CsvCommands {
     private static final String CARD_HEADERS = "Question,Answer,Hints";
     private String defaultPath;
     private boolean setTestDefaultPath = false;
+    public static final String DEFAULT_TEST_PATH = "./test/data/CsvCardFolderTest";
+    private static final String DEFAULT_FILE_PATH = "./";
 
 
     public CsvManager() throws IOException {
@@ -56,15 +58,15 @@ public class CsvManager implements CsvCommands {
     }
 
     public static String getFilePathAsString(CsvFile csvFile) throws IOException {
-        return new File("./" + csvFile.filename).getCanonicalPath();
+        return new File(DEFAULT_FILE_PATH + csvFile.filename).getCanonicalPath();
     }
 
     public static String getDefaultFilePath() throws IOException {
-        return new File("./").getCanonicalPath();
+        return new File(DEFAULT_FILE_PATH).getCanonicalPath();
     }
 
     public void setTestDefaultPath() throws IOException {
-        defaultPath = new File("./test/data/").getCanonicalPath();
+        defaultPath = new File(DEFAULT_TEST_PATH).getCanonicalPath();
         setTestDefaultPath = true;
     }
 

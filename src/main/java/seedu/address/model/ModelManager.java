@@ -37,6 +37,7 @@ import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.record.MedicinePurchaseRecord;
 import seedu.address.model.record.Record;
 import seedu.address.model.record.RecordManager;
 import seedu.address.model.record.Statistics;
@@ -208,13 +209,15 @@ public class ModelManager implements Model {
     //=========== MedicineManager ============================================================================
     @Override
     public void addMedicine(String medicineName, String[] path, BigDecimal price) {
-        medicineManager.addMedicine(medicineName, path, price);
+        Medicine medicine = medicineManager.addMedicine(medicineName, path, price);
+        reminderForMedicine(medicine);
         quickDocs.indicateModification(true);
     }
 
     @Override
     public void addMedicine(String medicineName, int quantity, String[] path, BigDecimal price) {
-        medicineManager.addMedicine(medicineName, quantity, path, price);
+        Medicine medicine = medicineManager.addMedicine(medicineName, quantity, path, price);
+        reminderForMedicine(medicine);
         quickDocs.indicateModification(true);
     }
 
@@ -235,20 +238,41 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void purchaseMedicine(String[] path, int quantity) {
-        medicineManager.purchaseMedicine(path, quantity);
+    public void purchaseMedicine(String[] path, int quantity, BigDecimal cost) {
+        Medicine medicine = medicineManager.purchaseMedicine(path, quantity);
+        reminderForMedicine(medicine);
+        addRecord(new MedicinePurchaseRecord(medicine, quantity, cost), Clock.systemDefaultZone());
         quickDocs.indicateModification(true);
     }
 
     @Override
-    public void purchaseMedicine(String medicineName, int quantity) {
-        medicineManager.purchaseMedicine(medicineName, quantity);
+    public void purchaseMedicine(String medicineName, int quantity, BigDecimal cost) {
+        Medicine medicine = medicineManager.purchaseMedicine(medicineName, quantity);
+        reminderForMedicine(medicine);
+        addRecord(new MedicinePurchaseRecord(medicine, quantity, cost), Clock.systemDefaultZone());
         quickDocs.indicateModification(true);
     }
 
     @Override
     public Optional<Directory> findDirectory(String[] path) {
         return medicineManager.findDirectory(path);
+    }
+
+    @Override
+    public void setThreshold(Medicine medicine, int threshold) {
+        medicine.setThreshold(threshold);
+        reminderForMedicine(medicine);
+    }
+
+    @Override
+    public void setThreshold(Directory directory, int threshold) {
+        directory.setThreshold(threshold);
+        for (Medicine medicine : directory.getListOfMedicine()) {
+            setThreshold(medicine, threshold);
+        }
+        for (Directory subDirectory : directory.getListOfDirectory()) {
+            setThreshold(subDirectory, threshold);
+        }
     }
     //=========== AddressBook ================================================================================
 

@@ -24,7 +24,7 @@ public class AlarmCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + "root\\TCM 30";
 
-    public static final String MESSAGE_SUCCESS = "Alarm level is set to %1$d for:\n%2$s";
+    public static final String MESSAGE_SUCCESS = "Alarm level is set to %1$d for:\n%2$s\n";
 
     private String[] path;
     private int alarmLevel;
@@ -49,11 +49,10 @@ public class AlarmCommand extends Command {
                 if (!medicine.isPresent()) {
                     throw new CommandException("No medicine/directory found at the given path");
                 }
-                medicine.get().setThreshold(alarmLevel);
-                model.reminderForMedicine(medicine.get());
+                model.setThreshold(medicine.get(), alarmLevel);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, alarmLevel, medicine.get().toString()));
             } else {
-                directory.get().setThresholdForAll(alarmLevel);
+                model.setThreshold(directory.get(), alarmLevel);
                 return new CommandResult(String.format(MESSAGE_SUCCESS, alarmLevel, directory.get().toString()));
             }
         } catch (Exception ex) {

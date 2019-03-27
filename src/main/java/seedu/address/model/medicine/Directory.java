@@ -36,6 +36,7 @@ public class Directory {
     private boolean isValidDirectory(String test) {
         return test.matches(VALIDATION_REGEX);
     }
+
     /**
      * Add a medicine to this directory
      * @param medicine the medicine to add
@@ -54,16 +55,17 @@ public class Directory {
      * Add a new sub-directory under this directory
      * @param name the name of the new directory
      */
-    public void addDirectory(String name) {
+    public Directory addDirectory(String name) {
         requireNonNull(name);
         checkArgument(isValidNewDirectory(name), "Directory with the same name already exists");
         Directory newDirectory = new Directory(name);
         if (threshold.isPresent()) {
-            newDirectory.setThresholdForAll(threshold.get());
+            newDirectory.setThreshold(threshold.get());
         }
         //String[] newPath = path;
         listOfDirectory.add(newDirectory);
         listOfDirectory.sort(Comparator.comparing((Directory directory) -> (directory.name)));
+        return newDirectory;
     }
 
     /**
@@ -182,14 +184,8 @@ public class Directory {
      * and so on
      * @param thres the alarm level
      */
-    public void setThresholdForAll(int thres) {
+    public void setThreshold(int thres) {
         this.threshold = Optional.of(thres);
-        for (Medicine medicine : listOfMedicine) {
-            medicine.setThreshold(thres);
-        }
-        for (Directory directory : listOfDirectory) {
-            directory.setThresholdForAll(thres);
-        }
     }
 
     public Optional<Integer> getThreshold() {

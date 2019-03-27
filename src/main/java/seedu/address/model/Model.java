@@ -182,12 +182,15 @@ public interface Model {
 
     Optional<Medicine> findMedicine(String[] path);
 
-    void purchaseMedicine(String[] path, int quantity);
+    void purchaseMedicine(String[] path, int quantity, BigDecimal cost);
 
-    void purchaseMedicine(String medicineName, int quantity);
+    void purchaseMedicine(String medicineName, int quantity, BigDecimal cost);
 
     Optional<Directory> findDirectory(String[] path);
 
+    void setThreshold(Medicine medicine, int threshold);
+
+    void setThreshold(Directory directory, int threshold);
     //===========Patient module operations============================
     boolean duplicatePatient(Patient patient);
 

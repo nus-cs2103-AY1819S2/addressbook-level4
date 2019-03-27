@@ -16,7 +16,7 @@ public class Medicine {
     public static final String REMINDER_TITLE_IF_INSUFFICIENT = "Quantity of %1$s is too low.";
     public static final String REMINDER_COMMENT_IF_INSUFFICIENT =
             "Current quantity is at %1$d.\nThe minimum treshold is %2$d.";
-    private static final int DEFAULT_THRESHOLD = 50;
+    private static final int DEFAULT_THRESHOLD = 0;
 
     //private static ReminderManager reminderManager = new ReminderManager();
     //

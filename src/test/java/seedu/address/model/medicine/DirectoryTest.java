@@ -92,7 +92,7 @@ public class DirectoryTest {
                 new String[]{"test", "test1"}, 0).get().addMedicine(new Medicine("tt"));
         typicalDirectory.findDirectory(
                 new String[]{"test", "test2"}, 0).get().addMedicine(new Medicine("ttt"));
-        typicalDirectory.setThresholdForAll(10);
+        typicalDirectory.setThreshold(10);
         assertTrue(typicalDirectory.findMedicine(
                 new String[]{"test", "test1", "tt"}, 0).get().getThreshold() == 10
                 && typicalDirectory.findMedicine(

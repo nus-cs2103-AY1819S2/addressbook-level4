@@ -74,14 +74,23 @@ public class ReminderManager {
         }
     }
 
+    /**
+     * delete any existing medicine reminder corresponding to the same medicine
+     * @param medicine the medicine we are concerned with
+     * @return whether something is deleted
+     */
     public boolean deleteExistingMedicineReminder(Medicine medicine) {
         String title = String.format(Medicine.REMINDER_TITLE_IF_INSUFFICIENT, medicine.name);
         boolean changed = false;
-        for (Reminder exReminder : reminders) {
+        int i = 0;
+        while (i < reminders.size()) {
+            Reminder exReminder = reminders.get(i);
             if (exReminder.getTitle().equals(title)) {
                 delete(exReminder);
                 changed = true;
+                i--;
             }
+            i++;
         }
         return changed;
     }

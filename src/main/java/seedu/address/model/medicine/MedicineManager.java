@@ -29,8 +29,8 @@ public class MedicineManager {
      * @param medicineName name of medicine
      * @param path path the madicine to be added to
      */
-    public void addMedicine(String medicineName, String[] path, BigDecimal price) {
-        this.addMedicine(medicineName, 0, path, price);
+    public Medicine addMedicine(String medicineName, String[] path, BigDecimal price) {
+        return (this.addMedicine(medicineName, 0, path, price));
     }
 
     /**
@@ -39,7 +39,7 @@ public class MedicineManager {
      * @param quantity quantity of medicine
      * @param path the path to store to
      */
-    public void addMedicine(String medicineName, int quantity,
+    public Medicine addMedicine(String medicineName, int quantity,
                             String[] path, BigDecimal price) {
         Optional<Medicine> findMedicine = findMedicine(medicineName);
         if (findMedicine.isPresent()) {
@@ -54,6 +54,7 @@ public class MedicineManager {
         listOfMedicine.add(medicine);
         listOfMedicine.sort(Comparator.comparing((Medicine x) -> (x.name)));
         directory.get().addMedicine(medicine);
+        return medicine;
     }
 
     /**
@@ -61,12 +62,13 @@ public class MedicineManager {
      * @param directoryName the name of the new directory
      * @param path the path of the destination directory
      */
-    public void addDirectory(String directoryName, String[] path) {
+    public Directory addDirectory(String directoryName, String[] path) {
         Optional<Directory> directory = root.findDirectory(path, 0);
         if (!directory.isPresent()) {
             throw new IllegalArgumentException("Invalid path");
         }
-        directory.get().addDirectory(directoryName);
+        Directory newDirectory = directory.get().addDirectory(directoryName);
+        return newDirectory;
     }
 
     /**
@@ -94,12 +96,13 @@ public class MedicineManager {
      * @param path the path leading to the medicine
      * @param quantity quantity of medicine purchased
      */
-    public void purchaseMedicine(String[] path, int quantity) {
+    public Medicine purchaseMedicine(String[] path, int quantity) {
         Optional<Medicine> medicine = findMedicine(path);
         if (!medicine.isPresent()) {
             throw new IllegalArgumentException("No medicine found at the given path");
         }
         medicine.get().addQuantity(quantity);
+        return medicine.get();
     }
 
     /**
@@ -107,12 +110,13 @@ public class MedicineManager {
      * @param medicineName the name of the medicine
      * @param quantity quantity of medicine purchased
      */
-    public void purchaseMedicine(String medicineName, int quantity) {
+    public Medicine purchaseMedicine(String medicineName, int quantity) {
         Optional<Medicine> medicine = findMedicine(medicineName);
         if (!medicine.isPresent()) {
             throw new IllegalArgumentException("No medicine with the given name");
         }
         medicine.get().addQuantity(quantity);
+        return medicine.get();
     }
 
 

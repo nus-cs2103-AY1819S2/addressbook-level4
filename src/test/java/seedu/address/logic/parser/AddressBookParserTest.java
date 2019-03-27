@@ -25,8 +25,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.FindModulePredicate;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.FindModuleDescriptorBuilder;
 import seedu.address.testutil.ModuleTakenBuilder;
@@ -80,7 +79,7 @@ public class AddressBookParserTest {
 
         FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " "
                 + PersonUtil.getFindModuleDescriptorDetails(descriptor));
-        assertEquals(new FindCommand(new FindModulePredicate(descriptor)), command);
+        assertEquals(new FindCommand(descriptor), command);
     }
 
     @Test

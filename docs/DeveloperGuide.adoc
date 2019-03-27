@@ -402,6 +402,43 @@ there might be requirements that are difficult to set properly.
 older CourseRequirement defined by user. Also alot of dependency issues in Storage and other areas
 //end::CourseRequirement[]
 
+//tag::recommend[]
+=== Module recommendation feature
+==== Current implementation
+The module recommendation feature generates a list of module codes representing the modules which the user is recommended to take,
+based on the user's module plan and course requirements. The entire list is printed on the GUI upon
+entering the `rec` command.
+
+Whenever the `rec` command is called, a `RecModuleManager` is created which generates a `RecModulePredicate` and
+a `RecModuleComparator` given the user's `Course` and `ModulePlan`. This ensures that the recommendation list is updated
+according to any changes in `Course` and `ModulePlan`.
+
+The `RecModulePredicate` is applied to a `FilteredList` of `ModuleInfoCode` stored in `ModelManager`, to remove modules which
+the user is ineligible to take or does not contribute to the `CourseRequirement`.
+This `FilteredList` is wrapped in a `SortedList` which accepts the `RecModuleComparator`, sorting the list in
+decreasing priority of the `CourseReqType` satisfied by the module.
+If a module satisfies more than one `CourseReqType`, the one with the highest priority is selected.
+The order of priority is determined by the enum ordering in `CourseReqType`: Core, TE (covers TE/PE/FA), GE, UE.
+Modules with equal priority are sorted lexicographically, considering the fact that lower-level modules should usually be taken first.
+
+Within each test by the `RecModulePredicate`, a module is checked for the `CourseReqType`(s) it satisfies.
+The `CourseReqType` with highest priority, which has yet to be fully completed, is then selected.
+A mapping of `ModuleInfoCode` to this `CourseReqType` is put into a `HashMap` stored in `RecModuleManager`.
+Subsequently, within each comparison by the `RecModuleComparator`, the `CourseReqType` satisfied by the two modules are
+retrieved from the `HashMap` and compared.
+
+==== Design considerations
+===== Aspect:
+
+
+
+
+
+
+
+
+
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -633,7 +670,7 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all modulesTaken in the list.
 +
 ****
 * Hints
@@ -736,10 +773,10 @@ image::getting-started-ui-status-after.png[width="500"]
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
 ** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the courseReqCredits of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the courseReqCredits of persons whenever there are new changes to the addressbook.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the courseReqCredits of modulesTaken when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the courseReqCredits of modulesTaken whenever there are new changes to the addressbook.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total courseReqCredits of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total courseReqCredits of persons status bar.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total courseReqCredits of modulesTaken status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
@@ -1081,7 +1118,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 modulesTaken without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -1138,9 +1175,9 @@ _{ more test cases ... }_
 
 === Deleting a person
 
-. Deleting a person while all persons are listed
+. Deleting a person while all modulesTaken are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all modulesTaken using the `list` command. Multiple modulesTaken in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +

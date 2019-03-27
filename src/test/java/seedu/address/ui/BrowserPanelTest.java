@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import guitests.guihandles.BrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 
 public class BrowserPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<ModuleTaken> selectedPerson = new SimpleObjectProperty<>();
@@ -34,7 +34,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         // associated web page of a moduleTaken
         guiRobot.interact(() -> selectedPerson.set(CS2103T));
         URL expectedPersonUrl = new URL(BrowserPanel.SEARCH_PAGE_URL
-                + CS2103T.getModuleInfo().toString().replaceAll(" ", "%20"));
+                + CS2103T.getModuleInfoCode().toString().replaceAll(" ", "%20"));
 
         waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

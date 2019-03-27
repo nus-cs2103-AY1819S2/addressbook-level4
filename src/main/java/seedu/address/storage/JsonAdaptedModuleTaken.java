@@ -11,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Hour;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -55,7 +55,7 @@ class JsonAdaptedModuleTaken {
      * Converts a given {@code ModuleTaken} into this class for Jackson use.
      */
     public JsonAdaptedModuleTaken(ModuleTaken source) {
-        moduleInfoCode = source.getModuleInfo().toString();
+        moduleInfoCode = source.getModuleInfoCode().toString();
         semester = source.getSemester().name();
         expectedMinGrade = source.getExpectedMinGrade().name();
         expectedMaxGrade = source.getExpectedMaxGrade().name();

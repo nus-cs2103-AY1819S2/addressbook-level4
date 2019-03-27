@@ -41,14 +41,14 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ModuleTakenBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class EditCommandSystemTest extends AddressBookSystemTest {
+public class EditCommandSystemTest extends GradTrakSystemTest {
 
     @Test
     public void edit() {
@@ -87,7 +87,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a moduleTaken with new values same as another moduleTaken's values but with different name
         -> edited */
-        assertTrue(getModel().getAddressBook().getPersonList().contains(DEFAULT_MODULE_CS1010));
+        assertTrue(getModel().getAddressBook().getModulesTakenList().contains(DEFAULT_MODULE_CS1010));
         index = INDEX_SECOND_PERSON;
         assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), DEFAULT_MODULE_CS1010);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS2103T
@@ -119,8 +119,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered moduleTaken list, edit index within bounds of address book and moduleTaken list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MA1521
-        );
+        showPersonsWithName(KEYWORD_MATCHING_MA1521);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_CS1010;
@@ -133,7 +132,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         moduleTaken list -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_CS2103T);
-        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getAddressBook().getModulesTakenList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_CS1010,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -197,7 +196,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a moduleTaken with new values same as another moduleTaken's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(DEFAULT_MODULE_CS1010));
-        assertTrue(getModel().getAddressBook().getPersonList().contains(DEFAULT_MODULE_CS1010));
+        assertTrue(getModel().getAddressBook().getModulesTakenList().contains(DEFAULT_MODULE_CS1010));
         index = INDEX_FIRST_PERSON;
         assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(DEFAULT_MODULE_CS1010));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS1010
@@ -282,9 +281,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * {@code GradTrakSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see GradTrakSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see GradTrakSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -307,8 +306,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * 3. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 4. Asserts that the command box has the error style.<br>
      * Verifications 1 and 2 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code GradTrakSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see GradTrakSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

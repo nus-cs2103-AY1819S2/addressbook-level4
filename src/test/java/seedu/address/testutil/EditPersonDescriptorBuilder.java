@@ -6,10 +6,10 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Hour;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -32,7 +32,7 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder(ModuleTaken moduleTaken) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setModuleInfoCode(moduleTaken.getModuleInfo());
+        descriptor.setModuleInfoCode(moduleTaken.getModuleInfoCode());
         descriptor.setSemester(moduleTaken.getSemester());
         descriptor.setExpectedMinGrade(moduleTaken.getExpectedMinGrade());
         descriptor.setExpectedMaxGrade(moduleTaken.getExpectedMaxGrade());

@@ -4,10 +4,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Hour;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -42,7 +42,7 @@ public class ModuleTakenBuilder {
      * Initializes the ModuleTakenBuilder with the data of {@code moduleTakenToCopy}.
      */
     public ModuleTakenBuilder(ModuleTaken moduleTakenToCopy) {
-        moduleInfoCode = moduleTakenToCopy.getModuleInfo();
+        moduleInfoCode = moduleTakenToCopy.getModuleInfoCode();
         semester = moduleTakenToCopy.getSemester();
         expectedMinGrade = moduleTakenToCopy.getExpectedMinGrade();
         expectedMaxGrade = moduleTakenToCopy.getExpectedMaxGrade();

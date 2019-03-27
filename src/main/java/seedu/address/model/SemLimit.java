@@ -4,8 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Hour;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
 
 /**
  * Represents a SemLimit in the address book.

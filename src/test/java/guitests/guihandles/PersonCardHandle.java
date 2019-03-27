@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
  * Provides a handle to a moduleTaken card in the moduleTaken list panel.
@@ -76,7 +76,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code moduleTaken}.
      */
     public boolean equals(ModuleTaken moduleTaken) {
-        return getModuleInfoCode().equals(moduleTaken.getModuleInfo().toString())
+        return getModuleInfoCode().equals(moduleTaken.getModuleInfoCode().toString())
                 && getSemester().equals(moduleTaken.getSemester().toString())
                 && getExpectedMinGrade().equals(moduleTaken.getExpectedMinGrade().toString())
                 && getExpectedMaxGrade().equals(moduleTaken.getExpectedMaxGrade().toString())

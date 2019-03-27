@@ -15,7 +15,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -35,7 +35,7 @@ public class PersonUtil {
      */
     public static String getPersonDetails(ModuleTaken moduleTaken) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_MODULE_INFO_CODE + moduleTaken.getModuleInfo().toString() + " ");
+        sb.append(PREFIX_MODULE_INFO_CODE + moduleTaken.getModuleInfoCode().toString() + " ");
         sb.append(PREFIX_SEMESTER + moduleTaken.getSemester().toString() + " ");
         sb.append(PREFIX_EXPECTED_MIN_GRADE + moduleTaken.getExpectedMinGrade().name() + " ");
         sb.append(PREFIX_EXPECTED_MAX_GRADE + moduleTaken.getExpectedMaxGrade().name() + " ");

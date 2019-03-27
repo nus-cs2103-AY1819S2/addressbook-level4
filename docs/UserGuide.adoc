@@ -226,7 +226,7 @@ Format: `list`
 === Recommend module: `rec`
 
 Recommends a list of modules that can be taken based on completed modules and course requirements.
-Modules are displayed in decreasing order of priority: Core, Programme/Technical Electives & Focus Area, General Education, Unrestricted Electives. +
+Modules are displayed in decreasing priority of the requirement satisfied: Core, Programme/Technical Electives & Focus Area, General Education, Unrestricted Electives. +
 Format: `rec`
 
 === Redo the previously undone command: `redo`

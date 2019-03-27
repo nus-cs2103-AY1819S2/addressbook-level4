@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -18,11 +18,13 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduleinfo.ModuleInfoList;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.moduletaken.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -32,7 +34,7 @@ public class ModelManager implements Model {
 
     private Course course;
 
-    private final VersionedAddressBook versionedAddressBook;
+    private final VersionedGradTrak versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<ModuleTaken> filteredModuleTakens;
     private final FilteredList<SemLimit> semesterLimitList;
@@ -42,20 +44,22 @@ public class ModelManager implements Model {
     private final ObservableList<ModuleInfo> allModules;
     private final FilteredList<ModuleInfo> displayList;
     private final ModuleInfoList moduleInfoList;
-    private final SortedList<ModuleInfo> sortedDisplayList;
+
+    private final FilteredList<ModuleInfoCode> recModuleList;
+    private final SortedList<ModuleInfoCode> recModuleListSorted;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs, ModuleInfoList allModules) {
+    public ModelManager(ReadOnlyGradTrak addressBook, ReadOnlyUserPrefs userPrefs, ModuleInfoList allModules) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedAddressBook = new VersionedGradTrak(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredModuleTakens = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredModuleTakens = new FilteredList<>(versionedAddressBook.getModulesTakenList());
         filteredModuleTakens.addListener(this::ensureSelectedPersonIsValid);
         semesterLimitList = new FilteredList<>(versionedAddressBook.getSemesterLimitList());
 
@@ -63,11 +67,13 @@ public class ModelManager implements Model {
         this.allModules = allModules.getObservableList();
         this.displayList = new FilteredList<>(this.allModules);
         this.moduleInfoList = allModules;
-        this.sortedDisplayList = new SortedList<>(displayList);
+
+        this.recModuleList = new FilteredList<>(allModules.getObservableCodeList());
+        this.recModuleListSorted = new SortedList<>(recModuleList);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs(), new ModuleInfoList());
+        this(new GradTrak(), new UserPrefs(), new ModuleInfoList());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -107,48 +113,53 @@ public class ModelManager implements Model {
 
     @Override
     public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+        return userPrefs.getGradTrakFilePath();
     }
 
     @Override
     public void setAddressBookFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+        userPrefs.setGradTrakFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== GradTrak ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
+    public void setAddressBook(ReadOnlyGradTrak addressBook) {
         versionedAddressBook.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyGradTrak getAddressBook() {
         return versionedAddressBook;
+    }
+
+    @Override
+    public Semester getCurrentSemester() {
+        return versionedAddressBook.getCurrentSemester();
     }
 
     @Override
     public boolean hasPerson(ModuleTaken moduleTaken) {
         requireNonNull(moduleTaken);
-        return versionedAddressBook.hasPerson(moduleTaken);
+        return versionedAddressBook.hasModuleTaken(moduleTaken);
     }
 
     @Override
     public void deletePerson(ModuleTaken target) {
-        versionedAddressBook.removePerson(target);
+        versionedAddressBook.removeModuleTaken(target);
     }
 
     @Override
     public void addPerson(ModuleTaken moduleTaken) {
-        versionedAddressBook.addPerson(moduleTaken);
+        versionedAddressBook.addModuleTaken(moduleTaken);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
     public void setPerson(ModuleTaken target, ModuleTaken editedModuleTaken) {
         requireAllNonNull(target, editedModuleTaken);
-        versionedAddressBook.setPerson(target, editedModuleTaken);
+        versionedAddressBook.setModuleTaken(target, editedModuleTaken);
     }
 
     @Override
@@ -267,24 +278,17 @@ public class ModelManager implements Model {
 
     //=========== Module recommendation ===========================================================================
     @Override
-    public ObservableList<ModuleInfo> getSortedDisplayList() {
-        return sortedDisplayList;
+    public ObservableList<ModuleInfoCode> getRecModuleListSorted() {
+        return recModuleListSorted;
     }
 
     @Override
-    public void sortDisplayList(Comparator<ModuleInfo> comparator) {
-        requireNonNull(comparator);
-        sortedDisplayList.setComparator(comparator);
-    }
+    public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
+        RecModuleManager recModuleManager = new RecModuleManager(course, versionedAddressBook);
+        recModuleList.setPredicate(recModuleManager.getRecModulePredicate());
+        recModuleListSorted.setComparator(recModuleManager.getRecModuleComparator());
 
-    @Override
-    public RecModulePredicate getRecModulePredicate() {
-        return new RecModulePredicate(course, versionedAddressBook);
-    }
-
-    @Override
-    public RecModuleComparator getRecModuleComparator() {
-        return new RecModuleComparator(course);
+        return recModuleManager.getCodeToReqMap();
     }
 
     /**
@@ -307,7 +311,7 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
+                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameModuleTaken(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the moduleTaken that came before it in the list,
                 // or clear the selection if there is no such moduleTaken.

@@ -63,4 +63,17 @@ public class ModuleInfoList {
         ObservableList<ModuleInfo> observableList = FXCollections.observableArrayList(moduleInfoList);
         return observableList;
     }
+
+    /**
+     * Returns an ObservableList of all ModuleInfoCodes.
+     * @return an ObservableList.
+     */
+    public ObservableList<ModuleInfoCode> getObservableCodeList() {
+        ArrayList<ModuleInfoCode> codeList = new ArrayList<>();
+        for (ModuleInfo moduleInfo : moduleInfoList) {
+            codeList.add(moduleInfo.getModuleInfoCode());
+        }
+
+        return FXCollections.observableArrayList(codeList);
+    }
 }

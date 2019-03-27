@@ -18,8 +18,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.SemLimit;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Hour;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
 
 /**
  * Edits the details of an semester grade and workload limits in the address book.

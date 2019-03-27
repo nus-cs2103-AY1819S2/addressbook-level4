@@ -1,16 +1,18 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfo;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 
 /**
  * The API of the Model component.
@@ -62,10 +64,13 @@ public interface Model {
     /**
      * Replaces address book data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
+    void setAddressBook(ReadOnlyGradTrak addressBook);
 
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
+    /** Returns the GradTrak */
+    ReadOnlyGradTrak getAddressBook();
+
+    /** Returns the current Semester */
+    Semester getCurrentSemester();
 
     /**
      * Returns true if a moduleTaken with the same identity as {@code moduleTaken} exists in the address book.
@@ -174,11 +179,14 @@ public interface Model {
      */
     void updateDisplayList(Predicate<ModuleInfo> predicate);
 
-    ObservableList<ModuleInfo> getSortedDisplayList();
+    /**
+     * Returns an unmodifiable view of the recommended module list.
+     */
+    ObservableList<ModuleInfoCode> getRecModuleListSorted();
 
-    void sortDisplayList(Comparator<ModuleInfo> comparator);
-
-    RecModulePredicate getRecModulePredicate();
-
-    RecModuleComparator getRecModuleComparator();
+    /**
+     * Updates the recommended module list by creating a new RecModuleManager,
+     * and returns a HashMap of ModuleInfoCode to CourseReqType.
+     */
+    HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList();
 }

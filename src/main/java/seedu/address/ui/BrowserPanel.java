@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
  * The Browser Panel of the App.
@@ -50,7 +50,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(ModuleTaken moduleTaken) {
-        loadPage(SEARCH_PAGE_URL + moduleTaken.getModuleInfo().toString());
+        loadPage(SEARCH_PAGE_URL + moduleTaken.getModuleInfoCode().toString());
     }
 
     public void loadPage(String url) {

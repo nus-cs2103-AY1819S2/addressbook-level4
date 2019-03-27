@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -30,7 +30,7 @@ public class GuiTestAssert {
      * Asserts that {@code actualCard} displays the details of {@code expectedModuleTaken}.
      */
     public static void assertCardDisplaysPerson(ModuleTaken expectedModuleTaken, PersonCardHandle actualCard) {
-        assertEquals(expectedModuleTaken.getModuleInfo().toString(), actualCard.getModuleInfoCode());
+        assertEquals(expectedModuleTaken.getModuleInfoCode().toString(), actualCard.getModuleInfoCode());
         assertEquals(expectedModuleTaken.getSemester().toString(), actualCard.getSemester());
         assertEquals(expectedModuleTaken.getExpectedMinGrade().toString(), actualCard.getExpectedMinGrade());
         assertEquals(expectedModuleTaken.getExpectedMaxGrade().toString(), actualCard.getExpectedMaxGrade());

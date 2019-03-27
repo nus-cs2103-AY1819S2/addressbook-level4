@@ -2,9 +2,9 @@ package seedu.address.testutil;
 
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 
 /**
  * A utility class to help with building FindModuleDescriptor objects.
@@ -26,10 +26,10 @@ public class FindModuleDescriptorBuilder {
      */
     public FindModuleDescriptorBuilder(ModuleTaken module) {
         descriptor = new FindModuleDescriptor();
-        descriptor.setSubCode(module.getModuleInfo().toString());
+        descriptor.setSubCode(module.getModuleInfoCode().toString());
         descriptor.setSemester(module.getSemester());
         descriptor.setGrade(module.getExpectedMinGrade());
-        descriptor.setFinished(module.isFinished());
+        descriptor.setFinished(module.isFinished(Semester.Y1S1));
     }
 
     /**

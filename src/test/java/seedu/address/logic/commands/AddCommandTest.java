@@ -8,7 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -20,17 +20,17 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.RecModuleComparator;
-import seedu.address.model.RecModulePredicate;
 import seedu.address.model.SemLimit;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfo;
-import seedu.address.model.person.ModuleTaken;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.testutil.ModuleTakenBuilder;
 
 public class AddCommandTest {
@@ -145,12 +145,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
+        public void setAddressBook(ReadOnlyGradTrak newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
+        public ReadOnlyGradTrak getAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Semester getCurrentSemester() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -250,22 +255,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<ModuleInfo> getSortedDisplayList() {
+        public ObservableList<ModuleInfoCode> getRecModuleListSorted() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
-        public void sortDisplayList(Comparator<ModuleInfo> comparator) {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public RecModulePredicate getRecModulePredicate() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public RecModuleComparator getRecModuleComparator() {
+        public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
             throw new AssertionError("This method should not be called");
         }
     }
@@ -284,7 +279,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(ModuleTaken moduleTaken) {
             requireNonNull(moduleTaken);
-            return this.moduleTaken.isSamePerson(moduleTaken);
+            return this.moduleTaken.isSameModuleTaken(moduleTaken);
         }
     }
 
@@ -297,7 +292,7 @@ public class AddCommandTest {
         @Override
         public boolean hasPerson(ModuleTaken moduleTaken) {
             requireNonNull(moduleTaken);
-            return personsAdded.stream().anyMatch(moduleTaken::isSamePerson);
+            return personsAdded.stream().anyMatch(moduleTaken::isSameModuleTaken);
         }
 
         @Override
@@ -312,9 +307,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyGradTrak getAddressBook() {
+            return new GradTrak();
         }
     }
-
 }

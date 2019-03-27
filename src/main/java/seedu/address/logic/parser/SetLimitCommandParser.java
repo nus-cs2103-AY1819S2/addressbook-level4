@@ -12,7 +12,7 @@ import seedu.address.logic.commands.SetCurrentSemesterCommand;
 import seedu.address.logic.commands.SetSemLimitCommand;
 import seedu.address.logic.commands.SetSemLimitCommand.EditSemLimitDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduletaken.Semester;
 
 /**
  * Parses input arguments and creates a new SetLimitCommand object

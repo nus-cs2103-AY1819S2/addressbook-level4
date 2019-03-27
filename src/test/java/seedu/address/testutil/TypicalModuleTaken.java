@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.ModuleTaken;
+import seedu.address.model.GradTrak;
+import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
  * A utility class containing a list of {@code ModuleTaken} objects to be used in tests.
@@ -101,12 +101,12 @@ public class TypicalModuleTaken {
     private TypicalModuleTaken() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code GradTrak} with all the typical persons.
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
+    public static GradTrak getTypicalAddressBook() {
+        GradTrak ab = new GradTrak();
         for (ModuleTaken moduleTaken : getTypicalModulesTaken()) {
-            ab.addPerson(moduleTaken);
+            ab.addModuleTaken(moduleTaken);
         }
         return ab;
     }

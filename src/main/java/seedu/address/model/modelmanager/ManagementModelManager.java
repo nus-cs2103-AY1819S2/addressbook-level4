@@ -69,7 +69,12 @@ public class ManagementModelManager implements ManagementModel {
     //=========== LessonList ==================================================================================
 
     @Override
-    public List<Lesson> getLessonList() {
+    public LessonList getLessonList() {
+        return lessonList;
+    }
+
+    @Override
+    public List<Lesson> getLessons() {
         return lessonList.getLessons();
     }
 

@@ -5,6 +5,7 @@ import java.util.List;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
@@ -62,9 +63,14 @@ public interface ManagementModel extends Model {
     String closeLesson();
 
     /**
-     * Gets the entire list of lessons.
+     * @return the {@link LessonList} object.
      */
-    List<Lesson> getLessonList();
+    LessonList getLessonList();
+
+    /**
+     * @return a {@link List} of {@link Lesson} objects in {@link LessonList}.
+     */
+    List<Lesson> getLessons();
 
     /**
      * Adds the lesson.

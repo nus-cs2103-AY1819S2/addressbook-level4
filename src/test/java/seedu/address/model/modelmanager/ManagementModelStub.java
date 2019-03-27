@@ -5,6 +5,7 @@ import java.util.List;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
@@ -72,11 +73,13 @@ public class ManagementModelStub implements ManagementModel {
         throw new AssertionError("This method should not be called.");
     }
 
-    /**
-     * Gets the entire list of lessons.
-     */
     @Override
-    public List<Lesson> getLessonList() {
+    public LessonList getLessonList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public List<Lesson> getLessons() {
         throw new AssertionError("This method should not be called.");
     }
 

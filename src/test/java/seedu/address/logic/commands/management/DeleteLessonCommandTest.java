@@ -119,7 +119,7 @@ public class DeleteLessonCommandTest {
         }
 
         @Override
-        public List<Lesson> getLessonList() {
+        public List<Lesson> getLessons() {
             return lessons;
         }
 

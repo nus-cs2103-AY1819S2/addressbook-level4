@@ -44,7 +44,6 @@ public class AddLessonCommand extends ManagementCommand {
      * The lesson to be added when {@link #execute(Model, CommandHistory)} is called.
      */
     private final Lesson toAdd;
-
     /**
      * Creates an AddLessonCommand to add the specified {@link Lesson}
      *
@@ -71,6 +70,19 @@ public class AddLessonCommand extends ManagementCommand {
 
         mgtModel.addLesson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    /**
+     * Certain ManagementCommand objects require a call to storageManager to save the lessons to disk
+     * after being executed.
+     *
+     * <br><br>When a lesson is added, a save is required.
+     *
+     * @return true given that a save to disk is required.
+     */
+    @Override
+    public boolean isSaveRequired() {
+        return true;
     }
 
     @Override

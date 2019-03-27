@@ -34,8 +34,7 @@ public class CloseLessonCommand extends ManagementCommand {
     /**
      * Feedback message displayed to the user when attempting to close lesson when no lesson is opened.
      */
-    public static final String MESSAGE_NO_OPENED_LESSON =
-            "No opened lesson found.";
+    public static final String MESSAGE_NO_OPENED_LESSON = "No opened lesson found.";
 
     /**
      * Executes the command and returns the result message.
@@ -60,5 +59,18 @@ public class CloseLessonCommand extends ManagementCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
+    }
+
+    /**
+     * Certain ManagementCommand objects require a call to storageManager to save the lessons to disk
+     * after being executed.
+     *
+     * <br><br>When a lesson is added, a save is required.
+     *
+     * @return true given that a save to disk is required.
+     */
+    @Override
+    public boolean isSaveRequired() {
+        return true;
     }
 }

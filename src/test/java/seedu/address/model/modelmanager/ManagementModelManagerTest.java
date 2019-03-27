@@ -36,7 +36,7 @@ public class ManagementModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new LessonList().getLessons(), modelManager.getLessonList());
+        assertEquals(new LessonList().getLessons(), modelManager.getLessons());
         assertEquals(new User(), modelManager.getUser());
     }
 
@@ -75,14 +75,14 @@ public class ManagementModelManagerTest {
          * More extensive testing of LessonList functionality is done in {@link LessonList} class.
          */
         Lesson testLesson = getTestLesson();
-        assertEquals(0, modelManager.getLessonList().size());
+        assertEquals(0, modelManager.getLessons().size());
         modelManager.addLesson(getTestLesson());
         assertEquals(testLesson, modelManager.getLesson(0));
         testLesson.setName("other name");
         modelManager.setLesson(0, testLesson);
         assertEquals(testLesson, modelManager.getLesson(0));
         modelManager.deleteLesson(0);
-        assertEquals(0, modelManager.getLessonList().size());
+        assertEquals(0, modelManager.getLessons().size());
     }
 
     @Test

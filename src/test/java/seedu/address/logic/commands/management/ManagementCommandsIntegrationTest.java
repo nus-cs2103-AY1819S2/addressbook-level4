@@ -59,7 +59,7 @@ public class ManagementCommandsIntegrationTest {
                 commandResult.getFeedbackToUser());
 
         // lesson added successfully -> lesson in lessonList
-        assertEquals(Collections.singletonList(validLesson), model.getLessonList());
+        assertEquals(Collections.singletonList(validLesson), model.getLessons());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
 
         // Step 3: listLessons

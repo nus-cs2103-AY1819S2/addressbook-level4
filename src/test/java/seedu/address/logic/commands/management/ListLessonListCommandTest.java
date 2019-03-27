@@ -74,7 +74,7 @@ public class ListLessonListCommandTest {
 
     private class MgtModelStubWithNoLessons extends ManagementModelStub {
         @Override
-        public List<Lesson> getLessonList() {
+        public List<Lesson> getLessons() {
             return new ArrayList<>();
         }
     }
@@ -82,7 +82,7 @@ public class ListLessonListCommandTest {
 
     private class MgtModelStubWithLessons extends ManagementModelStub {
         @Override
-        public List<Lesson> getLessonList() {
+        public List<Lesson> getLessons() {
             return TypicalLessons.getTypicalLessons();
         }
     }

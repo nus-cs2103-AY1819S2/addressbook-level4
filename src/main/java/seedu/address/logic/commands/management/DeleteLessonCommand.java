@@ -39,7 +39,6 @@ public class DeleteLessonCommand extends ManagementCommand {
      * is called.
      */
     private final Index targetIndex;
-
     /**
      * Creates an DeleteLessonCommand to delete the specified {@link Lesson}
      *
@@ -75,6 +74,19 @@ public class DeleteLessonCommand extends ManagementCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
+    }
+
+    /**
+     * Certain ManagementCommand objects require a call to storageManager to save the lessons to disk
+     * after being executed.
+     *
+     * <br><br>When a lesson is added, a save is required.
+     *
+     * @return true given that a save to disk is required.
+     */
+    @Override
+    public boolean isSaveRequired() {
+        return true;
     }
 
     @Override

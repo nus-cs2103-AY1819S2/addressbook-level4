@@ -293,26 +293,6 @@ public class AddHealthWorkerCommandTest {
         }
 
         /**
-         * Sets the user prefs' request book file path.
-         *
-         * @param requestBookFilePath
-         */
-        @Override
-        public void setRequestBookFilePath(Path requestBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        /**
-         * Replaces request book data with the data in {@code requestBook}.
-         *
-         * @param requestBook
-         */
-        @Override
-        public void setRequestBook(ReadOnlyRequestBook requestBook) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        /**
          * Returns the RequestBook
          */
         @Override

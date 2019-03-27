@@ -4,12 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PATH;
 
 import java.io.File;
 import java.util.OptionalDouble;
 
-import scala.Char;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ContrastCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

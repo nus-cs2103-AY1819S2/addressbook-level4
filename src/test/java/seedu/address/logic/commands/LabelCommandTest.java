@@ -46,7 +46,6 @@ public class LabelCommandTest {
         String expectedMessage = information.replaceAll("\r", "").replaceAll("\n", "");
 
         assertEquals(expectedMessage, actualMessage);
-
     }
 
     @Test
@@ -64,7 +63,6 @@ public class LabelCommandTest {
         String expectedMessage = information.replaceAll("\r", "").replaceAll("\n", "");
 
         assertEquals(expectedMessage, actualMessage);
-        
     }
 
     @Test

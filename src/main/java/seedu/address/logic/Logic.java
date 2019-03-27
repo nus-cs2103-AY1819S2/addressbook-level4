@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
@@ -69,4 +70,11 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPdf(Pdf)
      */
     void setSelectedPerson(Pdf pdf);
+
+    /**
+     * Provides a list of Pdfs that are about to hit their deadines.
+     *
+     * @return list of pdfs that are due soon.
+     */
+    public List<Pdf> getDuePdfs();
 }

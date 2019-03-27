@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
-import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -75,7 +75,7 @@ public class JsonPdfBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
-        PdfBook original = getTypicalAddressBook();
+        PdfBook original = getTypicalPdfBook();
         JsonPdfBookStorage jsonPdfBookStorage = new JsonPdfBookStorage(filePath);
 
         // Save in new file and read back

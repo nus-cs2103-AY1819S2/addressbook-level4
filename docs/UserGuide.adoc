@@ -80,6 +80,20 @@ Example:
 Shows a list of all PDF files in the app. +
 Format: `list`
 
+=== Sorting all files : `sort`
+
+Sorts all PDF files in the app based on certain criteria. +
+Format: `sort CRITERIA (name/date) ORDER (up/down)`
+****
+* CRITERIA can only be either `name` or `date` corresponding to alphabetical or deadline order +
+* ORDER can only be either `up` or `down` corresponding to ascending or descending order
+****
+
+Example:
+
+* `sort name up` +
+* `sort date down` +
+
 === Opening a file : `open`
 
 Opens an existing file at a specified index in the app with default PDF reader. +
@@ -140,20 +154,22 @@ Example:
 
 * `info 3`
 
-=== Setting a deadline for the file : `deadline` `[Coming in v1.3]`
+=== Setting a deadline for the file : `deadline`
 
 Set or remove a deadline for the pdf file of the specified index of the list.
 
 ****
-* Format for setting a deadline: `deadline INDEX dt/DATE` +
-* Format for removing a deadline: `deadline INDEX`
+* Format for setting a deadline: `deadline INDEX date/DATE` +
+* Format for marking a deadline as done: `deadline INDEX done` +
+* Format for removing a deadline: `deadline INDEX remove` +
 * The date must be in the format of dd-mm-yyyy
 ****
 
 Examples:
 
-* `deadline 3 dt/20-02-2019` +
-* `deadline 2` +
+* `deadline 1 date/20-02-2019` +
+* `deadline 2 done` +
+* `deadline 2 remove` +
 
 === Filter files by tags: `filter` `[Coming in v1.3]`
 

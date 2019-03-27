@@ -4,86 +4,54 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-//import seedu.address.model.pdf.Address;
-//import seedu.address.model.pdf.Directory;
-//import seedu.address.model.pdf.Email;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
-//import seedu.address.model.pdf.Phone;
+import seedu.address.model.pdf.Size;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class to help with building EditPersonDescriptor objects.
+ * A utility class to help with building EditPdfDescriptor objects.
  */
 public class EditPdfDescriptorBuilder {
 
-    private EditPersonDescriptor descriptor;
+    private EditCommand.EditPdfDescriptor descriptor;
 
     public EditPdfDescriptorBuilder() {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditCommand.EditPdfDescriptor();
     }
 
-    public EditPdfDescriptorBuilder(EditPersonDescriptor descriptor) {
-        this.descriptor = new EditPersonDescriptor(descriptor);
+    public EditPdfDescriptorBuilder(EditCommand.EditPdfDescriptor descriptor) {
+        this.descriptor = new EditCommand.EditPdfDescriptor(descriptor);
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code pdf}'s details
+     * Returns an {@code EditPdfDescriptor} with fields containing {@code pdf}'s details
      */
     public EditPdfDescriptorBuilder(Pdf pdf) {
-        descriptor = new EditPersonDescriptor();
+        descriptor = new EditCommand.EditPdfDescriptor();
         descriptor.setName(pdf.getName());
         descriptor.setTags(pdf.getTags());
-        /*descriptor.setDirectory(pdf.getDirectory());
-        descriptor.setPhone(pdf.getPhone());
-        descriptor.setEmail(pdf.getEmail());
-        descriptor.setAddress(pdf.getAddress());*/
     }
 
     /**
-     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditPdfDescriptor} that we are building.
      */
     public EditPdfDescriptorBuilder withName(String name) {
         descriptor.setName(new Name(name));
         return this;
     }
 
-
-    //    /**
-    //     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
-    //     */
-    //    public EditPdfDescriptorBuilder withPhone(String phone) {
-    //        descriptor.setPhone(new Phone(phone));
-    //        return this;
-    //    }
-    //
-    //    /**
-    //     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
-    //     */
-    //    public EditPdfDescriptorBuilder withEmail(String email) {
-    //        descriptor.setEmail(new Email(email));
-    //        return this;
-    //    }
-    //
-    //    /**
-    //     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
-    //     */
-    //    public EditPdfDescriptorBuilder withAddress(String address) {
-    //        descriptor.setAddress(new Address(address));
-    //        return this;
-    //    }
-    //
-    //    /**
-    //     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
-    //     */
-    //    public EditPdfDescriptorBuilder withDirectory(String directory) {
-    //        descriptor.setDirectory(new Directory(directory));
-    //        return this;
-    //    }
+    /**
+     * Sets the {@code Name} of the {@code EditPdfDescriptor} that we are building.
+     */
+    public EditPdfDescriptorBuilder withSize(String size) {
+        descriptor.setSize(new Size(size));
+        return this;
+    }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPdfDescriptor}
      * that we are building.
      */
     public EditPdfDescriptorBuilder withTags(String... tags) {
@@ -92,7 +60,7 @@ public class EditPdfDescriptorBuilder {
         return this;
     }
 
-    public EditPersonDescriptor build() {
+    public EditCommand.EditPdfDescriptor build() {
         return descriptor;
     }
 }

@@ -30,10 +30,11 @@ public class LabelCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Prints the Medicine name and description in PDF format using its index.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX + f/(filename)\n"
+            + "Example: " + COMMAND_WORD + " 1" + "f/printThisFile.\n"
+            + "INDEX must be a positive integer while the proper prefix must be used before the filename. Filename is optional";
 
-    public static final String MESSAGE_SELECT_MEDICINE_SUCCESS = "Successfully printed the medicine at index: %1$s"
+    public static final String MESSAGE_LABEL_MEDICINE_SUCCESS = "Successfully printed the medicine at index: %1$s"
             + " in PDF format";
 
     private final Index targetIndex;
@@ -49,9 +50,10 @@ public class LabelCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        String filename = this.fileName.toString();
-        requireNonNull(model);
+        String fileName = ("./PDF/" + this.fileName.toString() + ".pdf");
+        fileName = fileName.replaceAll("\\s+", "");
 
+        requireNonNull(model);
         Medicine medicineToPrint = getSpecificMedicine(model);
         model.setSelectedMedicine(medicineToPrint);
 
@@ -109,12 +111,14 @@ public class LabelCommand extends Command {
                 contents.endText();
             }
 
-            doc.save(filename);
+            doc.save(fileName);
         } catch (IOException ie) {
             ie.printStackTrace();
         }
 
-        return new CommandResult(String.format(MESSAGE_SELECT_MEDICINE_SUCCESS, targetIndex.getOneBased()));
+
+
+        return new CommandResult(String.format(MESSAGE_LABEL_MEDICINE_SUCCESS, targetIndex.getOneBased()));
 
     }
 

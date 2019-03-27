@@ -35,7 +35,7 @@ public class GuiTestAssert {
     public static void assertCardDisplaysPerson(Equipment expectedEquipment, EquipmentCardHandle actualCard) {
         assertEquals(expectedEquipment.getName().name, actualCard.getName());
         assertEquals(expectedEquipment.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedEquipment.getEmail().value, actualCard.getEmail());
+        assertEquals(expectedEquipment.getDate().value, actualCard.getEmail());
         assertEquals(expectedEquipment.getAddress().value, actualCard.getAddress());
         assertTagsEqual(expectedEquipment, actualCard);
     }

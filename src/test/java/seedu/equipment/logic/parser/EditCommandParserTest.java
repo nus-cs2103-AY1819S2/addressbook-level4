@@ -41,7 +41,7 @@ import org.junit.Test;
 import seedu.equipment.commons.core.index.Index;
 import seedu.equipment.logic.commands.EditCommand;
 import seedu.equipment.model.equipment.Address;
-import seedu.equipment.model.equipment.Email;
+import seedu.equipment.model.equipment.Date;
 import seedu.equipment.model.equipment.Name;
 import seedu.equipment.model.equipment.Phone;
 import seedu.equipment.model.equipment.SerialNumber;
@@ -91,7 +91,7 @@ public class EditCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC, Phone.MESSAGE_CONSTRAINTS); // invalid phone
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Date.MESSAGE_CONSTRAINTS); // invalid email
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, Address.MESSAGE_CONSTRAINTS); // invalid equipment
         assertParseFailure(parser, "1" + INVALID_SERIAL_NUMBER_DESC,
                 SerialNumber.MESSAGE_CONSTRAINTS); // serial number

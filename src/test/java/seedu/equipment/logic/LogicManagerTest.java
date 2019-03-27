@@ -19,7 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.equipment.logic.commands.AddEquipmentCommand;
+import seedu.equipment.logic.commands.AddCommand;
 import seedu.equipment.logic.commands.CommandResult;
 import seedu.equipment.logic.commands.HistoryCommand;
 import seedu.equipment.logic.commands.ListEquipmentCommand;
@@ -88,7 +88,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddEquipmentCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         Equipment expectedEquipment = new EquipmentBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

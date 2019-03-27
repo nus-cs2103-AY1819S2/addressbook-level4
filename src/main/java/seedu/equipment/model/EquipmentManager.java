@@ -157,7 +157,7 @@ public class EquipmentManager implements ReadOnlyEquipmentManager {
 
         Equipment newEquipment =
                 new Equipment(equipment.getName(), equipment.getPhone(),
-                        equipment.getEmail(), equipment.getAddress(), equipment.getSerialNumber(), newTags);
+                        equipment.getDate(), equipment.getAddress(), equipment.getSerialNumber(), newTags);
 
         updateEquipment(equipment, newEquipment);
     }

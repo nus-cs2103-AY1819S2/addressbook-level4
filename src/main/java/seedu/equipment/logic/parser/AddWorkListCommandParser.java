@@ -8,13 +8,13 @@ import seedu.equipment.logic.parser.exceptions.ParseException;
 import seedu.equipment.model.WorkList;
 
 /**
- * Parses input arguments and creates a new AddEquipmentCommand object
+ * Parses input arguments and creates a new AddCommand object
  */
 public class AddWorkListCommandParser implements Parser<AddWorkListCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddEquipmentCommand
-     * and returns an AddEquipmentCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddWorkListCommand parse(String args) throws ParseException {

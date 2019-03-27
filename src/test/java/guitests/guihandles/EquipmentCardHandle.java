@@ -18,14 +18,14 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String DATE_FIELD_ID = "#date";
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
     private final Label nameLabel;
     private final Label addressLabel;
     private final Label phoneLabel;
-    private final Label emailLabel;
+    private final Label dateLabel;
     private final List<Label> tagLabels;
 
     public EquipmentCardHandle(Node cardNode) {
@@ -35,7 +35,7 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
         nameLabel = getChildNode(NAME_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
-        emailLabel = getChildNode(EMAIL_FIELD_ID);
+        dateLabel = getChildNode(DATE_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer
@@ -71,7 +71,7 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
     }
 
     public String getEmail() {
-        return emailLabel.getText();
+        return dateLabel.getText();
     }
 
     public List<String> getTags() {
@@ -88,7 +88,7 @@ public class EquipmentCardHandle extends NodeHandle<Node> {
         return getName().equals(equipment.getName().name)
                 && getAddress().equals(equipment.getAddress().value)
                 && getPhone().equals(equipment.getPhone().value)
-                && getEmail().equals(equipment.getEmail().value)
+                && getEmail().equals(equipment.getDate().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(equipment.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

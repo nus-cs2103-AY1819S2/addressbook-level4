@@ -2,9 +2,9 @@ package seedu.equipment.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.equipment.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.equipment.logic.parser.CliSyntax.PREFIX_PM;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_SERIALNUMBER;
 import static seedu.equipment.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -33,7 +33,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_PM, PREFIX_ADDRESS,
                         PREFIX_SERIALNUMBER, PREFIX_TAG);
 
         Index index;
@@ -52,8 +52,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
             editEquipmentDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            editEquipmentDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
+        if (argMultimap.getValue(PREFIX_PM).isPresent()) {
+            editEquipmentDescriptor.setDate(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_PM).get()));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editEquipmentDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));

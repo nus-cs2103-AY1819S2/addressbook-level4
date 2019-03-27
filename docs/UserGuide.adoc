@@ -135,7 +135,7 @@ Format: `edit INDEX [n/CLENT_NAME] [p/CLENT_PHONE] [e/CLENT_EMAIL] [a/CLENT_ADDR
 Examples:
 
 * `edit 1 p/91234567 e/ccc@gmail.com` +
-Edits the client phone number and client email address of the 1st equipment to be 91234567 and ccc@gmail.com respectively.
+Edits the client phone number and client date address of the 1st equipment to be 91234567 and ccc@gmail.com respectively.
 
 * `edit 2 n/Hougang CC t/` +
 Edits the client name of the 2nd equipment to be Huogang CC and clears all existing tags.
@@ -212,12 +212,12 @@ The sort parameters are case-insensitive.
 
 By default, `sort` sorts the list by name in lexicographical order.
 [TIP]
-Equipment, client, and work list can only be sorted by address, email and phone at the moment.
+Equipment, client, and work list can only be sorted by address, preventive maintenance date and phone at the moment.
 
 Example:
 
 * `sort address`
-* `sort email`
+* `sort date`
 * `sort phone`
 
 === Filtering the list: `filter`

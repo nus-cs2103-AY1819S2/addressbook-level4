@@ -20,7 +20,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.GradTrak;
 import seedu.address.model.ReadOnlyGradTrak;
 
-public class JsonGradTrackStorageTest {
+public class JsonGradTrakStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonGradTrakStorageTest");
 
     @Rule
@@ -36,7 +36,7 @@ public class JsonGradTrackStorageTest {
     }
 
     private java.util.Optional<ReadOnlyGradTrak> readGradTrak(String filePath) throws Exception {
-        return new JsonGradTrackStorage(Paths.get(filePath)).readGradTrak(addToTestDataPathIfNotNull(filePath));
+        return new JsonGradTrakStorage(Paths.get(filePath)).readGradTrak(addToTestDataPathIfNotNull(filePath));
     }
 
     private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
@@ -76,23 +76,23 @@ public class JsonGradTrackStorageTest {
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
         GradTrak original = getTypicalAddressBook();
-        JsonGradTrackStorage jsonAddressBookStorage = new JsonGradTrackStorage(filePath);
+        JsonGradTrakStorage jsonAddressBookStorage = new JsonGradTrakStorage(filePath);
 
         // Save in new file and read back
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
+        jsonAddressBookStorage.saveGradTrak(original, filePath);
         ReadOnlyGradTrak readBack = jsonAddressBookStorage.readGradTrak(filePath).get();
         assertEquals(original, new GradTrak(readBack));
 
         // Modify data, overwrite exiting file, and read back
         original.addModuleTaken(CS2030);
         original.removeModuleTaken(CS2103T);
-        jsonAddressBookStorage.saveAddressBook(original, filePath);
+        jsonAddressBookStorage.saveGradTrak(original, filePath);
         readBack = jsonAddressBookStorage.readGradTrak(filePath).get();
         assertEquals(original, new GradTrak(readBack));
 
         // Save and read without specifying file path
         original.addModuleTaken(CS2040);
-        jsonAddressBookStorage.saveAddressBook(original); // file path not specified
+        jsonAddressBookStorage.saveGradTrak(original); // file path not specified
         readBack = jsonAddressBookStorage.readGradTrak().get(); // file path not specified
         assertEquals(original, new GradTrak(readBack));
 
@@ -109,8 +109,8 @@ public class JsonGradTrackStorageTest {
      */
     private void saveAddressBook(ReadOnlyGradTrak addressBook, String filePath) {
         try {
-            new JsonGradTrackStorage(Paths.get(filePath))
-                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new JsonGradTrakStorage(Paths.get(filePath))
+                    .saveGradTrak(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

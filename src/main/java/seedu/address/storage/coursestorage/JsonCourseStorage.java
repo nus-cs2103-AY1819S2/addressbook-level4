@@ -1,4 +1,4 @@
-package seedu.address.storage.moduleinfostorage;
+package seedu.address.storage.coursestorage;
 
 import static java.util.Objects.requireNonNull;
 
@@ -10,51 +10,55 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.moduleinfo.ModuleInfoList;
+import seedu.address.model.course.CourseList;
+import seedu.address.storage.moduleinfostorage.JsonModuleInfoStorage;
 
 /**
- * A class to access Module info data stored as a json file on the hard disk.
+ * A class to access Course info data stored as a json file on the hard disk.
  */
-public class JsonModuleInfoStorage implements ModuleInfoStorage {
+public class JsonCourseStorage implements CourseStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonModuleInfoStorage.class);
 
     private Path filePath;
 
-    public JsonModuleInfoStorage(Path filePath) {
+    public JsonCourseStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public Path getModuleInfoFilePath() {
+
+    @Override
+    public Path getCourseFilePath() {
         return filePath;
     }
 
-    @Override
-    public Optional<ModuleInfoList> readModuleInfoFile() throws DataConversionException {
-        return readModuleInfoFile(filePath);
-    }
 
     /**
-     * Similar to {@link #readModuleInfoFile()}.
+     * Similar to {@link #readCourseFile()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ModuleInfoList> readModuleInfoFile(Path filePath) throws DataConversionException {
+    @Override
+    public Optional<CourseList> readCourseFile(Path filePath) throws DataConversionException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableModuleInfoList> jsonModuleInfoList = JsonUtil.readJsonFile(
-                filePath, JsonSerializableModuleInfoList.class);
-        if (!jsonModuleInfoList.isPresent()) {
+        Optional<JsonSerializableCourseList> jsonSerializableCourseList = JsonUtil.readJsonFile(
+                filePath, JsonSerializableCourseList.class);
+        if (!jsonSerializableCourseList.isPresent()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonModuleInfoList.get().toModelType());
+            return Optional.of(jsonSerializableCourseList.get().toModelType());
         } catch (IllegalValueException e) {
             logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
             throw new DataConversionException(e);
         }
     }
 
+    @Override
+    public Optional<CourseList> readCourseFile() throws DataConversionException {
+        return readCourseFile(filePath);
+    }
 }

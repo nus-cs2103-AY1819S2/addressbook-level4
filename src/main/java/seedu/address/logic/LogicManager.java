@@ -38,7 +38,7 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
 
         // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
+        model.getGradTrak().addListener(observable -> addressBookModified = true);
     }
 
     @Override
@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
         if (addressBookModified) {
             logger.info("Address book modified, saving to file.");
             try {
-                storage.saveAddressBook(model.getAddressBook());
+                storage.saveGradTrak(model.getGradTrak());
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
@@ -68,12 +68,12 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyGradTrak getAddressBook() {
-        return model.getAddressBook();
+        return model.getGradTrak();
     }
 
     @Override
     public ObservableList<ModuleTaken> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+        return model.getFilteredModulesTakenList();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class LogicManager implements Logic {
 
     @Override
     public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+        return model.getGradTrakFilePath();
     }
 
     @Override
@@ -98,11 +98,11 @@ public class LogicManager implements Logic {
 
     @Override
     public ReadOnlyProperty<ModuleTaken> selectedPersonProperty() {
-        return model.selectedPersonProperty();
+        return model.selectedModuleTakenProperty();
     }
 
     @Override
     public void setSelectedPerson(ModuleTaken moduleTaken) {
-        model.setSelectedPerson(moduleTaken);
+        model.setSelectedModuleTaken(moduleTaken);
     }
 }

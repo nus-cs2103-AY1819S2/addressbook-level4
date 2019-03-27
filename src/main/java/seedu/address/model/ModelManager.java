@@ -28,7 +28,7 @@ import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.PersonNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the GradTrak data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -37,10 +37,10 @@ public class ModelManager implements Model {
     private Semester currentSemester;
     private ArrayList<PlanPreference> planPreferences;
 
-    private final VersionedGradTrak versionedAddressBook;
+    private final VersionedGradTrak versionedGradTrak;
     private final UserPrefs userPrefs;
-    private final FilteredList<ModuleTaken> filteredModuleTakens;
-    private final SimpleObjectProperty<ModuleTaken> selectedPerson = new SimpleObjectProperty<>();
+    private final FilteredList<ModuleTaken> filteredModulesTaken;
+    private final SimpleObjectProperty<ModuleTaken> selectedModuleTaken = new SimpleObjectProperty<>();
 
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
     private final ObservableList<ModuleInfo> allModules;
@@ -53,16 +53,16 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyGradTrak addressBook, ReadOnlyUserPrefs userPrefs, ModuleInfoList allModules) {
+    public ModelManager(ReadOnlyGradTrak gradTrak, ReadOnlyUserPrefs userPrefs, ModuleInfoList allModules) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(gradTrak, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + gradTrak + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedGradTrak(addressBook);
+        versionedGradTrak = new VersionedGradTrak(gradTrak);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredModuleTakens = new FilteredList<>(versionedAddressBook.getModulesTakenList());
-        filteredModuleTakens.addListener(this::ensureSelectedPersonIsValid);
+        filteredModulesTaken = new FilteredList<>(versionedGradTrak.getModulesTakenList());
+        filteredModulesTaken.addListener(this::ensureSelectedPersonIsValid);
 
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
         this.allModules = allModules.getObservableList();
@@ -134,12 +134,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getGradTrakFilePath() {
         return userPrefs.getGradTrakFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
+    public void setGradTrakFilePath(Path addressBookFilePath) {
         requireNonNull(addressBookFilePath);
         userPrefs.setGradTrakFilePath(addressBookFilePath);
     }
@@ -147,100 +147,100 @@ public class ModelManager implements Model {
     //=========== GradTrak ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyGradTrak addressBook) {
-        versionedAddressBook.resetData(addressBook);
+    public void setGradTrak(ReadOnlyGradTrak addressBook) {
+        versionedGradTrak.resetData(addressBook);
     }
 
     @Override
-    public ReadOnlyGradTrak getAddressBook() {
-        return versionedAddressBook;
+    public ReadOnlyGradTrak getGradTrak() {
+        return versionedGradTrak;
     }
 
     @Override
-    public boolean hasPerson(ModuleTaken moduleTaken) {
+    public boolean hasModuleTaken(ModuleTaken moduleTaken) {
         requireNonNull(moduleTaken);
-        return versionedAddressBook.hasModuleTaken(moduleTaken);
+        return versionedGradTrak.hasModuleTaken(moduleTaken);
     }
 
     @Override
-    public void deletePerson(ModuleTaken target) {
-        versionedAddressBook.removeModuleTaken(target);
+    public void deleteModuleTaken(ModuleTaken target) {
+        versionedGradTrak.removeModuleTaken(target);
     }
 
     @Override
-    public void addPerson(ModuleTaken moduleTaken) {
-        versionedAddressBook.addModuleTaken(moduleTaken);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addModuleTaken(ModuleTaken moduleTaken) {
+        versionedGradTrak.addModuleTaken(moduleTaken);
+        updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
-    public void setPerson(ModuleTaken target, ModuleTaken editedModuleTaken) {
+    public void setModuleTaken(ModuleTaken target, ModuleTaken editedModuleTaken) {
         requireAllNonNull(target, editedModuleTaken);
-        versionedAddressBook.setModuleTaken(target, editedModuleTaken);
+        versionedGradTrak.setModuleTaken(target, editedModuleTaken);
     }
 
     //=========== Filtered ModuleTaken List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code ModuleTaken} backed by the internal list of
-     * {@code versionedAddressBook}
+     * {@code versionedGradTrak}
      */
     @Override
-    public ObservableList<ModuleTaken> getFilteredPersonList() {
-        return filteredModuleTakens;
+    public ObservableList<ModuleTaken> getFilteredModulesTakenList() {
+        return filteredModulesTaken;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<ModuleTaken> predicate) {
+    public void updateFilteredModulesTakenList(Predicate<ModuleTaken> predicate) {
         requireNonNull(predicate);
-        filteredModuleTakens.setPredicate(predicate);
+        filteredModulesTaken.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
+    public boolean canUndoGradTrak() {
+        return versionedGradTrak.canUndo();
     }
 
     @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
+    public boolean canRedoGradTrak() {
+        return versionedGradTrak.canRedo();
     }
 
     @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
+    public void undoGradTrak() {
+        versionedGradTrak.undo();
     }
 
     @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
+    public void redoGradTrak() {
+        versionedGradTrak.redo();
     }
 
     @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
+    public void commitGradTrak() {
+        versionedGradTrak.commit();
     }
 
     //=========== Selected moduleTaken ===========================================================================
 
     @Override
-    public ReadOnlyProperty<ModuleTaken> selectedPersonProperty() {
-        return selectedPerson;
+    public ReadOnlyProperty<ModuleTaken> selectedModuleTakenProperty() {
+        return selectedModuleTaken;
     }
 
     @Override
-    public ModuleTaken getSelectedPerson() {
-        return selectedPerson.getValue();
+    public ModuleTaken getSelectedModuleTaken() {
+        return selectedModuleTaken.getValue();
     }
 
     @Override
-    public void setSelectedPerson(ModuleTaken moduleTaken) {
-        if (moduleTaken != null && !filteredModuleTakens.contains(moduleTaken)) {
+    public void setSelectedModuleTaken(ModuleTaken moduleTaken) {
+        if (moduleTaken != null && !filteredModulesTaken.contains(moduleTaken)) {
             throw new PersonNotFoundException();
         }
-        selectedPerson.setValue(moduleTaken);
+        selectedModuleTaken.setValue(moduleTaken);
     }
 
     //=========== Module Info List ===========================================================================
@@ -263,7 +263,7 @@ public class ModelManager implements Model {
 
     @Override
     public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
-        RecModuleManager recModuleManager = new RecModuleManager(course, versionedAddressBook);
+        RecModuleManager recModuleManager = new RecModuleManager(course, versionedGradTrak);
         recModuleList.setPredicate(recModuleManager.getRecModulePredicate());
         recModuleListSorted.setComparator(recModuleManager.getRecModuleComparator());
 
@@ -271,30 +271,30 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Ensures {@code selectedPerson} is a valid moduleTaken in {@code filteredModuleTakens}.
+     * Ensures {@code selectedModuleTaken} is a valid moduleTaken in {@code filteredModulesTaken}.
      */
     private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends ModuleTaken> change) {
         while (change.next()) {
-            if (selectedPerson.getValue() == null) {
+            if (selectedModuleTaken.getValue() == null) {
                 // null is always a valid selected moduleTaken, so we do not need to check that it is valid anymore.
                 return;
             }
 
             boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
+                    && change.getRemoved().contains(selectedModuleTaken.getValue());
             if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
+                // Update selectedModuleTaken to its new value.
+                int index = change.getRemoved().indexOf(selectedModuleTaken.getValue());
+                selectedModuleTaken.setValue(change.getAddedSubList().get(index));
                 continue;
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSameModuleTaken(removedPerson));
+                    .anyMatch(removedPerson -> selectedModuleTaken.getValue().isSameModuleTaken(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the moduleTaken that came before it in the list,
                 // or clear the selection if there is no such moduleTaken.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+                selectedModuleTaken.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }
@@ -313,10 +313,10 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
+        return versionedGradTrak.equals(other.versionedGradTrak)
                 && userPrefs.equals(other.userPrefs)
-                && filteredModuleTakens.equals(other.filteredModuleTakens)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredModulesTaken.equals(other.filteredModulesTaken)
+                && Objects.equals(selectedModuleTaken.get(), other.selectedModuleTaken.get());
     }
 
 }

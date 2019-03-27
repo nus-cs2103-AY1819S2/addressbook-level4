@@ -23,8 +23,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.GradTrackStorage;
-import seedu.address.storage.JsonGradTrackStorage;
+import seedu.address.storage.GradTrakStorage;
+import seedu.address.storage.JsonGradTrakStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -48,6 +48,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected ModuleInfoManager storageManager;
+    //protected Course manager;
 
     @Override
     public void init() throws Exception {
@@ -59,8 +60,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        GradTrackStorage gradTrackStorage = new JsonGradTrackStorage(userPrefs.getGradTrakFilePath());
-        storage = new StorageManager(gradTrackStorage, userPrefsStorage);
+        GradTrakStorage gradTrakStorage = new JsonGradTrakStorage(userPrefs.getGradTrakFilePath());
+        storage = new StorageManager(gradTrakStorage, userPrefsStorage);
 
         initLogging(config);
 

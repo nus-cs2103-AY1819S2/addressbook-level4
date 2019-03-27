@@ -32,9 +32,9 @@ public class AddCommandIntegrationTest {
     public void execute_newPerson_success() {
         ModuleTaken validModuleTaken = new ModuleTakenBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModuleInfoList());
-        expectedModel.addPerson(validModuleTaken);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(), new ModuleInfoList());
+        expectedModel.addModuleTaken(validModuleTaken);
+        expectedModel.commitGradTrak();
 
         assertCommandSuccess(new AddCommand(validModuleTaken), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validModuleTaken), expectedModel);
@@ -42,7 +42,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        ModuleTaken moduleTakenInList = model.getAddressBook().getModulesTakenList().get(0);
+        ModuleTaken moduleTakenInList = model.getGradTrak().getModulesTakenList().get(0);
         assertCommandFailure(new AddCommand(moduleTakenInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }

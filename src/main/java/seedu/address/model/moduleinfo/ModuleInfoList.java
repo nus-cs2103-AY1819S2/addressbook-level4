@@ -9,7 +9,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
 
 /**
  * Wraps all data at the Module Info List level
- * Duplicates are not allowed (by  comparison)
+ * Duplicates are not allowed (by comparison)
  */
 public class ModuleInfoList {
 

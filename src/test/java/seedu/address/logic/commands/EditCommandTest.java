@@ -46,18 +46,18 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
-        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
                                                new ModuleInfoList());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedModuleTaken);
-        expectedModel.commitAddressBook();
+        expectedModel.setModuleTaken(model.getFilteredModulesTakenList().get(0), editedModuleTaken);
+        expectedModel.commitGradTrak();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
-        ModuleTaken lastModuleTaken = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
+        Index indexLastPerson = Index.fromOneBased(model.getFilteredModulesTakenList().size());
+        ModuleTaken lastModuleTaken = model.getFilteredModulesTakenList().get(indexLastPerson.getZeroBased());
 
         ModuleTakenBuilder personInList = new ModuleTakenBuilder(lastModuleTaken);
         ModuleTaken editedModuleTaken = personInList.withModuleInfoCode(VALID_MODULE_INFO_CODE_CS1010)
@@ -70,10 +70,10 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
-        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
                                                new ModuleInfoList());
-        expectedModel.setPerson(lastModuleTaken, editedModuleTaken);
-        expectedModel.commitAddressBook();
+        expectedModel.setModuleTaken(lastModuleTaken, editedModuleTaken);
+        expectedModel.commitGradTrak();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -81,13 +81,13 @@ public class EditCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, new EditPersonDescriptor());
-        ModuleTaken editedModuleTaken = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ModuleTaken editedModuleTaken = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
-        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
                                                new ModuleInfoList());
-        expectedModel.commitAddressBook();
+        expectedModel.commitGradTrak();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
@@ -96,7 +96,8 @@ public class EditCommandTest {
     public void execute_filteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        ModuleTaken moduleTakenInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ModuleTaken moduleTakenInFilteredList = model.getFilteredModulesTakenList()
+                .get(INDEX_FIRST_PERSON.getZeroBased());
         ModuleTaken editedModuleTaken = new ModuleTakenBuilder(moduleTakenInFilteredList)
                 .withModuleInfoCode(VALID_MODULE_INFO_CODE_CS1010).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
@@ -104,17 +105,17 @@ public class EditCommandTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
-        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
                                                new ModuleInfoList());
-        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedModuleTaken);
-        expectedModel.commitAddressBook();
+        expectedModel.setModuleTaken(model.getFilteredModulesTakenList().get(0), editedModuleTaken);
+        expectedModel.commitGradTrak();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonUnfilteredList_failure() {
-        ModuleTaken firstModuleTaken = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ModuleTaken firstModuleTaken = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_PERSON, descriptor);
 
@@ -126,7 +127,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         // edit moduleTaken in filtered list into a duplicate in address book
-        ModuleTaken moduleTakenInList = model.getAddressBook().getModulesTakenList()
+        ModuleTaken moduleTakenInList = model.getGradTrak().getModulesTakenList()
                 .get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(moduleTakenInList).build());
@@ -136,7 +137,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModulesTakenList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withName(VALID_MODULE_INFO_CODE_CS1010).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
@@ -153,7 +154,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getModulesTakenList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getGradTrak().getModulesTakenList().size());
 
         EditCommand editCommand = new EditCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS1010).build());
@@ -164,29 +165,29 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         ModuleTaken editedModuleTaken = new ModuleTakenBuilder().build();
-        ModuleTaken moduleTakenToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ModuleTaken moduleTakenToEdit = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
                                                new ModuleInfoList());
-        expectedModel.setPerson(moduleTakenToEdit, editedModuleTaken);
-        expectedModel.commitAddressBook();
+        expectedModel.setModuleTaken(moduleTakenToEdit, editedModuleTaken);
+        expectedModel.commitGradTrak();
 
         // edit -> first moduleTaken edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered moduleTaken list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoGradTrak();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first moduleTaken edited again
-        expectedModel.redoAddressBook();
+        expectedModel.redoGradTrak();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModulesTakenList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withName(VALID_MODULE_INFO_CODE_CS1010).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
@@ -211,25 +212,25 @@ public class EditCommandTest {
         ModuleTaken editedModuleTaken = new ModuleTakenBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
-        Model expectedModel = new ModelManager(new GradTrak(model.getAddressBook()), new UserPrefs(),
+        Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
                                                new ModuleInfoList());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        ModuleTaken moduleTakenToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.setPerson(moduleTakenToEdit, editedModuleTaken);
-        expectedModel.commitAddressBook();
+        ModuleTaken moduleTakenToEdit = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
+        expectedModel.setModuleTaken(moduleTakenToEdit, editedModuleTaken);
+        expectedModel.commitGradTrak();
 
         // edit -> edits second moduleTaken in unfiltered moduleTaken list / first moduleTaken in
         // filtered moduleTaken list
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered moduleTaken list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoGradTrak();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), moduleTakenToEdit);
+        assertNotEquals(model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased()), moduleTakenToEdit);
         // redo -> edits same second moduleTaken in unfiltered moduleTaken list
-        expectedModel.redoAddressBook();
+        expectedModel.redoGradTrak();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

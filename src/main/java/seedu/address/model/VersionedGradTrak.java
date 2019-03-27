@@ -8,14 +8,14 @@ import java.util.List;
  */
 public class VersionedGradTrak extends GradTrak {
 
-    private final List<ReadOnlyGradTrak> addressBookStateList;
+    private final List<ReadOnlyGradTrak> gradTrakStateList;
     private int currentStatePointer;
 
     public VersionedGradTrak(ReadOnlyGradTrak initialState) {
         super(initialState);
 
-        addressBookStateList = new ArrayList<>();
-        addressBookStateList.add(new GradTrak(initialState));
+        gradTrakStateList = new ArrayList<>();
+        gradTrakStateList.add(new GradTrak(initialState));
         currentStatePointer = 0;
     }
 
@@ -25,13 +25,13 @@ public class VersionedGradTrak extends GradTrak {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new GradTrak(this));
+        gradTrakStateList.add(new GradTrak(this));
         currentStatePointer++;
         indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
-        addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
+        gradTrakStateList.subList(currentStatePointer + 1, gradTrakStateList.size()).clear();
     }
 
     /**
@@ -42,7 +42,7 @@ public class VersionedGradTrak extends GradTrak {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(gradTrakStateList.get(currentStatePointer));
     }
 
     /**
@@ -53,7 +53,7 @@ public class VersionedGradTrak extends GradTrak {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(gradTrakStateList.get(currentStatePointer));
     }
 
     /**
@@ -67,7 +67,7 @@ public class VersionedGradTrak extends GradTrak {
      * Returns true if {@code redo()} has address book states to redo.
      */
     public boolean canRedo() {
-        return currentStatePointer < addressBookStateList.size() - 1;
+        return currentStatePointer < gradTrakStateList.size() - 1;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class VersionedGradTrak extends GradTrak {
 
         // state check
         return super.equals(otherVersionedAddressBook)
-                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
+                && gradTrakStateList.equals(otherVersionedAddressBook.gradTrakStateList)
                 && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
 

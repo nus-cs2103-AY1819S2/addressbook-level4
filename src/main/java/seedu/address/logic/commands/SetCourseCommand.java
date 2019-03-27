@@ -35,7 +35,7 @@ public class SetCourseCommand extends Command {
         requireNonNull(model);
 
         model.setCourse(course);
-        model.commitAddressBook();
+        model.commitGradTrak();
         return new CommandResult(String.format(MESSAGE_SUCCESS, course));
     }
 

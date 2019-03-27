@@ -83,9 +83,9 @@ public class FindCommandTest {
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);
-        expectedModel.updateFilteredPersonList(fp);
+        expectedModel.updateFilteredModulesTakenList(fp);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -97,9 +97,9 @@ public class FindCommandTest {
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);
-        expectedModel.updateFilteredPersonList(fp);
+        expectedModel.updateFilteredModulesTakenList(fp);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103T), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS2103T), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -110,9 +110,9 @@ public class FindCommandTest {
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);
-        expectedModel.updateFilteredPersonList(fp);
+        expectedModel.updateFilteredModulesTakenList(fp);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -123,9 +123,9 @@ public class FindCommandTest {
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);
-        expectedModel.updateFilteredPersonList(fp);
+        expectedModel.updateFilteredModulesTakenList(fp);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103T, CS1010X), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS2103T, CS1010X), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -137,9 +137,9 @@ public class FindCommandTest {
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);
-        expectedModel.updateFilteredPersonList(fp);
+        expectedModel.updateFilteredModulesTakenList(fp);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -151,9 +151,9 @@ public class FindCommandTest {
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);
-        expectedModel.updateFilteredPersonList(fp);
+        expectedModel.updateFilteredModulesTakenList(fp);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -165,8 +165,8 @@ public class FindCommandTest {
         FindModulePredicate fp = new FindModulePredicate(fd);
 
         FindCommand command = new FindCommand(fp);
-        expectedModel.updateFilteredPersonList(fp);
+        expectedModel.updateFilteredModulesTakenList(fp);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103T), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS2103T), model.getFilteredModulesTakenList());
     }
 }

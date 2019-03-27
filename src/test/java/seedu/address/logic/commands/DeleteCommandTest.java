@@ -32,21 +32,21 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        ModuleTaken moduleTakenToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ModuleTaken moduleTakenToDelete = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, moduleTakenToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModuleInfoList());
-        expectedModel.deletePerson(moduleTakenToDelete);
-        expectedModel.commitAddressBook();
+        ModelManager expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(), new ModuleInfoList());
+        expectedModel.deleteModuleTaken(moduleTakenToDelete);
+        expectedModel.commitGradTrak();
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModulesTakenList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -56,14 +56,14 @@ public class DeleteCommandTest {
     public void execute_validIndexFilteredList_success() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-        ModuleTaken moduleTakenToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ModuleTaken moduleTakenToDelete = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, moduleTakenToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModuleInfoList());
-        expectedModel.deletePerson(moduleTakenToDelete);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(), new ModuleInfoList());
+        expectedModel.deleteModuleTaken(moduleTakenToDelete);
+        expectedModel.commitGradTrak();
         showNoPerson(expectedModel);
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -75,7 +75,7 @@ public class DeleteCommandTest {
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getModulesTakenList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getGradTrak().getModulesTakenList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
@@ -84,27 +84,27 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        ModuleTaken moduleTakenToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ModuleTaken moduleTakenToDelete = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModuleInfoList());
-        expectedModel.deletePerson(moduleTakenToDelete);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(), new ModuleInfoList());
+        expectedModel.deleteModuleTaken(moduleTakenToDelete);
+        expectedModel.commitGradTrak();
 
         // delete -> first moduleTaken deleted
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered moduleTaken list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoGradTrak();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first moduleTaken deleted again
-        expectedModel.redoAddressBook();
+        expectedModel.redoGradTrak();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredModulesTakenList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
         // execution failed -> address book state not added into model
@@ -125,24 +125,25 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModuleInfoList());
+        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(), new ModuleInfoList());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
-        ModuleTaken moduleTakenToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        expectedModel.deletePerson(moduleTakenToDelete);
-        expectedModel.commitAddressBook();
+        ModuleTaken moduleTakenToDelete = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
+        expectedModel.deleteModuleTaken(moduleTakenToDelete);
+        expectedModel.commitGradTrak();
 
         // delete -> deletes second moduleTaken in unfiltered moduleTaken list / first moduleTaken in
         // filtered moduleTaken list
         deleteCommand.execute(model, commandHistory);
 
         // undo -> reverts addressbook back to previous state and filtered moduleTaken list to show all persons
-        expectedModel.undoAddressBook();
+        expectedModel.undoGradTrak();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        assertNotEquals(moduleTakenToDelete, model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        assertNotEquals(moduleTakenToDelete,
+                model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased()));
         // redo -> deletes same second moduleTaken in unfiltered moduleTaken list
-        expectedModel.redoAddressBook();
+        expectedModel.redoGradTrak();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -172,8 +173,8 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(p -> false);
+        model.updateFilteredModulesTakenList(p -> false);
 
-        assertTrue(model.getFilteredPersonList().isEmpty());
+        assertTrue(model.getFilteredModulesTakenList().isEmpty());
     }
 }

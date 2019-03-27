@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.util.SampleCourse;
 
 /**
  *  Represents course of the user that is enrolled in
@@ -41,7 +42,7 @@ public class Course {
     }
 
     public static Course getCourseByName(CourseName name) {
-        return new Course(name, new CourseDescription("TODO"), null);
+        return SampleCourse.COMPUTER_SCIENCE_ALGORITHMS;
     }
 
     /**

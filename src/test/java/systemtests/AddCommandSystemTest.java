@@ -69,7 +69,7 @@ public class AddCommandSystemTest extends GradTrakSystemTest {
 
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
-        model.addPerson(toAdd);
+        model.addModuleTaken(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
@@ -209,7 +209,7 @@ public class AddCommandSystemTest extends GradTrakSystemTest {
      */
     private void assertCommandSuccess(String command, ModuleTaken toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addPerson(toAdd);
+        expectedModel.addModuleTaken(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);

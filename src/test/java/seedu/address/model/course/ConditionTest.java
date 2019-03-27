@@ -8,10 +8,11 @@ public class ConditionTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
+        String[] nullArray = null;
         Assert.assertThrows(NullPointerException.class, () -> new Condition(1, null,
                 "ValidRegex"));
         Assert.assertThrows(NullPointerException.class, () -> new Condition(1, "Valid Name",
-                null));
+                nullArray));
         Assert.assertThrows(NullPointerException.class, () -> new Condition(1, "Valid Name",
                 "REGEX", null));
         Assert.assertThrows(NullPointerException.class, () -> new Condition(null,

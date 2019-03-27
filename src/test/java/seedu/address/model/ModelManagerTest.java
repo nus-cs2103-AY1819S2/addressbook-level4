@@ -36,8 +36,8 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new GradTrak(), new GradTrak(modelManager.getAddressBook()));
-        assertEquals(null, modelManager.getSelectedPerson());
+        assertEquals(new GradTrak(), new GradTrak(modelManager.getGradTrak()));
+        assertEquals(null, modelManager.getSelectedModuleTaken());
     }
 
     @Test
@@ -76,79 +76,79 @@ public class ModelManagerTest {
     @Test
     public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.setAddressBookFilePath(null);
+        modelManager.setGradTrakFilePath(null);
     }
 
     @Test
     public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setGradTrakFilePath(path);
+        assertEquals(path, modelManager.getGradTrakFilePath());
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        modelManager.hasModuleTaken(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(CS2103T));
+        assertFalse(modelManager.hasModuleTaken(CS2103T));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(CS2103T);
-        assertTrue(modelManager.hasPerson(CS2103T));
+        modelManager.addModuleTaken(CS2103T);
+        assertTrue(modelManager.hasModuleTaken(CS2103T));
     }
 
     @Test
     public void deletePerson_personIsSelectedAndFirstPersonInFilteredPersonList_selectionCleared() {
-        modelManager.addPerson(CS2103T);
-        modelManager.setSelectedPerson(CS2103T);
-        modelManager.deletePerson(CS2103T);
-        assertEquals(null, modelManager.getSelectedPerson());
+        modelManager.addModuleTaken(CS2103T);
+        modelManager.setSelectedModuleTaken(CS2103T);
+        modelManager.deleteModuleTaken(CS2103T);
+        assertEquals(null, modelManager.getSelectedModuleTaken());
     }
 
     @Test
     public void deletePerson_personIsSelectedAndSecondPersonInFilteredPersonList_firstPersonSelected() {
-        modelManager.addPerson(CS2103T);
-        modelManager.addPerson(DEFAULT_MODULE_CS1010);
-        assertEquals(Arrays.asList(CS2103T, DEFAULT_MODULE_CS1010), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(DEFAULT_MODULE_CS1010);
-        modelManager.deletePerson(DEFAULT_MODULE_CS1010);
-        assertEquals(CS2103T, modelManager.getSelectedPerson());
+        modelManager.addModuleTaken(CS2103T);
+        modelManager.addModuleTaken(DEFAULT_MODULE_CS1010);
+        assertEquals(Arrays.asList(CS2103T, DEFAULT_MODULE_CS1010), modelManager.getFilteredModulesTakenList());
+        modelManager.setSelectedModuleTaken(DEFAULT_MODULE_CS1010);
+        modelManager.deleteModuleTaken(DEFAULT_MODULE_CS1010);
+        assertEquals(CS2103T, modelManager.getSelectedModuleTaken());
     }
 
     @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
-        modelManager.addPerson(CS2103T);
-        modelManager.setSelectedPerson(CS2103T);
+        modelManager.addModuleTaken(CS2103T);
+        modelManager.setSelectedModuleTaken(CS2103T);
         ModuleTaken updatedAlice = new ModuleTakenBuilder(CS2103T)
                 .withExpectedMinGrade(VALID_EXPECTED_MIN_GRADE_CS1010).build();
-        modelManager.setPerson(CS2103T, updatedAlice);
-        assertEquals(updatedAlice, modelManager.getSelectedPerson());
+        modelManager.setModuleTaken(CS2103T, updatedAlice);
+        assertEquals(updatedAlice, modelManager.getSelectedModuleTaken());
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
+        modelManager.getFilteredModulesTakenList().remove(0);
     }
 
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
         thrown.expect(PersonNotFoundException.class);
-        modelManager.setSelectedPerson(CS2103T);
+        modelManager.setSelectedModuleTaken(CS2103T);
     }
 
     @Test
     public void setSelectedPerson_personInFilteredPersonList_setsSelectedPerson() {
-        modelManager.addPerson(CS2103T);
-        assertEquals(Collections.singletonList(CS2103T), modelManager.getFilteredPersonList());
-        modelManager.setSelectedPerson(CS2103T);
-        assertEquals(CS2103T, modelManager.getSelectedPerson());
+        modelManager.addModuleTaken(CS2103T);
+        assertEquals(Collections.singletonList(CS2103T), modelManager.getFilteredModulesTakenList());
+        modelManager.setSelectedModuleTaken(CS2103T);
+        assertEquals(CS2103T, modelManager.getSelectedModuleTaken());
     }
 
     @Test
@@ -177,11 +177,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = CS2103T.getModuleInfo().toString().split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredModulesTakenList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, moduleInfoList)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

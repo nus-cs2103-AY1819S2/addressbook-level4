@@ -117,6 +117,10 @@ public abstract class Statistics {
         case "missed":
             addMiss();
             break;
+        case "destroyed":
+            addHit();
+            enemyShipsDestroyed();
+            break;
         default : break;
         }
         return result;

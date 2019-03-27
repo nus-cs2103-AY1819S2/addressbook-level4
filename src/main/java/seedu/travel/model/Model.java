@@ -100,6 +100,11 @@ public interface Model {
     Map<Rating, Integer> generateChartRating();
 
     /**
+     * Generates the year chart.
+     */
+    Map<String, Integer> generateChartYear();
+
+    /**
      * Returns true if the model has previous TravelBuddy states to restore.
      */
     boolean canUndoTravelBuddy();

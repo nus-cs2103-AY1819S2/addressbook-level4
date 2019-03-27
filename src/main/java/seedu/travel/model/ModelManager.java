@@ -149,6 +149,11 @@ public class ModelManager implements Model {
         return versionedTravelBuddy.generateRatingChart();
     }
 
+    @Override
+    public Map<String, Integer> generateChartYear() {
+        return versionedTravelBuddy.generateYearChart();
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

@@ -5,10 +5,8 @@ import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_CUSTOMERS;
 
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
-import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.Model;
-import seedu.hms.model.customer.Customer;
 
 /**
  * Reverts the {@code model}'s hms book to its previous state.

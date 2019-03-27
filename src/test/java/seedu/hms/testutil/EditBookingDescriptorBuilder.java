@@ -1,11 +1,8 @@
 package seedu.hms.testutil;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
-
-import javax.swing.text.html.Option;
 
 import seedu.hms.logic.commands.EditBookingCommand;
 import seedu.hms.logic.commands.EditBookingCommand.EditBookingDescriptor;

@@ -29,8 +29,8 @@ import seedu.hms.model.booking.BookingContainsPayerPredicate;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
-import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 import seedu.hms.testutil.EditBookingDescriptorBuilder;
+import seedu.hms.testutil.EditCustomerDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

@@ -1,7 +1,6 @@
 package seedu.hms.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.hms.logic.commands.CommandTestUtil.DESC_ALICE_SPA;
 import static seedu.hms.logic.commands.CommandTestUtil.DESC_CARL_SPA;
@@ -158,11 +157,13 @@ public class EditBookingCommandTest {
 
         // undo -> reverts hotelManagementSystem back to previous state and filtered Booking list to show all Bookings
         expectedModel.undoHotelManagementSystem();
-        assertBookingCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertBookingCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModel);
 
         // redo -> same first Booking edited again
         expectedModel.redoHotelManagementSystem();
-        assertBookingCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertBookingCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
     @Test
@@ -207,11 +208,13 @@ public class EditBookingCommandTest {
 
         // undo -> reverts hotelManagementSystem back to previous state and filtered Booking list to show all Bookings
         expectedModel.undoHotelManagementSystem();
-        assertBookingCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertBookingCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS,
+                expectedModel);
 
         // redo -> edits same second Booking in unfiltered Booking list
         expectedModel.redoHotelManagementSystem();
-        assertBookingCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertBookingCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS,
+                expectedModel);
     }
 
     @Test

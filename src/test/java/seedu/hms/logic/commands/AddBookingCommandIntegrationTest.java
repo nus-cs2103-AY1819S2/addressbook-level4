@@ -1,7 +1,7 @@
 package seedu.hms.logic.commands;
 
+//import static seedu.hms.logic.commands.CommandTestUtil.assertBookingCommandFailure;
 import static seedu.hms.logic.commands.CommandTestUtil.assertBookingCommandSuccess;
-import static seedu.hms.logic.commands.CommandTestUtil.assertBookingCommandFailure;
 import static seedu.hms.testutil.TypicalCustomers.getTypicalHotelManagementSystem;
 
 import org.junit.Before;

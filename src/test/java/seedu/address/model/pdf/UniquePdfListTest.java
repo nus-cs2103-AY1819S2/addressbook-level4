@@ -68,25 +68,25 @@ public class UniquePdfListTest {
     @Test
     public void setPerson_nullTargetPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePdfList.setPerson(null, ALICE);
+        uniquePdfList.setPdf(null, ALICE);
     }
 
     @Test
     public void setPerson_nullEditedPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        uniquePdfList.setPerson(ALICE, null);
+        uniquePdfList.setPdf(ALICE, null);
     }
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
         thrown.expect(PdfNotFoundException.class);
-        uniquePdfList.setPerson(ALICE, ALICE);
+        uniquePdfList.setPdf(ALICE, ALICE);
     }
 
     @Test
     public void setPerson_editedPersonIsSamePerson_success() {
         uniquePdfList.add(ALICE);
-        uniquePdfList.setPerson(ALICE, ALICE);
+        uniquePdfList.setPdf(ALICE, ALICE);
         UniquePdfList expectedUniquePdfList = new UniquePdfList();
         expectedUniquePdfList.add(ALICE);
         assertEquals(expectedUniquePdfList, uniquePdfList);
@@ -97,7 +97,7 @@ public class UniquePdfListTest {
         uniquePdfList.add(ALICE);
         Pdf editedAlice = new PdfBuilder(ALICE).withDirectory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        uniquePdfList.setPerson(ALICE, editedAlice);
+        uniquePdfList.setPdf(ALICE, editedAlice);
         UniquePdfList expectedUniquePdfList = new UniquePdfList();
         expectedUniquePdfList.add(editedAlice);
         assertEquals(expectedUniquePdfList, uniquePdfList);
@@ -106,7 +106,7 @@ public class UniquePdfListTest {
     @Test
     public void setPerson_editedPersonHasDifferentIdentity_success() {
         uniquePdfList.add(ALICE);
-        uniquePdfList.setPerson(ALICE, BOB);
+        uniquePdfList.setPdf(ALICE, BOB);
         UniquePdfList expectedUniquePdfList = new UniquePdfList();
         expectedUniquePdfList.add(BOB);
         assertEquals(expectedUniquePdfList, uniquePdfList);
@@ -117,7 +117,7 @@ public class UniquePdfListTest {
         uniquePdfList.add(ALICE);
         uniquePdfList.add(BOB);
         thrown.expect(DuplicatePdfException.class);
-        uniquePdfList.setPerson(ALICE, BOB);
+        uniquePdfList.setPdf(ALICE, BOB);
     }
 
     @Test

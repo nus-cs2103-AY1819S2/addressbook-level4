@@ -20,7 +20,7 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_FILE + "FILEPATH "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_FILE + "Desktop\\main\\target";
+            + PREFIX_FILE + "Desktop\\main\\target.pdf";
 
     public static final String MESSAGE_SUCCESS = "New PDF added: %1$s";
     public static final String MESSAGE_DUPLICATE_PDF = "This pdf already exists in the PDF book";

@@ -57,7 +57,7 @@ public class MoveCommand extends Command {
         List<Pdf> lastShownList = model.getFilteredPdfList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
         }
 
         Pdf pdfToEdit = lastShownList.get(index.getZeroBased());

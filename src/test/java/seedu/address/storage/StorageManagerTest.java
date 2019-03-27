@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import java.nio.file.Path;
 
@@ -56,7 +56,7 @@ public class StorageManagerTest {
          * {@link JsonPdfBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonPdfBookStorageTest} class.
          */
-        PdfBook original = getTypicalAddressBook();
+        PdfBook original = getTypicalPdfBook();
         storageManager.savePdfBook(original);
         ReadOnlyPdfBook retrieved = storageManager.readPdfBook().get();
         assertEquals(original, new PdfBook(retrieved));

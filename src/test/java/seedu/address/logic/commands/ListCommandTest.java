@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
-import static seedu.address.testutil.TypicalPdfs.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getPdfBook(), new UserPrefs());
     }
 

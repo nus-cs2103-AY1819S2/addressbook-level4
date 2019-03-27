@@ -11,7 +11,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditPdfDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
@@ -28,9 +28,13 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
+                ArgumentTokenizer.tokenize(args, CliSyntax.getAllPrefixes());
 
         Index index;
+
+        if (CliSyntax.arePrefixesPresent(argMultimap, CliSyntax.getInvalidPrefixesForCommand(PREFIX_NAME))) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -38,24 +42,24 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditPdfDescriptor editPdfDescriptor = new EditCommand.EditPdfDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            editPersonDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-        } else if (!editPersonDescriptor.isAnyFieldEdited()) {
+            editPdfDescriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
+        } else if (!editPdfDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
         /*if (argMultimap.getValue(PREFIX_DIRECTORY).isPresent()) {
-            editPersonDescriptor.setDirectory(ParserUtil.parseDirectory(argMultimap.getValue(PREFIX_DIRECTORY).get()));
+            editPdfDescriptor.setDirectory(ParserUtil.parseDirectory(argMultimap.getValue(PREFIX_DIRECTORY).get()));
         }*/
 
-        /*parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG_NEW)).ifPresent(editPersonDescriptor::setTags);
+        /*parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG_NEW)).ifPresent(editPdfDescriptor::setTags);
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!editPdfDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }*/
 
-        return new EditCommand(index, editPersonDescriptor);
+        return new EditCommand(index, editPdfDescriptor);
     }
 
     /**

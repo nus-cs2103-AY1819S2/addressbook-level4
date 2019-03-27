@@ -112,6 +112,11 @@ public class ReservationManager implements ReservationModel {
         versionedHotelManagementSystem.setReservation(reservationIndex, editedReservation);
     }
 
+    @Override
+    public void setClearReservation(ReadOnlyHotelManagementSystem hotelManagementSystem) {
+        versionedHotelManagementSystem.resetDataReservation(hotelManagementSystem);
+    }
+
     //=========== Filtered Reservation List Accessors =============================================================
 
     /**

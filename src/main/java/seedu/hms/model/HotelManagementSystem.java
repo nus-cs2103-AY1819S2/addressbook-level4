@@ -100,6 +100,15 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
 
         setBookings(newData.getBookingList());
     }
+
+    /**
+     * Resets the existing booking data of this {@code HotelManagementSystem} with {@code newData}
+     */
+    public void resetDataReservation(ReadOnlyHotelManagementSystem newData) {
+        requireNonNull(newData);
+
+        setReservations(newData.getReservationList());
+    }
     //// customer-level operations
 
     /**

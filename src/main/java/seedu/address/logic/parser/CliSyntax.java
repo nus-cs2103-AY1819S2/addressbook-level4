@@ -16,6 +16,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_CONDITION = new Prefix("c/");
     public static final Prefix PREFIX_HEALTHWORKER = new Prefix("hw/");
     public static final Prefix PREFIX_REQUEST = new Prefix("r/");
+    public static final Prefix PREFIX_STATUS = new Prefix("st/");
 
     // Additional prefixes for HealthWorker
     public static final Prefix PREFIX_ORGANIZATION = new Prefix("o/");

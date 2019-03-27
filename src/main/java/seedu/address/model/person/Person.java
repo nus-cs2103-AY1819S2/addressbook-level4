@@ -160,4 +160,12 @@ public class Person {
     public String namesToString() {
         return getName().toString();
     }
+
+    public String gpaToString() {
+        return getGpa().toString();
+    }
+
+    public String educationToString() {
+        return getEducation().toString();
+    }
 }

@@ -3,7 +3,13 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_ALPHABETICAL;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_ALPHABETICAL;
 import static seedu.address.logic.parser.CliSyntax.SORTWORD_SKILLS;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_SKILLS;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_GPA;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_GPA;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_EDUCATION;
+import static seedu.address.logic.parser.CliSyntax.SORTWORD_REVERSE_EDUCATION;
 
 import java.util.Arrays;
 
@@ -25,7 +31,10 @@ public class SortCommandParser implements Parser<SortCommand> {
      */
     public SortCommand parse(String args) throws ParseException {
         String word = args;
-        String[] possibleSortWords = {SORTWORD_SKILLS.toString(), SORTWORD_ALPHABETICAL.toString()};
+        String[] possibleSortWords = {SORTWORD_SKILLS.toString(), SORTWORD_REVERSE_SKILLS.toString(),
+                SORTWORD_ALPHABETICAL.toString(), SORTWORD_REVERSE_ALPHABETICAL.toString(), SORTWORD_GPA.toString(),
+                SORTWORD_REVERSE_GPA.toString(), SORTWORD_EDUCATION.toString(),
+                SORTWORD_REVERSE_EDUCATION.toString()};
         if (!areSortWordsPresent(word, possibleSortWords)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
         }

@@ -2,6 +2,7 @@ package seedu.address.commons.util.warning;
 
 import java.util.function.Predicate;
 
+import seedu.address.model.Model;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.BatchExpiryThresholdPredicate;
 import seedu.address.model.medicine.Medicine;
@@ -12,18 +13,13 @@ import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
  * Accessor to all predicates used in the warning panel for filtration.
  */
 public class WarningPanelPredicateAccessor {
-    private static final int DEFAULT_EXPIRY_THRESHOLD = 10;
-    private static final int DEFAULT_LOW_STOCK_THRESHOLD = 20;
-
     private BatchExpiryThresholdPredicate batchExpiringPredicate;
     private MedicineExpiryThresholdPredicate medicineExpiringPredicate;
     private MedicineLowStockThresholdPredicate medicineLowStockPredicate;
 
 
     public WarningPanelPredicateAccessor() {
-        this.batchExpiringPredicate = new BatchExpiryThresholdPredicate(DEFAULT_EXPIRY_THRESHOLD);
-        this.medicineExpiringPredicate = new MedicineExpiryThresholdPredicate(DEFAULT_EXPIRY_THRESHOLD);
-        this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(DEFAULT_LOW_STOCK_THRESHOLD);
+        setDefaultPredicates();
     }
 
 
@@ -57,6 +53,12 @@ public class WarningPanelPredicateAccessor {
 
     public void setMedicinelowStockThreshold(int threshold) {
         this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(threshold);
+    }
+
+    private void setDefaultPredicates() {
+        this.batchExpiringPredicate = new BatchExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
+        this.medicineExpiringPredicate = new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
+        this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(Model.DEFAULT_LOW_STOCK_THRESHOLD);
     }
 }
 

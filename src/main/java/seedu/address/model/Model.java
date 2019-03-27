@@ -13,6 +13,9 @@ import seedu.address.model.medicine.Medicine;
  * The API of the Model component.
  */
 public interface Model {
+    int DEFAULT_EXPIRY_THRESHOLD = 10;
+    int DEFAULT_LOW_STOCK_THRESHOLD = 20;
+
     /** {@code Predicate} that always evaluate to true */
     Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
 

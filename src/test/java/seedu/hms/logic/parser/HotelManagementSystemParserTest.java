@@ -33,6 +33,7 @@ import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BookingManager;
 import seedu.hms.model.CustomerManager;
+import seedu.hms.model.ReservationManager;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
 import seedu.hms.testutil.CustomerBuilder;

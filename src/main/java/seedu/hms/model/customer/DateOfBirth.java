@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
  * Guarantees: immutable; is valid as declared in {@link #isValidDob(String)}
  */
 public class DateOfBirth {
-    public static final String MESSAGE_CONSTRAINTS = "Date of Birth should be of the format dd/mm/yyyy ";
+    public static final String MESSAGE_CONSTRAINTS = "Date of Birth should be of the format - dd/mm/yyyy and should " +
+        "not exceed the previous year. ";
     public static final String VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/([0-9]{4})";
     public static final String VALIDATION_REGEX_2 = "(^$)";
     public final String value;

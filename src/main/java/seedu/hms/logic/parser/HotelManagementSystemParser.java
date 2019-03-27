@@ -11,6 +11,7 @@ import seedu.hms.logic.commands.AddCustomerCommand;
 import seedu.hms.logic.commands.AddReservationCommand;
 import seedu.hms.logic.commands.ClearBookingCommand;
 import seedu.hms.logic.commands.ClearHotelManagementSystemCommand;
+import seedu.hms.logic.commands.ClearReservationCommand;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.DeleteBookingCommand;
 import seedu.hms.logic.commands.DeleteCustomerCommand;
@@ -33,6 +34,7 @@ import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
+import seedu.hms.model.ReservationModel;
 
 /**
  * Parses user input.
@@ -98,7 +100,6 @@ public class HotelManagementSystemParser {
         case DeleteBookingCommand.COMMAND_ALIAS:
             return new DeleteBookingCommandParser().parse(arguments);
 
-
         case ClearHotelManagementSystemCommand.COMMAND_WORD:
         case ClearHotelManagementSystemCommand.COMMAND_ALIAS:
             return new ClearHotelManagementSystemCommand();
@@ -111,6 +112,10 @@ public class HotelManagementSystemParser {
         case ClearBookingCommand.COMMAND_ALIAS:
             return new ClearBookingCommand();
 
+        case ClearReservationCommand.COMMAND_WORD:
+        case ClearReservationCommand.COMMAND_ALIAS:
+            return new ClearReservationCommand();
+
         case FindNameCommand.COMMAND_WORD:
         case FindNameCommand.COMMAND_ALIAS:
             return new FindNameCommandParser().parse(arguments);
@@ -122,7 +127,6 @@ public class HotelManagementSystemParser {
         case GenerateBillCommand.COMMAND_WORD:
         case GenerateBillCommand.COMMAND_ALIAS:
             return new GenerateBillCommandParser().parse(arguments);
-
 
         case ListCustomerCommand.COMMAND_WORD:
         case ListCustomerCommand.COMMAND_ALIAS:

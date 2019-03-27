@@ -18,7 +18,6 @@ public class ContrastCommandParser implements Parser<ContrastCommand> {
      * @throws ParseException
      */
     public ContrastCommand parse(String args) throws ParseException {
-        String fileName;
         OptionalDouble contrastValue;
 
         if (args.isEmpty()) {

@@ -240,7 +240,7 @@ This section describes some noteworthy details on how certain features are imple
 ==== Current Implementation
 
 The add feature is facilitated by both the `AddCommandParser` and `AddCommand`.
-This function adds the PDF file to PDF++ using the path specified by your users.
+This function adds the PDF file to the app using the path specified by your users.
 Your users can then perform multiple operations supported by PDF++ on the added files.
 Some examples of features supported include <<Edit feature>> and <<Open feature>>
 
@@ -249,7 +249,7 @@ Currently PDF++ only supports PDF files, any other types of files will not be ac
 The Add feature has the following syntax:
 `add f/<PATH_TO_FILE> t/<TAG>...`
 
-* `f/` refers to command immediately following after this prefix is a file
+* `f/` refers to the command immediately following after this prefix is a file
 * `<PATH_TO_FILE>` refers to the path to the `Pdf` you wish to add
 * `<TAG>...` refers to the new `Tag` you wish to add. Leave this portion empty if you
 do not wish to tag this file.
@@ -467,6 +467,137 @@ with the user-default Pdf reader.
 
 [NOTE]
 For more information about the behavior of launching the Pdf, please refer to Java SE 9 class Desktop.
+
+// tag::clear[]
+=== Clear feature
+==== Current Implementation
+The clear feature is facilitated by the `ClearCommand`. This function clears all the PDF files that
+were previously stored in PDF++.
+
+The `Clear` feature has to following syntax: `clear`
+
+* The `clear` command will be executed regardless if there is any invalid text that comes after the command
+
+[NOTE]
+If you have accidentally entered the `clear` command and wish to revert the action, please refer to
+<<Undo/Redo feature>> for more information.
+
+// tag::deadline[]
+=== Deadline feature
+==== Current Implementation
+The deadline feature is facilitated by both `DeadlineCommand` and `DeadlineCommandParser`. This feature
+allows you to set or remove deadlines of the PDF file specified by you from PDF++.
+
+The `Deadline` feature has the following syntax: `deadline <INDEX> <ACTION>`.
+
+* `INDEX` refers to the index of the file in the list that you wish to perform the `action` on.
+
+* `ACTION` refers to the type of action that you wish to perform. There are 3 actions that you can perform
+** `date/<DATE>`
+*** `date/` refers to command immediately following after this prefix is a date
+*** `<DATE>` must be of `dd-mm-yyyy` format
+*** Example of a valid date format: 15-03-2019
+
+** `done` assigns the PDF file a `DONE` status
+
+** `remove` assigns the PDF file a `REMOVE` status
+
+[NOTE]
+After a deadline has been added to the PDF file you specified, the date will be color coded according to
+certain criteria
+
+// tag::delete[]
+=== Delete feature
+==== Current Implementation
+The delete feature is facilitated by both `DeleteCommand` and `DeleteCommandParser`. This feature
+either soft or hard deletes the PDF file specified by you from PDF++.
+
+
+// tag::exit[]
+=== Exit feature
+==== Current Implementation
+The exit feature is facilitated by `ExitCommand`. This feature allows you to exit from PDF++.
+
+The `Exit` feature has to following syntax: `exit`
+
+* The `exit` command will be executed regardless if there is any invalid text that comes after the command
+
+[NOTE]
+As your files and commands are immediately stored after execute, you do not need to worry for any unsaved
+files
+
+// tag::help[]
+=== Help feature
+==== Current Implementation
+The help feature is facilitated by `HelpCommand`. This feature allows you to exit from PDF++.
+
+The `Help` feature has to following syntax: `help`
+
+* Enter here
+
+[NOTE]
+Enter note here
+
+
+// tag::History[]
+=== History feature
+==== Current Implementation
+The history feature is facilitated by `HistoryCommand`. This feature allows you to exit from PDF++.
+
+The `History` feature has to following syntax: `history`
+
+* Enter here
+
+[NOTE]
+Enter note here
+
+// tag::list[]
+=== List feature
+==== Current Implementation
+The list feature is facilitated by `ListCommand`. This feature allows you to exit from PDF++.
+
+The `List` feature has to following syntax: `list`
+
+* Enter here
+
+[NOTE]
+Enter note here
+
+// tag::select[]
+=== Select feature
+==== Current Implementation
+The select feature is facilitated by `SelectCommand`. `Enter functionality here`
+
+The `Select` feature has to following syntax: `select`
+
+* Enter here
+
+[NOTE]
+Enter note here
+
+// tag::sort[]
+=== Sort feature
+==== Current Implementation
+The sort feature is facilitated by `SortCommand`. `Enter functionality here`
+
+The `Sort` feature has to following syntax: `sort`
+
+* Enter here
+
+[NOTE]
+Enter note here
+
+// tag::tag[]
+=== Tag feature
+==== Current Implementation
+The tag feature is facilitated by `TagCommand`. `Enter functionality here`
+
+The `Tag` feature has to following syntax: `tag t/`
+
+* Enter here
+
+[NOTE]
+Enter note here
 
 // tag::undoredo[]
 === Undo/Redo feature

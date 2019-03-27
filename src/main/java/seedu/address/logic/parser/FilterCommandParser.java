@@ -42,7 +42,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         //Remove prefix to prepare for filter command
         tagKeywords.replaceAll(
-                x -> x.replaceFirst(PREFIX_TAG_NEW.toString(), ""));
+            x -> x.replaceFirst(PREFIX_TAG_NEW.toString(), ""));
 
         return new FilterCommand(new TagContainsKeywordsPredicate(tagKeywords));
     }

@@ -7,7 +7,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
@@ -19,6 +21,7 @@ import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
+import seedu.address.logic.commands.Command;
 
 /**
  * Represents an Image in FomoFoto
@@ -33,6 +36,9 @@ public class Image {
     private BufferedImage buffer;
     private String url;
     private String fileType;
+    private List<Command> commandHistory;
+    private int index;
+    private boolean undone;
 
     /**
      * Every field must be present and not null.
@@ -60,6 +66,9 @@ public class Image {
             this.name = new Name(file.getName());
             this.width = new Width(String.valueOf(buffer.getWidth()));
             this.height = new Height(String.valueOf(buffer.getHeight()));
+            commandHistory = new ArrayList<>();
+            index = 0;
+            undone = false;
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -95,6 +104,39 @@ public class Image {
     public String getFileType() {
         return fileType;
     }
+
+    public List<Command> getCommandHistory() { return commandHistory; }
+
+    /**
+     * Adds a new transformation command into commandHistory
+     * if Undo command was last called command, remove all edits after previous undo.
+     * @param command command to be added
+     */
+    public void addHistory(Command command) {
+        if (undone) {
+            for (int i = index + 1; i < commandHistory.size(); i++) {
+                commandHistory.remove(i);
+            }
+            undone = false;
+        }
+        commandHistory.add(command);
+        index++;
+    }
+
+    public int getIndex() { return index; }
+
+    public void setIndex(int index) { this.index = index; }
+
+    public void setHistory(List history) { this.commandHistory = history; }
+
+    public void setUndo() { index--; }
+
+    public void setRedo() { index++; }
+
+    public boolean canUndo() { return index > 0; }
+
+    public boolean canRedo() { return index < commandHistory.size() + 1; }
+
 
     /**
      * Returns true if both images have the same name.

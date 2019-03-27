@@ -42,8 +42,8 @@ public class AddCommandParserTest {
         assertParseFailure(parser, FILE_DESC_2_PDF + DEADLINE_VALID_DESC, expectedMessage);
         assertParseFailure(parser, FILE_DESC_1_PDF + NAME_DESC_1, expectedMessage);
         assertParseFailure(parser, FILE_DESC_2_PDF + DIRECTORY_DESC_1, expectedMessage);
-        assertParseFailure(parser, FILE_DESC_2_PDF + TAG_DESC_CS2103T + DEADLINE_VALID_DESC + NAME_DESC_1 +
-                DIRECTORY_DESC_1, expectedMessage);
+        assertParseFailure(parser, FILE_DESC_2_PDF + TAG_DESC_CS2103T + DEADLINE_VALID_DESC + NAME_DESC_1
+                + DIRECTORY_DESC_1, expectedMessage);
     }
 
     @Test

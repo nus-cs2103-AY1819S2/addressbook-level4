@@ -1,12 +1,13 @@
 package seedu.address.logic.commands;
 
 import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
+
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPdfAtIndex;
@@ -228,7 +229,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Saves {@param pdfToDelete} as a backup
+     * Saves {@code pdfToDelete} as a backup
      */
     private void saveBackup(Pdf pdfToDelete) {
         try {
@@ -240,7 +241,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Moves {@param pdfToRevert} back to its original location
+     * Moves {@code pdfToRevert} back to its original location
      */
     private void revertBackup(Pdf pdfToRevert) {
         Paths.get(pdfToRevert.getDirectory().getDirectory() + "\\Backup\\" + pdfToRevert.getName()).toFile()

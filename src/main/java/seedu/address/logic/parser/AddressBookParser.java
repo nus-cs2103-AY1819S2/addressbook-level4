@@ -24,6 +24,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.request.SelectRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+
 /**
  * Parses user input.
  */
@@ -50,20 +51,15 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-            case AddCommand.COMMAND_WORD:
-                return new AddCommandParser().parse(arguments);
 
             case SelectRequestCommand.COMMAND_WORD:
                 return new SelectRequestCommandParser().parse(arguments);
 
-            case DeleteRequestCommand.COMMAND_WORD:
-                return new DeleteRequestParser().parse(arguments);
-
-            case ListRequestCommand.COMMAND_WORD:
-                return new ListRequestCommand();
-    
             case DeleteCommand.COMMAND_WORD:
                 return new DeleteCommandParser().parse(arguments);
+
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
 
             case EditCommand.COMMAND_WORD:
                 return new EditCommandParser().parse(arguments);
@@ -74,14 +70,11 @@ public class AddressBookParser {
             case ClearCommand.COMMAND_WORD:
                 return new ClearCommand();
 
-            case FilterHealthWorkerCommand.COMMAND_WORD:
+            case FilterCommand.COMMAND_WORD:
                 return new FilterCommandParser().parse(arguments);
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommandParser().parse(arguments);
-        
-            case FilterCommand.COMMAND_WORD:
-              return new FilterCommandParser().parse(arguments);
 
             case HistoryCommand.COMMAND_WORD:
                 return new HistoryCommand();

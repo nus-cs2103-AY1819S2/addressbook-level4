@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.ServiceType;
 
 /**
  * The API of the Model component.
@@ -32,6 +33,11 @@ public interface BookingModel extends Model {
      * Returns an unmodifiable view of the filtered booking list
      */
     ObservableList<Booking> getFilteredBookingList();
+
+    /**
+     * Returns an unmodifiable view of the serviceType list
+     */
+    ObservableList<ServiceType> getServiceTypeList();
 
     /**
      * Updates the filter of the filtered booking list to filter by the given {@code predicate}.
@@ -65,6 +71,23 @@ public interface BookingModel extends Model {
      * book.
      */
     void setBooking(int target, Booking editedBooking);
+
+    /**
+     * Selected serviceType in the serviceType list.
+     * null if no service type is selected.
+     */
+    ReadOnlyProperty<ServiceType> selectedServiceTypeProperty();
+
+    /**
+     * Returns the selected serviceType in the serviceType list.
+     * null if no serviceType is selected.
+     */
+    ServiceType getSelectedServiceType();
+
+    /**
+     * Sets the selected serviceType in the serviceType list.
+     */
+    void setSelectedServiceType(ServiceType serviceType);
 
     /**
      * Clears all the bookings present in the {@code hotelManagementSystem}.

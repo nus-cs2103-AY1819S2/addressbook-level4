@@ -4,17 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
-import seedu.hms.model.booking.Booking;
 import seedu.hms.model.customer.Customer;
-
-//import javafx.scene.layout.HBox;
+import seedu.hms.model.reservation.Reservation;
 
 /**
  * An UI component that displays information of a {@code Booking}.
  */
-public class BookingCard extends UiPart<Region> {
+public class ReservationCard extends UiPart<Region> {
 
-    private static final String FXML = "BookingListCard.fxml";
+    private static final String FXML = "ReservationListCard.fxml";
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -24,14 +22,14 @@ public class BookingCard extends UiPart<Region> {
      * HotelManagementSystem level 4</a>
      */
 
-    public final Booking booking;
+    public final Reservation reservation;
     public final Customer payer;
     //@FXML
     //private HBox cardPane;
     @FXML
-    private Label serviceType;
+    private Label roomType;
     @FXML
-    private Label time;
+    private Label date;
     @FXML
     private Label id;
     @FXML
@@ -45,18 +43,18 @@ public class BookingCard extends UiPart<Region> {
     @FXML
     private FlowPane allUsers;
 
-    public BookingCard(Booking booking, int displayedIndex) {
+    public ReservationCard(Reservation reservation, int displayedIndex) {
         super(FXML);
-        this.booking = booking;
-        this.payer = booking.getPayer();
-        serviceType.setText(booking.getService().getName());
-        time.setText(booking.getTiming().toString());
+        this.reservation = reservation;
+        this.payer = reservation.getPayer();
+        roomType.setText(reservation.getRoom().getName());
+        date.setText(reservation.getDates().toString());
         id.setText(displayedIndex + ". ");
         payerName.setText("Payer Name: " + payer.getName().fullName);
         phone.setText("Payer Phone: " + payer.getPhone().value);
         identificationNo.setText("Payer ID: " + payer.getIdNum().value);
-        comments.setText(booking.getComment().isPresent() ? booking.getComment().get() : "No comment");
-        booking.getAllusers().forEach(user -> allUsers.getChildren().add(new Label(user.getName().fullName + "|")));
+        comments.setText(reservation.getComment().isPresent() ? reservation.getComment().get() : "No comment");
+        reservation.getAllusers().forEach(user -> allUsers.getChildren().add(new Label(user.getName().fullName + "|")));
     }
 
     @Override
@@ -67,13 +65,13 @@ public class BookingCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof BookingCard)) {
+        if (!(other instanceof ReservationCard)) {
             return false;
         }
 
         // state check
-        BookingCard card = (BookingCard) other;
+        ReservationCard card = (ReservationCard) other;
         return id.getText().equals(card.id.getText())
-            && booking.equals(card.booking);
+                && reservation.equals(card.reservation);
     }
 }

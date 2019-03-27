@@ -9,10 +9,14 @@ import javafx.collections.ObservableList;
 import seedu.hms.commons.util.InvalidationListenerManager;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingList;
+import seedu.hms.model.booking.ServiceType;
+import seedu.hms.model.booking.ServiceTypeList;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.UniqueCustomerList;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.ReservationList;
+import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.reservation.RoomTypeList;
 
 /**
  * Wraps all data at the hms-book level
@@ -24,6 +28,8 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     private final UniqueCustomerList customers;
     private final ReservationList reservations;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private final ServiceTypeList serviceTypes;
+    private final RoomTypeList roomTypes;
 
     /**
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -35,6 +41,8 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     {
         bookings = new BookingList();
         customers = new UniqueCustomerList();
+        serviceTypes = new ServiceTypeList();
+        roomTypes = new RoomTypeList();
         reservations = new ReservationList();
     }
 
@@ -241,6 +249,16 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     @Override
     public ObservableList<Booking> getBookingList() {
         return bookings.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<ServiceType> getServiceTypeList() {
+        return serviceTypes.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<RoomType> getRoomTypeList() {
+        return roomTypes.asUnmodifiableObservableList();
     }
 
     /**

@@ -20,8 +20,10 @@ import seedu.hms.model.CustomerModel;
 import seedu.hms.model.ReadOnlyHotelManagementSystem;
 import seedu.hms.model.ReservationModel;
 import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.reservation.Reservation;
+import seedu.hms.model.reservation.RoomType;
 import seedu.hms.storage.Storage;
 
 /**
@@ -101,6 +103,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<ServiceType> getServiceTypeList() {
+        return bookingModel.getServiceTypeList();
+    }
+
+    @Override
+    public ObservableList<RoomType> getRoomTypeList() {
+        return reservationModel.getRoomTypeList();
+    }
+
+    @Override
     public ObservableList<Reservation> getFilteredReservationList() {
         return reservationModel.getFilteredReservationList();
     }
@@ -136,6 +148,21 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<ServiceType> selectedServiceTypeProperty() {
+        return bookingModel.selectedServiceTypeProperty();
+    }
+
+    @Override
+    public ReadOnlyProperty<Reservation> selectedReservationProperty() {
+        return reservationModel.selectedReservationProperty();
+    }
+
+    @Override
+    public ReadOnlyProperty<RoomType> selectedRoomTypeProperty() {
+        return reservationModel.selectedRoomTypeProperty();
+    }
+
+    @Override
     public void setSelectedCustomer(Customer customer) {
         customerModel.setSelectedCustomer(customer);
     }
@@ -146,7 +173,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public void setSelectedServiceType(ServiceType serviceType) {
+        bookingModel.setSelectedServiceType(serviceType);
+    }
+
+    @Override
     public void setSelectedReservation(Reservation reservation) {
         reservationModel.setSelectedReservation(reservation);
+    }
+
+    @Override
+    public void setSelectedRoomType(RoomType roomType) {
+        reservationModel.setSelectedRoomType(roomType);
     }
 }

@@ -19,7 +19,7 @@ public class ReportDisplay extends UiPart<Region> {
 
     private static final String FXML = "ReportDisplay.fxml";
 
-    public static final String MESSAGE_SCORE_CHANGE_PREFIX = "Your latest score has changed by ";
+    private static final String MESSAGE_SCORE_CHANGE_PREFIX = "Your latest score has changed by ";
 
     // Pixel values used for manipulating string offset (see below)
     private static final int PIXELS_PER_CHARACTER = 6;

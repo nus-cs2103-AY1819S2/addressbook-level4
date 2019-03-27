@@ -30,7 +30,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             try {
                 index = ParserUtil.parseIndex(ArgumentTokenizer.trimMode(args));
                 return new DeleteHealthWorkerCommand(index);
-            } catch (ParseException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         DeleteHealthWorkerCommand.MESSAGE_USAGE));
             }
@@ -39,7 +39,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
             try {
                 index = ParserUtil.parseIndex(ArgumentTokenizer.trimMode(args));
                 return new DeleteRequestCommand(index);
-            } catch (ParseException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         DeleteRequestCommand.MESSAGE_USAGE));
             }

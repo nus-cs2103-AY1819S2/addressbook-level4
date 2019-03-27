@@ -19,7 +19,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
-import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PDF;
 
 import org.junit.Test;
 import seedu.address.model.pdf.Name;

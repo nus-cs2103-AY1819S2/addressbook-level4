@@ -15,6 +15,7 @@ import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.storage.csvmanager.CsvFile;
+import seedu.address.storage.csvmanager.CsvManager;
 
 /**
  * The API of the Model component.
@@ -242,6 +243,8 @@ public interface Model extends Observable {
     void exportCardFolders(List<Integer> cardFolderExports) throws IOException;
 
     void importCardFolders(CsvFile csvFile) throws IOException;
+
+    void setTestCsvPath(CsvManager csvManager);
 
 
 }

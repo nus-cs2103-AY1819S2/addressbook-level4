@@ -1,4 +1,3 @@
-= HMS+ - User Guide
 = HMS+  User Guide
 :site-section: UserGuide
 :toc: left
@@ -28,23 +27,10 @@ This user guide provides in-depth documentation on the HMS+ installation process
 == Getting Started
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-<<<<<<< HEAD
-<<<<<<< HEAD
 .  Download the latest `hms+.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Hotel Management System.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-=======
-.  Download the latest `hms.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Hotel Management System Plus.
 .  Double-click the file to start the app. The application should appear in a few seconds.
->>>>>>> 47e000e06b4c5a6db4bc5fba1020d64c5da4b9a5
-=======
 
-.  Download the latest `hms+.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Hotel Management System.
-.  Double-click the file to start the app. The application should appear in a few seconds.
-
->>>>>>> 84e151b39c80aaef85f13cfab8251ac1ebf8a5ef
 +
 image::Ui.png[width="790"]
 +
@@ -75,18 +61,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 === Viewing help : `help`
 
 Effect: Displays a help list, which lists all the commands that can be used. +
-Format: `help`
+Format: `[aqua]#help#`
 
 === Clearing all entries : `clear-hms`, `clear-all`
 
 Effect: Clears all entries from the database. +
-Format: `{clear-hms/clear-all}`
+Format: `{[aqua]#clear-hms#/[aqua]#clear-all#}`
 
 === Customer commands
 ==== Adding a customer : `add-customer`, `ac`
 
 Effect: Adds a customer to the customer database. +
-Format: `{add-customer/ac} #n#/[lime]#NAME# #p#/[lime]#PHONE_NUMBER# #e#/[lime]#EMAIL# #id#/[lime]#IDENTIFICATION_NO# #[dob#/[lime]#DATE_OF_BIRTH]# #[a#/[lime]#ADDRESS]# #[t#/[lime]#TAG]#…`
+Format: `{[aqua]#add-customer#/[aqua]#ac#} [blue]#n/# [lime]#NAME# [lime]#p#/#PHONE_NUMBER# [lime]#e#/#EMAIL# [lime]#id#/#IDENTIFICATION_NO# [lime]#[dob#/#DATE_OF_BIRTH]# [lime]#[a#/#ADDRESS]# [lime]#[t#/#TAG]#.`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -99,12 +85,12 @@ Examples:
 ==== Listing all customers : `list-customers`, `lc`
 
 Effect: Displays a customer list, which lists all customers in the customer database. +
-Format: `{list-customers/lc}`
+Format: `{[aqua]#list-customers#/[aqua]#lc#}`
 
 ==== Editing a customer : `edit-customer`, `ec`
 
 Effect: Edits the fields of an existing customer in the customer database. +
-Format: `{edit-customer/ec} [lime]#INDEX# #[n#/[lime]#NAME]# #[p#/[lime]#PHONE]# #[e#/[lime]#EMAIL]# #[id#/[lime]#IDENTIFICATION_NO]# #[dob#/[lime]#DATE_OF_BIRTH]# #[a#/[lime]#ADDRESS]# #[t#/[lime]#TAG]#…`
+Format: `{[aqua]#edit-customer/ec#} [lime]#INDEX# [black]#[# [blue]#n/# [lime]#NAME# [black]#]# [black]#[# [blue]#p/# [lime]#PHONE# [black]#]# [black]#[# [blue]#e/# [lime]#EMAIL# [black]#]# [black]#[# [blue]#id/# [lime]#IDENTIFICATION_NO# [black]#]# [black]#[# [blue]#dob/# [lime]#DATE_OF_BIRTH# [black]#]# [black]#[# [blue]#a/# [lime]#ADDRESS# [black]#]# [black]#[# [blue]#t/# [lime]#TAG#…[black]#]#`
 
 [NOTE]
 ====

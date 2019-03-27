@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Book in the address book.
+ * Represents a Book in the bookShelf.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Book {

@@ -63,7 +63,8 @@ public class TypicalBooks {
             .withRating(VALID_RATING_CS).withTags(VALID_TAG_TEXTBOOK, VALID_TAG_FANTASY)
             .build();
 
-    public static final String KEYWORD_MATCHING_LIFE = "life"; // A keyword that matches LIFE
+    public static final String KEYWORD_MATCHING_LIFE = "life"; // A keyword that matches life
+    public static final String KEYWORD_MATCHING_PRIDE = "Pride"; // A keyword that matches Pride
     public static final String KEYWORD_MATCHING_ZUSAK = "Zusak"; // A keyword that matches Zusak
     public static final String KEYWORD_MATCHING_COLLINS = "Collins"; //A keyword that matches Collins
     public static final String KEYWORD_MATCHING_SIX = "6"; // A keyword that matches 6

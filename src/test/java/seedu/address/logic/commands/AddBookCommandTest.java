@@ -293,6 +293,11 @@ public class AddBookCommandTest {
         public void deleteTag(Tag tag) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void sortBook(String type, String order) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

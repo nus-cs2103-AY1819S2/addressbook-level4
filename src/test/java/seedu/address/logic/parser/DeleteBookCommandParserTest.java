@@ -1,17 +1,13 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_CS;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalBooks.CS;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.DeleteBookCommand;
-import seedu.address.model.book.Book;
-import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
-import seedu.address.testutil.BookBuilder;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -26,9 +22,7 @@ public class DeleteBookCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteBookCommand() {
-        Book book = new BookBuilder(CS).build();
-        assertParseSuccess(parser, NAME_DESC_CS,
-                new DeleteBookCommand(new BookNameContainsExactKeywordsPredicate(book.getBookName())));
+        assertParseSuccess(parser, "1", new DeleteBookCommand(INDEX_FIRST_BOOK));
     }
 
     @Test

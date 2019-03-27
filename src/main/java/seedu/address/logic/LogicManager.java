@@ -57,7 +57,7 @@ public class LogicManager implements Logic {
         }
 
         if (bookShelfModified) {
-            logger.info("Address book modified, saving to file.");
+            logger.info("Bookshelf modified, saving to file.");
             try {
                 storage.saveBookShelf(model.getBookShelf());
             } catch (IOException ioe) {

@@ -3,6 +3,7 @@ package seedu.address.model.book;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,7 +26,7 @@ import seedu.address.model.book.exceptions.DuplicateBookException;
  */
 public class UniqueBookList implements Iterable<Book> {
 
-    private final ObservableList<Book> internalList = FXCollections.observableArrayList();
+    private ObservableList<Book> internalList = FXCollections.observableArrayList();
     private final ObservableList<Book> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
@@ -96,6 +97,48 @@ public class UniqueBookList implements Iterable<Book> {
         }
 
         internalList.setAll(books);
+    }
+
+    /**
+     * Sort the books with {@code type} in {@code order}.
+     * @param type sorting type
+     * @param order order of sorting
+     */
+    public void sortBooks(String type, String order) throws Exception {
+        requireAllNonNull(type, order);
+        type = type.toUpperCase();
+        order = order.toUpperCase();
+
+        switch (type) {
+        case "AUTHOR":
+            if (order.equals("ASC")) {
+                internalList.sort(Comparator.comparing(a -> a.getAuthor().toString().toLowerCase()));
+            } else if (order.equals("DES")) {
+                internalList.sort((a, b)
+                    -> b.getAuthor().toString().toLowerCase().compareTo(a.getAuthor().toString().toLowerCase()));
+            }
+            break;
+
+        case "NAME":
+            if (order.equals("ASC")) {
+                internalList.sort(Comparator.comparing(a -> a.getBookName().toString().toLowerCase()));
+            } else if (order.equals("DES")) {
+                internalList.sort((a, b)
+                    -> b.getBookName().toString().toLowerCase().compareTo(a.getBookName().toString().toLowerCase()));
+            }
+            break;
+
+        case "RATING":
+            if (order.equals("ASC")) {
+                FXCollections.sort(internalList, Comparator.comparingInt(a -> Integer.valueOf(a.getRating().value)));
+            } else if (order.equals("DES")) {
+                FXCollections.sort(internalList, (a, b)
+                    -> Integer.valueOf(b.getRating().value) - Integer.valueOf(a.getRating().value));
+            }
+            break;
+        default:
+            throw new Exception("Unknown sorting type");
+        }
     }
 
     /**

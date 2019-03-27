@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Represents a time slot in a day, from a start time to an optional end time.
  */
-public class Slot {
+public class Slot implements Comparable<Slot> {
     private LocalDate date;
     private LocalTime start;
     private LocalTime end;
@@ -33,6 +33,14 @@ public class Slot {
         return end;
     }
 
+    @Override
+    public int compareTo(Slot other) {
+        if (date.equals(other.getDate())) {
+            return start.compareTo(other.getStart());
+        } else {
+            return date.compareTo(other.getDate());
+        }
+    }
     /**
      * Returns true if both slots have the same identity and data fields.
      * This defines a stronger notion of equality between two slots.

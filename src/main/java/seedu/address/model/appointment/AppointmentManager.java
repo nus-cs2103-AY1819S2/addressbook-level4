@@ -19,8 +19,31 @@ public class AppointmentManager {
         appointments = new ArrayList<>();
     }
 
-    public void addAppointment(Appointment app) {
-        appointments.add(app);
+    /**
+     * Adds an {@code Appointment} to the ordered list of appointments, in the correct position.
+     *
+     * @param toAdd the {@code Appointment} to add
+     */
+    public void addAppointment(Appointment toAdd) {
+        //assert !this.hasTimeConflicts(toAdd);
+        LocalDate date = toAdd.getDate();
+        LocalTime end = toAdd.getEnd();
+
+        if (appointments.isEmpty()) {
+            appointments.add(toAdd);
+            return;
+        }
+
+        for (Appointment app : appointments) {
+            if (app.compareTo(toAdd) > 0) {
+                int index = appointments.indexOf(app);
+                appointments.add(index, toAdd);
+                return;
+            }
+        }
+
+        // toAdd fits at the end of the list
+        appointments.add(toAdd);
     }
 
     /**
@@ -31,13 +54,14 @@ public class AppointmentManager {
      */
     public boolean hasTimeConflicts(Appointment otherApp) {
         LocalDate date = otherApp.getDate();
-        // Note: appointments are sorted by date and time
+
+        // appointments are sorted by date and time
         for (Appointment app : appointments) {
             if (app.getDate().compareTo(date) == 0) {
                 if (hasOverlappingTime(app, otherApp)) {
                     return true;
                 }
-            } else if (app.getDate().compareTo(date) > 0) {
+            } else if (app.getDate().isAfter(date)) {
                 break;
             }
         }
@@ -57,7 +81,7 @@ public class AppointmentManager {
         LocalTime startB = appB.getStart();
         LocalTime endB = appB.getEnd();
 
-        return (startA.compareTo(endB) < 0) && (startB.compareTo(endA) < 0);
+        return startA.isBefore(endB) && startB.isBefore(endA);
     }
 
     public List<Appointment> getAppointmentList() {

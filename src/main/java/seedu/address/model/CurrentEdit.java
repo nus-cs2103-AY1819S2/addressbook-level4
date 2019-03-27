@@ -1,6 +1,8 @@
 /* @@author thamsimun */
 package seedu.address.model;
 
+import com.drew.metadata.Metadata;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;
 
@@ -32,4 +34,6 @@ public interface CurrentEdit {
     String[] getFileNames();
 
     String saveToAssets(String name);
+
+    Metadata getMetadata();
 }

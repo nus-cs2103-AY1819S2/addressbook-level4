@@ -1,38 +1,38 @@
 /* @@author Carrein */
 package seedu.address.model.image;
 
-import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
+
+import org.apache.commons.io.FilenameUtils;
 
 import com.drew.imaging.ImageMetadataReader;
-import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
 
 /**
- * Represents an Image in FomoFoto
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents an Image in FomoFoto.
  */
 public class Image {
 
-    // Data fields
+    /**
+     * Data fields.
+     */
     private Name name;
     private Height height;
     private Width width;
     private BufferedImage buffer;
     private String url;
     private String fileType;
+    private Metadata metadata;
 
     /**
      * Every field must be present and not null.
@@ -41,35 +41,17 @@ public class Image {
         requireAllNonNull(url);
         try {
             File file = new File(url);
-            buffer = ImageIO.read(file);
-            try {
-                ImageInputStream iis = ImageIO.createImageInputStream(file);
-
-                Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(iis);
-
-                int readTime = 0;
-                while (readTime < 1 && imageReaders.hasNext()) {
-                    ImageReader reader = imageReaders.next();
-                    fileType = reader.getFormatName().toLowerCase();
-                    readTime++;
-                }
-            } catch (IOException e) {
-                System.out.println(e.toString());
-            }
+            this.buffer = ImageIO.read(file);
+            this.fileType = FilenameUtils.getExtension(url);
             this.url = url;
             this.name = new Name(file.getName());
             this.width = new Width(String.valueOf(buffer.getWidth()));
             this.height = new Height(String.valueOf(buffer.getHeight()));
-
+            this.metadata = ImageMetadataReader.readMetadata(file);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-    }
-
-    public Image(Name name, Height height, Width width) {
-        this.name = name;
-        this.height = height;
-        this.width = width;
+        System.out.println(this.toString());
     }
 
     public Height getHeight() {
@@ -96,17 +78,8 @@ public class Image {
         return fileType;
     }
 
-    /**
-     * Returns true if both images have the same name.
-     * This defines a weaker notion of equality between two images.
-     */
-    public boolean isSameImage(Image otherImage) {
-        if (otherImage == this) {
-            return true;
-        }
-
-        return otherImage != null
-                && otherImage.getName().equals(getName());
+    public Metadata getMetadata() {
+        return metadata;
     }
 
     /**
@@ -135,28 +108,45 @@ public class Image {
         return Objects.hash(name, width, height);
     }
 
+    /**
+     * A basic representation of the Image's fields.
+     * EG:
+     * Name: sample.png
+     * Height: 1600
+     * Width: 1600
+     *
+     * @return the fields of the image.
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Name: ")
+        builder.append("====================")
+                .append("\nName: ")
                 .append(getName())
-                .append(" Height: ")
+                .append("\nHeight: ")
                 .append(getHeight())
-                .append(" Width: ")
-                .append(getWidth());
+                .append("\nWidth: ")
+                .append(getWidth())
+                .append("\nFormat: ")
+                .append(getFileType())
+                .append("\nURL: ")
+                .append(getUrl())
+                .append("\n====================");
         return builder.toString();
     }
 
     /**
-     * Prints the metadata for any given image.
+     * Returns metadata for image in an ArrayList of Strings.
+     *
+     * @return list of meta data tags.
      */
-    public void printMetadata() throws IOException, ImageProcessingException {
-        Metadata metadata = ImageMetadataReader.readMetadata(new File(ASSETS_FILEPATH + this.name));
+    public List<String> getMetadataList() {
+        List<String> tempList = new ArrayList<>();
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
-                System.out.println(tag);
+                tempList.add(tag.toString());
             }
         }
+        return tempList;
     }
 }

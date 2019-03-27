@@ -1,5 +1,4 @@
 /* @@author Carrein */
-
 package seedu.address.ui;
 
 import java.beans.PropertyChangeEvent;

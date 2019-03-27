@@ -108,7 +108,8 @@ public abstract class Statistics {
      * @return the registered result string.
      */
     public String addResultToStats(AttackResult res) {
-        String result = res.toString().split(" ")[1];
+        String result = res.toString().split(" ")[10];
+        System.out.println("Result is : " + result);
         switch (result) {
         case "hit":
             addHit();

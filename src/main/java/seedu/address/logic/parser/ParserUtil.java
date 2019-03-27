@@ -12,6 +12,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Answer;
+import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
 import seedu.address.model.hint.Hint;
 import seedu.address.storage.csvmanager.CardFolderExport;
@@ -105,6 +106,33 @@ public class ParserUtil {
             hintSet.add(parseHint(hintList.get(hintList.size() - 1)));
         }
         return hintSet;
+    }
+
+    /**
+     * Parses a {@code String option} into a {@code Option}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code option} is invalid.
+     */
+    public static Option parseOption(String option) throws ParseException {
+        requireNonNull(option);
+        String trimmedOption = option.trim();
+        if (!Option.isValidOption(trimmedOption)) {
+            throw new ParseException(Option.MESSAGE_CONSTRAINTS);
+        }
+        return new Option(trimmedOption);
+    }
+
+    /**
+     * Parses {@code Collection<String> options} into a {@code Set<Option>}.
+     */
+    public static Set<Option> parseOptions(Collection<String> options) throws ParseException {
+        requireNonNull(options);
+        final Set<Option> optionSet = new HashSet<>();
+        for (String optionValue : options) {
+            optionSet.add(parseOption(optionValue));
+        }
+        return optionSet;
     }
 
     /**

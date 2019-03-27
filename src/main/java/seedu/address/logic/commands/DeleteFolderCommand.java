@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -36,7 +35,7 @@ public class DeleteFolderCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         if (model.isInFolder()) {
-            throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER);
         }
         List<ReadOnlyCardFolder> cardFolderList = model.getCardFolders();
 
@@ -47,8 +46,7 @@ public class DeleteFolderCommand extends Command {
         ReadOnlyCardFolder cardFolderToDelete = cardFolderList.get(targetIndex.getZeroBased());
 
         model.deleteFolder(targetIndex.getZeroBased());
-        return new CommandResult(String.format(MESSAGE_DELETE_FOLDER_SUCCESS, cardFolderToDelete),
-                false, false, false, false, null, false, AnswerCommandResultType.NOT_ANSWER_COMMAND);
+        return new CommandResult(String.format(MESSAGE_DELETE_FOLDER_SUCCESS, cardFolderToDelete));
     }
 
     @Override

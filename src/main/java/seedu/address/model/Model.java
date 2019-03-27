@@ -191,7 +191,7 @@ public interface Model extends Observable {
     /**
      * Enters a test session using the specified card folder index.
      */
-    void testCardFolder(int cardFolderToTestIndex);
+    void testCardFolder();
 
     /**
      * Sets the current card in the test session.
@@ -214,6 +214,13 @@ public interface Model extends Observable {
      * End the current test session.
      */
     void endTestSession();
+
+    /**
+     * Test the next card in the current folder in this test session.
+     * Returns true if successfully found next card,
+     * false if there is no next card.
+     */
+    boolean testNextCard();
 
     /**
      * Returns true if the given answer is right

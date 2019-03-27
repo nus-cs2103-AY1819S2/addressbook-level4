@@ -12,7 +12,6 @@ import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 
 import org.junit.Test;
 
-import seedu.address.logic.AnswerCommandResultType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -57,11 +56,12 @@ public class AnswerCommandTest {
 
     @Test
     public void execute_correctAnswerAttempt_markCorrect() {
-        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS, false,
-                false, false, false, null, false, AnswerCommandResultType.ANSWER_CORRECT);
-
-        model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
+                CommandResult.Type.ANSWER_CORRECT);
+        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.testCardFolder();
+        expectedModel.testCardFolder();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());
@@ -70,7 +70,7 @@ public class AnswerCommandTest {
         Score newScore = new Score(testedCard.getScore().correctAttempts + 1,
                 testedCard.getScore().totalAttempts + 1);
         expectedModel.setCard(testedCard, new Card(testedCard.getQuestion(), testedCard.getAnswer(), newScore,
-                testedCard.getHints()));
+                testedCard.getOptions(), testedCard.getHints()));
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
@@ -78,11 +78,12 @@ public class AnswerCommandTest {
 
     @Test
     public void execute_wrongAnswerAttempt_markWrong() {
-        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS, false,
-                false, false, false, null, false, AnswerCommandResultType.ANSWER_WRONG);
-
-        model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
+                CommandResult.Type.ANSWER_WRONG);
+        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.testCardFolder();
+        expectedModel.testCardFolder();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_2));
@@ -91,7 +92,7 @@ public class AnswerCommandTest {
         Score newScore = new Score(testedCard.getScore().correctAttempts,
                 testedCard.getScore().totalAttempts + 1);
         expectedModel.setCard(testedCard, new Card(testedCard.getQuestion(), testedCard.getAnswer(), newScore,
-                testedCard.getHints()));
+                testedCard.getOptions(), testedCard.getHints()));
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(answerCommand, model, commandHistory, expectedCommandResult, expectedModel);
@@ -107,7 +108,8 @@ public class AnswerCommandTest {
     @Test
     public void execute_invalidAnswerAfterAnsweredAttempt_fail() {
         String expectedMessage = String.format(MESSAGE_INVALID_ANSWER_COMMAND);
-        model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.testCardFolder();
 
         Card testedCard = model.getCurrentTestedCard();
         AnswerCommand answerCommand = new AnswerCommand(testedCard.getAnswer());

@@ -2,6 +2,7 @@ package seedu.address.model.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import seedu.address.model.CardFolder;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
 import seedu.address.model.card.Score;
 import seedu.address.model.hint.Hint;
@@ -21,23 +23,23 @@ public class SampleDataUtil {
     public static Card[] getSampleCards() {
         return new Card[] {
             new Card(new Question("Alex Yeoh"), new Answer("87438807"),
-                    new Score(5, 10),
-                getHintSet("friends")),
+                    new Score(5, 10), Collections.emptySet(),
+                    getHintSet("friends")),
             new Card(new Question("Bernice Yu"), new Answer("99272758"),
-                    new Score(10, 60),
-                getHintSet("colleagues", "friends")),
+                    new Score(10, 60), Collections.emptySet(),
+                    getHintSet("colleagues", "friends")),
             new Card(new Question("Charlotte Oliveiro"), new Answer("93210283"),
-                    new Score(0, 24),
-                getHintSet("neighbours")),
+                    new Score(0, 24), Collections.emptySet(),
+                    getHintSet("neighbours")),
             new Card(new Question("David Li"), new Answer("91031282"),
-                    new Score(69, 420),
-                getHintSet("family")),
+                    new Score(69, 420), Collections.emptySet(),
+                    getHintSet("family")),
             new Card(new Question("Irfan Ibrahim"), new Answer("92492021"),
-                    new Score(9, 99),
-                getHintSet("classmates")),
+                    new Score(9, 99), Collections.emptySet(),
+                    getHintSet("classmates")),
             new Card(new Question("Roy Balakrishnan"), new Answer("92624417"),
-                    new Score(120, 500),
-                getHintSet("colleagues"))
+                    new Score(120, 500), Collections.emptySet(),
+                    getHintSet("colleagues"))
         };
     }
 
@@ -68,6 +70,15 @@ public class SampleDataUtil {
     public static Set<Hint> getHintSet(String... strings) {
         return Arrays.stream(strings)
                 .map(Hint::new)
+                .collect(Collectors.toSet());
+    }
+
+    /**
+     * Returns an option set containing the list of strings given.
+     */
+    public static Set<Option> getOptionSet(String... strings) {
+        return Arrays.stream(strings)
+                .map(Option::new)
                 .collect(Collectors.toSet());
     }
 

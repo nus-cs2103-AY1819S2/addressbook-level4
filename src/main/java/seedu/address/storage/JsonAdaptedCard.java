@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
 import seedu.address.model.card.Score;
 import seedu.address.model.hint.Hint;
@@ -26,6 +27,7 @@ class JsonAdaptedCard {
     private final String question;
     private final String answer;
     private final String score;
+    private final List<JsonAdaptedOption> optionList = new ArrayList<>();
     private final List<JsonAdaptedHint> hintList = new ArrayList<>();
 
     /**
@@ -33,10 +35,15 @@ class JsonAdaptedCard {
      */
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("question") String question, @JsonProperty("answer") String answer,
-                           @JsonProperty("score") String score, @JsonProperty("hint") List<JsonAdaptedHint> hintList) {
+                           @JsonProperty("score") String score,
+                           @JsonProperty("option") List<JsonAdaptedOption> optionList,
+                           @JsonProperty("hint") List<JsonAdaptedHint> hintList) {
         this.question = question;
         this.answer = answer;
         this.score = score;
+        if (optionList != null) {
+            this.optionList.addAll(optionList);
+        }
         if (hintList != null) {
             this.hintList.addAll(hintList);
         }
@@ -49,6 +56,9 @@ class JsonAdaptedCard {
         question = source.getQuestion().fullQuestion;
         answer = source.getAnswer().fullAnswer;
         score = source.getScore().toString();
+        optionList.addAll(source.getOptions().stream()
+                .map(JsonAdaptedOption::new)
+                .collect(Collectors.toList()));
         hintList.addAll(source.getHints().stream()
                 .map(JsonAdaptedHint::new)
                 .collect(Collectors.toList()));
@@ -60,7 +70,12 @@ class JsonAdaptedCard {
      * @throws IllegalValueException if there were any data constraints violated in the adapted card.
      */
     public Card toModelType() throws IllegalValueException {
+        final List<Option> cardOptions = new ArrayList<>();
         final List<Hint> cardHints = new ArrayList<>();
+
+        for (JsonAdaptedOption option : optionList) {
+            cardOptions.add(option.toModelType());
+        }
         for (JsonAdaptedHint hint : hintList) {
             cardHints.add(hint.toModelType());
         }
@@ -89,9 +104,9 @@ class JsonAdaptedCard {
             throw new IllegalValueException(Score.MESSAGE_CONSTRAINTS);
         }
         final Score modelScore = new Score(score);
-
         final Set<Hint> modelHints = new HashSet<>(cardHints);
-        return new Card(modelQuestion, modelAnswer, modelScore, modelHints);
+        final Set<Option> modelOptions = new HashSet<>(cardOptions);
+        return new Card(modelQuestion, modelAnswer, modelScore, modelOptions, modelHints);
     }
 
 }

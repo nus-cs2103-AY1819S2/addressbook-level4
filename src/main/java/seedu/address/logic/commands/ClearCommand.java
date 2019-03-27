@@ -22,7 +22,7 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         // Name of CardFolder is preserved in clear operation
         if (!model.isInFolder()) {
-            throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
         model.resetCardFolder(new CardFolder(model.getActiveCardFolder().getFolderName()));
         model.commitActiveCardFolder();

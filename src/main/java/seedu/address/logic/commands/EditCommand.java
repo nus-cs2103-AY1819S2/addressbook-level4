@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
@@ -20,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
 import seedu.address.model.card.Score;
 import seedu.address.model.hint.Hint;
@@ -37,7 +39,8 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_QUESTION + "QUESTION] "
             + "[" + PREFIX_ANSWER + "ANSWER] "
-            + "[" + PREFIX_HINT + "HINT]...\n"
+            + "[" + PREFIX_OPTION + "OPTION]... "
+            + "[" + PREFIX_HINT + "HINT]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ANSWER + "91234567 ";
 
@@ -64,7 +67,7 @@ public class EditCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         if (!model.isInFolder()) {
-            throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
 
         List<Card> lastShownList = model.getFilteredCards();
@@ -97,9 +100,10 @@ public class EditCommand extends Command {
         Answer updatedAnswer = editCardDescriptor.getAnswer().orElse(cardToEdit.getAnswer());
         // Score cannot be edited, so copy original
         Score originalScore = cardToEdit.getScore();
+        Set<Option> updatedOptions = editCardDescriptor.getOptions().orElse(cardToEdit.getOptions());
         Set<Hint> updatedHints = editCardDescriptor.getHints().orElse(cardToEdit.getHints());
 
-        return new Card(updatedQuestion, updatedAnswer, originalScore, updatedHints);
+        return new Card(updatedQuestion, updatedAnswer, originalScore, updatedOptions, updatedHints);
     }
 
     @Override
@@ -127,6 +131,7 @@ public class EditCommand extends Command {
     public static class EditCardDescriptor {
         private Question question;
         private Answer answer;
+        private Set<Option> options;
         private Set<Hint> hints;
 
         public EditCardDescriptor() {}
@@ -138,6 +143,7 @@ public class EditCommand extends Command {
         public EditCardDescriptor(EditCardDescriptor toCopy) {
             setQuestion(toCopy.question);
             setAnswer(toCopy.answer);
+            setOptions(toCopy.options);
             setHints(toCopy.hints);
         }
 
@@ -145,7 +151,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(question, answer, hints);
+            return CollectionUtil.isAnyNonNull(question, answer, options, hints);
         }
 
         public void setQuestion(Question question) {
@@ -162,6 +168,23 @@ public class EditCommand extends Command {
 
         public Optional<Answer> getAnswer() {
             return Optional.ofNullable(answer);
+        }
+
+        /**
+         * Sets {@code options} to this object's {@code options}.
+         * A defensive copy of {@code options} is used internally.
+         */
+        public void setOptions(Set<Option> options) {
+            this.options = (options != null) ? new HashSet<>(options) : null;
+        }
+
+        /**
+         * Returns an unmodifiable option set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code options} is null.
+         */
+        public Optional<Set<Option>> getOptions() {
+            return (options != null) ? Optional.of(Collections.unmodifiableSet(options)) : Optional.empty();
         }
 
         /**
@@ -198,6 +221,7 @@ public class EditCommand extends Command {
 
             return getQuestion().equals(e.getQuestion())
                     && getAnswer().equals(e.getAnswer())
+                    && getOptions().equals(e.getOptions())
                     && getHints().equals(e.getHints());
         }
     }

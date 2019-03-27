@@ -27,6 +27,33 @@ public class SortBookCommandParserTest {
 
     private SortBookCommandParser parser = new SortBookCommandParser();
 
+    @Test
+    public void parse_validValue_success() {
+
+        assertParseSuccess(parser,
+            SORT_AUTHOR_WITH_PREFIX + ORDER_ASC_WITH_PREFIX,
+            new SortBookCommand(SORT_AUTHOR_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX));
+
+        assertParseSuccess(parser,
+            SORT_NAME_WITH_PREFIX + ORDER_ASC_WITH_PREFIX,
+            new SortBookCommand(SORT_NAME_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX));
+
+        assertParseSuccess(parser,
+            SORT_RATING_WITH_PREFIX + ORDER_ASC_WITH_PREFIX,
+            new SortBookCommand(SORT_RATING_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX));
+
+        assertParseSuccess(parser,
+            SORT_AUTHOR_WITH_PREFIX + ORDER_DES_WITH_PREFIX,
+            new SortBookCommand(SORT_AUTHOR_WITHOUT_PREFIX, ORDER_DES_WITHOUT_PREFIX));
+
+        assertParseSuccess(parser,
+            SORT_NAME_WITH_PREFIX + ORDER_DES_WITH_PREFIX,
+            new SortBookCommand(SORT_NAME_WITHOUT_PREFIX, ORDER_DES_WITHOUT_PREFIX));
+
+        assertParseSuccess(parser,
+            SORT_RATING_WITH_PREFIX + ORDER_DES_WITH_PREFIX,
+            new SortBookCommand(SORT_RATING_WITHOUT_PREFIX, ORDER_DES_WITHOUT_PREFIX));
+    }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
@@ -56,31 +83,4 @@ public class SortBookCommandParserTest {
             + EMPTY_STR, expectedMessage);
     }
 
-    @Test
-    public void parse_validValue_success() {
-
-        assertParseSuccess(parser,
-            SORT_AUTHOR_WITH_PREFIX + ORDER_ASC_WITH_PREFIX,
-            new SortBookCommand(SORT_AUTHOR_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX));
-
-        assertParseSuccess(parser,
-            SORT_NAME_WITH_PREFIX + ORDER_ASC_WITH_PREFIX,
-            new SortBookCommand(SORT_NAME_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX));
-
-        assertParseSuccess(parser,
-            SORT_RATING_WITH_PREFIX + ORDER_ASC_WITH_PREFIX,
-            new SortBookCommand(SORT_RATING_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX));
-
-        assertParseSuccess(parser,
-            SORT_AUTHOR_WITH_PREFIX + ORDER_DES_WITH_PREFIX,
-            new SortBookCommand(SORT_AUTHOR_WITHOUT_PREFIX, ORDER_DES_WITHOUT_PREFIX));
-
-        assertParseSuccess(parser,
-            SORT_NAME_WITH_PREFIX + ORDER_DES_WITH_PREFIX,
-            new SortBookCommand(SORT_NAME_WITHOUT_PREFIX, ORDER_DES_WITHOUT_PREFIX));
-
-        assertParseSuccess(parser,
-            SORT_RATING_WITH_PREFIX + ORDER_DES_WITH_PREFIX,
-            new SortBookCommand(SORT_RATING_WITHOUT_PREFIX, ORDER_DES_WITHOUT_PREFIX));
-    }
 }

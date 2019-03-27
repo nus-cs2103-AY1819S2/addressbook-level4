@@ -52,7 +52,6 @@ public class Image {
                     ImageReader reader = imageReaders.next();
                     fileType = reader.getFormatName().toLowerCase();
                     readTime++;
-                    System.out.println(fileType);
                 }
             } catch (IOException e) {
                 System.out.println(e.toString());

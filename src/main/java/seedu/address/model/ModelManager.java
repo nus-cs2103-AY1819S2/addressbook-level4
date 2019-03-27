@@ -45,8 +45,6 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
 
-    private final Album album;
-
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
@@ -60,8 +58,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-
-        album = Album.getInstance();
     }
 
     public ModelManager() {
@@ -270,6 +266,9 @@ public class ModelManager implements Model {
     @Override
     public void clearAssetFolder(File dir) {
         for (File file : dir.listFiles()) {
+            if (file.getName().equals("sample.png") || file.getName().equals("sample2.png")) {
+                continue;
+            }
             file.delete();
         }
     }
@@ -302,6 +301,7 @@ public class ModelManager implements Model {
         try {
             File outputFile = new File(TEMP_FILENAME);
             File directory = new File(TEMP_FILEPATH);
+            System.out.println("Should not be called");
             ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, directory, false);
             outputFile.delete();
@@ -324,6 +324,7 @@ public class ModelManager implements Model {
             File outputFile = new File(name);
             File latestImage = new File(TEMP_FILE);
             File saveDirectory = new File(ASSETS_FILEPATH);
+            System.out.println("Should not be called");
             latestImage.renameTo(outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
             setCurrentImage(currentImage);
@@ -340,6 +341,11 @@ public class ModelManager implements Model {
     @Override
     public void refreshAlbum() {
         Notifier.firePropertyChangeListener("refresh", null, null);
+    }
+
+    @Override
+    public void switchTab() {
+        Notifier.firePropertyChangeListener("switch", null, null);
     }
 }
 

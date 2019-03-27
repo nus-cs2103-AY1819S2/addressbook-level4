@@ -67,9 +67,7 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
         currentEdit = new CurrentEditManager();
-        album = new Album();
-        logic = new LogicManager(model, storage, currentEdit, album);
-
+        logic = new LogicManager(model, storage, currentEdit);
         ui = new UiManager(logic);
     }
 

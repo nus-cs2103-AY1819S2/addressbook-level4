@@ -35,11 +35,11 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
 
-    public LogicManager(Model model, Storage storage, CurrentEdit currentEdit, Album album) {
+    public LogicManager(Model model, Storage storage, CurrentEdit currentEdit) {
         this.model = model;
         this.storage = storage;
         this.currentEdit = currentEdit;
-        this.album = album;
+        this.album = Album.getInstance();
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
 

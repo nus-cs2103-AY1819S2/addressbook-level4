@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.hms.model.HotelManagementSystem;
+import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.customer.Customer;
 
 /**
@@ -82,6 +84,16 @@ public class TypicalCustomers {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
+    // Bookings
+
+    public static final Booking ALICE_GYM =
+        new BookingBuilder().withService(ServiceType.GYM).withTiming(14, 15).withPayer(ALICE)
+            .build();
+
+    public static final Booking BENSON_GAMES_WITH_CARL =
+        new BookingBuilder().withService(ServiceType.GAMES).withTiming(12, 13).withPayer(BENSON)
+            .withOtherUsers(CARL).build();
+
     private TypicalCustomers() {
     } // prevents instantiation
 
@@ -93,10 +105,17 @@ public class TypicalCustomers {
         for (Customer customer : getTypicalCustomers()) {
             ab.addCustomer(customer);
         }
+        for (Booking booking : getTypicalBookings()) {
+            ab.addBooking(booking);
+        }
         return ab;
     }
 
     public static List<Customer> getTypicalCustomers() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    public static List<Booking> getTypicalBookings() {
+        return new ArrayList<>(Arrays.asList(ALICE_GYM, BENSON_GAMES_WITH_CARL));
     }
 }

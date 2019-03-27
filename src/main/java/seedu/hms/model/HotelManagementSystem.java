@@ -166,6 +166,11 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
         indicateModified();
     }
 
+    public void removeBooking(Booking b) {
+        bookings.remove(b);
+        indicateModified();
+    }
+
     //// reservation-level operations
 
     /**

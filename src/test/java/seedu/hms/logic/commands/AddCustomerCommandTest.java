@@ -35,29 +35,29 @@ public class AddCustomerCommandTest {
         new AddCustomerCommand(null);
     }
 
-    //    @Test
-    //    public void execute_customerAcceptedByModel_addSuccessful() throws Exception {
-    //        ModelStubAcceptingCustomerAdded modelStub = new ModelStubAcceptingCustomerAdded();
-    //        Customer validCustomer = new CustomerBuilder().build();
+    //@Test
+    //public void execute_customerAcceptedByModel_addSuccessful() throws Exception {
+    //    ModelStubAcceptingCustomerAdded modelStub = new ModelStubAcceptingCustomerAdded();
+    //    Customer validCustomer = new CustomerBuilder().build();
     //
-    //        CommandResult commandResult = new AddCustomerCommand(validCustomer).execute(modelStub, commandHistory);
+    //    CommandResult commandResult = new AddCustomerCommand(validCustomer).execute(modelStub, commandHistory);
     //
-    //        assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, validCustomer),
-    // commandResult.getFeedbackToUser());
-    //        assertEquals(Arrays.asList(validCustomer), modelStub.customersAdded);
-    //        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-    //    }
+    //    assertEquals(String.format(AddCustomerCommand.MESSAGE_SUCCESS, validCustomer),
+    //        commandResult.getFeedbackToUser());
+    //    assertEquals(Arrays.asList(validCustomer), modelStub.customersAdded);
+    //    assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+    //}
 
-    //    @Test
-    //    public void execute_duplicateCustomer_throwsCommandException() throws Exception {
-    //        Customer validCustomer = new CustomerBuilder().build();
-    //        AddCustomerCommand addCommand = new AddCustomerCommand(validCustomer);
-    //        ModelStub modelStub = new ModelStubWithCustomer(validCustomer);
+    //@Test
+    //public void execute_duplicateCustomer_throwsCommandException() throws Exception {
+    //    Customer validCustomer = new CustomerBuilder().build();
+    //    AddCustomerCommand addCommand = new AddCustomerCommand(validCustomer);
+    //    ModelStub modelStub = new ModelStubWithCustomer(validCustomer);
     //
-    //        thrown.expect(CommandException.class);
-    //        thrown.expectMessage(AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
-    //        addCommand.execute(modelStub, commandHistory);
-    //    }
+    //    thrown.expect(CommandException.class);
+    //    thrown.expectMessage(AddCustomerCommand.MESSAGE_DUPLICATE_CUSTOMER);
+    //    addCommand.execute(modelStub, commandHistory);
+    //}
 
     @Test
     public void equals() {

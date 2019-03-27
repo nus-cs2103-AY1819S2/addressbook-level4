@@ -9,6 +9,7 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.hms.model.Model.PREDICATE_SHOW_ALL_BOOKINGS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,9 +18,12 @@ import java.util.List;
 import seedu.hms.commons.core.index.Index;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
+import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
 import seedu.hms.model.HotelManagementSystem;
 import seedu.hms.model.Model;
+import seedu.hms.model.booking.Booking;
+import seedu.hms.model.booking.BookingContainsPayerPredicate;
 import seedu.hms.model.customer.Customer;
 import seedu.hms.model.customer.NameContainsKeywordsPredicate;
 import seedu.hms.testutil.EditCustomerDescriptorBuilder;
@@ -84,6 +88,8 @@ public class CommandTestUtil {
             .build();
     }
 
+    /* -------------------------- CUSTOMER ----------------------- */
+
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
@@ -144,6 +150,75 @@ public class CommandTestUtil {
         }
     }
 
+    /* ------------------------------------- BOOKING -------------------------------------*/
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the {@code actualModel} matches {@code expectedModel} <br>
+     * - the {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertBookingCommandSuccess(Command command, BookingModel actualModel,
+                                                   CommandHistory actualCommandHistory,
+                                                   CommandResult expectedCommandResult,
+                                                   BookingModel expectedModel) {
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+        try {
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
+            System.out.println("ABCS1" + actualModel.getFilteredBookingList());
+            System.out.println("ABCS2" + expectedModel.getFilteredBookingList());
+            assertEquals(expectedCommandResult, result);
+            assertEquals(expectedModel, actualModel);
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * that takes a string {@code expectedMessage}.
+     */
+    public static void assertBookingCommandSuccess(Command command, BookingModel actualModel,
+                                                   CommandHistory actualCommandHistory,
+                                                   String expectedMessage,
+                                                   BookingModel expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertBookingCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the hms book, filtered customer list and selected customer in {@code actualModel} remain unchanged <br>
+     * - {@code actualCommandHistory} remains unchanged.
+     */
+    public static void assertBookingCommandFailure(Command command, BookingModel actualModel,
+                                                   CommandHistory actualCommandHistory,
+                                                   String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        HotelManagementSystem expectedHotelManagementSystem =
+                new HotelManagementSystem(actualModel.getHotelManagementSystem());
+        List<Booking> expectedFilteredList = new ArrayList<>(actualModel.getFilteredBookingList());
+        Booking expectedSelectedBooking = actualModel.getSelectedBooking();
+
+        CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
+
+        try {
+            command.execute(actualModel, actualCommandHistory);
+            throw new AssertionError("The expected CommandException was not thrown.");
+        } catch (CommandException e) {
+            assertEquals(expectedMessage, e.getMessage());
+            assertEquals(expectedHotelManagementSystem, actualModel.getHotelManagementSystem());
+            assertEquals(expectedFilteredList, actualModel.getFilteredBookingList());
+            assertEquals(expectedSelectedBooking, actualModel.getSelectedBooking());
+            assertEquals(expectedCommandHistory, actualCommandHistory);
+        }
+    }
+
+
     /**
      * Updates {@code model}'s filtered list to show only the customer at the given {@code targetIndex} in the
      * {@code model}'s hms book.
@@ -156,6 +231,18 @@ public class CommandTestUtil {
         model.updateFilteredCustomerList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredCustomerList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the booking at the given {@code targetIndex} in the
+     * {@code model}'s hms book.
+     */
+    public static void showBookingForPayer(BookingModel model, Customer payer) {
+        String id = payer.getIdNum().toString();
+        System.out.println(id);
+        model.updateFilteredBookingList(PREDICATE_SHOW_ALL_BOOKINGS);
+        model.updateFilteredBookingList(new BookingContainsPayerPredicate(id));
+        System.out.println("3---" + model.getFilteredBookingList());
     }
 
     /**

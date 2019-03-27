@@ -33,6 +33,16 @@ public class Appointment extends Slot {
     }
 
     /**
+     * Returns a {@code String} title of this {@code Appointment}
+     */
+    public String createTitle() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Appointment with ")
+                .append(this.getPatient().getName());
+        return sb.toString();
+    }
+
+    /**
      * Returns true if both appointments have the same identity and data fields.
      * This defines a stronger notion of equality between two appointments.
      */

@@ -25,22 +25,6 @@ public class Reminder extends Slot {
 
     }
 
-    public Reminder(Appointment app) {
-        super(app.getDate(), app.getStart(), app.getEnd());
-        this.title = createTitle(app);
-        this.comment = app.getComment();
-    }
-
-    /**
-     * Returns a {@code String} title given an {@code Appointment}
-     */
-    public static String createTitle(Appointment app) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Appointment with ")
-                .append(app.getPatient().getName());
-        return sb.toString();
-    }
-
     public String getTitle() {
         return title;
     }

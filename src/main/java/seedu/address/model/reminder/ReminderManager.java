@@ -36,7 +36,7 @@ public class ReminderManager {
     }
 
     public Optional<Reminder> getReminder(Appointment appointment) {
-        String title = Reminder.createTitle(appointment);
+        String title = appointment.createTitle();
         LocalDate date = appointment.getDate();
         LocalTime start = appointment.getStart();
 

@@ -549,7 +549,7 @@ public class ModelManager implements Model {
      */
     public void addApp(Appointment app) {
         appointmentManager.addAppointment(app);
-        Reminder remToAdd = new Reminder(app);
+        Reminder remToAdd = createRemFromApp(app);
         addRem((remToAdd));
         quickDocs.indicateModification(true);
     }
@@ -601,6 +601,10 @@ public class ModelManager implements Model {
 
     public Optional<Reminder> getReminder(Appointment appointment) {
         return reminderManager.getReminder(appointment);
+    }
+
+    public Reminder createRemFromApp(Appointment app) {
+        return new Reminder(app.createTitle(), app.getComment(), app.getDate(), app.getStart(), app.getEnd());
     }
 
     /**

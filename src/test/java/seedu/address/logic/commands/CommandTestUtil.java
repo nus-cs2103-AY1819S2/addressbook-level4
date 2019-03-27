@@ -26,50 +26,53 @@ import seedu.address.testutil.EditPdfDescriptorBuilder;
  * Contains helper methods for testing commands.
  */
 public class CommandTestUtil {
-    public static final String VALID_NAME_1 = "CS2103T_PDF++_UG_Intro.pdf";
-    public static final String VALID_NAME_2 = "CS2103T_Week9_Integration Approaches.pdf";
-    public static final String VALID_NAME_3 = "CS2103T_Schedule_AY1819S2.pdf";
+    public static final String NAME_1_VALID = "CS2103T_PDF++_UG_Intro.pdf";
+    public static final String NAME_2_VALID = "CS2103T_Week9_Integration Approaches.pdf";
+    public static final String NAME_3_VALID = "CS2103T_Schedule_AY1819S2.pdf";
+    public static final String NAME_1_INVALID = "InvalidName.invalid";
 
-    public static final String VALID_DIR_1 =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", VALID_NAME_1)
+    public static final String DIR_1_VALID =
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", NAME_1_VALID)
             .toAbsolutePath().toString();
-    public static final String VALID_DIR_2 =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", VALID_NAME_2)
+    public static final String DIR_2_VALID =
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", NAME_2_VALID)
             .toAbsolutePath().toString();
-    public static final String VALID_DIR_3 =
-            Paths.get("src", "data", "JsonAdaptedPdfTest", VALID_NAME_3)
+    public static final String DIR_3_VALID =
+            Paths.get("src", "data", "JsonAdaptedPdfTest", NAME_3_VALID)
             .toAbsolutePath().toString();
 
-    public static final String VALID_SIZE_1 = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
+    public static final String SIZE_1_VALID = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
             "CS2103T_Lecture3.pdf").toAbsolutePath().toFile().length());
-    public static final String VALID_SIZE_2 = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
+    public static final String SIZE_2_VALID = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
             "CS2103T_Schedule_AY1819S2.pdf").toAbsolutePath().toFile().length());
-    public static final String VALID_SIZE_3 = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
+    public static final String SIZE_3_VALID = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
             "CS2103T_sample PPP.pdf").toAbsolutePath().toFile().length());
 
-    public static final String VALID_DEADLINE = "12-10-2019";
-    public static final String INVALID_DATE_DEADLINE = "32-10-2019";
-    public static final String INVALID_FORMAT_DEADLINE = "12-10/2019";
+    public static final String DEADLINE_VALID = "12-10-2019";
+    public static final String DEADLINE_DATE_INVALID = "32-10-2019";
+    public static final String DEADLINE_FORMAT_INVALID = "12-10/2019";
 
-    public static final String VALID_TAG_CS2103T = "CS2103T";
-    public static final String VALID_TAG_UG = "UG";
-    public static final String VALID_TAG_INTRODUCTION = "introduction";
-    public static final String VALID_TAG_LECTURE = "lecture";
+    public static final String TAG_VALID_CS2103T = "CS2103T";
+    public static final String TAG_VALID_UG = "UG";
+    public static final String TAG_VALID_INTRODUCTION = "introduction";
+    public static final String TAG_VALID_LECTURE = "lecture";
 
-    public static final String FILE_DESC_1_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_1).toAbsolutePath().toString();
-    public static final String FILE_DESC_2_PDF = " " + PREFIX_FILE + Paths.get(VALID_DIR_2).toAbsolutePath().toString();
+    public static final String FILE_DESC_1_PDF = " " + PREFIX_FILE + Paths.get(DIR_1_VALID).toAbsolutePath().toString();
+    public static final String FILE_DESC_2_PDF = " " + PREFIX_FILE + Paths.get(DIR_2_VALID).toAbsolutePath().toString();
+    public static final String FILE_DESC_PATH_INVALID = " " + PREFIX_FILE + "DefinitelyNotAFilePath"; // not valid path
 
-    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG_NEW + VALID_TAG_LECTURE;
-    public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_NEW + VALID_TAG_CS2103T;
-    public static final String INVALID_FILE_PATH_DESC = " " + PREFIX_FILE + "DefinitelyNotAFilePath"; // not valid path
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG_NEW + "moduleA*"; // '*' not allowed in tags
+    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG_NEW + TAG_VALID_LECTURE;
+    public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_NEW + TAG_VALID_CS2103T;
+    public static final String TAG_DESC_INVALID = " " + PREFIX_TAG_NEW + "moduleA*"; // '*' not allowed in tags
 
-    public static final String DEADLINE_VALID_DESC = " " + PREFIX_DEADLINE_NEW + VALID_DEADLINE;
-    public static final String DEADLINE_INVALID_DESC = " " + PREFIX_DEADLINE_NEW + INVALID_DATE_DEADLINE;
+    public static final String DEADLINE_DESC_VALID = " " + PREFIX_DEADLINE_NEW + DEADLINE_VALID;
+    public static final String DEADLINE_INVALID_DESC = " " + PREFIX_DEADLINE_NEW + DEADLINE_DATE_INVALID;
 
-    public static final String NAME_DESC_1 = " " + PREFIX_NAME + VALID_NAME_1;
+    public static final String NAME_DESC_1_VALID = " " + PREFIX_NAME + NAME_1_VALID;
+    public static final String NAME_DESC_2_VALID = " " + PREFIX_NAME + NAME_2_VALID;
+    public static final String NAME_DESC_1_INVALID = " " + PREFIX_NAME + NAME_1_INVALID;
 
-    public static final String DIRECTORY_DESC_1 = " " + PREFIX_DIRECTORY + VALID_DIR_3;
+    public static final String DIRECTORY_DESC_1 = " " + PREFIX_DIRECTORY + DIR_3_VALID;
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -78,8 +81,8 @@ public class CommandTestUtil {
     public static final EditCommand.EditPdfDescriptor DESC_2;
 
     static {
-        DESC_1 = new EditPdfDescriptorBuilder().withName(VALID_NAME_1).build();
-        DESC_2 = new EditPdfDescriptorBuilder().withName(VALID_NAME_2).build();
+        DESC_1 = new EditPdfDescriptorBuilder().withName(NAME_1_VALID).build();
+        DESC_2 = new EditPdfDescriptorBuilder().withName(NAME_2_VALID).build();
     }
 
     /**

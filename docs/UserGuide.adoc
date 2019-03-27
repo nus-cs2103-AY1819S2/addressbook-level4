@@ -4,6 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
+:icons: font
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
@@ -18,12 +19,14 @@ By: `Team W9-02 (HealthHub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-HealthHub is connects home care patients to qualified professionals seamlessly.
+image::work_in_progress.png[width="800"]
+
+HealthHub connects home care patients to qualified health care professionals seamlessly.
 
 HealthHub is a desktop application which allows health administrative staff to add, manage and close requests from
 patients. These patients are people who do not require 24-hour round' the clock medical attention but perhaps some
 other health care services such as the changing of tubing. +
-8
+
 HealthHub provides a *Graphical User Interface* for administrative staff of health organizations and hospitals to manage requests
 from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
 
@@ -35,14 +38,14 @@ Let's get you started with how to install and use HealthHub!
 represent a `parameter` or `command` that is present or are to be used in the
 application.
 
-* All indices mentioned in this document are one-indexed, meaning that the
-first item in the list starts at 1.
+* All numbers mentioned with commands begins with the number 1, representing the first item in the list.
 
 [NOTE]
 ====
 Documentation displayed under the this section may be useful shortcuts on the
  application alternative to the CLI.
 ====
+
 
 ****
 Descriptions wrapped in a grey background are helpful tips and tricks that
@@ -75,11 +78,6 @@ adds a patient named `John Doe` to the application.
 
 [[Features]]
 == Features
-
-Note that the current application is a work in progress. The screenshot below shows how the application
-looks like -
-image::work_in_progress.png[]
-
 
 The following description of the features and commands are prototypes and specific details and implementation may vary over the course of the project.
 

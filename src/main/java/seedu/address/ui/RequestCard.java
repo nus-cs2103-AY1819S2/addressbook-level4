@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Color;
 import seedu.address.model.request.Request;
 
 /**
@@ -31,8 +32,6 @@ public class RequestCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
-    private Label date;
-    @FXML
     private Label nric;
     @FXML
     private Label phone;
@@ -40,18 +39,39 @@ public class RequestCard extends UiPart<Region> {
     private Label address;
     @FXML
     private FlowPane conditions;
+    @FXML
+    private Label date;
+    @FXML
+    private Label status;
 
     public RequestCard(Request request, int displayedIndex) {
         super(FXML);
         this.request = request;
         this.id.setText(displayedIndex + ". ");
         this.name.setText(request.getName().toString());
-        this.date.setText(request.getRequestDate().getTruncatedDate().toString());
-        this.nric.setText(request.getNric().toString());
+        this.nric.setText("(" + request.getNric().toString() + ")");
         this.phone.setText(request.getPhone().value);
         this.address.setText(request.getAddress().toString());
         this.request.getConditions().forEach(c ->
                 this.conditions.getChildren().add(new Label(c.toString())));
+        this.date.setText("Appt. Date: " + request.getRequestDate().getFormattedDate());
+
+        String requestStatus = request.getRequestStatus().toString();
+        this.status.setText(requestStatus);
+
+        switch (requestStatus) {
+        case "PENDING": // red light
+            this.status.setTextFill(Color.web("#F22613"));
+            break;
+        case "ONGOING": // yellow light
+            this.status.setTextFill(Color.web("#F7CA18"));
+            break;
+        case "COMPLETED": // green light
+            this.status.setTextFill(Color.web("#00E640"));
+            break;
+        default:
+            break;
+        }
     }
 
     @Override

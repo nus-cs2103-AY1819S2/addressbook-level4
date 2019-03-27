@@ -6,6 +6,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteReviewCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses input arguments and creates a new DeleteReviewCommand object
+ */
 public class DeleteReviewCommandParser implements Parser<DeleteReviewCommand> {
 
     /**

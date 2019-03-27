@@ -13,7 +13,10 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Review;
 
-public class ReviewListPanel extends UiPart<Region>  {
+/**
+ * Panel containing the list of reviews.
+ */
+public class ReviewListPanel extends UiPart<Region> {
     private static final String FXML = "ReviewListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(ReviewListPanel.class);
 

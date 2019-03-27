@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.book.Review;
 
+/**
+ * An UI component that displays information of a {@code Review}.
+ */
 public class ReviewCard extends UiPart<Region> {
 
     private static final String FXML = "ReviewListCard.fxml";

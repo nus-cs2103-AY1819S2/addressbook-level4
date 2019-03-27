@@ -120,8 +120,8 @@ public class BookMainWindow extends UiPart<Stage> {
             logic::setSelectedBook);
         bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
 
-        ReviewListPanel reviewListPanel = new ReviewListPanel(logic.getFilteredReviewList(), logic.selectedReviewProperty(),
-                logic::setSelectedReview);
+        ReviewListPanel reviewListPanel = new ReviewListPanel(logic.getFilteredReviewList(),
+                logic.selectedReviewProperty(), logic::setSelectedReview);
         reviewListPanelPlaceholder.getChildren().add(reviewListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();

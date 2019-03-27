@@ -68,7 +68,7 @@ public class Review {
 
     @Override
     public String toString() {
-        return title.fullName + "\r\nBook: " + bookName.fullName + ": \r\n"+ dateCreated + ": \r\n" + reviewMessage;
+        return title.fullName + "\r\nBook: " + bookName.fullName + ": \r\n" + dateCreated + ": \r\n" + reviewMessage;
     }
 
     @Override

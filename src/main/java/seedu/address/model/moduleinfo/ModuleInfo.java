@@ -14,7 +14,7 @@ public class ModuleInfo {
     private ModuleInfoWorkload workload;
     private String preclusions;
     private ModuleInfoDepartment department;
-    private String prerequisites;
+    private ModuleInfoPrerequisites prerequisites;
 
     public ModuleInfo(String code, String title, double credits, String description, String workLoad,
                       String preclusions, String department, String prerequisites) {
@@ -25,9 +25,13 @@ public class ModuleInfo {
         this.workload = new ModuleInfoWorkload(workLoad);
         this.preclusions = preclusions;
         this.department = new ModuleInfoDepartment(department);
-        this.prerequisites = prerequisites;
+        this.prerequisites = new ModuleInfoPrerequisites(code, prerequisites);
 
         System.out.println("Module:" + code + " has been created");
+
+        this.prerequisites.generatePrerequisiteTree();
+
+        System.out.println("generated Tree for: " + code);
     }
 
     // ================ Object String Methods ==============================
@@ -65,7 +69,7 @@ public class ModuleInfo {
     }
 
     public String getPrerequisitesString() {
-        return this.prerequisites;
+        return this.prerequisites.toString();
     }
 
     // ================ Object methods ==============================

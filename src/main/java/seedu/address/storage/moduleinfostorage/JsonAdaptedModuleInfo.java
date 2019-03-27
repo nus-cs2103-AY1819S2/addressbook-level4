@@ -42,7 +42,7 @@ public class JsonAdaptedModuleInfo {
         this.credits = credits;
         this.department = department;
 
-        if (prerequisite == null) {
+        if (prerequisite == null || prerequisite.equalsIgnoreCase("NIL")) {
             this.prerequisites = "No prerequisites needed";
         } else {
             this.prerequisites = prerequisite;

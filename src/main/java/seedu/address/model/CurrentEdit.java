@@ -8,19 +8,20 @@ import seedu.address.model.image.Image;
  */
 public interface CurrentEdit {
 
-    void saveTemp();
+    void saveAsTemp(Image image);
 
-    void saveOriginal();
+    void saveAsOriginal(Image image);
 
     void saveIntoTempFolder(String filename, Image image);
 
     Image getTempImage();
 
-    void setTempImage(Image image);
+    void setTempImage();
 
     void setTempImage(com.sksamuel.scrimage.Image image);
 
     void setOriginalImage(Image image);
+
     void displayTempImage();
 
     void addCommand(Command command);

@@ -26,6 +26,7 @@ public class BillPanel extends UiPart<Region> {
     @FXML
     private Label receipt;
 
+
     public BillPanel(Bill bill) {
         super(FXML);
 

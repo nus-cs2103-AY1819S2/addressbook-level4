@@ -65,5 +65,5 @@ public class AddReviewCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_CS + REVIEWTITLE_DESC_CS
                 + REVIEWMESSAGE_DESC_CS, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddReviewCommand.MESSAGE_USAGE));
-        }
+    }
 }

@@ -1,17 +1,19 @@
 package seedu.address.logic.commands;
 
-import java.io.IOException;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.pdfbox.text.PDFTextStripperByArea;
-
+import static org.junit.Assert.assertEquals;
+import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_MEDICINE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_MEDICINE;
 import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
+import java.io.File;
+import java.io.IOException;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripperByArea;
+
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -23,10 +25,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.medicine.Medicine;
 
-import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
-
-import java.io.File;
-
 public class LabelCommandTest {
 
     private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
@@ -34,13 +32,13 @@ public class LabelCommandTest {
     private FileName fileName = new FileName(DEFAULT_FILENAME);
 
     @Test
-    public void execute_labelMedicineAtIndexOneDefaultFileNameUnfilteredList_success() throws IOException, CommandException {
-        Medicine medicineToLabel = model.getFilteredMedicineList().get(0);
+    public void execute_labelMedicineAtIndexOneDefaultFileNameUnfilteredList_success()
+            throws IOException, CommandException { Medicine medicineToLabel = model.getFilteredMedicineList().get(0);
 
         LabelCommand labelCommand = new LabelCommand(INDEX_FIRST_MEDICINE, new FileName(DEFAULT_FILENAME));
         labelCommand.execute(model, commandHistory);
         File printedFile = new File("./PDF/" + "to_print.pdf");
-        String actualMessage = readFromPDF(printedFile);
+        String actualMessage = readFromPdf(printedFile);
         String information = getMedicineInformationToString(medicineToLabel);
 
         String expectedMessage = information.replaceAll("\r", "").replaceAll("\n", "");
@@ -51,13 +49,13 @@ public class LabelCommandTest {
     }
 
     @Test
-    public void execute_labelMedicineAtIndexTwoDefaultFileNameUnfilteredList_success() throws IOException, CommandException {
-        Medicine medicineToLabel = model.getFilteredMedicineList().get(1);
+    public void execute_labelMedicineAtIndexTwoDefaultFileNameUnfilteredList_success() throws
+            IOException, CommandException { Medicine medicineToLabel = model.getFilteredMedicineList().get(1);
 
         LabelCommand labelCommand = new LabelCommand(INDEX_SECOND_MEDICINE, new FileName("secondMedicine"));
         labelCommand.execute(model, commandHistory);
         File printedFile = new File("./PDF/" + "secondMedicine.pdf");
-        String actualMessage = readFromPDF(printedFile);
+        String actualMessage = readFromPdf(printedFile);
         String information = getMedicineInformationToString(medicineToLabel);
 
         String expectedMessage = information.replaceAll("\r", "").replaceAll("\n", "");
@@ -75,7 +73,10 @@ public class LabelCommandTest {
         assertCommandFailure(labelCommand, model, commandHistory, Messages.MESSAGE_INVALID_MEDICINE_DISPLAYED_INDEX);
     }
 
-    private String readFromPDF(File file) throws IOException {
+    /**
+     * Helper function to read content from {@code file} file and output it as a String.
+     */
+    private String readFromPdf(File file) throws IOException {
 
         String pdfFileInText;
         try (PDDocument document = PDDocument.load(file)) {

@@ -128,15 +128,6 @@ public class MedicineBuilder {
     }
 
     /**
-     * Parses the {@code batchDetails} into a {@code Map<BatchName, Batch>} and add it to the {@code Medicine} that we
-     * are building.
-     */
-    public MedicineBuilder withAddedBatches(String ... batchDetails) {
-        this.batches.putAll(SampleDataUtil.getBatchSet(batchDetails));
-        return this;
-    }
-
-    /**
      *  Sets {@code medicineToCopy}'s uneditable fields to the {@code Medicine} that we are building.
      */
     public MedicineBuilder withUneditableFields(Medicine medicineToCopy) {

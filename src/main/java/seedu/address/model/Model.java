@@ -14,6 +14,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CsvFile;
+import seedu.address.storage.csvmanager.CsvManager;
+import seedu.address.storage.csvmanager.Exceptions.CsvManagerNotInitialized;
 
 /**
  * The API of the Model component.
@@ -190,7 +192,7 @@ public interface Model extends Observable {
     /**
      * Enters a test session using the specified card folder index.
      */
-    void testCardFolder(int cardFolderToTestIndex);
+    void testCardFolder();
 
     /**
      * Sets the current card in the test session.
@@ -215,6 +217,13 @@ public interface Model extends Observable {
     void endTestSession();
 
     /**
+     * Test the next card in the current folder in this test session.
+     * Returns true if successfully found next card,
+     * false if there is no next card.
+     */
+    boolean testNextCard();
+
+    /**
      * Returns true if the given answer is right
      * false if answer is wrong
      */
@@ -231,9 +240,11 @@ public interface Model extends Observable {
      */
     boolean checkIfCardAlreadyAnswered();
 
-    void exportCardFolders(List<Integer> cardFolderExports) throws IOException;
+    void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized;
 
     void importCardFolders(CsvFile csvFile) throws IOException, CommandException;
+
+    void setTestCsvPath() throws IOException;
 
 
 }

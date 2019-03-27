@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -24,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -32,6 +32,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.storage.csvmanager.CsvManager;
+import seedu.address.storage.csvmanager.Exceptions.CsvManagerNotInitialized;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -43,6 +44,9 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
+    //Card related
+    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
+
     // CardFolder related
     private ObservableList<VersionedCardFolder> folders;
     private final FilteredList<VersionedCardFolder> filteredFolders;
@@ -51,14 +55,23 @@ public class ModelManager implements Model {
     private boolean inFolder;
 
     // Test Session related
-    private final SimpleObjectProperty<Card> selectedCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
+    private ObservableList<Card> currentTestedCardFolder;
+    private int currentTestedCardIndex;
     private boolean insideTestSession = false;
     private boolean cardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
 
     // Export related
-    private CsvManager csvManager = new CsvManager();
+    private CsvManager csvManager;
+    {
+        try {
+            csvManager = new CsvManager();
+        } catch (IOException e) {
+            csvManager = null;
+            logger.warning("Unable to carry out import and export of card folders");
+        }
+    }
 
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.
@@ -321,9 +334,16 @@ public class ModelManager implements Model {
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder(int cardFolderToTestIndex) {
-        ObservableList<Card> currentTestedCardFolder = getActiveCardFolder().getCardList();
-        Card cardToTest = currentTestedCardFolder.get(0);
+    public void testCardFolder() {
+        currentTestedCardFolder = getActiveCardFolder().getCardList();
+        if (currentTestedCardFolder.isEmpty()) {
+            throw new EmptyCardFolderException();
+        }
+
+        sortFilteredCard(COMPARATOR_ASC_SCORE_CARDS);
+
+        currentTestedCardIndex = 0;
+        Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
         insideTestSession = true;
         numAnsweredCorrectly = 0;
@@ -348,10 +368,10 @@ public class ModelManager implements Model {
                 .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
         getActiveVersionedCardFolder().commit();
         insideTestSession = false;
-        cardAlreadyAnswered = false;
+        setCardAsNotAnswered();
         numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
-        //TODO: exit card folder
+        currentTestedCardFolder = null;
     }
 
     @Override
@@ -360,7 +380,6 @@ public class ModelManager implements Model {
         String correctAnswerInCapitals = correctAnswer.toString().toUpperCase();
         String attemptedAnswerInCapitals = attemptedAnswer.toString().toUpperCase();
 
-        //LOOSEN MORE CRITERIAS?
         if (correctAnswerInCapitals.equals(attemptedAnswerInCapitals)) {
             numAnsweredCorrectly++;
             return true;
@@ -373,6 +392,10 @@ public class ModelManager implements Model {
         cardAlreadyAnswered = true;
     }
 
+    private void setCardAsNotAnswered() {
+        cardAlreadyAnswered = false;
+    }
+
     @Override
     public boolean checkIfCardAlreadyAnswered() {
         return cardAlreadyAnswered;
@@ -381,6 +404,18 @@ public class ModelManager implements Model {
     @Override
     public boolean checkIfInsideTestSession() {
         return insideTestSession;
+    }
+
+    @Override
+    public boolean testNextCard() {
+        currentTestedCardIndex += 1;
+        if (currentTestedCardIndex == currentTestedCardFolder.size()) {
+            return false;
+        }
+        Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
+        setCurrentTestedCard(cardToTest);
+        setCardAsNotAnswered();
+        return true;
     }
 
     //=========== Selected card ===========================================================================
@@ -456,7 +491,10 @@ public class ModelManager implements Model {
 
     //=========== Export / Import card folders ========================================================================
     @Override
-    public void exportCardFolders(List<Integer> cardFolderExports) throws IOException {
+    public void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized {
+        if (csvManager == null) {
+            throw new CsvManagerNotInitialized(Messages.MESSAGE_CSV_MANAGER_NOT_INITIALIZED);
+        }
         List<ReadOnlyCardFolder> cardFolders = returnValidCardFolders(cardFolderExports);
         csvManager.writeFoldersToCsv(cardFolders);
     }
@@ -465,6 +503,11 @@ public class ModelManager implements Model {
     public void importCardFolders(CsvFile csvFile) throws IOException, CommandException {
         CardFolder cardFolder = csvManager.readFoldersToCsv(csvFile);
         addFolder(cardFolder);
+    }
+
+    @Override
+    public void setTestCsvPath() throws IOException {
+        csvManager.setTestDefaultPath();
     }
 
 

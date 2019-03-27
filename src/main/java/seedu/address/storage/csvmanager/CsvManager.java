@@ -24,7 +24,15 @@ public class CsvManager implements CsvCommands {
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Hints";
     private BufferedReader bufferedReader;
+    private String defaultPath;
+    private boolean setTestDefaultPath = false;
+    public static final String DEFAULT_TEST_PATH = "./test/data/CsvCardFolderTest";
+    private static final String DEFAULT_FILE_PATH = "./";
 
+
+    public CsvManager() throws IOException {
+        defaultPath = getDefaultFilePath();
+    }
 
     @Override
     public CardFolder readFoldersToCsv(CsvFile csvFile) throws IOException, CommandException {
@@ -62,11 +70,11 @@ public class CsvManager implements CsvCommands {
         Question question = new Question(cardValues[0]);
         Answer answer = new Answer(cardValues[1]);
         String[] hintArray = Arrays.copyOfRange(cardValues, 2, cardValues.length);
-
         Set<Hint> hintSet = Arrays.stream(hintArray).map(Hint::new).collect(Collectors.toSet());
         Card card = new Card(question, answer, new Score(0, 0), hintSet);
         return card;
     }
+
 
 
     private boolean checkCorrectHeaders(String header) {
@@ -87,10 +95,15 @@ public class CsvManager implements CsvCommands {
 
     @Override
     public void writeFoldersToCsv(List<ReadOnlyCardFolder> cardFolders) throws IOException {
-        String filepath = getDefaultFilePath();
+        String filepath = defaultPath;
         for (ReadOnlyCardFolder readOnlyCardFolder : cardFolders) {
             List<Card> cardList = readOnlyCardFolder.getCardList();
-            String foldername = readOnlyCardFolder.getFolderName();
+            String foldername;
+            if (setTestDefaultPath) {
+                foldername = readOnlyCardFolder.getFolderName() + " test";
+            } else {
+                foldername = readOnlyCardFolder.getFolderName();
+            }
             FileWriter fileWriter = new FileWriter(filepath + "/" + foldername + ".csv");
             fileWriter.append(CARD_HEADERS + NEW_LINE_SEPARATOR);
             for (Card card : cardList) {
@@ -105,7 +118,7 @@ public class CsvManager implements CsvCommands {
     }
 
     public static String getFilePathAsString(CsvFile csvFile) throws IOException {
-        return new File("./" + csvFile.filename).getCanonicalPath();
+        return new File(DEFAULT_FILE_PATH + csvFile.filename).getCanonicalPath();
     }
 
     public static boolean fileExists(CsvFile csvFile) throws IOException {
@@ -113,7 +126,12 @@ public class CsvManager implements CsvCommands {
     }
 
     public static String getDefaultFilePath() throws IOException {
-        return new File("./").getCanonicalPath();
+        return new File(DEFAULT_FILE_PATH).getCanonicalPath();
+    }
+
+    public void setTestDefaultPath() throws IOException {
+        defaultPath = new File(DEFAULT_TEST_PATH).getCanonicalPath();
+        setTestDefaultPath = true;
     }
 
     private String getCardString(Card card) {

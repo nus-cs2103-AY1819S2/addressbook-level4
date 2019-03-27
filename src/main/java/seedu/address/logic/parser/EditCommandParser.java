@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import java.util.Collection;
@@ -14,6 +15,7 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.card.Option;
 import seedu.address.model.hint.Hint;
 
 /**
@@ -30,7 +32,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_HINT);
+                        args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_OPTION, PREFIX_HINT);
 
         Index index;
 
@@ -47,6 +49,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ANSWER).isPresent()) {
             editCardDescriptor.setAnswer(ParserUtil.parseAnswer(argMultimap.getValue(PREFIX_ANSWER).get()));
         }
+        parseOptionsForEdit(argMultimap.getAllValues(PREFIX_OPTION)).ifPresent(editCardDescriptor::setOptions);
         parseHintsForEdit(argMultimap.getAllValues(PREFIX_HINT)).ifPresent(editCardDescriptor::setHints);
 
         if (!editCardDescriptor.isAnyFieldEdited()) {
@@ -57,18 +60,34 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
+     * Returns emptySet if string collection only contains an empty string, or null is collection is empty.
+     */
+    private Collection<String> parseStringCollection(Collection<String> strings) {
+        assert strings != null;
+        if (strings.isEmpty()) {
+            return null;
+        }
+        return strings.size() == 1 && strings.contains("") ? Collections.emptySet() : strings;
+    }
+
+    /**
+     * Parses {@code Collection<String> options} into a {@code Set<Option>} if {@code options} is non-empty.
+     * If {@code options} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Option>} containing zero options.
+     */
+    private Optional<Set<Option>> parseOptionsForEdit(Collection<String> options) throws ParseException {
+        Collection<String> optionSet = parseStringCollection(options);
+        return optionSet != null ? Optional.of(ParserUtil.parseOptions(optionSet)) : Optional.empty();
+    }
+
+    /**
      * Parses {@code Collection<String> hints} into a {@code Set<Hint>} if {@code hints} is non-empty.
      * If {@code hints} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Hint>} containing zero hints.
      */
     private Optional<Set<Hint>> parseHintsForEdit(Collection<String> hints) throws ParseException {
-        assert hints != null;
-
-        if (hints.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> hintSet = hints.size() == 1 && hints.contains("") ? Collections.emptySet() : hints;
-        return Optional.of(ParserUtil.parseHints(hintSet));
+        Collection<String> hintSet = parseStringCollection(hints);
+        return hintSet != null ? Optional.of(ParserUtil.parseHints(hintSet)) : Optional.empty();
     }
 
 }

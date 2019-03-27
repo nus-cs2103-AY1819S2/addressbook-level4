@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE_CHANGE;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
+import seedu.address.logic.commands.RemoveTableCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.logic.commands.UpdateTableCommand;
@@ -91,6 +93,12 @@ public class RestOrRantParser {
                 throw new ParseException(MESSAGE_INVALID_MODE);
             }
             return new UpdateTableCommandParser().parse(arguments);
+
+        case RemoveTableCommand.COMMAND_WORD:
+            if (mode != Mode.RESTAURANT_MODE) {
+                throw new ParseException(MESSAGE_INVALID_MODE);
+            }
+            return new RemoveTableCommandParser().parse(arguments);
 
         // Commands that work in Menu Mode
         case AddToMenuCommand.COMMAND_WORD:

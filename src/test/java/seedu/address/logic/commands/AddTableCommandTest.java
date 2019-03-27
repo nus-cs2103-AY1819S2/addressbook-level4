@@ -199,6 +199,11 @@ public class AddTableCommandTest {
         }
 
         @Override
+        public void setTables(List<Table> tables) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Table> getFilteredTableList() {
             throw new AssertionError("This method should not be called.");
         }

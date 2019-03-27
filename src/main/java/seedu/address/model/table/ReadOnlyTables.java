@@ -13,6 +13,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 public interface ReadOnlyTables extends Observable {
 
     /**
+     * Checks and returns true of all tables are unoccupied.
+     */
+    boolean isRestaurantEmpty();
+
+    /**
      * Returns an unmodifiable view of the tables list.
      */
     ObservableList<Table> getTableList();

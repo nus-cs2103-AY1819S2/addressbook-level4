@@ -179,6 +179,12 @@
 }
 
 .status-bar-with-border .label {
+    -fx-text-fill: black;
+    -fx-background-color: #5e8b9e;
+}
+
+#statusBox .label {
+    -fx-background-color: #5e8b9e;
     -fx-text-fill: white;
 }
 

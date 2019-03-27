@@ -132,6 +132,15 @@ public class UniqueTableList implements Iterable<Table> {
         return internalList.iterator();
     }
 
+    public boolean isRestaurantEmpty() {
+        for (Table table : internalUnmodifiableList) {
+            if (table.isOccupied()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -145,7 +154,7 @@ public class UniqueTableList implements Iterable<Table> {
     }
 
     /**
-     * Returns true if {@code orderItems} contains only unique order items.
+     * Returns true if {@code tables} contains only unique tables.
      */
     private boolean tablesAreUnique(List<Table> tables) {
         for (int i = 0; i < tables.size() - 1; i++) {

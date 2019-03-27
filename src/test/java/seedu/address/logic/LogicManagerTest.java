@@ -156,14 +156,14 @@ public class LogicManagerTest {
                 + addToMenuCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
 
         // Execute addDailyRevenue command
-        //        expectedModel.addDailyRevenue(expectedDailyRevenue);
-        //        expectedModel.deleteOrderItem(expectedOrderItem);
-        //        expectedModel.setSelectedTable(null);
-        //        expectedModel.setTable(occupiedTable, expectedTable);
-        //        assertCommandBehavior(CommandException.class, billCommand, expectedMessage, expectedModel);
-        //        assertHistoryCorrect(billCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
-        //                + addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addToMenuCommand + "\n"
-        //                + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
+        expectedModel.addDailyRevenue(expectedDailyRevenue);
+        expectedModel.deleteOrderItem(expectedOrderItem);
+        expectedModel.setSelectedTable(null);
+        expectedModel.setTable(occupiedTable, expectedTable);
+        assertCommandBehavior(CommandException.class, billCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(billCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
+                + addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addToMenuCommand + "\n"
+                + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
     }
 
     @Test

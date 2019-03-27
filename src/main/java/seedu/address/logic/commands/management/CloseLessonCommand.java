@@ -35,7 +35,7 @@ public class CloseLessonCommand extends ManagementCommand {
      * Feedback message displayed to the user when attempting to close lesson when no lesson is opened.
      */
     public static final String MESSAGE_NO_OPENED_LESSON =
-            "Invalid command usage. No lesson is open. \n%1$s";
+            "No opened lesson found.";
 
     /**
      * Executes the command and returns the result message.
@@ -56,7 +56,7 @@ public class CloseLessonCommand extends ManagementCommand {
         try {
             lessonName = mgtModel.closeLesson();
         } catch (NullPointerException e) {
-            throw new CommandException(String.format(MESSAGE_NO_OPENED_LESSON, MESSAGE_USAGE), e);
+            throw new CommandException(MESSAGE_NO_OPENED_LESSON, e);
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));

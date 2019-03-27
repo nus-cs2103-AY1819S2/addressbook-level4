@@ -73,7 +73,7 @@ public class CurrentEditManager implements CurrentEdit {
      */
     public void setTempImage(Image image) {
         this.tempImage = image;
-        saveTemp();
+        saveIntoTempFolder(image.getName().toString(), tempImage);
     }
 
     public void setTempImage(com.sksamuel.scrimage.Image image) {

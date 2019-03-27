@@ -26,6 +26,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.Parser;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
@@ -61,12 +63,20 @@ public class ModelManager implements Model {
     private int numAnsweredCorrectly = 0;
 
     // Export related
-    private CsvManager csvManager = new CsvManager();
+    private CsvManager csvManager;
+    {
+        try {
+            csvManager = new CsvManager();
+        } catch (IOException e) {
+            csvManager = null;
+            logger.warning("Unable to carry out import and export of card folders");
+        }
+    }
 
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.
      */
-    public ModelManager(List<ReadOnlyCardFolder> cardFolders, ReadOnlyUserPrefs userPrefs) throws IOException {
+    public ModelManager(List<ReadOnlyCardFolder> cardFolders, ReadOnlyUserPrefs userPrefs) {
         super();
         requireAllNonNull(cardFolders, userPrefs);
 
@@ -482,6 +492,9 @@ public class ModelManager implements Model {
     //=========== Export / Import card folders ========================================================================
     @Override
     public void exportCardFolders(List<Integer> cardFolderExports) throws IOException {
+        if (csvManager == null) {
+            throw new CommandException()
+        }
         List<ReadOnlyCardFolder> cardFolders = returnValidCardFolders(cardFolderExports);
         csvManager.writeFoldersToCsv(cardFolders);
     }

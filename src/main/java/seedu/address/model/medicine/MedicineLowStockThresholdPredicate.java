@@ -1,8 +1,8 @@
 package seedu.address.model.medicine;
 
-import seedu.address.model.threshold.Threshold;
-
 import java.util.function.Predicate;
+
+import seedu.address.model.threshold.Threshold;
 
 /**
  * Tests that a {@code Medicine}'s {@code Quantity} is less than the threshold given.

@@ -10,9 +10,11 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -67,8 +69,8 @@ public class DeleteCommandTest {
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
         revertBackup(pdfToDelete);
-        assertTrue(Paths.get(pdfToDelete.getDirectory().getDirectory() + "\\"
-                + pdfToDelete.getName()).toFile().exists());
+        assertTrue(Paths.get(pdfToDelete.getDirectory().getDirectory(), pdfToDelete.getName().getFullName())
+                .toFile().exists());
 
     }
 
@@ -116,8 +118,8 @@ public class DeleteCommandTest {
 
         assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
         revertBackup(pdfToDelete);
-        assertTrue(Paths.get(pdfToDelete.getDirectory().getDirectory() + "\\"
-                + pdfToDelete.getName()).toFile().exists());
+        assertTrue(Paths.get(pdfToDelete.getDirectory().getDirectory(),
+                pdfToDelete.getName().getFullName()).toFile().exists());
     }
 
     @Test
@@ -231,8 +233,16 @@ public class DeleteCommandTest {
      */
     private void saveBackup(Pdf pdfToDelete) {
         try {
-            Files.copy(Paths.get(pdfToDelete.getDirectory().getDirectory() + "\\" + pdfToDelete.getName()),
-                    Paths.get(pdfToDelete.getDirectory().getDirectory() + "\\Backup\\" + pdfToDelete.getName()));
+
+            File testdir =  Paths.get(pdfToDelete.getDirectory().getDirectory(),"Backup").toFile();
+            if (!testdir.exists()) {
+                if (testdir.mkdir()) {
+                    throw new IOException();
+                }
+            }
+
+            Files.copy(Paths.get(pdfToDelete.getDirectory().getDirectory(), pdfToDelete.getName().getFullName()),
+                    Paths.get(pdfToDelete.getDirectory().getDirectory(), "Backup", pdfToDelete.getName().getFullName()), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {
             throw new PdfNotFoundException();
         }
@@ -242,9 +252,11 @@ public class DeleteCommandTest {
      * Moves {@code pdfToRevert} back to its original location
      */
     private void revertBackup(Pdf pdfToRevert) {
-        Paths.get(pdfToRevert.getDirectory().getDirectory() + "\\Backup\\" + pdfToRevert.getName()).toFile()
-                .renameTo(Paths.get(pdfToRevert.getDirectory().getDirectory() + "\\"
-                        + pdfToRevert.getName()).toFile());
+        File fileToRevert = Paths.get(pdfToRevert.getDirectory().getDirectory(), "Backup",
+                pdfToRevert.getName().getFullName()).toFile();
+        File revertedFile = Paths.get(pdfToRevert.getDirectory().getDirectory(),
+                pdfToRevert.getName().getFullName()).toFile();
+        fileToRevert.renameTo(revertedFile);
     }
 
     /**

@@ -28,13 +28,11 @@ import seedu.address.model.request.exceptions.RequestNotFoundException;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook;
     private final VersionedHealthWorkerBook versionedHealthWorkerBook;
 
     private final VersionedRequestBook versionedRequestBook;
     private final UserPrefs userPrefs;
 
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<HealthWorker> filteredHealthWorkers;
 
     // TODO make the relevant changes to the model manager
@@ -47,29 +45,26 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook,
+    public ModelManager(
                         ReadOnlyHealthWorkerBook healthWorkerBook,
                         ReadOnlyRequestBook requestBook,
                         ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(requestBook, healthWorkerBook, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with request book: " + requestBook + " and user prefs " + userPrefs);
 
-        versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedHealthWorkerBook = new VersionedHealthWorkerBook(healthWorkerBook);
         versionedRequestBook = new VersionedRequestBook(requestBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredHealthWorkers = new FilteredList<>(versionedHealthWorkerBook.getHealthWorkerList());
         filteredRequests = new FilteredList<>(versionedRequestBook.getRequestList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredHealthWorkers.addListener(this::ensureSelectedHealthWorkerIsValid);
         filteredRequests.addListener(this::ensureSelectedRequestIsValid);
     }
 
     public ModelManager() {
-        this(new AddressBook(), new HealthWorkerBook(), new RequestBook(), new UserPrefs());
+        this(new HealthWorkerBook(), new RequestBook(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -96,52 +91,6 @@ public class ModelManager implements Model {
         userPrefs.setGuiSettings(guiSettings);
     }
 
-    @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
-    }
-
-    @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
-    }
-
-    //=========== AddressBook ================================================================================
-
-    @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        versionedAddressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return versionedAddressBook;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedAddressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        versionedAddressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        versionedAddressBook.setPerson(target, editedPerson);
-    }
 
     // ======================== Implemented methods for HealthWorker through Model Interface =========================
     // @author: Lookaz
@@ -199,71 +148,15 @@ public class ModelManager implements Model {
         return this.versionedHealthWorkerBook;
     }
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public void commitHealthWorkerBook() {
+        versionedHealthWorkerBook.commit();
     }
 
     //=========== Undo/Redo =================================================================================
     // TODO: Modify to do redo/undo for HealthWorkerBook. Suggestion: Use a state to maintain previous type of op.
 
-    @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
-    }
-
-    @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-    }
-
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-    }
-
-    @Override
-    public void commitAddressBook() {
-        versionedAddressBook.commit();
-        versionedHealthWorkerBook.commit();
-    }
-
     //=========== Selected Person ===========================================================================
-
-    @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
-    }
-
-    @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
-    }
-
-    @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
-        }
-        selectedPerson.setValue(person);
-    }
 
     @Override
     public ObservableList<Request> getFilteredRequestList() {
@@ -368,6 +261,7 @@ public class ModelManager implements Model {
     public void commitRequestBook() {
         versionedRequestBook.commit();
     }
+
 
     @Override
     public ReadOnlyProperty<Request> selectedRequestProperty() {
@@ -485,11 +379,9 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return versionedAddressBook.equals(other.versionedAddressBook)
-            && versionedHealthWorkerBook.equals(other.versionedHealthWorkerBook)
+        return versionedHealthWorkerBook.equals(other.versionedHealthWorkerBook)
             && versionedRequestBook.equals(other.versionedRequestBook)
             && userPrefs.equals(other.userPrefs)
-            && filteredPersons.equals(other.filteredPersons)
             && filteredRequests.equals(other.filteredRequests)
             && filteredHealthWorkers.equals(filteredHealthWorkers)
             && Objects.equals(selectedRequest.get(), other.selectedRequest.get())

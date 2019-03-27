@@ -15,20 +15,16 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.HealthWorkerBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.RequestBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.HealthWorkerBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonHealthWorkerBookStorage;
 import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -56,7 +52,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing HealthHub ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -64,11 +60,10 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
         RequestBookStorage requestBookStorage = new JsonRequestBookStorage(userPrefs.getRequestBookFilePath());
         HealthWorkerBookStorage healthWorkerBookStorage = new JsonHealthWorkerBookStorage(
                 userPrefs.getHealthWorkerBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, requestBookStorage,
+        storage = new StorageManager(userPrefsStorage, requestBookStorage,
                 healthWorkerBookStorage);
 
         initLogging(config);
@@ -88,21 +83,16 @@ public class MainApp extends Application {
      * used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyHealthWorkerBook> healthWorkerBookOptional;
         Optional<ReadOnlyRequestBook> requestBookOptional;
-        ReadOnlyAddressBook initialAddressBook;
         ReadOnlyHealthWorkerBook initialHealthWorkerBook;
         ReadOnlyRequestBook initialRequestBook;
 
         try {
 
-            addressBookOptional = storage.readAddressBook();
             healthWorkerBookOptional = storage.readHealthWorkerBook();
             requestBookOptional = storage.readRequestBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("AddressBook file not found. Will be starting with a sample AddressBook");
-            }
+
 
             if (!requestBookOptional.isPresent()) {
                 logger.info("RequestBook file not found. Will be starting with sample RequestBook");
@@ -111,24 +101,21 @@ public class MainApp extends Application {
                 logger.info("HealthWorkerBook file not found. Will be starting with a sample HealthWorkerBook");
             }
             initialRequestBook = requestBookOptional.orElseGet(SampleDataUtil::getSampleRequestBook);
-            initialAddressBook = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
             initialHealthWorkerBook = healthWorkerBookOptional.orElseGet(SampleDataUtil::getSampleHealthWorkerBook);
 
 
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with empty books");
-            initialAddressBook = new AddressBook();
             initialHealthWorkerBook = new HealthWorkerBook();
             initialRequestBook = new RequestBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with empty books");
-            initialAddressBook = new AddressBook();
             initialHealthWorkerBook = new HealthWorkerBook();
             initialRequestBook = new RequestBook();
         }
 
 
-        return new ModelManager(initialAddressBook, initialHealthWorkerBook, initialRequestBook, userPrefs);
+        return new ModelManager(initialHealthWorkerBook, initialRequestBook, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -190,7 +177,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty books");
             initializedPrefs = new UserPrefs();
         }
 
@@ -207,7 +194,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting HealthHub " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 

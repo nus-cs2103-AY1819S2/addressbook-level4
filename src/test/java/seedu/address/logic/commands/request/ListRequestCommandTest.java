@@ -2,7 +2,6 @@ package seedu.address.logic.commands.request;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
 import org.junit.Before;
@@ -24,9 +23,9 @@ public class ListRequestCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+        model = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
-        expectedModel = new ModelManager(model.getAddressBook(), model.getHealthWorkerBook(),
+        expectedModel = new ModelManager(model.getHealthWorkerBook(),
             model.getRequestBook(), new UserPrefs());
     }
 

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -48,7 +48,7 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void executeValidAddAppointment() throws Exception {
+    public void executeValidAddAppointment_success() throws Exception {
         Nric nric = new Nric("S9367777A");
         LocalDate date = LocalDate.parse("2019-10-24");
         LocalTime start = LocalTime.parse("16:00");
@@ -69,16 +69,63 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void executeDuplicateAddAppointment() throws Exception {
+    public void executeAddAppointmentWithTimeConflict_failure() throws Exception {
         Nric nric = new Nric("S9534568C");
         LocalDate date = LocalDate.parse("2019-10-23");
+        LocalTime start = LocalTime.parse("16:00");
+        LocalTime end = LocalTime.parse("16:30");
+        String comment = "This is a comment";
+        AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddAppCommand.MESSAGE_CONFLICTING_APP);
+        addAppCommand.execute(model, commandHistory);
+    }
+
+    @Test
+    public void executeAddAppointmentWithStartAfterEnd_failure() throws Exception {
+        Nric nric = new Nric("S9534568C");
+        LocalDate date = LocalDate.parse("2019-10-24");
+        LocalTime start = LocalTime.parse("17:00");
+        LocalTime end = LocalTime.parse("16:00");
+        String comment = "This is a comment";
+        AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddAppCommand.MESSAGE_START_AFTER_END);
+        addAppCommand.execute(model, commandHistory);
+
+        start = end;
+        addAppCommand = new AddAppCommand(nric, date, start, end, comment);
+        thrown.expectMessage(AddAppCommand.MESSAGE_START_AFTER_END);
+        addAppCommand.execute(model, commandHistory);
+    }
+
+    @Test
+    public void executeAddAppointmentWithStartEqualsEnd_failure() throws Exception {
+        Nric nric = new Nric("S9534568C");
+        LocalDate date = LocalDate.parse("2019-10-24");
+        LocalTime start = LocalTime.parse("17:00");
+        LocalTime end = start;
+        String comment = "This is a comment";
+        AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddAppCommand.MESSAGE_START_EQUALS_END);
+        addAppCommand.execute(model, commandHistory);
+    }
+
+    @Test
+    public void executeAddAppointmentPatientNotFound_failure() throws Exception {
+        Nric nric = new Nric("S9534568I");
+        LocalDate date = LocalDate.parse("2019-10-24");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
         String comment = "This is a comment";
         AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddAppCommand.MESSAGE_CONFLICTING_APP);
+        thrown.expectMessage(AddAppCommand.MESSAGE_PATIENT_NOT_FOUND);
         addAppCommand.execute(model, commandHistory);
     }
 
@@ -95,19 +142,19 @@ public class AddAppCommandTest {
         AddAppCommand addAppB = new AddAppCommand(nricB, date, start, end, comment);
 
         // same object -> returns true
-        assertTrue(addAppA.equals(addAppA));
+        assertEquals(addAppA, addAppA);
 
         // same values -> returns true
         AddAppCommand addAppACopy = new AddAppCommand(nricA, date, start, end, comment);
-        assertTrue(addAppA.equals(addAppACopy));
+        assertEquals(addAppA, addAppACopy);
 
         // different types -> returns false
-        assertFalse(addAppA.equals(1));
+        assertNotEquals(addAppA, 1);
 
         // null -> returns false
-        assertFalse(addAppA.equals(null));
+        assertNotEquals(addAppA, null);
 
         // different person -> returns false
-        assertFalse(addAppA.equals(addAppB));
+        assertNotEquals(addAppA, addAppB);
     }
 }

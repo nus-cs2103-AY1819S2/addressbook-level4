@@ -27,7 +27,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
     public static final String MESSAGE_USAGE = FilterCommand.INVALID_MESSAGE_FORMAT + "\n"
             + FilterHealthWorkerCommand.MESSAGE_USAGE;
 
-    public static final String PREAMBLE_WHITESPACE = " ";
+    private static final String PREAMBLE_WHITESPACE = " ";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FilterHealthWorkerCommand
@@ -52,8 +52,8 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         }
 
-        throw new ParseException(String.format(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                MESSAGE_USAGE)));
+        throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                MESSAGE_USAGE));
     }
 
     /**

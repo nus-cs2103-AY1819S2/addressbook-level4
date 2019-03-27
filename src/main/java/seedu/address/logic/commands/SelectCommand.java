@@ -38,7 +38,7 @@ public class SelectCommand extends Command {
         List<Pdf> filteredPdfList = model.getFilteredPdfList();
 
         if (targetIndex.getZeroBased() >= filteredPdfList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
         }
 
         model.setSelectedPdf(filteredPdfList.get(targetIndex.getZeroBased()));

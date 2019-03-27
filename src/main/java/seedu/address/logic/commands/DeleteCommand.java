@@ -60,7 +60,7 @@ public class DeleteCommand extends Command {
         List<Pdf> lastShownList = model.getFilteredPdfList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
         }
 
         Pdf pdfToDelete = lastShownList.get(targetIndex.getZeroBased());

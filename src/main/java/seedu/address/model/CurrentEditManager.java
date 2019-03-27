@@ -73,19 +73,11 @@ public class CurrentEditManager implements CurrentEdit {
     public void setTempImage() {
         Image image = new Image(TEMP_FILE);
         this.tempImage = image;
-<<<<<<< HEAD
-=======
-        saveIntoTempFolder(image.getName().toString(), tempImage);
->>>>>>> upstream/master
     }
 
     public void setTempImage(com.sksamuel.scrimage.Image image) {
-        image.output(tempImage.getUrl(),
-<<<<<<< HEAD
-                new JpegWriter(100, true));
-=======
-            new JpegWriter(100, true));
->>>>>>> upstream/master
+        image.output(tempImage.getUrl(), new JpegWriter(100, true));
+
     }
 
     /**

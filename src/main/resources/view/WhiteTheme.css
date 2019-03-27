@@ -66,8 +66,8 @@ span.command {
 
 .request-details {
     font-family: "Segoe UI";
-    font-color: red;
-    margin: 10px 10px 10px 10px;
+    font-size: 11pt;
+    padding: 10px 20px 10px 20px;
 }
 
 /* For the healthWorkerListPanel */

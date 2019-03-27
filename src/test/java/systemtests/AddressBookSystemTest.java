@@ -178,15 +178,15 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Calls {@code MapHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code InfoPanelHandle}, {@code RequestListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
-        getInfoPanel().rememberUrl();
+        getRequestListPanel().rememberSelectedRequestCard();
+        //getInfoPanel().rememberUrl(); not valid since its now loading content
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
-        getRequestListPanel().rememberSelectedRequestCard();
     }
 
     /**

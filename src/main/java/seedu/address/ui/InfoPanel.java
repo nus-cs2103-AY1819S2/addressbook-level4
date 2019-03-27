@@ -26,7 +26,7 @@ import seedu.address.model.tag.Condition;
  * Responsible for displaying the request details when selected.
  * Map is rendered via URL request to gothere.sg.
  * For more info, visit https://gothere.sg/api/maps/staticmaps.html.
- * @@author Hui Chun
+ * @author Hui Chun
  */
 public class InfoPanel extends UiPart<Region> {
 
@@ -34,6 +34,8 @@ public class InfoPanel extends UiPart<Region> {
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
     public static final URL STYLESHEET =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "WhiteTheme.css"));
+    public static final URL FA_STYLESHEET =
+            requireNonNull(MainApp.class.getResource(FA_FILE_FOLDER + "css/all.min.css"));
 
     private static final String FXML = "InfoPanel.fxml";
 
@@ -48,21 +50,20 @@ public class InfoPanel extends UiPart<Region> {
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        // Displays the request details when selected.
+        loadDefaultPage();
+
+        // Attaches a listener that displays the request details when selected.
         selectedRequest.addListener((observable, oldValue, newValue) -> {
             logger.info("InfoPanel triggered on request selection.");
 
             Request request = selectedRequest.getValue();
             String htmlContent = generateHTML(request);
-            loadContent("");
             loadContent(htmlContent);
 
             if (newValue == null) {
                 return;
             }
         });
-
-        loadDefaultPage();
     }
 
     /**
@@ -94,32 +95,45 @@ public class InfoPanel extends UiPart<Region> {
      * @param request
      * @return a string of HTML content
      */
-    private String generateHTML(Request request){
+    private String generateHTML(Request request) {
 
         String url = constructMapURL(request.getAddress().toString());
+        String name = request.getName().toString();
+        String nric = request.getNric().toString();
+        String phone = request.getPhone().toString();
+        String address = request.getAddress().toString();
+        String conditions = request.getConditions().stream().map(Condition::toString).collect(
+                Collectors.joining(", "));
+        String healthStaff = request.getHealthStaff();
+        String date = request.getRequestDate().getFormattedDate();
+        String status = request.getRequestStatus().toString();
 
         StringBuilder htmlBuilder = new StringBuilder();
         htmlBuilder.append("<!DOCTYPE html><html><head>");
-        htmlBuilder.append("<link href='../../../../resources/view/WhiteTheme.css' rel='stylesheet'></head>");
-        htmlBuilder.append("<body class='request-details'></br>");
-        htmlBuilder.append("Request Patient: " + request.getName().toString() + "</br>");
-        htmlBuilder.append("Patient NRIC: " + request.getNric().toString() + "</br>");
-        htmlBuilder.append("Patient Contact: " + request.getPhone().toString() + "</br>");
-        htmlBuilder.append("Patient Address: " + request.getAddress().toString() + "</br>");
-        htmlBuilder.append("Patient Conditions: " + request.getConditions().stream().map(Condition::toString)
-                .collect(Collectors.joining(", ")) + "</br>");
-        if (request.getHealthStaff() != null) {
-            htmlBuilder.append("Assigned Staff: " + request.getHealthStaff() + "</br>");
+        htmlBuilder.append("<link href=\"" + STYLESHEET + "\"" + " rel=\"stylesheet\"/>");
+        htmlBuilder.append("<link href=\"" + FA_STYLESHEET + "\"" + " rel=\"stylesheet\"/></head>");
+        htmlBuilder.append("<body class=\"request-details\"></br>");
+        htmlBuilder.append("<i class=\"fas fa-user\"></i> Request Patient: " + name + "</br>");
+        htmlBuilder.append("<i class=\"fas fa-id-card\"></i> Patient NRIC: " + nric + "</br>");
+        htmlBuilder.append("<i class=\"fas fa-phone\"></i> Patient Contact: " + phone + "</br>");
+        htmlBuilder.append("<i class=\"fas fa-map-marker-alt\"></i> Patient Address: " + address + "</br>");
+        htmlBuilder.append("<i class=\"fas fa-notes-medical\"></i> Patient Conditions: " + conditions + "</br>");
+        if (request.getHealthStaff() != null) { // show staff name
+            htmlBuilder.append("<i class=\"fas fa-user-nurse\"></i> Assigned Staff: " + healthStaff + "</br>");
         } else {
-            htmlBuilder.append("Assigned Staff: Not Assigned </br>");
+            htmlBuilder.append("<i class=\"fas fa-user-nurse\"></i> Assigned Staff: Not Assigned </br>");
         }
-        htmlBuilder.append("Appt. Date: " + request.getRequestDate().getFormattedDate() + "</br>");
-        htmlBuilder.append("Request Status: " + request.getRequestStatus().toString() + "</br></br>");
+        htmlBuilder.append("<i class=\"fas fa-calendar-alt\"></i> Appt. Date: " + date + "</br>");
+        if (status == "PENDING") {
+            htmlBuilder.append("<i class=\"fas fa-times\"></i> Request Status: " + status + "</br></br>");
+        } else { // if ongoing or completed
+            htmlBuilder.append("<i class=\"fas fa-check\"></i> Request Status: " + status + "</br></br>");
+        }
 
         try {
             htmlBuilder.append(getEncodedImage(url));
-        } catch(IOException e) {
-            logger.info(e.getMessage());
+        } catch (IOException e) {
+            htmlBuilder.append("Unable to view address location in map.");
         }
         htmlBuilder.append("</body></html>");
 
@@ -139,7 +153,7 @@ public class InfoPanel extends UiPart<Region> {
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append("https://gothere.sg/maps/staticmap?center=%22");
         urlBuilder.append(street + "%22&zoom=16&size=400x200&markers=%22");
-        urlBuilder.append(street + "%22,green&sensor=false");
+        urlBuilder.append(street + "%22,orange&sensor=false");
         //logger.info(urlBuilder.toString());
         return urlBuilder.toString();
     }
@@ -164,7 +178,7 @@ public class InfoPanel extends UiPart<Region> {
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
-                logger.info("AVAILABLE BYTES: " + bis.available());
+                //logger.info("AVAILABLE BYTES: " + bis.available());
                 if (bis.available() != 0) { // if there are bytes to read from InputStream
                     for (byte[] byteArray = new byte[bis.available()];
                          bis.read(byteArray) != -1; ) {
@@ -177,7 +191,7 @@ public class InfoPanel extends UiPart<Region> {
                     return "Unable to view address location in map.";
                 }
             }
-        } catch(IOException io) {
+        } catch (IOException io) {
             throw new IOException(io.getMessage());
         }
         return "<img src='data:image/png;base64," + Base64.getEncoder().encodeToString(imageBytes) + "' />";

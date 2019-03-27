@@ -50,16 +50,10 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-
-
+    
     @Before
     public void before() {
         initialiseTest(SAMPLE_EDITEDPDF);
-    }
-
-    @After
-    public void after() {
-
     }
 
     @Test

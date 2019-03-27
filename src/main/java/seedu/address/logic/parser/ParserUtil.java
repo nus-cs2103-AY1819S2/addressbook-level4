@@ -18,6 +18,7 @@ import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Name;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.threshold.Threshold;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -148,6 +149,21 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String threshold} into a {@code Threshold}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code threshold} is invalid.
+     */
+    public static Threshold parseThreshold(String threshold) throws ParseException {
+        requireNonNull(threshold);
+        String trimmedThreshold = threshold.trim();
+        if (!Threshold.isValidQuantity(trimmedThreshold)) {
+            throw new ParseException(Threshold.MESSAGE_CONSTRAINTS);
+        }
+        return new Threshold(trimmedThreshold);
     }
 
     /**

@@ -212,21 +212,24 @@ Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the
 === Managing warning panel : `warning`
 
 Manage the threshold for expiry date and low stock warnings. +
-Format: `warning [e/EXPIRY_THRESHOLD] [s/LOWSTOCK_THRESHOLD]` +
-If the thresholds are not set, the default threshold for expiry is 10 days, while threshold for low stock is 20.
+Format: `warning [e/EXPIRY_THRESHOLD] [q/LOW_STOCK_THRESHOLD] [SHOW]` +
+If the thresholds are not set, the default threshold for expiry is 10 days, and 20 for low stock.
 
 ****
-* At least one of the optional fields must be provided.
+* Provide only one of the optional fields.
 * `EXPIRY_THRESHOLD` should be in days before expiry date.
-* `LOWSTOCK_THRESHOLD` should be in number of stock remaining.
+* `LOW_STOCK_THRESHOLD` should be in number of stock remaining.
+* `SHOW` is case insensitive, but there should not be any whitespace in the word "show".
 ****
 
 Examples:
 
 * `warning e/20` +
 Medicines with expiry dates within 10 days to expiry from today will be displayed in the warning panel.
-* `warning s/10` +
+* `warning q/10` +
 Medicines with quanities of less than or equal to 20 will be displayed in the warning panel.
+* `warning show` +
+Current thresholds used for the warning panel will be shown.
 
 === Exporting as CSV file format : `export`
 

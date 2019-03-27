@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,7 +49,7 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-    
+
     @Before
     public void before() {
         initialiseTest(SAMPLE_EDITEDPDF);

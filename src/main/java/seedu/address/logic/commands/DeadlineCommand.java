@@ -52,7 +52,7 @@ public class DeadlineCommand extends Command {
         requireNonNull(status);
 
         this.index = index;
-        this.deadline = null;
+        this.deadline = deadline;
         this.status = status;
     }
 

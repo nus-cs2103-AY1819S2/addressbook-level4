@@ -12,7 +12,7 @@ import seedu.hms.model.BookingModel;
 public class ListBookingCommand extends BookingCommand {
 
     public static final String COMMAND_ALIAS = "lb";
-    public static final String COMMAND_WORD = "listbookings";
+    public static final String COMMAND_WORD = "list-bookings";
 
     public static final String MESSAGE_SUCCESS = "Listed all bookings";
 

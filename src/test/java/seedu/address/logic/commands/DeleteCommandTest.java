@@ -234,7 +234,7 @@ public class DeleteCommandTest {
     private void saveBackup(Pdf pdfToDelete) {
         try {
 
-            File testdir =  Paths.get(pdfToDelete.getDirectory().getDirectory(),"Backup").toFile();
+            File testdir = Paths.get(pdfToDelete.getDirectory().getDirectory(), "Backup").toFile();
             if (!testdir.exists()) {
                 if (testdir.mkdir()) {
                     throw new IOException();
@@ -242,7 +242,8 @@ public class DeleteCommandTest {
             }
 
             Files.copy(Paths.get(pdfToDelete.getDirectory().getDirectory(), pdfToDelete.getName().getFullName()),
-                    Paths.get(pdfToDelete.getDirectory().getDirectory(), "Backup", pdfToDelete.getName().getFullName()), StandardCopyOption.REPLACE_EXISTING);
+                    Paths.get(pdfToDelete.getDirectory().getDirectory(), "Backup",
+                            pdfToDelete.getName().getFullName()), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException ioe) {
             throw new PdfNotFoundException();
         }

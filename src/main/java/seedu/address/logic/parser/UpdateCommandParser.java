@@ -49,7 +49,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_EXPIRY).isPresent()) {
-           updateBatchDescriptor.setExpiry(ParserUtil.parseExpiry(argMultimap.getValue(PREFIX_EXPIRY).get()));
+            updateBatchDescriptor.setExpiry(ParserUtil.parseExpiry(argMultimap.getValue(PREFIX_EXPIRY).get()));
         }
 
         updateBatchDescriptor.setBatchNumber(ParserUtil.parseBatchNumber(argMultimap.getValue(PREFIX_BATCHNUMBER)

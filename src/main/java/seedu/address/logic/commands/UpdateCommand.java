@@ -13,7 +13,6 @@ import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -182,7 +181,7 @@ public class UpdateCommand extends Command {
             return updatedBatch.getExpiry();
         }
 
-        if (batchToUpdate != null && batchToUpdate.getExpiry().equals(currentExpiry)){
+        if (batchToUpdate != null && batchToUpdate.getExpiry().equals(currentExpiry)) {
             return updatedBatches.values().stream().min(Comparator.comparing(Batch::getExpiry)).get().getExpiry();
         }
 
@@ -220,13 +219,6 @@ public class UpdateCommand extends Command {
             setBatchNumber(toCopy.batchNumber);
             setQuantity(toCopy.quantity);
             setExpiry(toCopy.expiry);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(batchNumber, quantity, expiry);
         }
 
         public void setBatchNumber(BatchNumber batchNumber) {

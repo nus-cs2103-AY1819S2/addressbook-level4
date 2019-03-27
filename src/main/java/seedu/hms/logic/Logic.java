@@ -95,6 +95,14 @@ public interface Logic {
     ReadOnlyProperty<Booking> selectedBookingProperty();
 
     /**
+     * Selected bookings in the filtered booking list.
+     * null if no booking is selected.
+     *
+     * @see seedu.hms.model.BookingModel#selectedBookingProperty()
+     */
+    ReadOnlyProperty<Reservation> selectedReservationProperty();
+
+    /**
      * Selected serviceType in the serviceType list.
      * null if no serviceType is selected.
      *

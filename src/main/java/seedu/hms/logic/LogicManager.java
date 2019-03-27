@@ -142,6 +142,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Reservation> selectedReservationProperty() {
+        return reservationModel.selectedReservationProperty();
+    }
+
+    @Override
     public ReadOnlyProperty<ServiceType> selectedServiceTypeProperty() {
         return bookingModel.selectedServiceTypeProperty();
     }

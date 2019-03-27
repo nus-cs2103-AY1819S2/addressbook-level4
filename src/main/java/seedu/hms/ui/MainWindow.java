@@ -125,11 +125,12 @@ public class MainWindow extends UiPart<Stage> {
         customerListPanelPlaceholder.getChildren().add(customerListPanel.getRoot());
 
         bookingListPanel = new BookingListPanel(logic.getFilteredBookingList(), logic.selectedBookingProperty(),
-            logic::setSelectedBooking, logic.selectedCustomerProperty(), logic.selectedServiceTypeProperty(),
+                logic::setSelectedBooking, logic.selectedCustomerProperty(), logic.selectedServiceTypeProperty(),
                 this::executeCommand);
 
-        reservationListPanel = new ReservationListPanel(logic.getFilteredBookingList(), logic.selectedBookingProperty(),
-            logic::setSelectedBooking);
+        reservationListPanel = new ReservationListPanel(logic.getFilteredReservationList(),
+                logic.selectedReservationProperty(),
+                logic::setSelectedReservation);
 
         bookingAndReservationPanel = new BookingAndReservationPanel(bookingListPanel, reservationListPanel);
         bookingAndReservationPanelPlaceholder.getChildren().add(bookingAndReservationPanel.getRoot());

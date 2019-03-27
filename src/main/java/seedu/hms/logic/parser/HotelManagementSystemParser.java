@@ -34,7 +34,6 @@ import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
-import seedu.hms.model.ReservationModel;
 
 /**
  * Parses user input.

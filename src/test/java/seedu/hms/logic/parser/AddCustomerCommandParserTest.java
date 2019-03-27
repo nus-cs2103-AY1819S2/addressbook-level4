@@ -103,7 +103,7 @@ public class AddCustomerCommandParserTest {
         // zero tags
         Customer expectedCustomer = new CustomerBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ID_DESC_AMY
-                + ADDRESS_DESC_AMY + DATE_OF_BIRTH_DESC_AMY,
+            + ADDRESS_DESC_AMY + DATE_OF_BIRTH_DESC_AMY,
             new AddCustomerCommand(expectedCustomer));
 
     }

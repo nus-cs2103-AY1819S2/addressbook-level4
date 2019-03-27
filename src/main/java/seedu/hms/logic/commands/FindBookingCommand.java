@@ -22,7 +22,7 @@ import seedu.hms.model.booking.BookingWithinTimePredicate;
 public class FindBookingCommand extends BookingCommand {
 
     public static final String COMMAND_ALIAS = "fb";
-    public static final String COMMAND_WORD = "findbooking";
+    public static final String COMMAND_WORD = "find-booking";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all bookings which is paid by the selected "
             + "customer\n"

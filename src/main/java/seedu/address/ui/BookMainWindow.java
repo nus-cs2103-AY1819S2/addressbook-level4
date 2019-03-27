@@ -113,7 +113,7 @@ public class BookMainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     public void fillInnerParts() {
-        BookBrowserPanel browserPanel = new BookBrowserPanel(logic.selectedBookProperty());
+        BookBrowserPanel browserPanel = new BookBrowserPanel(logic.selectedReviewProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),

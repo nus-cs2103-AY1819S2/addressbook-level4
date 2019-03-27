@@ -6,12 +6,12 @@ import java.net.URL;
 
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
-import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 
 /**
  * The Browser Panel of the App.
@@ -29,26 +29,33 @@ public class BookBrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    public BookBrowserPanel(ObservableValue<Book> selectedBook) {
+    @FXML
+    private Label reviewMessage;
+
+    public BookBrowserPanel(ObservableValue<Review> selectedReview) {
         super(FXML);
+//
+//        reviewMessage = new Label();
+        reviewMessage.setWrapText(true);
+        reviewMessage.setStyle("-fx-text-fill: white;");
 
         // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
+//        getRoot().setOnKeyPressed(Event::consume);
 
         // Load book's review when selected book changes.
-        selectedBook.addListener((observable, oldValue, newValue) -> {
+        selectedReview.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                loadDefaultPage();
+                reviewMessage.setText("");
                 return;
             }
-            loadReviewPage(newValue);
+            reviewMessage.setText(newValue.getReviewMessage());
         });
 
-        loadDefaultPage();
+        reviewMessage.setText("");
     }
 
-    private void loadReviewPage(Book book) {
-        loadPage(SEARCH_PAGE_URL + book.getBookName().fullName);
+    private void loadReviewPage(Review review) {
+        loadPage(SEARCH_PAGE_URL + review.getTitle().fullName);
     }
 
     public void loadPage(String url) {

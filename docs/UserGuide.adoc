@@ -1,8 +1,7 @@
-= HMS+ - User Guide
+= HMS+  User Guide
 :site-section: UserGuide
-:toc: right
+:toc: left
 :toc-title: Contents
-:toc-placement: preamble
 :toclevels: 3
 :sectnums:
 :imagesDir: images
@@ -23,14 +22,16 @@ You need a world-class property management system to run your hotel’s front de
 
 HMS+ is for hotels that want to use a *single, integrated system to manage all aspects of their requirements*.
 
-This user guide provides in-depth documentation on the HMS+ installation process, system configuration and management, monitoring and troubleshooting problems. In addition the <<Getting Started>> will provide the basic knowledge of the setup process and how you can get started.
+This user guide provides in-depth documentation on the HMS+ installation process, system configuration and management, monitoring and troubleshooting problems. In addition, the <<Getting Started>> will provide the basic knowledge of the setup process and how you can get started.
 
 == Getting Started
 
 .  Ensure you have Java version `9` or later installed in your Computer.
+
 .  Download the latest `hms+.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Hotel Management System.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the app. The application should appear in a few seconds.
+
 +
 image::Ui.png[width="790"]
 +
@@ -38,9 +39,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listcustomers`* : lists all customers
-* **`addcustomer`**`n/John Doe p/98765432 e/johnd@example.com id/887 a/John street, block 123, #01-01` : adds a customer named `John Doe` to the HMS+ database.
-* **`deletecustomer`**`3` : deletes the 3rd customer  shown in the current list
+* *`list-customers`* : lists all customers
+* **`add-customer`**`n/John Doe p/98765432 e/johnd@example.com id/887 a/John street, block 123, #01-01` : adds a customer named `John Doe` to the HMS+ database.
+* **`delete-customer`**`3` : deletes the 3rd customer  shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -53,7 +54,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g. `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items in curly brackets separated by a slash (`/`) are interchangeable (entering either of those items have the same effect) e.g. `{addcustomer/ac}` are three aliases of the same command.
+* Items in curly brackets separated by a slash (`/`) are interchangeable (entering either of those items have the same effect) e.g. `{addcustomer/ac}` are two aliases of the same command.
 * Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]…` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
@@ -69,10 +70,10 @@ Effect: Clears all entries from the database. +
 Format: `{clear-hms/clear-all}`
 
 === Customer commands
-==== Adding a customer : `addcustomer`, `ac`
+==== Adding a customer : `add-customer`, `ac`
 
 Effect: Adds a customer to the customer database. +
-Format: `{addcustomer/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
+Format: `{add-customer/ac} #n#/[lime]#NAME# #p#/[lime]#PHONE_NUMBER# #e#/[lime]#EMAIL# #id#/[lime]#IDENTIFICATION_NO# #[dob#/[lime]#DATE_OF_BIRTH]# #[a#/[lime]#ADDRESS]# #[t#/[lime]#TAG]#…`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -82,128 +83,122 @@ Examples:
 * `ac n/John Doe p/98765432 dob/28/05/1999 e/johnd@example.com id/552526 a/John street, block 123, #01-01`
 * `ac n/Betsy Crowe e/betsy.crowe@example.com p/123456 id/345252`
 
-==== Listing all customers : `listcustomers`, `lc`
+==== Listing all customers : `list-customers`, `lc`
 
 Effect: Displays a customer list, which lists all customers in the customer database. +
-Format: `{listcustomers/lc}`
+Format: `{list-customers/lc}`
 
-==== Editing a customer : `editcustomer`, `ec`
+==== Editing a customer : `edit-customer`, `ec`
 
 Effect: Edits the fields of an existing customer in the customer database. +
-Format: `{editcustomer/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
+Format: `{edit-customer/ec} [lime]#INDEX# #[n#/[lime]#NAME]# #[p#/[lime]#PHONE]# #[e#/[lime]#EMAIL]# #[id#/[lime]#IDENTIFICATION_NO]# #[dob#/[lime]#DATE_OF_BIRTH]# #[a#/[lime]#ADDRESS]# #[t#/[lime]#TAG]#…`
 
-****
+[NOTE]
+====
 * Edits the customer at the specified INDEX. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
 * At least one of the optional fields must be provided. Otherwise, nothing will be changed.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the customer will be removed, i.e. adding of tags is not cumulative.
-* You can remove all the customer's tags by typing `t/` without specifying any tags after it.
-****
+====
+[TIP]
+You can remove all the customer's tags by typing `t/` without specifying any tags after it.
 
 Examples:
 
-* `listc`, then `editc 1 p/91234567 e/johndoe@example.com` +
+* `list-customers`, then `edit-customer 1 p/91234567 e/johndoe@example.com` +
 Edits the phone number and email address of the 1st customer to be 91234567 and johndoe@example.com respectively.
-* `listc`, then `edit 2 n/Betsy Crower t/` +
+* `lc`, then `ec 2 n/Betsy Crower t/` +
 Edits the name of the 2nd customer to be `Betsy Crower` and clears all existing tags.
 
-==== Finding customers by name: `findname`, `fn`
+==== Deleting a customer : `delete-customer`, `dc`
+
+Effect: Deletes a customer from the customer database. +
+Format: `{delete-customer/dc} [lime]#INDEX#`
+
+[NOTE]
+====
+* Deletes the customer at the specified index. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
+* This command will delete all the bookings and reservations associated with the customer as well.
+====
+
+Examples:
+
+* `list-customers`, then `delete-customer 2` +
+Deletes the 2nd person of the customer database.
+* `find-name Betsy`, then `delete-customer 1` +
+Deletes the 1st customer in the customer list returned by the `findname` command.
+
+==== Finding customers by name: `find-name`, `fn`
 
 Effect: Displays a customer list, which consists of customers whose names contain any of the given keywords. +
-Format: `{findname/fn} KEYWORD [MORE_KEYWORDS]`
+Format: `{find-name/fn} KEYWORD [MORE_KEYWORDS]`
 
-****
+[NOTE]
+====
 * The search is case insensitive, e.g `hans` will match Hans
 * The order of the keywords does not matter. e.g. `Hans Bo` will match Bo Hans
 * Only full words will be matched, e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return Hans Gruber and Bo Yang
-****
+====
 
 Examples:
 
-* `find John` +
+* `find-name John` +
 Returns John Cena and John Doe
-* `find Betsy Tim John` +
+* `fn Betsy Tim John` +
 Returns any person having names Betsy, Tim, or John
-
-==== Deleting a customer : `deletecustomer`, `deletec`
-
-Effect: Deletes a customer from the customer database. +
-Format: `{deletecustome/deletec} INDEX`
-
-****
-* Deletes the customer at the specified index. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
-****
-
-Examples:
-
-* `listcustomers`, then `deletecustomer 2` +
-Deletes the 2nd person of the customer database.
-* `findname Betsy`, then `deletecustomer 1` +
-Deletes the 1st customer in the customer list returned by the `findname` command.
 
 === Room Reservation commands
 
-==== Reserving a room : `add-reservation`, `ar`  `[coming in v2.0]`
+==== Reserving a room : `add-reservation`, `ar`
 
-Effect: Adds a booking for a room associated with certain customers. +
-Format: `{add-reservation/ar} r/ROOM_TYPE d/START_DATE-END_DATE i/INDEX_OF_CUSTOMER [i/MORE_INDICIES]… [c/COMMENTS]`
+Effect: Adds a reservation for a room associated with certain customers. +
+Format: `{add-reservation/ar} #r#/[lime]#ROOM_TYPE# #d#/[lime]#START_DATE-END_DATE# #$#/[lime]#PAYER_INDEX# #[c#/[lime]#MORE_CUSTOMER_INDICIES…]# #[com#/[lime]#COMMENTS]#`
 
-****
-* `ROOM_TYPE` is a positive integer. Which number corresponds to which actual type is defined by the user.
+[NOTE]
+====
+* `ROOM_TYPE` is the name of the room type taken from the list shown in the application
 * `START_DATE` and `END_DATE` follows the `DAY.MONTH` format.
 * `COMMENTS` can contain any text without slash (/).
-****
+====
 
 Examples:
 
-* `listcustomers`, then `ar r/1 d/20.5-25.5 i/15` +
-Adds a booking of Room Type 1, one customer from the complete customer list, from 20 May to 25 May.
-* `findname Jack Rose`, then `add-reservation r/2 d/14.2-15.2 c/1 c/2` +
-Adds a booking of Room Type 3, two customers from the search result of Jack and Rose, from 14 Feb to 15 Feb.
+* `list-customers`, then `ar r/SINGLE ROOM d/20/5/19-25/5/19 $/15` +
+Adds a reservation of Single Room in the name of the 15th customer from 20 May 2019 to 25 May 2019.
+* `find-name Jack Rose`, then `add-reservation r/DELUXE ROOM d/14/2/2019-15/2/2019 $/1 c/2` +
+Adds a reservation of Deluxe Room, in the name of the first customer for both him/her and the second customer, from 14 Feb 2019 to 15 Feb 2019.
 
-==== Listing all reservations : `list-reservations`, `lr` `[coming in v2.0]`
-Effect: Displays a booking list, which lists one of: 1. all the bookings in the booking database; 2. the bookings associated with certain customers; 3. the bookings that contains a certain date. +
-Format: `{list-reservations/lr} [i/INDEX_OF_CUSTOMER]… [d/DATE]`
+==== Listing all reservations : `list-reservations`, `lr`
+Effect: Displays a reservation list, which lists all the reservations.
+Format: `{list-reservations/lr}`
 
-****
-* If the indices are provided, the command shows only the bookings associated with any of the customers. The index refers to the index number shown in the displayed customer list. The index must be a positive integer.
-* If a date is provided, the command shows only the bookings that span across that date. The date should follow the `DD.MM` format.
-* Indicies and dates can be provided at the same time. The command will then show only the bookings associated with the customers that covers the date.
-****
+==== Editing a room reservation : `edit-reservation`, `er`
 
-Examples:
+Effect: Edits the fields of an existing reservation in the reservation database. +
+Format: `{edit-reservation/er} [lime]#INDEX# #[r#/[lime]#ROOM_TYPE]# #[d#/[lime]#START_DATE-END_DATE]# #[$#/[lime]#PAYER_INDEX]# #[c#/[lime]#MORE_CUSTOMER_INDICES]# #[com#/[lime]#COMMENTS]#`
 
-* `listc`, then `lr i/2` +
-Lists all the bookings under the name of the 2nd customer.
-* `lr d/05.12` +
-Lists all the bookings that spans across the date 12 May.
-
-==== Editing a room reservation : `edit-reservation`, `er` `[coming in v2.0]`
-
-Effect: Edits the fields of an existing booking in the booking database. +
-Format: `{edit-reservation/er} INDEX [r/ROOM_TYPE] [d/START_DATE-END_DATE] [c/COMMENTS]`
-
-****
-* Edits the booking at the specified index. The index refers to the index number shown in the displayed booking list. The index must be a positive integer.
+[NOTE]
+====
+* Edits the reservation at the specified index. The index refers to the index number shown in the displayed reservation list. The index must be a positive integer.
 * At least one of the optional fields must be provided. Otherwise, nothing will be changed.
-* Changing the associated customers is forbidden because that may lead to billing issues. If that is desired, delete the existing booking and create a new one.
 * Existing values will be updated to the input values.
 * When editing comments, the existing comments of the booking will be removed, i.e adding of comments is not cumulative.
-* You can remove all the booking's comments by typing `c/` without specifying any tags after it.
-****
+====
+[TIP]
+You can remove all the reservation's comments by typing `com/` without specifying any tags after it.
 
 Examples:
 
-* `listb`, then `er 1 r/3` +
-Edits the room type of the 1st booking to be Type 3.
-* `listb`, then `er 2 d/14.2-14.3 c/` +
-Edits the date of the 2nd booking to be from 14 Feb to 14 Mar and clears all existing comments.
+* `lr`, then `er 1 r/3` +
+Edits the room type of the 1st reseravtion to be Type 3.
+* `lr`, then `er 2 d/14.2-14.3 c/` +
+Edits the date of the 2nd reservation to be from 14 Feb to 14 Mar and clears all existing comments.
 
-==== Deleting reservations: `delete-reservation`, `dr` `[coming in v2.0]`
+==== Deleting reservations: `delete-reservation`, `dr`
 
-Effect: Deletes a booking from the booking database. +
-Format: `{delete-reservation/dr} INDEX`
+Effect: Deletes a reservation from the reservation database. +
+Format: `{delete-reservation/dr} [lime]#INDEX#`
 
 ****
 * Deletes the reservation at the specified index. The index refers to the index number shown in the displayed booking list. The index must be a positive integer.
@@ -211,50 +206,51 @@ Format: `{delete-reservation/dr} INDEX`
 
 Examples:
 
-* `listbookings`, then `deletebooking 2` +
-Deletes the 2nd person of the booking database
-* `listb i/2`, then `deletebooking 1` +
-Deletes the 1st booking in the results of the listb command.
+* `lr`, then `dr 2` +
+Deletes the 2nd entry of the reservation database
 
-==== Clearing all reservations: `clear-reservations`, `clear-r`
+==== Clearing all reservations: `clear-reservations`, `cr`
 Effect: Removes all room reservations from the database. +
-Format: `{clear-reservations/clear-r}`
+Format: `{clear-reservations/cr}`
 
 === Service Booking commands
 ==== Booking a service: `add-booking`,`ab`
 
 Effect: Adds a service associated with certain customers. +
-Format: `{add-booking/ab} s/SERVICE_NAME :/START_TIME-END_TIME $/PAYER INDEX [c/CUSTOMER INDEX] [com/COMMENTS]`
+Format: `{add-booking/ab} #s#/[lime]#SERVICE_NAME# #:#/[lime]#START_TIME-END_TIME# #$#/[lime]#PAYER_INDEX# #[c#/[lime]#MORE_CUSTOMER_INDICES]# #[com#/[lime]#COMMENTS]#`
 
-****
-* `SERVICE_TYPE` is a string. Which corresponds to which service type is defined by the user.
+[NOTE]
+====
+* `SERVICE_TYPE` is the name of the service taken from the list in the application
 * `START_TIME` and `END_TIME` follows the `HH 24-hour` format.
 * `COMMENTS` can contain any text without slash (`/`).
-****
+====
 
 Examples:
 
-* `listc`, then `add-booking s/GYM :/20-23 $/2
+* `lc`, then `add-booking s/GYM :/20-23 $/2
 Adds a booking for service GYM, for the 2nd customer from the complete customer list, from 20:00 to 23:00 if the service is available.
-* `findn Jack Rose`, then `add-booking s/GYM h/14-15 $/1 c/2`
-Adds a booking of service GYM for customer index 2 payed by customer index 1, from 14:00 to 15:00.
+* `fn Jack Rose`, then `add-booking s/GYM h/14-15 $/1 c/2`
+Adds a booking of service GYM in the name for first customer for him/her , from 14:00 to 15:00.
 
-==== Listing all booked services: `listbookings`,`lb`
+==== Listing all booked services: `list-bookings`,`lb`
 Effect: Displays a booking list, which lists all the bookings made till now.
-Format: `{listbookings/lb}`
+Format: `{list-bookings/lb}`
 
 ==== Editing a booked service: `edit-booking`, `eb`
 
 Effect: Edits the fields of a booking in the database. +
-Format: `{edit-booking/eb} INDEX [s/SERVICE_NAME] [:/START_TIME - END_TIME] [p/PAYER INDEX] [c/CUSTOMER INDICES] [com/COMMENTS]`
+Format: `{edit-booking/eb} [lime]#INDEX# #[s#/[lime]#SERVICE_NAME]# #[:#/[lime]#START_TIME-END_TIME]# #[p#/[lime]#PAYER_INDEX]# #[c#/[lime]#MORE_CUSTOMER_INDICES]# #[com#/[lime]#COMMENTS]#`
 
-****
+[NOTE]
+====
 * Edits the booking at the specified index. The index refers to the index number shown in the displayed booking list. The index must be a positive integer.
 * At least one of the optional fields must be provided. Otherwise, nothing will be changed.
 * Existing values will be updated to the input values.
 * When editing comments, the existing comments of the booking will be removed, i.e adding of comments is not cumulative.
-* You can remove all the booking's comments by typing `com/` without specifying any tags after it.
-****
+====
+[TIP]
+You can remove all the booking's comments by typing `com/` without specifying any tags after it.
 
 Examples:
 
@@ -263,49 +259,51 @@ Edits the service type of the 1st booking to be GYM.
 * `lb`, then `edit-booking 2 :/14-15 c/`
 Edits the timing of the 2nd booking to be 14:00 - 15:00 and clears all existing comments.
 
+==== Deleting a booked service: `delete-booking`, `db`
+
+Effect: Deletes a booking from the database.
+Format: `{delete-booking/db} [lime]#INDEX#`
+
+[NOTE]
+====
+* Deletes the booking at the specified index. The index refers to the index number shown in the displayed room service list. The index must be a positive integer.
+====
+
+Examples:
+* `lb`, then `delete-booking 2`
+Deletes the 2nd booking of the booking database
+
+==== Clearing all bookings: `clear-bookings`, `cb`
+
+Effect: Removes all service bookings from the database. +
+Format: `{clear-bookings/cb}`
+
 ==== Find a booked service contains payer: `findbookingcontainspayer`, `fbcp`
 
 Effect: Displays a booking list, which is paid by the customer whose identification number is the same as the given number
 Format: `{findbookingcontainspayer/fbcp} PAYER_IDENTIFICATION_NUMBER`
 
-****
+[NOTE]
+====
 *  The searching is done in the whole booking list.
-****
+====
 
 Examples:
 * `fbcs 12345678` +
 Returns any booking which is paid by the customer with identification number 12345678
 
-==== Deleting a booked service: `deletebooking`, `delb`
+=== Generate customer's bill : `generate-bill`, `gb`   `[coming in v2.0]`
 
-Effect: Deletes a booking from the database.
-Format: `{deletebooking/delb} INDEX`
+Effect: Generates the bill for the customer based on his room reservations and service bookings.
+Format: `{generate-bill/gb} [lime]#INDEX#`
 
-****
-* Deletes the booking at the specified index. The index refers to the index number shown in the displayed room service list. The index must be a positive integer.
-****
-
-Examples:
-* `lb`, then `deletebooking 2`
-Deletes the 2nd booking of the booking database
-
-==== Clearing all bookings: `clear-bookings`, `clear-b`
-
-Effect: Removes all booked services from the database. +
-Format: `{clear-bookings/clear-b}`
-
-
-=== Generate customer's bil : `generatebill`, `gb`   `[coming in v2.0]`
-
-Effect: Generates the bill for the customer based on his room reservations plus service bookings less the amount the customer has already paid+
-Format: `{generatebill/gb} INDEX`
-
-****
+[NOTE]
+====
 * Generates the bill for the customer at the specified index.
-****
+====
 
 Examples:
-* `listc`, then `gb 2`
+* `lc`, then `gb 2`
 Generates the bill for the second customer.
 
 === Listing entered commands : `history`
@@ -331,18 +329,18 @@ Undoable commands: those commands that modify HMS's content (`addc`, `deletecust
 
 Examples:
 
-* `deletecustomer 1` +
-`listc` +
-`undo` (reverses the `deletecustomer 1` command) +
+* `delete-customer 1` +
+`lc` +
+`undo` (adds back the deleted customer) +
 
-* `listc` +
+* `lc` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
-* `deletecustomer 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `deletecustomer 1` command) +
+* `delete-customer 1` +
+`clear-all` +
+`undo` (adds back all cleared entries) +
+`undo` (adds back the previously deleted customer) +
 
 === Redoing the previously undone command : `redo`
 
@@ -351,20 +349,20 @@ Format: `redo`
 
 Examples:
 
-* `deletecustomer 1` +
-`undo` (reverses the `deletecustomer 1` command) +
-`redo` (reapplies the `deletecustomer 1` command) +
+* `delete-customer 1` +
+`undo` (adds back the deleted customer) +
+`redo` (deletes customer at index 1 again) +
 
-* `deletecustomer 1` +
+* `delete-customer 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
-* `deletecustomer 1` +
+* `delete-customer 1` +
 `clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `deletecustomer 1` command) +
-`redo` (reapplies the `deletecustomer 1` command) +
-`redo` (reapplies the `clear` command) +
+`undo` (adds back all cleared entries) +
+`undo` (adds back the previously deleted customer) +
+`redo` (deletes customer at index 1 again) +
+`redo` (clears all remaining entries again) +
 // end::undoredo[]
 
 === Exiting the program : `exit`
@@ -517,23 +515,23 @@ _{explain how the user can enable/disable data encryption}_
 == Command Summary
 
 * *Help* : `help`
-* *Add Customer* : `{addcustomer/addc/ac} n/NAME [p/PHONE_NUMBER] [e/EMAIL]  [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
-* *List Customers* : `{listcustomers/listc/lc}`
-* *Edit Customer* : `{editcustomer/editc/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
-* *Find Customer by name* : `{findname/findn/fn} KEYWORD [MORE_KEYWORDS]`
-* *Delete Customer* : `deletecustomer INDEX` +
-* *Reserve room* : `{addservice/adds/as} s/SERVICE_TYPE h/START_TIME-END_TIME i/INDEX [i/MORE_INDICES] [c/COMMENTS]`
-* *List room reservations* : `{listservices/lists/ls} [i/INDEX_OF_CUSTOMER]… [h/START_TIME - END_TIME]`
-* *Edit room reservaitons* : `{editservice/edits/es} INDEX [s/SERVICE_TYPE] [h/START_TIME - END_TIME] [c/COMMENTS]`
-* *Delete room reservation* : `deleteservice INDEX`
-* *Book services of hotel* : `{addbooking/addb/ab} r/ROOM_TYPE d/START_DATE-END_DATE i/INDEX_OF_CUSTOMER [i/MORE_INDICIES]… [c/COMMENTS]`
-* *List services already booked* : `{listbookings/listb/lb} [i/INDEX_OF_CUSTOMER]… [d/DATE]`
-* *Edit services already booked* : `{editbooking/editb/eb} INDEX [r/ROOM_TYPE] [d/START_DATE-END_DATE] [c/COMMENTS]`
-* *Delete service already booked* : `deletebooking INDEX`
-* *Generate bill* : `{generatebill/gb} INDEX`
+* *Add Customer* : `{add-customer/ac} n/NAME p/PHONE_NUMBER e/EMAIL  id/IDENTIFICATION_NO [a/ADDRESS] [dob/DATE_OF_BIRTH] [t/TAG]…`
+* *List Customers* : `{list-customers/lc}`
+* *Edit Customer* : `{edit-customer/ec} INDEX [n/NAME] [p/PHONE] [e/EMAIL] [id/IDENTIFICATIONNO] [a/ADDRESS] [t/TAG]…`
+* *Find Customer by name* : `{find-name/fn} KEYWORD [MORE_KEYWORDS]`
+* *Delete Customer* : `{delete-customer/dc} INDEX` +
+* *Reserve room* : `{add-reservation/ar} r/ROOM_TYPE d/START_DATE-END_DATE $/PAYER_INDEX [c/MORE_CUSTOMER_INDICIES…] [com/COMMENTS]`
+* *List room reservations* : `{list-reservations/lr}`
+* *Edit room reservaitons* : `{edit-reservation/er} INDEX [s/SERVICE_NAME] [:/START_TIME - END_TIME] [p/PAYER_INDEX] [c/MORE_CUSTOMER_INDICES] [com/COMMENTS]`
+* *Delete room reservation* : `{delete-reservation/dr} INDEX`
+* *Book services of hotel* : `{add-booking/ab} `{add-booking/ab} s/SERVICE_NAME# :/START_TIME-END_TIME $/PAYER_INDEX [c/MORE_CUSTOMER_INDICES] [com/COMMENTS]`
+* *List services already booked* : `{list-bookings/lb}`
+* *Edit services already booked* : `{edit-booking/eb} INDEX [s/SERVICE_NAME] [:/START_TIME# - END_TIME] [p/PAYER# INDEX] [c/MORE_CUSTOMER_INDICES] [com/COMMENTS]`
+* *Delete service already booked* : `delete-booking INDEX`
+* *Generate bill* : `{generate-bill/gb} INDEX`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Clear hotel management system database* : `{clear-hms/clear-all}`
-* *Clear room reservations* : `{clear-reservations/clear-r}`
-* *Clear booked services* : `{clear-bookings/clear-b}`
+* *Clear room reservations* : `{clear-reservations/cr}`
+* *Clear booked services* : `{clear-bookings/cb}`

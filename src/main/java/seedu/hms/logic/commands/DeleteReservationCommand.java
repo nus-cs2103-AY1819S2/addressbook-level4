@@ -16,8 +16,8 @@ import seedu.hms.model.reservation.Reservation;
  */
 public class DeleteReservationCommand extends ReservationCommand {
 
-    public static final String COMMAND_ALIAS = "delr";
-    public static final String COMMAND_WORD = "deletereservation";
+    public static final String COMMAND_ALIAS = "dr";
+    public static final String COMMAND_WORD = "delete-reservation";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Deletes the reservation identified by the index number used in the displayed customer list.\n"

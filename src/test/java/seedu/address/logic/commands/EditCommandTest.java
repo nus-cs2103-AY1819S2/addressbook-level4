@@ -16,13 +16,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_EDITEDPDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_2;
-import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_3;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
 
 import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.Messages;
@@ -40,6 +34,11 @@ import seedu.address.testutil.PdfBuilder;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

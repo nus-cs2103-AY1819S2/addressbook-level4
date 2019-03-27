@@ -29,6 +29,7 @@ This user guide provides in-depth documentation on the HMS+ installation process
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 <<<<<<< HEAD
+<<<<<<< HEAD
 .  Download the latest `hms+.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Hotel Management System.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -37,6 +38,13 @@ This user guide provides in-depth documentation on the HMS+ installation process
 .  Copy the file to the folder you want to use as the home folder for your Hotel Management System Plus.
 .  Double-click the file to start the app. The application should appear in a few seconds.
 >>>>>>> 47e000e06b4c5a6db4bc5fba1020d64c5da4b9a5
+=======
+
+.  Download the latest `hms+.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Hotel Management System.
+.  Double-click the file to start the app. The application should appear in a few seconds.
+
+>>>>>>> 84e151b39c80aaef85f13cfab8251ac1ebf8a5ef
 +
 image::Ui.png[width="790"]
 +

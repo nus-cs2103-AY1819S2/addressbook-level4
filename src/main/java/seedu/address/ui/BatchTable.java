@@ -22,7 +22,7 @@ import seedu.address.model.medicine.Quantity;
 public class BatchTable extends UiPart<Region> {
 
 
-    public static final String BATCHTABLE_FOOTER_QUANTITY = "Quantity: ";
+    public static final String BATCHTABLE_FOOTER_QUANTITY = "Total Quantity: ";
     public static final String BATCHTABLE_FOOTER_EXPIRY = "Next Expiry Date: ";
     private static final String FXML = "BatchTable.fxml";
 

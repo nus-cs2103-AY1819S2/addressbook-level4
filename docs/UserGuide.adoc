@@ -22,7 +22,7 @@ Welcome to the _MediTabs User Guide_. You can find step by step instructions on 
 
 === What is MediTabs?
 
-MediTabs is a desktop application for managing medicine stock taking. You can use MediTabs in your clinics to easily track of your medicine inventory and take note of important information such as which medicines are low in stock and which medicines are expiring soon.
+MediTabs is a desktop application for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock and which medicines are expiring soon.
 
 MediTabs supports Windows, Linux and MacOS operating systems.
 
@@ -51,8 +51,28 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 .  Having trouble setting up MediTabs? You can refer to the <<Frequently Asked Questions (FAQ)>> for solutions to common problems you might encounter. Do you require further assistance? If so, you can also post your queries link:{repoURL}/issues[here] and our team would do our best to assist you.
 
-[[Features]]
-== Features
+== Main Components
+
+image::UserGuide_Components.png[width="1000"]
+
+*Command Box*
+
+* Type commmands into the command box and press kbd:[Enter] to execute them.
+* You may refer to <<Commands Summary>> for a list of all possible commands.
+
+*Result Display*
+* The result of the command will be displayed in the Result Display.
+* If commands are entered incorrectly, error messages will be shown here.
+
+*Medicine List*
+
+* A list of medicines can be seen in the medicine list.
+* The list may contain all medicine in the inventory, or it may be filtered if the `find` command was used.
+
+*Information Panel*
+
+* You can select a medicine from the medicine list by using the `select` command. + e.g. `select 1` selects the first medicine in the list.
+* After selecting a medicine, information about the medicine will be displayed in the information panel.
 
 *Warnings Panel*
 
@@ -66,6 +86,9 @@ image::UserGuide_WarningPanel.png[width="250"]
 * *List:* This refers to the currently displayed list (possibly filtered).
 * *Inventory:* This refers to the storage containing all medicines that have been added. Display all medicines in the inventory by using the `list` command.
 * *Batch:* This refers to medicine with the same name, medical properties and manufacturing date. There may be more than one batch of medicine with the same name, but they will have different batch numbers and manufacturing dates. View all batches of a medicine by using the `select` command.
+
+[[Features]]
+== Features
 
 ====
 

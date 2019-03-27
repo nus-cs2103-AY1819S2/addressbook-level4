@@ -14,7 +14,7 @@
     <top>
         <VBox  minWidth="400" prefWidth="400">
             <Label fx:id="name" alignment="TOP_LEFT" styleClass="information-header" />
-            <Label fx:id="company" alignment="TOP_LEFT"/>
+            <Label fx:id="company" alignment="TOP_LEFT" styleClass="information-label" />
             <padding>
                 <Insets left="15.0" top="10" />
             </padding>
@@ -48,8 +48,8 @@
 
     <bottom>
         <HBox fx:id="footer" alignment="BOTTOM_CENTER" spacing="15.0" minWidth="400" prefWidth="400">
-            <Label fx:id="quantity" alignment="CENTER" />
-            <Label fx:id="expiry" alignment="CENTER" />
+            <Label fx:id="quantity" alignment="CENTER" styleClass="information-label" />
+            <Label fx:id="expiry" alignment="CENTER" styleClass="information-label" />
         </HBox>
     </bottom>
 </BorderPane>

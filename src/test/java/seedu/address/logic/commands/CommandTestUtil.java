@@ -48,13 +48,12 @@ public class CommandTestUtil {
     public static final String SIZE_3_VALID = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
             "CS2103T_sample PPP.pdf").toAbsolutePath().toFile().length());
 
-    public static final String DEADLINE_VALID = "12-10-2019";
-    public static final String DEADLINE_DATE_INVALID = "32-10-2019";
-    public static final String DEADLINE_FORMAT_INVALID = "12-10/2019";
+    public static final String DEADLINE_1_VALID = "2019-10-03";
+    public static final String DEADLINE_2_VALID = "2019-05-03";
+    public static final String DEADLINE_DATE_INVALID = "2019-10-32";
+    public static final String DEADLINE_FORMAT_INVALID = "2019/10-03";
 
     public static final String TAG_VALID_CS2103T = "CS2103T";
-    public static final String TAG_VALID_UG = "UG";
-    public static final String TAG_VALID_INTRODUCTION = "introduction";
     public static final String TAG_VALID_LECTURE = "lecture";
 
     public static final String FILE_DESC_1_PDF = " " + PREFIX_FILE + Paths.get(DIR_1_VALID).toAbsolutePath().toString();
@@ -65,7 +64,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_NEW + TAG_VALID_CS2103T;
     public static final String TAG_DESC_INVALID = " " + PREFIX_TAG_NEW + "moduleA*"; // '*' not allowed in tags
 
-    public static final String DEADLINE_DESC_VALID = " " + PREFIX_DEADLINE_NEW + DEADLINE_VALID;
+    public static final String DEADLINE_DESC_VALID = " " + PREFIX_DEADLINE_NEW + DEADLINE_1_VALID;
     public static final String DEADLINE_INVALID_DESC = " " + PREFIX_DEADLINE_NEW + DEADLINE_DATE_INVALID;
 
     public static final String NAME_DESC_1_VALID = " " + PREFIX_NAME + NAME_1_VALID;

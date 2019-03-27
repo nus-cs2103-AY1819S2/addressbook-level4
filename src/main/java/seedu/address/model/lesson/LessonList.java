@@ -77,7 +77,7 @@ public class LessonList {
      */
     public void deleteLesson(int index) {
         try {
-            if (openedLessonIndex == index) {
+            if (openedLesson != null && openedLessonIndex == index) {
                 closeLesson();
             }
 
@@ -133,6 +133,7 @@ public class LessonList {
         String lessonName = openedLesson.getName();
         setLesson(openedLessonIndex, openedLesson); // Save
         openedLesson = null;
+        openedLessonIndex = -1;
         return lessonName;
     }
 

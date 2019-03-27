@@ -113,7 +113,7 @@ public class ReservationManager implements ReservationModel {
     }
 
     @Override
-    public void setClearReservation(ReadOnlyHotelManagementSystem hotelManagementSystem){
+    public void setClearReservation(ReadOnlyHotelManagementSystem hotelManagementSystem) {
         versionedHotelManagementSystem.resetDataReservation(hotelManagementSystem);
     }
 

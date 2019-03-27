@@ -16,9 +16,11 @@ public class Statistics {
 
     public static Map<String, Integer> statistics = new TreeMap<>();
 
+    /*
     public static Map<String, Integer> getStatistics() {
         return statistics;
     }
+    */
 
     /**
      * Returns the number of times the specific condition has appeared in added requests

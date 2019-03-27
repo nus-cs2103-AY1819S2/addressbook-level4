@@ -21,7 +21,7 @@ public class StatisticsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        Statistics.getStatistics();
-        return new CommandResult(MESSAGE_SUCCESS);
+        //Statistics.getStatistics();
+        return new CommandResult(Statistics.class.toString() + MESSAGE_SUCCESS);
     }
 }

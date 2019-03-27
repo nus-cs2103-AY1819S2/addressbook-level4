@@ -42,7 +42,7 @@ public class EditBookingCommand extends BookingCommand {
         + "Example: " + COMMAND_WORD + " "
         + PREFIX_SERVICE + "GYM "
         + PREFIX_PAYER + "2 "
-        + PREFIX_CUSTOMERS + "1,3 "
+        + PREFIX_CUSTOMERS + "1 "
         + PREFIX_COMMENT + "Edited second booking to add bookings and change payer and service\n";
 
     public static final String MESSAGE_EDIT_BOOKING_SUCCESS = "Booking edited: %1$s";
@@ -62,7 +62,6 @@ public class EditBookingCommand extends BookingCommand {
 
         this.editBookingDescriptor = editBookingDescriptor;
         this.index = index;
-
     }
 
     /**

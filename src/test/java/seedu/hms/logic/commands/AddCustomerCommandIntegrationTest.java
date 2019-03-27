@@ -38,7 +38,6 @@ public class AddCustomerCommandIntegrationTest {
             .withIdNum("9292392")
             .withAddress("2, New Place, #01-321")
             .build();
-        System.out.println(validCustomer);
         CustomerModel expectedModel = new CustomerManager(
             new VersionedHotelManagementSystem(model.getHotelManagementSystem()), new UserPrefs());
         expectedModel.addCustomer(validCustomer);

@@ -106,6 +106,17 @@ public class BookingList implements Iterable<Booking> {
         internalList.remove(toRemove);
     }
 
+    /**
+     * Removes the equivalent booking from the list.
+     * The customer must exist in the list.
+     */
+    public void remove(Booking toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new BookingNotFoundException();
+        }
+    }
+
     public void setBookings(BookingList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
@@ -129,9 +140,20 @@ public class BookingList implements Iterable<Booking> {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof BookingList // instanceof handles nulls
-            && internalList.equals(((BookingList) other).internalList));
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof BookingList)) {
+            return false;
+        }
+        BookingList ob = (BookingList) other;
+        boolean eq = true;
+        for (int i = 0; i < internalList.size(); i++) {
+            if (!internalList.get(i).equals(ob.internalList.get(i))) {
+                eq = false;
+            }
+        }
+        return eq;
     }
 
     @Override

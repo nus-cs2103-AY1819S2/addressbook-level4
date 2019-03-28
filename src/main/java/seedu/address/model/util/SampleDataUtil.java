@@ -24,7 +24,7 @@ public class SampleDataUtil {
      */
     public static Person[] getSamplePersons() {
         if (!Dentist.dentistExists()) {
-            Dentist.setDentistName("Test");
+            Dentist.setSampleDentistName();
             Person[] persons = getSamplePersonsImpl();
             Dentist.removeDentistName();
             return persons;

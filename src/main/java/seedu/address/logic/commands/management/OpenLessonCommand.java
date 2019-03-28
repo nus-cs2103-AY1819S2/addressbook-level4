@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
@@ -13,10 +12,11 @@ import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * This implements a {@link Command} which executes a command to 'open' a {@link Lesson} from the
- * {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
- * to be passed into the {@link #execute(Model, CommandHistory)} command. The purpose of 'opening' a
- * lesson is to be able to edit it and manage its cards.
+ * This implements a {@link ManagementCommand} which opens a {@link Lesson} in the
+ * {@code List<Lesson> lessons} loaded in memory.
+ *
+ * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
+ * command. The opening of the {@link Lesson} is carried out in the {@link ManagementModel}.
  */
 public class OpenLessonCommand extends ManagementCommand {
     /**
@@ -42,7 +42,7 @@ public class OpenLessonCommand extends ManagementCommand {
     private final Index targetIndex;
 
     /**
-     * Creates an OpenLessonCommand to open the specified {@link Lesson}
+     * Constructs a {@link ManagementCommand} to open the specified {@link Lesson}
      *
      * @param targetIndex the index of the {@link Lesson} to be opened
      */
@@ -51,13 +51,14 @@ public class OpenLessonCommand extends ManagementCommand {
     }
 
     /**
-     * Executes the command and returns the result message.
+     * Executes the command which opens a {@link Lesson} in the {@code List<Lesson> lessons}
+     * loaded in memory.
      *
-     * @param model which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
+     * @param model the {@link ManagementModel} the command should operate on.
+     * @param history {@link CommandHistory} which the command should operate on.
      *
      * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
+     * @throws CommandException if invalid index supplied.
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -78,6 +79,14 @@ public class OpenLessonCommand extends ManagementCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
     }
 
+    /**
+     * Returns true if {@code other} is the same object or if it is also an {@link OpenLessonCommand}
+     * attempting to open the same lesson.
+     *
+     * @param other the other object to compare this object to
+     * @return true if {@code other} is the same object or if it is also an {@link OpenLessonCommand}
+     * attempting to open the same lesson.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

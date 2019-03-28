@@ -161,7 +161,7 @@ public class TopDeckParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() throws Exception {
         thrown.expect(ParseException.class);
-        thrown.expectMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parseCommand("", model);
     }
 

@@ -17,12 +17,9 @@ import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.pdf.Address;
 import seedu.address.model.pdf.Directory;
-import seedu.address.model.pdf.Email;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.model.pdf.Phone;
 import seedu.address.model.pdf.Size;
 
 public class PdfListPanelTest extends GuiUnitTest {

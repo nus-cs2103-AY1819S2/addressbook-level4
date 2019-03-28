@@ -3,12 +3,12 @@ package seedu.address.model.util.predicate;
 import java.util.List;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.person.Person;
+import seedu.address.model.patient.Patient;
 
 /**
  * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordsPredicate extends ContainsKeywordsPredicate<Person> {
+public class NameContainsKeywordsPredicate extends ContainsKeywordsPredicate<Patient> {
 
     public NameContainsKeywordsPredicate(List<String> keywords) {
         super(keywords);
@@ -19,7 +19,7 @@ public class NameContainsKeywordsPredicate extends ContainsKeywordsPredicate<Per
     }
 
     @Override
-    public boolean test(Person person) {
+    public boolean test(Patient person) {
         if (!isIgnoreCase && !isAnd) {
             return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsWordCaseSensitive(person.getName().fullName, keyword));

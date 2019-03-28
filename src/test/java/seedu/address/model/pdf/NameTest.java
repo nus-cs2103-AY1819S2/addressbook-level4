@@ -43,7 +43,7 @@ public class NameTest {
     }
 
     @Test
-    public void constructor_validName_correctInput_normalName() {
+    public void constructor_normalName_expectNoException() {
         try {
             Name expected = new Name(CommandTestUtil.NAME_1_VALID);
             expected = null;
@@ -53,7 +53,7 @@ public class NameTest {
     }
 
     @Test
-    public void constructor_validName_correctInput_nameWithSpace() {
+    public void constructor_nameWithSpace_expectNoException() {
         try {
             Name expected = new Name(CommandTestUtil.NAME_2_VALID);
             expected = null;

@@ -39,8 +39,8 @@ public class DirectoryTest {
     @Test
     public void constructor_normalDirectoryValue_throwsIllegalArgumentException() {
         try {
-           Directory d = new Directory(CommandTestUtil.DIR_1_VALID);
-           d = null;
+            Directory d = new Directory(CommandTestUtil.DIR_1_VALID);
+            d = null;
         } catch (Exception e) {
             fail("Should not throw exception for an existent directory.");
         }

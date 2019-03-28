@@ -124,7 +124,17 @@ public class ManagementModelManager implements ManagementModel {
 
     @Override
     public List<String> getOpenedLessonOptionalHeaders() {
-        return lessonList.getOpenedLessonOptionalheaders();
+        return lessonList.getOpenedLessonOptionalHeaders();
+    }
+
+    @Override
+    public void addCardToOpenedLesson(Card card) {
+        lessonList.addCardToOpenedLesson(card);
+    }
+
+    @Override
+    public void deleteCardFromOpenedLesson(int index) {
+        lessonList.deleteCardFromOpenedLesson(index);
     }
 
     /**

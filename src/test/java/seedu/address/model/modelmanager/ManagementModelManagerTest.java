@@ -13,10 +13,12 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
+import seedu.address.testutil.TypicalCards;
 import seedu.address.testutil.TypicalLessons;
 
 public class ManagementModelManagerTest {
@@ -144,7 +146,7 @@ public class ManagementModelManagerTest {
         assertEquals(modelManager.getOpenedLesson(), lesson);
         assertEquals(modelManager.getOpenedLessonCards(), lesson.getCards());
         assertEquals(modelManager.getOpenedLessonCoreHeaders(), lesson.getCoreHeaders());
-        assertEquals(modelManager.getOpenedLessonCoreHeaders(), lesson.getOptionalHeaders());
+        assertEquals(modelManager.getOpenedLessonOptionalHeaders(), lesson.getOptionalHeaders());
     }
 
     @Test
@@ -155,5 +157,28 @@ public class ManagementModelManagerTest {
         assertEquals(modelManager.getOpenedLesson(), lesson);
         modelManager.closeLesson();
         assertEquals(modelManager.getOpenedLesson(), null);
+    }
+
+    @Test
+    public void addCardToOpenedLesson() {
+        Lesson lesson = TypicalLessons.LESSON_DEFAULT;
+        Card card = TypicalCards.CARD_CAT;
+
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+        int size = modelManager.getOpenedLesson().getCardCount();
+        modelManager.addCardToOpenedLesson(card);
+        assertEquals(size + 1, modelManager.getOpenedLesson().getCardCount());
+    }
+
+    @Test
+    public void deleteCardFromOpenedLesson() {
+        Lesson lesson = TypicalLessons.LESSON_DEFAULT;
+
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+        int size = modelManager.getOpenedLesson().getCardCount();
+        modelManager.deleteCardFromOpenedLesson(0);
+        assertEquals(size - 1, modelManager.getOpenedLesson().getCardCount());
     }
 }

@@ -86,6 +86,16 @@ public class ManagementModelStub implements ManagementModel {
         throw new AssertionError("This method should not be called.");
     }
 
+    @Override
+    public void addCardToOpenedLesson(Card card) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteCardFromOpenedLesson(int index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
     /**
      * Closes the opened {@link Lesson} object.
      * @return the name of the closed {@link Lesson} object

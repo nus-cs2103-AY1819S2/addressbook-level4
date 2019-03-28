@@ -123,8 +123,16 @@ public class LessonList {
         return openedLesson.getCoreHeaders();
     }
 
-    public List<String> getOpenedLessonOptionalheaders() {
+    public List<String> getOpenedLessonOptionalHeaders() {
         return openedLesson.getOptionalHeaders();
+    }
+
+    public void addCardToOpenedLesson(Card card) {
+        openedLesson.addCard(card);
+    }
+
+    public void deleteCardFromOpenedLesson(int index) {
+        openedLesson.deleteCard(index);
     }
 
     /**

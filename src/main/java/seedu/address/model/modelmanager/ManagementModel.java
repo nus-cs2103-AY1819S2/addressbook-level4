@@ -69,6 +69,10 @@ public interface ManagementModel extends Model {
 
     List<String> getOpenedLessonOptionalHeaders();
 
+    void addCardToOpenedLesson(Card card);
+
+    void deleteCardFromOpenedLesson(int index);
+
     /**
      * Closes the opened {@link Lesson} object.
      * @return the name of the closed {@link Lesson} object

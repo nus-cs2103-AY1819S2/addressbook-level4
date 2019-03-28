@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -11,7 +12,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.card.Card;
+import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.LessonListBuilder;
+import seedu.address.testutil.TypicalCards;
 import seedu.address.testutil.TypicalLessons;
 
 public class LessonListTest {
@@ -100,6 +104,31 @@ public class LessonListTest {
 
         // cards are the same
         assertEquals(lessonList.getOpenedLessonCards(), lessonList.getLesson(0).getCards());
+
+        // core headers are the same
+        assertEquals(lessonList.getOpenedLessonCoreHeaders(),
+                lessonList.getLesson(0).getCoreHeaders());
+
+        // optional headers are the same
+        assertEquals(lessonList.getOpenedLessonOptionalHeaders(),
+                lessonList.getLesson(0).getOptionalHeaders());
+    }
+
+    @Test
+    public void openLesson_addCard_addSuccessful() {
+        Card card = TypicalCards.CARD_CAT;
+        lessonList.openLesson(0);
+        int size = lessonList.getOpenedLessonCards().size();
+        lessonList.addCardToOpenedLesson(card);
+        assertEquals(size + 1, lessonList.getOpenedLessonCards().size());
+    }
+
+    @Test
+    public void openLesson_deleteCard_addSuccessful() {
+        lessonList.openLesson(0);
+        int size = lessonList.getOpenedLessonCards().size();
+        lessonList.deleteCardFromOpenedLesson(0);
+        assertEquals(size - 1, lessonList.getOpenedLessonCards().size());
     }
 
     @Test

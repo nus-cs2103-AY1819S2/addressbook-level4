@@ -34,7 +34,6 @@ public class TaskCalendarCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Task> filteredPersonList = model.getFilteredTaskList();
     }
 
     @Override

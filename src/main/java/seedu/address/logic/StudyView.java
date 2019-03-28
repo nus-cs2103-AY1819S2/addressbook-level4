@@ -62,6 +62,10 @@ public class StudyView implements ViewState {
         currentCard = card;
     }
 
+    public Card getCurrentCard() {
+        return currentCard;
+    }
+
     public void generateCard() {
         setCurrentCard(deckShuffler.generateCard());
         updateTextShown();
@@ -110,4 +114,9 @@ public class StudyView implements ViewState {
         return userAnswer.getValue();
     }
 
+    //=========== Difficulty ================================================================================
+
+    public void addDifficulty(int difficulty) {
+        getCurrentCard().addDifficulty(difficulty);
+    }
 }

@@ -6,6 +6,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.EditCardCommand;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

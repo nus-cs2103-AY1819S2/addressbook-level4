@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.CloseLessonCommand;
+import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
@@ -94,6 +95,12 @@ public class ManagementModeParserTest {
                 + Syntax.PREFIX_CORE + "English "
                 + Syntax.PREFIX_OPTIONAL + "Starts with C";
         assertTrue(parser.parse(command) instanceof AddCardCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteCard() throws Exception {
+        String command = DeleteCardCommand.COMMAND_WORD + " 1";
+        assertTrue(parser.parse(command) instanceof DeleteCardCommand);
     }
 
     @Test

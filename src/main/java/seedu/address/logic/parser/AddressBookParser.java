@@ -24,6 +24,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListFilesCommand;
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ResizeCommand;
 import seedu.address.logic.commands.RotateCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -123,6 +124,9 @@ public class AddressBookParser {
 
         case TabCommand.COMMAND_WORD:
             return new TabCommand();
+
+        case ResizeCommand.COMMAND_WORD:
+            return new ResizeCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

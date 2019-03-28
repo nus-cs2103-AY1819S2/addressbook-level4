@@ -63,7 +63,7 @@ public class RequestListPanelHandle extends NodeHandle<ListView<Request>> {
     }
 
     /**
-     * Navigates the listview to display {@code request}.
+     * Navigates the list view to display {@code request}.
      */
     public void navigateToCard(Request request) {
         if (!getRootNode().getItems().contains(request)) {
@@ -77,7 +77,7 @@ public class RequestListPanelHandle extends NodeHandle<ListView<Request>> {
     }
 
     /**
-     * Navigates the listview to {@code index}.
+     * Navigates the list view to {@code index}.
      */
     public void navigateToCard(int index) {
         if (index < 0 || index >= getRootNode().getItems().size()) {
@@ -98,7 +98,7 @@ public class RequestListPanelHandle extends NodeHandle<ListView<Request>> {
     }
 
     /**
-     * Returns the request card handle of a person associated with the {@code index} in the list.
+     * Returns the card handle of a request associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public RequestCardHandle getRequestCardHandle(int index) {

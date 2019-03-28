@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequests;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysRequest;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.address.ui.testutil.GuiTestAssert.assertRequestCardEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -65,7 +65,7 @@ public class RequestListPanelTest extends GuiUnitTest {
 
         RequestCardHandle expectedRequest = requestListPanelHandle.getRequestCardHandle(INDEX_SECOND.getZeroBased());
         RequestCardHandle selectedRequest = requestListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedRequest, selectedRequest);
+        assertRequestCardEquals(expectedRequest, selectedRequest);
     }
 
     /**
@@ -89,7 +89,7 @@ public class RequestListPanelTest extends GuiUnitTest {
     private ObservableList<Request> createBackingList(int requestCount) {
         ObservableList<Request> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < requestCount; i++) {
-            Name name = new Name(i + ". Sample Request Name");
+            Name name = new Name(i + " Sample Request Name");
             Nric nric = new Nric("S1234567A");
             Phone phone = new Phone("81812288");
             Address address = new Address("123 ABC Road, #09-99");

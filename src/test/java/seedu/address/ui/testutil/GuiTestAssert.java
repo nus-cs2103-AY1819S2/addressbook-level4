@@ -18,13 +18,23 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(RequestCardHandle expectedCard, RequestCardHandle actualCard) {
+    public static void assertRequestCardEquals(RequestCardHandle expectedCard, RequestCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getName(), actualCard.getName());
         assertEquals(expectedCard.getNric(), actualCard.getNric());
         assertEquals(expectedCard.getPhone(), actualCard.getPhone());
         assertEquals(expectedCard.getAddress(), actualCard.getAddress());
         assertEquals(expectedCard.getConditions(), actualCard.getConditions());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertHealthWorkerCardEquals(HealthWorkerCardHandle expectedCard,
+                                                    HealthWorkerCardHandle actualCard) {
+        assertEquals(expectedCard.getName(), actualCard.getName());
+        assertEquals(expectedCard.getOrganisation(), actualCard.getOrganisation());
+        assertEquals(expectedCard.getSpecialisations(), actualCard.getSpecialisations());
     }
 
     /**

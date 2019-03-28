@@ -25,7 +25,7 @@ public class IncreaseCommandTest {
 
     @Test
     public void execute() {
-        final Amount amount = new Amount("$123.30");
+        final Amount amount = new Amount("123.30");
         assertCommandFailure(new IncreaseCommand(amount), model, new CommandHistory(),
                 String.format(MESSAGE_ARGUMENTS, amount));
     }
@@ -35,7 +35,7 @@ public class IncreaseCommandTest {
         final IncreaseCommand standardCommand = new IncreaseCommand(new Amount(VALID_AMOUNT_AMY));
 
         // same values -> returns true
-        IncreaseCommand commandWithSameValues = new IncreaseCommand(new Amount("$312"));
+        IncreaseCommand commandWithSameValues = new IncreaseCommand(new Amount("312.00"));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true

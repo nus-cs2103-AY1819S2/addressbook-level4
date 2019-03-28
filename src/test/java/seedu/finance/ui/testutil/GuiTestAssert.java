@@ -37,8 +37,8 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysRecord(Record expectedRecord, RecordCardHandle actualCard) {
         assertEquals(expectedRecord.getName().fullName, actualCard.getName());
-        assertEquals(expectedRecord.getAmount().value, actualCard.getAmount());
-        assertEquals(expectedRecord.getDate().value, actualCard.getDate());
+        assertEquals("$" + expectedRecord.getAmount().value, actualCard.getAmount());
+        assertEquals(expectedRecord.getDate().toString(), actualCard.getDate());
         assertEquals(expectedRecord.getDescription().value, actualCard.getDescription());
         assertCategoriesEqual(expectedRecord, actualCard);
     }
@@ -55,41 +55,44 @@ public class GuiTestAssert {
     // with minor modifications
     private static String getCategoryColorStyleFor(String categoryName) {
         switch (categoryName.toLowerCase()) {
-        case "owesmoney":
-            return "yellow";
-
-        case "transportation":
-            return "blue";
-
-        case "dining":
+        case "clothing":
+        case "food":
             return "teal";
 
+        case "transportation":
         case "family":
-            return "black";
-
-        case "vices":
-        case "food":
-            return "orange";
-
-        case "entertainment":
-        case "colleagues":
-            return "purple";
-
         case "classmates":
-            return "brown";
+        case "friend":
+            return "yellow";
 
-        case"neighbours":
-            return "green";
-
-        case"friend":
+        case "friends":
             return "grey";
 
-        case"friends":
+        case "dining":
             return "pink";
 
+        case "entertainment":
+            return "tan";
+
+        case "colleagues":
+            return "black";
+
+        case "neighbours":
+            return "orange";
+
+        case "groceries":
+        case "textbooks":
+            return "turquoise";
+
         case "shopping":
-        case"husband":
-            return "red";
+        case "vices":
+            return "purple";
+
+        case "husband":
+            return "brown";
+
+        case "movies":
+            return "blue";
 
         default:
             throw new AssertionError(categoryName + " does not have a color assigned.");

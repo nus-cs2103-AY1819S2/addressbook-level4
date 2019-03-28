@@ -3,6 +3,7 @@ package seedu.finance.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ObjectProperty;
@@ -63,6 +64,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         requireNonNull(newData);
 
         setRecords(newData.getRecordList());
+        addBudget(newData.getBudget());
     }
 
     //// record-level operations
@@ -119,8 +121,8 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      * Adds a budget to the finance tracker.
      * The budget must not already exist in the finance tracker.
      */
-    public void addBudget(Amount amount) {
-        this.budget.set(amount);
+    public void addBudget(Budget budget) {
+        this.budget.set(budget.valueProperty().get());
         indicateModified();
     }
 
@@ -146,11 +148,10 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     @Override
     public String toString() {
         return records.asUnmodifiableObservableList().size() + " records";
-        // TODO: refine later
     }
 
-    public ObjectProperty<Amount> getBudget() {
-        return budget.valueProperty();
+    public Budget getBudget() {
+        return budget;
     }
 
     @Override
@@ -162,11 +163,12 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FinanceTracker // instanceof handles nulls
-                && records.equals(((FinanceTracker) other).records));
+                && records.equals(((FinanceTracker) other).records)
+                && budget.equals(((FinanceTracker) other).budget));
     }
 
     @Override
     public int hashCode() {
-        return records.hashCode();
+        return Objects.hash(records, budget);
     }
 }

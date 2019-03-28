@@ -80,7 +80,7 @@ public class RecordListPanelTest extends GuiUnitTest {
         ObservableList<Record> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < recordCount; i++) {
             Name name = new Name(i + "a");
-            Amount amount = new Amount("$123");
+            Amount amount = new Amount("123");
             Date date = new Date("12/12/2018");
             Description description = new Description ("");
             Record record = new Record(name, amount, date, description, Collections.emptySet());

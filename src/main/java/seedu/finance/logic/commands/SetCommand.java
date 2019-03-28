@@ -6,6 +6,7 @@ import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
+import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Amount;
 
 /**
@@ -43,7 +44,7 @@ public class SetCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
         }
 
-        model.addBudget(amount);
+        model.addBudget(new Budget(amount));
         model.commitFinanceTracker();
         return new CommandResult(String.format(MESSAGE_SUCCESS, amount));
     }

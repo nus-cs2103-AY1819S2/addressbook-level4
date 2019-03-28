@@ -250,6 +250,85 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Searching by tag feature
+
+This feature allows the user to filter out specific expenses by entering a certain tag (eg food).
+
+This implementation is under `Logic` and `Model` Component.
+
+_Sequence diagram to be done soon_
+
+==== To be implemented
+
+1. User enters command `findTag food`. The command is received by `FinanceTrackerParser`,
+which then creates a `FindTagCommandParser` Object and calls `FindCommandParser#parse()` method.
+
+2.  `FindTagCommandParser#parse()` method then calls `ParserUtil#ensureKeywordsAreValid()` method. If any
+of the keywords does not follow the correct format, `ParseException` will be thrown.
+
+3. A `FindTagCommand` Object is created and returned to the `LogicManager`.
+
+4. `LogicManager` then calls `FindTagCommand#execute()`, which calls Mode#updateFilteredExpenseList() method
+to update a filterList based on the given predicate.
+
+5. Then the record list panel will show a set of records according to the keywords. A `CommandResult` is then created
+and returned to `Logic Manager`.
+
+==== Design Consideration
+
+This feature can be implemented in different ways in terms of how the records are found.
+
+* *Alternative 1* : Check through all records and select those with the matched `tag`
+
+** Pros: Easy to implement without changing original architecture.
+** Cons: Slow. Tend to take a long time to search through large number of records.
+
+* *Alternative 2* : Each time a new tag is created, create a new list. Each of these list will hold
+all the records of a particular tag.
+
+** Pros: Very efficient, each time the command is called, just need to retrieve the list of the wanted tag.
+** Cons: Need to change the original architecture of storage to introduce storing of different list corresponding to
+each tag. Will take up more space if there is many different tags.
+
+
+=== Sort feature
+
+By default, the list of entries is ordered according to the time the entry is entered into the application,
+where the entry entered first will be at the top of the list, and the entry entered last is at the bottom of the list.
+The sort mechanism allows users to view their expense records in a different way.
+
+
+==== Current Implementation
+
+*_Details of implementation will be added next time._*
+
+.Commands that I am planning to implement:
+|===
+|Commands |Description
+
+|`sort expenses` (alias: `sort expenses desc`) | Sort according to the amount stated in each entry.
+By default, the entry with the largest amount will be at the top,
+while the entry with the smallest amount will be at the bottom.
+
+|`sort expenses asc` | Entries will be sorted according to amount stated, but in the opposite order from the default,
+with the entry containing the smallest amount at the top,
+and the one with the largest amount at the bottom.
+|`sort cat budget` (alias: `sort cat budget desc`) |Sorts categories with an assigned budget according to the
+remaining budget left. By default, the category with the largest remaining budget will be at the top of the list,
+and the one with the smallest remaining budget will be at the bottom.
+|`sort cat budget asc` |Similar to sort cat budget, but the category with the smallest remaining budget will be
+at the top, and the one with the largest remaining budget will be at the bottom.
+|`sort date` (alias: `sort date desc`) |sorts entries according to date stated in each entry, with the latest one on
+top, and the earliest one at the bottom.
+|`sort date asc` |Similar to sort date, but the entry with the earliest date will be at the top, and the one with the
+latest date will be at the bottom.
+
+|===
+
+==== Design Considerations
+
+*_Design considerations will be added next time._*
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -366,12 +445,80 @@ The logic for keeping track of budgets can be implemented in different ways for 
 
 //end::budgetmanagement[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
 
-_{Explain here how the data encryption feature will be implemented}_
+// tag::summary[]
+=== Summary
 
-// end::dataencryption[]
+The summary feature shows an overview of your previous expenditures. It displays statistics on how your spending habits are like in the different categories you have specified. It also displays the remaining budget amount for each category.
+
+==== To be implemented
+The summary feature intends to use a D3.js graph to display the data. This will help contribute to the aesthetics and user-friendliness of displaying the data in the financeTracker.
+
+The summary command will retrieve the whole list of existing records, which will then be parsed by SummaryCommandParser. This will return the appropriate d3 graph to be shown.
+
+Given below is an example usage scenario and how the summary mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The financeTracker will be initialised with the existing records the user has input last time.
+
+Step 2. The user executes the summary command. Input is parsed and the records will be extracted.
+
+Step 3. The records are then converted to JSON, and data will be used to map the d3 graph.
+
+
+_Sequence Diagram will be done soon_
+
+==== Design Consideration
+An aster plot graph will be used to display the information in the main window. Using such a graph will allow for sufficient space should users decide to add more categories in the future. Hovering over the different sectors in the aster plot graph will display the corresponding category. If possible, the colours used for the category in the aster plot graph should be the same colour palette used for the category labels.
+
+.Example of Aster Plot Graph
+image::asterPlot.png[width="400"]
+
+Initially, we were considering using a pie chart instead. However, using an aster plot graph will be more effective in showing the user what is the remaining budget amount for each category.
+//end::summary[]
+
+
+// tag::security[]
+=== Security Features
+
+The In-Credit-Ble will ensure security of user data through the implementation of user profile system.
+
+The user profile system will allow for multiple users to use In-Credit-Ble on the same machine and keeps
+the data apart from each other. Users have the option of setting a password to protect their data from being
+viewed or altered by other users.
+
+==== To be implemented
+* `password` and `user` class to be created under `Model`
+* `register` command to allow new users to register under `username`
+* `setPassword` command to allow existing users to set a password for their profile. This command
+can also be used to reset existing passwords
+* `login` command to allow users who registered to login to their profile
+
+g
+Given below is an example usage scenario and how the login system will behave at each step
+
+*Step 1:*. The user launches the application for the first time. `MainApp` class will load all xml files within the data
+folder according to the path in `UserPrefs`.
+
+*Step 2a:* User can then register using `register` with a `username` parameter. If users registered before
+they can skip this step and go to Step 2b instead.
+
+*Step 2b:* User can `login` using their `username` if they have registered before
+
+*Step 3:* Users can set password using the `setPassword` command if they do not have password.
+They can also change their password using this command.
+
+==== Design Consideration
+===== Loading different user data
+* *Alternative 1 (Proposed implementation)*: Loading user data is done during initialisation of In-Credit-Ble
+** Pros: Able to switch user profiles after In-Credit-Ble is loaded
+** Cons: External changes to files after intialisation not reflected may be overwritten
+
+* *Alternative 2:* User profile data only loaded when user logs in
+** Pros: Unnecessary data not kept in memory so memory space is not wasted
+** Cons: The `Logic` or `Model` component will have to depend on the `Storage` component as `login` command
+will require the `Storage` to load and return the user's data
+
+// end::security[]
 
 === Logging
 
@@ -840,14 +987,15 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
 Amount::
 The amount of money for expenditure and budget
 
 Entry::
-A listed item/activity tracked by the application. It usually consists of the amount, along with a category tag (if specified)
+A listed item/activity tracked by the application.  It generally consists of the name, amount and date along with a
+category tag (if specified)
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
 
 Records::
 The list of all entries stored in the application

@@ -6,23 +6,7 @@ import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.finance.logic.commands.AllocateCommand;
-import seedu.finance.logic.commands.ClearCommand;
-import seedu.finance.logic.commands.Command;
-import seedu.finance.logic.commands.DeleteCommand;
-import seedu.finance.logic.commands.DescriptionCommand;
-import seedu.finance.logic.commands.EditCommand;
-import seedu.finance.logic.commands.ExitCommand;
-import seedu.finance.logic.commands.HelpCommand;
-import seedu.finance.logic.commands.HistoryCommand;
-import seedu.finance.logic.commands.IncreaseCommand;
-import seedu.finance.logic.commands.ListCommand;
-import seedu.finance.logic.commands.RedoCommand;
-import seedu.finance.logic.commands.SearchCommand;
-import seedu.finance.logic.commands.SelectCommand;
-import seedu.finance.logic.commands.SetCommand;
-import seedu.finance.logic.commands.SpendCommand;
-import seedu.finance.logic.commands.UndoCommand;
+import seedu.finance.logic.commands.*;
 import seedu.finance.logic.parser.exceptions.ParseException;
 
 
@@ -53,6 +37,14 @@ public class FinanceTrackerParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord.toLowerCase()) {
+
+        case SetFileCommand.COMMAND_WORD:
+            return new SetFileCommandParser().parse(arguments);
+
+        case ThemeCommand.COMMAND_WORD:
+        case ThemeCommand.COMMAND_ALIAS:
+            return new ThemeCommandParser().parse(arguments);
+
         case SetCommand.COMMAND_WORD:
             return new SetCommandParser().parse(arguments);
 
@@ -117,6 +109,11 @@ public class FinanceTrackerParser {
         case RedoCommand.COMMAND_WORD:
         case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
+
+        case SummaryCommand.COMMAND_WORD:
+            //Have to add in alias for summary command
+            //case SummaryCommand.COMMAND_ALIAS:
+            return new SummaryCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

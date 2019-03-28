@@ -16,7 +16,7 @@ import seedu.finance.model.record.Record;
 /**
  * An Immutable FinanceTracker that is serializable to JSON format.
  */
-@JsonRootName(value = "financetracker")
+@JsonRootName(value = "finance")
 class JsonSerializableFinanceTracker {
 
     public static final String MESSAGE_DUPLICATE_RECORD = "Records list contains duplicate record(s).";
@@ -42,7 +42,7 @@ class JsonSerializableFinanceTracker {
      */
     public JsonSerializableFinanceTracker(ReadOnlyFinanceTracker source) {
         records.addAll(source.getRecordList().stream().map(JsonAdaptedRecord::new).collect(Collectors.toList()));
-        budget = new JsonAdaptedBudget(source.getBudget().toString());
+        budget = new JsonAdaptedBudget(source.getBudget());
     }
 
     /**
@@ -59,7 +59,7 @@ class JsonSerializableFinanceTracker {
             }
             financeTracker.addRecord(record);
         }
-        financeTracker.addBudget(budget.toModelType().valueProperty().get());
+        financeTracker.addBudget(budget.toModelType());
 
         return financeTracker;
     }

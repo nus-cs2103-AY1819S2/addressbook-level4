@@ -14,7 +14,7 @@ public class JsonAdaptedBudget {
     private final String budget;
 
     /**
-     * Constructs a {@code JsonAdaptedRecord} with the given record details.
+     * Constructs a {@code JsonAdaptedBudget} with the given record details.
      */
     @JsonCreator
     public JsonAdaptedBudget(@JsonProperty("budget") String budget) {

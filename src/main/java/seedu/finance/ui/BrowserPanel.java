@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -15,7 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.finance.MainApp;
 import seedu.finance.commons.core.LogsCenter;
-import seedu.finance.model.record.Amount;
+import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Record;
 
 /**
@@ -37,15 +36,15 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private Label budget;
 
-    public BrowserPanel(ObservableValue<Record> selectedRecord, ObjectProperty<Amount> budgetData) {
+    public BrowserPanel(ObservableValue<Record> selectedRecord, Budget budgetData) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        this.budget.textProperty().setValue("No Budget Yet");
-        budgetData.addListener((observable, oldValue, newValue) -> {
-            this.budget.textProperty().setValue(newValue.toString());
+        this.budget.textProperty().setValue("$" + budgetData.toString());
+        budgetData.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.budget.textProperty().setValue("$" + newValue.toString());
         });
 
         // Load record page when selected record changes.

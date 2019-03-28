@@ -43,7 +43,7 @@ public class Budget {
     @Override
     public String toString() {
         if (value.getValue() == null) {
-            return "Budget not set";
+            return "0";
         }
         return value.getValue().toString();
     }

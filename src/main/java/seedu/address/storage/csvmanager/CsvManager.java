@@ -22,7 +22,7 @@ public class CsvManager implements CsvCommands {
     private static final String CARD_HEADERS = "Question,Answer,Options,Hints";
     private String defaultPath;
     private boolean setTestDefaultPath = false;
-    public static final String DEFAULT_TEST_PATH = "./test/data/CsvCardFolderTest";
+    public static final String DEFAULT_TEST_PATH = "/src/test/data/CsvCardFolderTest";
     private static final String DEFAULT_FILE_PATH = "./";
     private static final String TEST_FOLDER_PATH = "test";
 
@@ -67,18 +67,16 @@ public class CsvManager implements CsvCommands {
         // cardValues = {"question", "answer", " .. ", " ...", "hint"}
         Question question = new Question(cardValues[0]);
         Answer answer = new Answer(cardValues[1]);
-        String hint = cardValues[cardValues.length - 1];
-        Set<Option> option = new HashSet<>();
-        option.add(new Option(cardValues[0]));
-        Set<Hint> hintSet = new HashSet<>();
-        Card card = new Card(question, answer, new Score(0, 0), option, hintSet);
+        Set<Option> optionSet = buildOptions(cardValues);
+        Set<Hint> hintSet = buildHint(cardValues);
+        Card card = new Card(question, answer, new Score(0, 0), optionSet, hintSet);
         return card;
     }
 
     private Set<Option> buildOptions(String[] card) {
         Set<Option> optionSet = new HashSet<>();
         String[] options = Arrays.copyOfRange(card, 2, card.length - 1);
-        if (options[0] == " ") {
+        if (options[0].equals(" ")) {
             return optionSet;
         }
         Arrays.stream(options).map(Option::new).forEach(option -> optionSet.add(option));
@@ -88,7 +86,7 @@ public class CsvManager implements CsvCommands {
     private Set<Hint> buildHint(String[] card) {
         Set<Hint> hintSet = new HashSet<>();
         String hint = card[card.length - 1];
-        if (hint == " ") {
+        if (hint.equals(" ")) {
             return hintSet;
         }
         hintSet.add(new Hint(hint));
@@ -140,8 +138,8 @@ public class CsvManager implements CsvCommands {
         return folderName;
     }
 
-    public static boolean fileExists(CsvFile csvFile) throws IOException {
-        return new File(getDefaultFilePath() + "/" + csvFile.filename).isFile();
+    public boolean fileExists(CsvFile csvFile) throws IOException {
+        return new File(defaultPath + "/" + csvFile.filename).exists();
     }
 
     public static String getDefaultFilePath() throws IOException {
@@ -149,7 +147,7 @@ public class CsvManager implements CsvCommands {
     }
 
     public void setTestDefaultPath() throws IOException {
-        defaultPath = new File(DEFAULT_TEST_PATH).getCanonicalPath();
+        defaultPath = defaultPath + DEFAULT_TEST_PATH;
         setTestDefaultPath = true;
     }
 

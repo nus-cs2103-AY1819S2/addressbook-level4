@@ -128,6 +128,20 @@ public class CalendarWindow extends UiPart<Stage> {
         });
         DatePickerSkin datepopup = new DatePickerSkin(datePicker);
         Node out = datepopup.getPopupContent();
+        for (Node node : out.lookupAll(".day-name-cell")) {
+            if (node.toString().contains("Sun") || node.toString().contains("Sat")) {
+                node.setStyle("-fx-text-fill: #29F6E8");
+            }
+        }
+        for (Node node : out.lookupAll(".button")) {
+            node.setFocusTraversable(false);
+        }
+        for (Node node : out.lookupAll(".day-cell")) {
+            node.setOnMouseClicked(event -> {
+                DateCell dateCell = (DateCell) node;
+                System.out.println("You clicked: " + dateCell.getItem().toString());
+            });
+        }
         this.calendarPanel.getChildren().addAll(out);
     }
 

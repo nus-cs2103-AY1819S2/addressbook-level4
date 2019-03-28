@@ -25,29 +25,29 @@ import seedu.address.model.pdf.Pdf;
 //import seedu.address.model.pdf.exceptions.DuplicatePdfException;
 //import seedu.address.testutil.PdfBuilder;
 
-public class AddressBookTest {
+public class PdfBookTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final PdfBook addressBook = new PdfBook();
+    private final PdfBook pdfBook = new PdfBook();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPdfList());
+        assertEquals(Collections.emptyList(), pdfBook.getPdfList());
     }
 
     @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.resetData(null);
+        pdfBook.resetData(null);
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyPdfBook_replacesData() {
         PdfBook newData = getTypicalPdfBook();
-        addressBook.resetData(newData);
-        assertEquals(newData, addressBook);
+        pdfBook.resetData(newData);
+        assertEquals(newData, pdfBook);
     }
     /*
     @Test
@@ -59,46 +59,46 @@ public class AddressBookTest {
         PdfBookStub newData = new PdfBookStub(newPdfs);
 
         thrown.expect(DuplicatePdfException.class);
-        addressBook.resetData(newData);
+        pdfBook.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPdf(null);
+        pdfBook.hasPdf(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPdf(ALICE));
+        assertFalse(pdfBook.hasPdf(ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPdf(ALICE);
-        assertTrue(addressBook.hasPdf(ALICE));
+        pdfBook.addPdf(ALICE);
+        assertTrue(pdfBook.hasPdf(ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPdf(ALICE);
+        pdfBook.addPdf(ALICE);
         Pdf editedAlice = new PdfBuilder(ALICE).withDirectory(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPdf(editedAlice));
+        assertTrue(pdfBook.hasPdf(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPdfList().remove(0);
+        pdfBook.getPdfList().remove(0);
     }
 
     @Test
     public void addListener_withInvalidationListener_listenerAdded() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.addPdf(ALICE);
+        pdfBook.addListener(listener);
+        pdfBook.addPdf(ALICE);
         assertEquals(1, counter.get());
     }
 
@@ -106,9 +106,9 @@ public class AddressBookTest {
     public void removeListener_withInvalidationListener_listenerRemoved() {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
-        addressBook.addListener(listener);
-        addressBook.removeListener(listener);
-        addressBook.addPdf(ALICE);
+        pdfBook.addListener(listener);
+        pdfBook.removeListener(listener);
+        pdfBook.addPdf(ALICE);
         assertEquals(0, counter.get());
     }*/
 

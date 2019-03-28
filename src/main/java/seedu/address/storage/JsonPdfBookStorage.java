@@ -60,8 +60,8 @@ public class JsonPdfBookStorage implements PdfBookStorage {
     }
 
     @Override
-    public void savePdfBook(ReadOnlyPdfBook addressBook) throws IOException {
-        savePdfBook(addressBook, filePath);
+    public void savePdfBook(ReadOnlyPdfBook pdfBook) throws IOException {
+        savePdfBook(pdfBook, filePath);
     }
 
     /**

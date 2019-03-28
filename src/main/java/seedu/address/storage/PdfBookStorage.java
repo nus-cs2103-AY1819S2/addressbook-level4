@@ -33,10 +33,10 @@ public interface PdfBookStorage {
 
     /**
      * Saves the given {@link ReadOnlyPdfBook} to the storage.
-     * @param addressBook cannot be null.
+     * @param pdfBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void savePdfBook(ReadOnlyPdfBook addressBook) throws IOException;
+    void savePdfBook(ReadOnlyPdfBook pdfBook) throws IOException;
 
     /**
      * @see #savePdfBook(ReadOnlyPdfBook)

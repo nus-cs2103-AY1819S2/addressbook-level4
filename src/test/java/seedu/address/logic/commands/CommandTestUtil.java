@@ -124,7 +124,7 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        PdfBook expectedAddressBook = new PdfBook(actualModel.getPdfBook());
+        PdfBook expectedPdfBook = new PdfBook(actualModel.getPdfBook());
         List<Pdf> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPdfList());
         Pdf expectedSelectedPdf = actualModel.getSelectedPdf();
 
@@ -135,7 +135,7 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getPdfBook());
+            assertEquals(expectedPdfBook, actualModel.getPdfBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPdfList());
             assertEquals(expectedSelectedPdf, actualModel.getSelectedPdf());
             assertEquals(expectedCommandHistory, actualCommandHistory);

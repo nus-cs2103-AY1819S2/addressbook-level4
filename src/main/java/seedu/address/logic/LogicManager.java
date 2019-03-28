@@ -15,7 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.PdfBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyPdfBook;
@@ -32,33 +32,33 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CommandHistory history;
-    private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
+    private final PdfBookParser pdfBookParser;
+    private boolean pdfBookModified;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
-        addressBookParser = new AddressBookParser();
+        pdfBookParser = new PdfBookParser();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getPdfBook().addListener(observable -> addressBookModified = true);
+        // Set pdfBookModified to true whenever the models' address book is modified.
+        model.getPdfBook().addListener(observable -> pdfBookModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        pdfBookModified = false;
 
         CommandResult commandResult;
         try {
-            Command command = addressBookParser.parseCommand(commandText);
+            Command command = pdfBookParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
+        if (pdfBookModified) {
             logger.info("Address book modified, saving to file.");
             try {
                 storage.savePdfBook(model.getPdfBook());
@@ -71,7 +71,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyPdfBook getAddressBook() {
+    public ReadOnlyPdfBook getPdfBook() {
         return model.getPdfBook();
     }
 
@@ -86,7 +86,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getPdfBookFilePath() {
         return model.getPdfBookFilePath();
     }
 

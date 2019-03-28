@@ -24,11 +24,11 @@ class JsonAdaptedReview {
      */
     @JsonCreator
     public JsonAdaptedReview(@JsonProperty("title") String reviewTitle, @JsonProperty("bookname") String reviewBookName,
-                             @JsonProperty("message") String reviewMessage, @JsonProperty("date") String dateCreated) {
+                             @JsonProperty("date") String dateCreated, @JsonProperty("message") String reviewMessage) {
         this.title = reviewTitle;
         this.bookName = reviewBookName;
-        this.message = reviewMessage;
         this.date = dateCreated;
+        this.message = reviewMessage;
     }
 
     /**
@@ -65,15 +65,15 @@ class JsonAdaptedReview {
         }
         final BookName modelBookName = new BookName(bookName);
 
-        if (message == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Review Content"));
-        }
-        final String modelReviewMessage = message;
-
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Review Date"));
         }
         final String modelDateCreated = date;
+
+        if (message == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Review Content"));
+        }
+        final String modelReviewMessage = message;
 
         return new Review(modelReviewTitle, modelBookName, modelDateCreated, modelReviewMessage);
     }

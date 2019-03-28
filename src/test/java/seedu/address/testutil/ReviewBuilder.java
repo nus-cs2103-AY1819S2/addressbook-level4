@@ -9,7 +9,7 @@ import seedu.address.model.book.ReviewTitle;
  */
 public class ReviewBuilder {
     public static final String DEFAULT_TITLE = "A send off fit for a wizard";
-    public static final String DEFAULT_BOOKNAME = "Harry Potter and the Sorcerer's Stone";
+    public static final String DEFAULT_BOOKNAME = "Harry Potter and the Sorcerers Stone";
     public static final String DEFAULT_DATE = "2019/03/16 18:20:00";
     public static final String DEFAULT_MESSAGE = "There are still one or two questions left unanswered "
             + "at the end of Harry Potter's last adventure...";

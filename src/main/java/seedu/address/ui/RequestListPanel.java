@@ -30,7 +30,7 @@ public class RequestListPanel extends UiPart<Region> {
         requestListView.setItems(requestList);
         requestListView.setCellFactory(listView -> new RequestListViewCell());
         requestListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.info("Selection in request list panel changed to: '" + newValue + "'");
+            logger.info("Selection in request list panel changed to: " + newValue);
             onSelectedRequestChange.accept(newValue);
         });
         selectedRequest.addListener((observable, oldValue, newValue) -> {

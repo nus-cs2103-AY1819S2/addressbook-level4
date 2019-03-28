@@ -36,9 +36,10 @@ public class RequestListPanelTest extends GuiUnitTest {
     private RequestListPanelHandle requestListPanelHandle;
 
     /**
-     * Still debugging
+     * Initialises typical requests on the UI, then checks for each request
+     * if the card handle is displaying the same as the request.
      */
-    //@Test
+    @Test
     public void display() {
         initUi(TYPICAL_REQUESTS);
 
@@ -53,9 +54,9 @@ public class RequestListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Still debugging
+     * Selection test for one of the requests from typical requests.
      */
-    //@Test
+    @Test
     public void selection_modelSelectedRequestChanged_selectionChanges() {
         initUi(TYPICAL_REQUESTS);
         Request secondRequest = TYPICAL_REQUESTS.get(INDEX_SECOND.getZeroBased());
@@ -88,7 +89,7 @@ public class RequestListPanelTest extends GuiUnitTest {
     private ObservableList<Request> createBackingList(int requestCount) {
         ObservableList<Request> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < requestCount; i++) {
-            Name name = new Name(i + "Sample Request Name");
+            Name name = new Name(i + ". Sample Request Name");
             Nric nric = new Nric("S1234567A");
             Phone phone = new Phone("81812288");
             Address address = new Address("123 ABC Road, #09-99");

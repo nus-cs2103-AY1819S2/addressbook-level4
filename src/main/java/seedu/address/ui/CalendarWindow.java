@@ -23,6 +23,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateCustom;
 
 /**
@@ -86,15 +88,15 @@ public class CalendarWindow extends UiPart<Stage> {
      *
      * @see seedu.address.logic.Logic#execute(String)
      */
-    private CommandResult executeCommand(String commandText) {
-        String feedback = "";
-        if (DateCustom.isValidDate(commandText)) {
-            setDate(commandText);
-        } else {
-            feedback = "Wrong Date";
+    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        try {
+            CommandResult commandResult;
+            commandResult = logic.execute("taskcal " + commandText);
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            throw e;
         }
-        CommandResult cr = new CommandResult(feedback);
-        return cr;
     }
     /**
      *  Closes the stage to exit the window.

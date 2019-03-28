@@ -18,6 +18,7 @@ public class TaskStartDateContainsKeywordsPredicate extends ContainsKeywordsPred
     @Override
     public boolean test(Task task) {
         return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(task.getStartDate()
+                .toString(), keyword) || StringUtil.containsWordIgnoreCase(task.getEndDate()
                 .toString(), keyword));
     }
 

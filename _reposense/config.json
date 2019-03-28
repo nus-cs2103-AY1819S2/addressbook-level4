@@ -1,0 +1,25 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "chung-ming",
+      "displayName": "Arielyte Tsen Chung Ming",
+      "authorNames": ["chung-ming", "Tsen Chung Ming"]
+    },
+    {
+      "githubId": "shaungohsc",
+      "displayName": "Goh Shau Cher Shaun",
+      "authorNames": ["shaungohsc", "Shaun Goh", "Shaun"]
+    },
+    {
+      "githubId": "nivenang",
+      "displayName": "Niven Ang Jia Hao",
+      "authorNames": ["nivenang", "Niven Ang Jia Hao"]
+    },
+    {
+      "githubId": "PremBagda",
+      "displayName": "Prem Rajeshkumar Bagdawala",
+      "authorNames": ["PremBagda", "Prem Rajeshkumar Bagdawala", "Prem Bagdawala"]
+    }
+  ]
+}

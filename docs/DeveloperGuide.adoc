@@ -364,7 +364,7 @@ The search name mechanism is facilitated by `SearchCommand`.
 It extends `Command` with a predicate that specifies the conditions of the name of the entry to be chosen.
 The command is executed when the arguments parsed from the user input matches the command word of `SearchCommand`, which is `search`.
 
-The arguments entered by the user are stored in a list of keywords and passed into `NameContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to each entry in the address book.
+The arguments entered by the user are stored in a list of keywords and passed into `NameContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to each entry in TravelBuddy.
 
 Given below is an example usage scenario and how the search mechanism behaves at each step.
 
@@ -373,7 +373,7 @@ Step 1. The user launches the application and sees the GUI with the user's list 
 image::UIsearch.png[width="800"]
 
 Step 2. The user executes `search Singapore` command to search for all entries in TravelBuddy with `Singapore` in its name.
-The `search` command will call `LogicManager#execute()`, which in turn uses `AddressBookParser#parseCommand()`. Since the argument is `search`, `SearchCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchCommand`.
+The `search` command will call `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since the argument is `search`, `SearchCommandParser#parse(arguments)` will be called to parse the arguments to be used in `SearchCommand`.
 The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
 
 [NOTE]
@@ -389,7 +389,7 @@ It extends `Command` with a predicate that specifies the conditions of the ratin
 The valid ratings range from integers of 1 to 5. Any value outside this range will throw an exception.
 The command is executed when the arguments parsed from the user input matches the command word of `SearchRatingCommand`, which is `searchr`.
 
-The arguments entered by the user are stored in a list of keywords and passed into `RatingContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to each entry in the address book.
+The arguments entered by the user are stored in a list of keywords and passed into `RatingContainsKeywordsPredicate`, where the list is converted into a stream and individually matched to each entry in TravelBuddy.
 
 Given below is an example usage scenario and how the search rating mechanism behaves at each step.
 
@@ -398,7 +398,7 @@ Step 1. The user launches the application and sees the GUI with the user's list 
 image::UIsearchrating.png[width="800"]
 
 Step 2. The user executes `searchr 4` command to search for all entries in TravelBuddy with `4` as its rating.
-The `searchr` command will call `LogicManager#execute()`, which in turn uses `AddressBookParser#parseCommand()`. Since
+The `searchr` command will call `LogicManager#execute()`, which in turn uses `TravelBuddyParser#parseCommand()`. Since
 the argument is `searchr`, `SearchRatingCommandParser#parse(arguments)` will be called to parse the arguments to be
 used in `SearchRatingCommand`.
 The parsed arguments will be used as a predicate to filter out entries that satisfy the predicate to be displayed.
@@ -417,7 +417,7 @@ The command is executed when the arguments parsed from the user input matches th
 which is `searcht`.
 
 The arguments entered by the user are stored in a list of keywords and passed into `TagContainsKeywordsPredicate`,
-where the list is converted into a stream and individually matched to each entry in the address book.
+where the list is converted into a stream and individually matched to each entry in TravelBuddy.
 
 Given below is an example usage scenario and how the search tags mechanism behaves at each step.
 
@@ -437,6 +437,54 @@ The command `searcht` is in lower-case. Mixed-case or upper-case commands are no
 Step 3. The filtered list is now displayed according to the requirements set by the user input.
 
 image::UIsearchtagsresults.png[width="800"]
+
+===== Search Country Feature
+The search country mechanism is facilitated by `SearchCountryCommand`.
+It extends `Command` with a predicate that specifies the conditions of the country of the entry to be chosen.
+The command is executed when the arguments parsed from the user input matches the command word of `SearchCountryCommand`,
+which is `searchc`.
+
+The arguments entered by the user are stored in a list of keywords and passed into `CountryContainsKeywordsPredicate`,
+where the list is converted into a stream and individually matched to each entry in TravelBuddy.
+
+Given below is an example usage scenario and how the search country mechanism behaves at each step.
+
+Step 1. The user launches the application and sees the GUI with the user's list of places.
+
+Step 2. The user executes `searchc SGP JPN` command to search for all entries in TravelBuddy with `SGP` or `JPN`
+as its country. The `searchc` command will call `LogicManager#execute()`, which in turn uses
+`TravelBuddyParser#parseCommand()`. Since the argument is `searchc`, `SearchCountryCommandParser#parse(arguments)`
+will be called to parse the arguments to be used in `SearchCountryCommand`. The parsed arguments will be used as a
+predicate to filter out entries that satisfy the predicate to be displayed.
+
+[NOTE]
+The command `searchc` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
+
+Step 3. The filtered list is now displayed according to the requirements set by the user input.
+
+===== Search Year Feature
+The search year mechanism is facilitated by `SearchYearCommand`.
+It extends `Command` with a predicate that specifies the conditions of the year of the date visited of the entry to be chosen.
+The command is executed when the arguments parsed from the user input matches the command word of `SearchYearCommand`,
+which is `searchyear`.
+
+The arguments entered by the user are stored in a list of keywords and passed into `YearContainsKeywordsPredicate`,
+where the list is converted into a stream and individually matched to each entry in TravelBuddy.
+
+Given below is an example usage scenario and how the search year mechanism behaves at each step.
+
+Step 1. The user launches the application and sees the GUI with the user's list of places.
+
+Step 2. The user executes `searchyear 2016` command to search for all entries in TravelBuddy with `2016`
+as its year visited. The `searchyear` command will call `LogicManager#execute()`, which in turn uses
+`TravelBuddyParser#parseCommand()`. Since the argument is `searchyear`, `SearchYearCommandParser#parse(arguments)`
+will be called to parse the arguments to be used in `SearchYearCommand`. The parsed arguments will be used as a
+predicate to filter out entries that satisfy the predicate to be displayed.
+
+[NOTE]
+The command `searchyear` is in lower-case. Mixed-case or upper-case commands are not recognised by the application.
+
+Step 3. The filtered list is now displayed according to the requirements set by the user input.
 
 ==== Design Considerations
 
@@ -459,10 +507,6 @@ developers of our project.
 ** Cons: Requires more memory as a separate HashMap needs to be stored.
 // end::search[]
 
-<<<<<<< HEAD
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-=======
 // tag::countrycode[]
 === Add Country Code, Rating & Description
 The `add` command is used to add a place to the application. Apart from being able to add the name of the place,
@@ -495,8 +539,8 @@ Step 1. The user launches the application and sees the GUI with no places.
 
 image::AddCommandStep1.png[width="800"]
 
-Step 2. The user types the full add command `add n/NUS Computing cc/SGP r/5 d/No description a/NUS School of
-Computing, COM1, 13 Computing Drive, 117417 t/school` to add the place to TravelBuddy and presses enter.
+Step 2. The user types the full add command `add n/NUS Computing cc/SGP dv/02/01/2018 r/5 d/No description a/NUS
+School of Computing, COM1, 13 Computing Drive, 117417 t/school` to add the place to TravelBuddy and presses enter.
 
 image::AddCommandStep2.png[width="800"]
 
@@ -511,14 +555,15 @@ Step 3. Selecting the specific place allows the user to see more information in 
 
 image::AddCommandStep3.png[width="800"]
 
-// end::countrycode[]
-
 ==== Design Considerations
->>>>>>> b78fbd7ae6e5de6d52441e8f958c4e4658f380be
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+===== Aspect: Data structure to store Country Codes
+* **Alternative 1 (current choice):** Use java.util.Locales.
+** Pros: Easy to implement and contains all country codes specified in ISO-3166.
+** Cons: Slightly slow in locating country code.
+* **Alternative 2:** Create own data structure containing most commonly traveled countries in the world.
+** Pros: Locating country code in data structure would be fast.
+** Cons: Tedious process of typing out country codes in the data structure.
+// end::countrycode[]
 
 // tag::generate[]
 === Generate Feature

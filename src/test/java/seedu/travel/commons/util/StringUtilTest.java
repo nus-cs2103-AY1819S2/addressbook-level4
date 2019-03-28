@@ -409,6 +409,93 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsCountryCode("DEU JPN USA  JPN", "JPN"));
     }
 
+    //---------------- Tests for containsYear --------------------------------------
+
+    /*
+     * Invalid equivalence partitions for year: null, empty, multiple years, years outside the range of 1900-current
+     * Invalid equivalence partitions for yearList: null
+     * The four test cases below test one invalid input at a time.
+     */
+
+    @Test
+    public void containsYear_nullWord_throwsNullPointerException() {
+        assertExceptionForYearThrown(NullPointerException.class, "2018 2019", null, Optional.empty());
+    }
+
+    private void assertExceptionForYearThrown(Class<? extends Throwable> exceptionClass, String yearList,
+                                                String year, Optional<String> errorMessage) {
+        thrown.expect(exceptionClass);
+        errorMessage.ifPresent(message -> thrown.expectMessage(message));
+        StringUtil.containsYear(yearList, year);
+    }
+
+    @Test
+    public void containsYear_emptyWord_throwsIllegalArgumentException() {
+        assertExceptionForYearThrown(IllegalArgumentException.class, "2017 2019", "  ",
+                Optional.of("Year parameter cannot be empty"));
+    }
+
+    @Test
+    public void containsYear_multipleYears_throwsIllegalArgumentException() {
+        assertExceptionForYearThrown(IllegalArgumentException.class, "2018 2019", "2018 2017",
+                Optional.of("Years should only contain a year from 1900 to the current year"));
+    }
+
+    @Test
+    public void containsYear_charOutsideRange_throwsIllegalArgumentException() {
+        assertExceptionForYearThrown(IllegalArgumentException.class, "2018 2019", "1805",
+                Optional.of("Years should only contain a year from 1900 to the current year"));
+    }
+
+    @Test
+    public void containsYear_nullSentence_throwsNullPointerException() {
+        assertExceptionForYearThrown(NullPointerException.class, null, "2018", Optional.empty());
+    }
+    /*
+     * Valid equivalence partitions for year:
+     *   - any year value between 1900 - current year
+     *   - any year value between 1900 - current year with leading/trailing spaces
+     *
+     * Valid equivalence partitions for yearList:
+     *   - empty string
+     *   - one year
+     *   - multiple years
+     *   - yearList with extra spaces
+     *
+     * Possible scenarios returning true:
+     *   - matches first year in yearList
+     *   - last year in yearList
+     *   - middle year in yearList
+     *   - matches multiple years
+     *
+     * Possible scenarios returning false:
+     *   - query year not found in yearList
+     *
+     * The test method below tries to verify all above with a reasonably low number of test cases.
+     */
+
+    @Test
+    public void containsYear_validInputs_correctResult() {
+
+        // Empty yearList
+        assertFalse(StringUtil.containsYear("", "2018")); // Boundary case
+        assertFalse(StringUtil.containsYear("    ", "2019"));
+
+        // Query year not in yearList
+        assertFalse(StringUtil.containsYear("2017 2018 2019", "2016"));
+        assertFalse(StringUtil.containsYear("2015 2017 2018", "2019"));
+
+        // Matches year in the yearList
+        assertTrue(StringUtil.containsYear("2016 2018 2019", "2016")); // First rating (boundary case)
+        assertTrue(StringUtil.containsYear("2016 2018 2019", "2019")); // Last rating (boundary case)
+        assertTrue(StringUtil.containsYear("  2013   2017   2018  ", "2013")); // ratingsList has extra spaces
+        assertTrue(StringUtil.containsYear("2018", "2018")); // One rating in ratingsList (boundary case)
+        assertTrue(StringUtil.containsYear("2011 2012 2019", "  2019  ")); // Leading/trailing spaces in rating
+
+        // Matches multiple years in yearList
+        assertTrue(StringUtil.containsYear("2011 2014 2017  2014", "2014"));
+    }
+
     //---------------- Tests for getDetails --------------------------------------
 
     /*

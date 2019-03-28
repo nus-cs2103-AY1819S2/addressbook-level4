@@ -174,6 +174,8 @@ public class TypicalPlaces {
 
     public static final String KEYWORD_MATCHING_SGP = "SGP"; // A keyword that matches the country code SGP
 
+    public static final String KEYWORD_MATCHING_2016 = "2016"; // A keyword that matches the year 2016
+
     private TypicalPlaces() {} // prevents instantiation
 
     /**

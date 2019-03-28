@@ -38,7 +38,7 @@ public class ListLessonsCommand extends ManagementCommand {
     public static final String MESSAGE_NO_LESSONS = "No lesson found.";
 
     /**
-     * Executes the command and returns the result message.
+     * Constructs a list of {@link Lesson} objects for display purposes.
      *
      * @param lessons the list of lessons
      * @return a String representing {@code lessons}
@@ -62,17 +62,18 @@ public class ListLessonsCommand extends ManagementCommand {
 
     /**
      * Executes the command and returns the result message.
+     *
      * @param model which the command should operate on.
      * @param history {@code CommandHistory} which the command should operate on.
-     * @return
+     * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         ManagementModel mgtModel = requireManagementModel(model);
 
-        ArrayList<Lesson> lessons = new ArrayList<>();
-        lessons.addAll(mgtModel.getLessons());
+        ArrayList<Lesson> lessons = new ArrayList<>(mgtModel.getLessons());
 
         return new CommandResult(buildList(lessons));
     }

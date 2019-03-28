@@ -91,6 +91,7 @@ public class CalendarWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult;
             commandResult = logic.execute("taskcal " + commandText);
+            this.setDate(getDateInput(commandResult.getFeedbackToUser()));
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -181,7 +182,6 @@ public class CalendarWindow extends UiPart<Stage> {
             node.setOnMouseClicked(event -> {
                 try {
                     DateCell dateCell = (DateCell) node;
-                    System.out.println("You clicked: " + dateCell.getItem().format(format));
                     logic.execute("taskcal " + dateCell.getItem().format(format));
                 } catch (CommandException | ParseException e) {
                     logger.info("Invalid date");
@@ -190,8 +190,11 @@ public class CalendarWindow extends UiPart<Stage> {
         }
         this.calendarPanel.getChildren().addAll(out);
     }
-    public void setDate (String newDate) {
+    public void setDate(String newDate) {
         this.datePicker.setValue(LocalDate.parse(newDate, format));
+    }
+    public static String getDateInput(String input) {
+        return input.substring(input.lastIndexOf(" ") + 1);
     }
 
 }

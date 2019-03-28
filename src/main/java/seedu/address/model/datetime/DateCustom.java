@@ -50,6 +50,10 @@ public class DateCustom implements DateBuilder {
         return dateCompare(date2, date1);
     }
 
+    public boolean isToday() {
+        return dateCompare(this.toString(),LocalDate.now().format(DATE_FORMATTER));
+    }
+
     public LocalDate getDate() {
         return LocalDate.parse(storedDate);
     }

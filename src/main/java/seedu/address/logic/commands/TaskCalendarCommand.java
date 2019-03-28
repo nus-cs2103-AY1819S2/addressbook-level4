@@ -22,14 +22,15 @@ public class TaskCalendarCommand extends Command {
             + "13-05-2019\n"
             + "If no date is provided, the current date will be used\n";
 
-    public static final String MESSAGE_DISPLAY_CALENDAR_SUCCESS = "Task Calendar displayed for Date: %1$s";
+    private static final String MESSAGE_USING_CURRENT_DATE = "No date given, using current date\n";
+    private static final String MESSAGE_DISPLAY_CALENDAR_SUCCESS = "Task Calendar displayed for Date: %1$s";
 
-    public final DateCustom dateInput;
+    private final DateCustom dateInput;
     private ContainsKeywordsPredicate predicate;
 
 
     public TaskCalendarCommand(DateCustom dateInput, ContainsKeywordsPredicate predicate) {
-        requireNonNull(dateInput);
+        requireNonNull(predicate);
         this.predicate = predicate;
         this.dateInput = dateInput;
     }
@@ -38,7 +39,11 @@ public class TaskCalendarCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.updateFilteredTaskList(predicate);
-        return new CommandResult(String.format(MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
+        if (dateInput.isToday()) {
+            return new CommandResult(String.format(MESSAGE_USING_CURRENT_DATE + MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
+        } else {
+            return new CommandResult(String.format(MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
+        }
     }
 
     @Override

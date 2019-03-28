@@ -42,14 +42,27 @@ public class QuizAnswerCommandTest {
     private Quiz actualQuiz;
     private Quiz expectedQuiz;
     private CommandHistory commandHistory = new CommandHistory();
+    private ManagementModelManager mgmtManager;
+    private Session expectedSession;
+    private Session actualSession;
 
     @Before
     public void setUp() {
+        final Lesson lesson = new LessonBuilder().build();
+        expectedSession = new SessionBuilder(new Session("01-01-Learn", 2,
+            QuizMode.LEARN, List.of(new SrsCardBuilder().build(),
+            new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
+                1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
+        actualSession = new SessionBuilder(new Session("01-01-Learn", 2,
+            QuizMode.LEARN, List.of(new SrsCardBuilder().build(),
+            new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
+                1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
         final QuizCard quizCardJapan = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard quizCardHungary = new QuizCard("Hungary", "Budapest");
         validQuizCard = Arrays.asList(quizCardJapan, quizCardHungary);
         actualQuiz = new Quiz(validQuizCard, QuizMode.LEARN);
         expectedQuiz = new Quiz(validQuizCard, QuizMode.LEARN);
+        mgmtManager = new ManagementModelManager();
     }
 
     @Test
@@ -94,7 +107,7 @@ public class QuizAnswerCommandTest {
             new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
                 1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
 
-        QuizModelManager expectedModel = new QuizModelManager(new ManagementModelManager());
+        QuizModelManager expectedModel = new QuizModelManager(mgmtManager);
 
         expectedModel.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session);
 
@@ -147,11 +160,12 @@ public class QuizAnswerCommandTest {
         final String wrongAns = "wronganswer";
 
         // correct
-        QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(expectedQuiz);
+        QuizModelManager expectedModel = new QuizModelManager(mgmtManager);
+        expectedModel.initWithSession(expectedQuiz, expectedSession);
 
-        QuizModel actual = new QuizModelManager();
-        actual.init(actualQuiz);
+        ManagementModelManager actualMgmtManager = new ManagementModelManager();
+        QuizModel actual = new QuizModelManager(actualMgmtManager);
+        actual.initWithSession(actualQuiz, actualSession);
         actual.getNextCard();
         actual.getNextCard();
         actual.getNextCard();

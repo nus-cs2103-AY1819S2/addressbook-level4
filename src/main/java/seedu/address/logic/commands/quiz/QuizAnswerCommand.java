@@ -60,11 +60,12 @@ public class QuizAnswerCommand extends QuizCommand {
                 return new CommandResult("", true, false, false);
             }
 
-            quizModel.updateUserProfile(quizModel.end());
+            // don't need to update card of 0 attempts
+            quizModel.end();
 
             // set the display to blank for management mode display
             quizModel.setDisplayFormatter(null);
-            return new CommandResult(MESSAGE_COMPLETE);
+            return new CommandResult(MESSAGE_COMPLETE, true, false, false);
         }
 
         boolean result = quizModel.updateTotalAttemptsAndStreak(card.getIndex(), answer);
@@ -77,14 +78,11 @@ public class QuizAnswerCommand extends QuizCommand {
                 quizModel.setDisplayFormatter(new QuizUiDisplayFormatter(questionHeader, card.getQuestion(),
                         answerHeader, QuizMode.REVIEW));
             } else {
-                sb.append(MESSAGE_COMPLETE);
+                quizModel.updateUserProfile(quizModel.end());
 
-                // TODO return this to session
-                System.out.println(quizModel.end());
-
-                // TODO change back to management mode display
-                // set the display to blank
+                // set the display to blank for management mode display
                 quizModel.setDisplayFormatter(null);
+                sb.append(MESSAGE_COMPLETE);
             }
 
         } else {

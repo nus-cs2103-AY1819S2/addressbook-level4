@@ -44,7 +44,8 @@ public class CloseLessonCommand extends ManagementCommand {
      * @param history {@link CommandHistory} which the command should operate on.
      *
      * @return feedback message of the operation result for display
-     * @throws CommandException if there is no opened lesson and hence no need to close lesson
+     * @throws CommandException if there is no opened lesson and hence no need to close lesson or
+     * if the {@code model} passed in is not a {@link ManagementModel}
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

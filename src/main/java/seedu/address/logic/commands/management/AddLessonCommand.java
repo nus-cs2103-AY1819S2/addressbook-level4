@@ -13,10 +13,11 @@ import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * This implements a {@link ManagementCommand} which executes a command to add a {@link Lesson}
- * to the {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
- * to be passed into the {@link #execute(Model, CommandHistory)} command. The actual addition
- * of the {@link Lesson} is carried out in the {@link ManagementModel}.
+ * This implements a {@link ManagementCommand} which adds a {@link Lesson} to the
+ * {@code List<Lesson> lessons} loaded in memory.
+ *
+ * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
+ * command. The addition of the {@link Lesson} is carried out in the {@link ManagementModel}.
  */
 public class AddLessonCommand extends ManagementCommand {
     /**
@@ -45,7 +46,7 @@ public class AddLessonCommand extends ManagementCommand {
      */
     private final Lesson toAdd;
     /**
-     * Creates an AddLessonCommand to add the specified {@link Lesson}
+     * Constructs a {@link ManagementCommand} to add the specified {@link Lesson}.
      *
      * @param toAdd the {@link Lesson} to be added
      */
@@ -55,13 +56,14 @@ public class AddLessonCommand extends ManagementCommand {
     }
 
     /**
-     * Executes the command and returns the result message.
+     * Executes the command which adds a {@link Lesson} to the {@code List<Lesson> lessons}
+     * loaded in memory.
      *
-     * @param model which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
+     * @param model the {@link ManagementModel} the command should operate on.
+     * @param history {@link CommandHistory} which the command should operate on.
      *
      * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
+     * @throws CommandException if the {@code model} passed in is not a {@link ManagementModel}
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -73,10 +75,7 @@ public class AddLessonCommand extends ManagementCommand {
     }
 
     /**
-     * Certain ManagementCommand objects require a call to storageManager to save the lessons to disk
-     * after being executed.
-     *
-     * <br><br>When a lesson is added, a save is required.
+     * When a lesson is closed, it needs to be saved to the hard disk.
      *
      * @return true given that a save to disk is required.
      */
@@ -85,6 +84,14 @@ public class AddLessonCommand extends ManagementCommand {
         return true;
     }
 
+    /**
+     * Returns true if {@code other} is the same object or if it is also an {@link AddLessonCommand}
+     * attempting to add the same lesson.
+     *
+     * @param other the other object to compare this object to
+     * @return true if {@code other} is the same object or if it is also an {@link AddLessonCommand}
+     * attempting to add the same lesson.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

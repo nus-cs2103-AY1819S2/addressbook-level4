@@ -3,16 +3,15 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
 
-import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.InOutAddressBookStorage;
+import seedu.address.storage.ParsedInOut;
 import seedu.address.storage.StorageManager;
 
 /**
@@ -23,23 +22,28 @@ public class SaveCommand extends Command {
     public static final String COMMAND_WORD = "save";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Saves to text file in the \"data\" folder, overwriting if filename exists \n"
+            + ": Saves the current patients to a .json or .pdf file in the \"data\" folder, "
+            + "overwriting if filename exists \n"
             + "Parameters: FILENAME\n"
-            + "Example: " + COMMAND_WORD + " records1.json";
+            + "Example: " + COMMAND_WORD + " records1.json"
+            + "Example: " + COMMAND_WORD + " records1.pdf";
 
     public static final String MESSAGE_SUCCESS = "Saved the records!";
-    private static final String MESSAGE_FAILURE = "Problem while writing to the file.";
 
-    private final File file;
+    private final ParsedInOut parsedInput;
 
-    public SaveCommand(File file) {
-        this.file = file;
+    public SaveCommand(ParsedInOut parsedInput) {
+        this.parsedInput = parsedInput;
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) {
+    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        writeFile(model);
+        try {
+            writeFile(model);
+        } catch (IOException e) {
+            throw new CommandException(Messages.MESSAGE_INVALID_FILE_TYPE);
+        }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -47,17 +51,19 @@ public class SaveCommand extends Command {
     /**
      * writeFile() writes or overwrites a file with the contents of the current address book.
      */
-    private void writeFile(Model model) {
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
+    private void writeFile(Model model) throws IOException {
+        AddressBookStorage addressBookStorage = new InOutAddressBookStorage(parsedInput.getFile().toPath());
 
         StorageManager storage = new StorageManager(addressBookStorage, null);
 
-        final Logger logger = LogsCenter.getLogger(MainApp.class);
-
         try {
-            storage.saveAddressBook(model.getAddressBook(), file.toPath());
+            if (parsedInput.getType().equals("json")) {
+                storage.saveAddressBook(model.getAddressBook(), parsedInput.getFile().toPath());
+            } else if (parsedInput.getType().equals("pdf")) {
+                storage.saveAsPdf(model.getAddressBook(), parsedInput.getFile().toPath());
+            }
         } catch (IOException e) {
-            logger.warning(MESSAGE_FAILURE);
+            throw new IOException();
         }
     }
 }

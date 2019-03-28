@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import java.io.File;
-
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.storage.ParsedInOut;
@@ -19,16 +17,36 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public ImportCommand parse(String args) throws ParseException {
         try {
             ParsedInOut parsedInOut = ParserUtil.parseImportExport(args);
-            importValidation(parsedInOut.getFile());
-            return new ImportCommand(parsedInOut);
+            try {
+                importValidation(parsedInOut);
+                return new ImportCommand(parsedInOut);
+            } catch (ParseException pe) {
+                throw new ParseException(String.format("%s\n%s", pe.getMessage(), ImportCommand.MESSAGE_USAGE), pe);
+            }
         } catch (ParseException pe) {
-            throw new ParseException(pe.getMessage());
+            throw new ParseException(String.format("%s\n%s", pe.getMessage(), ImportCommand.MESSAGE_USAGE), pe);
         }
     }
 
-    private void importValidation(File file) throws ParseException {
-        if (!file.exists() || !file.isFile() || !file.canRead()) {
-            throw new ParseException("File is invalid");
+    /**
+     * importValidation() checks if the file exists, is a file and can be read.
+     * @param parsedInOut the ParsedInOut object which contains parsed information from the input.
+     * @throws ParseException if the file is not a .json type
+     *                        if the file does not exist
+     *                        if the file is not a file
+     *                        if the file cannot be read
+     */
+    private void importValidation(ParsedInOut parsedInOut) throws ParseException {
+        if (!parsedInOut.getType().equals("json")) {
+            throw new ParseException("Only .json file type can be imported!");
+        } else {
+            if (!parsedInOut.getFile().exists()) {
+                throw new ParseException("File not found!");
+            } else if (!parsedInOut.getFile().isFile()) {
+                throw new ParseException("File is invalid!");
+            } else if (!parsedInOut.getFile().canRead()) {
+                throw new ParseException("File cannot be read!");
+            }
         }
     }
 }

@@ -50,6 +50,14 @@ public class CardBuilder {
     }
 
     /**
+     * Sets the {@code Card} to have no {@code optionals}.
+     */
+    public CardBuilder withNoOptionals() {
+        this.optionals = new ArrayList<>();
+        return this;
+    }
+
+    /**
      * Builds and returns a {@link Card}.
      * @return a {@link Card}.
      */

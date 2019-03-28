@@ -66,17 +66,14 @@ public class DeleteLessonCommand extends ManagementCommand {
         ManagementModel mgtModel = requireManagementModel(model);
         int toDeleteIndex = targetIndex.getZeroBased();
 
-        String lessonName;
-
         try {
-            lessonName = mgtModel.getLesson(toDeleteIndex).getName();
+            String lessonName = mgtModel.getLesson(toDeleteIndex).getName();
             mgtModel.deleteLesson(toDeleteIndex);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
                     targetIndex.getOneBased()), e);
         }
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
     }
 
     /**

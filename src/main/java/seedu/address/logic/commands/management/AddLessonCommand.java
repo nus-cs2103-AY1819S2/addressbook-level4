@@ -1,9 +1,11 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_CORE_HEADER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
-import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_OPT_HEADER;
+import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
@@ -28,15 +30,18 @@ public class AddLessonCommand extends ManagementCommand {
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson. "
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_LESSON_NAME + "NAME "
-            + PREFIX_LESSON_CORE_HEADER + "CORE..."
-            + "[" + PREFIX_LESSON_OPT_HEADER + "OPTIONAL]...\n"
+            + PREFIX_CORE_QUESTION + "QUESTION CORE "
+            + PREFIX_CORE_ANSWER + "ANSWER CORE "
+            + "[" + PREFIX_CORE + "CORE]... "
+            + "[" + PREFIX_OPTIONAL + "OPTIONAL]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_LESSON_NAME + "Capitals of the world "
-            + PREFIX_LESSON_CORE_HEADER + "Country "
-            + PREFIX_LESSON_CORE_HEADER + "Capital "
-            + PREFIX_LESSON_OPT_HEADER + "Hint";
+            + PREFIX_CORE_QUESTION + "Country "
+            + PREFIX_CORE_ANSWER + "Capital "
+            + PREFIX_CORE + "Language "
+            + PREFIX_OPTIONAL + "Hint";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */

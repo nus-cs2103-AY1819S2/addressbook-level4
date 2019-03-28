@@ -171,11 +171,9 @@ public class Card {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Hash Code: ")
-                .append(hashCode())
-                .append(", Cores: ")
+        builder.append("Cores: ")
                 .append(getCores())
-                .append(", Optionals: ")
+                .append("\nOptionals: ")
                 .append(getOptionals());
         return builder.toString();
     }
@@ -187,13 +185,7 @@ public class Card {
      */
     public String toPrint() {
         final StringBuilder builder = new StringBuilder();
-        for (String s: cores) {
-            builder.append(s).append('\t');
-        }
-
-        for (String s: optionals) {
-            builder.append(s).append('\t');
-        }
+        builder.append(getCores()).append(getOptionals());
 
         return builder.toString();
     }

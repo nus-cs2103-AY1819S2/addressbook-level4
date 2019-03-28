@@ -52,20 +52,11 @@ public class ListCardsCommand extends ManagementCommand {
         } else {
             StringBuilder builder = new StringBuilder();
             builder.append(String.format(MESSAGE_SUCCESS, cards.size()));
-            builder.append("No.\t");
-            for (String s: coreHeaders) {
-                builder.append(String.format("%s\t", s));
-            }
-
-            for (String s: optionalHeaders) {
-                builder.append(String.format("%s\t", s));
-            }
-
-            builder.append('\n');
+            builder.append("[No.]").append(coreHeaders).append(optionalHeaders).append('\n');
 
             int i = 1;
             for (Card card : cards) {
-                builder.append(i).append(".\t").append(card.toPrint()).append("\n");
+                builder.append("[ ").append(i).append(" ]").append(card.toPrint()).append("\n");
                 i++;
             }
 

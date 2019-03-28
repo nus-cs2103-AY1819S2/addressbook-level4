@@ -6,9 +6,11 @@ import static seedu.address.logic.commands.management.CommandTestUtil.PREAMBLE_N
 import static seedu.address.logic.commands.management.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_CORE_HEADER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
-import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_OPT_HEADER;
+import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
@@ -24,9 +26,9 @@ import seedu.address.testutil.LessonBuilder;
 public class AddLessonParserTest {
     public static final String LESSON_NAME = " " + PREFIX_LESSON_NAME + DEFAULT_NAME;
     public static final String LESSON_NAME_OTHER = " " + PREFIX_LESSON_NAME + "Trivia";
-    public static final String LESSON_CORE_1 = " " + PREFIX_LESSON_CORE_HEADER + DEFAULT_CORE_HEADER_1;
-    public static final String LESSON_CORE_2 = " " + PREFIX_LESSON_CORE_HEADER + DEFAULT_CORE_HEADER_2;
-    public static final String LESSON_OPT_1 = " " + PREFIX_LESSON_OPT_HEADER + DEFAULT_OPT_HEADER_1;
+    public static final String LESSON_CORE_1 = " " + PREFIX_CORE_QUESTION + DEFAULT_CORE_HEADER_1;
+    public static final String LESSON_CORE_2 = " " + PREFIX_CORE_ANSWER + DEFAULT_CORE_HEADER_2;
+    public static final String LESSON_OPT_1 = " " + PREFIX_OPTIONAL + DEFAULT_OPT_HEADER_1;
 
     private AddLessonParser addLessonParser = new AddLessonParser();
 
@@ -89,11 +91,11 @@ public class AddLessonParserTest {
 
         // empty core string specified
         assertParseFailure(addLessonParser, LESSON_NAME
-                        + PREFIX_LESSON_CORE_HEADER + LESSON_CORE_2,
+                        + PREFIX_CORE + LESSON_CORE_2,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
 
         assertParseFailure(addLessonParser, LESSON_NAME
-                        + LESSON_CORE_1 + PREFIX_LESSON_CORE_HEADER,
+                        + LESSON_CORE_1 + PREFIX_CORE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
     }
 }

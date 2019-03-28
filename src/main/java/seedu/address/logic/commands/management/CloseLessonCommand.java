@@ -2,6 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,15 +27,10 @@ public class CloseLessonCommand extends ManagementCommand {
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Closes the opened lesson.\n"
             + "Example: " + COMMAND_WORD;
-
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
     public static final String MESSAGE_SUCCESS = "Closed lesson and saved changes: %1$s";
-    /**
-     * Feedback message displayed to the user when attempting to close lesson when no lesson is opened.
-     */
-    public static final String MESSAGE_NO_OPENED_LESSON = "No opened lesson found.";
 
     /**
      * Executes the command which closes the opened {@link Lesson} in the {@code List<Lesson> lessons}
@@ -56,7 +52,7 @@ public class CloseLessonCommand extends ManagementCommand {
             String lessonName = mgtModel.closeLesson();
             return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
         } catch (NullPointerException e) {
-            throw new CommandException(MESSAGE_NO_OPENED_LESSON, e);
+            throw new CommandException(Messages.MESSAGE_NO_OPENED_LESSON, e);
         }
     }
 

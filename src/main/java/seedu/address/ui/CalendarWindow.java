@@ -115,6 +115,9 @@ public class CalendarWindow extends UiPart<Stage> {
     public boolean isShowing() {
         return primaryStage.isShowing();
     }
+    public void focus() {
+        primaryStage.requestFocus();
+    }
 
     /**
      * Creates a Calendar popup node from Datepicker using a given localDate

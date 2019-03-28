@@ -24,6 +24,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.datetime.DateCustom;
 
 /**
  *  Task Calendar Window. Provides a graphical interface for task viewing
@@ -81,16 +82,20 @@ public class CalendarWindow extends UiPart<Stage> {
     }
 
     /**
+     *  Executes the date given to generate a new calendar if valid
      *
-     * @param commandText
-     * @return
-     * @throws CommandException
-     * @throws ParseException
+     * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) {
-        this.datePicker.setValue(LocalDate.now());
-        System.out.println(commandText);
-        CommandResult cr = new CommandResult("test");
+        String feedback = "";
+        if (DateCustom.isValidDate(commandText)) {
+            DateCustom newDate = new DateCustom(commandText);
+            this.datePicker.setValue(newDate.getDate());
+        }
+        else {
+            feedback = "Wrong Date";
+        }
+        CommandResult cr = new CommandResult(feedback);
         return cr;
     }
 
@@ -106,6 +111,10 @@ public class CalendarWindow extends UiPart<Stage> {
         primaryStage.show();
     }
 
+    /**
+     * Creates a Calendar popup node from Datepicker using a given localDate
+     * @param localDate Date to be given to datepicker to generate calendar
+     */
     public void createCalender(LocalDate localDate) {
 
         this.datePicker = new DatePicker(localDate);

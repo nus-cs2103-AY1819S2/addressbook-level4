@@ -151,8 +151,7 @@ public class Enemy extends Player {
                 this.getMapGrid().putShip(preppedShips.get(0), new Coordinates(x, y), useOrientation);
                 preppedShips.remove(0);
                 markAsOccupied(x, y, shipSize, useOrientation);
-            }
-            catch (ArrayIndexOutOfBoundsException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 //log the error later from putship
             }
         }
@@ -191,9 +190,7 @@ public class Enemy extends Player {
             for (int i = 0; i < shipSize; i++) {
                 allPossiblePopulateCoords.remove(Integer.toString(x + i) + y);
             }
-        }
-        //increase y
-        else {
+        } else { //increase y
             for (int i = 0; i < shipSize; i++) {
                 allPossiblePopulateCoords.remove(Integer.toString(x) + (y + i));
             }
@@ -210,8 +207,7 @@ public class Enemy extends Player {
         case 6:
             if (coordToJustify <= lowerHalfceiling) {
                 coordToJustify = 0;
-            }
-            else {
+            } else {
                 coordToJustify = 1;
             }
             break;
@@ -236,8 +232,7 @@ public class Enemy extends Player {
         int decision = seed % 2;
         if (decision == 0) {
             return new Orientation("horizontal");
-        }
-        else {
+        } else {
             return new Orientation("vertical");
         }
     }

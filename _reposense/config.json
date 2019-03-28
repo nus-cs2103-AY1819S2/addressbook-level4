@@ -3,23 +3,23 @@
   [
     {
       "githubId": "chung-ming",
-      "displayName": "ARI...ING",
-      "authorNames": ["chung-ming"]
+      "displayName": "Arielyte Tsen Chung Ming",
+      "authorNames": ["chung-ming", "Tsen Chung Ming"]
     },
     {
       "githubId": "shaungohsc",
-      "displayName": "GOH...AUN",
-      "authorNames": ["shaungohsc"]
+      "displayName": "Goh Shau Cher Shaun",
+      "authorNames": ["shaungohsc", "Shaun Goh", "Shaun"]
     },
     {
       "githubId": "nivenang",
-      "displayName": "NIV...HAO",
-      "authorNames": ["nivenang"]
+      "displayName": "Niven Ang Jia Hao",
+      "authorNames": ["nivenang", "Niven Ang Jia Hao"]
     },
     {
       "githubId": "PremBagda",
-      "displayName": "Prem Bagdawala",
-      "authorNames": ["PremBagda", "Prem Rajeshkumar Bagdawala","Prem Bagdawala"]
+      "displayName": "Prem Rajeshkumar Bagdawala",
+      "authorNames": ["PremBagda", "Prem Rajeshkumar Bagdawala", "Prem Bagdawala"]
     }
   ]
 }

@@ -23,7 +23,7 @@ public class HistoryCommandTest {
                 String.format(HistoryCommand.MESSAGE_SUCCESS, command1), expectedModel);
 
         String command2 = "randomCommand";
-        String command3 = "deleteBook n/Alice";
+        String command3 = "deleteBook 1";
         history.add(command2);
         history.add(command3);
 

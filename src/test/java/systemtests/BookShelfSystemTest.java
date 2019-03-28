@@ -1,13 +1,13 @@
 package systemtests;
 
-import static guitests.guihandles.BookWebViewUtil.waitUntilBrowserLoaded;
+import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.BookGuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,10 +23,10 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BookBrowserPanelHandle;
-import guitests.guihandles.BookCommandBoxHandle;
+import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.BookListPanelHandle;
-import guitests.guihandles.BookMainMenuHandle;
-import guitests.guihandles.BookMainWindowHandle;
+import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
@@ -51,7 +51,7 @@ public abstract class BookShelfSystemTest {
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
         Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
-    private BookMainWindowHandle mainWindowHandle;
+    private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
 
@@ -89,11 +89,11 @@ public abstract class BookShelfSystemTest {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
-    public BookMainWindowHandle getMainWindowHandle() {
+    public MainWindowHandle getMainWindowHandle() {
         return mainWindowHandle;
     }
 
-    public BookCommandBoxHandle getCommandBox() {
+    public CommandBoxHandle getCommandBox() {
         return mainWindowHandle.getCommandBox();
     }
 
@@ -101,7 +101,7 @@ public abstract class BookShelfSystemTest {
         return mainWindowHandle.getBookListPanel();
     }
 
-    public BookMainMenuHandle getMainMenu() {
+    public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
 
@@ -170,7 +170,7 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code BookListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BookBrowserPanelHandle}, {@code BookListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {

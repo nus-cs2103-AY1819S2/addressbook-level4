@@ -13,21 +13,17 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
 import seedu.address.model.book.UniqueBookList;
 import seedu.address.model.book.UniqueReviewList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the book-shelf level
+ * Duplicates are not allowed (by .isSameBook comparison)
  */
 public class BookShelf implements ReadOnlyBookShelf {
-
-    private final UniquePersonList persons;
+    
     private final UniqueBookList books;
     private final UniqueReviewList reviews;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
-
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -37,7 +33,6 @@ public class BookShelf implements ReadOnlyBookShelf {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
         books = new UniqueBookList();
         reviews = new UniqueReviewList();
     }
@@ -53,21 +48,19 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     //// list overwrite operations
-
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the book list with {@code books}.
+     * {@code books} must not contain duplicate books.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-        indicateModified();
-    }
-
     public void setBooks(List<Book> books) {
         this.books.setBooks(books);
         indicateModified();
     }
 
+    /**
+     * Replaces the contents of the review list with {@code reviews}.
+     * {@code reviews} must not contain duplicate reviews.
+     */
     public void setReviews(List<Review> reviews) {
         this.reviews.setReviews(reviews);
         indicateModified();
@@ -78,22 +71,12 @@ public class BookShelf implements ReadOnlyBookShelf {
      */
     public void resetData(ReadOnlyBookShelf newData) {
         requireNonNull(newData);
-
-        setPersons(newData.getPersonList());
+        
         setBooks(newData.getBookList());
         setReviews(newData.getReviewList());
     }
 
-    //// person-level operations
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
-    }
-
+    //// book-level operations
     /**
      * Returns true if a book with the same identity as {@code book} exists in the book shelf.
      */
@@ -108,15 +91,6 @@ public class BookShelf implements ReadOnlyBookShelf {
     public boolean hasReview(Review review) {
         requireNonNull(review);
         return reviews.contains(review);
-    }
-
-    /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
-     */
-    public void addPerson(Person p) {
-        persons.add(p);
-        indicateModified();
     }
 
     /**
@@ -138,18 +112,6 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-
-        persons.setPerson(target, editedPerson);
-        indicateModified();
-    }
-
-    /**
      * Replaces the given book {@code target} in the list with {@code editedBook}.
      * {@code target} must exist in the book shelf.
      * The book identity of {@code editedBook} must not be the same as another existing book in the book shelf.
@@ -160,16 +122,7 @@ public class BookShelf implements ReadOnlyBookShelf {
         books.setBook(target, editedBook);
         indicateModified();
     }
-
-    /**
-     * Removes {@code key} from this {@code BookShelf}.
-     * {@code key} must exist in the address book.
-     */
-    public void removePerson(Person key) {
-        persons.remove(key);
-        indicateModified();
-    }
-
+    
     /**
      * Removes {@code key} from this {@code BookShelf}.
      * {@code key} must exist in the book shelf.
@@ -189,21 +142,6 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     /**
-     * Removes {@code tag} from a {@code person}
-     */
-    private void removeTagFromPerson(Tag tag, Person person) {
-        Set<Tag> tags = new HashSet<Tag>(person.getTags());
-        if (!tags.remove(tag)) {
-            return;
-        }
-
-        Person newPerson = new Person(person.getName(), person.getPhone(),
-                person.getEmail(), person.getAddress(), tags);
-
-        setPerson(person, newPerson);
-    }
-
-    /**
      * Removes {@code tag} from a {@code book}
      */
     private void removeTagFromBook(Tag tag, Book book) {
@@ -219,7 +157,7 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     /**
-     * Remove {@code tag} from all person in the list
+     * Remove {@code tag} from all book in the list
      */
     public void removeTag(Tag tag) {
         for (Book p: books) {
@@ -233,7 +171,6 @@ public class BookShelf implements ReadOnlyBookShelf {
      * @param order
      * @throws Exception
      */
-
     public void sort(String type, String order) {
         try {
             books.sortBooks(type, order);
@@ -254,7 +191,7 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     /**
-     * Notifies listeners that the address book has been modified.
+     * Notifies listeners that the book shelf has been modified.
      */
     protected void indicateModified() {
         invalidationListenerManager.callListeners(this);
@@ -265,11 +202,6 @@ public class BookShelf implements ReadOnlyBookShelf {
     @Override
     public String toString() {
         return books.asUnmodifiableObservableList().size() + " books";
-    }
-
-    @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
     }
 
     @Override
@@ -286,7 +218,7 @@ public class BookShelf implements ReadOnlyBookShelf {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof BookShelf // instanceof handles nulls
-                && persons.equals(((BookShelf) other).persons)
+                && books.equals(((BookShelf) other).books)
                 && books.equals(((BookShelf) other).books))
                 && reviews.equals(((BookShelf) other).reviews);
     }

@@ -31,17 +31,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getBookShelf()
      */
-    ReadOnlyBookShelf getAddressBook();
-
-    /**
-     * Returns the BookShelf.
-     *
-     * @see seedu.address.model.Model#getBookShelf()
-     */
     ReadOnlyBookShelf getBookShelf();
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
 
     /** Returns an unmodifiable view of the filtered list of books */
     ObservableList<Book> getFilteredBookList();
@@ -54,11 +44,6 @@ public interface Logic {
      * The list is ordered from the least recent command to the most recent command.
      */
     ObservableList<String> getHistory();
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
 
     /**
      * Returns the user prefs' book shelf file path.
@@ -76,14 +61,6 @@ public interface Logic {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     *
-     * @see seedu.address.model.Model#selectedPersonProperty()
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
-
-    /**
      * Selected person in the filtered books list.
      * null if no book is selected.
      *
@@ -98,13 +75,6 @@ public interface Logic {
      * @see seedu.address.model.Model#selectedBookProperty()
      */
     ReadOnlyProperty<Review> selectedReviewProperty();
-
-    /**
-     * Sets the selected person in the filtered person list.
-     *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
-     */
-    void setSelectedPerson(Person person);
 
     /**
      * Sets the selected person in the filtered person list.

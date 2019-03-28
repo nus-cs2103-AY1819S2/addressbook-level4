@@ -18,8 +18,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
 import seedu.address.model.book.exceptions.BookNotFoundException;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -30,10 +28,8 @@ public class ModelManager implements Model {
 
     private final VersionedBookShelf versionedBookShelf;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Book> filteredBooks;
     private final FilteredList<Review> filteredReviews;
-    private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Book> selectedBook = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Review> selectedReview = new SimpleObjectProperty<>();
 
@@ -48,10 +44,8 @@ public class ModelManager implements Model {
 
         versionedBookShelf = new VersionedBookShelf(bookShelf);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(versionedBookShelf.getPersonList());
         filteredBooks = new FilteredList<>(versionedBookShelf.getBookList());
         filteredReviews = new FilteredList<>(versionedBookShelf.getReviewList());
-        filteredPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredBooks.addListener(this::ensureSelectedBookIsValid);
         filteredReviews.addListener(this::ensureSelectedReviewIsValid);
     }
@@ -108,12 +102,6 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return versionedBookShelf.hasPerson(person);
-    }
-
-    @Override
     public boolean hasBook(Book book) {
         requireNonNull(book);
         return versionedBookShelf.hasBook(book);
@@ -125,23 +113,12 @@ public class ModelManager implements Model {
         return versionedBookShelf.hasReview(review);
     }
 
-    @Override
-    public void deletePerson(Person target) {
-        versionedBookShelf.removePerson(target);
-    }
-
     public void deleteBook(Book target) {
         versionedBookShelf.removeBook(target);
     }
 
     public void deleteReview(Review target) {
         versionedBookShelf.removeReview(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        versionedBookShelf.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -154,12 +131,6 @@ public class ModelManager implements Model {
     public void addReview(Review review) {
         versionedBookShelf.addReview(review);
         updateFilteredReviewList(PREDICATE_SHOW_ALL_REVIEWS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-        versionedBookShelf.setPerson(target, editedPerson);
     }
 
     @Override
@@ -179,16 +150,7 @@ public class ModelManager implements Model {
     }
 
 
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedBookShelf}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
+    //=========== Filtered Book List Accessors =============================================================
 
     @Override
     public ObservableList<Book> getFilteredBookList() {
@@ -198,12 +160,6 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Review> getFilteredReviewList() {
         return filteredReviews;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
     }
 
     @Override
@@ -245,12 +201,7 @@ public class ModelManager implements Model {
         versionedBookShelf.commit();
     }
 
-    //=========== Selected person ===========================================================================
-
-    @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return selectedPerson;
-    }
+    //=========== Selected book ===========================================================================
 
     @Override
     public ReadOnlyProperty<Book> selectedBookProperty() {
@@ -261,12 +212,7 @@ public class ModelManager implements Model {
     public ReadOnlyProperty<Review> selectedReviewProperty() {
         return selectedReview;
     }
-
-    @Override
-    public Person getSelectedPerson() {
-        return selectedPerson.getValue();
-    }
-
+    
     @Override
     public Book getSelectedBook() {
         return selectedBook.getValue();
@@ -275,14 +221,6 @@ public class ModelManager implements Model {
     @Override
     public Review getSelectedReview() {
         return selectedReview.getValue();
-    }
-
-    @Override
-    public void setSelectedPerson(Person person) {
-        if (person != null && !filteredPersons.contains(person)) {
-            throw new PersonNotFoundException();
-        }
-        selectedPerson.setValue(person);
     }
 
     @Override
@@ -300,50 +238,21 @@ public class ModelManager implements Model {
         }
         selectedReview.setValue(review);
     }
-
-    /**
-     * Ensures {@code selectedPerson} is a valid person in {@code filteredPersons}.
-     */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends Person> change) {
-        while (change.next()) {
-            if (selectedPerson.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
-                return;
-            }
-
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
-                    && change.getRemoved().contains(selectedPerson.getValue());
-            if (wasSelectedPersonReplaced) {
-                // Update selectedPerson to its new value.
-                int index = change.getRemoved().indexOf(selectedPerson.getValue());
-                selectedPerson.setValue(change.getAddedSubList().get(index));
-                continue;
-            }
-
-            boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedPerson.getValue().isSamePerson(removedPerson));
-            if (wasSelectedPersonRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
-                selectedPerson.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
-            }
-        }
-    }
-
+    
     /**
      * Ensures {@code selectedBook} is a valid book in {@code filteredBooks}.
      */
     private void ensureSelectedBookIsValid(ListChangeListener.Change<? extends Book> change) {
         while (change.next()) {
             if (selectedBook.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                // null is always a valid selected book, so we do not need to check that it is valid anymore.
                 return;
             }
 
             boolean wasSelectedBookReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedBook.getValue());
             if (wasSelectedBookReplaced) {
-                // Update selectedPerson to its new value.
+                // Update selectedBook to its new value.
                 int index = change.getRemoved().indexOf(selectedBook.getValue());
                 selectedBook.setValue(change.getAddedSubList().get(index));
                 continue;
@@ -352,8 +261,8 @@ public class ModelManager implements Model {
             boolean wasSelectedBookRemoved = change.getRemoved().stream()
                     .anyMatch(removedBook -> selectedBook.getValue().isSameBook(removedBook));
             if (wasSelectedBookRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
+                // Select the book that came before it in the list,
+                // or clear the selection if there is no such book.
                 selectedBook.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
@@ -365,14 +274,14 @@ public class ModelManager implements Model {
     private void ensureSelectedReviewIsValid(ListChangeListener.Change<? extends Review> change) {
         while (change.next()) {
             if (selectedReview.getValue() == null) {
-                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                // null is always a valid selected review, so we do not need to check that it is valid anymore.
                 return;
             }
 
             boolean wasSelectedReviewReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedReview.getValue());
             if (wasSelectedReviewReplaced) {
-                // Update selectedPerson to its new value.
+                // Update selectedReview to its new value.
                 int index = change.getRemoved().indexOf(selectedReview.getValue());
                 selectedReview.setValue(change.getAddedSubList().get(index));
                 continue;
@@ -381,8 +290,8 @@ public class ModelManager implements Model {
             boolean wasSelectedReviewRemoved = change.getRemoved().stream()
                     .anyMatch(removedReview -> selectedReview.getValue().equals(removedReview));
             if (wasSelectedReviewRemoved) {
-                // Select the person that came before it in the list,
-                // or clear the selection if there is no such person.
+                // Select the review that came before it in the list,
+                // or clear the selection if there is no such review.
                 selectedReview.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
@@ -404,7 +313,7 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedBookShelf.equals(other.versionedBookShelf)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
-                && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
+                && filteredBooks.equals(other.filteredBooks)
+                && Objects.equals(selectedBook.get(), other.selectedBook.get());
     }
 }

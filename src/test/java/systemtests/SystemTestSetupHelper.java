@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 import org.testfx.api.FxToolkit;
 
-import guitests.guihandles.BookMainWindowHandle;
+import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyBookShelf;
@@ -16,7 +16,7 @@ import seedu.address.model.ReadOnlyBookShelf;
  */
 public class SystemTestSetupHelper {
     private TestApp testApp;
-    private BookMainWindowHandle mainWindowHandle;
+    private MainWindowHandle mainWindowHandle;
 
     /**
      * Sets up a new {@code TestApp} and returns it.
@@ -47,10 +47,10 @@ public class SystemTestSetupHelper {
     /**
      * Encapsulates the primary stage of {@code TestApp} in a {@code MainWindowHandle} and returns it.
      */
-    public BookMainWindowHandle setupMainWindowHandle() {
+    public MainWindowHandle setupMainWindowHandle() {
         try {
             FxToolkit.setupStage((stage) -> {
-                mainWindowHandle = new BookMainWindowHandle(stage);
+                mainWindowHandle = new MainWindowHandle(stage);
                 mainWindowHandle.focus();
             });
             FxToolkit.showStage();

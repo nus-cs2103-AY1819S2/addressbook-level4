@@ -54,10 +54,6 @@ public class BookBrowserPanel extends UiPart<Region> {
         reviewMessage.setText("");
     }
 
-    private void loadReviewPage(Review review) {
-        loadPage(SEARCH_PAGE_URL + review.getTitle().fullName);
-    }
-
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
     }

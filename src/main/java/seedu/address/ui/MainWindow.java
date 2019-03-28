@@ -175,6 +175,10 @@ public class MainWindow extends UiPart<Stage> {
         return personListPanel;
     }
 
+    public ArchiveListPanel getArchiveListPanel() {
+        return archiveListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *

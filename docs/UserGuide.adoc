@@ -111,18 +111,33 @@ Example:
 The rename command allows you to change the name of the file that you may refer to by its index. +
 Format: `edit INDEX n/NAME`
 
-Example:
-
-* `edit 1 n/newname.pdf`
-
 ****
 * NAME: Must end with `.pdf` +
 * NAME: Must be a name that your Operating System deems valid.
 ****
 
+Example:
+
+* `edit 1 n/newname.pdf`
+
+=== Tagging a file : `tag`
+
+The tag command allows you to add or remove a tag to a file that you may refer to by its index. +
+Format (add tag) : `tag INDEX -a [t/ADD_TAG]...` +
+Format (remove tag) : `tag INDEX -r [t/REMOVE_TAG]...`
+
+****
+* Tags must be a continuous word without spaces
+****
+
+Example:
+
+* `tag 1 -a t/CS2103T t/SE`
+* `tag 2 -r t/tutorials`
+
 === Deleting a file : `delete`
 
-The delete command lets you delete a file from the application and your computer. The file that is to be deleted can be specified by its index on the list. +
+The delete command lets you to delete a file from the application and your computer. The file that is to be deleted can be specified by its index on the list. +
 Format: `delete INDEX`
 
 Example:

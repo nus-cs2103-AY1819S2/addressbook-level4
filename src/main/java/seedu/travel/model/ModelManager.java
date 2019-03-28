@@ -141,17 +141,17 @@ public class ModelManager implements Model {
 
     @Override
     public Map<CountryCode, Integer> generateChartCountry() {
-        return versionedTravelBuddy.generateCountryChart();
+        return versionedTravelBuddy.getCountryChart();
     }
 
     @Override
     public Map<Rating, Integer> generateChartRating() {
-        return versionedTravelBuddy.generateRatingChart();
+        return versionedTravelBuddy.getRatingChart();
     }
 
     @Override
     public Map<String, Integer> generateChartYear() {
-        return versionedTravelBuddy.generateYearChart();
+        return versionedTravelBuddy.getYearChart();
     }
 
     //=========== Undo/Redo =================================================================================

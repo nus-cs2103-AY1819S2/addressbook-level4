@@ -18,7 +18,7 @@ public class VersionedTravelBuddy extends TravelBuddy {
     private final List<ReadOnlyTravelBuddy> travelBuddyStateList;
     private int currentStatePointer;
 
-    public VersionedTravelBuddy(ReadOnlyTravelBuddy initialState) {
+    VersionedTravelBuddy(ReadOnlyTravelBuddy initialState) {
         super(initialState);
 
         travelBuddyStateList = new ArrayList<>();
@@ -30,7 +30,7 @@ public class VersionedTravelBuddy extends TravelBuddy {
      * Saves a copy of the current {@code TravelBuddy} state at the end of the state list.
      * Undone states are removed from the state list.
      */
-    public void commit() {
+    void commit() {
         removeStatesAfterCurrentPointer();
         travelBuddyStateList.add(new TravelBuddy(this));
         currentStatePointer++;
@@ -66,14 +66,14 @@ public class VersionedTravelBuddy extends TravelBuddy {
     /**
      * Returns true if {@code undo()} has travel book states to undo.
      */
-    public boolean canUndo() {
+    boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
      * Returns true if {@code redo()} has travel book states to redo.
      */
-    public boolean canRedo() {
+    boolean canRedo() {
         return currentStatePointer < travelBuddyStateList.size() - 1;
     }
 
@@ -100,7 +100,7 @@ public class VersionedTravelBuddy extends TravelBuddy {
     /**
      * Generates a chart by country.
      */
-    protected Map<CountryCode, Integer> generateCountryChart() {
+    Map<CountryCode, Integer> getCountryChart() {
         ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
         CountryCode countryCode;
         Map<CountryCode, Integer> mapCountry = new HashMap<>();
@@ -118,7 +118,7 @@ public class VersionedTravelBuddy extends TravelBuddy {
     /**
      * Generates a chart by rating.
      */
-    protected Map<Rating, Integer> generateRatingChart() {
+    Map<Rating, Integer> getRatingChart() {
         ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
         Rating rating;
         Map<Rating, Integer> mapRating = new HashMap<>();
@@ -134,14 +134,14 @@ public class VersionedTravelBuddy extends TravelBuddy {
     }
 
     /**
-     * Generates a chart by rating.
+     * Generates a chart by year.
      */
-    protected Map<String, Integer> generateYearChart() {
+    Map<String, Integer> getYearChart() {
         ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
         String year;
         Map<String, Integer> mapYear = new HashMap<>();
         for (Place place : placeList) {
-            year = place.getDateVisited().year;
+            year = place.getDateVisited().getYear();
             if (mapYear.containsKey(year)) {
                 mapYear.put(year, mapYear.get(year) + 1);
             } else {

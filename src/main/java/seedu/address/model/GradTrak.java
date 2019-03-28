@@ -38,11 +38,7 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     public GradTrak() {
-        currentSemester = Semester.Y1S1;
-    }
-
-    public GradTrak(Semester currentSemester) {
-        this.currentSemester = currentSemester;
+        currentSemester = Semester.Y1S1; // default
     }
 
     /**

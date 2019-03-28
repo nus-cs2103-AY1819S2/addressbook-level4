@@ -46,7 +46,7 @@ public class DateCustom implements DateBuilder {
         return dateCompare(test, currentDateString);
     }
 
-    public static boolean isEndDateBeforeStartDate(String format, String date1, String date2) {
+    public static boolean isEndDateBeforeStartDate(String date1, String date2) {
         return dateCompare(date2, date1);
     }
 

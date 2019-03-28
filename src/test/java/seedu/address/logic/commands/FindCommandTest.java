@@ -45,6 +45,7 @@ public class FindCommandTest {
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
     private CommandHistory commandHistory = new CommandHistory();
 
+    /* Default current semester is Y1S1 */
     @Test
     public void equals() {
         FindModuleDescriptor fd1 = new FindModuleDescriptorBuilder().withCode(VALID_MODULE_INFO_CODE_CS2103T).build();

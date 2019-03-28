@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 
 public class FindCommandSystemTest extends GradTrakSystemTest {
 
+    /* Default current semester is Y1S1 */
     @Test
     public void find_codeOnly() {
         Model expectedModel = getModel();

@@ -35,6 +35,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.request.AssignRequestCommand;
+import seedu.address.logic.commands.request.ClearRequestCommand;
 import seedu.address.logic.commands.request.DeleteRequestCommand;
 import seedu.address.logic.commands.request.FilterRequestCommand;
 import seedu.address.logic.commands.request.ListRequestCommand;
@@ -57,6 +58,11 @@ public class AddressBookParserTest {
                 AddCommand.COMMAND_WORD + " " + MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY
                         + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY);
         assertEquals(new AddHealthWorkerCommand(healthWorker), addHealthWorkerCommand);
+    }
+
+    @Test
+    public void parseCommand_clearRequest() throws Exception {
+        assertTrue(parser.parseCommand(ClearRequestCommand.COMMAND_WORD) instanceof ClearRequestCommand);
     }
 
     @Test

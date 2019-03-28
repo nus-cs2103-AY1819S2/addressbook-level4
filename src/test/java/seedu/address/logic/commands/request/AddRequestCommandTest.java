@@ -298,6 +298,11 @@ class AddRequestCommandTest {
         }
 
         @Override
+        public void resetData(ReadOnlyRequestBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setRequest(Request target, Request editedRequest) {
             throw new AssertionError("This method should not be called.");
         }

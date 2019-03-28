@@ -330,6 +330,11 @@ public class ModelManager implements Model {
         updateFilteredRequestList(PREDICATE_SHOW_ALL_REQUESTS);
     }
 
+    @Override
+    public void resetData(ReadOnlyRequestBook newData) {
+        versionedRequestBook.resetData(newData);
+    }
+
     /**
      * Replaces the given request {@code target} with {@code editedRequest}.
      * {@code target} must exist in the request book.

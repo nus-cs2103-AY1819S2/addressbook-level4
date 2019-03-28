@@ -16,5 +16,7 @@ public class Messages {
     public static final String MESSAGE_REQUESTS_LISTED_OVERVIEW = "%1$d requests listed!";
     public static final String MESSAGE_INVALID_REQUEST_COMMAND_FORMAT = "Invalid request command "
         + "format! \n%1$s";
+    public static final String MESSAGE_REQUEST_ONGOING_CANNOT_CLEAR = "There is at least one "
+        + "ongoing request in the list, request list cannot be cleared.";
 
 }

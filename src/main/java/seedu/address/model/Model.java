@@ -252,6 +252,11 @@ public interface Model {
     void addRequest(Request request);
 
     /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
+    void resetData(ReadOnlyRequestBook newData);
+
+    /**
      * Replaces the given request {@code target} with {@code editedRequest}.
      * {@code target} must exist in the request book.
      * The request identity of {@code editedRequest} must not be the same as another existing

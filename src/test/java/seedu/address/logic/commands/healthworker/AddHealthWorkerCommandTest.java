@@ -346,6 +346,11 @@ public class AddHealthWorkerCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void resetData(ReadOnlyRequestBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
         /**
          * Replaces the given request {@code target} with {@code editedRequest}.
          * {@code target} must exist in the request book.

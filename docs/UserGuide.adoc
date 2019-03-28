@@ -122,8 +122,9 @@ Example:
 
 === Tagging a file : `tag`
 
-The tag command allows you to add or remove a tag to a file that you may refer to by its index.
-Format: `tag INDEX [t/ADD_TAG] [rt/REMOVE_TAG]`
+The tag command allows you to add or remove a tag to a file that you may refer to by its index. +
+Format (add tag) : `tag INDEX -a [t/ADD_TAG]...` +
+Format (remove tag) : `tag INDEX -r [t/REMOVE_TAG]...`
 
 ****
 * Tags must be a continuous word without spaces
@@ -131,8 +132,8 @@ Format: `tag INDEX [t/ADD_TAG] [rt/REMOVE_TAG]`
 
 Example:
 
-* `tag 1 t/CS2103T`
-* `tag2 rt/tutorials`
+* `tag 1 -a t/CS2103T t/SE`
+* `tag 2 -r t/tutorials`
 
 === Deleting a file : `delete`
 

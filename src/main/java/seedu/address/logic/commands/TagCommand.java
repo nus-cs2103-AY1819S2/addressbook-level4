@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REMOVE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
@@ -24,13 +25,13 @@ import seedu.address.model.tag.Tag;
 public class TagCommand extends Command {
     public static final String COMMAND_WORD = "tag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets or removes tag(s) to a selected pdf indicated "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets or removes tag(s) related to a selected pdf indicated "
             + "by the index number used in the displayed pdf list. "
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG_NEW + "TAG1] "
-            + "[" + PREFIX_TAG_REMOVE + "TAG2]\n"
-            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG_NEW + "CS2103T " + PREFIX_TAG_NEW + "SE\n"
-            + "Example: " + COMMAND_WORD + " 2 " + PREFIX_TAG_REMOVE + "School\n";
+            + PREFIX_TAG_NEW + "/" + PREFIX_TAG_REMOVE + " " + PREFIX_TAG_NAME + "[TAG]\n"
+            + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG_NEW + " "
+            + PREFIX_TAG_NAME + "CS2103T " + PREFIX_TAG_NAME + "SE\n"
+            + "Example: " + COMMAND_WORD + " 2 " + PREFIX_TAG_REMOVE + PREFIX_TAG_NAME + "School\n";
 
     private final Index index;
     private final Set<Tag> tags;

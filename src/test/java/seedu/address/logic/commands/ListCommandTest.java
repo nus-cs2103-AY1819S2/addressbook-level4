@@ -12,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 
 /**
@@ -25,8 +26,8 @@ public class ListCommandTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
-        expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(), new ModuleInfoList());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList(), new CourseList());
+        expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(), new ModuleInfoList(), new CourseList());
     }
 
     @Test

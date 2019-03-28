@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.util.SampleCourse;
 
 /**
  * Wraps all data at the Course List level
@@ -19,7 +20,9 @@ public class CourseList {
         courseList = new ArrayList<>();
     }
 
-    public CourseList() {}
+    public CourseList() {
+        courseList.add(SampleCourse.COMPUTER_SCIENCE_ALGORITHMS);
+    }
 
     /** Adds Course to the List of all the courses
     * @param course
@@ -60,5 +63,13 @@ public class CourseList {
         }
 
         return FXCollections.observableArrayList(codeList);
+    }
+
+    /**
+     * Returns first course in List
+     * @return the first course in courseList
+     */
+    public Course getFirst() {
+        return courseList.get(0);
     }
 }

@@ -6,12 +6,16 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -19,13 +23,17 @@ import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseList;
+import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
+import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.PersonNotFoundException;
+import seedu.address.model.util.SampleCourse;
 
 /**
  * Represents the in-memory model of the GradTrak data.
@@ -47,17 +55,22 @@ public class ModelManager implements Model {
     private final FilteredList<ModuleInfo> displayList;
     private final ModuleInfoList moduleInfoList;
 
+    private final ObservableList<Course> allCourses;
+    private final CourseList courseList;
+    private final FilteredList<CourseRequirement> displayCourseReqList;
+
     private final FilteredList<ModuleInfoCode> recModuleList;
     private final SortedList<ModuleInfoCode> recModuleListSorted;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given GradTrak and userPrefs.
      */
-    public ModelManager(ReadOnlyGradTrak gradTrak, ReadOnlyUserPrefs userPrefs, ModuleInfoList allModules) {
+    public ModelManager(ReadOnlyGradTrak gradTrak, UserPrefs userPrefs,
+                        ModuleInfoList allModules, CourseList allCourses) {
         super();
         requireAllNonNull(gradTrak, userPrefs);
 
-        logger.fine("Initializing with address book: " + gradTrak + " and user prefs " + userPrefs);
+        logger.fine("Initializing with Gradtrak: " + gradTrak + " and user prefs " + userPrefs);
 
         versionedGradTrak = new VersionedGradTrak(gradTrak);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -71,18 +84,38 @@ public class ModelManager implements Model {
 
         this.recModuleList = new FilteredList<>(allModules.getObservableCodeList());
         this.recModuleListSorted = new SortedList<>(recModuleList);
+
+        //Get a non-modifiable list of all courses
+        this.allCourses = allCourses.getObservableList();
+        this.courseList = allCourses;
+        //for now default course will be Computer Science Algorithms
+        this.course = SampleCourse.COMPUTER_SCIENCE_ALGORITHMS;
+        this.displayCourseReqList = new FilteredList<>(
+                 FXCollections.observableArrayList(this.course.getCourseRequirements()));
+        //TODO: create additional data structure to store user info
     }
 
     public ModelManager() {
-        this(new GradTrak(), new UserPrefs(), new ModuleInfoList());
+        this(new GradTrak(), new UserPrefs(), new ModuleInfoList(), new CourseList());
     }
 
     //=========== UserPrefs ==================================================================================
 
+
     @Override
-    public void setCourse(Course course) {
-        requireNonNull(course);
-        this.course = course;
+    public void setCourse(CourseName courseName) {
+        requireNonNull(courseName);
+        course = courseList.getCourse(courseName);
+    }
+
+    @Override
+    public boolean hasCourse(CourseName courseName) {
+        requireNonNull(courseName);
+        course = courseList.getCourse(courseName);
+        if (course == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -298,6 +331,23 @@ public class ModelManager implements Model {
             }
         }
     }
+    //=========== Display completed requirement =======================================================================
+    @Override
+    public void updateReqList(BiPredicate<CourseRequirement, List<ModuleInfoCode>> predicate) {
+        requireNonNull(predicate);
+        List<ModuleInfoCode> list = versionedGradTrak
+                .getModulesTakenList()
+                .stream()
+                .map(ModuleTaken::getModuleInfo)
+                .collect(Collectors.toList());
+        displayCourseReqList.setPredicate(courseRequirement ->  predicate.test(courseRequirement, list));
+    }
+
+    @Override
+    public ObservableList<CourseRequirement> getReqList() {
+        return this.displayCourseReqList;
+    }
+
 
     @Override
     public boolean equals(Object obj) {

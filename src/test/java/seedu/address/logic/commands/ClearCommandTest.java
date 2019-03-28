@@ -10,6 +10,7 @@ import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 
 public class ClearCommandTest {
@@ -27,8 +28,10 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+                new ModuleInfoList(), new CourseList());
+        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+                new ModuleInfoList(), new CourseList());
         expectedModel.setGradTrak(new GradTrak());
         expectedModel.commitGradTrak();
 

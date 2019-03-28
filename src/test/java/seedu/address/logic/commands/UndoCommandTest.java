@@ -12,13 +12,15 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 
 public class UndoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+            new ModuleInfoList(), new CourseList());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
-                                                         new ModuleInfoList());
+            new ModuleInfoList(), new CourseList());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

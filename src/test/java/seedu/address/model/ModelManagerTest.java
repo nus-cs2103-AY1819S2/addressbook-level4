@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.NameContainsKeywordsPredicate;
@@ -157,10 +158,10 @@ public class ModelManagerTest {
         GradTrak differentAddressBook = new GradTrak();
         UserPrefs userPrefs = new UserPrefs();
         ModuleInfoList moduleInfoList = new ModuleInfoList();
-
+        CourseList courseList = new CourseList();
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, moduleInfoList);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, moduleInfoList);
+        modelManager = new ModelManager(addressBook, userPrefs, moduleInfoList, courseList);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, moduleInfoList, courseList);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -173,12 +174,13 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(5));
 
         // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs, moduleInfoList)));
+        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs,
+                moduleInfoList, courseList)));
 
         // different filteredList -> returns false
         String[] keywords = CS2103T.getModuleInfo().toString().split("\\s+");
         modelManager.updateFilteredModulesTakenList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, moduleInfoList)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, moduleInfoList, courseList)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
@@ -186,6 +188,7 @@ public class ModelManagerTest {
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setGradTrakFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs, moduleInfoList)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs,
+                moduleInfoList, courseList)));
     }
 }

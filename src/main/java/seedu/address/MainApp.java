@@ -19,8 +19,8 @@ import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyGradTrak;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.GradTrakStorage;
@@ -29,6 +29,7 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.coursestorage.CourseManager;
 import seedu.address.storage.moduleinfostorage.ModuleInfoManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -47,7 +48,8 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    protected ModuleInfoManager storageManager;
+    protected ModuleInfoManager moduleInfoManager;
+    protected CourseManager courseManager;
     //protected Course manager;
 
     @Override
@@ -66,9 +68,10 @@ public class MainApp extends Application {
         initLogging(config);
 
         //ModuleInfo Manager to create file path for json and create objects
-        storageManager = new ModuleInfoManager();
+        moduleInfoManager = new ModuleInfoManager();
+        courseManager = new CourseManager();
 
-        model = initModelManager(storage, userPrefs, storageManager);
+        model = initModelManager(storage, userPrefs, moduleInfoManager, courseManager);
 
         logic = new LogicManager(model, storage);
 
@@ -77,39 +80,50 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * The data from the sample GradTrak will be used instead if {@code storage}'s GradTrak is not found,
+     * or an empty GradTrak will be used instead if errors occur when reading {@code storage}'s GradTrak.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ModuleInfoManager storageManager) {
-        Optional<ReadOnlyGradTrak> addressBookOptional;
+    private Model initModelManager(Storage storage, UserPrefs userPrefs,
+                                   ModuleInfoManager moduleInfoManager, CourseManager courseManager) {
+        Optional<ReadOnlyGradTrak> gradTrakOptional;
         ReadOnlyGradTrak initialData;
         Optional<ModuleInfoList> allModulesOptional;
         ModuleInfoList allModules;
+        Optional<CourseList> allCourseListOptional;
+        CourseList allCourses;
         try {
-            allModulesOptional = storageManager.readModuleInfoFile();
-            if (!allModulesOptional.isPresent()) {
-                logger.info("File for all module Information not found! Starting with Empty Module List");
+            allCourseListOptional = courseManager.readCourseFile();
+            if (!allCourseListOptional.isPresent()) {
+                logger.info("File for all courses not found! Starting with sample course List");
             }
-            addressBookOptional = storage.readGradTrak();
-            if (!addressBookOptional.isPresent()) {
+            allModulesOptional = moduleInfoManager.readModuleInfoFile();
+            if (!allModulesOptional.isPresent()) {
+                logger.info("File for all module information not found! Starting with empty module List");
+            }
+            gradTrakOptional = storage.readGradTrak();
+            if (!gradTrakOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample GradTrak");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleGradTrak);
+            initialData = gradTrakOptional.orElseGet(SampleDataUtil::getSampleGradTrak);
 
             //If unable to find the data file provide a blank Module Info List
             allModules = allModulesOptional.orElse(new ModuleInfoList());
-
+            //If unable to find data file, provide default course list
+            //TODO: Implement sample courses and course requirement
+            allCourses = allCourseListOptional.orElse(new CourseList());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty GradTrak");
             initialData = new GradTrak();
             allModules = new ModuleInfoList();
+            allCourses = new CourseList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty GradTrak");
             initialData = new GradTrak();
             allModules = new ModuleInfoList();
+            allCourses = new CourseList();
         }
 
-        return new ModelManager(initialData, userPrefs, allModules);
+        return new ModelManager(initialData, userPrefs, allModules, allCourses);
     }
 
     private void initLogging(Config config) {

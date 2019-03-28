@@ -18,14 +18,17 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+            new ModuleInfoList(), new CourseList());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+            new ModuleInfoList(), new CourseList());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

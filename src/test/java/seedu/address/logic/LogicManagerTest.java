@@ -28,6 +28,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.storage.JsonGradTrakStorage;
@@ -134,7 +135,8 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(), new ModuleInfoList());
+        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
+                new ModuleInfoList(), new CourseList());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 

@@ -14,6 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.storage.JsonGradTrakStorage;
 import seedu.address.storage.UserPrefsStorage;
@@ -93,7 +94,8 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getGradTrak()), new UserPrefs(), new ModuleInfoList());
+        Model copy = new ModelManager((model.getGradTrak()), new UserPrefs(),
+                new ModuleInfoList(), new CourseList());
         ModelHelper.setFilteredList(copy, model.getFilteredModulesTakenList());
         return copy;
     }

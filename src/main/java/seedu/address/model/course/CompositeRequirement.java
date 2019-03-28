@@ -84,8 +84,18 @@ public class CompositeRequirement implements CourseRequirement {
 
     @Override
     public double getFulfilledPercentage(List<ModuleInfoCode> moduleInfoCode) {
-        //TODO: find a good way to return percentage
-        return 0;
+        if (isFulfilled(moduleInfoCode)) {
+            return 1;
+        }
+        switch(connector) {
+        case OR:
+            return Math.max(first.getFulfilledPercentage(moduleInfoCode),
+                    second.getFulfilledPercentage(moduleInfoCode));
+        case AND:
+        default:
+            //TODO:
+            return 0;
+        }
     }
 
     @Override

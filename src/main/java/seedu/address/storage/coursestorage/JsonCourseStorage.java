@@ -64,6 +64,9 @@ public class JsonCourseStorage implements CourseStorage {
         return readCourseFile(filePath);
     }
 
+    /**
+     * Temporary use will remove
+     */
     public void saveCourse(List<JsonAdaptedCourse> courseList, Path filePath) throws IOException {
         requireNonNull(courseList);
         requireNonNull(filePath);

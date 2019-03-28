@@ -75,7 +75,6 @@ public class Course {
                 return courseReq.isFulfilled(passedModuleList);
             }
         }
-
         return false; // should not reach here
     }
 }

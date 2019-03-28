@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.testutil.ModuleTakenBuilder;
@@ -25,14 +26,15 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList(), new CourseList());
     }
 
     @Test
     public void execute_newPerson_success() {
         ModuleTaken validModuleTaken = new ModuleTakenBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(), new ModuleInfoList());
+        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
+                new ModuleInfoList(), new CourseList());
         expectedModel.addModuleTaken(validModuleTaken);
         expectedModel.commitGradTrak();
 

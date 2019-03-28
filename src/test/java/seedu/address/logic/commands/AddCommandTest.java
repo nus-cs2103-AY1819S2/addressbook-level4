@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -26,7 +28,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
+import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -100,7 +104,12 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setCourse(Course course) {
+        public void setCourse(CourseName course) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCourse(CourseName courseName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -258,6 +267,16 @@ public class AddCommandTest {
         public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
             throw new AssertionError("This method should not be called");
         }
+
+        @Override
+        public void updateReqList(BiPredicate<CourseRequirement, List<ModuleInfoCode>> predicate) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<CourseRequirement> getReqList() {
+            throw new AssertionError("This method should not be called");
+        } 
     }
 
     /**

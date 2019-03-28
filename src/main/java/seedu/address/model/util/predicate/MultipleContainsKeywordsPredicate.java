@@ -21,7 +21,7 @@ public class MultipleContainsKeywordsPredicate extends ContainsKeywordsPredicate
 
     @Override
     public boolean test(Patient patient) {
-        if (isAnd) {
+        if (!isAnd) {
             return predicateList.stream().anyMatch(pred -> pred.test(patient));
         } else {
             return predicateList.stream().allMatch(pred -> pred.test(patient));

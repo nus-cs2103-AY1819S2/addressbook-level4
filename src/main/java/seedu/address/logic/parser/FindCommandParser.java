@@ -76,7 +76,7 @@ public class FindCommandParser implements Parser<FindCommand> {
             PREFIX_NRIC, PREFIX_YEAR};
 
         String[] keywords = new String[1];
-        ContainsKeywordsPredicate predicate = new PhoneContainsKeywordsPredicate(Arrays.asList(keywords));
+        ContainsKeywordsPredicate predicate;
         MultipleContainsKeywordsPredicate multiPredicate =
             new MultipleContainsKeywordsPredicate(Arrays.asList(keywords), isIgnoreCase, isAnd);
 
@@ -96,7 +96,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         multiPredicate.setPredicateList(predicateList);
 
-        return new FindCommand(predicateList);
+        return new FindCommand(multiPredicate);
     }
 
     private static ContainsKeywordsPredicate getKeywordsPredicate(Prefix prefix, List<String> keywords,

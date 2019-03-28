@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.card.Card;
+
 /**
  * Represents a list of {@link Lesson} objects. It has helper functions to assist with the management
  * of {@link Lesson} objects.
@@ -106,6 +108,15 @@ public class LessonList {
      */
     public Lesson getOpenedLesson() {
         return openedLesson;
+    }
+
+    /**
+     * Returns all {@code Card} objects in the {@link #openedLesson}.
+     *
+     * @return all {@code Card} objects in the {@link #openedLesson}; null if there are none
+     */
+    public List<Card> getOpenedLessonCards() {
+        return openedLesson.getCards();
     }
 
     /**

@@ -13,27 +13,27 @@ import java.time.format.DateTimeParseException;
 public class DeadlineTest {
 
     @Test
-    public void constructor_invalidDeadline_nullValue_throwsNullPointerException() {
+    public void constructor_nullValue_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Deadline(null));
     }
 
     @Test
-    public void jsonConstructor_invalidDeadline_invalidJsonValue_missingStatus_throwsNullPointerException() {
+    public void jsonConstructor_missingStatus_throwsNullPointerException() {
         Assert.assertThrows(DateTimeParseException.class, () -> new Deadline("22-12-2012"));
     }
 
     @Test
-    public void jsonConstructor_invalidDeadline_invalidJsonValue_invalidDate_throwsNullPointerException() {
+    public void jsonConstructor_invalidDate_throwsNullPointerException() {
         Assert.assertThrows(DateTimeParseException.class, () -> new Deadline("22-13-2012"));
     }
 
     @Test
-    public void normalConstructor_invalidDeadline_invalidValue_invalidDate_throwsNullPointerException() {
+    public void normalConstructor_invalidDate_throwsNullPointerException() {
         Assert.assertThrows(DateTimeParseException.class, () -> new Deadline(31, 2, 2012));
     }
 
     @Test
-    public void jsonConstructor_validDeadline() {
+    public void jsonConstructor_validDeadline_expectTrue() {
         String validDeadline = "2012-12-12" + Deadline.PROPERTY_SEPARATOR_PREFIX + DeadlineStatus.READY;
         assertTrue(Deadline.isValidDeadline(validDeadline));
     }

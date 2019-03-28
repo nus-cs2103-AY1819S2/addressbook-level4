@@ -14,30 +14,30 @@ import seedu.address.testutil.Assert;
 public class DirectoryTest {
 
     @Test
-    public void constructor_invalidDirectory_nullValue_throwsNullPointerException() {
+    public void constructor_nullValue_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Directory(null));
     }
 
     @Test
-    public void constructor_invalidDirectory_blankValue_throwsIllegalArgumentException() {
+    public void constructor_blankValue_throwsIllegalArgumentException() {
         String invalidDirectory = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Directory(invalidDirectory));
     }
 
     @Test
-    public void constructor_invalidDirectory_blankSpaceValue_throwsIllegalArgumentException() {
+    public void constructor_blankSpaceValue_throwsIllegalArgumentException() {
         String invalidDirectory = " ";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Directory(invalidDirectory));
     }
 
     @Test
-    public void constructor_invalidDirectory_nonDirectoryValue_throwsIllegalArgumentException() {
+    public void constructor_nonDirectoryValue_throwsIllegalArgumentException() {
         String invalidDirectory = CommandTestUtil.DIR_INVALID_NONEXISTENT;
         Assert.assertThrows(IllegalArgumentException.class, () -> new Directory(invalidDirectory));
     }
 
     @Test
-    public void constructor_validDirectory_normalDirectoryValue_throwsIllegalArgumentException() {
+    public void constructor_normalDirectoryValue_throwsIllegalArgumentException() {
         try {
            Directory d = new Directory(CommandTestUtil.DIR_1_VALID);
            d = null;

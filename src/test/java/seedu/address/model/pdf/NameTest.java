@@ -14,30 +14,30 @@ import seedu.address.testutil.Assert;
 public class NameTest {
 
     @Test
-    public void constructor_invalidName_nullName_throwsNullPointerException() {
+    public void constructor_nullName_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Name(null));
     }
 
     @Test
-    public void constructor_invalidName_blankName_throwsIllegalArgumentException() {
+    public void constructor_blankName_throwsIllegalArgumentException() {
         String invalidName = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
     }
 
     @Test
-    public void constructor_invalidName_blankSpaceName_throwsIllegalArgumentException() {
+    public void constructor_blankSpaceName_throwsIllegalArgumentException() {
         String invalidName = " ";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
     }
 
     @Test
-    public void constructor_invalidName_wrongInput_wrongExtension_throwsIllegalArgumentException() {
+    public void constructor_wrongExtension_throwsIllegalArgumentException() {
         String invalidName = CommandTestUtil.NAME_INVALID_EXTENSION;
         Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
     }
 
     @Test
-    public void constructor_invalidName_wrongInput_invalidCharacter_throwsIllegalArgumentException() {
+    public void constructor_invalidCharacter_throwsIllegalArgumentException() {
         String invalidName = CommandTestUtil.NAME_INVALID_CHARACTERS;
         Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
     }

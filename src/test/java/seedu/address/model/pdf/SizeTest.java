@@ -6,46 +6,46 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.nio.file.Paths;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.testutil.Assert;
 
-import java.nio.file.Paths;
-
 public class SizeTest {
 
     @Test
-    public void constructor_invalidSize_wrongInput_nullValue_throwsNullPointerException() {
+    public void constructor_nullValue_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Size(null));
     }
 
     @Test
-    public void constructor_invalidSize_wrongInput_emptyValue_throwsIllegalArgumentException() {
+    public void constructor_emptyValue_throwsIllegalArgumentException() {
         String invalidSize = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Size(invalidSize));
     }
 
     @Test
-    public void constructor_invalidSize_wrongInput_emptySpaceValue_throwsIllegalArgumentException() {
+    public void constructor_emptySpaceValue_throwsIllegalArgumentException() {
         String invalidSize = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Size(invalidSize));
     }
 
     @Test
-    public void constructor_invalidSize_wrongInput_negativeValue_throwsIllegalArgumentException() {
+    public void constructor_negativeValue_throwsIllegalArgumentException() {
         String invalidSize = CommandTestUtil.SIZE_INVALID_NEGATIVE;
         Assert.assertThrows(IllegalArgumentException.class, () -> new Size(invalidSize));
     }
 
     @Test
-    public void constructor_invalidSize_wrongInput_alphabetValue_throwsIllegalArgumentException() {
+    public void constructor_alphabetValue_throwsIllegalArgumentException() {
         String invalidSize = CommandTestUtil.SIZE_INVALID_ALPHABET;
         Assert.assertThrows(IllegalArgumentException.class, () -> new Size(invalidSize));
     }
 
     @Test
-    public void constructor_validSize_correctInput_normalValue() {
+    public void constructor_normalValue_expectNoException() {
         try {
             Size s = new Size(CommandTestUtil.SIZE_1_VALID);
         } catch (Exception e) {
@@ -54,7 +54,7 @@ public class SizeTest {
     }
 
     @Test
-    public void constructor_validSize_correctInput_singleValue() {
+    public void constructor_singleValue_expectNoException() {
         try {
             Size s = new Size("1");
         } catch (Exception e) {
@@ -63,7 +63,7 @@ public class SizeTest {
     }
 
     @Test
-    public void constructor_validSize_correctInput_longValue() {
+    public void constructor_longValue_expectNoException() {
         try {
             Size s = new Size("12345678910111213141516171819202122232425");
         } catch (Exception e) {

@@ -69,7 +69,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean checkNoCopy() { return model.checkNoCopy(); }
+    public boolean checkNoCopy() {
+        return model.checkNoCopy();
+    }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {

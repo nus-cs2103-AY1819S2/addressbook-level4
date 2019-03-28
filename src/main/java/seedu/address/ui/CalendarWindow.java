@@ -91,8 +91,7 @@ public class CalendarWindow extends UiPart<Stage> {
         if (DateCustom.isValidDate(commandText)) {
             DateCustom newDate = new DateCustom(commandText);
             this.datePicker.setValue(newDate.getDate());
-        }
-        else {
+        } else {
             feedback = "Wrong Date";
         }
         CommandResult cr = new CommandResult(feedback);
@@ -139,7 +138,7 @@ public class CalendarWindow extends UiPart<Stage> {
 
                         } else {
 
-                            StackPane cell_pane = new StackPane();
+                            StackPane dayCellPane = new StackPane();
                             Circle circle = new Circle(15);
 
                             Label label = new Label();
@@ -151,16 +150,15 @@ public class CalendarWindow extends UiPart<Stage> {
 
                             if (item.getDayOfMonth() == 3 || item.getDayOfMonth() == 19) {
                                 circle.setFill(Color.web("#FF0000"));
-                            }
-                            else {
+                            } else {
                                 circle.setFill(Color.TRANSPARENT);
                             }
                             if (item.getDayOfWeek().getValue() == 7 || item.getDayOfWeek().getValue() == 6) {
                                 label.setTextFill(Color.web("#29F6E8"));
                             }
-                            cell_pane.getChildren().addAll(circle, label);
-                            cell_pane.setPrefSize(50, 50);
-                            setGraphic(cell_pane);
+                            dayCellPane.getChildren().addAll(circle, label);
+                            dayCellPane.setPrefSize(50, 50);
+                            setGraphic(dayCellPane);
                             setText("");
                         }
                     }

@@ -215,8 +215,7 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(MESSAGE_CALENDAR_SHOWN);
             calendarWindow.setDate(input);
             calendarWindow.focus();
-        }
-        else {
+        } else {
             calendarWindow.setDate(input);
             calendarWindow.show();
         }

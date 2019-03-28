@@ -2,14 +2,15 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateCustom;
-import seedu.address.model.task.Task;
 
+/**
+ * Displays a Calendar to user, highlightning dates with tasks with the highest priority
+ * Accepts a single date as input
+ */
 public class TaskCalendarCommand extends Command {
 
     public static final String COMMAND_WORD = "taskcal";

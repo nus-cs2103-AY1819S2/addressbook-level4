@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
@@ -69,7 +68,7 @@ public class TeethPanel extends UiPart<Region> {
                     } else {
                         type = "P";
                     }
-                    String filepath = "/src/main/resources/images/teeth/" + type + "_" + ( i + 1) + ".png";
+                    String filepath = "/src/main/resources/images/teeth/" + type + "_" + (i + 1) + ".png";
                     String path = basepath + filepath;
                     File imgFile2 = new File(path);
                     BufferedImage layer = ImageIO.read(imgFile2);

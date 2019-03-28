@@ -59,7 +59,9 @@ public class Task {
         return endDate;
     }
 
-    public boolean isCopy() { return isCopy; }
+    public boolean isCopy() {
+        return isCopy;
+    }
 
     /**
      * Returns a copy of the instance

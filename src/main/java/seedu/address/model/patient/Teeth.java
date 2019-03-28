@@ -132,7 +132,7 @@ public class Teeth implements ExportableTeeth {
     public int[] exportTeeth() {
         int[] exportFormat = new int[32];
 
-        for (int i = 0; i < permanentTeeth.size(); i++ ) {
+        for (int i = 0; i < permanentTeeth.size(); i++) {
             Tooth tooth = permanentTeeth.get(i);
             if (!tooth.isPresent()) {
                 exportFormat[i] = ABSENT;

@@ -25,7 +25,8 @@ import seedu.address.model.tag.Tag;
 public class TagCommand extends Command {
     public static final String COMMAND_WORD = "tag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets or removes tag(s) related to a selected pdf indicated "
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Sets or removes tag(s) related to a selected pdf indicated "
             + "by the index number used in the displayed pdf list. "
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_TAG_NEW + "/" + PREFIX_TAG_REMOVE + " " + PREFIX_TAG_NAME + "[TAG]\n"

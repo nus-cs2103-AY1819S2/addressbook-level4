@@ -8,7 +8,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.book.Author;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.Rating;
 import seedu.address.model.book.Review;
+
+import java.util.HashSet;
 
 /**
  * Adds a review to the book.
@@ -16,6 +21,8 @@ import seedu.address.model.book.Review;
 public class AddReviewCommand extends Command {
 
     public static final String COMMAND_WORD = "addReview";
+    public static final String PLACE_HOLDER_FOR_TEST_BOOK = "1";
+    public static final int MAX_REVIEWMESSAGE_LENGTH = 350;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review to a certain book. \n "
             + "Parameters: "
@@ -29,6 +36,8 @@ public class AddReviewCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New review added: %1$s";
     public static final String MESSAGE_DUPLICATE_REVIEW = "This review already exists in the book shelf";
+    public static final String MESSAGE_NONEXISTENT_BOOK = "The target book does not exist in the book shelf";
+    public static final String MESSAGE_REVIEW_LENGTH_EXCEEDED = "The review can contain maximum 350 characters";
 
     private final Review toAdd;
 
@@ -43,6 +52,13 @@ public class AddReviewCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+
+        Book targetBook = new Book(toAdd.getBookName(),
+                new Author(PLACE_HOLDER_FOR_TEST_BOOK), new Rating(PLACE_HOLDER_FOR_TEST_BOOK), new HashSet<>());
+
+        if (!model.hasBook(targetBook)) {
+            throw new CommandException(MESSAGE_NONEXISTENT_BOOK);
+        }
 
         if (model.hasReview(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_REVIEW);

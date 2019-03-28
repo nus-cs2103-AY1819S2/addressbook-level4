@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.AddReviewCommand.MAX_REVIEWMESSAGE_LENGTH;
+import static seedu.address.logic.commands.AddReviewCommand.MESSAGE_REVIEW_LENGTH_EXCEEDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
@@ -35,6 +37,10 @@ public class AddReviewCommandParser implements Parser<AddReviewCommand> {
         BookName name = ParserUtil.parseBookName(argMultimap.getValue(PREFIX_NAME).get());
         ReviewTitle title = ParserUtil.parseReviewTitle(argMultimap.getValue(PREFIX_REVIEWTITLE).get());
         String reviewMessage = ParserUtil.parseReview(argMultimap.getValue(PREFIX_REVIEW).get());
+
+        if (reviewMessage.length() > MAX_REVIEWMESSAGE_LENGTH) {
+            throw new ParseException(MESSAGE_REVIEW_LENGTH_EXCEEDED);
+        }
 
         Review review = new Review(title, name, reviewMessage);
 

@@ -16,7 +16,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class ArchiveBook implements ReadOnlyArchiveBook {
 
-    private final UniquePersonList persons;
+    private final UniquePersonList archivedPersons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,7 +27,7 @@ public class ArchiveBook implements ReadOnlyArchiveBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        archivedPersons = new UniquePersonList();
     }
 
     public ArchiveBook() {}
@@ -43,11 +43,11 @@ public class ArchiveBook implements ReadOnlyArchiveBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the person list with {@code archivedPersons}.
+     * {@code archivedPersons} must not contain duplicate archivedPersons.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setArchivedPersons(List<Person> archivedPersons) {
+        this.archivedPersons.setPersons(archivedPersons);
         indicateModified();
     }
 
@@ -57,7 +57,7 @@ public class ArchiveBook implements ReadOnlyArchiveBook {
     public void resetData(ReadOnlyArchiveBook newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setArchivedPersons(newData.getPersonList());
     }
 
     //// person-level operations
@@ -67,7 +67,7 @@ public class ArchiveBook implements ReadOnlyArchiveBook {
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return persons.contains(person);
+        return archivedPersons.contains(person);
     }
 
     /**
@@ -75,7 +75,7 @@ public class ArchiveBook implements ReadOnlyArchiveBook {
      * The person must not already exist in the archive book.
      */
     public void addPerson(Person p) {
-        persons.add(p);
+        archivedPersons.add(p);
         indicateModified();
     }
 
@@ -87,7 +87,7 @@ public class ArchiveBook implements ReadOnlyArchiveBook {
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
-        persons.setPerson(target, editedPerson);
+        archivedPersons.setPerson(target, editedPerson);
         indicateModified();
     }
 
@@ -96,7 +96,7 @@ public class ArchiveBook implements ReadOnlyArchiveBook {
      * {@code key} must exist in the archive book.
      */
     public void removePerson(Person key) {
-        persons.remove(key);
+        archivedPersons.remove(key);
         indicateModified();
     }
 
@@ -121,25 +121,25 @@ public class ArchiveBook implements ReadOnlyArchiveBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return archivedPersons.asUnmodifiableObservableList().size() + " archivedPersons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return archivedPersons.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ArchiveBook // instanceof handles nulls
-                && persons.equals(((ArchiveBook) other).persons));
+                && archivedPersons.equals(((ArchiveBook) other).archivedPersons));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return archivedPersons.hashCode();
     }
 }
 

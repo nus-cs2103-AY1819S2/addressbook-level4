@@ -71,4 +71,14 @@ public class PinCommand extends Command {
         }
 
     }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
+    }
 }

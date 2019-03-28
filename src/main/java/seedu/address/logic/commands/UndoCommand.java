@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_SUCCESS = "Undo success!";
+    public static final String MESSAGE_SUCCESS = "Undo success!\nDisplaying main person list!";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
 
     @Override
@@ -28,5 +28,15 @@ public class UndoCommand extends Command {
         model.undoArchiveBook();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 }

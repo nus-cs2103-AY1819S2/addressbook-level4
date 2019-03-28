@@ -8,10 +8,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolder;
 import seedu.address.model.ReadOnlyCardFolder;
-import seedu.address.model.card.Answer;
-import seedu.address.model.card.Card;
-import seedu.address.model.card.Question;
-import seedu.address.model.card.Score;
+import seedu.address.model.card.*;
 import seedu.address.model.hint.Hint;
 
 
@@ -71,8 +68,10 @@ public class CsvManager implements CsvCommands {
         Question question = new Question(cardValues[0]);
         Answer answer = new Answer(cardValues[1]);
         String hint = cardValues[cardValues.length - 1];
-        Set<Hint> hintSet = Arrays.stream(hintArray).map(Hint::new).collect(Collectors.toSet());
-        Card card = new Card(question, answer, new Score(0, 0), hintSet);
+        Set<Option> option = new HashSet<>();
+        option.add(new Option(cardValues[0]));
+        Set<Hint> hintSet = new HashSet<>();
+        Card card = new Card(question, answer, new Score(0, 0), option, hintSet);
         return card;
     }
 
@@ -144,4 +143,16 @@ public class CsvManager implements CsvCommands {
             .append(COMMA_DELIMITTER));
         return stringBuilder.toString();
     }
+
+    private void parseOptions(Card card, StringBuilder stringBuilder) {
+        Set<Option> options = card.getOptions();
+        if (options.isEmpty()) {
+            stringBuilder.append(" " + COMMA_DELIMITTER);
+        } else {
+            card.getOptions().forEach(option -> stringBuilder.append(option.optionValue)
+                    .append(COMMA_DELIMITTER));
+        }
+    }
+
+    
 }

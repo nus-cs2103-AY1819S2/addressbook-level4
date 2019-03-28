@@ -2,6 +2,7 @@ package seedu.finance.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -161,6 +162,10 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
 
     public void reverseRecordList() {
         records.reverseList();
+    }
+
+    public void sortRecordList(Comparator<Record> comparator) {
+        records.sortList(comparator);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package seedu.finance.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ObjectProperty;
@@ -95,6 +96,11 @@ public interface Model {
      * Returns an unmodifiable view of the filtered record list in reverse order.
      */
     void reverseFilteredRecordList();
+
+    /**
+     * Sorts the filtered record list according to comparison function in {@code comparator}.
+     */
+    void sortFilteredRecordList(Comparator<Record> comparator);
 
     /** Returns the amount value of {@code budget} in a ObjectProperty wrapper */
     ObjectProperty<Amount> getBudget();

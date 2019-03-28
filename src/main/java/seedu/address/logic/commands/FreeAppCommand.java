@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.ListAppCommandParser.PREFIX_FORMAT;
 import java.time.LocalDate;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -25,7 +24,7 @@ public class FreeAppCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FORMAT + "day "
             + PREFIX_DATE + "2019-10-23";
-    public static final String MESSAGE_SUCCESS_BY_DATE = "Listed all free appointment slots from %1$s to %2$s\n";
+    public static final String MESSAGE_SUCCESS = "Listed all free appointment slots from %1$s to %2$s\n";
     public static final String MESSAGE_ALL_FREE = "All appointment slots are free from %1$s to %2$s\n";
 
     private final LocalDate start;
@@ -42,7 +41,7 @@ public class FreeAppCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
         String result = model.freeApp(start, end);
@@ -50,7 +49,7 @@ public class FreeAppCommand extends Command {
             return new CommandResult(String.format(MESSAGE_ALL_FREE, start, end) + result, false, false);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS_BY_DATE, start, end) + result, false, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, start, end) + result, false, false);
     }
 
     @Override

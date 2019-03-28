@@ -230,10 +230,6 @@ public class AppointmentManager {
      */
     public String listFreeSlots(LocalDate start, LocalDate end) {
         List<Slot> freeSlots = getFreeSlots(start, end);
-        if (freeSlots.isEmpty()) {
-            return "No free slots available";
-        }
-
         StringBuilder sb = new StringBuilder();
         LocalDate date = start.minusDays(1);
         for (Slot slot : freeSlots) {

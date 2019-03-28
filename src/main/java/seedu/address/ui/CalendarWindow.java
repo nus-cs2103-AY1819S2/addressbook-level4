@@ -40,7 +40,6 @@ public class CalendarWindow extends UiPart<Stage> {
     private Logic logic;
 
     private TaskListPanel taskListPanel;
-    private TaskCalendar taskCalendarPanel;
     private DatePicker datePicker;
 
     @FXML

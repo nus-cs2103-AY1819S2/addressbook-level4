@@ -13,10 +13,11 @@ import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * This implements a {@link ManagementCommand} which executes a command to list all {@link Lesson} objects
- * in the {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
- * to be passed into the {@link #execute(Model, CommandHistory)} command. The actual listing
- * of the {@link Lesson} objects is carried out in the {@link ManagementModel}.
+ * This implements a {@link ManagementCommand} which lists all {@link Lesson} objects
+ * in the {@code List<Lesson> lessons} loaded in memory.
+ *
+ * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
+ * command. The addition of the {@link Lesson} is carried out in the {@link ManagementModel}.
  */
 public class ListLessonsCommand extends ManagementCommand {
     /**
@@ -61,12 +62,14 @@ public class ListLessonsCommand extends ManagementCommand {
     }
 
     /**
-     * Executes the command and returns the result message.
+     * Executes the command which lists all {@link Lesson} objects in the
+     * {@code List<Lesson> lessons} loaded in memory.
      *
-     * @param model which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
+     * @param model the {@link ManagementModel} the command should operate on.
+     * @param history {@link CommandHistory} which the command should operate on.
+     *
      * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
+     * @throws CommandException if the {@code model} passed in is not a {@link ManagementModel}
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -76,5 +79,19 @@ public class ListLessonsCommand extends ManagementCommand {
         ArrayList<Lesson> lessons = new ArrayList<>(mgtModel.getLessons());
 
         return new CommandResult(buildList(lessons));
+    }
+
+    /**
+     * Returns true if {@code other} is the same object or if it is also an {@link ListLessonsCommand}.
+     * All {@link ListLessonsCommand} objects are the same.
+     *
+     * @param other the other object to compare this object to
+     * @return true if {@code other} is the same object or if it is also an {@link ListLessonsCommand}.
+     * All {@link ListLessonsCommand} objects are the same.
+     */
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListLessonsCommand);
     }
 }

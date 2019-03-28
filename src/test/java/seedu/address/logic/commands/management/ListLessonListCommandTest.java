@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
@@ -64,6 +65,13 @@ public class ListLessonListCommandTest {
     @Test
     public void equals() {
         ListLessonsCommand listLessonCommand = new ListLessonsCommand();
+
+        // same object -> returns true
+        assertEquals(listLessonCommand, listLessonCommand);
+
+        // all CloseLessonCommand objects are the same -> returns true
+        ListLessonsCommand listLessonCommand2 = new ListLessonsCommand();
+        assertEquals(listLessonCommand, listLessonCommand2);
 
         // different types -> returns false
         assertNotEquals(listLessonCommand, 1);

@@ -262,6 +262,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         boolean confirmExit = true;
+        if (calendarWindow.isShowing()) {
+            calendarWindow.close();
+        }
         if (!logic.checkNoCopy()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                     "Copies will not be saved.\nConfirm exit?", ButtonType.YES, ButtonType.NO);

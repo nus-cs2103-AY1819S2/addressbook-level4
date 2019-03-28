@@ -15,7 +15,7 @@ import javafx.scene.control.TextInputDialog;
  * Class of all static methods.
  */
 public class Dentist {
-    private static final String filePath = "data/dentist_info.txt";
+    public static final String filePath = "data/dentist_info.txt";
 
     /**
      * Gets the stored dentist name.
@@ -55,6 +55,19 @@ public class Dentist {
     }
 
     /**
+     * Removes the dentist's name in the data filepath.
+     */
+    public static void removeDentistName() {
+        try {
+            FileWriter fw = new FileWriter(filePath, false);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Prompts user to enter his or her name if it is not specified.
      * @return the name of the user.
      */
@@ -68,5 +81,25 @@ public class Dentist {
         Optional<String> name = dialog.showAndWait();
 
         return name.orElseGet(Dentist::promptDentistName);
+    }
+
+    /**
+     * Checks if the dentist file exists with a valid name.
+     * @return true if file exists with a valid name, false otherwise.
+     */
+    public static boolean dentistExists() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            String dentistName = br.readLine();
+            br.close();
+
+            if (dentistName != null && !dentistName.equals("")) {
+                return true;
+            } else {
+                throw new IOException();
+            }
+        } catch (IOException e) {
+            return false;
+        }
     }
 }

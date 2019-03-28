@@ -95,7 +95,7 @@ public class InfoPanel extends UiPart<Region> {
      * @param request
      * @return a string of HTML content
      */
-    private String generateHtml(Request request) {
+    public String generateHtml(Request request) {
 
         String url = constructMapUrl(request.getAddress().toString());
         String name = request.getName().toString();

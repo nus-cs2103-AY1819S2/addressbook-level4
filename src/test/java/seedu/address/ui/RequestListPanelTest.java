@@ -103,8 +103,8 @@ public class RequestListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code requestListPanelHandle} with a {@code requestListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code requestListPanel}.
      */
     private void initUi(ObservableList<Request> backingList) {
         RequestListPanel requestListPanel =

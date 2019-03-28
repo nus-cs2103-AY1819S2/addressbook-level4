@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +9,7 @@ import org.junit.Test;
 import guitests.guihandles.InfoPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.request.Request;
+import seedu.address.testutil.RequestBuilder;
 
 public class InfoPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Request> selectedRequest = new SimpleObjectProperty<>();
@@ -27,6 +29,15 @@ public class InfoPanelTest extends GuiUnitTest {
         // default web page
         assertEquals(InfoPanel.DEFAULT_PAGE, infoPanelHandle.getLoadedUrl());
 
-        // TODO: Previously show MapUrl for person. Need to change to display details of Requests
+        // checks if loaded content is not empty, after loading sample request details
+        Request sampleRequest = new RequestBuilder().build();
+        String html = infoPanel.generateHtml(sampleRequest);
+        infoPanel.loadContent(html);
+        do {
+            Thread.sleep(500);
+        } while(!infoPanelHandle.isLoaded());
+        String loadedContent = infoPanelHandle.getLoadedContent();
+        assertTrue(loadedContent != "");
+
     }
 }

@@ -26,6 +26,17 @@ public class QuizModelManager implements QuizModel {
     private QuizUiDisplayFormatter formatter;
 
     /**
+     * Initialises QuizModelManager with ManagementModel
+     * @param managementModel instance of ManagementModel
+     */
+    public QuizModelManager(ManagementModel managementModel) {
+        super();
+        this.managementModel = managementModel;
+
+        logger.fine("Initializing constructor with ManagementModel");
+    }
+
+    /**
      * Initialises empty QuizModelManager
      */
     public QuizModelManager() {
@@ -74,11 +85,10 @@ public class QuizModelManager implements QuizModel {
     }
 
     @Override
-    public void initWithSession(Quiz quiz, Session session, ManagementModel managementModel) {
-        requireAllNonNull(quiz, session, managementModel);
+    public void initWithSession(Quiz quiz, Session session) {
+        requireAllNonNull(quiz, session);
         this.quiz = quiz;
         this.session = session;
-        this.managementModel = managementModel;
     }
 
     @Override

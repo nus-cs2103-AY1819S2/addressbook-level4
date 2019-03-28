@@ -17,9 +17,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
@@ -30,7 +28,6 @@ import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.session.Session;
 import seedu.address.model.srscard.SrsCard;
 import seedu.address.model.user.CardSrsData;
-import seedu.address.model.user.User;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.SessionBuilder;
@@ -87,6 +84,7 @@ public class QuizAnswerCommandTest {
             "", expectedModel);
     }
 
+    // TODO need to add management model here
     @Test
     public void execute_validPreview_success() {
         final String answer = "";
@@ -96,17 +94,12 @@ public class QuizAnswerCommandTest {
             new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
                 1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
 
-        QuizModelManager expectedModel = new QuizModelManager();
-        ManagementModelManager expectedMgmtModel =
-            new ManagementModelManager(new UserPrefs(), new LessonList(), new User());
+        QuizModelManager expectedModel = new QuizModelManager(new ManagementModelManager());
 
-        expectedModel.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session,
-            expectedMgmtModel);
+        expectedModel.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session);
 
-        QuizModel actual = new QuizModelManager();
-        ManagementModelManager actualManagementModel =
-            new ManagementModelManager(new UserPrefs(), new LessonList(), new User());
-        actual.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session, actualManagementModel);
+        QuizModel actual = new QuizModelManager(new ManagementModelManager());
+        actual.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session);
         actual.getNextCard();
 
         QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(answer);

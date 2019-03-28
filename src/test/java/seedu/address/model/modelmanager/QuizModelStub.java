@@ -53,11 +53,6 @@ public class QuizModelStub implements QuizModel {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
-    public void initWithSession(Quiz quiz, Session session, ManagementModel managementModel) {
-        throw new AssertionError("This method should not be called.");
-    }
-
     /**
      * Sets the {@code Quiz} and {@code Session} information.
      */

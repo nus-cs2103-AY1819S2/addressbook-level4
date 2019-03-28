@@ -46,7 +46,7 @@ public class QuizModelManagerTest {
     }
     @Test
     public void getSessionFields() {
-        modelManager.initWithSession(QUIZ, SESSION, MANAGEMENT_MODEL_MANAGER);
+        modelManager.initWithSession(QUIZ, SESSION);
         assertEquals("01-01-Learn", modelManager.getName());
         assertEquals(1, modelManager.getCount());
         assertEquals(QuizMode.LEARN, modelManager.getMode());
@@ -79,7 +79,7 @@ public class QuizModelManagerTest {
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
 
-        modelManager.initWithSession(new Quiz(quizCards, QuizMode.LEARN), SESSION, MANAGEMENT_MODEL_MANAGER);
+        modelManager.initWithSession(new Quiz(quizCards, QuizMode.LEARN), SESSION);
         assertEquals("0/6", modelManager.getCurrentProgress());
 
         modelManager.getNextCard();
@@ -100,7 +100,7 @@ public class QuizModelManagerTest {
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
 
-        modelManager.initWithSession(new Quiz(quizCards, QuizMode.LEARN), SESSION, MANAGEMENT_MODEL_MANAGER);
+        modelManager.initWithSession(new Quiz(quizCards, QuizMode.LEARN), SESSION);
         QuizCard expected = modelManager.getNextCard();
 
         assertEquals(new QuizCard(0, "Japan", "Tokyo", MODE), modelManager.getCurrentQuizCard());
@@ -109,7 +109,7 @@ public class QuizModelManagerTest {
 
     @Test
     public void toggleIsCardDifficult() {
-        modelManager.initWithSession(QUIZ, SESSION, MANAGEMENT_MODEL_MANAGER);
+        modelManager.initWithSession(QUIZ, SESSION);
 
         assertTrue(modelManager.toggleIsCardDifficult(0));
         assertFalse(modelManager.toggleIsCardDifficult(0));
@@ -119,7 +119,7 @@ public class QuizModelManagerTest {
     public void isDone() {
         assertTrue(modelManager.isQuizDone());
 
-        modelManager.initWithSession(QUIZ, SESSION, MANAGEMENT_MODEL_MANAGER);
+        modelManager.initWithSession(QUIZ, SESSION);
         assertFalse(modelManager.isQuizDone());
 
         modelManager.end();
@@ -132,7 +132,7 @@ public class QuizModelManagerTest {
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");
         final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
         final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
-        modelManager.initWithSession(quiz, SESSION, MANAGEMENT_MODEL_MANAGER);
+        modelManager.initWithSession(quiz, SESSION);
 
         assertTrue(modelManager.hasCardLeft());
 
@@ -181,9 +181,9 @@ public class QuizModelManagerTest {
 
         // same values -> returns true
         modelManager = new QuizModelManager();
-        modelManager.initWithSession(quiz, SESSION, MANAGEMENT_MODEL_MANAGER);
+        modelManager.initWithSession(quiz, SESSION);
         QuizModelManager modelManagerCopy = new QuizModelManager();
-        modelManagerCopy.initWithSession(quiz, SESSION, MANAGEMENT_MODEL_MANAGER);
+        modelManagerCopy.initWithSession(quiz, SESSION);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true

@@ -42,7 +42,7 @@ public interface QuizModel extends Model {
     /**
      * Sets the {@code Quiz} and {@code Session} information.
      */
-    void initWithSession(Quiz quiz, Session session, ManagementModel managementModel);
+    void initWithSession(Quiz quiz, Session session);
 
     /**
      * Returns if there is still card left in {@code Quiz}.

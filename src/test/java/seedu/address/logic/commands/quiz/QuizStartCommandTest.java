@@ -61,10 +61,10 @@ public class QuizStartCommandTest {
 
         QuizModelManager expectedModel = new QuizModelManager();
         ManagementModel expectedManagementModel = new ManagementModelManager();
-        expectedModel.initWithSession(quiz, session, expectedManagementModel);
+        expectedModel.initWithSession(quiz, session);
         expectedModel.getNextCard();
         CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,
-                expectedManagementModel, commandHistory);
+            commandHistory);
 
         QuizModel actualModel = new QuizModelManager();
         ManagementModelManager actualManagementModel = new ManagementModelManager();
@@ -72,7 +72,7 @@ public class QuizStartCommandTest {
         assertEquals(quizStartCommand.getSession(), session);
 
         CommandHistory expectedCommandHistory = new CommandHistory(commandHistory);
-        CommandResult result = quizStartCommand.executeActual(actualModel, actualManagementModel, commandHistory);
+        CommandResult result = quizStartCommand.executeActual(actualModel, commandHistory);
         assertEquals(expectedCommandResult, result);
         assertEquals(expectedCommandHistory, commandHistory);
 
@@ -92,10 +92,10 @@ public class QuizStartCommandTest {
 
         QuizModelManager expectedModel = new QuizModelManager();
         ManagementModelManager expectedManagementModel = new ManagementModelManager();
-        expectedModel.initWithSession(quiz, session, expectedManagementModel);
+        expectedModel.initWithSession(quiz, session);
         expectedModel.getNextCard();
         CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,
-            expectedManagementModel, commandHistory);
+            commandHistory);
 
         QuizModel actualModel = new QuizModelManager();
         ManagementModelManager actualManagementModel = new ManagementModelManager();
@@ -103,7 +103,7 @@ public class QuizStartCommandTest {
         assertEquals(quizStartCommand.getSession(), session);
 
         CommandHistory expectedCommandHistory = new CommandHistory(commandHistory);
-        CommandResult result = quizStartCommand.executeActual(actualModel, actualManagementModel, commandHistory);
+        CommandResult result = quizStartCommand.executeActual(actualModel, commandHistory);
         assertEquals(expectedCommandResult, result);
         assertEquals(expectedCommandHistory, commandHistory);
     }

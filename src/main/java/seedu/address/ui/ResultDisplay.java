@@ -67,12 +67,13 @@ public class ResultDisplay extends UiPart<Region> {
         }
         return result;
     }
-
+    /**
+     * Parses header
+     */
     private String parseHeader(String input) {
         if (input.charAt(0) == '\\' || input.charAt(0) != '!') {
             return null;
         }
         return input.substring(0, 2);
     }
-
 }

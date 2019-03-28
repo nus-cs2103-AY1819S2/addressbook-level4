@@ -22,8 +22,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateCustom;
 
 /**
@@ -98,7 +96,9 @@ public class CalendarWindow extends UiPart<Stage> {
         CommandResult cr = new CommandResult(feedback);
         return cr;
     }
-
+    /**
+     *  Closes the stage to exit the window.
+     */
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),

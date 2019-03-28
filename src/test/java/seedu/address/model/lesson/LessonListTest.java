@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.card.Card;
-import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.LessonListBuilder;
 import seedu.address.testutil.TypicalCards;
 import seedu.address.testutil.TypicalLessons;

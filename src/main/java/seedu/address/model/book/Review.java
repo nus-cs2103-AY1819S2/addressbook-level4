@@ -56,7 +56,6 @@ public class Review {
         return title;
     }
 
-
     public BookName getBookName() {
         return bookName;
     }

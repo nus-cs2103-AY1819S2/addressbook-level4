@@ -59,7 +59,7 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FANTASY = "fantasy";
     public static final String VALID_TAG_TEXTBOOK = "textbook";
     public static final String VALID_TAG_INTERESTING = "interesting";
-    public static final String VALID_REVIEWTITLE_ALICE = "Carroll has depicted a unique world I hadn't seen before";
+    public static final String VALID_REVIEWTITLE_ALICE = "Carroll has depicted a unique world I had not seen before";
     public static final String VALID_REVIEWTITLE_CS = "The book was awesome";
     public static final String VALID_REVIEWMESSAGE_ALICE = "Alice's Adventures in Wonderland by Lewis Carroll is "
             + "about Alice who falls down a rabbit hole and lands into a fantasy world that is full of weird, "

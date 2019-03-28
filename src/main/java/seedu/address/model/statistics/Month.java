@@ -30,7 +30,7 @@ public class Month {
     public Month(String month) {
         requireNonNull(month);
         checkArgument(isValidMonth(month), MESSAGE_CONSTRAINTS);
-        this.month = month;
+        this.month = String.valueOf(Integer.parseInt(month));
     }
 
     /**

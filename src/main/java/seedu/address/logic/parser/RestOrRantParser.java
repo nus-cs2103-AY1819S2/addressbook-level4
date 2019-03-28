@@ -21,6 +21,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
+import seedu.address.logic.commands.StatisticsModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
 import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -79,6 +80,10 @@ public class RestOrRantParser {
         case TableModeCommand.COMMAND_WORD: // Fallthrough
         case TableModeCommand.COMMAND_ALIAS:
             return new TableModeCommandParser().parse(arguments);
+
+        case StatisticsModeCommand.COMMAND_WORD: //Fallthrough
+        case StatisticsModeCommand.COMMAND_ALIAS:
+            return new StatisticsModeCommand();
 
         // Commands that work in Restaurant Mode
         case AddTableCommand.COMMAND_WORD:

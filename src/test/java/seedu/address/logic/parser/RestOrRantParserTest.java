@@ -251,6 +251,10 @@ public class RestOrRantParserTest {
         assertTrue(parser.parseCommand(Mode.MENU_MODE, ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(Mode.TABLE_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
         assertTrue(parser.parseCommand(Mode.MENU_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE, ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE, ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
     }
 
     //    @Test
@@ -274,6 +278,10 @@ public class RestOrRantParserTest {
         assertTrue(parser.parseCommand(Mode.MENU_MODE, HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(Mode.TABLE_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
         assertTrue(parser.parseCommand(Mode.MENU_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE, HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE, HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
     }
 
     @Test
@@ -322,6 +330,14 @@ public class RestOrRantParserTest {
                 RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
                 RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
     }
 
     @Test
@@ -360,6 +376,14 @@ public class RestOrRantParserTest {
         assertTrue(parser.parseCommand(Mode.MENU_MODE,
                 RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
         assertTrue(parser.parseCommand(Mode.MENU_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE,
                 RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
     }
 

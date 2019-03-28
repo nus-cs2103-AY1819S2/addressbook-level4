@@ -37,7 +37,8 @@ public class DeadlineCommandTest {
     @Test
     public void constructor_invalidIndex_throwsIndexOutOfBoundsException() {
         thrown.expect(IndexOutOfBoundsException.class);
-        new DeadlineCommand(Index.fromZeroBased(model.getFilteredPdfList().size() + 1), new Deadline(DEADLINE_DESC_COMPLETE));
+        new DeadlineCommand(Index.fromZeroBased(model.getFilteredPdfList().size() + 1),
+                new Deadline(DEADLINE_DESC_COMPLETE));
 
         thrown.expect(IndexOutOfBoundsException.class);
         new DeadlineCommand(Index.fromZeroBased(-1), new Deadline(DEADLINE_DESC_COMPLETE));

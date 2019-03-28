@@ -15,7 +15,8 @@ import javafx.scene.control.TextInputDialog;
  * Class of all static methods.
  */
 public class Dentist {
-    public static final String filePath = "data/dentist_info.txt";
+    public static final String FILEPATH = "data/dentist_info.txt";
+    public static final String SAMPLE_NAME = "Kyler Wong";
 
     /**
      * Gets the stored dentist name.
@@ -24,7 +25,7 @@ public class Dentist {
      */
     public static String getDentistName() {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            BufferedReader br = new BufferedReader(new FileReader(FILEPATH));
             String dentistName = br.readLine();
             br.close();
 
@@ -46,7 +47,7 @@ public class Dentist {
      */
     public static void setDentistName(String name) {
         try {
-            FileWriter fw = new FileWriter(filePath, false);
+            FileWriter fw = new FileWriter(FILEPATH, false);
             fw.write(name);
             fw.close();
         } catch (IOException e) {
@@ -55,11 +56,18 @@ public class Dentist {
     }
 
     /**
+     * Uses a sample dentist name.
+     */
+    public static void setSampleDentistName() {
+        setDentistName(SAMPLE_NAME);
+    }
+
+    /**
      * Removes the dentist's name in the data filepath.
      */
     public static void removeDentistName() {
         try {
-            FileWriter fw = new FileWriter(filePath, false);
+            FileWriter fw = new FileWriter(FILEPATH, false);
             fw.write("");
             fw.close();
         } catch (IOException e) {
@@ -89,7 +97,7 @@ public class Dentist {
      */
     public static boolean dentistExists() {
         try {
-            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            BufferedReader br = new BufferedReader(new FileReader(FILEPATH));
             String dentistName = br.readLine();
             br.close();
 

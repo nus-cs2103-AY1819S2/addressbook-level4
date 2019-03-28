@@ -2,35 +2,29 @@ package guitests.guihandles;
 
 import java.net.URL;
 
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.control.Label;
 
 /**
  * A handler for the {@code BookBrowserPanel} of the UI.
  */
 public class BookBrowserPanelHandle extends NodeHandle<Node> {
 
-    public static final String BROWSER_ID = "#browser";
-
-    private boolean isWebViewLoaded = true;
+    public static final String BROWSER_ID = "#reviewMessage";
+    private static final String MESSAGE_FIELD_ID = "#reviewMessage";
 
     private URL lastRememberedUrl;
+    private boolean isWebViewLoaded = true;
+    private final Label messageLabel;
 
     public BookBrowserPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
 
-        WebView webView = getChildNode(BROWSER_ID);
-        WebEngine engine = webView.getEngine();
-        new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.RUNNING) {
-                isWebViewLoaded = false;
-            } else if (newState == Worker.State.SUCCEEDED) {
-                isWebViewLoaded = true;
-            }
-        }));
+        messageLabel = getChildNode(MESSAGE_FIELD_ID);
+    }
+
+    public String getMessageField() {
+        return messageLabel.getText();
     }
 
     /**
@@ -52,7 +46,7 @@ public class BookBrowserPanelHandle extends NodeHandle<Node> {
      * {@code rememberUrl()} call.
      */
     public boolean isUrlChanged() {
-        return !lastRememberedUrl.equals(getLoadedUrl());
+        return false;
     }
 
     /**

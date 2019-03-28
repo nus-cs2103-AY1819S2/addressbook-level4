@@ -114,6 +114,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void fillInnerParts() {
         BookBrowserPanel browserPanel = new BookBrowserPanel(logic.selectedBookProperty());
+
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),

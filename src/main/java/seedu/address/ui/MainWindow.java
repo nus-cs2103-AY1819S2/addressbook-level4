@@ -126,19 +126,19 @@ public class MainWindow extends UiPart<Stage> {
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        infoPanel = new InfoPanel(logic.selectedRequestProperty());
-        displayInfoPlaceholder.getChildren().add(infoPanel.getRoot());
-
         requestListPanel = new RequestListPanel(logic.getFilteredRequestList(), logic.selectedRequestProperty(),
                 logic::setSelectedRequest);
         requestListPlaceholder.getChildren().add(requestListPanel.getRoot());
+
+        infoPanel = new InfoPanel(logic.selectedRequestProperty());
+        displayInfoPlaceholder.getChildren().add(infoPanel.getRoot());
 
         healthWorkerListPanel = new HealthWorkerListPanel(logic.getFilteredHealthWorkerList(),
             logic.selectedHealthWorkerProperty(), logic::setSelectedHealthWorker);
         healthWorkerListPlaceholder.getChildren().add(healthWorkerListPanel.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
-        statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        //statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     void show() {

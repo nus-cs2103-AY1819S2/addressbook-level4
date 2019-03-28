@@ -136,7 +136,7 @@ public class Request {
                 .append("Address: ")
                 .append(getAddress() + "\n")
                 .append("Assigned staff: ")
-            .append(hw + "\n")
+                .append(hw + "\n")
                 .append("Request Date: ")
                 .append(getRequestDate() + "\n")
                 .append("Condition(s): ");

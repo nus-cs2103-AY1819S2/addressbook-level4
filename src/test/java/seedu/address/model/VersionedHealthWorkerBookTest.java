@@ -1,3 +1,4 @@
+//TODO @Lukaz help me pls
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
@@ -45,7 +46,7 @@ public class VersionedHealthWorkerBookTest {
         // multiple states, current state pointer not at the end of list
         versionedHealthWorkerBook = prepareHealthWorkerBookList(emptyHealthWorkerBook, healthWorkerBookWithAndy,
                 healthWorkerBookWithBetty);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
+        shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
         versionedHealthWorkerBook.commit();
         assertHealthWorkerBookListStatus(versionedHealthWorkerBook,
                 Arrays.asList(emptyHealthWorkerBook),
@@ -63,7 +64,7 @@ public class VersionedHealthWorkerBookTest {
         // multiple states, current pointer in middle of state -> returns true
         versionedHealthWorkerBook = prepareHealthWorkerBookList(emptyHealthWorkerBook,
                 healthWorkerBookWithAndy, healthWorkerBookWithBetty);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 1);
+        shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 1);
         assertTrue(versionedHealthWorkerBook.canUndo());
 
         // single state -> returns false
@@ -73,7 +74,7 @@ public class VersionedHealthWorkerBookTest {
         // multiple states, starting state -> returns false
         versionedHealthWorkerBook = prepareHealthWorkerBookList(emptyHealthWorkerBook,
                 healthWorkerBookWithAndy, healthWorkerBookWithBetty);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
+        shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
         assertFalse(versionedHealthWorkerBook.canUndo());
 
     }
@@ -83,13 +84,13 @@ public class VersionedHealthWorkerBookTest {
         // state pointer not at end -> returns true
         VersionedHealthWorkerBook versionedHealthWorkerBook = prepareHealthWorkerBookList(emptyHealthWorkerBook,
                 healthWorkerBookWithAndy, healthWorkerBookWithBetty);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 1);
+        shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 1);
         assertTrue(versionedHealthWorkerBook.canRedo());
 
         // state pointer at beginning of list -> return true
         versionedHealthWorkerBook = prepareHealthWorkerBookList(emptyHealthWorkerBook,
                 healthWorkerBookWithAndy, healthWorkerBookWithBetty);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
+        shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
         assertTrue(versionedHealthWorkerBook.canRedo());
 
         // state pointer at end of list -> return false
@@ -114,7 +115,7 @@ public class VersionedHealthWorkerBookTest {
         // multiple states, middle of state list
         versionedHealthWorkerBook = prepareHealthWorkerBookList(emptyHealthWorkerBook,
                 healthWorkerBookWithAndy, healthWorkerBookWithBetty);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 1);
+        shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 1);
         versionedHealthWorkerBook.undo();
         assertHealthWorkerBookListStatus(versionedHealthWorkerBook, Collections.emptyList(),
                 emptyHealthWorkerBook, Arrays.asList(healthWorkerBookWithAndy,
@@ -127,7 +128,7 @@ public class VersionedHealthWorkerBookTest {
         // multiple states, start of state list
         versionedHealthWorkerBook = prepareHealthWorkerBookList(emptyHealthWorkerBook,
                 healthWorkerBookWithAndy, healthWorkerBookWithBetty);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
+        shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
         Assert.assertThrows(VersionedBook.NoUndoableStateException.class, versionedHealthWorkerBook::undo);
     }
 
@@ -136,7 +137,7 @@ public class VersionedHealthWorkerBookTest {
         // multiple states, current pointer not at end of state list
         VersionedHealthWorkerBook versionedHealthWorkerBook = prepareHealthWorkerBookList(emptyHealthWorkerBook,
                 healthWorkerBookWithAndy, healthWorkerBookWithBetty);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 1);
+        shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 1);
         versionedHealthWorkerBook.redo();
         assertHealthWorkerBookListStatus(versionedHealthWorkerBook, Arrays.asList(emptyHealthWorkerBook,
                 healthWorkerBookWithAndy), healthWorkerBookWithBetty, Collections.emptyList());
@@ -144,7 +145,7 @@ public class VersionedHealthWorkerBookTest {
         // multiple states, current pointer at start of list
         versionedHealthWorkerBook = prepareHealthWorkerBookList(emptyHealthWorkerBook,
                 healthWorkerBookWithAndy, healthWorkerBookWithBetty);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
+        shiftCurrentStatePointerLeftwards(versionedHealthWorkerBook, 2);
         versionedHealthWorkerBook.redo();
         assertHealthWorkerBookListStatus(versionedHealthWorkerBook, Collections.singletonList(emptyHealthWorkerBook),
                 healthWorkerBookWithAndy, Collections.singletonList(healthWorkerBookWithBetty));
@@ -182,7 +183,7 @@ public class VersionedHealthWorkerBookTest {
         assertFalse(versionedHealthWorkerBook.equals(copy));
 
         copy = prepareHealthWorkerBookList(emptyHealthWorkerBook, healthWorkerBookWithAndy);
-        VersionedAddressBookTest.shiftCurrentStatePointerLeftwards(copy, 1);
+        shiftCurrentStatePointerLeftwards(copy, 1);
         assertFalse(versionedHealthWorkerBook.equals(copy));
     }
 
@@ -238,5 +239,13 @@ public class VersionedHealthWorkerBookTest {
 
         // revert pointer to original position
         expectedStatesAfterPointer.forEach(unused -> versionedHealthWorkerBook.undo());
+    }
+    /**
+     * Shifts the {@code versionedAddressBook#currentStatePointer} by {@code count} to the left of its list.
+     */
+    public static void shiftCurrentStatePointerLeftwards(VersionedBook versionedBook, int count) {
+        for (int i = 0; i < count; i++) {
+            versionedBook.undo();
+        }
     }
 }

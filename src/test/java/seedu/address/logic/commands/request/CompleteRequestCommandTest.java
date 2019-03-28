@@ -4,7 +4,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.getTypicalRequestBook;
 
@@ -26,7 +25,7 @@ import seedu.address.testutil.RequestBuilder;
 
 class CompleteRequestCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
+    private Model model = new ModelManager(getTypicalHealthWorkerBook(),
         getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
@@ -58,7 +57,7 @@ class CompleteRequestCommandTest {
     }
 
     @Test
-    public void execute_validIndexUnfliteredList_pendingFailure() throws CommandException {
+    public void execute_validIndexUnfliteredList_pendingFailure() {
         Index last = Index.fromZeroBased(2);
         CompleteRequestCommand doneCommand = new CompleteRequestCommand(last);
 

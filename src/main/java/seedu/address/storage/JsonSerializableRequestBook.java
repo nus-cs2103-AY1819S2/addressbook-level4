@@ -14,7 +14,7 @@ import seedu.address.model.RequestBook;
 import seedu.address.model.request.Request;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable RequestBook that is serializable to JSON format.
  */
 @JsonRootName(value = "requestbook")
 public class JsonSerializableRequestBook {
@@ -25,7 +25,7 @@ public class JsonSerializableRequestBook {
     private final List<JsonAdaptedRequest> requests = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableRequestBook} with the given persons.
      */
     @JsonCreator
     public JsonSerializableRequestBook(@JsonProperty("requests") List<JsonAdaptedRequest> requests) {
@@ -33,16 +33,16 @@ public class JsonSerializableRequestBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyAddressBook} into this class for Jackson use.
+     * Converts a given {@code ReadOnlyRequestBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableRequestBook}.
      */
     public JsonSerializableRequestBook(ReadOnlyRequestBook source) {
         requests.addAll(source.getRequestList().stream().map(JsonAdaptedRequest::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
+     * Converts this address book into the model's {@code RequestBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

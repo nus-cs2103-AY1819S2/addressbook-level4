@@ -17,7 +17,7 @@ import seedu.hms.model.customer.Customer;
 public class GenerateBillCommand extends CustomerCommand {
 
     public static final String COMMAND_ALIAS = "gb";
-    public static final String COMMAND_WORD = "generatebill";
+    public static final String COMMAND_WORD = "generate-bill";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Generates bill for the customer identified by the index number used in the displayed customer list.\n"

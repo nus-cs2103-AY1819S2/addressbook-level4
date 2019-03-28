@@ -34,6 +34,7 @@ import seedu.hms.logic.commands.UndoCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerModel;
+import seedu.hms.model.ReservationModel;
 
 /**
  * Parses user input.
@@ -52,7 +53,8 @@ public class HotelManagementSystemParser {
      * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
-    public Command parseCommand(String userInput, CustomerModel customerModel, BookingModel bookingModel)
+    public Command parseCommand(String userInput, CustomerModel customerModel, BookingModel bookingModel,
+                                ReservationModel reservationModel)
         throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {

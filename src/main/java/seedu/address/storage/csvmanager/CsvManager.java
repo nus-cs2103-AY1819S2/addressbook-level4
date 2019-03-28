@@ -85,6 +85,16 @@ public class CsvManager implements CsvCommands {
         return optionSet;
     }
 
+    private Set<Hint> buildHint(String[] card) {
+        Set<Hint> hintSet = new HashSet<>();
+        String hint = card[card.length - 1];
+        if (hint == " ") {
+            return hintSet;
+        }
+        hintSet.add(new Hint(hint));
+        return hintSet;
+    }
+
 
 
     private boolean checkCorrectHeaders(String header) {

@@ -47,6 +47,7 @@ public class MemberAddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New member added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This member already exists in Club Manager";
+    public static final String MESSAGE_DUPLICATE_MATRICNUMBER = "This matricNumber already exists in Club Manager";
 
     private final Person toAdd;
 
@@ -65,7 +66,9 @@ public class MemberAddCommand extends Command {
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
-
+        else if (model.hasMatricNumber(toAdd.getMatricNumber())) {
+            throw new CommandException(MESSAGE_DUPLICATE_MATRICNUMBER);
+        }
         model.addPerson(toAdd);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

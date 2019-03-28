@@ -39,6 +39,29 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Returns true if the list contains an equivalent person as the given argument.
+     */
+    public boolean containsMatricNumber (MatricNumber toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().map(x -> x.getMatricNumber()).anyMatch(toCheck::isSameMatricNumber);
+    }
+
+    /**
+     * Returns the person if the list contains a person who has the matric number as the given argument.
+     */
+    public Person getPersonWithMatricNumber (MatricNumber toCheck) {
+        requireNonNull(toCheck);
+        Person person;
+        for (int i = 0; i < internalList.size(); i++) {
+            person = internalList.get(i);
+            if (person.getMatricNumber().isSameMatricNumber(toCheck)) {
+                return person;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */

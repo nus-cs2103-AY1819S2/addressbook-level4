@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.person.MatricNumber;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -143,6 +144,15 @@ public class MemberAddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public boolean hasMatricNumber(MatricNumber matricNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Person getPersonWithMatricNumber(MatricNumber matricNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void deletePerson(Person target) {

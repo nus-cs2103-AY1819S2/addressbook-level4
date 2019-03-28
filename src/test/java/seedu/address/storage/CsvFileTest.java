@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import seedu.address.logic.CommandHistory;
@@ -30,6 +31,12 @@ public class CsvFileTest {
     public CsvFileTest() throws IOException {
         model.setTestCsvPath();
         expectedModel.setTestCsvPath();
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        file = new File(model.getDefaultPath()).getCanonicalFile();
+
     }
 
 

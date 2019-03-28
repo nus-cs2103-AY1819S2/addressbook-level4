@@ -224,6 +224,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public String getDefaultPath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasCard(Card card) {
             throw new AssertionError("This method should not be called.");
         }

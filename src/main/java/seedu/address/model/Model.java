@@ -253,5 +253,7 @@ public interface Model extends Observable {
 
     void setTestCsvPath() throws IOException;
 
+    String getDefaultPath();
+
 
 }

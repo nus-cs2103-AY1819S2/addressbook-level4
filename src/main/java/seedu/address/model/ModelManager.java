@@ -531,6 +531,11 @@ public class ModelManager implements Model {
         csvManager.setTestDefaultPath();
     }
 
+    @Override
+    public String getDefaultPath() {
+        return csvManager.getDefaultPath();
+    }
+
 
     private List<ReadOnlyCardFolder> returnValidCardFolders(List<Integer> cardFolderExports) {
         List<ReadOnlyCardFolder> readOnlyCardFolders = new ArrayList<>();

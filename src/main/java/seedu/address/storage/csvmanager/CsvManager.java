@@ -135,15 +135,22 @@ public class CsvManager implements CsvCommands {
 
     private String getCardString(Card card) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(card.getQuestion() + COMMA_DELIMITTER)
-                .append(card.getAnswer() + COMMA_DELIMITTER);
-        parseOptions(card, stringBuilder);
-        parseHints(card, stringBuilder);
+        parseQuestion(card.getQuestion(), stringBuilder);
+        parseAnswer(card.getAnswer(), stringBuilder);
+        parseOptions(card.getOptions(), stringBuilder);
+        parseHints(card.getHints(), stringBuilder);
         return stringBuilder.toString();
     }
 
-    private void parseOptions(Card card, StringBuilder stringBuilder) {
-        Set<Option> options = card.getOptions();
+    private void parseQuestion(Question question, StringBuilder stringBuilder) {
+        stringBuilder.append(question + COMMA_DELIMITTER);
+    }
+
+    private void parseAnswer(Answer answer, StringBuilder stringBuilder) {
+        stringBuilder.append(answer + COMMA_DELIMITTER);
+    }
+
+    private void parseOptions(Set<Option> options, StringBuilder stringBuilder) {
         if (options.isEmpty()) {
             stringBuilder.append(" " + COMMA_DELIMITTER);
         } else {
@@ -152,8 +159,7 @@ public class CsvManager implements CsvCommands {
         }
     }
 
-    private void parseHints(Card card, StringBuilder stringBuilder) {
-        Set<Hint> hintSet = card.getHints();
+    private void parseHints(Set<Hint> hintSet, StringBuilder stringBuilder) {
         if (hintSet.isEmpty()) {
             stringBuilder.append(" " + COMMA_DELIMITTER);
         } else {

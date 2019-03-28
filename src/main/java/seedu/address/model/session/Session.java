@@ -48,8 +48,6 @@ public class Session {
             throw new IllegalArgumentException("Invalid mode");
         }
 
-        quizCards = new ArrayList<>();
-
         this.name = name;
         this.cardCount = cardCount;
         this.mode = mode;
@@ -64,8 +62,6 @@ public class Session {
             throw new IllegalArgumentException("Invalid mode");
         }
 
-        quizCards = new ArrayList<>();
-
         this.name = name;
         this.cardCount = 10;
         this.mode = mode;
@@ -77,6 +73,8 @@ public class Session {
      */
     public List<QuizCard> generateSession() {
         SrsCard currentCard;
+        quizCards = new ArrayList<>();
+
         for (int i = 0; i < cardCount; i++) {
             currentCard = srsCards.get(i);
             quizCards.add(new QuizCard(currentCard.getQuestion(), currentCard.getAnswer()));

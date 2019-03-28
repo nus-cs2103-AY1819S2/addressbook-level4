@@ -29,24 +29,36 @@ public class CommandTestUtil {
     public static final String NAME_1_VALID = "CS2103T_PDF++_UG_Intro.pdf";
     public static final String NAME_2_VALID = "CS2103T_Week9_Integration Approaches.pdf";
     public static final String NAME_3_VALID = "CS2103T_Schedule_AY1819S2.pdf";
-    public static final String NAME_1_INVALID = "InvalidName.invalid";
+    public static final String NAME_INVALID_EXTENSION = "InvalidName.invalid";
+    public static final String NAME_INVALID_CHARACTERS = "abcd*.pdf";
 
     public static final String DIR_1_VALID =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", NAME_1_VALID)
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest")
             .toAbsolutePath().toString();
     public static final String DIR_2_VALID =
-            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", NAME_2_VALID)
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "Duplicates")
             .toAbsolutePath().toString();
     public static final String DIR_3_VALID =
-            Paths.get("src", "data", "JsonAdaptedPdfTest", NAME_3_VALID)
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "NewTestDirectory")
             .toAbsolutePath().toString();
+    public static final String DIR_INVALID_NONEXISTENT =
+            Paths.get("definitelyNotARealDirectory").toAbsolutePath().toString();
 
-    public static final String SIZE_1_VALID = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
-            "CS2103T_Lecture3.pdf").toAbsolutePath().toFile().length());
-    public static final String SIZE_2_VALID = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
-            "CS2103T_Schedule_AY1819S2.pdf").toAbsolutePath().toFile().length());
-    public static final String SIZE_3_VALID = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
-            "CS2103T_sample PPP.pdf").toAbsolutePath().toFile().length());
+    public static final String FILEPATH_1_VALID =
+            Paths.get(DIR_1_VALID, NAME_1_VALID).toAbsolutePath().toString();
+    public static final String FILEPATH_2_VALID =
+            Paths.get(DIR_2_VALID, NAME_2_VALID).toAbsolutePath().toString();
+    public static final String FILEPATH_3_VALID =
+            Paths.get(DIR_3_VALID, NAME_3_VALID).toAbsolutePath().toString();
+
+    public static final String SIZE_1_VALID = Long.toString(Paths.get(FILEPATH_1_VALID)
+            .toAbsolutePath().toFile().length());
+    public static final String SIZE_2_VALID = Long.toString(Paths.get(FILEPATH_2_VALID)
+            .toAbsolutePath().toFile().length());
+    public static final String SIZE_3_VALID = Long.toString(Paths.get(FILEPATH_3_VALID)
+            .toAbsolutePath().toFile().length());
+    public static final String SIZE_INVALID_ALPHABET = "abcdef";
+    public static final String SIZE_INVALID_NEGATIVE = "-20";
 
     public static final String DEADLINE_1_VALID = "2019-10-03";
     public static final String DEADLINE_2_VALID = "2019-05-03";
@@ -69,7 +81,7 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_1_VALID = " " + PREFIX_NAME + NAME_1_VALID;
     public static final String NAME_DESC_2_VALID = " " + PREFIX_NAME + NAME_2_VALID;
-    public static final String NAME_DESC_1_INVALID = " " + PREFIX_NAME + NAME_1_INVALID;
+    public static final String NAME_DESC_1_INVALID = " " + PREFIX_NAME + NAME_INVALID_EXTENSION;
 
     public static final String DIRECTORY_DESC_1 = " " + PREFIX_DIRECTORY + DIR_3_VALID;
 

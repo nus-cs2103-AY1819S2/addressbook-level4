@@ -2,8 +2,10 @@ package seedu.address.model.pdf;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+import java.nio.file.Paths;
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Pdf's deadline in the pdf book.
@@ -12,7 +14,7 @@ import java.time.LocalDate;
 public class Deadline implements Comparable<Deadline> {
     public static final String MESSAGE_CONSTRAINTS = "Deadline can take any valid date, "
             + "and it should not be blank";
-    private static final String PROPERTY_SEPARATOR_PREFIX = "/";
+    public static final String PROPERTY_SEPARATOR_PREFIX = "/";
     private static final int PROPERTY_DATE_INDEX = 0;
     private static final int PROPERTY_STATUS_INDEX = 1;
 
@@ -157,11 +159,25 @@ public class Deadline implements Comparable<Deadline> {
                 .toString();
     }
 
+    /**
+     * Returns if a given string is a valid deadline.
+     */
+    public static boolean isValidDeadline(String test) {
+        try {
+            Deadline d = new Deadline(test);
+            d = null;
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Deadline // instanceof handles nulls;
-                && date.equals(((Deadline) other).date));
+                && date.equals(((Deadline) other).date))
+                && status.getStatus().equals(((Deadline) other).status.getStatus());
     }
 
     @Override

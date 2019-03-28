@@ -23,8 +23,8 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BookBrowserPanelHandle;
-import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.BookListPanelHandle;
+import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;

@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -22,7 +21,6 @@ import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.BookName;
 import seedu.address.model.book.BookNameContainsExactKeywordsPredicate;
-import seedu.address.model.book.Book;
 import seedu.address.testutil.EditBookDescriptorBuilder;
 
 /**

@@ -9,3 +9,36 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="Task Calender" minWidth="800" minHeight="500" maxHeight="500" onCloseRequest="#handleExit">
+    <icons>
+        <Image url="@/images/tooth.png"/>
+    </icons>
+    <scene>
+        <Scene>
+            <VBox>
+            <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+                <StackPane fx:id="taskList" minWidth="500" prefHeight="200" SplitPane.resizableWithParent="false">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                    <StackPane fx:id="taskListPanelPlaceholder" minWidth="300"/>
+                </StackPane>
+                <VBox>
+                <StackPane fx:id="calendarPanel" VBox.vgrow="ALWAYS" >
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10"/>
+                    </padding>
+                </StackPane>
+
+                <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
+                    <padding>
+                        <Insets top="5" right="10" bottom="5" left="10"/>
+                    </padding>
+                </StackPane>
+                </VBox>
+            </SplitPane>
+            </VBox>
+        </Scene>
+    </scene>
+</fx:root>

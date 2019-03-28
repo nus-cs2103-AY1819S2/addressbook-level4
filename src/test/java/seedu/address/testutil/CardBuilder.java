@@ -7,7 +7,7 @@ import java.util.List;
 import seedu.address.model.card.Card;
 
 /**
- * A utility class to help with building {@code Card} objects.
+ * A utility class to help with building {@link Card} objects.
  */
 public class CardBuilder {
 

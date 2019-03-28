@@ -23,6 +23,8 @@ import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.logic.commands.SelectCommand;
 import seedu.finance.logic.commands.SetCommand;
 import seedu.finance.logic.commands.SpendCommand;
+import seedu.finance.logic.commands.SummaryCommand;
+import seedu.finance.logic.commands.ThemeCommand;
 import seedu.finance.logic.commands.UndoCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
 
@@ -54,6 +56,11 @@ public class FinanceTrackerParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord.toLowerCase()) {
+
+        case ThemeCommand.COMMAND_WORD:
+        case ThemeCommand.COMMAND_ALIAS:
+            return new ThemeCommandParser().parse(arguments);
+
         case SetCommand.COMMAND_WORD:
             return new SetCommandParser().parse(arguments);
 
@@ -123,6 +130,11 @@ public class FinanceTrackerParser {
         case RedoCommand.COMMAND_WORD:
         case RedoCommand.COMMAND_ALIAS:
             return new RedoCommand();
+
+        case SummaryCommand.COMMAND_WORD:
+            //Have to add in alias for summary command
+            //case SummaryCommand.COMMAND_ALIAS:
+            return new SummaryCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

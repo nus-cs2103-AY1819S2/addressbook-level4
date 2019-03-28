@@ -16,7 +16,7 @@ public class AmountTest {
 
     @Test
     public void constructor_invalidAmount_throwsIllegalArgumentException() {
-        String invalidAmount = "1";
+        String invalidAmount = "$1";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Amount(invalidAmount));
     }
 
@@ -30,9 +30,9 @@ public class AmountTest {
         assertFalse(Amount.isValidAmount(" ")); // spaces only
         assertFalse(Amount.isValidAmount("123.3435")); //2 dp only
         // valid amounts
-        assertTrue(Amount.isValidAmount("$123"));
-        assertTrue(Amount.isValidAmount("$123.24")); // 1 dp only
-        assertTrue(Amount.isValidAmount("$1")); // one character
-        assertTrue(Amount.isValidAmount("$2147483648.50")); // long amount
+        assertTrue(Amount.isValidAmount("123"));
+        assertTrue(Amount.isValidAmount("123.20")); // 2 dp only
+        assertTrue(Amount.isValidAmount("1")); // one character
+        assertTrue(Amount.isValidAmount("2147483648.50")); // long amount
     }
 }

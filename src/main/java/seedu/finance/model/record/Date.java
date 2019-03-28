@@ -14,8 +14,6 @@ public class Date {
 
     public static final String MESSAGE_CONSTRAINTS = "Dates should be of the format dd/mm/yyyy and be a valid date";
 
-    public static final String VALIDATION_REGEX = "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$";
-
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private LocalDate date;
@@ -40,21 +38,17 @@ public class Date {
      * Returns true if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
-        if (test.matches(VALIDATION_REGEX)) {
-            String[] parsedDate = test.split("/");
-            try {
-                int year = Integer.parseInt(parsedDate[2]);
-                int month = Integer.parseInt(parsedDate[1]);
-                int day = Integer.parseInt(parsedDate[0]);
-                LocalDate date = LocalDate.of(year, month, day);
-            } catch (Exception e) {
-                return false;
-            }
-
-            return true;
+        String[] parsedDate = test.split("/");
+        try {
+            int year = Integer.parseInt(parsedDate[2]);
+            int month = Integer.parseInt(parsedDate[1]);
+            int day = Integer.parseInt(parsedDate[0]);
+            LocalDate date = LocalDate.of(year, month, day);
+        } catch (Exception e) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     public LocalDate getDate() {

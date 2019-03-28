@@ -18,7 +18,7 @@ import seedu.finance.testutil.Assert;
 
 public class JsonAdaptedRecordTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_AMOUNT = "1";
+    private static final String INVALID_AMOUNT = "$1";
     private static final String INVALID_DATE = "59/59/2109";
     private static final String INVALID_CATEGORY = "#friend";
 

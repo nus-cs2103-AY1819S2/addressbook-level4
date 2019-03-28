@@ -5,12 +5,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Hint in the card folder.
- * Guarantees: immutable; question is valid as declared in {@link #isValidHintName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidHintName(String)}
  */
 public class Hint {
 
-    public static final String MESSAGE_CONSTRAINTS = "Hints names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+    public static final String MESSAGE_CONSTRAINTS = "Hints should only contain alphanumeric characters and spaces";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String hintName;
 

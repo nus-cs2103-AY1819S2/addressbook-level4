@@ -21,16 +21,18 @@ public class Card {
 
     // Data fields
     private final Score score;
+    private final Set<Option> options = new HashSet<>();
     private final Set<Hint> hints = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Card(Question question, Answer answer, Score score, Set<Hint> hints) {
-        requireAllNonNull(question, answer, score, hints);
+    public Card(Question question, Answer answer, Score score, Set<Option> options, Set<Hint> hints) {
+        requireAllNonNull(question, answer, score, options, hints);
         this.question = question;
         this.answer = answer;
         this.score = score;
+        this.options.addAll(options);
         this.hints.addAll(hints);
     }
 
@@ -47,11 +49,19 @@ public class Card {
     }
 
     /**
-     * Returns an immutable hint set, which throws {@code UnsupportedOperationException}
+     * Returns an immutable {@code Hint} set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
     public Set<Hint> getHints() {
         return Collections.unmodifiableSet(hints);
+    }
+
+    /**
+     * Returns an immutable {@code Option} set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Option> getOptions() {
+        return Collections.unmodifiableSet(options);
     }
 
     /**
@@ -101,6 +111,8 @@ public class Card {
         builder.append(getQuestion())
                 .append(" Answer: ")
                 .append(getAnswer())
+                .append(" Incorrect options: ")
+                .append(getOptions())
                 .append(" Score: ")
                 .append(getScore())
                 .append(" Hints: ");

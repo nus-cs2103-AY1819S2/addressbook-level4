@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private FolderListPanel folderListPanel;
     private CardListPanel cardListPanel;
+    private ReportDisplay reportDisplay;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CardMainScreen cardMainScreen;
@@ -212,6 +213,16 @@ public class MainWindow extends UiPart<Stage> {
         folderListPanel.refreshContent();
     }
 
+    private void handleReport() {
+        reportDisplay = new ReportDisplay(logic.getCardFolder());
+        Region reportRegion = (reportDisplay).getRoot();
+        fullScreenPlaceholder.getChildren().add(reportRegion);
+    }
+
+    private void handleEndReport() {
+        fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+    }
+
 
     /**
      * Show the page with correct answer.
@@ -266,6 +277,12 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case END_TEST_SESSION:
                 handleEndTestSession();
+                break;
+            case ENTERED_REPORT:
+                handleReport();
+                break;
+            case EXITED_REPORT:
+                handleEndReport();
                 break;
             case SHOW_NEXT_CARD:
                 handleNextCardTestSession(commandResult.getTestSessionCard());

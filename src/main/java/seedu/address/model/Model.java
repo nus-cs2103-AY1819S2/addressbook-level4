@@ -196,7 +196,7 @@ public interface Model extends Observable {
     /**
      * Enters a test session using the specified card folder index.
      */
-    void testCardFolder(int cardFolderToTestIndex);
+    void testCardFolder();
 
     /**
      * Sets the current card in the test session.
@@ -243,6 +243,12 @@ public interface Model extends Observable {
      * false if otherwise
      */
     boolean checkIfCardAlreadyAnswered();
+
+    boolean inReportDisplay();
+
+    void enterReportDisplay();
+
+    void exitReportDisplay();
 
     void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException;
 

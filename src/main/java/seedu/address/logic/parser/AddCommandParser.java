@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_OPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import java.util.Set;
@@ -11,10 +12,10 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
 import seedu.address.model.card.Score;
 import seedu.address.model.hint.Hint;
-
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -29,7 +30,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(
-                        args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_HINT);
+                        args, PREFIX_QUESTION, PREFIX_ANSWER, PREFIX_HINT, PREFIX_OPTION);
 
 
         if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER)
@@ -42,8 +43,9 @@ public class AddCommandParser implements Parser<AddCommand> {
         // Default score is 0/0
         Score score = new Score(0, 0);
         Set<Hint> hintList = ParserUtil.parseHints(argMultimap.getAllValues(PREFIX_HINT));
+        Set<Option> optionList = ParserUtil.parseOptions(argMultimap.getAllValues(PREFIX_OPTION));
 
-        Card card = new Card(question, answer, score, hintList);
+        Card card = new Card(question, answer, score, optionList, hintList);
 
         return new AddCommand(card);
     }

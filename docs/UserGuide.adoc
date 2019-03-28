@@ -66,18 +66,22 @@ The commands in this section can only be executed when the user is within a fold
 
 ==== Adding a flashcard : `add`
 
-Adds a flashcard to the current folder.
+Adds a flashcard to the current folder. Know-It-All supports 2 types of flashcards: **Single answer cards** and **MCQ** cards.
 
-Format: `add q/QUESTION a/ANSWER [h/HINT]`
+Format **(Single answer)**: `add q/QUESTION a/ANSWER [h/HINT]` +
+Format **(MCQ)**: `add q/QUESTION a/ANSWER [i/INCORRECT_OPTION]... [h/HINT]`
 
 ====
 * A card can have at most 1 hint (including 0)
+* A card can have any number of incorrect options to denote an MCQ card
+* A card with 0 incorrect options will automatically be denoted as a Single answer card
 ====
 
 Examples:
 
 * `add q/Hello? a/World`
 * `add q/The cat ___ on the mat a/sat h/poetry`
+* `add q/What is the powerhouse of the cell? a/mitochondria i/cell wall i/nucleus h/biology`
 
 
 ==== Editing a flashcard : `edit`
@@ -90,7 +94,7 @@ Format: `edit i/INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
 * Edits the card at the specified `INDEX`. The index refers to the index number shown in the displayed card list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing hints, the existing hint of the person will be removed i.e adding of hints is not cumulative.
+* **(MCQ cards)** When editing incorrect options, the existing incorrect options of the card will be removed i.e adding of options is not cumulative.
 * You can remove the card's hint by typing `h/` without specifying any hint after it.
 ====
 
@@ -198,9 +202,12 @@ Deletes the second folder in the folder list, along with its cards, on the home 
 
 ==== Report user performance for folder : `report`
 
-Displays user performance on the right panel for the folder specified by index.
+Displays user performance in a fullscreen for the current card folder.
 
-Format: `report FOLDER_INDEX`
+Format: `report`
+
+[NOTE]
+This command is only considered valid inside a card folder.
 
 
 ==== Enter folder : `change`
@@ -302,14 +309,14 @@ This command is only considered valid if a card question and answer is currently
 There is no backtracking in the current session so there is no `prev` command.
 
 
-==== End the current session : `end`
+==== End the current test or report session : `end`
 
-Quits the current test session.
+Quits the current test or report session.
 
 Format: `end`
 
 === Global Operations
-The commands shown in this section are applicable irregardless of whether the user is inside a folder or at the home directory.
+The commands shown in this section are applicable regardless of whether the user is inside a folder or at the home directory.
 
 ==== Search by keywords : `search`
 
@@ -416,7 +423,7 @@ questions displayed. The user is required to key in an answer for each question.
 |`change FOLDER_INDEX`|Enters the folder specified by index. Side panel on the left will display the list of cards in that folder.
 |`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
 |`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
-|`report FOLDER_INDEX` | Displays user performance on the right panel for the folder specified by index.
+|`report` | Displays user performance on the right panel for the current folder.
 |`test FOLDER_INDEX` | This command begins a test session, where the display area enters a fullscreen.
 |`ans ANSWER` | Enter answer for a flashcard.
 |`reveal` | Immediately reveals the correct answer.

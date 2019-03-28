@@ -24,6 +24,7 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.ReportCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SortCommand;
@@ -81,7 +82,10 @@ public class CommandParser {
             return new DeleteFolderCommandParser().parse(arguments);
 
         case TestCommand.COMMAND_WORD:
-            return new TestCommandParser().parse(arguments);
+            return new TestCommand();
+
+        case ReportCommand.COMMAND_WORD:
+            return new ReportCommand();
 
         case AnswerCommand.COMMAND_WORD:
             return new AnswerCommandParser().parse(arguments);

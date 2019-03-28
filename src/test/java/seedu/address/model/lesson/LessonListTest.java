@@ -121,7 +121,7 @@ public class LessonListTest {
         lessonList.openLesson(0);
 
         // get openedLesson which has been set to valid lesson -> return valid lesson
-        Assert.assertNotNull(lessonList.getOpenedLesson());
+        assertNotNull(lessonList.getOpenedLesson());
 
         // close lesson -> openedLesson set to null
         lessonList.closeLesson();

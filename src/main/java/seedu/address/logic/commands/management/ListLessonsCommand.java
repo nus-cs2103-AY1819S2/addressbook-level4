@@ -17,7 +17,7 @@ import seedu.address.model.modelmanager.Model;
  * in the {@code List<Lesson> lessons} loaded in memory.
  *
  * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
- * command. The addition of the {@link Lesson} is carried out in the {@link ManagementModel}.
+ * command.
  */
 public class ListLessonsCommand extends ManagementCommand {
     /**

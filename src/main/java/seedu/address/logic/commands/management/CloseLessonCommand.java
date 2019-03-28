@@ -14,7 +14,7 @@ import seedu.address.model.modelmanager.Model;
  * {@code List<Lesson> lessons} loaded in memory.
  *
  * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
- * command. The closing of the {@link Lesson} is carried out in the {@link ManagementModel}.
+ * command.
  */
 public class CloseLessonCommand extends ManagementCommand {
     /**

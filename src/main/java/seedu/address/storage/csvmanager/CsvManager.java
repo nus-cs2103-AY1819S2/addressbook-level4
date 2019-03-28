@@ -19,8 +19,7 @@ public class CsvManager implements CsvCommands {
 
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
-    private static final String CARD_HEADERS = "Question,Answer,Hints";
-    private BufferedReader bufferedReader;
+    private static final String CARD_HEADERS = "Question,Answer,Options,Hints";
     private String defaultPath;
     private boolean setTestDefaultPath = false;
     public static final String DEFAULT_TEST_PATH = "./test/data/CsvCardFolderTest";
@@ -37,11 +36,11 @@ public class CsvManager implements CsvCommands {
         if (!fileExists(csvFile)) {
             throw new FileNotFoundException();
         }
-        String filePath = getDefaultFilePath() + "/" + csvFile.filename;
+        String filePath = defaultPath + "/" + csvFile.filename;
         String filename = csvFile.filename;
         String folderName = filename.split("\\.")[0];
         CardFolder cardFolder = new CardFolder(folderName);
-        bufferedReader = new BufferedReader(new FileReader(filePath));
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
         String line;
         String header = bufferedReader.readLine();
 

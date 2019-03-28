@@ -6,7 +6,10 @@ import static seedu.finance.logic.parser.CliSyntax.FLAG_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.FLAG_DATE;
 import static seedu.finance.logic.parser.CliSyntax.FLAG_NAME;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.SortCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
@@ -28,19 +31,22 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         Comparator<Record> comparator = null;
 
-        if (args.contains(" " + FLAG_NAME)) {
+        String[] words = args.split("\\s");
+        List<String> list = Arrays.asList(words);
+
+        if (list.contains(FLAG_NAME.getFlag())) {
             comparator = new RecordNameComparator();
             numFlags++;
         }
-        if (args.contains(" " + FLAG_AMOUNT)) {
+        if (list.contains(FLAG_AMOUNT.getFlag())) {
             comparator = new RecordAmountComparator();
             numFlags++;
         }
-        if (args.contains(" " + FLAG_DATE)) {
+        if (list.contains(FLAG_DATE.getFlag())) {
             comparator = new RecordDateComparator();
             numFlags++;
         }
-        if (args.contains(" " + FLAG_CATEGORY)) {
+        if (list.contains(FLAG_CATEGORY.getFlag())) {
             comparator = new RecordCategoryComparator();
             numFlags++;
         }

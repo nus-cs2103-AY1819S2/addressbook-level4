@@ -50,8 +50,8 @@ public class CommandTestUtil {
 
     public static final String DATE_1_VALID = "2019-10-03";
     public static final String DATE_2_VALID = "2019-05-03";
-    public static final String DEADLINE_DATE_INVALID = "2019-10-32";
-    public static final String DEADLINE_FORMAT_INVALID = "2019/10-03";
+    public static final String DATE_INVALID_DATE = "2019-10-32";
+    public static final String DATE_INVALID_FORMAT = "2019/10-03";
 
     public static final String PROPERTY_SEPARATOR_PREFIX = "/";
 
@@ -75,9 +75,13 @@ public class CommandTestUtil {
             + DEADLINE_STATUS_READY;
     public static final String DEADLINE_DESC_COMPLETE = DATE_2_VALID + PROPERTY_SEPARATOR_PREFIX
             + DEADLINE_STATUS_COMPLETE;
-    public static final String DEADLINE_DESC_INVALID_MISSING_STATUS = " " + PREFIX_DEADLINE_NEW + DEADLINE_DATE_INVALID;
-    public static final String DEADLINE_DESC_INVALID_WRONG_STATUS = " " + PREFIX_DEADLINE_NEW +
-            DEADLINE_DATE_INVALID + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_INVALID;
+    public static final String DEADLINE_DESC_INVALID_MISSING_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_1_VALID;
+    public static final String DEADLINE_DESC_INVALID_WRONG_STATUS = " " + PREFIX_DEADLINE_NEW + DATE_2_VALID
+            + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_INVALID;
+    public static final String DEADLINE_DESC_INVALID_DATE = " " + PREFIX_DEADLINE_NEW + DATE_INVALID_DATE
+            + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_READY;
+    public static final String DEADLINE_DESC_INVALID_FORMAT = " " + PREFIX_DEADLINE_NEW + DATE_INVALID_FORMAT
+            + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_READY;
 
     public static final String NAME_DESC_1_VALID = " " + PREFIX_NAME + NAME_1_VALID;
     public static final String NAME_DESC_2_VALID = " " + PREFIX_NAME + NAME_2_VALID;

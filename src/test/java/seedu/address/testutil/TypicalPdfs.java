@@ -154,6 +154,7 @@ public class TypicalPdfs {
     public static final Pdf SAMPLE_EDITEDPDF = new PdfBuilder().withName(sample_EditedPdf_1_path.toFile().getName())
             .withDirectory(sample_invalidPdf_1_path.toAbsolutePath().getParent().toString())
             .withTags("invalid", "pdf")
+            .withDeadline(DEADLINE_DESC_COMPLETE)
             .withSize(Long.toString(sample_invalidPdf_1_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_WITH_DEADLINE = new PdfBuilder(SAMPLE_PDF_1)
             .withDeadline(DEADLINE_DESC_COMPLETE).build();

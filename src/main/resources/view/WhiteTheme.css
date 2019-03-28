@@ -45,20 +45,29 @@
     -fx-font-size: 12pt;
 }
 
-/* For the welcome message in displayInfoPanel */
+/* For the welcome message in infoPanel */
 .background {
     font-family: "Comic Sans MS";
     padding-left: 20px;
-    font-size: 12pt;
+    font-size: 13pt;
 }
 
 .welcome-message {
     font-family: "Segoe UI Light";
+    margin: 10px 5px 10px 5px;
 }
 
 span.command {
-    font-family: "Lucida Console";
-    color: #00b894;
+    font-family: "Inconsolata";
+    font-weight: 400;
+    font-size: 12pt;
+    color: #079992;
+}
+
+.request-details {
+    font-family: "Segoe UI";
+    font-size: 11pt;
+    padding: 10px 20px 10px 20px;
 }
 
 /* For the healthWorkerListPanel */
@@ -78,6 +87,13 @@ span.command {
     -fx-background-radius: 4;
     -fx-font-size: 10pt;
 }
+
+.status-bar-info  {
+    -fx-font-family: "Segoe UI";
+    -fx-font-style: italic;
+    -fx-font-size: 12pt;
+}
+
 
 .list-cell {
     -fx-border-color: #D0D0D0;

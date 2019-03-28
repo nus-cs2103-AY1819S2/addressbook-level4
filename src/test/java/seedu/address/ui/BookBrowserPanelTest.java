@@ -1,13 +1,6 @@
 package seedu.address.ui;
 
-import static guitests.guihandles.BookWebViewUtil.waitUntilBrowserLoaded;
-import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalBooks.BOOKTHIEF;
-
-import java.net.URL;
-
 import org.junit.Before;
-import org.junit.Test;
 
 import guitests.guihandles.BookBrowserPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;

@@ -22,6 +22,7 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
     private final List<String> history;
     private ListElementPointer historySnapshot;
+    private boolean isCalendar = false;
 
     @FXML
     private TextField commandTextField;
@@ -31,6 +32,15 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         this.history = history;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        historySnapshot = new ListElementPointer(history);
+    }
+
+    public CommandBox(CommandExecutor commandExecutor, List<String> history, Boolean isCalendar) {
+        super(FXML);
+        this.commandExecutor = commandExecutor;
+        this.history = history;
+        this.isCalendar = isCalendar;
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = new ListElementPointer(history);
     }

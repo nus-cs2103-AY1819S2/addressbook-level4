@@ -113,12 +113,12 @@ public class Task {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle())
-                .append(" Title: ")
-                .append(getStartDate())
+        builder.append(" Title: ")
+                .append(getTitle())
                 .append(" Start Date: ")
-                .append(getEndDate())
-                .append(" End Date: ");
+                .append(getStartDate())
+                .append(" End Date: ")
+                .append(getEndDate());
         return builder.toString();
     }
 

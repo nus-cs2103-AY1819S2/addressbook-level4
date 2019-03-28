@@ -43,9 +43,9 @@ public class TaskCard extends UiPart<Region> {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
-        title.setText(task.getTitle().toString());
-        priority.setText("HIGH");
-        priority.setStyle("-fx-text-fill: black");
+        title.setText(task.getTitle().toString() + " ");
+        priority.setText("High");
+        priority.setStyle("-fx-text-fill: white");
         priority.getStyleClass().add("high");
         startDate.setText("Start Date: " + task.getStartDate().toString());
         endDate.setText("End Date:  " + task.getEndDate().toString());

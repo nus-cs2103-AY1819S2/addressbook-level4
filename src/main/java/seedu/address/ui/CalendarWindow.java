@@ -127,7 +127,6 @@ public class CalendarWindow extends UiPart<Stage> {
      * @param localDate Date to be given to datepicker to generate calendar
      */
     public void createCalender(LocalDate localDate) {
-
         this.datePicker = new DatePicker(localDate);
         datePicker.setDayCellFactory(new Callback<>() {
             @Override
@@ -181,11 +180,16 @@ public class CalendarWindow extends UiPart<Stage> {
         }
         for (Node node : out.lookupAll(".day-cell")) {
             node.setOnMouseClicked(event -> {
-                DateCell dateCell = (DateCell) node;
-                System.out.println("You clicked: " + dateCell.getItem().toString());
+                try {
+                    DateCell dateCell = (DateCell) node;
+                    System.out.println("You clicked: " + dateCell.getItem().format(format));
+                    logic.execute("taskcal " + dateCell.getItem().format(format));
+                } catch ( CommandException | ParseException e) {
+                    logger.info("Invalid date");
+                }
             });
         }
-        this.calendarPanel.getChildren().addAll(out);
+            this.calendarPanel.getChildren().addAll(out);
     }
     public void setDate (String newDate) {
         this.datePicker.setValue(LocalDate.parse(newDate, format));

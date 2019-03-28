@@ -70,7 +70,7 @@ public class CsvManager implements CsvCommands {
     private Card buildCard(String[] cardValues) {
         Question question = new Question(cardValues[0]);
         Answer answer = new Answer(cardValues[1]);
-        String[] hintArray = Arrays.copyOfRange(cardValues, 2, cardValues.length);
+        String hint = cardValues[cardValues.length - 1];
         Set<Hint> hintSet = Arrays.stream(hintArray).map(Hint::new).collect(Collectors.toSet());
         Card card = new Card(question, answer, new Score(0, 0), hintSet);
         return card;
@@ -138,8 +138,10 @@ public class CsvManager implements CsvCommands {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(card.getQuestion() + COMMA_DELIMITTER)
                 .append(card.getAnswer() + COMMA_DELIMITTER);
-        card.getHints().forEach(hint -> stringBuilder.append(hint.hintName)
+        card.getOptions().forEach(option -> stringBuilder.append(option.optionValue)
                 .append(COMMA_DELIMITTER));
+        card.getHints().forEach(hint -> stringBuilder.append(hint.hintName)
+            .append(COMMA_DELIMITTER));
         return stringBuilder.toString();
     }
 }

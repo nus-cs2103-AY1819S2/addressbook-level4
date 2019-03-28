@@ -52,15 +52,12 @@ public class CloseLessonCommand extends ManagementCommand {
         requireNonNull(model);
         ManagementModel mgtModel = requireManagementModel(model);
 
-        String lessonName;
-
         try {
-            lessonName = mgtModel.closeLesson();
+            String lessonName = mgtModel.closeLesson();
+            return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
         } catch (NullPointerException e) {
             throw new CommandException(MESSAGE_NO_OPENED_LESSON, e);
         }
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
     }
 
     /**

@@ -49,7 +49,7 @@ public class TeethPanel extends UiPart<Region> {
     }
 
     /**
-     * Test
+     * Uses patient information to load teeth image
      */
     private void loadTeeth(Person person) {
         String type;

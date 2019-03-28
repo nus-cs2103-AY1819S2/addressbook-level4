@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,9 +30,12 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor, List<String> history, Boolean dateOnly) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        this.history = history;
         if (dateOnly) {
+            this.history = new CommandHistory().getHistory();
             commandTextField.setPromptText("Enter Date here.....");
+        }
+        else {
+            this.history = history;
         }
         //calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());

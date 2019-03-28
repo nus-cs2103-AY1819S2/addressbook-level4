@@ -53,7 +53,9 @@ public class LogicManager implements Logic {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
-            history.add(commandText);
+            if (!commandText.contains("taskcal")) {
+                history.add(commandText);
+            }
         }
 
         if (addressBookModified) {

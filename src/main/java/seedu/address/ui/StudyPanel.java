@@ -21,7 +21,7 @@ public class StudyPanel extends UiPart<Region> {
     private static final PseudoClass ANSWER = PseudoClass.getPseudoClass("answer");
 
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
-    private final String YOUR_ANSWER_LABEL = "Your answer: ";
+    private final String YOUR_ANSWER_LABEL = "YOUR ANSWER\n\n";
 
     private final int NUMBER_OF_RATINGS = 5;
     private final int SPACE_SPANNED = 100;
@@ -56,6 +56,10 @@ public class StudyPanel extends UiPart<Region> {
         userAnswerLabel.setVisible(false);
         rateDifficulty.setVisible(false);
         card.pseudoClassStateChanged(ANSWER, false);
+        userAnswerLabel.setWrapText(true);
+        userAnswerLabel.setMaxWidth(500);
+
+
 
         textShown.addListener((observable, oldValue, newValue) -> {
             logger.info("textShown changed to: " + newValue);

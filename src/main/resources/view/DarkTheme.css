@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'Segoe UI Semibold';
+    src: url('seguisb.ttf') format("truetype");
+}
+
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
     background-color: #383838; /* Used in the default.html file */
@@ -159,6 +164,15 @@
     font-size: 16px;
     color: #606060;
     text-align: center;
+}
+
+body, html {
+    height: 99%;
+    display: grid;
+}
+
+span {
+    margin: auto;
 }
 
 .stack-pane {

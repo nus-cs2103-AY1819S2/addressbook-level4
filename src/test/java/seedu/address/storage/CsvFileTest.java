@@ -1,9 +1,16 @@
 package seedu.address.storage;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+
+import org.junit.rules.ExpectedException;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ImportCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.*;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CsvFile;
@@ -17,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.storage.csvmanager.CsvManager.DEFAULT_TEST_PATH;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 
@@ -25,8 +33,14 @@ public class CsvFileTest {
     private Model model = new ModelManager(new ArrayList<ReadOnlyCardFolder>(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+    private File typicalCardsFile;
+    private File typicalCardsFileTest;
     private final String TYPICAL_CARD_FOLDER = "Typical Cards.csv";
     private final String TYPICAL_CARD_FOLDER_TEST = "Typical Cards test.csv";
+    private final String INVALID_FILE_NAME = "Fake Cards.csv";
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     public CsvFileTest() throws IOException {
         model.setTestCsvPath();
@@ -35,8 +49,27 @@ public class CsvFileTest {
 
     @Before
     public void setUp() throws Exception {
-        file = new File(model.getDefaultPath()).getCanonicalFile();
+        typicalCardsFile = new File(model.getDefaultPath() + "/" + TYPICAL_CARD_FOLDER);
+        assert typicalCardsFile.exists();
+    }
 
+    @Test
+    public void execute_importTypicalCards_success() throws Exception {
+        ImportCommand importCommand = new ImportCommand(new CsvFile(TYPICAL_CARD_FOLDER));
+
+        Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+        CommandResult commandResult = importCommand.execute(model, commandHistory);
+        String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, TYPICAL_CARD_FOLDER);
+        assert (commandResult.getFeedbackToUser().equals(expectedMessage));
+        assert isSameCardFolders(model, expectedModel);
+    }
+
+    @Test
+    public void execute_importNonExistentCards_failure() throws Exception {
+        ImportCommand importCommand = new ImportCommand(new CsvFile(INVALID_FILE_NAME));
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(ImportCommand.MESSAGE_FILE_OPS_FAILURE);
+        importCommand.execute(model, commandHistory);
     }
 
 
@@ -45,10 +78,10 @@ public class CsvFileTest {
         //Model newModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         model.importCardFolders(new CsvFile(TYPICAL_CARD_FOLDER));
 
-        assert checkSameCardFolders(model, expectedModel);
+        assert isSameCardFolders(model, expectedModel);
     }
 
-    private boolean checkSameCardFolders(Model model, Model expectedModel) {
+    private boolean isSameCardFolders(Model model, Model expectedModel) {
         List<ReadOnlyCardFolder> cardFolderModel = model.getCardFolders();
         List<ReadOnlyCardFolder> cardFolderExpectedModel = expectedModel.getCardFolders();
 
@@ -92,13 +125,13 @@ public class CsvFileTest {
     public void execute_exportCsvFile_correctFile() throws IOException, CsvManagerNotInitialized {
         expectedModel.exportCardFolders(new ArrayList<>(Arrays.asList(1)));
         // System.out.println(DEFAULT_TEST_PATH);
-        String defaultPath = expectedModel.getDefaultPath();
-        String testFilePath = expectedModel.getDefaultPath() + "/" + TYPICAL_CARD_FOLDER_TEST;
-        File testFile = new File(testFilePath);
-        assert(testFile.exists());
-        byte[] f1 = Files.readAllBytes(Paths.get(testFile.toString()));
-        byte[] f2 = Files.readAllBytes(Paths.get(new File(defaultPath + "/" + TYPICAL_CARD_FOLDER)
+        typicalCardsFileTest = new File(model.getDefaultPath() + "/" + TYPICAL_CARD_FOLDER_TEST);
+        assert(typicalCardsFileTest.exists());
+        byte[] f1 = Files.readAllBytes(Paths.get(typicalCardsFile.toString()));
+        byte[] f2 = Files.readAllBytes(Paths.get(new File(typicalCardsFileTest.toString())
                 .toString()));
         assert (Arrays.equals(f1, f2));
+        
     }
+
 }

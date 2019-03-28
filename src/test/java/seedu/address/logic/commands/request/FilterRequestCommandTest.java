@@ -39,9 +39,9 @@ import seedu.address.model.request.Request;
 import seedu.address.model.request.RequestNameContainsKeywordPredicate;
 
 /**
- * Contains integration tests (interaction with Model) for {@code FindRequestCommand}
+ * Contains integration tests (interaction with Model) for {@code FilterRequestCommand}
  */
-class FindRequestCommandTest {
+public class FilterRequestCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
         getTypicalRequestBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(),
@@ -62,12 +62,12 @@ class FindRequestCommandTest {
         Predicate<Request> firstPredicate = new RequestNameContainsKeywordPredicate("first");
         Predicate<Request> secondPredicate = new RequestNameContainsKeywordPredicate("second");
 
-        FindRequestCommand findFirstRequestCommand = new FindRequestCommand(firstPredicate);
-        FindRequestCommand findSecondRequestCommand = new FindRequestCommand(secondPredicate);
+        FilterRequestCommand findFirstRequestCommand = new FilterRequestCommand(firstPredicate);
+        FilterRequestCommand findSecondRequestCommand = new FilterRequestCommand(secondPredicate);
 
         assertEquals(findFirstRequestCommand, findFirstRequestCommand);
 
-        FindRequestCommand findFirstRequestCommandCopy = new FindRequestCommand(firstPredicate);
+        FilterRequestCommand findFirstRequestCommandCopy = new FilterRequestCommand(firstPredicate);
         assertEquals(findFirstRequestCommand, findFirstRequestCommandCopy);
 
         assertNotEquals(findFirstRequestCommand, 1);
@@ -77,21 +77,21 @@ class FindRequestCommandTest {
         assertNotEquals(findFirstRequestCommand, findSecondRequestCommand);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void execute_singlePrefixSingleKeyword_oneOrderFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 1);
         Predicate<Request> predicate = preparePredicate(" n/alice");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE_REQUEST), model.getFilteredRequestList());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void execute_singlePrefixSingleKeyword_singleRequestFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 1);
         Predicate<Request> predicate = preparePredicate(" dt/02-01-2919 14:00:00");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL_REQUEST), model.getFilteredRequestList());
@@ -100,8 +100,8 @@ class FindRequestCommandTest {
     @Test
     public void execute_singlePrefixMultipleKeywords_singleRequestFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 1);
-        Predicate<Request> predicate = preparePredicate(" p/94359535");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        Predicate<Request> predicate = preparePredicate(" p/94351253");
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE_REQUEST), model.getFilteredRequestList());
@@ -111,7 +111,7 @@ class FindRequestCommandTest {
     public void execute_multiplePrefixSingleKeywords_singleRequestFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 1);
         Predicate<Request> predicate = preparePredicate(" p/82015737 c/Palliative");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(DANIEL_REQUEST), model.getFilteredRequestList());
@@ -121,7 +121,7 @@ class FindRequestCommandTest {
     public void execute_multiplePrefixSingleKeywords_zeroRequestsFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 0);
         Predicate<Request> predicate = preparePredicate(" dt/01-01-2019 10:00:00 c/Palliative");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredRequestList());
@@ -132,7 +132,7 @@ class FindRequestCommandTest {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 0);
         Predicate<Request> predicate =
             preparePredicate(" c/Cancer a/Jurong");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredRequestList());
@@ -142,7 +142,7 @@ class FindRequestCommandTest {
     public void execute_singleRepeatedPrefixSingleKeywordTakeLast_multipleRequestsFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 1);
         Predicate<Request> predicate = preparePredicate(" c/Dialysis c/Physiotherapy");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE_REQUEST), model.getFilteredRequestList());
@@ -152,7 +152,7 @@ class FindRequestCommandTest {
     public void execute_singlePrefixSingleKeyword_multipleOrdersFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 3);
         Predicate<Request> predicate = preparePredicate(" c/Palliative");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BENSON_REQUEST, CARL_REQUEST, DANIEL_REQUEST),
@@ -165,7 +165,7 @@ class FindRequestCommandTest {
         Predicate<Request> predicate =
             preparePredicate(" n/alice p/94351253 a/Jurong West Ave 6 dt/01-01-2019 10:00:00 "
                 + "c/Physiotherapy");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE_REQUEST), model.getFilteredRequestList());
@@ -176,14 +176,14 @@ class FindRequestCommandTest {
         String expectedMessage = String.format(MESSAGE_REQUESTS_LISTED_OVERVIEW, 0);
         Predicate<Request> predicate =
             preparePredicate(" n/alice dt/01-10-2018 10:00:00 c/Chicken Pox p/1223214 a/Block 38");
-        FindRequestCommand command = new FindRequestCommand(predicate);
+        FilterRequestCommand command = new FilterRequestCommand(predicate);
         expectedModel.updateFilteredRequestList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredRequestList());
     }
 
     /**
-     * Parses {@code userInput} into a {@code FindRequestCommand}.
+     * Parses {@code userInput} into a {@code FilterRequestCommand}.
      */
     private Predicate<Request> preparePredicate(String userInput) throws ParseException {
         ArgumentMultimap argMultimap = parseStringInput(userInput);
@@ -192,7 +192,7 @@ class FindRequestCommandTest {
             PREFIX_DATE, PREFIX_CONDITION)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_REQUEST_COMMAND_FORMAT,
-                FindRequestCommand.MESSAGE_USAGE));
+                FilterRequestCommand.MESSAGE_USAGE));
         }
 
         return new RequestPredicateUtil().parsePredicate(argMultimap);

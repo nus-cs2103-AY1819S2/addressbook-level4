@@ -23,8 +23,8 @@ public class AssignRequestCommandParser implements Parser<AssignRequestCommand> 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(userInput,
             PREFIX_HEALTHWORKER, PREFIX_REQUEST);
 
-        if (!ParserUtil.arePrefixesPresent(argumentMultimap, PREFIX_HEALTHWORKER, PREFIX_REQUEST) ||
-            !argumentMultimap.getPreamble().isEmpty()) {
+        if (!ParserUtil.arePrefixesPresent(argumentMultimap, PREFIX_HEALTHWORKER, PREFIX_REQUEST)
+            || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 AssignRequestCommand.MESSAGE_USAGE));
         }

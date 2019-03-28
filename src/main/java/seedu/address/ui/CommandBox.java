@@ -22,28 +22,22 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
     private final List<String> history;
     private ListElementPointer historySnapshot;
-    private boolean isCalendar = false;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor, List<String> history) {
+    public CommandBox(CommandExecutor commandExecutor, List<String> history, Boolean dateOnly) {
         super(FXML);
         this.commandExecutor = commandExecutor;
         this.history = history;
+        if (dateOnly) {
+            commandTextField.setPromptText("Enter Date here.....");
+        }
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = new ListElementPointer(history);
     }
 
-    public CommandBox(CommandExecutor commandExecutor, List<String> history, Boolean isCalendar) {
-        super(FXML);
-        this.commandExecutor = commandExecutor;
-        this.history = history;
-        this.isCalendar = isCalendar;
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
-        historySnapshot = new ListElementPointer(history);
-    }
 
     /**
      * Handles the key press event, {@code keyEvent}.

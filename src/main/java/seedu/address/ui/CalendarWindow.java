@@ -25,7 +25,6 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.datetime.DateCustom;
 
 /**
  *  Task Calendar Window. Provides a graphical interface for task viewing
@@ -184,12 +183,12 @@ public class CalendarWindow extends UiPart<Stage> {
                     DateCell dateCell = (DateCell) node;
                     System.out.println("You clicked: " + dateCell.getItem().format(format));
                     logic.execute("taskcal " + dateCell.getItem().format(format));
-                } catch ( CommandException | ParseException e) {
+                } catch (CommandException | ParseException e) {
                     logger.info("Invalid date");
                 }
             });
         }
-            this.calendarPanel.getChildren().addAll(out);
+        this.calendarPanel.getChildren().addAll(out);
     }
     public void setDate (String newDate) {
         this.datePicker.setValue(LocalDate.parse(newDate, format));

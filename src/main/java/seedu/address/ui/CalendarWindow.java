@@ -82,6 +82,39 @@ public class CalendarWindow extends UiPart<Stage> {
     }
 
     public void createCalender(LocalDate localDate) {
-    }
+
+        this.datePicker = new DatePicker(localDate);
+        datePicker.setDayCellFactory(new Callback<>() {
+            @Override
+            public DateCell call(DatePicker param) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty || item == null) {
+                            setText(null);
+                            setGraphic(null);
+
+                        } else {
+
+                            StackPane cell_pane = new StackPane();
+                            Circle circle = new Circle(15);
+
+                            Label label = new Label();
+                            label.setText(getText());
+                            label.setTextFill(Color.WHITE);
+                            label.setLabelFor(circle);
+                            label.setStyle("-fx-font-weight: bold; -fx-border-color: transparent");
+                            label.setFont(Font.font("Helvetica", 15));
+
+                            cell_pane.getChildren().addAll(circle, label);
+                            cell_pane.setPrefSize(50, 50);
+                            setGraphic(cell_pane);
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
 
 }

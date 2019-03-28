@@ -73,83 +73,127 @@ public class FindCommandTest {
     Testing name find.
      */
     @Test
-    public void execute_zeroKeywords_noPersonFound() throws ParseException {
+    public void execute_nameParameter() throws ParseException {
+        //No user input
         execute_parameterPredicate_test(0, " ", "name", true, false, Collections.emptyList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multiplePersonsFound() throws ParseException {
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(1, "ElLe", "name", true, false, Arrays.asList(ELLE));
+        //Single keyword, case sensitive, person found.
+        execute_parameterPredicate_test(0, "ElLe", "name", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
         execute_parameterPredicate_test(3, "Kurz Elle Kunz", "name", true, false, Arrays.asList(CARL, ELLE, FIONA));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "kurz Elle kunz", "name", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, multiple people found
+        execute_parameterPredicate_test(2, "kurz Elle Kunz", "name", false, false, Arrays.asList(ELLE, FIONA));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "Kurz Elle kunz", "name", false, true, Collections.emptyList());
     }
 
     /*
     Testing phone find
      */
     @Test
-    public void execute_zeroKeywords_noPhoneFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "phone", true, false, Collections.emptyList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multiplePhonesFound() throws ParseException {
+    public void execute_phoneParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "name", true, false, Collections.emptyList());
+        //Multiple keywords, or condition, multiple people found
         execute_parameterPredicate_test(3, "94351253 9482427 9482442", "phone",
             true, false, Arrays.asList(ALICE, FIONA, GEORGE));
+        //Multiple keywords, and condition, multiple people found
+        execute_parameterPredicate_test(0, "94351253 9482427 9482442", "phone",
+            true, true, Collections.emptyList());
     }
 
     /*
     Testing address find
      */
     @Test
-    public void execute_zeroKeywords_noAddressFound() throws ParseException {
+    public void execute_addressParameter() throws ParseException {
+        //No user input
         execute_parameterPredicate_test(0, " ", "addr", true, false, Collections.emptyList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleAddressFound() throws ParseException {
-        execute_parameterPredicate_test(3, "street", "addr", true, false, Arrays.asList(CARL, DANIEL, GEORGE));
+        //Single keyword, ignore case, people found.
+        execute_parameterPredicate_test(3, "ave", "addr", true, false, Arrays.asList(ALICE, BENSON, ELLE));
+        //Single keyword, case sensitive, people found.
+        execute_parameterPredicate_test(2, "Ave", "addr", false, false, Arrays.asList(ALICE, BENSON));
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(2, "jurong Clementi", "addr", true, false, Arrays.asList(ALICE, BENSON));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "jurong Clementi", "addr", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, multiple people found
+        execute_parameterPredicate_test(1, "jurong Clementi", "addr", false, false, Arrays.asList(BENSON));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "jurong Clementi", "addr", false, true, Collections.emptyList());
     }
 
     /*
     Testing email find
      */
-    @Test
-    public void execute_zeroKeywords_noEmailFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "email", true, false, Collections.emptyList());
-    }
 
     @Test
-    public void execute_multipleKeywords_multipleEmailsFound() throws ParseException {
-        execute_parameterPredicate_test(3,
-            "alice@example.com cornelia@example.com lydia@example.com", "email",
-            true, false, Arrays.asList(ALICE, DANIEL, FIONA));
+    public void execute_emailParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "email", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(1, "ALICE", "email", true, false, Arrays.asList(ALICE));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "ALICE", "email", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(2, "ALiCe anna", "email", true, false, Arrays.asList(ALICE, GEORGE));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "ALiCe anna", "email", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, one person found
+        execute_parameterPredicate_test(1, "ALiCe anna", "email", false, false, Arrays.asList(GEORGE));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "ALiCe anna", "email", false, true, Collections.emptyList());
     }
 
     /*
     Testing Date of Birth find
      */
-    @Test
-    public void execute_zeroKeywords_noDateOfBirthFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "dob", true, false, Collections.emptyList());
-    }
 
     @Test
-    public void execute_multipleKeywords_multipleDateOfBirthsFound() throws ParseException {
-        execute_parameterPredicate_test(5, "December", "dob",
+    public void execute_dateOfBirthParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "dob", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(5, "december", "dob",
             true, false, Arrays.asList(ALICE, BENSON, CARL, DANIEL, FIONA));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "december", "dob", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(4, "june 11", "dob",
+            true, false, Arrays.asList(ALICE, CARL, ELLE, GEORGE));
+        //Multiple keywords, ignore case, and condition, one person found
+        execute_parameterPredicate_test(1, "june 11", "dob",
+            true, true, Arrays.asList(ELLE));
+        //Multiple keywords, case sensitive, or condition, one person found
+        execute_parameterPredicate_test(4, "june 11", "dob",
+            false, false, Arrays.asList(ALICE, CARL, ELLE, GEORGE));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "june 11", "dob",
+            false, true, Collections.emptyList());
     }
 
     /*
     Testing Nric find
      */
     @Test
-    public void execute_zeroKeywords_noNricFound() throws ParseException {
+    public void execute_nricParameter() throws ParseException {
+        //No user input
         execute_parameterPredicate_test(0, " ", "nric", true, false, Collections.emptyList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleNricFound() throws ParseException {
-        execute_parameterPredicate_test(2, "S2334569A S5234569A", "nric",
-            true, false, Arrays.asList(ELLE, GEORGE));
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(1, "s1234567A", "nric", true, false, Arrays.asList(ALICE));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "s1234567A", "nric", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(2, "S1234567a S5234569A", "nric", true, false, Arrays.asList(ALICE, GEORGE));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "S1234567a S5234569A", "nric", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, one person found
+        execute_parameterPredicate_test(1, "S1234567a S5234569A", "nric", false, false, Arrays.asList(GEORGE));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "S1234567a S5234569A", "nric", false, true, Collections.emptyList());
     }
 
     /**
@@ -157,6 +201,8 @@ public class FindCommandTest {
      * @param expectedNum expected number of returned Persons after predicate
      * @param userInput predicate to test
      * @param parameter attribute to test
+     * @param isIgnoreCase flag for case sensitivity
+     * @param isAnd flag for AND operator
      * @param expectedList expected list after predicate has been applied
      */
     private void execute_parameterPredicate_test(int expectedNum, String userInput, String parameter,

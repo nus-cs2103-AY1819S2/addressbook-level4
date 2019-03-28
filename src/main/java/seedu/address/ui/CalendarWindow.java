@@ -135,7 +135,6 @@ public class CalendarWindow extends UiPart<Stage> {
                             label.setStyle("-fx-font-weight: bold; -fx-border-color: transparent");
                             label.setFont(Font.font("Helvetica", 15));
 
-                            DayOfWeek day = DayOfWeek.of(item.get(ChronoField.DAY_OF_WEEK));
                             if (item.getDayOfMonth() == 3 || item.getDayOfMonth() == 19) {
                                 circle.setFill(Color.web("#FF0000"));
                             }

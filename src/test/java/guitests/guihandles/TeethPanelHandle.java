@@ -1,9 +1,10 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
-import javafx.concurrent.Worker;
 import javafx.scene.Node;
 
+/**
+ * Provides a handle for Teethpanel
+ */
 public class TeethPanelHandle extends NodeHandle<Node> {
 
     public static final String TEETH_PANEL_ID = "#teethpanel";

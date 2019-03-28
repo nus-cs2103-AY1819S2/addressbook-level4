@@ -40,7 +40,8 @@ public class TaskCalendarCommand extends Command {
         requireNonNull(model);
         model.updateFilteredTaskList(predicate);
         if (dateInput.isToday()) {
-            return new CommandResult(String.format(MESSAGE_USING_CURRENT_DATE + MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
+            return new CommandResult(String.format(MESSAGE_USING_CURRENT_DATE
+                    + MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
         } else {
             return new CommandResult(String.format(MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
         }

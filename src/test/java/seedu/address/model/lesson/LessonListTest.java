@@ -122,11 +122,19 @@ public class LessonListTest {
     }
 
     @Test
-    public void openLesson_deleteCard_addSuccessful() {
+    public void openLesson_deleteCard_deleteSuccessful() {
         lessonList.openLesson(0);
         int size = lessonList.getOpenedLessonCards().size();
         lessonList.deleteCardFromOpenedLesson(0);
         assertEquals(size - 1, lessonList.getOpenedLessonCards().size());
+    }
+
+    @Test
+    public void openLesson_deleteCard_deleteUnsuccessful() {
+        lessonList.openLesson(0);
+        int size = lessonList.getOpenedLessonCards().size();
+        thrown.expect(IllegalArgumentException.class);
+        lessonList.deleteCardFromOpenedLesson(500);
     }
 
     @Test

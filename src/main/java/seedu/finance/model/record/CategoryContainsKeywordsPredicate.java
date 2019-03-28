@@ -22,7 +22,7 @@ public class CategoryContainsKeywordsPredicate implements Predicate<Record> {
     public boolean test(Record record) {
         StringBuilder categories = new StringBuilder();
         Iterator<Category> iterator = record.getCategories().iterator();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             categories.append(iterator.next().categoryName);
             categories.append(" ");
         }

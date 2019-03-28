@@ -46,8 +46,8 @@ public class RecCommand extends Command {
         StringBuilder sb = new StringBuilder();
         for (ModuleInfoCode moduleInfoCode : sortedList) {
             sb.append(moduleInfoCode.toString())
-              .append(" [").append(codeToReqMap.get(moduleInfoCode).name()).append("]")
-              .append("\n");
+                    .append(" [").append(codeToReqMap.get(moduleInfoCode).name()).append("]")
+                    .append("\n");
         }
 
         return sb.toString();

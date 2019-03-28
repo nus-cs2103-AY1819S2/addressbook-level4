@@ -88,7 +88,7 @@ public class DisplaymodCommand extends Command {
                 model.getDisplayList().get(i).getWorkloadString(),
                 model.getDisplayList().get(i).getPreclusionsString(),
                 model.getDisplayList().get(i).getPrerequisitesString()))
-              .append("\n\n\n");
+                .append("\n\n\n");
         }
 
         return sb.toString();

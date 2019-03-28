@@ -4,6 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.*;
+import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.storage.csvmanager.Exceptions.CsvManagerNotInitialized;
 
@@ -33,9 +34,50 @@ public class CsvFileTest {
     @Test
     public void execute_importCsvFile_correctFormat() throws Exception {
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
+        Model newModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         model.importCardFolders(new CsvFile(TYPICAL_CARD_FOLDER));
 
-        assertEquals(model.getCardFolders(), expectedModel.getCardFolders());
+        assert checkSameCardFolders(model, expectedModel);
+    }
+
+    private boolean checkSameCardFolders(Model model, Model expectedModel) {
+        List<ReadOnlyCardFolder> cardFolderModel = model.getCardFolders();
+        List<ReadOnlyCardFolder> cardFolderExpectedModel = expectedModel.getCardFolders();
+
+        assert(cardFolderExpectedModel.size() == cardFolderExpectedModel.size());
+        assert (isSameCardFolderList(cardFolderModel, cardFolderExpectedModel));
+        return true;
+    }
+
+    private boolean isSameCardFolderList(List<ReadOnlyCardFolder> cardFolders,
+                                         List<ReadOnlyCardFolder> expectedCardFolders) {
+        for (int i = 0; i < cardFolders.size(); i++) {
+            if (!sameCardsInFolder(cardFolders.get(i), expectedCardFolders.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    private boolean sameCardsInFolder(ReadOnlyCardFolder folder, ReadOnlyCardFolder expected) {
+        List<Card> folderCardList = folder.getCardList();
+        List<Card> expectedCardList = expected.getCardList();
+        assert (folderCardList.size() == expectedCardList.size());
+        int size = folderCardList.size();
+        for (int index = 0; index < size; index++) {
+            if (!isSameCard(folderCardList.get(index), expectedCardList.get(index)))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isSameCard(Card card, Card expected) {
+        assert (card.getHints().equals(expected.getHints()));
+        assert (card.getOptions().equals(expected.getOptions()));
+        assert (card.getQuestion().equals(expected.getQuestion()));
+        assert (card.getAnswer().equals(expected.getAnswer()));
+        return true;
     }
 
     @Test

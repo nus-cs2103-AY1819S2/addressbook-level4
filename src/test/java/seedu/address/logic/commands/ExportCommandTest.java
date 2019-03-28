@@ -47,7 +47,7 @@ public class ExportCommandTest {
         assertEquals(ExportCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
     }
 
-    /*
+
     @After
     public void deleteExportFile() {
         File file = new File("./Typical Cards.csv");
@@ -56,7 +56,7 @@ public class ExportCommandTest {
             assert (isDeleted);
         }
     }
-    */
+
 
     @Test
     public void execute_exportSingleInvalidCardFolderIndex_failure() throws Exception {

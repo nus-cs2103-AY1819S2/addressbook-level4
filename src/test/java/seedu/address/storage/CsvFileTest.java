@@ -31,7 +31,7 @@ public class CsvFileTest {
 
 
     @Test
-    public void execute_importCsvFile_correctFormat() throws IOException {
+    public void execute_importCsvFile_correctFormat() throws Exception {
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         model.importCardFolders(new CsvFile(TYPICAL_CARD_FOLDER));
 

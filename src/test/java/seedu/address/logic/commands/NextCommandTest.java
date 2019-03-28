@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_NEXT_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -40,7 +40,7 @@ public class NextCommandTest {
 
     @Test
     public void execute_invalidNextCommandOutsideTestSession_fail() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         assertCommandFailure(new NextCommand(), model, commandHistory, expectedMessage);
     }
 

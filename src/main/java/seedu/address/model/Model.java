@@ -240,9 +240,16 @@ public interface Model extends Observable {
      */
     boolean checkIfCardAlreadyAnswered();
 
+
     void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized;
 
     void importCardFolders(CsvFile csvFile) throws IOException, CommandException;
+
+    boolean inReportDisplay();
+
+    void enterReportDisplay();
+
+    void exitReportDisplay();
 
     void setTestCsvPath() throws IOException;
 

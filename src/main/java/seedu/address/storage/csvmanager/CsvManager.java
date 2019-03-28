@@ -28,6 +28,7 @@ public class CsvManager implements CsvCommands {
     private boolean setTestDefaultPath = false;
     public static final String DEFAULT_TEST_PATH = "./test/data/CsvCardFolderTest";
     private static final String DEFAULT_FILE_PATH = "./";
+    private static final String TEST_FOLDER_PATH = "test";
 
 
     public CsvManager() throws IOException {
@@ -98,13 +99,8 @@ public class CsvManager implements CsvCommands {
         String filepath = defaultPath;
         for (ReadOnlyCardFolder readOnlyCardFolder : cardFolders) {
             List<Card> cardList = readOnlyCardFolder.getCardList();
-            String foldername;
-            if (setTestDefaultPath) {
-                foldername = readOnlyCardFolder.getFolderName() + " test";
-            } else {
-                foldername = readOnlyCardFolder.getFolderName();
-            }
-            FileWriter fileWriter = new FileWriter(filepath + "/" + foldername + ".csv");
+            String folderName = getFolderName(readOnlyCardFolder);
+            FileWriter fileWriter = new FileWriter(filepath + "/" + folderName + ".csv");
             fileWriter.append(CARD_HEADERS + NEW_LINE_SEPARATOR);
             for (Card card : cardList) {
                 String cardRepresentation = getCardString(card);
@@ -117,8 +113,12 @@ public class CsvManager implements CsvCommands {
         }
     }
 
-    public static String getFilePathAsString(CsvFile csvFile) throws IOException {
-        return new File(DEFAULT_FILE_PATH + csvFile.filename).getCanonicalPath();
+    private String getFolderName(ReadOnlyCardFolder folder) {
+        String folderName = folder.getFolderName();
+        if (setTestDefaultPath) {
+            return folder + " " + TEST_FOLDER_PATH;
+        }
+        return folderName;
     }
 
     public static boolean fileExists(CsvFile csvFile) throws IOException {

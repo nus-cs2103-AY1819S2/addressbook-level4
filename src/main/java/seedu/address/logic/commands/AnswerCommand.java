@@ -38,7 +38,7 @@ public class AnswerCommand extends Command {
         requireNonNull(model);
 
         if (!model.checkIfInsideTestSession()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
         if (model.checkIfCardAlreadyAnswered()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);

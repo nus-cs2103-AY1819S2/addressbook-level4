@@ -59,20 +59,29 @@ public class CalendarWindow extends UiPart<Stage> {
 
         this.primaryStage = primaryStage;
         this.logic = logic;
+
     }
 
-
     private CommandResult executeCommand(String commandText) {
+        this.datePicker.setValue(LocalDate.now());
+        System.out.println(commandText);
+        CommandResult cr = new CommandResult("test");
+        return cr;
     }
 
     @FXML
     private void handleExit() {
-
+        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY());
+        logic.setGuiSettings(guiSettings);
+        primaryStage.close();
     }
 
     void show() {
         primaryStage.show();
     }
 
+    public void createCalender(LocalDate localDate) {
+    }
 
 }

@@ -11,6 +11,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.request.Request;
 import seedu.address.testutil.RequestBuilder;
 
+/**
+ * This class tests for any sort of standard operations done to the UI component,
+ * Info Panel.
+ * @author Hui Chun
+ */
 public class InfoPanelTest extends GuiUnitTest {
     private SimpleObjectProperty<Request> selectedRequest = new SimpleObjectProperty<>();
     private InfoPanel infoPanel;

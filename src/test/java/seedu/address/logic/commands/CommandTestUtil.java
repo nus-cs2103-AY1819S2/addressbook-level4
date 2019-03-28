@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.FindModuleDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -82,6 +83,9 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_CS2103T;
     public static final EditCommand.EditPersonDescriptor DESC_CS1010;
 
+    public static final FindCommand.FindModuleDescriptor FIND_CS2103T;
+    public static final FindCommand.FindModuleDescriptor FIND_CS1010;
+
     static {
         DESC_CS2103T = new EditPersonDescriptorBuilder().withName(VALID_MODULE_INFO_CODE_CS2103T)
                 .withSemester(VALID_SEMESTER_CS2103T)
@@ -95,6 +99,15 @@ public class CommandTestUtil {
                 .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS1010)
                 .withLectureHour(VALID_LECTURE_HOUR_CS1010)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
+        FIND_CS2103T = new FindModuleDescriptorBuilder().withCode(VALID_MODULE_INFO_CODE_CS2103T)
+                .withSemester(VALID_SEMESTER_CS2103T)
+                .withGrade(VALID_GRADE_CS2103T)
+                .withFinishedStatus(FINISHED_STATUS_FALSE).build();
+        FIND_CS1010 = new FindModuleDescriptorBuilder().withCode(VALID_MODULE_INFO_CODE_CS1010)
+                .withSemester(VALID_SEMESTER_CS1010)
+                .withGrade(VALID_GRADE_CS1010)
+                .withFinishedStatus(FINISHED_STATUS_FALSE).build();
     }
 
     /**

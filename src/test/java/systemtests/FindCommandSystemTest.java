@@ -1,6 +1,8 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_MODULETAKEN_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.FINISHED_STATUS_FALSE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FINISHED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODULE_INFO_CODE;
 
@@ -9,6 +11,7 @@ import static seedu.address.testutil.TypicalModuleTaken.CS1010S;
 import static seedu.address.testutil.TypicalModuleTaken.CS1010X;
 import static seedu.address.testutil.TypicalModuleTaken.CS2101;
 import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
+import static seedu.address.testutil.TypicalModuleTaken.GER1000;
 import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.LSM1301;
 import static seedu.address.testutil.TypicalModuleTaken.MA1521;
@@ -22,11 +25,12 @@ import seedu.address.model.Model;
 public class FindCommandSystemTest extends GradTrakSystemTest {
 
     @Test
-    public void find() {
+    public void find_codeOnly() {
+        Model expectedModel = getModel();
+
         // Case: find moduleTaken in GradTrak by code, command with leading spaces and trailing spaces -> 1 found
         String command = "   " + FindCommand.COMMAND_WORD + " "
                 + PREFIX_MODULE_INFO_CODE + KEYWORD_MATCHING_CS2103T + "   ";
-        Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, CS2103T);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -36,39 +40,63 @@ public class FindCommandSystemTest extends GradTrakSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        // Case: find non-existing moduleTaken in GradTrak -> 0 found
+        // Case: find non-existing ModuleInfoCode in GradTrak -> 0 found
         command = FindCommand.COMMAND_WORD + " " + PREFIX_MODULE_INFO_CODE + "abcdefg";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
+    }
 
-        // Case: find moduleTaken by Semester -> 2 found
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_SEMESTER + "Y4S2";
+    @Test
+    public void find_semesterOnly() {
+        Model expectedModel = getModel();
+
+        String command = FindCommand.COMMAND_WORD + " " + PREFIX_SEMESTER + "Y4S2";
         ModelHelper.setFilteredList(expectedModel, CS1010X, LSM1301);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+    }
 
-        // Case: find moduleTaken by Grade -> 6 found
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_GRADE + "A";
+    @Test
+    public void find_gradeOnly() {
+        Model expectedModel = getModel();
+
+        String command = FindCommand.COMMAND_WORD + " " + PREFIX_GRADE + "A";
         ModelHelper.setFilteredList(expectedModel, CS2103T, CS2101, CS1010S, CS1010X, MA1521, LSM1301);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+    }
 
-        // Case: find moduleTaken by multiple parameters -> 1 found
-        command = FindCommand.COMMAND_WORD + " " + PREFIX_MODULE_INFO_CODE + "CS " + PREFIX_SEMESTER + "Y3S2 "
-                + PREFIX_GRADE + "A";
+    @Test
+    public void find_finishedStatusOnly() {
+        Model expectedModel = getModel();
+
+        String command = FindCommand.COMMAND_WORD + " " + PREFIX_FINISHED + FINISHED_STATUS_FALSE;
+        ModelHelper.setFilteredList(expectedModel, CS2103T, CS2101, CS1010S, CS1010X, MA1521, LSM1301, GER1000);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+    }
+
+    @Test
+    public void find_multipleParameters() {
+        Model expectedModel = getModel();
+
+        String command = FindCommand.COMMAND_WORD + " " + PREFIX_MODULE_INFO_CODE + "CS " + PREFIX_SEMESTER + "Y3S2 "
+                + PREFIX_GRADE + "A " + PREFIX_FINISHED + FINISHED_STATUS_FALSE;
         ModelHelper.setFilteredList(expectedModel, CS2101);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+    }
 
-        // Case: find command with empty args
-        command = FindCommand.COMMAND_WORD;
+    @Test
+    public void find_emptyArgs() {
+        String command = FindCommand.COMMAND_WORD;
         assertCommandFailure(command,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code Messages#MESSAGE_PERSONS_LISTED_OVERVIEW} with the number of people in the filtered list,
+     * box displays {@code Messages#MESSAGE_MODULETAKEN_LISTED_OVERVIEW} with the number of people in the filtered list,
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code GradTrakSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
@@ -78,7 +106,7 @@ public class FindCommandSystemTest extends GradTrakSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel) {
         String expectedResultMessage = String.format(
-                MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
+                MESSAGE_MODULETAKEN_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);

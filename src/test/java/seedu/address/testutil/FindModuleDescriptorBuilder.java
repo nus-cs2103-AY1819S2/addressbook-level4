@@ -29,7 +29,7 @@ public class FindModuleDescriptorBuilder {
         descriptor.setSubCode(module.getModuleInfoCode().toString());
         descriptor.setSemester(module.getSemester());
         descriptor.setGrade(module.getExpectedMinGrade());
-        descriptor.setFinished(module.isFinished(Semester.Y1S1));
+        descriptor.setFinished(false);
     }
 
     /**

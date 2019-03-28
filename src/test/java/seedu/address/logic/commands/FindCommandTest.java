@@ -3,16 +3,22 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_MODULETAKEN_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.FINISHED_STATUS_FALSE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MIN_GRADE_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_INFO_CODE_CS1010;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_INFO_CODE_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SEMESTER_CS2103T;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.parser.ParserUtil.FINISHED_STATUS_TRUE;
+import static seedu.address.testutil.TypicalModuleTaken.CS1010S;
 import static seedu.address.testutil.TypicalModuleTaken.CS1010X;
+import static seedu.address.testutil.TypicalModuleTaken.CS2101;
 import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
+import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS;
 import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.LSM1301;
+import static seedu.address.testutil.TypicalModuleTaken.MA1521;
 import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -38,7 +44,6 @@ public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
     private CommandHistory commandHistory = new CommandHistory();
-    private Semester currentSemester = model.getCurrentSemester();
 
     @Test
     public void equals() {
@@ -80,95 +85,110 @@ public class FindCommandTest {
 
     @Test
     public void execute_nonExistingCode_noModuleFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_MODULETAKEN_LISTED_OVERVIEW, 0);
 
-        FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode("2103cs").build();
-        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
+        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder().withCode("2103cs").build();
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
-        FindCommand command = new FindCommand(fd);
-        expectedModel.updateFilteredPersonList(fp);
+        FindCommand command = new FindCommand(descriptor);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_codeOnly_multipleModulesFound() {
-        //TODO: fix this test to show multiple modules
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_MODULETAKEN_LISTED_OVERVIEW, 4);
 
-        FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode(KEYWORD_MATCHING_CS2103T).build();
-        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
+        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder().withCode(KEYWORD_MATCHING_CS).build();
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
-        FindCommand command = new FindCommand(fd);
-        expectedModel.updateFilteredPersonList(fp);
+        FindCommand command = new FindCommand(descriptor);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103T), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS2103T, CS2101, CS1010S, CS1010X), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_semesterOnly_multipleModulesFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_MODULETAKEN_LISTED_OVERVIEW, 2);
 
-        FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withSemester("Y4S2").build();
-        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
+        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder().withSemester("Y4S2").build();
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
-        FindCommand command = new FindCommand(fd);
-        expectedModel.updateFilteredPersonList(fp);
+        FindCommand command = new FindCommand(descriptor);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_gradeOnly_multipleModulesFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_MODULETAKEN_LISTED_OVERVIEW, 2);
 
-        FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withGrade("F").build();
-        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
+        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder().withGrade("F").build();
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
-        FindCommand command = new FindCommand(fd);
-        expectedModel.updateFilteredPersonList(fp);
+        FindCommand command = new FindCommand(descriptor);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CS2103T, CS1010X), model.getFilteredPersonList());
     }
 
     @Test
+    public void execute_finishedStatusOnly_multipleModulesFound() {
+        String expectedMessage = String.format(MESSAGE_MODULETAKEN_LISTED_OVERVIEW, 2);
+        model.setCurrentSemester(Semester.Y3S2);
+        expectedModel.setCurrentSemester(Semester.Y3S2);
+
+        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder()
+                .withFinishedStatus(FINISHED_STATUS_TRUE).build();
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
+
+        FindCommand command = new FindCommand(descriptor);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CS2103T, MA1521), model.getFilteredPersonList());
+    }
+
+    @Test
     public void execute_multipleParameters_noModuleFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_MODULETAKEN_LISTED_OVERVIEW, 0);
 
-        FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode(KEYWORD_MATCHING_CS2103T)
-                .withSemester("Y1S1").withGrade("A").withFinishedStatus("y").build();
-        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
+        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder().withCode(KEYWORD_MATCHING_CS2103T)
+                .withSemester("Y1S1").withGrade("A").withFinishedStatus(FINISHED_STATUS_TRUE).build();
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
-        FindCommand command = new FindCommand(fd);
-        expectedModel.updateFilteredPersonList(fp);
+        FindCommand command = new FindCommand(descriptor);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_multipleParameters_multipleModulesFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_MODULETAKEN_LISTED_OVERVIEW, 2);
 
-        FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withSemester("Y4S2")
-                .withGrade("D").withFinishedStatus("n").build();
-        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
+        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder().withSemester("Y4S2")
+                .withGrade("D").withFinishedStatus(FINISHED_STATUS_FALSE).build();
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
-        FindCommand command = new FindCommand(fd);
-        expectedModel.updateFilteredPersonList(fp);
+        FindCommand command = new FindCommand(descriptor);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_multipleParameters_oneModuleFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_MODULETAKEN_LISTED_OVERVIEW, 1);
 
-        FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode(KEYWORD_MATCHING_CS2103T)
-                .withSemester("Y1S2").withFinishedStatus("n").build();
-        FindModulePredicate fp = new FindModulePredicate(fd, currentSemester);
+        FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder().withCode(KEYWORD_MATCHING_CS2103T)
+                .withSemester("Y1S2").withFinishedStatus(FINISHED_STATUS_FALSE).build();
+        FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
-        FindCommand command = new FindCommand(fd);
-        expectedModel.updateFilteredPersonList(fp);
+        FindCommand command = new FindCommand(descriptor);
+        expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CS2103T), model.getFilteredPersonList());
     }

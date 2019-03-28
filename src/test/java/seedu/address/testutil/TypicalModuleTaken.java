@@ -19,6 +19,7 @@ import java.util.List;
 
 import seedu.address.model.GradTrak;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 
 /**
  * A utility class containing a list of {@code ModuleTaken} objects to be used in tests.
@@ -96,8 +97,12 @@ public class TypicalModuleTaken {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_CS2103T = "CS2103T"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_CS2103T = "CS2103T";
     public static final String KEYWORD_MATCHING_MA1521 = "MA1521";
+    public static final String KEYWORD_MATCHING_CS = "cs";
+    public static final String KEYWORD_MATCHING_MA = "ma";
+    public static final String KEYWORD_MATCHING_GE = "ge";
+
     private TypicalModuleTaken() {} // prevents instantiation
 
     /**
@@ -108,6 +113,8 @@ public class TypicalModuleTaken {
         for (ModuleTaken moduleTaken : getTypicalModulesTaken()) {
             ab.addModuleTaken(moduleTaken);
         }
+        ab.setCurrentSemester(Semester.Y1S1);
+
         return ab;
     }
 

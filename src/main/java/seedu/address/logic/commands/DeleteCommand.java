@@ -37,7 +37,7 @@ public class DeleteCommand extends Command {
         List<ModuleTaken> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MODULETAKEN_DISPLAYED_INDEX);
         }
 
         ModuleTaken moduleTakenToDelete = lastShownList.get(targetIndex.getZeroBased());

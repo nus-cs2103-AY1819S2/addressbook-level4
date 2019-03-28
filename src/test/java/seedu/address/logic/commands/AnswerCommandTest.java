@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_ANSWER_COMMAND;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -100,7 +100,7 @@ public class AnswerCommandTest {
 
     @Test
     public void execute_invalidAnswerOutsideTestSession_fail() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         AnswerCommand answerCommand = new AnswerCommand(new Answer(VALID_ANSWER_2));
         assertCommandFailure(answerCommand, model, commandHistory, expectedMessage);
     }

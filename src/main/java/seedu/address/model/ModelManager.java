@@ -59,6 +59,9 @@ public class ModelManager implements Model {
     private boolean cardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
 
+    // Report display related
+    private boolean inReportDisplay = false;
+
     // Export related
     private CsvManager csvManager = new CsvManager();
 
@@ -319,6 +322,24 @@ public class ModelManager implements Model {
         VersionedCardFolder versionedCardFolder = getActiveVersionedCardFolder();
         versionedCardFolder.commit();
     }
+
+    //=========== Report Displayed =======================================================================
+    @Override
+    public boolean inReportDisplay() {
+        return inReportDisplay;
+    }
+
+    @Override
+    public void enterReportDisplay() {
+        inReportDisplay = true;
+    }
+
+    @Override
+    public void exitReportDisplay() {
+        inReportDisplay = false;
+    }
+
+
 
     //=========== Test Session ===========================================================================
 

@@ -244,6 +244,12 @@ public interface Model extends Observable {
      */
     boolean checkIfCardAlreadyAnswered();
 
+    boolean inReportDisplay();
+
+    void enterReportDisplay();
+
+    void exitReportDisplay();
+
     void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException;
 
     void importCardFolders(CsvFile csvFile) throws IOException;

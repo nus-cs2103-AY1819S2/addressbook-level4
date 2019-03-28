@@ -63,7 +63,7 @@ public class Deck implements ListItem {
     }
 
     /**
-     * Replaces a
+     * Replaces {@code target} in the deck with {@code editedCard}.
      */
     public void setCard(Card target, Card editedCard) {
         assert hasCard(target);
@@ -72,7 +72,7 @@ public class Deck implements ListItem {
     }
 
     /**
-     * Removes {@code Card} target in the current deck.
+     * Removes {@code target} in the current deck.
      */
     public void removeCard(Card target) throws CardNotFoundException {
         assert hasCard(target);

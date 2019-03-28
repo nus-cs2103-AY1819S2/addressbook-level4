@@ -159,7 +159,6 @@ public class AddCardCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
         @Override
         public void deleteCard(Card target) {
             throw new AssertionError("This method should not be called.");
@@ -217,6 +216,11 @@ public class AddCardCommandTest {
 
         @Override
         public void setSelectedItem(ListItem item) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Deck getDeck(Deck target) {
             throw new AssertionError("This method should not be called.");
         }
 

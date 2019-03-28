@@ -160,6 +160,11 @@ public class AddDeckCommandTest {
         }
 
         @Override
+        public Deck getDeck(Deck target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<ListItem> getFilteredList() {
             throw new AssertionError("This method should not be called.");
         }

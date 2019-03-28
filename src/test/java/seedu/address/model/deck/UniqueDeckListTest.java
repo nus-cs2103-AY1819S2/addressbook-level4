@@ -63,6 +63,26 @@ public class UniqueDeckListTest {
     }
 
     @Test
+    public void getDeck_nullTargetDeck_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        uniqueDeckList.getDeck(null);
+    }
+
+    @Test
+    public void getDeck_targetDeckNotInList_throwsDeckNotFoundException() {
+        thrown.expect(DeckNotFoundException.class);
+        uniqueDeckList.getDeck(DECK_A);
+    }
+
+    @Test
+    public void getDeck_targetDeckInList_success() {
+        uniqueDeckList.add(DECK_A);
+        uniqueDeckList.add(DECK_B);
+        Deck retrievedDeck = uniqueDeckList.getDeck(DECK_A);
+        assertTrue(retrievedDeck.isSameDeck(DECK_A));
+    }
+
+    @Test
     public void setDeck_nullTargetDeck_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         uniqueDeckList.setDeck(null, DECK_A);

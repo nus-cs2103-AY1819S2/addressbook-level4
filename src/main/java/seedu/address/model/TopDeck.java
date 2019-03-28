@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -88,6 +89,8 @@ public class TopDeck implements ReadOnlyTopDeck {
      * The card should not already exist in the {@code deck} activeDeck.
      */
     public Deck addCard(Card card, Deck activeDeck) throws DuplicateCardException, DeckNotFoundException {
+        requireAllNonNull(card, activeDeck);
+
         if (!decks.contains(activeDeck)) {
             throw new DeckNotFoundException();
         }

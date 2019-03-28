@@ -17,7 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.InOutAddressBookStorage;
 import seedu.address.storage.StorageManager;
 
 /**
@@ -28,7 +28,7 @@ public class OpenCommand extends Command {
     public static final String COMMAND_WORD = "open";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": open a text file in the \"data\" folder and overwrites the current addressbook\n"
+            + ": Opens a .json file in the \"data\" folder and overwrites the current addressbook\n"
             + "Parameters: FILENAME\n"
             + "Example: " + COMMAND_WORD + " records1.json";
 
@@ -53,31 +53,31 @@ public class OpenCommand extends Command {
      * readFile() overwrites the current address book with the contents of the file.
      */
     private void readFile(Model model) {
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(file.toPath());
+        AddressBookStorage openStorage = new InOutAddressBookStorage(file.toPath());
 
-        StorageManager storage = new StorageManager(addressBookStorage, null);
+        StorageManager openStorageManager = new StorageManager(openStorage, null);
 
         final Logger logger = LogsCenter.getLogger(MainApp.class);
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        ReadOnlyAddressBook openData;
 
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = openStorageManager.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample AddressBook");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            openData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. "
                                + "Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            openData = new AddressBook();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. "
                                + "Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            openData = new AddressBook();
         }
 
-        model.setAddressBook(initialData);
+        model.setAddressBook(openData);
     }
 }

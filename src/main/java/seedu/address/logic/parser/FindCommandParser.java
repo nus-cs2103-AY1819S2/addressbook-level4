@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.MultipleContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NricContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
@@ -74,22 +76,27 @@ public class FindCommandParser implements Parser<FindCommand> {
             PREFIX_NRIC, PREFIX_YEAR};
 
         String[] keywords = new String[1];
-        ContainsKeywordsPredicate predicate = new PhoneContainsKeywordsPredicate(Arrays.asList(keywords));
+        ContainsKeywordsPredicate predicate;
+        MultipleContainsKeywordsPredicate multiPredicate =
+            new MultipleContainsKeywordsPredicate(Arrays.asList(keywords), isIgnoreCase, isAnd);
+
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
 
         for (Prefix pref: prefixArr) {
             if (argMultimap.getValue(pref).isPresent()) {
                 keywords = argMultimap.getValue(pref).get().split("\\s+");
                 predicate = getKeywordsPredicate(pref, Arrays.asList(keywords), isIgnoreCase, isAnd);
+                predicateList.add(predicate);
                 prefixNum++;
             }
         }
 
-        if (prefixNum != 1) {
-            throw new ParseException("Find only accepts 1 parameter searching!");
+        if (prefixNum < 1) {
+            throw new ParseException("Find needs at least 1 parameter for searching!");
         }
+        multiPredicate.setPredicateList(predicateList);
 
-        //TODO: Check which parameter is used.
-        return new FindCommand(predicate);
+        return new FindCommand(multiPredicate);
     }
 
     private static ContainsKeywordsPredicate getKeywordsPredicate(Prefix prefix, List<String> keywords,

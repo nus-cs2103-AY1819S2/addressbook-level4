@@ -32,6 +32,7 @@ public class Card implements ListItem {
         this.question = question;
         this.answer = answer;
         this.tags.addAll(tags);
+        this.difficulty = new Difficulty();
     }
 
     public int getDifficulty() { return difficulty.getDifficulty(); }

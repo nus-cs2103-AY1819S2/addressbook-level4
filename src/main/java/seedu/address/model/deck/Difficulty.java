@@ -20,7 +20,7 @@ public class Difficulty {
         numberOfAttempts += 1;
     }
 
-    public int getDifficulty() {return totalRating / numberOfAttempts};
+    public int getDifficulty() {return totalRating / numberOfAttempts; };
 
 
 }

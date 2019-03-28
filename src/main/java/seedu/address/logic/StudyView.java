@@ -46,6 +46,7 @@ public class StudyView implements ViewState {
                 if (getCurrentStudyState() == studyState.QUESTION) {
                     return new ShowAnswerCommand(commandWord+arguments);
                 } else {
+                    addRating(Integer.parseInt(commandWord));
                     return new GenerateQuestionCommand();
                 }
         }

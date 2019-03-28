@@ -58,7 +58,7 @@ public class TeethPanel extends UiPart<Region> {
         stack.setMaxHeight(Double.MAX_VALUE);
         String basepath = System.getProperty("user.dir");
         int[] teethList = ((Patient) person).getTeeth().exportTeeth();
-        File imgFile = new File(basepath + "/src/main/resources/images/teeth/BaseLayer2.png");
+        File imgFile = new File(basepath + "/src/main/resources/images/teeth/BaseLayer.png");
         try {
             BufferedImage main = ImageIO.read(imgFile);
             for (int i = 0; i < teethList.length; i++) {

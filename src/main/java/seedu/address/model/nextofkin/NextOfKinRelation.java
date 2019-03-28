@@ -1,4 +1,4 @@
-package seedu.address.model.patient;
+package seedu.address.model.nextofkin;
 
 import static java.util.Objects.requireNonNull;
 

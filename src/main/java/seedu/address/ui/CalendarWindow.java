@@ -60,6 +60,24 @@ public class CalendarWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
 
+        taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
+        taskListPanel.setForCalender();
+        taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
+
+        VBox vb = new VBox();
+        CommandBox commandBox = new CommandBox(this::executeCommand, this.logic.getHistory(), true);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        this.calendarPanel = new StackPane();
+        LocalDate localDate = LocalDate.now();
+        createCalender(localDate);
+        vb.getChildren().addAll(calendarPanel, commandBoxPlaceholder);
+        SplitPane sp = new SplitPane();
+        sp.getItems().addAll(taskListPanelPlaceholder, vb);
+
+        Scene scene = new Scene(sp);
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
     }
 
     private CommandResult executeCommand(String commandText) {

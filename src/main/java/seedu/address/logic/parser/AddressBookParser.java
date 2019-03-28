@@ -35,6 +35,7 @@ import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.logic.commands.TaskDeleteCommand;
 import seedu.address.logic.commands.TaskEditCommand;
 import seedu.address.logic.commands.TaskcopyCommand;
+import seedu.address.logic.commands.TeethEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -150,6 +151,9 @@ public class AddressBookParser {
 
         case RecordDeleteCommand.COMMAND_WORD:
             return new RecordDeleteCommandParser().parse(arguments);
+
+        case TeethEditCommand.COMMAND_WORD:
+            return new TeethEditCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

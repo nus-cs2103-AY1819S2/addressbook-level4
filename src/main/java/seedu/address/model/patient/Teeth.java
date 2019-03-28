@@ -110,6 +110,15 @@ public class Teeth implements ExportableTeeth {
     }
 
     /**
+     * Checks if the tooth number is valid.
+     * @param toothNumber the tooth number to be checked.
+     * @return true if valid, false otherwise.
+     */
+    public static boolean isValidTooth(int toothNumber) {
+        return toothNumber > 0 && toothNumber < 33;
+    }
+
+    /**
      * For permanent tooth.
      * Returns a Tooth representing a patient's tooth using a tooth number.
      * @param index the tooth number of tooth to be retrieved.

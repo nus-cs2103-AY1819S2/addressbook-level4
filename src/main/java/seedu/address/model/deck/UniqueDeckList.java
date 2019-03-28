@@ -41,6 +41,10 @@ public class UniqueDeckList implements Iterable<Deck> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Returns the deck that has the same identifier as {@code target}.
+     * The deck must exist in the list.
+     */
     public Deck getDeck(Deck target) {
         requireNonNull(target);
 

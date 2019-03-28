@@ -88,9 +88,8 @@ public class EditCardCommand extends Command {
             }
 
             model.setCard(cardToEdit, editedCard);
-            cardsView.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
             model.commitTopDeck();
-            return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
+            return new UpdatePanelCommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
         } else {
             Card cardToEdit = (Card) lastShownList.get(index.getZeroBased());
             String question = cardToEdit.getQuestion();

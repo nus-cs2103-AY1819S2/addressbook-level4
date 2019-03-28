@@ -161,16 +161,15 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteCard(Card target) {
+        requireNonNull(target);
+
         if (!(viewState instanceof CardsView)) {
             throw new IllegalOperationWhileReviewingDeckException();
         }
 
         CardsView cardsView = (CardsView)viewState;
-        versionedTopDeck.deleteCard(target, cardsView.getActiveDeck());
-
-        cardsView.filteredCards.remove(target);
-
-        setSelectedItem(cardsView.selectedCard.getValue());
+        Deck editedDeck = versionedTopDeck.deleteCard(target, cardsView.getActiveDeck());
+        changeDeck(editedDeck);
     }
 
     @Override
@@ -195,7 +194,8 @@ public class ModelManager implements Model {
         }
 
         CardsView cardsView = (CardsView)viewState;
-        versionedTopDeck.setCard(target, editedCard, cardsView.getActiveDeck());
+        Deck editedDeck = versionedTopDeck.setCard(target, editedCard, cardsView.getActiveDeck());
+        changeDeck(editedDeck);
     }
 
     @Override

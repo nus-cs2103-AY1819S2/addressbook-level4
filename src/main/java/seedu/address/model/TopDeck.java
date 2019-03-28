@@ -108,7 +108,7 @@ public class TopDeck implements ReadOnlyTopDeck {
      * Deletes a card in TopDeck
      * The {@code Card} target should exist in the {@code deck} activeDeck.
      */
-    public void deleteCard(Card target, Deck activeDeck) throws DeckNotFoundException, CardNotFoundException {
+    public Deck deleteCard(Card target, Deck activeDeck) throws DeckNotFoundException, CardNotFoundException {
         if (!decks.contains(activeDeck)) {
             throw new DeckNotFoundException();
         }
@@ -117,18 +117,20 @@ public class TopDeck implements ReadOnlyTopDeck {
             throw new CardNotFoundException();
         }
 
-        activeDeck.removeCard(target);
-
-        decks.setDeck(activeDeck, activeDeck);
+        Deck editedDeck = new Deck(activeDeck);
+        editedDeck.removeCard(target);
+        decks.setDeck(activeDeck, editedDeck);
 
         indicateModified();
+
+        return editedDeck;
     }
 
     /**
      * Sets a card in TopDeck
      * The {@code Card} target should exist in the {@code deck} activeDeck.
      */
-    public void setCard(Card target, Card newCard, Deck activeDeck) throws DeckNotFoundException,
+    public Deck setCard(Card target, Card newCard, Deck activeDeck) throws DeckNotFoundException,
         CardNotFoundException {
         if (!decks.contains(activeDeck)) {
             throw new DeckNotFoundException();
@@ -138,12 +140,14 @@ public class TopDeck implements ReadOnlyTopDeck {
             throw new CardNotFoundException();
         }
 
-        activeDeck.removeCard(target);
-        activeDeck.addCard(newCard);
+        Deck editedDeck = new Deck(activeDeck);
+        editedDeck.setCard(target, newCard);
 
-        decks.setDeck(activeDeck, activeDeck);
+        decks.setDeck(activeDeck, editedDeck);
 
         indicateModified();
+
+        return editedDeck;
     }
 
     //// deck operations

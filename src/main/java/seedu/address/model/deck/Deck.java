@@ -62,6 +62,12 @@ public class Deck implements ListItem {
         this.cards.add(newCard);
     }
 
+    public void setCard(Card target, Card editedCard) {
+        assert hasCard(target);
+
+        cards.setCard(target, editedCard);
+    }
+
     /**
      * Removes {@code Card} target in the current deck.
      */

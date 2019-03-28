@@ -21,12 +21,18 @@ public class RecCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":Recommends a list of modules that can be taken "
             + "based on completed modules and course requirements.";
 
+    public static final String MESSAGE_REC = "Recommended modules found";
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         HashMap<ModuleInfoCode, CourseReqType> codeToReqMap = model.updateRecModuleList();
 
-        return new CommandResult(generateResultString(model.getRecModuleListSorted(), codeToReqMap));
+        ObservableList<ModuleInfoCode> sortedList = model.getRecModuleListSorted();
+        if (sortedList.isEmpty()) {
+            return new CommandResult(MESSAGE_REQ_COMPLETED);
+        }
+        return new CommandResult(MESSAGE_REC, generateResultString(sortedList, codeToReqMap));
     }
 
     /**
@@ -37,15 +43,11 @@ public class RecCommand extends Command {
      */
     private static String generateResultString(ObservableList<ModuleInfoCode> sortedList,
                                                HashMap<ModuleInfoCode, CourseReqType> codeToReqMap) {
-        if (sortedList.isEmpty()) {
-            return MESSAGE_REQ_COMPLETED;
-        }
-
-        StringBuilder sb = new StringBuilder().append("Recommended modules:\n");
+        StringBuilder sb = new StringBuilder();
         for (ModuleInfoCode moduleInfoCode : sortedList) {
             sb.append(moduleInfoCode.toString())
-                    .append(" [").append(codeToReqMap.get(moduleInfoCode).name()).append("]")
-                    .append("\n");
+              .append(" [").append(codeToReqMap.get(moduleInfoCode).name()).append("]")
+              .append("\n");
         }
 
         return sb.toString();

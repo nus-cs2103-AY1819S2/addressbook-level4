@@ -58,7 +58,8 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     public void loadContent(String toPrint) {
-        Platform.runLater(() -> browser.getEngine().loadContent("<html>" + toPrint + "</html>"));
+        Platform.runLater(() -> browser.getEngine().loadContent("<html><span style='white-space: pre-line'>" + toPrint
+                + "</span></html>"));
     }
 
     /**

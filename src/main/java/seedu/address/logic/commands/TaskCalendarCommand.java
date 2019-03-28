@@ -20,7 +20,7 @@ public class TaskCalendarCommand extends Command {
             + "13-05-2019\n"
             + "If no date is provided, the current date will be used\n";
 
-    public static final String MESSAGE_EXPAND_PERSON_SUCCESS = "Task Calendar displayed";
+    public static final String MESSAGE_DISPLAY_CALENDAR_SUCCESS = "Task Calendar displayed for Date: ";
 
     public final DateCustom dateInput;
 
@@ -33,7 +33,7 @@ public class TaskCalendarCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-
+        return new CommandResult(String.format(MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);
     }
 
     @Override

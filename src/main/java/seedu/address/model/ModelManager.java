@@ -206,6 +206,18 @@ public class ModelManager implements Model {
         versionedAddressBook.setRecord(target, editedRecord);
     }
 
+    /**
+     * Update tags based on teeth data.
+     *
+     * @param target the patient to update tags.
+     */
+    @Override
+    public void updateTags(Patient target) {
+        Patient editedTarget = target.copy();
+        versionedAddressBook.setPerson(target, editedTarget);
+        MainWindow.setRecordPatient(editedTarget);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

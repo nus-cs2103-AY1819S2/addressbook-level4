@@ -75,6 +75,7 @@ public class Patient extends Person {
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         buildAdultTeeth();
+        updateTags();
     }
 
     /**
@@ -110,6 +111,26 @@ public class Patient extends Person {
     private void addRelevantTags() {
         addTag(new TeethTag(TemplateTags.ADULT));
         addTag(new StatusTag(TemplateTags.HEALTHY));
+    }
+
+    /**
+     * Looks at the current status of the teeth,
+     * and updates the status tag of the teeth appropriately.
+     */
+    public void updateTags() {
+        boolean absent = teeth.checkFor(Teeth.ABSENT);
+        boolean problematic = teeth.checkFor(Teeth.PROBLEMATIC);
+
+        if (absent) {
+            addTag(new StatusTag(TemplateTags.ABSENTTOOTH));
+        } else if (problematic) {
+            addTag(new StatusTag(TemplateTags.STATUSTOOTH));
+        } else {
+            addTag(new StatusTag(TemplateTags.HEALTHY));
+        }
+
+        // Only one option at the moment.
+        addTag(new TeethTag(TemplateTags.ADULT));
     }
 
     /**
@@ -157,6 +178,15 @@ public class Patient extends Person {
 
     public Sex getSex() {
         return sex;
+    }
+
+    /**
+     * Return a Patient with changed tags
+     * @return a new Patient instance.
+     */
+    public Patient copy() {
+        return new Patient(this.name, this.phone, this.email, this.address, tags, this.nric, this.getDateOfBirth(),
+                this.records, this.teeth, this.sex);
     }
 
     /**

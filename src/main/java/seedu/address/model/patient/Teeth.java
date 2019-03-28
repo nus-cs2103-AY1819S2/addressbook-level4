@@ -67,6 +67,27 @@ public class Teeth implements ExportableTeeth {
     }
 
     /**
+     * Checks for a particular status in the teeth.
+     * @param status the status to check for.
+     * @return true if exists, false otherwise.
+     */
+    public boolean checkFor(int status) {
+        if (!(status != ABSENT && status != PROBLEMATIC && status != HEALTHY)) {
+            int[] teeth = this.exportTeeth();
+
+            for (int tooth : teeth) {
+                if (tooth == status) {
+                    return true;
+                }
+            }
+
+            return false;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Initialises a set of good permanent teeth.
      */
     private void setPermanentTeeth() {

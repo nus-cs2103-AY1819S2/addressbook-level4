@@ -180,6 +180,14 @@ public interface Model {
      */
     void setRecord(Record target, Record editedRecord);
 
+    //=========== Tags =================================================================================
+
+    /**
+     * Update tags based on teeth data.
+     * @param patient the patient to update tags.
+     */
+    void updateTags(Patient patient);
+
     //=========== Undo/Redo/Commit =================================================================================
 
     boolean canUndoAddressBook();

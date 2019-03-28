@@ -2,13 +2,13 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Teeth;
-import seedu.address.model.person.Person;
 import seedu.address.ui.MainWindow;
 
 /**
@@ -50,10 +50,13 @@ public class TeethEditCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        Person personToEdit = MainWindow.getRecordPatient();
-        Teeth teethToEdit = ((Patient) personToEdit).getTeeth();
+        Patient personToEdit = MainWindow.getRecordPatient();
+        Teeth teethToEdit = personToEdit.getTeeth();
         teethToEdit.getTooth(toothNumber).setTo(status);
 
+        model.updateTags(personToEdit);
+
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_EDIT_TOOTH_SUCCESS));

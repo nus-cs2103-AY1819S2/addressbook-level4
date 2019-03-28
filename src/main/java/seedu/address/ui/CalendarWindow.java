@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -41,6 +42,8 @@ public class CalendarWindow extends UiPart<Stage> {
     private TaskListPanel taskListPanel;
     private DatePicker datePicker;
 
+    private DateTimeFormatter format;
+
     @FXML
     private StackPane taskListPanelPlaceholder;
     @FXML
@@ -49,11 +52,12 @@ public class CalendarWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
 
-    public CalendarWindow(Stage primaryStage, Logic logic) {
+    public CalendarWindow(Stage primaryStage, Logic logic, LocalDate givenDate) {
         super(FXML, primaryStage);
 
         this.primaryStage = primaryStage;
         this.logic = logic;
+        this.format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanel.setForCalender();
@@ -66,8 +70,7 @@ public class CalendarWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         this.calendarPanel = new StackPane();
-        LocalDate localDate = LocalDate.now();
-        createCalender(localDate);
+        createCalender(givenDate);
         vb.getChildren().addAll(calendarPanel, commandBoxPlaceholder);
         SplitPane sp = new SplitPane();
         sp.getItems().addAll(taskListPanelPlaceholder, vb);
@@ -76,7 +79,6 @@ public class CalendarWindow extends UiPart<Stage> {
         this.primaryStage.setScene(scene);
         scene.getStylesheets().add("view/Calendar.css");
         this.primaryStage.setTitle("Task Calendar");
-        this.primaryStage.show();
     }
 
     /**
@@ -104,11 +106,14 @@ public class CalendarWindow extends UiPart<Stage> {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
-        primaryStage.close();
+        primaryStage.hide();
     }
 
-    void show() {
+    public void show() {
         primaryStage.show();
+    }
+    public boolean isShowing() {
+        return primaryStage.isShowing();
     }
 
     /**
@@ -176,6 +181,9 @@ public class CalendarWindow extends UiPart<Stage> {
             });
         }
         this.calendarPanel.getChildren().addAll(out);
+    }
+    public void setDate (String newDate) {
+        this.datePicker.setValue(LocalDate.parse(newDate, format));
     }
 
 }

@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
     private static boolean goToMode = false;
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MESSAGE_CALENDAR_SHOWN = "Task Calendar is already displayed";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -206,9 +207,19 @@ public class MainWindow extends UiPart<Stage> {
         statWindow.populateData();
         statWindow.show();
     }
-
+    /**
+     * Opens a Task Calendar window popup and focuses with new date if already showing
+     */
     public void handleCalendar(String input) {
-        String date = input.substring(input.lastIndexOf(" ") + 1);
+        if (calendarWindow.isShowing()) {
+            resultDisplay.setFeedbackToUser(MESSAGE_CALENDAR_SHOWN);
+            calendarWindow.setDate(input);
+            calendarWindow.focus();
+        }
+        else {
+            calendarWindow.setDate(input);
+            calendarWindow.show();
+        }
     }
 
     /**
@@ -333,7 +344,7 @@ public class MainWindow extends UiPart<Stage> {
             }
 
             if (commandResult.isShowCalendar()) {
-                handleCalendar(getDateInput(commandResult.getFeedbackToUser());
+                handleCalendar(getDateInput(commandResult.getFeedbackToUser()));
             }
 
             return commandResult;
@@ -360,4 +371,9 @@ public class MainWindow extends UiPart<Stage> {
     public static boolean isGoToMode() {
         return goToMode;
     }
+
+    public static String getDateInput(String input) {
+        return input.substring(input.lastIndexOf(" ") + 1);
+    }
+
 }

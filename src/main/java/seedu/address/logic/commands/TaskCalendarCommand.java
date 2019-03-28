@@ -20,7 +20,7 @@ public class TaskCalendarCommand extends Command {
             + "13-05-2019\n"
             + "If no date is provided, the current date will be used\n";
 
-    public static final String MESSAGE_DISPLAY_CALENDAR_SUCCESS = "Task Calendar displayed for Date: ";
+    public static final String MESSAGE_DISPLAY_CALENDAR_SUCCESS = "Task Calendar displayed for Date: %1$s";
 
     public final DateCustom dateInput;
 

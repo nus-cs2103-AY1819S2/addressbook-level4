@@ -143,6 +143,8 @@ public class ManagementModelManagerTest {
         // Adding lesson to modelManager should not change the lesson
         assertEquals(modelManager.getOpenedLesson(), lesson);
         assertEquals(modelManager.getOpenedLessonCards(), lesson.getCards());
+        assertEquals(modelManager.getOpenedLessonCoreHeaders(), lesson.getCoreHeaders());
+        assertEquals(modelManager.getOpenedLessonCoreHeaders(), lesson.getOptionalHeaders());
     }
 
     @Test

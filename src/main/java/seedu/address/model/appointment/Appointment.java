@@ -65,15 +65,13 @@ public class Appointment extends Slot {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getPatient().getName()).append(" ")
+        builder.append("Appointment with ")
+                .append(getPatient().getName()).append(", ")
                 .append(getPatient().getNric()).append("\n")
-                .append("Date: ")
-                .append(getDate()).append("\n")
-                .append("Time: ")
+                .append(getDate()).append(", ")
                 .append(getStart())
                 .append(" to ")
                 .append(getEnd()).append("\n")
-                .append("Comments: ")
                 .append(getComment()).append("\n");
         return builder.toString();
     }

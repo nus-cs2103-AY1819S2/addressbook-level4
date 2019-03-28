@@ -93,6 +93,11 @@ public interface Model extends Observable {
     void setCard(Card target, Card editedCard);
 
     /**
+     * Removes the selected card, if any.
+     */
+    void removeSelectedCard();
+
+    /**
      * Returns true if a card folder with the same identity as {@code cardFolder} exists.
      */
     boolean hasFolder(CardFolder cardFolder);

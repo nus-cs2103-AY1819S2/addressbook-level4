@@ -213,6 +213,7 @@ public class ModelManager implements Model {
 
     @Override
     public void exitFoldersToHome() {
+        removeSelectedCard();
         inFolder = false;
     }
 
@@ -446,6 +447,11 @@ public class ModelManager implements Model {
             throw new CardNotFoundException();
         }
         selectedCard.setValue(card);
+    }
+
+    @Override
+    public void removeSelectedCard() {
+        selectedCard.setValue(null);
     }
 
     /**

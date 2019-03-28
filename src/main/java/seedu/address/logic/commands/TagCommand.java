@@ -1,5 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REMOVE;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -7,16 +17,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
 import seedu.address.model.tag.Tag;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REMOVE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 /**
  * Tags a pdf identified using it's displayed index from the PDF book.

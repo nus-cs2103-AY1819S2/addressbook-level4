@@ -1,14 +1,14 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.TagCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REMOVE;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.TagCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new TagCommand object

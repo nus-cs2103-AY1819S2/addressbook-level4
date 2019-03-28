@@ -81,7 +81,7 @@ public class PdfListPanelTest extends GuiUnitTest {
     private ObservableList<Pdf> createBackingList(int personCount) {
         ObservableList<Pdf> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < personCount; i++) {
-            Name name = new Name(i + "a");
+            Name name = new Name(i + "a.pdf");
             Directory directory = new Directory("C:\\Users");
             Size size = new Size("1024");
             Pdf pdf = new Pdf(name, directory, size, Collections.emptySet());

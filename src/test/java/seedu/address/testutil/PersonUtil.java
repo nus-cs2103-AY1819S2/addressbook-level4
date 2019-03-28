@@ -79,6 +79,9 @@ public class PersonUtil {
         return sb.toString();
     }
 
+    /**
+     * Returns the part of command string for the given {@code FindModuleDescriptor}'s details.
+     */
     public static String getFindModuleDescriptorDetails(FindModuleDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getSubCode().ifPresent(code -> sb.append(PREFIX_MODULE_INFO_CODE).append(code).append(" "));

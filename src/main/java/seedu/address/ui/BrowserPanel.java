@@ -58,6 +58,14 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
+     * Loads the given String to be printed on the BrowserPanel.
+     */
+    public void loadContent(String toPrint) {
+        Platform.runLater(() -> browser.getEngine().loadContent("<html><span style='white-space: pre-line'>" + toPrint
+                + "</span></html>"));
+    }
+
+    /**
      * Loads a default HTML file with a background that matches the general theme.
      */
     private void loadDefaultPage() {

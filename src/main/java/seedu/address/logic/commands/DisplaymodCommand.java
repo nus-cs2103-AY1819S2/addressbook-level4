@@ -32,8 +32,7 @@ public class DisplaymodCommand extends Command {
             + PREFIX_MODNAME + "Software Engineering"
             + PREFIX_MODDEPT + "Computer Science";
 
-    public static final String MESSAGE_SUCCESS = "Module Found : \n"
-            + "Module Code : %1$s \n"
+    public static final String MESSAGE_SUCCESS = "Module Code : %1$s \n"
             + "Module Title : %2$s \n"
             + "Department : %3$s \n"
             + "Module Credits : %4$s \n"
@@ -42,7 +41,9 @@ public class DisplaymodCommand extends Command {
             + "Preclusions : %7$s \n"
             + "Prerequisites : %8$s ";
 
-    public static final String MESSAGE_NO_MODULE = "Unable to find the Module. Please check the parameters";
+    public static final String MESSAGE_NO_MODULE = "Unable to find the Module, please check the parameters";
+
+    public static final String MESSAGE_MODULES_FOUND = "%d modules found";
 
     private final CodeContainsKeywordsPredicate keywords;
 
@@ -58,7 +59,8 @@ public class DisplaymodCommand extends Command {
         if (model.getDisplayList().isEmpty()) {
             throw new CommandException(MESSAGE_NO_MODULE);
         }
-        return new CommandResult(generateResultString(model));
+        return new CommandResult(String.format(MESSAGE_MODULES_FOUND, model.getDisplayList().size()),
+                generateResultString(model));
     }
 
     @Override
@@ -74,19 +76,21 @@ public class DisplaymodCommand extends Command {
      * @return String result
      */
     public static String generateResultString(Model model) {
-        String result = "";
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < model.getDisplayList().size(); i++) {
-            result = result + "\n \n" + String.format(MESSAGE_SUCCESS,
-                    model.getDisplayList().get(i).getCodeString(),
-                    model.getDisplayList().get(i).getTitleString(),
-                    model.getDisplayList().get(i).getDepartmentString(),
-                    model.getDisplayList().get(i).getCreditString(),
-                    model.getDisplayList().get(i).getDescriptionString(),
-                    model.getDisplayList().get(i).getWorkloadString(),
-                    model.getDisplayList().get(i).getPreclusionsString(),
-                    model.getDisplayList().get(i).getPrerequisitesString());
+            sb.append(String.format(MESSAGE_SUCCESS,
+                model.getDisplayList().get(i).getCodeString(),
+                model.getDisplayList().get(i).getTitleString(),
+                model.getDisplayList().get(i).getDepartmentString(),
+                model.getDisplayList().get(i).getCreditString(),
+                model.getDisplayList().get(i).getDescriptionString(),
+                model.getDisplayList().get(i).getWorkloadString(),
+                model.getDisplayList().get(i).getPreclusionsString(),
+                model.getDisplayList().get(i).getPrerequisitesString()))
+                .append("\n\n\n");
         }
-        return result;
+
+        return sb.toString();
     }
 }

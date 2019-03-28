@@ -12,7 +12,6 @@ import seedu.address.model.moduletaken.Semester;
 public class GradTrakBuilder {
 
     private GradTrak addressBook;
-    private Semester currentSemester;
 
     public GradTrakBuilder() {
         addressBook = new GradTrak();
@@ -34,7 +33,7 @@ public class GradTrakBuilder {
      * Sets the currentSemester to the given Semester.
      */
     public GradTrakBuilder withCurrentSemester(Semester currentSemester) {
-        this.currentSemester = currentSemester;
+        addressBook.setCurrentSemester(currentSemester);
         return this;
     }
 

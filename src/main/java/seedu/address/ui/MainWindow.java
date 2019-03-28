@@ -183,6 +183,10 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (commandResult.getResult().isPresent()) {
+                browserPanel.loadContent(commandResult.getResult().get());
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

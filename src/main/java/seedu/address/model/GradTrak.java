@@ -15,7 +15,6 @@ import seedu.address.model.moduletaken.SemesterLimitList;
 import seedu.address.model.moduletaken.UniqueModuleTakenList;
 
 /**
- * Todo: modify Address book to store module taken
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameModuleTaken comparison)
  */
@@ -36,10 +35,11 @@ public class GradTrak implements ReadOnlyGradTrak {
     {
         modulesTaken = new UniqueModuleTakenList();
         semesterLimitList = new SemesterLimitList();
-        currentSemester = Semester.Y1S1; //TODO get from storage
     }
 
-    public GradTrak() {}
+    public GradTrak() {
+        currentSemester = Semester.Y1S1; // default
+    }
 
     /**
      * Creates an GradTrak using the Persons in the {@code toBeCopied}
@@ -47,6 +47,9 @@ public class GradTrak implements ReadOnlyGradTrak {
     public GradTrak(ReadOnlyGradTrak toBeCopied) {
         this();
         resetData(toBeCopied);
+        if (toBeCopied instanceof GradTrak) {
+            currentSemester = ((GradTrak) toBeCopied).getCurrentSemester();
+        }
     }
 
     public Semester getCurrentSemester() {

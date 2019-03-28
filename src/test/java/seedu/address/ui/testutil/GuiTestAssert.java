@@ -31,9 +31,6 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysPerson(Pdf expectedPdf, PersonCardHandle actualCard) {
         assertEquals(expectedPdf.getName().getFullName(), actualCard.getName());
-        assertEquals(expectedPdf.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPdf.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPdf.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPdf.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }

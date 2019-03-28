@@ -30,13 +30,13 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         String[] nameKeywords = Arrays.copyOfRange(argsWithFlag, 1, argsWithFlag.length);
 
         switch (argsWithFlag[0]) {
-            case "-name" :
-                return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-            case "-cat":
-                return new SearchCommand(new CategoryContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-            default:
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.INVALID_FLAG));
+        case "-name" :
+            return new SearchCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        case "-cat":
+            return new SearchCommand(new CategoryContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        default:
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.INVALID_FLAG));
         }
     }
 

@@ -1,11 +1,12 @@
 package seedu.finance.model.record;
 
-import seedu.finance.commons.util.StringUtil;
-import seedu.finance.model.category.Category;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.finance.commons.util.StringUtil;
+import seedu.finance.model.category.Category;
+
 
 /**
  * Tests that a {@code Record}'s {@code Tag} matches any of the keywords given.

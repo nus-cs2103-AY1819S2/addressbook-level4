@@ -2,14 +2,14 @@ package seedu.finance.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Predicate;
+
 import seedu.finance.commons.core.Messages;
 import seedu.finance.logic.CommandHistory;
 import seedu.finance.model.Model;
 import seedu.finance.model.record.CategoryContainsKeywordsPredicate;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 import seedu.finance.model.record.Record;
-
-import java.util.function.Predicate;
 
 /**
  * Finds and lists all records in finance tracker whose name contains any of the argument keywords.
@@ -38,7 +38,9 @@ public class SearchCommand extends Command {
         this.predicate = predicate;
     }
 
-    public SearchCommand(CategoryContainsKeywordsPredicate predicate) {this.predicate = predicate;}
+    public SearchCommand(CategoryContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

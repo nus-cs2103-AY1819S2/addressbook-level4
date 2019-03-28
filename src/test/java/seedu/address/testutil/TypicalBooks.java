@@ -6,6 +6,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_CS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWMESSAGE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWMESSAGE_CS;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWTITLE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REVIEWTITLE_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TEXTBOOK;
 
@@ -15,6 +19,7 @@ import java.util.List;
 
 import seedu.address.model.BookShelf;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 
 /**
  * A utility class containing a list of {@code Book} objects to be used in tests.
@@ -62,6 +67,23 @@ public class TypicalBooks {
     public static final Book CS = new BookBuilder().withBookName(VALID_BOOKNAME_CS).withAuthor(VALID_AUTHOR_CS)
             .withRating(VALID_RATING_CS).withTags(VALID_TAG_TEXTBOOK, VALID_TAG_FANTASY)
             .build();
+    public static final Review ALICE_REVIEW = new ReviewBuilder().withReviewTitle(VALID_REVIEWTITLE_ALICE)
+            .withBookName(VALID_BOOKNAME_ALICE).withReviewMessage(VALID_REVIEWMESSAGE_ALICE).build();
+    public static final Review CS_REVIEW = new ReviewBuilder().withReviewTitle(VALID_REVIEWTITLE_CS)
+            .withBookName(VALID_BOOKNAME_CS).withReviewMessage(VALID_REVIEWMESSAGE_CS).build();
+
+    //Typical Reviews
+    public static final Review BOOKTHIEF_REVIEW = new ReviewBuilder()
+            .withReviewTitle("A Heartbreaking Story")
+            .withBookName("The Book Thief")
+            .withReviewMessage("I cried a lot when reading this book")
+            .build();
+    public static final Review HUNGERGAME_REVIEW = new ReviewBuilder()
+            .withReviewTitle("Irresistible to Put Down")
+            .withBookName("Hunger Game")
+            .withReviewMessage("An amazing book series. But the plot is unreasonable sometimes. But there are a "
+                    + "number of things doesn't make sense.")
+            .build();
 
     public static final String KEYWORD_MATCHING_LIFE = "life"; // A keyword that matches life
     public static final String KEYWORD_MATCHING_PRIDE = "Pride"; // A keyword that matches Pride
@@ -76,6 +98,7 @@ public class TypicalBooks {
     /**
      * Returns an {@code BookShelf} with all the typical books.
      */
+    //TODO: add reviews into typical book shelf
     public static BookShelf getTypicalBookShelf() {
         BookShelf bs = new BookShelf();
         for (Book book : getTypicalBooks()) {
@@ -87,5 +110,9 @@ public class TypicalBooks {
     public static List<Book> getTypicalBooks() {
         return new ArrayList<>(Arrays.asList(BOOKTHIEF, HUNGERGAME, KITERUNNER, LIFEPI, LIFEWAO,
                 MIDDLESEX));
+    }
+
+    public static List<Review> getTypicalReviews() {
+        return new ArrayList<>(Arrays.asList(BOOKTHIEF_REVIEW, HUNGERGAME_REVIEW));
     }
 }

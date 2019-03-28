@@ -196,7 +196,7 @@ public class EditCardCommandTest {
         // edit -> first card edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts topdeck back to previous state and filtered card list to show all persons
+        // undo -> reverts topdeck back to previous state and filtered card list to show all cards
         expectedModel.undoTopDeck();
         assertCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

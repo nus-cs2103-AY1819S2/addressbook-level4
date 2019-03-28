@@ -62,6 +62,8 @@ public class CalendarWindow extends UiPart<Stage> {
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanel.setForCalender();
+        taskListPanel.getRoot().getStylesheets().addAll("view/Calendar.css", "view/Extensions.css");
+        taskListPanelPlaceholder.getStylesheets().addAll("view/Calendar.css", "view/Extensions.css");
         taskListPanelPlaceholder.getChildren().add(taskListPanel.getRoot());
 
         VBox vb = new VBox();
@@ -77,6 +79,8 @@ public class CalendarWindow extends UiPart<Stage> {
 
         Scene scene = new Scene(sp);
         this.primaryStage.setScene(scene);
+        scene.getStylesheets().add("view/Calendar.css");
+        this.primaryStage.setTitle("Task Calendar");
         this.primaryStage.show();
     }
 

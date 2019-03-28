@@ -3,7 +3,6 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
@@ -11,10 +10,11 @@ import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * This implements a {@link Command} which executes a command to 'close' the opened {@link Lesson}.
+ * This implements a {@link ManagementCommand} which closes the opened {@link Lesson} in the
+ * {@code List<Lesson> lessons} loaded in memory.
+ *
  * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
- * command. The purpose of 'closing' a lesson is to save changes made to it and to either move on to
- * quiz mode or to edit another lesson.
+ * command. The closing of the {@link Lesson} is carried out in the {@link ManagementModel}.
  */
 public class CloseLessonCommand extends ManagementCommand {
     /**
@@ -37,13 +37,14 @@ public class CloseLessonCommand extends ManagementCommand {
     public static final String MESSAGE_NO_OPENED_LESSON = "No opened lesson found.";
 
     /**
-     * Executes the command and returns the result message.
+     * Executes the command which closes the opened {@link Lesson} in the {@code List<Lesson> lessons}
+     * loaded in memory.
      *
-     * @param model which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
+     * @param model the {@link ManagementModel} the command should operate on.
+     * @param history {@link CommandHistory} which the command should operate on.
      *
      * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
+     * @throws CommandException if there is no opened lesson and hence no need to close lesson
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -62,10 +63,8 @@ public class CloseLessonCommand extends ManagementCommand {
     }
 
     /**
-     * Certain ManagementCommand objects require a call to storageManager to save the lessons to disk
-     * after being executed.
-     *
-     * <br><br>When a lesson is added, a save is required.
+     * When a lesson is closed, it may have been edited while it was open. Hence, there is
+     * a need to save it to disk.
      *
      * @return true given that a save to disk is required.
      */

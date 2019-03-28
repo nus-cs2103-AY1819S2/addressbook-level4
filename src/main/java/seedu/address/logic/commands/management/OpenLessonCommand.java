@@ -58,7 +58,7 @@ public class OpenLessonCommand extends ManagementCommand {
      * @param history {@link CommandHistory} which the command should operate on.
      *
      * @return feedback message of the operation result for display
-     * @throws CommandException if invalid index supplied.
+     * @throws CommandException if invalid index supplied
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

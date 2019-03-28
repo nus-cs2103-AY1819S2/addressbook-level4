@@ -93,7 +93,7 @@ Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for
 Shows a list of all contacts in the address book. +
 Format: `list`
 
-=== Displaying a sorted list of contacts by specified category : `sort`
+=== Displaying a sorted list of contacts by specified category : `sort` `[coming in v2.0]`
 
 Shows a list of all contacts in the address book, sorted according to a specified category. +
 Format: `sort CATEGORY ORDER`
@@ -198,7 +198,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
 Example: `edit 2 n/James Lee p/87654321 r/`
 ** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively and clears existing remarks.
 
-=== Matching a contact to a property: `match`
+=== Matching a contact to a property: `match` `[coming in v2.0]`
 
 Matches a buyer to a seller’s property or a tenant to a landlord’s property. +
 Both buyer and seller, or both tenant and landlord, must be listed prior to matching.
@@ -408,7 +408,14 @@ The `redo` command fails as there are no `undo` commands executed previously.
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
+Address book contact list must be displayed prior to clearing. +
 Format: `clear`
+
+=== Clearing all entries : `archiveclear`
+
+Clears all entries from the archive book. +
+Archived contact list must be displayed prior to clearing. +
+Format: `archiveclear`
 
 === Exiting the app : `exit`
 
@@ -459,6 +466,7 @@ User can set a password, which will be required when logging into the app.
 *** e.g. `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
 * *Archive* : `archive INDEX`
 ** e.g. `archive 1`
+* *Archive clear* : `archiveclear`
 * *Archive list* : `archivelist`
 * *Archive search* : `archivefind KEYWORD [KEYWORD]...`
 ** `KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`

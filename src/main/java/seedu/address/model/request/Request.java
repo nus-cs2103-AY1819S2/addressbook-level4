@@ -208,4 +208,7 @@ public class Request {
         return phone;
     }
 
+    public void complete() {
+        this.requestStatus = new RequestStatus("COMPLETED");
+    }
 }

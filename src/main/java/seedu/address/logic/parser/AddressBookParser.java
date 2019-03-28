@@ -22,9 +22,11 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.request.AssignRequestCommand;
 import seedu.address.logic.commands.request.ClearRequestCommand;
+import seedu.address.logic.commands.request.CompleteRequestCommand;
 import seedu.address.logic.commands.request.SelectRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.request.AssignRequestCommandParser;
+import seedu.address.logic.parser.request.CompleteRequestParser;
 
 /**
  * Parses user input.
@@ -52,6 +54,9 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case CompleteRequestCommand.COMMAND_WORD:
+            return new CompleteRequestParser().parse(arguments);
 
         case ClearRequestCommand.COMMAND_WORD:
             return new ClearRequestCommand();

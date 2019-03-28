@@ -36,6 +36,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.request.AssignRequestCommand;
 import seedu.address.logic.commands.request.ClearRequestCommand;
+import seedu.address.logic.commands.request.CompleteRequestCommand;
 import seedu.address.logic.commands.request.DeleteRequestCommand;
 import seedu.address.logic.commands.request.FilterRequestCommand;
 import seedu.address.logic.commands.request.ListRequestCommand;
@@ -50,6 +51,12 @@ public class AddressBookParserTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final AddressBookParser parser = new AddressBookParser();
+
+    @Test
+    public void parseCommand_complete() throws Exception {
+        assertTrue(parser.parseCommand(CompleteRequestCommand.COMMAND_WORD + " 1")
+            instanceof CompleteRequestCommand);
+    }
 
     @Test
     public void parseCommand_add() throws Exception {

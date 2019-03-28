@@ -361,6 +361,36 @@ Examples:
 Assigns the health worker at the second index to the first request in the
 request list.
 
+=== Clearing Requests : `clr`
+
+After all requests have been completed and storage data has been backed up, you can clear all the records of completed requests if you want to.
+
+Format: `clr`
+
+****
+* The `request_index` *must be a positive integer* 1, 2, 3, ... and not greater
+than the number of requests in the current list.
+****
+
+[WARNING]
+Clearing requests would delete all records of completed requests. If you would like to delete just one particular request, use `delete <index>`.
+
+=== Completing Requests : `complete`
+After the healthworker has done the patient visit and given the necessary treatment, you can simply complete a particular request
+using the `complete` command.
+
+Format: `complete <request_index>`
+
+****
+* The `request_index` *must be a positive integer* 1, 2, 3, ... and not greater
+than the number of requests in the current list.
+****
+
+Examples:
+
+* `complete 1` +
+Completes the first request in the list of requests.
+
 === Listing entered commands : `history`
 
 In the case where you have been using the application for a while now, and
@@ -412,6 +442,8 @@ modifies application parameters, making sure that minimal data is lost should
 * *List* : `list <type>`
 * *Add* : `add <type> <additional_parameters>...`
 * *Edit* : `edit <type> <index> <additional_parameters>...`
+* *Clear Requests* : `clr`
+* *Complete Request* : `complete <index>`
 * *Filter* : `filter <type> <keyword> [<more_keywords>]...`
 * *Delete* : `delete <type> <index>`
 * *Assign* : `assign <patient_index> <health_worker_index>`

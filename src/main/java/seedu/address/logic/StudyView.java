@@ -5,12 +5,10 @@ import java.util.List;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.logic.commands.BackCommand;
-import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.OpenDeckCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
@@ -47,7 +45,7 @@ public class StudyView implements ViewState {
             return new BackCommand();
         default:
             if (getCurrentStudyState() == studyState.QUESTION) {
-                return new ShowAnswerCommand(commandWord+arguments);
+                return new ShowAnswerCommand(commandWord + arguments);
             } else {
                 return new GenerateQuestionCommand();
             }

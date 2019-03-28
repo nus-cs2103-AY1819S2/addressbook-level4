@@ -57,6 +57,10 @@ public class BrowserPanel extends UiPart<Region> {
         Platform.runLater(() -> browser.getEngine().load(url));
     }
 
+    public void loadContent(String toPrint) {
+        Platform.runLater(() -> browser.getEngine().loadContent("<html>" + toPrint + "</html>"));
+    }
+
     /**
      * Loads a default HTML file with a background that matches the general theme.
      */

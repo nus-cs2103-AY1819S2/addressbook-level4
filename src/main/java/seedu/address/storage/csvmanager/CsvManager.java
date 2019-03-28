@@ -64,6 +64,7 @@ public class CsvManager implements CsvCommands {
 
 
     private Card buildCard(String[] cardValues) {
+        // cardValues = {"question", "answer", " .. ", " ...", "hint"}
         Question question = new Question(cardValues[0]);
         Answer answer = new Answer(cardValues[1]);
         String hint = cardValues[cardValues.length - 1];
@@ -72,6 +73,16 @@ public class CsvManager implements CsvCommands {
         Set<Hint> hintSet = new HashSet<>();
         Card card = new Card(question, answer, new Score(0, 0), option, hintSet);
         return card;
+    }
+
+    private Set<Option> buildOptions(String[] card) {
+        Set<Option> optionSet = new HashSet<>();
+        String[] options = Arrays.copyOfRange(card, 2, card.length - 1);
+        if (options[0] == " ") {
+            return optionSet;
+        }
+        Arrays.stream(options).map(Option::new).forEach(option -> optionSet.add(option));
+        return optionSet;
     }
 
 

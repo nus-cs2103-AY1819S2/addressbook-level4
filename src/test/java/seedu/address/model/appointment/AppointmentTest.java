@@ -37,6 +37,11 @@ public class AppointmentTest {
         // test equality of same referenced object
         Assert.assertTrue(appA.equals(appB));
 
+        // test equality of different types
+        appA = new Appointment(model.getPatientWithNric(nric).get(), dateA, startA, endA, comment);
+
+        Assert.assertFalse(appA.equals(dateA));
+
         // test equality of two different appointment object with different date
         appA = new Appointment(model.getPatientWithNric(nric).get(), dateA, startA, endA, comment);
         appB = new Appointment(model.getPatientWithNric(nric).get(), dateB, startA, endA, comment);

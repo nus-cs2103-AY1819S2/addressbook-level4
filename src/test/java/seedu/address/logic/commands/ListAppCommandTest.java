@@ -32,10 +32,18 @@ public class ListAppCommandTest {
 
     @Test
     public void executeListApp_searchByDate() throws Exception {
-        LocalDate start = LocalDate.of(2019, 04, 01);
-        LocalDate end = LocalDate.of(2019, 04, 30);
+        LocalDate start = LocalDate.of(2019, 4, 1);
+        LocalDate end = LocalDate.of(2019, 4, 30);
         CommandResult result = new ListAppCommand(start, end).execute(model, commandHistory);
         String expected = String.format(ListAppCommand.MESSAGE_SUCCESS_BY_DATE, start, end)
+                + model.listApp(start, end);
+
+        Assert.assertEquals(result.getFeedbackToUser(), expected);
+
+        // no results to show
+        end = LocalDate.of(2019, 4, 1);
+        result = new ListAppCommand(start, end).execute(model, commandHistory);
+        expected = String.format(ListAppCommand.MESSAGE_SUCCESS_BY_DATE, start, end)
                 + model.listApp(start, end);
 
         Assert.assertEquals(result.getFeedbackToUser(), expected);

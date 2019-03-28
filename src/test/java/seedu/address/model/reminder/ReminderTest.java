@@ -24,6 +24,9 @@ public class ReminderTest {
         // test equality of same referenced object
         Assert.assertTrue(remA.equals(remB));
 
+        // test equality of different types
+        Assert.assertFalse(remA.equals(1));
+
         // test equality of two different reminder object with different date
         remB = new Reminder(titleA, comment, dateB, startA, end);
 

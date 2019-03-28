@@ -25,6 +25,10 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_DATE = "Wrong format for date: YYYY-MM-DD";
+    public static final String MESSAGE_INVALID_TIME = "Wrong format for time: HH:MM"
+            + "HH: from 00 to 23\n"
+            + "MM: from 00 to 59";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -134,7 +138,7 @@ public class ParserUtil {
         try {
             return LocalDate.parse(date, ISO_LOCAL_DATE);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Wrong format for date: YYYY-MM-DD");
+            throw new ParseException(MESSAGE_INVALID_DATE);
         }
     }
 
@@ -146,7 +150,7 @@ public class ParserUtil {
         try {
             return LocalTime.parse(time);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Wrong format for time: HH:MM");
+            throw new ParseException(MESSAGE_INVALID_TIME);
         }
     }
 }

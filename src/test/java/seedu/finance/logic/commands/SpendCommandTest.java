@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -171,6 +172,11 @@ public class SpendCommandTest {
 
         @Override
         public void reverseFilteredRecordList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortFilteredRecordList(Comparator<Record> comparator) {
             throw new AssertionError("This method should not be called.");
         }
 

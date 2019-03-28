@@ -12,4 +12,9 @@ public class RecordDateComparator implements Comparator<Record> {
     public int compare(Record r1, Record r2) {
         return r2.getDate().getDate().compareTo(r1.getDate().getDate());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return true;
+    }
 }

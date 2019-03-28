@@ -9,7 +9,6 @@ import static seedu.finance.logic.parser.CliSyntax.FLAG_NAME;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.SortCommand;
 import seedu.finance.logic.parser.exceptions.ParseException;
@@ -53,9 +52,7 @@ public class SortCommandParser implements Parser<SortCommand> {
 
         if (comparator == null) { // no flags provided
             throw new ParseException(SortCommand.MESSAGE_USAGE);
-        }
-
-        else if (numFlags > 1) {
+        } else if (numFlags > 1) {
             throw new ParseException(SortCommand.MESSAGE_NOT_SORTED);
         }
 

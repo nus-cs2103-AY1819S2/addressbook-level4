@@ -12,6 +12,14 @@ import seedu.finance.model.record.Record;
 public class RecordCategoryComparator implements Comparator<Record> {
     @Override
     public int compare(Record r1, Record r2) {
+        if (r1.getCategories().size() == 0) {
+            return -1;
+        }
+
+        if (r2.getCategories().size() == 0) {
+            return 1;
+        }
+
         Category[] r1Cat = r1.getCategories().toArray(new Category[r1.getCategories().size()]);
         Category[] r2Cat = r2.getCategories().toArray(new Category[r2.getCategories().size()]);
         CategoryComparator comparator = new CategoryComparator();
@@ -29,5 +37,10 @@ public class RecordCategoryComparator implements Comparator<Record> {
         public int compare(Category c1, Category c2) {
             return c1.categoryName.compareToIgnoreCase(c2.categoryName);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return true;
     }
 }

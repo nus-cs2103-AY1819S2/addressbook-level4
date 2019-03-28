@@ -25,10 +25,10 @@ public class SortCommand extends Command {
             + "either by name, amount, date or category.\n"
             + "Parameters: FLAG \n"
             + "Possible flags: "
-            +  FLAG_NAME + ", "
-            +  FLAG_AMOUNT + ", "
-            +  FLAG_DATE  + ", "
-            +  FLAG_CATEGORY + "\n"
+            + FLAG_NAME + ", "
+            + FLAG_AMOUNT + ", "
+            + FLAG_DATE + ", "
+            + FLAG_CATEGORY + "\n"
             + "Example: " + COMMAND_WORD + " " + FLAG_NAME;
 
     public static final String MESSAGE_SUCCESS = "List is sorted.";
@@ -55,11 +55,15 @@ public class SortCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    public Comparator<Record> getComparator() {
+        return comparator;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SortCommand // instanceof handles null
-                && comparator.equals(((SortCommand) other).comparator));
+                && comparator.equals(((SortCommand) other).getComparator()));
     }
 
 }

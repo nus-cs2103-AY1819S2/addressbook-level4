@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import javafx.beans.InvalidationListener;
@@ -22,6 +23,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePersonList persons;
     private final UniqueActivityList activities;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private final AppMode appMode;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -33,6 +35,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         activities = new UniqueActivityList();
+        appMode = new AppMode();
     }
 
     public AddressBook() {}
@@ -46,6 +49,33 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     //// list overwrite operations
+
+    /**
+     * Returns true if appMode is MEMBER
+     */
+    public boolean modeIsMember () {
+        return appMode.isMember();
+    }
+    /**
+     * Returns true if appMode is ACTIVITY
+     */
+    public boolean modeIsActivity () {
+        return appMode.isActivity();
+    }
+
+    /**
+     * Returns value of appMode
+     */
+    public AppMode.Modes getAppMode () {
+        return appMode.getAppMode();
+    }
+
+    /**
+     * Sets value of appMode to (@code mode)
+     */
+    public void setAppMode (AppMode.Modes mode) {
+        appMode.setAppMode(mode);
+    }
 
     /**
      * Replaces the contents of the person list with {@code persons}.
@@ -74,6 +104,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
 
         setActivities(newData.getActivityList());
+
+        setAppMode(newData.getCurrMode());
     }
 
     /**
@@ -146,7 +178,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// activity-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if activity with the same identity as {@code activity} exists in the address book.
      */
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
@@ -154,8 +186,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an activity to the address book.
+     * The activity must not already exist in the address book.
      */
     public void addActivity(Activity a) {
         activities.add(a);
@@ -163,9 +195,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given activity {@code target} in the list with {@code editedActivity}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity in the
+     * address book.
      */
     public void setActivity(Activity target, Activity editedActivity) {
         requireNonNull(editedActivity);
@@ -203,14 +236,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public AppMode.Modes getCurrMode() {
+        return appMode.getAppMode();
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && activities.equals(((AddressBook) other).activities));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return Objects.hash(persons, activities);
     }
 }

@@ -8,7 +8,9 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.ActivityAddCommand;
 import seedu.address.logic.commands.ActivityDeleteCommand;
+import seedu.address.logic.commands.ActivityFindCommand;
 import seedu.address.logic.commands.ActivityListCommand;
+import seedu.address.logic.commands.ActivitySelectCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
@@ -22,10 +24,13 @@ import seedu.address.logic.commands.MemberFindCommand;
 import seedu.address.logic.commands.MemberListCommand;
 import seedu.address.logic.commands.MemberSelectCommand;
 import seedu.address.logic.commands.MemberSortCommand;
+import seedu.address.logic.commands.ModeCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.activity.ActivityAddCommandParser;
 import seedu.address.logic.parser.activity.ActivityDeleteCommandParser;
+import seedu.address.logic.parser.activity.ActivityFindCommandParser;
+import seedu.address.logic.parser.activity.ActivitySelectCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -54,6 +59,9 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
+
+        case ModeCommand.COMMAND_WORD:
+            return new ModeCommandParser().parse(arguments);
 
         case MemberAddCommand.COMMAND_WORD:
             return new MemberAddCommandParser().parse(arguments);
@@ -84,6 +92,12 @@ public class AddressBookParser {
 
         case ActivityAddCommand.COMMAND_WORD:
             return new ActivityAddCommandParser().parse(arguments);
+
+        case ActivityFindCommand.COMMAND_WORD:
+            return new ActivityFindCommandParser().parse(arguments);
+
+        case ActivitySelectCommand.COMMAND_WORD:
+            return new ActivitySelectCommandParser().parse(arguments);
 
         case ActivityDeleteCommand.COMMAND_WORD:
             return new ActivityDeleteCommandParser().parse(arguments);

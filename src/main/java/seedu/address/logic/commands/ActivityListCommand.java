@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 /**
  * Lists all activities in the club manager to the user.
  */
-public class ActivityListCommand extends Command {
+public class ActivityListCommand extends ActivityCommand {
     public static final String COMMAND_WORD = "activityList";
 
     public static final String MESSAGE_SUCCESS = "Listed all activities";
@@ -17,7 +17,11 @@ public class ActivityListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
+
         model.updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+
+        model.commitAddressBook();
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

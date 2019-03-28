@@ -2,8 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ACTIVITYNAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADESCRIPTION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -15,6 +19,7 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.activity.Activity;
@@ -62,6 +67,27 @@ public class CommandTestUtil {
     public static final MemberEditCommand.EditPersonDescriptor DESC_AMY;
     public static final MemberEditCommand.EditPersonDescriptor DESC_BOB;
 
+    public static final String VALID_ACTIVITY_NAME_HTML = "HTML WorkShop";
+    public static final String VALID_ACTIVITY_NAME_OUTING = "Sentosa Outing ";
+    public static final String VALID_ACTIVITY_DATETIME_HTML = "02/02/2019 1200";
+    public static final String VALID_ACTIVITY_DATETIME_OUTING = "06/06/2019 1000";
+    public static final String VALID_ACTIVITY_LOCATION_HTML = "Icube Auditorium";
+    public static final String VALID_ACTIVITY_LOCATION_OUTING = "KR MRT";
+    public static final String VALID_ACTIVITY_DESCRIPTION_OUTING = "Meet at KR MRT. Remember to apply sunblock";
+    public static final String DEFAULT_ACTIVITY_DESCRIPTION = "More details to be added.";
+
+    public static final String ACTIVITY_NAME_DESC_HTML = " " + PREFIX_ACTIVITYNAME + VALID_ACTIVITY_NAME_HTML;
+    public static final String ACTIVITY_NAME_DESC_OUTING = " " + PREFIX_ACTIVITYNAME + VALID_ACTIVITY_NAME_OUTING;
+    public static final String ACTIVITY_DATETIME_DESC_HTML = " " + PREFIX_DATETIME + VALID_ACTIVITY_DATETIME_HTML;
+    public static final String ACTIVITY_DATETIME_DESC_OUTING = " " + PREFIX_DATETIME + VALID_ACTIVITY_DATETIME_OUTING;
+    public static final String ACTIVITY_LOCATION_DESC_HTML = " " + PREFIX_LOCATION + VALID_ACTIVITY_LOCATION_HTML;
+    public static final String ACTIVITY_LOCATION_DESC_OUTING = " " + PREFIX_LOCATION + VALID_ACTIVITY_LOCATION_OUTING;
+    public static final String ACTIVITY_DESCRIPTION_DESC_HTML = " " + PREFIX_ADESCRIPTION
+            + DEFAULT_ACTIVITY_DESCRIPTION;
+    public static final String ACTIVITY_DESCRIPTION_DESC_OUTING = " " + PREFIX_ADESCRIPTION
+            + VALID_ACTIVITY_DESCRIPTION_OUTING;
+
+
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
@@ -85,8 +111,8 @@ public class CommandTestUtil {
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
-        } catch (CommandException ce) {
-            throw new AssertionError("Execution of command should not fail.", ce);
+        } catch (CommandException | InvalidCommandModeException e) {
+            throw new AssertionError("Execution of command should not fail.", e);
         }
     }
 
@@ -120,7 +146,7 @@ public class CommandTestUtil {
         try {
             command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
-        } catch (CommandException e) {
+        } catch (CommandException | InvalidCommandModeException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
             assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());

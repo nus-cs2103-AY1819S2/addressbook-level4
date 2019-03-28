@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.TypicalAddressBook.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -141,6 +141,11 @@ public class AddressBookTest {
 
         @Override
         public void removeListener(InvalidationListener listener) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public AppMode.Modes getCurrMode () {
             throw new AssertionError("This method should not be called.");
         }
     }

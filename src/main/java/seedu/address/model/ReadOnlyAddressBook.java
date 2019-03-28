@@ -21,4 +21,9 @@ public interface ReadOnlyAddressBook extends Observable {
      * This list will not contain any duplicate activities.
      */
     ObservableList<Activity> getActivityList();
+
+    /**
+     * Returns the mode of the AddressBook
+     */
+    AppMode.Modes getCurrMode();
 }

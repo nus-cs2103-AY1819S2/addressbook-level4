@@ -20,6 +20,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.AppMode;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -93,6 +94,27 @@ public class MemberAddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
+        @Override
+        public boolean addressBookModeIsActivity () {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean addressBookModeIsMember () {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAddressBookMode(AppMode.Modes mode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public AppMode.Modes getAddressBookMode() {
+            throw new AssertionError("This method should not be called.");
+        }
+
         @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
@@ -207,6 +229,9 @@ public class MemberAddCommandTest {
         public void setSelectedActivity(Activity activity) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateActivityList() { throw new AssertionError("This method should not be called."); }
 
         @Override
         public boolean canUndoAddressBook() {

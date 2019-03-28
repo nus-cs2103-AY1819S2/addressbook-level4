@@ -21,7 +21,7 @@ public class EditFolderCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the name of the folder identified "
             + "by the index number used in the displayed folder list. "
-            + "Existing folder name will be overwritten by the input values.\n"
+            + "Existing folder name will be overwritten.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "NEW_FOLDER_NAME\n"
             + "Example: " + COMMAND_WORD + " 1 "

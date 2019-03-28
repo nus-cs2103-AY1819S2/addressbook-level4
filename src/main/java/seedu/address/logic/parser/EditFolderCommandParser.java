@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
@@ -22,12 +21,7 @@ public class EditFolderCommandParser implements Parser<EditFolderCommand> {
         requireNonNull(args);
 
         Pair<Index, String> parsedObjects;
-        try {
-            parsedObjects = ParserUtil.parseIndexAndFolderName(args);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditFolderCommand.MESSAGE_USAGE), pe);
-        }
+        parsedObjects = ParserUtil.parseIndexAndFolderName(args);
 
         return new EditFolderCommand(parsedObjects.getKey(), parsedObjects.getValue());
     }

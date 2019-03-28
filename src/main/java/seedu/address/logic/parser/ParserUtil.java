@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.EditFolderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Answer;
@@ -50,8 +52,13 @@ public class ParserUtil {
         String trimmedArgs = args.trim();
 
         int spaceIndex = trimmedArgs.indexOf(' ');
+        if (spaceIndex == -1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditFolderCommand.MESSAGE_USAGE));
+        }
+
         String trimmedIndex = trimmedArgs.substring(0, spaceIndex);
         String trimmedFolderName = trimmedArgs.substring(spaceIndex).trim();
+
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }

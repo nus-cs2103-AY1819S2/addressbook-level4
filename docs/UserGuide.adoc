@@ -73,19 +73,19 @@ A *contact* can only have one `REMARK` or none. +
 A *property* can have any number of `TAG` (including 0).
 
 * *Seller:* +
-Format: `add c/seller n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] a/ADDRESS [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
+Format: `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL [r/REMARKS] a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
 Example: `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/123, Clementi Rd, S123456 sp/500000 t/MRT t/newlyRenovated`
 
 * *Buyer:* +
-Format: `add c/buyer n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARK]` +
+Format: `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL [r/REMARK]` +
 Example: `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
 
 * *Landlord:* +
-Format: `add c/landlord n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] a/ADDRESS [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
+Format: `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL [r/REMARKS] a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
 Example: `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/123, Clementi Rd, S123456 rp/1500 t/MRT t/newlyRenovated`
 
 * *Tenant:* +
-Format: `add c/tenant n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
+Format: `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL [r/REMARKS]` +
 Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
 
 === Listing all contacts : `list`
@@ -446,16 +446,16 @@ User can set a password, which will be required when logging into the app.
 * *Add* :
 [none]
 ** Seller: +
-*** `add c/seller n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] a/ADDRESS [sp/SELLING_PRICE_OF_PROPERTY] [t/TAG]...` +
+*** `add c/seller n/NAME p/PHONE_NUMBER e/EMAIL [r/REMARKS] a/ADDRESS sp/SELLING_PRICE_OF_PROPERTY [t/TAG]...` +
 *** e.g. `add c/seller n/James Ho p/98765432 e/jamesho@example.com r/need to sell by April 2018 a/123, Clementi Rd, S123456 sp/500000 t/MRT t/newlyRenovated`
 ** Buyer: +
-*** `add c/buyer n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARK]` +
+*** `add c/buyer n/NAME p/PHONE_NUMBER e/EMAIL [r/REMARK]` +
 *** e.g. `add c/buyer n/James Ho p/98765432 e/jamesho@example.com r/looking for 3-room apartment`
 ** Landlord: +
-*** `add c/landlord n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS] a/ADDRESS [rp/RENTAL_PRICE_OF_PROPERTY] [t/TAG]...` +
+*** `add c/landlord n/NAME p/PHONE_NUMBER e/EMAIL [r/REMARKS] a/ADDRESS rp/RENTAL_PRICE_OF_PROPERTY [t/TAG]...` +
 *** e.g. `add c/landlord n/James Ho p/98765432 e/jamesho@example.com r/family friend  a/123, Clementi Rd, S123456 rp/1500 t/MRT t/newlyRenovated`
 ** Tenant: +
-*** `add c/tenant n/NAME [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
+*** `add c/tenant n/NAME p/PHONE_NUMBER e/EMAIL [r/REMARKS]` +
 *** e.g. `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
 * *Archive* : `archive INDEX`
 ** e.g. `archive 1`

@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_DATE;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_END;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_NRIC;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_START;
+import static seedu.address.model.appointment.AppointmentManager.CLOSING_HOUR;
+import static seedu.address.model.appointment.AppointmentManager.OPENING_HOUR;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -46,6 +48,7 @@ public class AddAppCommand extends Command {
     public static final String MESSAGE_PATIENT_NOT_FOUND = "No patient with the given nric found";
     public static final String MESSAGE_START_EQUALS_END = "Appointment start time and end time should not be the same.";
     public static final String MESSAGE_START_AFTER_END = "Appointment start time should not be after end time.";
+    public static final String MESSAGE_NON_OFFICE_HOURS = "Appointment timing is outside of office hours.";
 
     private final Nric nric;
     private final LocalDate date;
@@ -71,6 +74,11 @@ public class AddAppCommand extends Command {
         Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
         if (!patientToAdd.isPresent()) {
             throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
+        }
+
+        if (start.isBefore(OPENING_HOUR) || start.isAfter(CLOSING_HOUR)
+                || end.isBefore(OPENING_HOUR) || end.isAfter(CLOSING_HOUR)) {
+            throw new CommandException(MESSAGE_NON_OFFICE_HOURS);
         }
 
         if (start.equals(end)) {

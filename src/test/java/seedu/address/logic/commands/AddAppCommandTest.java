@@ -30,6 +30,10 @@ public class AddAppCommandTest {
 
     private Model model = new ModelManager(new AddressBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+    private Nric nric = new Nric("S9534568C");
+    private LocalDate date = LocalDate.parse("2019-10-24");
+    private String comment = "This is a comment";
+
 
     @Before
     public void init() {
@@ -50,10 +54,8 @@ public class AddAppCommandTest {
     @Test
     public void executeValidAddAppointment_success() throws Exception {
         Nric nric = new Nric("S9367777A");
-        LocalDate date = LocalDate.parse("2019-10-24");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
-        String comment = "This is a comment";
 
         CommandResult commandResult = new AddAppCommand(nric, date, start, end, comment)
                 .execute(model, commandHistory);
@@ -70,11 +72,9 @@ public class AddAppCommandTest {
 
     @Test
     public void executeAddAppointmentWithTimeConflict_failure() throws Exception {
-        Nric nric = new Nric("S9534568C");
         LocalDate date = LocalDate.parse("2019-10-23");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("16:30");
-        String comment = "This is a comment";
         AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
 
         thrown.expect(CommandException.class);
@@ -83,31 +83,31 @@ public class AddAppCommandTest {
     }
 
     @Test
-    public void executeAddAppointmentWithStartAfterEnd_failure() throws Exception {
-        Nric nric = new Nric("S9534568C");
-        LocalDate date = LocalDate.parse("2019-10-24");
-        LocalTime start = LocalTime.parse("17:00");
-        LocalTime end = LocalTime.parse("16:00");
-        String comment = "This is a comment";
+    public void executeAddAppointmentNonOfficeHours_failure() throws Exception {
+        LocalTime start = LocalTime.parse("08:00");
+        LocalTime end = LocalTime.parse("10:00");
         AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddAppCommand.MESSAGE_START_AFTER_END);
+        thrown.expectMessage(AddAppCommand.MESSAGE_NON_OFFICE_HOURS);
         addAppCommand.execute(model, commandHistory);
+    }
 
-        start = end;
-        addAppCommand = new AddAppCommand(nric, date, start, end, comment);
+    @Test
+    public void executeAddAppointmentWithStartAfterEnd_failure() throws Exception {
+        LocalTime start = LocalTime.parse("17:00");
+        LocalTime end = LocalTime.parse("16:00");
+        AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
+
+        thrown.expect(CommandException.class);
         thrown.expectMessage(AddAppCommand.MESSAGE_START_AFTER_END);
         addAppCommand.execute(model, commandHistory);
     }
 
     @Test
     public void executeAddAppointmentWithStartEqualsEnd_failure() throws Exception {
-        Nric nric = new Nric("S9534568C");
-        LocalDate date = LocalDate.parse("2019-10-24");
         LocalTime start = LocalTime.parse("17:00");
         LocalTime end = start;
-        String comment = "This is a comment";
         AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
 
         thrown.expect(CommandException.class);
@@ -118,10 +118,8 @@ public class AddAppCommandTest {
     @Test
     public void executeAddAppointmentPatientNotFound_failure() throws Exception {
         Nric nric = new Nric("S9534568I");
-        LocalDate date = LocalDate.parse("2019-10-24");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
-        String comment = "This is a comment";
         AddAppCommand addAppCommand = new AddAppCommand(nric, date, start, end, comment);
 
         thrown.expect(CommandException.class);
@@ -136,7 +134,6 @@ public class AddAppCommandTest {
         LocalDate date = LocalDate.parse("2019-10-23");
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
-        String comment = "This is a comment";
 
         AddAppCommand addAppA = new AddAppCommand(nricA, date, start, end, comment);
         AddAppCommand addAppB = new AddAppCommand(nricB, date, start, end, comment);

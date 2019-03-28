@@ -107,6 +107,16 @@ public class CalendarWindow extends UiPart<Stage> {
                             label.setStyle("-fx-font-weight: bold; -fx-border-color: transparent");
                             label.setFont(Font.font("Helvetica", 15));
 
+                            DayOfWeek day = DayOfWeek.of(item.get(ChronoField.DAY_OF_WEEK));
+                            if (item.getDayOfMonth() == 3 || item.getDayOfMonth() == 19) {
+                                circle.setFill(Color.web("#FF0000"));
+                            }
+                            else {
+                                circle.setFill(Color.TRANSPARENT);
+                            }
+                            if (item.getDayOfWeek().getValue() == 7 || item.getDayOfWeek().getValue() == 6) {
+                                label.setTextFill(Color.web("#29F6E8"));
+                            }
                             cell_pane.getChildren().addAll(circle, label);
                             cell_pane.setPrefSize(50, 50);
                             setGraphic(cell_pane);

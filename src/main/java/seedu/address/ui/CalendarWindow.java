@@ -28,4 +28,28 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ *  Task Calendar Window. Provides a graphical interface for task viewing
+ *  with a built in Calendar element for the user. Elements are automatically
+ *  added in on construction
+ */
+public class CalendarWindow extends UiPart<Stage> {
+
+    private static final String FXML = "CalendarWindow.fxml";
+
+    private final Logger logger = LogsCenter.getLogger(getClass());
+
+    private Stage primaryStage;
+    private Logic logic;
+
+    private TaskListPanel taskListPanel;
+    private TaskCalendar taskCalendarPanel;
+    private DatePicker datePicker;
+
+    @FXML
+    private StackPane taskListPanelPlaceholder;
+    @FXML
+    private StackPane calendarPanel;
+    @FXML
+    private StackPane commandBoxPlaceholder;
 

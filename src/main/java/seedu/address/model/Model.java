@@ -44,51 +44,11 @@ public interface Model {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-
-    /**
-     * Sets the user prefs' address book file path.
-     */
-    void setAddressBookFilePath(Path addressBookFilePath);
-
-    /**
-     * Replaces address book data with the data in {@code addressBook}.
-     */
-    void setAddressBook(ReadOnlyAddressBook addressBook);
-
-    /** Returns the AddressBook */
-    ReadOnlyAddressBook getAddressBook();
 
     /** Returns the HealthWorkerBook */
     ReadOnlyHealthWorkerBook getHealthWorkerBook();
 
-    // TODO: Slowly phase out Person methods
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Person person);
 
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Person target);
-
-    /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Person person);
-
-    /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     */
-    void setPerson(Person target, Person editedPerson);
 
     // ============== Added methods for AddHealthWorkerCommand ===============
     // @author: Lookaz
@@ -139,56 +99,8 @@ public interface Model {
      */
     void setSelectedHealthWorker(HealthWorker worker);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
+    void commitHealthWorkerBook();
 
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
-
-    /**
-     * Returns true if the model has previous address book states to restore.
-     */
-    boolean canUndoAddressBook();
-
-    /**
-     * Returns true if the model has undone address book states to restore.
-     */
-    boolean canRedoAddressBook();
-
-    /**
-     * Restores the model's address book to its previous state.
-     */
-    void undoAddressBook();
-
-    /**
-     * Restores the model's address book to its previously undone state.
-     */
-    void redoAddressBook();
-
-    /**
-     * Saves the current address book state for undo/redo.
-     */
-    void commitAddressBook();
-
-    /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
-
-    /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    Person getSelectedPerson();
-
-    /**
-     * Sets the selected person in the filtered person list.
-     */
-    void setSelectedPerson(Person person);
 
     // ================== Request related code =========================================
     // @author David, Hui Chun

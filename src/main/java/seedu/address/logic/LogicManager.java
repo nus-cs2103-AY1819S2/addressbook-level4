@@ -1,7 +1,7 @@
 package seedu.address.logic;
 
 import java.io.IOException;
-import java.nio.file.Path;
+//import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -14,8 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+//import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.storage.Storage;
@@ -31,7 +30,6 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
-    private boolean addressBookModified;
     private boolean requestBookModified;
     private boolean healthWorkerBookModified;
 
@@ -42,7 +40,6 @@ public class LogicManager implements Logic {
         this.addressBookParser = new AddressBookParser();
 
         // Set addressBookModified to true whenever the models' address book is modified.
-        model.getAddressBook().addListener(observable -> addressBookModified = true);
         model.getRequestBook().addListener(observable -> requestBookModified = true);
         model.getHealthWorkerBook().addListener(observable -> healthWorkerBookModified = true);
 
@@ -51,7 +48,8 @@ public class LogicManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        requestBookModified = false;
+        healthWorkerBookModified = false;
 
         CommandResult commandResult;
         try {
@@ -59,15 +57,6 @@ public class LogicManager implements Logic {
             commandResult = command.execute(model, history);
         } finally {
             history.add(commandText);
-        }
-
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
-            try {
-                storage.saveAddressBook(model.getAddressBook());
-            } catch (IOException ioe) {
-                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-            }
         }
 
         if (requestBookModified) {
@@ -90,15 +79,8 @@ public class LogicManager implements Logic {
 
         return commandResult;
     }
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
 
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
+
 
     @Override
     public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
@@ -113,10 +95,6 @@ public class LogicManager implements Logic {
         return history.getHistory();
     }
 
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-    }
 
     @Override
     public GuiSettings getGuiSettings() {
@@ -128,10 +106,6 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
-    @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
-    }
 
     @Override
     public ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty() {
@@ -141,12 +115,6 @@ public class LogicManager implements Logic {
     public ReadOnlyProperty<Request> selectedRequestProperty() {
         return model.selectedRequestProperty();
     }
-
-    @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
-    }
-
     @Override
     public void setSelectedHealthWorker(HealthWorker worker) {
         model.setSelectedHealthWorker(worker);

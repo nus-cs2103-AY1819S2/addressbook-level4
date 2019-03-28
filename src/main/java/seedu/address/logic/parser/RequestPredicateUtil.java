@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.address.logic.commands.request.FindRequestCommand;
+import seedu.address.logic.commands.request.FilterRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.request.RequestDatePredicateUtil;
 import seedu.address.logic.parser.request.RequestStatusPredicateUtil;
@@ -126,7 +126,7 @@ public class RequestPredicateUtil {
 
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                FindRequestCommand.MESSAGE_USAGE));
+                FilterRequestCommand.MESSAGE_USAGE));
         }
     }
     private String getLastValueFromList(List<String> list) {

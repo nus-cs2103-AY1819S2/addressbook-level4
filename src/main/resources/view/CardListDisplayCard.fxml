@@ -28,9 +28,9 @@
         <Label fx:id="question" text="\$first" styleClass="cell_big_label" />
       </HBox>
       <Label fx:id="answer" styleClass="cell_small_label" text="\$answers" />
-      <Label fx:id="statistics" styleClass="cell_small_label" text="\$answers" />
       <FlowPane fx:id="tags" />
 
+      <Label fx:id="statistics" styleClass="cell_small_label" text="\$answers" />
     </VBox>
   </GridPane>
 </HBox>

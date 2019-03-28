@@ -44,7 +44,7 @@ public class CardDisplay extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         question.setText(card.getQuestion());
         answer.setText(card.getAnswer());
-        statistics.setText("Average Difficulty:" + card.getDifficulty(););
+        statistics.setText("Average Difficulty:" + card.getDifficulty());
         initTags(card);
     }
 

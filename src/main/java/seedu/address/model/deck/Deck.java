@@ -62,6 +62,9 @@ public class Deck implements ListItem {
         this.cards.add(newCard);
     }
 
+    /**
+     * Replaces a
+     */
     public void setCard(Card target, Card editedCard) {
         assert hasCard(target);
 

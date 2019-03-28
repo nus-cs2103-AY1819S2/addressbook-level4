@@ -82,6 +82,7 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     //// card operations
+
     /**
      * Adds a card to TopDeck
      * The card should not already exist in the {@code deck} activeDeck.
@@ -152,6 +153,10 @@ public class TopDeck implements ReadOnlyTopDeck {
 
     //// deck operations
 
+    /**
+     * Returns the deck in TopDeck that has the same identifier as {@code target}.
+     * The deck must already be in TopDeck.
+     */
     public Deck getDeck(Deck target) {
         return decks.getDeck(target);
     }

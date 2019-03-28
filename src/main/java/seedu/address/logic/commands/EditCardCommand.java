@@ -80,7 +80,7 @@ public class EditCardCommand extends Command {
         }
 
         if (editCardDescriptor.isPresent()) {
-            Card cardToEdit = (Card) lastShownList.get(index.getZeroBased());
+            Card cardToEdit = lastShownList.get(index.getZeroBased());
             Card editedCard = createEditedCard(cardToEdit, editCardDescriptor.get());
 
             if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard)) {
@@ -91,7 +91,7 @@ public class EditCardCommand extends Command {
             model.commitTopDeck();
             return new UpdatePanelCommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
         } else {
-            Card cardToEdit = (Card) lastShownList.get(index.getZeroBased());
+            Card cardToEdit = lastShownList.get(index.getZeroBased());
             String question = cardToEdit.getQuestion();
             String answer = cardToEdit.getAnswer();
             Set<Tag> tags = cardToEdit.getTags();

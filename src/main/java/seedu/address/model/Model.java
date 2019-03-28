@@ -141,10 +141,12 @@ public interface Model {
 
     /**
      * Adds a new deck in the filtered deck list.
-     * @param deck
      */
     void addDeck(Deck deck);
 
+    /**
+     * Returns the target deck.
+     */
     Deck getDeck(Deck target);
 
     /**
@@ -170,7 +172,6 @@ public interface Model {
 
     /**
      * Changes view state to show a single card at a time
-     * @param deck
      */
     void studyDeck(Deck deck);
 
@@ -178,7 +179,13 @@ public interface Model {
 
     boolean isAtDecksView();
 
+    /**
+     * Returns true is the current ViewState is at CardsView.
+     */
     boolean isAtCardsView();
 
+    /**
+     * Returns the current ViewState.
+     */
     ViewState getViewState();
 }

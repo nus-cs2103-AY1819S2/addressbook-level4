@@ -15,4 +15,9 @@ public interface ReadOnlyGradTrak extends Observable {
      */
     ObservableList<ModuleTaken> getModulesTakenList();
 
+    /**
+     * Returns an unmodifiable view of the sem limit list.
+     */
+    ObservableList<SemLimit> getSemesterLimitList();
+
 }

@@ -20,7 +20,6 @@ import seedu.address.model.tag.Tag;
  * Duplicates are not allowed (by .isSameBook comparison)
  */
 public class BookShelf implements ReadOnlyBookShelf {
-    
     private final UniqueBookList books;
     private final UniqueReviewList reviews;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
@@ -71,7 +70,6 @@ public class BookShelf implements ReadOnlyBookShelf {
      */
     public void resetData(ReadOnlyBookShelf newData) {
         requireNonNull(newData);
-        
         setBooks(newData.getBookList());
         setReviews(newData.getReviewList());
     }
@@ -118,11 +116,10 @@ public class BookShelf implements ReadOnlyBookShelf {
      */
     public void setBook(Book target, Book editedBook) {
         requireNonNull(editedBook);
-
         books.setBook(target, editedBook);
         indicateModified();
     }
-    
+
     /**
      * Removes {@code key} from this {@code BookShelf}.
      * {@code key} must exist in the book shelf.

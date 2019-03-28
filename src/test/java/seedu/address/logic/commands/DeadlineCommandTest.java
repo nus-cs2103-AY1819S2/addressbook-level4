@@ -1,8 +1,11 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DATE_INVALID;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_COMPLETE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_READY;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_FORMAT_INVALID;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
 import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import java.time.format.DateTimeParseException;
@@ -17,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.pdf.Deadline;
+import seedu.address.testutil.PdfBuilder;
 
 
 public class DeadlineCommandTest {
@@ -29,7 +33,7 @@ public class DeadlineCommandTest {
     @Test
     public void constructor_invalidIndex_throwsIndexOutOfBoundsException() {
         thrown.expect(IndexOutOfBoundsException.class);
-        new DeadlineCommand(Index.fromZeroBased(-1), new Deadline(DEADLINE_1_VALID));
+        new DeadlineCommand(Index.fromZeroBased(-1), new Deadline(DATE_1_VALID));
     }
 
     @Test
@@ -46,6 +50,7 @@ public class DeadlineCommandTest {
 
     @Test
     public void constructor_validDeadline_success() {
-        //new DeadlineCommand(Index.fromOneBased(1), new Deadline(DEADLINE_1_VALID));
+        new DeadlineCommand(Index.fromOneBased(1), new Deadline(DEADLINE_DESC_COMPLETE));
+
     }
 }

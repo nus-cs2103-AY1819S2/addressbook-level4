@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_COMPLETE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_READY;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -102,17 +104,17 @@ public class TypicalPdfs {
     public static final Pdf SAMPLE_PDF_1 = new PdfBuilder().withName(sample_pdf_1_path.toFile().getName())
             .withDirectory(sample_pdf_1_path.toAbsolutePath().getParent().toString())
             .withSize(Long.toString(sample_pdf_1_path.toFile().length()))
-            .withDeadline(DEADLINE_1_VALID).build();
+            .withDeadline(DEADLINE_DESC_READY).build();
     public static final Pdf SAMPLE_PDF_2 = new PdfBuilder().withName(sample_pdf_2_path.toFile().getName())
             .withDirectory(sample_pdf_2_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_2_path.toFile().length()))
-            .withDeadline(DEADLINE_1_VALID).build();
+            .withDeadline(DEADLINE_DESC_READY).build();
     public static final Pdf SAMPLE_PDF_3 = new PdfBuilder().withName(sample_pdf_3_path.toFile().getName())
             .withDirectory(sample_pdf_3_path.toAbsolutePath().getParent().toString())
             .withTags("CS3230", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_3_path.toFile().length()))
-            .withDeadline(DEADLINE_1_VALID).build();
+            .withDeadline(DEADLINE_DESC_READY).build();
     public static final Pdf SAMPLE_PDF_4 = new PdfBuilder().withName(sample_pdf_4_path.toFile().getName())
             .withDirectory(sample_pdf_4_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w3")
@@ -154,7 +156,7 @@ public class TypicalPdfs {
             .withTags("invalid", "pdf")
             .withSize(Long.toString(sample_invalidPdf_1_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_WITH_DEADLINE = new PdfBuilder(SAMPLE_PDF_1)
-            .withDeadline(DEADLINE_1_VALID).build();
+            .withDeadline(DEADLINE_DESC_COMPLETE).build();
 
     //Duplicates
     public static final Pdf SAMPLE_PDF_1_DUPLICATE = new PdfBuilder()

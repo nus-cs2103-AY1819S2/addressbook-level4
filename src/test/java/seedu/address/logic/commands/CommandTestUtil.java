@@ -48,10 +48,17 @@ public class CommandTestUtil {
     public static final String SIZE_3_VALID = Long.toString(Paths.get("src", "data", "JsonAdaptedPdfTest",
             "CS2103T_sample PPP.pdf").toAbsolutePath().toFile().length());
 
-    public static final String DEADLINE_1_VALID = "2019-10-03";
-    public static final String DEADLINE_2_VALID = "2019-05-03";
+    public static final String DATE_1_VALID = "2019-10-03";
+    public static final String DATE_2_VALID = "2019-05-03";
     public static final String DEADLINE_DATE_INVALID = "2019-10-32";
     public static final String DEADLINE_FORMAT_INVALID = "2019/10-03";
+
+    public static final String PROPERTY_SEPARATOR_PREFIX = "/";
+
+    public static final String DEADLINE_STATUS_READY = "READY";
+    public static final String DEADLINE_STATUS_REMOVE = "REMOVE";
+    public static final String DEADLINE_STATUS_COMPLETE = "COMPLETE";
+    public static final String DEADLINE_STATUS_INVALID = "INVALID";
 
     public static final String TAG_VALID_CS2103T = "CS2103T";
     public static final String TAG_VALID_LECTURE = "lecture";
@@ -64,8 +71,13 @@ public class CommandTestUtil {
     public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_NEW + TAG_VALID_CS2103T;
     public static final String TAG_DESC_INVALID = " " + PREFIX_TAG_NEW + "moduleA*"; // '*' not allowed in tags
 
-    public static final String DEADLINE_DESC_VALID = " " + PREFIX_DEADLINE_NEW + DEADLINE_1_VALID;
-    public static final String DEADLINE_INVALID_DESC = " " + PREFIX_DEADLINE_NEW + DEADLINE_DATE_INVALID;
+    public static final String DEADLINE_DESC_READY = DATE_1_VALID + PROPERTY_SEPARATOR_PREFIX
+            + DEADLINE_STATUS_READY;
+    public static final String DEADLINE_DESC_COMPLETE = DATE_2_VALID + PROPERTY_SEPARATOR_PREFIX
+            + DEADLINE_STATUS_COMPLETE;
+    public static final String DEADLINE_DESC_INVALID_MISSING_STATUS = " " + PREFIX_DEADLINE_NEW + DEADLINE_DATE_INVALID;
+    public static final String DEADLINE_DESC_INVALID_WRONG_STATUS = " " + PREFIX_DEADLINE_NEW +
+            DEADLINE_DATE_INVALID + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_INVALID;
 
     public static final String NAME_DESC_1_VALID = " " + PREFIX_NAME + NAME_1_VALID;
     public static final String NAME_DESC_2_VALID = " " + PREFIX_NAME + NAME_2_VALID;

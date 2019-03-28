@@ -126,5 +126,9 @@ public class CalendarWindow extends UiPart<Stage> {
                 };
             }
         });
+        DatePickerSkin datepopup = new DatePickerSkin(datePicker);
+        Node out = datepopup.getPopupContent();
+        this.calendarPanel.getChildren().addAll(out);
+    }
 
 }

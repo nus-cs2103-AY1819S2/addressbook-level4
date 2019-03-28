@@ -4,6 +4,7 @@ import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
@@ -61,6 +62,27 @@ public class ManagementModelStub implements ManagementModel {
      */
     @Override
     public Lesson getOpenedLesson() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    /**
+     * Gets the {@code Card} objects from the opened {@link Lesson} object.
+     *
+     * @return {@code Card} objects from the opened {@link Lesson} object.
+     * Returns null if there are no cards found.
+     */
+    @Override
+    public List<Card> getOpenedLessonCards() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public List<String> getOpenedLessonCoreHeaders() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public List<String> getOpenedLessonOptionalHeaders() {
         throw new AssertionError("This method should not be called.");
     }
 

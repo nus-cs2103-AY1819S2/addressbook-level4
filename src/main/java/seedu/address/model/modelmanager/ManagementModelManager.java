@@ -10,6 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
@@ -103,6 +104,27 @@ public class ManagementModelManager implements ManagementModel {
     @Override
     public Lesson getOpenedLesson() {
         return lessonList.getOpenedLesson();
+    }
+
+    /**
+     * Gets the {@code Card} objects from the opened {@link Lesson} object.
+     *
+     * @return {@code Card} objects from the opened {@link Lesson} object.
+     * Returns null if there are no cards found.
+     */
+    @Override
+    public List<Card> getOpenedLessonCards() {
+        return lessonList.getOpenedLessonCards();
+    }
+
+    @Override
+    public List<String> getOpenedLessonCoreHeaders() {
+        return lessonList.getOpenedLessonCoreHeaders();
+    }
+
+    @Override
+    public List<String> getOpenedLessonOptionalHeaders() {
+        return lessonList.getOpenedLessonOptionalheaders();
     }
 
     /**

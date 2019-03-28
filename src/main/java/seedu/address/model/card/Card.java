@@ -180,6 +180,24 @@ public class Card {
         return builder.toString();
     }
 
+    /**
+     * Returns a printable format of the Card which is displayed to the user.
+     *
+     * @return the printable format of the Card.
+     */
+    public String toPrint() {
+        final StringBuilder builder = new StringBuilder();
+        for (String s: cores) {
+            builder.append(s).append('\t');
+        }
+
+        for (String s: optionals) {
+            builder.append(s).append('\t');
+        }
+
+        return builder.toString();
+    }
+
     @Override
     public int hashCode() {
         return hashCode;

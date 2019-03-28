@@ -119,6 +119,14 @@ public class LessonList {
         return openedLesson.getCards();
     }
 
+    public List<String> getOpenedLessonCoreHeaders() {
+        return openedLesson.getCoreHeaders();
+    }
+
+    public List<String> getOpenedLessonOptionalheaders() {
+        return openedLesson.getOptionalHeaders();
+    }
+
     /**
      * Sets {@link #openedLesson} to the lesson at the specified index.
      * All lesson-editing-related commands will apply to this lesson.

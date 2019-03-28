@@ -3,10 +3,12 @@ package seedu.address.logic.commands.management;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.management.ListCardsCommand.MESSAGE_NO_CARDS;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
 import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,14 +18,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.testutil.LessonBuilder;
 
 /**
  * Integration tests for the {@link AddLessonCommand}, {@link DeleteLessonCommand}, {@link ListLessonsCommand},
- * {@link OpenLessonCommand} and {@link CloseLessonCommand} which are executed using an actual
- * {@link ManagementModelManager}.
+ * {@link OpenLessonCommand}, {@link ListCardsCommand} and {@link CloseLessonCommand}
+ * which are executed using an actual {@link ManagementModelManager}.
  */
 public class ManagementCommandsIntegrationTest {
 
@@ -34,6 +37,7 @@ public class ManagementCommandsIntegrationTest {
     private CommandHistory commandHistory = new CommandHistory();
     private ManagementModelManager model = new ManagementModelManager();
     private Lesson validLesson = new LessonBuilder().build();
+    private List<Card> validCards = validLesson.getCards();
 
     /**
      * Tests {@link AddLessonCommand}, {@link DeleteLessonCommand} and {@link ListLessonsCommand} with
@@ -44,13 +48,18 @@ public class ManagementCommandsIntegrationTest {
      * {@link AddLessonCommand} and {@link DeleteLessonCommand}.
      */
     @Test
-    public void execute_listAddDeleteLesson_allSuccessful() throws Exception {
+    public void execute_listListAddDeleteLesson_allSuccessful() throws Exception {
         // Step 1: listLessons
         // list lessons when there are no lessons -> command successful with feedback that there are no lessons
         assertCommandSuccess(new ListLessonsCommand(), model,
                 commandHistory, MESSAGE_NO_LESSONS, model);
 
-        // Step 2: addLesson
+        // Step 2: listCards
+        // lists cards when no lesson is opened -> list nothing
+        assertCommandSuccess(new ListCardsCommand(), model,
+                commandHistory, MESSAGE_NO_CARDS, model);
+
+        // Step 3: addLesson
         // add valid lesson -> lesson added successfully
         CommandResult commandResult = new AddLessonCommand(validLesson).execute(model, commandHistory);
 
@@ -62,12 +71,12 @@ public class ManagementCommandsIntegrationTest {
         assertEquals(Collections.singletonList(validLesson), model.getLessons());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
 
-        // Step 3: listLessons
+        // Step 4: listLessons
         // list lessons when there are lessons -> list 1 lesson
         assertCommandSuccess(new ListLessonsCommand(), model, commandHistory, new ListLessonsCommand()
                 .buildList(Collections.singletonList(validLesson)), model);
 
-        // Step 4: deleteLesson
+        // Step 5: deleteLesson
         // delete valid lesson -> lesson deleted successfully
         Index toDeleteIndex = Index.fromZeroBased(0);
         commandResult = new DeleteLessonCommand(toDeleteIndex).execute(model, commandHistory);
@@ -77,7 +86,7 @@ public class ManagementCommandsIntegrationTest {
                 commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
 
-        // Step 5: listLessons
+        // Step 6: listLessons
         // list lessons when there are no lessons -> command successful with feedback that there are no lessons
         assertCommandSuccess(new ListLessonsCommand(), model,
                 commandHistory, MESSAGE_NO_LESSONS, model);
@@ -91,7 +100,7 @@ public class ManagementCommandsIntegrationTest {
      * should not prevent deletion of lesson by using {@link DeleteLessonCommand}.
      */
     @Test
-    public void execute_addOpenCloseDelete_allSuccessful() throws Exception {
+    public void execute_addOpenListCloseDelete_allSuccessful() throws Exception {
         // Step 1: addLesson
         // add valid lesson -> lesson added successfully
         // Tested in execute_listAddDeleteLesson_allSuccessful
@@ -111,14 +120,27 @@ public class ManagementCommandsIntegrationTest {
         // get opened lesson which was added -> same as lesson which was added
         assertEquals(model.getOpenedLesson(), validLesson);
 
-        // Step 3: closeLesson
+        // Step 3: listCards
+        // lists cards of opened lesson -> list successfully
+        assertCommandSuccess(new ListCardsCommand(), model, commandHistory,
+                new ListCardsCommand().buildList(
+                        validLesson.getCoreHeaders(),
+                        validLesson.getOptionalHeaders(),
+                        validCards), model);
+
+        // Step 4: closeLesson
         // close opened lesson -> lesson closed successfully
         new CloseLessonCommand().execute(model, commandHistory);
 
         // openedLesson is now null
         assertNull(model.getOpenedLesson());
 
-        // Step 4: deleteLesson
+        // Step 5: listCards
+        // lists cards when no lesson is opened -> list nothing
+        assertCommandSuccess(new ListCardsCommand(), model,
+                commandHistory, MESSAGE_NO_CARDS, model);
+
+        // Step 6: deleteLesson
         // delete valid lesson -> lesson deleted successfully
         Index toDeleteIndex = Index.fromZeroBased(0);
         commandResult = new DeleteLessonCommand(toDeleteIndex).execute(model, commandHistory);

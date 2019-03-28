@@ -17,6 +17,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
+import seedu.address.testutil.TypicalLessons;
 
 public class ManagementModelManagerTest {
     @Rule
@@ -125,6 +126,32 @@ public class ManagementModelManagerTest {
         assertNotNull(modelManager);
 
         // different types -> returns false
-        assertNotEquals(5, modelManager);
+        assertNotEquals(modelManager, 5);
+    }
+
+    @Test
+    public void getLessonList() {
+        // by default, lessonList is empty
+        assertEquals(modelManager.getLessonList(), new LessonList());
+    }
+
+    @Test
+    public void openLesson() {
+        Lesson lesson = TypicalLessons.LESSON_DEFAULT;
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+        // Adding lesson to modelManager should not change the lesson
+        assertEquals(modelManager.getOpenedLesson(), lesson);
+        assertEquals(modelManager.getOpenedLessonCards(), lesson.getCards());
+    }
+
+    @Test
+    public void closeLesson() {
+        Lesson lesson = TypicalLessons.LESSON_DEFAULT;
+        modelManager.addLesson(lesson);
+        modelManager.openLesson(0); // Open added lesson
+        assertEquals(modelManager.getOpenedLesson(), lesson);
+        modelManager.closeLesson();
+        assertEquals(modelManager.getOpenedLesson(), null);
     }
 }

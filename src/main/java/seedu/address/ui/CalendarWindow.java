@@ -53,3 +53,26 @@ public class CalendarWindow extends UiPart<Stage> {
     @FXML
     private StackPane commandBoxPlaceholder;
 
+
+    public CalendarWindow(Stage primaryStage, Logic logic) {
+        super(FXML, primaryStage);
+
+        this.primaryStage = primaryStage;
+        this.logic = logic;
+    }
+
+
+    private CommandResult executeCommand(String commandText) {
+    }
+
+    @FXML
+    private void handleExit() {
+
+    }
+
+    void show() {
+        primaryStage.show();
+    }
+
+
+}

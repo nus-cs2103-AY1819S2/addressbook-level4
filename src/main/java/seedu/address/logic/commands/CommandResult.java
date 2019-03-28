@@ -11,11 +11,16 @@ public class CommandResult {
 
     private final String feedbackToUser;
 
+    /** Analytics information should be shown to user*/
+
+    private String analytics;
+
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
     /** The application should exit. */
     private final boolean exit;
+
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -34,6 +39,13 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
+    public CommandResult(String feedbackToUser, String results) {
+        this(feedbackToUser, false, false);
+        if (isSuccessfulAnalytics()) {
+            analytics = results;
+        }
+    }
+
     public String getFeedbackToUser() {
         return feedbackToUser;
     }
@@ -44,6 +56,15 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isSuccessfulAnalytics() {
+        return feedbackToUser.equals("Analytics generated!");
+    }
+
+    //remember to handle null later
+    public String getAnalytics() {
+        return analytics;
     }
 
     @Override

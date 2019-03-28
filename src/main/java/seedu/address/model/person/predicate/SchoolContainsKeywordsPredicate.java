@@ -19,14 +19,14 @@ public class SchoolContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return (keywords == null) || keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getSchool().value, keyword));
+            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getSchool().value, keyword));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SchoolContainsKeywordsPredicate // instanceof handles nulls
-                && keywords.equals(((SchoolContainsKeywordsPredicate) other).keywords)); // state check
+            || (other instanceof SchoolContainsKeywordsPredicate // instanceof handles nulls
+            && keywords.equals(((SchoolContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

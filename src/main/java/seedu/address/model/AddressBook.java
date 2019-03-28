@@ -7,6 +7,9 @@ import java.util.List;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.model.interviews.Interviews;
+import seedu.address.model.job.Job;
+import seedu.address.model.job.UniqueJobList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniqueNricMap;
 import seedu.address.model.person.UniquePersonList;
@@ -20,6 +23,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueNricMap nrics;
     private final UniquePersonList persons;
+    private final UniqueJobList jobs;
+    private final Interviews interviews;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -32,6 +37,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         nrics = new UniqueNricMap();
+        jobs = new UniqueJobList();
+        interviews = new Interviews();
     }
 
     public AddressBook() {}
@@ -56,6 +63,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    public void setInterviews(Interviews interviews) {
+        this.interviews.setInterviews(interviews);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -63,6 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setInterviews(newData.getInterviews());
     }
 
     //// person-level operations
@@ -86,6 +98,23 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a job to the address book.
+     * The job must not already exist in the address book.
+     */
+    public void addJob(Job j) {
+        jobs.add(j);
+        indicateModified();
+    }
+
+    /**
+     * Returns true if a job with the same identity as {@code job} exists in the address book.
+     */
+    public boolean hasJob(Job job) {
+        requireNonNull(job);
+        return jobs.contains(job);
+    }
+
+    /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
@@ -106,6 +135,25 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
         nrics.remove(key.getNric());
         indicateModified();
+    }
+
+    /**
+     * Generates interviews
+     */
+    public void generateInterviews() {
+        interviews.generate(getPersonList());
+    }
+
+    public Interviews getInterviews() {
+        return interviews;
+    }
+
+    public void setMaxInterviewsADay(int maxInterviewsADay) {
+        interviews.setMaxInterviewsADay(maxInterviewsADay);
+    }
+
+    public void clearInterviews() {
+        interviews.clear();
     }
 
     @Override

@@ -9,11 +9,14 @@ import java.util.regex.Pattern;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ImportResumesCommand;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.ClearInterviewsCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CreateJobCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.GenerateAnalyticsCommand;
 import seedu.address.logic.commands.GenerateInterviewsCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
@@ -21,6 +24,8 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SearchCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SetMaxInterviewsADayCommand;
+import seedu.address.logic.commands.ShowInterviewsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -62,6 +67,12 @@ public class AddressBookParser {
 
         case ImportResumesCommand.COMMAND_ALIAS:
             return new ImportResumesCommandParser().parse(arguments);
+
+        case CreateJobCommand.COMMAND_WORD:
+            return new CreateJobCommandParser().parse(arguments);
+
+        case CreateJobCommand.COMMAND_ALIAS:
+            return new CreateJobCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
@@ -137,6 +148,18 @@ public class AddressBookParser {
 
         case GenerateInterviewsCommand.COMMAND_WORD:
             return new GenerateInterviewsCommand();
+
+        case ShowInterviewsCommand.COMMAND_WORD:
+            return new ShowInterviewsCommand();
+
+        case SetMaxInterviewsADayCommand.COMMAND_WORD:
+            return new SetMaxInterviewsADayCommandParser().parse(arguments);
+
+        case ClearInterviewsCommand.COMMAND_WORD:
+            return new ClearInterviewsCommand();
+
+        case GenerateAnalyticsCommand.COMMAND_WORD:
+            return new GenerateAnalyticsCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

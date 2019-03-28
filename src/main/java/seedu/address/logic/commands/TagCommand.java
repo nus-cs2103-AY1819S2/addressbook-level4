@@ -33,16 +33,15 @@ public class TagCommand extends Command {
             + "Example: " + COMMAND_WORD + " 2 " + PREFIX_TAG_REMOVE + "School\n";
 
     private final Index index;
-    private final Tag tag;
+    private final Set<Tag> tags;
     private Boolean isAddTag;
 
-    public TagCommand(Index index, Tag tag, Boolean isAddTag) {
+    public TagCommand(Index index, Set<Tag> tags, Boolean isAddTag) {
         requireNonNull(index);
-        requireNonNull(tag);
         requireNonNull(isAddTag);
 
         this.index = index;
-        this.tag = tag;
+        this.tags = tags;
         this.isAddTag = isAddTag;
     }
 
@@ -58,9 +57,9 @@ public class TagCommand extends Command {
         Pdf oPdf = lastShownList.get(index.getZeroBased());
         Pdf nPdf;
         if (isAddTag) {
-            nPdf = TagCommand.getPdfWithNewTag(oPdf, tag);
+            nPdf = TagCommand.getPdfWithNewTag(oPdf, tags);
         } else {
-            nPdf = TagCommand.getPdfWithRemovedTag(oPdf, tag);
+            nPdf = TagCommand.getPdfWithRemovedTag(oPdf, tags);
         }
 
         model.setPdf(oPdf, nPdf);
@@ -70,17 +69,17 @@ public class TagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_PDF_SUCCESS, nPdf));
     }
 
-    public static Pdf getPdfWithNewTag(Pdf old, Tag tag) {
+    public static Pdf getPdfWithNewTag(Pdf old, Set<Tag> tags) {
         Set<Tag> oTags = old.getTags();
         Set<Tag> nTags = new HashSet<>(oTags);
-        nTags.add(tag);
+        nTags.addAll(tags);
         return new Pdf(old.getName(), old.getDirectory(), old.getSize(), nTags, old.getDeadline());
     }
 
-    public static Pdf getPdfWithRemovedTag(Pdf old, Tag tag) {
+    public static Pdf getPdfWithRemovedTag(Pdf old, Set<Tag> tags) {
         Set<Tag> oTags = old.getTags();
         Set<Tag> nTags = new HashSet<>(oTags);
-        nTags.remove(tag);
+        nTags.removeAll(tags);
         return new Pdf(old.getName(), old.getDirectory(), old.getSize(), nTags, old.getDeadline());
     }
 }

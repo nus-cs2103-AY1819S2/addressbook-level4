@@ -5,10 +5,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_REMOVE;
 
+import java.util.Set;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
+
+
 
 /**
  * Parses input arguments and creates a new TagCommand object
@@ -27,7 +31,7 @@ public class TagCommandParser implements Parser<TagCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_TAG_NEW, PREFIX_TAG_REMOVE);
 
         Index index;
-        Tag tag;
+        Set<Tag> tags;
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -36,11 +40,11 @@ public class TagCommandParser implements Parser<TagCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_TAG_NEW).isPresent()) {
-            tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG_NEW).get());
-            return new TagCommand(index, tag, true);
+            tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_NEW));
+            return new TagCommand(index, tags, true);
         } else if (argMultimap.getValue(PREFIX_TAG_REMOVE).isPresent()) {
-            tag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_TAG_REMOVE).get());
-            return new TagCommand(index, tag, false);
+            tags = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG_REMOVE));
+            return new TagCommand(index, tags, false);
         } else {
             throw new ParseException("Missing Prefix(s)");
         }

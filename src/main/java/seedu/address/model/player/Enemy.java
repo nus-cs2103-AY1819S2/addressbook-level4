@@ -100,8 +100,8 @@ public class Enemy extends Player {
         int numCruiser = this.getFleet().getNumCruiser();
 
         placeAirCraftCarrier(mapSize);
-        placeDestroyer(mapSize, numDestroyer, 3);
-        placeCruiser(mapSize, numCruiser, 2);
+        placeMultipleDestroyerAndCruiser(mapSize, numDestroyer, "Destroyer", 3);
+        placeMultipleDestroyerAndCruiser(mapSize, numCruiser, "Cruiser", 2);
     }
 
     /**
@@ -129,12 +129,56 @@ public class Enemy extends Player {
         markAsOccupied(x, y, 5, useOrientation);
     }
 
-    private void placeDestroyer(int mapSize, int numDestroyer, int shipSize) {
+    /**
+     * places all destroyers onto enemy map
+     * and marks those occupied cells in allPossiblePopulateCoords
+     */
+    private void placeMultipleDestroyerAndCruiser(int mapSize, int numShips, String shipType, int shipSize) {
+        Orientation useOrientation;
+        String xyCoord;
+        int x;
+        int y;
+        boolean suceededPlacingShip = false;
+        ArrayList<Battleship> preppedShips = generateBattleships(numShips, shipType);
+
+        while (!preppedShips.isEmpty()) {
+            try {
+                useOrientation = generateOrientation();
+                java.util.Collections.shuffle(allPossiblePopulateCoords, randGen2);
+                xyCoord = allPossiblePopulateCoords.get(0);
+                x = Character.getNumericValue(xyCoord.charAt(0));
+                y = Character.getNumericValue(xyCoord.charAt(1));
+                this.getMapGrid().putShip(preppedShips.get(0), new Coordinates(x, y), useOrientation);
+                preppedShips.remove(0);
+                markAsOccupied(x, y, shipSize, useOrientation);
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
+                //log the error later from putship
+            }
+        }
 
     }
 
+    /**
+     * places all cruisers onto enemy map
+     * and marks those occupied cells in allPossiblePopulateCoords
+     */
     private void placeCruiser (int mapSize, int numCruiser, int shipSize) {
 
+    }
+
+    /**
+     * creates list of a certain battleship type
+     * to be put on map
+     */
+    private ArrayList<Battleship> generateBattleships (int numShips, String battleshipType) {
+        ArrayList<Battleship> preppedShips = new ArrayList<>();
+        for (int i = 1; i <= numShips; i++) {
+            Name currentBattleshipName = new Name("enemy" + battleshipType + i);
+            Battleship currentBattleship = new Battleship(currentBattleshipName);
+            preppedShips.add(currentBattleship);
+        }
+        return preppedShips;
     }
     /**
      * removes all the occupied Coords from allPossiblePopulateCoords

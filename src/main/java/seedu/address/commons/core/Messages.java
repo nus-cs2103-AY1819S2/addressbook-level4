@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.management.OpenLessonCommand.COMMAND_
 public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command.";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format. \n%1$s";
-    public static final String MESSAGE_INVALID_INDEX = "No lesson found at index %1$d.";
+    public static final String MESSAGE_INVALID_INDEX = "Invalid index %1$d.";
     /**
      * Feedback message displayed to the user when attempting to close lesson when no lesson is opened.
      */

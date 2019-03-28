@@ -132,7 +132,11 @@ public class LessonList {
     }
 
     public void deleteCardFromOpenedLesson(int index) {
-        openedLesson.deleteCard(index);
+        try {
+            openedLesson.deleteCard(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
+        }
     }
 
     /**

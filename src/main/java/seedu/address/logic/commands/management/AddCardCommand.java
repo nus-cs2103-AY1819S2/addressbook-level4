@@ -64,12 +64,12 @@ public class AddCardCommand extends ManagementCommand {
     }
 
     /**
-     * Executes the command which adds a {@link Card} to the opened {@link Lesson} object.
+            * Executes the command which adds a {@link Card} to the opened {@link Lesson} object.
      *
-     * @param model the {@link ManagementModel} the command should operate on.
+             * @param model the {@link ManagementModel} the command should operate on.
      * @param history {@link CommandHistory} which the command should operate on.
-     *
-     * @return feedback message of the operation result for display
+            *
+            * @return feedback message of the operation result for display
      * @throws CommandException if the {@code model} passed in is not a {@link ManagementModel}
      */
     @Override

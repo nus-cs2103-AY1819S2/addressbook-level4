@@ -8,6 +8,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.CloseLessonCommand;
+import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
@@ -77,6 +78,9 @@ public class ManagementModeParser implements Parser<Command> {
 
         case AddCardCommand.COMMAND_WORD:
             return new AddCardParser().parse(arguments);
+
+        case DeleteCardCommand.COMMAND_WORD:
+            return new DeleteCardParser().parse(arguments);
 
         case ListCardsCommand.COMMAND_WORD:
             return new ListCardsCommand();

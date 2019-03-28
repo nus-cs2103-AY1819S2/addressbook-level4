@@ -2,7 +2,6 @@ package seedu.address.model.pdf;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-import java.nio.file.Paths;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

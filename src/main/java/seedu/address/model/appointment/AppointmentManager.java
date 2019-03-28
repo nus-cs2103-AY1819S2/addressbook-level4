@@ -153,19 +153,20 @@ public class AppointmentManager {
     }
 
     private List<Slot> getFreeSlots(LocalDate start, LocalDate end) {
-        LocalDate date = start;
         List<Slot> freeSlots = new ArrayList<>();
         List<Appointment> toSearch = getAppointments(start, end);
-        Slot slot = new Slot(start.minusDays(1), OPENING_HOUR, CLOSING_HOUR);
-        Appointment prevApp = new Appointment();
-
+        // no free slots for given range
         if (toSearch.isEmpty()) {
             return freeSlots;
         }
 
+        Slot slot;
+        LocalDate date = start;
         int index = 0;
         Appointment app = toSearch.get(index);
-        // loop through all search dates form the start
+        Appointment prevApp = new Appointment(
+                app.getPatient(), app.getDate().minusDays(1), app.getStart(), app.getEnd(), app.getComment());
+        // loop through all search dates from the start
         while (date.compareTo(end) <= 0) {
 
             // no appointments for given date
@@ -180,13 +181,14 @@ public class AppointmentManager {
             while (date.isEqual(app.getDate())) {
 
                 // start a new slot for the day
-                if (slot.getDate().isBefore(date)) {
+                if (prevApp.getDate().isBefore(date)) {
                     startTime = OPENING_HOUR;
                 } else {
                     startTime = prevApp.getEnd();
                 }
                 endTime = app.getStart();
 
+                // do not add a free slot if the start time and end time are the same
                 if (startTime != endTime) {
                     slot = new Slot(date, startTime, endTime);
                     freeSlots.add(slot);
@@ -198,11 +200,13 @@ public class AppointmentManager {
                     startTime = app.getEnd();
                     endTime = CLOSING_HOUR;
 
+                    // do not add a free slot if the start time and end time are the same
                     if (startTime != endTime) {
                         slot = new Slot(date, startTime, endTime);
                         freeSlots.add(slot);
                     }
 
+                    // no more appointments in toSearch
                     if (toSearch.size() == index + 1) {
                         break;
                     }
@@ -213,6 +217,7 @@ public class AppointmentManager {
 
             date = date.plusDays(1);
         }
+
         return freeSlots;
     }
 
@@ -224,11 +229,33 @@ public class AppointmentManager {
      * @return a string of free slots
      */
     public String listFreeSlots(LocalDate start, LocalDate end) {
-        StringBuilder sb = new StringBuilder();
         List<Slot> freeSlots = getFreeSlots(start, end);
-        for (Slot slot : freeSlots) {
-            sb.append(slot);
+        if (freeSlots.isEmpty()) {
+            return "No free slots available";
         }
+
+        StringBuilder sb = new StringBuilder();
+        LocalDate date = start.minusDays(1);
+        for (Slot slot : freeSlots) {
+            // start listing for a new date
+            if (slot.getDate().isAfter(date)) {
+                date = slot.getDate();
+                sb.append("\n")
+                        .append(date)
+                        .append(": ");
+            } else {
+                sb.append(", ");
+            }
+
+            if (slot.getStart().equals(OPENING_HOUR) && slot.getEnd().equals(CLOSING_HOUR)) {
+                sb.append("All slots are free");
+            } else {
+                sb.append(slot.getStart())
+                        .append(" to ")
+                        .append(slot.getEnd());
+            }
+        }
+
         return sb.toString();
     }
 

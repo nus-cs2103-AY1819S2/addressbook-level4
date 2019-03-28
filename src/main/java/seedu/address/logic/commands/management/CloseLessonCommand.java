@@ -73,4 +73,18 @@ public class CloseLessonCommand extends ManagementCommand {
     public boolean isSaveRequired() {
         return true;
     }
+
+    /**
+     * Returns true if {@code other} is the same object or if it is also an {@link CloseLessonCommand}.
+     * All {@link CloseLessonCommand} objects are the same.
+     *
+     * @param other the other object to compare this object to
+     * @return true if {@code other} is the same object or if it is also an {@link CloseLessonCommand}.
+     * All {@link CloseLessonCommand} objects are the same.
+     */
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof CloseLessonCommand);
+    }
 }

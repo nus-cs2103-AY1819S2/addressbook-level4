@@ -199,8 +199,8 @@ public class AddBookCommandSystemTest extends BookShelfSystemTest {
      * 4. {@code Storage} and {@code BookListPanel} remain unchanged.<br>
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * {@code BookShelfTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     * @see BookShelfSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getModel();

@@ -32,7 +32,6 @@ import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
 import seedu.address.model.book.exceptions.DuplicateBookException;
 import seedu.address.model.book.exceptions.DuplicateReviewException;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.ReviewBuilder;
 
@@ -70,7 +69,7 @@ public class BookShelfTest {
                 .build();
         List<Book> newBooks = Arrays.asList(ALI, editedAlice);
         List<Review> newReviews = new ArrayList<>();
-        BookShelfStub newData = new BookShelfStub(newBooks, newReviews, 1);
+        BookShelfStub newData = new BookShelfStub(newBooks, newReviews);
 
         thrown.expect(DuplicateBookException.class);
         bookShelf.resetData(newData);
@@ -85,7 +84,7 @@ public class BookShelfTest {
                 .build();
         List<Book> newBooks = new ArrayList<>();
         List<Review> newReviews = Arrays.asList(ALICE_REVIEW, editedAliceReview);
-        BookShelfStub newData = new BookShelfStub(newBooks, newReviews, 1);
+        BookShelfStub newData = new BookShelfStub(newBooks, newReviews);
 
         thrown.expect(DuplicateReviewException.class);
         bookShelf.resetData(newData);
@@ -167,21 +166,15 @@ public class BookShelfTest {
     }
 
     /**
-     * A stub ReadOnlyBookShelf whose persons / books list can violate interface constraints.
+     * A stub ReadOnlyBookShelf whose books / books list can violate interface constraints.
      */
     private static class BookShelfStub implements ReadOnlyBookShelf {
         private final ObservableList<Book> books = FXCollections.observableArrayList();
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
         private final ObservableList<Review> reviews = FXCollections.observableArrayList();
 
-        BookShelfStub(Collection<Book> books, Collection<Review> reviews, int distinguish) {
+        BookShelfStub(Collection<Book> books, Collection<Review> reviews) {
             this.books.setAll(books);
             this.reviews.setAll(reviews);
-        }
-
-        @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
         }
 
         @Override
@@ -204,5 +197,4 @@ public class BookShelfTest {
             throw new AssertionError("This method should not be called.");
         }
     }
-
 }

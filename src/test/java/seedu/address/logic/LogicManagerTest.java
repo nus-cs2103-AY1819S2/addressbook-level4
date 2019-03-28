@@ -3,15 +3,10 @@ package seedu.address.logic;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_ALICE;
 import static seedu.address.testutil.TypicalBooks.ALI;
-import static seedu.address.testutil.TypicalPersons.AMY;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,7 +18,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.AddBookCommand;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
@@ -34,13 +28,10 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
-import seedu.address.model.person.Person;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonBookShelfStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.BookBuilder;
-import seedu.address.testutil.PersonBuilder;
 
 
 public class LogicManagerTest {
@@ -93,11 +84,6 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(bookShelfStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
-        // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + ADDRESS_DESC_AMY;
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-
         // Execute add book command
         String addBookCommand = AddBookCommand.COMMAND_WORD + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE;
         Book expectedBook = new BookBuilder(ALI).withTags().build();
@@ -113,9 +99,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getFilteredBookList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        logic.getFilteredPersonList().remove(0);
         logic.getFilteredBookList().remove(0);
     }
 
@@ -187,20 +172,6 @@ public class LogicManagerTest {
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (ParseException | CommandException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
-        }
-    }
-
-    /**
-     * A stub class to throw an {@code IOException} when the save method is called.
-     */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveAddressBook(ReadOnlyBookShelf addressBook, Path filePath) throws IOException {
-            throw DUMMY_IO_EXCEPTION;
         }
     }
 

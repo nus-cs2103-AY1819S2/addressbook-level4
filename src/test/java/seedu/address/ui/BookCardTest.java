@@ -2,7 +2,7 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.BookGuiTestAssert.assertCardDisplaysBook;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysBook;
 
 import org.junit.Test;
 

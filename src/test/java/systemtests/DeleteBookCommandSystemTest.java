@@ -10,7 +10,6 @@ import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_LIFE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -21,8 +20,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 
-@Ignore
-public class DeleteBookCommandSystemTest extends AddressBookSystemTest {
+public class DeleteBookCommandSystemTest extends BookShelfSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteBookCommand.MESSAGE_USAGE);

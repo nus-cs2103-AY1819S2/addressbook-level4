@@ -59,7 +59,7 @@ public class ListBookCommandTest {
         // null -> returns false
         assertFalse(listFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different book -> returns false
         assertFalse(listFirstCommand.equals(listSecondCommand));
     }
 

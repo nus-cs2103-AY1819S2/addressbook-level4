@@ -14,14 +14,14 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.BookShelfBuilder;
 
 public class VersionedBookShelfTest {
 
-    private final ReadOnlyBookShelf bookShelfWithAlice = new AddressBookBuilder().withBook(ALI).build();
-    private final ReadOnlyBookShelf bookShelfWithCs = new AddressBookBuilder().withBook(CS).build();
-    private final ReadOnlyBookShelf bookShelfWithThief = new AddressBookBuilder().withBook(BOOKTHIEF).build();
-    private final ReadOnlyBookShelf emptyBookShelf = new AddressBookBuilder().build();
+    private final ReadOnlyBookShelf bookShelfWithAlice = new BookShelfBuilder().withBook(ALI).build();
+    private final ReadOnlyBookShelf bookShelfWithCs = new BookShelfBuilder().withBook(CS).build();
+    private final ReadOnlyBookShelf bookShelfWithThief = new BookShelfBuilder().withBook(BOOKTHIEF).build();
+    private final ReadOnlyBookShelf emptyBookShelf = new BookShelfBuilder().build();
 
     @Test
     public void commit_singleBookList_noStatesRemovedCurrentStateSaved() {

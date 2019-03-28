@@ -4,7 +4,6 @@ import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
-import seedu.address.model.person.Person;
 
 /**
  * Unmodifiable view of an book shelf

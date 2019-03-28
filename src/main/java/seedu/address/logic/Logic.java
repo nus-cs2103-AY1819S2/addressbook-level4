@@ -11,7 +11,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
-import seedu.address.model.person.Person;
 
 /**
  * API of the Logic component

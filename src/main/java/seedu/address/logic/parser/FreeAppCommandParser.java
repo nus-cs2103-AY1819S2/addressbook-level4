@@ -1,15 +1,9 @@
 package seedu.address.logic.parser;
 
-import static java.time.DayOfWeek.MONDAY;
-import static java.time.DayOfWeek.SUNDAY;
-import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
-import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
-import static java.time.temporal.TemporalAdjusters.nextOrSame;
-import static java.time.temporal.TemporalAdjusters.previousOrSame;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FreeAppCommand;
@@ -21,10 +15,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class FreeAppCommandParser implements Parser<FreeAppCommand> {
     public static final Prefix PREFIX_FORMAT = new Prefix("f/");
     public static final Prefix PREFIX_DATE = new Prefix("d/");
-    public static final String FORMAT_DAY = "day";
-    public static final String FORMAT_WEEK = "week";
-    public static final String FORMAT_MONTH = "month";
-    private static final String[] FORMATS = {FORMAT_DAY, FORMAT_WEEK, FORMAT_MONTH};
 
     /**
      * Parses the given {@code String} of arguments in the context of the FreeAppCommand
@@ -44,34 +34,11 @@ public class FreeAppCommandParser implements Parser<FreeAppCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeAppCommand.MESSAGE_USAGE));
         }
 
-        LocalDate start = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim());
+        LocalDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get().trim());
         String format = argMultimap.getValue(PREFIX_FORMAT).get().trim();
-        // check if the format given is valid
-        if (Arrays.stream(FORMATS).noneMatch(format::equalsIgnoreCase)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    "Valid keywords for FORMATS: "
-                            + FORMAT_DAY + ", "
-                            + FORMAT_WEEK + ", "
-                            + FORMAT_MONTH));
-        }
+        List<LocalDate> dates = ParserUtil.parseFormatDate(format, date);
 
-        LocalDate end;
-        switch (format) {
-        case "day":
-            end = start;
-            break;
-        case "week":
-            end = start.with(nextOrSame(SUNDAY));
-            start = start.with(previousOrSame(MONDAY));
-            break;
-        case "month":
-            end = start.with(lastDayOfMonth());
-            start = start.with(firstDayOfMonth());
-            break;
-        default:
-            end = start;
-        }
-        return new FreeAppCommand(start, end);
+        return new FreeAppCommand(dates.get(0), dates.get(1));
     }
 
     /**

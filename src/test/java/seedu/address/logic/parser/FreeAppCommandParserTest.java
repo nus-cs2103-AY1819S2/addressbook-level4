@@ -3,11 +3,11 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.FreeAppCommandParser.FORMAT_DAY;
-import static seedu.address.logic.parser.FreeAppCommandParser.FORMAT_MONTH;
-import static seedu.address.logic.parser.FreeAppCommandParser.FORMAT_WEEK;
 import static seedu.address.logic.parser.FreeAppCommandParser.PREFIX_DATE;
 import static seedu.address.logic.parser.FreeAppCommandParser.PREFIX_FORMAT;
+import static seedu.address.logic.parser.ParserUtil.FORMAT_DAY;
+import static seedu.address.logic.parser.ParserUtil.FORMAT_MONTH;
+import static seedu.address.logic.parser.ParserUtil.FORMAT_WEEK;
 
 import java.time.LocalDate;
 
@@ -67,11 +67,7 @@ public class FreeAppCommandParserTest {
     @Test
     public void parse_invalidFormatInput_failure() {
         String invalidFormat = "year";
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                "Valid keywords for FORMATS: "
-                        + FORMAT_DAY + ", "
-                        + FORMAT_WEEK + ", "
-                        + FORMAT_MONTH);
+        String expectedMessage = ParserUtil.MESSAGE_INVALID_FORMAT;
 
         // all prefixes included
         assertParseFailure(parser,

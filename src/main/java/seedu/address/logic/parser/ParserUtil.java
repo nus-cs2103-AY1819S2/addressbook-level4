@@ -1,13 +1,22 @@
 package seedu.address.logic.parser;
 
+import static java.time.DayOfWeek.MONDAY;
+import static java.time.DayOfWeek.SUNDAY;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
+import static java.time.temporal.TemporalAdjusters.firstDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
+import static java.time.temporal.TemporalAdjusters.nextOrSame;
+import static java.time.temporal.TemporalAdjusters.previousOrSame;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -24,11 +33,21 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
+    public static final String FORMAT_DAY = "day";
+    public static final String FORMAT_WEEK = "week";
+    public static final String FORMAT_MONTH = "month";
+    public static final String[] FORMATS = {FORMAT_DAY, FORMAT_WEEK, FORMAT_MONTH};
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INVALID_DATE = "Wrong format for date: YYYY-MM-DD";
     public static final String MESSAGE_INVALID_TIME = "Wrong format for time: HH:MM"
             + "HH: from 00 to 23\n"
             + "MM: from 00 to 59";
+    public static final String MESSAGE_INVALID_FORMAT = "Invalid keywords for format.\n"
+            + "Valid formats are "
+            + FORMAT_DAY + ", "
+            + FORMAT_WEEK + ", "
+            + FORMAT_MONTH;
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -152,5 +171,45 @@ public class ParserUtil {
         } catch (DateTimeParseException e) {
             throw new ParseException(MESSAGE_INVALID_TIME);
         }
+    }
+
+    /**
+     * Parses a {@code LocalDate date} and {@code String format} to the respective start and end dates.
+     *
+     * @param format the format given to parse the date.
+     * @param date the date given to be parsed
+     * @return {@code List} of dates, first element being the start date and second element being the end date
+     * @throws ParseException if the given {@code String format} is invalid
+     */
+    public static List<LocalDate> parseFormatDate(String format, LocalDate date) throws ParseException {
+        // check if the format given is valid
+        if (Arrays.stream(FORMATS).noneMatch(format::equalsIgnoreCase)) {
+            throw new ParseException(MESSAGE_INVALID_FORMAT);
+        }
+
+        LocalDate start;
+        LocalDate end;
+        switch (format) {
+        case FORMAT_DAY:
+            start = date;
+            end = date;
+            break;
+        case FORMAT_WEEK:
+            start = date.with(previousOrSame(MONDAY));
+            end = date.with(nextOrSame(SUNDAY));
+            break;
+        case FORMAT_MONTH:
+            start = date.with(firstDayOfMonth());
+            end = date.with(lastDayOfMonth());
+            break;
+        default:
+            start = date;
+            end = date;
+        }
+
+        List<LocalDate> dates = new ArrayList<>();
+        dates.add(start);
+        dates.add(end);
+        return dates;
     }
 }

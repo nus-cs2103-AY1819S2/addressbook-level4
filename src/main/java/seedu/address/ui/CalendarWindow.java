@@ -89,8 +89,7 @@ public class CalendarWindow extends UiPart<Stage> {
     private CommandResult executeCommand(String commandText) {
         String feedback = "";
         if (DateCustom.isValidDate(commandText)) {
-            DateCustom newDate = new DateCustom(commandText);
-            this.datePicker.setValue(newDate.getDate());
+            setDate(commandText);
         } else {
             feedback = "Wrong Date";
         }

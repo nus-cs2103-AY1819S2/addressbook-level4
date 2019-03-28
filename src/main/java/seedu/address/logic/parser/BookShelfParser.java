@@ -84,9 +84,6 @@ public class BookShelfParser {
         case ListBookCommand.COMMAND_WORD:
             return new ListBookCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
         case ListAllReviewsCommand.COMMAND_WORD:
             return new ListAllReviewsCommand();
 

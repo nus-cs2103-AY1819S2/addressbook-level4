@@ -30,4 +30,14 @@ public class HistoryCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
     }
 
+    @Override
+    public boolean requiresMainList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
+    }
+
 }

@@ -152,8 +152,8 @@ public class ModelManager implements Model {
     public void archivePerson(Person target) {
         versionedArchiveBook.addPerson(target);
         versionedAddressBook.removePerson(target);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -307,6 +307,7 @@ public class ModelManager implements Model {
                 && versionedArchiveBook.equals(other.versionedArchiveBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredArchivedPersons.equals(other.filteredArchivedPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

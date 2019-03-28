@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -85,4 +86,14 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Checks if the valid list is shown, else throws INVALID_LIST_SHOWN CommandException.
+     */
+    void checkListShown(Command command) throws CommandException;
+
+    /**
+     * Sets if the archive is shown or not.
+     */
+    void setArchiveShown(CommandResult commandResult);
 }

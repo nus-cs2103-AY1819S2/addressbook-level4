@@ -19,4 +19,7 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
 
+    public abstract boolean requiresMainList();
+
+    public abstract boolean requiresArchiveList();
 }

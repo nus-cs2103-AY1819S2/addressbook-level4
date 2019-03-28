@@ -44,7 +44,18 @@ public class UnarchiveCommand extends Command {
         model.unarchivePerson(personToUnarchive);
         model.commitAddressBook();
         model.commitArchiveBook();
-        return new CommandResult(String.format(MESSAGE_UNARCHIVE_PERSON_SUCCESS, personToUnarchive));
+        return new CommandResult(String.format(MESSAGE_UNARCHIVE_PERSON_SUCCESS, personToUnarchive),
+                false, false, true);
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return true;
     }
 
     @Override

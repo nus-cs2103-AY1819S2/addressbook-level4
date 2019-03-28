@@ -42,4 +42,14 @@ public class PinCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_PIN_PERSON_SUCCESS, personToPin));
     }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
+    }
 }

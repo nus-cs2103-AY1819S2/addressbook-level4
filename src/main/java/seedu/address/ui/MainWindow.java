@@ -50,9 +50,6 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private StackPane archiveListPanelPlaceholder;
-
-    @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
@@ -120,10 +117,9 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         archiveListPanel = new ArchiveListPanel(logic.getFilteredArchivedPersonList());
-        archiveListPanelPlaceholder.getChildren().add(archiveListPanel.getRoot());
+        personListPanelPlaceholder.getChildren().add(archiveListPanel.getRoot());
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -196,6 +192,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isSwapList()) {
+                personListPanelPlaceholder.getChildren().get(0).toFront();
             }
 
             return commandResult;

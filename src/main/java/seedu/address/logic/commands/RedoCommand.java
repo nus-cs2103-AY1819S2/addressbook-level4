@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_SUCCESS = "Redo success!";
+    public static final String MESSAGE_SUCCESS = "Redo success!\nDisplaying main person list!";
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
 
     @Override
@@ -28,5 +28,15 @@ public class RedoCommand extends Command {
         model.redoArchiveBook();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 }

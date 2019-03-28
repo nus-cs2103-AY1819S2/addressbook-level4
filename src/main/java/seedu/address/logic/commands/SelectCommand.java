@@ -47,6 +47,16 @@ public class SelectCommand extends Command {
     }
 
     @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SelectCommand // instanceof handles nulls

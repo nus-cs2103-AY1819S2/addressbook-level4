@@ -14,6 +14,7 @@ import static seedu.address.testutil.TypicalPersons.FIONA;
 import static seedu.address.testutil.TypicalPersons.GEORGE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -30,6 +31,7 @@ import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.MultipleContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NricContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
@@ -194,6 +196,61 @@ public class FindCommandTest {
         execute_parameterPredicate_test(1, "S1234567a S5234569A", "nric", false, false, Arrays.asList(GEORGE));
         //Multiple keywords, case sensitive, and condition, no one found
         execute_parameterPredicate_test(0, "S1234567a S5234569A", "nric", false, true, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_multiParameter_namePhone() throws ParseException {
+        //different parameters, two expected people
+        execute_multipleParameterPredicate_test(2, "alice 95352563", "name phone", true, false,
+            Arrays.asList(ALICE, CARL));
+        //different paramters from same person, ignore case, and operation
+        execute_multipleParameterPredicate_test(1, "alice 94351253", "name phone", true, true,
+            Arrays.asList(ALICE));
+        //different paramters from same person, case sensitive, and operation
+        execute_multipleParameterPredicate_test(0, "alice 94351253", "name phone", false, true,
+            Collections.emptyList());
+    }
+
+    /**
+     * Wrapper function to test FindCommand through multiple attributes
+     * @param isIgnoreCase flag for case sensitivity
+     * @param isAnd flag for and operation
+     * @param userInput inputs to test
+     * @param parameter parameters to test
+     * @param expectedList expected list after predicate has been applied
+     */
+    public void execute_multipleParameterPredicate_test(int expectedNum, String userInput, String parameter,
+                                          boolean isIgnoreCase, boolean isAnd,
+                                          List<Person> expectedList) throws ParseException {
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedNum);
+        ContainsKeywordsPredicate predicate = prepareMultiPredicate(isIgnoreCase, isAnd, userInput, parameter);
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getFilteredPersonList());
+    }
+
+    /**
+     * Prepares a {@Code MultipleContainsKeywordsPredicate} for testing multi-parameter search
+     * @param isIgnoreCase flag for case sensitivity
+     * @param isAnd flag for and operation
+     * @param userInput inputs to test
+     * @param parameters parameters to test
+     */
+    private MultipleContainsKeywordsPredicate prepareMultiPredicate (boolean isIgnoreCase, boolean isAnd,
+                                                                     String userInput, String parameters)
+        throws ParseException {
+        MultipleContainsKeywordsPredicate tempPred = new MultipleContainsKeywordsPredicate(Collections.emptyList(),
+            isIgnoreCase, isAnd);
+        String[] inputs = userInput.split("\\s+");
+        String[] paras = parameters.split("\\s+");
+        List<ContainsKeywordsPredicate> predicateList = new ArrayList<>();
+
+        for (int i = 0; i < inputs.length; i++) {
+            predicateList.add(prepareNamePredicate(inputs[i], paras[i], isIgnoreCase, isAnd));
+        }
+        tempPred.setPredicateList(predicateList);
+        return tempPred;
     }
 
     /**

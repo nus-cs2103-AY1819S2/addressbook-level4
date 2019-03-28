@@ -13,7 +13,6 @@ public class ReviewBuilder {
     public static final String DEFAULT_DATE = "2019/03/16 18:20:00";
     public static final String DEFAULT_MESSAGE = "There are still one or two questions left unanswered "
             + "at the end of Harry Potter's last adventure...";
-    
     private ReviewTitle reviewTitle;
     private BookName bookName;
     private String dateCreated;

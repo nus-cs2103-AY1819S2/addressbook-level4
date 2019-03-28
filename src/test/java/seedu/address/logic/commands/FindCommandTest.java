@@ -74,12 +74,12 @@ public class FindCommandTest {
      */
     @Test
     public void execute_zeroKeywords_noPersonFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "name", Collections.emptyList());
+        execute_parameterPredicate_test(0, " ", "name", true, false, Collections.emptyList());
     }
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() throws ParseException {
-        execute_parameterPredicate_test(3, "Kurz Elle Kunz", "name", Arrays.asList(CARL, ELLE, FIONA));
+        execute_parameterPredicate_test(3, "Kurz Elle Kunz", "name", true, false, Arrays.asList(CARL, ELLE, FIONA));
     }
 
     /*
@@ -87,12 +87,13 @@ public class FindCommandTest {
      */
     @Test
     public void execute_zeroKeywords_noPhoneFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "phone", Collections.emptyList());
+        execute_parameterPredicate_test(0, " ", "phone", true, false, Collections.emptyList());
     }
 
     @Test
     public void execute_multipleKeywords_multiplePhonesFound() throws ParseException {
-        execute_parameterPredicate_test(3, "94351253 9482427 9482442", "phone", Arrays.asList(ALICE, FIONA, GEORGE));
+        execute_parameterPredicate_test(3, "94351253 9482427 9482442", "phone",
+            true, false, Arrays.asList(ALICE, FIONA, GEORGE));
     }
 
     /*
@@ -100,12 +101,12 @@ public class FindCommandTest {
      */
     @Test
     public void execute_zeroKeywords_noAddressFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "addr", Collections.emptyList());
+        execute_parameterPredicate_test(0, " ", "addr", true, false, Collections.emptyList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleAddressFound() throws ParseException {
-        execute_parameterPredicate_test(3, "street", "addr", Arrays.asList(CARL, DANIEL, GEORGE));
+        execute_parameterPredicate_test(3, "street", "addr", true, false, Arrays.asList(CARL, DANIEL, GEORGE));
     }
 
     /*
@@ -113,13 +114,14 @@ public class FindCommandTest {
      */
     @Test
     public void execute_zeroKeywords_noEmailFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "email", Collections.emptyList());
+        execute_parameterPredicate_test(0, " ", "email", true, false, Collections.emptyList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleEmailsFound() throws ParseException {
-        execute_parameterPredicate_test(3, "alice@example.com cornelia@example.com lydia@example.com", "email",
-            Arrays.asList(ALICE, DANIEL, FIONA));
+        execute_parameterPredicate_test(3,
+            "alice@example.com cornelia@example.com lydia@example.com", "email",
+            true, false, Arrays.asList(ALICE, DANIEL, FIONA));
     }
 
     /*
@@ -127,13 +129,13 @@ public class FindCommandTest {
      */
     @Test
     public void execute_zeroKeywords_noDateOfBirthFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "dob", Collections.emptyList());
+        execute_parameterPredicate_test(0, " ", "dob", true, false, Collections.emptyList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleDateOfBirthsFound() throws ParseException {
         execute_parameterPredicate_test(5, "December", "dob",
-            Arrays.asList(ALICE, BENSON, CARL, DANIEL, FIONA));
+            true, false, Arrays.asList(ALICE, BENSON, CARL, DANIEL, FIONA));
     }
 
     /*
@@ -141,13 +143,13 @@ public class FindCommandTest {
      */
     @Test
     public void execute_zeroKeywords_noNricFound() throws ParseException {
-        execute_parameterPredicate_test(0, " ", "nric", Collections.emptyList());
+        execute_parameterPredicate_test(0, " ", "nric", true, false, Collections.emptyList());
     }
 
     @Test
     public void execute_multipleKeywords_multipleNricFound() throws ParseException {
         execute_parameterPredicate_test(2, "S2334569A S5234569A", "nric",
-            Arrays.asList(ELLE, GEORGE));
+            true, false, Arrays.asList(ELLE, GEORGE));
     }
 
     /**
@@ -158,9 +160,10 @@ public class FindCommandTest {
      * @param expectedList expected list after predicate has been applied
      */
     private void execute_parameterPredicate_test(int expectedNum, String userInput, String parameter,
+                                                 boolean isIgnoreCase, boolean isAnd,
                                                  List<Person> expectedList) throws ParseException {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, expectedNum);
-        ContainsKeywordsPredicate predicate = prepareNamePredicate(userInput, parameter);
+        ContainsKeywordsPredicate predicate = prepareNamePredicate(userInput, parameter, isIgnoreCase, isAnd);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
@@ -170,25 +173,27 @@ public class FindCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private ContainsKeywordsPredicate prepareNamePredicate(String userInput, String parameter) throws ParseException {
+    private ContainsKeywordsPredicate prepareNamePredicate(String userInput, String parameter, boolean isIgnoreCase,
+                                                           boolean isAnd) throws ParseException {
         switch(parameter) {
         case "name":
-            return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+            return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);
 
         case "phone":
-            return new PhoneContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+            return new PhoneContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);
 
         case "addr":
-            return new AddressContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+            return new AddressContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);
 
         case "email":
-            return new EmailContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+            return new EmailContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);
 
         case "nric":
-            return new NricContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+            return new NricContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);
 
         case "dob":
-            return new DateOfBirthContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+            return new DateOfBirthContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
 
         default:
             throw new ParseException("Invalid Sort Attribute.");

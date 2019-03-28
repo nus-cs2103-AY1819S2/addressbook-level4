@@ -42,14 +42,6 @@ checkstyle {
     toolVersion = '8.1'
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.destination file("${buildDir}/jacocoHtml")
-    }
-}
-
 test {
     useJUnitPlatform()
 }

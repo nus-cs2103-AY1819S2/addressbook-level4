@@ -53,16 +53,16 @@ public abstract class BookShelfSystemTest {
 
     private BookMainWindowHandle mainWindowHandle;
     private TestApp testApp;
-    private BookSystemTestSetupHelper setupHelper;
+    private SystemTestSetupHelper setupHelper;
 
     @BeforeClass
     public static void setupBeforeClass() {
-        BookSystemTestSetupHelper.initialize();
+        SystemTestSetupHelper.initialize();
     }
 
     @Before
     public void setUp() {
-        setupHelper = new BookSystemTestSetupHelper();
+        setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
@@ -133,7 +133,7 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
-     * Displays all books in the address book.
+     * Displays all books in the book shelf.
      */
     protected void showAllBooks() {
         executeCommand(ListBookCommand.COMMAND_WORD);
@@ -192,7 +192,7 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * Asserts that the browser's url is changed to display the details of the book in the book list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BookBrowserPanelHandle#isUrlChanged()
      * @see BookListPanelHandle#isSelectedBookCardChanged()
@@ -212,7 +212,7 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the browser's url and the selected card in the book list panel remain unchanged.
      * @see BookBrowserPanelHandle#isUrlChanged()
      * @see BookListPanelHandle#isSelectedBookCardChanged()
      */

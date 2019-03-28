@@ -48,14 +48,18 @@ public class CommandTestUtil {
 
     public static final String VALID_BOOKNAME_ALICE = "Alice in Wonderland";
     public static final String VALID_BOOKNAME_CS = "Structure and Interpretation of Computer Programs";
+    public static final String VALID_BOOKNAME_LIFE = "The Secret Life of Bees";
+    public static final String VALID_BOOKNAME_TEST = "Test book";
     public static final String VALID_BOOKNAME_PART_ALICE = "Alice";
     public static final String VALID_BOOKNAME_PART_CS = "Computer";
     public static final String VALID_AUTHOR_ALICE = "Lewis Carroll";
     public static final String VALID_AUTHOR_CS = "Hal Abelson Jerry Sussman";
+    public static final String VALID_AUTHOR_LIFE = "Sue Monk Kidd";
     public static final String VALID_AUTHOR_PART_ALICE = "Carroll";
     public static final String VALID_AUTHOR_PART_CS = "Sussman";
     public static final String VALID_RATING_ALICE = "5";
     public static final String VALID_RATING_CS = "4";
+    public static final String VALID_RATING_LIFE = "3";
     public static final String VALID_TAG_FANTASY = "fantasy";
     public static final String VALID_TAG_TEXTBOOK = "textbook";
     public static final String VALID_TAG_INTERESTING = "interesting";
@@ -80,14 +84,18 @@ public class CommandTestUtil {
 
     public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_ALICE;
     public static final String NAME_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_CS;
+    public static final String NAME_DESC_LIFE = " " + PREFIX_NAME + VALID_BOOKNAME_LIFE;
+    public static final String NAME_DESC_TEST = " " + PREFIX_NAME + VALID_BOOKNAME_TEST;
     public static final String NAME_PART_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_PART_ALICE;
     public static final String NAME_PART_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_PART_CS;
     public static final String AUTHOR_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_ALICE;
     public static final String AUTHOR_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_CS;
+    public static final String AUTHOR_DESC_LIFE = " " + PREFIX_AUTHOR + VALID_AUTHOR_LIFE;
     public static final String AUTHOR_PART_DESC_ALICE = " " + PREFIX_AUTHOR + VALID_AUTHOR_PART_ALICE;
     public static final String AUTHOR_PART_DESC_CS = " " + PREFIX_AUTHOR + VALID_AUTHOR_PART_CS;
     public static final String RATING_DESC_ALICE = " " + PREFIX_RATING + VALID_RATING_ALICE;
     public static final String RATING_DESC_CS = " " + PREFIX_RATING + VALID_RATING_CS;
+    public static final String RATING_DESC_LIFE = " " + PREFIX_RATING + VALID_RATING_LIFE;
     public static final String TAG_DESC_FANTASY = " " + PREFIX_TAG + VALID_TAG_FANTASY;
     public static final String TAG_DESC_TEXTBOOK = " " + PREFIX_TAG + VALID_TAG_TEXTBOOK;
     public static final String TAG_DESC_INTERESTING = " " + PREFIX_TAG + VALID_TAG_INTERESTING;

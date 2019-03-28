@@ -31,7 +31,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
     @Test
     public void find() {
         /* Case: find multiple books in book shelf, command with leading spaces and trailing spaces
-         * -> 2 persons found
+         * -> 2 books found
          */
         String command = "   " + ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + KEYWORD_MATCHING_LIFE + "   ";
         Model expectedModel = getModel();
@@ -46,7 +46,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find book where book list is not displaying the person we are finding -> 1 book found */
+        /* Case: find book where book list is not displaying the book we are finding -> 1 book found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + KEYWORD_MATCHING_COLLINS;
         ModelHelper.setFilteredBookList(expectedModel, HUNGERGAME);
         assertCommandSuccess(command, expectedModel);
@@ -72,8 +72,8 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple persons in address book, 2 matching keywords and 1 non-matching keyword
-         * -> 2 persons found
+        /* Case: find multiple books in book shelf, 2 matching keywords and 1 non-matching keyword
+         * -> 2 books found
          */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + KEYWORD_MATCHING_ZUSAK + "   ";
         command = command + PREFIX_AUTHOR + KEYWORD_MATCHING_COLLINS + "   ";
@@ -91,7 +91,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same books in book shelf after deleting 1 of them -> 1 person found */
+        /* Case: find same books in book shelf after deleting 1 of them -> 1 book found */
         command = DeleteBookCommand.COMMAND_WORD + " 1";
         executeCommand(command);
         assertFalse(getModel().getBookShelf().getBookList().contains(BOOKTHIEF));
@@ -112,7 +112,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find book in address book, author name is substring of keyword -> 0 books found */
+        /* Case: find book in book shelf, author name is substring of keyword -> 0 books found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + "CollinsMoreLetters";
         ModelHelper.setFilteredBookList(expectedModel);
         assertCommandSuccess(command, expectedModel);
@@ -139,7 +139,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         deleteAllBooks();
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_TAG + KEYWORD_MATCHING_FANTASY;
         expectedModel = getModel();
-        ModelHelper.setFilteredList(expectedModel);
+        ModelHelper.setFilteredBookList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -150,7 +150,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
 
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code Messages#MESSAGE_PERSONS_LISTED_OVERVIEW} with the number of people in the filtered list,
+     * box displays {@code Messages#MESSAGE_BOOKS_LISTED_OVERVIEW} with the number of people in the filtered list,
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code BookShelfSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>

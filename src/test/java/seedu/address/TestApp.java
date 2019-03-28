@@ -63,7 +63,7 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(storage);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.setGuiSettings(new GuiSettings(600.0, 600.0, (int) x, (int) y));
+        userPrefs.setGuiSettings(new GuiSettings(1219.0, 850.0, (int) x, (int) y));
         userPrefs.setBookShelfFilePath(saveFileLocation);
         return userPrefs;
     }
@@ -93,7 +93,6 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager((model.getBookShelf()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
         ModelHelper.setFilteredBookList(copy, model.getFilteredBookList());
         return copy;
     }

@@ -4,10 +4,9 @@ import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
-import org.junit.Ignore;
 import org.testfx.api.FxToolkit;
 
-import guitests.guihandles.MainWindowHandle;
+import guitests.guihandles.BookMainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyBookShelf;
@@ -15,18 +14,17 @@ import seedu.address.model.ReadOnlyBookShelf;
 /**
  * Contains helper methods that system tests require.
  */
-@Ignore
 public class SystemTestSetupHelper {
     private TestApp testApp;
-    private MainWindowHandle mainWindowHandle;
+    private BookMainWindowHandle mainWindowHandle;
 
     /**
      * Sets up a new {@code TestApp} and returns it.
      */
-    public TestApp setupApplication(Supplier<ReadOnlyBookShelf> addressBook, Path saveFileLocation) {
+    public TestApp setupApplication(Supplier<ReadOnlyBookShelf> bookShelf, Path saveFileLocation) {
         try {
             FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
+            FxToolkit.setupApplication(() -> testApp = new TestApp(bookShelf, saveFileLocation));
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.", te);
         }
@@ -47,12 +45,12 @@ public class SystemTestSetupHelper {
     }
 
     /**
-     * Encapsulates the primary stage of {@code TestApp} in a {@code BookMainWindowHandle} and returns it.
+     * Encapsulates the primary stage of {@code TestApp} in a {@code MainWindowHandle} and returns it.
      */
-    public MainWindowHandle setupMainWindowHandle() {
+    public BookMainWindowHandle setupMainWindowHandle() {
         try {
             FxToolkit.setupStage((stage) -> {
-                mainWindowHandle = new MainWindowHandle(stage);
+                mainWindowHandle = new BookMainWindowHandle(stage);
                 mainWindowHandle.focus();
             });
             FxToolkit.showStage();

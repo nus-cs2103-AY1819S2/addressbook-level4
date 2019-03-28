@@ -17,7 +17,7 @@ public class AddReviewCommand extends Command {
 
     public static final String COMMAND_WORD = "addReview";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review to a certain book. \n "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review to a certain book. \n"
             + "Parameters: "
             + PREFIX_NAME + "BOOK NAME "
             + PREFIX_REVIEWTITLE + "REVIEW TITLE "

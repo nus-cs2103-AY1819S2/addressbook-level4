@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.DATE_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_COMPLETE;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_READY;
 
@@ -12,7 +11,6 @@ import java.util.List;
 
 import seedu.address.model.PdfBook;
 import seedu.address.model.pdf.Pdf;
-
 
 /**
  * A utility class containing a list of {@code Pdf} objects to be used in tests.

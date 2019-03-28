@@ -44,7 +44,7 @@ public class StudyDeckCommand extends Command {
 
         requireNonNull(model);
 
-        if (targetIndex!=null){
+        if (targetIndex != null) {
             List<Deck> filteredDeckList = decksView.filteredDecks;
 
             if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
@@ -55,8 +55,6 @@ public class StudyDeckCommand extends Command {
                 throw new CommandException(Messages.MESSAGE_EMPTY_DECK);
             }
             targetDeck = filteredDeckList.get(targetIndex.getZeroBased());
-
-
         }
         model.studyDeck(targetDeck);
 

@@ -18,6 +18,7 @@ import seedu.address.model.deck.Deck;
 public class OpenDeckCommand extends Command {
 
     public static final String COMMAND_WORD = "open";
+    public static final String ALT_COMMAND_WORD = "deck";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Opens the deck identified by the index number.\n"
@@ -28,10 +29,15 @@ public class OpenDeckCommand extends Command {
 
     private Index targetIndex;
     private DecksView decksView;
+    private Deck targetDeck;
 
     public OpenDeckCommand(Index targetIndex, DecksView decksView) {
         this.targetIndex = targetIndex;
         this.decksView = decksView;
+    }
+
+    public OpenDeckCommand(Deck targetDeck) {
+        this.targetDeck = targetDeck;
     }
 
     @Override
@@ -39,15 +45,17 @@ public class OpenDeckCommand extends Command {
 
         requireNonNull(model);
 
-        List<Deck> filteredDeckList = decksView.filteredDecks;
+        if (targetIndex != null) {
+            List<Deck> filteredDeckList = decksView.filteredDecks;
 
-        if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
+            if (targetIndex.getZeroBased() >= filteredDeckList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
+            }
+            targetDeck = filteredDeckList.get(targetIndex.getZeroBased());
         }
+        model.changeDeck(targetDeck);
 
-        model.changeDeck(filteredDeckList.get(targetIndex.getZeroBased()));
-
-        return new UpdatePanelCommandResult(String.format(MESSAGE_OPEN_DECK_SUCCESS, targetIndex.getOneBased()));
+        return new UpdatePanelCommandResult(String.format(MESSAGE_OPEN_DECK_SUCCESS, targetDeck.getName()));
     }
 
     @Override

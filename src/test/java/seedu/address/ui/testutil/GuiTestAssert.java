@@ -2,13 +2,16 @@ package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.RestaurantCardHandle;
 import guitests.guihandles.RestaurantListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.ReviewCardHandle;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.review.Review;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -36,6 +39,18 @@ public class GuiTestAssert {
         assertEquals(expectedRestaurant.getAddress().value, actualCard.getAddress());
         assertEquals(expectedRestaurant.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedReview}.
+     */
+    public static void assertCardDisplaysReview(Review expectedReview, ReviewCardHandle actualCard) {
+        assertEquals(expectedReview.getEntry().toString(), actualCard.getEntry());
+        String formattedRating = String.format("%.1f", expectedReview.getRating().toFloat()) + " / 5.0";
+        assertEquals(formattedRating, actualCard.getRating());
+        String formattedTimeStamp = new SimpleDateFormat("EEE, d MMM yyyy, h.mm aa")
+                .format(expectedReview.getTimeStamp());
+        assertEquals(formattedTimeStamp, actualCard.getTimestamp());
     }
 
     /**

@@ -19,7 +19,7 @@ public class ReviewListPanelHandle extends NodeHandle<ListView<Review>> {
     }
 
     /**
-     * Navigates the listview to display {@code restaurant}.
+     * Navigates the listview to display {@code review}.
      */
     public void navigateToCard(Review review) {
         if (!getRootNode().getItems().contains(review)) {

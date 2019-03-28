@@ -1,5 +1,7 @@
 package guitests.guihandles;
 
+import java.text.SimpleDateFormat;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import seedu.address.model.review.Review;
@@ -47,8 +49,9 @@ public class ReviewCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code review}.
      */
     public boolean equals(Review review) {
-        return getTimestamp().equals(review.getTimeStamp())
-                && getRating().equals(review.getRating())
-                && getEntry().equals(review.getEntry());
+        return getTimestamp().equals(new SimpleDateFormat("EEE, d MMM yyyy, h.mm aa")
+                .format(review.getTimeStamp()))
+                && getRating().equals(String.format("%.1f", review.getRating().toFloat()) + " / 5.0")
+                && getEntry().equals(review.getEntry().toString());
     }
 }

@@ -34,15 +34,10 @@ public class BookBrowserPanel extends UiPart<Region> {
 
     public BookBrowserPanel(ObservableValue<Review> selectedReview) {
         super(FXML);
-//
-//        reviewMessage = new Label();
+
         reviewMessage.setWrapText(true);
         reviewMessage.setStyle("-fx-text-fill: white;");
 
-        // To prevent triggering events for typing inside the loaded Web page.
-//        getRoot().setOnKeyPressed(Event::consume);
-
-        // Load book's review when selected book changes.
         selectedReview.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 reviewMessage.setText("");

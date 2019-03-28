@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REVIEWTITLE;
 
+import java.util.HashSet;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,8 +14,6 @@ import seedu.address.model.book.Author;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.Rating;
 import seedu.address.model.book.Review;
-
-import java.util.HashSet;
 
 /**
  * Adds a review to the book.

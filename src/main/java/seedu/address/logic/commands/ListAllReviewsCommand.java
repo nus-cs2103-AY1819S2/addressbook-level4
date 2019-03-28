@@ -1,11 +1,10 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REVIEWS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REVIEWS;
 
 /**
  * Lists all reviews in the book shelf to the user.

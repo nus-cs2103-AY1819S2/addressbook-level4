@@ -104,6 +104,6 @@ public class Card implements ListItem {
         return builder.toString();
     }
 
-    public int addDifficulty() { return difficulty.addDifficulty(); }
+    public void addDifficulty(int rating) { difficulty.addDifficulty(rating); }
 
 }

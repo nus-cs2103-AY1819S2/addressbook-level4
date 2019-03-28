@@ -9,18 +9,18 @@ public class Difficulty {
      * Constructs a {@code Difficulty}.
      */
     private int numberOfAttempts;
-    private int totalDifficulty;
+    private int totalRating;
 
     public Difficulty() {
         numberOfAttempts = 0;
-        totalDifficulty = 0;
+        totalRating = 0;
     }
-    public addDifficulty(int rating) {
-        totalDifficulty += rating;
+    public void addDifficulty(int rating) {
+        totalRating += rating;
         numberOfAttempts += 1;
     }
 
-    public int getDifficulty() {return totalDifficulty / numberOfAttempts};
+    public int getDifficulty() {return totalRating / numberOfAttempts};
 
 
 }

@@ -116,7 +116,7 @@ public class StudyView implements ViewState {
 
     //=========== Difficulty ================================================================================
 
-    public void addDifficulty(int difficulty) {
-        getCurrentCard().addDifficulty(difficulty);
+    public void addRating(int rating) {
+        getCurrentCard().addDifficulty(rating);
     }
 }

@@ -19,16 +19,10 @@ public class FolderListPanel extends UiPart<Region> {
 
     @FXML
     private ListView<VersionedCardFolder> folderListView;
-    //
-    //    @FXML
-    //    private FlowPane folderListPanel;
 
     public FolderListPanel(ObservableList<VersionedCardFolder> folderList) {
         super(FXML);
 
-        //        for (int i = 0; i < folderList.size(); i++) {
-        //            folderListPanel.getChildren().add(new FolderThumbnail(folderList.get(i), i + 1).getRoot());
-        //        }
         folderListView.setItems(folderList);
         folderListView.setCellFactory(listView -> new FolderListViewCell());
     }

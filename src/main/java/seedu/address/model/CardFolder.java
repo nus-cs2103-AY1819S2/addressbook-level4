@@ -40,13 +40,21 @@ public class CardFolder implements ReadOnlyCardFolder {
     }
 
     /**
-     * Creates an CardFolder using the Cards in the {@code toBeCopied}
+     * Creates an {@code CardFolder} using the Cards in the {@code toBeCopied}
      */
     public CardFolder(ReadOnlyCardFolder toBeCopied) {
         resetData(toBeCopied);
     }
 
     //// list overwrite operations
+
+    /**
+     * Sets the name of the {@code CardFolder}
+     */
+    public void rename(String newName) {
+        folderName = newName;
+        indicateModified();
+    }
 
     /**
      * Returns the number of {@code cards} within the folder.

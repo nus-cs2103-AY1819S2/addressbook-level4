@@ -9,9 +9,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import javafx.util.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyCardFolder;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
@@ -41,7 +43,29 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code args} and checks whether it is equal to {@code HOME_SYMBOL}
+     * Parses {@code String args} into an {@code Index} and {@code String} and returns it as a {@code Pair} object.
+     * @throws ParseException if the specified index or folder name is invalid.
+     */
+    public static Pair<Index, String> parseIndexAndFolderName(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+
+        int spaceIndex = trimmedArgs.indexOf(' ');
+        String trimmedIndex = trimmedArgs.substring(0, spaceIndex);
+        String trimmedFolderName = trimmedArgs.substring(spaceIndex).trim();
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
+        }
+
+        if (trimmedFolderName.isEmpty()) {
+            throw new ParseException(ReadOnlyCardFolder.MESSAGE_CONSTRAINTS);
+        }
+
+        Index index = Index.fromOneBased(Integer.parseInt(trimmedIndex));
+        return new Pair<>(index, trimmedFolderName);
+    }
+
+    /**
+     * Parses {@code String args} and checks whether it is equal to {@code HOME_SYMBOL}
      */
     public static boolean parseHomeSymbol(String args) {
         String trimmedArgs = args.trim();

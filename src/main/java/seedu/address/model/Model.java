@@ -98,9 +98,14 @@ public interface Model extends Observable {
     void removeSelectedCard();
 
     /**
-     * Returns true if a card folder with the same identity as {@code cardFolder} exists.
+     * Returns true if a {@code CardFolder} with the same identity as {@code cardFolder} exists.
      */
     boolean hasFolder(CardFolder cardFolder);
+
+    /**
+     * Returns true if a{@code CardFolder} with the same name as {@code folderName} exists.
+     */
+    boolean hasFolderWithName(String name);
 
     /**
      * Deletes the folder at the given index.
@@ -113,6 +118,12 @@ public interface Model extends Observable {
      * {@code cardFolder} must not already exist.
      */
     void addFolder(CardFolder cardFolder);
+
+    /**
+     * Renames the folder at the given index to the string passed.
+     * {@code newName} must not be the name of an existing folder.
+     */
+    void renameFolder(int index, String newName);
 
     /**
      * Gets the index of the current active {@code CardFolder}.

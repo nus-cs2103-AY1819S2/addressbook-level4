@@ -102,8 +102,9 @@ public class VersionedCardFolder extends CardFolder {
     /**
      * Checks whether the latest version of this card folder has the same folder name as {@code other}
      */
-    public boolean hasSameFolderName(CardFolder other) {
-        return cardFolderStateList.get(cardFolderStateList.size() - 1).getFolderName().equals(other.getFolderName());
+    public boolean hasSameFolderName(String name) {
+        ReadOnlyCardFolder currentState = cardFolderStateList.get(cardFolderStateList.size() - 1);
+        return currentState.getFolderName().equals(name);
     }
 
     /**

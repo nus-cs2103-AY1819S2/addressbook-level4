@@ -49,14 +49,14 @@
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="placeList" minWidth="360" prefWidth="360" SplitPane.resizableWithParent="false">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="5" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="placeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
           <VBox fx:id="displayList" prefWidth="360">
             <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
+              <Insets top="5" right="10" bottom="10" left="10" />
             </padding>
             <StackPane fx:id="displayListPanelPlaceholder"/>
           </VBox>

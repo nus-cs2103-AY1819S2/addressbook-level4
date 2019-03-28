@@ -24,6 +24,7 @@ public class Enemy extends Player {
     private static final Random randGen2 = new Random();
 
     private static final ArrayList allPossibleTargets = new ArrayList<String>();
+    private static final ArrayList allParityTargets = new ArrayList<String>();
     private static ArrayList<String> allPossiblePopulateCoords = new ArrayList<String>();
     private final HashMap attackStatusHistory = new HashMap();
 
@@ -76,6 +77,9 @@ public class Enemy extends Player {
             for (int yIndex = 0; yIndex < mapSize; yIndex++) {
                 String xy = xCoordinates.charAt(xIndex) + Integer.toString(yIndex + 1);
                 allPossibleTargets.add(xy);
+                if (hasPartity(xy)) {
+                    allParityTargets.add(xy);
+                }
             }
         }
         java.util.Collections.shuffle(allPossibleTargets, randGen);
@@ -243,5 +247,24 @@ public class Enemy extends Player {
      */
     private void receiveStatus(Status lastCellStatus) {
         //stub
+    }
+
+    private void modeSeek() {
+
+    }
+
+    private void modeCharge() {
+
+    }
+
+    /**
+     * checks that coord is made up of one odd and one even x-y coordinate pair
+     * and returns true if so
+     */
+    private boolean hasPartity (String xy) {
+
+        int parity = Character.getNumericValue(xy.charAt(0)) % 2
+                + Character.getNumericValue(xy.charAt(1)) % 2;
+        return parity == 1;
     }
 }

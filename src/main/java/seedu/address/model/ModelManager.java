@@ -193,6 +193,19 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Replaces the given record {@code target} with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     *
+     * @param target the target to be replaced.
+     * @param editedRecord the one which is edited.
+     */
+    @Override
+    public void setRecord(Record target, Record editedRecord) {
+        versionedAddressBook.setRecord(target, editedRecord);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

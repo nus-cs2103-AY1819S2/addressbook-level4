@@ -74,7 +74,7 @@ public class Record {
                 .append(getDoctorName())
                 .append(", Description: ")
                 .append(getDescription())
-                .append(", on: ")
+                .append(", on ")
                 .append(getRecordDate());
 
         return builder.toString();

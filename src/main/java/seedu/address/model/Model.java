@@ -55,7 +55,7 @@ public interface Model {
 
     /** Returns the BookShelf */
     ReadOnlyBookShelf getBookShelf();
-    
+
     /**
      * Returns true if a book with the same identity as {@code book} exists in the book shelf.
      */

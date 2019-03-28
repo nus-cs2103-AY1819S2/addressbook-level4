@@ -212,7 +212,7 @@ public class ModelManager implements Model {
     public ReadOnlyProperty<Review> selectedReviewProperty() {
         return selectedReview;
     }
-    
+
     @Override
     public Book getSelectedBook() {
         return selectedBook.getValue();
@@ -238,7 +238,7 @@ public class ModelManager implements Model {
         }
         selectedReview.setValue(review);
     }
-    
+
     /**
      * Ensures {@code selectedBook} is a valid book in {@code filteredBooks}.
      */

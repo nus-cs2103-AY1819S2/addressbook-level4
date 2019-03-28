@@ -75,7 +75,7 @@ public class CommandTestUtil {
     public static final String REVIEWTITLE_DESC_CS = " " + PREFIX_REVIEWTITLE + VALID_REVIEWTITLE_CS;
     public static final String REVIEWMESSAGE_DESC_ALICE = " " + PREFIX_REVIEW + VALID_REVIEWMESSAGE_ALICE;
     public static final String REVIEWMESSAGE_DESC_CS = " " + PREFIX_REVIEW + VALID_REVIEWMESSAGE_CS;
-    
+
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 

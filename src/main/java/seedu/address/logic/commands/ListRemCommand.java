@@ -11,6 +11,7 @@ import seedu.address.model.Model;
 public class ListRemCommand extends Command {
 
     public static final String COMMAND_WORD = "listrem";
+    public static final String COMMAND_ALIAS = "lr";
 
     public static final String MESSAGE_SUCCESS = "Listed all reminders\n";
 

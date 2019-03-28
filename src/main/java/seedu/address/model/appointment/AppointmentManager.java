@@ -232,7 +232,6 @@ public class AppointmentManager {
         return sb.toString();
     }
 
-
     public void delete(Appointment app) {
         appointments.remove(app);
     }

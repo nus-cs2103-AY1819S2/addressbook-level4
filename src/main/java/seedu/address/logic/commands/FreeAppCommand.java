@@ -16,6 +16,8 @@ import seedu.address.model.Model;
 public class FreeAppCommand extends Command {
 
     public static final String COMMAND_WORD = "freeapp";
+    public static final String COMMAND_ALIAS = "fa";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all free appointment slots.\n"
             + "Parameters: "
             + "[" + PREFIX_FORMAT + "FORMAT] "

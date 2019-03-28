@@ -24,7 +24,7 @@ import seedu.address.model.patient.Patient;
 public class AddAppCommand extends Command {
 
     public static final String COMMAND_WORD = "addapp";
-    //public static final String COMMAND_ALIAS = "a";
+    public static final String COMMAND_ALIAS = "aa";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to quickdocs. "
             + "Parameters: "

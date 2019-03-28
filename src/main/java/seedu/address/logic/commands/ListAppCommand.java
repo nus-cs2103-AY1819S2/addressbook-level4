@@ -20,6 +20,8 @@ import seedu.address.model.patient.Patient;
 public class ListAppCommand extends Command {
 
     public static final String COMMAND_WORD = "listapp";
+    public static final String COMMAND_ALIAS = "la";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all appointments.\n"
             + "Parameters: "
             + "[" + PREFIX_FORMAT + "FORMAT] "

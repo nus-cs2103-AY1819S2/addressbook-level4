@@ -33,7 +33,7 @@ public class CommandBox extends UiPart<Region> {
         if (dateOnly) {
             commandTextField.setPromptText("Enter Date here.....");
         }
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        //calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
         historySnapshot = new ListElementPointer(history);
     }

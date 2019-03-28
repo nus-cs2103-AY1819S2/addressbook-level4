@@ -3,6 +3,7 @@ package seedu.address.model.util;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.dentist.Dentist;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Sex;
@@ -18,9 +19,25 @@ import seedu.address.model.person.Phone;
 public class SampleDataUtil {
     /**
      * Note: method is modified such that it creates sample patients rather than persons.
+     * If Dentist is not set, creates a default one. Removes after persons are created.
      * @return an array of sample patient instances.
      */
     public static Person[] getSamplePersons() {
+        if (!Dentist.dentistExists()) {
+            Dentist.setDentistName("Test");
+            Person[] persons = getSamplePersonsImpl();
+            Dentist.removeDentistName();
+            return persons;
+        } else {
+            return getSamplePersonsImpl();
+        }
+    }
+
+    /**
+     * Note: method is modified such that it creates sample patients rather than persons.
+     * @return an array of sample patient instances.
+     */
+    public static Person[] getSamplePersonsImpl() {
         return new Person[] {
             new Patient(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@example.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),

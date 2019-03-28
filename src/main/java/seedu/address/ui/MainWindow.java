@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -52,7 +53,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatWindow statWindow;
+    private CalendarWindow calendarWindow;
     private TeethPanel teethPanel;
+
 
     @FXML
     private StackPane browserPlaceholder;
@@ -95,6 +98,8 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statWindow = new StatWindow(new Stage(), this.logic);
+        calendarWindow = new CalendarWindow(new Stage(), this.logic, LocalDate.now());
+
 
         // Hidden panel by default.
         recordListPanelPlaceholder.setVisible(false);
@@ -200,6 +205,10 @@ public class MainWindow extends UiPart<Stage> {
         }
         statWindow.populateData();
         statWindow.show();
+    }
+
+    public void handleCalendar(String input) {
+        String date = input.substring(input.lastIndexOf(" ") + 1);
     }
 
     /**
@@ -321,6 +330,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isBack()) {
                 handleBack();
+            }
+
+            if (commandResult.isShowCalendar()) {
+                handleCalendar(getDateInput(commandResult.getFeedbackToUser());
             }
 
             return commandResult;

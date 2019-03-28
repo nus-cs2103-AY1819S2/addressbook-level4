@@ -137,8 +137,8 @@ public class MainWindow extends UiPart<Stage> {
             logic.selectedHealthWorkerProperty(), logic::setSelectedHealthWorker);
         healthWorkerListPlaceholder.getChildren().add(healthWorkerListPanel.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
-        statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
+        //statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     void show() {

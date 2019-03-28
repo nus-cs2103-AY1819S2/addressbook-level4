@@ -1,6 +1,6 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
+//import java.nio.file.Path;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
@@ -8,8 +8,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+//import seedu.address.model.ReadOnlyAddressBook;
+//import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 
@@ -28,14 +28,11 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
      *
      * @see seedu.address.model.Model#getAddressBook()
+     * left behind in case someone needs to reference
      */
-    ReadOnlyAddressBook getAddressBook();
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    //ReadOnlyAddressBook getAddressBook();
 
     /** Returns an unmodifiable view of the filtered list of health workers */
     ObservableList<HealthWorker> getFilteredHealthWorkerList();
@@ -51,8 +48,9 @@ public interface Logic {
 
     /**
      * Returns the user prefs' address book file path.
+     * kept in case for reference
      */
-    Path getAddressBookFilePath();
+    //Path getAddressBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -64,13 +62,6 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
-    /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     *
-     * @see seedu.address.model.Model#selectedPersonProperty()
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
 
     /**
      * Selected health worker in the filtered health worker list.
@@ -84,12 +75,6 @@ public interface Logic {
      */
     ReadOnlyProperty<Request> selectedRequestProperty();
 
-    /**
-     * Sets the selected person in the filtered person list.
-     *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
-     */
-    void setSelectedPerson(Person person);
 
     /**
      * Sets the selected health worker in the filtered health worker list.

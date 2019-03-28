@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.logging.Logger;
 
@@ -84,6 +83,13 @@ public class CalendarWindow extends UiPart<Stage> {
         this.primaryStage.show();
     }
 
+    /**
+     *
+     * @param commandText
+     * @return
+     * @throws CommandException
+     * @throws ParseException
+     */
     private CommandResult executeCommand(String commandText) {
         this.datePicker.setValue(LocalDate.now());
         System.out.println(commandText);

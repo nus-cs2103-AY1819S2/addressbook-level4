@@ -41,6 +41,17 @@ public class UniqueDeckList implements Iterable<Deck> {
         internalList.add(toAdd);
     }
 
+    public Deck getDeck(Deck target) {
+        requireNonNull(target);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new DeckNotFoundException();
+        }
+
+        return internalList.get(index);
+    }
+
     /**
      * Replaces the deck {@code target} in the list with {@code editedDeck}.
      * {@code target} must exist in the list.

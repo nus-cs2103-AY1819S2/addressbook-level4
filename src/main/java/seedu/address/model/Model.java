@@ -145,6 +145,8 @@ public interface Model {
      */
     void addDeck(Deck deck);
 
+    Deck getDeck(Deck target);
+
     /**
      * Deletes the given deck.
      * The deck must exist in TopDeck.

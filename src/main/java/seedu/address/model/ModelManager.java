@@ -182,7 +182,8 @@ public class ModelManager implements Model {
         }
 
         CardsView cardsView = (CardsView)viewState;
-        versionedTopDeck.addCard(card, cardsView.getActiveDeck());
+        Deck editedDeck = versionedTopDeck.addCard(card, cardsView.getActiveDeck());
+        changeDeck(editedDeck);
     }
 
     @Override
@@ -195,6 +196,11 @@ public class ModelManager implements Model {
 
         CardsView cardsView = (CardsView)viewState;
         versionedTopDeck.setCard(target, editedCard, cardsView.getActiveDeck());
+    }
+
+    @Override
+    public Deck getDeck(Deck target) {
+        return versionedTopDeck.getDeck(target);
     }
 
     @Override

@@ -10,6 +10,7 @@ import seedu.address.logic.DecksView;
 import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.deck.Deck;
 
 /**
  * Reverts the {@code model}'s address book to its previous state.
@@ -37,8 +38,11 @@ public class UndoCommand extends Command {
         if (model.isAtDecksView()) {
             ((DecksView)viewState).updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
         } else if (model.isAtCardsView()) {
-            ((CardsView)viewState).updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+            CardsView currentView = (CardsView) viewState;
+            Deck currentActiveDeck = currentView.getActiveDeck();
+            Deck newActiveDeck = model.getDeck(currentActiveDeck);
+            model.changeDeck(newActiveDeck);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new UpdatePanelCommandResult(MESSAGE_SUCCESS);
     }
 }

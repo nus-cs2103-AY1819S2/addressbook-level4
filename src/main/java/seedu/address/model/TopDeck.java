@@ -86,7 +86,7 @@ public class TopDeck implements ReadOnlyTopDeck {
      * Adds a card to TopDeck
      * The card should not already exist in the {@code deck} activeDeck.
      */
-    public void addCard(Card card, Deck activeDeck) throws DuplicateCardException, DeckNotFoundException {
+    public Deck addCard(Card card, Deck activeDeck) throws DuplicateCardException, DeckNotFoundException {
         if (!decks.contains(activeDeck)) {
             throw new DeckNotFoundException();
         }
@@ -95,11 +95,13 @@ public class TopDeck implements ReadOnlyTopDeck {
             throw new DuplicateCardException();
         }
 
-        activeDeck.addCard(card);
-
-        decks.setDeck(activeDeck, activeDeck);
+        Deck editedDeck = new Deck(activeDeck);
+        editedDeck.addCard(card);
+        decks.setDeck(activeDeck, editedDeck);
 
         indicateModified();
+
+        return editedDeck;
     }
 
     /**
@@ -145,6 +147,10 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     //// deck operations
+
+    public Deck getDeck(Deck target) {
+        return decks.getDeck(target);
+    }
 
     /**
      * Adds a deck to the TopDeck.

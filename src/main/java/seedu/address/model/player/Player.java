@@ -46,7 +46,7 @@ public class Player {
     }
 
     /**
-     * Default constructor with name Player1 and fleet size 5.
+     * Default constructor with name Player1 and fleet size 8.
      */
     public Player() {
         this("Player1",

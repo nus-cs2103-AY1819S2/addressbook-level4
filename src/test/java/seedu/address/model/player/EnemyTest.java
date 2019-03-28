@@ -44,4 +44,52 @@ public class EnemyTest {
         Player newPlayer1 = new Player("Bob", 5, 2, 1);
         assertEquals(newPlayer1.getTargetHistory(), testPlayer.getTargetHistory());
     }
+
+    @Test public void test_enemyShootAt() {
+        //stub
+    }
+
+    @Test public void test_prepEnemy() {
+        //stub
+    }
+
+    @Test public void test_drawPossibleTarget() {
+        //stub
+    }
+
+    @Test public void test_fillallPossibleTargets() {
+        //stub
+    }
+
+    @Test public void test_fillallPossiblePopulateCoords() {
+        //stub
+    }
+
+    @Test public void test_populateEnemyMap() {
+        //stub
+    }
+
+    @Test public void test_placeAirCraftCarrier () {
+        //stub
+    }
+
+    @Test public void test_placeMultipleDestroyerAndCruiser () {
+        //stub
+    }
+
+    @Test public void test_generateBattleships () {
+        //stub
+    }
+
+    @Test public void test_markAsOccupied () {
+        //stub
+    }
+
+    @Test public void test_justifyCoord () {
+        //stub
+    }
+
+    @Test public void test_generateOrientation() {
+        //stub
+    }
 }

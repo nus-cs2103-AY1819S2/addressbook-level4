@@ -32,7 +32,14 @@ public class Enemy extends Player {
      */
     public Enemy() {
         super("EnemyPlayer", 5, 2, 1);
+    }
+
+    /**
+     * For batman to bootycall
+     */
+    public void prepEnemy() {
         fillAllPossibleTargets(this.getMapGrid().getMapSize());
+        fillallPossiblePopulateCoords(this.getMapGrid().getMapSize());
         populateEnemyMap(this.getMapGrid().getMapSize());
     }
 
@@ -130,7 +137,7 @@ public class Enemy extends Player {
     }
 
     /**
-     * places all destroyers onto enemy map
+     * places all destroyers and cruisers onto enemy map
      * and marks those occupied cells in allPossiblePopulateCoords
      */
     private void placeMultipleDestroyerAndCruiser(int mapSize, int numShips, String shipType, int shipSize) {
@@ -158,13 +165,7 @@ public class Enemy extends Player {
 
     }
 
-    /**
-     * places all cruisers onto enemy map
-     * and marks those occupied cells in allPossiblePopulateCoords
-     */
-    private void placeCruiser (int mapSize, int numCruiser, int shipSize) {
 
-    }
 
     /**
      * creates list of a certain battleship type

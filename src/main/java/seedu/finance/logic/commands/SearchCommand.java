@@ -23,8 +23,8 @@ public class SearchCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all records which contain any of "
             + "the specified keywords (case-insensitive) based on the selected flag"
             + "and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD FLAG [MORE_KEYWORDS]...\n"
-            + "Flags: -name search for names, -tag search based on tags\n"
+            + "Parameters: FLAG KEYWORD [MORE_KEYWORDS]...\n"
+            + "Flags: -name search for names, -cat search based on categories\n"
             + "Example: " + COMMAND_WORD + " -name" + " fries chicken bus fare";
 
     public static final String INVALID_FLAG = "Flag not recognised. Valid flags:\n"

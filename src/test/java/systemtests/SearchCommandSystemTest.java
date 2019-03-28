@@ -53,19 +53,19 @@ public class SearchCommandSystemTest extends FinanceTrackerSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: find multiple records in finance tracker, 2 keywords in reversed order -> 2 records found */
-        command = SearchCommand.COMMAND_WORD +  " -name" + " Donut Banana";
+        command = SearchCommand.COMMAND_WORD + " -name" + " Donut Banana";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple records in finance tracker, 2 keywords with 1 repeat -> 2 records found */
-        command = SearchCommand.COMMAND_WORD +  " -name" + " Donut Banana Donut";
+        command = SearchCommand.COMMAND_WORD + " -name" + " Donut Banana Donut";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple records in finance tracker, 2 matching keywords and 1 non-matching keyword
          * -> 2 records found
          */
-        command = SearchCommand.COMMAND_WORD +  " -name" + " Donut Banana NonMatchingKeyWord";
+        command = SearchCommand.COMMAND_WORD + " -name" + " Donut Banana NonMatchingKeyWord";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 

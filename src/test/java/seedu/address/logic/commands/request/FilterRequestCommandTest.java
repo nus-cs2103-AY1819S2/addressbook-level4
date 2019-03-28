@@ -12,7 +12,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.testutil.TypicalHealthWorkers.getTypicalHealthWorkerBook;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalRequests.ALICE_REQUEST;
 import static seedu.address.testutil.TypicalRequests.BENSON_REQUEST;
 import static seedu.address.testutil.TypicalRequests.CARL_REQUEST;
@@ -41,11 +40,11 @@ import seedu.address.model.request.RequestNameContainsKeywordPredicate;
 /**
  * Contains integration tests (interaction with Model) for {@code FilterRequestCommand}
  */
-public class FilterRequestCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), getTypicalHealthWorkerBook(),
-        getTypicalRequestBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(),
-        getTypicalHealthWorkerBook(), getTypicalRequestBook(), new UserPrefs());
+class FilterRequestCommandTest {
+    private Model model = new ModelManager(getTypicalHealthWorkerBook(),
+            getTypicalRequestBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalHealthWorkerBook(),
+            getTypicalRequestBook(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     /**

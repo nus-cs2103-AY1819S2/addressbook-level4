@@ -30,7 +30,7 @@ public class Day {
     public Day(String day) {
         requireNonNull(day);
         checkArgument(isValidDay(day), MESSAGE_CONSTRAINTS);
-        this.day = day;
+        this.day = String.valueOf(Integer.parseInt(day));
     }
 
     /**

@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.Mode;
+import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.AddToMenuCommand;
 import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
@@ -27,10 +28,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
 import seedu.address.model.order.OrderItem;
+import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
+import seedu.address.model.table.TableStatus;
 import seedu.address.testutil.MenuItemBuilder;
 import seedu.address.testutil.OrderItemBuilder;
 import seedu.address.testutil.RestOrRantUtil;
+import seedu.address.testutil.TableBuilder;
 
 public class RestOrRantParserTest {
 
@@ -49,29 +53,29 @@ public class RestOrRantParserTest {
     //        assertEquals(new AddCommand(person), command);
     //    }
 
-    //    @Test TODO
-    //    public void parseCommand_addTable() throws Exception {
-    //        Table table = new TableBuilder().build();
-    //        AddTableCommand command = (AddTableCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
-    //                AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
-    //        List<TableStatus> tableStatuses = new ArrayList<>();
-    //        tableStatuses.add(table.getTableStatus());
-    //        assertEquals(new AddTableCommand(tableStatuses), command);
-    //        try {
-    //            parser.parseCommand(Mode.TABLE_MODE,
-    //                    AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
-    //            throw new AssertionError("The expected ParseException was not thrown.");
-    //        } catch (ParseException pe) {
-    //            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
-    //        }
-    //        try {
-    //            parser.parseCommand(Mode.MENU_MODE,
-    //                    AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
-    //            throw new AssertionError("The expected ParseException was not thrown.");
-    //        } catch (ParseException pe) {
-    //            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
-    //        }
-    //    }
+    @Test
+    public void parseCommand_addTable() throws Exception {
+        Table table = new TableBuilder().build();
+        AddTableCommand command = (AddTableCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
+                AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
+        List<TableStatus> tableStatuses = new ArrayList<>();
+        tableStatuses.add(table.getTableStatus());
+        assertEquals(new AddTableCommand(tableStatuses), command);
+        try {
+            parser.parseCommand(Mode.TABLE_MODE,
+                    AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+        try {
+            parser.parseCommand(Mode.MENU_MODE,
+                    AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
+            throw new AssertionError("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
+        }
+    }
 
     @Test
     public void parseCommand_addToOrder() throws Exception {
@@ -198,6 +202,10 @@ public class RestOrRantParserTest {
         assertTrue(parser.parseCommand(Mode.MENU_MODE, ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(Mode.TABLE_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
         assertTrue(parser.parseCommand(Mode.MENU_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE, ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE, ExitCommand.COMMAND_WORD) instanceof ExitCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE, ExitCommand.COMMAND_ALIAS) instanceof ExitCommand);
     }
 
     //    @Test
@@ -221,6 +229,10 @@ public class RestOrRantParserTest {
         assertTrue(parser.parseCommand(Mode.MENU_MODE, HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(Mode.TABLE_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
         assertTrue(parser.parseCommand(Mode.MENU_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE, HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE, HelpCommand.COMMAND_WORD) instanceof HelpCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE, HelpCommand.COMMAND_ALIAS) instanceof HelpCommand);
     }
 
     @Test
@@ -269,6 +281,14 @@ public class RestOrRantParserTest {
                 RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
         assertTrue(parser.parseCommand(Mode.RESTAURANT_MODE,
                 RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
     }
 
     @Test
@@ -307,6 +327,14 @@ public class RestOrRantParserTest {
         assertTrue(parser.parseCommand(Mode.MENU_MODE,
                 RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
         assertTrue(parser.parseCommand(Mode.MENU_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.BILL_MODE,
+                RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE,
+                RestaurantModeCommand.COMMAND_WORD) instanceof RestaurantModeCommand);
+        assertTrue(parser.parseCommand(Mode.STATISTICS_MODE,
                 RestaurantModeCommand.COMMAND_ALIAS) instanceof RestaurantModeCommand);
     }
 

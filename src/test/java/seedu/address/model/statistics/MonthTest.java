@@ -38,8 +38,21 @@ public class MonthTest {
 
         // valid name
         assertTrue(Month.isValidMonth("01")); // Double digit number 1
-        assertTrue(Month.isValidMonth("7")); // Single digit more than 1
+        assertTrue(Month.isValidMonth("1")); // Single digit more than 1
         assertTrue(Month.isValidMonth("12")); // Number 12
         assertTrue(Month.isValidMonth("10")); // Double digits less than 12
+    }
+
+    @Test
+    public void equal() {
+
+        // not equal
+        assertFalse(new Month("12").equals(new Month("11")));
+        assertFalse(new Month("7").equals(new Month("5")));
+        assertFalse(new Month("06").equals(new Month("05")));
+
+        // equal
+        assertTrue(new Month("12").equals(new Month("12")));
+        assertTrue(new Month("05").equals(new Month("5")));
     }
 }

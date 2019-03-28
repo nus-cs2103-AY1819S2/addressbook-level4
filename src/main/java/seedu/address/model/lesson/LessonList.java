@@ -119,18 +119,34 @@ public class LessonList {
         return openedLesson.getCards();
     }
 
+    /**
+     * @return the list of core headers
+     */
     public List<String> getOpenedLessonCoreHeaders() {
         return openedLesson.getCoreHeaders();
     }
 
+    /**
+     * @return the list of optional headers
+     */
     public List<String> getOpenedLessonOptionalHeaders() {
         return openedLesson.getOptionalHeaders();
     }
 
+    /**
+     * Adds a card to the opened lesson.
+     *
+     * @param card card to be added to the opened lesson
+     */
     public void addCardToOpenedLesson(Card card) {
         openedLesson.addCard(card);
     }
 
+    /**
+     * Deletes the card at the specified index from the opened lesson.
+     *
+     * @param index the index of the card to be deleted from the opened lesson
+     */
     public void deleteCardFromOpenedLesson(int index) {
         try {
             openedLesson.deleteCard(index);

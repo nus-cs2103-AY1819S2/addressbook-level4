@@ -2,9 +2,6 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_NO_OPENED_LESSON;
-import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
-import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;

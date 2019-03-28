@@ -171,10 +171,10 @@ public class Activity implements Comparable<Activity> {
     @Override
     public int compareTo(Activity other) {
         //when both activity are ongoing or completed, compare by the time of the activity
-        if (this.status.equals(other.status)) {
-            return this.dateTime.compareTo(other.dateTime);
+        if (this.getStatus().equals(other.getStatus())) {
+            return this.getDateTime().compareTo(other.getDateTime());
         }
-        if (ActivityStatus.isCompleted(other.status)) {
+        if (ActivityStatus.isCompleted(other.getStatus())) {
             return -1;
             //this activity is ongoing while the other is completed, this activity will come first in the list
         }

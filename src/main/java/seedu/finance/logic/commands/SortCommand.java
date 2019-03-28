@@ -32,7 +32,7 @@ public class SortCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + FLAG_NAME;
 
     public static final String MESSAGE_SUCCESS = "List is sorted.";
-    public static final String MESSAGE_NOT_SORTED = "One flag must be provided.";
+    public static final String MESSAGE_NOT_SORTED = "Only one flag should be provided.";
 
     private final Comparator<Record> comparator;
 

@@ -12,10 +12,11 @@ import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * This implements a {@link ManagementCommand} which executes a command to delete a {@link Lesson} from the
- * {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
- * to be passed into the {@link #execute(Model, CommandHistory)} command. The actual deletion
- * of the {@link Lesson} is carried out in the {@link ManagementModel}.
+ * This implements a {@link ManagementCommand} which deletes a {@link Lesson} from the
+ * {@code List<Lesson> lessons} loaded in memory.
+ *
+ * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
+ * command. The deletion of the {@link Lesson} is carried out in the {@link ManagementModel}.
  */
 public class DeleteLessonCommand extends ManagementCommand {
     /**
@@ -49,13 +50,15 @@ public class DeleteLessonCommand extends ManagementCommand {
     }
 
     /**
-     * Executes the command and returns the result message.
+     * Executes the command which deletes a {@link Lesson} from the {@code List<Lesson> lessons}
+     * loaded in memory.
      *
-     * @param model which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
+     * @param model the {@link ManagementModel} the command should operate on.
+     * @param history {@link CommandHistory} which the command should operate on.
      *
      * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
+     * @throws CommandException if invalid index supplied or if the {@code model} passed in
+     * is not a {@link ManagementModel}
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -77,10 +80,8 @@ public class DeleteLessonCommand extends ManagementCommand {
     }
 
     /**
-     * Certain ManagementCommand objects require a call to storageManager to save the lessons to disk
-     * after being executed.
-     *
-     * <br><br>When a lesson is added, a save is required.
+     * When a lesson is closed, the updated list of {@link Lesson} objects needs
+     * to be saved to the hard disk.
      *
      * @return true given that a save to disk is required.
      */
@@ -89,6 +90,14 @@ public class DeleteLessonCommand extends ManagementCommand {
         return true;
     }
 
+    /**
+     * Returns true if {@code other} is the same object or if it is also an {@link DeleteLessonCommand}
+     * attempting to delete the same lesson.
+     *
+     * @param other the other object to compare this object to
+     * @return true if {@code other} is the same object or if it is also an {@link DeleteLessonCommand}
+     * attempting to delete the same lesson.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

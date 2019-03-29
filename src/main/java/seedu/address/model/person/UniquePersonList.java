@@ -120,9 +120,9 @@ public class UniquePersonList implements Iterable<Person> {
                         second = o2.getName().fullName;
                         break;
 
-                    case "matricnumber":
-                        first = o1.getMatricNumber().value;
-                        second = o2.getMatricNumber().value;
+                    case "gender":
+                        first = o1.getGender().value;
+                        second = o2.getGender().value;
                         break;
 
                     case "major":

@@ -20,7 +20,6 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
 import seedu.address.testutil.LessonBuilder;
-import seedu.address.testutil.TypicalCards;
 import seedu.address.testutil.TypicalLessons;
 
 /**
@@ -98,7 +97,8 @@ public class AddLessonCommandTest {
 
     @Test
     public void isSaveRequired_isTrue() {
-        assertTrue(new AddCardCommand(TypicalCards.CARD_JAPAN).isSaveRequired());
+        assertTrue(new AddLessonCommand(
+                TypicalLessons.LESSON_DEFAULT).isSaveRequired());
     }
 
     /**

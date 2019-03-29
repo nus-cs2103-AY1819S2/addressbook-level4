@@ -22,7 +22,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
-import seedu.address.testutil.TypicalCards;
 
 /**
  * Unit tests for the {@link DeleteLessonCommand}.
@@ -35,6 +34,8 @@ public class DeleteLessonCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
+    private Index toDeleteIndex1 = Index.fromZeroBased(0);
+    private Index toDeleteIndex2 = Index.fromZeroBased(1);
 
     @Test
     public void execute_lessonDeletedByModel_deleteSuccessful() throws Exception {
@@ -77,8 +78,6 @@ public class DeleteLessonCommandTest {
 
     @Test
     public void equals() {
-        Index toDeleteIndex1 = Index.fromZeroBased(0);
-        Index toDeleteIndex2 = Index.fromZeroBased(1);
         DeleteLessonCommand deleteLessonCommand1 = new DeleteLessonCommand(toDeleteIndex1);
         DeleteLessonCommand deleteLessonCommand2 = new DeleteLessonCommand(toDeleteIndex2);
 
@@ -97,6 +96,11 @@ public class DeleteLessonCommandTest {
 
         // different lesson -> returns false
         assertNotEquals(deleteLessonCommand1, deleteLessonCommand2);
+    }
+
+    @Test
+    public void isSaveRequired_isTrue() {
+        assertTrue(new DeleteLessonCommand(toDeleteIndex1).isSaveRequired());
     }
 
     /**
@@ -118,11 +122,6 @@ public class DeleteLessonCommandTest {
             } catch (IndexOutOfBoundsException e) {
                 throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
             }
-        }
-
-        @Test
-        public void isSaveRequired_isTrue() {
-            assertTrue(new AddCardCommand(TypicalCards.CARD_JAPAN).isSaveRequired());
         }
 
         @Override

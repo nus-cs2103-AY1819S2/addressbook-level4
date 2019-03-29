@@ -17,7 +17,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
-import seedu.address.testutil.TypicalCards;
 
 /**
  * Unit tests for the {@link CloseLessonCommand}.
@@ -97,7 +96,7 @@ public class CloseLessonCommandTest {
 
     @Test
     public void isSaveRequired_isTrue() {
-        assertTrue(new AddCardCommand(TypicalCards.CARD_JAPAN).isSaveRequired());
+        assertTrue(new CloseLessonCommand().isSaveRequired());
     }
 
     /**

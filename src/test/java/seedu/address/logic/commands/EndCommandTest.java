@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.EndCommand.MESSAGE_END_TEST_SESSION_SUCCESS;
@@ -24,11 +24,12 @@ public class EndCommandTest {
 
     @Test
     public void execute_endTestSession_success() {
-        model.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        expectedModel.testCardFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.testCardFolder();
+        expectedModel.testCardFolder();
 
         expectedModel.endTestSession();
-
         CommandResult expectedCommandResult = new CommandResult(MESSAGE_END_TEST_SESSION_SUCCESS,
                 CommandResult.Type.END_TEST_SESSION);
         assertCommandSuccess(new EndCommand(), model, commandHistory, expectedCommandResult, expectedModel);
@@ -36,7 +37,7 @@ public class EndCommandTest {
 
     @Test
     public void execute_endTestSession_fail() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         assertCommandFailure(new EndCommand(), model, commandHistory, expectedMessage);
     }
 }

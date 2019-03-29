@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
 import seedu.address.model.card.Score;
 import seedu.address.model.hint.Hint;
@@ -22,12 +23,14 @@ public class CardBuilder {
     private Question question;
     private Answer answer;
     private Score score;
+    private Set<Option> options;
     private Set<Hint> hints;
 
     public CardBuilder() {
         question = new Question(DEFAULT_QUESTION);
         answer = new Answer(DEFAULT_ANSWER);
         score = new Score(DEFAULT_SCORE);
+        options = new HashSet<>();
         hints = new HashSet<>();
     }
 
@@ -38,6 +41,7 @@ public class CardBuilder {
         question = cardToCopy.getQuestion();
         answer = cardToCopy.getAnswer();
         score = cardToCopy.getScore();
+        options = new HashSet<>(cardToCopy.getOptions());
         hints = new HashSet<>(cardToCopy.getHints());
     }
 
@@ -58,6 +62,14 @@ public class CardBuilder {
     }
 
     /**
+     * Parses the {@code options} into a {@code Set<Option>} and set it to the {@code Card} that we are building.
+     */
+    public CardBuilder withOptions(String ... options) {
+        this.options = SampleDataUtil.getOptionSet(options);
+        return this;
+    }
+
+    /**
      * Sets the {@code Answer} of the {@code Card} that we are building.
      */
     public CardBuilder withAnswer(String answer) {
@@ -74,7 +86,7 @@ public class CardBuilder {
     }
 
     public Card build() {
-        return new Card(question, answer, score, hints);
+        return new Card(question, answer, score, options, hints);
     }
 
 }

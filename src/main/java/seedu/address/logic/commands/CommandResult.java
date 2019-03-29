@@ -21,10 +21,13 @@ public class CommandResult {
         IS_EXIT, // The application should exit.
         ENTERED_FOLDER, // The side panel should be updated as folder was entered.
         EXITED_FOLDER, // The side panel should be updated as folder was exited.
-        TEST_SESSION_CARD, // The application should enter a test session.
+        START_TEST_SESSION, // The application should enter a test session.
         END_TEST_SESSION, // The current test session should end.
         ANSWER_CORRECT,
         ANSWER_WRONG,
+        ENTERED_REPORT,
+        EXITED_REPORT,
+        SHOW_NEXT_CARD, // The next card will be displayed in the current test session.
         NONE // use for "nothing to do"
     }
 

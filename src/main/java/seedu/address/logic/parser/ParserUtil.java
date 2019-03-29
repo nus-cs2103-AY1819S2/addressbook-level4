@@ -3,19 +3,23 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Answer;
+import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
 import seedu.address.model.hint.Hint;
-import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.storage.csvmanager.CsvFile;
 
 /**
@@ -24,7 +28,9 @@ import seedu.address.storage.csvmanager.CsvFile;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INDEX_LESS_THAN_ZERO = "Index is less than zero";
     public static final String HOME_SYMBOL = "..";
+
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -107,29 +113,52 @@ public class ParserUtil {
     }
 
     /**
-     * Parsers {@code Collection<String> folderNames} into a {@Code Set<CardFolderExport>}.
-     * Similar folder names will not be included inside the set.
+     * Parses a {@code String option} into a {@code Option}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code option} is invalid.
      */
-    public static Set<CardFolderExport> parseFolders(Collection<String> folderNames) throws ParseException {
-        requireNonNull(folderNames);
-        final Set<CardFolderExport> cardFolderExports = new HashSet<>();
-        for (String folderName : folderNames) {
-            cardFolderExports.add(parseFolder(folderName));
+    public static Option parseOption(String option) throws ParseException {
+        requireNonNull(option);
+        String trimmedOption = option.trim();
+        if (!Option.isValidOption(trimmedOption)) {
+            throw new ParseException(Option.MESSAGE_CONSTRAINTS);
         }
-        return cardFolderExports;
+        return new Option(trimmedOption);
     }
 
     /**
-     * Parses a {@Code String folderName} into a {@code CardFolderExport}.
-     * Trims any leading and trailing white space for folder name.
+     * Parses {@code Collection<String> options} into a {@code Set<Option>}.
      */
-    private static CardFolderExport parseFolder(String folderName) throws ParseException {
-        requireNonNull(folderName);
-        folderName = folderName.trim();
-        if (CardFolderExport.isFolderNameEmpty(folderName)) {
-            throw new ParseException(CardFolderExport.MESSAGE_CONSTRAINTS);
+    public static Set<Option> parseOptions(Collection<String> options) throws ParseException {
+        requireNonNull(options);
+        final Set<Option> optionSet = new HashSet<>();
+        for (String optionValue : options) {
+            optionSet.add(parseOption(optionValue));
         }
-        return new CardFolderExport(folderName);
+        return optionSet;
+    }
+
+
+    public static Integer stringToInt(String element) throws NumberFormatException {
+        return Integer.parseInt(element);
+    }
+
+    /**
+     * Parses a user input of a string of integers into a {@code List<Integer>}
+     */
+    public static List<Integer> parseFolderIndex(String folderIndexes) throws NumberFormatException,
+            IllegalValueException {
+        folderIndexes = folderIndexes.trim();
+        List<Integer> indexList = Arrays.stream(folderIndexes.split(" "))
+                .map(ParserUtil::stringToInt)
+                .collect(Collectors.toList());
+
+        List<Integer> invalidIndexList = indexList.stream().filter(i -> i < 0).collect(Collectors.toList());
+        if (invalidIndexList.size() > 0) {
+            throw new IllegalValueException(MESSAGE_INDEX_LESS_THAN_ZERO);
+        }
+        return indexList;
     }
 
     /**
@@ -138,7 +167,8 @@ public class ParserUtil {
     public static CsvFile parseFileName(String filename) throws ParseException {
         requireNonNull(filename);
         if (!CsvFile.isValidFileName(filename)) {
-            throw new ParseException(CsvFile.MESSAGE_CONSTRAINTS);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    CsvFile.MESSAGE_CONSTRAINTS));
         }
         return new CsvFile(filename);
     }

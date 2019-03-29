@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private FolderListPanel folderListPanel;
     private CardListPanel cardListPanel;
+    private ReportDisplay reportDisplay;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CardMainScreen cardMainScreen;
@@ -181,6 +182,16 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Display the next card in this test session.
+     */
+    private void handleNextCardTestSession(Card card) {
+        fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+        testSession = new TestSession(card);
+        Region testSessionRegion = (testSession).getRoot();
+        fullScreenPlaceholder.getChildren().add(testSessionRegion);
+    }
+
+    /**
      * Ends test session and display back card main screen.
      */
     private void handleEndTestSession() {
@@ -202,12 +213,21 @@ public class MainWindow extends UiPart<Stage> {
         folderListPanel.refreshContent();
     }
 
+    private void handleReport() {
+        reportDisplay = new ReportDisplay(logic.getCardFolder());
+        Region reportRegion = (reportDisplay).getRoot();
+        fullScreenPlaceholder.getChildren().add(reportRegion);
+    }
+
+    private void handleEndReport() {
+        fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+    }
+
 
     /**
      * Show the page with correct answer.
      */
     private void handleCorrectAnswer() {
-        //TODO: Change UI to display correct answer
         assert testSession != null;
         testSession.handleCorrectAnswer();
     }
@@ -216,7 +236,6 @@ public class MainWindow extends UiPart<Stage> {
      * Show the page with wrong answer.
      */
     private void handleWrongAnswer() {
-        //TODO: Change UI to display wrong answer
         assert testSession != null;
         testSession.handleWrongAnswer();
     }
@@ -253,11 +272,20 @@ public class MainWindow extends UiPart<Stage> {
             case EXITED_FOLDER:
                 handleExitFolder();
                 break;
-            case TEST_SESSION_CARD:
+            case START_TEST_SESSION:
                 handleStartTestSession(commandResult.getTestSessionCard());
                 break;
             case END_TEST_SESSION:
                 handleEndTestSession();
+                break;
+            case ENTERED_REPORT:
+                handleReport();
+                break;
+            case EXITED_REPORT:
+                handleEndReport();
+                break;
+            case SHOW_NEXT_CARD:
+                handleNextCardTestSession(commandResult.getTestSessionCard());
                 break;
             case ANSWER_CORRECT:
                 handleCorrectAnswer();

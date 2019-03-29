@@ -38,7 +38,7 @@ public class AnswerCommand extends Command {
         requireNonNull(model);
 
         if (!model.checkIfInsideTestSession()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
         if (model.checkIfCardAlreadyAnswered()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);
@@ -74,7 +74,8 @@ public class AnswerCommand extends Command {
             newScore = new Score(cardToMark.getScore().correctAttempts,
                     cardToMark.getScore().totalAttempts + 1);
         }
-        return new Card(cardToMark.getQuestion(), cardToMark.getAnswer(), newScore, cardToMark.getHints());
+        return new Card(cardToMark.getQuestion(), cardToMark.getAnswer(), newScore, cardToMark.getOptions(),
+                cardToMark.getHints());
     }
 
     @Override

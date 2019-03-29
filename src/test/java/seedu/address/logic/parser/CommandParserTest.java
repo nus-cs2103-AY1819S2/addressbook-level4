@@ -69,7 +69,7 @@ public class CommandParserTest {
     public void parseCommand_test() throws Exception {
         TestCommand command = (TestCommand) parser.parseCommand(
                 TestCommand.COMMAND_WORD + " " + INDEX_FIRST_CARD_FOLDER.getOneBased());
-        assertEquals(new TestCommand(INDEX_FIRST_CARD_FOLDER), command);
+        assertEquals(new TestCommand(), command);
     }
 
     @Test

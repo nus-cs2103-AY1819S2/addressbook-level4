@@ -51,6 +51,16 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
                     .get()));
         }
 
+        if (argMultimap.getValue(PREFIX_STARTTIME).isPresent()) {
+            editTaskDescriptor.setStartTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME)
+                    .get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_ENDTIME).isPresent()) {
+            editTaskDescriptor.setEndTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME)
+                    .get()));
+        }
+
         if (!editTaskDescriptor.isAnyFieldEdited()) {
             throw new ParseException(TaskEditCommand.MESSAGE_NOT_EDITED);
         }

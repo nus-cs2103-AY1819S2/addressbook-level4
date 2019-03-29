@@ -139,13 +139,15 @@ public class TaskEditCommand extends Command {
             setTitle(toCopy.title);
             setStartDate(toCopy.startDate);
             setEndDate(toCopy.endDate);
+            setStartTime(toCopy.startTime);
+            setEndTime(toCopy.endTime);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, startDate, endDate, startTime, endDate);
+            return CollectionUtil.isAnyNonNull(title, startDate, endDate, startTime, endTime);
         }
 
         /**

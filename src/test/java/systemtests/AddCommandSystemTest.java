@@ -141,7 +141,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: add a duplicate pdf except with different tags -> rejected *//*
-        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG_NEW.getPrefix() + "friends";
+        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG_ADD.getPrefix() + "friends";
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PDF);
 
         *//* Case: missing name -> rejected *//*

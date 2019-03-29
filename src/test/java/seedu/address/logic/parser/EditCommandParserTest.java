@@ -11,7 +11,7 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_1_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_2_VALID;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_CS2103T;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
 
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -28,7 +28,7 @@ import seedu.address.testutil.EditPdfDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String TAG_EMPTY = " " + PREFIX_TAG_NEW;
+    private static final String TAG_EMPTY = " " + PREFIX_TAG_ADD;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);

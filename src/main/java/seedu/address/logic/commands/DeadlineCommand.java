@@ -84,4 +84,23 @@ public class DeadlineCommand extends Command {
     public static Pdf getPdfWithNewDeadline(Pdf old, Deadline deadline) {
         return new Pdf(old.getName(), old.getDirectory(), old.getSize(), old.getTags(), deadline);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeadlineCommand)) {
+            return false;
+        }
+
+        // state check
+        DeadlineCommand e = (DeadlineCommand) other;
+        return index.equals(e.index)
+                && deadline.equals(e.deadline)
+                && status.equals(e.status);
+    }
 }

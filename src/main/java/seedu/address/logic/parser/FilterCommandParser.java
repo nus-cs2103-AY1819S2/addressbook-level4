@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_MISSING_PREFIX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +34,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         List<String> tagKeywords = Arrays.asList(trimmedArgs.split("\\s+"));
         for (String s : tagKeywords) {
-            if (!s.startsWith(PREFIX_TAG_NEW.toString())) {
+            if (!s.startsWith(PREFIX_TAG_ADD.toString())) {
                 throw new ParseException(
                         String.format(MESSAGE_MISSING_PREFIX, FilterCommand.MESSAGE_USAGE));
             }
@@ -42,7 +42,7 @@ public class FilterCommandParser implements Parser<FilterCommand> {
 
         //Remove prefix to prepare for filter command
         tagKeywords.replaceAll(
-            x -> x.replaceFirst(PREFIX_TAG_NEW.toString(), ""));
+            x -> x.replaceFirst(PREFIX_TAG_ADD.toString(), ""));
 
         return new FilterCommand(new TagContainsKeywordsPredicate(tagKeywords));
     }

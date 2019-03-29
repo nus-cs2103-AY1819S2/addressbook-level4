@@ -23,7 +23,7 @@ package systemtests;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 //import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
+//import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 import seedu.address.commons.core.index.Index;
@@ -103,7 +103,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         *//* Case: clear tags -> cleared *//*
         index = INDEX_FIRST_PERSON;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG_NEW.getPrefix();
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG_ADD.getPrefix();
         Pdf pdfToEdit = getModel().getFilteredPdfList().get(index.getZeroBased());
         editedPdf = new PdfBuilder(pdfToEdit).withTags().build();
         assertCommandSuccess(command, index, editedPdf);

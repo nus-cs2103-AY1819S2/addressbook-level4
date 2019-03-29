@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -67,9 +67,9 @@ public class CommandTestUtil {
     public static final String FILE_DESC_2_PDF = " " + PREFIX_FILE + Paths.get(DIR_2_VALID).toAbsolutePath().toString();
     public static final String FILE_DESC_PATH_INVALID = " " + PREFIX_FILE + "DefinitelyNotAFilePath"; // not valid path
 
-    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG_NEW + TAG_VALID_LECTURE;
-    public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_NEW + TAG_VALID_CS2103T;
-    public static final String TAG_DESC_INVALID = " " + PREFIX_TAG_NEW + "moduleA*"; // '*' not allowed in tags
+    public static final String TAG_DESC_LECTURE = " " + PREFIX_TAG_ADD + TAG_VALID_LECTURE;
+    public static final String TAG_DESC_CS2103T = " " + PREFIX_TAG_ADD + TAG_VALID_CS2103T;
+    public static final String TAG_DESC_INVALID = " " + PREFIX_TAG_ADD + "moduleA*"; // '*' not allowed in tags
 
     public static final String DEADLINE_DESC_READY = DATE_1_VALID + PROPERTY_SEPARATOR_PREFIX
             + DEADLINE_STATUS_READY;

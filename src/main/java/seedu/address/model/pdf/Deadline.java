@@ -5,6 +5,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.MissingFormatArgumentException;
 
 /**
  * Represents a Pdf's deadline in the pdf book.
@@ -61,9 +62,15 @@ public class Deadline implements Comparable<Deadline> {
      *
      */
     public Deadline(String jsonFormat) {
-        this.date = LocalDate.parse(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
+        String stringStatus = "";
 
-        String stringStatus = jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX];
+        try {
+            this.date = LocalDate.parse(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
+            stringStatus = jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingFormatArgumentException("Missing Parameters.");
+        }
+
         switch(stringStatus) {
         case "REMOVE":
             this.status = DeadlineStatus.REMOVE;
@@ -177,8 +184,8 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
-        return (this.status == DeadlineStatus.READY | this.status == DeadlineStatus.COMPLETE) ?
-                new StringBuilder().append(this.date.toString())
+        return (this.status == DeadlineStatus.READY | this.status == DeadlineStatus.COMPLETE)
+                ? new StringBuilder().append(this.date.toString())
                 .append(Deadline.PROPERTY_SEPARATOR_PREFIX)
                 .append(this.status)
                 .toString() : "";

@@ -127,7 +127,7 @@ public class ParserUtil {
         final int positionMonth = 1;
         final int positionYear = 2;
         final String parameterSeperator = "-";
-        final String dateError = "Invalid Date Format/Value";
+        final String dateError = "Invalid Date Format/Value.\nPlease enter valid date of the format dd-mm-yyyy.";
 
         String[] dates = deadline.split(parameterSeperator);
 

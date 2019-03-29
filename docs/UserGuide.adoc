@@ -150,6 +150,12 @@ Format: `list`
 * This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort.
 ====
 
+==== Report user performance for folder : `report`
+
+Displays user performance in a fullscreen for the current card folder.
+
+Format: `report`
+
 ==== Exit folder : `change ..`
 
 Return to the root directory (exit the current folder). Side panel on the left will display the list of folders.
@@ -199,15 +205,6 @@ Examples:
 
 * `deletefolder 2` +
 Deletes the second folder in the folder list, along with its cards, on the home directory.
-
-==== Report user performance for folder : `report`
-
-Displays user performance in a fullscreen for the current card folder.
-
-Format: `report`
-
-[NOTE]
-This command is only considered valid inside a card folder.
 
 
 ==== Enter folder : `change`
@@ -442,11 +439,11 @@ questions displayed. The user is required to key in an answer for each question.
 |`delete INDEX` | Deletes the flashcard identified by index from the current folder.
 |`sort` | Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.
 |`list` | Display a list of the flashcards in the current folder
+|`report` | Displays user performance on the right panel for the current folder.
 |`change ..` | Return to the root directory (exit the current folder). Side panel on the left will display the list of folders.
 |`change FOLDER_INDEX`|Enters the folder specified by index. Side panel on the left will display the list of cards in that folder.
 |`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
 |`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
-|`report` | Displays user performance on the right panel for the current folder.
 |`test` | This command begins a test session, where the display area enters a fullscreen.
 |`ans ANSWER` | Enter answer for a flashcard.
 |`reveal` | Immediately reveals the correct answer.

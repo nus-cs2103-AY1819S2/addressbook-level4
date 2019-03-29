@@ -2,12 +2,14 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.animation.ScaleTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.StudyView;
 
@@ -46,9 +48,7 @@ public class StudyPanel extends UiPart<Region> {
 
         question.setText(textShown.getValue());
         userAnswerLabel.setVisible(false);
-
         card.pseudoClassStateChanged(ANSWER, false);
-
         textShown.addListener((observable, oldValue, newValue) -> {
             logger.info("textShown changed to: " + newValue);
             question.setText(textShown.getValue());

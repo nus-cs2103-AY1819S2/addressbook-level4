@@ -34,13 +34,15 @@ public class TopDeckParser {
      */
     public Command parseCommand(String userInput, Model model) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        if (!matcher.matches()) {
+        if (!matcher.matches() && !userInput.equals("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
-
+        String commandWord = "";
+        String arguments = "";
+        if (!userInput.equals("")) {
+            commandWord = matcher.group("commandWord");
+            arguments = matcher.group("arguments");
+        }
         try {
             return model.parse(commandWord, arguments);
         } catch (ParseException e) {

@@ -122,7 +122,7 @@ class JsonAdaptedRequest {
         }
 
         if (!RequestDate.isValidDate(requestDate)) {
-            throw new IllegalValueException(RequestDate.MESSAGE_DATE_CONSTRAINTS);
+            throw new IllegalValueException(RequestDate.MESSAGE_CONSTRAINTS);
         }
 
         final RequestDate modelrequestDate = new RequestDate(this.requestDate);

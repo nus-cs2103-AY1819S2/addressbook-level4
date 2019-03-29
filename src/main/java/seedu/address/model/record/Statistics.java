@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,18 +85,6 @@ public class Statistics {
         return new Statistics(newNoOfConsultations, newRevenue, newExpenditure, newMedicinesCount, newSymptomsCount);
     }
 
-    /**
-     * Calculates the statistics of a list of records
-     * @param records A list of Record objects
-     * @return A new Statistics object
-     */
-    public static Statistics fromRecordList(List<Record> records, RecordManager recordManager) {
-        Statistics stats = new Statistics();
-        for (int i = 0; i < records.size(); i++) {
-            stats = stats.merge(records.get(i).toStatistics(recordManager));
-        }
-        return stats;
-    }
     private static String getMostCommonKeyFromHashMap(HashMap<String, Integer> hashMap) {
         if (hashMap.isEmpty()) {
             return "N/A";
@@ -132,19 +119,17 @@ public class Statistics {
         StringBuilder sb = new StringBuilder();
         sb.append("Number of consultations: ")
                 .append(getNoOfConsultations())
-                .append("\n\n")
+                .append("\n")
                 .append("Most common medicine prescribed: \n")
                 .append(Statistics.getMostCommonKeyFromHashMap(medicinesCount))
-                .append("\n")
                 .append("Most common symptom diagnosed: \n")
                 .append(Statistics.getMostCommonKeyFromHashMap(symptomsCount))
-                .append("\n")
                 .append("Revenue: ")
                 .append(Statistics.currencyFormat(getRevenue()))
-                .append("\n\n")
+                .append("\n")
                 .append("Expenditure: ")
                 .append(Statistics.currencyFormat(getExpenditure()))
-                .append("\n\n")
+                .append("\n")
                 .append("Profit: ")
                 .append(Statistics.currencyFormat(getProfit()))
                 .append("\n\n");

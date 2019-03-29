@@ -40,7 +40,7 @@ public class StatisticsCommand extends Command {
                 .append(this.fromYearMonth.toString())
                 .append(" to ")
                 .append(this.toYearMonth.toString())
-                .append(".\n")
+                .append(".\n\n")
                 .append(stats.toString());
         return new CommandResult(sb.toString());
     }

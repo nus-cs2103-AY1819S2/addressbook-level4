@@ -4,6 +4,7 @@ import seedu.address.model.appointment.AppointmentManager;
 import seedu.address.model.consultation.ConsultationManager;
 import seedu.address.model.medicine.MedicineManager;
 import seedu.address.model.patient.PatientManager;
+import seedu.address.model.record.StatisticsManager;
 import seedu.address.model.reminder.ReminderManager;
 
 /**
@@ -16,6 +17,7 @@ public class QuickDocs {
     private AppointmentManager appointmentManager = new AppointmentManager();
     private ReminderManager reminderManager = new ReminderManager();
     private MedicineManager medicineManager = new MedicineManager();
+    private StatisticsManager statisticsManager = new StatisticsManager();
 
     private boolean isModified = false;
 
@@ -54,6 +56,13 @@ public class QuickDocs {
         this.reminderManager = reminderManager;
     }
 
+    public StatisticsManager getStatisticsManager() {
+        return statisticsManager;
+    }
+
+    public void setStatisticsManager(StatisticsManager statisticsManager) {
+        this.statisticsManager = statisticsManager;
+    }
     // indicate modification of quickdocs data
 
     public boolean isModified() {

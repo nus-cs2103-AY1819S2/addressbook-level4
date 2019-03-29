@@ -38,7 +38,7 @@ import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.RecordManager;
+import seedu.address.model.record.StatisticsManager;
 import seedu.address.model.record.Statistics;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderManager;
@@ -66,7 +66,7 @@ public class ModelManager implements Model {
     private final ConsultationManager consultationManager;
     private final AppointmentManager appointmentManager;
     private final ReminderManager reminderManager;
-    private final RecordManager recordManager;
+    private final StatisticsManager statisticsManager;
 
 
     /**
@@ -87,7 +87,7 @@ public class ModelManager implements Model {
         this.consultationManager = new ConsultationManager();
         this.appointmentManager = new AppointmentManager();
         this.reminderManager = new ReminderManager();
-        this.recordManager = new RecordManager();
+        this.statisticsManager = new StatisticsManager();
 
         quickDocs = new QuickDocs();
 
@@ -115,7 +115,7 @@ public class ModelManager implements Model {
         this.consultationManager = quickDocs.getConsultationManager();
         this.appointmentManager = quickDocs.getAppointmentManager();
         this.reminderManager = quickDocs.getReminderManager();
-        this.recordManager = new RecordManager();
+        this.statisticsManager = quickDocs.getStatisticsManager();
 
 
         iniQuickDocs();
@@ -615,14 +615,19 @@ public class ModelManager implements Model {
 
     //==========Record module================================================================================
     public Statistics getStatistics(YearMonth from, YearMonth to) {
-        return recordManager.getStatistics(from, to);
+        return statisticsManager.getStatistics(from, to);
     }
 
+    /**
+     * Adds a {@code Record} converted to {@code Statistics} to QuickDocs
+     */
     public void addRecord(Record record, Clock clock) {
-        recordManager.record(record, clock);
+        statisticsManager.record(record, clock);
+        quickDocs.indicateModification(true);
     }
 
     public void setConsultationFee(BigDecimal fee) {
-        recordManager.setConsultationFee(fee);
+        statisticsManager.setConsultationFee(fee);
+        quickDocs.indicateModification(true);
     }
 }

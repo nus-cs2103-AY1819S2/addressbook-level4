@@ -16,7 +16,7 @@ import seedu.address.model.medicine.Medicine;
 class ConsultationRecordTest {
     @Test
     void toStatistics() {
-        RecordManager recordManager = new RecordManager();
+        StatisticsManager statisticsManager = new StatisticsManager();
 
         Medicine medicine = new Medicine("test");
         medicine.setPrice(BigDecimal.valueOf(22.20));
@@ -38,10 +38,10 @@ class ConsultationRecordTest {
         medicinesCount.put(prescription.getMedicine().name, prescription.getQuantity());
         symptomsCount.put("Vomitting blood", 1);
 
-        Statistics stats = new Statistics(1, recordManager.getConsultationFee().add(prescriptionFee), BigDecimal.ZERO,
+        Statistics stats = new Statistics(1, statisticsManager.getConsultationFee().add(prescriptionFee), BigDecimal.ZERO,
                 medicinesCount, symptomsCount);
 
         ConsultationRecord consultRecord = new ConsultationRecord(prescriptions, diagnosis);
-        Assert.assertEquals(consultRecord.toStatistics(recordManager), stats);
+        Assert.assertEquals(consultRecord.toStatistics(statisticsManager), stats);
     }
 }

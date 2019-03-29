@@ -34,7 +34,7 @@ class SetConsultationFeeCommandTest {
         try {
             CommandResult commandResult = command1.execute(modelManager, history);
             StringBuilder sb = new StringBuilder();
-            sb.append("Consultation fee has been successfully changed to $" + Statistics.currencyFormat(fee));
+            sb.append("Consultation fee has been successfully changed to " + Statistics.currencyFormat(fee));
             sb.append("\n\n");
             Assert.assertEquals(commandResult.getFeedbackToUser(), sb.toString());
         } catch (CommandException ce) {

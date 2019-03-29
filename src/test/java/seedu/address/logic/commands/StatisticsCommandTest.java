@@ -65,22 +65,20 @@ class StatisticsCommandTest {
         try {
             CommandResult commandResult = command1.execute(modelManager, history);
             StringBuilder sb = new StringBuilder();
-            sb.append("Displaying result from 2019-01 to 2019-02.\n")
+            sb.append("Displaying result from 2019-01 to 2019-02.\n\n")
                     .append("Number of consultations: ")
                     .append(1)
-                    .append("\n\n")
+                    .append("\n")
                     .append("Most common medicine prescribed: \n")
                     .append("test: 1\n")
-                    .append("\n")
                     .append("Most common symptom diagnosed: \n")
                     .append("Vomitting blood: 1\n")
-                    .append("\n")
                     .append("Revenue: ")
                     .append(Statistics.currencyFormat(BigDecimal.valueOf(30.00)))
-                    .append("\n\n")
+                    .append("\n")
                     .append("Expenditure: ")
                     .append(Statistics.currencyFormat(BigDecimal.valueOf(10.00)))
-                    .append("\n\n")
+                    .append("\n")
                     .append("Profit: ")
                     .append(Statistics.currencyFormat(BigDecimal.valueOf(20.00)))
                     .append("\n\n");

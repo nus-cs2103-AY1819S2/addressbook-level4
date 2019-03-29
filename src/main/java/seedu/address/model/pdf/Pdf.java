@@ -18,61 +18,31 @@ public class Pdf {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
-    private final Email email;
     private final Directory directory;
     private final Size size;
     private final Deadline deadline;
 
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     public Pdf(Name name, Directory directory, Size size, Set<Tag> tags) {
         requireAllNonNull(name, directory, size, tags);
+
         this.name = name;
         this.directory = directory;
         this.size = size;
         this.deadline = new Deadline();
         this.tags.addAll(tags);
-
-        //dummy
-        this.phone = null;
-        this.email = null;
-        this.address = null;
-
     }
 
     public Pdf(Name name, Directory directory, Size size, Set<Tag> tags, Deadline deadline) {
         requireAllNonNull(name, directory, size, tags, deadline);
+
         this.name = name;
         this.directory = directory;
         this.size = size;
         this.deadline = deadline;
         this.tags.addAll(tags);
-
-        //dummy
-        this.phone = null;
-        this.email = null;
-        this.address = null;
-
-    }
-
-    /**
-     * Every field must be present and not null.
-     */
-    public Pdf(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-
-        //dummy
-        this.directory = null;
-        this.size = null;
-        this.deadline = null;
     }
 
     public Name getName() {
@@ -85,18 +55,6 @@ public class Pdf {
 
     public Size getSize() {
         return size;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public Deadline getDeadline() {
@@ -146,9 +104,6 @@ public class Pdf {
         return otherPdf.getName().equals(getName())
                 && otherPdf.getDirectory().equals(getDirectory())
                 && otherPdf.getSize().equals(getSize())
-                //&& otherPdf.getPhone().equals(getPhone())
-                //&& otherPdf.getEmail().equals(getEmail())
-                //&& otherPdf.getAddress().equals(getAddress())
                 && otherPdf.getTags().equals(getTags());
     }
 
@@ -158,7 +113,6 @@ public class Pdf {
         return Objects.hash(name, directory, size, tags);
     }
 
-    //TODO: Add deadline value here once functionality is finalized.
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -167,10 +121,6 @@ public class Pdf {
                 .append(getSize())
                 .append("Tags: ");
         getTags().forEach(builder::append);
-
-        if (getDeadline().exists()) {
-            builder.append("\nDeadline: ").append(getDeadline().getValue().toString());
-        }
 
         return builder.toString();
     }

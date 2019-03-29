@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE;
+import static seedu.address.logic.parser.CliSyntax.getAllPrefixes;
 
 import java.io.File;
 import java.util.HashSet;
@@ -30,7 +31,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         File file = null;
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, CliSyntax.getAllPrefixes());
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, getAllPrefixes());
 
         if (CliSyntax.arePrefixesPresent(argMultimap, CliSyntax.getInvalidPrefixesForCommand(PREFIX_FILE))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -42,8 +43,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
 
-        } else if (!CliSyntax.arePrefixesPresent(argMultimap, PREFIX_FILE)
-                && argMultimap.getPreamble().isEmpty()) {
+        } else if (!CliSyntax.arePrefixesPresent(argMultimap, PREFIX_FILE) && argMultimap.getPreamble().isEmpty()) {
 
             Optional<File> fileContainer = new AddGuiParser().selectPdf();
 

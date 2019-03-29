@@ -17,11 +17,10 @@ import guitests.guihandles.PersonListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.pdf.Address;
-import seedu.address.model.pdf.Email;
+import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
-import seedu.address.model.pdf.Phone;
+import seedu.address.model.pdf.Size;
 
 public class PdfListPanelTest extends GuiUnitTest {
     private static final ObservableList<Pdf> TYPICAL_PDFS =
@@ -79,11 +78,10 @@ public class PdfListPanelTest extends GuiUnitTest {
     private ObservableList<Pdf> createBackingList(int personCount) {
         ObservableList<Pdf> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < personCount; i++) {
-            Name name = new Name(i + "a");
-            Phone phone = new Phone("000");
-            Email email = new Email("a@aa");
-            Address address = new Address("a");
-            Pdf pdf = new Pdf(name, phone, email, address, Collections.emptySet());
+            Name name = new Name(i + "a.pdf");
+            Directory directory = new Directory("C:\\Users");
+            Size size = new Size("1024");
+            Pdf pdf = new Pdf(name, directory, size, Collections.emptySet());
             backingList.add(pdf);
         }
         return backingList;

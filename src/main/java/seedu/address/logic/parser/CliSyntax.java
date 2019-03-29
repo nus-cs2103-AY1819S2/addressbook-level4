@@ -12,20 +12,22 @@ public class CliSyntax {
     public static final Prefix PREFIX_NAME = new Prefix("n/");
     public static final Prefix PREFIX_DIRECTORY = new Prefix("d/");
     public static final Prefix PREFIX_FILE = new Prefix("f/");
-    public static final Prefix PREFIX_TAG_NEW = new Prefix("t/");
-    public static final Prefix PREFIX_TAG_REMOVE = new Prefix("-t/");
+    public static final Prefix PREFIX_TAG_NAME = new Prefix("t/");
+    public static final Prefix PREFIX_TAG_ADD = new Prefix("-a");
+    public static final Prefix PREFIX_TAG_REMOVE = new Prefix("-r");
     public static final Prefix PREFIX_DEADLINE_NEW = new Prefix("date/");
-    public static final Prefix PREFIX_DEADLINE_COMPLETE = new Prefix("done");
+    public static final Prefix PREFIX_DEADLINE_DONE = new Prefix("done");
     public static final Prefix PREFIX_DEADLINE_REMOVE = new Prefix("remove");
-    public static final int PREFIX_COUNT = 8;
+    public static final Prefix PREFIX_PASSWORD = new Prefix("password/");
+    public static final int PREFIX_COUNT = 10;
 
     /**
      * Returns all prefixes.
      */
     public static Prefix[] getAllPrefixes() {
-        return Stream.of(PREFIX_NAME, PREFIX_DIRECTORY,
-                PREFIX_FILE, PREFIX_TAG_NEW, PREFIX_TAG_REMOVE, PREFIX_DEADLINE_NEW,
-                PREFIX_DEADLINE_COMPLETE, PREFIX_DEADLINE_REMOVE)
+        return Stream.of(PREFIX_NAME, PREFIX_DIRECTORY, PREFIX_FILE,
+                PREFIX_TAG_NAME, PREFIX_TAG_ADD, PREFIX_TAG_REMOVE, PREFIX_DEADLINE_NEW,
+                PREFIX_DEADLINE_DONE, PREFIX_DEADLINE_REMOVE, PREFIX_PASSWORD)
                 .collect(Collectors.toList())
                 .toArray(new Prefix[PREFIX_COUNT]);
     }

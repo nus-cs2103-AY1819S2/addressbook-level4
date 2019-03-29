@@ -77,9 +77,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
      */
     public boolean equals(Pdf pdf) {
         return getName().equals(pdf.getName().getFullName())
-                && getAddress().equals(pdf.getAddress().value)
-                && getPhone().equals(pdf.getPhone().value)
-                && getEmail().equals(pdf.getEmail().value)
                 && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(pdf.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));

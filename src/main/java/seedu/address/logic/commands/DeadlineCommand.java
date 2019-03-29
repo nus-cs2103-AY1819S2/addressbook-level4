@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_COMPLETE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_DONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_REMOVE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
@@ -31,7 +31,7 @@ public class DeadlineCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_DEADLINE_NEW + "DEADLINE] (In dd-mm-yyyy format) [done] [remove]\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_DEADLINE_NEW + "13-02-2020\n"
-            + "Example: " + COMMAND_WORD + " 2 " + PREFIX_DEADLINE_COMPLETE + "\n"
+            + "Example: " + COMMAND_WORD + " 2 " + PREFIX_DEADLINE_DONE + "\n"
             + "Example: " + COMMAND_WORD + " 2 " + PREFIX_DEADLINE_REMOVE + "\n";
 
     private final Index index;
@@ -83,5 +83,24 @@ public class DeadlineCommand extends Command {
 
     public static Pdf getPdfWithNewDeadline(Pdf old, Deadline deadline) {
         return new Pdf(old.getName(), old.getDirectory(), old.getSize(), old.getTags(), deadline);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeadlineCommand)) {
+            return false;
+        }
+
+        // state check
+        DeadlineCommand e = (DeadlineCommand) other;
+        return index.equals(e.index)
+                && deadline.equals(e.deadline)
+                && status.equals(e.status);
     }
 }

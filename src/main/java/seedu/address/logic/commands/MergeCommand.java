@@ -1,18 +1,28 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.pdf.Directory;
+import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
-
-import java.io.File;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
+import seedu.address.model.pdf.Size;
 
 /**
  * Merge 2 or more pdf files identified using it's displayed index from the pdf book.
@@ -30,8 +40,10 @@ public class MergeCommand extends Command {
             + "Parameters: INDEX1 (must be a positive integer) INDEX2 ...\n"
             + "Example: " + COMMAND_WORD + " 1 9 7 3";
 
-    public static final String MESSAGE_MERGE_PDF_SUCCESS = "Merged PDFs: %1$s";
-    public static final String MESSAGE_MERGE_PDF_SINGLE = "More than one file index has to be specified.";
+    private static final String MESSAGE_MERGE_PDF_SUCCESS = "Merged PDFs into new PDF: %1$s";
+    private static final String MESSAGE_MERGE_PDF_FAIL = "Merging of PDFs encountered an error and stopped.";
+
+    private static final int FIRST_INDEX = 0;
 
     private final ArrayList<Index> targetIndexes;
 
@@ -47,23 +59,54 @@ public class MergeCommand extends Command {
         requireNonNull(model);
         List<Pdf> lastShownList = model.getFilteredPdfList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        if (targetIndexes.stream().anyMatch(index -> index.getZeroBased() >= lastShownList.size())){
             throw new CommandException(Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
         }
 
-        Pdf pdfToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePdf(pdfToDelete);
+        ArrayList<File> pdfsToMerge = new ArrayList<>();
+        targetIndexes.forEach(index -> {
+            Pdf pdf = lastShownList.get(index.getZeroBased());
+            pdfsToMerge.add(Paths.get(pdf.getDirectory().getDirectory(), pdf.getName().getFullName()).toFile());
+        });
 
-        if (deleteType == DeleteType.Hard) {
-            File dFile = Paths.get(pdfToDelete.getDirectory().getDirectory(),
-                    pdfToDelete.getName().getFullName()).toFile();
-            if (!dFile.delete()) {
-                throw new CommandException(MESSAGE_DELETE_HARD_FAIL);
+        PDFMergerUtility PDFmerger = new PDFMergerUtility();
+        String mergedPdfDirectory = lastShownList.get(FIRST_INDEX).getDirectory().getDirectory();
+        String mergedPdfName = "merged" + hashCode();
+        //Check that no duplicate file name (how on earth would it happen though)
+        while (Paths.get(mergedPdfDirectory, mergedPdfName).toAbsolutePath().toFile().exists()){
+            //Just throwing zeros at the back of the name until it is unique
+            mergedPdfName += FIRST_INDEX;
+        }
+        PDFmerger.setDestinationFileName(String.format(mergedPdfDirectory, mergedPdfName));
+
+        ArrayList<InputStream> sources = new ArrayList<>();
+        for (File file : pdfsToMerge) {
+            try {
+                sources.add(new FileInputStream(file));
+            } catch (FileNotFoundException e) {
+                throw new CommandException(String.format(Messages.MESSAGE_PDF_OPEN_FAIL, file.getName()));
             }
         }
 
+        PDFmerger.addSources(sources);
+        try {
+            PDFmerger.mergeDocuments();
+        } catch (IOException e) {
+            throw new CommandException(MESSAGE_MERGE_PDF_FAIL);
+        }
+
+        //Add merged pdf to application
+        assert Paths.get(mergedPdfDirectory, mergedPdfName).toAbsolutePath().toFile().exists();
+        File mergedFile = Paths.get(mergedPdfDirectory, mergedPdfName).toAbsolutePath().toFile();
+        Pdf mergedPdf = new Pdf(
+                new Name(mergedFile.getName()),
+                new Directory(mergedFile.getPath()),
+                new Size(String.valueOf(mergedFile.length())),
+                new HashSet<>());
+
+        model.addPdf(mergedPdf);
         model.commitPdfBook();
-        return new CommandResult(String.format(MESSAGE_MERGE_PDF_SUCCESS, pdfToDelete));
+        return new CommandResult(String.format(MESSAGE_MERGE_PDF_SUCCESS, mergedPdf));
     }
 
     @Override

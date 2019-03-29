@@ -39,7 +39,7 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         DateCustom startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_STARTDATE).get());
-        DateCustom endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_STARTDATE).get());
+        DateCustom endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_ENDDATE).get());
         TimeCustom startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME).get());
         TimeCustom endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME).get());
 

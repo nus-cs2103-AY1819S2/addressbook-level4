@@ -76,11 +76,11 @@ public class Task {
     }
 
     public boolean hasDateClash() {
+        System.out.println(DateCustom.dateCompare(endDate.toString(), startDate.toString()));
         return DateCustom.dateCompare(endDate.toString(), startDate.toString());
     }
 
     public boolean hasTimeClash() {
-        System.out.println(TimeCustom.timeCompare(startTime.toString(), endTime.toString()));
         return startDate.isSameDate(endDate.toString()) &&
                 TimeCustom.timeCompare(startTime.toString(), endTime.toString());
     }

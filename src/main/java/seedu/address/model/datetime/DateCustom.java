@@ -48,7 +48,7 @@ public class DateCustom implements DateBuilder {
     public boolean isSameDate(String date) {
         LocalDate firstDate = LocalDate.parse(storedDate, DATE_FORMATTER);
         LocalDate secondDate = LocalDate.parse(date, DATE_FORMATTER);
-        return (firstDate.compareTo(secondDate)==0);
+        return (firstDate.compareTo(secondDate) == 0);
     }
     public boolean isToday() {
         return !dateCompare(this.toString(), LocalDate.now().format(DATE_FORMATTER));

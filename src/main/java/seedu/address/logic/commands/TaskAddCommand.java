@@ -24,11 +24,12 @@ public class TaskAddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
             + "Parameters: "
-            + PREFIX_TITLE + "NAME "
+            + PREFIX_TITLE + "TITLE "
             + PREFIX_STARTDATE + "START DATE "
             + PREFIX_ENDDATE + "END DATE "
             + PREFIX_STARTTIME + "1100 "
             + PREFIX_ENDTIME + "1200\n"
+            + "TITLE, START DATE, END DATE, START TIME and END TIME are mandatory fields and must be provided.\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_TITLE + "Teeth removal surgery "
             + PREFIX_STARTDATE + "10-11-2019 "
@@ -58,7 +59,6 @@ public class TaskAddCommand extends Command {
         if (toAdd.hasDateClash()) {
             throw new CommandException(MESSAGE_DATE_CLASH);
         }
-
         if (toAdd.hasTimeClash()) {
             throw new CommandException(MESSAGE_TIME_CLASH);
         }

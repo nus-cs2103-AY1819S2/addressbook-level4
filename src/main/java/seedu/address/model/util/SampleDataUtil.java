@@ -31,7 +31,11 @@ public class SampleDataUtil {
             new Book(new BookName("Gone Girl"), new Author("Gillian Flynn"), new Rating("4"),
                 getTagSet("thriller")),
             new Book(new BookName("One Hundred Years of Solitude"), new Author("Garcia Marquez"), new Rating("9"),
-                getTagSet("fantasy"))
+                getTagSet("fantasy")),
+            new Book(new BookName("The Second Sex"), new Author("Beauvoir"), new Rating("9"),
+                getTagSet()),
+            new Book(new BookName("The Master and Margaret"), new Author("Mikhail Bulgakov"), new Rating("8"),
+                getTagSet())
         };
     }
 

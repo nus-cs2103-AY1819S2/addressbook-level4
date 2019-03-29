@@ -50,6 +50,16 @@ public class TypicalBooks {
             .withBookName("Middlesex")
             .withAuthor("Jeffrey Eugenides")
             .withRating("6").build();
+    public static final Book FIFTYSHADE = new BookBuilder()
+            .withBookName("Fifty Shades of Grey")
+            .withAuthor("Erika Leonard")
+            .withRating("2")
+            .build();
+    public static final Book MOCKINGBIRD = new BookBuilder()
+            .withBookName("To Kill a Mocking Bird")
+            .withAuthor("Harper Lee")
+            .withRating("10")
+            .build();
 
     // Manually added
     public static final Book SECRETLIFE = new BookBuilder().withBookName("The Secret Life of Bees")
@@ -109,7 +119,7 @@ public class TypicalBooks {
 
     public static List<Book> getTypicalBooks() {
         return new ArrayList<>(Arrays.asList(BOOKTHIEF, HUNGERGAME, KITERUNNER, LIFEPI, LIFEWAO,
-                MIDDLESEX));
+                MIDDLESEX, FIFTYSHADE, MOCKINGBIRD));
     }
 
     public static List<Review> getTypicalReviews() {

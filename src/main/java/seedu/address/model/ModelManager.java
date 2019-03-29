@@ -177,7 +177,6 @@ public class ModelManager implements Model {
             throw new IllegalOperationWhileReviewingDeckException();
         }
 
-        CardsView cardsView = (CardsView)viewState;
         Deck editedDeck = versionedTopDeck.addCard(card, deck);
         changeDeck(editedDeck);
     }
@@ -230,7 +229,7 @@ public class ModelManager implements Model {
             throw new IllegalOperationWhileReviewingDeckException();
         }
 
-        DecksView decksView = (DecksView)viewState;
+        DecksView decksView = (DecksView) viewState;
 
         versionedTopDeck.setDecks(decksView.filteredDecks);
     }
@@ -310,9 +309,8 @@ public class ModelManager implements Model {
         if (card instanceof Card && isAtCardsView()) {
             CardsView cardsView = (CardsView) viewState;
             cardsView.selectedCard.set((Card)card);
-        } else if (card instanceof Deck && isAtDecksView()){
+        } else if (card instanceof Deck && isAtDecksView()) {
             //TODO: Deck has to set its selection
-
         } else if (card != null) {
             throw new IllegalOperationWhileReviewingCardException();
         }

@@ -17,7 +17,9 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all decks";
+    public static final String MESSAGE_DECK_SUCCESS = "Listed all decks";
+    public static final String MESSAGE_CARD_SUCCESS = "Listed all cards";
+
     private final ViewState viewState;
 
     public ListCommand(ViewState viewState) {
@@ -29,10 +31,11 @@ public class ListCommand extends Command {
         requireNonNull(model);
         if (model.isAtDecksView()) {
             ((DecksView)viewState).updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
-        } else if (model.isAtCardsView()) {
+            return new CommandResult(MESSAGE_DECK_SUCCESS);
+        } else {
             ((CardsView)viewState).updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+            return new CommandResult(MESSAGE_CARD_SUCCESS);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
     }
 }

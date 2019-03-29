@@ -32,12 +32,14 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
-        assertCommandSuccess(new ListCommand(model.getViewState()), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(model.getViewState()), model, commandHistory,
+            ListCommand.MESSAGE_DECK_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() {
         showDeckAtIndex(model, INDEX_FIRST_CARD);
-        assertCommandSuccess(new ListCommand(model.getViewState()), model, commandHistory, ListCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new ListCommand(model.getViewState()), model, commandHistory,
+            ListCommand.MESSAGE_DECK_SUCCESS, expectedModel);
     }
 }

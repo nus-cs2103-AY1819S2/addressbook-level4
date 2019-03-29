@@ -11,7 +11,6 @@ import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +29,6 @@ import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
-import seedu.address.logic.parser.Syntax;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
@@ -329,7 +327,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void testManagementIO() {
+    public void testManagementInputOutput() {
         Lesson validLesson = new LessonBuilder().withNoOptionalHeaders().build();
         String command = AddLessonCommand.COMMAND_WORD + " "
                 + PREFIX_LESSON_NAME + DEFAULT_NAME + " "
@@ -337,7 +335,7 @@ public class LogicManagerTest {
                 + PREFIX_CORE_ANSWER + DEFAULT_CORE_HEADER_2;
 
         try {
-            CommandResult commandResult = logic.execute(command);
+            logic.execute(command);
         } catch (CommandException | ParseException e) {
             // Parsing and execution of AddLessonCommand should not fail due to
             // CommandException and ParseException given it is the correct format.

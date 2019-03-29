@@ -32,7 +32,7 @@ public class DeadlineTest {
         Assert.assertThrows(DateTimeParseException.class, () -> new Deadline(31, 2, 2012));
     }
 
-    @Test
+    /*@Test
     public void jsonConstructor_validDeadline_expectTrue() {
         String validDeadline = "2012-12-12" + Deadline.PROPERTY_SEPARATOR_PREFIX + DeadlineStatus.READY;
         assertTrue(Deadline.isValidDeadline(validDeadline));
@@ -50,7 +50,7 @@ public class DeadlineTest {
         Deadline validDeadline = new Deadline("2012-12-12"
                 + Deadline.PROPERTY_SEPARATOR_PREFIX + DeadlineStatus.READY);
         assertEquals(validDeadline, new Deadline(12, 12, 2012, DeadlineStatus.READY));
-    }
+    }*/
 
     @Test
     public void normalConstructor_validDeadline_noParameter() {

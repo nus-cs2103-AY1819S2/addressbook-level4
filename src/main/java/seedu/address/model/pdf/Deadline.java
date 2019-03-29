@@ -20,6 +20,31 @@ public class Deadline implements Comparable<Deadline> {
     private final LocalDate date;
     private final DeadlineStatus status;
 
+    /**
+     * Represents a Pdf deadline's  status in the pdf book.
+     * Guarantees: immutable;
+     */
+    private enum DeadlineStatus {
+        REMOVE("REMOVE"),
+        READY("READY"),
+        COMPLETE("COMPLETE");
+
+        private String status;
+
+        DeadlineStatus(String status) {
+            this.status = status;
+        }
+
+        public String getStatus() {
+            return this.status;
+        }
+
+        @Override
+        public String toString() {
+            return status;
+        }
+    }
+
 
     /**
      * Constructs a valid {@code Deadline}.
@@ -152,10 +177,11 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
-        return new StringBuilder().append(this.date.toString())
+        return (this.status == DeadlineStatus.READY | this.status == DeadlineStatus.COMPLETE) ?
+                new StringBuilder().append(this.date.toString())
                 .append(Deadline.PROPERTY_SEPARATOR_PREFIX)
                 .append(this.status)
-                .toString();
+                .toString() : "";
     }
 
     /**
@@ -169,6 +195,18 @@ public class Deadline implements Comparable<Deadline> {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    public static Deadline setDone(Deadline completedDeadline) {
+        return new Deadline(completedDeadline, DeadlineStatus.COMPLETE);
+    }
+
+    public static Deadline setRemove(Deadline deadlineToRemove) {
+        return new Deadline(deadlineToRemove, DeadlineStatus.REMOVE);
+    }
+
+    public static Deadline updateStatus(Deadline deadlineToUpdate, Deadline deadlineWithNewStatus) {
+        return new Deadline(deadlineToUpdate, deadlineWithNewStatus.status);
     }
 
     @Override

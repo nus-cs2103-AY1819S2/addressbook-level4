@@ -119,9 +119,11 @@ public class Pdf {
         builder.append(getName())
                 .append(getDirectory())
                 .append(getSize())
-                .append("Tags: ");
-        getTags().forEach(builder::append);
-
+                .append(getDeadline());
+        if (getTags().size() > 0) {
+            builder.append("Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 

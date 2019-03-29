@@ -22,8 +22,6 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public TaskEditCommand parse(String args) throws ParseException {
-        System.out.println("Edit task command parser parse is run.");
-
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE);

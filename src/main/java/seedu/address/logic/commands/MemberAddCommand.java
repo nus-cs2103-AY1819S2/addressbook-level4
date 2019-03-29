@@ -65,8 +65,7 @@ public class MemberAddCommand extends Command {
 
         if (model.hasPerson(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-        }
-        else if (model.hasMatricNumber(toAdd.getMatricNumber())) {
+        } else if (model.hasMatricNumber(toAdd.getMatricNumber())) {
             throw new CommandException(MESSAGE_DUPLICATE_MATRICNUMBER);
         }
         model.addPerson(toAdd);

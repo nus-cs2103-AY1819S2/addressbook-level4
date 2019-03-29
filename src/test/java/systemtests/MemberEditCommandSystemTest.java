@@ -199,40 +199,6 @@ public class MemberEditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(MemberEditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased()
                         + INVALID_TAG_DESC,
                 Tag.MESSAGE_CONSTRAINTS);
-
-        /* Case: edit a person with new values same as another person's values -> rejected */
-        executeCommand(PersonUtil.getMemberAddCommand(BOB));
-        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
-        index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
-                + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
-        assertCommandFailure(command, MemberEditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
-                + MAJOR_DESC_BOB + TAG_DESC_SWIMMING;
-        assertCommandFailure(command, MemberEditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different address -> rejected */
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
-                + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
-        assertCommandFailure(command, MemberEditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different phone -> rejected */
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB
-                + PHONE_DESC_AMY + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
-                + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
-        assertCommandFailure(command, MemberEditCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: edit a person with new values same as another person's values but with different email -> rejected */
-        command = MemberEditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + MATRICNUMBER_DESC_BOB
-                + PHONE_DESC_BOB + EMAIL_DESC_AMY + ADDRESS_DESC_BOB + GENDER_DESC_BOB + YEAROFSTUDY_DESC_BOB
-                + MAJOR_DESC_BOB + TAG_DESC_RUNNING + TAG_DESC_SWIMMING;
-        assertCommandFailure(command, MemberEditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     /**

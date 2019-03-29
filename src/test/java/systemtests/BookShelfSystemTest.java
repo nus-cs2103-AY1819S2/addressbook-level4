@@ -36,7 +36,6 @@ import seedu.address.logic.commands.ListReviewCommand;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalBooks;
-import seedu.address.ui.BookBrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**

@@ -1,14 +1,19 @@
 package seedu.address.ui;
 
+import java.awt.*;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,6 +21,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+
+import javax.swing.text.html.ListView;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,6 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PatientListPanel patientListPanel;
+    private MedHistListPanel medHistListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -47,6 +55,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane patientListPanelPlaceholder;
+
+    @FXML
+    private StackPane medHistListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -118,6 +129,11 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedPatient);
         patientListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
 
+        medHistListPanel = new MedHistListPanel(logic.getFilteredMedHistList(), logic.selectedMedHistProperty(),
+                logic::setSelectedMedHist);
+        //medHistListPanelPlaceholder.getChildren().add(medHistListPanel.getRoot());
+        //medHistListPanelPlaceholder.getChildren();
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -170,6 +186,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public PatientListPanel getPatientListPanel() {
         return patientListPanel;
+    }
+
+    public MedHistListPanel getMedHistListPanel() {
+        return medHistListPanel;
     }
 
     /**

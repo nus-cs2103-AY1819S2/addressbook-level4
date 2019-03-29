@@ -24,6 +24,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Title;
 import seedu.address.storage.ParsedInOut;
 
@@ -206,6 +207,19 @@ public class ParserUtil {
         return new TimeCustom(trimmedTime);
     }
 
+    public static Priority parsePriority(String priority) throws ParseException {
+        requireNonNull(priority);
+        String trimmedPriority = priority.trim().toLowerCase();
+        for (Priority p : Priority.values()) {
+            if (trimmedPriority.equals(p.getPriorityType())) {
+                return p;
+            }
+            else {
+                throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
+            }
+        }
+        return Priority.LOW;
+    }
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */

@@ -21,6 +21,7 @@ public class Task {
     protected final DateCustom endDate;
     protected final TimeCustom startTime;
     protected final TimeCustom endTime;
+    protected final Priority priority;
     protected final boolean isCopy;
     protected int copyCount;
 
@@ -28,13 +29,14 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(Title title, DateCustom startDate, DateCustom endDate, TimeCustom startTime, TimeCustom endTime) {
-        requireAllNonNull(title, startDate, endDate, startTime, endTime);
+    public Task(Title title, DateCustom startDate, DateCustom endDate, TimeCustom startTime, TimeCustom endTime, Priority priority) {
+        requireAllNonNull(title, startDate, endDate, startTime, endTime, priority);
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.priority = priority;
         this.isCopy = false;
         this.copyCount = 0;
     }
@@ -49,6 +51,7 @@ public class Task {
         this.endDate = t.getEndDate();
         this.startTime = t.startTime;
         this.endTime = t.endTime;
+        this.priority = t.priority;
         this.isCopy = true;
         this.copyCount = 0;
     }
@@ -72,6 +75,10 @@ public class Task {
 
     public TimeCustom getEndTime() {
         return endTime;
+    }
+
+    public Priority getPriority() {
+        return priority;
     }
 
     /**

@@ -2,12 +2,15 @@ package seedu.address.ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.time.Clock;
 import java.util.Date;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -29,17 +32,22 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private static final String FXML = "StatusBarFooter.fxml";
 
+    private final String REQUEST_BOOK = "RequestBook";
+
+    private final String HEALTH_WORKER_BOOK = "HealthWorkerBook";
+
     @FXML
     private Label syncStatus;
     @FXML
     private Label saveLocationStatus;
 
 
-    public StatusBarFooter(Path saveLocation/*, ReadOnlyAddressBook addressBook*/) {
+    public StatusBarFooter(Path requestBookPath, Path healthWorkerBookPath, ReadOnlyRequestBook requestBook,
+                           ReadOnlyHealthWorkerBook healthWorkerBook) {
         super(FXML);
-        //addressBook.addListener(observable -> updateSyncStatus());
+        requestBook.addListener(observable -> updateSyncStatus(REQUEST_BOOK, requestBookPath));
+        healthWorkerBook.addListener(observable -> updateSyncStatus(HEALTH_WORKER_BOOK, healthWorkerBookPath));
         syncStatus.setText(SYNC_STATUS_INITIAL);
-        saveLocationStatus.setText(Paths.get(".").resolve(saveLocation).toString());
     }
 
     /**
@@ -59,10 +67,21 @@ public class StatusBarFooter extends UiPart<Region> {
     /**
      * Updates "last updated" status to the current time.
      */
-    private void updateSyncStatus() {
+    private void updateSyncStatus(String bookType, Path path) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM YYYY, hh:mm a");
         long now = clock.millis();
-        String lastUpdated = new Date(now).toString();
+        String lastUpdated = formatter.format(new Date(now));
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
+        switch(bookType) {
+            case REQUEST_BOOK:
+                saveLocationStatus.setText(Paths.get(".").resolve(path).toString());
+                break;
+            case HEALTH_WORKER_BOOK:
+                saveLocationStatus.setText(Paths.get(".").resolve(path).toString());
+                break;
+            default:
+                // do nothing
+        }
     }
 
 }

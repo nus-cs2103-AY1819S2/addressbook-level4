@@ -62,13 +62,13 @@
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
-                        <StackPane fx:id="displayInfoPlaceholder" VBox.vgrow="ALWAYS"></StackPane>
+                        <StackPane fx:id="displayInfoPlaceholder" VBox.vgrow="ALWAYS" />
                     </VBox>
                     <VBox minWidth="300" prefWidth="350" maxWidth="350">
                         <padding>
                             <Insets top="10" right="10" bottom="10" left="10"/>
                         </padding>
-                        <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="ALWAYS"></StackPane>
+                        <StackPane fx:id="healthWorkerListPlaceholder" VBox.vgrow="ALWAYS" />
                     </VBox>
                 </HBox>
 

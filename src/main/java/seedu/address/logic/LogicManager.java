@@ -1,7 +1,7 @@
 package seedu.address.logic;
 
 import java.io.IOException;
-//import java.nio.file.Path;
+import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -14,7 +14,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-//import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.storage.Storage;
@@ -80,7 +81,15 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    @Override
+    public ReadOnlyRequestBook getRequestBook() {
+        return model.getRequestBook();
+    }
 
+    @Override
+    public ReadOnlyHealthWorkerBook getHealthWorkerBook() {
+        return model.getHealthWorkerBook();
+    }
 
     @Override
     public ObservableList<HealthWorker> getFilteredHealthWorkerList() {
@@ -93,6 +102,16 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
+    }
+
+    @Override
+    public Path getRequestBookFilePath() {
+        return model.getRequestBookFilePath();
+    }
+
+    @Override
+    public Path getHealthWorkerBookFilePath() {
+        return model.getHealthWorkerBookFilePath();
     }
 
 

@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private RequestListPanel requestListPanel;
     private InfoPanel infoPanel;
     private HealthWorkerListPanel healthWorkerListPanel;
+    private StatusBarFooter statusBarFooter;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -137,8 +138,9 @@ public class MainWindow extends UiPart<Stage> {
             logic.selectedHealthWorkerProperty(), logic::setSelectedHealthWorker);
         healthWorkerListPlaceholder.getChildren().add(healthWorkerListPanel.getRoot());
 
-        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
-        //statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        statusBarFooter = new StatusBarFooter(logic.getRequestBookFilePath(), logic.getHealthWorkerBookFilePath(),
+                logic.getRequestBook(), logic.getHealthWorkerBook());
+        statusBarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
     void show() {

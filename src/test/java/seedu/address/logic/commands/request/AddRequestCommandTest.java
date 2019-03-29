@@ -126,6 +126,11 @@ class AddRequestCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public Path getHealthWorkerBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public boolean hasHealthWorker(HealthWorker healthWorker) {

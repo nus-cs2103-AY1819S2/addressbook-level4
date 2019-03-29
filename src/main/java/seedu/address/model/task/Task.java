@@ -71,6 +71,10 @@ public class Task {
         return DateCustom.dateCompare(endDate.toString(), startDate.toString());
     }
 
+    public boolean hasTimeClash() {
+        return TimeCustom.timeCompare(startTime.toString(), endTime.toString());
+    }
+
     public boolean isCopy() {
         return isCopy;
     }

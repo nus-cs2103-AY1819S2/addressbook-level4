@@ -2,14 +2,18 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
+import java.sql.Time;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.datetime.TimeCustom;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
 
@@ -27,16 +31,18 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE) || !argMultimap
-                .getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE, PREFIX_STARTTIME,
+                PREFIX_ENDTIME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TaskAddCommand.MESSAGE_USAGE));
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         DateCustom startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_STARTDATE).get());
         DateCustom endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_STARTDATE).get());
+        TimeCustom startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME).get());
+        TimeCustom endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME).get());
 
-        Task task = new Task(title, startDate, endDate);
+        Task task = new Task(title, startDate, endDate, startTime, endTime);
         return new TaskAddCommand(task);
     }
 

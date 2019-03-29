@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_CLASH;
+import static seedu.address.commons.core.Messages.MESSAGE_TIME_CLASH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -50,6 +51,10 @@ public class TaskAddCommand extends Command {
 
         if (toAdd.hasDateClash()) {
             throw new CommandException(MESSAGE_DATE_CLASH);
+        }
+
+        if (toAdd.hasTimeClash()) {
+            throw new CommandException(MESSAGE_TIME_CLASH);
         }
         if (model.hasTask(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);

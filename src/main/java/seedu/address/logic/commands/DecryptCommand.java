@@ -81,6 +81,7 @@ public class DecryptCommand extends Command {
             file.setAllSecurityToBeRemoved(true);
             file.save(Paths.get(pdfToDecrypt.getDirectory().getDirectory(),
                     pdfToDecrypt.getName().getFullName()).toFile());
+            file.close();
             return getDecryptedPdf(pdfToDecrypt);
         } catch (IOException ioe) {
             throw new CommandException(String.format(MESSAGE_DECRYPT_PDF_FAILURE, pdfToDecrypt.getName()));

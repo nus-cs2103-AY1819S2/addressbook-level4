@@ -111,10 +111,18 @@ public class Pdf {
      * means that the file is already encrypted
      */
     private boolean isFileEncrypted(Name name, Directory directory) {
+        PDDocument pd = null;
         try {
-            return PDDocument.load(Paths.get(directory.getDirectory(), name.getFullName()).toFile()).isEncrypted();
+            pd = PDDocument.load(Paths.get(directory.getDirectory(), name.getFullName()).toFile());
+            return pd.isEncrypted();
         } catch (IOException ioe) {
             return true;
+        } finally {
+            try {
+                pd.close();
+            } catch (IOException e) {
+                //Do nothing if file is not loaded.
+            }
         }
     }
 

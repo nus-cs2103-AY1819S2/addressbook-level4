@@ -26,7 +26,7 @@ import seedu.address.model.pdf.Size;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing pdf in the address book.
+ * Edits the details of an existing pdf in the pdfBook.
  */
 public class EditCommand extends Command {
 

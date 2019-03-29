@@ -1,8 +1,17 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
+
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -10,14 +19,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
-
+/**
+ * Encrypts the an existing pdf in the pdfBook.
+ */
 public class EncryptCommand extends Command {
     public static final String COMMAND_WORD = "encrypt";
 
@@ -35,7 +39,8 @@ public class EncryptCommand extends Command {
     private final String password;
 
     /**
-     * @param index of the pdf in the filtered pdf list to edit
+     * @param index of the pdf in the filtered pdf list to encrypt
+     * @param password of the pdf
      */
     public EncryptCommand(Index index, String password) {
         requireNonNull(index);
@@ -64,6 +69,9 @@ public class EncryptCommand extends Command {
         return new CommandResult(String.format(MESSAGE_ENCRYPT_PDF_SUCCESS, pdfEncrypted));
     }
 
+    /**
+     * Encrypts and returns the encrypted {@code pdfToEncrypt}
+     */
     private Pdf encryptPdf(Pdf pdfToEncrypt) throws CommandException{
         try {
             PDDocument file = PDDocument.load(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),

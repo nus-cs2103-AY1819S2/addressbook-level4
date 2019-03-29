@@ -11,10 +11,15 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 public class EncryptCommand extends Command {
     public static final String COMMAND_WORD = "encrypt";
@@ -25,7 +30,8 @@ public class EncryptCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_PASSWORD + "Tutorial3.pdf";
+            + PREFIX_PASSWORD + "NewSecuredPassword";
+    private static final String MESSAGE_ENCRYPT_PDF_SUCCESS = "Encrypted PDF: %1$s";
 
     private final Index index;
     private final String password;
@@ -53,19 +59,30 @@ public class EncryptCommand extends Command {
         Pdf pdfToEncrypt = lastShownList.get(this.index.getZeroBased());
         Pdf pdfEncrypted = encryptPdf(pdfToEncrypt);
 
+        model.setPdf(pdfToEncrypt, pdfEncrypted);
+        model.updateFilteredPdfList(PREDICATE_SHOW_ALL_PDFS);
+        model.commitPdfBook();
 
-        return null;
+        return new CommandResult(String.format(MESSAGE_ENCRYPT_PDF_SUCCESS, pdfEncrypted));
     }
 
     private Pdf encryptPdf(Pdf pdfToEncrypt) {
-        AccessPermission ap = new AccessPermission();
-        //StandardProtectionPolicy spp = new StandardProtectionPolicy();
-        
-        PDDocument pdDocument = new PDDocument();
-        PDPage pdPage = new PDPage();
-
-        pdDocument.addPage(pdPage);
+        try {
+            PDDocument file = PDDocument.load(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),
+                    pdfToEncrypt.getName().getFullName()).toFile());
+            AccessPermission ap = new AccessPermission();
+            StandardProtectionPolicy spp = new StandardProtectionPolicy(this.password, this.password, ap);
+            spp.setEncryptionKeyLength(128);
+            spp.setPermissions(ap);
+            file.protect(spp);
+            System.out.println(Paths.get("src", "test", "data", "JsonAdaptedPdfTest","z.pdf"));
+            file.save(Paths.get("src", "test", "data", "JsonAdaptedPdfTest","z.pdf").toFile());
+            return 
+        } catch (IOException ioe) {
+            System.out.println("ioe");
+        }
         return pdfToEncrypt;
+
     }
 
     @Override

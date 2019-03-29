@@ -15,7 +15,6 @@ public class EncryptCommandTest {
 
     @Test
     public void constructor_nullPdf_throwsNullPointerException() {
-        new EncryptCommand(INDEX_FIRST_PDF, "Hi");
         /*thrown.expect(NullPointerException.class);
         new AddCommand(null);*/
     }

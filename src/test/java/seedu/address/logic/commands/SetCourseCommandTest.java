@@ -13,6 +13,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
@@ -23,10 +24,10 @@ public class SetCourseCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     private Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-            new ModuleInfoList(), new CourseList());
+            new ModuleInfoList(), new CourseList(), new UserInfo());
 
     private Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-            new ModuleInfoList(), new CourseList());
+            new ModuleInfoList(), new CourseList(), new UserInfo());
 
     @Test
     public void equals() {

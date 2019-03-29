@@ -30,6 +30,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -42,9 +43,9 @@ import seedu.address.testutil.FindModuleDescriptorBuilder;
  */
 public class FindCommandTest {
     private Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-            new ModuleInfoList(), new CourseList());
+            new ModuleInfoList(), new CourseList(), new UserInfo());
     private Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-            new ModuleInfoList(), new CourseList());
+            new ModuleInfoList(), new CourseList(), new UserInfo());
     private CommandHistory commandHistory = new CommandHistory();
 
     /* Default current semester is Y1S1 */

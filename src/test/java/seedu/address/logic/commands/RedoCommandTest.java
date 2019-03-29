@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -18,9 +19,9 @@ import seedu.address.model.moduleinfo.ModuleInfoList;
 public class RedoCommandTest {
 
     private final Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-            new ModuleInfoList(), new CourseList());
+            new ModuleInfoList(), new CourseList(), new UserInfo());
     private final Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-                                                         new ModuleInfoList(), new CourseList());
+            new ModuleInfoList(), new CourseList(), new UserInfo());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before

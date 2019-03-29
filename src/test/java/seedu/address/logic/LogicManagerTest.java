@@ -27,6 +27,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyGradTrak;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -136,7 +137,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
-                new ModuleInfoList(), new CourseList());
+                new ModuleInfoList(), new CourseList(), new UserInfo());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -185,7 +186,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void saveGradTrak(ReadOnlyGradTrak addressBook, Path filePath) throws IOException {
+        public void saveGradTrak(ReadOnlyGradTrak gradTrak, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

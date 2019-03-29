@@ -19,6 +19,7 @@ import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyGradTrak;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -28,6 +29,7 @@ import seedu.address.storage.JsonGradTrakStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserInfoStorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.coursestorage.CourseManager;
 import seedu.address.storage.moduleinfostorage.ModuleInfoManager;
@@ -50,6 +52,7 @@ public class MainApp extends Application {
     protected Config config;
     protected ModuleInfoManager moduleInfoManager;
     protected CourseManager courseManager;
+    protected UserInfoStorageManager userInfoStorageManager;
     //protected Course manager;
 
     @Override
@@ -67,11 +70,13 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        //ModuleInfo Manager to create file path for json and create objects
+        //Other app data managers
         moduleInfoManager = new ModuleInfoManager();
         courseManager = new CourseManager();
+        userInfoStorageManager = new UserInfoStorageManager();
 
-        model = initModelManager(storage, userPrefs, moduleInfoManager, courseManager);
+        model = initModelManager(storage, userPrefs, moduleInfoManager,
+                courseManager, userInfoStorageManager);
 
         logic = new LogicManager(model, storage);
 
@@ -83,18 +88,24 @@ public class MainApp extends Application {
      * The data from the sample GradTrak will be used instead if {@code storage}'s GradTrak is not found,
      * or an empty GradTrak will be used instead if errors occur when reading {@code storage}'s GradTrak.
      */
-    private Model initModelManager(Storage storage, UserPrefs userPrefs,
-                                   ModuleInfoManager moduleInfoManager, CourseManager courseManager) {
+    private Model initModelManager(Storage storage, UserPrefs userPrefs, ModuleInfoManager moduleInfoManager,
+                                   CourseManager courseManager, UserInfoStorageManager userInfoStorageManager) {
         Optional<ReadOnlyGradTrak> gradTrakOptional;
         ReadOnlyGradTrak initialData;
         Optional<ModuleInfoList> allModulesOptional;
         ModuleInfoList allModules;
         Optional<CourseList> allCourseListOptional;
         CourseList allCourses;
+        Optional<UserInfo> userInfoOptional;
+        UserInfo userInfo;
         try {
             allCourseListOptional = courseManager.readCourseFile();
             if (!allCourseListOptional.isPresent()) {
                 logger.info("File for all courses not found! Starting with sample course List");
+            }
+            userInfoOptional = userInfoStorageManager.readUserInfoFile();
+            if (!userInfoOptional.isPresent()) {
+                logger.info("File for user information not found! Starting with default user info file");
             }
             allModulesOptional = moduleInfoManager.readModuleInfoFile();
             if (!allModulesOptional.isPresent()) {
@@ -104,6 +115,7 @@ public class MainApp extends Application {
             if (!gradTrakOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample GradTrak");
             }
+
             initialData = gradTrakOptional.orElseGet(SampleDataUtil::getSampleGradTrak);
 
             //If unable to find the data file provide a blank Module Info List
@@ -111,19 +123,22 @@ public class MainApp extends Application {
             //If unable to find data file, provide default course list
             //TODO: Implement sample courses and course requirement
             allCourses = allCourseListOptional.orElse(new CourseList());
+            userInfo = userInfoOptional.orElse(new UserInfo());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty GradTrak");
             initialData = new GradTrak();
             allModules = new ModuleInfoList();
             allCourses = new CourseList();
+            userInfo = new UserInfo();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty GradTrak");
             initialData = new GradTrak();
             allModules = new ModuleInfoList();
             allCourses = new CourseList();
+            userInfo = new UserInfo();
         }
 
-        return new ModelManager(initialData, userPrefs, allModules, allCourses);
+        return new ModelManager(initialData, userPrefs, allModules, allCourses, userInfo);
     }
 
     private void initLogging(Config config) {

@@ -69,12 +69,12 @@ public class JsonGradTrakStorage implements GradTrakStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveGradTrak(ReadOnlyGradTrak addressBook, Path filePath) throws IOException {
-        requireNonNull(addressBook);
+    public void saveGradTrak(ReadOnlyGradTrak gradTrak, Path filePath) throws IOException {
+        requireNonNull(gradTrak);
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableGradTrak(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableGradTrak(gradTrak), filePath);
     }
 
 }

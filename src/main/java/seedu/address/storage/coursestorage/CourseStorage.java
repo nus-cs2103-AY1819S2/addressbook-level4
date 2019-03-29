@@ -19,13 +19,15 @@ public interface CourseStorage {
     Path getCourseFilePath();
 
     /**
-     * Returns an arraylist of some of the courses in nus
+     * Returns an optional CourseList of some of the courses in nus
      * @param filePath
-     * @return An ArrayList of moduleInfo of all available modules
+     * @return An optional courseList of moduleInfo of all available modules
      * @throws DataConversionException
      * @throws IOException
      */
     Optional<CourseList> readCourseFile(Path filePath) throws DataConversionException;
 
     Optional<CourseList> readCourseFile()throws DataConversionException;
+
+
 }

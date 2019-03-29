@@ -2,11 +2,14 @@ package seedu.address.model.pdf;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
 
 import seedu.address.model.tag.Tag;
 
@@ -16,13 +19,12 @@ import seedu.address.model.tag.Tag;
  */
 public class Pdf {
 
-    // Identity fields
     private final Name name;
     private final Directory directory;
     private final Size size;
     private final Deadline deadline;
+    private final boolean isEncrypted;
 
-    // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
     public Pdf(Name name, Directory directory, Size size, Set<Tag> tags) {
@@ -33,6 +35,7 @@ public class Pdf {
         this.size = size;
         this.deadline = new Deadline();
         this.tags.addAll(tags);
+        this.isEncrypted = isFileEncrypted(name, directory);
     }
 
     public Pdf(Name name, Directory directory, Size size, Set<Tag> tags, Deadline deadline) {
@@ -43,6 +46,19 @@ public class Pdf {
         this.size = size;
         this.deadline = deadline;
         this.tags.addAll(tags);
+        this.isEncrypted = isFileEncrypted(name, directory);
+    }
+
+    public Pdf(Pdf oldPdf, boolean isEncrypted) {
+        requireAllNonNull(oldPdf, isEncrypted);
+
+        this.name = oldPdf.name;
+        this.directory = oldPdf.directory;
+        this.size = new Size(Long.toString(Paths.get(oldPdf.getDirectory().getDirectory(),
+                oldPdf.getName().getFullName()).toFile().length()));
+        this.deadline = oldPdf.deadline;
+        this.tags.addAll(oldPdf.tags);
+        this.isEncrypted = isEncrypted;
     }
 
     public Name getName() {
@@ -59,6 +75,10 @@ public class Pdf {
 
     public Deadline getDeadline() {
         return deadline;
+    }
+
+    public boolean getIsEncryted() {
+        return isEncrypted;
     }
 
     /**
@@ -84,6 +104,18 @@ public class Pdf {
 
     public boolean isValidPdf() {
         return Paths.get(this.directory.getDirectory(), this.name.getFullName()).toAbsolutePath().toFile().exists();
+    }
+
+    /**
+     * Returns true if the file at the given directory and name is encrypted. If the file can't be loaded
+     * means that the file is already encrypted
+     */
+    private boolean isFileEncrypted(Name name, Directory directory) {
+        try {
+            return PDDocument.load(Paths.get(directory.getDirectory(), name.getFullName()).toFile()).isEncrypted();
+        } catch (IOException ioe) {
+            return true;
+        }
     }
 
     /**

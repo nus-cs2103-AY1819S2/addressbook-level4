@@ -87,6 +87,7 @@ public class EncryptCommand extends Command {
             file.protect(spp);
             file.save(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),
                     pdfToEncrypt.getName().getFullName()).toFile());
+            file.close();
             return getEncryptedPdf(pdfToEncrypt);
         } catch (IOException ioe) {
             throw new CommandException(String.format(MESSAGE_ENCRYPT_PDF_FAILURE, pdfToEncrypt.getName()));

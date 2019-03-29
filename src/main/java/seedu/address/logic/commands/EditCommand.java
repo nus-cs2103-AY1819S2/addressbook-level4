@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -23,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Sex;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -43,6 +45,7 @@ public class EditCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_NAME + "NAME] "
+            + "[" + PREFIX_SEX + "SEX] "
             + "[" + PREFIX_NRIC + "NRIC] "
             + "[" + PREFIX_YEAR + "DOB] "
             + "[" + PREFIX_PHONE + "PHONE] "
@@ -106,6 +109,7 @@ public class EditCommand extends Command {
 
         if (personToEdit instanceof Patient) {
             Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+            Sex updatedSex = editPersonDescriptor.getSex().orElse(((Patient) personToEdit).getSex());
             Nric updatedNric = editPersonDescriptor.getNric().orElse(((Patient) personToEdit).getNric());
             DateOfBirth updatedDob = editPersonDescriptor.getDateOfBirth().orElse(((Patient) personToEdit)
                     .getDateOfBirth());
@@ -114,7 +118,7 @@ public class EditCommand extends Command {
             Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
 
             return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, null, updatedNric,
-                    updatedDob);
+                    updatedDob, updatedSex);
         } else {
             throw new PersonIsNotPatient();
         }
@@ -144,6 +148,7 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
+        private Sex sex;
         private Nric nric;
         private DateOfBirth dateOfBirth;
         private Phone phone;
@@ -159,6 +164,7 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
+            setSex(toCopy.sex);
             setNric(toCopy.nric);
             setDateOfBirth(toCopy.dateOfBirth);
             setPhone(toCopy.phone);
@@ -171,7 +177,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, nric, dateOfBirth, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, nric, dateOfBirth, phone, email, address, tags, sex);
         }
 
         public void setName(Name name) {
@@ -180,6 +186,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setSex(Sex sex) {
+            this.sex = sex;
+        }
+
+        public Optional<Sex> getSex() {
+            return Optional.ofNullable(sex);
         }
 
         public void setNric(Nric nric) {

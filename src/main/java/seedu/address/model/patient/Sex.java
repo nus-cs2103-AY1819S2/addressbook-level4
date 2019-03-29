@@ -1,40 +1,56 @@
 package seedu.address.model.patient;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Indicates a person's sex: Either Male or Female.
+ * Represents a Person's Sex in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidSex(String)}
  */
 public class Sex {
+
     public static final String MESSAGE_CONSTRAINTS =
-            "Indicating patient's sex is compulsory, denoted by " + PREFIX_SEX + ", and should be male or female";
+        "Sex should only be either M or F";
+    public static final String VALIDATION_REGEX = "^[M,F]$";
+    public final String value;
 
-    public static final String MALE = "M";
-    public static final String FEMALE = "F";
-
-    private String sex;
-
+    /**
+     * Constructs a {@code Sex}.
+     *
+     * @param sex A valid Sex value.
+     */
     public Sex(String sex) {
-        this.sex = sex.toUpperCase();
+        requireNonNull(sex);
+        checkArgument(isValidSex(sex), MESSAGE_CONSTRAINTS);
+        value = sex;
     }
 
     /**
-     * Returns true if a given string is a valid Sex.
-     * Test is case-insensitive.
-     *
-     * @param test the string to be tested.
+     * Returns true if a given string is a valid Sex number.
      */
     public static boolean isValidSex(String test) {
-        String temp = test.toUpperCase();
-        return temp.equals(Sex.MALE) || temp.equals(Sex.FEMALE);
+        return test.matches(VALIDATION_REGEX);
     }
 
     public String getSex() {
-        return sex;
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof Sex // instanceof handles nulls
+            && value.equals(((Sex) other).value)); // state check
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 
     @Override
     public String toString() {
-        return "(" + sex + ")";
+        return "(" + value + ")";
     }
+
 }

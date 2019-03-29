@@ -17,6 +17,7 @@ import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.description.Description;
 import seedu.address.model.patient.Nric;
+import seedu.address.model.patient.Sex;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -58,6 +59,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String sex} into a {@code Sex}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sex} is invalid.
+     */
+    public static Sex parseSex(String sex) throws ParseException {
+        requireNonNull(sex);
+        String trimmedSex = sex.trim();
+        if (!Sex.isValidSex(trimmedSex)) {
+            throw new ParseException(Sex.MESSAGE_CONSTRAINTS);
+        }
+        return new Sex(trimmedSex);
     }
 
     /**

@@ -1,6 +1,7 @@
 package seedu.address.model.record;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.storage.JsonAdaptedConstants.DIVIDER;
 
 import java.util.Objects;
 
@@ -22,6 +23,10 @@ public class Record {
 
     private final RecordDate recordDate;
 
+    /**
+     * Used by add command.
+     * @param desc the description of the record.
+     */
     public Record(Description desc) {
         requireAllNonNull(desc);
         this.doctorName = new Name(Dentist.getDentistName());
@@ -29,10 +34,26 @@ public class Record {
         this.recordDate = new RecordDate();
     }
 
+    /**
+     * Used by JSON.
+     * @param doctorName the name of the doctor.
+     * @param description the description of the record.
+     * @param recordDate the date of the record.
+     */
     public Record(String doctorName, String description, String recordDate) {
         this.doctorName = new Name(doctorName);
         this.description = new Description(description);
         this.recordDate = new RecordDate(recordDate);
+    }
+
+    /**
+     * Used by patient class when creating a new patient.
+     * Creates a "patient added today" record.
+     */
+    public Record() {
+        this.doctorName = new Name("NA");
+        this.description = new Description("Patient is added today");
+        this.recordDate = new RecordDate();
     }
 
     public Name getDoctorName() {
@@ -45,6 +66,18 @@ public class Record {
 
     public RecordDate getRecordDate() {
         return recordDate;
+    }
+
+    public String getRecord() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Doctor: ")
+                .append(getDoctorName())
+                .append(", Description: ")
+                .append(getDescription())
+                .append(", on ")
+                .append(getRecordDate());
+
+        return builder.toString();
     }
 
     @Override
@@ -66,9 +99,9 @@ public class Record {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getDoctorName())
-                .append(":")
+                .append(DIVIDER)
                 .append(getDescription())
-                .append(":")
+                .append(DIVIDER)
                 .append(getRecordDate());
 
         return builder.toString();

@@ -121,6 +121,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * Replaces the given Record {@code target} in the list with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     */
+    public void setRecord(Record target, Record editedRecord) {
+        requireNonNull(editedRecord);
+
+        records.setRecord(target, editedRecord);
+        indicateModified();
+    }
+
     //// record-level operations
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.

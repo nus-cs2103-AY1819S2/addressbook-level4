@@ -1,21 +1,18 @@
 package seedu.address.logic;
 
-//import java.nio.file.Path;
+import java.nio.file.Path;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-//import seedu.address.model.ReadOnlyAddressBook;
-//import seedu.address.model.person.Person;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
-
-import java.nio.file.Path;
 
 /**
  * API of the Logic component

@@ -32,9 +32,9 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private static final String FXML = "StatusBarFooter.fxml";
 
-    private final String REQUEST_BOOK = "RequestBook";
+    private static final String REQUEST_BOOK = "RequestBook";
 
-    private final String HEALTH_WORKER_BOOK = "HealthWorkerBook";
+    private static final String HEALTH_WORKER_BOOK = "HealthWorkerBook";
 
     @FXML
     private Label syncStatus;
@@ -73,14 +73,14 @@ public class StatusBarFooter extends UiPart<Region> {
         String lastUpdated = formatter.format(new Date(now));
         syncStatus.setText(String.format(SYNC_STATUS_UPDATED, lastUpdated));
         switch(bookType) {
-            case REQUEST_BOOK:
-                saveLocationStatus.setText(Paths.get(".").resolve(path).toString());
-                break;
-            case HEALTH_WORKER_BOOK:
-                saveLocationStatus.setText(Paths.get(".").resolve(path).toString());
-                break;
-            default:
-                // do nothing
+        case REQUEST_BOOK:
+            saveLocationStatus.setText(Paths.get(".").resolve(path).toString());
+            break;
+        case HEALTH_WORKER_BOOK:
+            saveLocationStatus.setText(Paths.get(".").resolve(path).toString());
+            break;
+        default:
+            // do nothing
         }
     }
 

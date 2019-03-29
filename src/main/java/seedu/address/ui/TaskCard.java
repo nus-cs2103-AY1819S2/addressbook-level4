@@ -35,6 +35,10 @@ public class TaskCard extends UiPart<Region> {
     private Label startDate;
     @FXML
     private Label endDate;
+    @FXML
+    private Label startTime;
+    @FXML
+    private Label endTime;
 
 
     public TaskCard(Task task, int displayedIndex) {
@@ -47,6 +51,8 @@ public class TaskCard extends UiPart<Region> {
         priority.getStyleClass().add("high");
         startDate.setText("Start Date: " + task.getStartDate().toString());
         endDate.setText("End Date:  " + task.getEndDate().toString());
+        startTime.setText("Start Time: " + task.getStartTime().toString());
+        endTime.setText("End Time: " + task.getEndTime().toString());
     }
 
     @Override

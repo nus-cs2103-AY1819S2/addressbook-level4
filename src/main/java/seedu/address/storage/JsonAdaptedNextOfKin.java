@@ -93,7 +93,7 @@ public class JsonAdaptedNextOfKin {
         if (kinEmail == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(kinAddress)) {
+        if (!Email.isValidEmail(kinEmail)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
         final Email modelKinEmail = new Email(kinEmail);

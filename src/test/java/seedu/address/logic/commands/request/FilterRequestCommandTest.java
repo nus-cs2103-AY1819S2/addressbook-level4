@@ -40,7 +40,7 @@ import seedu.address.model.request.RequestNameContainsKeywordPredicate;
 /**
  * Contains integration tests (interaction with Model) for {@code FilterRequestCommand}
  */
-class FilterRequestCommandTest {
+public class FilterRequestCommandTest {
     private Model model = new ModelManager(getTypicalHealthWorkerBook(),
             getTypicalRequestBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalHealthWorkerBook(),

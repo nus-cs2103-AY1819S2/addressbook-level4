@@ -95,13 +95,12 @@ public interface Model {
      */
     ReadOnlyProperty<HealthWorker> selectedHealthWorkerProperty();
 
-    /**
+    /**\
      * Sets the selected health worker in the filtered health worker list.
      */
     void setSelectedHealthWorker(HealthWorker worker);
 
     void commitHealthWorkerBook();
-
 
     // ================== Request related code =========================================
     // @author David, Hui Chun

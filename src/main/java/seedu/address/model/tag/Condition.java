@@ -9,7 +9,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Condition {
 
-    public static final String MESSAGE_CONDITION_CONSTRAINTS = "Tags names should be alphanumeric characters/spaces";
+    public static final String MESSAGE_CONSTRAINTS = "Condition descriptions should be alphanumeric characters/spaces";
 
     /**
      * The first character of the condition must not be a whitespace,
@@ -26,7 +26,7 @@ public class Condition {
      */
     public Condition(String conditionName) {
         requireNonNull(conditionName);
-        checkArgument(isValidConditionName(conditionName), MESSAGE_CONDITION_CONSTRAINTS);
+        checkArgument(isValidConditionName(conditionName), MESSAGE_CONSTRAINTS);
         this.conditionName = conditionName;
     }
 

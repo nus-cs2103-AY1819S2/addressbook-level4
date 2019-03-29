@@ -3,17 +3,15 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_HEALTHWORKER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_OTHERS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_REQUEST;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONDITION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANIZATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILLS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-
-//import java.util.ArrayList;
-//import java.util.List;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,6 +20,9 @@ import seedu.address.model.Model;
 import seedu.address.model.tag.Specialisation;
 import seedu.address.testutil.EditHealthWorkerDescriptorBuilder;
 import seedu.address.testutil.EditRequestDescriptorBuilder;
+
+//import java.util.ArrayList;
+//import java.util.List;
 
 /**
  * Contains helper methods for testing commands.
@@ -54,26 +55,28 @@ public class CommandTestUtil {
     // Default strings for Patient objects
     public static final String VALID_NAME_ALICE = "Alice Pauline";
     public static final String VALID_NAME_BENSON = "Benson Meier";
-    public static final String VALID_NRIC_ALICE = "S9670515H";
-    public static final String VALID_NRIC_BENSON = "S9274100D";
+    public static final String VALID_DATE_ALICE = "01-01-2019 10:00:00";
+    public static final String VALID_DATE_BENSON = "02-01-2919 08:00:00";
+    public static final String VALID_STATUS_ALICE = "PENDING";
+    public static final String VALID_STATUS_BENSON = "PENDING";
+    public static final String VALID_ADDRESS_ALICE = "123, Jurong West Ave 6, #08-111";
+    public static final String VALID_ADDRESS_BENSON = "311, Clementi Ave 2, #02-25";
     public static final String VALID_PHONE_ALICE = "94351253";
     public static final String VALID_PHONE_BENSON = "98765432";
+    public static final String VALID_NRIC_ALICE = "S9670515H";
+    public static final String VALID_NRIC_BENSON = "S9274100D";
     public static final String VALID_CONDITION_PHYSIO = "Physiotherapy";
     public static final String VALID_CONDITION_DIALYSIS = "Dialysis";
+    public static final String VALID_CONDITION_PALLIATIVE = "Palliative";
 
-    public static final String MODE_OTHERS = " " + PREFIX_ADD_OTHERS;
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     public static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String NRIC_DESC_AMY = " " + PREFIX_NRIC + VALID_NRIC_AMY;
     public static final String NRIC_DESC_BOB = " " + PREFIX_NRIC + VALID_NRIC_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     // Default descriptions for Health Worker objects
     public static final String MODE_HEALTHWORKER = " " + PREFIX_ADD_HEALTHWORKER;
     public static final String INVALID_MODE = " " + "invalid";
@@ -87,15 +90,30 @@ public class CommandTestUtil {
     public static final String ORGANIZATION_DESC_BETTY = " " + PREFIX_ORGANIZATION + VALID_ORGANIZATION_BETTY;
     public static final String SKILLS_DESC_ANDY = " " + PREFIX_SKILLS + Specialisation.GENERAL_PRACTICE.name()
             + " " + PREFIX_SKILLS + Specialisation.PHYSIOTHERAPY.name();
+    // Default descriptions for Request objects
+    public static final String MODE_REQUEST = " " + PREFIX_ADD_REQUEST;
+    public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_NAME_ALICE;
+    public static final String NAME_DESC_BENSON = " " + PREFIX_NAME + VALID_NAME_BENSON;
+    public static final String PHONE_DESC_ALICE = " " + PREFIX_PHONE + VALID_PHONE_ALICE;
+    public static final String PHONE_DESC_BENSON = " " + PREFIX_PHONE + VALID_PHONE_BENSON;
+    public static final String ADDRESS_DESC_ALICE = " " + PREFIX_ADDRESS + VALID_ADDRESS_ALICE;
+    public static final String ADDRESS_DESC_BENSON = " " + PREFIX_ADDRESS + VALID_ADDRESS_BENSON;
+    public static final String STATUS_DESC_ALICE = " " + PREFIX_STATUS + VALID_STATUS_ALICE;
+    public static final String DATE_DESC_ALICE = " " + PREFIX_DATE + VALID_DATE_ALICE;
+    public static final String DATE_DESC_BENSON = " " + PREFIX_DATE + VALID_DATE_BENSON;
+    public static final String NRIC_DESC_ALICE = " " + PREFIX_NRIC + VALID_NRIC_ALICE;
+    public static final String NRIC_DESC_BENSON = " " + PREFIX_NRIC + VALID_NRIC_BENSON;
+    public static final String CONDITION_DESC_ALICE = " " + PREFIX_CONDITION + VALID_CONDITION_PHYSIO;
+    public static final String CONDITION_DESC_BENSON = " " + PREFIX_CONDITION + VALID_CONDITION_PALLIATIVE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_ORGANIZATION_DESC = " " + PREFIX_ORGANIZATION + "ABC!";
     public static final String INVALID_NRIC_DESC = " " + PREFIX_NRIC + "A12345678";
     public static final String INVALID_SKILLS_DESC = " " + PREFIX_SKILLS + "general_practice";
+    public static final String INVALID_CONDITION_DESC = " " + PREFIX_CONDITION + " ";
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "14th march";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

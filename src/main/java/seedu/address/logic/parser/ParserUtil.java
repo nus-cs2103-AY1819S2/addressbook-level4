@@ -138,7 +138,7 @@ public class ParserUtil {
         requireNonNull(condition);
         String trimmedCondition = condition.trim();
         if (!Condition.isValidConditionName(trimmedCondition)) {
-            throw new ParseException(Condition.MESSAGE_CONDITION_CONSTRAINTS);
+            throw new ParseException(Condition.MESSAGE_CONSTRAINTS);
         }
 
         return new Condition(trimmedCondition);
@@ -232,7 +232,7 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!RequestDate.isValidDate(trimmedDate)) {
-            throw new ParseException(RequestDate.MESSAGE_DATE_CONSTRAINTS);
+            throw new ParseException(RequestDate.MESSAGE_CONSTRAINTS);
         }
 
         return new RequestDate(trimmedDate);

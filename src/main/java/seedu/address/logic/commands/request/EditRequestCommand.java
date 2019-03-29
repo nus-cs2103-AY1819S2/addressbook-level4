@@ -59,8 +59,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
      * Creates and returns a {@code Request} with the details of {@code requestToEdit}
      * edited with {@code editRequestDescriptor}.
      */
-    private static Request createEditedRequest(Request requestToEdit,
-                                               EditRequestDescriptor editRequestDescriptor) {
+    private static Request createEditedRequest(Request requestToEdit, EditRequestDescriptor editRequestDescriptor) {
         assert requestToEdit != null;
 
         Name updatedName = editRequestDescriptor.getName().orElse(requestToEdit.getName());
@@ -142,6 +141,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
         private RequestDate requestDate;
         private Nric nric;
         private Set<Condition> conditions;
+        private String healthWorker;
 
         public EditRequestDescriptor() {}
 
@@ -156,6 +156,7 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
             setDate(toCopy.requestDate);
             setNric(toCopy.nric);
             setConditions(toCopy.conditions);
+            setHealthWorker(toCopy.healthWorker);
         }
 
         /**
@@ -205,6 +206,14 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
             this.nric = nric;
         }
 
+        public Optional<String> getHealthWorker() {
+            return Optional.ofNullable(healthWorker);
+        }
+
+        public void setHealthWorker(String healthWorker) {
+            this.healthWorker = healthWorker;
+        }
+
         /**
          * Returns an unmodifiable condition set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
@@ -243,7 +252,8 @@ public class EditRequestCommand extends EditCommand implements RequestCommand {
                 && getNric().equals(editRequestDescriptor.getNric())
                 && getAddress().equals(editRequestDescriptor.getAddress())
                 && getDate().equals(editRequestDescriptor.getDate())
-                && getConditions().equals(editRequestDescriptor.getConditions());
+                && getConditions().equals(editRequestDescriptor.getConditions())
+                && getHealthWorker().equals(editRequestDescriptor.getHealthWorker());
         }
     }
 }

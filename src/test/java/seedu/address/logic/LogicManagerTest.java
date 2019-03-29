@@ -2,9 +2,30 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.CONDITION_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.MODE_REQUEST;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.ORGANIZATION_DESC_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.SKILLS_DESC_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION_PHYSIO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_ALICE;
+import static seedu.address.logic.parser.CommandMode.MODE_HEALTHWORKER;
+import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 
 import java.io.IOException;
-//import java.nio.file.Path;
+import java.nio.file.Path;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -12,19 +33,37 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.request.ListRequestCommand;
+import seedu.address.logic.parser.DeleteCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
+import seedu.address.model.request.RequestDate;
+import seedu.address.model.request.RequestStatus;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonHealthWorkerBookStorage;
 import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.Assert;
+import seedu.address.testutil.HealthWorkerBuilder;
+
+//import java.nio.file.Path;
 
 //import seedu.address.logic.parser.DeleteCommandParser;
 
@@ -59,13 +98,13 @@ public class LogicManagerTest {
         assertHistoryCorrect(invalidCommand);
     }
 
-    // To be rewritten
-    // @Test
-    // public void execute_commandExecutionError_throwsParseException() {
-    //    String deleteCommand = "delete 9";
-    //    assertParseException(deleteCommand, MESSAGE_UNKNOWN_COMMAND);
-    //    assertHistoryCorrect(deleteCommand);
-    // }
+    @Test
+    public void execute_commandExecutionError_throwsParseException() {
+        String deleteCommand = "delete 9";
+        assertParseException(deleteCommand, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                DeleteCommandParser.INVALID_COMMAND_USAGE));
+        assertHistoryCorrect(deleteCommand);
+    }
 
     @Test
     public void execute_validCommand_success() {
@@ -76,38 +115,42 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        //might be needed to help writing the stub classes
-        //JsonAddressBookStorage addressBookStorage =
-        //      new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonRequestBookStorage requestBookStorage =
-            new JsonRequestBookStorage(temporaryFolder.newFile().toPath());
+            new JsonRequestBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage =
-            new JsonHealthWorkerBookStorage(temporaryFolder.newFile().toPath());
+            new JsonHealthWorkerBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(userPrefsStorage,
             requestBookStorage, jsonHealthWorkerBookStorage);
         logic = new LogicManager(model, storage);
 
-        // Will be kept for future references for other add commands
-        // Execute add command
-        //String addCommand = AddPersonCommand.COMMAND_WORD + MODE_OTHERS + NAME_DESC_AMY + PHONE_DESC_AMY;
-        //Person expectedPerson = new PersonBuilder(AMY).build();
-        //ModelManager expectedModel = new ModelManager();
-        //expectedModel.addPerson(expectedPerson);
-        //expectedModel.commitAddressBook();
-        //String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
-        // TODO: Jing - Can you take a look at this test?
-        //  Jing-will look at it after implementation of the other addcommand tests
-        // assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
-        // assertHistoryCorrect(addCommand);
+        // Saving HealthWorker
+        String addHealthWorkerCommand = AddCommand.COMMAND_WORD + " " + MODE_HEALTHWORKER + NAME_DESC_ANDY
+                + PHONE_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY;
+        HealthWorker expectedHealthWorker = new HealthWorkerBuilder(ANDY).build();
+        ModelManager expectedModel = new ModelManager();
+        expectedModel.addHealthWorker(expectedHealthWorker);
+        expectedModel.commitHealthWorkerBook();
+        String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+        assertCommandBehavior(CommandException.class, addHealthWorkerCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(addHealthWorkerCommand);
+
+        // Saving Request
+        String addRequestCommand = AddCommand.COMMAND_WORD + " " + MODE_REQUEST + NAME_DESC_ALICE + PHONE_DESC_ALICE
+                + ADDRESS_DESC_ALICE + CONDITION_DESC_ALICE + DATE_DESC_ALICE + NRIC_DESC_ALICE;
+        Request expectedRequest = new Request(new Name(VALID_NAME_ALICE), new Nric(VALID_NRIC_ALICE),
+                new Phone(VALID_PHONE_ALICE), new Address(VALID_ADDRESS_ALICE), new RequestDate(VALID_DATE_ALICE),
+                SampleDataUtil.getConditionSet(VALID_CONDITION_PHYSIO), new RequestStatus(VALID_STATUS_ALICE));
+        expectedModel.addRequest(expectedRequest);
+        expectedModel.commitRequestBook();
+        assertCommandBehavior(CommandException.class, addRequestCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(addRequestCommand, HistoryCommand.COMMAND_WORD, addHealthWorkerCommand);
+
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        //to be phased out
-        //thrown.expect(UnsupportedOperationException.class);
-        //logic.getFilteredPersonList().remove(0);
+        Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredHealthWorkerList().remove(0));
     }
 
     /**
@@ -182,16 +225,30 @@ public class LogicManagerTest {
     }
 
     /**
-     * A stub class to throw an {@code IOException} when the save method is called.
-     * TODO:rewrite for other book classes
+     * A stub HealthWorkerBookStorage class to throw an {@code IOException} when the save method is called.
      */
-    //private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-    //  private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-    //    super(filePath);
-    // }
-    //@Override
-    // public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-    //  throw DUMMY_IO_EXCEPTION;
-    // }
-    //}
+    private static class JsonHealthWorkerBookIoExceptionThrowingStub extends JsonHealthWorkerBookStorage {
+        private JsonHealthWorkerBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveHealthWorkerBook(ReadOnlyHealthWorkerBook healthWorkerBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub RequestBookStorage class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonRequestBookIoExceptionThrowingStub extends JsonRequestBookStorage {
+        private JsonRequestBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveRequestBook(ReadOnlyRequestBook requestBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
 }

@@ -40,7 +40,7 @@ class JsonAdaptedCondition {
      */
     public Condition toModelType() throws IllegalValueException {
         if (!Condition.isValidConditionName(conditionName)) {
-            throw new IllegalValueException(Condition.MESSAGE_CONDITION_CONSTRAINTS);
+            throw new IllegalValueException(Condition.MESSAGE_CONSTRAINTS);
         }
         return new Condition(conditionName);
     }

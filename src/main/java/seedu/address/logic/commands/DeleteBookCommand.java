@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_REVIEWS;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
+import seedu.address.model.book.ReviewBookNameContainsExactKeywordsPredicate;
 
 /**
  * Deletes a book identified using it's displayed index from the book shelf.
@@ -42,6 +45,20 @@ public class DeleteBookCommand extends Command {
 
         Book bookToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteBook(bookToDelete);
+
+        // check for reviews linked to this book and delete them
+        ReviewBookNameContainsExactKeywordsPredicate predicate =
+                new ReviewBookNameContainsExactKeywordsPredicate(bookToDelete.getBookName());
+        model.updateFilteredReviewList(predicate);
+        List<Review> reviewsToDelete = model.getFilteredReviewList();
+        while (!reviewsToDelete.isEmpty()) {
+            model.deleteReview(reviewsToDelete.get(0));
+            model.updateFilteredReviewList(predicate);
+            reviewsToDelete = model.getFilteredReviewList();
+        }
+
+        // show all reviews
+        model.updateFilteredReviewList(PREDICATE_SHOW_ALL_REVIEWS);
         model.commitBookShelf();
         return new CommandResult(String.format(MESSAGE_DELETE_BOOK_SUCCESS, bookToDelete));
     }

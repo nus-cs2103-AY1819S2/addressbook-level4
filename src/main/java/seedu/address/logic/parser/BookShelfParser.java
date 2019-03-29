@@ -16,6 +16,7 @@ import seedu.address.logic.commands.EditBookCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.ListAllReviewsCommand;
 import seedu.address.logic.commands.ListBookCommand;
 import seedu.address.logic.commands.ListReviewCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -82,6 +83,9 @@ public class BookShelfParser {
 
         case ListBookCommand.COMMAND_WORD:
             return new ListBookCommandParser().parse(arguments);
+
+        case ListAllReviewsCommand.COMMAND_WORD:
+            return new ListAllReviewsCommand();
 
         case ListReviewCommand.COMMAND_WORD:
             return new ListReviewCommandParser().parse(arguments);

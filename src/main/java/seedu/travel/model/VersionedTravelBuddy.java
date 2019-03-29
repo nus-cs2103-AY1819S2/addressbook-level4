@@ -1,14 +1,11 @@
 package seedu.travel.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.collections.ObservableList;
-import seedu.travel.model.place.CountryCode;
+import seedu.travel.model.chart.Chart;
 import seedu.travel.model.place.Place;
-import seedu.travel.model.place.Rating;
 
 /**
  * {@code TravelBuddy} that keeps track of its own history.
@@ -18,7 +15,7 @@ public class VersionedTravelBuddy extends TravelBuddy {
     private final List<ReadOnlyTravelBuddy> travelBuddyStateList;
     private int currentStatePointer;
 
-    public VersionedTravelBuddy(ReadOnlyTravelBuddy initialState) {
+    VersionedTravelBuddy(ReadOnlyTravelBuddy initialState) {
         super(initialState);
 
         travelBuddyStateList = new ArrayList<>();
@@ -30,11 +27,18 @@ public class VersionedTravelBuddy extends TravelBuddy {
      * Saves a copy of the current {@code TravelBuddy} state at the end of the state list.
      * Undone states are removed from the state list.
      */
-    public void commit() {
+    void commit() {
         removeStatesAfterCurrentPointer();
         travelBuddyStateList.add(new TravelBuddy(this));
         currentStatePointer++;
+        commitChart();
         indicateModified();
+    }
+
+    void commitChart() {
+        ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
+        new Chart(placeList).indicateModified();
+        //indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {
@@ -66,14 +70,14 @@ public class VersionedTravelBuddy extends TravelBuddy {
     /**
      * Returns true if {@code undo()} has travel book states to undo.
      */
-    public boolean canUndo() {
+    boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
      * Returns true if {@code redo()} has travel book states to redo.
      */
-    public boolean canRedo() {
+    boolean canRedo() {
         return currentStatePointer < travelBuddyStateList.size() - 1;
     }
 
@@ -95,60 +99,6 @@ public class VersionedTravelBuddy extends TravelBuddy {
         return super.equals(otherVersionedTravelBuddy)
                 && travelBuddyStateList.equals(otherVersionedTravelBuddy.travelBuddyStateList)
                 && currentStatePointer == otherVersionedTravelBuddy.currentStatePointer;
-    }
-
-    /**
-     * Generates a chart by country.
-     */
-    protected Map<CountryCode, Integer> generateCountryChart() {
-        ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
-        CountryCode countryCode;
-        Map<CountryCode, Integer> mapCountry = new HashMap<>();
-        for (Place place : placeList) {
-            countryCode = place.getCountryCode();
-            if (mapCountry.containsKey(countryCode)) {
-                mapCountry.put(countryCode, mapCountry.get(countryCode) + 1);
-            } else {
-                mapCountry.put(countryCode, 1);
-            }
-        }
-        return mapCountry;
-    }
-
-    /**
-     * Generates a chart by rating.
-     */
-    protected Map<Rating, Integer> generateRatingChart() {
-        ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
-        Rating rating;
-        Map<Rating, Integer> mapRating = new HashMap<>();
-        for (Place place : placeList) {
-            rating = place.getRating();
-            if (mapRating.containsKey(rating)) {
-                mapRating.put(rating, mapRating.get(rating) + 1);
-            } else {
-                mapRating.put(rating, 1);
-            }
-        }
-        return mapRating;
-    }
-
-    /**
-     * Generates a chart by rating.
-     */
-    protected Map<String, Integer> generateYearChart() {
-        ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
-        String year;
-        Map<String, Integer> mapYear = new HashMap<>();
-        for (Place place : placeList) {
-            year = place.getDateVisited().year;
-            if (mapYear.containsKey(year)) {
-                mapYear.put(year, mapYear.get(year) + 1);
-            } else {
-                mapYear.put(year, 1);
-            }
-        }
-        return mapYear;
     }
 
     /**

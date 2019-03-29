@@ -22,9 +22,8 @@ import seedu.travel.model.place.CountryCode;
 /**
  * Generates the UI portion of the chart.
  */
-public class ChartUi extends Application {
+public class RatingChartUi extends Application {
 
-    private static final String FILENAME_COUNTRY = "data/countryChart.json";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     // final static String austria = "Austria";
@@ -36,38 +35,38 @@ public class ChartUi extends Application {
     @SuppressWarnings("unchecked")
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Number of Visits to Each Country");
+        stage.setTitle("Number of Places Visited for Each Rating Category");
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
         final BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-        barChart.setTitle("Number of Visits to Each Country");
-        xAxis.setLabel("Country");
-        yAxis.setLabel("Number of Visits");
+        barChart.setTitle("Number of Places Visited for Each Rating Category");
+        xAxis.setLabel("Rating");
+        yAxis.setLabel("Number of Places");
 
         Map<CountryCode, Integer> responses = new HashMap<>();
 
         try {
-            FileReader frCountry = new FileReader(FILENAME_COUNTRY);
+            FileReader frCountry = new FileReader("data/ratingChart.json");
             JsonReader jsonReader = new JsonReader(frCountry);
             Gson gson = new Gson();
             responses = gson.fromJson(jsonReader, HashMap.class);
             frCountry.close();
-            // jsonReader.close();
+            jsonReader.close();
         } catch (IOException e) {
             logger.warning(e.getMessage());
         }
 
-        XYChart.Series seriesCountry = new XYChart.Series();
-        seriesCountry.setName("Country");
-        Object[] countries = responses.keySet().toArray();
+        XYChart.Series seriesRating = new XYChart.Series();
+        seriesRating.setName("Rating");
+        Object[] ratings = responses.keySet().toArray();
         for (int i = 0; i < responses.size(); i++) {
-            String country = (String) countries[i];
-            seriesCountry.getData().add(new XYChart.Data(country, responses.get(country)));
-            logger.info(country + ", " + responses.get(country) + "\n");
+            String rating = (String) ratings[i];
+            seriesRating.getData().add(new XYChart.Data(rating, responses.get(rating)));
+            logger.info(rating + ", " + responses.get(rating) + "\n");
         }
 
         Scene scene = new Scene(barChart);
-        barChart.getData().add(seriesCountry);
+        barChart.getData().add(seriesRating);
         stage.setScene(scene);
         stage.show();
     }

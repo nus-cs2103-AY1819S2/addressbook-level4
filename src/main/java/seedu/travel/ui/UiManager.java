@@ -21,6 +21,7 @@ public class UiManager implements Ui {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/TravelBuddy-icon.png";
+    private static final String FILE_CSS = "view/LightTheme.css";
 
     private Logic logic;
     private MainWindow mainWindow;
@@ -63,7 +64,7 @@ public class UiManager implements Ui {
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/LightTheme.css");
+        alert.getDialogPane().getStylesheets().add(FILE_CSS);
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);

@@ -1,15 +1,12 @@
 package seedu.travel.model;
 
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.travel.commons.core.GuiSettings;
-import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.Place;
-import seedu.travel.model.place.Rating;
 
 /**
  * The API of the Model component.
@@ -90,21 +87,6 @@ public interface Model {
     void updateFilteredPlaceList(Predicate<Place> predicate);
 
     /**
-     * Generates the country chart.
-     */
-    Map<CountryCode, Integer> generateChartCountry();
-
-    /**
-     * Generates the rating chart.
-     */
-    Map<Rating, Integer> generateChartRating();
-
-    /**
-     * Generates the year chart.
-     */
-    Map<String, Integer> generateChartYear();
-
-    /**
      * Returns true if the model has previous TravelBuddy states to restore.
      */
     boolean canUndoTravelBuddy();
@@ -128,6 +110,11 @@ public interface Model {
      * Saves the current TravelBuddy state for undo/redo.
      */
     void commitTravelBuddy();
+
+    /**
+     * Saves the current Chart state.
+     */
+    void commitChart();
 
     /**
      * Selected place in the filtered place list.

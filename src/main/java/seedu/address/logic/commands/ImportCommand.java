@@ -21,7 +21,7 @@ public class ImportCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Image successfully imported.";
     public static final String MESSAGE_DIR_SUCCESS =
-            "Directory successfully imported (Note: Invalid file types and duplicates are skipped).";
+            "Directory successfully imported (Note: Invalid file types, hidden files and duplicates are skipped).";
 
     private final boolean isDirectory;
 

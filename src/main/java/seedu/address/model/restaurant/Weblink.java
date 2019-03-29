@@ -16,6 +16,7 @@ public class Weblink {
 
     public static final String NO_WEBLINK_STRING = "No weblink added";
     public static final String INVALID_URL_MESSAGE = "Weblink entered is not found. Please enter a correct weblink";
+    public static final String HTTPS_PREFIX = "https://";
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Weblinks should be of the format https://local-part.domain "
             + "and adhere to the following constraints:\n"

@@ -196,6 +196,9 @@ public class ParserUtil {
     public static Weblink parseWeblink(String weblink) throws ParseException {
         requireNonNull(weblink);
         String trimmedWeblink = weblink.trim();
+        if (!trimmedWeblink.contains(Weblink.HTTPS_PREFIX)) {
+            trimmedWeblink = Weblink.HTTPS_PREFIX.concat(trimmedWeblink);
+        }
         if (!Weblink.isValidWeblinkString(trimmedWeblink)) {
             throw new ParseException(Weblink.MESSAGE_CONSTRAINTS);
         }

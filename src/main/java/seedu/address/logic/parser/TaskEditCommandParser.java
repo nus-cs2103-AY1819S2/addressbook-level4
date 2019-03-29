@@ -12,7 +12,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.TaskEditCommand;
 import seedu.address.logic.commands.TaskEditCommand.EditTaskDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.datetime.DateCustom;
 
 /**
  * Parses input arguments and creates a new TaskEditCommand object

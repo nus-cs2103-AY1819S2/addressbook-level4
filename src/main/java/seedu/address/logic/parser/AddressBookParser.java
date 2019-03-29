@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_IN_GO_TO_MODE;
 import static seedu.address.commons.core.Messages.MESSAGE_ONLY_GO_TO_MODE_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -70,123 +69,127 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
-            case AddCommand.COMMAND_WORD:
-                isGotoMode();
-                return new AddCommandParser().parse(arguments);
+        case AddCommand.COMMAND_WORD:
+            isGotoMode();
+            return new AddCommandParser().parse(arguments);
 
-            case EditCommand.COMMAND_WORD:
-                isGotoMode();
-                return new EditCommandParser().parse(arguments);
+        case EditCommand.COMMAND_WORD:
+            isGotoMode();
+            return new EditCommandParser().parse(arguments);
 
-            case SelectCommand.COMMAND_WORD:
-                isGotoMode();
-                return new SelectCommandParser().parse(arguments);
+        case SelectCommand.COMMAND_WORD:
+            isGotoMode();
+            return new SelectCommandParser().parse(arguments);
 
-            case DeleteCommand.COMMAND_WORD:
-                isGotoMode();
-                return new DeleteCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            isGotoMode();
+            return new DeleteCommandParser().parse(arguments);
 
-            case ClearCommand.COMMAND_WORD:
-                isGotoMode();
-                return new ClearCommand();
+        case ClearCommand.COMMAND_WORD:
+            isGotoMode();
+            return new ClearCommand();
 
-            case FindCommand.COMMAND_WORD:
-                isGotoMode();
-                return new FindCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            isGotoMode();
+            return new FindCommandParser().parse(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                isGotoMode();
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            isGotoMode();
+            return new ListCommand();
 
-            case HistoryCommand.COMMAND_WORD:
-                isGotoMode();
-                return new HistoryCommand();
+        case HistoryCommand.COMMAND_WORD:
+            isGotoMode();
+            return new HistoryCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case UndoCommand.COMMAND_WORD:
-                isGotoMode();
-                return new UndoCommand();
+        case UndoCommand.COMMAND_WORD:
+            isGotoMode();
+            return new UndoCommand();
 
-            case RedoCommand.COMMAND_WORD:
-                isGotoMode();
-                return new RedoCommand();
+        case RedoCommand.COMMAND_WORD:
+            isGotoMode();
+            return new RedoCommand();
 
-            case GoToCommand.COMMAND_WORD:
-                return new GoToCommandParser().parse(arguments);
+        case GoToCommand.COMMAND_WORD:
+            return new GoToCommandParser().parse(arguments);
 
-            case StatsCommand.COMMAND_WORD:
-                isGotoMode();
-                return new StatsCommandParser().parse(arguments);
+        case StatsCommand.COMMAND_WORD:
+            isGotoMode();
+            return new StatsCommandParser().parse(arguments);
 
-            case SortCommand.COMMAND_WORD:
-                isGotoMode();
-                return new SortCommandParser().parse(arguments);
+        case SortCommand.COMMAND_WORD:
+            isGotoMode();
+            return new SortCommandParser().parse(arguments);
 
-            case CopyCommand.COMMAND_WORD:
-                isGotoMode();
-                return new CopyCommandParser().parse(arguments);
+        case CopyCommand.COMMAND_WORD:
+            isGotoMode();
+            return new CopyCommandParser().parse(arguments);
 
-            case OpenCommand.COMMAND_WORD:
-                isGotoMode();
-                return new OpenCommandParser().parse(arguments);
+        case OpenCommand.COMMAND_WORD:
+            isGotoMode();
+            return new OpenCommandParser().parse(arguments);
 
-            case SaveCommand.COMMAND_WORD:
-                isGotoMode();
-                return new SaveCommandParser().parse(arguments);
+        case SaveCommand.COMMAND_WORD:
+            isGotoMode();
+            return new SaveCommandParser().parse(arguments);
 
-            case ImportCommand.COMMAND_WORD:
-                isGotoMode();
-                return new ImportCommandParser().parse(arguments);
+        case ImportCommand.COMMAND_WORD:
+            isGotoMode();
+            return new ImportCommandParser().parse(arguments);
 
-            case ExportCommand.COMMAND_WORD:
-                isGotoMode();
-                return new ExportCommandParser().parse(arguments);
+        case ExportCommand.COMMAND_WORD:
+            isGotoMode();
+            return new ExportCommandParser().parse(arguments);
 
-            case TaskAddCommand.COMMAND_WORD:
-                return new TaskAddCommandParser().parse(arguments);
+        case TaskAddCommand.COMMAND_WORD:
+            return new TaskAddCommandParser().parse(arguments);
 
-            case TaskCalendarCommand.COMMAND_WORD:
-                return new TaskCalendarCommandParser().parse(arguments);
+        case TaskCalendarCommand.COMMAND_WORD:
+            return new TaskCalendarCommandParser().parse(arguments);
 
-            case TaskEditCommand.COMMAND_WORD:
-                return new TaskEditCommandParser().parse(arguments);
+        case TaskEditCommand.COMMAND_WORD:
+            return new TaskEditCommandParser().parse(arguments);
 
-            case TaskDeleteCommand.COMMAND_WORD:
-                return new TaskDeleteCommandParser().parse(arguments);
+        case TaskDeleteCommand.COMMAND_WORD:
+            return new TaskDeleteCommandParser().parse(arguments);
 
-            case TaskcopyCommand.COMMAND_WORD:
-                return new TaskcopyCommandParser().parse(arguments);
+        case TaskcopyCommand.COMMAND_WORD:
+            return new TaskcopyCommandParser().parse(arguments);
 
-            case ExitAnywayCommand.COMMAND_WORD:
-                return new ExitAnywayCommand();
+        case ExitAnywayCommand.COMMAND_WORD:
+            return new ExitAnywayCommand();
 
-            case BackCommand.COMMAND_WORD:
-                return new BackCommand();
+        case BackCommand.COMMAND_WORD:
+            return new BackCommand();
 
-            case RecordAddCommand.COMMAND_WORD:
-                return new RecordAddCommandParser().parse(arguments);
+        case RecordAddCommand.COMMAND_WORD:
+            return new RecordAddCommandParser().parse(arguments);
 
-            case RecordEditCommand.COMMAND_WORD:
-                return new RecordEditCommandParser().parse(arguments);
+        case RecordEditCommand.COMMAND_WORD:
+            return new RecordEditCommandParser().parse(arguments);
 
-            case RecordDeleteCommand.COMMAND_WORD:
-                return new RecordDeleteCommandParser().parse(arguments);
+        case RecordDeleteCommand.COMMAND_WORD:
+            return new RecordDeleteCommandParser().parse(arguments);
 
-            case TeethEditCommand.COMMAND_WORD:
-                return new TeethEditCommandParser().parse(arguments);
+        case TeethEditCommand.COMMAND_WORD:
+            return new TeethEditCommandParser().parse(arguments);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
+    /**
+     * Checks if the Main Window is currently in Goto Mode, feedbacks to user if
+     * commands that should be ran on patient mode are ran here
+     */
     public void isGotoMode() throws ParseException {
-        if(MainWindow.isGoToMode()) {
+        if (MainWindow.isGoToMode()) {
             throw new ParseException(MESSAGE_ONLY_GO_TO_MODE_COMMANDS);
         }
     }

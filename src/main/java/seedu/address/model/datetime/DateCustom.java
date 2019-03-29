@@ -45,6 +45,11 @@ public class DateCustom implements DateBuilder {
         String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(getFormat()));
         return dateCompare(test, currentDateString);
     }
+
+    /**
+     * Returns true if the two dates are the same
+     * @param date
+     */
     public boolean isSameDate(String date) {
         LocalDate firstDate = LocalDate.parse(storedDate, DATE_FORMATTER);
         LocalDate secondDate = LocalDate.parse(date, DATE_FORMATTER);

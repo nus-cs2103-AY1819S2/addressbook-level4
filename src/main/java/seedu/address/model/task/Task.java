@@ -2,7 +2,6 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.sql.Time;
 import java.util.Objects;
 
 import seedu.address.model.datetime.DateCustom;
@@ -75,14 +74,20 @@ public class Task {
         return endTime;
     }
 
+    /**
+     * Retuns true if the current Task has a start date that is after its end date
+     */
     public boolean hasDateClash() {
-        System.out.println(DateCustom.dateCompare(endDate.toString(), startDate.toString()));
         return DateCustom.dateCompare(endDate.toString(), startDate.toString());
     }
 
+    /**
+     *  Returns true if the current task has a start time that is after end time
+     *  when the task has the same dates
+     */
     public boolean hasTimeClash() {
-        return startDate.isSameDate(endDate.toString()) &&
-                TimeCustom.timeCompare(startTime.toString(), endTime.toString());
+        return startDate.isSameDate(endDate.toString())
+                && TimeCustom.timeCompare(startTime.toString(), endTime.toString());
     }
 
     public boolean isCopy() {

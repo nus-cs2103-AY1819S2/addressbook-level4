@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.nextofkin.NextOfKin;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Sex;
@@ -40,6 +41,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final String teeth;
+    private final JsonAdaptedNextOfKin nextOfKin;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedRecord> records = new ArrayList<>();
 
@@ -53,7 +55,8 @@ class JsonAdaptedPerson {
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("teeth") String teeth,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-            @JsonProperty("records") List<JsonAdaptedRecord> records) {
+            @JsonProperty("records") List<JsonAdaptedRecord> records,
+            @JsonProperty("nextOfKin") JsonAdaptedNextOfKin nextOfKin) {
         this.name = name;
         this.sex = sex;
         this.nric = nric;
@@ -62,6 +65,7 @@ class JsonAdaptedPerson {
         this.email = email;
         this.address = address;
         this.teeth = teeth;
+        this.nextOfKin = nextOfKin;
 
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -85,6 +89,7 @@ class JsonAdaptedPerson {
             email = source.getEmail().value;
             address = source.getAddress().value;
             teeth = new JsonAdaptedTeeth(((Patient) source).getTeeth()).getTeethName();
+            nextOfKin = new JsonAdaptedNextOfKin(((Patient) source).getNextOfKin());
             tagged.addAll(source.getTags().stream()
                     .map(JsonAdaptedTag::new)
                     .collect(Collectors.toList()));
@@ -182,12 +187,14 @@ class JsonAdaptedPerson {
 
         final Teeth modelTeeth = new Teeth(layout);
 
+        final NextOfKin modelNextOfKin = nextOfKin.toModelType();
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         final List<Record> modelRecords = patientRecords;
 
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNric,
-                modelDob, modelRecords, modelTeeth, modelSex);
+                modelDob, modelRecords, modelTeeth, modelSex, modelNextOfKin);
     }
 
     /**

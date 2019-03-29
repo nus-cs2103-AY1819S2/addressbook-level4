@@ -59,7 +59,7 @@ public class Patient extends Person {
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth, Sex sex) {
+                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth, Sex sex, NextOfKin kin) {
         super(name, phone, email, address, tags);
         requireAllNonNull(nric, dateOfBirth, records, sex);
         this.sex = sex;
@@ -68,6 +68,7 @@ public class Patient extends Person {
         this.records = records;
         this.records.sort(Comparator.comparing(Record::getRecordDate));
         this.teeth = teeth;
+        this.nextOfKin = kin;
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
@@ -193,7 +194,7 @@ public class Patient extends Person {
      */
     public Patient copy() {
         return new Patient(this.name, this.phone, this.email, this.address, tags, this.nric, this.getDateOfBirth(),
-                this.records, this.teeth, this.sex);
+                this.records, this.teeth, this.sex, this.nextOfKin);
     }
 
     /**

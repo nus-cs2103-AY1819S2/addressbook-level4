@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 
 import java.io.File;
@@ -15,7 +17,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -50,6 +51,8 @@ public class ImportCommandTest {
     public ImportCommandTest() throws IOException {
         model.setTestCsvPath();
         expectedModel.setTestCsvPath();
+        model.exitFoldersToHome();
+        expectedModel.exitFoldersToHome();
     }
 
     @Before
@@ -65,7 +68,7 @@ public class ImportCommandTest {
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         CommandResult commandResult = importCommand.execute(model, commandHistory);
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, TYPICAL_CARD_FOLDER);
-        assertEquals(ImportCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
         assertTrue(isSameCardFolders(model, expectedModel));
     }
 

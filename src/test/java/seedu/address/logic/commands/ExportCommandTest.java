@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.junit.After;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -34,6 +35,11 @@ public class ExportCommandTest {
 
     private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Before
+    public void setUp() {
+        model.exitFoldersToHome();
+    }
 
 
 

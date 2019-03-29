@@ -67,12 +67,21 @@ public class Task {
         return endDate;
     }
 
+    public TimeCustom getStartTime() {
+        return startTime;
+    }
+
+    public TimeCustom getEndTime() {
+        return endTime;
+    }
+
     public boolean hasDateClash() {
         return DateCustom.dateCompare(endDate.toString(), startDate.toString());
     }
 
     public boolean hasTimeClash() {
-        return TimeCustom.timeCompare(startTime.toString(), endTime.toString());
+        return startDate.isSameDate(endDate.toString()) &&
+                TimeCustom.timeCompare(startTime.toString(), endTime.toString());
     }
 
     public boolean isCopy() {

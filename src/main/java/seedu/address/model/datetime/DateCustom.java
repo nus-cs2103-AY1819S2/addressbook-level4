@@ -45,11 +45,11 @@ public class DateCustom implements DateBuilder {
         String currentDateString = LocalDate.now().format(DateTimeFormatter.ofPattern(getFormat()));
         return dateCompare(test, currentDateString);
     }
-
-    public static boolean isEndDateBeforeStartDate(String date1, String date2) {
-        return dateCompare(date2, date1);
+    public boolean isSameDate(String date) {
+        LocalDate firstDate = LocalDate.parse(storedDate, DATE_FORMATTER);
+        LocalDate secondDate = LocalDate.parse(date, DATE_FORMATTER);
+        return (firstDate.compareTo(secondDate)==0);
     }
-
     public boolean isToday() {
         return !dateCompare(this.toString(), LocalDate.now().format(DATE_FORMATTER));
     }
@@ -65,9 +65,8 @@ public class DateCustom implements DateBuilder {
      * @return true if first date is before, false otherwise.
      */
     public static boolean dateCompare(String date1, String date2) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(getFormat());
-        LocalDate firstDate = LocalDate.parse(date1, formatter);
-        LocalDate secondDate = LocalDate.parse(date2, formatter);
+        LocalDate firstDate = LocalDate.parse(date1, DATE_FORMATTER);
+        LocalDate secondDate = LocalDate.parse(date2, DATE_FORMATTER);
         return firstDate.isBefore(secondDate);
     }
 

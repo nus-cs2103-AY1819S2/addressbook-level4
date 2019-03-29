@@ -35,7 +35,7 @@ public class TimeCustom {
     }
 
     public static boolean timeCompare(String startTime, String endTime) {
-        return (Integer.valueOf(startTime) <= Integer.valueOf(endTime));
+        return (Integer.valueOf(startTime) >= Integer.valueOf(endTime));
     }
 
     @Override

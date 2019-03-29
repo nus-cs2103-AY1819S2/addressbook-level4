@@ -17,6 +17,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.datetime.TimeCustom;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
 
@@ -93,8 +94,10 @@ public class TaskEditCommand extends Command {
         Title updatedTitle = editTaskDescriptor.getTitle().orElse(taskToEdit.getTitle());
         DateCustom updatedStartDate = editTaskDescriptor.getStartDate().orElse(taskToEdit.getStartDate());
         DateCustom updatedEndDate = editTaskDescriptor.getEndDate().orElse(taskToEdit.getEndDate());
+        TimeCustom updatedStartTime = editTaskDescriptor.getStartTime().orElse(taskToEdit.getStartTime());
+        TimeCustom updatedEndTime = editTaskDescriptor.getStartTime().orElse(taskToEdit.getEndTime());
 
-        return new Task(updatedTitle, updatedStartDate, updatedEndDate);
+        return new Task(updatedTitle, updatedStartDate, updatedEndDate, updatedStartTime, updatedEndTime);
     }
 
     @Override
@@ -123,6 +126,8 @@ public class TaskEditCommand extends Command {
         private Title title;
         private DateCustom startDate;
         private DateCustom endDate;
+        private TimeCustom startTime;
+        private TimeCustom endTime;
 
         public EditTaskDescriptor() {}
 
@@ -169,6 +174,22 @@ public class TaskEditCommand extends Command {
 
         public Optional<DateCustom> getEndDate() {
             return Optional.ofNullable(endDate);
+        }
+
+        public void setStartTime(TimeCustom startTime) {
+            this.startTime = startTime;
+        }
+
+        public Optional<TimeCustom> getStartTime() {
+            return Optional.ofNullable(startTime);
+        }
+
+        public void setEndTime(TimeCustom endTime) {
+            this.endTime = endTime;
+        }
+
+        public Optional<TimeCustom> getEndTime() {
+            return Optional.ofNullable(endTime);
         }
 
         @Override

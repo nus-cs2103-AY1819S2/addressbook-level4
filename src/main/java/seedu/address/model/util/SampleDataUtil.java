@@ -4,6 +4,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.datetime.TimeCustom;
 import seedu.address.model.dentist.Dentist;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
@@ -66,15 +67,15 @@ public class SampleDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[]{
             new Task(new Title("Tooth Extraction for Alex"), new DateCustom("30-03-2019"),
-                    new DateCustom("30-03-2019")),
+                    new DateCustom("30-03-2019"), new TimeCustom("1130"), new TimeCustom("1230")),
             new Task(new Title("Tooth Filling for Bernice"), new DateCustom("22-06-2019"),
-                    new DateCustom("22-06-2019")),
+                    new DateCustom("22-06-2019"), new TimeCustom("1130"), new TimeCustom("1230")),
             new Task(new Title("Review all patient's records"), new DateCustom("30-03-2019"),
-                    new DateCustom("22-06-2019")),
+                    new DateCustom("22-06-2019"), new TimeCustom("1130"), new TimeCustom("1230")),
             new Task(new Title("Removal of John's braces"), new DateCustom("30-05-2019"),
-                    new DateCustom("30-05-2019")),
+                    new DateCustom("30-05-2019"), new TimeCustom("1130"), new TimeCustom("1230")),
             new Task(new Title("Knock off early"), new DateCustom("22-03-2019"),
-                    new DateCustom("22-03-2019"))
+                    new DateCustom("22-03-2019"), new TimeCustom("1130"), new TimeCustom("1230"))
         };
     }
 

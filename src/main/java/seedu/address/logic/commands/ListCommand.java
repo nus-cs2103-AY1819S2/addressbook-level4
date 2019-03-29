@@ -33,7 +33,7 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        Fleet fleet = model.getFleet();
+        Fleet fleet = model.getHumanPlayer().getFleet();
 
         if (fleet.getDeployedFleet().size() <= 0) {
             return new CommandResult("No ships put down.");
@@ -51,15 +51,12 @@ public class ListCommand extends Command {
             return new CommandResult(builder.toString());
 
         } else if (optionalName.isPresent() && optionalTagSet.isPresent()) {
-            fleetResult.addAll(model.getHumanPlayer().getFleet().getByName(optionalName.get())
-                    .stream()
-                    .filter(entry -> entry.getBattleship().getTags().containsAll(optionalTagSet.get()))
-                    .collect(Collectors.toSet())
-            );
+            fleetResult.addAll(fleet.getByName(optionalName.get()));
+            fleetResult.addAll(fleet.getByTags(optionalTagSet.get()));
         } else if (optionalName.isPresent()) {
-            fleetResult.addAll(model.getHumanPlayer().getFleet().getByName(optionalName.get()));
+            fleetResult.addAll(fleet.getByName(optionalName.get()));
         } else {
-            fleetResult.addAll(model.getHumanPlayer().getFleet().getByTags(optionalTagSet.get()));
+            fleetResult.addAll(fleet.getByTags(optionalTagSet.get()));
         }
 
         for (Fleet.FleetEntry fleetEntry : fleetResult) {

@@ -109,7 +109,10 @@ public class DeadlineTest {
         assertFalse(d1.equals(d2));
     }
 
-    
+    @Test
+    public void toString_noDeadline_expectedBlank() {
+        assertEquals("", new Deadline().toString());
+    }
 
     @Test
     public void normalConstructor_validDeadline_noParameter() {

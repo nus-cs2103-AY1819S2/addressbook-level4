@@ -73,20 +73,20 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
+    public void setPdfBookFilePath_nullPath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.setPdfBookFilePath(null);
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setPdfBookFilePath_validPath_setsAddressBookFilePath() {
         Path path = Paths.get("address/book/file/value");
         modelManager.setPdfBookFilePath(path);
         assertEquals(path, modelManager.getPdfBookFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasPdf_nullPdf_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         modelManager.hasPdf(null);
     }

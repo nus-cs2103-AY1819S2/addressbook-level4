@@ -2,13 +2,8 @@ package seedu.travel.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Map;
-
 import seedu.travel.logic.CommandHistory;
 import seedu.travel.model.Model;
-import seedu.travel.model.chart.Chart;
-import seedu.travel.model.place.CountryCode;
-import seedu.travel.model.place.Rating;
 
 /**
  * Generates a chart.
@@ -26,10 +21,7 @@ public class GenerateCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        Map<CountryCode, Integer> mapCountry = model.generateChartCountry();
-        Map<Rating, Integer> mapRating = model.generateChartRating();
-        Map<String, Integer> mapYear = model.generateChartYear();
-        new Chart(mapCountry, mapRating, mapYear);
+        model.commitChart();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

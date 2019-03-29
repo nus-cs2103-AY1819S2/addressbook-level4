@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.travel.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -16,9 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.travel.commons.core.GuiSettings;
 import seedu.travel.commons.core.LogsCenter;
-import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.Place;
-import seedu.travel.model.place.Rating;
 import seedu.travel.model.place.exceptions.PlaceNotFoundException;
 
 /**
@@ -139,21 +136,6 @@ public class ModelManager implements Model {
         filteredPlaces.setPredicate(predicate);
     }
 
-    @Override
-    public Map<CountryCode, Integer> generateChartCountry() {
-        return versionedTravelBuddy.getCountryChart();
-    }
-
-    @Override
-    public Map<Rating, Integer> generateChartRating() {
-        return versionedTravelBuddy.getRatingChart();
-    }
-
-    @Override
-    public Map<String, Integer> generateChartYear() {
-        return versionedTravelBuddy.getYearChart();
-    }
-
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -179,6 +161,11 @@ public class ModelManager implements Model {
     @Override
     public void commitTravelBuddy() {
         versionedTravelBuddy.commit();
+    }
+
+    @Override
+    public void commitChart() {
+        versionedTravelBuddy.commitChart();
     }
 
     //=========== Selected place ===========================================================================

@@ -1,11 +1,22 @@
 package seedu.travel.ui;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.layout.Region;
-import seedu.travel.model.place.Place;
+import javafx.scene.layout.VBox;
+import seedu.travel.commons.core.LogsCenter;
+import seedu.travel.model.chart.Chart;
+import seedu.travel.model.place.CountryCode;
 
 /**
  * An UI component that displays information of a {@code Place}.
@@ -13,69 +24,52 @@ import seedu.travel.model.place.Place;
 public class DisplayCard extends UiPart<Region> {
 
     private static final String FXML = "DisplayListCard.fxml";
-    private static final String[] TAG_COLOR_STYLES =
-        {"teal", "red", "yellow", "blue", "orange", "brown", "green", "salmon", "black", "grey" };
 
-    /**
-     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
-     * As a consequence, UI elements' variable names cannot be set to such keywords
-     * or an exception will be thrown by JavaFX during runtime.
-     *
-     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
-     */
-
-    public final Place place;
+    public final Chart chart;
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    private HBox cardPane;
+    private VBox cardPane;
     @FXML
-    private Label name;
-    @FXML
-    private Label id;
-    @FXML
-    private Label countryCode;
-    @FXML
-    private Label dateVisited;
-    @FXML
-    private Label rating;
-    @FXML
-    private Label address;
-    @FXML
-    private Label description;
-    @FXML
-    private FlowPane tags;
+    private BarChart countryBarChart;
 
-    public DisplayCard(Place place, int displayedIndex) {
+    @SuppressWarnings("unchecked")
+    public DisplayCard(Chart chart) {
         super(FXML);
-        this.place = place;
-        id.setText(displayedIndex + ". ");
-        name.setText(place.getName().fullName);
-        countryCode.setText(place.getCountryCode().code);
-        dateVisited.setText(place.getDateVisited().getDate());
-        rating.setText(place.getRating().value);
-        address.setText(place.getAddress().value);
-        description.setText(place.getDescription().value);
-        initTags(place);
-    }
+        this.chart = chart;
 
-    /**
-     * Returns the color style for {@code tagName}'s label.
-     */
-    private String getTagColorStyleFor(String tagName) {
-        // Hash code of the tag name to generate a random color, so that the color remain consistent
-        // between different runs of the program while still making it random enough between tags.
-        return TAG_COLOR_STYLES[Math.abs(tagName.hashCode()) % TAG_COLOR_STYLES.length];
-    }
+        //final CategoryAxis xAxis = new CategoryAxis();
+        //final NumberAxis yAxis = new NumberAxis();
+        //final BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        //barChart.setTitle("Number of Places Visited for Each Country");
+        //xAxis.setLabel("Country");
+        //yAxis.setLabel("Number of Places");
 
-    /**
-     * Creates the tag labels for {@code place}.
-     */
-    private void initTags(Place place) {
-        place.getTags().forEach(tag -> {
-            Label tagLabel = new Label(tag.tagName);
-            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
-            tags.getChildren().add(tagLabel);
-        });
+        Map<CountryCode, Integer> responsesCountry = new HashMap<>();
+
+        try {
+            FileReader fileReaderCountry = new FileReader("data/countryChart.json");
+            JsonReader jsonReaderCountry = new JsonReader(fileReaderCountry);
+            Gson gson = new Gson();
+            responsesCountry = gson.fromJson(jsonReaderCountry, HashMap.class);
+            fileReaderCountry.close();
+            jsonReaderCountry.close();
+        } catch (IOException e) {
+            logger.warning(e.getMessage());
+        }
+
+        XYChart.Series seriesCountry = new XYChart.Series();
+        seriesCountry.setName("Country");
+        Object[] countries = responsesCountry.keySet().toArray();
+        for (int i = 0; i < responsesCountry.size(); i++) {
+            String country = (String) countries[i];
+            seriesCountry.getData().add(new XYChart.Data(country, responsesCountry.get(country)));
+            logger.info(country + ", " + responsesCountry.get(country) + "\n");
+        }
+
+        //barChart.getData().add(seriesCountry);
+        countryBarChart.setTitle("Number of Places Visited for Each Country");
+        countryBarChart.getData().add(seriesCountry);
     }
 
     @Override
@@ -92,7 +86,6 @@ public class DisplayCard extends UiPart<Region> {
 
         // state check
         DisplayCard card = (DisplayCard) other;
-        return id.getText().equals(card.id.getText())
-                && place.equals(card.place);
+        return chart.equals(card.chart);
     }
 }

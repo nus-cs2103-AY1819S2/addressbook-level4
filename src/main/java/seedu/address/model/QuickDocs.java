@@ -63,4 +63,22 @@ public class QuickDocs {
     public void indicateModification(boolean state) {
         isModified = state;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof QuickDocs)) {
+            return false;
+        }
+
+        QuickDocs otherQuickDocs = (QuickDocs) other;
+        return otherQuickDocs.patientManager.equals(this.patientManager)
+                && otherQuickDocs.consultationManager.equals(this.consultationManager)
+                && otherQuickDocs.appointmentManager.equals(this.appointmentManager)
+                && otherQuickDocs.reminderManager.equals(this.reminderManager)
+                && otherQuickDocs.medicineManager.equals(this.medicineManager);
+    }
 }

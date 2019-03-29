@@ -3,6 +3,7 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
 import seedu.address.testutil.LessonBuilder;
+import seedu.address.testutil.TypicalCards;
 import seedu.address.testutil.TypicalLessons;
 
 /**
@@ -92,6 +94,11 @@ public class AddLessonCommandTest {
 
         // different lesson -> returns false
         assertNotEquals(addLessonDefCommand, addLessonPropCommand);
+    }
+
+    @Test
+    public void isSaveRequired_isTrue() {
+        assertTrue(new AddCardCommand(TypicalCards.CARD_JAPAN).isSaveRequired());
     }
 
     /**

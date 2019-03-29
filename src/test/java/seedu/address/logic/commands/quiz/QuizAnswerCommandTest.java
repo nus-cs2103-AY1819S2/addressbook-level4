@@ -70,8 +70,8 @@ public class QuizAnswerCommandTest {
         ManagementModelManager actualMgmtManager = new ManagementModelManager();
         actualModel = new QuizModelManager(actualMgmtManager);
 
-        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
-        actualModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        actualModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
         actualModel.getNextCard();
 
@@ -94,8 +94,8 @@ public class QuizAnswerCommandTest {
         quizExpected = new Quiz(SESSION_PREVIEW_2.generateSession(), SESSION_PREVIEW_2.getMode());
         quizActual = new Quiz(SESSION_PREVIEW_2_ACTUAL.generateSession(), SESSION_PREVIEW_2_ACTUAL.getMode());
 
-        expectedModel.initWithSession(quizExpected, SESSION_PREVIEW_2);
-        actualModel.initWithSession(quizActual, SESSION_PREVIEW_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_PREVIEW_2);
+        actualModel.init(quizActual, SESSION_PREVIEW_2_ACTUAL);
 
         actualModel.getNextCard();
 
@@ -126,8 +126,8 @@ public class QuizAnswerCommandTest {
         quizExpected = new Quiz(SESSION_REVIEW_2.generateSession(), SESSION_REVIEW_2.getMode());
         quizActual = new Quiz(SESSION_REVIEW_2_ACTUAL.generateSession(), SESSION_REVIEW_2_ACTUAL.getMode());
 
-        expectedModel.initWithSession(quizExpected, SESSION_REVIEW_2);
-        actualModel.initWithSession(quizActual, SESSION_REVIEW_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_REVIEW_2);
+        actualModel.init(quizActual, SESSION_REVIEW_2_ACTUAL);
 
         actualModel.getNextCard();
         actualModel.getNextCard();
@@ -152,8 +152,8 @@ public class QuizAnswerCommandTest {
         ManagementModelManager actualMgmtManager = new ManagementModelManager();
         actualModel = new QuizModelManager(actualMgmtManager);
 
-        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
-        actualModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        actualModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
         actualModel.getNextCard();
         actualModel.getNextCard();

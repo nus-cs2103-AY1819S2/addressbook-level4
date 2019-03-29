@@ -47,7 +47,7 @@ public class QuizModelManagerTest {
     }
     @Test
     public void getSessionFields() {
-        modelManager.initWithSession(quiz, SESSION_LEARNT_BEFORE);
+        modelManager.init(quiz, SESSION_LEARNT_BEFORE);
         assertEquals("01-01-Learn", modelManager.getName());
         assertEquals(1, modelManager.getCount());
         assertEquals(QuizMode.LEARN, modelManager.getMode());
@@ -56,7 +56,7 @@ public class QuizModelManagerTest {
 
     @Test
     public void getNextCard() {
-        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
+        modelManager.init(quiz, SESSION_DEFAULT_2);
 
         // get first card
         assertEquals(firstCard, modelManager.getNextCard());
@@ -75,7 +75,7 @@ public class QuizModelManagerTest {
 
     @Test
     public void getCurrentProgress() {
-        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
+        modelManager.init(quiz, SESSION_DEFAULT_2);
 
         assertEquals("0/6", modelManager.getCurrentProgress());
 
@@ -93,7 +93,7 @@ public class QuizModelManagerTest {
 
     @Test
     public void getCurrentQuizCard() {
-        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
+        modelManager.init(quiz, SESSION_DEFAULT_2);
 
         QuizCard expected = modelManager.getNextCard();
 
@@ -103,7 +103,7 @@ public class QuizModelManagerTest {
 
     @Test
     public void toggleIsCardDifficult() {
-        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
+        modelManager.init(quiz, SESSION_DEFAULT_2);
 
         assertTrue(modelManager.toggleIsCardDifficult(0));
         assertFalse(modelManager.toggleIsCardDifficult(0));
@@ -113,7 +113,7 @@ public class QuizModelManagerTest {
     public void isQuizDone() {
         assertTrue(modelManager.isQuizDone());
 
-        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
+        modelManager.init(quiz, SESSION_DEFAULT_2);
         assertFalse(modelManager.isQuizDone());
 
         modelManager.end();
@@ -122,7 +122,7 @@ public class QuizModelManagerTest {
 
     @Test
     public void end() {
-        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
+        modelManager.init(quiz, SESSION_DEFAULT_2);
 
         assertTrue(modelManager.hasCardLeft());
 
@@ -170,11 +170,11 @@ public class QuizModelManagerTest {
 
     @Test
     public void equals() {
-        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
+        modelManager.init(quiz, SESSION_DEFAULT_2);
 
         // same values -> returns true
         QuizModelManager modelManagerCopy = new QuizModelManager();
-        modelManagerCopy.initWithSession(quiz, SESSION_DEFAULT_2);
+        modelManagerCopy.init(quiz, SESSION_DEFAULT_2);
         assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true

@@ -90,8 +90,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_quizCommand_success() throws CommandException {
-        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
-        quizModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
         expectedModel.getNextCard();
         expectedModel.getNextCard();
@@ -105,8 +105,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_quizStatusCommand_success() {
-        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
-        quizModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
         expectedModel.getNextCard();
 
@@ -131,8 +131,8 @@ public class LogicManagerTest {
 
     @Test
     public void getMode() throws CommandException {
-        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
-        quizModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
         expectedModel.getNextCard();
         expectedModel.getNextCard();
@@ -157,8 +157,8 @@ public class LogicManagerTest {
 
     @Test
     public void getDisplayFormatter() {
-        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
-        quizModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
         expectedModel.getNextCard();
         expectedModel.getNextCard();

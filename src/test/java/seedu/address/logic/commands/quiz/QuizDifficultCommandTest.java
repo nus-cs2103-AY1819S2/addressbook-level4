@@ -49,8 +49,8 @@ public class QuizDifficultCommandTest {
         ManagementModelManager actualMgmtManager = new ManagementModelManager();
         actualModel = new QuizModelManager(actualMgmtManager);
 
-        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
-        actualModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        actualModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
         expectedModel.getNextCard();
         expectedModel.toggleIsCardDifficult(0);

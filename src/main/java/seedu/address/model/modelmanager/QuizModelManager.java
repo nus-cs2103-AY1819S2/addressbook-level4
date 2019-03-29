@@ -79,13 +79,7 @@ public class QuizModelManager implements QuizModel {
     //=========== Quiz ==================================================================================
 
     @Override
-    public void init(Quiz quiz) {
-        requireAllNonNull(quiz);
-        this.quiz = quiz;
-    }
-
-    @Override
-    public void initWithSession(Quiz quiz, Session session) {
+    public void init(Quiz quiz, Session session) {
         requireAllNonNull(quiz, session);
         this.quiz = quiz;
         this.session = session;

@@ -58,7 +58,7 @@ public class QuizStartCommandTest {
         final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.initWithSession(quiz, session);
+        expectedModel.init(quiz, session);
         expectedModel.getNextCard();
         CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,
             commandHistory);
@@ -87,7 +87,7 @@ public class QuizStartCommandTest {
         final Quiz quiz = new Quiz(quizCards, QuizMode.REVIEW);
 
         QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.initWithSession(quiz, session);
+        expectedModel.init(quiz, session);
         expectedModel.getNextCard();
         CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,
             commandHistory);

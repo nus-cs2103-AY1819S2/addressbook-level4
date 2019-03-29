@@ -26,8 +26,8 @@ public class QuizStatusCommandTest {
         Quiz quizExpected = new Quiz(SESSION_DEFAULT_2.generateSession(), SESSION_DEFAULT_2.getMode());
         Quiz quizActual = new Quiz(SESSION_DEFAULT_2_ACTUAL.generateSession(), SESSION_DEFAULT_2_ACTUAL.getMode());
 
-        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
-        actualModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        actualModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
     }
 
     @Test

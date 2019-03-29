@@ -60,7 +60,7 @@ public class QuizStartCommand extends ManagementCommand {
         List<QuizCard> quizCards = session.generateSession();
         Quiz quiz = new Quiz(quizCards, session.getMode());
 
-        model.initWithSession(quiz, session);
+        model.init(quiz, session);
         QuizCard card = model.getNextCard();
 
         // TODO save the coreheader info in quizcards

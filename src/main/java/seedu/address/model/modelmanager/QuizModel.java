@@ -35,14 +35,9 @@ public interface QuizModel extends Model {
     List<SrsCard> getQuizSrsCards();
 
     /**
-     * Sets the {@code Quiz} information.
-     */
-    void init(Quiz quiz);
-
-    /**
      * Sets the {@code Quiz} and {@code Session} information.
      */
-    void initWithSession(Quiz quiz, Session session);
+    void init(Quiz quiz, Session session);
 
     /**
      * Returns if there is still card left in {@code Quiz}.

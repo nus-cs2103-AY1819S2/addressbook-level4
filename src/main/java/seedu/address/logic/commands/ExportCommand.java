@@ -39,6 +39,10 @@ public class ExportCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         // check whether model contains the card folders desired. Catch exception thrown
+
+        if (model.isInFolder()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_FOLDER);
+        }
         try {
             model.exportCardFolders(cardFolderIndexes);
         } catch (CardFolderNotFoundException e) {

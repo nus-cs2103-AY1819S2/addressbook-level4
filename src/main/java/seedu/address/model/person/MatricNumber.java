@@ -10,13 +10,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class MatricNumber {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "MatricNumber should only contain alphanumeric characters, and it should not be blank";
-
+            "MatricNumber should only contain alphanumeric characters, starting and ending with an uppercase alphabet,"
+                    + " with 7 digits in between the first and last character.";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum} ]*";
+    public static final String VALIDATION_REGEX = "^[A-Z]\\d{7}[A-Z]";
 
     public final String value;
 

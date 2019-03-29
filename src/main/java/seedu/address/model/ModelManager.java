@@ -98,12 +98,31 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public void setAddressBookMode(AppMode.Modes mode) {
+        versionedAddressBook.setAppMode(mode);
+    }
+
+    @Override
+    public AppMode.Modes getAddressBookMode () {
+        return versionedAddressBook.getAppMode();
+    }
+
+    @Override
+    public boolean addressBookModeIsMember () {
+        return versionedAddressBook.modeIsMember();
+    }
+    @Override
+    public boolean addressBookModeIsActivity () {
+        return versionedAddressBook.modeIsActivity();
+    }
+
+    @Override
+    public ReadOnlyAddressBook getAddressBook () {
         return versionedAddressBook;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
+    public boolean hasPerson (Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
     }

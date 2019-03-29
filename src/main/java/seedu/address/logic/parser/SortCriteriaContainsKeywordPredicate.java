@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  */
 public class SortCriteriaContainsKeywordPredicate implements Predicate<String> {
     private final String criteria;
-    private final String[] keywords = {"name", "matricNumber", "major", "yearOfStudy"};
+    private final String[] keywords = {"name", "gender", "major", "yearOfStudy"};
 
     public SortCriteriaContainsKeywordPredicate(String criteria) {
         this.criteria = criteria;

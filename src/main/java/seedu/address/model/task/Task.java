@@ -80,6 +80,7 @@ public class Task {
     }
 
     public boolean hasTimeClash() {
+        System.out.println(TimeCustom.timeCompare(startTime.toString(), endTime.toString()));
         return startDate.isSameDate(endDate.toString()) &&
                 TimeCustom.timeCompare(startTime.toString(), endTime.toString());
     }
@@ -128,7 +129,9 @@ public class Task {
         Task otherTask = (Task) other;
         return otherTask.getTitle().equals(getTitle())
                 && otherTask.getStartDate().equals(getStartDate())
-                && otherTask.getEndDate().equals(getEndDate());
+                && otherTask.getEndDate().equals(getEndDate())
+                && otherTask.getStartTime().equals(getEndTime())
+                && otherTask.getEndTime().equals(getEndTime());
     }
 
     @Override
@@ -145,7 +148,11 @@ public class Task {
                 .append(" Start Date: ")
                 .append(getStartDate())
                 .append(" End Date: ")
-                .append(getEndDate());
+                .append(getEndDate())
+                .append(" Start Time: ")
+                .append(getStartTime())
+                .append(" End Time: ")
+                .append(getEndTime());
         return builder.toString();
     }
 

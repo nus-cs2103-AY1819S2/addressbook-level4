@@ -323,6 +323,7 @@ Presents the next lowest score flashcard in this current test session. Upon a su
 .Next card question displayed upon a successful next command
 image::NextCommandPage.png[width="790"]
 
+{empty} +
 Format: `next`
 
 [NOTE]

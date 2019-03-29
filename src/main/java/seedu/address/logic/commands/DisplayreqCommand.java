@@ -19,6 +19,10 @@ public class DisplayreqCommand extends Command {
             + "[" + PREFIX_UNFULFILLED + "IS_FULFILLED" + "] \n"
             + "EXAMPLE: " + COMMAND_WORD + " "
             + "PREFIX_UNFULFILLED" + "true";
+    public static final String MESSAGE_SUCCESS = "Listed %s requirements!";
+    public static final String FULFILLED = "fulfilled";
+    public static final String UNFULFILLED = "unfulfilled";
+    public static final String ALL = "all";
 
     private final IsUnfulfilledPredicate predicate;
 
@@ -30,6 +34,12 @@ public class DisplayreqCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateReqList(predicate);
-        return new CommandResult("Something");
+        if (predicate.getDisplaysAll()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, ALL));
+        } else if (predicate.getDisplaysUnfulfilled()) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, UNFULFILLED));
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, FULFILLED));
+        }
     }
 }

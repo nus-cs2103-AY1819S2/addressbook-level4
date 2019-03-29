@@ -75,7 +75,7 @@ public class ModelManager implements Model {
         versionedGradTrak = new VersionedGradTrak(gradTrak);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModulesTaken = new FilteredList<>(versionedGradTrak.getModulesTakenList());
-        filteredModulesTaken.addListener(this::ensureSelectedPersonIsValid);
+        filteredModulesTaken.addListener(this::ensureSelectedModuleTakenIsValid);
 
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
         this.allModules = allModules.getObservableList();
@@ -306,16 +306,17 @@ public class ModelManager implements Model {
     /**
      * Ensures {@code selectedModuleTaken} is a valid moduleTaken in {@code filteredModulesTaken}.
      */
-    private void ensureSelectedPersonIsValid(ListChangeListener.Change<? extends ModuleTaken> change) {
+    private void ensureSelectedModuleTakenIsValid(ListChangeListener.Change<? extends ModuleTaken> change) {
         while (change.next()) {
             if (selectedModuleTaken.getValue() == null) {
                 // null is always a valid selected moduleTaken, so we do not need to check that it is valid anymore.
                 return;
             }
 
-            boolean wasSelectedPersonReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+            boolean wasSelectedModuleTakenReplaced = change.wasReplaced()
+                    && change.getAddedSize() == change.getRemovedSize()
                     && change.getRemoved().contains(selectedModuleTaken.getValue());
-            if (wasSelectedPersonReplaced) {
+            if (wasSelectedModuleTakenReplaced) {
                 // Update selectedModuleTaken to its new value.
                 int index = change.getRemoved().indexOf(selectedModuleTaken.getValue());
                 selectedModuleTaken.setValue(change.getAddedSubList().get(index));
@@ -323,7 +324,8 @@ public class ModelManager implements Model {
             }
 
             boolean wasSelectedPersonRemoved = change.getRemoved().stream()
-                    .anyMatch(removedPerson -> selectedModuleTaken.getValue().isSameModuleTaken(removedPerson));
+                    .anyMatch(removedPerson
+                        -> selectedModuleTaken.getValue().isSameModuleTaken(removedPerson));
             if (wasSelectedPersonRemoved) {
                 // Select the moduleTaken that came before it in the list,
                 // or clear the selection if there is no such moduleTaken.

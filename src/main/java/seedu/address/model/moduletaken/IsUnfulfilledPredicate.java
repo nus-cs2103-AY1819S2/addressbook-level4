@@ -19,6 +19,12 @@ public class IsUnfulfilledPredicate implements BiPredicate<CourseRequirement, Li
         this.displaysUnfulfilled = displaysUnfulfilled;
     }
 
+    public boolean getDisplaysAll() {
+        return displaysAll;
+    }
+    public boolean getDisplaysUnfulfilled() {
+        return displaysUnfulfilled;
+    }
     @Override
     public boolean test(CourseRequirement courseRequirement, List<ModuleInfoCode> moduleInfoCodes) {
         return displaysAll || (courseRequirement.isFulfilled(moduleInfoCodes) != displaysUnfulfilled);

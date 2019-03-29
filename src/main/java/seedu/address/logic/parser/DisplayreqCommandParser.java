@@ -21,11 +21,15 @@ public class DisplayreqCommandParser implements Parser<DisplayreqCommand> {
     public DisplayreqCommand parse(String args) throws ParseException {
         String trimmedString = args.trim();
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(trimmedString, PREFIX_UNFULFILLED);
-        if (!argumentMultimap.getValue(PREFIX_UNFULFILLED).isPresent()
-                || argumentMultimap.getValue(PREFIX_UNFULFILLED).get().equalsIgnoreCase("false")) {
+        if (!argumentMultimap.getValue(PREFIX_UNFULFILLED).isPresent()) {
+            //displays all requirement
             return new DisplayreqCommand(new IsUnfulfilledPredicate(true, false));
         } else if (argumentMultimap.getValue(PREFIX_UNFULFILLED).get().equalsIgnoreCase("true")) {
+            //displays unfulfilled requirement
             return new DisplayreqCommand(new IsUnfulfilledPredicate(false, true));
+        } else if (argumentMultimap.getValue(PREFIX_UNFULFILLED).get().equalsIgnoreCase("false")) {
+            //displays fulfilled requirement
+            return new DisplayreqCommand(new IsUnfulfilledPredicate(false, false));
         } else {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DisplayreqCommand.MESSAGE_USAGE));

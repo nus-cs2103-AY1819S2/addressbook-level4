@@ -44,13 +44,13 @@ public class SetCourseCommandTest {
         String expectedMessage = String.format(SetCourseCommand.MESSAGE_SUCCESS, courseName);
         SetCourseCommand command = new SetCourseCommand(courseName);
         expectedModel.setCourse(courseName);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage,  expectedModel);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_setNonExistingCourse() {
-        Assert.assertThrows(CommandException.class,
-                () -> new SetCourseCommand(new CourseName("No such course")).execute(model, commandHistory));
+        Assert.assertThrows(CommandException.class, ()
+            -> new SetCourseCommand(new CourseName("No such course")).execute(model, commandHistory));
     }
 
 }

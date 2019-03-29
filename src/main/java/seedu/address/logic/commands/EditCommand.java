@@ -83,7 +83,7 @@ public class EditCommand extends Command {
         List<ModuleTaken> lastShownList = model.getFilteredModulesTakenList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_MODULETAKEN_DISPLAYED_INDEX);
         }
 
         ModuleTaken moduleTakenToEdit = lastShownList.get(index.getZeroBased());
@@ -107,7 +107,8 @@ public class EditCommand extends Command {
                                                   EditPersonDescriptor editPersonDescriptor) {
         assert moduleTakenToEdit != null;
 
-        ModuleInfoCode updatedName = editPersonDescriptor.getModuleInfoCode().orElse(moduleTakenToEdit.getModuleInfo());
+        ModuleInfoCode updatedName = editPersonDescriptor.getModuleInfoCode()
+                .orElse(moduleTakenToEdit.getModuleInfoCode());
         Semester updatedSemester = editPersonDescriptor.getSemester().orElse(moduleTakenToEdit.getSemester());
         Grade updatedExpectedMinGrade = editPersonDescriptor
                 .getExpectedMinGrade().orElse(moduleTakenToEdit.getExpectedMinGrade());

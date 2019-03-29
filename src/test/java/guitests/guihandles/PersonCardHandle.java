@@ -76,7 +76,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code moduleTaken}.
      */
     public boolean equals(ModuleTaken moduleTaken) {
-        return getModuleInfoCode().equals(moduleTaken.getModuleInfo().toString())
+        return getModuleInfoCode().equals(moduleTaken.getModuleInfoCode().toString())
                 && getSemester().equals(moduleTaken.getSemester().toString())
                 && getExpectedMinGrade().equals(moduleTaken.getExpectedMinGrade().toString())
                 && getExpectedMaxGrade().equals(moduleTaken.getExpectedMaxGrade().toString())

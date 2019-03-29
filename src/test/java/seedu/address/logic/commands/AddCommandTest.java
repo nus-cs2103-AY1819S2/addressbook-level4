@@ -22,11 +22,11 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Cap;
 import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.SemLimit;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
@@ -119,26 +119,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Semester getCurrentSemester() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Cap computeCumulativeCap() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Cap computeExpectedMinimumCap() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public Cap computeExpectedMaximumCap() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }
@@ -159,11 +139,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getGradTrakFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setGradTrakFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
@@ -179,7 +154,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public ReadOnlyGradTrak getGradTrak() {
+        public Path getGradTrakFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Semester getCurrentSemester() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -199,6 +179,27 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyGradTrak getGradTrak() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSemesterLimit(int index, SemLimit editedSemLimit) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        @Override
+        public void setCurrentSemester(Semester semester) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<SemLimit> getSemLimitList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<ModuleTaken> getFilteredModulesTakenList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -206,6 +207,11 @@ public class AddCommandTest {
         @Override
         public void updateFilteredModulesTakenList(Predicate<ModuleTaken> predicate) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String checkLimit() {
+            return "";
         }
 
         @Override

@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.moduletaken.FindModulePredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -48,6 +47,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                     .setFinished(ParserUtil.parseFinishedStatus(argMultimap.getValue(PREFIX_FINISHED).get()));
         }
 
-        return new FindCommand(new FindModulePredicate(findModuleDescriptor));
+        return new FindCommand(findModuleDescriptor);
     }
 }

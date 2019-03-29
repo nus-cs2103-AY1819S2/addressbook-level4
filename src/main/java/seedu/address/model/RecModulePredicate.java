@@ -35,7 +35,7 @@ public class RecModulePredicate implements Predicate<ModuleInfoCode> {
         }
 
         /* module can be taken */
-        if (versionedGradTrak.hasPlannedModule(moduleInfoCode.toString())) {
+        if (versionedGradTrak.hasUnfinishedModule(moduleInfoCode)) {
             // module already in plan
             return false;
         }

@@ -41,26 +41,6 @@ public interface Model {
     Course getCourse();
 
     /**
-     * Returns the user's current semester.
-     */
-    Semester getCurrentSemester();
-
-    /**
-     * Returns the user's cap up to the current semester.
-     */
-    Cap computeCumulativeCap();
-
-    /**
-     * Returns the user's expected minimum cap based on user's prediction of future results.
-     */
-    Cap computeExpectedMinimumCap();
-
-    /**
-     * Returns the user's expected maximum cap based on user's prediction of future results.
-     */
-    Cap computeExpectedMaximumCap();
-
-    /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
@@ -98,6 +78,9 @@ public interface Model {
     /** Returns the GradTrak */
     ReadOnlyGradTrak getGradTrak();
 
+    /** Returns the current Semester */
+    Semester getCurrentSemester();
+
     /**
      * Returns true if a moduleTaken with the same identity as {@code moduleTaken} exists in the GradTrak .
      */
@@ -123,14 +106,33 @@ public interface Model {
      */
     void setModuleTaken(ModuleTaken target, ModuleTaken editedModuleTaken);
 
+    /**
+     * Replaces the semester limit at the given index with {@code editedSemLimit}.
+     */
+    void setSemesterLimit(int index, SemLimit editedSemLimit);
+
+    /**
+     * Replaces the current semester with the given semester.
+     */
+    void setCurrentSemester(Semester semester);
+
     /** Returns an unmodifiable view of the filtered moduleTaken list */
     ObservableList<ModuleTaken> getFilteredModulesTakenList();
+
+    /** Returns an unmodifiable view of the SemLimit list */
+    ObservableList<SemLimit> getSemLimitList();
 
     /**
      * Updates the filter of the filtered moduleTaken list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredModulesTakenList(Predicate<ModuleTaken> predicate);
+
+    /**
+     * Returns the generated html string that indicates if the CAP and workload limits
+     * set by the user for every semester have been violated based the modules taken in their plan.
+     */
+    String checkLimit();
 
     /**
      * Returns true if the model has previous GradTrak states to restore.

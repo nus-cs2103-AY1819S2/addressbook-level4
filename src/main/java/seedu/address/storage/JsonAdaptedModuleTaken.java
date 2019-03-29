@@ -55,7 +55,7 @@ class JsonAdaptedModuleTaken {
      * Converts a given {@code ModuleTaken} into this class for Jackson use.
      */
     public JsonAdaptedModuleTaken(ModuleTaken source) {
-        moduleInfoCode = source.getModuleInfo().toString();
+        moduleInfoCode = source.getModuleInfoCode().toString();
         semester = source.getSemester().name();
         expectedMinGrade = source.getExpectedMinGrade().name();
         expectedMaxGrade = source.getExpectedMaxGrade().name();

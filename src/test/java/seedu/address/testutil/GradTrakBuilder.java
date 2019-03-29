@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.GradTrak;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 
 /**
  * A utility class to help with building Addressbook objects.
@@ -25,6 +26,14 @@ public class GradTrakBuilder {
      */
     public GradTrakBuilder withPerson(ModuleTaken moduleTaken) {
         addressBook.addModuleTaken(moduleTaken);
+        return this;
+    }
+
+    /**
+     * Sets the currentSemester to the given Semester.
+     */
+    public GradTrakBuilder withCurrentSemester(Semester currentSemester) {
+        addressBook.setCurrentSemester(currentSemester);
         return this;
     }
 

@@ -22,7 +22,6 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
-import seedu.address.model.moduletaken.FindModulePredicate;
 import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.testutil.FindModuleDescriptorBuilder;
@@ -55,7 +54,7 @@ public class FindCommandParserTest {
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode(VALID_MODULE_INFO_CODE_CS2103T)
                 .withSemester(VALID_SEMESTER_CS2103T).withGrade(VALID_GRADE_CS2103T)
                 .withFinishedStatus(FINISHED_STATUS_TRUE).build();
-        FindCommand expectedCommand = new FindCommand(new FindModulePredicate(fd));
+        FindCommand expectedCommand = new FindCommand(fd);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -66,7 +65,7 @@ public class FindCommandParserTest {
 
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode(VALID_MODULE_INFO_CODE_CS2103T)
                 .withGrade(VALID_GRADE_CS2103T).build();
-        FindCommand expectedCommand = new FindCommand(new FindModulePredicate(fd));
+        FindCommand expectedCommand = new FindCommand(fd);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -75,22 +74,22 @@ public class FindCommandParserTest {
     public void parse_oneFieldSpecified_success() {
         // subcode
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withCode(VALID_MODULE_INFO_CODE_CS2103T).build();
-        FindCommand expectedCommand = new FindCommand(new FindModulePredicate(fd));
+        FindCommand expectedCommand = new FindCommand(fd);
         assertParseSuccess(parser, NAME_DESC_CS2103T, expectedCommand);
 
         // semester
         fd = new FindModuleDescriptorBuilder().withSemester(VALID_SEMESTER_CS2103T).build();
-        expectedCommand = new FindCommand(new FindModulePredicate(fd));
+        expectedCommand = new FindCommand(fd);
         assertParseSuccess(parser, SEMESTER_DESC_CS2103T, expectedCommand);
 
         // grade
         fd = new FindModuleDescriptorBuilder().withGrade(VALID_GRADE_CS2103T).build();
-        expectedCommand = new FindCommand(new FindModulePredicate(fd));
+        expectedCommand = new FindCommand(fd);
         assertParseSuccess(parser, GRADE_DESC_CS2103T, expectedCommand);
 
         // finished status
         fd = new FindModuleDescriptorBuilder().withFinishedStatus(FINISHED_STATUS_TRUE).build();
-        expectedCommand = new FindCommand(new FindModulePredicate(fd));
+        expectedCommand = new FindCommand(fd);
         assertParseSuccess(parser, FINISHED_STATUS_DESC_TRUE, expectedCommand);
     }
 
@@ -100,7 +99,7 @@ public class FindCommandParserTest {
 
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withSemester(VALID_SEMESTER_CS1010)
                 .withGrade(VALID_GRADE_CS1010).build();
-        FindCommand expectedCommand = new FindCommand(new FindModulePredicate(fd));
+        FindCommand expectedCommand = new FindCommand(fd);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -110,14 +109,14 @@ public class FindCommandParserTest {
         // no other valid values specified
         String userInput = INVALID_SEMESTER_DESC + SEMESTER_DESC_CS2103T;
         FindModuleDescriptor fd = new FindModuleDescriptorBuilder().withSemester(VALID_SEMESTER_CS2103T).build();
-        FindCommand expectedCommand = new FindCommand(new FindModulePredicate(fd));
+        FindCommand expectedCommand = new FindCommand(fd);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = INVALID_SEMESTER_DESC + GRADE_DESC_CS2103T + SEMESTER_DESC_CS2103T;
         fd = new FindModuleDescriptorBuilder().withSemester(VALID_SEMESTER_CS2103T)
                 .withGrade(VALID_GRADE_CS2103T).build();
-        expectedCommand = new FindCommand(new FindModulePredicate(fd));
+        expectedCommand = new FindCommand(fd);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }

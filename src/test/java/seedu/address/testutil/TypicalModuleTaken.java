@@ -96,8 +96,12 @@ public class TypicalModuleTaken {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final String KEYWORD_MATCHING_CS2103T = "CS2103T"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_CS2103T = "CS2103T";
     public static final String KEYWORD_MATCHING_MA1521 = "MA1521";
+    public static final String KEYWORD_MATCHING_CS = "cs";
+    public static final String KEYWORD_MATCHING_MA = "ma";
+    public static final String KEYWORD_MATCHING_GE = "ge";
+
     private TypicalModuleTaken() {} // prevents instantiation
 
     /**

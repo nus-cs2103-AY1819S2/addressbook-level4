@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -42,12 +41,11 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private Course course;
-    private Semester currentSemester;
-    private ArrayList<PlanPreference> planPreferences;
 
     private final VersionedGradTrak versionedGradTrak;
     private final UserPrefs userPrefs;
     private final FilteredList<ModuleTaken> filteredModulesTaken;
+    private final FilteredList<SemLimit> semesterLimitList;
     private final SimpleObjectProperty<ModuleTaken> selectedModuleTaken = new SimpleObjectProperty<>();
 
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
@@ -76,6 +74,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModulesTaken = new FilteredList<>(versionedGradTrak.getModulesTakenList());
         filteredModulesTaken.addListener(this::ensureSelectedModuleTakenIsValid);
+        semesterLimitList = new FilteredList<>(versionedGradTrak.getSemesterLimitList());
 
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
         this.allModules = allModules.getObservableList();
@@ -100,8 +99,6 @@ public class ModelManager implements Model {
     }
 
     //=========== UserPrefs ==================================================================================
-
-
     @Override
     public void setCourse(CourseName courseName) {
         requireNonNull(courseName);
@@ -122,27 +119,6 @@ public class ModelManager implements Model {
     public Course getCourse() {
         return course;
     }
-
-    @Override
-    public Semester getCurrentSemester() {
-        return currentSemester;
-    }
-
-    @Override
-    public Cap computeCumulativeCap() {
-        return new Cap("3.19");
-    }
-
-    @Override
-    public Cap computeExpectedMinimumCap() {
-        return new Cap("2.43");
-    }
-
-    @Override
-    public Cap computeExpectedMaximumCap() {
-        return new Cap("4.23");
-    }
-
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -190,6 +166,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Semester getCurrentSemester() {
+        return versionedGradTrak.getCurrentSemester();
+    }
+
+    @Override
     public boolean hasModuleTaken(ModuleTaken moduleTaken) {
         requireNonNull(moduleTaken);
         return versionedGradTrak.hasModuleTaken(moduleTaken);
@@ -212,6 +193,18 @@ public class ModelManager implements Model {
         versionedGradTrak.setModuleTaken(target, editedModuleTaken);
     }
 
+    @Override
+    public void setSemesterLimit(int index, SemLimit editedSemLimit) {
+        requireAllNonNull(index, editedSemLimit);
+        versionedGradTrak.setSemesterLimit(index, editedSemLimit);
+    }
+
+    @Override
+    public void setCurrentSemester(Semester semester) {
+        requireAllNonNull(semester);
+        versionedGradTrak.setCurrentSemester(semester);
+    }
+
     //=========== Filtered ModuleTaken List Accessors =============================================================
 
     /**
@@ -223,10 +216,36 @@ public class ModelManager implements Model {
         return filteredModulesTaken;
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code SemLimit} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<SemLimit> getSemLimitList() {
+        return semesterLimitList;
+    }
+
     @Override
     public void updateFilteredModulesTakenList(Predicate<ModuleTaken> predicate) {
         requireNonNull(predicate);
         filteredModulesTaken.setPredicate(predicate);
+    }
+
+    /**
+     * Returns a generated html string that shows where their CAP and workload limits are violated.
+     */
+    @Override
+    public String checkLimit() {
+        //TODO
+        //get current sem
+        //get all modules taken
+        //get all semester limits
+        //cumulatively add the min max lec tut lab proj prep doubles for all 10 semesters and their counts.
+        //divide each double by count for all semesters.
+        //calculate current cap before current sem
+        //calculate min and max final cap based on all semesters
+        //generate table in html
+        return "";
     }
 
     //=========== Undo/Redo =================================================================================
@@ -340,7 +359,7 @@ public class ModelManager implements Model {
         List<ModuleInfoCode> list = versionedGradTrak
                 .getModulesTakenList()
                 .stream()
-                .map(ModuleTaken::getModuleInfo)
+                .map(ModuleTaken::getModuleInfoCode)
                 .collect(Collectors.toList());
         displayCourseReqList.setPredicate(courseRequirement -> predicate.test(courseRequirement, list));
     }

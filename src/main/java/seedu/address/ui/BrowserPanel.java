@@ -50,11 +50,19 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(ModuleTaken moduleTaken) {
-        loadPage(SEARCH_PAGE_URL + moduleTaken.getModuleInfo().toString());
+        loadPage(SEARCH_PAGE_URL + moduleTaken.getModuleInfoCode().toString());
     }
 
     public void loadPage(String url) {
         Platform.runLater(() -> browser.getEngine().load(url));
+    }
+
+    /**
+     * Loads the given String to be printed on the BrowserPanel.
+     */
+    public void loadContent(String toPrint) {
+        Platform.runLater(() -> browser.getEngine().loadContent("<html><span style='white-space: pre-line'>" + toPrint
+                + "</span></html>"));
     }
 
     /**

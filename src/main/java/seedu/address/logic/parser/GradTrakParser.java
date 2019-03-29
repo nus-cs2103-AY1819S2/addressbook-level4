@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.CheckLimitCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -22,6 +23,7 @@ import seedu.address.logic.commands.RecCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetCourseCommand;
+import seedu.address.logic.commands.SetSemLimitCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -61,6 +63,9 @@ public class GradTrakParser {
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
 
+        case SetSemLimitCommand.COMMAND_WORD:
+            return new SetLimitCommandParser().parse(arguments);
+
         case SelectCommand.COMMAND_WORD:
             return new SelectCommandParser().parse(arguments);
 
@@ -78,6 +83,9 @@ public class GradTrakParser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+        case CheckLimitCommand.COMMAND_WORD:
+            return new CheckLimitCommand();
 
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();

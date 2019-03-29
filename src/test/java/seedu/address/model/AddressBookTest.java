@@ -132,6 +132,11 @@ public class AddressBookTest {
         }
 
         @Override
+        public ObservableList<SemLimit> getSemesterLimitList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addListener(InvalidationListener listener) {
             throw new AssertionError("This method should not be called.");
         }

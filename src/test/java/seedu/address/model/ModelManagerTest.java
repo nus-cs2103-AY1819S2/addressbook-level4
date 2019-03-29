@@ -178,7 +178,7 @@ public class ModelManagerTest {
                 moduleInfoList, courseList)));
 
         // different filteredList -> returns false
-        String[] keywords = CS2103T.getModuleInfo().toString().split("\\s+");
+        String[] keywords = CS2103T.getModuleInfoCode().toString().split("\\s+");
         modelManager.updateFilteredModulesTakenList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, moduleInfoList, courseList)));
 

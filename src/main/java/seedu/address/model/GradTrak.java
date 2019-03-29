@@ -10,15 +10,18 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.moduletaken.SemesterLimitList;
 import seedu.address.model.moduletaken.UniqueModuleTakenList;
 
 /**
- * Todo: modify Address book to store module taken
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSameModuleTaken comparison)
  */
 public class GradTrak implements ReadOnlyGradTrak {
 
+    private Semester currentSemester;
+    private final SemesterLimitList semesterLimitList;
     private final UniqueModuleTakenList modulesTaken;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
@@ -31,9 +34,12 @@ public class GradTrak implements ReadOnlyGradTrak {
      */
     {
         modulesTaken = new UniqueModuleTakenList();
+        semesterLimitList = new SemesterLimitList();
     }
 
-    public GradTrak() {}
+    public GradTrak() {
+        currentSemester = Semester.Y1S1; // default
+    }
 
     /**
      * Creates an GradTrak using the Persons in the {@code toBeCopied}
@@ -41,6 +47,13 @@ public class GradTrak implements ReadOnlyGradTrak {
     public GradTrak(ReadOnlyGradTrak toBeCopied) {
         this();
         resetData(toBeCopied);
+        if (toBeCopied instanceof GradTrak) {
+            currentSemester = ((GradTrak) toBeCopied).getCurrentSemester();
+        }
+    }
+
+    public Semester getCurrentSemester() {
+        return currentSemester;
     }
 
     //// list overwrite operations
@@ -49,8 +62,8 @@ public class GradTrak implements ReadOnlyGradTrak {
      * Replaces the contents of the moduleTaken list with {@code moduleTakens}.
      * {@code moduleTakens} must not contain duplicate moduleTakens.
      */
-    public void setModulesTaken(List<ModuleTaken> moduleTakens) {
-        this.modulesTaken.setPersons(moduleTakens);
+    public void setModulesTaken(List<ModuleTaken> modulesTaken) {
+        this.modulesTaken.setPersons(modulesTaken);
         indicateModified();
     }
 
@@ -96,6 +109,26 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
+     * Replaces the given index of semester limit with {@code editedSemesterLimit}.
+     */
+    public void setSemesterLimit(int index, SemLimit editedSemesterLimit) {
+        requireNonNull(editedSemesterLimit);
+
+        semesterLimitList.setSemesterLimit(index, editedSemesterLimit);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given index of semester limit with {@code editedSemesterLimit}.
+     */
+    public void setCurrentSemester(Semester semester) {
+        requireNonNull(semester);
+
+        this.currentSemester = semester;
+        indicateModified();
+    }
+
+    /**
      * Removes {@code key} from this {@code GradTrak}.
      * {@code key} must exist in the address book.
      */
@@ -105,15 +138,14 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Returns a List of ModuleInfoCodes representing the modules passed.
-     * @return A List.
+     * Returns a List of ModuleInfoCode representing passed ModuleTaken.
      */
     public List<ModuleInfoCode> getPassedModuleList() {
         List<ModuleInfoCode> codeList = new ArrayList<>();
 
-        for (ModuleTaken module : getModulesTakenList()) {
-            if (module.isPassed()) {
-                codeList.add(module.getModuleInfo());
+        for (ModuleTaken moduleTaken : getModulesTakenList()) {
+            if (moduleTaken.isPassed(currentSemester)) {
+                codeList.add(moduleTaken.getModuleInfoCode());
             }
         }
 
@@ -121,31 +153,23 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Returns true if the module list contains a passed module corresponding to the given module code string.
+     * Returns true if the module represented by the given ModuleInfoCode has been passed.
      */
-    public boolean hasPassedModule(String code) {
-        requireNonNull(code);
-        for (ModuleTaken module : getModulesTakenList()) {
-            if (module.getModuleInfo().toString().equals(code)
-                    && module.isPassed()) {
-                return true;
-            }
-        }
-        return false;
+    public boolean hasPassedModule(ModuleInfoCode moduleInfoCode) {
+        return getPassedModuleList().contains(moduleInfoCode);
     }
 
     /**
-     * Returns true if the module list contains a planned (unfinished) module
-     * corresponding to the given module code string.
+     * Returns true if modulesTaken contains an unfinished ModuleTaken represented by the given ModuleInfoCode.
      */
-    public boolean hasPlannedModule(String code) {
-        requireNonNull(code);
-        for (ModuleTaken module : getModulesTakenList()) {
-            if (module.getModuleInfo().toString().equals(code)
-                    && !module.isFinished()) {
-                return true;
+    public boolean hasUnfinishedModule(ModuleInfoCode moduleInfoCode) {
+        requireNonNull(moduleInfoCode);
+        for (ModuleTaken moduleTaken : getModulesTakenList()) {
+            if (moduleTaken.getModuleInfoCode().equals(moduleInfoCode)) {
+                return !moduleTaken.isFinished(currentSemester);
             }
         }
+
         return false;
     }
 
@@ -177,6 +201,11 @@ public class GradTrak implements ReadOnlyGradTrak {
     @Override
     public ObservableList<ModuleTaken> getModulesTakenList() {
         return modulesTaken.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<SemLimit> getSemesterLimitList() {
+        return semesterLimitList.asUnmodifiableObservableList();
     }
 
     @Override

@@ -42,7 +42,7 @@ public class ModuleTakenBuilder {
      * Initializes the ModuleTakenBuilder with the data of {@code moduleTakenToCopy}.
      */
     public ModuleTakenBuilder(ModuleTaken moduleTakenToCopy) {
-        moduleInfoCode = moduleTakenToCopy.getModuleInfo();
+        moduleInfoCode = moduleTakenToCopy.getModuleInfoCode();
         semester = moduleTakenToCopy.getSemester();
         expectedMinGrade = moduleTakenToCopy.getExpectedMinGrade();
         expectedMaxGrade = moduleTakenToCopy.getExpectedMaxGrade();

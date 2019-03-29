@@ -30,6 +30,16 @@
     "author" : "Jeffrey Eugenides",
     "rating" : "6",
     "tagged" : [ ]
+  }, {
+    "bookname" : "Fifty Shades of Grey",
+    "author" : "Erika Leonard",
+    "rating" : "2",
+    "tagged" : [ ]
+  }, {
+    "bookname" : "To Kill a Mocking Bird",
+    "author" : "Harper Lee",
+    "rating" : "10",
+    "tagged" : [ ]
   } ],
   "reviews" : []
 }

@@ -126,7 +126,6 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
 
-
     /**
      * Saves tempImage to assetsFolder as {@code name} or original name if not specified.
      */
@@ -136,12 +135,9 @@ public class CurrentEditManager implements CurrentEdit {
                 name = originalImage.getName().toString();
             }
             File outputFile = new File(name);
-            File latestImage = new File(TEMP_FILE);
             File saveDirectory = new File(ASSETS_FILEPATH);
-            latestImage.renameTo(outputFile);
+            ImageIO.write(tempImage.getBufferedImage(), tempImage.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
-            saveAsTemp(tempImage);
-            saveAsOriginal(tempImage);
             outputFile.delete();
         } catch (IOException e) {
             System.out.println(e.toString());

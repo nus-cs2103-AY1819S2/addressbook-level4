@@ -47,19 +47,21 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" maxWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+          <SplitPane id="splitPane2" fx:id="splitPane2" dividerPositions="0.4" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+            <VBox fx:id="pinList" maxWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="pinListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
 
-          <VBox fx:id="pinList" maxWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="pinListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
+            <VBox fx:id="personList" maxWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+              <padding>
+                <Insets top="10" right="10" bottom="10" left="10" />
+              </padding>
+              <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+          </SplitPane>
 
           <StackPane fx:id="browserPlaceholder" prefWidth="340" >
             <padding>

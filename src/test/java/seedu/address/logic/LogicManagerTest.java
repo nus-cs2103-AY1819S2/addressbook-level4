@@ -105,6 +105,7 @@ public class LogicManagerTest {
         expectedModel.addPerson(expectedPerson);
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
+        expectedModel.commitPinBook();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);

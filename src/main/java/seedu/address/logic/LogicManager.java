@@ -46,6 +46,9 @@ public class LogicManager implements Logic {
 
         // Set archiveBookModified to true whenever the models' archive book is modified.
         model.getArchiveBook().addListener(observable -> archiveBookModified = true);
+
+        // Set pinBookModified to true whenever the models' pin book is modified.
+        model.getPinBook().addListener(observable -> pinBookModified = true);
     }
 
     @Override

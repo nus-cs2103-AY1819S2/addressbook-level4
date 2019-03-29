@@ -24,7 +24,7 @@ class JsonSerializablePinBook {
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableArchiveBook} with the given persons.
+     * Constructs a {@code JsonSerializablePinBook} with the given persons.
      */
     @JsonCreator
     public JsonSerializablePinBook(@JsonProperty("persons") List<JsonAdaptedPerson> persons) {
@@ -34,14 +34,14 @@ class JsonSerializablePinBook {
     /**
      * Converts a given {@code ReadOnlyPinBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableArchiveBook}.
+     * @param source future changes to this will not affect the created {@code JsonSerializablePinBook}.
      */
     public JsonSerializablePinBook(ReadOnlyPinBook source) {
         persons.addAll(source.getPersonList().stream().map(JsonAdaptedPerson::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this archive book into the model's {@code ArchiveBook} object.
+     * Converts this pin book into the model's {@code PinBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */

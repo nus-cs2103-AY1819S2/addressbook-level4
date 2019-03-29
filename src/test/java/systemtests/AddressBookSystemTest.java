@@ -39,6 +39,7 @@ import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
+import seedu.address.ui.PinListPanel;
 
 /**
  * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
@@ -127,9 +128,7 @@ public abstract class AddressBookSystemTest {
         // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
         clockRule.setInjectedClockToCurrentTime();
-
-        mainWindowHandle.getCommandBox().run(command);
-
+        mainWindowHandle.getCommandBox().run(command);  // problem here //
         waitUntilBrowserLoaded(getBrowserPanel());
     }
 

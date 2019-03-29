@@ -52,7 +52,7 @@ public class PinBook implements ReadOnlyPinBook {
     }
 
     /**
-     * Resets the existing data of this {@code ArchiveBook} with {@code newData}.
+     * Resets the existing data of this {@code PinBook} with {@code newData}.
      */
     public void resetData(ReadOnlyPinBook newData) {
         requireNonNull(newData);
@@ -92,7 +92,7 @@ public class PinBook implements ReadOnlyPinBook {
     }
 
     /**
-     * Removes {@code key} from this {@code ArchiveBook}.
+     * Removes {@code key} from this {@code PinBook}.
      * {@code key} must exist in the pin book.
      */
     public void removePerson(Person key) {

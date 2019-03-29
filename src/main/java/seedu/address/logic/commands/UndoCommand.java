@@ -20,7 +20,7 @@ public class UndoCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.canUndoAddressBook()) {
+        if (!model.canUndoAddressBook() && !model.canUndoPinBook()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 

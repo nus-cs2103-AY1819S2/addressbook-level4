@@ -100,7 +100,7 @@ public class TypicalPersons {
     }
 
     /**
-     * Returns an {@code ArchiveBook} with all the typical persons.
+     * Returns an {@code PinBook} with all the typical persons.
      */
     public static PinBook getTypicalPinBook() {
         PinBook ab = new PinBook();

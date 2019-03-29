@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import javafx.stage.Stage;
+import seedu.address.ui.PinListPanel;
 
 /**
  * Provides a handle for {@code MainWindow}.
@@ -8,6 +9,7 @@ import javafx.stage.Stage;
 public class MainWindowHandle extends StageHandle {
 
     private final PersonListPanelHandle personListPanel;
+    private final PinListPanelHandle pinListPanel;
     private final ResultDisplayHandle resultDisplay;
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
@@ -18,6 +20,7 @@ public class MainWindowHandle extends StageHandle {
         super(stage);
 
         personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        pinListPanel = new PinListPanelHandle(getChildNode(PinListPanelHandle.PIN_LIST_VIEW_ID));
         resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
@@ -27,6 +30,10 @@ public class MainWindowHandle extends StageHandle {
 
     public PersonListPanelHandle getPersonListPanel() {
         return personListPanel;
+    }
+
+    public PinListPanelHandle getPinListPanel() {
+        return pinListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {

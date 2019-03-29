@@ -199,6 +199,16 @@ public interface Model {
     void commitArchiveBook();
 
     /**
+     * Returns true if the model has previous pin book states to restore.
+     */
+    boolean canUndoPinBook();
+
+    /**
+     * Returns true if the model has undone pin book states to restore.
+     */
+    boolean canRedoPinBook();
+
+    /**
      * Restores the model's pin book to its previous state.
      */
     void undoPinBook();

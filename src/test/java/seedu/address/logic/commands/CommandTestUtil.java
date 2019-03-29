@@ -149,6 +149,7 @@ public class CommandTestUtil {
         model.deletePerson(firstPerson);
         model.commitAddressBook();
         model.commitArchiveBook();
+        model.commitPinBook();
     }
 
 }

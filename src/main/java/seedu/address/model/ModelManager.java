@@ -39,10 +39,12 @@ public class ModelManager implements Model {
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyArchiveBook archiveBook,
                         ReadOnlyPinBook pinBook, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, archiveBook, userPrefs);
+        requireAllNonNull(addressBook, archiveBook, pinBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook
-                + "Initializing with archive book: " + archiveBook + " and user prefs " + userPrefs);
+                + "Initializing with archive book: " + archiveBook
+                + "Initializing with pin book" + pinBook
+                + "and user prefs " + userPrefs );
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedArchiveBook = new VersionedArchiveBook(archiveBook);
@@ -189,7 +191,7 @@ public class ModelManager implements Model {
         versionedPinBook.addPerson(target);
         versionedAddressBook.removePerson(target);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateFilteredPinnedPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        //updateFilteredPinnedPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -197,7 +199,7 @@ public class ModelManager implements Model {
         versionedPinBook.removePerson(target);
         versionedAddressBook.addPerson(target);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateFilteredPinnedPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        //updateFilteredPinnedPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -293,6 +295,17 @@ public class ModelManager implements Model {
         versionedArchiveBook.commit();
     }
 
+
+    @Override
+    public boolean canUndoPinBook() {
+        return versionedPinBook.canUndo();
+    }
+
+    @Override
+    public boolean canRedoPinBook() {
+        return versionedPinBook.canRedo();
+    }
+
     @Override
     public void undoPinBook() {
         versionedPinBook.undo();
@@ -372,8 +385,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && versionedPinBook.equals(other.versionedPinBook)
                 && versionedArchiveBook.equals(other.versionedArchiveBook)
+                && versionedPinBook.equals(other.versionedPinBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

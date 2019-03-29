@@ -21,6 +21,7 @@ public class ClearCommand extends Command {
         model.setAddressBook(new AddressBook());
         model.commitAddressBook();
         model.commitArchiveBook();
+        model.commitPinBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

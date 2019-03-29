@@ -219,7 +219,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Person, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Person editedPerson) {
-        assertCommandSuccess(command, toEdit, editedPerson, null);
+        assertCommandSuccess(command, toEdit, editedPerson, null);  //
     }
 
     /**
@@ -235,9 +235,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Model expectedModel = getModel();
         expectedModel.setPerson(expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedPerson);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
         assertCommandSuccess(command, expectedModel,
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), expectedSelectedCardIndex);
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), expectedSelectedCardIndex); //
     }
 
     /**
@@ -264,9 +263,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
-        executeCommand(command);
+        executeCommand(command);  // problem here
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);  //
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
             assertSelectedCardChanged(expectedSelectedCardIndex);

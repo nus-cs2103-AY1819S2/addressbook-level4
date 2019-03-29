@@ -3,7 +3,6 @@ package guitests.guihandles;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-
 /**
  * A handle to the {@code CommandBox} in the GUI.
  */
@@ -27,6 +26,7 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
      */
     public void run(String command) {
         click();
+
         guiRobot.interact(() -> getRootNode().setText(command));
         guiRobot.pauseForHuman();
 

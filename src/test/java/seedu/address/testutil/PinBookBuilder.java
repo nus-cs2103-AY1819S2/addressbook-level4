@@ -4,9 +4,9 @@ import seedu.address.model.PinBook;
 import seedu.address.model.person.Person;
 
 /**
- * A utility class to help with building Archivebook objects.
+ * A utility class to help with building Pinbook objects.
  * Example usage: <br>
- *     {@code ArchiveBook ab = new ArchiveBookBuilder().withPerson("John", "Doe").build();}
+ *     {@code PinBook ab = new PinBookBuilder().withPerson("Irwin", "Jimmy").build();}
  */
 public class PinBookBuilder {
 
@@ -21,7 +21,7 @@ public class PinBookBuilder {
     }
 
     /**
-     * Adds a new {@code Person} to the {@code ArchiveBook} that we are building.
+     * Adds a new {@code Person} to the {@code PinBook} that we are building.
      */
     public PinBookBuilder withPerson(Person person) {
         pinBook.addPerson(person);

@@ -148,6 +148,7 @@ public class DeleteCommandTest {
         expectedModel.deletePerson(personToDelete);
         expectedModel.commitAddressBook();
         expectedModel.commitArchiveBook();
+        expectedModel.commitPinBook();
 
         // delete -> deletes second person in unfiltered person list / first person in filtered person list
         deleteCommand.execute(model, commandHistory);
@@ -155,12 +156,14 @@ public class DeleteCommandTest {
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();
         expectedModel.undoArchiveBook();
+        expectedModel.undoPinBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(personToDelete, model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
         // redo -> deletes same second person in unfiltered person list
         expectedModel.redoAddressBook();
         expectedModel.redoArchiveBook();
+        expectedModel.redoPinBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

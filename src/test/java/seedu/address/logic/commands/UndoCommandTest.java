@@ -19,8 +19,8 @@ public class UndoCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
             getTypicalPinBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(),
-            getTypicalArchiveBook(), getTypicalPinBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), getTypicalArchiveBook(),
+            getTypicalPinBook(), new UserPrefs());
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -40,11 +40,13 @@ public class UndoCommandTest {
         // multiple undoable states in model
         expectedModel.undoAddressBook();
         expectedModel.undoArchiveBook();
+        expectedModel.undoPinBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in model
         expectedModel.undoAddressBook();
         expectedModel.undoArchiveBook();
+        expectedModel.undoPinBook();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in model

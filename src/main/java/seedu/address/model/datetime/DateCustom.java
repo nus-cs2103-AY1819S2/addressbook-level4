@@ -60,7 +60,7 @@ public class DateCustom implements DateBuilder {
     }
 
     public LocalDate getDate() {
-        return LocalDate.parse(storedDate);
+        return LocalDate.parse(storedDate,DATE_FORMATTER);
     }
 
     /**

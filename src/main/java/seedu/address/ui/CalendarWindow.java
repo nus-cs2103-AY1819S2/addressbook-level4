@@ -2,8 +2,11 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -25,6 +28,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.task.Task;
 
 /**
  *  Task Calendar Window. Provides a graphical interface for task viewing
@@ -44,6 +48,7 @@ public class CalendarWindow extends UiPart<Stage> {
     private DatePicker datePicker;
 
     private DateTimeFormatter format;
+    private HashMap<LocalDate, Integer> markedDates;
 
     @FXML
     private StackPane taskListPanelPlaceholder;
@@ -59,6 +64,24 @@ public class CalendarWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        markedDates = new HashMap<>();
+        for (Task t : logic.getAddressBook().getTaskList()) {
+
+            if (markedDates.containsKey(t.getStartDate().getDate())
+                    || markedDates.containsKey(t.getEndDate().getDate())) {
+
+                if (t.getPriority().getPriorityLevel() > markedDates.get(t.getStartDate().getDate())) {
+                    markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
+                }
+                if (t.getPriority().getPriorityLevel() > markedDates.get(t.getEndDate().getDate())) {
+                    markedDates.put(t.getEndDate().getDate(), t.getPriority().getPriorityLevel());
+                }
+            } else {
+                markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
+                markedDates.put(t.getEndDate().getDate(), t.getPriority().getPriorityLevel());
+            }
+        }
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanel.setForCalender();
@@ -151,9 +174,25 @@ public class CalendarWindow extends UiPart<Stage> {
                             label.setStyle("-fx-font-weight: bold; -fx-border-color: transparent");
                             label.setFont(Font.font("Helvetica", 15));
 
-                            if (item.getDayOfMonth() == 3 || item.getDayOfMonth() == 19) {
-                                circle.setFill(Color.web("#FF0000"));
-                            } else {
+                            if (markedDates.containsKey(item)) {
+                                switch (markedDates.get(item)) {
+                                case 3:
+                                    circle.setFill(Color.web("#FF0000"));
+                                    break;
+
+                                case 2:
+                                    circle.setFill(Color.web("#FF9A00"));
+                                    break;
+
+                                case 1:
+                                    circle.setFill(Color.web("#FFE600"));
+                                    break;
+
+                                default:
+                                    circle.setFill(Color.GREEN);
+                                }
+                            }
+                            else {
                                 circle.setFill(Color.TRANSPARENT);
                             }
                             if (item.getDayOfWeek().getValue() == 7 || item.getDayOfWeek().getValue() == 6) {

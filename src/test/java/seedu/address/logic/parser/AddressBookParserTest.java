@@ -18,8 +18,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-//import seedu.address.logic.commands.ClearCommand;
-
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddHealthWorkerCommand;
 import seedu.address.logic.commands.DeleteCommand;
@@ -32,8 +30,10 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListHealthWorkerCommand;
-//import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.request.AssignRequestCommand;
+import seedu.address.logic.commands.request.ClearRequestCommand;
+import seedu.address.logic.commands.request.CompleteRequestCommand;
 import seedu.address.logic.commands.request.DeleteRequestCommand;
 import seedu.address.logic.commands.request.FilterRequestCommand;
 import seedu.address.logic.commands.request.ListRequestCommand;
@@ -50,12 +50,29 @@ public class AddressBookParserTest {
     private final AddressBookParser parser = new AddressBookParser();
 
     @Test
+    public void parseCommand_complete() throws Exception {
+        assertTrue(parser.parseCommand(CompleteRequestCommand.COMMAND_WORD + " 1")
+            instanceof CompleteRequestCommand);
+    }
+
+    @Test
     public void parseCommand_add() throws Exception {
         HealthWorker healthWorker = new HealthWorkerBuilder(ANDY).build();
         AddHealthWorkerCommand addHealthWorkerCommand = (AddHealthWorkerCommand) parser.parseCommand(
                 AddCommand.COMMAND_WORD + " " + MODE_HEALTHWORKER + NAME_DESC_ANDY + PHONE_DESC_ANDY
                         + ORGANIZATION_DESC_ANDY + NRIC_DESC_ANDY + SKILLS_DESC_ANDY);
         assertEquals(new AddHealthWorkerCommand(healthWorker), addHealthWorkerCommand);
+    }
+
+    @Test
+    public void parseCommand_clearRequest() throws Exception {
+        assertTrue(parser.parseCommand(ClearRequestCommand.COMMAND_WORD) instanceof ClearRequestCommand);
+    }
+
+    @Test
+    public void parseCommand_assignRequest() throws Exception {
+        assertTrue(parser.parseCommand(AssignRequestCommand.COMMAND_WORD + " hw/1 r/1")
+            instanceof AssignRequestCommand);
     }
 
     @Test

@@ -59,11 +59,9 @@ class JsonAdaptedRequest {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Request} into this class for Jackson use.
      */
     public JsonAdaptedRequest(Request source) {
-
-
         this.name = source.getName().toString();
         this.address = source.getAddress().value;
         this.nric = source.getNric().toString();
@@ -71,12 +69,13 @@ class JsonAdaptedRequest {
         this.requestDate = source.getRequestDate().toString();
         this.requestStatus = source.getRequestStatus().toString();
         this.conditions = source.getConditions().stream().map(Condition::toString)
-                .collect(Collectors.joining(","));
+                .collect(Collectors.joining(" "));
+        System.out.println(this.conditions);
         this.healthWorker = source.getHealthStaff();
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted person object into the model's {@code Request} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */

@@ -30,6 +30,7 @@ public class AddCardCommand extends ManagementCommand {
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a card to the opened lesson. "
             + "\nParameters: "
+            + PREFIX_CORE + "CORE " + PREFIX_CORE + "CORE "
             + "[" + PREFIX_CORE + "CORE]... "
             + "[" + PREFIX_OPTIONAL + "OPTIONAL]...\n"
             + "Example: " + COMMAND_WORD + " "

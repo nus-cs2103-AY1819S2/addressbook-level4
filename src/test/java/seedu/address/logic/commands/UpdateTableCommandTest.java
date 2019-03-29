@@ -49,12 +49,21 @@ public class UpdateTableCommandTest {
     }
 
     @Test
-    public void execute_invalidTableStatus_updateFailure() {
-        String[] invaliDTableStatusInString = new String[]{"1", "6"}; // Max capacity of table is only 4
-        UpdateTableCommand updateTableCommand = new UpdateTableCommand(invaliDTableStatusInString);
+    public void execute_tableStatusTooLarge_updateFailure() {
+        String[] invalidTableStatusInString = new String[]{"1", "6"}; // Max capacity of table is only 4
+        UpdateTableCommand updateTableCommand = new UpdateTableCommand(invalidTableStatusInString);
         assertCommandFailure(Mode.RESTAURANT_MODE, updateTableCommand, model, commandHistory,
                 String.format(TableStatus.MESSAGE_INVALID_NUMBER_OF_CUSTOMERS,
-                        TABLE1.getTableStatus().numberOfSeats));
+                        TABLE1.getTableStatus().toString().split("/")[1]));
+    }
+
+    @Test
+    public void execute_tableStatusNoChange_updateFailure() {
+        String[] invalidTableStatusInString = new String[]{"1", "4"}; // Same table status as current (4)
+        UpdateTableCommand updateTableCommand = new UpdateTableCommand(invalidTableStatusInString);
+        assertCommandFailure(Mode.RESTAURANT_MODE, updateTableCommand, model, commandHistory,
+                String.format(UpdateTableCommand.MESSAGE_NO_CHANGE_IN_STATUS, TABLE1.getTableNumber(),
+                        TABLE1.getTableStatus()));
     }
 
     @Test

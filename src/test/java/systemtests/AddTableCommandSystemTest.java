@@ -45,7 +45,7 @@ public class AddTableCommandSystemTest extends RestOrRantSystemTest {
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTableCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
-        command = "adds " + RestOrRantUtil.getTableDetails(toAdd);
+        command = "adds " + RestOrRantUtil.getAddTableDetails(toAdd);
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid table status -> rejected */

@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
@@ -66,5 +68,29 @@ public class ChangeCommandTest {
         ChangeCommand changeCommand = new ChangeCommand();
         String expectedMessage = Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER;
         assertCommandFailure(changeCommand, model, commandHistory, expectedMessage);
+    }
+
+    @Test
+    public void equals() {
+        ChangeCommand changeExitFolderCommand = new ChangeCommand();
+
+        ChangeCommand changeEnterFolderOneCommand = new ChangeCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER);
+        ChangeCommand changeEnterFolderTwoCommand = new ChangeCommand(TypicalIndexes.INDEX_SECOND_CARD_FOLDER);
+
+        // same object -> returns true
+        assertTrue(changeExitFolderCommand.equals(changeExitFolderCommand));
+
+        // same values -> returns true
+        assertTrue(changeExitFolderCommand.equals(new ChangeCommand()));
+        assertTrue(changeEnterFolderOneCommand.equals(new ChangeCommand(TypicalIndexes.INDEX_FIRST_CARD_FOLDER)));
+
+        // different types -> returns false
+        assertFalse(changeExitFolderCommand.equals(changeEnterFolderOneCommand));
+
+        // different values -> returns false
+        assertFalse(changeEnterFolderOneCommand.equals(changeEnterFolderTwoCommand));
+
+        // null -> returns false
+        assertFalse(changeEnterFolderOneCommand.equals(null));
     }
 }

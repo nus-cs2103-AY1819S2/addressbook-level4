@@ -35,7 +35,7 @@ public class DirectoryTest {
 
     @Test
     public void addDirectory_null_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> typicalDirectory.addDirectory(null));
+        Assert.assertThrows(NullPointerException.class, () -> typicalDirectory.addDirectory((Directory) null));
     }
 
     @Test

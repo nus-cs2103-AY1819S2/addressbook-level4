@@ -18,6 +18,8 @@ public class Directory {
     public static final String MESSAGE_CONSTRAINTS = "Directory name can take any values, and it should not be blank";
     public static final String ERROR_MESSAGE_MEDICINE_ALREADY_EXISTS_UNDER_SAME_DIRECTORY =
             "Medicine with same name already exist under the same directory";
+    public static final String ERROR_MESSAGE_DIRECTORY_WITH_SAME_NAME_ALREADY_EXISTS =
+            "Directory with the same name already exists.";
 
     public final String name;
     private ArrayList<Medicine> listOfMedicine;
@@ -57,7 +59,7 @@ public class Directory {
      */
     public Directory addDirectory(String name) {
         requireNonNull(name);
-        checkArgument(isValidNewDirectory(name), "Directory with the same name already exists");
+        checkArgument(isValidNewDirectory(name), ERROR_MESSAGE_DIRECTORY_WITH_SAME_NAME_ALREADY_EXISTS);
         Directory newDirectory = new Directory(name);
         if (threshold.isPresent()) {
             newDirectory.setThreshold(threshold.get());
@@ -74,6 +76,8 @@ public class Directory {
      * @return The directory added
      */
     public Directory addDirectory(Directory subDirectory) {
+        requireNonNull(subDirectory);
+        checkArgument(isValidNewDirectory(subDirectory.name), ERROR_MESSAGE_DIRECTORY_WITH_SAME_NAME_ALREADY_EXISTS);
         listOfDirectory.add(subDirectory);
         return subDirectory;
     }

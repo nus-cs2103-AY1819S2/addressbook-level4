@@ -127,7 +127,12 @@ public class EditCommand extends Command {
                 editPersonDescriptor.getNextOfKinRelation().orElse(kin.getKinRelation());
             Phone updatedKinPhone = editPersonDescriptor.getNextOfKinPhone().orElse(kin.getPhone());
             Email updatedKinEmail = kin.getEmail();
-            Address updatedKinAddress = editPersonDescriptor.getNextOfKinAddress().orElse(kin.getAddress());
+            Address updatedKinAddress;
+            if (editPersonDescriptor.getSameAddr()) {
+                updatedKinAddress = updatedAddress;
+            } else {
+                updatedKinAddress = editPersonDescriptor.getNextOfKinAddress().orElse(kin.getAddress());
+            }
 
             return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, null, updatedNric,
                     updatedDob, updatedSex, new NextOfKin(updatedKinName, updatedKinPhone, updatedKinEmail,
@@ -174,6 +179,7 @@ public class EditCommand extends Command {
         private NextOfKinRelation nextOfKinRelation;
         private Phone nextOfKinPhone;
         private Address nextOfKinAddress;
+        private boolean isSameAddr = false;
 
         public EditPersonDescriptor() {}
 
@@ -290,6 +296,14 @@ public class EditCommand extends Command {
 
         public Optional<Address> getNextOfKinAddress() {
             return Optional.ofNullable(nextOfKinAddress);
+        }
+
+        public void setSameAddr() {
+            isSameAddr = true;
+        }
+
+        public boolean getSameAddr() {
+            return isSameAddr;
         }
 
         /**

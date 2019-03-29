@@ -1,10 +1,8 @@
 package seedu.address.logic.commands.quiz;
 
 import static seedu.address.logic.commands.quiz.QuizCommandTestUtil.assertCommandSuccess;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
+import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,23 +14,20 @@ import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
-import seedu.address.model.quiz.QuizCard;
-import seedu.address.model.quiz.QuizMode;
 import seedu.address.testutil.Assert;
 
 public class QuizStatusCommandTest {
-    private QuizModel model = new QuizModelManager();
+    private QuizModel actualModel = new QuizModelManager();
     private QuizModel expectedModel = new QuizModelManager();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setUp() {
-        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
-        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
-        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
-        model.init(quiz);
-        expectedModel.init(quiz);
+        Quiz quizExpected = new Quiz(SESSION_DEFAULT_2.generateSession(), SESSION_DEFAULT_2.getMode());
+        Quiz quizActual = new Quiz(SESSION_DEFAULT_2_ACTUAL.generateSession(), SESSION_DEFAULT_2_ACTUAL.getMode());
+
+        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
+        actualModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
     }
 
     @Test
@@ -44,9 +39,11 @@ public class QuizStatusCommandTest {
 
     @Test
     public void execute_status_success() {
-        model.getNextCard();
-        String expected = String.format(QuizStatusCommand.MESSAGE_RESULT, model.getQuizTotalAttempts(),
-            model.getQuizTotalCorrectQuestions(), model.getCurrentProgress());
-        assertCommandSuccess(new QuizStatusCommand(), model, commandHistory, expected, expectedModel);
+        actualModel.getNextCard();
+        expectedModel.getNextCard();
+
+        String expected = String.format(QuizStatusCommand.MESSAGE_RESULT, actualModel.getQuizTotalAttempts(),
+            actualModel.getQuizTotalCorrectQuestions(), actualModel.getCurrentProgress());
+        assertCommandSuccess(new QuizStatusCommand(), actualModel, commandHistory, expected, expectedModel);
     }
 }

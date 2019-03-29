@@ -2,12 +2,17 @@ package seedu.address.model.modelmanager;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
+import static seedu.address.testutil.TypicalSession.SESSION_LEARNT_BEFORE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,28 +21,24 @@ import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
-import seedu.address.model.session.Session;
 import seedu.address.testutil.Assert;
-import seedu.address.testutil.SessionBuilder;
 import seedu.address.testutil.SrsCardBuilder;
 
 public class QuizModelManagerTest {
-    private static final QuizMode MODE = QuizMode.PREVIEW;
-    private static final QuizCard QUIZCARD_1 = new QuizCard("Japan", "Tokyo",
-            Arrays.asList("JP", "Asia"));
-    private static final QuizCard QUIZCARD_2 = new QuizCard("Hungary", "Budapest");
-    private static final List<QuizCard> VALID_QUIZCARD = Arrays.asList(QUIZCARD_1, QUIZCARD_2);
-    private static final Quiz QUIZ = new Quiz(VALID_QUIZCARD, QuizMode.LEARN);
-    private static final QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter("Question", "some question",
-        "Answer", "some answer", QuizMode.LEARN);
-    private static final Session SESSION = new SessionBuilder(new Session("01-01-Learn",
-            1, QuizMode.LEARN, List.of(new SrsCardBuilder().build()))).build();
-    private static final ManagementModelManager MANAGEMENT_MODEL_MANAGER = new ManagementModelManager();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private QuizModelManager modelManager = new QuizModelManager();
+    private QuizModel modelManager = new QuizModelManager();
+    private QuizCard firstCard;
+    private Quiz quiz;
+
+    @Before
+    public void setUp() {
+        List<QuizCard> generatedCards = SESSION_DEFAULT_2.generateSession();
+        firstCard = new QuizCard(0, generatedCards.get(0).getQuestion(), generatedCards.get(0).getAnswer(),
+            QuizMode.PREVIEW);
+        quiz = new Quiz(generatedCards, SESSION_DEFAULT_2.getMode());
+    }
 
     @Test
     public void getNextCard_notInitialised_throwsNullPointerException() {
@@ -46,7 +47,7 @@ public class QuizModelManagerTest {
     }
     @Test
     public void getSessionFields() {
-        modelManager.initWithSession(QUIZ, SESSION);
+        modelManager.initWithSession(quiz, SESSION_LEARNT_BEFORE);
         assertEquals("01-01-Learn", modelManager.getName());
         assertEquals(1, modelManager.getCount());
         assertEquals(QuizMode.LEARN, modelManager.getMode());
@@ -55,11 +56,10 @@ public class QuizModelManagerTest {
 
     @Test
     public void getNextCard() {
-        modelManager.init(QUIZ);
+        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
 
         // get first card
-        assertEquals(new QuizCard(0, QUIZCARD_1.getQuestion(), QUIZCARD_1.getAnswer(), MODE),
-            modelManager.getNextCard());
+        assertEquals(firstCard, modelManager.getNextCard());
 
         // get the rest
         assertTrue(modelManager.hasCardLeft());
@@ -75,11 +75,8 @@ public class QuizModelManagerTest {
 
     @Test
     public void getCurrentProgress() {
-        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
-        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
+        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
 
-        modelManager.initWithSession(new Quiz(quizCards, QuizMode.LEARN), SESSION);
         assertEquals("0/6", modelManager.getCurrentProgress());
 
         modelManager.getNextCard();
@@ -96,30 +93,27 @@ public class QuizModelManagerTest {
 
     @Test
     public void getCurrentQuizCard() {
-        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
-        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
+        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
 
-        modelManager.initWithSession(new Quiz(quizCards, QuizMode.LEARN), SESSION);
         QuizCard expected = modelManager.getNextCard();
 
-        assertEquals(new QuizCard(0, "Japan", "Tokyo", MODE), modelManager.getCurrentQuizCard());
+        assertEquals(firstCard, modelManager.getCurrentQuizCard());
         assertEquals(expected, modelManager.getCurrentQuizCard());
     }
 
     @Test
     public void toggleIsCardDifficult() {
-        modelManager.initWithSession(QUIZ, SESSION);
+        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
 
         assertTrue(modelManager.toggleIsCardDifficult(0));
         assertFalse(modelManager.toggleIsCardDifficult(0));
     }
 
     @Test
-    public void isDone() {
+    public void isQuizDone() {
         assertTrue(modelManager.isQuizDone());
 
-        modelManager.initWithSession(QUIZ, SESSION);
+        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
         assertFalse(modelManager.isQuizDone());
 
         modelManager.end();
@@ -128,11 +122,7 @@ public class QuizModelManagerTest {
 
     @Test
     public void end() {
-        final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
-        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2));
-        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
-        modelManager.initWithSession(quiz, SESSION);
+        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
 
         assertTrue(modelManager.hasCardLeft());
 
@@ -152,13 +142,13 @@ public class QuizModelManagerTest {
 
         // start the actual quiz
         modelManager.getNextCard();
-        modelManager.updateTotalAttemptsAndStreak(0, "Tokyo");
+        modelManager.updateTotalAttemptsAndStreak(0, "Brussels");
         modelManager.getNextCard();
-        modelManager.updateTotalAttemptsAndStreak(1, "Budapest");
+        modelManager.updateTotalAttemptsAndStreak(1, "Tokyo");
         modelManager.getNextCard();
-        modelManager.updateTotalAttemptsAndStreak(0, "Japan");
+        modelManager.updateTotalAttemptsAndStreak(0, "Belgium");
         modelManager.getNextCard();
-        modelManager.updateTotalAttemptsAndStreak(1, "Hungary");
+        modelManager.updateTotalAttemptsAndStreak(1, "Japan");
 
         expected = new ArrayList<>();
         expected.add(Arrays.asList(0, 2, 2));
@@ -171,28 +161,29 @@ public class QuizModelManagerTest {
 
     @Test
     public void getDisplayFormatter() {
+        QuizUiDisplayFormatter formatter = new QuizUiDisplayFormatter("Question", "some question",
+            "Answer", "some answer", QuizMode.LEARN);
+
         modelManager.setDisplayFormatter(formatter);
         assertEquals(formatter, modelManager.getDisplayFormatter());
     }
 
     @Test
     public void equals() {
-        Quiz quiz = new Quiz(VALID_QUIZCARD, QuizMode.LEARN);
+        modelManager.initWithSession(quiz, SESSION_DEFAULT_2);
 
         // same values -> returns true
-        modelManager = new QuizModelManager();
-        modelManager.initWithSession(quiz, SESSION);
         QuizModelManager modelManagerCopy = new QuizModelManager();
-        modelManagerCopy.initWithSession(quiz, SESSION);
-        assertTrue(modelManager.equals(modelManagerCopy));
+        modelManagerCopy.initWithSession(quiz, SESSION_DEFAULT_2);
+        assertEquals(modelManager, modelManagerCopy);
 
         // same object -> returns true
-        assertTrue(modelManager.equals(modelManager));
+        assertEquals(modelManager, modelManager);
 
-        // null -> returns false
-        assertFalse(modelManager == null);
+        // other object -> returns false
+        assertNotSame(modelManager, new Object());
 
         // different types -> returns false
-        assertFalse(modelManager.equals(5));
+        assertNotEquals(5, modelManager);
     }
 }

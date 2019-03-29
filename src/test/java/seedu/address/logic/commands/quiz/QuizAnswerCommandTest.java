@@ -3,11 +3,14 @@ package seedu.address.logic.commands.quiz;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
+import static seedu.address.logic.commands.quiz.QuizAnswerCommand.MESSAGE_CORRECT;
+import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
+import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
+import static seedu.address.testutil.TypicalSession.SESSION_PREVIEW_2;
+import static seedu.address.testutil.TypicalSession.SESSION_PREVIEW_2_ACTUAL;
+import static seedu.address.testutil.TypicalSession.SESSION_REVIEW_2;
+import static seedu.address.testutil.TypicalSession.SESSION_REVIEW_2_ACTUAL;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -16,53 +19,35 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.Model;
-import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
-import seedu.address.model.session.Session;
-import seedu.address.model.srscard.SrsCard;
-import seedu.address.model.user.CardSrsData;
+import seedu.address.model.quiz.QuizUiDisplayFormatter;
 import seedu.address.testutil.Assert;
-import seedu.address.testutil.LessonBuilder;
-import seedu.address.testutil.SessionBuilder;
-import seedu.address.testutil.SrsCardBuilder;
 
-// TODO CHANGE ALL INIT TO INITWITHSESSION
 public class QuizAnswerCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     private List<QuizCard> validQuizCard;
-    private Quiz actualQuiz;
-    private Quiz expectedQuiz;
+    private Quiz quizActual;
+    private Quiz quizExpected;
     private CommandHistory commandHistory = new CommandHistory();
-    private ManagementModelManager mgmtManager;
-    private Session expectedSession;
-    private Session actualSession;
+    private ManagementModelManager managementModelManager;
+    private QuizModelManager actualModel;
+    private QuizModelManager expectedModel;
+
 
     @Before
     public void setUp() {
-        final Lesson lesson = new LessonBuilder().build();
-        expectedSession = new SessionBuilder(new Session("01-01-Learn", 2,
-            QuizMode.LEARN, List.of(new SrsCardBuilder().build(),
-            new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
-                1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
-        actualSession = new SessionBuilder(new Session("01-01-Learn", 2,
-            QuizMode.LEARN, List.of(new SrsCardBuilder().build(),
-            new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
-                1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
-        final QuizCard quizCardJapan = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
-        final QuizCard quizCardHungary = new QuizCard("Hungary", "Budapest");
-        validQuizCard = Arrays.asList(quizCardJapan, quizCardHungary);
-        actualQuiz = new Quiz(validQuizCard, QuizMode.LEARN);
-        expectedQuiz = new Quiz(validQuizCard, QuizMode.LEARN);
-        mgmtManager = new ManagementModelManager();
+        quizExpected = new Quiz(SESSION_DEFAULT_2.generateSession(), SESSION_DEFAULT_2.getMode());
+        quizActual = new Quiz(SESSION_DEFAULT_2_ACTUAL.generateSession(), SESSION_DEFAULT_2_ACTUAL.getMode());
+        managementModelManager = new ManagementModelManager();
     }
 
     @Test
@@ -81,134 +66,138 @@ public class QuizAnswerCommandTest {
     @Test
     public void execute_validLearn_success() {
         final String answer = "Tokyo";
-        QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(actualQuiz);
+        expectedModel = new QuizModelManager(managementModelManager);
+        ManagementModelManager actualMgmtManager = new ManagementModelManager();
+        actualModel = new QuizModelManager(actualMgmtManager);
 
-        QuizModel actual = new QuizModelManager();
-        actual.init(expectedQuiz);
-        actual.getNextCard();
+        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
+        actualModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+
+        actualModel.getNextCard();
 
         QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(answer);
         expectedModel.getNextCard();
         QuizCard card = expectedModel.getNextCard();
         card.isCorrect(answer);
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             "", expectedModel);
     }
 
-    // TODO need to add management model here
     @Test
     public void execute_validPreview_success() {
-        final String answer = "";
-        Lesson lesson = new LessonBuilder().build();
-        final Session session = new SessionBuilder(new Session("01-01-Learn", 2,
-            QuizMode.LEARN, List.of(new SrsCardBuilder().build(),
-            new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1,
-                1, Instant.now().plus(Duration.ofHours(2))), lesson)).build()))).build();
+        final String answer = "any answer";
+        expectedModel = new QuizModelManager(managementModelManager);
+        ManagementModelManager actualMgmtManager = new ManagementModelManager();
+        actualModel = new QuizModelManager(actualMgmtManager);
 
-        QuizModelManager expectedModel = new QuizModelManager(mgmtManager);
+        quizExpected = new Quiz(SESSION_PREVIEW_2.generateSession(), SESSION_PREVIEW_2.getMode());
+        quizActual = new Quiz(SESSION_PREVIEW_2_ACTUAL.generateSession(), SESSION_PREVIEW_2_ACTUAL.getMode());
 
-        expectedModel.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session);
+        expectedModel.initWithSession(quizExpected, SESSION_PREVIEW_2);
+        actualModel.initWithSession(quizActual, SESSION_PREVIEW_2_ACTUAL);
 
-        QuizModel actual = new QuizModelManager(new ManagementModelManager());
-        actual.initWithSession(new Quiz(validQuizCard, QuizMode.PREVIEW), session);
-        actual.getNextCard();
+        actualModel.getNextCard();
 
         QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(answer);
         expectedModel.getNextCard();
-        QuizCard card = expectedModel.getNextCard();
-        card.isCorrect(answer);
+        expectedModel.getNextCard();
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             "", expectedModel);
 
         // complete preview quiz
-        quizAnswerCommand = new QuizAnswerCommand("Budapest");
+        quizAnswerCommand = new QuizAnswerCommand(answer);
         expectedModel.end();
 
-        String expectedMessage = QuizAnswerCommand.MESSAGE_COMPLETE;
+        CommandResult commandResult = new CommandResult(QuizAnswerCommand.MESSAGE_COMPLETE, true, false, false);
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
-            expectedMessage, expectedModel);
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+            commandResult, expectedModel);
     }
 
     @Test
     public void execute_validReview_success() {
         final String answer = "Tokyo";
-        QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(expectedQuiz);
+        expectedModel = new QuizModelManager(managementModelManager);
+        ManagementModelManager actualMgmtManager = new ManagementModelManager();
+        actualModel = new QuizModelManager(actualMgmtManager);
 
-        QuizModel actual = new QuizModelManager();
-        actual.init(actualQuiz);
-        actual.getNextCard();
-        actual.getNextCard();
+        quizExpected = new Quiz(SESSION_REVIEW_2.generateSession(), SESSION_REVIEW_2.getMode());
+        quizActual = new Quiz(SESSION_REVIEW_2_ACTUAL.generateSession(), SESSION_REVIEW_2_ACTUAL.getMode());
 
+        expectedModel.initWithSession(quizExpected, SESSION_REVIEW_2);
+        actualModel.initWithSession(quizActual, SESSION_REVIEW_2_ACTUAL);
+
+        actualModel.getNextCard();
+        actualModel.getNextCard();
         QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(answer);
-        expectedModel.getNextCard();
-        expectedModel.getNextCard();
-        QuizCard card = expectedModel.getNextCard();
-        card.isCorrect(answer);
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
-            "", expectedModel);
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(1, answer);
+        expectedModel.getNextCard();
+
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
+            MESSAGE_CORRECT, expectedModel);
     }
 
     @Test
     public void execute_correctAndWrongAnswer_success() {
-        final String correctAns = "Tokyo";
+        final String correctAns = "Brussels";
         final String wrongAns = "wronganswer";
 
         // correct
-        QuizModelManager expectedModel = new QuizModelManager(mgmtManager);
-        expectedModel.initWithSession(expectedQuiz, expectedSession);
-
+        expectedModel = new QuizModelManager(managementModelManager);
         ManagementModelManager actualMgmtManager = new ManagementModelManager();
-        QuizModel actual = new QuizModelManager(actualMgmtManager);
-        actual.initWithSession(actualQuiz, actualSession);
-        actual.getNextCard();
-        actual.getNextCard();
-        actual.getNextCard();
+        actualModel = new QuizModelManager(actualMgmtManager);
+
+        expectedModel.initWithSession(quizExpected, SESSION_DEFAULT_2);
+        actualModel.initWithSession(quizActual, SESSION_DEFAULT_2_ACTUAL);
+
+        actualModel.getNextCard();
+        actualModel.getNextCard();
+        actualModel.getNextCard();
 
         QuizAnswerCommand quizAnswerCommand = new QuizAnswerCommand(correctAns);
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(0, correctAns);
         QuizCard card = expectedModel.getNextCard();
-        card.isCorrect(correctAns);
+        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", card.getQuestion(),
+            "answer", QuizMode.REVIEW));
 
-        String expectedMessage = QuizAnswerCommand.MESSAGE_CORRECT;
-
-
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+        String expectedMessage = MESSAGE_CORRECT;
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
 
         // wrong
         quizAnswerCommand = new QuizAnswerCommand(wrongAns);
-        actual.getNextCard();
+        actualModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(0, wrongAns);
         card = expectedModel.getNextCard();
-        card.isCorrect(wrongAns);
 
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG_ONCE, wrongAns);
-
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
 
         // wrong twice
+        expectedModel.updateTotalAttemptsAndStreak(0, wrongAns);
         expectedMessage = String.format(QuizAnswerCommand.MESSAGE_WRONG, wrongAns, card.getAnswer());
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
 
         // complete the quiz
-        quizAnswerCommand = new QuizAnswerCommand("Hungary");
-        actual.getNextCard();
-        card = expectedModel.getNextCard();
-        card.isCorrect(wrongAns);
+        quizAnswerCommand = new QuizAnswerCommand("Japan");
+        actualModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(1, "Japan");
         expectedModel.end();
 
-        expectedMessage = QuizAnswerCommand.MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_COMPLETE;
+        expectedMessage = MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_COMPLETE;
 
-        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actual, commandHistory,
+        QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);
 
     }

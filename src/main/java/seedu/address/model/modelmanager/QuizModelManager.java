@@ -155,7 +155,7 @@ public class QuizModelManager implements QuizModel {
     public QuizUiDisplayFormatter getDisplayFormatter() {
         return formatter;
     }
-
+    // TODO include session and mgmt model as well
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

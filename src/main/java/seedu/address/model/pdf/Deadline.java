@@ -4,6 +4,8 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.MissingFormatArgumentException;
 
 /**
  * Represents a Pdf's deadline in the pdf book.
@@ -12,12 +14,37 @@ import java.time.LocalDate;
 public class Deadline implements Comparable<Deadline> {
     public static final String MESSAGE_CONSTRAINTS = "Deadline can take any valid date, "
             + "and it should not be blank";
-    private static final String PROPERTY_SEPARATOR_PREFIX = "/";
+    public static final String PROPERTY_SEPARATOR_PREFIX = "/";
     private static final int PROPERTY_DATE_INDEX = 0;
     private static final int PROPERTY_STATUS_INDEX = 1;
 
     private final LocalDate date;
     private final DeadlineStatus status;
+
+    /**
+     * Represents a Pdf deadline's  status in the pdf book.
+     * Guarantees: immutable;
+     */
+    private enum DeadlineStatus {
+        REMOVE("REMOVE"),
+        READY("READY"),
+        COMPLETE("COMPLETE");
+
+        private String status;
+
+        DeadlineStatus(String status) {
+            this.status = status;
+        }
+
+        public String getStatus() {
+            return this.status;
+        }
+
+        @Override
+        public String toString() {
+            return status;
+        }
+    }
 
 
     /**
@@ -35,9 +62,15 @@ public class Deadline implements Comparable<Deadline> {
      *
      */
     public Deadline(String jsonFormat) {
-        this.date = LocalDate.parse(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
+        String stringStatus = "";
 
-        String stringStatus = jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX];
+        try {
+            this.date = LocalDate.parse(jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_DATE_INDEX]);
+            stringStatus = jsonFormat.split(PROPERTY_SEPARATOR_PREFIX)[Deadline.PROPERTY_STATUS_INDEX];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingFormatArgumentException("Missing Parameters.");
+        }
+
         switch(stringStatus) {
         case "REMOVE":
             this.status = DeadlineStatus.REMOVE;
@@ -151,17 +184,44 @@ public class Deadline implements Comparable<Deadline> {
 
     @Override
     public String toString() {
-        return new StringBuilder().append(this.date.toString())
+        return (this.status == DeadlineStatus.READY | this.status == DeadlineStatus.COMPLETE)
+                ? new StringBuilder().append(this.date.toString())
                 .append(Deadline.PROPERTY_SEPARATOR_PREFIX)
                 .append(this.status)
-                .toString();
+                .toString() : "";
+    }
+
+    /**
+     * Returns if a given string is a valid deadline.
+     */
+    public static boolean isValidDeadline(String test) {
+        try {
+            Deadline d = new Deadline(test);
+            d = null;
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    public static Deadline setDone(Deadline completedDeadline) {
+        return new Deadline(completedDeadline, DeadlineStatus.COMPLETE);
+    }
+
+    public static Deadline setRemove(Deadline deadlineToRemove) {
+        return new Deadline(deadlineToRemove, DeadlineStatus.REMOVE);
+    }
+
+    public static Deadline updateStatus(Deadline deadlineToUpdate, Deadline deadlineWithNewStatus) {
+        return new Deadline(deadlineToUpdate, deadlineWithNewStatus.status);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Deadline // instanceof handles nulls;
-                && date.equals(((Deadline) other).date));
+                && date.equals(((Deadline) other).date))
+                && status.getStatus().equals(((Deadline) other).status.getStatus());
     }
 
     @Override

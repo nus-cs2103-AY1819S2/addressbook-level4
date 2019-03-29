@@ -27,6 +27,6 @@ public interface Storage extends PdfBookStorage, UserPrefsStorage {
     Optional<ReadOnlyPdfBook> readPdfBook() throws DataConversionException, IOException;
 
     @Override
-    void savePdfBook(ReadOnlyPdfBook addressBook) throws IOException;
+    void savePdfBook(ReadOnlyPdfBook pdfBook) throws IOException;
 
 }

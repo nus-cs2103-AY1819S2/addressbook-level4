@@ -9,5 +9,5 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "pdfplusplus.json"
+  "pdfBookFilePath": "pdfplusplus.json"
 }

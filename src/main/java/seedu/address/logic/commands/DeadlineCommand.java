@@ -15,7 +15,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdf.Deadline;
-import seedu.address.model.pdf.DeadlineStatus;
 import seedu.address.model.pdf.Pdf;
 
 /**
@@ -36,7 +35,6 @@ public class DeadlineCommand extends Command {
 
     private final Index index;
     private final Deadline deadline;
-    private final DeadlineStatus status;
 
     public DeadlineCommand(Index index, Deadline deadline) {
         requireNonNull(index);
@@ -44,16 +42,6 @@ public class DeadlineCommand extends Command {
 
         this.index = index;
         this.deadline = deadline;
-        this.status = DeadlineStatus.READY;
-    }
-
-    public DeadlineCommand(Index index, Deadline deadline, DeadlineStatus status) {
-        requireNonNull(index);
-        requireNonNull(status);
-
-        this.index = index;
-        this.deadline = deadline;
-        this.status = status;
     }
 
     @SuppressWarnings("Duplicates")
@@ -69,8 +57,9 @@ public class DeadlineCommand extends Command {
         Pdf oPdf = lastShownList.get(this.index.getZeroBased());
         Pdf nPdf;
 
-        if (deadline == null) {
-            nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf, new Deadline(oPdf.getDeadline(), this.status));
+        if (!deadline.exists()) {
+            nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf,
+                    Deadline.updateStatus(oPdf.getDeadline(), this.deadline));
         } else {
             nPdf = DeadlineCommand.getPdfWithNewDeadline(oPdf, this.deadline);
         }
@@ -101,7 +90,6 @@ public class DeadlineCommand extends Command {
         // state check
         DeadlineCommand e = (DeadlineCommand) other;
         return index.equals(e.index)
-                && deadline.equals(e.deadline)
-                && status.equals(e.status);
+                && deadline.equals(e.deadline);
     }
 }

@@ -10,6 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.testutil.PdfBuilder;
 
 public class PdfTest {
@@ -26,6 +27,7 @@ public class PdfTest {
     @Test
     public void isSamePerson() {
         // same object -> returns true
+        Pdf f = SAMPLE_PDF_1;
         assertTrue(SAMPLE_PDF_1.isSamePdf(SAMPLE_PDF_1));
 
         // null -> returns false
@@ -35,16 +37,16 @@ public class PdfTest {
         Pdf comparisonPdf = new PdfBuilder(SAMPLE_PDF_1_DUPLICATE).build();
         assertFalse(SAMPLE_PDF_1.isSamePdf(comparisonPdf));
 
-        /*// different name -> returns false
-        comparisonPdf = new PdfBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSamePdf(comparisonPdf));
+        // different name -> returns false
+        comparisonPdf = new PdfBuilder(SAMPLE_PDF_1).withName(CommandTestUtil.NAME_2_VALID).build();
+        assertFalse(SAMPLE_PDF_1.isSamePdf(comparisonPdf));
 
-        // same name, same phone, different attributes -> returns true
+        /*// same name, same phone, different attributes -> returns true
         comparisonPdf = new PdfBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withDirectory(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
-        assertTrue(ALICE.isSamePdf(comparisonPdf));*/
+        assertTrue(ALICE.isSamePdf(comparisonPdf));
 
-        /*// same name, same email, different attributes -> returns true
+        // same name, same email, different attributes -> returns true
         comparisonPdf = new PdfBuilder(ALICE).withSize(VALID_PHONE_BOB).withDirectory(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePdf(comparisonPdf));

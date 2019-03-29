@@ -149,15 +149,13 @@ public class Pdf {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("\nDirectory: ")
                 .append(getDirectory())
-                .append("\nSize: ")
                 .append(getSize())
-                .append("\nDeadline: ")
-                .append(getDeadline())
-                .append("\nTags: ");
-        getTags().forEach(builder::append);
-
+                .append(getDeadline());
+        if (getTags().size() > 0) {
+            builder.append("Tags: ");
+            getTags().forEach(builder::append);
+        }
         return builder.toString();
     }
 

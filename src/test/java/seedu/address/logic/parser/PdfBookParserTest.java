@@ -33,11 +33,11 @@ import seedu.address.testutil.EditPdfDescriptorBuilder;
 import seedu.address.testutil.PdfBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class AddressBookParserTest {
+public class PdfBookParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBookParser parser = new AddressBookParser();
+    private final PdfBookParser parser = new PdfBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {

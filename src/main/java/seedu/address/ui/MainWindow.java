@@ -160,6 +160,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Set up the primary stage.
+     */
     public void show() {
         primaryStage.show();
         primaryStage.setMinHeight(logic.getGuiSettings().getWindowHeight());

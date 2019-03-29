@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 import seedu.address.commons.core.Messages;
@@ -11,13 +10,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.EditCommand.MESSAGE_EDIT_PDF_SUCCESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
@@ -77,12 +74,11 @@ public class EncryptCommand extends Command {
             file.protect(spp);
             System.out.println(Paths.get("src", "test", "data", "JsonAdaptedPdfTest","z.pdf"));
             file.save(Paths.get("src", "test", "data", "JsonAdaptedPdfTest","z.pdf").toFile());
-            return 
+
         } catch (IOException ioe) {
             System.out.println("ioe");
         }
         return pdfToEncrypt;
-
     }
 
     @Override

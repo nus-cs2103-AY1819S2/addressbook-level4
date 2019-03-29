@@ -1,63 +1,62 @@
 package seedu.address.model.appointment;
 
+import static seedu.address.testutil.TypicalAppointments.APP_A;
+import static seedu.address.testutil.TypicalAppointments.APP_B;
+import static seedu.address.testutil.TypicalPatients.BOB;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.patient.Nric;
+import seedu.address.model.patient.Patient;
 
 public class AppointmentTest {
-    private Model model = new ModelManager(new AddressBook(), new UserPrefs());
-    private Nric nric = new Nric("S9367777A");
-    private LocalDate dateA = LocalDate.parse("2019-10-23");
-    private LocalDate dateB = LocalDate.parse("2019-10-24");
-    private LocalTime startA = LocalTime.parse("16:00");
-    private LocalTime startB = LocalTime.parse("12:00");
-    private LocalTime endA = LocalTime.parse("17:00");
-    private LocalTime endB = LocalTime.parse("13:00");
-    private String comment = "This is a comment";
-
-    @Before
-    public void init() {
-        model.initQuickDocsSampleData();
-    }
+    private Patient patientA = APP_A.getPatient();
+    private Patient patientB = BOB;
+    private LocalDate dateA = APP_A.getDate();
+    private LocalDate dateB = LocalDate.parse("2019-12-23");
+    private LocalTime startA = APP_A.getStart();
+    private LocalTime startB = LocalTime.parse("09:00");
+    private LocalTime endA = APP_A.getEnd();
+    private LocalTime endB = LocalTime.parse("18:00");
+    private String comment = APP_A.getComment();
 
     @Test
     public void equals() {
-        Appointment appA = new Appointment(model.getPatientByNric(nric).get(), dateA, startA, endA, comment);
-        Appointment appB = new Appointment(model.getPatientByNric(nric).get(), dateA, startA, endA, comment);
+        Appointment appB;
 
-        // test equality of same referenced object
-        Assert.assertTrue(appA.equals(appB));
+        // test equality of same object
+        Assert.assertTrue(APP_A.equals(APP_A));
+
+        // test equality of different appointments with same values
+        appB = new Appointment(patientA, dateA, startA, endA, comment);
+        Assert.assertTrue(APP_A.equals(appB));
+
+        // test equality with null
+        Assert.assertFalse(APP_A.equals(null));
 
         // test equality of different types
-        appA = new Appointment(model.getPatientByNric(nric).get(), dateA, startA, endA, comment);
+        Assert.assertFalse(APP_A.equals(dateA));
 
-        Assert.assertFalse(appA.equals(dateA));
+        // test equality of different appointments
+        Assert.assertFalse(APP_A.equals(APP_B));
+
+        // test equality of two different appointment object with different patient
+        appB = new Appointment(patientB, dateB, startA, endA, comment);
+        Assert.assertFalse(APP_A.equals(appB));
 
         // test equality of two different appointment object with different date
-        appA = new Appointment(model.getPatientByNric(nric).get(), dateA, startA, endA, comment);
-        appB = new Appointment(model.getPatientByNric(nric).get(), dateB, startA, endA, comment);
-
-        Assert.assertFalse(appA.equals(appB));
+        appB = new Appointment(patientA, dateB, startA, endA, comment);
+        Assert.assertFalse(APP_A.equals(appB));
 
         // test equality of two different appointment object with different start time
-        appA = new Appointment(model.getPatientByNric(nric).get(), dateA, startA, endA, comment);
-        appB = new Appointment(model.getPatientByNric(nric).get(), dateA, startB, endA, comment);
-
-        Assert.assertFalse(appA.equals(appB));
+        appB = new Appointment(patientA, dateA, startB, endA, comment);
+        Assert.assertFalse(APP_A.equals(appB));
 
         // test equality of two different appointment object with different end time
-        appA = new Appointment(model.getPatientByNric(nric).get(), dateA, startA, endA, comment);
-        appB = new Appointment(model.getPatientByNric(nric).get(), dateA, startA, endB, comment);
-
-        Assert.assertFalse(appA.equals(appB));
+        appB = new Appointment(patientA, dateA, startA, endB, comment);
+        Assert.assertFalse(APP_A.equals(appB));
     }
 }

@@ -99,7 +99,8 @@ public class Pdf {
         }
 
         return otherPdf != null
-                && otherPdf.getName().equals(getName());
+                && otherPdf.getName().equals(getName())
+                && otherPdf.getDirectory().equals(getDirectory());
     }
 
     public boolean isValidPdf() {

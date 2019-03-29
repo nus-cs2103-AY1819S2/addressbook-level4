@@ -104,6 +104,14 @@ public class UniqueRecordList implements Iterable<Record> {
         return internalUnmodifiableList;
     }
 
+    /**
+     * Returns the reversed list.
+     */
+    public void reverseList() {
+        FXCollections.reverse(internalList);
+
+    }
+
     @Override
     public Iterator<Record> iterator() {
         return internalList.iterator();

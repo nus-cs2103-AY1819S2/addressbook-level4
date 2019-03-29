@@ -18,6 +18,7 @@ import seedu.finance.logic.commands.HistoryCommand;
 import seedu.finance.logic.commands.IncreaseCommand;
 import seedu.finance.logic.commands.ListCommand;
 import seedu.finance.logic.commands.RedoCommand;
+import seedu.finance.logic.commands.ReverseCommand;
 import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.logic.commands.SelectCommand;
 import seedu.finance.logic.commands.SetCommand;
@@ -104,6 +105,11 @@ public class FinanceTrackerParser {
         case ListCommand.COMMAND_ALIAS:
         case ListCommand.COMMAND_ALIAS2:
             return new ListCommand();
+
+        case ReverseCommand.COMMAND_WORD:
+        case ReverseCommand.COMMAND_ALIAS:
+            return new ReverseCommand();
+
 
         case HistoryCommand.COMMAND_WORD:
         case HistoryCommand.COMMAND_ALIAS:

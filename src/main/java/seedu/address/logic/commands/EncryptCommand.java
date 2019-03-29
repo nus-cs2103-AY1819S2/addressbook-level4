@@ -27,13 +27,15 @@ public class EncryptCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Encrypts the the pdf identified "
             + "by the index number used in the displayed pdf list. "
-            + "Existing values will be overwritten by the input values.\n"
+            + "Please ensure that the file is not encrypted.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_PASSWORD + "PASSWORD]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PASSWORD + "NewSecuredPassword";
     private static final String MESSAGE_ENCRYPT_PDF_SUCCESS = "Encrypted PDF: %1$s";
-    private static final String MESSAGE_ENCRYPT_PDF_FAILURE = "%1%s did not get encrypted successfully.";
+    private static final String MESSAGE_ENCRYPT_PDF_FAILURE = "%1$s did not get encrypted successfully.\n"
+            + "Please check if the file is not already encrypted and it exists.";
+    private static final int ENCRYPTION_KEY_LENGTH = 128;
 
     private final Index index;
     private final String password;
@@ -50,6 +52,7 @@ public class EncryptCommand extends Command {
         this.password = password;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -77,15 +80,24 @@ public class EncryptCommand extends Command {
             PDDocument file = PDDocument.load(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),
                     pdfToEncrypt.getName().getFullName()).toFile());
             AccessPermission ap = new AccessPermission();
-            StandardProtectionPolicy spp = new StandardProtectionPolicy(this.password, this.password, ap);
-            spp.setEncryptionKeyLength(128);
+            StandardProtectionPolicy spp = new StandardProtectionPolicy(password, password, ap);
+
+            spp.setEncryptionKeyLength(ENCRYPTION_KEY_LENGTH);
             spp.setPermissions(ap);
             file.protect(spp);
-            file.save(Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "z.pdf").toFile());
+            file.save(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),
+                    pdfToEncrypt.getName().getFullName()).toFile());
+            return getEncryptedPdf(pdfToEncrypt);
         } catch (IOException ioe) {
-            throw new CommandException(String.format(MESSAGE_ENCRYPT_PDF_FAILURE, pdfToEncrypt));
+            throw new CommandException(String.format(MESSAGE_ENCRYPT_PDF_FAILURE, pdfToEncrypt.getName()));
         }
-        return pdfToEncrypt;
+    }
+
+    /**
+     * Encrypts and returns the encrypted {@code pdfToEncrypt}
+     */
+    private Pdf getEncryptedPdf(Pdf pdfToEncrypt) {
+        return new Pdf(pdfToEncrypt, true);
     }
 
     @Override

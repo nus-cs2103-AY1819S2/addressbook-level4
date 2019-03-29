@@ -234,6 +234,7 @@ This command begins a test session, where the display area enters a fullscreen (
 .A successful test command will display a test session page
 image::startTestSessionPage.png[width="790"]
 
+
 Format: `test`
 
 [NOTE]
@@ -281,10 +282,12 @@ If the answer has been submitted successfully and it is wrong, you will see the 
 .Wrong Answer page
 image::WrongAnswerPage.png[width="790"]
 
+
 If the answer has been submitted successfully and it is correct, you will see the following page (see Figure 3).
 
 .Correct Answer page
 image::CorrectAnswerPage.png[width="790"]
+
 
 Format: `ans ANSWER`
 

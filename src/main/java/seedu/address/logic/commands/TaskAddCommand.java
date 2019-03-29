@@ -33,7 +33,7 @@ public class TaskAddCommand extends Command {
             + PREFIX_TITLE + "Teeth removal surgery "
             + PREFIX_STARTDATE + "10-11-2019 "
             + PREFIX_ENDDATE + "22-12-2019 "
-            + PREFIX_STARTTIME + "1100"
+            + PREFIX_STARTTIME + "1100 "
             + PREFIX_ENDTIME + "1200";
 
 

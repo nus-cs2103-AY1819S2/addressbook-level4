@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_CLASH;
 import static seedu.address.commons.core.Messages.MESSAGE_TIME_CLASH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
@@ -33,9 +35,11 @@ public class TaskEditCommand extends Command {
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TITLE + "NAME] "
-            + "[" + PREFIX_STARTDATE + "PHONE] "
-            + "[" + PREFIX_ENDDATE + "EMAIL] "
+            + "[" + PREFIX_TITLE + "TITLE] "
+            + "[" + PREFIX_STARTDATE + "START DATE] "
+            + "[" + PREFIX_ENDDATE + "END DATE] "
+            + "[" + PREFIX_STARTTIME + "START TIME] "
+            + "[" + PREFIX_ENDTIME + "END TIME] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TITLE + "Follow up process for John Doe "
             + PREFIX_ENDDATE + "25-12-2020";

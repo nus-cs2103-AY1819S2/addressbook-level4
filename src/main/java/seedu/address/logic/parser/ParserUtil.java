@@ -187,7 +187,7 @@ public class ParserUtil {
         if (!DateCustom.isValidDate(trimmedEndDate)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
-        if (DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
+        if (DateCustom.isEndDateBeforeStartDate(trimmedStartDate, trimmedEndDate)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
         return new DateCustom(trimmedEndDate);

@@ -71,7 +71,7 @@ public class AddAppCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
+        Optional<Patient> patientToAdd = model.getPatientByNric(nric);
         if (!patientToAdd.isPresent()) {
             throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
         }

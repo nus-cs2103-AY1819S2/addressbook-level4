@@ -52,7 +52,7 @@ public class ListAppCommandTest {
     @Test
     public void executeListApp_searchByNric_success() throws Exception {
         Nric nric = new Nric("S9367777A");
-        Optional<Patient> patientToList = model.getPatientWithNric(nric);
+        Optional<Patient> patientToList = model.getPatientByNric(nric);
         if (!patientToList.isPresent()) {
             throw new CommandException(ListAppCommand.MESSAGE_PATIENT_NOT_FOUND);
         }

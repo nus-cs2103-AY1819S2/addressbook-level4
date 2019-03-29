@@ -67,7 +67,7 @@ public class ListAppCommand extends Command {
             String result = model.listApp(start, end);
             return new CommandResult(String.format(MESSAGE_SUCCESS_BY_DATE, start, end) + result, false, false);
         } else {
-            Optional<Patient> patientToList = model.getPatientWithNric(nric);
+            Optional<Patient> patientToList = model.getPatientByNric(nric);
             if (!patientToList.isPresent()) {
                 throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
             }

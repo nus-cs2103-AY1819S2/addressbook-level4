@@ -45,7 +45,7 @@ public class AddAppCommandTest {
         LocalTime start = LocalTime.parse("16:00");
         LocalTime end = LocalTime.parse("17:00");
         String comment = "This is a comment";
-        Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
+        Optional<Patient> patientToAdd = model.getPatientByNric(nric);
         Appointment toAdd = new Appointment(patientToAdd.get(), date, start, end, comment);
 
         model.addApp(toAdd);
@@ -59,7 +59,7 @@ public class AddAppCommandTest {
 
         CommandResult commandResult = new AddAppCommand(nric, date, start, end, comment)
                 .execute(model, commandHistory);
-        Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
+        Optional<Patient> patientToAdd = model.getPatientByNric(nric);
         Appointment toAdd = new Appointment(patientToAdd.get(), date, start, end, comment);
 
         StringBuilder sb = new StringBuilder();

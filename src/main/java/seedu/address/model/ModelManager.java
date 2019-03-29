@@ -311,26 +311,6 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
-    }
-
-    @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-    }
-
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-    }
-
-    @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
@@ -478,6 +458,10 @@ public class ModelManager implements Model {
         return this.patientManager.getPatientByNric(nric);
     }
 
+    public Optional<Patient> getPatientByNric(Nric nric) {
+        return this.patientManager.getPatientByNric(nric);
+    }
+
     public int getIndexByNric(Nric nric) {
         return this.patientManager.getIndexByNric(nric); }
 
@@ -495,10 +479,6 @@ public class ModelManager implements Model {
 
     public void createConsultation(Patient patient) {
         this.consultationManager.createConsultation(patient);
-    }
-
-    public Optional<Patient> getPatientWithNric(Nric nric) {
-        return this.patientManager.getPatientWithNric(nric);
     }
 
     public void diagnosePatient(Diagnosis diagnosis) {

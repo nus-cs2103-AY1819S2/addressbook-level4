@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private static boolean goToMode = false;
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String MESSAGE_CALENDAR_SHOWN = "Task Calendar is already displayed";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -51,6 +53,9 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatWindow statWindow;
+    private CalendarWindow calendarWindow;
+    private TeethPanel teethPanel;
+
 
     @FXML
     private StackPane browserPlaceholder;
@@ -74,6 +79,9 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane taskListPanelPlaceholder;
 
     @FXML
+    private StackPane teethPanelPlaceholder;
+
+    @FXML
     private StackPane recordListPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
@@ -91,6 +99,8 @@ public class MainWindow extends UiPart<Stage> {
 
         helpWindow = new HelpWindow();
         statWindow = new StatWindow(new Stage(), this.logic);
+        calendarWindow = new CalendarWindow(new Stage(), this.logic, LocalDate.now());
+
 
         // Hidden panel by default.
         recordListPanelPlaceholder.setVisible(false);
@@ -142,6 +152,9 @@ public class MainWindow extends UiPart<Stage> {
         browserPanel = new BrowserPanel(logic.selectedPersonProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
+        teethPanel = new TeethPanel(logic.selectedPersonProperty());
+        teethPanelPlaceholder.getChildren().add(teethPanel.getRoot());
+
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -155,7 +168,7 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory(), false);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -193,6 +206,19 @@ public class MainWindow extends UiPart<Stage> {
         }
         statWindow.populateData();
         statWindow.show();
+    }
+    /**
+     * Opens a Task Calendar window popup and focuses with new date if already showing
+     */
+    public void handleCalendar(String input) {
+        if (calendarWindow.isShowing()) {
+            resultDisplay.setFeedbackToUser(MESSAGE_CALENDAR_SHOWN);
+            calendarWindow.setDate(input);
+            calendarWindow.focus();
+        } else {
+            calendarWindow.setDate(input);
+            calendarWindow.show();
+        }
     }
 
     /**
@@ -236,6 +262,9 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         boolean confirmExit = true;
+        if (calendarWindow.isShowing()) {
+            calendarWindow.close();
+        }
         if (!logic.checkNoCopy()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                     "Copies will not be saved.\nConfirm exit?", ButtonType.YES, ButtonType.NO);
@@ -316,6 +345,10 @@ public class MainWindow extends UiPart<Stage> {
                 handleBack();
             }
 
+            if (commandResult.isShowCalendar()) {
+                handleCalendar(getDateInput(commandResult.getFeedbackToUser()));
+            }
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -340,4 +373,9 @@ public class MainWindow extends UiPart<Stage> {
     public static boolean isGoToMode() {
         return goToMode;
     }
+
+    public static String getDateInput(String input) {
+        return input.substring(input.lastIndexOf(" ") + 1);
+    }
+
 }

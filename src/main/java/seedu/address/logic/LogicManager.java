@@ -55,7 +55,9 @@ public class LogicManager implements Logic {
             Command command = addressBookParser.parseCommand(commandText);
             commandResult = command.execute(model, history);
         } finally {
-            history.add(commandText);
+            if (!commandText.contains("taskcal")) {
+                history.add(commandText);
+            }
         }
 
         if (addressBookModified) {
@@ -71,7 +73,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public boolean checkNoCopy() { return model.checkNoCopy(); }
+    public boolean checkNoCopy() {
+        return model.checkNoCopy();
+    }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {

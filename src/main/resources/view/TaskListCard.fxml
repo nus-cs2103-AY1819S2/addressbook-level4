@@ -25,11 +25,15 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
+                <HBox>
                 <Label fx:id="title" text="\$title" styleClass="cell_big_label" />
+                <Label fx:id="priority" text="\$priority"/>
+                </HBox>
             </HBox>
-            <FlowPane fx:id="tags" />
+            <HBox>
             <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
             <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
+            </HBox>
         </VBox>
     </GridPane>
 </HBox>

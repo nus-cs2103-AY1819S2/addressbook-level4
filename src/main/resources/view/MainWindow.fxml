@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
+         title="Teeth Hub" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/tooth.png"/>
     </icons>
@@ -56,18 +56,27 @@
                         <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                     </StackPane>
 
-                    <StackPane fx:id="browserPlaceholder" prefWidth="340">
+                        <VBox>
+                            <SplitPane id="splitPane2" fx:id="splitPane2" dividerPositions="0.4" orientation="VERTICAL" VBox.vgrow="ALWAYS">
+                        <StackPane fx:id="browserPlaceholder" prefWidth="340">
+                        </StackPane>
+
+                        <StackPane fx:id="taskList" minWidth="340" prefHeight="340" SplitPane.resizableWithParent="false">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+                            <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+                        </StackPane>
+                            </SplitPane>
+                        </VBox>
+
+
+                    <StackPane fx:id="teethPanelPlaceholder" prefWidth="340" >
                         <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
+                            <Insets top="10" right="10" bottom="10" left="10" />
                         </padding>
                     </StackPane>
 
-                    <VBox fx:id="taskList" minWidth="50" prefWidth="50" SplitPane.resizableWithParent="false">
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10"/>
-                        </padding>
-                        <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-                    </VBox>
 
                 </SplitPane>
 

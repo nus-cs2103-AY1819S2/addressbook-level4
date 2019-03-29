@@ -1,5 +1,7 @@
 package seedu.address.model.datetime;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * An interface to create proper Date classes for our program usage.
  */
@@ -9,6 +11,8 @@ public interface DateBuilder {
             + "0-9])-(02)))-(\\d{4})$";
 
     String DATE_FORMAT = "dd-MM-yyyy";
+
+    DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
     String[] MONTHS = {"", "January", "February", "March", "April", "May", "June", "July",
         "August", "September", "October", "November", "December"};

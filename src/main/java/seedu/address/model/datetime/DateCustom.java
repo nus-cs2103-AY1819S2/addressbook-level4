@@ -46,8 +46,12 @@ public class DateCustom implements DateBuilder {
         return dateCompare(test, currentDateString);
     }
 
-    public static boolean isEndDateBeforeStartDate(String format, String date1, String date2) {
+    public static boolean isEndDateBeforeStartDate(String date1, String date2) {
         return dateCompare(date2, date1);
+    }
+
+    public boolean isToday() {
+        return !dateCompare(this.toString(), LocalDate.now().format(DATE_FORMATTER));
     }
 
     public LocalDate getDate() {
@@ -55,7 +59,7 @@ public class DateCustom implements DateBuilder {
     }
     /**
      *  Returns true if the first date given is before the second date given
-     * @param date1 the first date to comapre with the second date
+     * @param date1 the first date to compare with the second date
      * @param date2 the second date
      * @return true if first date is before, false otherwise.
      */

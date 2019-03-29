@@ -53,7 +53,7 @@ public class CustomerCard extends UiPart<Region> {
         identificationNo.setText("Identification no: " + customer.getIdNum().value);
         address.setText(customer.getAddress().toString().equals("")
                 ? "Address: Not provided" : "Address: " +customer.getAddress().toString());
-        email.setText("Email:" + customer.getEmail().toString());
+        email.setText("Email: " + customer.getEmail().toString());
         customer.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

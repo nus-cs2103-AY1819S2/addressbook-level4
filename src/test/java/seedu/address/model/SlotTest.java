@@ -23,6 +23,12 @@ public class SlotTest {
         Slot slotB = new Slot(dateA, startA, endA);
         Assert.assertEquals(slotA, slotB);
 
+        // test equality with null
+        Assert.assertFalse(slotA.equals(null));
+
+        // test equality with different type
+        Assert.assertNotEquals(slotA, dateA);
+
         // test equality of same referenced object with null end time
         slotB = new Slot(dateA, startA, null);
         Slot slotBCopy = new Slot(dateA, startA, null);

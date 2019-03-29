@@ -51,6 +51,10 @@ public class Slot implements Comparable<Slot> {
             return true;
         }
 
+        if (other == null) {
+            return false;
+        }
+
         if (!(other.getClass() == getClass())) {
             return false;
         }
@@ -65,18 +69,5 @@ public class Slot implements Comparable<Slot> {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(date, start, end);
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Date: ")
-                .append(getDate()).append("\n")
-                .append("Start Time: ")
-                .append(getStart()).append("\n");
-        if (end != null) {
-            builder.append("End Time: ").append(getEnd() + "\n");
-        }
-        return builder.toString();
     }
 }

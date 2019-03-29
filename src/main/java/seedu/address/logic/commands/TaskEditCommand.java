@@ -145,7 +145,7 @@ public class TaskEditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, startDate, endDate);
+            return CollectionUtil.isAnyNonNull(title, startDate, endDate, startTime, endDate);
         }
 
         /**

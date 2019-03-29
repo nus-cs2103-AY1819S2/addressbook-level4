@@ -125,13 +125,13 @@ public class Activity implements Comparable<Activity> {
     /**
      * Returns an updated activity with new Status
      */
-    public static Activity updateActivity(Activity toUpdate) {
-        ActivityName name = toUpdate.getName();
-        ActivityDateTime dateTime = toUpdate.getDateTime();
-        ActivityLocation location = toUpdate.getLocation();
-        ActivityDescription description = toUpdate.getDescription();
-        Optional<Person> inCharge = toUpdate.getInCharge();
-        Map<Person, Boolean> attendance = toUpdate.getAttendance();
+    public Activity updateActivity() {
+        ActivityName name = this.getName();
+        ActivityDateTime dateTime = this.getDateTime();
+        ActivityLocation location = this.getLocation();
+        ActivityDescription description = this.getDescription();
+        Optional<Person> inCharge = this.getInCharge();
+        Map<Person, Boolean> attendance = this.getAttendance();
         return new Activity(name, dateTime, location, description, inCharge, attendance);
     }
 

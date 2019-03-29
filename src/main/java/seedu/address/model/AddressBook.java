@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         List<Activity> activityList = this.getActivityList();
         for (Activity activity: activityList) {
             if (!activity.getStatus().equals(activity.getCurrentStatus())) {
-                Activity updated = Activity.updateActivity(activity);
+                Activity updated = activity.updateActivity();
                 setActivity(activity, updated);
             }
         }

@@ -12,7 +12,7 @@ import seedu.address.model.UserPrefs;
 /**
  * API of the Storage component
  */
-public interface Storage extends GradTrackStorage, UserPrefsStorage {
+public interface Storage extends GradTrakStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -27,6 +27,6 @@ public interface Storage extends GradTrackStorage, UserPrefsStorage {
     Optional<ReadOnlyGradTrak> readGradTrak() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyGradTrak addressBook) throws IOException;
+    void saveGradTrak(ReadOnlyGradTrak addressBook) throws IOException;
 
 }

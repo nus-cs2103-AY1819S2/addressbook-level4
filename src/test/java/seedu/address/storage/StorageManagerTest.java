@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import java.nio.file.Path;
 
@@ -25,7 +25,7 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        JsonGradTrackStorage addressBookStorage = new JsonGradTrackStorage(getTempFilePath("ab"));
+        JsonGradTrakStorage addressBookStorage = new JsonGradTrakStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
@@ -53,11 +53,11 @@ public class StorageManagerTest {
     public void addressBookReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonGradTrackStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonGradTrackStorageTest} class.
+         * {@link JsonGradTrakStorage} class.
+         * More extensive testing of UserPref saving/reading is done in {@link JsonGradTrakStorageTest} class.
          */
-        GradTrak original = getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
+        GradTrak original = getTypicalGradTrak();
+        storageManager.saveGradTrak(original);
         ReadOnlyGradTrak retrieved = storageManager.readGradTrak().get();
         assertEquals(original, new GradTrak(retrieved));
     }

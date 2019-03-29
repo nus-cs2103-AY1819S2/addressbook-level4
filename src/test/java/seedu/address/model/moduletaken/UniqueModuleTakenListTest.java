@@ -16,8 +16,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.model.moduletaken.exceptions.DuplicatePersonException;
-import seedu.address.model.moduletaken.exceptions.PersonNotFoundException;
+import seedu.address.model.moduletaken.exceptions.DuplicateModuleTakenException;
+import seedu.address.model.moduletaken.exceptions.ModuleTakenNotFoundException;
 import seedu.address.testutil.ModuleTakenBuilder;
 
 public class UniqueModuleTakenListTest {
@@ -62,7 +62,7 @@ public class UniqueModuleTakenListTest {
     @Test
     public void add_duplicatePerson_throwsDuplicatePersonException() {
         uniqueModuleTakenList.add(CS2103T);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateModuleTakenException.class);
         uniqueModuleTakenList.add(CS2103T);
     }
 
@@ -80,7 +80,7 @@ public class UniqueModuleTakenListTest {
 
     @Test
     public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(ModuleTakenNotFoundException.class);
         uniqueModuleTakenList.setPerson(CS2103T, CS2103T);
     }
 
@@ -119,7 +119,7 @@ public class UniqueModuleTakenListTest {
     public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
         uniqueModuleTakenList.add(CS2103T);
         uniqueModuleTakenList.add(DEFAULT_MODULE_CS1010);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateModuleTakenException.class);
         uniqueModuleTakenList.setPerson(CS2103T, DEFAULT_MODULE_CS1010);
     }
 
@@ -131,7 +131,7 @@ public class UniqueModuleTakenListTest {
 
     @Test
     public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(ModuleTakenNotFoundException.class);
         uniqueModuleTakenList.remove(CS2103T);
     }
 
@@ -177,7 +177,7 @@ public class UniqueModuleTakenListTest {
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
         List<ModuleTaken> listWithDuplicateModuleTakens = Arrays.asList(CS2103T, CS2103T);
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateModuleTakenException.class);
         uniqueModuleTakenList.setPersons(listWithDuplicateModuleTakens);
     }
 

@@ -19,7 +19,6 @@ import java.util.List;
 
 import seedu.address.model.GradTrak;
 import seedu.address.model.moduletaken.ModuleTaken;
-import seedu.address.model.moduletaken.Semester;
 
 /**
  * A utility class containing a list of {@code ModuleTaken} objects to be used in tests.
@@ -108,14 +107,12 @@ public class TypicalModuleTaken {
     /**
      * Returns an {@code GradTrak} with all the typical persons.
      */
-    public static GradTrak getTypicalAddressBook() {
-        GradTrak ab = new GradTrak();
+    public static GradTrak getTypicalGradTrak() {
+        GradTrak gt = new GradTrak();
         for (ModuleTaken moduleTaken : getTypicalModulesTaken()) {
-            ab.addModuleTaken(moduleTaken);
+            gt.addModuleTaken(moduleTaken);
         }
-        ab.setCurrentSemester(Semester.Y1S1);
-
-        return ab;
+        return gt;
     }
 
     public static List<ModuleTaken> getTypicalModulesTaken() {

@@ -59,7 +59,7 @@ public class JsonAdaptedCourse {
     /**
      * Converts this Jackson-friendly adapted course object into the model's {@code Course} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted moduleTaken.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted course.
      */
     public Course toModelType() throws IllegalValueException {
         if (name == null) {

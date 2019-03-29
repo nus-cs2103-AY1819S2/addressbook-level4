@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.moduletaken.exceptions.DuplicatePersonException;
-import seedu.address.model.moduletaken.exceptions.PersonNotFoundException;
+import seedu.address.model.moduletaken.exceptions.DuplicateModuleTakenException;
+import seedu.address.model.moduletaken.exceptions.ModuleTakenNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -44,7 +44,7 @@ public class UniqueModuleTakenList implements Iterable<ModuleTaken> {
     public void add(ModuleTaken toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateModuleTakenException();
         }
         internalList.add(toAdd);
     }
@@ -60,11 +60,11 @@ public class UniqueModuleTakenList implements Iterable<ModuleTaken> {
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new ModuleTakenNotFoundException();
         }
 
         if (!target.isSameModuleTaken(editedModuleTaken) && contains(editedModuleTaken)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateModuleTakenException();
         }
 
         internalList.set(index, editedModuleTaken);
@@ -77,7 +77,7 @@ public class UniqueModuleTakenList implements Iterable<ModuleTaken> {
     public void remove(ModuleTaken toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new ModuleTakenNotFoundException();
         }
     }
 
@@ -93,7 +93,7 @@ public class UniqueModuleTakenList implements Iterable<ModuleTaken> {
     public void setPersons(List<ModuleTaken> moduleTakens) {
         requireAllNonNull(moduleTakens);
         if (!personsAreUnique(moduleTakens)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateModuleTakenException();
         }
 
         internalList.setAll(moduleTakens);

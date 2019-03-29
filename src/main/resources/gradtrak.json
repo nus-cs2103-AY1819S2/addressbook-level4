@@ -1,0 +1,10 @@
+{
+  "modulesTaken" : [ {
+    "moduleInfoCode" : "CS2103T",
+    "semester" : "Y1S1",
+    "expectedMinGrade" : "D",
+    "expectedMaxGrade" : "A",
+    "lectureHour" : "0.0",
+    "tagged" : [ ]
+  } ]
+}

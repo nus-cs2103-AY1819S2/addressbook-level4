@@ -73,8 +73,8 @@ public class SetSemLimitCommand extends Command {
         SemLimit editedSemLimit = createEditedLimit(semLimitToEdit, editSemLimitDescriptor);
 
         model.setSemesterLimit(index.getZeroBased(), editedSemLimit);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
+        model.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitGradTrak();
         return new CommandResult(String.format(MESSAGE_EDIT_LIMIT_SUCCESS, editedSemLimit));
     }
 

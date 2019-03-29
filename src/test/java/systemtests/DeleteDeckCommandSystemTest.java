@@ -1,24 +1,16 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCardCommand.MESSAGE_DELETE_CARD_SUCCESS;
 import static seedu.address.testutil.TestUtil.getCard;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
-
-import org.junit.Test;
+import static seedu.address.testutil.TestUtil.getDeck;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCardCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 public class DeleteDeckCommandSystemTest extends TopDeckSystemTest {
 
@@ -115,10 +107,10 @@ public class DeleteDeckCommandSystemTest extends TopDeckSystemTest {
      * Removes the {@code Card} at the specified {@code index} in {@code model}'s deck.
      * @return the removed card
      */
-    private Card removeCard(Model model, Index index) {
-        Card targetCard = getCard(model, index);
-        model.deleteCard(targetCard);
-        return targetCard;
+    private Deck removeDeck(Model model, Index index) {
+        Deck targetDeck = getDeck(model, index);
+        model.deleteDeck(targetDeck);
+        return targetDeck;
     }
 
     /**
@@ -128,8 +120,8 @@ public class DeleteDeckCommandSystemTest extends TopDeckSystemTest {
      */
     private void assertCommandSuccess(Index toDelete) {
         Model expectedModel = getModel();
-        Card deletedCard = removeCard(expectedModel, toDelete);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_CARD_SUCCESS, deletedCard);
+        Deck deletedDeck = removeDeck(expectedModel, toDelete);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_CARD_SUCCESS, deletedDeck);
 
         assertCommandSuccess(
                 DeleteCardCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);

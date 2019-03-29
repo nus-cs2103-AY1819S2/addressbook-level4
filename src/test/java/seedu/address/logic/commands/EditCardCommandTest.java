@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_MOD;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.assertUpdateCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.extractActiveDeck;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
@@ -68,7 +69,8 @@ public class EditCardCommandTest {
         CardsView expectedCardsView = (CardsView) expectedModel.getViewState();
         Card currentCard = expectedCardsView.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
 
-        expectedModel.setCard(currentCard, editedCard);
+        Deck activeDeck = extractActiveDeck(expectedModel);
+        expectedModel.setCard(currentCard, editedCard, activeDeck);
         expectedModel.commitTopDeck();
 
         assertUpdateCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -90,7 +92,8 @@ public class EditCardCommandTest {
 
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.changeDeck(getTypicalDeck());
-        expectedModel.setCard(lastCard, editedCard);
+        Deck activeDeck = extractActiveDeck(expectedModel);
+        expectedModel.setCard(lastCard, editedCard, activeDeck);
         expectedModel.commitTopDeck();
 
         assertUpdateCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -129,7 +132,9 @@ public class EditCardCommandTest {
 
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
         expectedModel.changeDeck(getTypicalDeck());
-        expectedModel.setCard(cardsView.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased()), editedCard);
+        Deck activeDeck = extractActiveDeck(expectedModel);
+        expectedModel.setCard(cardsView.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased()),
+            editedCard, activeDeck);
         expectedModel.commitTopDeck();
 
         assertUpdateCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -194,7 +199,8 @@ public class EditCardCommandTest {
 
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
         expectedModel.changeDeck(getTypicalDeck());
-        expectedModel.setCard(cardToEdit, editedCard);
+        Deck activeDeck = extractActiveDeck(expectedModel);
+        expectedModel.setCard(cardToEdit, editedCard, activeDeck);
 
         expectedModel.commitTopDeck();
 
@@ -248,7 +254,8 @@ public class EditCardCommandTest {
         showCardAtIndex(expectedModel, INDEX_SECOND_CARD);
         Card cardToEdit = expectedCardsView.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
         expectedModel.changeDeck(getTypicalDeck());
-        expectedModel.setCard(cardToEdit, editedCard);
+        Deck activeDeck = extractActiveDeck(expectedModel);
+        expectedModel.setCard(cardToEdit, editedCard, activeDeck);
         expectedModel.commitTopDeck();
 
         // edit -> edits second card in unfiltered card list / first card in filtered card list

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertUpdateCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.extractActiveDeck;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
 import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
@@ -23,6 +24,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.TopDeck;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -51,7 +53,9 @@ public class DeleteCardCommandTest {
 
         ModelManager expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.changeDeck(getTypicalDeck());
-        expectedModel.deleteCard(cardToDelete);
+
+        Deck activeDeck = extractActiveDeck(expectedModel);
+        expectedModel.deleteCard(cardToDelete, activeDeck);
         expectedModel.commitTopDeck();
 
         assertUpdateCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -76,7 +80,8 @@ public class DeleteCardCommandTest {
 
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.changeDeck(getTypicalDeck());
-        expectedModel.deleteCard(cardToDelete);
+        Deck activeDeck = extractActiveDeck(expectedModel);
+        expectedModel.deleteCard(cardToDelete, activeDeck);
         expectedModel.commitTopDeck();
 
         assertUpdateCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -87,7 +92,7 @@ public class DeleteCardCommandTest {
         showCardAtIndex(model, INDEX_FIRST_CARD);
 
         Index outOfBoundIndex = INDEX_SECOND_CARD;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of cards list
         assertTrue(outOfBoundIndex.getZeroBased() <
             model.getTopDeck().getDeckList().get(0).getCards().internalList.size());
 
@@ -103,13 +108,14 @@ public class DeleteCardCommandTest {
 
         Model expectedModel = new ModelManager(model.getTopDeck(), new UserPrefs());
         expectedModel.changeDeck(getTypicalDeck());
-        expectedModel.deleteCard(cardToDelete);
+        Deck activeDeck = extractActiveDeck(expectedModel);
+        expectedModel.deleteCard(cardToDelete, activeDeck);
         expectedModel.commitTopDeck();
 
         // delete -> first card deleted
         deleteCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered card list to show all persons
+        // undo -> reverts TopDeck back to previous state and filtered card list to show all persons
         expectedModel.undoTopDeck();
         updateCardsView(expectedModel);
 
@@ -151,7 +157,8 @@ public class DeleteCardCommandTest {
         Card cardToDelete = cardsView.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
 
         expectedModel.changeDeck(getTypicalDeck());
-        expectedModel.deleteCard(cardToDelete);
+        Deck activeDeck = extractActiveDeck(expectedModel);
+        expectedModel.deleteCard(cardToDelete, activeDeck);
         expectedModel.commitTopDeck();
 
         // delete -> deletes second card in unfiltered card list / first card in filtered card list

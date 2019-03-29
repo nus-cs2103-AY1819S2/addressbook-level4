@@ -1,35 +1,10 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_ADDITION;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SUBTRACTION;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_ADDITION;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SUBTRACTION;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_UNIQUE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_MATH;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_ADDITION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_UNIQUE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalCards.ADDITION;
-import static seedu.address.testutil.TypicalCards.HELLO_WORLD;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_HTTP;
-import static seedu.address.testutil.TypicalCards.MULTIPLICATION;
-import static seedu.address.testutil.TypicalCards.NO_TAG;
-import static seedu.address.testutil.TypicalCards.SUBTRACTION;
-
-import org.junit.Test;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCardCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.deck.Card;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.CardBuilder;
+import seedu.address.model.deck.Deck;
 import seedu.address.testutil.CardUtil;
+import seedu.address.testutil.DeckUtil;
 
 public class AddDeckCommandSystemTest extends TopDeckSystemTest {
 
@@ -133,19 +108,20 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
      * Verifications 1, 3 and 4 are performed by
      * {@code TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see TopDeckSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @param toAdd
      */
-    private void assertCommandSuccess(Card toAdd) {
-        assertCommandSuccess(CardUtil.getAddCommand(toAdd), toAdd);
+    private void assertCommandSuccess(Deck toAdd) {
+        assertCommandSuccess(DeckUtil.getAddDeckCommand(toAdd), toAdd);
     }
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(Person)}. Executes {@code command}
      * instead.
-     * @see AddDeckCommandSystemTest#assertCommandSuccess(Card)
+     * @see AddDeckCommandSystemTest#assertCommandSuccess(Deck)
      */
-    private void assertCommandSuccess(String command, Card toAdd) {
+    private void assertCommandSuccess(String command, Deck toAdd) {
         Model expectedModel = getModel();
-        expectedModel.addCard(toAdd);
+        expectedModel.addDeck(toAdd);
         String expectedResultMessage = String.format(AddCardCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -157,7 +133,7 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Storage} and {@code ListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
-     * @see AddDeckCommandSystemTest#assertCommandSuccess(String, Card)
+     * @see AddDeckCommandSystemTest#assertCommandSuccess(String, Deck)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);

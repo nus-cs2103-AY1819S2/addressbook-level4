@@ -229,8 +229,15 @@ public class CommandTestUtil {
     public static void updateCardsView(Model model) {
         assertTrue(model.isAtCardsView());
 
-        CardsView expectedModelCardsView = (CardsView) model.getViewState();
-        Deck newDeck = model.getDeck(expectedModelCardsView.getActiveDeck());
+        CardsView prevModelCardsView = (CardsView) model.getViewState();
+        Deck newDeck = model.getDeck(prevModelCardsView.getActiveDeck());
         model.changeDeck(newDeck);
+    }
+
+    public static Deck extractActiveDeck(Model model) {
+        CardsView cardsView = (CardsView) model.getViewState();
+        Deck activeDeck = cardsView.getActiveDeck();
+
+        return activeDeck;
     }
 }

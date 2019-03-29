@@ -3,6 +3,7 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 import static seedu.address.testutil.TypicalCards.ADDITION;
 import static seedu.address.testutil.TypicalCards.SUBTRACTION;
@@ -20,6 +21,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CardsView;
+import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
@@ -104,80 +106,93 @@ public class ModelManagerTest {
     }
 
     //========== Card Management Tests ==================================================================
-    @Test
-    public void hasCard_notInCardsView_throwsIllegalOperationWhileReviewingDeckException() {
-        thrown.expect(IllegalOperationWhileReviewingDeckException.class);
-        modelManager.hasCard(ADDITION);
-    }
-
 
     @Test
     public void hasCard_nullCard_throwsNullPointerException() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
+
+        Deck activeDeck = extractActiveDeck(modelManager);
+
         thrown.expect(NullPointerException.class);
-        modelManager.hasCard(null);
+        modelManager.hasCard(null, activeDeck);
     }
 
     @Test
     public void hasCard_cardInTopDeck_returnsTrue() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
-        modelManager.addCard(ADDITION);
-        assertTrue(modelManager.hasCard(ADDITION));
+
+        Deck activeDeck = extractActiveDeck(modelManager);
+        modelManager.addCard(ADDITION, activeDeck);
+
+        activeDeck = extractActiveDeck(modelManager);
+        assertTrue(modelManager.hasCard(ADDITION, activeDeck));
     }
 
     @Test
     public void hasCard_cardNotInTopDeck_returnsFalse() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
-        assertFalse(modelManager.hasCard(SUBTRACTION));
-    }
 
-    @Test
-    public void addCard_notInCardsView_throwsIllegalOperationWhileReviewingDeckException() {
-        thrown.expect(IllegalOperationWhileReviewingDeckException.class);
-        modelManager.addCard(SUBTRACTION);
+        Deck activeDeck = extractActiveDeck(modelManager);
+        modelManager.addCard(ADDITION, activeDeck);
+
+        activeDeck = extractActiveDeck(modelManager);
+        assertFalse(modelManager.hasCard(SUBTRACTION, activeDeck));
     }
 
     @Test
     public void addCard_nullCard_throwsNulPointerException() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
+
+        Deck activeDeck = extractActiveDeck(modelManager);
+
         thrown.expect(NullPointerException.class);
-        modelManager.addCard(null);
+        modelManager.addCard(null, activeDeck);
     }
 
     @Test
     public void addCard_validCard_deckContainsNewCard() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
-        modelManager.addCard(SUBTRACTION);
-        assertTrue(modelManager.hasCard(SUBTRACTION));
-    }
 
-    @Test
-    public void deleteCard_notInCardsView_throwsIllegalOperationWhileReviewingDeckException() {
-        thrown.expect(IllegalOperationWhileReviewingDeckException.class);
-        modelManager.deleteCard(SUBTRACTION);
+        Deck activeDeck = extractActiveDeck(modelManager);
+        modelManager.addCard(SUBTRACTION, activeDeck);
+
+        updateCardsView(modelManager);
+        activeDeck = extractActiveDeck(modelManager);
+
+        assertTrue(modelManager.hasCard(SUBTRACTION, activeDeck));
     }
 
     @Test
     public void deleteCard_nullCard_throwsNulPointerException() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
+
+        Deck activeDeck = extractActiveDeck(modelManager);
+
         thrown.expect(NullPointerException.class);
-        modelManager.deleteCard(null);
+        modelManager.deleteCard(null, activeDeck);
     }
 
     @Test
     public void deleteCard_cardIsSelected_selectionCleared() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
-        modelManager.addCard(ADDITION);
-        modelManager.addCard(SUBTRACTION);
+
+        Deck activeDeck = extractActiveDeck(modelManager);
+
+        modelManager.addCard(ADDITION, activeDeck);
+        activeDeck = extractActiveDeck(modelManager);
+
+        modelManager.addCard(SUBTRACTION, activeDeck);
+        activeDeck = extractActiveDeck(modelManager);
+
         modelManager.setSelectedItem(ADDITION);
-        modelManager.deleteCard(SUBTRACTION);
+        modelManager.deleteCard(SUBTRACTION, activeDeck);
         assertEquals(null, modelManager.getSelectedItem());
     }
 
@@ -185,40 +200,45 @@ public class ModelManagerTest {
     public void deleteCard_cardInDeck_cardNotInDeck() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
-        modelManager.addCard(ADDITION);
 
-        assertTrue(modelManager.hasCard(ADDITION));
+        Deck activeDeck = extractActiveDeck(modelManager);
+        modelManager.addCard(ADDITION, activeDeck);
 
-        modelManager.deleteCard(ADDITION);
+        activeDeck = extractActiveDeck(modelManager);
+        assertTrue(modelManager.hasCard(ADDITION, activeDeck));
 
-        assertFalse(modelManager.hasCard(ADDITION));
-    }
+        activeDeck = extractActiveDeck(modelManager);
+        modelManager.deleteCard(ADDITION, activeDeck);
 
-    @Test
-    public void setCard_notInCardsView_throwsIllegalOperationWhileReviewingDeckException() {
-        thrown.expect(IllegalOperationWhileReviewingDeckException.class);
-        modelManager.setCard(ADDITION, SUBTRACTION);
+        activeDeck = extractActiveDeck(modelManager);
+        assertFalse(modelManager.hasCard(ADDITION, activeDeck));
     }
 
     @Test
     public void setCard_nullCard_throwsNulPointerException() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
+
+        Deck activeDeck = extractActiveDeck(modelManager);
+
         thrown.expect(NullPointerException.class);
-        modelManager.setCard(null, ADDITION);
+        modelManager.setCard(null, ADDITION, activeDeck);
     }
 
     @Test
     public void setCard_cardInDeck_editedCardInDeck() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
-        modelManager.addCard(ADDITION);
 
-        assertTrue(modelManager.hasCard(ADDITION));
+        Deck activeDeck = extractActiveDeck(modelManager);
+        modelManager.addCard(ADDITION, activeDeck);
 
-        modelManager.setCard(ADDITION, SUBTRACTION);
+        activeDeck = extractActiveDeck(modelManager);
+        assertTrue(modelManager.hasCard(ADDITION, activeDeck));
+        modelManager.setCard(ADDITION, SUBTRACTION, activeDeck);
 
-        assertTrue(modelManager.hasCard(SUBTRACTION));
+        activeDeck = extractActiveDeck(modelManager);
+        assertTrue(modelManager.hasCard(SUBTRACTION, activeDeck));
     }
 
     //TODO delete functionality for deck
@@ -269,7 +289,12 @@ public class ModelManagerTest {
     public void setSelectedItem_cardInFilteredCardList_setsSelectedCard() {
         modelManager.addDeck(DECK_B);
         modelManager.changeDeck(DECK_B);
-        modelManager.addCard(ADDITION);
+
+        Deck activeDeck = extractActiveDeck(modelManager);
+
+        modelManager.addCard(ADDITION, activeDeck);
+
+        updateCardsView(modelManager);
         assertEquals(Collections.singletonList(ADDITION), modelManager.getFilteredList());
         modelManager.setSelectedItem(ADDITION);
         assertEquals(ADDITION, modelManager.getSelectedItem());
@@ -325,4 +350,12 @@ public class ModelManagerTest {
         differentUserPrefs.setTopDeckFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(topDeck, differentUserPrefs)));
     }
+
+    private Deck extractActiveDeck(Model model) {
+        CardsView cardsView = (CardsView) modelManager.getViewState();
+        Deck activeDeck = cardsView.getActiveDeck();
+
+        return activeDeck;
+    }
+
 }

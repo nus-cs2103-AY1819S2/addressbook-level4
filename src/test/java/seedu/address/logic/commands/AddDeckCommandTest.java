@@ -139,23 +139,23 @@ public class AddDeckCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card card) {
+        public boolean hasCard(Card card, Deck deck) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addCard(Card card) {
+        public void addCard(Card card, Deck deck) {
             throw new AssertionError("This method should not be called.");
         }
 
 
         @Override
-        public void deleteCard(Card target) {
+        public void deleteCard(Card target, Deck deck) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setCard(Card target, Card editedCard) {
+        public void setCard(Card target, Card editedCard, Deck deck) {
             throw new AssertionError("This method should not be called.");
         }
 

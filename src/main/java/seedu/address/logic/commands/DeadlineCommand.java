@@ -56,6 +56,7 @@ public class DeadlineCommand extends Command {
         this.status = status;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

@@ -17,6 +17,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.pdf.Directory;
+import seedu.address.model.pdf.Name;
 import seedu.address.model.pdf.Pdf;
 
 /**
@@ -50,6 +52,7 @@ public class EncryptCommand extends Command {
         this.password = password;
     }
 
+    @SuppressWarnings("Duplicates")
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -74,18 +77,10 @@ public class EncryptCommand extends Command {
      */
     private Pdf encryptPdf(Pdf pdfToEncrypt) throws CommandException {
         try {
-            PDDocument file = PDDocument.load(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),
-                    pdfToEncrypt.getName().getFullName()).toFile());
-            AccessPermission ap = new AccessPermission();
-            StandardProtectionPolicy spp = new StandardProtectionPolicy(this.password, this.password, ap);
-            spp.setEncryptionKeyLength(128);
-            spp.setPermissions(ap);
-            file.protect(spp);
-            file.save(Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "z.pdf").toFile());
+            return Pdf.encrypt(pdfToEncrypt, this.password);
         } catch (IOException ioe) {
             throw new CommandException(String.format(MESSAGE_ENCRYPT_PDF_FAILURE, pdfToEncrypt));
         }
-        return pdfToEncrypt;
     }
 
     @Override

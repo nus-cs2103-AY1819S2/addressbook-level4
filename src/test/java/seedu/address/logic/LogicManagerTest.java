@@ -2,11 +2,25 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.CONDITION_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.MODE_REQUEST;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.ORGANIZATION_DESC_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_ANDY;
 import static seedu.address.logic.commands.CommandTestUtil.SKILLS_DESC_ANDY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONDITION_PHYSIO;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_ALICE;
 import static seedu.address.logic.parser.CommandMode.MODE_HEALTHWORKER;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 
@@ -33,7 +47,15 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
 import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.healthworker.HealthWorker;
+import seedu.address.model.request.Request;
+import seedu.address.model.request.RequestDate;
+import seedu.address.model.request.RequestStatus;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonHealthWorkerBookStorage;
 import seedu.address.storage.JsonRequestBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -114,11 +136,28 @@ public class LogicManagerTest {
         assertHistoryCorrect(addHealthWorkerCommand);
 
         // Saving Request
+        String addRequestCommand = AddCommand.COMMAND_WORD + " " + MODE_REQUEST + NAME_DESC_ALICE + PHONE_DESC_ALICE
+                + ADDRESS_DESC_ALICE + CONDITION_DESC_ALICE + DATE_DESC_ALICE + NRIC_DESC_ALICE;
+        Request expectedRequest = new Request(new Name(VALID_NAME_ALICE), new Nric(VALID_NRIC_ALICE),
+                new Phone(VALID_PHONE_ALICE), new Address(VALID_ADDRESS_ALICE), new RequestDate(VALID_DATE_ALICE),
+                SampleDataUtil.getConditionSet(VALID_CONDITION_PHYSIO), new RequestStatus(VALID_STATUS_ALICE));
+        expectedModel.addRequest(expectedRequest);
+        expectedModel.commitRequestBook();
+        assertCommandBehavior(CommandException.class, addRequestCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(addRequestCommand, HistoryCommand.COMMAND_WORD, addHealthWorkerCommand);
+
     }
 
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredHealthWorkerList().remove(0));
+    }
+
+    @Test
+    public void setSelectedHealthWorker() {
+
+
+        model.setSelectedHealthWorker(ANDY);
     }
 
     /**

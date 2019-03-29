@@ -163,19 +163,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@Code String folderName} into a {@code CardFolderExport}.
-     * Trims any leading and trailing white space for folder name.
-     */
-    private static CardFolderExport parseFolder(String folderName) throws ParseException {
-        requireNonNull(folderName);
-        folderName = folderName.trim();
-        if (CardFolderExport.isFolderNameEmpty(folderName)) {
-            throw new ParseException(CardFolderExport.MESSAGE_CONSTRAINTS);
-        }
-        return new CardFolderExport(folderName);
-    }
-
-    /**
      * Parses a {@Code String filename} into a {@Code CsvFile}
      */
     public static CsvFile parseFileName(String filename) throws ParseException {

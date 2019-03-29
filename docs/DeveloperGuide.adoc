@@ -827,7 +827,7 @@ This product aims to help real estate agents manage large amount of customer and
 * *How does it make the the user's life easier?* +
 With a proper address book app, real estate agents can quickly and conveniently search for their customers’ contact details, as well as essential property information to speed up their business process.
 
-
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -884,7 +884,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user who prefers visuals |upload and store photos of a specific property |view the property on-the-go
 |=======================================================================
+// end::userstories[]
 
+// tag::usecases[]
 [appendix]
 == Use Cases
 
@@ -1319,6 +1321,7 @@ Use case ends.
 3. User confirms the exit.
 +
 Use case ends.
+// end::usecases[]
 
 [appendix]
 == Non Functional Requirements

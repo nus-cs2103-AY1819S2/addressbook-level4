@@ -77,7 +77,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'therealapp.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -204,7 +204,6 @@ asciidoctor {
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'TheRealApp',
         'site-githuburl': 'https://github.com/cs2103-ay1819s2-w16-2/main',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
     options['template_dirs'].each {

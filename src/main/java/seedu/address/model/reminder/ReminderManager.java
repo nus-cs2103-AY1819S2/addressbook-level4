@@ -23,7 +23,7 @@ public class ReminderManager {
         reminders.add(rem);
     }
 
-    public boolean duplicateReminder(Reminder rem) {
+    public boolean hasDuplicateReminder(Reminder rem) {
         return reminders.contains(rem);
     }
 

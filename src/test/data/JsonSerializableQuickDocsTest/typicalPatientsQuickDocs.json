@@ -1,7 +1,5 @@
 {
-  "persons": [],
-  "patients": [
-    {
+  "patientList" : [ {
       "name": "Alice",
       "nric": "S1111111A",
       "email": "alice@gmail.com",
@@ -12,8 +10,8 @@
       "tagList": [
         "diabetes"
       ]
-    },
-    {
+  },
+  {
       "name": "Bob",
       "nric": "S2222222A",
       "email": "bob@gmail.com",
@@ -24,8 +22,8 @@
       "tagList": [
         "Gout"
       ]
-    },
-    {
+  },
+  {
       "name": "Chuck",
       "nric": "S3333333C",
       "email": "chuck@gmail.com",
@@ -36,6 +34,9 @@
       "tagList": [
         "Highbloodpressure"
       ]
-    }
-  ]
+  } ],
+  "consultationList" : [ ],
+  "appointmentList" : [ ],
+  "reminderList" : [ ],
+  "medicineList" : [ ]
 }

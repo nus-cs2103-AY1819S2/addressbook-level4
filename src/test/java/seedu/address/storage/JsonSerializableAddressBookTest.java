@@ -12,7 +12,6 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.testutil.TypicalPatients;
 import seedu.address.testutil.TypicalPersons;
 
 public class JsonSerializableAddressBookTest {
@@ -21,10 +20,6 @@ public class JsonSerializableAddressBookTest {
     private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
     private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.json");
     private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.json");
-
-    //patients
-    private static final Path TYPICAL_PATIENTS_FILE = TEST_DATA_FOLDER.resolve("typicalPatientsAddressBook.json");
-    private static final Path TYPICAL_INVALID_FILE = TEST_DATA_FOLDER.resolve("invalidPatientsAddressBook.json");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -54,22 +49,4 @@ public class JsonSerializableAddressBookTest {
         thrown.expectMessage(JsonSerializableAddressBook.MESSAGE_DUPLICATE_PERSON);
         dataFromFile.toModelType();
     }
-
-    @Test
-    public void toModelType_typicalPatientsFile_success() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PATIENTS_FILE,
-                JsonSerializableAddressBook.class).get();
-        AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPatientsAddressBook = TypicalPatients.getTypicalPatientAddressBook();
-        assertEquals(addressBookFromFile, typicalPatientsAddressBook);
-    }
-
-    @Test
-    public void toModelType_invalidPatientsFile_throwsIllegalArgumentException() throws Exception {
-        JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_INVALID_FILE,
-                JsonSerializableAddressBook.class).get();
-        thrown.expect(IllegalArgumentException.class);
-        dataFromFile.toModelType();
-    }
-
 }

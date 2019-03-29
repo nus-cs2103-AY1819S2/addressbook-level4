@@ -259,6 +259,10 @@ public class AppointmentManager {
         appointments.remove(app);
     }
 
+    public boolean hasDuplicateAppointment(Appointment app) {
+        return appointments.contains(app);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {

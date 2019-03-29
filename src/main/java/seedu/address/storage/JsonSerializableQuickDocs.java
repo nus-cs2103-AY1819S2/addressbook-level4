@@ -23,9 +23,9 @@ import seedu.address.model.reminder.ReminderManager;
  */
 public class JsonSerializableQuickDocs {
 
-    private static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s)";
-    private static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
-    private static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s)";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s)";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
+    public static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s)";
 
     private final List<JsonAdaptedPatient> patientList = new ArrayList<>();
     private final List<JsonAdaptedConsultation> consultationList = new ArrayList<>();
@@ -93,7 +93,7 @@ public class JsonSerializableQuickDocs {
         for (JsonAdaptedAppointment jsonAdaptedAppointment : appointmentList) {
             Appointment appointment = jsonAdaptedAppointment.toModelType();
 
-            if (appointmentManager.hasTimeConflicts(appointment)) {
+            if (appointmentManager.hasDuplicateAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
             appointmentManager.addAppointment(appointment);
@@ -103,7 +103,7 @@ public class JsonSerializableQuickDocs {
         for (JsonAdaptedReminder jsonAdaptedReminder : reminderList) {
             Reminder reminder = jsonAdaptedReminder.toModelType();
 
-            if (reminderManager.duplicateReminder(reminder)) {
+            if (reminderManager.hasDuplicateReminder(reminder)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_REMINDER);
             }
             reminderManager.addReminder(reminder);

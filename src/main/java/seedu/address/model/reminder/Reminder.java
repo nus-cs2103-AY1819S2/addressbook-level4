@@ -5,7 +5,6 @@ import java.time.LocalTime;
 import java.util.Objects;
 
 import seedu.address.model.Slot;
-import seedu.address.model.appointment.Appointment;
 
 /**
  * Represents a Reminder created in quickdocs.
@@ -16,6 +15,24 @@ public class Reminder extends Slot {
 
     public Reminder() {
         super();
+    }
+
+    public Reminder(String title, LocalDate date, LocalTime start) {
+        super(date, start, null);
+        this.title = title;
+        this.comment = "";
+    }
+
+    public Reminder(String title, String comment, LocalDate date, LocalTime start) {
+        super(date, start, null);
+        this.title = title;
+        this.comment = comment;
+    }
+
+    public Reminder(String title, LocalDate date, LocalTime start, LocalTime end) {
+        super(date, start, end);
+        this.title = title;
+        this.comment = "";
     }
 
     public Reminder(String title, String comment, LocalDate date, LocalTime start, LocalTime end) {

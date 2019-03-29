@@ -586,7 +586,7 @@ public class ModelManager implements Model {
 
     //==========Reminder module==============================================================================
     public boolean duplicateRem(Reminder rem) {
-        return reminderManager.duplicateReminder(rem);
+        return reminderManager.hasDuplicateReminder(rem);
     }
 
     /**

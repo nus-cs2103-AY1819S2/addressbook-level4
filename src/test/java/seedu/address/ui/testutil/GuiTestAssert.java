@@ -17,6 +17,9 @@ import seedu.address.model.review.Review;
  * A set of assertion methods useful for writing GUI tests.
  */
 public class GuiTestAssert {
+    private static final SimpleDateFormat TIMESTAMP = new SimpleDateFormat("EEE, d MMM yyyy, h.mm aa");
+    private static final String ONE_DP = "%.1f";
+
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
@@ -46,10 +49,9 @@ public class GuiTestAssert {
      */
     public static void assertCardDisplaysReview(Review expectedReview, ReviewCardHandle actualCard) {
         assertEquals(expectedReview.getEntry().toString(), actualCard.getEntry());
-        String formattedRating = String.format("%.1f", expectedReview.getRating().toFloat()) + " / 5.0";
+        String formattedRating = String.format(ONE_DP, expectedReview.getRating().toFloat()) + " / 5.0";
         assertEquals(formattedRating, actualCard.getRating());
-        String formattedTimeStamp = new SimpleDateFormat("EEE, d MMM yyyy, h.mm aa")
-                .format(expectedReview.getTimeStamp());
+        String formattedTimeStamp = TIMESTAMP.format(expectedReview.getTimeStamp());
         assertEquals(formattedTimeStamp, actualCard.getTimestamp());
     }
 

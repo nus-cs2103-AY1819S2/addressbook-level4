@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolder;
 import seedu.address.model.ReadOnlyCardFolder;
@@ -57,7 +58,7 @@ public class CsvManager implements CsvCommands {
         String header = bufferedReader.readLine();
 
         if (!checkCorrectHeaders(header)) {
-            throw new CommandException("hekki");
+            throw new CommandException(Messages.MESSAGE_INCORRECT_CSV_FILE_HEADER);
         }
 
         while ((line = bufferedReader.readLine()) != null) {

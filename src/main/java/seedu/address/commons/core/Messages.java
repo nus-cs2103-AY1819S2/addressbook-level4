@@ -36,5 +36,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER = "Command can only be executed in folder";
     public static final String MESSAGE_INVALID_COMMAND_INSIDE_FOLDER = "Command can only be executed in home directory";
     public static final String MESSAGE_CSV_MANAGER_NOT_INITIALIZED = "Unable to carry out import and export commands";
+    public static final String MESSAGE_INCORRECT_CSV_FILE_HEADER = "Incorrect Csv file headers. Check that the\n"
+            + "csv file contains question,answer,options,hints header";
 
 }

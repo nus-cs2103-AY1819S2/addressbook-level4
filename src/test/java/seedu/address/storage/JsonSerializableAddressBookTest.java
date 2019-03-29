@@ -60,7 +60,7 @@ public class JsonSerializableAddressBookTest {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(TYPICAL_PATIENTS_FILE,
                 JsonSerializableAddressBook.class).get();
         AddressBook addressBookFromFile = dataFromFile.toModelType();
-        AddressBook typicalPatientsAddressBook = TypicalPatients.getTypicalPatientddressBook();
+        AddressBook typicalPatientsAddressBook = TypicalPatients.getTypicalPatientAddressBook();
         assertEquals(addressBookFromFile, typicalPatientsAddressBook);
     }
 

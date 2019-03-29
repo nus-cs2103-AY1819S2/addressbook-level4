@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPatients.getTypicalPatientddressBook;
+import static seedu.address.testutil.TypicalPatients.getTypicalPatientAddressBook;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
@@ -103,7 +103,7 @@ public class JsonAddressBookStorageTest {
     @Test
     public void readPatientTest() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("patientAddressBook.json");
-        AddressBook original = getTypicalPatientddressBook();
+        AddressBook original = getTypicalPatientAddressBook();
         JsonAddressBookStorage jsonAddressBookStorage = new JsonAddressBookStorage(filePath);
         // Save in new file and read back
         jsonAddressBookStorage.saveAddressBook(original, filePath);

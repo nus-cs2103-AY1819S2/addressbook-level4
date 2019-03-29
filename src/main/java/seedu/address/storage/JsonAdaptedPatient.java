@@ -74,9 +74,8 @@ public class JsonAdaptedPatient {
      * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the tags.
-     * @throws IllegalArgumentException if there were any data constraints violated for patient fields.
      */
-    public Patient toModelType() throws IllegalValueException, IllegalArgumentException {
+    public Patient toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
         for (JsonAdaptedTag tag : tagList) {
             personTags.add(tag.toModelType());

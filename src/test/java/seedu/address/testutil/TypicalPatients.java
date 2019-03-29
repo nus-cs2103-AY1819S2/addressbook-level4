@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.QuickDocs;
 import seedu.address.model.patient.Address;
 import seedu.address.model.patient.Contact;
 import seedu.address.model.patient.Dob;
@@ -80,12 +81,23 @@ public class TypicalPatients {
     /**
      * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static AddressBook getTypicalPatientddressBook() {
+    public static AddressBook getTypicalPatientAddressBook() {
         AddressBook ab = new AddressBook();
         for (Patient patient : getTypicalPatients()) {
             ab.addPatient(patient);
         }
         return ab;
+    }
+
+    /**
+     * Returns an {@code QuickDocs} with all the typical persons.
+     */
+    public static QuickDocs getTypicalPatientQuickDocs() {
+        QuickDocs qd = new QuickDocs();
+        for (Patient patient : getTypicalPatients()) {
+            qd.getPatientManager().addPatient(patient);
+        }
+        return qd;
     }
 
     public static List<Patient> getTypicalPatients() {

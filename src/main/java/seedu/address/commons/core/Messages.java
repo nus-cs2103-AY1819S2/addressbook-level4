@@ -17,4 +17,5 @@ public class Messages {
     public static final String MESSAGE_IN_GO_TO_MODE = "Please exit the goto mode using the back command first";
     public static final String MESSAGE_IN_PATIENT_MODE = "Patient list is already shown";
     public static final String MESSAGE_NOTHING_DONE = "Cancelled, nothing has been done";
+    public static final String MESSAGE_CALENDAR_SHOWN = "Task Calendar is already displayed";
 }

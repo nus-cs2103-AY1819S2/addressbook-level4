@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static seedu.address.commons.core.Messages.MESSAGE_CALENDAR_SHOWN;
+
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
@@ -38,7 +40,7 @@ public class MainWindow extends UiPart<Stage> {
     private static boolean goToMode = false;
 
     private static final String FXML = "MainWindow.fxml";
-    private static final String MESSAGE_CALENDAR_SHOWN = "Task Calendar is already displayed";
+
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

@@ -21,6 +21,7 @@ import javafx.scene.web.WebView;
 
 /**
  * A handler for the {@code InfoPanel} of the UI.
+ * @author Hui Chun
  */
 public class InfoPanelHandle extends NodeHandle<Node> {
 
@@ -48,6 +49,11 @@ public class InfoPanelHandle extends NodeHandle<Node> {
         }));
     }
 
+    /**
+     * A setter method to set the loaded content string variable that will be generated
+     * from transforming the document object model (DOM) source.
+     * @param doc DOM object from web engine
+     */
     private void setLoadedContent(Document doc) {
         try {
             DOMSource domSource = new DOMSource(doc);

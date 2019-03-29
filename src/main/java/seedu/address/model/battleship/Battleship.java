@@ -30,7 +30,7 @@ public class Battleship {
     protected int life;
 
     // Logger
-    private final Logger logger = LogsCenter.getLogger(Battle.class);
+    private final Logger logger = LogsCenter.getLogger(Battleship.class);
 
     /**
      * Every field must be present and not null.

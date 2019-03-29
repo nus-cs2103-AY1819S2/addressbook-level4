@@ -31,6 +31,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyHealthWorkerBook;
+import seedu.address.model.ReadOnlyRequestBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.storage.JsonHealthWorkerBookStorage;
@@ -94,13 +95,14 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         JsonRequestBookStorage requestBookStorage =
-            new JsonRequestBookStorage(temporaryFolder.newFile().toPath());
+            new JsonRequestBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonHealthWorkerBookStorage jsonHealthWorkerBookStorage =
             new JsonHealthWorkerBookIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(userPrefsStorage,
             requestBookStorage, jsonHealthWorkerBookStorage);
         logic = new LogicManager(model, storage);
 
+        // Saving HealthWorker
         String addHealthWorkerCommand = AddCommand.COMMAND_WORD + " " + MODE_HEALTHWORKER + NAME_DESC_ANDY
                 + PHONE_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY;
         HealthWorker expectedHealthWorker = new HealthWorkerBuilder(ANDY).build();
@@ -110,6 +112,8 @@ public class LogicManagerTest {
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addHealthWorkerCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addHealthWorkerCommand);
+
+        // Saving Request
     }
 
     @Test
@@ -188,18 +192,8 @@ public class LogicManagerTest {
         }
     }
 
-    //private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-    //  private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-    //    super(filePath);
-    // }
-    //@Override
-    // public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-    //  throw DUMMY_IO_EXCEPTION;
-    // }
-    //}
-
     /**
-     * A stub class to throw an {@code IOException} when the save method is called.
+     * A stub HealthWorkerBookStorage class to throw an {@code IOException} when the save method is called.
      */
     private static class JsonHealthWorkerBookIoExceptionThrowingStub extends JsonHealthWorkerBookStorage {
         private JsonHealthWorkerBookIoExceptionThrowingStub(Path filePath) {
@@ -208,6 +202,20 @@ public class LogicManagerTest {
 
         @Override
         public void saveHealthWorkerBook(ReadOnlyHealthWorkerBook healthWorkerBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub RequestBookStorage class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonRequestBookIoExceptionThrowingStub extends JsonRequestBookStorage {
+        private JsonRequestBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveRequestBook(ReadOnlyRequestBook requestBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class RequestDate {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be in the format dd-MM-yyyy HH:mm:ss and it "
+    public static final String MESSAGE_CONSTRAINTS = "Date should be in the format dd-MM-yyyy HH:mm:ss and it "
             + "should be a valid date.";
 
     private static final SimpleDateFormat sf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -33,7 +33,7 @@ public class RequestDate {
             sf.setLenient(false);
             date = sf.parse(requestDate);
         } catch (ParseException e) {
-            checkArgument(false, MESSAGE_DATE_CONSTRAINTS);
+            checkArgument(false, MESSAGE_CONSTRAINTS);
         }
     }
 

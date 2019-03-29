@@ -97,7 +97,7 @@ public class JsonAdaptedRequestTest {
             ALICE_REQUEST.getAddress().value,
             INVALID_DATE, ALICE_REQUEST.getConditions().toString(),
             new RequestStatus("PENDING").toString(), ALICE_REQUEST.getHealthStaff());
-        Assert.assertThrows(IllegalValueException.class, RequestDate.MESSAGE_DATE_CONSTRAINTS,
+        Assert.assertThrows(IllegalValueException.class, RequestDate.MESSAGE_CONSTRAINTS,
             request::toModelType);
     }
 

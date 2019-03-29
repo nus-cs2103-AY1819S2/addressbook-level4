@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.nextofkin.NextOfKin;
 import seedu.address.model.nextofkin.NextOfKinRelation;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
@@ -74,7 +75,8 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone kinPhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_NOKP).orElse(NONE_NOKP));
         Address kinAddr = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_NOKA).orElse(NONE_NOKA));
 
-        Patient patient = new Patient(name, phone, email, address, null, nric, dateOfBirth, sex);
+        Patient patient = new Patient(name, phone, email, address, null, nric, dateOfBirth, sex,
+            new NextOfKin(kinName, kinPhone, new Email(NONE_EMAIL), kinAddr, null, kinRelation));
 
         return new AddCommand(patient);
     }

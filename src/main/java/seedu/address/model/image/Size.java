@@ -5,30 +5,30 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Image's height in FomoFoto's Album.
- * Guarantees: immutable; is valid as declared in {@link #isValidHeight(String)}
+ * Represents a Image's size in FomoFoto's Album.
+ * Guarantees: immutable; is valid as declared in {@link #isValidSize(String)}
  */
-public class Height {
+public class Size {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Height should not be zero or blank";
+            "Size should not be less than 0 or blank";
     public final String value;
 
     /**
-     * Constructs a {@code Height}.
+     * Constructs a {@code Size}.
      *
-     * @param height A valid height.
+     * @param size A valid height.
      */
-    public Height(String height) {
-        requireNonNull(height);
-        checkArgument(isValidHeight(height), MESSAGE_CONSTRAINTS);
-        value = height;
+    public Size(String size) {
+        requireNonNull(size);
+        checkArgument(isValidSize(size), MESSAGE_CONSTRAINTS);
+        value = size;
     }
 
     /**
      * Returns true if a given string is a valid height.
      */
-    public static boolean isValidHeight(String test) {
+    public static boolean isValidSize(String test) {
         boolean check = Integer.parseInt(test) <= 0 ? false : true;
         return check;
     }
@@ -42,8 +42,8 @@ public class Height {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Height // instanceof handles nulls
-                && value.equals(((Height) other).value)); // state check
+                || (other instanceof Size // instanceof handles nulls
+                && value.equals(((Size) other).value)); // state check
     }
 
     @Override

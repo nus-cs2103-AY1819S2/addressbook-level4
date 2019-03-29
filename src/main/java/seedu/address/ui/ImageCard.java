@@ -6,10 +6,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Text;
 import seedu.address.model.image.Image;
 
 /**
@@ -30,11 +29,13 @@ public class ImageCard extends UiPart<Region> {
     public final Image image;
 
     @FXML
-    private Label name;
+    private Text name;
     @FXML
-    private Label height;
+    private Text height;
     @FXML
-    private Label width;
+    private Text width;
+    @FXML
+    private Text size;
     @FXML
     private ImageView thumbnail;
 
@@ -47,8 +48,9 @@ public class ImageCard extends UiPart<Region> {
         } catch (MalformedURLException e) {
             System.out.println(e.toString());
         }
-        name.setText("Name: " + image.getName().name);
-        height.setText("Image: " + image.getHeight().value);
-        width.setText("Width: " + image.getWidth().value);
+        name.setText("\uD83D\uDDBC " + image.getName().name);
+        height.setText("Height: " + image.getHeight().value + " px");
+        width.setText("Width: " + image.getWidth().value + " px");
+        size.setText("Size: " + image.getSize().value + " bytes");
     }
 }

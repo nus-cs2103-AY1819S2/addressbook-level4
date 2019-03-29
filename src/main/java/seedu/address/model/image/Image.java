@@ -30,6 +30,7 @@ public class Image {
     private Name name;
     private Height height;
     private Width width;
+    private Size size;
     private BufferedImage buffer;
     private String url;
     private String fileType;
@@ -42,6 +43,8 @@ public class Image {
         try {
             File file = new File(url);
             buffer = ImageIO.read(file);
+            this.size = new Size(String.valueOf(file.length()));
+
             try {
                 ImageInputStream iis = ImageIO.createImageInputStream(file);
 
@@ -60,7 +63,6 @@ public class Image {
             this.name = new Name(file.getName());
             this.width = new Width(String.valueOf(buffer.getWidth()));
             this.height = new Height(String.valueOf(buffer.getHeight()));
-
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -94,6 +96,10 @@ public class Image {
 
     public String getFileType() {
         return fileType;
+    }
+
+    public Size getSize() {
+        return size;
     }
 
     /**

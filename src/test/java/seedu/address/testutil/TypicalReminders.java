@@ -42,6 +42,14 @@ public class TypicalReminders {
             LocalTime.parse("15:00")
     );
 
+    public static final Reminder REM_E = new Reminder(
+            "Appointment with Phillip Wong",
+            "Weekly Checkup",
+            LocalDate.parse("2019-10-28"),
+            LocalTime.parse("16:00"),
+            LocalTime.parse("17:00")
+    );
+
     /**
      * Returns a {@code QuickDocs} with all the typical reminders.
      */

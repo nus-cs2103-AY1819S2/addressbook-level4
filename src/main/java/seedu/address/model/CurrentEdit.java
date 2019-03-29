@@ -36,4 +36,6 @@ public interface CurrentEdit {
     String[] getFileNames();
 
     String saveToAssets(String name);
+
+    void updateExif();
 }

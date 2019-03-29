@@ -63,6 +63,7 @@ public class CurrentEditManager implements CurrentEdit {
             System.out.println(e.toString());
         }
     }
+
     public Image getTempImage() {
         return tempImage;
     }
@@ -76,6 +77,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /* @@author thamsimun */
+
     /**
      * Update tempImage instance of temp_img.png located in temp folder.
      */
@@ -85,6 +87,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /* @@author kayheen */
+
     /**
      * Update tempImage instance of temp_img.png located in temp folder.
      */
@@ -113,9 +116,11 @@ public class CurrentEditManager implements CurrentEdit {
         Notifier.firePropertyChangeListener("import", null, tempImage.getUrl());
     }
 
-    public void addCommand(Command command) { }
+    public void addCommand(Command command) {
+    }
 
-    public void replaceTempWithOriginal() { }
+    public void replaceTempWithOriginal() {
+    }
 
     /**
      * Retrieves a list of all filenames in assets folder. Returns the list as String[].
@@ -124,8 +129,6 @@ public class CurrentEditManager implements CurrentEdit {
         File file = new File(ASSETS_FILEPATH);
         return file.list();
     }
-
-
 
     /**
      * Saves tempImage to assetsFolder as {@code name} or original name if not specified.
@@ -149,5 +152,12 @@ public class CurrentEditManager implements CurrentEdit {
         return name;
     }
 
+    /* @@author Carrein */
 
+    /**
+     * Fires a notifier to update the EXIF pane of the Information Panel.
+     */
+    public void updateExif() {
+        Notifier.firePropertyChangeListener("refreshDetails", null, this.tempImage);
+    }
 }

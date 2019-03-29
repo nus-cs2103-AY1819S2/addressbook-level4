@@ -340,7 +340,7 @@ public class ModelManager implements Model {
 
     @Override
     public void refreshAlbum() {
-        Notifier.firePropertyChangeListener("refresh", null, null);
+        Notifier.firePropertyChangeListener("refreshAlbum", null, null);
     }
 
     @Override

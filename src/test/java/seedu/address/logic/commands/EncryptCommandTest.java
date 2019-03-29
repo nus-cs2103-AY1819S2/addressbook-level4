@@ -14,11 +14,11 @@ import seedu.address.model.UserPrefs;
 
 
 public class EncryptCommandTest {
-    private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
-    private CommandHistory commandHistory = new CommandHistory();
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_invalidIndex_throwsNullPointerException() {

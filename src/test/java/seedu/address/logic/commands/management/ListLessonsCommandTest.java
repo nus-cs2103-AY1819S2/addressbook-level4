@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.management;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
@@ -78,6 +79,11 @@ public class ListLessonsCommandTest {
 
         // null -> returns false
         assertNotEquals(listLessonCommand, null);
+    }
+
+    @Test
+    public void isSaveRequired_isTrue() {
+        assertFalse(new ListCardsCommand().isSaveRequired());
     }
 
     private class MgtModelStubWithNoLessons extends ManagementModelStub {

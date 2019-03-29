@@ -98,13 +98,13 @@ public class LogicManagerTest {
         assertHistoryCorrect(invalidCommand);
     }
 
-     @Test
-     public void execute_commandExecutionError_throwsParseException() {
+    @Test
+    public void execute_commandExecutionError_throwsParseException() {
         String deleteCommand = "delete 9";
         assertParseException(deleteCommand, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommandParser.INVALID_COMMAND_USAGE));
         assertHistoryCorrect(deleteCommand);
-     }
+    }
 
     @Test
     public void execute_validCommand_success() {

@@ -1,10 +1,12 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODE;
 import static seedu.address.logic.commands.CommandTestUtil.MODE_HEALTHWORKER;
 import static seedu.address.logic.parser.CommandMode.MODE_REQUEST;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.DeleteCommandParser.INVALID_COMMAND_USAGE;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
@@ -23,6 +25,12 @@ import seedu.address.logic.commands.request.DeleteRequestCommand;
 public class DeleteCommandParserTest {
 
     private DeleteCommandParser parser = new DeleteCommandParser();
+
+    @Test
+    public void parse_invalidMode() {
+        assertParseFailure(parser, INVALID_MODE, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                INVALID_COMMAND_USAGE));
+    }
 
     @Test
     public void parse_healthWorker_validInput() {

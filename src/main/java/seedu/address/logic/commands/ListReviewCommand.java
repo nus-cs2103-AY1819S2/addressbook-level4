@@ -43,9 +43,6 @@ public class ListReviewCommand extends Command {
 
         Book selectedBook = filteredBookList.get(targetIndex.getZeroBased());
         model.setSelectedBook(selectedBook);
-        ReviewBookNameContainsExactKeywordsPredicate predicate =
-                new ReviewBookNameContainsExactKeywordsPredicate(selectedBook.getBookName());
-        model.updateFilteredReviewList(predicate);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));
 

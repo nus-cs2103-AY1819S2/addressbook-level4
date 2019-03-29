@@ -74,8 +74,7 @@ public class Condition {
     }
 
     /**
-     * Returns true if given in list of regex, none of the regex contains "," or
-     * is invalid regex.
+     * Returns true if none of the regex in list is invalid.
      */
     public static boolean isValidRegex(String... regexes) {
         try {
@@ -83,7 +82,7 @@ public class Condition {
         } catch (PatternSyntaxException exception) {
             return false;
         }
-        return Stream.of(regexes).noneMatch(str -> str.contains(","));
+        return true;
     }
 
     /**

@@ -154,9 +154,9 @@ public class CommandTestUtil {
             String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
-        GradTrak expectedAddressBook = new GradTrak(actualModel.getAddressBook());
-        List<ModuleTaken> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
-        ModuleTaken expectedSelectedModuleTaken = actualModel.getSelectedPerson();
+        GradTrak expectedAddressBook = new GradTrak(actualModel.getGradTrak());
+        List<ModuleTaken> expectedFilteredList = new ArrayList<>(actualModel.getFilteredModulesTakenList());
+        ModuleTaken expectedSelectedModuleTaken = actualModel.getSelectedModuleTaken();
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -165,9 +165,9 @@ public class CommandTestUtil {
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
-            assertEquals(expectedSelectedModuleTaken, actualModel.getSelectedPerson());
+            assertEquals(expectedAddressBook, actualModel.getGradTrak());
+            assertEquals(expectedFilteredList, actualModel.getFilteredModulesTakenList());
+            assertEquals(expectedSelectedModuleTaken, actualModel.getSelectedModuleTaken());
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }
@@ -177,22 +177,22 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredModulesTakenList().size());
 
-        ModuleTaken moduleTaken = model.getFilteredPersonList().get(targetIndex.getZeroBased());
+        ModuleTaken moduleTaken = model.getFilteredModulesTakenList().get(targetIndex.getZeroBased());
         final String[] splitName = moduleTaken.getModuleInfoCode().toString().split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredModulesTakenList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredModulesTakenList().size());
     }
 
     /**
      * Deletes the first moduleTaken in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-        ModuleTaken firstModuleTaken = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstModuleTaken);
-        model.commitAddressBook();
+        ModuleTaken firstModuleTaken = model.getFilteredModulesTakenList().get(0);
+        model.deleteModuleTaken(firstModuleTaken);
+        model.commitGradTrak();
     }
 
 }

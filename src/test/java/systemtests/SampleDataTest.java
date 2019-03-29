@@ -45,7 +45,7 @@ public class SampleDataTest extends GradTrakSystemTest {
 
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() {
-        ModuleTaken[] expectedList = SampleDataUtil.getSamplePersons();
+        ModuleTaken[] expectedList = SampleDataUtil.getSampleModulesTaken();
         assertListMatching(getPersonListPanel(), expectedList);
     }
 }

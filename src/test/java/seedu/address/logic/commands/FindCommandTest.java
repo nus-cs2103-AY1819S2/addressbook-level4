@@ -19,7 +19,7 @@ import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS;
 import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.LSM1301;
 import static seedu.address.testutil.TypicalModuleTaken.MA1521;
-import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -31,6 +31,7 @@ import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.FindModulePredicate;
 import seedu.address.model.moduletaken.Semester;
@@ -41,8 +42,10 @@ import seedu.address.testutil.FindModuleDescriptorBuilder;
  */
 public class FindCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
+    private Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
+            new ModuleInfoList(), new CourseList());
+    private Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
+            new ModuleInfoList(), new CourseList());
     private CommandHistory commandHistory = new CommandHistory();
 
     /* Default current semester is Y1S1 */
@@ -92,9 +95,9 @@ public class FindCommandTest {
         FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
         FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredModulesTakenList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -103,11 +106,10 @@ public class FindCommandTest {
 
         FindModuleDescriptor descriptor = new FindModuleDescriptorBuilder().withCode(KEYWORD_MATCHING_CS).build();
         FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
-
         FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredModulesTakenList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103T, CS2101, CS1010S, CS1010X), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS2103T, CS2101, CS1010S, CS1010X), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -118,9 +120,9 @@ public class FindCommandTest {
         FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
         FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredModulesTakenList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -131,9 +133,9 @@ public class FindCommandTest {
         FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
         FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredModulesTakenList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103T, CS1010X), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS2103T, CS1010X), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -147,9 +149,9 @@ public class FindCommandTest {
         FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
         FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredModulesTakenList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103T, MA1521), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS2103T, MA1521), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -161,9 +163,10 @@ public class FindCommandTest {
         FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
         FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredModulesTakenList(predicate);
+
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+        assertEquals(Collections.emptyList(), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -175,9 +178,9 @@ public class FindCommandTest {
         FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
         FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredModulesTakenList(predicate);
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS1010X, LSM1301), model.getFilteredModulesTakenList());
     }
 
     @Test
@@ -189,8 +192,9 @@ public class FindCommandTest {
         FindModulePredicate predicate = new FindModulePredicate(descriptor, model.getCurrentSemester());
 
         FindCommand command = new FindCommand(descriptor);
-        expectedModel.updateFilteredPersonList(predicate);
+        expectedModel.updateFilteredModulesTakenList(predicate);
+
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CS2103T), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(CS2103T), model.getFilteredModulesTakenList());
     }
 }

@@ -14,8 +14,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
-import seedu.address.storage.JsonGradTrackStorage;
+import seedu.address.storage.JsonGradTrakStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 import systemtests.ModelHelper;
@@ -43,9 +44,9 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            JsonGradTrackStorage jsonAddressBookStorage = new JsonGradTrackStorage(saveFileLocation);
+            JsonGradTrakStorage jsonAddressBookStorage = new JsonGradTrakStorage(saveFileLocation);
             try {
-                jsonAddressBookStorage.saveAddressBook(initialDataSupplier.get());
+                jsonAddressBookStorage.saveGradTrak(initialDataSupplier.get());
             } catch (IOException ioe) {
                 throw new AssertionError(ioe);
             }
@@ -93,8 +94,9 @@ public class TestApp extends MainApp {
      * Returns a defensive copy of the model.
      */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs(), new ModuleInfoList());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+        Model copy = new ModelManager((model.getGradTrak()), new UserPrefs(),
+                new ModuleInfoList(), new CourseList());
+        ModelHelper.setFilteredList(copy, model.getFilteredModulesTakenList());
         return copy;
     }
 

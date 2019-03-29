@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.testutil.ModuleTakenBuilder;
@@ -25,16 +26,17 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(), new UserPrefs(), new ModuleInfoList());
+        model = new ModelManager(getTypicalGradTrak(), new UserPrefs(), new ModuleInfoList(), new CourseList());
     }
 
     @Test
     public void execute_newPerson_success() {
         ModuleTaken validModuleTaken = new ModuleTakenBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModuleInfoList());
-        expectedModel.addPerson(validModuleTaken);
-        expectedModel.commitAddressBook();
+        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
+                new ModuleInfoList(), new CourseList());
+        expectedModel.addModuleTaken(validModuleTaken);
+        expectedModel.commitGradTrak();
 
         assertCommandSuccess(new AddCommand(validModuleTaken), model, commandHistory,
                 String.format(AddCommand.MESSAGE_SUCCESS, validModuleTaken), expectedModel);
@@ -42,7 +44,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        ModuleTaken moduleTakenInList = model.getAddressBook().getModulesTakenList().get(0);
+        ModuleTaken moduleTakenInList = model.getGradTrak().getModulesTakenList().get(0);
         assertCommandFailure(new AddCommand(moduleTakenInList), model, commandHistory,
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
     }

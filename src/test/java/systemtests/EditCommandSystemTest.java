@@ -76,7 +76,8 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
         /* Case: redo editing the last moduleTaken in the list -> last moduleTaken edited again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.setPerson(getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedModuleTaken);
+        model.setModuleTaken(getModel().getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased()),
+                editedModuleTaken);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a moduleTaken with new values same as existing values -> edited */
@@ -87,9 +88,9 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
 
         /* Case: edit a moduleTaken with new values same as another moduleTaken's values but with different name
         -> edited */
-        assertTrue(getModel().getAddressBook().getModulesTakenList().contains(DEFAULT_MODULE_CS1010));
+        assertTrue(getModel().getGradTrak().getModulesTakenList().contains(DEFAULT_MODULE_CS1010));
         index = INDEX_SECOND_PERSON;
-        assertNotEquals(getModel().getFilteredPersonList().get(index.getZeroBased()), DEFAULT_MODULE_CS1010);
+        assertNotEquals(getModel().getFilteredModulesTakenList().get(index.getZeroBased()), DEFAULT_MODULE_CS1010);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS2103T
                 + SEMESTER_DESC_CS1010 + EXPECTED_MIN_GRADE_DESC_CS1010
                 + EXPECTED_MAX_GRADE_DESC_CS1010 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
@@ -112,7 +113,7 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
-        ModuleTaken moduleTakenToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        ModuleTaken moduleTakenToEdit = getModel().getFilteredModulesTakenList().get(index.getZeroBased());
         editedModuleTaken = new ModuleTakenBuilder(moduleTakenToEdit).withTags().build();
         assertCommandSuccess(command, index, editedModuleTaken);
 
@@ -121,9 +122,9 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
         /* Case: filtered moduleTaken list, edit index within bounds of address book and moduleTaken list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MA1521);
         index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredModulesTakenList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_CS1010;
-        moduleTakenToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        moduleTakenToEdit = getModel().getFilteredModulesTakenList().get(index.getZeroBased());
         editedModuleTaken = new ModuleTakenBuilder(moduleTakenToEdit)
                 .withModuleInfoCode(VALID_MODULE_INFO_CODE_CS1010).build();
         assertCommandSuccess(command, index, editedModuleTaken);
@@ -132,7 +133,7 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
         moduleTaken list -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_CS2103T);
-        int invalidIndex = getModel().getAddressBook().getModulesTakenList().size();
+        int invalidIndex = getModel().getGradTrak().getModulesTakenList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_CS1010,
                 Messages.MESSAGE_INVALID_MODULETAKEN_DISPLAYED_INDEX);
 
@@ -162,7 +163,7 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getModel().getFilteredPersonList().size() + 1;
+        invalidIndex = getModel().getFilteredModulesTakenList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_CS1010,
                 Messages.MESSAGE_INVALID_MODULETAKEN_DISPLAYED_INDEX);
 
@@ -196,9 +197,9 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
 
         /* Case: edit a moduleTaken with new values same as another moduleTaken's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(DEFAULT_MODULE_CS1010));
-        assertTrue(getModel().getAddressBook().getModulesTakenList().contains(DEFAULT_MODULE_CS1010));
+        assertTrue(getModel().getGradTrak().getModulesTakenList().contains(DEFAULT_MODULE_CS1010));
         index = INDEX_FIRST_PERSON;
-        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(DEFAULT_MODULE_CS1010));
+        assertFalse(getModel().getFilteredModulesTakenList().get(index.getZeroBased()).equals(DEFAULT_MODULE_CS1010));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS1010
                 + SEMESTER_DESC_CS1010 + EXPECTED_MIN_GRADE_DESC_CS1010 + EXPECTED_MAX_GRADE_DESC_CS1010
                 + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
@@ -255,9 +256,9 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
     private void assertCommandSuccess(String command, Index toEdit, ModuleTaken editedModuleTaken,
             Index expectedSelectedCardIndex) {
         Model expectedModel = getModel();
-        expectedModel.setPerson(expectedModel.getFilteredPersonList()
+        expectedModel.setModuleTaken(expectedModel.getFilteredModulesTakenList()
                 .get(toEdit.getZeroBased()), editedModuleTaken);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
 
         assertCommandSuccess(command, expectedModel,
                 String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken), expectedSelectedCardIndex);
@@ -288,7 +289,7 @@ public class EditCommandSystemTest extends GradTrakSystemTest {
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
         executeCommand(command);
-        expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        expectedModel.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {

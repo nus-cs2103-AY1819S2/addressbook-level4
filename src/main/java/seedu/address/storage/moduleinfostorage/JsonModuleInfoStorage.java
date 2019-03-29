@@ -55,7 +55,6 @@ public class JsonModuleInfoStorage implements ModuleInfoStorage {
             logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
             throw new DataConversionException(e);
         }
-
     }
 
 }

@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.nextofkin.NextOfKin;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -35,18 +36,20 @@ public class Patient extends Person {
     private DateOfBirth dateOfBirth;
     private Teeth teeth = null;
     private List<Record> records = new ArrayList<>();
+    private NextOfKin nextOfKin;
 
     /**
      * Every field must be present and not null.
      * Used by add command.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, Sex sex) {
+                   DateOfBirth dateOfBirth, Sex sex, NextOfKin nextOfKin) {
         super(name, phone, email, address, tags);
         requireAllNonNull(nric, dateOfBirth, sex);
         this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
+        this.nextOfKin = nextOfKin;
         buildAdultTeeth();
         records.add(new Record());
     }
@@ -178,6 +181,10 @@ public class Patient extends Person {
 
     public Sex getSex() {
         return sex;
+    }
+
+    public NextOfKin getNextOfKin() {
+        return nextOfKin;
     }
 
     /**

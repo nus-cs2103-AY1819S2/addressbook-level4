@@ -1,6 +1,7 @@
 package seedu.address;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -171,7 +172,17 @@ public class MainApp extends Application {
      */
     protected LessonList initLessons(LessonsStorage storage) {
         Path lessonsFolderPath = storage.getLessonsFolderPath();
-        logger.info("Using lessons folder : " + lessonsFolderPath);
+        logger.info("Using lessons folder: " + lessonsFolderPath);
+
+        if (!Files.exists(lessonsFolderPath)) {
+            logger.info("Lessons folder not found. Creating...");
+        }
+
+        try {
+            Files.createDirectories(lessonsFolderPath);
+        } catch (IOException e) {
+            logger.warning("Failed to create folder at: " + lessonsFolderPath);
+        }
 
         LessonList initializedLessonList = null;
         Optional<LessonList> prefsOptional = storage.readLessons();

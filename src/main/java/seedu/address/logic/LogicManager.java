@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import java.io.IOException;
-//import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -14,7 +13,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-//import seedu.address.model.person.Person;
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 import seedu.address.storage.Storage;

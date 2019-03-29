@@ -50,7 +50,7 @@ public class BookingCard extends UiPart<Region> {
         this.booking = booking;
         this.payer = booking.getPayer();
         serviceType.setText(booking.getService().getName());
-        time.setText(booking.getTiming().toString());
+        time.setText("Time: " + booking.getTiming().toString());
         id.setText(displayedIndex + ". ");
         payerName.setText("Payer Name: " + payer.getName().fullName);
         phone.setText("Payer Phone: " + payer.getPhone().value);

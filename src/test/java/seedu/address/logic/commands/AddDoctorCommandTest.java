@@ -161,6 +161,16 @@ public class AddDoctorCommandTest {
         }
 
         @Override
+        public void deleteMedHist(MedicalHistory target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPatient(Patient target, Patient editedPatient) {
             throw new AssertionError("This method should not be called.");
         }
@@ -171,7 +181,17 @@ public class AddDoctorCommandTest {
         }
 
         @Override
+        public ObservableList<MedicalHistory> getFilteredMedHistList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredPatientList(Predicate<Patient> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMedHistList(Predicate<MedicalHistory> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -216,12 +236,27 @@ public class AddDoctorCommandTest {
         }
 
         @Override
+        public ReadOnlyProperty<MedicalHistory> selectedMedHistProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public Patient getSelectedPatient() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public MedicalHistory getSelectedMedHist() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setSelectedPatient(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedMedHist(MedicalHistory medHist) {
             throw new AssertionError("This method should not be called.");
         }
 

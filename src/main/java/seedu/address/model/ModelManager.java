@@ -4,10 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -19,11 +16,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.ActivityDateTime;
-import seedu.address.model.activity.ActivityDescription;
-import seedu.address.model.activity.ActivityLocation;
-import seedu.address.model.activity.ActivityName;
-import seedu.address.model.activity.ActivityStatus;
 import seedu.address.model.activity.exceptions.ActivityNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;

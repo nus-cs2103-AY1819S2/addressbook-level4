@@ -125,7 +125,7 @@ public class Activity implements Comparable<Activity> {
     /**
      * Returns an updated activity with new Status
      */
-    public static Activity updateActivity(Activity toUpdate){
+    public static Activity updateActivity(Activity toUpdate) {
         ActivityName name = toUpdate.getName();
         ActivityDateTime dateTime = toUpdate.getDateTime();
         ActivityLocation location = toUpdate.getLocation();

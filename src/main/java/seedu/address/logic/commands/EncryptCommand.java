@@ -9,6 +9,7 @@ import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 
 import java.io.IOException;
+
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -103,7 +104,6 @@ public class EncryptCommand extends Command {
 
         // state check
         EncryptCommand e = (EncryptCommand) other;
-        return index.equals(e.index)
-                && password.equals(e.password);
+        return index.equals(e.index) && password.equals(e.password);
     }
 }

@@ -26,6 +26,7 @@ import seedu.address.model.image.Image;
 public class CurrentEditManager implements CurrentEdit {
     private Image originalImage;
     private Image tempImage;
+    private String originalImageName;
 
     /* @@author thamsimun */
     public CurrentEditManager() {
@@ -45,8 +46,15 @@ public class CurrentEditManager implements CurrentEdit {
      * Saves a copy of {@code image} to temp folder and instantiate it as originalImage.
      */
     public void saveAsOriginal(Image image) {
-        saveIntoTempFolder(image.getName().toString(), image);
+        saveIntoTempFolder("ori_img.png", image);
+        originalImageName = image.getName().toString();
         setOriginalImage(image);
+    }
+
+    public void overwriteOriginal(String name) {
+        saveIntoTempFolder("ori_img.png", tempImage);
+        originalImageName = name;
+        setOriginalImage(tempImage);
     }
 
     /**
@@ -105,8 +113,7 @@ public class CurrentEditManager implements CurrentEdit {
      * Creates originalImage instance of {@code image} located in temp_folder.
      */
     public void setOriginalImage(Image image) {
-        Image originalImage = new Image(TEMP_FILEPATH + image.getName().toString());
-        this.originalImage = originalImage;
+        this.originalImage = new Image(TEMP_FILEPATH + image.getName().toString());
     }
 
     public void displayTempImage() {
@@ -132,7 +139,7 @@ public class CurrentEditManager implements CurrentEdit {
     public String saveToAssets(String name) {
         try {
             if (name.isEmpty()) {
-                name = originalImage.getName().toString();
+                name = originalImageName;
             }
             File outputFile = new File(name);
             File saveDirectory = new File(ASSETS_FILEPATH);
@@ -142,6 +149,7 @@ public class CurrentEditManager implements CurrentEdit {
         } catch (IOException e) {
             System.out.println(e.toString());
         }
+        overwriteOriginal(name);
         return name;
     }
 

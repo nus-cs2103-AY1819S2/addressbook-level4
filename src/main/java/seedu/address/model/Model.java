@@ -14,8 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.storage.csvmanager.CsvFile;
-import seedu.address.storage.csvmanager.CsvManager;
-import seedu.address.storage.csvmanager.Exceptions.CsvManagerNotInitialized;
+import seedu.address.storage.csvmanager.exceptions.CsvManagerNotInitialized;
 
 /**
  * The API of the Model component.

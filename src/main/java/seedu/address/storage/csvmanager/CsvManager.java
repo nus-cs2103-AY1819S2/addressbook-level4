@@ -1,14 +1,25 @@
 package seedu.address.storage.csvmanager;
 
-import java.io.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import seedu.address.logic.commands.Command;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolder;
 import seedu.address.model.ReadOnlyCardFolder;
-import seedu.address.model.card.*;
+import seedu.address.model.card.Answer;
+import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
+import seedu.address.model.card.Question;
+import seedu.address.model.card.Score;
 import seedu.address.model.hint.Hint;
 
 
@@ -20,11 +31,12 @@ public class CsvManager implements CsvCommands {
     private static final String COMMA_DELIMITTER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String CARD_HEADERS = "Question,Answer,Options,Hints";
-    private String defaultPath;
-    private boolean setTestDefaultPath = false;
-    public static final String DEFAULT_TEST_PATH = "/src/test/data/CsvCardFolderTest";
+    private static final String DEFAULT_TEST_PATH = "/src/test/data/CsvCardFolderTest";
     private static final String DEFAULT_FILE_PATH = "./";
     private static final String TEST_FOLDER_PATH = "test";
+    private String defaultPath;
+    private boolean setTestDefaultPath = false;
+
 
 
     public CsvManager() throws IOException {
@@ -62,7 +74,9 @@ public class CsvManager implements CsvCommands {
         return cardFolder;
     }
 
-
+    /**
+     * helper method that build a card object from each line of the csv file imported
+     */
     private Card buildCard(String[] cardValues) {
         // cardValues = {"question", "answer", " .. ", " ...", "hint"}
         Question question = new Question(cardValues[0]);
@@ -73,6 +87,9 @@ public class CsvManager implements CsvCommands {
         return card;
     }
 
+    /**
+     * reconstructs a set of options from each line of the csv file to import
+     */
     private Set<Option> buildOptions(String[] card) {
         Set<Option> optionSet = new HashSet<>();
         String[] options = Arrays.copyOfRange(card, 2, card.length - 1);
@@ -83,6 +100,9 @@ public class CsvManager implements CsvCommands {
         return optionSet;
     }
 
+    /**
+     * reconstructs a set of hints from each line of the csv file to import
+     */
     private Set<Hint> buildHint(String[] card) {
         Set<Hint> hintSet = new HashSet<>();
         String hint = card[card.length - 1];
@@ -94,7 +114,9 @@ public class CsvManager implements CsvCommands {
     }
 
 
-
+    /**
+     * checks whether the headers of the imported file conforms to the specifications of the Card headers
+     */
     private boolean checkCorrectHeaders(String header) {
         String[] cardHeaders = CARD_HEADERS.split(",");
         String[] fileHeaders = header.split(",");
@@ -148,7 +170,7 @@ public class CsvManager implements CsvCommands {
         return defaultPath;
     }
 
-    public void setTestDefaultPath() throws IOException {
+    public void setTestDefaultPath() {
         defaultPath = defaultPath + DEFAULT_TEST_PATH;
         setTestDefaultPath = true;
     }
@@ -170,6 +192,9 @@ public class CsvManager implements CsvCommands {
         stringBuilder.append(answer + COMMA_DELIMITTER);
     }
 
+    /**
+     * helper method that parses each {@code Set<Option>} of the card attribute into a string
+     */
     private void parseOptions(Set<Option> options, StringBuilder stringBuilder) {
         if (options.isEmpty()) {
             stringBuilder.append(" " + COMMA_DELIMITTER);
@@ -179,6 +204,9 @@ public class CsvManager implements CsvCommands {
         }
     }
 
+    /**
+     * helper method that parses each {@code Set<Hint>} of the card attribute into a string
+     */
     private void parseHints(Set<Hint> hintSet, StringBuilder stringBuilder) {
         if (hintSet.isEmpty()) {
             stringBuilder.append(" " + COMMA_DELIMITTER);

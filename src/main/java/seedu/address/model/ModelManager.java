@@ -32,7 +32,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
 import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.storage.csvmanager.CsvManager;
-import seedu.address.storage.csvmanager.Exceptions.CsvManagerNotInitialized;
+import seedu.address.storage.csvmanager.exceptions.CsvManagerNotInitialized;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -536,7 +536,9 @@ public class ModelManager implements Model {
         return csvManager.getDefaultPath();
     }
 
-
+    /**
+     * returns the corresponding {@code List<ReadOnlyCardFolder>} from the list of integer indexes
+     */
     private List<ReadOnlyCardFolder> returnValidCardFolders(List<Integer> cardFolderExports) {
         List<ReadOnlyCardFolder> readOnlyCardFolders = new ArrayList<>();
         List<Index> indexList = cardFolderExports.stream().map(Index::fromOneBased).collect(Collectors.toList());

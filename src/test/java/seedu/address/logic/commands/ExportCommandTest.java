@@ -1,5 +1,8 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
+
 import java.io.File;
 
 import java.util.ArrayList;
@@ -12,8 +15,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalCards.*;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -60,7 +61,7 @@ public class ExportCommandTest {
 
     @Test
     public void execute_exportSingleInvalidCardFolderIndex_failure() throws Exception {
-        List<Integer> myList = new ArrayList<>(Arrays.asList(1,3));
+        List<Integer> myList = new ArrayList<>(Arrays.asList(1, 3));
         ExportCommand exportCommand = new ExportCommand(myList);
 
         thrown.expect(CommandException.class);

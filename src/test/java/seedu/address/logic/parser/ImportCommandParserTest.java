@@ -1,17 +1,19 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.storage.csvmanager.CsvFile;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 
 public class ImportCommandParserTest {
 
-    private static String EMPTY_STRING = "";
+    private static final String EMPTY_STRING = "";
     private ImportCommandParser parser = new ImportCommandParser();
 
     @Test

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.ExportCommand;
@@ -20,7 +21,7 @@ public class ExportCommandParserTest {
     public void parse_validArgs_returnsExportCommand() {
         assertParseSuccess(parser, "1", new ExportCommand(new ArrayList<Integer>(Arrays.asList(1))));
 
-        assertParseSuccess(parser, "1 3 5", new ExportCommand(new ArrayList<Integer>(Arrays.asList(1,3,5))));
+        assertParseSuccess(parser, "1 3 5", new ExportCommand(new ArrayList<Integer>(Arrays.asList(1, 3, 5))));
     }
 
     @Test

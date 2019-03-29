@@ -3,13 +3,12 @@ package seedu.address.logic.commands;
 import java.io.IOException;
 import java.util.List;
 
-
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CardFolderNotFoundException;
 import seedu.address.model.Model;
-import seedu.address.storage.csvmanager.Exceptions.CsvManagerNotInitialized;
+import seedu.address.storage.csvmanager.exceptions.CsvManagerNotInitialized;
 
 
 /**

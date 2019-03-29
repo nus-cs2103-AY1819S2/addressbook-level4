@@ -2,7 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -135,31 +140,23 @@ public class ParserUtil {
         return optionSet;
     }
 
-    /**
-     * Parsers {@code Collection<String> folderNames} into a {@Code Set<CardFolderExport>}.
-     * Similar folder names will not be included inside the set.
-     */
-    public static Set<CardFolderExport> parseFolders(Collection<String> folderNames) throws ParseException {
-        requireNonNull(folderNames);
-        final Set<CardFolderExport> cardFolderExports = new HashSet<>();
-        for (String folderName : folderNames) {
-            cardFolderExports.add(parseFolder(folderName));
-        }
-        return cardFolderExports;
-    }
 
     public static Integer stringToInt(String element) throws NumberFormatException {
         return Integer.parseInt(element);
     }
 
-
-    public static List<Integer> parseFolderIndex(String folderIndexes) throws NumberFormatException, IllegalValueException {
-        List<Integer> indexList = new ArrayList<>();
+    /**
+     * Parses a user input of a string of integers into a {@code List<Integer>}
+     */
+    public static List<Integer> parseFolderIndex(String folderIndexes) throws NumberFormatException,
+            IllegalValueException {
         folderIndexes = folderIndexes.trim();
-        indexList = Arrays.stream(folderIndexes.split(" ")).map(ParserUtil::stringToInt).collect(Collectors.toList());
+        List<Integer> indexList = Arrays.stream(folderIndexes.split(" "))
+                .map(ParserUtil::stringToInt)
+                .collect(Collectors.toList());
 
-        List<Integer> InvalidIndexList = indexList.stream().filter(i -> i < 0).collect(Collectors.toList());
-        if (InvalidIndexList.size() > 0) {
+        List<Integer> invalidIndexList = indexList.stream().filter(i -> i < 0).collect(Collectors.toList());
+        if (invalidIndexList.size() > 0) {
             throw new IllegalValueException(MESSAGE_INDEX_LESS_THAN_ZERO);
         }
         return indexList;
@@ -184,7 +181,8 @@ public class ParserUtil {
     public static CsvFile parseFileName(String filename) throws ParseException {
         requireNonNull(filename);
         if (!CsvFile.isValidFileName(filename)) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, CsvFile.MESSAGE_CONSTRAINTS));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    CsvFile.MESSAGE_CONSTRAINTS));
         }
         return new CsvFile(filename);
     }

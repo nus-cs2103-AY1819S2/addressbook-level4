@@ -59,23 +59,23 @@ public class RestOrRantParserTest {
     public void parseCommand_addTable() throws Exception {
         Table table = new TableBuilder().build();
         AddTableCommand command = (AddTableCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
-                AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
+                AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getAddTableDetails(table));
         List<TableStatus> tableStatuses = new ArrayList<>();
         tableStatuses.add(table.getTableStatus());
         assertEquals(new AddTableCommand(tableStatuses), command);
         command = (AddTableCommand) parser.parseCommand(Mode.RESTAURANT_MODE, "add" + " "
-                + RestOrRantUtil.getTableDetails(table));
+                + RestOrRantUtil.getAddTableDetails(table));
         assertEquals(new AddTableCommand(tableStatuses), command);
         try {
             parser.parseCommand(Mode.TABLE_MODE,
-                    AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
+                    AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getAddTableDetails(table));
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
         }
         try {
             parser.parseCommand(Mode.MENU_MODE,
-                    AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getTableDetails(table));
+                    AddTableCommand.COMMAND_WORD + " " + RestOrRantUtil.getAddTableDetails(table));
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());

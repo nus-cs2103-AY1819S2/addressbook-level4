@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 import seedu.address.model.modelmanager.ManagementModel;
@@ -42,7 +43,7 @@ public class ListCardsCommandTest {
     }
 
     @Test
-    public void execute_listCards() {
+    public void execute_listCards() throws Exception {
         ManagementModel modelStub = new MgtModelStubWithCards();
         ListCardsCommand listCardsCommand = new ListCardsCommand();
         String expectedOutput = listCardsCommand.buildList(
@@ -50,9 +51,13 @@ public class ListCardsCommandTest {
                 LessonBuilder.DEFAULT_OPT_HEADERS,
                 LessonBuilder.DEFAULT_CARDS);
 
+        String feedback = new ListCardsCommand().buildList(LessonBuilder.DEFAULT_CORE_HEADERS,
+                LessonBuilder.DEFAULT_OPT_HEADERS, LessonBuilder.DEFAULT_CARDS);
+
+
         // attempt to list all cards when there are cards -> list all cards
-        assertCommandSuccess(new ListCardsCommand(), modelStub, commandHistory,
-                expectedOutput, modelStub);
+        CommandResult commandResult = new ListCardsCommand().execute(modelStub, commandHistory);
+        assertEquals(commandResult.getFeedbackToUser(), feedback);
     }
 
     @Test

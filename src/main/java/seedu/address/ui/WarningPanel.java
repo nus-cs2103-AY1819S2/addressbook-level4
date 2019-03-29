@@ -38,13 +38,13 @@ public class WarningPanel extends UiPart<Region> {
      */
     private void setUpVBox(ObservableList<Medicine> expiringMedicineList,
                             ObservableList<Medicine> lowQuantityMedicineList) {
-        Label expiringListTitle = new Label(String.format("%1$-34s", "Expiring Soon / Expired"));  //right-pad title
+        Label expiringListTitle = new Label(String.format("%1$-34s", "Expiring Soon / Expired")); //right-pad title
         expiringListTitle.getStyleClass().add("label-warning-panel");
         warningVBox.getChildren().addAll(expiringListTitle,
                 new WarningListView(expiringMedicineList,
                 WarningPanelListType.EXPIRY, warningPanelPredicateAccessor).getRoot());
 
-        Label lowQuantityListTitle = new Label(String.format("%1$-40s", "Low in Stock"));  //right-pad title
+        Label lowQuantityListTitle = new Label(String.format("%1$-40s", "Low in Stock")); //right-pad title
         lowQuantityListTitle.getStyleClass().add("label-warning-panel");
         warningVBox.getChildren().addAll(lowQuantityListTitle,
                 new WarningListView(lowQuantityMedicineList,

@@ -63,4 +63,18 @@ public class ReminderManager {
         }
         return sb.toString();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof ReminderManager)) {
+            return false;
+        }
+
+        ReminderManager otherManager = (ReminderManager) other;
+        return this.reminders.equals(otherManager.reminders);
+    }
 }

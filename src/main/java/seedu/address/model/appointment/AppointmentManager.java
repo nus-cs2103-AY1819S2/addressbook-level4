@@ -258,4 +258,18 @@ public class AppointmentManager {
     public void delete(Appointment app) {
         appointments.remove(app);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AppointmentManager)) {
+            return false;
+        }
+
+        AppointmentManager otherManager = (AppointmentManager) other;
+        return this.appointments.equals(otherManager.appointments);
+    }
 }

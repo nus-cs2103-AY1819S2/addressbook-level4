@@ -120,4 +120,17 @@ public class MedicineManager {
         return listOfMedicine;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof MedicineManager)) {
+            return false;
+        }
+
+        MedicineManager otherManager = (MedicineManager) other;
+        return this.listOfMedicine.equals(otherManager.listOfMedicine);
+    }
 }

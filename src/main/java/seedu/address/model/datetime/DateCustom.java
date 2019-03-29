@@ -57,6 +57,7 @@ public class DateCustom implements DateBuilder {
     public LocalDate getDate() {
         return LocalDate.parse(storedDate);
     }
+
     /**
      *  Returns true if the first date given is before the second date given
      * @param date1 the first date to compare with the second date

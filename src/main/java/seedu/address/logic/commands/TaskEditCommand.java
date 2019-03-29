@@ -40,6 +40,7 @@ public class TaskEditCommand extends Command {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book.";
+    public static final String MESSAGE_DATE_CLASH = "The task's start date should not be after its end date";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -67,6 +68,10 @@ public class TaskEditCommand extends Command {
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
+
+        if (editedTask.hasDateClash()) {
+            throw new CommandException(MESSAGE_DATE_CLASH);
+        }
 
         if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
@@ -137,6 +142,10 @@ public class TaskEditCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(title, startDate, endDate);
         }
+
+        /**
+         * Returns true if the start date and end dates clash
+         */
 
         public void setTitle(Title title) {
             this.title = title;

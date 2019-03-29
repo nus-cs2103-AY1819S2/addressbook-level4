@@ -59,6 +59,10 @@ public class Task {
         return endDate;
     }
 
+    public boolean hasDateClash() {
+        return DateCustom.dateCompare(endDate.toString(), startDate.toString());
+    }
+
     public boolean isCopy() {
         return isCopy;
     }

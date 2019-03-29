@@ -5,9 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import guitests.guihandles.HealthWorkerCardHandle;
+import guitests.guihandles.HealthWorkerListPanelHandle;
 import guitests.guihandles.RequestCardHandle;
 import guitests.guihandles.RequestListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+
 import seedu.address.model.person.healthworker.HealthWorker;
 import seedu.address.model.request.Request;
 
@@ -56,7 +58,7 @@ public class GuiTestAssert {
      * Asserts that the list in {@code requestListPanelHandle} displays the details of {@code requests}
      * correctly and in the correct order.
      */
-    public static void assertListMatching(RequestListPanelHandle requestListPanelHandle, Request... requests) {
+    public static void assertRequestListMatching(RequestListPanelHandle requestListPanelHandle, Request... requests) {
         for (int i = 0; i < requests.length; i++) {
             requestListPanelHandle.navigateToCard(i);
             assertCardDisplaysRequest(requests[i], requestListPanelHandle.getRequestCardHandle(i));
@@ -67,8 +69,29 @@ public class GuiTestAssert {
      * Asserts that the list in {@code requestListPanelHandle} displays the details of {@code requests}
      * correctly and in the correct order.
      */
-    public static void assertListMatching(RequestListPanelHandle requestListPanelHandle, List<Request> requests) {
-        assertListMatching(requestListPanelHandle, requests.toArray(new Request[0]));
+    public static void assertRequestListMatching(RequestListPanelHandle requestListPanelHandle, List<Request> requests) {
+        assertRequestListMatching(requestListPanelHandle, requests.toArray(new Request[0]));
+    }
+
+    /**
+     * Asserts that the list in {@code healthWorkerListPanelHandle} displays the details of {@code health workers}
+     * correctly and in the correct order.
+     */
+    public static void assertHealthWorkerListMatching(HealthWorkerListPanelHandle healthWorkerListPanelHandle,
+                                                      HealthWorker... workers) {
+        for (int i = 0; i < workers.length; i++) {
+            healthWorkerListPanelHandle.navigateToCard(i);
+            assertCardDisplaysHealthWorker(workers[i], healthWorkerListPanelHandle.getHealthWorkerCardHandle(i));
+        }
+    }
+
+    /**
+     * Asserts that the list in {@code healthWorkerListPanelHandle} displays the details of {@code health workers}
+     * correctly and in the correct order.
+     */
+    public static void assertHealthWorkerListMatching(HealthWorkerListPanelHandle healthWorkerListPanelHandle,
+                                                      List<HealthWorker> workers) {
+        assertHealthWorkerListMatching(healthWorkerListPanelHandle, workers.toArray(new HealthWorker[0]));
     }
 
     /**

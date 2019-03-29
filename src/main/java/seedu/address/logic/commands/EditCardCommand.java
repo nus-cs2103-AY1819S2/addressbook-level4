@@ -19,6 +19,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -72,6 +73,7 @@ public class EditCardCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Card> lastShownList = cardsView.getFilteredList();
+        Deck activeDeck = cardsView.getActiveDeck();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
@@ -81,11 +83,11 @@ public class EditCardCommand extends Command {
             Card cardToEdit = lastShownList.get(index.getZeroBased());
             Card editedCard = createEditedCard(cardToEdit, editCardDescriptor.get());
 
-            if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard)) {
+            if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard, activeDeck)) {
                 throw new CommandException(MESSAGE_DUPLICATE_CARD);
             }
 
-            model.setCard(cardToEdit, editedCard);
+            model.setCard(cardToEdit, editedCard, activeDeck);
             model.commitTopDeck();
             return new UpdatePanelCommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
         } else {

@@ -10,6 +10,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * Adds a card to the address book.
@@ -48,11 +49,13 @@ public class AddCardCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasCard(toAdd)) {
+        Deck activeDeck = cardsView.getActiveDeck();
+
+        if (model.hasCard(toAdd, activeDeck)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
         }
 
-        model.addCard(toAdd);
+        model.addCard(toAdd, activeDeck);
         model.commitTopDeck();
         return new UpdatePanelCommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

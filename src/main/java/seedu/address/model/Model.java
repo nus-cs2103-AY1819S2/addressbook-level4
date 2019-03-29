@@ -67,26 +67,26 @@ public interface Model {
     /**
      * Returns true if a card with the same identity as {@code card} exists in the deck.
      */
-    boolean hasCard(Card card);
+    boolean hasCard(Card card, Deck deck);
 
     /**
      * Deletes the given card.
      * The card must exist in the deck.
      */
-    void deleteCard(Card target);
+    void deleteCard(Card target, Deck deck);
 
     /**
      * Adds the given card.
      * {@code card} must not already exist in the deck.
      */
-    void addCard(Card card);
+    void addCard(Card card, Deck deck);
 
     /**
      * Replaces the given card {@code target} with {@code editedCard}.
      * {@code target} must exist in the deck.
      * The card identity of {@code editedCard} must not be the same as another existing card in the deck.
      */
-    void setCard(Card target, Card editedCard);
+    void setCard(Card target, Card editedCard, Deck deck);
 
     /** Returns an unmodifiable view of the filtered list */
     ObservableList<ListItem> getFilteredList();

@@ -11,6 +11,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 
 /**
  * Deletes a card identified using it's displayed index from the deck.
@@ -38,13 +39,14 @@ public class DeleteCardCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Card> lastShownList = cardsView.getFilteredList();
+        Deck activeDeck = cardsView.getActiveDeck();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         Card cardToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteCard(cardToDelete);
+        model.deleteCard(cardToDelete, activeDeck);
         model.commitTopDeck();
         return new UpdatePanelCommandResult(String.format(MESSAGE_DELETE_CARD_SUCCESS, cardToDelete));
     }

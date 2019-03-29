@@ -147,33 +147,30 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasCard(Card card) {
-        requireNonNull(card);
+    public boolean hasCard(Card card, Deck deck) {
+        requireAllNonNull(card, deck);
 
         if (!(viewState instanceof CardsView)) {
             throw new IllegalOperationWhileReviewingDeckException();
         }
 
-        CardsView cardsView = (CardsView)viewState;
-
-        return cardsView.getActiveDeck().hasCard(card);
+        return deck.hasCard(card);
     }
 
     @Override
-    public void deleteCard(Card target) {
+    public void deleteCard(Card target, Deck deck) {
         requireNonNull(target);
 
         if (!(viewState instanceof CardsView)) {
             throw new IllegalOperationWhileReviewingDeckException();
         }
 
-        CardsView cardsView = (CardsView)viewState;
-        Deck editedDeck = versionedTopDeck.deleteCard(target, cardsView.getActiveDeck());
+        Deck editedDeck = versionedTopDeck.deleteCard(target, deck);
         changeDeck(editedDeck);
     }
 
     @Override
-    public void addCard(Card card) {
+    public void addCard(Card card, Deck deck) {
         requireNonNull(card);
 
         if (!(viewState instanceof CardsView)) {
@@ -181,20 +178,19 @@ public class ModelManager implements Model {
         }
 
         CardsView cardsView = (CardsView)viewState;
-        Deck editedDeck = versionedTopDeck.addCard(card, cardsView.getActiveDeck());
+        Deck editedDeck = versionedTopDeck.addCard(card, deck);
         changeDeck(editedDeck);
     }
 
     @Override
-    public void setCard(Card target, Card editedCard) {
+    public void setCard(Card target, Card editedCard, Deck deck) {
         requireAllNonNull(target, editedCard);
 
         if (!(viewState instanceof CardsView)) {
             throw new IllegalOperationWhileReviewingDeckException();
         }
 
-        CardsView cardsView = (CardsView)viewState;
-        Deck editedDeck = versionedTopDeck.setCard(target, editedCard, cardsView.getActiveDeck());
+        Deck editedDeck = versionedTopDeck.setCard(target, editedCard, deck);
         changeDeck(editedDeck);
     }
 

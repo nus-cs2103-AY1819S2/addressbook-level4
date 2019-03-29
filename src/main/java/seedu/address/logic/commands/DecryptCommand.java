@@ -1,6 +1,16 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -8,14 +18,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.pdf.Pdf;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PDFS;
 
 /**
  * Encrypts the an existing pdf in the pdfBook.

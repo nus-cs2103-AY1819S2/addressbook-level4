@@ -51,6 +51,8 @@ public class GoToCommand extends Command {
 
         Patient selectedPerson = (Patient) filteredPersonList.get(targetIndex.getZeroBased());
         MainWindow.setRecordPatient(selectedPerson);
+        model.setSelectedPerson(null);
+        model.setSelectedPerson(selectedPerson);
 
         return new CommandResult(String.format(MESSAGE_EXPAND_PERSON_SUCCESS, targetIndex.getOneBased()), true,
                 false, false);

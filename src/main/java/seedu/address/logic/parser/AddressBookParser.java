@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_IN_GO_TO_MODE;
+import static seedu.address.commons.core.Messages.MESSAGE_ONLY_GO_TO_MODE_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -67,30 +69,37 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        if (!MainWindow.isGoToMode()) {
-            switch (commandWord) {
+        switch (commandWord) {
             case AddCommand.COMMAND_WORD:
+                isGotoMode();
                 return new AddCommandParser().parse(arguments);
 
             case EditCommand.COMMAND_WORD:
+                isGotoMode();
                 return new EditCommandParser().parse(arguments);
 
             case SelectCommand.COMMAND_WORD:
+                isGotoMode();
                 return new SelectCommandParser().parse(arguments);
 
             case DeleteCommand.COMMAND_WORD:
+                isGotoMode();
                 return new DeleteCommandParser().parse(arguments);
 
             case ClearCommand.COMMAND_WORD:
+                isGotoMode();
                 return new ClearCommand();
 
             case FindCommand.COMMAND_WORD:
+                isGotoMode();
                 return new FindCommandParser().parse(arguments);
 
             case ListCommand.COMMAND_WORD:
+                isGotoMode();
                 return new ListCommand();
 
             case HistoryCommand.COMMAND_WORD:
+                isGotoMode();
                 return new HistoryCommand();
 
             case ExitCommand.COMMAND_WORD:
@@ -100,33 +109,42 @@ public class AddressBookParser {
                 return new HelpCommand();
 
             case UndoCommand.COMMAND_WORD:
+                isGotoMode();
                 return new UndoCommand();
 
             case RedoCommand.COMMAND_WORD:
+                isGotoMode();
                 return new RedoCommand();
 
             case GoToCommand.COMMAND_WORD:
                 return new GoToCommandParser().parse(arguments);
 
             case StatsCommand.COMMAND_WORD:
+                isGotoMode();
                 return new StatsCommandParser().parse(arguments);
 
             case SortCommand.COMMAND_WORD:
+                isGotoMode();
                 return new SortCommandParser().parse(arguments);
 
             case CopyCommand.COMMAND_WORD:
+                isGotoMode();
                 return new CopyCommandParser().parse(arguments);
 
             case OpenCommand.COMMAND_WORD:
+                isGotoMode();
                 return new OpenCommandParser().parse(arguments);
 
             case SaveCommand.COMMAND_WORD:
+                isGotoMode();
                 return new SaveCommandParser().parse(arguments);
 
             case ImportCommand.COMMAND_WORD:
+                isGotoMode();
                 return new ImportCommandParser().parse(arguments);
 
             case ExportCommand.COMMAND_WORD:
+                isGotoMode();
                 return new ExportCommandParser().parse(arguments);
 
             case TaskAddCommand.COMMAND_WORD:
@@ -147,41 +165,8 @@ public class AddressBookParser {
             case ExitAnywayCommand.COMMAND_WORD:
                 return new ExitAnywayCommand();
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
-        } else {
-            switch (commandWord) {
-
-            case SelectCommand.COMMAND_WORD:
-                return new SelectCommandParser().parse(arguments);
-
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
-
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
-
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
-
             case BackCommand.COMMAND_WORD:
                 return new BackCommand();
-
-            case TaskAddCommand.COMMAND_WORD:
-                return new TaskAddCommandParser().parse(arguments);
-
-            case TaskEditCommand.COMMAND_WORD:
-                return new TaskEditCommandParser().parse(arguments);
-
-            case TaskDeleteCommand.COMMAND_WORD:
-                return new TaskDeleteCommandParser().parse(arguments);
-
-            case TaskcopyCommand.COMMAND_WORD:
-                return new TaskcopyCommandParser().parse(arguments);
-
-            case ExitAnywayCommand.COMMAND_WORD:
-                return new ExitAnywayCommand();
 
             case RecordAddCommand.COMMAND_WORD:
                 return new RecordAddCommandParser().parse(arguments);
@@ -197,7 +182,12 @@ public class AddressBookParser {
 
             default:
                 throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
+        }
+    }
+
+    public void isGotoMode() throws ParseException {
+        if(MainWindow.isGoToMode()) {
+            throw new ParseException(MESSAGE_ONLY_GO_TO_MODE_COMMANDS);
         }
     }
 

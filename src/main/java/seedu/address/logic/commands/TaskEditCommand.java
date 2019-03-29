@@ -106,7 +106,7 @@ public class TaskEditCommand extends Command {
         TimeCustom updatedStartTime = editTaskDescriptor.getStartTime().orElse(taskToEdit.getStartTime());
         TimeCustom updatedEndTime = editTaskDescriptor.getEndTime().orElse(taskToEdit.getEndTime());
 
-        return new Task(updatedTitle, updatedStartDate, updatedEndDate, updatedStartTime, updatedEndTime);
+        return new Task(updatedTitle, updatedStartDate, updatedEndDate, updatedStartTime, updatedEndTime, updatedPriority);
     }
 
     @Override

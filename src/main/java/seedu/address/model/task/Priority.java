@@ -19,12 +19,25 @@ public enum  Priority {
         this.priorityLevel = priorityLevel;
     }
 
+    public static boolean isValidPriority(String test) {
+        for (Priority p : Priority.values()) {
+            if (test.equals(p.getPriorityType())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int getPriorityLevel() {
         return this.priorityLevel;
     }
 
     public String getPriorityType() {
         return this.priorityType;
+    }
+
+    public static Priority returnPriority(String type) {
+        return Priority.valueOf(type.toUpperCase());
     }
     @Override
     public String toString() {

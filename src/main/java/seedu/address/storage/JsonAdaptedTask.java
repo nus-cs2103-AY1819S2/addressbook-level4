@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
 
@@ -22,6 +23,7 @@ class JsonAdaptedTask {
     private final String enddate;
     private final String starttime;
     private final String endtime;
+    private final String priority;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
@@ -29,12 +31,13 @@ class JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("title") String title, @JsonProperty("startdate") String startdate,
                              @JsonProperty("enddate") String enddate, @JsonProperty("starttime") String starttime,
-                             @JsonProperty("endtime") String endtime) {
+                             @JsonProperty("endtime") String endtime, @JsonProperty("priority") String priority) {
         this.title = title;
         this.startdate = startdate;
         this.enddate = enddate;
         this.starttime = starttime;
         this.endtime = endtime;
+        this.priority = priority;
 
     }
 
@@ -99,7 +102,11 @@ class JsonAdaptedTask {
         }
         final TimeCustom modelEndTime = new TimeCustom(endtime);
 
-        return new Task(modelTitle, modelStartdate, modelEnddate, modelStartTime, modelEndTime);
+        if (!Priority.isValidPriority(priority)) {
+            throw new IllegalValueException(Priority.MESSAGE_CONSTRAINTS);
+        }
+        final Priority modelPriority = Priority.returnPriority(priority);
+        return new Task(modelTitle, modelStartdate, modelEnddate, modelStartTime, modelEndTime, modelPriority);
     }
 
 }

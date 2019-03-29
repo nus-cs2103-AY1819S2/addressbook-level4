@@ -39,6 +39,29 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Returns true if the list contains an equivalent person as the given argument.
+     */
+    public boolean containsMatricNumber (MatricNumber toCheck) {
+        requireNonNull(toCheck);
+        return internalList.stream().map(x -> x.getMatricNumber()).anyMatch(toCheck::isSameMatricNumber);
+    }
+
+    /**
+     * Returns the person if the list contains a person who has the matric number as the given argument.
+     */
+    public Person getPersonWithMatricNumber (MatricNumber toCheck) {
+        requireNonNull(toCheck);
+        Person person;
+        for (int i = 0; i < internalList.size(); i++) {
+            person = internalList.get(i);
+            if (person.getMatricNumber().isSameMatricNumber(toCheck)) {
+                return person;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
@@ -88,10 +111,38 @@ public class UniquePersonList implements Iterable<Person> {
         FXCollections.sort(internalList, new Comparator <Person> () {
             @Override
             public int compare(Person o1, Person o2) {
-                String first = o1.getName().fullName;
-                String second = o2.getName().fullName;
+                String sortCriteria = predicate.toString().toLowerCase();
+                String first = "";
+                String second = "";
+                switch (sortCriteria) {
+                    case "name":
+                        first = o1.getName().fullName;
+                        second = o2.getName().fullName;
+                        break;
+
+                    case "matricnumber":
+                        first = o1.getMatricNumber().value;
+                        second = o2.getMatricNumber().value;
+                        break;
+
+                    case "major":
+                        first = o1.getMajor().value;
+                        second = o2.getMajor().value;
+                        break;
+
+                    case "yearofstudy":
+                        first = o1.getYearOfStudy().value;
+                        second = o2.getYearOfStudy().value;
+                        break;
+                    default:
+                }
+
                 int result = first.compareTo(second);
-                return result;
+                if (result != 0) {
+                    return result;
+                } else {
+                    return o1.getName().fullName.compareTo(o2.getName().fullName);
+                }
             }
         });
     }

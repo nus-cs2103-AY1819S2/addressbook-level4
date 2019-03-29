@@ -32,6 +32,15 @@ public class MatricNumber {
     }
 
     /**
+     * Returns true if both persons of the same matric number.
+     */
+    public boolean isSameMatricNumber(MatricNumber otherMatricNumber) {
+
+        return otherMatricNumber != null
+                && otherMatricNumber.value.equalsIgnoreCase(this.value);
+    }
+
+    /**
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidMatricNumber(String test) {

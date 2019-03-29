@@ -23,7 +23,7 @@ import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.NameContainsKeywordsPredicate;
-import seedu.address.model.moduletaken.exceptions.PersonNotFoundException;
+import seedu.address.model.moduletaken.exceptions.ModuleTakenNotFoundException;
 import seedu.address.testutil.GradTrakBuilder;
 import seedu.address.testutil.ModuleTakenBuilder;
 
@@ -140,7 +140,7 @@ public class ModelManagerTest {
 
     @Test
     public void setSelectedPerson_personNotInFilteredPersonList_throwsPersonNotFoundException() {
-        thrown.expect(PersonNotFoundException.class);
+        thrown.expect(ModuleTakenNotFoundException.class);
         modelManager.setSelectedModuleTaken(CS2103T);
     }
 

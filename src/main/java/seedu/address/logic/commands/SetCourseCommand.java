@@ -8,20 +8,20 @@ import seedu.address.model.Model;
 import seedu.address.model.course.CourseName;
 
 /**
- * Adds a moduleTaken to the address book.
+ * Adds a moduleTaken to the GradTrak.
  */
 public class SetCourseCommand extends Command {
 
     public static final String COMMAND_WORD = "study";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets the user's course. "
-            + "Parameters: "
-            + "Computer Science Algorithms - sets course to Computer Science algorithm"
-            + "Computer Science AI - sets course to Computer Science AI"
-            + "CS Software Eng - sets course to Computer Science Software Engineering";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "Sets the user's course. \n"
+            + "Parameters: \n"
+            + "Computer Science Algorithms - sets course to Computer Science algorithm\n"
+            + "Computer Science AI - sets course to Computer Science AI\n"
+            + "Computer Science Software Eng - sets course to Computer Science Software Engineering\n";
 
     public static final String MESSAGE_SUCCESS = "Course is set to %s";
-    public static final String MESSAGE_FAILURE = "Course %s is not found";
+    public static final String MESSAGE_CANNOT_FIND_COURSE = "Course %s is not found";
     private final CourseName courseName;
 
     /**
@@ -36,7 +36,7 @@ public class SetCourseCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         if (!model.hasCourse(courseName)) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, courseName));
+            throw new CommandException(String.format(MESSAGE_CANNOT_FIND_COURSE, courseName));
         }
         model.setCourse(courseName);
         return new CommandResult(String.format(MESSAGE_SUCCESS, courseName));

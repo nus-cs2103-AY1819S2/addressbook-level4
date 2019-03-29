@@ -32,7 +32,7 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
-import seedu.address.model.moduletaken.exceptions.PersonNotFoundException;
+import seedu.address.model.moduletaken.exceptions.ModuleTakenNotFoundException;
 import seedu.address.model.util.SampleCourse;
 
 /**
@@ -271,7 +271,7 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedModuleTaken(ModuleTaken moduleTaken) {
         if (moduleTaken != null && !filteredModulesTaken.contains(moduleTaken)) {
-            throw new PersonNotFoundException();
+            throw new ModuleTakenNotFoundException();
         }
         selectedModuleTaken.setValue(moduleTaken);
     }
@@ -340,7 +340,7 @@ public class ModelManager implements Model {
                 .stream()
                 .map(ModuleTaken::getModuleInfo)
                 .collect(Collectors.toList());
-        displayCourseReqList.setPredicate(courseRequirement ->  predicate.test(courseRequirement, list));
+        displayCourseReqList.setPredicate(courseRequirement -> predicate.test(courseRequirement, list));
     }
 
     @Override

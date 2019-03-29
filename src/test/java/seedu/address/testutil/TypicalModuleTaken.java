@@ -103,12 +103,12 @@ public class TypicalModuleTaken {
     /**
      * Returns an {@code GradTrak} with all the typical persons.
      */
-    public static GradTrak getTypicalAddressBook() {
-        GradTrak ab = new GradTrak();
+    public static GradTrak getTypicalGradTrak() {
+        GradTrak gt = new GradTrak();
         for (ModuleTaken moduleTaken : getTypicalModulesTaken()) {
-            ab.addModuleTaken(moduleTaken);
+            gt.addModuleTaken(moduleTaken);
         }
-        return ab;
+        return gt;
     }
 
     public static List<ModuleTaken> getTypicalModulesTaken() {

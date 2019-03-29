@@ -11,6 +11,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.DisplaymodCommand;
+import seedu.address.logic.commands.DisplayreqCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -27,7 +28,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class GradTrakParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -95,6 +96,9 @@ public class AddressBookParser {
 
         case DisplaymodCommand.COMMAND_WORD:
             return new DisplaymodCommandParser().parse(arguments);
+
+        case DisplayreqCommand.COMMAND_WORD:
+            return new DisplayreqCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

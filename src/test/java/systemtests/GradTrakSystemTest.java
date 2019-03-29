@@ -81,7 +81,7 @@ public abstract class GradTrakSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected GradTrak getInitialData() {
-        return TypicalModuleTaken.getTypicalAddressBook();
+        return TypicalModuleTaken.getTypicalGradTrak();
     }
 
     /**

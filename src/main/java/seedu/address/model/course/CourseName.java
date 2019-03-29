@@ -27,4 +27,15 @@ public class CourseName {
     public String toString() {
         return courseName;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof CourseName) {
+            return this.courseName.equals(((CourseName) obj).courseName);
+        } else {
+            return false;
+        }
+    }
 }

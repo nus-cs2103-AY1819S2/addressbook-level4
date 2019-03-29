@@ -13,7 +13,7 @@ import static seedu.address.testutil.TypicalModuleTaken.CS1010X;
 import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.KEYWORD_MATCHING_CS2103T;
 import static seedu.address.testutil.TypicalModuleTaken.LSM1301;
-import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,9 +34,9 @@ import seedu.address.testutil.FindModuleDescriptorBuilder;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+    private Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
             new ModuleInfoList(), new CourseList());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+    private Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
             new ModuleInfoList(), new CourseList());
     private CommandHistory commandHistory = new CommandHistory();
 

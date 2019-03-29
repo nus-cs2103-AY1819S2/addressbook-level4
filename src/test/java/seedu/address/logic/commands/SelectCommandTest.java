@@ -8,7 +8,7 @@ import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
-import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import org.junit.Test;
 
@@ -25,9 +25,9 @@ import seedu.address.model.moduleinfo.ModuleInfoList;
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+    private Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
             new ModuleInfoList(), new CourseList());
-    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+    private Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
             new ModuleInfoList(), new CourseList());
     private CommandHistory commandHistory = new CommandHistory();
 

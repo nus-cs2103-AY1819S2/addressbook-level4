@@ -9,21 +9,9 @@ import static seedu.address.model.util.SampleCourseRequirement.SCIENCE_REQUIREME
 import static seedu.address.model.util.SampleCourseRequirement.TOTAL_MODULE_COUNT;
 import static seedu.address.model.util.SampleCourseRequirement.UNIVERSITY_LEVEL_REQUIREMENT;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseDescription;
-import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
-import seedu.address.storage.coursestorage.JsonAdaptedCourse;
-import seedu.address.storage.coursestorage.JsonCourseStorage;
-
 /**
  * Represents default implementation of Course Classes
  */
@@ -41,24 +29,4 @@ public class SampleCourse {
             new CourseName("Computer Science Artificial Intelligence"),
             new CourseDescription("To be added"), UNIVERSITY_LEVEL_REQUIREMENT,
             COMPUTER_SCIENCE_FOUNDATION, FOCUS_AREA_AI, SCIENCE_REQUIREMENT);
-
-    public static void main(String args[]) {
-        List<Course> courseList = new ArrayList<>();
-        courseList.add(COMPUTER_SCIENCE_ALGORITHMS);
-        courseList.add(COMPUTER_SCIENCE_SOFTWARE_ENG);
-        courseList.add(COMPUTER_SCIENCE_AI);
-        List<JsonAdaptedCourse> jsonCourseList = Arrays.asList(courseList.stream()
-                .map(x-> new JsonAdaptedCourse(x)).toArray(JsonAdaptedCourse[]::new));
-        Path filePath = Paths.get("courses.json");
-        JsonCourseStorage storage = new JsonCourseStorage(filePath);
-        try {
-            storage.saveCourse(jsonCourseList, filePath);
-        } catch (IOException e) {
-        }
-        try {
-            CourseList courses = storage.readCourseFile(filePath).get();
-        } catch (DataConversionException e) {
-            e.printStackTrace();
-        }
-    }
 }

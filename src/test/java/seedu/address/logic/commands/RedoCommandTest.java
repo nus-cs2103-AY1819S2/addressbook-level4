@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +17,9 @@ import seedu.address.model.moduleinfo.ModuleInfoList;
 
 public class RedoCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+    private final Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
             new ModuleInfoList(), new CourseList());
-    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs(),
+    private final Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
                                                          new ModuleInfoList(), new CourseList());
     private final CommandHistory commandHistory = new CommandHistory();
 

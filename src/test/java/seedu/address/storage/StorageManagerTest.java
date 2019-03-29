@@ -2,7 +2,7 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import java.nio.file.Path;
 
@@ -56,7 +56,7 @@ public class StorageManagerTest {
          * {@link JsonGradTrakStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonGradTrakStorageTest} class.
          */
-        GradTrak original = getTypicalAddressBook();
+        GradTrak original = getTypicalGradTrak();
         storageManager.saveGradTrak(original);
         ReadOnlyGradTrak retrieved = storageManager.readGradTrak().get();
         assertEquals(original, new GradTrak(retrieved));

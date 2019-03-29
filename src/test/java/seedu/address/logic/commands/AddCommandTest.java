@@ -276,7 +276,7 @@ public class AddCommandTest {
         @Override
         public ObservableList<CourseRequirement> getReqList() {
             throw new AssertionError("This method should not be called");
-        } 
+        }
     }
 
     /**

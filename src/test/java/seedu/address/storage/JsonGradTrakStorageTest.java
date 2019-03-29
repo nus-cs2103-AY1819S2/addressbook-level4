@@ -5,7 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalModuleTaken.CS2030;
 import static seedu.address.testutil.TypicalModuleTaken.CS2040;
 import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
-import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -75,7 +75,7 @@ public class JsonGradTrakStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.json");
-        GradTrak original = getTypicalAddressBook();
+        GradTrak original = getTypicalGradTrak();
         JsonGradTrakStorage jsonAddressBookStorage = new JsonGradTrakStorage(filePath);
 
         // Save in new file and read back

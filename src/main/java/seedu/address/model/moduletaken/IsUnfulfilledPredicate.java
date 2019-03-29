@@ -6,6 +6,9 @@ import java.util.function.BiPredicate;
 import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
+/**
+ * Represents a BiPredicate for whether a Course Requirement should be displayed
+ */
 public class IsUnfulfilledPredicate implements BiPredicate<CourseRequirement, List<ModuleInfoCode>> {
 
     private final boolean displaysAll;

@@ -19,7 +19,7 @@ import seedu.address.model.course.PrimitiveRequirement;
 public class SampleCourseRequirement {
     //University Level Requirement
     public static final String[] ULR_REGEXES = {"GES[0-9]{4}[A-Z]?", "GET[0-9]{4}[A-Z]?", "GEH[0-9]{4}[A-Z]?",
-    "GER1000", "GEQ1000"};
+        "GER1000", "GEQ1000"};
     public static final Condition ULR_CONDITION = new Condition(5, "pass 5 of each GES,GER,GET,GEQ and GEH",
             ULR_REGEXES);
     public static final CourseRequirement UNIVERSITY_LEVEL_REQUIREMENT = new PrimitiveRequirement(
@@ -130,7 +130,7 @@ public class SampleCourseRequirement {
     public static final String[] PARALLEL_ELECTIVE = {
         "CS4237", "CS4271", "CS4345", "CS5207", "CS5222", "CS5223", "CS5224", "CS5239", "CS5250"
     };
-    public static final String[] PROGRAMMING_LANGUAGES_PRIMARY ={
+    public static final String[] PROGRAMMING_LANGUAGES_PRIMARY = {
         "CS2104", "CS3211", "CS4215", "CS4212"
     };
     public static final String[] PROGRAMMING_LANGUAGES_ELECTIVE = {
@@ -183,10 +183,11 @@ public class SampleCourseRequirement {
                     "Pass at least 1 level 4 from primaries", ALGORITHMS_PASS_1_LEVEL4_PRIMARY, CourseReqType.TE),
                     CompositeRequirement.LogicalConnector.AND, CourseReqType.TE
             ), new CompositeRequirement(new PrimitiveRequirement("At least 3 level 4000 and above",
-            "At least 3 mods taken must be level 4000 and above from other focus areas", AT_LEAST_3_MODS_LEVEL4_ABOVE, CourseReqType.TE),
+            "At least 3 mods taken must be level 4000 and above from other focus areas",
+            AT_LEAST_3_MODS_LEVEL4_ABOVE, CourseReqType.TE),
             new PrimitiveRequirement("Complete 6 mods", "Complete 6 modules in all focus areas",
-                    AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA, CourseReqType.TE), CompositeRequirement.LogicalConnector.AND,
-            CourseReqType.TE),
+                    AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA, CourseReqType.TE),
+            CompositeRequirement.LogicalConnector.AND, CourseReqType.TE),
             CompositeRequirement.LogicalConnector.AND, CourseReqType.TE);
     public static final CourseRequirement FOCUS_AREA_AI = new CompositeRequirement(
             new CompositeRequirement(new PrimitiveRequirement("Complete 3 Area Primary from AI",
@@ -195,7 +196,8 @@ public class SampleCourseRequirement {
                     "Pass at least 1 level 4 from primaries", AI_PASS_1_LEVEL4_PRIMARY, CourseReqType.TE),
                     CompositeRequirement.LogicalConnector.AND, CourseReqType.TE
             ), new CompositeRequirement(new PrimitiveRequirement("At least 3 level 4000 and above",
-            "At least 3 mods taken must be level 4000 and above from other focus areas", AT_LEAST_3_MODS_LEVEL4_ABOVE, CourseReqType.TE),
+            "At least 3 mods taken must be level 4000 and above from other focus areas",
+            AT_LEAST_3_MODS_LEVEL4_ABOVE, CourseReqType.TE),
             new PrimitiveRequirement("Complete 6 mods", "Complete 6 modules in all focus areas",
                     AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA, CourseReqType.TE), CompositeRequirement.LogicalConnector.AND,
             CourseReqType.TE),
@@ -206,8 +208,10 @@ public class SampleCourseRequirement {
             ) , new PrimitiveRequirement("At least 1 from level 4 in Software Eng",
                     "Pass at least 1 level 4 from primaries", SE_PASS_1_LEVEL4_PRIMARY, CourseReqType.TE),
                     CompositeRequirement.LogicalConnector.AND, CourseReqType.TE
-            ), new CompositeRequirement(new PrimitiveRequirement("At least 3 level 4000 and above",
-            "At least 3 mods taken must be level 4000 and above from other focus areas", AT_LEAST_3_MODS_LEVEL4_ABOVE, CourseReqType.TE),
+            ),
+            new CompositeRequirement(new PrimitiveRequirement("At least 3 level 4000 and above",
+                    "At least 3 mods taken must be level 4000 and above from other focus areas",
+                    AT_LEAST_3_MODS_LEVEL4_ABOVE, CourseReqType.TE),
             new PrimitiveRequirement("Complete 6 mods", "Complete 6 modules in all focus areas",
                     AT_LEAST_6_MODS_FROM_ALL_FOCUS_AREA, CourseReqType.TE), CompositeRequirement.LogicalConnector.AND,
             CourseReqType.TE),
@@ -215,11 +219,12 @@ public class SampleCourseRequirement {
 
     public static final String[] SCIENCE_REGEXES = { "MA1521", "ST2334", "MA1101R",
         "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?"};
-    public static final Condition SCIENCE_CONDITION = new Condition("Complete MA1521, MA1101R, ST2334 and one other science mod",
+    public static final Condition SCIENCE_CONDITION = new Condition(
+            "Complete MA1521, MA1101R, ST2334 and one other science mod",
             SCIENCE_REGEXES);
     public static final CourseRequirement SCIENCE_REQUIREMENT = new PrimitiveRequirement(
-            "Science Requirements", "Complete MA1521, MA1101R, ST2334 and one other science mod",
-            SCIENCE_CONDITION, UE);
+            "Science Requirements", "Complete MA1521, MA1101R, ST2334 "
+            + "and one other science mod", SCIENCE_CONDITION, UE);
     public static final Condition CONDITION_CS3203 = new Condition("Complete CS3203", "CS3203");
     public static final Condition CONDITION_CS3216_CS3217 = new Condition("Complete CS3216 and CS3217",
             "CS3216", "CS3217");
@@ -250,6 +255,6 @@ public class SampleCourseRequirement {
     public static final Condition COMPLETE_40_MODULES = new Condition(40,
             "Complete any 40 modules", "[A-Z]{2,3}[0-9]{4}[A-Z]?");
     public static final CourseRequirement TOTAL_MODULE_COUNT = new PrimitiveRequirement(
-            "Complete at least 40 modules", "At least 40 modules needed to graduate!",
+            "Complete at least 40 modules", "At least 40 modules needed to graduate.",
             COMPLETE_40_MODULES, UE);
 }

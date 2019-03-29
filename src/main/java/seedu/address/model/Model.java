@@ -21,6 +21,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Doctor> PREDICATE_SHOW_ALL_DOCTORS = unused -> true;
 
+    /** {@code Predicate} that always evaluate to true */
+    Predicate<MedicalHistory> PREDICATE_SHOW_ALL_MEDHISTS = unused -> true;
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
@@ -65,21 +68,27 @@ public interface Model {
     boolean hasPatient(Patient patient);
 
     /**
+     * Returns true if a medical history with the same identity as {@code patient} exists in the address book.
+     */
+    boolean hasMedHist(MedicalHistory medicalHistory);
+
+    /**
      * Deletes the given patient.
      * The patient must exist in the address book.
      */
     void deletePatient(Patient target);
 
     /**
+     * Deletes the given medHist.
+     * The medHist must exist in the address book.
+     */
+    void deleteMedHist(MedicalHistory target);
+
+    /**
      * Adds the given patient.
      * {@code patient} must not already exist in the address book.
      */
     void addPatient(Patient patient);
-
-    /**
-     * Returns true if a medical history with the same identity as {@code patient} exists in the address book.
-     */
-    boolean hasMedHist(MedicalHistory medicalHistory);
 
     /**
      * Adds the given medical history.
@@ -95,8 +104,22 @@ public interface Model {
      */
     void setPatient(Patient target, Patient editedPatient);
 
+    /**
+     * Replaces the given medHist {@code target} with {@code editedMedHist}.
+     * {@code target} must exist in the address book.
+     * The medHist identity of {@code editedMedHist} must not be the same
+     * as another existing medHist in the address book.
+     */
+    void setMedHist(MedicalHistory target, MedicalHistory editedMedHist);
+
     /** Returns an unmodifiable view of the filtered patient list */
     ObservableList<Patient> getFilteredPatientList();
+
+    /** Returns an unmodifiable view of the filtered medical history list */
+    ObservableList<MedicalHistory> getFilteredMedHistList();
+
+    /** Returns an unmodifiable view of the filtered doctor list */
+    ObservableList<Doctor> getFilteredDoctorList();
 
     /**
      * Updates the filter of the filtered patient list to filter by the given {@code predicate}.
@@ -104,8 +127,16 @@ public interface Model {
      */
     void updateFilteredPatientList(Predicate<Patient> predicate);
 
-    ObservableList<Doctor> getFilteredDoctorList();
+    /**
+     * Updates the filter of the filtered medical history list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredMedHistList(Predicate<MedicalHistory> predicate);
 
+    /**
+     * Updates the filter of the filtered doctor list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     void updateFilteredDoctorList(Predicate<Doctor> predicate);
 
     /**
@@ -140,15 +171,32 @@ public interface Model {
     ReadOnlyProperty<Patient> selectedPatientProperty();
 
     /**
+     * Selected medical history in the filtered medHist list.
+     * null if no medHist is selected.
+     */
+    ReadOnlyProperty<MedicalHistory> selectedMedHistProperty();
+
+    /**
      * Returns the selected patient in the filtered patient list.
      * null if no patient is selected.
      */
     Patient getSelectedPatient();
 
     /**
+     * Returns the selected medHist in the filtered medHist list.
+     * null if no medHist is selected.
+     */
+    MedicalHistory getSelectedMedHist();
+
+    /**
      * Sets the selected patient in the filtered patient list.
      */
     void setSelectedPatient(Patient patient);
+
+    /**
+     * Sets the selected medHist in the filtered medHist list.
+     */
+    void setSelectedMedHist(MedicalHistory medHist);
 
     /**
      * Returns true if a doctor with the same identity as {@code doctor} exists in docX.

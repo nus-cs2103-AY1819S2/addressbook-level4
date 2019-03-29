@@ -16,6 +16,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.exceptions.MedHistNotFoundException;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
@@ -33,6 +34,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Patient> selectedPatient = new SimpleObjectProperty<>();
     private final FilteredList<Doctor> filteredDoctors;
     private final SimpleObjectProperty<Doctor> selectedDoctor = new SimpleObjectProperty<>();
+    private final FilteredList<MedicalHistory> filteredMedHists;
+    private final SimpleObjectProperty<MedicalHistory> selectedMedHist = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -49,6 +52,8 @@ public class ModelManager implements Model {
         filteredPatients.addListener(this::ensureSelectedPatientIsValid);
         filteredDoctors = new FilteredList<>(versionedAddressBook.getDoctorList());
         filteredDoctors.addListener(this::ensureSelectedDoctorIsValid);
+        filteredMedHists = new FilteredList<>(versionedAddressBook.getMedHistList());
+        filteredMedHists.addListener(this::ensureSelectedMedHistIsValid);
     }
 
     public ModelManager() {
@@ -132,15 +137,28 @@ public class ModelManager implements Model {
         updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
     }
 
-    // Needed to be implemented later
     @Override
     public boolean hasMedHist(MedicalHistory medicalHistory) {
-        return false;
+        requireAllNonNull(medicalHistory);
+        return versionedAddressBook.hasMedHist(medicalHistory);
     }
 
-    // Needed to be implemented later
     @Override
     public void addMedHist(MedicalHistory medicalHistory) {
+        versionedAddressBook.addMedHist(medicalHistory);
+        updateFilteredMedHistList(PREDICATE_SHOW_ALL_MEDHISTS);
+    }
+
+    @Override
+    public void deleteMedHist(MedicalHistory target) {
+        versionedAddressBook.removeMedHist(target);
+    }
+
+    @Override
+    public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
+        requireAllNonNull(target, editedMedHist);
+
+        versionedAddressBook.setMedHist(target, editedMedHist);
     }
 
     @Override
@@ -182,6 +200,23 @@ public class ModelManager implements Model {
     public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
         requireNonNull(predicate);
         filteredDoctors.setPredicate(predicate);
+    }
+
+    //=========== Filtered Patient List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code MedicalHistory} backed by the internal list of
+     * {@code versionedAddressBook}
+     */
+    @Override
+    public ObservableList<MedicalHistory> getFilteredMedHistList() {
+        return filteredMedHists;
+    }
+
+    @Override
+    public void updateFilteredMedHistList(Predicate<MedicalHistory> predicate) {
+        requireNonNull(predicate);
+        filteredMedHists.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -286,6 +321,55 @@ public class ModelManager implements Model {
                 // Select the doctor that came before it in the list,
                 // or clear the selection if there is no such doctor.
                 selectedDoctor.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    // Selected Medical History
+    @Override
+    public ReadOnlyProperty<MedicalHistory> selectedMedHistProperty() {
+        return selectedMedHist;
+    }
+
+    @Override
+    public MedicalHistory getSelectedMedHist() {
+        return selectedMedHist.getValue();
+    }
+
+    @Override
+    public void setSelectedMedHist(MedicalHistory medicalHistory) {
+        if (medicalHistory != null && !filteredMedHists.contains(medicalHistory)) {
+            throw new MedHistNotFoundException();
+        }
+        selectedMedHist.setValue(medicalHistory);
+    }
+
+    /**
+     * Ensures {@code selectedMedHist} is a valid medical history in {@code filteredMedHists}.
+     */
+    private void ensureSelectedMedHistIsValid(ListChangeListener.Change<? extends MedicalHistory> change) {
+        while (change.next()) {
+            if (selectedMedHist.getValue() == null) {
+                // null is always a valid selected patient, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedMedHistReplaced =
+                    change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                            && change.getRemoved().contains(selectedMedHist.getValue());
+            if (wasSelectedMedHistReplaced) {
+                // Update selectedMedHist to its new value.
+                int index = change.getRemoved().indexOf(selectedMedHist.getValue());
+                selectedMedHist.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedMedHistRemoved = change.getRemoved().stream()
+                    .anyMatch(removedMedHist -> selectedMedHist.getValue().isSameMedHist(removedMedHist));
+            if (wasSelectedMedHistRemoved) {
+                // Select the medical history that came before it in the list,
+                // or clear the selection if there is no such medical history.
+                selectedMedHist.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
     }

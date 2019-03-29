@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
+import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.medicalhistory.WriteUp;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Age;
 import seedu.address.model.person.Doctor;
@@ -62,10 +64,21 @@ public class SampleDataUtil {
         };
     }
 
+    public static MedicalHistory[] getSampleMedHists() {
+        return new MedicalHistory[] {
+                new MedicalHistory(null, null, new Name("Alex Yeoh"), new WriteUp("Fever")),
+                new MedicalHistory(null, null, new Name("Bernice Yu"), new WriteUp("Cough")),
+                new MedicalHistory(null, null, new Name("Charlotte Oliveiro"), new WriteUp("Sneeze"))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Patient samplePatient : getSamplePatients()) {
             sampleAb.addPatient(samplePatient);
+        }
+        for (MedicalHistory sampleMedHist : getSampleMedHists()) {
+            sampleAb.addMedHist(sampleMedHist);
         }
         return sampleAb;
     }

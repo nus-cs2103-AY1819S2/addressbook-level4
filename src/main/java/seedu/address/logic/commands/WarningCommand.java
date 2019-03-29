@@ -15,7 +15,7 @@ import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
 
 
 /**
- * Adds a medicine to the inventory.
+ * Change or show thresholds used in warning panel.
  */
 public class WarningCommand extends Command {
 

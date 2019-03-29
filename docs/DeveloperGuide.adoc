@@ -223,7 +223,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Medicine Inventory data in json format and read it back.
+* can save the medicine inventory data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -279,22 +279,22 @@ Step 3. The user executes `find n/Paracetamol ...`. The `find` command deselects
 ==== Current Implementation
 
 The exporting as CSV file format mechanism is facilitated by `CsvWrapper`.
-It is build on top of the `Opencsv` Java CSV parser library, licensed under the `Apache 2 OSS License`, so that it integrates with our product. This is done by providing additional operations to support exporting the current Medicine Inventory data shown in the GUI to CSV file format.
+It is build on top of the `Opencsv` Java CSV parser library, licensed under the `Apache 2 OSS License`, so that it integrates with our product. This is done by providing additional operations to support exporting the current medicine inventory data shown in the GUI to CSV file format.
 
 There are many additonal operations added in `CsvWrapper` but we will only list the key operations which are the main drivers of the overall implementation of the feature for easier reference and understanding.
 
 The key operations are as follows:
 
-* `CsvWrapper#export()` -- Export the current Medicine Inventory data shown in the GUI to CSV file format.
+* `CsvWrapper#export()` -- Export the current medicine inventory data shown in the GUI to CSV file format.
 * `CsvWrapper#createCsvFile(String csvFileName)` -- Creates a CSV file with the file name based on the `csvFileName` input. The file is created in the default `exported` directory which is located in the same directory as our product application.
 [NOTE]
 If the default `exported` directory is not found, it will be automatically created.
-* `CsvWrapper#writeDataToCsv(List currentGuiList)` -- Writes the current Medicine Inventory data shown in the GUI to the CSV file created by the `CsvWrapper#createCsvFile(String csvFileName)` operation.
+* `CsvWrapper#writeDataToCsv(List currentGuiList)` -- Writes the current medicine inventory data shown in the GUI to the CSV file created by the `CsvWrapper#createCsvFile(String csvFileName)` operation.
 
 [NOTE]
 Out of the three key operations stated above, *only* `CsvWrapper#export()` is a _public_ operation available for use by other components. It acts as the main interface which other components use to interact with `CsvWrapper` in order to integrate exporting to CSV file format feature into their own implementation.
 
-Given below is a sequence diagram overview of how these 3 key operations behaves when the user executes the `export` command in order to export the current Medicine Inventory data shown in the GUI to CSV file format:
+Given below is a sequence diagram overview of how these 3 key operations behaves when the user executes the `export` command in order to export the current medicine inventory data shown in the GUI to CSV file format:
 
 image::ExportCommandSequenceDiagramOverview.png[width="800"]
 
@@ -306,16 +306,16 @@ Step 2: The `ExportCommand#execute()` operation initialises the `CsvWrapper` wit
 
 Step 3: The `ExportCommand#execute()` operation then calls `CsvWrapper#export()` operation which is the first key operation which implements the export to CSV file format feature.
 
-Step 4: The `CsvWrapper#export()` operation retrieves the current Medicine Inventory data shown in the GUI by calling the `Model#getFilteredMedicineList()` operation.
+Step 4: The `CsvWrapper#export()` operation retrieves the current medicine inventory data shown in the GUI by calling the `Model#getFilteredMedicineList()` operation.
 
 Step 5: After retrieving the data, the `CsvWrapper#createCsvFile(String csvFileName)` operation, which is the second key operation, is called. It creates an empty CSV file with the input file name in the default `exported` directory.
 
 [NOTE]
-If a CSV file with the input file name already exists in the `exported` directory, a `"Could not export data to csv file: {Input File Name} already exists in "exported" directory"` exception will be shown in the `CommandResult` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current Medicine Inventory data shown in the GUI would not be exported.
+If a CSV file with the input file name already exists in the `exported` directory, a `"Could not export data to csv file: {Input File Name} already exists in "exported" directory"` exception will be shown in the `CommandResult` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current medicine inventory data shown in the GUI would not be exported.
 
-Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv`, which is the third key operation, is called to process the current Medicine Inventory data retrieved earlier in Step 4 and writes to the CSV file in an organised format for easier reference by the users of the exported CSV file.
+Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv`, which is the third key operation, is called to process the current medicine inventory data retrieved earlier in Step 4 and writes to the CSV file in an organised format for easier reference by the users of the exported CSV file.
 
-Step 7: The current Medicine Inventory data shown in the GUI is exported successfully to CSV file format.
+Step 7: The current medicine inventory data shown in the GUI is exported successfully to CSV file format.
 
 Step 8: The `ExportCommand#execute()` operations returns a `CommandResult` which shows the current list is exported to a CSV file with the input file name.
 
@@ -327,11 +327,11 @@ image::ExportCommandActivityDiagram.png[width="800"]
 
 ===== Aspect: How exporting as CSV file format executes
 
-* **Alternative 1 (current choice):** Export the current Medicine Inventory data shown in the GUI to CSV file format.
+* **Alternative 1 (current choice):** Export the current medicine inventory data shown in the GUI to CSV file format.
 ** Pros: Easy to implement and users have a preview of the data before exporting.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual commands each adds an additional parameter to export as CSV file.
-** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered Medicine Inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
+** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
 ** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able preview the data before exporting.
 
 ===== Aspect: Data structure/Algorithm/Implementation to support the `export` command

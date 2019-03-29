@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private MainPanel mainPanel;
     private HelpWindow helpWindow;
+    private PersonListPanel personListPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -126,6 +127,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
+            logic::setSelectedPerson);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 

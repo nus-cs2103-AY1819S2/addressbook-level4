@@ -11,9 +11,9 @@ import org.junit.Test;
 public class CardSrsDataTest {
 
     private Instant date = Instant.now();
-    private CardSrsData testCardData = new CardSrsData(1, 1, 1, date);
-    private CardSrsData expectedCardData = new CardSrsData(1, 1, 1, date);
-    private CardSrsData card = new CardSrsData(1, 1, 1, date);
+    private CardSrsData testCardData = new CardSrsData(1, 1, 1, date, true);
+    private CardSrsData expectedCardData = new CardSrsData(1, 1, 1, date, true);
+    private CardSrsData card = new CardSrsData(1, 1, 1, date, true);
     private int outCardInt;
     private String outCardString;
 
@@ -56,9 +56,9 @@ public class CardSrsDataTest {
     }
     @Test
     public void equalsTest() {
-        CardSrsData card1 = new CardSrsData(1, 1, 1, date);
-        CardSrsData card2 = new CardSrsData(1, 1, 1, date);
-        CardSrsData card3 = new CardSrsData(20, 20, 20, date);
+        CardSrsData card1 = new CardSrsData(1, 1, 1, date, true);
+        CardSrsData card2 = new CardSrsData(1, 1, 1, date, true);
+        CardSrsData card3 = new CardSrsData(20, 20, 20, date, false);
 
         assertTrue("Card is the same", card1.equals(card2));
         assertFalse("Card is not the same", card3.equals(card1));

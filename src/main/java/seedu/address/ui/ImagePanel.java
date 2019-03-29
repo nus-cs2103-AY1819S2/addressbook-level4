@@ -39,7 +39,6 @@ public class ImagePanel extends UiPart<Region> implements PropertyChangeListener
         if (event.getPropertyName().equals("import")) {
             File f = new File(event.getNewValue().toString());
             try {
-                System.out.println(f.toURI().toURL().toExternalForm());
                 Image i = new Image(f.toURI().toURL().toExternalForm());
                 imageView.setImage(i);
             } catch (MalformedURLException e) {

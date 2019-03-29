@@ -2,6 +2,9 @@
 
 package seedu.address.ui;
 
+import java.io.File;
+import java.net.MalformedURLException;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -27,8 +30,6 @@ public class ImageCard extends UiPart<Region> {
     public final Image image;
 
     @FXML
-    private HBox cardPane;
-    @FXML
     private Label name;
     @FXML
     private Label height;
@@ -40,6 +41,12 @@ public class ImageCard extends UiPart<Region> {
     public ImageCard(Image image) {
         super(FXML);
         this.image = image;
+        File file = new File(image.getUrl());
+        try {
+            thumbnail.setImage(new javafx.scene.image.Image(file.toURI().toURL().toExternalForm()));
+        } catch (MalformedURLException e) {
+            System.out.println(e.toString());
+        }
         name.setText("Name: " + image.getName().name);
         height.setText("Image: " + image.getHeight().value);
         width.setText("Width: " + image.getWidth().value);

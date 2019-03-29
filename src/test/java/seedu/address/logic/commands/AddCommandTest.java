@@ -277,7 +277,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setActiveCardFolderIndex(int newIndex) {
+        public void enterFolder(int newIndex) {
             throw new AssertionError("This method should not be called.");
         }
 

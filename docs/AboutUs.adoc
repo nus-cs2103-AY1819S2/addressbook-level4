@@ -14,7 +14,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 image::minernchan.PNG[width="150", align="left"]
 {empty}[http://github.com/minernchan[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Developer (Testing) +
 Responsibilities:
 
 * In charge of Model.
@@ -43,7 +43,7 @@ Other Roles
 image::A0143487X-Kevin.png[width="150", align="left"]
 {empty}[http://github.com/A0143487X-Kevin[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Developer (Integrator) +
 Responsibilities:
 
 * In charge of UI.
@@ -55,7 +55,7 @@ Responsibilities:
 image::melissakhoo.png[width="150", align="left"]
 {empty}[http://github.com/melkwx[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
+Role: Developer (Code Quality) +
 Responsibilities:
 
 * In charge of Logic.

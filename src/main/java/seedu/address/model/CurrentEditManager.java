@@ -43,7 +43,8 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
-     * Saves a copy of {@code image} to temp folder and instantiate it as originalImage.
+     * Saves a copy of {@code image} to temp folder as ori_img.png and instantiate it as originalImage.
+     * Stores original name is originalImageName.
      */
     public void saveAsOriginal(Image image) {
         saveIntoTempFolder("ori_img.png", image);
@@ -51,6 +52,9 @@ public class CurrentEditManager implements CurrentEdit {
         setOriginalImage(image);
     }
 
+    /**
+     * Overwrites ori_img.png with tempImage. Sets originalImageName as {@code name}.
+     */
     public void overwriteOriginal(String name) {
         saveIntoTempFolder("ori_img.png", tempImage);
         originalImageName = name;

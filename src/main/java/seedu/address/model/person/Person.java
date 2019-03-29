@@ -17,27 +17,40 @@ public class Person {
 
     // Identity fields
     private final Name name;
+    private final MatricNumber matricNumber;
     private final Phone phone;
     private final Email email;
 
     // Data fields
     private final Address address;
+    private final Gender gender;
+    private final YearOfStudy yearOfStudy;
+    private final Major major;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, MatricNumber matricNumber, Phone phone, Email email, Address address, Gender gender,
+                  YearOfStudy yearOfStudy, Major major, Set<Tag> tags) {
+        requireAllNonNull(name, matricNumber, phone, email, address, gender, yearOfStudy, major, tags);
         this.name = name;
+        this.matricNumber = matricNumber;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.gender = gender;
+        this.yearOfStudy = yearOfStudy;
+        this.major = major;
         this.tags.addAll(tags);
     }
 
     public Name getName() {
         return name;
+    }
+
+    public MatricNumber getMatricNumber() {
+        return matricNumber;
     }
 
     public Phone getPhone() {
@@ -50,6 +63,18 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public YearOfStudy getYearOfStudy() {
+        return yearOfStudy;
+    }
+
+    public Major getMajor() {
+        return major;
     }
 
     /**
@@ -71,6 +96,7 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(getName())
+                && otherPerson.getMatricNumber().equals((getMatricNumber()))
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
@@ -90,31 +116,42 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
+                && otherPerson.getMatricNumber().equals(getMatricNumber())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
+                && otherPerson.getGender().equals(getGender())
+                && otherPerson.getYearOfStudy().equals(getYearOfStudy())
+                && otherPerson.getMajor().equals(getMajor())
                 && otherPerson.getTags().equals(getTags());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(address, name, phone, email, gender, major, matricNumber, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Address: ")
+                .append(getAddress())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
+                .append(" Gender: ")
+                .append(getGender())
+                .append(" Major: ")
+                .append(getMajor())
+                .append(" Matric Number: ")
+                .append(getMatricNumber())
+                .append(" Year of Study: ")
+                .append(getYearOfStudy())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

@@ -1,15 +1,24 @@
 {
   "persons": [ {
     "name": "Alice Pauline",
+    "matricNumber" : "A0123456Z",
     "phone": "94351253",
     "email": "alice@example.com",
     "address": "123, Jurong West Ave 6, #08-111",
-    "tagged": [ "friends" ]
+    "gender" : "Female",
+    "yearOfStudy" : "Year 4",
+    "major" : "Business Analytics",
+    "tagged" : [ "running" ]
   }, {
     "name": "Alice Pauline",
+    "matricNumber" : "A0123456Z",
     "phone": "94351253",
-    "email": "pauline@example.com",
-    "address": "4th street"
+    "email": "alice@example.com",
+    "address": "123, Jurong West Ave 6, #08-111",
+    "gender" : "Female",
+    "yearOfStudy" : "Year 4",
+    "major" : "Business Analytics",
+    "tagged" : [ "running" ]
   } ],
   "activities": []
 }

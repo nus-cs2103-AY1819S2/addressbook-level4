@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.person.MatricNumber;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -126,6 +127,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    /**
+     * Returns true if a person with the same matricNumber as {@code person} exists in the address book.
+     */
+    public boolean hasMatricNumber(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        return persons.containsMatricNumber(matricNumber);
+    }
+
+    /**
+     * Returns the person if a person with the same matricNumber as {@code person} exists in the address book.
+     */
+    public Person getPersonWithMatricNumber(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        return persons.getPersonWithMatricNumber(matricNumber);
+    }
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.

@@ -17,6 +17,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AppMode;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.activity.Activity;
@@ -133,5 +134,20 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedActivity(Activity activity) {
         model.setSelectedActivity(activity);
+    }
+
+    @Override
+    public void callAllListFn() {
+        model.resetLists();
+    }
+
+    @Override
+    public boolean modeHasChange_isCurrModeMember() {
+        return model.getAddressBookMode().equals(AppMode.Modes.MEMBER);
+    }
+
+    @Override
+    public boolean modeHasChange_isCurrModeActivity() {
+        return model.getAddressBookMode().equals(AppMode.Modes.ACTIVITY);
     }
 }

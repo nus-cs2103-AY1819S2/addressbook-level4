@@ -34,6 +34,8 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    //private PersonListPanel personNotInActivityListPanel;
+    private ActivityListPanel activityListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -47,7 +49,9 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane leftListPanelPlaceholder;
+    @FXML
+    private StackPane rightListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -117,7 +121,10 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        activityListPanel = new ActivityListPanel(logic.getFilteredActivityList(), logic.selectedActivityProperty(),
+                logic::setSelectedActivity);
+        leftListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        //rightListPanelPlaceholder.getChildren().add(activityListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -151,6 +158,28 @@ public class MainWindow extends UiPart<Stage> {
         } else {
             helpWindow.focus();
         }
+    }
+
+    /**
+     * Change mode
+     */
+    @FXML
+    private void handleModeHasChanged() {
+        logic.callAllListFn();
+        if (isModeChangeToMember()) {
+            leftListPanelPlaceholder.getChildren().set(0, personListPanel.getRoot());
+        }
+        if (isModeChangeToActivity()) {
+            leftListPanelPlaceholder.getChildren().set(0, activityListPanel.getRoot());
+        }
+    }
+
+    private boolean isModeChangeToMember() {
+        return logic.modeHasChange_isCurrModeMember();
+    }
+
+    private boolean isModeChangeToActivity() {
+        return logic.modeHasChange_isCurrModeActivity();
     }
 
     void show() {
@@ -191,6 +220,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isModeHasChanged()) {
+                handleModeHasChanged();
             }
 
             return commandResult;

@@ -229,6 +229,12 @@ public class ModelManager implements Model {
         versionedAddressBook.commit();
     }
 
+    @Override
+    public void resetLists() {
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredActivityList(PREDICATE_SHOW_ALL_ACTIVITIES);
+    }
+
     //=========== Selected person ===========================================================================
 
     @Override

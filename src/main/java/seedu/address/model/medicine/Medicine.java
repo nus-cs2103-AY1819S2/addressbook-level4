@@ -119,24 +119,13 @@ public class Medicine {
         this.threshold = threshold;
     }
 
-    /**
-     * deal with reminders.
-     */
-    /**public void generateOrDeleteReminder() {
-        if (isSufficient()) {
-            reminderManager.deleteExistingMedicineReminder(this);
-        } else {
-            reminderManager.reminderForMedicine(this);
-        }
-    }
-*/
     @Override
     public String toString() {
         return String.format(TO_STRING, name, quantity, price.toString());
     }
 
     public String viewDetail() {
-        return this.toString();
+        return this.toString() + " With threshold: " + threshold;
     }
 
     public BigDecimal getPrice() {

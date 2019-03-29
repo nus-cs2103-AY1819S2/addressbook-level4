@@ -69,6 +69,15 @@ public class Directory {
     }
 
     /**
+     * Add a directory object under this directory
+     * @param subDirectory The directory to add
+     * @return The directory added
+     */
+    public Directory addDirectory(Directory subDirectory) {
+        listOfDirectory.add(subDirectory);
+        return subDirectory;
+    }
+    /**
      * Check whether there is no medicine with identical name in the directory
      * @param med the medicine that needs checking
      * @return if there is no existing medicine with the identical name

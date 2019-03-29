@@ -222,6 +222,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void addExistingMedicineToDirectory(Medicine medicine, String[] path) {
+        medicineManager.addExistingMedicineToDirectory(medicine, path);
+        quickDocs.indicateModification(true);
+    }
+
+    @Override
     public void addDirectory(String directoryName, String[] path) {
         medicineManager.addDirectory(directoryName, path);
         quickDocs.indicateModification(true);
@@ -262,6 +268,7 @@ public class ModelManager implements Model {
     public void setThreshold(Medicine medicine, int threshold) {
         medicine.setThreshold(threshold);
         reminderForMedicine(medicine);
+        quickDocs.indicateModification(true);
     }
 
     @Override
@@ -273,6 +280,13 @@ public class ModelManager implements Model {
         for (Directory subDirectory : directory.getListOfDirectory()) {
             setThreshold(subDirectory, threshold);
         }
+        quickDocs.indicateModification(true);
+    }
+
+    @Override
+    public void setPrice(Medicine medicine, BigDecimal price) {
+        medicine.setPrice(price);
+        quickDocs.indicateModification(true);
     }
     //=========== AddressBook ================================================================================
 
@@ -436,6 +450,11 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
+                && medicineManager.equals(other.medicineManager)
+                && reminderManager.equals(other.reminderManager)
+                && patientManager.equals(other.patientManager)
+                && consultationManager.equals(other.consultationManager)
+                && appointmentManager.equals(other.appointmentManager)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

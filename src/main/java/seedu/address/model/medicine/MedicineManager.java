@@ -14,6 +14,8 @@ public class MedicineManager {
 
     public static final String ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST =
         "Medicine with the same name already exists in the storage.";
+    public static final String ERROR_MESSAGE_NO_DIRECTORY_FOUND =
+        "No directory is found at the given path.";
 
     private Directory root;
     private ArrayList<Medicine> listOfMedicine;
@@ -119,9 +121,32 @@ public class MedicineManager {
         return medicine.get();
     }
 
+    public Directory getRoot() {
+        return root;
+    }
+
+    public void setRoot(Directory root) {
+        this.root = root;
+    }
+
+    public void setListOfMedicine(ArrayList<Medicine> listOfMedicine) {
+        this.listOfMedicine = listOfMedicine;
+    }
 
     public ArrayList<Medicine> getListOfMedicine() {
         return listOfMedicine;
     }
 
+    /**
+     * Add an existing medicine to a directory specified by path
+     * @param medicine The medicine to add
+     * @param path The path specifying the directory
+     */
+    public void addExistingMedicineToDirectory(Medicine medicine, String[] path) {
+        Optional<Directory> directory = findDirectory(path);
+        if (!directory.isPresent()) {
+            throw new IllegalArgumentException(ERROR_MESSAGE_NO_DIRECTORY_FOUND);
+        }
+        directory.get().addMedicine(medicine);
+    }
 }

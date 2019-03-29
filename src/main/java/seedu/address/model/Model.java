@@ -191,6 +191,10 @@ public interface Model {
     void setThreshold(Medicine medicine, int threshold);
 
     void setThreshold(Directory directory, int threshold);
+
+    void addExistingMedicineToDirectory(Medicine medicine, String[] path);
+
+    void setPrice(Medicine medicine, BigDecimal price);
     //===========Patient module operations============================
     boolean duplicatePatient(Patient patient);
 

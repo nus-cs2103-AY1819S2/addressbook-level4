@@ -75,7 +75,6 @@ public class DeleteBookCommandSystemTest extends BookShelfSystemTest {
         /* --------------------- Performing delete operation while a book card is selected ------------------------ */
 
         /* Case: delete the selected book -> book list panel selects the book before the deleted book */
-        /*
         showAllBooks();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -155,7 +154,7 @@ public class DeleteBookCommandSystemTest extends BookShelfSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      * @see DeleteBookCommandSystemTest#assertCommandSuccess(String, Model, String)
-     * @see BookShelfSystemTest#assertSelectedCardChanged(Index)
+     * @see BookShelfSystemTest#assertSelectedBookCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -163,9 +162,9 @@ public class DeleteBookCommandSystemTest extends BookShelfSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
         if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
+            assertSelectedBookCardChanged(expectedSelectedCardIndex);
         } else {
-            assertSelectedCardUnchanged();
+            assertSelectedBookCardUnchanged();
         }
 
         assertCommandBoxShowsDefaultStyle();
@@ -187,7 +186,7 @@ public class DeleteBookCommandSystemTest extends BookShelfSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

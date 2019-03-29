@@ -9,8 +9,6 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -34,6 +32,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ListBookCommand;
+import seedu.address.logic.commands.ListReviewCommand;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalBooks;
@@ -150,6 +149,14 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
+     * Selects the book at {@code index} of the displayed list.
+     */
+    protected void selectBook(Index index) {
+        executeCommand(ListReviewCommand.COMMAND_WORD + " " + index.getOneBased());
+        assertEquals(index.getZeroBased(), getBookListPanel().getSelectedCardIndex());
+    }
+
+    /**
      * Deletes all books in the book shelf.
      */
     protected void deleteAllBooks() {
@@ -188,8 +195,7 @@ public abstract class BookShelfSystemTest {
      * @see BookBrowserPanelHandle#isUrlChanged()
      */
     @Ignore
-    protected void assertSelectedCardDeselected() {
-        assertEquals(BookBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+    protected void assertSelectedBookCardDeselected() {
         assertFalse(getBookListPanel().isAnyCardSelected());
     }
 
@@ -200,16 +206,9 @@ public abstract class BookShelfSystemTest {
      * @see BookListPanelHandle#isSelectedBookCardChanged()
      */
     @Ignore
-    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+    protected void assertSelectedBookCardChanged(Index expectedSelectedCardIndex) {
         getBookListPanel().navigateToCard(getBookListPanel().getSelectedCardIndex());
         String selectedCardName = getBookListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getBookListPanel().getSelectedCardIndex());
     }
@@ -219,8 +218,7 @@ public abstract class BookShelfSystemTest {
      * @see BookBrowserPanelHandle#isUrlChanged()
      * @see BookListPanelHandle#isSelectedBookCardChanged()
      */
-    protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+    protected void assertSelectedBookCardUnchanged() {
         assertFalse(getBookListPanel().isSelectedBookCardChanged());
     }
 

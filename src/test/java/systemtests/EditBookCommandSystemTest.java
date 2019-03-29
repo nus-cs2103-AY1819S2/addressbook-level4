@@ -223,13 +223,13 @@ public class EditBookCommandSystemTest extends BookShelfSystemTest {
      * @see EditBookCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Book editedBook,
-            Index expectedSelectedCardIndex) {
+            Index expectedSelectedBookCardIndex) {
         Model expectedModel = getModel();
         expectedModel.setBook(expectedModel.getFilteredBookList().get(toEdit.getZeroBased()), editedBook);
         expectedModel.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditBookCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook), expectedSelectedCardIndex);
+                String.format(EditBookCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook), expectedSelectedBookCardIndex);
     }
 
     /**
@@ -246,24 +246,24 @@ public class EditBookCommandSystemTest extends BookShelfSystemTest {
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
      * 3. Asserts that the browser url and selected card update accordingly depending on the card at
-     * {@code expectedSelectedCardIndex}.<br>
+     * {@code expectedSelectedBookCardIndex}.<br>
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
      * {@code BookShelfSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see BookShelfSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see BookShelfSystemTest#assertSelectedCardChanged(Index)
+     * @see BookShelfSystemTest#assertSelectedBookCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) {
+            Index expectedSelectedBookCardIndex) {
         executeCommand(command);
         expectedModel.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
+        if (expectedSelectedBookCardIndex != null) {
+            assertSelectedBookCardChanged(expectedSelectedBookCardIndex);
         } else {
-            assertSelectedCardUnchanged();
+            assertSelectedBookCardUnchanged();
         }
         assertStatusBarUnchangedExceptSyncStatus();
     }
@@ -283,7 +283,7 @@ public class EditBookCommandSystemTest extends BookShelfSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

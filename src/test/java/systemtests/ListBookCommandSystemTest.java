@@ -37,40 +37,40 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         Model expectedModel = getModel();
         ModelHelper.setFilteredBookList(expectedModel, LIFEPI, LIFEWAO);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: repeat previous find command where book list is displaying the books we are finding
          * -> 2 books found
          */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + KEYWORD_MATCHING_LIFE;
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find book where book list is not displaying the book we are finding -> 1 book found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + KEYWORD_MATCHING_COLLINS;
         ModelHelper.setFilteredBookList(expectedModel, HUNGERGAME);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find multiple books in book shelf, 2 keywords -> 2 books found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + KEYWORD_MATCHING_ZUSAK + "   ";
         command = command + PREFIX_AUTHOR + KEYWORD_MATCHING_COLLINS + "   ";
         ModelHelper.setFilteredBookList(expectedModel, BOOKTHIEF, HUNGERGAME);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find multiple books in book shelf, 2 keywords in reversed order -> 2 books found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + KEYWORD_MATCHING_COLLINS + "   ";
         command = command + PREFIX_AUTHOR + KEYWORD_MATCHING_ZUSAK + "   ";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find multiple books in book shelf, 2 keywords with 1 repeat -> 2 books found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + KEYWORD_MATCHING_ZUSAK + "   ";
         command = command + PREFIX_AUTHOR + KEYWORD_MATCHING_COLLINS + "   ";
         command = command + PREFIX_AUTHOR + KEYWORD_MATCHING_ZUSAK;
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find multiple books in book shelf, 2 matching keywords and 1 non-matching keyword
          * -> 2 books found
@@ -79,7 +79,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         command = command + PREFIX_AUTHOR + KEYWORD_MATCHING_COLLINS + "   ";
         command = command + PREFIX_AUTHOR + "NoKeywordMatching";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: undo previous find command -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -99,41 +99,41 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         expectedModel = getModel();
         ModelHelper.setFilteredBookList(expectedModel, HUNGERGAME);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find book in book shelf, keyword is same as name but of different case -> 1 book found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + "cOLLIns";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find book in book shelf, keyword is substring of name -> 0 books found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + "Hun";
         ModelHelper.setFilteredBookList(expectedModel);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find book in book shelf, author name is substring of keyword -> 0 books found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_AUTHOR + "CollinsMoreLetters";
         ModelHelper.setFilteredBookList(expectedModel);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find book not in book shelf -> 0 books found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + "NoBooksFound";
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find rating of book in book shelf -> 2 books found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_RATING + KEYWORD_MATCHING_SIX;
         ModelHelper.setFilteredBookList(expectedModel, HUNGERGAME, MIDDLESEX);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find tag of BOOK in book shelf -> 2 books found */
         command = ListBookCommand.COMMAND_WORD + " " + PREFIX_TAG + KEYWORD_MATCHING_FANTASY;
         ModelHelper.setFilteredBookList(expectedModel, HUNGERGAME, LIFEPI);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: find BOOK in empty book shelf -> 0 books found */
         deleteAllBooks();
@@ -141,7 +141,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         expectedModel = getModel();
         ModelHelper.setFilteredBookList(expectedModel);
         assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
         command = "LIstBOOk";
@@ -182,7 +182,7 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

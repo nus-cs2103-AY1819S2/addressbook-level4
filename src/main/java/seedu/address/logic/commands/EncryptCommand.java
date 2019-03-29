@@ -29,6 +29,7 @@ public class EncryptCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PASSWORD + "NewSecuredPassword";
     private static final String MESSAGE_ENCRYPT_PDF_SUCCESS = "Encrypted PDF: %1$s";
+    private static final String MESSAGE_ENCRYPT_PDF_FAILURE = "%1%s did not get encrypted successfully.";
 
     private final Index index;
     private final String password;
@@ -63,7 +64,7 @@ public class EncryptCommand extends Command {
         return new CommandResult(String.format(MESSAGE_ENCRYPT_PDF_SUCCESS, pdfEncrypted));
     }
 
-    private Pdf encryptPdf(Pdf pdfToEncrypt) {
+    private Pdf encryptPdf(Pdf pdfToEncrypt) throws CommandException{
         try {
             PDDocument file = PDDocument.load(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),
                     pdfToEncrypt.getName().getFullName()).toFile());
@@ -74,9 +75,8 @@ public class EncryptCommand extends Command {
             file.protect(spp);
             System.out.println(Paths.get("src", "test", "data", "JsonAdaptedPdfTest","z.pdf"));
             file.save(Paths.get("src", "test", "data", "JsonAdaptedPdfTest","z.pdf").toFile());
-
         } catch (IOException ioe) {
-            System.out.println("ioe");
+            throw new CommandException(String.format(MESSAGE_ENCRYPT_PDF_FAILURE, pdfToEncrypt));
         }
         return pdfToEncrypt;
     }

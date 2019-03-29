@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -51,7 +50,7 @@ public class ExportCommand extends Command {
             try {
                 writeFile(createTempAddressBook(model, parsedInput.getParsedIndex()));
             } catch (IOException e) {
-                throw new CommandException(Messages.MESSAGE_INVALID_FILE_TYPE);
+                throw new CommandException(e.getMessage());
             }
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         }
@@ -74,7 +73,7 @@ public class ExportCommand extends Command {
                 storage.saveAsPdf(model.getAddressBook());
             }
         } catch (IOException e) {
-            throw new IOException();
+            throw new IOException(e.getMessage());
         }
     }
 

@@ -3,11 +3,11 @@ package guitests.guihandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.google.common.collect.ImmutableMultiset;
-
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Person;
 
 /**
@@ -15,6 +15,7 @@ import seedu.address.model.person.Person;
  */
 public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
+    private static final String NRIC_FIELD_ID = "#nric";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
@@ -22,6 +23,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String TAGS_FIELD_ID = "#tags";
 
     private final Label idLabel;
+    private final Label nricLabel;
     private final Label nameLabel;
     private final Label addressLabel;
     private final Label phoneLabel;
@@ -32,6 +34,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         super(cardNode);
 
         idLabel = getChildNode(ID_FIELD_ID);
+        nricLabel = getChildNode(NRIC_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
         addressLabel = getChildNode(ADDRESS_FIELD_ID);
         phoneLabel = getChildNode(PHONE_FIELD_ID);
@@ -47,6 +50,10 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
     public String getId() {
         return idLabel.getText();
+    }
+
+    public String getNric() {
+        return nricLabel.getText();
     }
 
     public String getName() {
@@ -76,12 +83,10 @@ public class PersonCardHandle extends NodeHandle<Node> {
      * Returns true if this handle contains {@code person}.
      */
     public boolean equals(Person person) {
-        return getName().equals(person.getName().fullName)
-                && getAddress().equals(person.getAddress().value)
-                && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value)
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
-                        .map(tag -> tag.tagName)
-                        .collect(Collectors.toList())));
+        if (person instanceof Patient) {
+            return getNric().equals(((Patient) person).getNric().getNric());
+        } else {
+            throw new PersonIsNotPatient();
+        }
     }
 }

@@ -24,6 +24,8 @@ import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.RecordAddCommand;
+import seedu.address.logic.commands.RecordDeleteCommand;
+import seedu.address.logic.commands.RecordEditCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SaveCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -34,8 +36,10 @@ import seedu.address.logic.commands.TaskCalendarCommand;
 import seedu.address.logic.commands.TaskDeleteCommand;
 import seedu.address.logic.commands.TaskEditCommand;
 import seedu.address.logic.commands.TaskcopyCommand;
+import seedu.address.logic.commands.TeethEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.MainWindow;
 
 /**
  * Parses user input.
@@ -62,93 +66,138 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        if (!MainWindow.isGoToMode()) {
+            switch (commandWord) {
+            case AddCommand.COMMAND_WORD:
+                return new AddCommandParser().parse(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(arguments);
+            case EditCommand.COMMAND_WORD:
+                return new EditCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser().parse(arguments);
 
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            case DeleteCommand.COMMAND_WORD:
+                return new DeleteCommandParser().parse(arguments);
 
-        case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(arguments);
+            case ClearCommand.COMMAND_WORD:
+                return new ClearCommand();
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            case FindCommand.COMMAND_WORD:
+                return new FindCommandParser().parse(arguments);
 
-        case HistoryCommand.COMMAND_WORD:
-            return new HistoryCommand();
+            case ListCommand.COMMAND_WORD:
+                return new ListCommand();
 
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
 
-        case UndoCommand.COMMAND_WORD:
-            return new UndoCommand();
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
 
-        case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();
+            case UndoCommand.COMMAND_WORD:
+                return new UndoCommand();
 
-        case GoToCommand.COMMAND_WORD:
-            return new GoToCommandParser().parse(arguments);
+            case RedoCommand.COMMAND_WORD:
+                return new RedoCommand();
 
-        case BackCommand.COMMAND_WORD:
-            return new BackCommand();
+            case GoToCommand.COMMAND_WORD:
+                return new GoToCommandParser().parse(arguments);
 
-        case StatsCommand.COMMAND_WORD:
-            return new StatsCommandParser().parse(arguments);
+            case StatsCommand.COMMAND_WORD:
+                return new StatsCommandParser().parse(arguments);
 
-        case SortCommand.COMMAND_WORD:
-            return new SortCommandParser().parse(arguments);
+            case SortCommand.COMMAND_WORD:
+                return new SortCommandParser().parse(arguments);
 
-        case CopyCommand.COMMAND_WORD:
-            return new CopyCommandParser().parse(arguments);
+            case CopyCommand.COMMAND_WORD:
+                return new CopyCommandParser().parse(arguments);
 
-        case OpenCommand.COMMAND_WORD:
-            return new OpenCommandParser().parse(arguments);
+            case OpenCommand.COMMAND_WORD:
+                return new OpenCommandParser().parse(arguments);
 
-        case SaveCommand.COMMAND_WORD:
-            return new SaveCommandParser().parse(arguments);
+            case SaveCommand.COMMAND_WORD:
+                return new SaveCommandParser().parse(arguments);
 
-        case ImportCommand.COMMAND_WORD:
-            return new ImportCommandParser().parse(arguments);
+            case ImportCommand.COMMAND_WORD:
+                return new ImportCommandParser().parse(arguments);
 
-        case ExportCommand.COMMAND_WORD:
-            return new ExportCommandParser().parse(arguments);
+            case ExportCommand.COMMAND_WORD:
+                return new ExportCommandParser().parse(arguments);
 
-        case TaskAddCommand.COMMAND_WORD:
-            return new TaskAddCommandParser().parse(arguments);
+            case TaskAddCommand.COMMAND_WORD:
+                return new TaskAddCommandParser().parse(arguments);
 
-        case TaskCalendarCommand.COMMAND_WORD:
-            return new TaskCalendarCommandParser().parse(arguments);
+            case TaskCalendarCommand.COMMAND_WORD:
+                return new TaskCalendarCommandParser().parse(arguments);
 
-        case TaskEditCommand.COMMAND_WORD:
-            return new TaskEditCommandParser().parse(arguments);
+            case TaskEditCommand.COMMAND_WORD:
+                return new TaskEditCommandParser().parse(arguments);
 
-        case TaskDeleteCommand.COMMAND_WORD:
-            return new TaskDeleteCommandParser().parse(arguments);
+            case TaskDeleteCommand.COMMAND_WORD:
+                return new TaskDeleteCommandParser().parse(arguments);
 
-        case TaskcopyCommand.COMMAND_WORD:
-            return new TaskcopyCommandParser().parse(arguments);
+            case TaskcopyCommand.COMMAND_WORD:
+                return new TaskcopyCommandParser().parse(arguments);
 
-        case ExitAnywayCommand.COMMAND_WORD:
-            return new ExitAnywayCommand();
+            case ExitAnywayCommand.COMMAND_WORD:
+                return new ExitAnywayCommand();
 
-        case RecordAddCommand.COMMAND_WORD:
-            return new RecordAddCommandParser().parse(arguments);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
+        } else {
+            switch (commandWord) {
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            case SelectCommand.COMMAND_WORD:
+                return new SelectCommandParser().parse(arguments);
+
+            case HistoryCommand.COMMAND_WORD:
+                return new HistoryCommand();
+
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
+
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
+
+            case BackCommand.COMMAND_WORD:
+                return new BackCommand();
+
+            case TaskAddCommand.COMMAND_WORD:
+                return new TaskAddCommandParser().parse(arguments);
+
+            case TaskEditCommand.COMMAND_WORD:
+                return new TaskEditCommandParser().parse(arguments);
+
+            case TaskDeleteCommand.COMMAND_WORD:
+                return new TaskDeleteCommandParser().parse(arguments);
+
+            case TaskcopyCommand.COMMAND_WORD:
+                return new TaskcopyCommandParser().parse(arguments);
+
+            case ExitAnywayCommand.COMMAND_WORD:
+                return new ExitAnywayCommand();
+
+            case RecordAddCommand.COMMAND_WORD:
+                return new RecordAddCommandParser().parse(arguments);
+
+            case RecordEditCommand.COMMAND_WORD:
+                return new RecordEditCommandParser().parse(arguments);
+
+            case RecordDeleteCommand.COMMAND_WORD:
+                return new RecordDeleteCommandParser().parse(arguments);
+
+            case TeethEditCommand.COMMAND_WORD:
+                return new TeethEditCommandParser().parse(arguments);
+
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            }
         }
     }
 

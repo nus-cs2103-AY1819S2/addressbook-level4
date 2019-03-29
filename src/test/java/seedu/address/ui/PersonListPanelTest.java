@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Sex;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -83,12 +84,13 @@ public class PersonListPanelTest extends GuiUnitTest {
         ObservableList<Person> backingList = FXCollections.observableArrayList();
         for (int i = 0; i < personCount; i++) {
             Name name = new Name(i + "a");
+            Sex sex = new Sex("F");
             Nric nric = new Nric("S" + String.format("%07d", (1234567 + i) / 10000000) + "A");
             DateOfBirth dob = new DateOfBirth("01-01-1990");
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Person person = new Patient(name, phone, email, address, Collections.emptySet(), nric, dob);
+            Person person = new Patient(name, phone, email, address, Collections.emptySet(), nric, dob, sex);
             backingList.add(person);
         }
         return backingList;

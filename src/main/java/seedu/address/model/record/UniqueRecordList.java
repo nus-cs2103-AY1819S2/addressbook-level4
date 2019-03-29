@@ -8,6 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.record.exceptions.DuplicateRecordException;
+import seedu.address.model.record.exceptions.RecordNotFoundException;
 import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
@@ -57,6 +59,26 @@ public class UniqueRecordList implements Iterable<Record> {
         if (!internalList.remove(toRemove)) {
             throw new TaskNotFoundException();
         }
+    }
+
+    /**
+     * Replaces the Task {@code target} in the list with {@code editedTask}.
+     * {@code target} must exist in the list.
+     * The Task identity of {@code editedTask} must not be the same as another existing Task in the list.
+     */
+    public void setRecord(Record target, Record editedRecord) {
+        requireAllNonNull(target, editedRecord);
+
+        int index = internalList.indexOf(target);
+        if (index == -1) {
+            throw new RecordNotFoundException();
+        }
+
+        if (!target.equals(editedRecord) && contains(editedRecord)) {
+            throw new DuplicateRecordException();
+        }
+
+        internalList.set(index, editedRecord);
     }
 
     /**

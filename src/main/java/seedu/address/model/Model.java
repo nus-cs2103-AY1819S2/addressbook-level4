@@ -173,6 +173,21 @@ public interface Model {
      */
     void deleteRecord(Record record);
 
+    /**
+     * Replaces the given record {@code target} with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     */
+    void setRecord(Record target, Record editedRecord);
+
+    //=========== Tags =================================================================================
+
+    /**
+     * Update tags based on teeth data.
+     * @param patient the patient to update tags.
+     */
+    void updateTags(Patient patient);
+
     //=========== Undo/Redo/Commit =================================================================================
 
     boolean canUndoAddressBook();

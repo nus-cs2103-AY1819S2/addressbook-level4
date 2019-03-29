@@ -13,6 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Sex;
 import seedu.address.model.patient.Teeth;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
@@ -32,6 +33,7 @@ class JsonAdaptedPerson {
 
     @JsonProperty("index") private int index;
     private final String name;
+    private final String sex;
     private final String nric;
     private final String dateOfBirth;
     private final String phone;
@@ -46,12 +48,14 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("nric") String nric,
-            @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("phone") String phone,
+            @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("sex") String sex,
+            @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
             @JsonProperty("teeth") String teeth,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
             @JsonProperty("records") List<JsonAdaptedRecord> records) {
         this.name = name;
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.phone = phone;
@@ -74,6 +78,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         if (source instanceof Patient) {
             name = source.getName().fullName;
+            sex = ((Patient) source).getSex().getSex();
             nric = ((Patient) source).getNric().getNric();
             dateOfBirth = ((Patient) source).getDateOfBirth().getRawFormat();
             phone = source.getPhone().value;
@@ -114,6 +119,14 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
+
+        if (sex == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Sex.class.getSimpleName()));
+        }
+        if (!Sex.isValidSex(sex)) {
+            throw new IllegalValueException(Sex.MESSAGE_CONSTRAINTS);
+        }
+        final Sex modelSex = new Sex(sex);
 
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
@@ -174,7 +187,7 @@ class JsonAdaptedPerson {
         final List<Record> modelRecords = patientRecords;
 
         return new Patient(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelNric,
-                modelDob, modelRecords, modelTeeth);
+                modelDob, modelRecords, modelTeeth, modelSex);
     }
 
     /**

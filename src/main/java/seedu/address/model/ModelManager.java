@@ -193,6 +193,31 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Replaces the given record {@code target} with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     *
+     * @param target the target to be replaced.
+     * @param editedRecord the one which is edited.
+     */
+    @Override
+    public void setRecord(Record target, Record editedRecord) {
+        versionedAddressBook.setRecord(target, editedRecord);
+    }
+
+    /**
+     * Update tags based on teeth data.
+     *
+     * @param target the patient to update tags.
+     */
+    @Override
+    public void updateTags(Patient target) {
+        Patient editedTarget = target.copy();
+        versionedAddressBook.setPerson(target, editedTarget);
+        MainWindow.setRecordPatient(editedTarget);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**

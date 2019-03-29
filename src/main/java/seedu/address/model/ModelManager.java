@@ -25,7 +25,6 @@ import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingCardException;
-import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
 
 /**
  * Represents the in-memory model of top deck data.
@@ -150,20 +149,12 @@ public class ModelManager implements Model {
     public boolean hasCard(Card card, Deck deck) {
         requireAllNonNull(card, deck);
 
-        if (!(viewState instanceof CardsView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
-
         return deck.hasCard(card);
     }
 
     @Override
     public void deleteCard(Card target, Deck deck) {
-        requireNonNull(target);
-
-        if (!(viewState instanceof CardsView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
+        requireAllNonNull(target, deck);
 
         Deck editedDeck = versionedTopDeck.deleteCard(target, deck);
         changeDeck(editedDeck);
@@ -171,11 +162,7 @@ public class ModelManager implements Model {
 
     @Override
     public void addCard(Card card, Deck deck) {
-        requireNonNull(card);
-
-        if (!(viewState instanceof CardsView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
+        requireAllNonNull(card, deck);
 
         Deck editedDeck = versionedTopDeck.addCard(card, deck);
         changeDeck(editedDeck);
@@ -183,11 +170,7 @@ public class ModelManager implements Model {
 
     @Override
     public void setCard(Card target, Card editedCard, Deck deck) {
-        requireAllNonNull(target, editedCard);
-
-        if (!(viewState instanceof CardsView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
+        requireAllNonNull(target, editedCard, deck);
 
         Deck editedDeck = versionedTopDeck.setCard(target, editedCard, deck);
         changeDeck(editedDeck);
@@ -213,9 +196,6 @@ public class ModelManager implements Model {
 
     @Override
     public void deleteDeck(Deck deck) {
-        if (!(viewState instanceof DecksView)) {
-            throw new IllegalOperationWhileReviewingCardException();
-        }
         logger.info("Deleted a deck.");
 
         versionedTopDeck.deleteDeck(deck);
@@ -224,10 +204,6 @@ public class ModelManager implements Model {
     @Override
     public void setDeck(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
-
-        if (!(viewState instanceof DecksView)) {
-            throw new IllegalOperationWhileReviewingDeckException();
-        }
 
         DecksView decksView = (DecksView) viewState;
 

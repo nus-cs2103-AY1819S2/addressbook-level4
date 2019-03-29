@@ -24,7 +24,6 @@ import seedu.address.logic.CardsView;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.DeckNameContainsKeywordsPredicate;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
-import seedu.address.model.deck.exceptions.IllegalOperationWhileReviewingDeckException;
 import seedu.address.testutil.TopDeckBuilder;
 
 public class ModelManagerTest {
@@ -202,15 +201,15 @@ public class ModelManagerTest {
         modelManager.changeDeck(DECK_B);
 
         Deck activeDeck = extractActiveDeck(modelManager);
-        modelManager.addCard(ADDITION, activeDeck);
 
+        modelManager.addCard(ADDITION, activeDeck);
         activeDeck = extractActiveDeck(modelManager);
+
         assertTrue(modelManager.hasCard(ADDITION, activeDeck));
 
-        activeDeck = extractActiveDeck(modelManager);
         modelManager.deleteCard(ADDITION, activeDeck);
-
         activeDeck = extractActiveDeck(modelManager);
+
         assertFalse(modelManager.hasCard(ADDITION, activeDeck));
     }
 
@@ -231,9 +230,10 @@ public class ModelManagerTest {
         modelManager.changeDeck(DECK_B);
 
         Deck activeDeck = extractActiveDeck(modelManager);
-        modelManager.addCard(ADDITION, activeDeck);
 
+        modelManager.addCard(ADDITION, activeDeck);
         activeDeck = extractActiveDeck(modelManager);
+
         assertTrue(modelManager.hasCard(ADDITION, activeDeck));
         modelManager.setCard(ADDITION, SUBTRACTION, activeDeck);
 
@@ -330,12 +330,6 @@ public class ModelManagerTest {
 
         // different topDeck -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentTopDeck, userPrefs)));
-
-        //TODO for card
-//        // different filteredList -> returns false
-//        String[] keywords = ADDITION.getQuestion().split("\\s+");
-//        modelManager.updateFilteredList(new QuestionContainsKeywordsPredicate(Arrays.asList(keywords)));
-//        assertFalse(modelManager.equals(new ModelManager(topDeck, userPrefs)));
 
         // different filteredList -> returns false
         String keyword = DECK_A.getName().toString();

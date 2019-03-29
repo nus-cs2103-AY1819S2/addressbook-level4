@@ -4,6 +4,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
@@ -14,6 +18,8 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.nextofkin.NextOfKin;
+import seedu.address.model.nextofkin.NextOfKinRelation;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Sex;
@@ -30,6 +36,10 @@ public class AddCommandParser implements Parser<AddCommand> {
     public static final String NONE_PHONE = "No phone number specified";
     public static final String NONE_ADDRESS = "No address specified";
     public static final String NONE_EMAIL = "No email specified";
+    public static final String NONE_NOKN = "No next of kin name specified";
+    public static final String NONE_NOKR = "No next of kin relationship specified";
+    public static final String NONE_NOKP = "No next of kin phone specified";
+    public static final String NONE_NOKA = "No next of kin address specified";
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
@@ -39,10 +49,13 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_NRIC, PREFIX_YEAR, PREFIX_SEX);
+                        PREFIX_NRIC, PREFIX_YEAR, PREFIX_SEX, PREFIX_NOKN, PREFIX_NOKR, PREFIX_NOKP, PREFIX_NOKA);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_NRIC, PREFIX_SEX,
-                PREFIX_YEAR) || !argMultimap.getPreamble().isEmpty()) {
+                PREFIX_YEAR) || !argMultimap.getPreamble().isEmpty()
+            || (arePrefixesPresent(argMultimap, PREFIX_NOKN) && !arePrefixesPresent(argMultimap, PREFIX_NOKR))
+            || ((arePrefixesPresent(argMultimap, PREFIX_NOKR) || arePrefixesPresent(argMultimap, PREFIX_NOKA)
+                || arePrefixesPresent(argMultimap, PREFIX_NOKP)) && !arePrefixesPresent(argMultimap, PREFIX_NOKN))) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
@@ -56,7 +69,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(NONE_EMAIL));
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(NONE_ADDRESS));
 
-        Patient patient = new Patient(name, phone, email, address, null, nric, dateOfBirth, sex);
+        //Next Of Kin Fields
+        Name kinName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NOKN).orElse(NONE_NOKN));
+        NextOfKinRelation kinRelation = ParserUtil.parseRelation(argMultimap.getValue(PREFIX_NOKR).orElse(NONE_NOKR));
+        Phone kinPhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_NOKP).orElse(NONE_NOKP));
+        Address kinAddr = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_NOKA).orElse(NONE_NOKA));
+
+        Patient patient = new Patient(name, phone, email, address, null, nric, dateOfBirth, sex,
+            new NextOfKin(kinName, kinPhone, new Email(NONE_EMAIL), kinAddr, null, kinRelation));
 
         return new AddCommand(patient);
     }

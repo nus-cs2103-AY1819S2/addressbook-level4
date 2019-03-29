@@ -5,6 +5,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKA;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKN;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NOKR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
@@ -29,7 +33,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-                        PREFIX_NRIC, PREFIX_YEAR, PREFIX_SEX);
+                        PREFIX_NRIC, PREFIX_YEAR, PREFIX_SEX, PREFIX_NOKN, PREFIX_NOKR, PREFIX_NOKP, PREFIX_NOKA);
 
         Index index;
 
@@ -60,6 +64,32 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
+        }
+
+        //Next Of Kin checks
+        if (argMultimap.getValue(PREFIX_NOKN).isPresent()) {
+            editPersonDescriptor.setNextOfKinName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NOKN).get()));
+        }
+        if (argMultimap.getValue(PREFIX_NOKR).isPresent()) {
+            editPersonDescriptor.setNextOfKinRelation(ParserUtil.parseRelation(argMultimap
+                .getValue(PREFIX_NOKR).get()));
+        }
+        if (argMultimap.getValue(PREFIX_NOKP).isPresent()) {
+            editPersonDescriptor.setNextOfKinPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_NOKP).get()));
+        }
+        if (argMultimap.getValue(PREFIX_NOKA).isPresent()) {
+            String updatedValue = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_NOKA).get()).toString();
+            if (!updatedValue.toLowerCase().equals("same")) {
+                editPersonDescriptor.setNextOfKinAddress(ParserUtil.parseAddress(argMultimap
+                    .getValue(PREFIX_NOKA).get()));
+            } else {
+                if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
+                    editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap
+                        .getValue(PREFIX_ADDRESS).get()));
+                } else {
+                    editPersonDescriptor.setSameAddr();
+                }
+            }
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {

@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKinRelation;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Sex;
 import seedu.address.model.person.Address;
@@ -145,6 +146,19 @@ public class ParserUtil {
             throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
         }
         return new DateOfBirth(trimmedDob);
+    }
+
+    /**
+     * Parses a {@code String relation} into an {@code NextOfKinRelation}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static NextOfKinRelation parseRelation(String relation) throws ParseException {
+        requireNonNull(relation);
+        String trimmedRelation = relation.trim();
+        if (!NextOfKinRelation.isValidNextOfKinRelation(relation)) {
+            throw new ParseException(NextOfKinRelation.MESSAGE_CONSTRAINTS);
+        }
+        return new NextOfKinRelation(trimmedRelation);
     }
 
     /**

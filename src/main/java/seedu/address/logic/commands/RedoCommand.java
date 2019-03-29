@@ -35,7 +35,8 @@ public class RedoCommand extends Command {
 
         model.redoTopDeck();
         if (model.isAtDecksView()) {
-            ((DecksView)viewState).updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
+            DecksView decksView = (DecksView) viewState;
+            decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
         } else if (model.isAtCardsView()) {
             CardsView currentView = (CardsView) viewState;
             Deck currentActiveDeck = currentView.getActiveDeck();

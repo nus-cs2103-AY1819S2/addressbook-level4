@@ -5,88 +5,73 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_2_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DIR_INVALID_NONEXISTENT;
+import static seedu.address.logic.commands.CommandTestUtil.MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.testutil.Assert;
 
 public class DirectoryTest {
 
     @Test
-    public void constructor_nullValue_throwsNullPointerException() {
+    public void constructor() {
+        // null value -> throws NullPointerException
         Assert.assertThrows(NullPointerException.class, () -> new Directory(null));
-    }
 
-    @Test
-    public void constructor_blankValue_throwsIllegalArgumentException() {
+        // blank value -> throws IllegalArgumentException
         String invalidDirectory = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Directory(invalidDirectory));
-    }
 
-    @Test
-    public void constructor_blankSpaceValue_throwsIllegalArgumentException() {
-        String invalidDirectory = " ";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Directory(invalidDirectory));
-    }
+        // blank space value -> throws IllegalArgumentException
+        String invalidDirectory1 = " ";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Directory(invalidDirectory1));
 
-    @Test
-    public void constructor_nonDirectoryValue_throwsIllegalArgumentException() {
-        String invalidDirectory = CommandTestUtil.DIR_INVALID_NONEXISTENT;
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Directory(invalidDirectory));
-    }
+        // Non existent directory -> throws IllegalArgumentException
+        String invalidDirectory2 = DIR_INVALID_NONEXISTENT;
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Directory(invalidDirectory2));
 
-    @Test
-    public void constructor_normalDirectoryValue_throwsIllegalArgumentException() {
+        // Correct Directory -> should not throw Exceptions.
         try {
-            Directory d = new Directory(CommandTestUtil.DIR_1_VALID);
-            d = null;
+            new Directory(DIR_1_VALID);
         } catch (Exception e) {
-            fail("Should not throw exception for an existent directory.");
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
         }
     }
 
     @Test
-    public void equals_nullInput_expectedFail() {
-        Directory d = new Directory(CommandTestUtil.DIR_1_VALID);
-        assertFalse(d.equals(null));
+    public void equals() {
+        // null value -> expected false
+        assertFalse(new Directory(DIR_1_VALID).equals(null));
+
+        // different directories -> expected true
+        assertFalse(new Directory(DIR_1_VALID).equals(new Directory(DIR_2_VALID)));
+
+        // same objects -> expected true
+        Directory d = new Directory(DIR_1_VALID);
+        assertTrue(d.equals(d));
+
+        // same values, different object -> expected true
+        assertTrue(new Directory(DIR_1_VALID).equals(new Directory(DIR_1_VALID)));
+
     }
 
     @Test
-    public void equals_differentInputs_expectedFail() {
-        Directory d1 = new Directory(CommandTestUtil.DIR_1_VALID);
-        Directory d2 = new Directory(CommandTestUtil.DIR_2_VALID);
-        assertFalse(d1.equals(d2));
-    }
-
-    @Test
-    public void equals_differentObjectSameValue_expectedPass() {
-        Directory d1 = new Directory(CommandTestUtil.DIR_1_VALID);
-        Directory d2 = new Directory(CommandTestUtil.DIR_1_VALID);
-        assertTrue(d1.equals(d2));
-    }
-
-    @Test
-    public void toString_differentValues_expectedFail() {
+    public void toStringTest() {
+        // different values -> expected false
         String notExpected = new StringBuilder()
                 .append("Directory: ")
-                .append(CommandTestUtil.DIR_2_VALID)
+                .append(DIR_2_VALID)
                 .append("\n").toString();
+        assertNotEquals(new Directory(DIR_1_VALID).toString(), notExpected);
 
-        Directory d1 = new Directory(CommandTestUtil.DIR_1_VALID);
-        assertNotEquals(d1.toString(), notExpected);
-    }
-
-    @Test
-    public void toString_sameValues_expectedPass() {
+        // same values -> expected true
         String expected = new StringBuilder()
                 .append("Directory: ")
-                .append(CommandTestUtil.DIR_2_VALID)
+                .append(DIR_2_VALID)
                 .append("\n").toString();
-
-        Directory d1 = new Directory(CommandTestUtil.DIR_2_VALID);
-        assertEquals(d1.toString(), expected);
+        assertEquals(new Directory(DIR_2_VALID).toString(), expected);
     }
-
-
 }

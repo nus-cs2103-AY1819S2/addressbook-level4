@@ -41,7 +41,7 @@ public class PdfTest {
         assertFalse(SAMPLE_PDF_1.isSamePdf(comparisonPdf));
 
         // same name, same phone, different attributes -> returns true
-        comparisonPdf = new PdfBuilder(SAMPLE_PDF_1).withTags("testTag").build();
+        comparisonPdf = new PdfBuilder(SAMPLE_PDF_1).withTags(CommandTestUtil.TAG_VALID_CS2103T).build();
         assertTrue(SAMPLE_PDF_1.isSamePdf(comparisonPdf));
 
         // same name, same email, different attributes -> returns true
@@ -52,7 +52,7 @@ public class PdfTest {
     @Test
     public void equals() {
         // same values -> returns true
-        /*Pdf acopy = new PdfBuilder(SAMPLE_PDF_1).build();
+        Pdf acopy = new PdfBuilder(SAMPLE_PDF_1).build();
         assertTrue(SAMPLE_PDF_1.equals(acopy));
 
         // same object -> returns true
@@ -65,26 +65,26 @@ public class PdfTest {
         assertFalse(SAMPLE_PDF_1.equals(5));
 
         // different pdf -> returns false
-        assertFalse(SAMPLE_PDF_1.equals(SAMPLE_PDF_2));*/
+        assertFalse(SAMPLE_PDF_1.equals(SAMPLE_PDF_2));
 
-        /*// different name -> returns false
-        Pdf editedAlice = new PdfBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // different name -> returns false
+        Pdf editedPdf = new PdfBuilder(SAMPLE_PDF_1).withName(CommandTestUtil.NAME_2_VALID).build();
+        assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 
-        // different phone -> returns false
-        editedAlice = new PdfBuilder(ALICE).withSize(VALID_PHONE_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));
+        // different directory -> returns false
+        editedPdf = new PdfBuilder(SAMPLE_PDF_1).withDirectory(CommandTestUtil.DIR_3_VALID).build();
+        assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 
-        // different email -> returns false
-        editedAlice = new PdfBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.equals(editedAlice));*/
+        // different size -> returns false
+        editedPdf = new PdfBuilder(SAMPLE_PDF_1).withSize(CommandTestUtil.SIZE_3_VALID).build();
+        assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 
-/*        // different directory -> returns false
-        Pdf comparison = new PdfBuilder(SAMPLE_PDF_1_DUPLICATE).build();
-        assertFalse(SAMPLE_PDF_1.equals(SAMPLE_PDF_1_DUPLICATE));*/
+        // different deaedline -> returns false
+        editedPdf = new PdfBuilder(SAMPLE_PDF_1).withDeadline(CommandTestUtil.DEADLINE_JSON_COMPLETE).build();
+        assertFalse(SAMPLE_PDF_1.equals(editedPdf));
 
-        /*// different tags -> returns false
-        comparison = new PdfBuilder(SAMPLE_PDF_1).withTags(TAG_VALID_LECTURE).build();
-        assertFalse(SAMPLE_PDF_1.equals(editedAlice));*/
+        // different tags -> returns false
+        editedPdf = new PdfBuilder(SAMPLE_PDF_1).withTags(CommandTestUtil.TAG_VALID_LECTURE).build();
+        assertFalse(SAMPLE_PDF_1.equals(editedPdf));
     }
 }

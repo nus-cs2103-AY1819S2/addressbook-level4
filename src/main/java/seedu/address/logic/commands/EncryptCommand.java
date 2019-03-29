@@ -9,7 +9,6 @@ import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
 
 import java.io.IOException;
-
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -73,7 +72,7 @@ public class EncryptCommand extends Command {
     /**
      * Encrypts and returns the encrypted {@code pdfToEncrypt}
      */
-    private Pdf encryptPdf(Pdf pdfToEncrypt) throws CommandException{
+    private Pdf encryptPdf(Pdf pdfToEncrypt) throws CommandException {
         try {
             PDDocument file = PDDocument.load(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),
                     pdfToEncrypt.getName().getFullName()).toFile());
@@ -82,8 +81,7 @@ public class EncryptCommand extends Command {
             spp.setEncryptionKeyLength(128);
             spp.setPermissions(ap);
             file.protect(spp);
-            System.out.println(Paths.get("src", "test", "data", "JsonAdaptedPdfTest","z.pdf"));
-            file.save(Paths.get("src", "test", "data", "JsonAdaptedPdfTest","z.pdf").toFile());
+            file.save(Paths.get("src", "test", "data", "JsonAdaptedPdfTest", "z.pdf").toFile());
         } catch (IOException ioe) {
             throw new CommandException(String.format(MESSAGE_ENCRYPT_PDF_FAILURE, pdfToEncrypt));
         }

@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.management.CommandTestUtil.assertComm
 import static seedu.address.logic.commands.management.ListCardsCommand.MESSAGE_NO_CARDS;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Rule;
@@ -14,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Card;
 import seedu.address.model.modelmanager.ManagementModel;
@@ -64,6 +66,13 @@ public class ListCardsCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_EXPECTED_MODEL);
         listCardsCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void buildEmptyList_buildSuccessful() {
+        String feedback = new ListCardsCommand().buildList(new ArrayList<String>(),
+                new ArrayList<String>(), new ArrayList<Card>());
+        assertEquals(feedback, MESSAGE_NO_CARDS);
     }
 
     @Test

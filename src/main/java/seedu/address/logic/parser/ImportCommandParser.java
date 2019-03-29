@@ -17,12 +17,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     public ImportCommand parse(String args) throws ParseException {
         try {
             ParsedInOut parsedInOut = ParserUtil.parseImportExport(args);
-            try {
-                importValidation(parsedInOut);
-                return new ImportCommand(parsedInOut);
-            } catch (ParseException pe) {
-                throw new ParseException(String.format("%s\n%s", pe.getMessage(), ImportCommand.MESSAGE_USAGE), pe);
-            }
+            importValidation(parsedInOut);
+            return new ImportCommand(parsedInOut);
         } catch (ParseException pe) {
             throw new ParseException(String.format("%s\n%s", pe.getMessage(), ImportCommand.MESSAGE_USAGE), pe);
         }

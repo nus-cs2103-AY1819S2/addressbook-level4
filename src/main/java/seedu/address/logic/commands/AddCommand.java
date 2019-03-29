@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import seedu.address.logic.CommandHistory;
@@ -22,10 +23,12 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a patient to the dental book. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
+            + PREFIX_SEX + "SEX "
             + PREFIX_NRIC + "NRIC "
             + PREFIX_YEAR + "DOB \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
+            + PREFIX_SEX + "M "
             + PREFIX_NRIC + "S1234567A "
             + PREFIX_YEAR + "30-12-1990 "
             + "[ PREFIX/PARAMETER ]";

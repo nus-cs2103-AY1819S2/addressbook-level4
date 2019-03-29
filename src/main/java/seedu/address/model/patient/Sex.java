@@ -1,18 +1,16 @@
-package seedu.address.model.person;
+package seedu.address.model.patient;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 
 /**
- * Represents a Person's Sex in TeethHub.
+ * Represents a Person's Sex in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidSex(String)}
  */
 public class Sex {
 
-
     public static final String MESSAGE_CONSTRAINTS =
-        "Indicating patient's sex is compulsory, denoted by " + PREFIX_SEX + ", and should be (M)ale or (F)emale";
+        "Indicating patient's sex is compulsory, Sex should only be either M or F";
     public static final String VALIDATION_REGEX = "^[M,F]$";
     public final String value;
 
@@ -39,11 +37,6 @@ public class Sex {
     }
 
     @Override
-    public String toString() {
-        return "(" + value + ")";
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof Sex // instanceof handles nulls
@@ -53,6 +46,11 @@ public class Sex {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "(" + value + ")";
     }
 
 }

@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.datetime.DateOfBirth;
-import seedu.address.model.description.Description;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -41,13 +40,14 @@ public class Patient extends Person {
      * Used by add command.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth) {
+                   DateOfBirth dateOfBirth, Sex sex) {
         super(name, phone, email, address, tags);
-        requireAllNonNull(nric, dateOfBirth);
+        requireAllNonNull(nric, dateOfBirth, sex);
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         buildAdultTeeth();
-        records.add(new Record(new Description("Patient is added today")));
+        records.add(new Record());
     }
 
     /**
@@ -55,9 +55,10 @@ public class Patient extends Person {
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth) {
+                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth, Sex sex) {
         super(name, phone, email, address, tags);
-        requireAllNonNull(nric, dateOfBirth, records);
+        requireAllNonNull(nric, dateOfBirth, records, sex);
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.records = records;
@@ -66,12 +67,14 @@ public class Patient extends Person {
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount) {
+                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount, Sex sex) {
         super(name, phone, email, address, tags, personToCopy, copyCount);
-        requireAllNonNull(nric, dateOfBirth);
+        requireAllNonNull(nric, dateOfBirth, sex);
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         buildAdultTeeth();
+        updateTags();
     }
 
     /**
@@ -107,6 +110,26 @@ public class Patient extends Person {
     private void addRelevantTags() {
         addTag(new TeethTag(TemplateTags.ADULT));
         addTag(new StatusTag(TemplateTags.HEALTHY));
+    }
+
+    /**
+     * Looks at the current status of the teeth,
+     * and updates the status tag of the teeth appropriately.
+     */
+    public void updateTags() {
+        boolean absent = teeth.checkFor(Teeth.ABSENT);
+        boolean problematic = teeth.checkFor(Teeth.PROBLEMATIC);
+
+        if (absent) {
+            addTag(new StatusTag(TemplateTags.ABSENTTOOTH));
+        } else if (problematic) {
+            addTag(new StatusTag(TemplateTags.STATUSTOOTH));
+        } else {
+            addTag(new StatusTag(TemplateTags.HEALTHY));
+        }
+
+        // Only one option at the moment.
+        addTag(new TeethTag(TemplateTags.ADULT));
     }
 
     /**
@@ -153,6 +176,15 @@ public class Patient extends Person {
     }
 
     /**
+     * Return a Patient with changed tags
+     * @return a new Patient instance.
+     */
+    public Patient copy() {
+        return new Patient(this.name, this.phone, this.email, this.address, tags, this.nric, this.getDateOfBirth(),
+                this.records, this.teeth, this.sex);
+    }
+
+    /**
      * Returns true if both patients has the same NRIC.
      */
     @Override
@@ -180,6 +212,7 @@ public class Patient extends Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(this.sex)
                 .append(" NRIC: ")
                 .append(nric.getNric())
                 .append(" Date of Birth: ")

@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.battle.Battle;
 import seedu.address.model.tag.Tag;
 
 /**

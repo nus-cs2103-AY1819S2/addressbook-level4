@@ -208,4 +208,9 @@ public interface Model {
      * Returns an unmodifiable view of the filtered course requirement list
      */
     ObservableList<CourseRequirement> getReqList();
+
+    /**
+     * Returns a copy of the user info
+     */
+    UserInfo getUserInfo();
 }

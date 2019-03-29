@@ -375,6 +375,11 @@ public class ModelManager implements Model {
         return this.displayCourseReqList;
     }
 
+    @Override
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -387,13 +392,16 @@ public class ModelManager implements Model {
         if (!(obj instanceof ModelManager)) {
             return false;
         }
-        //TODO: FURNISH OTHER EQUALITIES
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedGradTrak.equals(other.versionedGradTrak)
                 && userPrefs.equals(other.userPrefs)
                 && filteredModulesTaken.equals(other.filteredModulesTaken)
-                && Objects.equals(selectedModuleTaken.get(), other.selectedModuleTaken.get());
+                && Objects.equals(selectedModuleTaken.get(), other.selectedModuleTaken.get())
+                && recModuleList.equals(other.recModuleList)
+                && course.equals(other.course)
+                && displayCourseReqList.equals(other.displayCourseReqList)
+                && this.userInfo.equals(other.userInfo);
     }
 
 }

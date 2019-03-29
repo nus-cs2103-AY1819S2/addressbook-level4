@@ -81,4 +81,21 @@ public class PrimitiveRequirement implements CourseRequirement {
     public Condition getCondition() {
         return condition;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof PrimitiveRequirement)) {
+            return false;
+        }
+
+        PrimitiveRequirement other = (PrimitiveRequirement) obj;
+        return this.courseReqName.equals(other.courseReqName)
+                && this.courseReqType.equals(other.courseReqType)
+                && this.courseReqDesc.equals(other.courseReqDesc)
+                && this.condition.equals(other.condition);
+    }
 }

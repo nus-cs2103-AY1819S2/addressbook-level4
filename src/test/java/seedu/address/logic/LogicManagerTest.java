@@ -35,6 +35,8 @@ import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.storage.JsonGradTrakStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserInfoStorage;
+import seedu.address.storage.UserInfoStorageManager;
 import seedu.address.testutil.ModuleTakenBuilder;
 
 
@@ -55,7 +57,9 @@ public class LogicManagerTest {
         JsonGradTrakStorage addressBookStorage = new JsonGradTrakStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        UserInfoStorage userInfoStorage = new UserInfoStorageManager();
+
+        logic = new LogicManager(model, storage, userInfoStorage);
     }
 
     @Test
@@ -86,7 +90,8 @@ public class LogicManagerTest {
                 new JsonGradTrakIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        UserInfoStorage userInfoStorage = new UserInfoStorageManager();
+        logic = new LogicManager(model, storage, userInfoStorage);
 
         // Execute add command
         String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_CS2103T + SEMESTER_DESC_CS2103T

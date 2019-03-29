@@ -20,6 +20,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.storage.JsonGradTrakStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserInfoStorageManager;
 
 /**
  * Contains tests for closing of the {@code MainWindow}.
@@ -39,7 +40,8 @@ public class MainWindowCloseTest extends GuiUnitTest {
         StorageManager storageManager = new StorageManager(jsonAddressBookStorage, jsonUserPrefsStorage);
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager));
+            mainWindow = new MainWindow(stage, new LogicManager(new ModelManager(), storageManager,
+                    new UserInfoStorageManager()));
             mainWindowHandle = new EmptyMainWindowHandle(stage);
             mainWindowHandle.focus();
         });

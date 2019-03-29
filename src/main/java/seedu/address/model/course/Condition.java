@@ -147,4 +147,18 @@ public class Condition {
     public List<String> getRegexes() {
         return regexes;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Condition) || obj == null) {
+            return false;
+        }
+        Condition other = (Condition) obj;
+        return this.conditionName.equals(other.conditionName)
+                && this.regexes.equals(other.regexes)
+                && this.minToSatisfy == other.minToSatisfy;
+    }
 }

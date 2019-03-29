@@ -89,7 +89,7 @@ public class DecryptCommand extends Command {
     }
 
     /**
-     * Encrypts and returns the encrypted {@code pdfToEncrypt}
+     * Decrypts and returns the decrypted {@code pdfToDecrypt}
      */
     private Pdf getDecryptedPdf(Pdf pdfToDecrypt) {
         return new Pdf(pdfToDecrypt, false);

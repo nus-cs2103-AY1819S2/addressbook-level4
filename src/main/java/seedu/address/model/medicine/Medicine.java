@@ -125,7 +125,7 @@ public class Medicine {
     }
 
     public String viewDetail() {
-        return this.toString() + " With threshold: " + threshold;
+        return this.toString();
     }
 
     public BigDecimal getPrice() {

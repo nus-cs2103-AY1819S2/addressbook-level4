@@ -16,6 +16,10 @@ public class MedicineManager {
         "Medicine with the same name already exists in the storage.";
     public static final String ERROR_MESSAGE_NO_DIRECTORY_FOUND =
         "No directory is found at the given path.";
+    public static final String ERROR_MESSAGE_NO_MEDICINE_FOUND_BY_PATH =
+        "No Medicine is found at the given path.";
+    public static final String ERROR_MESSAGE_NO_MEDICINE_FOUND_BY_NAME =
+            "No Medicine is found by the given name.";
 
     private Directory root;
     private ArrayList<Medicine> listOfMedicine;
@@ -101,7 +105,7 @@ public class MedicineManager {
     public Medicine purchaseMedicine(String[] path, int quantity) {
         Optional<Medicine> medicine = findMedicine(path);
         if (!medicine.isPresent()) {
-            throw new IllegalArgumentException("No medicine found at the given path");
+            throw new IllegalArgumentException(ERROR_MESSAGE_NO_MEDICINE_FOUND_BY_PATH);
         }
         medicine.get().addQuantity(quantity);
         return medicine.get();
@@ -115,7 +119,7 @@ public class MedicineManager {
     public Medicine purchaseMedicine(String medicineName, int quantity) {
         Optional<Medicine> medicine = findMedicine(medicineName);
         if (!medicine.isPresent()) {
-            throw new IllegalArgumentException("No medicine with the given name");
+            throw new IllegalArgumentException(ERROR_MESSAGE_NO_MEDICINE_FOUND_BY_NAME);
         }
         medicine.get().addQuantity(quantity);
         return medicine.get();

@@ -10,6 +10,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.medicine.MedicineManager;
 
 public class PurchaseMedicineViaPathCommandTest {
 
@@ -46,7 +47,7 @@ public class PurchaseMedicineViaPathCommandTest {
                     .execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals("No such medicine found.", ex.getMessage());
+            Assert.assertEquals(MedicineManager.ERROR_MESSAGE_NO_MEDICINE_FOUND_BY_PATH, ex.getMessage());
         }
     }
 

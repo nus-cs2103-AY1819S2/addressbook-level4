@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import seedu.address.testutil.Assert;
 
+import java.util.Optional;
+
 public class DirectoryTest {
 
     private static String[] typicalNames = new String[] {"test1", "test2", "test3"};
@@ -93,9 +95,6 @@ public class DirectoryTest {
         typicalDirectory.findDirectory(
                 new String[]{"test", "test2"}, 0).get().addMedicine(new Medicine("ttt"));
         typicalDirectory.setThreshold(10);
-        assertTrue(typicalDirectory.findMedicine(
-                new String[]{"test", "test1", "tt"}, 0).get().getThreshold() == 10
-                && typicalDirectory.findMedicine(
-                new String[]{"test", "test2", "ttt"}, 0).get().getThreshold() == 10);
+        assertTrue(typicalDirectory.getThreshold().equals(Optional.of(10)));
     }
 }

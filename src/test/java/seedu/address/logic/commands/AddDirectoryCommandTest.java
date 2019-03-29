@@ -8,6 +8,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.medicine.Directory;
 
 public class AddDirectoryCommandTest {
 
@@ -73,7 +74,7 @@ public class AddDirectoryCommandTest {
                             .execute(model, commandHistory);
             Assert.fail();
         } catch (CommandException ex) {
-            Assert.assertEquals("Directory with the same name already exists", ex.getMessage());
+            Assert.assertEquals(Directory.ERROR_MESSAGE_DIRECTORY_WITH_SAME_NAME_ALREADY_EXISTS, ex.getMessage());
         } catch (Exception ex) {
             Assert.fail();
         }

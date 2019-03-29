@@ -450,11 +450,11 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && medicineManager.equals(other.medicineManager)
-                && reminderManager.equals(other.reminderManager)
-                && patientManager.equals(other.patientManager)
-                && consultationManager.equals(other.consultationManager)
-                && appointmentManager.equals(other.appointmentManager)
+                //&& medicineManager.equals(other.medicineManager)
+                //&& reminderManager.equals(other.reminderManager)
+                //&& patientManager.equals(other.patientManager)
+                //&& consultationManager.equals(other.consultationManager)
+                //&& appointmentManager.equals(other.appointmentManager)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());

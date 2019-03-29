@@ -8,4 +8,9 @@ public class CardFolderNotFoundException extends RuntimeException {
     public CardFolderNotFoundException(String message) {
         super(message);
     }
+
+    public CardFolderNotFoundException() {
+        super();
+    }
+
 }

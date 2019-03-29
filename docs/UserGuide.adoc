@@ -405,7 +405,7 @@ Format: `search KEYWORDS [MORE_KEYWORDS]`
 
 ==== Import flashcards : `import`
 
-Searches for a json file with the specified filename in the program directory and parses the file to generate a flashcard folder.
+Searches for a json file with the specified csvFile in the program directory and parses the file to generate a flashcard folder.
 
 Format: `import FILENAME`
 

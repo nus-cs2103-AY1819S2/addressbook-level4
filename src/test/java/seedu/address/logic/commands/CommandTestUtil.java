@@ -127,10 +127,20 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
-     * that takes a string {@code expectedMessage}.
+     * that takes a string {@code expectedMessage} and checks for {@code CommandResult}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
+    }
+
+    /**
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model)}
+     * that takes a string {@code expectedMessage} and checks for {@code UpdatePanelCommandResult}.
+     */
+    public static void assertUpdateCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
+                                            String expectedMessage, Model expectedModel) {
         CommandResult expectedCommandResult = new UpdatePanelCommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel);
     }
@@ -213,4 +223,14 @@ public class CommandTestUtil {
         model.commitTopDeck();
     }
 
+    /**
+     * Updates the given {@code model}'s CardsView.
+     */
+    public static void updateCardsView(Model model) {
+        assertTrue(model.isAtCardsView());
+
+        CardsView expectedModelCardsView = (CardsView) model.getViewState();
+        Deck newDeck = model.getDeck(expectedModelCardsView.getActiveDeck());
+        model.changeDeck(newDeck);
+    }
 }

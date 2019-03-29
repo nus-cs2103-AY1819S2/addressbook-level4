@@ -42,6 +42,7 @@ public class UndoCommand extends Command {
             Deck newActiveDeck = model.getDeck(currentActiveDeck);
             model.changeDeck(newActiveDeck);
         }
+
         return new UpdatePanelCommandResult(MESSAGE_SUCCESS);
     }
 }

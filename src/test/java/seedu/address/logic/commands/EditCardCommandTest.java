@@ -1,20 +1,5 @@
 package seedu.address.logic.commands;
 
-import org.junit.Before;
-import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.CardsView;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.TopDeck;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.deck.Card;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.CardBuilder;
-import seedu.address.testutil.EditCardDescriptorBuilder;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +9,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_MOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_MOD;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertUpdateCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -32,6 +19,23 @@ import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CardsView;
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.TopDeck;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.tag.Tag;
+import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.EditCardDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCardCommand.
@@ -67,7 +71,7 @@ public class EditCardCommandTest {
         expectedModel.setCard(currentCard, editedCard);
         expectedModel.commitTopDeck();
 
-        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertUpdateCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -89,7 +93,7 @@ public class EditCardCommandTest {
         expectedModel.setCard(lastCard, editedCard);
         expectedModel.commitTopDeck();
 
-        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertUpdateCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -128,7 +132,7 @@ public class EditCardCommandTest {
         expectedModel.setCard(cardsView.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased()), editedCard);
         expectedModel.commitTopDeck();
 
-        assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertUpdateCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -191,18 +195,23 @@ public class EditCardCommandTest {
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
         expectedModel.changeDeck(getTypicalDeck());
         expectedModel.setCard(cardToEdit, editedCard);
+
         expectedModel.commitTopDeck();
+
+        expectedModel.undoTopDeck();
+        updateCardsView(expectedModel);
 
         // edit -> first card edited
         editCommand.execute(model, commandHistory);
 
         // undo -> reverts topdeck back to previous state and filtered card list to show all cards
-        expectedModel.undoTopDeck();
-        assertCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertUpdateCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first card edited again
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        updateCardsView(expectedModel);
+
+        assertUpdateCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -231,11 +240,13 @@ public class EditCardCommandTest {
     public void executeUndoRedo_validIndexFilteredList_sameCardEdited() throws Exception {
         Card editedCard = new CardBuilder().build();
         EditCardCommand.EditCardDescriptor descriptor = new EditCardDescriptorBuilder(editedCard).build();
-        EditCardCommand editCommand = new EditCardCommand(cardsView, INDEX_FIRST_CARD, descriptor);
+        EditCardCommand editCommand = new EditCardCommand(cardsView, INDEX_SECOND_CARD, descriptor);
 
         Model expectedModel = new ModelManager(new TopDeck(model.getTopDeck()), new UserPrefs());
-        showCardAtIndex(model, INDEX_SECOND_CARD);
-        Card cardToEdit = cardsView.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
+        expectedModel.changeDeck(getTypicalDeck());
+        CardsView expectedCardsView = (CardsView) expectedModel.getViewState();
+        showCardAtIndex(expectedModel, INDEX_SECOND_CARD);
+        Card cardToEdit = expectedCardsView.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased());
         expectedModel.changeDeck(getTypicalDeck());
         expectedModel.setCard(cardToEdit, editedCard);
         expectedModel.commitTopDeck();
@@ -245,12 +256,20 @@ public class EditCardCommandTest {
 
         // undo -> reverts topdeck back to previous state and filtered card list to show all persons
         expectedModel.undoTopDeck();
-        assertCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        CardsView expectedModelCardsView = (CardsView) expectedModel.getViewState();
+        Deck newDeck = expectedModel.getDeck(expectedModelCardsView.getActiveDeck());
+        expectedModel.changeDeck(newDeck);
+
+        assertUpdateCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(cardsView.getFilteredList().get(INDEX_FIRST_CARD.getZeroBased()), cardToEdit);
         // redo -> edits same second card in unfiltered card list
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        expectedModelCardsView = (CardsView) expectedModel.getViewState();
+        newDeck = expectedModel.getDeck(expectedModelCardsView.getActiveDeck());
+        expectedModel.changeDeck(newDeck);
+
+        assertUpdateCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

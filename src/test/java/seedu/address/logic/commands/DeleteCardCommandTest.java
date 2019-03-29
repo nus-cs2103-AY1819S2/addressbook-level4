@@ -3,8 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertUpdateCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showCardAtIndex;
+import static seedu.address.logic.commands.CommandTestUtil.updateCardsView;
 import static seedu.address.testutil.TypicalCards.getTypicalDeck;
 import static seedu.address.testutil.TypicalCards.getTypicalTopDeck;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
@@ -53,7 +54,7 @@ public class DeleteCardCommandTest {
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitTopDeck();
 
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertUpdateCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -78,7 +79,7 @@ public class DeleteCardCommandTest {
         expectedModel.deleteCard(cardToDelete);
         expectedModel.commitTopDeck();
 
-        assertCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertUpdateCommandSuccess(deleteCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
@@ -110,11 +111,15 @@ public class DeleteCardCommandTest {
 
         // undo -> reverts addressbook back to previous state and filtered card list to show all persons
         expectedModel.undoTopDeck();
-        assertCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        updateCardsView(expectedModel);
+
+        assertUpdateCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first card deleted again
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        updateCardsView(expectedModel);
+
+        assertUpdateCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -154,11 +159,13 @@ public class DeleteCardCommandTest {
 
         // undo -> reverts topdeck back to previous state and filtered card list to show all cards
         expectedModel.undoTopDeck();
-        assertCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        updateCardsView(expectedModel);
+        assertUpdateCommandSuccess(new UndoCommand(cardsView), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> deletes same second card in unfiltered card list
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        updateCardsView(expectedModel);
+        assertUpdateCommandSuccess(new RedoCommand(cardsView), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test

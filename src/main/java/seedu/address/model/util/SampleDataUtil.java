@@ -1,5 +1,7 @@
 package seedu.address.model.util;
 
+import static seedu.address.logic.parser.AddCommandParser.NONE_EMAIL;
+
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.datetime.DateCustom;
@@ -18,7 +20,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
 
-import static seedu.address.logic.parser.AddCommandParser.NONE_EMAIL;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.

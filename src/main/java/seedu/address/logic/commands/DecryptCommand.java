@@ -73,7 +73,7 @@ public class DecryptCommand extends Command {
     }
 
     /**
-     * Encrypts and returns the encrypted {@code pdfToDecrypt}
+     * Encrypts and returns the decrypted {@code pdfToDecrypt}
      */
     private Pdf decryptPdf(Pdf pdfToDecrypt) throws CommandException {
         try {

@@ -9,7 +9,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DecryptCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
+/**
+ * Parses input arguments and creates a new DecryptCommand object
+ */
 public class DecryptCommandParser implements Parser<DecryptCommand> {
 
     /**

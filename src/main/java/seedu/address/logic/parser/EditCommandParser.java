@@ -53,7 +53,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPdfDescriptor.setDirectory(ParserUtil.parseDirectory(argMultimap.getValue(PREFIX_DIRECTORY).get()));
         }*/
 
-        /*parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG_NEW)).ifPresent(editPdfDescriptor::setTags);
+        /*parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG_ADD)).ifPresent(editPdfDescriptor::setTags);
 
         if (!editPdfDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);

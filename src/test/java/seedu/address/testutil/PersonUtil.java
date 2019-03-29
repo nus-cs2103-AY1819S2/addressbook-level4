@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE_NEW;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DIRECTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_NEW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_ADD;
 
 import java.util.Set;
 
@@ -34,7 +34,7 @@ public class PersonUtil {
                 .append(" " + PREFIX_DEADLINE_NEW + pdf.getDeadline());
 
         pdf.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG_NEW + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG_ADD + s.tagName + " ")
         );
         return sb.toString();
     }
@@ -50,9 +50,9 @@ public class PersonUtil {
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {
-                sb.append(PREFIX_TAG_NEW);
+                sb.append(PREFIX_TAG_ADD);
             } else {
-                tags.forEach(s -> sb.append(PREFIX_TAG_NEW).append(s.tagName).append(" "));
+                tags.forEach(s -> sb.append(PREFIX_TAG_ADD).append(s.tagName).append(" "));
             }
         }
         return sb.toString();

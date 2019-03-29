@@ -506,12 +506,9 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get())
-                && currentTestedCardFolder.equals(other.currentTestedCardFolder)
-                && currentTestedCard.equals(other.currentTestedCard)
                 && insideTestSession == other.insideTestSession
                 && currentTestedCardIndex == other.currentTestedCardIndex
-                && cardAlreadyAnswered == other.cardAlreadyAnswered
-                && numAnsweredCorrectly == other.numAnsweredCorrectly;
+                && cardAlreadyAnswered == other.cardAlreadyAnswered;
     }
 
 

@@ -14,10 +14,28 @@ public class PhoneContainsKeywordsPredicate extends ContainsKeywordsPredicate<Pe
         super(keywords);
     }
 
+    public PhoneContainsKeywordsPredicate(List<String> keywords, boolean isIgnoreCase, boolean isAnd) {
+        super(keywords, isIgnoreCase, isAnd);
+    }
+
     @Override
     public boolean test(Person person) {
-        return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(),
-         keyword));
+        if (!isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordCaseSensitive(person.getPhone().toString(), keyword));
+
+        } else if (isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
+
+        } else if (!isIgnoreCase && isAnd) {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsWordCaseSensitive(person.getPhone().toString(), keyword));
+
+        } else {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword));
+        }
     }
 
     @Override

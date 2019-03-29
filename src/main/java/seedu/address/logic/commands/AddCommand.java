@@ -30,7 +30,8 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_SEX + "M "
             + PREFIX_NRIC + "S1234567A "
-            + PREFIX_YEAR + "30-12-1990 ";
+            + PREFIX_YEAR + "30-12-1990 "
+            + "[ PREFIX/PARAMETER ]";
 
     public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This patient already exists in the dental book";

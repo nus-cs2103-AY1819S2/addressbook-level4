@@ -15,10 +15,28 @@ public class AddressContainsKeywordsPredicate extends ContainsKeywordsPredicate<
         super(keywords);
     }
 
+    public AddressContainsKeywordsPredicate(List<String> keywords, boolean isIgnoreCase, boolean isAnd) {
+        super(keywords, isIgnoreCase, isAnd);
+    }
+
     @Override
     public boolean test(Person person) {
-        return keywords.stream().anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().toString(),
-            keyword));
+        if (!isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsStringCaseSensitive(person.getAddress().toString(), keyword));
+
+        } else if (isIgnoreCase && !isAnd) {
+            return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsStringIgnoreCase(person.getAddress().toString(), keyword));
+
+        } else if (!isIgnoreCase && isAnd) {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsStringCaseSensitive(person.getAddress().toString(), keyword));
+
+        } else {
+            return keywords.stream()
+                .allMatch(keyword -> StringUtil.containsStringIgnoreCase(person.getAddress().toString(), keyword));
+        }
     }
 
     @Override

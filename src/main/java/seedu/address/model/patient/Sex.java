@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Sex {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Sex should only be either M or F";
+        "Indicating patient's sex is compulsory, Sex should only be either M or F";
     public static final String VALIDATION_REGEX = "^[M,F]$";
     public final String value;
 

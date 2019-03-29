@@ -63,9 +63,8 @@ public class Image {
 //=======
             this.buffer = ImageIO.read(file);
             this.fileType = FilenameUtils.getExtension(url);
-                        this.size = new Size(String.valueOf(file.length()));
+            this.size = new Size(String.valueOf(file.length()));
 
-//>>>>>>> feat/command
             this.url = url;
             this.name = new Name(file.getName());
             this.width = new Width(String.valueOf(buffer.getWidth()));

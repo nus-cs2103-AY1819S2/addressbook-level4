@@ -256,9 +256,9 @@ Current thresholds used for the warning panel will be shown.
 
 === Exporting as CSV file format : `export`
 
-You can export the current Medicine Inventory data shown in the GUI as Comma-separated values (CSV) file format which is supported by many commonly used spreadsheet applications such as Microsoft Excel (Windows), LibreOffice (Linux) or Numbers (MacOS).
+You can export the current medicine inventory data shown in the GUI as Comma-separated values (CSV) file format which is supported by many commonly used spreadsheet applications such as Microsoft Excel (Windows), LibreOffice (Linux) or Numbers (MacOS).
 
-This feature is especially useful if you want to save the current Medicine Inventory data in a file so that it can be printed later or if you want to organise the Medicine Inventory data using a spreadsheet application for you, your superior or your supplier's reference.
+This feature is especially useful if you want to save the current medicine inventory data shown in the GUI in a file so that it can be printed later or if you want to organise the medicine inventory data using a spreadsheet application for you, your superior or your supplier's reference.
 
 In addition, you can even use the spreadsheet application to convert the CSV file to Microsoft Excel format and use all the functionalities provided by Microsoft Excel such as drawing graphs or chart to display the overview of your clinic's medicine inventory. +
 Format: `export [FILE_NAME]`
@@ -275,19 +275,22 @@ Format: `export [FILE_NAME]`
 Examples:
 
 * `export` +
-Exports the current Medicine Inventory data shown in the GUI to a CSV file which has a default file name format `{Date of export}_{Time of export}`. e.g. `18_Mar_2019_10_28_00`
+Exports the current medicine inventory data shown in the GUI to a CSV file which has a default file name format `{Date of export}_{Time of export}`. e.g. `18_Mar_2019_10_28_00`
 * `export example` +
-Exports the current list shown in the GUI to a CSV file which has the filename `example`.
+Exports the current medicine inventory data shown in the GUI to a CSV file which has the filename `example`.
 
 [WARNING]
 If a file with the specified file name already exists in the default `exported` folder, the file would not be exported and an error message `"Could not export data to csv file: {Specified File Name} already exists in "exported" directory"`
 
-A sample image of how the Medicine Inventory data in the exported CSV file is organised:
+A sample image of how the medicine inventory data in the exported CSV file is organised:
 
 image::SampleCSVFileImage.png[width="790"]
 
 [NOTE]
 From the image above, you can observe that different batches of the same medicine have their own row in the CSV file. This provides more detailed information on the quantity and expiry date for each batch of the same medicine as different batches of the same medicine can have different expiry dates and quantity. Furthermore, the CSV file also includes information such as which medicines are low in stock and which medicines are expiring soon for easier reference.
+
+[IMPORTANT]
+You would observe that medicines without any batches are not included in the exported CSV file though they might be present in the current medicine inventory data shown in the GUI. This is by design, as our team believes that the exported CSV file should provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
 
 === Printing labels : `label`
 
@@ -423,7 +426,7 @@ _{explain how the user can enable/disable data encryption}_
 We recommend following the steps below to solve this issue:
 
 .   Ensure that you *only* have Java version `9` installed on your computer. Uninstall any other versions of Java which might be present on your computer.
-.   Download the latest version of `jarfix.exe` link:https://johann.loefflmann.net/en/software/jarfix/[here]
+.   Download the latest version of `jarfix.exe` link:https://johann.loefflmann.net/en/software/jarfix/[here].
 .   Double-click the file to allow the program to fix this issue.
 
 [NOTE]
@@ -468,11 +471,31 @@ e.g. `warning e/20 s/10`
 
 == Appendix A: File Naming Convention
 
-MediTabs uses the following File Naming Convention when File Name field is used e.g. The `export` command's optional `[FILE_NAME]` field. The File Naming Convention is to ensure consistency and to avoid potential bugs involving file names with different operating systems such as Windows, Linux and MacOS +
+MediTabs uses the following file naming convention when file name field is used e.g. The `export` command's optional `[FILE_NAME]` field. The file naming convention is to ensure consistency and to avoid potential bugs involving file names with different operating systems such as Windows, Linux and MacOS +
 Format: `Start with an alphabet or number followed by alphabets, numbers, underscore or hyphen`
 
+[NOTE]
+File name *does not* include file extension such as `.csv` and `.pdf`. You do not have to include file extension when specifying the file name field such as in `export [File_NAME]`. MediTabs will handle the file name extension for you.
+
+Examples of correct and incorrect file names:
+|===
+|Correct |Incorrect
+
+|`myMedicalData`
+|`_myMedicalData`
+
+|`my_Medical_Data`
+|`my Medical Data`
+
+|`myMedicalData1`
+|`myMedicalData.txt`
+
+|`1myMedicalData`
+|`-MyMedicalData`
+|===
+
 [IMPORTANT]
-You must follow the File Naming Convention format when specifying the File Name field for any commands that support File Name as a field.
+You must follow the file naming convention format when specifying the file name field for any commands that support file name as a field.
 
 [CAUTION]
-The characters of the File Name cannot contain any spacing or symbols, including but not limited to, `\/:*?"<>|.+[]{};!@#$%^&~``
+The characters of the file name cannot contain any spacing or symbols, including but not limited to, `\/:*?"<>|.+[]{};!@#$%^&~`` Reserved names, indicated in Windows documentation, are also *not allowed* to be used as file names such as `COM1` and `LPT8`. You can read more about file naming conventions in Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here].

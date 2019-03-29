@@ -9,6 +9,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizDifficultCommand;
 import seedu.address.logic.commands.quiz.QuizHelpCommand;
+import seedu.address.logic.commands.quiz.QuizQuitCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -57,6 +58,8 @@ public class QuizModeParser implements Parser<Command> {
             return new QuizDifficultCommand();
         case QuizHelpCommand.COMMAND_WORD:
             return new QuizHelpCommand();
+        case QuizQuitCommand.COMMAND_WORD:
+            return new QuizQuitCommand();
         case QuizStatusCommand.COMMAND_WORD:
             return new QuizStatusCommand();
         default:

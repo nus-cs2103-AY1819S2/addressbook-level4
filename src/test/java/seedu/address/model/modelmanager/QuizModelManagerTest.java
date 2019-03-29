@@ -138,8 +138,8 @@ public class QuizModelManagerTest {
 
         // before doing any question
         List<List<Integer>> expected = new ArrayList<>();
-        expected.add(Arrays.asList(0, 0, 0));
-        expected.add(Arrays.asList(1, 0, 0));
+        expected.add(Arrays.asList(0, 0, 0, 0));
+        expected.add(Arrays.asList(1, 0, 0, 0));
 
         assertEquals(expected, modelManager.end());
 
@@ -161,8 +161,8 @@ public class QuizModelManagerTest {
         modelManager.updateTotalAttemptsAndStreak(1, "Hungary");
 
         expected = new ArrayList<>();
-        expected.add(Arrays.asList(0, 2, 2));
-        expected.add(Arrays.asList(1, 2, 2));
+        expected.add(Arrays.asList(0, 2, 2, 0));
+        expected.add(Arrays.asList(1, 2, 2, 0));
 
         assertEquals(expected, modelManager.end());
         assertEquals(4, modelManager.getQuizTotalAttempts());

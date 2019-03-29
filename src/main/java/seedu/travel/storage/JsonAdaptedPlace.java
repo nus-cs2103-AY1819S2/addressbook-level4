@@ -62,7 +62,7 @@ class JsonAdaptedPlace {
     public JsonAdaptedPlace(Place source) {
         name = source.getName().fullName;
         countryCode = source.getCountryCode().code;
-        dateVisited = source.getDateVisited().date;
+        dateVisited = source.getDateVisited().getDate();
         rating = source.getRating().value;
         description = source.getDescription().value;
         address = source.getAddress().value;

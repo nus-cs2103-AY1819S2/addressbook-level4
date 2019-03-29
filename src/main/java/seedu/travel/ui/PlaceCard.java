@@ -51,7 +51,7 @@ public class PlaceCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(place.getName().fullName);
         countryCode.setText(place.getCountryCode().code);
-        dateVisited.setText(place.getDateVisited().date);
+        dateVisited.setText(place.getDateVisited().getDate());
         rating.setText(place.getRating().value);
         address.setText(place.getAddress().value);
         description.setText(place.getDescription().value);

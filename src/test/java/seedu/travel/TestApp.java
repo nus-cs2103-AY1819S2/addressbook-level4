@@ -26,9 +26,11 @@ import systemtests.ModelHelper;
 public class TestApp extends MainApp {
 
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.json");
-
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
+    private static final double DEFAULT_WIDTH = 1280.0;
+    private static final double DEFAULT_HEIGHT = 720.0;
+
     protected Supplier<ReadOnlyTravelBuddy> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
@@ -63,7 +65,7 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(storage);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.setGuiSettings(new GuiSettings(1280.0, 720.0, (int) x, (int) y));
+        userPrefs.setGuiSettings(new GuiSettings(DEFAULT_WIDTH, DEFAULT_HEIGHT, (int) x, (int) y));
         userPrefs.setTravelBuddyFilePath(saveFileLocation);
         return userPrefs;
     }

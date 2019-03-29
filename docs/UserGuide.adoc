@@ -232,16 +232,19 @@ After memorising the content of the flashcards, it is helpful to test how much i
 
 ==== Test flashcards in a folder : `test`
 
-This command begins a test session, where the display area enters a fullscreen (see figure below).
+This command begins a test session, where the display area enters a fullscreen (see Figure 1 below).
 
-Format: `test FOLDER_INDEX`
-
+.A successful test command will display a test session page
 image::startTestSessionPage.png[width="790"]
 
+Format: `test`
+
+[NOTE]
+This command is only considered valid when inside the folder to be tested and is not already inside a test session.
+
 ====
-* Only questions and
-hints are presented and users are required to either input an attempt or the command to reveal the answer within 20 seconds.
-* When the 20 seconds is up before the question is answered, this attempt will be marked as wrong.
+* Only questions and hints are presented and users are required to either input an attempt or enter the command to
+reveal the answer.
 * Internally, flashcards in a folder are queued to be displayed one by one in the order of lowest existing score to highest existing score.
 * The next card will only be presented when the next command is carried out.
 ====
@@ -249,14 +252,21 @@ hints are presented and users are required to either input an attempt or the com
 
 Examples:
 
-* `test 1` +
-Starts a session by displaying a flashcard (both question and hint) from the 1st folder where 20 seconds is given to each card to be answered.
+* `test` +
+Starts a session by displaying a flashcard (both question and hint) from the current folder.
 
 **Hint toggle on / off feature** `Coming in v2.0`
 
 When extra help is needed and familiarity with the content is not yet established hints can be toggled on during a test session when a ‘-hint’ is added on at the end of the test command. Hint will be displayed along with the question when the card is presented.
 
-Format: `test FOLDER_INDEX [-hint]`
+Format: `test [-hint]`
+
+**Timer feature** `Coming in v2.0`
+
+If you are preparing for an exam that will require you to recall information quickly within the limited time given.
+This timer feature is just right for you! You will be given only 20 seconds to answer each question. If the 20 seconds is up before the question is answered, this attempt will be marked as wrong.
+
+Format: `test [-timer]`
 
 ==== Keying in answer to a flashcard: `ans`
 
@@ -269,7 +279,15 @@ shows if it is correct or wrong.
 * Answer matching is case insensitive.
 ====
 
+If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 2).
 
+.Wrong Answer page
+image::WrongAnswerPage.png[width="790"]
+
+If the answer has been submitted successfully and it is correct, you will see the following page (see Figure 3).
+
+.Correct Answer page
+image::CorrectAnswerPage.png[width="790"]
 
 Format: `ans ANSWER`
 
@@ -284,7 +302,8 @@ displayed in an active test session.
 
 
 ==== Reveal answer to a flashcard : `reveal`
-Immediately reveals the correct answer. The user will not need enter any response or wait the full 20 seconds before being presented the correct answer.
+Immediately reveals the correct answer. The user will not need attempt any answer before being presented the correct
+answer.
 
 Format: `reveal`
 
@@ -298,7 +317,11 @@ This command is only considered valid if a card question is currently being disp
 
 ==== Go to next flashcard : `next`
 
-Presents the next lowest score flashcard in this current test session and the 20 seconds starts running again before the answer is revealed.
+Presents the next lowest score flashcard in this current test session. Upon a successful next command, you will see a
+ similar page below (see Figure 4).
+
+.Next card question displayed upon a successful next command
+image::NextCommandPage.png[width="790"]
 
 Format: `next`
 
@@ -424,7 +447,7 @@ questions displayed. The user is required to key in an answer for each question.
 |`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
 |`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
 |`report` | Displays user performance on the right panel for the current folder.
-|`test FOLDER_INDEX` | This command begins a test session, where the display area enters a fullscreen.
+|`test` | This command begins a test session, where the display area enters a fullscreen.
 |`ans ANSWER` | Enter answer for a flashcard.
 |`reveal` | Immediately reveals the correct answer.
 |`next` | Presents the next lowest score flashcard in this current test session.

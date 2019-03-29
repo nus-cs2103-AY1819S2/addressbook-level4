@@ -27,14 +27,13 @@ image::Ui.png[width="790"]
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the jar file and put it into a directory you desire.
-//.  Launch the application and set a password
 .  Type a command into the command box and press enter to execute it.
 [NOTE]
 For the full list of commands, you can head to <<Command Summary>>
 .  Click on the buttons if you want to use the GUI to perform the actions instead.
 
 [[Legends]]
-== Legends
+== Notation
 [TIP]
 This is a tip. Useful information will be written here.
 [NOTE]

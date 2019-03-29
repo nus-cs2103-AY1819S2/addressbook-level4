@@ -70,7 +70,7 @@ public class ExportCommandTest {
     }
 
     @Test
-    public void execute_exportMultipleValidCardFolderIndex_success() throws Exception {
+    public void execute_exportMultipleValidCardFolderIndex_success() {
 
     }
 

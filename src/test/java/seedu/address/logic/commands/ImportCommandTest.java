@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.*;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolders;
 
 import java.io.File;
@@ -14,6 +15,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -63,8 +65,8 @@ public class ImportCommandTest {
         Model expectedModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         CommandResult commandResult = importCommand.execute(model, commandHistory);
         String expectedMessage = String.format(ImportCommand.MESSAGE_SUCCESS, TYPICAL_CARD_FOLDER);
-        assert (commandResult.getFeedbackToUser().equals(expectedMessage));
-        assert isSameCardFolders(model, expectedModel);
+        assertEquals(ImportCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
+        assertTrue(isSameCardFolders(model, expectedModel));
     }
 
     @Test
@@ -81,7 +83,7 @@ public class ImportCommandTest {
         //Model newModel = new ModelManager(getTypicalCardFolders(), new UserPrefs());
         model.importCardFolders(new CsvFile(TYPICAL_CARD_FOLDER));
 
-        assert isSameCardFolders(model, expectedModel);
+        assertTrue (isSameCardFolders(model, expectedModel));
     }
 
     /**
@@ -91,8 +93,8 @@ public class ImportCommandTest {
         List<ReadOnlyCardFolder> cardFolderModel = model.getCardFolders();
         List<ReadOnlyCardFolder> cardFolderExpectedModel = expectedModel.getCardFolders();
 
-        assert(cardFolderExpectedModel.size() == cardFolderModel.size());
-        assert (isSameCardFolderList(cardFolderModel, cardFolderExpectedModel));
+        assertTrue(cardFolderExpectedModel.size() == cardFolderModel.size());
+        assertTrue (isSameCardFolderList(cardFolderModel, cardFolderExpectedModel));
         return true;
     }
 
@@ -115,7 +117,7 @@ public class ImportCommandTest {
     private boolean sameCardsInFolder(ReadOnlyCardFolder folder, ReadOnlyCardFolder expected) {
         List<Card> folderCardList = folder.getCardList();
         List<Card> expectedCardList = expected.getCardList();
-        assert (folderCardList.size() == expectedCardList.size());
+        assertTrue (folderCardList.size() == expectedCardList.size());
         int size = folderCardList.size();
         for (int index = 0; index < size; index++) {
             if (!isSameCard(folderCardList.get(index), expectedCardList.get(index))) {
@@ -130,10 +132,10 @@ public class ImportCommandTest {
      * answer, options and hint
      */
     private boolean isSameCard(Card card, Card expected) {
-        assert (card.getHints().equals(expected.getHints()));
-        assert (card.getOptions().equals(expected.getOptions()));
-        assert (card.getQuestion().equals(expected.getQuestion()));
-        assert (card.getAnswer().equals(expected.getAnswer()));
+        assertTrue (card.getHints().equals(expected.getHints()));
+        assertTrue (card.getOptions().equals(expected.getOptions()));
+        assertTrue (card.getQuestion().equals(expected.getQuestion()));
+        assertTrue (card.getAnswer().equals(expected.getAnswer()));
         return true;
     }
 
@@ -146,7 +148,7 @@ public class ImportCommandTest {
         byte[] f1 = Files.readAllBytes(Paths.get(typicalCardsFile.toString()));
         byte[] f2 = Files.readAllBytes(Paths.get(new File(typicalCardsFileTest.toString())
                 .toString()));
-        assert (Arrays.equals(f1, f2));
+        assertArrayEquals (f1, f2);
         typicalCardsFileTest.delete();
     }
 }

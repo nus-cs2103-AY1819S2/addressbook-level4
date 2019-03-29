@@ -50,9 +50,17 @@ image::UiFirstLook.png[width="790"]
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add card q/QUESTION a/ANSWER [h/HINT]`, `QUESTION` and  `ANSWER` parameters can be used as `add card q/What is the capital of Belgium? a/Brussels`.
-* Items in square brackets are optional e.g `add card q/QUESTION a/ANSWER [h/HINT]` can be used as `add card q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA.` or as `add card q/What state is Seattle in? a/Washington`.
-* Parameters can be in any order e.g. if the command specifies `add card q/QUESTION a/ANSWER`, `add card a/ANSWER q/QUESTION` is also acceptable.
+* Words in `UPPER_CASE` are parameter values which you need to specify in order for the commands to work. For example,
+for `deleteCard INDEX`, `INDEX` is a parameter you have to specify. Typing `deleteCard 1` will inform the application
+that you intend to delete the lesson at index 1.
+* Parameters with trailing `...` can be specified as many times as you want. For example, for
+`addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...`, you can only specify as many `CORE`
+values as you need to. On the other hand, you can only specify exactly 1 `QUESTION CORE` value.
+* Parameters in `[ ]` brackets are optional. For example, for `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...`,
+it is necessary to specify at least 2 `CORE` values, but you can optionally specify more `CORE` values. Additionally,
+`OPTIONAL` values are completely optional and you can specify either 0 or as many `OPTIONAL` values as you need to.
+* Parameters can be in any order. For example, for `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...`, you can use the
+command as such `addCard o/Country Code c/Country c/Capital`.
 ====
 {empty} +
 
@@ -90,26 +98,31 @@ Examples:
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
 
-Shows a numbered list of all lessons. +
+Displays a numbered list of all lessons. +
 Format: `listLessons`
 
 ==== Adding a lesson: `addLesson`
 Adds a lesson. +
-Format: `addLesson n/NAME c/CORE... [o/OPTIONAL]...`
+Format: `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...`
 
 Usage rules:
 
-* The lesson to be added must contain at least 2 `CORE` parameters. These parameters are `CORE` headers which define the lesson cards' `CORE` values. An example of a `CORE` header and a card's `CORE` value would be 'Country' and 'Japan' respectively.
+* The lesson must contain a name.
+* The lesson must contain a `QUESTION CORE` and `ANSWER CORE`. The `QUESTION CORE` and `ANSWER CORE` are `CORE` headers which describe the question and answer `CORE` values of flashcards added to this lesson.
+** For example, a lesson for memorising capitals of countries would have the `QUESTION CORE` set as "Country" and `ANSWER_CORE` set as "Capital".
+* The lesson can have additional `CORE` headers which can be set as the `QUESTION CORE` and `ANSWER CORE` when necessary.
+** Following the previous example, an additional `CORE` header could be "Language", so that you could use the same lesson for memorising languages of countries.
+* Flash cards added to the lesson must have corresponding `QUESTION CORE`, `ANSWER CORE` and `CORE` values.
+* The lesson can optionally have `OPTIONAL` values. A possible `OPTIONAL` value could be "Hint".
+* Flash cards added to the lesson need not have corresponding `OPTIONAL` values.
 
 [TIP]
-The lesson can have any number of `OPTIONAL` headers (including 0).
-
-The `OPTIONAL` headers are optional. The values of these headers are displayed during quiz mode when you enter <<hint, `\hint`>>.
+`OPTIONAL` values are displayed during quiz mode when you enter <<hint, `\hint`>>.
 
 Examples:
 
-* `addLesson n/MedicineTrivia c/Proposition c/TrueOrFalse`
-* `addLesson n/Country Capitals c/Country c/Capital o/First letter of capital`
+* `addLesson n/Upper limb anatomy q/Statement a/TrueOrFalse`
+* `addLesson n/Capitals of the world q/Country a/Capital c/Language o/Hint`
 
 
 ==== Deleting a lesson: `deleteLesson`
@@ -127,6 +140,7 @@ Examples:
 * `deleteLesson 2` +
 Deletes the second lesson in the numbered list displayed by `listLessons`.
 
+[[openLesson]]
 ==== Opening a lesson: `openLesson`
 
 Opens a lesson for editing. +
@@ -144,27 +158,18 @@ Opens the first lesson in the numbered list displayed by `listLessons`.
 
 ==== Closing a lesson: `closeLesson`
 
-Closes and saves a lesson after editing it. +
-Format: `closeLesson INDEX`
+Closes and saves the opened lesson. To open a lesson, enter the command <<listLessons, `listLessons`>>. +
+Format: `closeLesson`
 
-Usage rules:
-
-* Closes the lesson at the specified `INDEX`.
-* To find the `INDEX` number of a lesson, type `listLessons` to list all lessons loaded in memory.
-
-Examples:
-
-* `closeLesson 1` +
-Closes the first lesson in the numbered list displayed by `listLessons`.
-
+[[listCards]]
 ==== Listing all flashcards: `listCards`
 
-Shows a numbered list of all flashcards. +
+Displays a numbered list of all flashcards in the opened lesson. To open a lesson, enter the command <<listLessons, `listLessons`>>. +
 Format: `listCards`
 
 ==== Adding a flashcard: `addCard`
-Adds a flashcard. +
-Format: `addCard q/QUESTION a/ANSWER [h/HINT]`
+Adds a flashcard to the opened lesson. To open a lesson, enter the command <<listLessons, `listLessons`>>. +
+Format: `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...`
 
 Usage rules:
 
@@ -172,36 +177,18 @@ Usage rules:
 
 Examples:
 
-* `addCard q/What is the capital of Belgium? a/Brussels`
-* `addCard q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA.`
-
-==== Editing a flashcard : `editCard`
-
-Edits an existing flashcard. +
-Format: `editCard INDEX [q/QUESTION] [a/ANSWER] [h/HINT]`
-
-Usage rules:
-
-* Edits the flashcard at the specified `INDEX`. To find the `INDEX` number of a question, type `listCards` to list all flashcards.
-* All fields are optional, but minimally one field must be specified.
-* The flashcard's hint can be removed by typing `h/`.
-
-Examples:
-
-* `editCard 1 a/Tokyo` +
-Changes the answer of the first flashcard to `Tokyo`. All other fields such as the question remain the same.
-* `editCard 12 q/How many intercostal spaces are there? h/` +
-Changes the question of the 12th flashcard to 'How many intercostal spaces are there?' and removes the flashcard's hint.
+* `addCard c/Stapes is the smallest bone in the body c/True`
+* `addCard c/Australia c/Canberra c/English o/Starts with C`
 
 ==== Deleting a flashcard: `deleteCard`
 
-Deletes a flashcard in the question pool. +
+Deletes a flashcard from the opened lesson. To open a lesson, enter the command <<listLessons, `listLessons`>>. +
 Format: `deleteCard INDEX`
 
 Usage rules:
 
-* Deletes the flashcard at the specified `INDEX`.
-* To find the `INDEX` number of a question, type `listCards` to list all flashcards in the question pool.
+* Deletes the flashcard at the specified `INDEX` of the numbered card list.
+* To view the list, enter the command <<listCards, `listCards`>>.
 
 Examples:
 
@@ -322,19 +309,22 @@ If the file is saved without UTF-8 encoding, the data may have already been save
 == Command Summary
 
 === Management Mode
-* *View help*: `help`
-* *Start a quiz session*: `start n/NAME [c/COUNT] m/MODE` +
+* *Viewing help*: `help`
+* *Starting quiz session*: `start n/NAME [c/COUNT] m/MODE` +
 e.g. `start n/02-03-LEARN c/15 m/LEARN`
-* *List all lessons*: `listLessons`
-* *Add a lesson*: `addLesson n/NAME c/CORE…​ [o/OPTIONAL]…​` +
-e.g. `addLesson n/MedicineTrivia c/Proposition c/TrueOrFalse`
-* *List all cards*: `list cards`
-* *Add a card*: `add card q/QUESTION a/ANSWER [h/HINT]` +
-e.g. `add card q/What state is Seattle in? a/Washington h/The state is named after the founding father of USA`
-* *Edit a card*: `edit card INDEX [q/QUESTION] [a/ANSWER] [h/HINT]` +
-e.g. `card edit 12 q/How many intercostal spaces are there? h/`
-* *Delete a card*: `delete card INDEX` +
-e.g. `delete card 2`
+* *Listing all lessons*: `listLessons`
+* *Adding a lesson*: `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...` +
+e.g. `addLesson n/Capitals of the world q/Country a/Capital c/Language o/Hint`
+* *Deleting a lesson*: `deleteLesson INDEX` +
+e.g. `deleteLesson 2`
+* *Opening a lesson*: `openLesson INDEX` +
+e.g. `openLesson 1`
+* *Closing a lesson*: `closeLesson`
+* *Listing all flashcards*: `listCards`
+* *Adding a flashcard*: `c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...` +
+e.g. `addCard c/Australia c/Canberra c/English o/Starts with C`
+* *Deleting a flashcard*: `deleteCard INDEX` +
+e.g. `deleteCard 2`
 * *Import user profile*: `import user`
 * *Export user profile*: `export user`
 * *View history*: `history`

@@ -171,12 +171,22 @@ public class Card {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("Hash Code: ")
-                .append(hashCode())
-                .append(", Cores: ")
+        builder.append("Cores: ")
                 .append(getCores())
-                .append(", Optionals: ")
+                .append("\nOptionals: ")
                 .append(getOptionals());
+        return builder.toString();
+    }
+
+    /**
+     * Returns a printable format of the Card which is displayed to the user.
+     *
+     * @return the printable format of the Card.
+     */
+    public String toPrint() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getCores()).append(getOptionals());
+
         return builder.toString();
     }
 

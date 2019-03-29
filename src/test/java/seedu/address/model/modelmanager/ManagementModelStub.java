@@ -4,7 +4,9 @@ import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
@@ -64,6 +66,37 @@ public class ManagementModelStub implements ManagementModel {
     }
 
     /**
+     * Gets the {@code Card} objects from the opened {@link Lesson} object.
+     *
+     * @return {@code Card} objects from the opened {@link Lesson} object.
+     * Returns null if there are no cards found.
+     */
+    @Override
+    public List<Card> getOpenedLessonCards() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public List<String> getOpenedLessonCoreHeaders() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public List<String> getOpenedLessonOptionalHeaders() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void addCardToOpenedLesson(Card card) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void deleteCardFromOpenedLesson(int index) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    /**
      * Closes the opened {@link Lesson} object.
      * @return the name of the closed {@link Lesson} object
      */
@@ -72,11 +105,13 @@ public class ManagementModelStub implements ManagementModel {
         throw new AssertionError("This method should not be called.");
     }
 
-    /**
-     * Gets the entire list of lessons.
-     */
     @Override
-    public List<Lesson> getLessonList() {
+    public LessonList getLessonList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public List<Lesson> getLessons() {
         throw new AssertionError("This method should not be called.");
     }
 

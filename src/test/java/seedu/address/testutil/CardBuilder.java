@@ -7,7 +7,7 @@ import java.util.List;
 import seedu.address.model.card.Card;
 
 /**
- * A utility class to help with building {@code Card} objects.
+ * A utility class to help with building {@link Card} objects.
  */
 public class CardBuilder {
 
@@ -46,6 +46,14 @@ public class CardBuilder {
      */
     public CardBuilder withOptionals(String ... optionals) {
         this.optionals = Arrays.asList(optionals);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Card} to have no {@code optionals}.
+     */
+    public CardBuilder withNoOptionals() {
+        this.optionals = new ArrayList<>();
         return this;
     }
 

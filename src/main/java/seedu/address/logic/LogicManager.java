@@ -9,6 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.management.ManagementCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
@@ -22,7 +23,6 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Storage storageManager;
@@ -59,6 +59,14 @@ public class LogicManager implements Logic {
             if (getMode() == Mode.MANAGEMENT) {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
+
+                // Some commands under management mode implements Command instead of extending
+                // ManagementCommand, hence the need for this check
+                if (command instanceof ManagementCommand
+                        && ((ManagementCommand) command).isSaveRequired()) {
+                    // Save all lessons in memory to hard disk
+                    storageManager.saveLessons(managementModel.getLessonList());
+                }
             } else {
                 command = quizModeParser.parse(commandText);
                 commandResult = command.execute(quizModel, history);

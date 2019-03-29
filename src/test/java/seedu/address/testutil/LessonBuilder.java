@@ -11,7 +11,7 @@ import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 
 /**
- * A utility class to help with building {@code Lesson} objects.
+ * A utility class to help with building {@link Lesson} objects.
  */
 public class LessonBuilder {
     public static final String DEFAULT_NAME = "Capitals";

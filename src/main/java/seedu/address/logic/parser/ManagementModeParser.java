@@ -5,12 +5,15 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.CloseLessonCommand;
+import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
+import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
@@ -72,6 +75,15 @@ public class ManagementModeParser implements Parser<Command> {
 
         case CloseLessonCommand.COMMAND_WORD:
             return new CloseLessonCommand();
+
+        case AddCardCommand.COMMAND_WORD:
+            return new AddCardParser().parse(arguments);
+
+        case DeleteCardCommand.COMMAND_WORD:
+            return new DeleteCardParser().parse(arguments);
+
+        case ListCardsCommand.COMMAND_WORD:
+            return new ListCardsCommand();
 
         default:
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);

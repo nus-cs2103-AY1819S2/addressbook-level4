@@ -29,4 +29,14 @@ public abstract class ManagementCommand implements Command {
 
         return (ManagementModel) obj;
     }
+
+    /**
+     * Certain ManagementCommand objects require a call to storageManager to save the lessons to disk
+     * after being executed. For example, when AddLessonCommand is called.
+     *
+     * @return by default it returns false.
+     */
+    public boolean isSaveRequired() {
+        return false;
+    }
 }

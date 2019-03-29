@@ -4,6 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
+import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
+import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
+import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
+import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,12 +23,14 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
@@ -35,6 +43,7 @@ import seedu.address.storage.CsvLessonsStorage;
 import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.LessonBuilder;
 
 public class LogicManagerTest {
     @Rule
@@ -317,4 +326,21 @@ public class LogicManagerTest {
         }
     }
 
+    @Test
+    public void testManagementInputOutput() {
+        Lesson validLesson = new LessonBuilder().withNoOptionalHeaders().build();
+        String command = AddLessonCommand.COMMAND_WORD + " "
+                + PREFIX_LESSON_NAME + DEFAULT_NAME + " "
+                + PREFIX_CORE_QUESTION + DEFAULT_CORE_HEADER_1 + " "
+                + PREFIX_CORE_ANSWER + DEFAULT_CORE_HEADER_2;
+
+        try {
+            logic.execute(command);
+        } catch (CommandException | ParseException e) {
+            // Parsing and execution of AddLessonCommand should not fail due to
+            // CommandException and ParseException given it is the correct format.
+            throw new AssertionError("Parsing and execution of "
+                    + "AddLessonCommand.COMMAND_WORD should succeed.", e);
+        }
+    }
 }

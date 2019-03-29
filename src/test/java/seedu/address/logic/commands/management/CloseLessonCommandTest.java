@@ -2,7 +2,9 @@ package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
 
@@ -72,6 +74,29 @@ public class CloseLessonCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_EXPECTED_MODEL);
         closeLessonCommand.execute(modelStub, commandHistory);
+    }
+
+    @Test
+    public void equals() {
+        CloseLessonCommand closeLessonCommand = new CloseLessonCommand();
+
+        // same object -> returns true
+        assertEquals(closeLessonCommand, closeLessonCommand);
+
+        // all CloseLessonCommand objects are the same -> returns true
+        CloseLessonCommand closeLessonCommand2 = new CloseLessonCommand();
+        assertEquals(closeLessonCommand, closeLessonCommand2);
+
+        // different types -> returns false
+        assertNotEquals(closeLessonCommand, 1);
+
+        // null -> returns false
+        assertNotEquals(closeLessonCommand, null);
+    }
+
+    @Test
+    public void isSaveRequired_isTrue() {
+        assertTrue(new CloseLessonCommand().isSaveRequired());
     }
 
     /**

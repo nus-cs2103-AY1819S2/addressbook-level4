@@ -95,4 +95,14 @@ public class CardTest {
         // since both cards are identical, their string representation should be the same
         assertEquals(belgiumCopy.toString(), newCard.toString());
     }
+
+    @Test
+    public void cardToPrint() {
+        Card belgiumCopy = new CardBuilder(CARD_BELGIUM).build();
+        Card newCard = new Card(belgiumCopy.getCores(), belgiumCopy.getOptionals());
+        // newCard should be a copy of belgiumCopy
+        assertEquals(belgiumCopy, newCard);
+        // since both cards are identical, their string representation should be the same
+        assertEquals(belgiumCopy.toPrint(), newCard.toPrint());
+    }
 }

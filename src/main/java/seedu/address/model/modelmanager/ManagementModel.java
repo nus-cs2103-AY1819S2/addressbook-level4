@@ -4,7 +4,9 @@ import java.util.List;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
 
@@ -56,15 +58,36 @@ public interface ManagementModel extends Model {
     Lesson getOpenedLesson();
 
     /**
+     * Gets the {@code Card} objects from the opened {@link Lesson} object.
+     *
+     * @return {@code Card} objects from the opened {@link Lesson} object.
+     * Returns null if there are no cards found.
+     */
+    List<Card> getOpenedLessonCards();
+
+    List<String> getOpenedLessonCoreHeaders();
+
+    List<String> getOpenedLessonOptionalHeaders();
+
+    void addCardToOpenedLesson(Card card);
+
+    void deleteCardFromOpenedLesson(int index);
+
+    /**
      * Closes the opened {@link Lesson} object.
      * @return the name of the closed {@link Lesson} object
      */
     String closeLesson();
 
     /**
-     * Gets the entire list of lessons.
+     * @return the {@link LessonList} object.
      */
-    List<Lesson> getLessonList();
+    LessonList getLessonList();
+
+    /**
+     * @return a {@link List} of {@link Lesson} objects in {@link LessonList}.
+     */
+    List<Lesson> getLessons();
 
     /**
      * Adds the lesson.

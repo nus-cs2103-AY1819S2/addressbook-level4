@@ -1,12 +1,11 @@
 package seedu.address.logic.commands.management;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 import static seedu.address.model.lesson.LessonList.EXCEPTION_INVALID_INDEX;
-import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
+import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +18,15 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.card.Card;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
 
 /**
- * Unit tests for the {@link DeleteLessonCommand}.
+ * Unit tests for the {@link DeleteCardCommand}.
  */
-public class DeleteLessonCommandTest {
+public class DeleteCardCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -38,100 +38,100 @@ public class DeleteLessonCommandTest {
     private Index toDeleteIndex2 = Index.fromZeroBased(1);
 
     @Test
-    public void execute_lessonDeletedByModel_deleteSuccessful() throws Exception {
+    public void execute_cardDeletedByModel_deleteSuccessful() throws Exception {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
-        modelStub.addLesson(LESSON_DEFAULT); // always work
+        modelStub.addCardToOpenedLesson(CARD_JAPAN); // always work
 
-        // delete a lesson which exists in model -> lesson deleted successfully
+        // delete a card which exists in model -> card deleted successfully
         Index toDeleteIndex = Index.fromZeroBased(0);
         CommandResult commandResult =
-                new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
+                new DeleteCardCommand(toDeleteIndex).execute(modelStub, commandHistory);
 
-        // lesson deleted successfully -> success feedback
-        assertEquals(String.format(DeleteLessonCommand.MESSAGE_SUCCESS, LESSON_DEFAULT.getName()),
-                commandResult.getFeedbackToUser());
+        // card deleted successfully -> success feedback
+        assertEquals(DeleteCardCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_lessonDeletedByModel_deleteUnsuccessful() throws Exception {
+    public void execute_cardDeletedByModel_deleteUnsuccessful() throws Exception {
         MgtModelStubAcceptingAddDelete modelStub = new MgtModelStubAcceptingAddDelete();
         Index toDeleteIndex = Index.fromZeroBased(0);
 
-        // delete a lesson which does not exist in model -> CommandException thrown
+        // delete a card which does not exist in model -> CommandException thrown
         thrown.expect(CommandException.class);
-        new DeleteLessonCommand(toDeleteIndex).execute(modelStub, commandHistory);
+        new DeleteCardCommand(toDeleteIndex).execute(modelStub, commandHistory);
     }
 
     @Test
     public void execute_incorrectModel_throwsCommandException() throws Exception {
         QuizModelStub modelStub = new QuizModelStub();
         Index toDeleteIndex = Index.fromZeroBased(0);
-        DeleteLessonCommand deleteLessonCommand = new DeleteLessonCommand(toDeleteIndex);
+        DeleteCardCommand deleteCardCommand = new DeleteCardCommand(toDeleteIndex);
 
-        // attempting to execute DeleteLessonCommand on a QuizModel instead of a ManagementModel ->
+        // attempting to execute DeleteCardCommand on a QuizModel instead of a ManagementModel ->
         // CommandException thrown
         thrown.expect(CommandException.class);
         thrown.expectMessage(MESSAGE_EXPECTED_MODEL);
-        deleteLessonCommand.execute(modelStub, commandHistory);
+        deleteCardCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        DeleteLessonCommand deleteLessonCommand1 = new DeleteLessonCommand(toDeleteIndex1);
-        DeleteLessonCommand deleteLessonCommand2 = new DeleteLessonCommand(toDeleteIndex2);
+        DeleteCardCommand deleteCardCommand1 = new DeleteCardCommand(toDeleteIndex1);
+        DeleteCardCommand deleteCardCommand2 = new DeleteCardCommand(toDeleteIndex2);
 
         // same object -> returns true
-        assertEquals(deleteLessonCommand1, deleteLessonCommand1);
+        assertEquals(deleteCardCommand1, deleteCardCommand1);
 
         // same values -> returns true
-        DeleteLessonCommand deleteLessonCommandCopy = new DeleteLessonCommand(toDeleteIndex1);
-        assertEquals(deleteLessonCommand1, deleteLessonCommandCopy);
+        DeleteCardCommand deleteCardCommandCopy = new DeleteCardCommand(toDeleteIndex1);
+        assertEquals(deleteCardCommand1, deleteCardCommandCopy);
 
         // different types -> returns false
-        assertNotEquals(deleteLessonCommand1, 1);
+        assertNotEquals(deleteCardCommand1, 1);
 
         // null -> returns false
-        assertNotEquals(deleteLessonCommand1, null);
+        assertNotEquals(deleteCardCommand1, null);
 
-        // different lesson -> returns false
-        assertNotEquals(deleteLessonCommand1, deleteLessonCommand2);
+        // different card -> returns false
+        assertNotEquals(deleteCardCommand1, deleteCardCommand2);
     }
 
     @Test
     public void isSaveRequired_isTrue() {
-        assertTrue(new DeleteLessonCommand(toDeleteIndex1).isSaveRequired());
+        assertTrue(new DeleteCardCommand(toDeleteIndex1).isSaveRequired());
     }
 
     /**
-     * A ManagementModel stub which always accept the lesson being added and can always delete a lesson if
+     * A ManagementModel stub which always accept the card being added and can always delete a card if
      * it exists.
      */
     private class MgtModelStubAcceptingAddDelete extends ManagementModelStub {
-        private final ArrayList<Lesson> lessons = new ArrayList<>();
+        private final ArrayList<Card> cards = new ArrayList<>();
 
+        /**
+         * Gets the {@code Card} objects from the opened {@link Lesson} object.
+         *
+         * @return {@code Card} objects from the opened {@link Lesson} object.
+         * Returns null if there are no cards found.
+         */
         @Override
-        public void addLesson(Lesson lesson) {
-            requireNonNull(lesson);
-            lessons.add(lesson);
+        public List<Card> getOpenedLessonCards() {
+            return cards;
         }
 
-        public Lesson getLesson(int index) {
+        @Override
+        public void addCardToOpenedLesson(Card card) {
+            cards.add(card);
+        }
+
+        @Override
+        public void deleteCardFromOpenedLesson(int index) {
             try {
-                return lessons.get(index);
+                cards.remove(index);
             } catch (IndexOutOfBoundsException e) {
                 throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
             }
-        }
-
-        @Override
-        public List<Lesson> getLessons() {
-            return lessons;
-        }
-
-        @Override
-        public void deleteLesson(int index) {
-            lessons.remove(index);
         }
     }
 }

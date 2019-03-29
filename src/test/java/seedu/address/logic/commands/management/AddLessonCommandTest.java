@@ -3,6 +3,7 @@ package seedu.address.logic.commands.management;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
 
 import java.util.ArrayList;
@@ -92,6 +93,12 @@ public class AddLessonCommandTest {
 
         // different lesson -> returns false
         assertNotEquals(addLessonDefCommand, addLessonPropCommand);
+    }
+
+    @Test
+    public void isSaveRequired_isTrue() {
+        assertTrue(new AddLessonCommand(
+                TypicalLessons.LESSON_DEFAULT).isSaveRequired());
     }
 
     /**

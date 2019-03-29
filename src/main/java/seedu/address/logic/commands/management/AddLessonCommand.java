@@ -1,9 +1,11 @@
 package seedu.address.logic.commands.management;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_CORE_HEADER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
-import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_OPT_HEADER;
+import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
@@ -13,10 +15,11 @@ import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * This implements a {@link ManagementCommand} which executes a command to add a {@link Lesson}
- * to the {@code List<Lesson> lessons} loaded in memory. It requires a {@link ManagementModel}
- * to be passed into the {@link #execute(Model, CommandHistory)} command. The actual addition
- * of the {@link Lesson} is carried out in the {@link ManagementModel}.
+ * This implements a {@link ManagementCommand} which adds a {@link Lesson} to the
+ * {@code List<Lesson> lessons} loaded in memory.
+ *
+ * It requires a {@link ManagementModel} to be passed into the {@link #execute(Model, CommandHistory)}
+ * command.
  */
 public class AddLessonCommand extends ManagementCommand {
     /**
@@ -27,15 +30,18 @@ public class AddLessonCommand extends ManagementCommand {
      * Instructions on command usage and parameters.
      */
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a lesson. "
-            + "Parameters: "
+            + "\nParameters: "
             + PREFIX_LESSON_NAME + "NAME "
-            + PREFIX_LESSON_CORE_HEADER + "CORE..."
-            + "[" + PREFIX_LESSON_OPT_HEADER + "OPTIONAL]...\n"
+            + PREFIX_CORE_QUESTION + "QUESTION CORE "
+            + PREFIX_CORE_ANSWER + "ANSWER CORE "
+            + "[" + PREFIX_CORE + "CORE]... "
+            + "[" + PREFIX_OPTIONAL + "OPTIONAL]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_LESSON_NAME + "Capitals of the world "
-            + PREFIX_LESSON_CORE_HEADER + "Country "
-            + PREFIX_LESSON_CORE_HEADER + "Capital "
-            + PREFIX_LESSON_OPT_HEADER + "Hint";
+            + PREFIX_CORE_QUESTION + "Country "
+            + PREFIX_CORE_ANSWER + "Capital "
+            + PREFIX_CORE + "Language "
+            + PREFIX_OPTIONAL + "Hint";
     /**
      * Feedback message displayed to the user upon successful execution of this command
      */
@@ -44,9 +50,8 @@ public class AddLessonCommand extends ManagementCommand {
      * The lesson to be added when {@link #execute(Model, CommandHistory)} is called.
      */
     private final Lesson toAdd;
-
     /**
-     * Creates an AddLessonCommand to add the specified {@link Lesson}
+     * Constructs a {@link ManagementCommand} to add the specified {@link Lesson}.
      *
      * @param toAdd the {@link Lesson} to be added
      */
@@ -56,13 +61,14 @@ public class AddLessonCommand extends ManagementCommand {
     }
 
     /**
-     * Executes the command and returns the result message.
+     * Executes the command which adds a {@link Lesson} to the {@code List<Lesson> lessons}
+     * loaded in memory.
      *
-     * @param model which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
+     * @param model the {@link ManagementModel} the command should operate on.
+     * @param history {@link CommandHistory} which the command should operate on.
      *
      * @return feedback message of the operation result for display
-     * @throws CommandException If an error occurs during command execution.
+     * @throws CommandException if the {@code model} passed in is not a {@link ManagementModel}
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -73,6 +79,24 @@ public class AddLessonCommand extends ManagementCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    /**
+     * When a lesson is closed, it needs to be saved to the hard disk.
+     *
+     * @return true given that a save to disk is required.
+     */
+    @Override
+    public boolean isSaveRequired() {
+        return true;
+    }
+
+    /**
+     * Returns true if {@code other} is the same object or if it is also an {@link AddLessonCommand}
+     * attempting to add the same lesson.
+     *
+     * @param other the other object to compare this object to
+     * @return true if {@code other} is the same object or if it is also an {@link AddLessonCommand}
+     * attempting to add the same lesson.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

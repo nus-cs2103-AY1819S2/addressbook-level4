@@ -9,12 +9,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.logic.commands.management.AddCardCommand;
 import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.CloseLessonCommand;
+import seedu.address.logic.commands.management.DeleteCardCommand;
 import seedu.address.logic.commands.management.DeleteLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
+import seedu.address.logic.commands.management.ListCardsCommand;
 import seedu.address.logic.commands.management.ListLessonsCommand;
 import seedu.address.logic.commands.management.OpenLessonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -54,9 +57,9 @@ public class ManagementModeParserTest {
     public void parseCommand_addLesson() throws Exception {
         String command = AddLessonCommand.COMMAND_WORD + " "
                 + Syntax.PREFIX_LESSON_NAME + "Capitals of the world "
-                + Syntax.PREFIX_LESSON_CORE_HEADER + "Country "
-                + Syntax.PREFIX_LESSON_CORE_HEADER + "Capital "
-                + Syntax.PREFIX_LESSON_OPT_HEADER + "Hint";
+                + Syntax.PREFIX_CORE_QUESTION + "Country "
+                + Syntax.PREFIX_CORE_ANSWER + "Capital "
+                + Syntax.PREFIX_OPTIONAL + "Hint";
         assertTrue(parser.parse(command) instanceof AddLessonCommand);
     }
 
@@ -84,6 +87,27 @@ public class ManagementModeParserTest {
                 instanceof CloseLessonCommand);
     }
 
+    @Test
+    public void parseCommand_addCard() throws Exception {
+        String command = AddCardCommand.COMMAND_WORD + " "
+                + Syntax.PREFIX_CORE + "Australia "
+                + Syntax.PREFIX_CORE + "Canberra "
+                + Syntax.PREFIX_CORE + "English "
+                + Syntax.PREFIX_OPTIONAL + "Starts with C";
+        assertTrue(parser.parse(command) instanceof AddCardCommand);
+    }
+
+    @Test
+    public void parseCommand_deleteCard() throws Exception {
+        String command = DeleteCardCommand.COMMAND_WORD + " 1";
+        assertTrue(parser.parse(command) instanceof DeleteCardCommand);
+    }
+
+    @Test
+    public void parseCommand_listCards() throws Exception {
+        assertTrue(parser.parse(ListCardsCommand.COMMAND_WORD)
+                instanceof ListCardsCommand);
+    }
 
     //    @Test
     //    public void parseCommand_redoCommandWord_returnsRedoCommand() throws Exception {

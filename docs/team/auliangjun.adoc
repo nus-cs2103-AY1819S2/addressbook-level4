@@ -1,0 +1,59 @@
+= Au Liang Jun - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Know-It-All
+
+---
+
+== Overview
+
+Know-It-All is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, Know-It-All is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+* *Major enhancement*: added *the ability to have flashcard folders*
+** What it does: allows the user to create folders that store separate sets of flashcards. Folders can be renamed and deleted.
+** Justification: This feature allows the user to logically group flashcards of the same topic together, separate from flashcards of other topics. This significantly improves the product as it enables better organisation, which is crucial for efficiency and ease of use. 
+** Highlights: The enhancement affected all components extensively. For some components, the architecture had to be redesigned, and the multiple options to do so had to be carefull considered and assessed. The implementation was also challenging due to the tightly coupled nature of classes within each component, and the inherent and widespread changes to architecture required a deep understanding of how every component worked.
+
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=afterdusk[Collated code]] 
+*** Wrote additional tests for existing features to increase coverage from ____% to ____% (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104])
+* *Other contributions*:
+
+** Project management:
+*** Created GitHub organisation and team repository, issue labels, milestones and https://github.com/cs2103-ay1819s2-w10-4/main/projects/1[project board]
+*** Managed and tagged milestones `v1.1` to `v1.2`
+
+** Documentation:
+*** Introduced an about section and populated the command summary and glossary sections in the User Guide. Also revised the format of the User Guide to be more consistent (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/90[#90])
+*** Wrote user stories to set project requirements, which were eventually ported over to the Developer Guide and GitHub issues (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/53[#53]).
+*** Contributed to use cases (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104])
+
+** Community:
+*** Performed the initial refactoring of code to flashcard context (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/37[#37])
+** Tools:
+*** Integrated a GitHub plugin (Netlify) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=introabout]
+
+include::../UserGuide.adoc[tag=folderoperations]
+
+include::../UserGuide.adoc[tag=glossarycmdsummary]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=folders]
+
+include::../DeveloperGuide.adoc[tag=folderusecases]

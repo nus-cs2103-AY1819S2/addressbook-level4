@@ -525,6 +525,7 @@ Comparison is not case-sensitive
 
 Similar to other test session methods, this is exposed in the model interface as `Model#markAttemptedAnswer()`.
 
+//tag::folders[]
 === Folders
 ==== Current Implementation
 A folder is another layer of abstraction over a `CardFolder`. Where we dealt with a single `CardFolder` in previous iterations, we now have multiple `CardFolders` that each have their own set of `Cards`. Users are able to manage each `CardFolder` independently.
@@ -574,6 +575,8 @@ The same principle was applied to propagate changes in `CardFolders` (e.g. addin
 * **Alternative 2**: Identify a folder by its cards
 ** Pros: There can be no folders with identical cards, preventing redundancy.
 ** Cons: Two folders could have identical names as long as the cards are different.
+
+//end::folders[]
 
 === Logging
 
@@ -1163,8 +1166,96 @@ Use case ends
 +
 Use case ends
 
+//tag::folderusecases[]
+[discrete]
+=== UC03 Add folder
 
+*Guarantees*
 
+* A folder of the desired name is created.
+
+*MSS*
+
+1. Student navigates to home directory
+2. Student inputs the name of the folder he wants to create
+3. System creates a folder of the desired name and shows it on the home directory
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. Student inputs a name that already exists.
+[none]
+** 2a1. System displays an error message prompting the user to use a folder name that is not taken.
++
+Use case resumes from step 2.
+
+[discrete]
+=== UC04 Edit folder name
+
+*Guarantees*
+
+* A particular folder as selected by the student is renamed to the desired name
+
+*MSS*
+
+1. Student navigates to home directory
+2. Student indicates the folder he wants to rename, as well as the new name.
+3. System renames the folder to the new name and shows it on the home directory
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 2a. Student inputs a name that already exists.
+[none]
+** 2a1. System displays an error message prompting the user to use a folder name that is not taken.
++
+Use case resumes from step 2.
+
+[none]
+* 2b. Student chooses a folder that does not exist.
+[none]
+** 2b1. System displays an error message prompting the user to choose a valid folder.
++
+Use case resumes from step 2.
+
+[none]
+* 2c. Student enters a blank as the desired new folder name.
+[none]
+** 2c1. System displays an error message informing that the folder name cannot be a blank.
++
+Use case resumes from step 2.
+
+[discrete]
+=== UC05 Navigating into folders
+
+*MSS*
+
+1. Student indicates the folder he wants to enter.
+2. System enters the folder and displays the folder content.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. Student chooses a folder that does not exist.
+[none]
+** 1a1. System displays an error message prompting the user to choose a valid folder.
++
+Use case resumes from step 1.
+
+[none]
+* 1b. Student is already inside a folder.
+[none]
+** 1b1. System displays an error message informing that the user can only navigate into the folder when he is at the home directory.
+** 1b2. Student navigates back to home directory.
++
+Use case resumes from step 1.
+//end::folderusecases[]
 
 [appendix]
 == Non Functional Requirements

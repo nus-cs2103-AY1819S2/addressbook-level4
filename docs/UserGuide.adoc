@@ -17,14 +17,16 @@ endif::[]
 
 By: `CS2103-AY2018/19s2-W10-4 Team`      Since: `Mar 2019`      Licence: `MIT`
 
+// tag::introabout[]
 == Introduction
 
-*Know-It-All* is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, *Know-It-All* is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. *Know-It-All* targets medicine students in NUS as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
+*Know-It-All* is a flashcard application that helps users store and organise their learning material. With an easy to use interface and a storage solution that supports content sharing, *Know-It-All* is designed to help students perform rote learning more efficiently. From cramming in between lessons to focused study, the in-built test session boosts the effectiveness of repetition and recall for memorisation. *Know-It-All* targets medicine students as their studies involve a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
 
 == About
 
 Welcome to the *Know-It-All* User Guide! This document will equip you with what you need in order to use `v1.4` of the application. While some familiarity with command line programs will come in handy, simply adhere to the command formats specified in this guide closely and the rest will be a breeze.  Head over to <<Quick Start>> to get started.
 
+// end::introabout[]
 == Quick Start
 
 .  Ensure that you have Java version `9` or later installed in your Computer.
@@ -149,10 +151,70 @@ Format: `list`
 ====
 * This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort.
 ====
+  
+// tag::undoredo[]
+==== Undoing previous command : `undo`
+
+Restores the cards in a particular card folder to the state before the previous _undoable_ command was executed.
+
+Format: `undo`
+
+====
+* This command is performed with respect to the present folder you are in. For example, if you perform an `add` operation in folder A and enter folder B, invoking the `undo` command will undo the previous _undoable_ command performed in folder B and not the aforementioned `add` operation.
+====
+
+[NOTE]
+====
+Undoable commands: commands that modify a card folder's content (`add`, `delete` and `edit`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+==== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command performed in a folder.
+
+Format: `redo`
+
+====
+* As with the `undo` command, this command is performed with respect to the present folder you are in. For example, if you perform an `undo` operation in folder A and enter folder B, invoking the `redo` command will redo the previous `undo` command performed in folder B and not the one in folder A.
+====
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
 
 ==== Exit folder : `change ..`
 
-Return to the root directory (exit the current folder). Side panel on the left will display the list of folders.
+Return to the root directory (exit the current folder). A list of folders will be displayed
 
 Format: `change ..`
 
@@ -160,13 +222,14 @@ Examples:
 
 * `change 2` +
 `change ..` +
-The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns the user back to the home directory by exiting the folder.
+The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns you back to the home directory by exiting the folder.
 
+//tag::folderoperations[]
 === Folder Operations
 Commands listed in this section affect the application and not a single folder.
 
 [NOTE]
-The commands in this section can only be executed when the user is at the home directory, outside of any folder
+The commands in this section can only be executed when you are at the home directory, outside of any folder
 
 ==== Create new folder : `addfolder`
 
@@ -176,7 +239,7 @@ Format: `addfolder FOLDER_NAME`
 
 ====
 * The newly created folder will not contain any cards.
-* Folder names must be unique. Attempting to add a folder with the same name as an existing folder will result in an error.
+* Folder names must be unique and non-blank. Attempting to add a folder with the same name as an existing folder will result in an error.
 * Each folder and its cards are stored independently in the directory specified in `preferences.json`. By default, this is the `data/` directory.
 ====
 
@@ -200,6 +263,21 @@ Examples:
 * `deletefolder 2` +
 Deletes the second folder in the folder list, along with its cards, on the home directory.
 
+==== Rename folder : `editfolder`
+
+Renames the flashcard folder specified by index.
+
+Format: `editfolder FOLDER_INDEX NEW_FOLDER_NAME`
+
+====
+* The new name of the folder cannot be the same as an existing folder.
+====
+
+Examples:
+
+* `editfolder 2 Circulatory System` +
+Renames the second folder in the folder list to "Circulatory System".
+
 ==== Report user performance for folder : `report`
 
 Displays user performance in a fullscreen for the current card folder.
@@ -209,10 +287,9 @@ Format: `report`
 [NOTE]
 This command is only considered valid inside a card folder.
 
-
 ==== Enter folder : `change`
 
-Enters the folder specified by index. Side panel on the left will display the list of cards in that folder.
+Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
 
 Format: `change FOLDER_INDEX`
 
@@ -226,6 +303,7 @@ Enters the second folder in the folder list on the home directory.
 This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
 
 Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
+//end::folderoperations[]
 
 === Test Operations
 After memorising the content of the flashcards, it is helpful to test how much information have been internalised and retained in a timed setting. The following commands show just how this can be done with the <<testsession, Test Session>> functionality of *Know-It-All*.
@@ -337,55 +415,7 @@ Creates a json file containing the flashcards from the specified folder, which c
 
 Format: `export FOLDER_INDEX FILENAME`
 
-// tag::undoredo[]
-==== Undoing previous command : `undo`
 
-Restores the application to the state before the previous _undoable_ command was executed. +
-Format: `undo`
-
-[NOTE]
-====
-Undoable commands: those commands that modify the card folder's content (`add`, `delete` and `edit`).
-====
-
-Examples:
-
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
-
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-==== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
 
 ==== Viewing help : `help`
 
@@ -397,7 +427,7 @@ Exits the program.
 
 Format: `exit`
 
-
+//tag::glossarycmdsummary[]
 == Glossary
 
 * [[flashcard]] **Flashcard/Card**: An object containing a single question and answer, and optionally hints.
@@ -419,12 +449,15 @@ questions displayed. The user is required to key in an answer for each question.
 |`delete INDEX` | Deletes the flashcard identified by index from the current folder.
 |`sort` | Displays all flashcards sorted such that the lowest scoring cards are at the top temporarily.
 |`list` | Display a list of the flashcards in the current folder
-|`change ..` | Return to the root directory (exit the current folder). Side panel on the left will display the list of folders.
-|`change FOLDER_INDEX`|Enters the folder specified by index. Side panel on the left will display the list of cards in that folder.
+|`undo` | Undoes the previous undoable command.
+|`redo` | Redoes the last `undo`.
+|`change ..` | Return to the root directory (exit the current folder). A list of folders will be displayed.
+|`change FOLDER_INDEX`|Enters the folder specified by index. Panel on the left will display the list of cards in that folder.
 |`addfolder FOLDER_NAME` | Creates a new flashcard folder with the specified name.
 |`deletefolder FOLDER_INDEX` | Removes the flashcard folder specified by index.
+|`editfolder FOLDER_INDEX NEW_FOLDER_NAME`| Renames the flashcard folder specified by index to the new name specified.
 |`report` | Displays user performance on the right panel for the current folder.
-|`test FOLDER_INDEX` | This command begins a test session, where the display area enters a fullscreen.
+|`test` | This command begins a test session, where the display area enters a fullscreen.
 |`ans ANSWER` | Enter answer for a flashcard.
 |`reveal` | Immediately reveals the correct answer.
 |`next` | Presents the next lowest score flashcard in this current test session.
@@ -436,3 +469,4 @@ Within a folder, user can search for flashcards inside the current folder using 
 |`help` | Brings up help information.
 |`exit` | Exits the application.
 |=======================================================================
+//end::glossarycmdsummary[]

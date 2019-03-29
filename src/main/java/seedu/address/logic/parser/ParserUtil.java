@@ -15,6 +15,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.datetime.TimeCustom;
 import seedu.address.model.description.Description;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Sex;
@@ -179,34 +180,30 @@ public class ParserUtil {
      * Parses a {@code String date} into an {@code DateCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static DateCustom parseStartDate(String date) throws ParseException {
+    public static DateCustom parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!DateCustom.isValidDate(date)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
+        /** Not checking if date is before today temporarily, might enable if decision changes
         if (DateCustom.isDateBeforeToday(date)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
-        }
+        }*/
         return new DateCustom(trimmedDate);
     }
 
     /**
-     * Parses a {@code String date} into an {@code DateCustom}.
+     * Parses a {@code String time} into an {@code TimeCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static DateCustom parseEndDate(String endDate, String startDate) throws ParseException {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
-        String trimmedStartDate = startDate.trim();
-        String trimmedEndDate = endDate.trim();
-        if (!DateCustom.isValidDate(trimmedEndDate)) {
-            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+    public static TimeCustom parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!TimeCustom.isValidTime(time)) {
+            throw new ParseException(TimeCustom.MESSAGE_CONSTRAINTS);
         }
-        if (DateCustom.isEndDateBeforeStartDate(trimmedStartDate, trimmedEndDate)) {
-            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
-        }
-        return new DateCustom(trimmedEndDate);
+        return new TimeCustom(trimmedTime);
     }
 
     /**

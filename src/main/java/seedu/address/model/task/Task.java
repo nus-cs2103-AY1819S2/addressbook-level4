@@ -2,9 +2,11 @@ package seedu.address.model.task;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.sql.Time;
 import java.util.Objects;
 
 import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.datetime.TimeCustom;
 
 
 /**
@@ -18,6 +20,8 @@ public class Task {
     // Data fields
     protected final DateCustom startDate;
     protected final DateCustom endDate;
+    protected final TimeCustom startTime;
+    protected final TimeCustom endTime;
     protected final boolean isCopy;
     protected int copyCount;
 
@@ -25,11 +29,13 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(Title title, DateCustom startDate, DateCustom endDate) {
-        requireAllNonNull(title, startDate, endDate);
+    public Task(Title title, DateCustom startDate, DateCustom endDate, TimeCustom startTime, TimeCustom endTime) {
+        requireAllNonNull(title, startDate, endDate, startTime, endTime);
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.isCopy = false;
         this.copyCount = 0;
     }
@@ -42,6 +48,8 @@ public class Task {
         this.title = t.getTitle();
         this.startDate = t.getStartDate();
         this.endDate = t.getEndDate();
+        this.startTime = t.startTime;
+        this.endTime = t.endTime;
         this.isCopy = true;
         this.copyCount = 0;
     }

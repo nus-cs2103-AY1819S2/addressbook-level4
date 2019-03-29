@@ -11,6 +11,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_RECORD_DISPLAYED_INDEX = "The record index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
+    public static final String MESSAGE_DATE_CLASH = "The task's start date should not be after its end date";
     public static final String MESSAGE_INVALID_FILE_TYPE = "Invalid file type!";
     public static final String MESSAGE_ONLY_GO_TO_MODE_COMMANDS = "This command can only be used in patient mode "
                                                                 + "return to patient mode, use the back command";

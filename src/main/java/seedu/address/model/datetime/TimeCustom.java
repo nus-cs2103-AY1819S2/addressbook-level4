@@ -8,8 +8,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class TimeCustom {
-    public static final String MESSAGE_CONSTRAINTS = "TimeCustom should only contain exactly 4 numbers,"
-        + " the first two not " + "going above 24, the latter two not going above 59.";
+    public static final String MESSAGE_CONSTRAINTS = "Time should only contain exactly 4 numbers,"
+                                            + " the first two not going above 24, the latter two not going above 59.\n"
+                                            + "Example: 0015, 2359 or 1130.";
 
     public static final String VALIDATION_REGEX = "^([0-1][0-9]|2[0-3])([0-5][0-9])$";
 

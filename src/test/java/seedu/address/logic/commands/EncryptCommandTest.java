@@ -1,22 +1,37 @@
 package seedu.address.logic.commands;
 
-//import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
+import static seedu.address.testutil.TypicalPdfs.getTypicalPdfBook;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+
 
 public class EncryptCommandTest {
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+    private Model model = new ModelManager(getTypicalPdfBook(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullPdf_throwsNullPointerException() {
-        /*thrown.expect(NullPointerException.class);
-        new AddCommand(null);*/
+    public void constructor_invalidIndex_throwsNullPointerException() {
+        thrown.expect(IndexOutOfBoundsException.class);
+        new EncryptCommand((Index.fromZeroBased(-1)), "123");
+
+        thrown.expect(IndexOutOfBoundsException.class);
+        new EncryptCommand((Index.fromZeroBased(model.getFilteredPdfList().size() + 1)), "123");
+    }
+
+    @Test
+    public void constructor_nullPassword_throwsNullPointerException() {
+        thrown.expect(IndexOutOfBoundsException.class);
+        new EncryptCommand((Index.fromZeroBased(1)), null);
     }
 }

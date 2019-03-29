@@ -38,7 +38,8 @@ class ConsultationRecordTest {
         medicinesCount.put(prescription.getMedicine().name, prescription.getQuantity());
         symptomsCount.put("Vomitting blood", 1);
 
-        Statistics stats = new Statistics(1, statisticsManager.getConsultationFee().add(prescriptionFee), BigDecimal.ZERO,
+        Statistics stats = new Statistics(1,
+                statisticsManager.getConsultationFee().add(prescriptionFee), BigDecimal.ZERO,
                 medicinesCount, symptomsCount);
 
         ConsultationRecord consultRecord = new ConsultationRecord(prescriptions, diagnosis);

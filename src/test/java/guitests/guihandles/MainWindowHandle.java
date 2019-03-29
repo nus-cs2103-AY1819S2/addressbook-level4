@@ -1,7 +1,6 @@
 package guitests.guihandles;
 
 import javafx.stage.Stage;
-import seedu.address.ui.HealthWorkerListPanel;
 
 /**
  * Provides a handle for {@code MainWindow}.
@@ -41,13 +40,17 @@ public class MainWindowHandle extends StageHandle {
         return resultDisplay;
     }
 
-    public RequestListPanelHandle getRequestListPanel() { return requestListPanel; }
+    public RequestListPanelHandle getRequestListPanel() {
+        return requestListPanel;
+    }
 
     public InfoPanelHandle getInfoPanel() {
         return infoPanel;
     }
 
-    public HealthWorkerListPanelHandle getHealthWorkerListPanel() { return healthWorkerListPanel; }
+    public HealthWorkerListPanelHandle getHealthWorkerListPanel() {
+        return healthWorkerListPanel;
+    }
 
     public StatusBarFooterHandle getStatusBarFooter() {
         return statusBarFooter;

@@ -69,7 +69,8 @@ public class GuiTestAssert {
      * Asserts that the list in {@code requestListPanelHandle} displays the details of {@code requests}
      * correctly and in the correct order.
      */
-    public static void assertRequestListMatching(RequestListPanelHandle requestListPanelHandle, List<Request> requests) {
+    public static void assertRequestListMatching(RequestListPanelHandle requestListPanelHandle,
+                                                 List<Request> requests) {
         assertRequestListMatching(requestListPanelHandle, requests.toArray(new Request[0]));
     }
 

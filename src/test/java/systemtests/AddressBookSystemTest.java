@@ -18,11 +18,19 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import guitests.guihandles.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
+
+import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.HealthWorkerListPanelHandle;
+import guitests.guihandles.InfoPanelHandle;
+import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.MainWindowHandle;
+import guitests.guihandles.RequestListPanelHandle;
+import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.StatusBarFooterHandle;
 
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
@@ -74,15 +82,15 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     //protected AddressBook getInitialData() {
-        //return TypicalPersons.getTypicalAddressBook();
+    //return TypicalPersons.getTypicalAddressBook();
     //}
 
     /**
      * Returns the directory of the data file.
      */
-//    protected Path getDataFileLocation() {
-//        return TestApp.SAVE_LOCATION_FOR_TESTING;
-//    }
+    //protected Path getDataFileLocation() {
+    //return TestApp.SAVE_LOCATION_FOR_TESTING;
+    //}
 
     public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
@@ -135,16 +143,16 @@ public abstract class AddressBookSystemTest {
      * Displays all persons in the address book.
      */
     //protected void showAllPersons() {
-      //  executeCommand(ListHealthWorkerCommand.COMMAND_WORD);
-        //assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+    //  executeCommand(ListHealthWorkerCommand.COMMAND_WORD);
+    //assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     //}
 
     /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     //protected void showPersonsWithName(String keyword) {
-        //executeCommand(FilterHealthWorkerCommand.COMMAND_WORD + " " + keyword);
-      //  assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+    //executeCommand(FilterHealthWorkerCommand.COMMAND_WORD + " " + keyword);
+    //  assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
     //}
 
     /**
@@ -159,8 +167,8 @@ public abstract class AddressBookSystemTest {
      * Deletes all persons in the address book.
      */
     //protected void deleteAllPersons() {
-      //  executeCommand(ClearCommand.COMMAND_WORD);
-        //assertEquals(0, getModel().getAddressBook().getPersonList().size());
+    //  executeCommand(ClearCommand.COMMAND_WORD);
+    //assertEquals(0, getModel().getAddressBook().getPersonList().size());
     //}
 
     /**

@@ -14,10 +14,10 @@ Know-It-All is a flashcard application that helps users store and organise their
 == Summary of contributions
 * *Major enhancement*: added *the ability to have flashcard folders*
 ** What it does: allows the user to create folders that store separate sets of flashcards. Folders can be renamed and deleted.
-** Justification: This feature allows the user to logically group flashcards of the same topic together, separate from flashcards of other topics. This significantly improves the product as it enables better organisation, which is crucial for efficiency and ease of use. 
+** Justification: This feature allows the user to logically group flashcards of the same topic together, separate from flashcards of other topics. This significantly improves the product as it enables better organisation, which is crucial for efficiency and ease of use.
 ** Highlights: The enhancement affected all components extensively. For some components, the architecture had to be redesigned, and the multiple options to do so had to be carefull considered and assessed. The implementation was also challenging due to the tightly coupled nature of classes within each component, and the inherent and widespread changes to architecture required a deep understanding of how every component worked.
 
-* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=afterdusk[Collated code]] 
+* *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#search=afterdusk[Collated code]]
 *** Wrote additional tests for existing features to increase coverage from ____% to ____% (Pull request https://github.com/cs2103-ay1819s2-w10-4/main/pull/104[#104])
 * *Other contributions*:
 

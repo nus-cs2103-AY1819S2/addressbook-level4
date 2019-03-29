@@ -46,9 +46,9 @@ public class TaskCard extends UiPart<Region> {
         this.task = task;
         id.setText(displayedIndex + ". ");
         title.setText(task.getTitle().toString() + " ");
-        priority.setText("High");
-        priority.setStyle("-fx-text-fill: white");
-        priority.getStyleClass().add("high");
+        priority.setText(task.getPriority().getPriorityType().toUpperCase());
+        priority.getStyleClass().add(task.getPriority().getPriorityType());
+        priority.setStyle("-fx-text-fill: black; -fx-font-weight: bold");
         startDate.setText("Start Date: " + task.getStartDate().toString());
         endDate.setText("End Date:  " + task.getEndDate().toString());
         startTime.setText("Start Time: " + task.getStartTime().toString());

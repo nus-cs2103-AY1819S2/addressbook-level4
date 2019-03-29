@@ -96,6 +96,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Update the status of the activities in the activity list
+     */
+    public void updateActivities() {
+        List<Activity> activityList = this.getActivityList();
+        for (Activity activity: activityList) {
+            if (!activity.getStatus().equals(activity.getCurrentStatus())) {
+                Activity updated = Activity.updateActivity(activity);
+                setActivity(activity, updated);
+            }
+        }
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {

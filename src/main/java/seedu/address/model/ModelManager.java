@@ -183,28 +183,7 @@ public class ModelManager implements Model {
 
     @Override
     public void updateActivityList() {
-        List<Activity> activityList = versionedAddressBook.getActivityList();
-        for (Activity activity: activityList) {
-            ActivityStatus old = activity.getStatus();
-            ActivityStatus current = activity.getCurrentStatus();
-            if (!old.equals(current)) {
-                Activity updated = updateActivity(activity);
-                setActivity(activity, updated);
-            }
-        }
-    }
-
-    /**
-     * Creates and returns an updated {@code Activity} with the details of {@code activity}
-     */
-    private static Activity updateActivity(Activity toUpdate) {
-        ActivityName name = toUpdate.getName();
-        ActivityDateTime dateTime = toUpdate.getDateTime();
-        ActivityLocation location = toUpdate.getLocation();
-        ActivityDescription description = toUpdate.getDescription();
-        Optional<Person> inCharge = toUpdate.getInCharge();
-        Map<Person, Boolean> attendance = toUpdate.getAttendance();
-        return new Activity(name, dateTime, location, description, inCharge, attendance);
+        versionedAddressBook.updateActivities();
     }
 
     //=========== Filtered Person List Accessors =============================================================

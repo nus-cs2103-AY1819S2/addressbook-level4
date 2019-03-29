@@ -10,9 +10,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
-import org.apache.pdfbox.pdmodel.encryption.StandardProtectionPolicy;
-import seedu.address.model.pdf.exceptions.PdfNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -20,7 +17,6 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Pdf {
-    private static final int ENCRYPTION_KEY_LENGTH = 128;
 
     private final Name name;
     private final Directory directory;
@@ -90,21 +86,6 @@ public class Pdf {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
-    }
-
-    public static Pdf encrypt(Pdf pdfToEncrypt, String password) throws IOException {
-        PDDocument file = PDDocument.load(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),
-                pdfToEncrypt.getName().getFullName()).toFile());
-        AccessPermission ap = new AccessPermission();
-        StandardProtectionPolicy spp = new StandardProtectionPolicy(password, password, ap);
-
-        spp.setEncryptionKeyLength(ENCRYPTION_KEY_LENGTH);
-        spp.setPermissions(ap);
-        file.protect(spp);
-        file.save(Paths.get(pdfToEncrypt.getDirectory().getDirectory(), pdfToEncrypt.getName().getFullName()).toFile());
-        System.out.println(Long.toString(Paths.get(pdfToEncrypt.getDirectory().getDirectory(),
-                pdfToEncrypt.getName().getFullName()).toFile().length()));
-        return new Pdf(pdfToEncrypt, true);
     }
 
     /**

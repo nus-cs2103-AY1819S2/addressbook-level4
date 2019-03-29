@@ -131,12 +131,12 @@ public interface Model extends Observable {
     int getActiveCardFolderIndex();
 
     /**
-     * Sets the index of the current active {@code CardFolder}.
+     * Enters the folder at the specified {@code index}.
      */
-    void setActiveCardFolderIndex(int newIndex);
+    void enterFolder(int index);
 
     /**
-     * Sets the Model back to the home directory, outside of any cardfolder.
+     * Sets the Model back to the home directory, outside of any {@code CardFolder}.
      */
     void exitFoldersToHome();
 

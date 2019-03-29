@@ -220,6 +220,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void enterFolder(int newIndex) {
+        inFolder = true;
+        activeCardFolderIndex = newIndex;
+    }
+
+    @Override
     public void exitFoldersToHome() {
         removeSelectedCard();
         inFolder = false;
@@ -243,12 +249,6 @@ public class ModelManager implements Model {
     @Override
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
-    }
-
-    @Override
-    public void setActiveCardFolderIndex(int newIndex) {
-        inFolder = true;
-        activeCardFolderIndex = newIndex;
     }
 
     /**
@@ -508,7 +508,9 @@ public class ModelManager implements Model {
         return filteredFolders.equals(other.filteredFolders)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
-                && Objects.equals(selectedCard.get(), other.selectedCard.get());
+                && Objects.equals(selectedCard.get(), other.selectedCard.get())
+                && activeCardFolderIndex == other.activeCardFolderIndex
+                && inFolder == other.inFolder;
     }
 
 

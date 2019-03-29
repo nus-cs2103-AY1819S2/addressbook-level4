@@ -16,14 +16,27 @@ public class Messages {
             + " session";
     public static final String MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION = "This command is valid only outside a test"
             + " session";
-    public static final String MESSAGE_INVALID_COMMAND_INSIDE_REPORT = "This command is not valid while displaying a "
-            + "report";
+
     public static final String MESSAGE_INVALID_ANSWER_COMMAND = "Answer command is valid only when a question is "
             + "displayed";
+    public static final String MESSAGE_NO_NEGATIVE_INDEX = "Negative index not allowed !";
+    public static final String MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER = "Command can only be executed in folder";
+    public static final String MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME = "Command can only be executed in home directory";
+
+
+    public static final String MESSAGE_INVALID_COMMAND_INSIDE_REPORT = "This command is not valid while displaying a "
+            + "report";
+
+
     public static final String MESSAGE_INVALID_COMMAND_ON_EMPTY_FOLDER = "This command is not valid on an empty"
             + " folder";
     public static final String MESSAGE_INVALID_NEXT_COMMAND = "Next command is valid only when this question has been"
             + " answered";
+
     public static final String MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER = "Command can only be executed in folder";
     public static final String MESSAGE_INVALID_COMMAND_INSIDE_FOLDER = "Command can only be executed in home directory";
+    public static final String MESSAGE_CSV_MANAGER_NOT_INITIALIZED = "Unable to carry out import and export commands";
+    public static final String MESSAGE_INCORRECT_CSV_FILE_HEADER = "Incorrect Csv file headers. Check that the\n"
+            + "csv file contains question,answer,options,hints header";
+
 }

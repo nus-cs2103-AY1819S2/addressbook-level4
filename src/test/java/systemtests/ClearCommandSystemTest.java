@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_PRIDE;
 
 import org.junit.Test;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -21,29 +22,35 @@ public class ClearCommandSystemTest extends BookShelfSystemTest {
          * spaces -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: undo clearing book shelf -> original book shelf restored */
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: redo clearing book shelf -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, new ModelManager());
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
+
+        /* Case: selects first card in book list and clears book shelf -> cleared and no card selected */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original book shelf
+        selectBook(Index.fromOneBased(1));
+        assertCommandSuccess(ClearCommand.COMMAND_WORD);
+        assertSelectedBookCardDeselected();
 
         /* Case: filters the book list before clearing -> entire book shelf cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original book shelf
         showBooksWithName(KEYWORD_MATCHING_PRIDE);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: clear empty book shelf -> cleared */
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
@@ -87,7 +94,7 @@ public class ClearCommandSystemTest extends BookShelfSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

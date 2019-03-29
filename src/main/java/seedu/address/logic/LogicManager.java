@@ -115,11 +115,12 @@ public class LogicManager implements Logic {
 
     @Override
     public void setSelectedBook(Book book) {
-
-        model.setSelectedBook(book);
-        ReviewBookNameContainsExactKeywordsPredicate predicate =
-                new ReviewBookNameContainsExactKeywordsPredicate(book.getBookName());
-        model.updateFilteredReviewList(predicate);
+        if (book != null) {
+            model.setSelectedBook(book);
+            ReviewBookNameContainsExactKeywordsPredicate predicate =
+                    new ReviewBookNameContainsExactKeywordsPredicate(book.getBookName());
+            model.updateFilteredReviewList(predicate);
+        }
     }
 
     @Override

@@ -63,7 +63,7 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(storage);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.setGuiSettings(new GuiSettings(1219.0, 850.0, (int) x, (int) y));
+        userPrefs.setGuiSettings(new GuiSettings(1200.0, 800.0, (int) x, (int) y));
         userPrefs.setBookShelfFilePath(saveFileLocation);
         return userPrefs;
     }

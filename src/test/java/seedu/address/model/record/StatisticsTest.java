@@ -65,10 +65,10 @@ class StatisticsTest {
                 .append("\n")
                 .append("Revenue: ")
                 .append(Statistics.currencyFormat(BigDecimal.valueOf(30.00)))
-                .append("\n\n")
+                .append("\n")
                 .append("Expenditure: ")
                 .append(Statistics.currencyFormat(BigDecimal.valueOf(10.00)))
-                .append("\n\n")
+                .append("\n")
                 .append("Profit: ")
                 .append(Statistics.currencyFormat(BigDecimal.valueOf(20.00)))
                 .append("\n\n");

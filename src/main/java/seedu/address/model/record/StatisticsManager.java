@@ -11,12 +11,13 @@ import java.util.List;
  */
 public class StatisticsManager {
     public static final BigDecimal DEFAULT_CONSULTATION_FEE = BigDecimal.valueOf(30.00);
-    private static final YearMonth START_DATE = YearMonth.of(2019, 1);
+    public static final int NUMBER_OF_MONTHS_IN_A_YEAR = 12;
+    public static final YearMonth START_DATE = YearMonth.of(2019, 1);
     private BigDecimal consultationFee;
     private List<MonthStatistics> monthStatistics;
 
     public StatisticsManager() {
-        consultationFee = BigDecimal.valueOf(30.00);
+        consultationFee = DEFAULT_CONSULTATION_FEE;
         monthStatistics = new ArrayList<>();
     }
     public BigDecimal getConsultationFee() {
@@ -37,7 +38,7 @@ public class StatisticsManager {
         this.monthStatistics.get(idx).addRecord(record, this);
     }
     private int getYearMonthIndex(YearMonth now) {
-        return ((now.getYear() - START_DATE.getYear()) * 12)
+        return ((now.getYear() - START_DATE.getYear()) * NUMBER_OF_MONTHS_IN_A_YEAR)
                 + (now.getMonthValue() - START_DATE.getMonthValue());
     }
     /**
@@ -48,6 +49,10 @@ public class StatisticsManager {
         YearMonth now = YearMonth.now(clock);
         updateListSize(now);
     }
+
+    /**
+     * Updates the ArrayList of Statistics to the proper size according to the yearMonth.
+     */
     private void updateListSize(YearMonth yearMonth) {
         int expectedSize = getYearMonthIndex(yearMonth) + 1;
         int sizeDifference = expectedSize - monthStatistics.size();
@@ -62,6 +67,10 @@ public class StatisticsManager {
         Statistics stats = new Statistics();
         int fromIdx = getYearMonthIndex(from);
         int toIdx = getYearMonthIndex(to);
+        // check if the queried indexes are in range
+        if (fromIdx < 0 || toIdx < 0 || fromIdx > monthStatistics.size() - 1 || toIdx > monthStatistics.size() - 1) {
+            throw new IllegalArgumentException("Invalid MMYY range");
+        }
         for (int idx = fromIdx; idx <= toIdx; idx++) {
             stats = stats.merge(monthStatistics.get(idx).getStatistics());
         }

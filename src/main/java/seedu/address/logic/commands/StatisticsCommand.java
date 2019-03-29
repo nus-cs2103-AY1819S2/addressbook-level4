@@ -18,6 +18,7 @@ public class StatisticsCommand extends Command {
     public static final String COMMAND_ALIAS = "stats";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": displays the statistics from the given date range.\n"
+            + "Dates cannot be before Jan 2019, and the second date must be after the first date, upto current month."
             + "Parameters: MMYY [MMYY]\n"
             + "Example: " + COMMAND_WORD + " 0119";
 
@@ -34,15 +35,19 @@ public class StatisticsCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        Statistics stats = model.getStatistics(this.fromYearMonth, this.toYearMonth);
-        StringBuilder sb = new StringBuilder();
-        sb.append("Displaying result from ")
-                .append(this.fromYearMonth.toString())
-                .append(" to ")
-                .append(this.toYearMonth.toString())
-                .append(".\n\n")
-                .append(stats.toString());
-        return new CommandResult(sb.toString());
+        try {
+            Statistics stats = model.getStatistics(this.fromYearMonth, this.toYearMonth);
+            StringBuilder sb = new StringBuilder();
+            sb.append("Displaying result from ")
+                    .append(this.fromYearMonth.toString())
+                    .append(" to ")
+                    .append(this.toYearMonth.toString())
+                    .append(".\n\n")
+                    .append(stats.toString());
+            return new CommandResult(sb.toString());
+        } catch (IllegalArgumentException ex) {
+            throw new CommandException(ex.getMessage());
+        }
     }
 
     @Override

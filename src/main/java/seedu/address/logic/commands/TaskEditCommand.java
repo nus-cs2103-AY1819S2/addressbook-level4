@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
 
@@ -105,8 +106,10 @@ public class TaskEditCommand extends Command {
         DateCustom updatedEndDate = editTaskDescriptor.getEndDate().orElse(taskToEdit.getEndDate());
         TimeCustom updatedStartTime = editTaskDescriptor.getStartTime().orElse(taskToEdit.getStartTime());
         TimeCustom updatedEndTime = editTaskDescriptor.getEndTime().orElse(taskToEdit.getEndTime());
+        Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
 
-        return new Task(updatedTitle, updatedStartDate, updatedEndDate, updatedStartTime, updatedEndTime, updatedPriority);
+        return new Task(updatedTitle, updatedStartDate, updatedEndDate, updatedStartTime,
+                updatedEndTime, updatedPriority);
     }
 
     @Override
@@ -137,6 +140,7 @@ public class TaskEditCommand extends Command {
         private DateCustom endDate;
         private TimeCustom startTime;
         private TimeCustom endTime;
+        private Priority priority;
 
         public EditTaskDescriptor() {}
 
@@ -150,13 +154,14 @@ public class TaskEditCommand extends Command {
             setEndDate(toCopy.endDate);
             setStartTime(toCopy.startTime);
             setEndTime(toCopy.endTime);
+            setPriority(toCopy.priority);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, startDate, endDate, startTime, endTime);
+            return CollectionUtil.isAnyNonNull(title, startDate, endDate, startTime, endTime, priority);
         }
 
         /**
@@ -201,6 +206,14 @@ public class TaskEditCommand extends Command {
 
         public Optional<TimeCustom> getEndTime() {
             return Optional.ofNullable(endTime);
+        }
+
+        public Optional<Priority> getPriority() {
+            return Optional.ofNullable(priority);
+        }
+
+        public void setPriority(Priority priority) {
+            this.priority = priority;
         }
 
         @Override

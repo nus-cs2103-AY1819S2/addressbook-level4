@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
@@ -27,7 +28,7 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE,
-                        PREFIX_STARTTIME, PREFIX_ENDTIME);
+                        PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_PRIORITY);
 
         Index index;
 
@@ -57,6 +58,11 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
 
         if (argMultimap.getValue(PREFIX_ENDTIME).isPresent()) {
             editTaskDescriptor.setEndTime(ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME)
+                    .get()));
+        }
+
+        if (argMultimap.getValue(PREFIX_PRIORITY).isPresent()) {
+            editTaskDescriptor.setPriority(ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY)
                     .get()));
         }
 

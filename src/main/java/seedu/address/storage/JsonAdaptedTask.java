@@ -50,6 +50,7 @@ class JsonAdaptedTask {
         enddate = source.getEndDate().toString();
         starttime = source.getStartTime().toString();
         endtime = source.getEndTime().toString();
+        priority = source.getPriority().toString();
     }
 
     /**

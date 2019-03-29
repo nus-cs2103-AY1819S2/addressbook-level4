@@ -69,3 +69,4 @@ public class MedHistListPanel extends UiPart<Region> {
     }
 
 }
+

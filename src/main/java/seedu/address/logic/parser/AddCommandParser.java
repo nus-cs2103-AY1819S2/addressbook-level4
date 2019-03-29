@@ -73,7 +73,12 @@ public class AddCommandParser implements Parser<AddCommand> {
         Name kinName = ParserUtil.parseName(argMultimap.getValue(PREFIX_NOKN).orElse(NONE_NOKN));
         NextOfKinRelation kinRelation = ParserUtil.parseRelation(argMultimap.getValue(PREFIX_NOKR).orElse(NONE_NOKR));
         Phone kinPhone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_NOKP).orElse(NONE_NOKP));
-        Address kinAddr = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_NOKA).orElse(NONE_NOKA));
+        Address kinAddr;
+        if (address.toString().equals("same")) {
+            kinAddr = address;
+        } else {
+            kinAddr = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_NOKA).orElse(NONE_NOKA));
+        }
 
         Patient patient = new Patient(name, phone, email, address, null, nric, dateOfBirth, sex,
             new NextOfKin(kinName, kinPhone, new Email(NONE_EMAIL), kinAddr, null, kinRelation));

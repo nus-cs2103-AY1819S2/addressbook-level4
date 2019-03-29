@@ -28,4 +28,9 @@ public class NextOfKin extends Person {
     public NextOfKinRelation getKinRelation() {
         return kinRelation;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return super.equals(other) && this.getKinRelation().equals(((NextOfKin) other).getKinRelation());
+    }
 }

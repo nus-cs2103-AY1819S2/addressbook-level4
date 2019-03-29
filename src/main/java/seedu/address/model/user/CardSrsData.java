@@ -62,12 +62,29 @@ public class CardSrsData {
     public void setStreak(int streak) {
         this.streak = streak;
     }
-    /*@Override
-    public boolean equals(Object obj) {
-        CardSrsData other = (CardSrsData) obj;
-        return other.getHashCode() == this.getHashCode();
-    }*/
+
+
     public Instant getSrsDueDate() {
         return srsDueDate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        CardSrsData other = (CardSrsData) obj;
+
+        if (this.hashCode != other.getHashCode()) {
+            return false;
+        }
+        if (this.numOfAttempts != other.getNumOfAttempts()) {
+            return false;
+        }
+        if (this.streak != other.getStreak()) {
+            return false;
+        }
+        if (this.srsDueDate != other.getSrsDueDate()) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -12,8 +12,9 @@ public class MainWindowHandle extends StageHandle {
     private final CommandBoxHandle commandBox;
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
-    private final BrowserPanelHandle browserPanel;
-    private final BillBrowserPanelHandle billBrowserPanel;
+    //    private final BrowserPanelHandle browserPanelHandle;
+    //    private final BillBrowserPanelHandle billBrowserPanel;
+    private final TablesFlowPanelHandle tableFlowPanel;
 
     public MainWindowHandle(Stage stage) {
         super(stage);
@@ -24,12 +25,16 @@ public class MainWindowHandle extends StageHandle {
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
         mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
-        browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
-        billBrowserPanel = new BillBrowserPanelHandle(getChildNode(BillBrowserPanelHandle.BILL_BROWSER_ID));
+        //        billBrowserPanel = new BillBrowserPanelHandle(getChildNode(BillBrowserPanelHandle.BILL_BROWSER_ID));
+        tableFlowPanel = new TablesFlowPanelHandle(getChildNode(TablesFlowPanelHandle.TABLE_FLOW_PANEL_ID));
     }
 
     public OrderItemListPanelHandle getOrderItemListPanel() {
         return orderItemListPanel;
+    }
+
+    public TablesFlowPanelHandle getTableFlowPanel() {
+        return tableFlowPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
@@ -48,11 +53,7 @@ public class MainWindowHandle extends StageHandle {
         return mainMenu;
     }
 
-    public BrowserPanelHandle getBrowserPanel() {
-        return browserPanel;
-    }
-
-    public BillBrowserPanelHandle getBillBrowserPanel() {
-        return billBrowserPanel;
-    }
+    //    public BillBrowserPanelHandle getBillBrowserPanel() {
+    //        return billBrowserPanel;
+    //    }
 }

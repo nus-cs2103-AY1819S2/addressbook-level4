@@ -2,8 +2,11 @@ package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.TableCardHandle;
+import guitests.guihandles.TablesFlowPanelHandle;
 import seedu.address.model.table.Table;
 
 /**
@@ -31,5 +34,24 @@ public class TablesGuiTestAssert {
      */
     public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
         assertEquals(expected, resultDisplayHandle.getText());
+    }
+
+    /**
+     * Asserts that the list in {@code tableFlowPanelHandle} displays the details of {@code tables} correctly
+     * and in the correct order.
+     */
+    public static void assertListMatching(TablesFlowPanelHandle tablesFlowPanelHandle, Table... tables) {
+        for (int i = 0; i < tables.length; i++) {
+            assertCardDisplaysTable(tables[i], tablesFlowPanelHandle.getTableCardHandle(i));
+        }
+    }
+
+    /**
+     * Asserts that the list in {@code tableFlowPanelHandle} displays the details of {@code tables} correctly
+     * and in the correct order.
+     */
+    public static void assertListMatching(TablesFlowPanelHandle tablesFlowPanelHandle,
+                                          List<Table> tables) {
+        assertListMatching(tablesFlowPanelHandle, tables.toArray(new Table[0]));
     }
 }

@@ -262,18 +262,4 @@ public class AppointmentManager {
     public boolean hasDuplicateAppointment(Appointment app) {
         return appointments.contains(app);
     }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof AppointmentManager)) {
-            return false;
-        }
-
-        AppointmentManager otherManager = (AppointmentManager) other;
-        return this.appointments.equals(otherManager.appointments);
-    }
 }

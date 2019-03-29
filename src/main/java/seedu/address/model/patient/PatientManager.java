@@ -253,18 +253,4 @@ public class PatientManager {
             }
         }
     }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof PatientManager)) {
-            return false;
-        }
-
-        PatientManager otherManager = (PatientManager) other;
-        return this.patientList.equals(otherManager.patientList);
-    }
 }

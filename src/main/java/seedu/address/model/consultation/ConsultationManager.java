@@ -88,18 +88,4 @@ public class ConsultationManager {
     public Consultation listConsultation(int index) {
         return consultationList.get(index - 1);
     }
-
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof ConsultationManager)) {
-            return false;
-        }
-
-        ConsultationManager otherManager = (ConsultationManager) other;
-        return this.consultationList.equals(otherManager.consultationList);
-    }
 }

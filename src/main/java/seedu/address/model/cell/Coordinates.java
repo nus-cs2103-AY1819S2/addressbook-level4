@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.Objects;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 
 /**
@@ -33,6 +35,8 @@ public class Coordinates {
     private final Index rowIndex;
     private final Index colIndex;
 
+    private final Logger logger = LogsCenter.getLogger(Coordinates.class);
+
     /**
      * Constructs an {@code Coordinates}.
      *
@@ -41,6 +45,8 @@ public class Coordinates {
     public Coordinates(String coordinate) {
         requireNonNull(coordinate);
         checkArgument(isValidCoordinates(coordinate), MESSAGE_CONSTRAINTS);
+
+        logger.fine("Create coordinates");
         String value = coordinate;
 
         // use regex to extract alphabetical row and numeric col
@@ -64,11 +70,13 @@ public class Coordinates {
     }
 
     public Coordinates(int rowZeroBased, int colZeroBased) {
+        logger.fine("Create coordinates");
         this.rowIndex = Index.fromZeroBased(rowZeroBased);
         this.colIndex = Index.fromZeroBased(colZeroBased);
     }
 
     public Coordinates(Index rowIndex, Index colIndex) {
+        logger.fine("Create coordinates");
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;
     }

@@ -9,42 +9,32 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Chen Wen
-image::chenwencuhk.png[width="150", align="left"]
-{empty}[https://github.com/ChenWenCUHK[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: Scheduling and Tracking + Deliverables and Deadlines +
-Features: Pin, Match
-
-'''
-
 === Chong Yong Xiang
 image::yongxiang1095.png[width="150", align="left"]
-{empty}[http://github.com/yongxiang1095[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/yongxiang1095[github]] [<<yongxiang1095#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Integration + Documentation + Code Quality +
-Features: Archive
-
-'''
-
-=== Sharad Kochhar
-image::sharadk1234.png[width="150", align="left"]
-{empty}[http://github.com/sharadk1234[github]] [<<sharadk1234#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Data + Testing +
-Features: Sort
+Role: Team Lead +
+Responsibilities: Scheduling and Tracking + Integration + Documentation +
+Features: Archive, Sort
 
 '''
 
 === Tan LongBin
 image::tanlongbin.png[width="150", align="left"]
-{empty}[https://github.com/tanlongbin[github]]
+{empty}[https://github.com/tanlongbin[github]] [<<tanlongbin#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI + Integration + Code Quality +
+Responsibilities: Deliverables and Deadlines + Integration + Code Quality +
 Features: Add, Edit, Find
+
+'''
+
+=== Chen Wen
+image::chenwencuhk.png[width="150", align="left"]
+{empty}[https://github.com/ChenWenCUHK[github]] [<<chenwencuhk#, portfolio>>]
+
+Role: Developer +
+Responsibilities: UI + Storage + Testing +
+Features: Pin, Match
 
 '''

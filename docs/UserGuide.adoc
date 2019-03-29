@@ -276,6 +276,7 @@ Example:
 * `unpin 1` +
 Unpins the 1st contact in the pinned list.
 
+// tag::archivefeatures[]
 === Archiving a contact : `archive`
 
 Moves the specified contact to the archive from the normal address book. +
@@ -344,6 +345,7 @@ Moves the the 2nd contact from the archived contacts list back into the address 
 * `archivefind James` +
 `select 1` +
 Moves the 1st contact in the results of the `archivefind` command from the archive back into the address book.
+// end::archivefeatures[]
 
 === Listing entered commands : `history`
 
@@ -411,11 +413,13 @@ Clears all entries from the address book. +
 Address book contact list must be displayed prior to clearing. +
 Format: `clear`
 
+// tag::archiveclear[]
 === Clearing all entries : `archiveclear`
 
 Clears all entries from the archive book. +
 Archived contact list must be displayed prior to clearing. +
 Format: `archiveclear`
+// end::archiveclear[]
 
 === Exiting the app : `exit`
 
@@ -446,6 +450,7 @@ User can set a password, which will be required when logging into the app.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+// tag::summary[]
 [[Summary]]
 == Command Summary
 
@@ -515,4 +520,4 @@ User can set a password, which will be required when logging into the app.
 * *Undo* : `undo`
 * *Unpin* : `unpin INDEX`
 ** e.g. `unpin 1`
-
+// end::summary[]

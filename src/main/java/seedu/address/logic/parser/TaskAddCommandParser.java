@@ -29,7 +29,8 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
      */
     public TaskAddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE,
+                        PREFIX_STARTTIME, PREFIX_ENDTIME);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE, PREFIX_STARTTIME,
                 PREFIX_ENDTIME) || !argMultimap.getPreamble().isEmpty()) {

@@ -298,7 +298,7 @@ This command is only considered valid if a card question is currently being
 displayed in an active test session.
 
 
-==== Reveal answer to a flashcard : `reveal`
+==== Reveal answer to a flashcard : `reveal` `Coming in v1.4`
 Immediately reveals the correct answer. The user will not need attempt any answer before being presented the correct
 answer.
 

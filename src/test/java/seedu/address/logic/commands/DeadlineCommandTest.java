@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_DATE;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_MISSING_STATUS;
 import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_INVALID_WRONG_STATUS;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PDF;
 import static seedu.address.testutil.TypicalPdfs.SAMPLE_PDF_1;

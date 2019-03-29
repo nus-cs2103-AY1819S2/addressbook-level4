@@ -27,6 +27,7 @@ public class PdfTest {
     @Test
     public void isSamePerson() {
         // same object -> returns true
+        Pdf f = SAMPLE_PDF_1;
         assertTrue(SAMPLE_PDF_1.isSamePdf(SAMPLE_PDF_1));
 
         // null -> returns false

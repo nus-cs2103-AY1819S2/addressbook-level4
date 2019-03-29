@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,10 +28,14 @@ public class Battleship {
     protected final int length;
     protected int life;
 
+    // Logger
+    private final Logger logger = LogsCenter.getLogger(Battleship.class);
+
     /**
      * Every field must be present and not null.
      */
     public Battleship(Name name, int length, int life, Set<Tag> tags) {
+        logger.fine("Created battleship");
         this.id = counter++;
         this.name = name;
         this.length = length;

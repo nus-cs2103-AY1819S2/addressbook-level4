@@ -73,7 +73,7 @@ public class PutShipCommand extends Command {
 
         try {
             checkEnoughBattleships(model, battleship, 1);
-            model.getHumanMapGrid().putShip(battleship, coordinates, orientation);
+            mapGrid.putShip(battleship, coordinates, orientation);
             model.deployBattleship(battleship, coordinates, orientation);
         } catch (ArrayIndexOutOfBoundsException aiobe) {
             throw new CommandException(MESSAGE_OUT_OF_BOUNDS);

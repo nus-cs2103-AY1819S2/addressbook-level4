@@ -22,6 +22,7 @@ public class GenerateCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.commitChart();
+        model.setChartDisplayed(true);
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

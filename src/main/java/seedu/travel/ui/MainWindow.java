@@ -115,8 +115,14 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //browserPanel = new BrowserPanel(logic.selectedPlaceProperty());
-        //browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        // browserPanel = new BrowserPanel(logic.selectedPlaceProperty());
+        // browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        if(logic.chartDisplayed.getValue()) {
+
+        } else {
+
+        }
+
 
         displayListPanel = new DisplayListPanel(logic.getFilteredPlaceList(), logic.selectedPlaceProperty(),
                 logic::setSelectedPlace);

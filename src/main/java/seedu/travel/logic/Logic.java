@@ -2,7 +2,9 @@ package seedu.travel.logic;
 
 import java.nio.file.Path;
 
+import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import seedu.travel.commons.core.GuiSettings;
 import seedu.travel.logic.commands.CommandResult;
@@ -69,4 +71,11 @@ public interface Logic {
      * @see seedu.travel.model.Model#setSelectedPlace(Place)
      */
     void setSelectedPlace(Place place);
+
+    SimpleBooleanProperty chartDisplayed;
+
+    /**
+     * Set when chart needs to be displayed.
+     */
+    void setChartDisplayed(boolean chartDisplayed);
 }

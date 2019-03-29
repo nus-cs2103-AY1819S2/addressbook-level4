@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -58,6 +59,18 @@ public class DisplayListPanel extends UiPart<Region> {
         // adds only one dummy Place to the list
         displayListView.setItems(charts);
         displayListView.setCellFactory(listView -> new DisplayListViewCell());
+
+
+        placeList.addListener(new ListChangeListener<Place>() {
+            @Override
+            public void onChanged(Change<? extends Place> c) {
+                ObservableList<Chart> charts = FXCollections.observableArrayList();
+                charts.add(new Chart(placeList));
+                // adds only one dummy Place to the list
+                displayListView.setItems(charts);
+                displayListView.setCellFactory(listView -> new DisplayListViewCell());
+            }
+        });
 
         // disables selection in list view
         displayListView.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {

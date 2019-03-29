@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.ObservableList;
 import seedu.travel.commons.core.GuiSettings;
 import seedu.travel.model.place.Place;
@@ -71,7 +72,7 @@ public interface Model {
     void addPlace(Place place);
 
     /**
-     * Replaces the given place {@code target} with {@code editedPlace}.
+     * Replaces the given place {@code target} with {@code editedPl ace}.
      * {@code target} must exist in the TravelBuddy.
      * The place identity of {@code editedPlace} must not be the same as another existing place in the TravelBuddy.
      */
@@ -115,6 +116,13 @@ public interface Model {
      * Saves the current Chart state.
      */
     void commitChart();
+
+    SimpleBooleanProperty chartDisplayed;
+
+    /**
+     * Set when chart needs to be displayed.
+     */
+    void setChartDisplayed(boolean chartDisplayed);
 
     /**
      * Selected place in the filtered place list.

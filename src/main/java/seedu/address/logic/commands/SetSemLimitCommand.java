@@ -68,12 +68,11 @@ public class SetSemLimitCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SEMESTER_LIMIT);
         }
 
-        System.out.println(index.getZeroBased());
         SemLimit semLimitToEdit = lastShownList.get(index.getZeroBased());
         SemLimit editedSemLimit = createEditedLimit(semLimitToEdit, editSemLimitDescriptor);
 
         model.setSemesterLimit(index.getZeroBased(), editedSemLimit);
-        model.commitAddressBook();
+        model.commitGradTrak();
         return new CommandResult(String.format(MESSAGE_EDIT_LIMIT_SUCCESS, editedSemLimit));
     }
 

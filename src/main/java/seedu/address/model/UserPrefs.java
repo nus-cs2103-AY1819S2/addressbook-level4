@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path gradTrakFilePath = Paths.get("data" , "gradtrak.json");
+    private Path gradTrakFilePath = Paths.get("C:\\Users\\Lee Yi Quan\\Documents\\main\\data" , "gradtrak.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.

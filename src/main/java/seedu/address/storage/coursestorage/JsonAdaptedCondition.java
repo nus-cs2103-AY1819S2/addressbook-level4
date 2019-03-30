@@ -12,6 +12,7 @@ import seedu.address.model.course.Condition;
 /**
  * Jackson-friendly version of {@link Condition}
  */
+
 public class JsonAdaptedCondition {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Condition's %s field is missing!";
@@ -40,7 +41,6 @@ public class JsonAdaptedCondition {
      * Converts a give {@code Condition} into this class for Jackson use
      * @param condition a condition object to be converted into JsonAdaptedCondition
      */
-    @JsonCreator
     public JsonAdaptedCondition(Condition condition) {
         this.conditionName = condition.getConditionName();
         this.minToSatisfy = String.valueOf(condition.getMinToSatisfy());

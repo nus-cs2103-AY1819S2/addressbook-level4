@@ -9,6 +9,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -26,7 +28,9 @@ import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.SemLimit;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
+import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -100,7 +104,12 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void setCourse(Course course) {
+        public void setCourse(CourseName course) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasCourse(CourseName courseName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -130,27 +139,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public void setGradTrakFilePath(Path addressBookFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void addModuleTaken(ModuleTaken moduleTaken) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(ModuleTaken moduleTaken) {
+        public void setGradTrak(ReadOnlyGradTrak newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBook(ReadOnlyGradTrak newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyGradTrak getAddressBook() {
+        public Path getGradTrakFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -160,17 +164,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(ModuleTaken moduleTaken) {
+        public boolean hasModuleTaken(ModuleTaken moduleTaken) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(ModuleTaken target) {
+        public void deleteModuleTaken(ModuleTaken target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(ModuleTaken target, ModuleTaken editedModuleTaken) {
+        public void setModuleTaken(ModuleTaken target, ModuleTaken editedModuleTaken) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyGradTrak getGradTrak() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -179,13 +188,9 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        @Override
-        public void setCurrentSemester(Semester semester) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
-        public ObservableList<ModuleTaken> getFilteredPersonList() {
+        public void setCurrentSemester(Semester semester) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -195,7 +200,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<ModuleTaken> predicate) {
+        public ObservableList<ModuleTaken> getFilteredModulesTakenList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredModulesTakenList(Predicate<ModuleTaken> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -205,42 +215,42 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean canUndoAddressBook() {
+        public boolean canUndoGradTrak() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean canRedoAddressBook() {
+        public boolean canRedoGradTrak() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void undoAddressBook() {
+        public void undoGradTrak() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void redoAddressBook() {
+        public void redoGradTrak() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitGradTrak() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ReadOnlyProperty<ModuleTaken> selectedPersonProperty() {
+        public ReadOnlyProperty<ModuleTaken> selectedModuleTakenProperty() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ModuleTaken getSelectedPerson() {
+        public ModuleTaken getSelectedModuleTaken() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setSelectedPerson(ModuleTaken moduleTaken) {
+        public void setSelectedModuleTaken(ModuleTaken moduleTaken) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -263,6 +273,16 @@ public class AddCommandTest {
         public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
             throw new AssertionError("This method should not be called");
         }
+
+        @Override
+        public void updateReqList(BiPredicate<CourseRequirement, List<ModuleInfoCode>> predicate) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<CourseRequirement> getReqList() {
+            throw new AssertionError("This method should not be called");
+        }
     }
 
     /**
@@ -277,7 +297,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(ModuleTaken moduleTaken) {
+        public boolean hasModuleTaken(ModuleTaken moduleTaken) {
             requireNonNull(moduleTaken);
             return this.moduleTaken.isSameModuleTaken(moduleTaken);
         }
@@ -290,24 +310,24 @@ public class AddCommandTest {
         final ArrayList<ModuleTaken> personsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(ModuleTaken moduleTaken) {
+        public boolean hasModuleTaken(ModuleTaken moduleTaken) {
             requireNonNull(moduleTaken);
             return personsAdded.stream().anyMatch(moduleTaken::isSameModuleTaken);
         }
 
         @Override
-        public void addPerson(ModuleTaken moduleTaken) {
+        public void addModuleTaken(ModuleTaken moduleTaken) {
             requireNonNull(moduleTaken);
             personsAdded.add(moduleTaken);
         }
 
         @Override
-        public void commitAddressBook() {
+        public void commitGradTrak() {
             // called by {@code AddCommand#execute()}
         }
 
         @Override
-        public ReadOnlyGradTrak getAddressBook() {
+        public ReadOnlyGradTrak getGradTrak() {
             return new GradTrak();
         }
     }

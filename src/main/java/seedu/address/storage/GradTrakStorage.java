@@ -11,7 +11,7 @@ import seedu.address.model.ReadOnlyGradTrak;
 /**
  * Represents a storage for {@link GradTrak}.
  */
-public interface GradTrackStorage {
+public interface GradTrakStorage {
 
     /**
      * Returns the file path of the data file.
@@ -36,11 +36,11 @@ public interface GradTrackStorage {
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyGradTrak addressBook) throws IOException;
+    void saveGradTrak(ReadOnlyGradTrak addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyGradTrak)
+     * @see #saveGradTrak(ReadOnlyGradTrak)
      */
-    void saveAddressBook(ReadOnlyGradTrak addressBook, Path filePath) throws IOException;
+    void saveGradTrak(ReadOnlyGradTrak addressBook, Path filePath) throws IOException;
 
 }

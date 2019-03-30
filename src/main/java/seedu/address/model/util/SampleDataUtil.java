@@ -17,7 +17,7 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods for populating {@code GradTrak} with sample data.
  */
 public class SampleDataUtil {
-    public static ModuleTaken[] getSamplePersons() {
+    public static ModuleTaken[] getSampleModulesTaken() {
         return new ModuleTaken[] {
             new ModuleTaken(new ModuleInfoCode("CS2103T"), Semester.valueOf("Y1S1"), Grade.valueOf("C"),
                 Grade.valueOf("A"), new Hour("0"),
@@ -40,9 +40,9 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyGradTrak getSampleAddressBook() {
+    public static ReadOnlyGradTrak getSampleGradTrak() {
         GradTrak sampleAb = new GradTrak();
-        for (ModuleTaken sampleModuleTaken : getSamplePersons()) {
+        for (ModuleTaken sampleModuleTaken : getSampleModulesTaken()) {
             sampleAb.addModuleTaken(sampleModuleTaken);
         }
         return sampleAb;

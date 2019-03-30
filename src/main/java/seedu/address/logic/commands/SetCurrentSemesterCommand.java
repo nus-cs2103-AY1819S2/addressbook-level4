@@ -56,7 +56,7 @@ public class SetCurrentSemesterCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<ModuleTaken> lastShownList = model.getFilteredPersonList();
+        List<ModuleTaken> lastShownList = model.getFilteredModulesTakenList();
         boolean hasValidGradesTillSemester = checkGrades(lastShownList, semester);
 
         if (!hasValidGradesTillSemester) {
@@ -64,7 +64,7 @@ public class SetCurrentSemesterCommand extends Command {
         }
 
         model.setCurrentSemester(semester);
-        model.commitAddressBook();
+        model.commitGradTrak();
         return new CommandResult(String.format(MESSAGE_EDIT_LIMIT_SUCCESS, semester));
     }
 

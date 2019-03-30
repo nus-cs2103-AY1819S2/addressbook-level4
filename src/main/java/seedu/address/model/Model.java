@@ -2,13 +2,17 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
+import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -22,9 +26,14 @@ public interface Model {
     Predicate<ModuleTaken> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /**
-     * Replaces course data with the data in {@code course}.
+     * Replaces course data with the data in {@code Model}.
      */
-    void setCourse(Course course);
+    void setCourse(CourseName courseName);
+
+    /**
+     * Checks whether model has course with course name {@code course}
+     */
+    boolean hasCourse(CourseName courseName);
 
     /**
      * Returns the course data.
@@ -52,50 +61,50 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' GradTrak file path.
      */
-    Path getAddressBookFilePath();
+    Path getGradTrakFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' GradTrak file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setGradTrakFilePath(Path addressBookFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces GradTrak data with the data in {@code addressBook}.
      */
-    void setAddressBook(ReadOnlyGradTrak addressBook);
+    void setGradTrak(ReadOnlyGradTrak addressBook);
 
     /** Returns the GradTrak */
-    ReadOnlyGradTrak getAddressBook();
+    ReadOnlyGradTrak getGradTrak();
 
     /** Returns the current Semester */
     Semester getCurrentSemester();
 
     /**
-     * Returns true if a moduleTaken with the same identity as {@code moduleTaken} exists in the address book.
+     * Returns true if a moduleTaken with the same identity as {@code moduleTaken} exists in the GradTrak .
      */
-    boolean hasPerson(ModuleTaken moduleTaken);
+    boolean hasModuleTaken(ModuleTaken moduleTaken);
 
     /**
      * Deletes the given moduleTaken.
-     * The moduleTaken must exist in the address book.
+     * The moduleTaken must exist in the GradTrak .
      */
-    void deletePerson(ModuleTaken target);
+    void deleteModuleTaken(ModuleTaken target);
 
     /**
      * Adds the given moduleTaken.
-     * {@code moduleTaken} must not already exist in the address book.
+     * {@code moduleTaken} must not already exist in the GradTrak .
      */
-    void addPerson(ModuleTaken moduleTaken);
+    void addModuleTaken(ModuleTaken moduleTaken);
 
     /**
      * Replaces the given moduleTaken {@code target} with {@code editedModuleTaken}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the GradTrak .
      * The moduleTaken identity of {@code editedModuleTaken} must not be the same as another
-     * existing moduleTaken in the address book.
+     * existing moduleTaken in the GradTrak .
      */
-    void setPerson(ModuleTaken target, ModuleTaken editedModuleTaken);
+    void setModuleTaken(ModuleTaken target, ModuleTaken editedModuleTaken);
 
     /**
      * Replaces the semester limit at the given index with {@code editedSemLimit}.
@@ -108,7 +117,7 @@ public interface Model {
     void setCurrentSemester(Semester semester);
 
     /** Returns an unmodifiable view of the filtered moduleTaken list */
-    ObservableList<ModuleTaken> getFilteredPersonList();
+    ObservableList<ModuleTaken> getFilteredModulesTakenList();
 
     /** Returns an unmodifiable view of the SemLimit list */
     ObservableList<SemLimit> getSemLimitList();
@@ -117,7 +126,7 @@ public interface Model {
      * Updates the filter of the filtered moduleTaken list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<ModuleTaken> predicate);
+    void updateFilteredModulesTakenList(Predicate<ModuleTaken> predicate);
 
     /**
      * Returns the generated html string that indicates if the CAP and workload limits
@@ -126,46 +135,46 @@ public interface Model {
     String checkLimit();
 
     /**
-     * Returns true if the model has previous address book states to restore.
+     * Returns true if the model has previous GradTrak states to restore.
      */
-    boolean canUndoAddressBook();
+    boolean canUndoGradTrak();
 
     /**
-     * Returns true if the model has undone address book states to restore.
+     * Returns true if the model has undone GradTrak states to restore.
      */
-    boolean canRedoAddressBook();
+    boolean canRedoGradTrak();
 
     /**
-     * Restores the model's address book to its previous state.
+     * Restores the model's GradTrak to its previous state.
      */
-    void undoAddressBook();
+    void undoGradTrak();
 
     /**
-     * Restores the model's address book to its previously undone state.
+     * Restores the model's GradTrak to its previously undone state.
      */
-    void redoAddressBook();
+    void redoGradTrak();
 
     /**
-     * Saves the current address book state for undo/redo.
+     * Saves the current GradTrak state for undo/redo.
      */
-    void commitAddressBook();
+    void commitGradTrak();
 
     /**
      * Selected moduleTaken in the filtered moduleTaken list.
      * null if no moduleTaken is selected.
      */
-    ReadOnlyProperty<ModuleTaken> selectedPersonProperty();
+    ReadOnlyProperty<ModuleTaken> selectedModuleTakenProperty();
 
     /**
      * Returns the selected moduleTaken in the filtered moduleTaken list.
      * null if no moduleTaken is selected.
      */
-    ModuleTaken getSelectedPerson();
+    ModuleTaken getSelectedModuleTaken();
 
     /**
      * Sets the selected moduleTaken in the filtered moduleTaken list.
      */
-    void setSelectedPerson(ModuleTaken moduleTaken);
+    void setSelectedModuleTaken(ModuleTaken moduleTaken);
 
     /**
      * Returns an Observable list of all module information from storage
@@ -189,4 +198,14 @@ public interface Model {
      * and returns a HashMap of ModuleInfoCode to CourseReqType.
      */
     HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList();
+
+    /**
+     * Updates filtered list of requirements based on predicate provided by user input
+     */
+    void updateReqList(BiPredicate<CourseRequirement, List<ModuleInfoCode>> predicate);
+
+    /**
+     * Returns an unmodifiable view of the filtered course requirement list
+     */
+    ObservableList<CourseRequirement> getReqList();
 }

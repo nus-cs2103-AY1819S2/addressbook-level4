@@ -14,7 +14,7 @@ import seedu.address.model.Model;
 import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
- * Adds a moduleTaken to the address book.
+ * Adds a moduleTaken to the GradTrak.
  */
 public class AddCommand extends Command {
 
@@ -22,7 +22,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a moduleTaken to the address book. "
             + "Parameters: "
-            + PREFIX_MODULE_INFO_CODE + "NAME "
+            + PREFIX_MODULE_INFO_CODE + "ModuleInfoCode "
             + PREFIX_SEMESTER + "SEMESTER "
             + PREFIX_EXPECTED_MIN_GRADE + "EXPECTED MIN GRADE "
             + PREFIX_EXPECTED_MAX_GRADE + "EXPECTED MAX GRADE "
@@ -52,12 +52,12 @@ public class AddCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
+        if (model.hasModuleTaken(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
-        model.commitAddressBook();
+        model.addModuleTaken(toAdd);
+        model.commitGradTrak();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

@@ -28,9 +28,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
-import seedu.address.storage.JsonGradTrackStorage;
+import seedu.address.storage.JsonGradTrakStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.ModuleTakenBuilder;
@@ -50,7 +51,7 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonGradTrackStorage addressBookStorage = new JsonGradTrackStorage(temporaryFolder.newFile().toPath());
+        JsonGradTrakStorage addressBookStorage = new JsonGradTrakStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -79,9 +80,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
-        // Setup LogicManager with JsonGradTrackIoExceptionThrowingStub
-        JsonGradTrackStorage addressBookStorage =
-                new JsonGradTrackIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+        // Setup LogicManager with JsonGradTrakIoExceptionThrowingStub
+        JsonGradTrakStorage addressBookStorage =
+                new JsonGradTrakIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -91,8 +92,8 @@ public class LogicManagerTest {
                 + EXPECTED_MIN_GRADE_DESC_CS2103T + EXPECTED_MAX_GRADE_DESC_CS2103T;
         ModuleTaken expectedModuleTaken = new ModuleTakenBuilder(DEFAULT_MODULE_CS2103T).withTags().build();
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addPerson(expectedModuleTaken);
-        expectedModel.commitAddressBook();
+        expectedModel.addModuleTaken(expectedModuleTaken);
+        expectedModel.commitGradTrak();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addCommand, expectedMessage, expectedModel);
         assertHistoryCorrect(addCommand);
@@ -134,7 +135,8 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs(), new ModuleInfoList());
+        Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
+                new ModuleInfoList(), new CourseList());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -177,13 +179,13 @@ public class LogicManagerTest {
     /**
      * A stub class to throw an {@code IOException} when the save method is called.
      */
-    private static class JsonGradTrackIoExceptionThrowingStub extends JsonGradTrackStorage {
-        private JsonGradTrackIoExceptionThrowingStub(Path filePath) {
+    private static class JsonGradTrakIoExceptionThrowingStub extends JsonGradTrakStorage {
+        private JsonGradTrakIoExceptionThrowingStub(Path filePath) {
             super(filePath);
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyGradTrak addressBook, Path filePath) throws IOException {
+        public void saveGradTrak(ReadOnlyGradTrak addressBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

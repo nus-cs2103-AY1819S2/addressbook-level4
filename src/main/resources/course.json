@@ -1,0 +1,331 @@
+{
+  "courseList" : [ {
+    "name" : "Computer Science Algorithms",
+    "description" : "To be completed",
+    "requirements" : [ {
+      "type" : "PrimitiveReq",
+      "requirementName" : "University Level Requirements",
+      "requirementDescription" : "Pass one module each with prefix GES, GET, GEQ, GEH, GER",
+      "requirementType" : "GE",
+      "condition" : {
+        "conditionName" : "pass 5 of each GES,GER,GET,GEQ and GEH",
+        "minToSatisfy" : "5",
+        "regexes" : [ "GES[0-9]{4}[A-Z]?", "GET[0-9]{4}[A-Z]?", "GEH[0-9]{4}[A-Z]?", "GER1000", "GEQ1000" ]
+      }
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Computer Science Foundation:",
+      "requirementDescription" : "Pass all of CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
+      "requirementType" : "CORE",
+      "condition" : {
+        "conditionName" : "pass all",
+        "minToSatisfy" : "12",
+        "regexes" : [ "CS1101S", "CS1231", "CS2030", "CS2040", "CS2100", "CS2030", "CS2040", "CS2100", "CS2103T", "CS2105", "CS2106", "CS3230" ]
+      }
+    }, {
+      "type" : "CompositeReq",
+      "first" : {
+        "type" : "CompositeReq",
+        "first" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "Complete 3 Area Primary from Algorithms",
+          "requirementDescription" : "Pass 3 Area Primary from Algorithms",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass 3 Area Primary",
+            "minToSatisfy" : "3",
+            "regexes" : [ "CS3230", "CS3236", "CS4231", "CS4232", "CS4234" ]
+          }
+        },
+        "second" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "At least 1 from level 4 in Algorithms",
+          "requirementDescription" : "Pass at least 1 level 4 from primaries",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass at least 1 level 4 Primary",
+            "minToSatisfy" : "1",
+            "regexes" : [ "CS4231", "CS4232", "CS4234" ]
+          }
+        },
+        "courseReqType" : "TE",
+        "logicalConnector" : "AND"
+      },
+      "second" : {
+        "type" : "CompositeReq",
+        "first" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "At least 3 level 4000 and above",
+          "requirementDescription" : "At least 3 mods taken must be level 4000 and above from other focus areas",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass at least 3 level 4 mods from any Focus Area",
+            "minToSatisfy" : "3",
+            "regexes" : [ "CS4231", "CS4232", "CS4234", "CS4257", "CS4268", "CS4243", "CS4244", "CS4246", "CS4248", "CS4216", "CS4220", "CS4211", "CS4218", "CS4239", "CS4217", "CS4247", "CS4350", "CS4240", "CS4243", "CS4249", "CS4344", "CS4345", "CS4351", "CS4236", "CS4238", "CS4239", "CS4257", "CS4221", "CS4224", "CS4225", "CS4220", "CS4231", "CS4223", "CS4237", "CS4271", "CS4345", "CS4222", "CS4226", "CS4231", "CS4344" ]
+          }
+        },
+        "second" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "Complete 6 mods",
+          "requirementDescription" : "Complete 6 modules in all focus areas",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass at least 6 mods from any Focus Area",
+            "minToSatisfy" : "6",
+            "regexes" : [ "CS3230", "CS3236", "CS4231", "CS4232", "CS4234", "CS3233", "CS4257", "CS4268", "CS5230", "CS5234", "CS5236", "CS5237", "CS5238", "CS5330", "CS3243", "CS3244", "CS4243", "CS4244", "CS4246", "CS4248", "CS4216", "CS4220", "CS5209", "CS5215", "CS5228", "CS5242", "CS5247", "CS5340", "CS5339", "CS2103T?", "CS3213", "CS3219", "CS4211", "CS4218", "CS4239", "CS3216", "CS3217", "CS3226", "CS3234", "CS4217", "CS5219", "CS5232", "CS5272", "CS3241", "CS3242", "CS3247", "CS4247", "CS4350", "CS3218", "CS3240", "CS3249", "CS3343", "CS4240", "CS4243", "CS4249", "CS4344", "CS4345", "CS4351", "CS5237", "CS5240", "CS5343", "CS5346", "CS2107", "CS3235", "CS4236", "CS4238", "CS4239", "CS3221", "CS4257", "CS5231", "CS5250", "CS5321", "CS5332", "IFS4101", "IFS4102", "CS2102", "CS3223", "CS4221", "CS4224", "CS4225", "CS4220", "CS5226", "CS5228", "CS5322", "CS3210", "CS3211", "CS4231", "CS4223", "CS4237", "CS4271", "CS4345", "CS5207", "CS5222", "CS5223", "CS5224", "CS5239", "CS5250", "CS2105", "CS3103", "CS4222", "CS4226", "CS4231", "CS4344", "CS5223", "CS5224", "CS5229", "CS5248", "CS5321" ]
+          }
+        },
+        "courseReqType" : "TE",
+        "logicalConnector" : "AND"
+      },
+      "courseReqType" : "TE",
+      "logicalConnector" : "AND"
+    }, {
+      "type" : "CompositeReq",
+      "first" : {
+        "type" : "CompositeReq",
+        "first" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "Complete ATAP - Advanced Technology Attachment Program",
+          "requirementDescription" : "Complete 6 month internship thru ATAP",
+          "requirementType" : "CORE",
+          "condition" : {
+            "conditionName" : "Complete CP3880",
+            "minToSatisfy" : "1",
+            "regexes" : [ "CS3880" ]
+          }
+        },
+        "second" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "Complete 2 3 - months internships",
+          "requirementDescription" : "Complete two 3-month internships",
+          "requirementType" : "CORE",
+          "condition" : {
+            "conditionName" : "Complete CP3200, CP3202 or CP3107",
+            "minToSatisfy" : "2",
+            "regexes" : [ "CP3200", "CP3202|CP3107" ]
+          }
+        },
+        "courseReqType" : "CORE",
+        "logicalConnector" : "OR"
+      },
+      "second" : {
+        "type" : "PrimitiveReq",
+        "requirementName" : "Complete IS4010",
+        "requirementDescription" : "Compelte IS4010",
+        "requirementType" : "CORE",
+        "condition" : {
+          "conditionName" : "Complete IS4010",
+          "minToSatisfy" : "1",
+          "regexes" : [ "IS4010" ]
+        }
+      },
+      "courseReqType" : "CORE",
+      "logicalConnector" : "AND"
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Science Requirements",
+      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
+      "requirementType" : "UE",
+      "condition" : {
+        "conditionName" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
+        "minToSatisfy" : "4",
+        "regexes" : [ "MA1521", "ST2334", "MA1101R", "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?" ]
+      }
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Complete at least 40 modules",
+      "requirementDescription" : "At least 40 modules needed to graduate!",
+      "requirementType" : "UE",
+      "condition" : {
+        "conditionName" : "Complete any 40 modules",
+        "minToSatisfy" : "40",
+        "regexes" : [ "[A-Z]{2,3}[0-9]{4}[A-Z]?" ]
+      }
+    } ]
+  }, {
+    "name" : "Computer Science Software Eng",
+    "description" : "To be completed",
+    "requirements" : [ {
+      "type" : "PrimitiveReq",
+      "requirementName" : "University Level Requirements",
+      "requirementDescription" : "Pass one module each with prefix GES, GET, GEQ, GEH, GER",
+      "requirementType" : "GE",
+      "condition" : {
+        "conditionName" : "pass 5 of each GES,GER,GET,GEQ and GEH",
+        "minToSatisfy" : "5",
+        "regexes" : [ "GES[0-9]{4}[A-Z]?", "GET[0-9]{4}[A-Z]?", "GEH[0-9]{4}[A-Z]?", "GER1000", "GEQ1000" ]
+      }
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Computer Science Foundation:",
+      "requirementDescription" : "Pass all of CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
+      "requirementType" : "CORE",
+      "condition" : {
+        "conditionName" : "pass all",
+        "minToSatisfy" : "12",
+        "regexes" : [ "CS1101S", "CS1231", "CS2030", "CS2040", "CS2100", "CS2030", "CS2040", "CS2100", "CS2103T", "CS2105", "CS2106", "CS3230" ]
+      }
+    }, {
+      "type" : "CompositeReq",
+      "first" : {
+        "type" : "CompositeReq",
+        "first" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "Complete 3 Area Primary from Software Eng",
+          "requirementDescription" : "Pass 3 Area Primary from AI",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass 3 Area Primary in AI",
+            "minToSatisfy" : "3",
+            "regexes" : [ "CS2103T?", "CS3213", "CS3219", "CS4211", "CS4218", "CS4239" ]
+          }
+        },
+        "second" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "At least 1 from level 4 in Software Eng",
+          "requirementDescription" : "Pass at least 1 level 4 from primaries",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass at least 1 level 4 Primary",
+            "minToSatisfy" : "1",
+            "regexes" : [ "CS4211", "CS4218", "CS4239" ]
+          }
+        },
+        "courseReqType" : "TE",
+        "logicalConnector" : "AND"
+      },
+      "second" : {
+        "type" : "CompositeReq",
+        "first" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "At least 3 level 4000 and above",
+          "requirementDescription" : "At least 3 mods taken must be level 4000 and above from other focus areas",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass at least 3 level 4 mods from any Focus Area",
+            "minToSatisfy" : "3",
+            "regexes" : [ "CS4231", "CS4232", "CS4234", "CS4257", "CS4268", "CS4243", "CS4244", "CS4246", "CS4248", "CS4216", "CS4220", "CS4211", "CS4218", "CS4239", "CS4217", "CS4247", "CS4350", "CS4240", "CS4243", "CS4249", "CS4344", "CS4345", "CS4351", "CS4236", "CS4238", "CS4239", "CS4257", "CS4221", "CS4224", "CS4225", "CS4220", "CS4231", "CS4223", "CS4237", "CS4271", "CS4345", "CS4222", "CS4226", "CS4231", "CS4344" ]
+          }
+        },
+        "second" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "Complete 6 mods",
+          "requirementDescription" : "Complete 6 modules in all focus areas",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass at least 6 mods from any Focus Area",
+            "minToSatisfy" : "6",
+            "regexes" : [ "CS3230", "CS3236", "CS4231", "CS4232", "CS4234", "CS3233", "CS4257", "CS4268", "CS5230", "CS5234", "CS5236", "CS5237", "CS5238", "CS5330", "CS3243", "CS3244", "CS4243", "CS4244", "CS4246", "CS4248", "CS4216", "CS4220", "CS5209", "CS5215", "CS5228", "CS5242", "CS5247", "CS5340", "CS5339", "CS2103T?", "CS3213", "CS3219", "CS4211", "CS4218", "CS4239", "CS3216", "CS3217", "CS3226", "CS3234", "CS4217", "CS5219", "CS5232", "CS5272", "CS3241", "CS3242", "CS3247", "CS4247", "CS4350", "CS3218", "CS3240", "CS3249", "CS3343", "CS4240", "CS4243", "CS4249", "CS4344", "CS4345", "CS4351", "CS5237", "CS5240", "CS5343", "CS5346", "CS2107", "CS3235", "CS4236", "CS4238", "CS4239", "CS3221", "CS4257", "CS5231", "CS5250", "CS5321", "CS5332", "IFS4101", "IFS4102", "CS2102", "CS3223", "CS4221", "CS4224", "CS4225", "CS4220", "CS5226", "CS5228", "CS5322", "CS3210", "CS3211", "CS4231", "CS4223", "CS4237", "CS4271", "CS4345", "CS5207", "CS5222", "CS5223", "CS5224", "CS5239", "CS5250", "CS2105", "CS3103", "CS4222", "CS4226", "CS4231", "CS4344", "CS5223", "CS5224", "CS5229", "CS5248", "CS5321" ]
+          }
+        },
+        "courseReqType" : "TE",
+        "logicalConnector" : "AND"
+      },
+      "courseReqType" : "TE",
+      "logicalConnector" : "AND"
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Science Requirements",
+      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
+      "requirementType" : "UE",
+      "condition" : {
+        "conditionName" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
+        "minToSatisfy" : "4",
+        "regexes" : [ "MA1521", "ST2334", "MA1101R", "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?" ]
+      }
+    } ]
+  }, {
+    "name" : "Computer Science Artificial Intelligence",
+    "description" : "To be added",
+    "requirements" : [ {
+      "type" : "PrimitiveReq",
+      "requirementName" : "University Level Requirements",
+      "requirementDescription" : "Pass one module each with prefix GES, GET, GEQ, GEH, GER",
+      "requirementType" : "GE",
+      "condition" : {
+        "conditionName" : "pass 5 of each GES,GER,GET,GEQ and GEH",
+        "minToSatisfy" : "5",
+        "regexes" : [ "GES[0-9]{4}[A-Z]?", "GET[0-9]{4}[A-Z]?", "GEH[0-9]{4}[A-Z]?", "GER1000", "GEQ1000" ]
+      }
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Computer Science Foundation:",
+      "requirementDescription" : "Pass all of CS1101S, CS1231, CS2030, CS2040, CS2100, CS2103T, CS2105, CS2106, CS3230",
+      "requirementType" : "CORE",
+      "condition" : {
+        "conditionName" : "pass all",
+        "minToSatisfy" : "12",
+        "regexes" : [ "CS1101S", "CS1231", "CS2030", "CS2040", "CS2100", "CS2030", "CS2040", "CS2100", "CS2103T", "CS2105", "CS2106", "CS3230" ]
+      }
+    }, {
+      "type" : "CompositeReq",
+      "first" : {
+        "type" : "CompositeReq",
+        "first" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "Complete 3 Area Primary from AI",
+          "requirementDescription" : "Pass 3 Area Primary from AI",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass 3 Area Primary in AI",
+            "minToSatisfy" : "3",
+            "regexes" : [ "CS3243", "CS3244", "CS4243", "CS4244", "CS4246", "CS4248" ]
+          }
+        },
+        "second" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "At least 1 from level 4 in AI",
+          "requirementDescription" : "Pass at least 1 level 4 from primaries",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass at least 1 level 4 Primary",
+            "minToSatisfy" : "1",
+            "regexes" : [ "CS4243", "CS4244", "CS4246", "CS4248" ]
+          }
+        },
+        "courseReqType" : "TE",
+        "logicalConnector" : "AND"
+      },
+      "second" : {
+        "type" : "CompositeReq",
+        "first" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "At least 3 level 4000 and above",
+          "requirementDescription" : "At least 3 mods taken must be level 4000 and above from other focus areas",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass at least 3 level 4 mods from any Focus Area",
+            "minToSatisfy" : "3",
+            "regexes" : [ "CS4231", "CS4232", "CS4234", "CS4257", "CS4268", "CS4243", "CS4244", "CS4246", "CS4248", "CS4216", "CS4220", "CS4211", "CS4218", "CS4239", "CS4217", "CS4247", "CS4350", "CS4240", "CS4243", "CS4249", "CS4344", "CS4345", "CS4351", "CS4236", "CS4238", "CS4239", "CS4257", "CS4221", "CS4224", "CS4225", "CS4220", "CS4231", "CS4223", "CS4237", "CS4271", "CS4345", "CS4222", "CS4226", "CS4231", "CS4344" ]
+          }
+        },
+        "second" : {
+          "type" : "PrimitiveReq",
+          "requirementName" : "Complete 6 mods",
+          "requirementDescription" : "Complete 6 modules in all focus areas",
+          "requirementType" : "TE",
+          "condition" : {
+            "conditionName" : "Pass at least 6 mods from any Focus Area",
+            "minToSatisfy" : "6",
+            "regexes" : [ "CS3230", "CS3236", "CS4231", "CS4232", "CS4234", "CS3233", "CS4257", "CS4268", "CS5230", "CS5234", "CS5236", "CS5237", "CS5238", "CS5330", "CS3243", "CS3244", "CS4243", "CS4244", "CS4246", "CS4248", "CS4216", "CS4220", "CS5209", "CS5215", "CS5228", "CS5242", "CS5247", "CS5340", "CS5339", "CS2103T?", "CS3213", "CS3219", "CS4211", "CS4218", "CS4239", "CS3216", "CS3217", "CS3226", "CS3234", "CS4217", "CS5219", "CS5232", "CS5272", "CS3241", "CS3242", "CS3247", "CS4247", "CS4350", "CS3218", "CS3240", "CS3249", "CS3343", "CS4240", "CS4243", "CS4249", "CS4344", "CS4345", "CS4351", "CS5237", "CS5240", "CS5343", "CS5346", "CS2107", "CS3235", "CS4236", "CS4238", "CS4239", "CS3221", "CS4257", "CS5231", "CS5250", "CS5321", "CS5332", "IFS4101", "IFS4102", "CS2102", "CS3223", "CS4221", "CS4224", "CS4225", "CS4220", "CS5226", "CS5228", "CS5322", "CS3210", "CS3211", "CS4231", "CS4223", "CS4237", "CS4271", "CS4345", "CS5207", "CS5222", "CS5223", "CS5224", "CS5239", "CS5250", "CS2105", "CS3103", "CS4222", "CS4226", "CS4231", "CS4344", "CS5223", "CS5224", "CS5229", "CS5248", "CS5321" ]
+          }
+        },
+        "courseReqType" : "TE",
+        "logicalConnector" : "AND"
+      },
+      "courseReqType" : "TE",
+      "logicalConnector" : "AND"
+    }, {
+      "type" : "PrimitiveReq",
+      "requirementName" : "Science Requirements",
+      "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
+      "requirementType" : "UE",
+      "condition" : {
+        "conditionName" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
+        "minToSatisfy" : "4",
+        "regexes" : [ "MA1521", "ST2334", "MA1101R", "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?" ]
+      }
+    } ]
+  } ]
+}

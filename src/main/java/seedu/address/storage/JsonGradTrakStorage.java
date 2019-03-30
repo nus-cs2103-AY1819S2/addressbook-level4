@@ -17,13 +17,13 @@ import seedu.address.model.ReadOnlyGradTrak;
 /**
  * A class to access GradTrak data stored as a json file on the hard disk.
  */
-public class JsonGradTrackStorage implements GradTrackStorage {
+public class JsonGradTrakStorage implements GradTrakStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonGradTrackStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonGradTrakStorage.class);
 
     private Path filePath;
 
-    public JsonGradTrackStorage(Path filePath) {
+    public JsonGradTrakStorage(Path filePath) {
         this.filePath = filePath;
     }
 
@@ -60,16 +60,16 @@ public class JsonGradTrackStorage implements GradTrackStorage {
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyGradTrak addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveGradTrak(ReadOnlyGradTrak addressBook) throws IOException {
+        saveGradTrak(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyGradTrak)}.
+     * Similar to {@link #saveGradTrak(ReadOnlyGradTrak)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
-    public void saveAddressBook(ReadOnlyGradTrak addressBook, Path filePath) throws IOException {
+    public void saveGradTrak(ReadOnlyGradTrak addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

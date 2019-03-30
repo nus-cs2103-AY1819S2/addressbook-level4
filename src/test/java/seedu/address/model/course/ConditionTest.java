@@ -8,10 +8,11 @@ public class ConditionTest {
 
     @Test
     public void constructor_null_throwsNullPointerException() {
+        String[] nullArray = null;
         Assert.assertThrows(NullPointerException.class, () -> new Condition(1, null,
                 "ValidRegex"));
         Assert.assertThrows(NullPointerException.class, () -> new Condition(1, "Valid Name",
-                null));
+                nullArray));
         Assert.assertThrows(NullPointerException.class, () -> new Condition(1, "Valid Name",
                 "REGEX", null));
         Assert.assertThrows(NullPointerException.class, () -> new Condition(null,
@@ -29,11 +30,11 @@ public class ConditionTest {
     @Test
     public void constructor_invalidRegex_throwsInvalidArgumentException() {
         Assert.assertThrows(IllegalArgumentException.class, () -> new Condition(1, "ValidName",
-                "SomeValidRegex", "Regex,Containing,Comma"));
+                "SomeValidRegex", "Regex{Containing,Comma]"));
         Assert.assertThrows(IllegalArgumentException.class, () -> new Condition(1, "ValidName",
-                "regexValid", "regexThatDoesNotContainComma", "[UnclosedRegex"));
+                "regexValid", "regexThatDoesNotContainComma", "[UnclosedRegex)"));
         Assert.assertThrows(IllegalArgumentException.class, () -> new Condition("Name can contain commas,",
-                "but not,", "regexes"));
+                "[3-but not}", "regexes"));
         Assert.assertThrows(IllegalArgumentException.class, () -> new Condition("ValidName",
                 "regexValid", "regexThatDoesNotContainComma", "AnotherUnclosed(Regex"));
     }

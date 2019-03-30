@@ -63,14 +63,14 @@ public class DeleteCommandSystemTest extends GradTrakSystemTest {
          -> deleted */
         showPersonsWithName(KEYWORD_MATCHING_MA1521);
         Index index = INDEX_FIRST_PERSON;
-        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(index.getZeroBased() < getModel().getFilteredModulesTakenList().size());
         assertCommandSuccess(index);
 
         /* Case: filtered moduleTaken list, delete index within bounds of address book but out of bounds of
         moduleTaken list -> rejected
          */
         showPersonsWithName(KEYWORD_MATCHING_CS2103T);
-        int invalidIndex = getModel().getAddressBook().getModulesTakenList().size();
+        int invalidIndex = getModel().getGradTrak().getModulesTakenList().size();
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_MODULETAKEN_DISPLAYED_INDEX);
 
@@ -100,7 +100,7 @@ public class DeleteCommandSystemTest extends GradTrakSystemTest {
 
         /* Case: invalid index (size + 1) -> rejected */
         Index outOfBoundsIndex = Index.fromOneBased(
-                getModel().getAddressBook().getModulesTakenList().size() + 1);
+                getModel().getGradTrak().getModulesTakenList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + outOfBoundsIndex.getOneBased();
         assertCommandFailure(command, MESSAGE_INVALID_MODULETAKEN_DISPLAYED_INDEX);
 
@@ -120,7 +120,7 @@ public class DeleteCommandSystemTest extends GradTrakSystemTest {
      */
     private ModuleTaken removePerson(Model model, Index index) {
         ModuleTaken targetModuleTaken = getPerson(model, index);
-        model.deletePerson(targetModuleTaken);
+        model.deleteModuleTaken(targetModuleTaken);
         return targetModuleTaken;
     }
 

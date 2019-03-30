@@ -81,7 +81,7 @@ public abstract class GradTrakSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected GradTrak getInitialData() {
-        return TypicalModuleTaken.getTypicalAddressBook();
+        return TypicalModuleTaken.getTypicalGradTrak();
     }
 
     /**
@@ -139,8 +139,8 @@ public abstract class GradTrakSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getModulesTakenList().size(),
-                getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getGradTrak().getModulesTakenList().size(),
+                getModel().getFilteredModulesTakenList().size());
     }
 
     /**
@@ -148,8 +148,8 @@ public abstract class GradTrakSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + PREFIX_MODULE_INFO_CODE + keyword);
-        assertTrue(getModel().getFilteredPersonList().size()
-                < getModel().getAddressBook().getModulesTakenList().size());
+        assertTrue(getModel().getFilteredModulesTakenList().size()
+                < getModel().getGradTrak().getModulesTakenList().size());
     }
 
     /**
@@ -165,7 +165,7 @@ public abstract class GradTrakSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getAddressBook().getModulesTakenList().size());
+        assertEquals(0, getModel().getGradTrak().getModulesTakenList().size());
     }
 
     /**
@@ -177,8 +177,8 @@ public abstract class GradTrakSystemTest {
             Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(new GradTrak(expectedModel.getAddressBook()), testApp.readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertEquals(new GradTrak(expectedModel.getGradTrak()), testApp.readStorageAddressBook());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredModulesTakenList());
     }
 
     /**
@@ -275,7 +275,7 @@ public abstract class GradTrakSystemTest {
     private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertListMatching(getPersonListPanel(), getModel().getFilteredModulesTakenList());
         assertEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());

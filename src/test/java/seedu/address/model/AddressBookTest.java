@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MAX_GRADE_CS1010;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
-import static seedu.address.testutil.TypicalModuleTaken.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,7 +22,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.moduletaken.ModuleTaken;
-import seedu.address.model.moduletaken.exceptions.DuplicatePersonException;
+import seedu.address.model.moduletaken.exceptions.DuplicateModuleTakenException;
 import seedu.address.testutil.ModuleTakenBuilder;
 
 public class AddressBookTest {
@@ -45,7 +45,7 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        GradTrak newData = getTypicalAddressBook();
+        GradTrak newData = getTypicalGradTrak();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
@@ -60,7 +60,7 @@ public class AddressBookTest {
         List<ModuleTaken> newModuleTakens = Arrays.asList(CS2103T, editedAlice);
         GradTrakStub newData = new GradTrakStub(newModuleTakens);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateModuleTakenException.class);
         addressBook.resetData(newData);
     }
 

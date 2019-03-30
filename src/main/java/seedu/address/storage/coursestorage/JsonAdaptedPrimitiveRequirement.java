@@ -17,8 +17,9 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "PrimitiveRequirement's %s field is missing!";
     private final String requirementName;
     private final String requirementDescription;
-    private final JsonAdaptedCondition condition;
     private final String requirementType;
+    private final JsonAdaptedCondition condition;
+
 
     /**
      * Creates a {@code JsonAdaptedPrimitiveRequirement} with Primitive Requirement details
@@ -26,8 +27,9 @@ public class JsonAdaptedPrimitiveRequirement implements JsonAdaptedCourseRequire
     @JsonCreator
     public JsonAdaptedPrimitiveRequirement(@JsonProperty("requirementName") String requirementName,
                                            @JsonProperty("requirementDescription") String requirementDescription,
-                                           @JsonProperty("condition") JsonAdaptedCondition condition,
-                                           @JsonProperty("requirementType") String requirementType) {
+                                           @JsonProperty("requirementType") String requirementType,
+                                           @JsonProperty("condition") JsonAdaptedCondition condition
+                                           ) {
         this.requirementName = requirementName;
         this.requirementDescription = requirementDescription;
         this.condition = condition;

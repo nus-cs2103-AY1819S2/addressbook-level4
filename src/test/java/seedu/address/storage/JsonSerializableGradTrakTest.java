@@ -29,7 +29,7 @@ public class JsonSerializableGradTrakTest {
         JsonSerializableGradTrak dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
                 JsonSerializableGradTrak.class).get();
         GradTrak addressBookFromFile = dataFromFile.toModelType();
-        GradTrak typicalPersonsAddressBook = TypicalModuleTaken.getTypicalAddressBook();
+        GradTrak typicalPersonsAddressBook = TypicalModuleTaken.getTypicalGradTrak();
         assertEquals(addressBookFromFile, typicalPersonsAddressBook);
     }
 

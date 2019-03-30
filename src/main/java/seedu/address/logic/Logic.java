@@ -27,7 +27,7 @@ public interface Logic {
     /**
      * Returns the GradTrak.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getGradTrak()
      */
     ReadOnlyGradTrak getAddressBook();
 
@@ -59,14 +59,14 @@ public interface Logic {
      * Selected moduleTaken in the filtered moduleTaken list.
      * null if no moduleTaken is selected.
      *
-     * @see seedu.address.model.Model#selectedPersonProperty()
+     * @see seedu.address.model.Model#selectedModuleTakenProperty()
      */
     ReadOnlyProperty<ModuleTaken> selectedPersonProperty();
 
     /**
      * Sets the selected moduleTaken in the filtered moduleTaken list.
      *
-     * @see seedu.address.model.Model#setSelectedPerson(ModuleTaken)
+     * @see seedu.address.model.Model#setSelectedModuleTaken(ModuleTaken)
      */
     void setSelectedPerson(ModuleTaken moduleTaken);
 }

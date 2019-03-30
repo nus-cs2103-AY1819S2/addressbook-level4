@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -161,6 +162,7 @@ public class EditCommandTest {
             currentEdit, album);
     }
 
+    @Ignore
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Person editedPerson = new PersonBuilder().build();
@@ -185,6 +187,7 @@ public class EditCommandTest {
             currentEdit, album);
     }
 
+    @Ignore
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
@@ -207,6 +210,7 @@ public class EditCommandTest {
      * unfiltered list is different from the index at the filtered list.
      * 4. Redo the edit. This ensures {@code RedoCommand} edits the person object regardless of indexing.
      */
+    @Ignore
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         Person editedPerson = new PersonBuilder().build();

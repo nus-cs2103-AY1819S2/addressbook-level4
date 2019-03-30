@@ -87,17 +87,27 @@ public class StorageManager implements Storage {
     public void saveCardFolders(List<ReadOnlyCardFolder> cardFolders, Path path) throws IOException {
         cardFolderStorageList.clear();
         // Clear directory before saving
-        List<Path> pathsToDelete = Files.walk(path)
-                .filter(Files::isRegularFile)
-                .collect(Collectors.toList());
-        for (Path pathToDelete : pathsToDelete) {
-            Files.deleteIfExists(pathToDelete);
-        }
+        clearDirectory(path);
+
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             Path filePath = path.resolve(cardFolder.getFolderName() + Storage.FILE_FORMAT);
             CardFolderStorage cardFolderStorage = new JsonCardFolderStorage(filePath);
             cardFolderStorageList.add(cardFolderStorage);
             cardFolderStorage.saveCardFolder(cardFolder);
+        }
+    }
+
+    /**
+     * Deletes every file at the specified {@code path}
+     * If {@code path} is a file, only the file will be deleted. If {@code path} is a folder, all files inside
+     * the folder (but not the folder itself) will be deleted.
+     */
+    private void clearDirectory(Path path) throws IOException {
+        List<Path> pathsToDelete = Files.walk(path)
+                .filter(Files::isRegularFile)
+                .collect(Collectors.toList());
+        for (Path pathToDelete : pathsToDelete) {
+            Files.deleteIfExists(pathToDelete);
         }
     }
 }

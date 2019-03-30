@@ -5,96 +5,76 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_2_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_INVALID_CHARACTERS;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_INVALID_EXTENSION;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.testutil.Assert;
 
 public class NameTest {
 
     @Test
-    public void constructor_nullName_throwsNullPointerException() {
+    public void constructor() {
+        // null value -> expect NullPointerException
         Assert.assertThrows(NullPointerException.class, () -> new Name(null));
-    }
 
-    @Test
-    public void constructor_blankName_throwsIllegalArgumentException() {
-        String invalidName = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
-    }
+        // blank Name -> throws IllegalArgumentException
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(""));
 
-    @Test
-    public void constructor_blankSpaceName_throwsIllegalArgumentException() {
-        String invalidName = " ";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
-    }
+        // blank Space Name -> throws IllegalArgumentException
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(" "));
 
-    @Test
-    public void constructor_wrongExtension_throwsIllegalArgumentException() {
-        String invalidName = CommandTestUtil.NAME_INVALID_EXTENSION;
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
-    }
+        // wrong Extension -> throws IllegalArgumentException
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(NAME_INVALID_EXTENSION));
 
-    @Test
-    public void constructor_invalidCharacter_throwsIllegalArgumentException() {
-        String invalidName = CommandTestUtil.NAME_INVALID_CHARACTERS;
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
-    }
+        // invalid character -> throws IllegalArgumentException
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(NAME_INVALID_CHARACTERS));
 
-    @Test
-    public void constructor_normalName_expectNoException() {
+        // normal name -> No Exceptions
         try {
-            Name expected = new Name(CommandTestUtil.NAME_1_VALID);
-            expected = null;
+            new Name(NAME_1_VALID);
         } catch (Exception e) {
-            fail("No exception should be thrown with a valid name.");
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
+        }
+
+        // name with space -> No Exception
+        try {
+            new Name(NAME_2_VALID);
+        } catch (Exception e) {
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
         }
     }
 
     @Test
-    public void constructor_nameWithSpace_expectNoException() {
-        try {
-            Name expected = new Name(CommandTestUtil.NAME_2_VALID);
-            expected = null;
-        } catch (Exception e) {
-            fail("No exception should be thrown with a valid name containing a space.");
-        }
-    }
-
-    @Test
-    public void toString_sameValue_expectedPass() {
-        String expected = new StringBuilder()
+    public void toStringTest() {
+        // same value -> expect True
+        assertEquals(new StringBuilder()
                 .append("Name: ")
-                .append(CommandTestUtil.NAME_1_VALID)
+                .append(NAME_1_VALID)
                 .append("\n")
-                .toString();
+                .toString(), new Name(NAME_1_VALID).toString());
 
-        assertEquals(expected, new Name(CommandTestUtil.NAME_1_VALID).toString());
-    }
-
-    @Test
-    public void toString_differentValue_expectedPass() {
-        String expected = new StringBuilder()
+        // different value -> expect false
+        assertNotEquals(new StringBuilder()
                 .append("Name: ")
-                .append(CommandTestUtil.NAME_1_VALID)
+                .append(NAME_1_VALID)
                 .append("\n")
-                .toString();
-
-        assertNotEquals(expected, new Name(CommandTestUtil.NAME_2_VALID).toString());
+                .toString(), new Name(NAME_2_VALID).toString());
     }
 
     @Test
-    public void equals_differentValue_expectedFail() {
-        Name n1 = new Name(CommandTestUtil.NAME_1_VALID);
-        Name n2 = new Name(CommandTestUtil.NAME_2_VALID);
-        assertFalse(n1.equals(n2));
-    }
+    public void equals() {
+        // different values -> expected false
+        assertFalse(new Name(NAME_1_VALID).equals(new Name(NAME_2_VALID)));
 
-    @Test
-    public void equals_sameValueDifferentObject_expectedPass() {
-        Name n1 = new Name(CommandTestUtil.NAME_1_VALID);
-        Name n2 = new Name(CommandTestUtil.NAME_1_VALID);
-        assertTrue(n1.equals(n2));
+        // same object -> expected true
+        assertTrue(new Name(NAME_1_VALID).equals(new Name(NAME_1_VALID)));
+
+        // same values, different objects -> expected true
+        assertTrue(new Name(NAME_1_VALID).equals(new Name(NAME_1_VALID)));
     }
 }

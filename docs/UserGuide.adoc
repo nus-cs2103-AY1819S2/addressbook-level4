@@ -320,27 +320,39 @@ image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
 === Activity Management Features
 
 ==== Adding an activity : `activityAdd`
-Adds a new activity to the activity list+
+Adds a new activity to the activity list +
 [width="100%",cols="30%,<50%, <50%",options="header",]
 |=======================================================================
 |Information of Activity| Definition | Example
 |`ActivityName`| ACTIVITYNAME refers to the name of the activity.
 
  Only alphabets are accepted. | Sentosa Outing
-|
+|`ActivityDateTime`| DATETIME refers to the date and time of the activity
+
+Activity Date and time should be in "dd/MM/YYYY HHMM" format, where dd, MM, YYYY refers
+to day of month, month and year respectively. HH refers to the hour in 24 hour format (
+0-23). | 28/02/2019 2359
+|`ActivityLocation`| LOCATION refers to the location of an activity|Kent Ridge MRT
+|`ActivityDescription`| DESCRIPTION refers to the detailed description of the activity
+|Meeting at MRT before leaving together.
 |=======================================================================
 Format: `activityAdd n/ACTIVITYNAME d/DATETIME l/LOCATION [de/DESCRIPTION] ...`
 
 ****
 * Inputing description is optional. If no description is found, the default description
 will be "More details to be added."
-* The added activity will be displayed at the sorted position according to its time.
+* The added activity will be displayed at the sorted position according to its time. +
+The ongoing activities will be display on top while the completed activity will be at
+the bottom of the list.
 ****
 
 Example:
 
 * `activityAdd n/Sentosa Outing d/16022019 1000 l/Harbour Front MRT de/Bring swim suits.`
 * `activityAdd n/HTML workshop d/1402019 l/ICube Auditorium ic/A0123456Z`
+
+image::ActivityAddCommand.png[width="790"]
+Adding activity to the correct position based on the time.
 
 ==== Add a member to activity `activityAddMember`
 Adds an existing member to an existing activity to indicate that they will be going for the activity.

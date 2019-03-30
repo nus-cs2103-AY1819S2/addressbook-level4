@@ -10,7 +10,7 @@ import seedu.address.model.prescription.Prescription;
 
 
 /**
- * Adds a medical history.
+ * Adds a prescription.
  */
 public class AddPrescriptionCommand extends Command {
 

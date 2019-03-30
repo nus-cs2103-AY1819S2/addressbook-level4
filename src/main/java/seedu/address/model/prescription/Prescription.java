@@ -57,10 +57,13 @@ public class Prescription {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        /*
         sb.append("Doctor Name: ");
         sb.append(this.doctor.getName());
         sb.append(" Patient Name: ");
         sb.append(this.patient.getName());
+        */
+
         sb.append(" Description: ");
         sb.append(this.description.toString());
         return sb.toString();

@@ -461,9 +461,6 @@ Selects the 2nd person in the displayed activity list.
 `activitySelect 1` +
 Selects the 1st activity in the results of the `find` command.
 
-==== Sort all activities by date `activitySort`
-Sorts all activities in the activity list according to the event date.
-Format: `activitySort`
 
 === Saving the data
 
@@ -525,7 +522,6 @@ e.g. `activityFind Workshop`
 * *List all the activities* : `activityList`
 * *Select an activity* : `activitySelect ACTIVITY_INDEX` +
 e.g. `activitySelect 2`
-* *Sort all activities by date* : `activitySort`
 
 
 

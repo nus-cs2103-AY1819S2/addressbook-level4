@@ -238,6 +238,17 @@ public class Patient extends Person {
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+
+        //Next Of Kin fields
+        builder.append(" Next Of Kin Name: ")
+                .append(this.nextOfKin.getName())
+            .append(" Next Of Kin Relation: ")
+            .append(this.nextOfKin.getKinRelation())
+            .append(" Next Of Kin Phone: ")
+            .append(this.nextOfKin.getPhone())
+            .append(" Next Of Kin Address: ")
+            .append(this.nextOfKin.getAddress());
+
         return builder.toString();
     }
 }

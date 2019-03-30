@@ -179,6 +179,21 @@ public class Fleet {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Checks if all the battleships in a deployed fleet are destroyed.
+     */
+    public boolean allDestroyed() {
+        boolean isAllDestroyed = true;
+
+        for (FleetEntry fleetEntry : this.getDeployedFleet()) {
+            if (!fleetEntry.getBattleship().isDestroyed()) {
+                isAllDestroyed = false;
+            }
+        }
+
+        return isAllDestroyed;
+    }
+
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();

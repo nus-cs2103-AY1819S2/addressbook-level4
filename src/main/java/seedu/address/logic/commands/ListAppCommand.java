@@ -15,11 +15,13 @@ import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 
 /**
- * Lists all appointments in the address book to the user.
+ * Lists all appointments in quickdocs to the user.
  */
 public class ListAppCommand extends Command {
 
     public static final String COMMAND_WORD = "listapp";
+    public static final String COMMAND_ALIAS = "la";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all appointments.\n"
             + "Parameters: "
             + "[" + PREFIX_FORMAT + "FORMAT] "
@@ -65,7 +67,7 @@ public class ListAppCommand extends Command {
             String result = model.listApp(start, end);
             return new CommandResult(String.format(MESSAGE_SUCCESS_BY_DATE, start, end) + result, false, false);
         } else {
-            Optional<Patient> patientToList = model.getPatientWithNric(nric);
+            Optional<Patient> patientToList = model.getPatientByNric(nric);
             if (!patientToList.isPresent()) {
                 throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
             }

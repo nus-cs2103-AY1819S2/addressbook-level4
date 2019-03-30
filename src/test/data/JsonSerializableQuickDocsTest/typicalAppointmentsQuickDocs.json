@@ -1,0 +1,135 @@
+{
+  "patientList" : [ {
+    "name": "Alice",
+    "nric": "S1111111A",
+    "email": "alice@gmail.com",
+    "address": "1 Admiralty Road",
+    "contact": "91111111",
+    "gender": "F",
+    "dob": "1990-01-01",
+    "tagList": [
+      "diabetes"
+    ]
+  },
+    {
+      "name": "Bob",
+      "nric": "S2222222A",
+      "email": "bob@gmail.com",
+      "address": "1 Bishan Road",
+      "contact": "92222222",
+      "gender": "M",
+      "dob": "1985-02-02",
+      "tagList": [
+        "Gout"
+      ]
+    },
+    {
+      "name": "Chuck",
+      "nric": "S3333333C",
+      "email": "chuck@gmail.com",
+      "address": "1 Clementi Road",
+      "contact": "93333333",
+      "gender": "M",
+      "dob": "1980-03-03",
+      "tagList": [
+        "Highbloodpressure"
+      ]
+    } ],
+  "consultationList" : [ ],
+  "appointmentList" : [ {
+    "patient" : {
+      "name" : {
+        "name" : "Alice"
+      },
+      "nric" : {
+        "nric" : "S1111111A"
+      },
+      "email" : {
+        "email" : "alice@gmail.com"
+      },
+      "address" : {
+        "address" : "1 Admiralty Road"
+      },
+      "contact" : {
+        "contact" : "91111111"
+      },
+      "gender" : {
+        "gender" : "F"
+      },
+      "dob" : {
+        "dob" : "1990-01-01"
+      },
+      "tagList" : [ {
+        "tagName" : "diabetes"
+      } ]
+    },
+    "date" : "2019-10-23",
+    "start" : "12:00",
+    "end" : "13:00",
+    "comment" : "Weekly Checkup"
+  }, {
+    "patient" : {
+      "name" : {
+        "name" : "Bob"
+      },
+      "nric" : {
+        "nric" : "S2222222A"
+      },
+      "email" : {
+        "email" : "bob@gmail.com"
+      },
+      "address" : {
+        "address" : "1 Bishan Road"
+      },
+      "contact" : {
+        "contact" : "92222222"
+      },
+      "gender" : {
+        "gender" : "M"
+      },
+      "dob" : {
+        "dob" : "1985-02-02"
+      },
+      "tagList" : [ {
+        "tagName" : "Gout"
+      } ]
+    },
+    "date" : "2019-10-24",
+    "start" : "13:00",
+    "end" : "14:00",
+    "comment" : "Monthly Checkup"
+  }, {
+    "patient" : {
+      "name" : {
+        "name" : "Chuck"
+      },
+      "nric" : {
+        "nric" : "S3333333C"
+      },
+      "email" : {
+        "email" : "chuck@gmail.com"
+      },
+      "address" : {
+        "address" : "1 Clementi Road"
+      },
+      "contact" : {
+        "contact" : "93333333"
+      },
+      "gender" : {
+        "gender" : "M"
+      },
+      "dob" : {
+        "dob" : "1980-03-03"
+      },
+      "tagList" : [ {
+        "tagName" : "Highbloodpressure"
+      } ]
+    },
+    "date" : "2019-10-25",
+    "start" : "14:00",
+    "end" : "15:00",
+    "comment" : "Knee Injury"
+  } ],
+  "reminderList" : [ ],
+  "medicineList" : [ ]
+}

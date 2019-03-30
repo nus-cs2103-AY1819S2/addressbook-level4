@@ -1,0 +1,25 @@
+{
+  "patientList" : [ {
+    "name" : "Patient with invalid name field: I love tests!",
+    "nric" : "S9123456B",
+    "email" : "nice@gmail.com",
+    "address" : "100 Simei Road",
+    "contact" : "99998888",
+    "gender" : "M",
+    "dob" : "1991-01-01",
+    "tagList" : [ "diabetes" ]
+  }, {
+    "name" : "Peter Tan",
+    "nric" : "S9123456A",
+    "email" : "ptan@gmail.com",
+    "address" : "1 Simei Road",
+    "contact" : "91111111",
+    "gender" : "M",
+    "dob" : "1993-02-01",
+    "tagList" : [ "diabetes" ]
+  } ],
+  "consultationList" : [ ],
+  "appointmentList" : [ ],
+  "reminderList" : [ ],
+  "medicineList" : [ ]
+}

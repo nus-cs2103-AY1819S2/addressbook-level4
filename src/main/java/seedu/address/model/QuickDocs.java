@@ -25,15 +25,8 @@ public class QuickDocs {
         return medicineManager;
     }
 
-    public void setMedicineManager(MedicineManager medicineManager) {
-        this.medicineManager = medicineManager;
-    }
     public PatientManager getPatientManager() {
         return patientManager;
-    }
-
-    public void setPatientManager(PatientManager patientManager) {
-        this.patientManager = patientManager;
     }
 
     public ConsultationManager getConsultationManager() {
@@ -44,17 +37,13 @@ public class QuickDocs {
         return appointmentManager;
     }
 
-    public void setAppointmentManager(AppointmentManager appointmentManager) {
-        this.appointmentManager = appointmentManager;
-    }
-
     public ReminderManager getReminderManager() {
         return reminderManager;
     }
 
-    public void setReminderManager(ReminderManager reminderManager) {
-        this.reminderManager = reminderManager;
-    }
+    //public void setReminderManager(ReminderManager reminderManager) {
+        //this.reminderManager = reminderManager;
+    //}
 
     public StatisticsManager getStatisticsManager() {
         return statisticsManager;
@@ -64,12 +53,34 @@ public class QuickDocs {
         this.statisticsManager = statisticsManager;
     }
     // indicate modification of quickdocs data
-
     public boolean isModified() {
         return isModified;
     }
 
     public void indicateModification(boolean state) {
         isModified = state;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof QuickDocs)) {
+            return false;
+        }
+
+        QuickDocs otherQuickDocs = (QuickDocs) other;
+        return otherQuickDocs.patientManager.getPatientList()
+                .equals(this.patientManager.getPatientList())
+                && otherQuickDocs.consultationManager.getConsultationList()
+                .equals(this.consultationManager.getConsultationList())
+                && otherQuickDocs.appointmentManager.getAppointmentList()
+                .equals(this.appointmentManager.getAppointmentList())
+                && otherQuickDocs.reminderManager.getReminderList()
+                .equals(this.reminderManager.getReminderList())
+                && otherQuickDocs.medicineManager.getListOfMedicine()
+                .equals(this.medicineManager.getListOfMedicine());
     }
 }

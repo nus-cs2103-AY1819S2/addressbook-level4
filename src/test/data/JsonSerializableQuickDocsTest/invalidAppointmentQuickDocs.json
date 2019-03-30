@@ -1,0 +1,47 @@
+{
+  "patientList" : [ {
+    "name": "Alice",
+    "nric": "S1111111A",
+    "email": "alice@gmail.com",
+    "address": "1 Admiralty Road",
+    "contact": "91111111",
+    "gender": "F",
+    "dob": "1990-01-01",
+    "tagList": [ "diabetes" ]
+  } ],
+  "consultationList" : [ ],
+  "appointmentList" : [ {
+    "patient" : {
+      "name" : {
+        "name" : "Alice"
+      },
+      "nric" : {
+        "nric" : "S1111111A"
+      },
+      "email" : {
+        "email" : "alice@gmail.com"
+      },
+      "address" : {
+        "address" : "1 Admiralty Road"
+      },
+      "contact" : {
+        "contact" : "91111111"
+      },
+      "gender" : {
+        "gender" : "F"
+      },
+      "dob" : {
+        "dob" : "1990-01-01"
+      },
+      "tagList" : [ {
+        "tagName" : "diabetes"
+      } ]
+    },
+    "date" : "2019-10-33",
+    "start" : "12:00",
+    "end" : "24:00",
+    "comment" : "Weekly Checkup"
+  } ],
+  "reminderList" : [ ],
+  "medicineList" : [ ]
+}

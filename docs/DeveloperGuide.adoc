@@ -336,7 +336,7 @@ Step 7. `isNewCommand` is set to `false` to signal that this command is not a ne
  - Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
 
 .Sequence Diagram for Contrast Command
-image::ContrastCommandSequenceDiagram.png[width="740"]
+image::ContrastCommandSequenceDiagram.png[width="800"]
 
 
 === Image Manipulation

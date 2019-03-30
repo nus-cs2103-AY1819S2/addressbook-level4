@@ -75,4 +75,20 @@ public class FileNameTest {
         assertTrue(FileName.isValidFileName("COM10"));
         assertTrue(FileName.isValidFileName("LPT10"));
     }
+
+    @Test
+    public void equals_inputObjectEquals_trueReturned() {
+        FileName expected = new FileName("example");
+        FileName actual = new FileName("example");
+
+        assertTrue(actual.equals(expected));
+    }
+
+    @Test
+    public void equals_inputObjectNotEquals_falseReturned() {
+        FileName expected = new FileName("example2");
+        FileName actual = new FileName("example");
+
+        assertFalse(actual.equals(expected));
+    }
 }

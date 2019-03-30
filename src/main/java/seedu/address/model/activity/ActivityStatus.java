@@ -30,7 +30,7 @@ public class ActivityStatus {
      * Returns true if the status is completed
      */
     public boolean isCompleted() {
-        return ( this.status == Status.COMPLETED);
+        return (this.status == Status.COMPLETED);
     }
 
     @Override

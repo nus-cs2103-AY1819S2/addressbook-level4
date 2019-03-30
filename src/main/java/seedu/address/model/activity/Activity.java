@@ -109,7 +109,7 @@ public class Activity implements Comparable<Activity> {
     }
 
     /**
-     * Returns true if both activities of the same name have the same date.
+     * Returns true if both activities are of the same name have the same date.
      * This defines a weaker notion of equality between two activities.
      */
     public boolean isSameActivity(Activity otherActivity) {
@@ -120,6 +120,20 @@ public class Activity implements Comparable<Activity> {
         return otherActivity != null
                 && otherActivity.getName().equals(getName())
                 && otherActivity.getDateTime().equals(getDateTime());
+    }
+
+    /**
+     * Returns true if both activities have the same datetime and location.
+     * This is to check if there are clashes in location.
+     */
+    public boolean hasClashInTimeLocation(Activity otherActivity) {
+        if (otherActivity == this) {
+            return true;
+        }
+
+        return otherActivity != null
+                && otherActivity.getDateTime().equals(getDateTime())
+                && otherActivity.getLocation().equals(getLocation());
     }
 
     /**

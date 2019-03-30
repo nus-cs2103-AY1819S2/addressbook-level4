@@ -24,7 +24,8 @@ public class VisitWebCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SELECT_RESTAURANT_SUCCESS = "Visited Website of Restaurant: %1$s";
+    public static final String MESSAGE_VISIT_RESTAURANT_SUCCESS = "Displaying Website of Restaurant: %1$s";
+    public static final String MESSAGE_VISIT_WEBLINK = "Displaying website : %1$s";
 
     private final Index targetIndex;
     private final Weblink weblink;
@@ -41,17 +42,23 @@ public class VisitWebCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
 
-        List<Restaurant> filteredRestaurantList = model.getFilteredRestaurantList();
+        if (targetIndex != null) {
+            requireNonNull(model);
 
-        if (targetIndex.getZeroBased() >= filteredRestaurantList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
+            List<Restaurant> filteredRestaurantList = model.getFilteredRestaurantList();
+
+            if (targetIndex.getZeroBased() >= filteredRestaurantList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_RESTAURANT_DISPLAYED_INDEX);
+            }
+
+            model.setSelectedRestaurant(filteredRestaurantList.get(targetIndex.getZeroBased()));
+            return new CommandResult(String.format(MESSAGE_VISIT_RESTAURANT_SUCCESS, targetIndex.getOneBased()));
+        } else if (weblink != null){
+            return new CommandResult(String.format(MESSAGE_VISIT_WEBLINK, weblink.value));
+        } else {
+            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-
-        model.setSelectedRestaurant(filteredRestaurantList.get(targetIndex.getZeroBased()));
-        return new CommandResult(String.format(MESSAGE_SELECT_RESTAURANT_SUCCESS, targetIndex.getOneBased()));
-
     }
 
 

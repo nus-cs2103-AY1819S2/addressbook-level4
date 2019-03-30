@@ -131,8 +131,7 @@ public class MainWindow extends UiPart<Stage> {
 
         medHistListPanel = new MedHistListPanel(logic.getFilteredMedHistList(), logic.selectedMedHistProperty(),
                 logic::setSelectedMedHist);
-        //medHistListPanelPlaceholder.getChildren().add(medHistListPanel.getRoot());
-        //medHistListPanelPlaceholder.getChildren();
+        medHistListPanelPlaceholder.getChildren().add(medHistListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());

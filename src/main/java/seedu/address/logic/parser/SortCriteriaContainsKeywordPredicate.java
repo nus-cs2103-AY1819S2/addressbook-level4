@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
-import java.util.function.Predicate;
-
 import static java.util.Objects.requireNonNull;
+
+import java.util.function.Predicate;
 
 /**
  * Tests that a criteria given matches the list of available sorting criteria.

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_1;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_HINT_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
@@ -109,6 +110,14 @@ public class EditCommandTest {
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidEditedAnswerSameAsOption_failure() {
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD, new EditCardDescriptorBuilder()
+                .withAnswer(VALID_ANSWER_1).withOptions(VALID_ANSWER_1).build());
+        String expectedMessage = Messages.MESSAGE_ILLEGAL_OPTION_CANNOT_BE_SAME_AS_ANSWER;
+        assertCommandFailure(editCommand, model, commandHistory, expectedMessage);
     }
 
     @Test

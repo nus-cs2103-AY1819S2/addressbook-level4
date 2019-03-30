@@ -68,27 +68,13 @@ public class CalendarWindow extends UiPart<Stage> {
         this.format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         this.readOnlyTaskList = logic.getAddressBook();
 
-        markedDates = new HashMap<>();
-        for (Task t : logic.getAddressBook().getTaskList()) {
-
-            if (markedDates.containsKey(t.getStartDate().getDate())
-                    || markedDates.containsKey(t.getEndDate().getDate())) {
-
-                if (t.getPriority().getPriorityLevel() > markedDates.get(t.getStartDate().getDate())) {
-                    markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
-                }
-                if (t.getPriority().getPriorityLevel() > markedDates.get(t.getEndDate().getDate())) {
-                    markedDates.put(t.getEndDate().getDate(), t.getPriority().getPriorityLevel());
-                }
-            } else {
-                markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
-                markedDates.put(t.getEndDate().getDate(), t.getPriority().getPriorityLevel());
-            }
-        }
-        readOnlyTaskList.addListener((observable -> {
-                    System.out.println("test");
-                }));
-
+        generateMarkedDates();
+        this.readOnlyTaskList.addListener((observable -> {
+            generateMarkedDates();
+            LocalDate temp = datePicker.getValue();
+            datePicker.setValue(null);
+            datePicker.setValue(temp);
+        }));
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanel.setForCalender();
         taskListPanel.getRoot().getStylesheets().addAll("view/Calendar.css", "view/Extensions.css");
@@ -149,6 +135,29 @@ public class CalendarWindow extends UiPart<Stage> {
     }
     public void close() {
         primaryStage.close();
+    }
+
+    private void generateMarkedDates() {
+        this.markedDates = new HashMap<>();
+        for (Task t : logic.getAddressBook().getTaskList()) {
+
+            if (markedDates.containsKey(t.getStartDate().getDate())) {
+                if (t.getPriority().getPriorityLevel() > markedDates.get(t.getStartDate().getDate())) {
+                    markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
+                }
+            }
+            else {
+                markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
+            }
+
+            if (markedDates.containsKey(t.getEndDate().getDate())) {
+                if (t.getPriority().getPriorityLevel() > markedDates.get(t.getEndDate().getDate())) {
+                    markedDates.put(t.getEndDate().getDate(), t.getPriority().getPriorityLevel());
+                }
+            } else {
+                markedDates.put(t.getEndDate().getDate(), t.getPriority().getPriorityLevel());
+            }
+        }
     }
 
     /**

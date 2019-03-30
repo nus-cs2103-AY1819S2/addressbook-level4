@@ -4,123 +4,99 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_1_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DATE_2_VALID;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_INVALID_INVALIDDATE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_INVALID_INVALIDSTATUS;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_INVALID_MISSINGSEPERATORPREFIX;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_INVALID_MISSINGSTATUS;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_READY;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_STATUS_COMPLETE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_STATUS_READY;
+import static seedu.address.logic.commands.CommandTestUtil.MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT;
+import static seedu.address.logic.commands.CommandTestUtil.PROPERTY_SEPARATOR_PREFIX;
 
 import java.time.format.DateTimeParseException;
 import java.util.MissingFormatArgumentException;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.testutil.Assert;
 
 public class DeadlineTest {
 
     @Test
-    public void constructor_nullValue_throwsNullPointerException() {
+    public void jsonConstructor() {
+        // null value -> expected to throw NullPointerException
         Assert.assertThrows(NullPointerException.class, () -> new Deadline(null));
-    }
 
-    @Test
-    public void jsonConstructor_missingStatus_throwsDateTimeParseException() {
+        // missing status -> expected to throw MissingFormatArgumentException
         Assert.assertThrows(
-                MissingFormatArgumentException.class, () -> new Deadline(
-                        CommandTestUtil.DEADLINE_JSON_INVALID_MISSINGSTATUS));
-    }
+                MissingFormatArgumentException.class, () -> new Deadline(DEADLINE_JSON_INVALID_MISSINGSTATUS));
 
-    @Test
-    public void jsonConstructor_invalidStatus_throwsAssertionError() {
+        // invalid status -> expected to throw AssertionError
         Assert.assertThrows(
-                AssertionError.class, () -> new Deadline(CommandTestUtil.DEADLINE_JSON_INVALID_INVALIDSTATUS));
-    }
+                AssertionError.class, () -> new Deadline(DEADLINE_JSON_INVALID_INVALIDSTATUS));
 
-    @Test
-    public void jsonConstructor_missingPropertySeperator_throwsDateTimeParseException() {
+        // missing property seperator -> expected to throw DateTimeParseException
         Assert.assertThrows(
-                DateTimeParseException.class, () -> new Deadline(
-                        CommandTestUtil.DEADLINE_JSON_INVALID_MISSINGSEPERATORPREFIX));
-    }
+                DateTimeParseException.class, () -> new Deadline(DEADLINE_JSON_INVALID_MISSINGSEPERATORPREFIX));
 
-    @Test
-    public void jsonConstructor_invalidDate_throwsDateTimeParseException() {
+        // invalid date -> expected to throw dateTimeParseException
         Assert.assertThrows(
-                DateTimeParseException.class, () -> new Deadline(CommandTestUtil.DEADLINE_JSON_INVALID_INVALIDDATE));
+                DateTimeParseException.class, () -> new Deadline(DEADLINE_JSON_INVALID_INVALIDDATE));
+
+        // valid date -> expected to Not throw any Exceptions
+        try {
+            new Deadline(DEADLINE_JSON_COMPLETE);
+        } catch (Exception e) {
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
+        }
     }
 
     @Test
-    public void normalConstructor_invalidDate_throwsDateTimeParseException() {
+    public void normalConstructor() {
+        // invalid date -> expected to throw DateTimeParseException
         Assert.assertThrows(DateTimeParseException.class, () -> new Deadline(31, 2, 2012));
-    }
 
-    @Test
-    public void jsonConstructor_validDeadline_expectTrue() {
+        // valid date -> expected to Not throw any Exceptions
         try {
-            new Deadline(CommandTestUtil.DEADLINE_JSON_COMPLETE);
+            new Deadline(Integer.parseInt(DATE_1_VALID.split("-")[2]),
+                    Integer.parseInt(DATE_1_VALID.split("-")[1]),
+                    Integer.parseInt(DATE_1_VALID.split("-")[0]));
         } catch (Exception e) {
-            fail(CommandTestUtil.MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
+        }
+
+        // valid deadline with no parameters -> expected to Not throw any Exceptions
+        try {
+            new Deadline();
+        } catch (Exception e) {
+            fail(MESSAGE_UNEXPECTEDEXCEPTION_VALIDINPUT);
         }
     }
 
     @Test
-    public void normalConstructor_validDeadline_validDateParameters() {
-        Deadline validDeadline = new Deadline(CommandTestUtil.DATE_1_VALID
-                + Deadline.PROPERTY_SEPARATOR_PREFIX + CommandTestUtil.DEADLINE_STATUS_READY);
-        assertEquals(validDeadline, new Deadline(Integer.parseInt(CommandTestUtil.DATE_1_VALID.split("-")[2]),
-                Integer.parseInt(CommandTestUtil.DATE_1_VALID.split("-")[1]),
-                Integer.parseInt(CommandTestUtil.DATE_1_VALID.split("-")[0])));
+    public void equals() {
+        // same deadline value, different objects -> expect true
+        assertTrue(new Deadline(DEADLINE_JSON_COMPLETE).equals(new Deadline(DEADLINE_JSON_COMPLETE)));
+
+        // different values -> expected false
+        assertFalse(new Deadline(DEADLINE_JSON_COMPLETE).equals(new Deadline(DEADLINE_JSON_READY)));
+
+        // same dates different status -> expected false
+        assertFalse(new Deadline(DATE_1_VALID + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_COMPLETE)
+                .equals(new Deadline(DATE_1_VALID + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_READY)));
+
+        // different date same status -> expected false
+        assertFalse(new Deadline(DATE_2_VALID + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_READY)
+                .equals(new Deadline(DATE_1_VALID + PROPERTY_SEPARATOR_PREFIX + DEADLINE_STATUS_READY)));
     }
 
     @Test
-    public void normalConstructor_validDeadline_validDeadlineStatus() {
-        Deadline validDeadline = new Deadline(CommandTestUtil.DATE_1_VALID
-                + Deadline.PROPERTY_SEPARATOR_PREFIX + CommandTestUtil.DEADLINE_STATUS_COMPLETE);
-        assertEquals(validDeadline, Deadline.setDone(
-                new Deadline(Integer.parseInt(CommandTestUtil.DATE_1_VALID.split("-")[2]),
-                Integer.parseInt(CommandTestUtil.DATE_1_VALID.split("-")[1]),
-                Integer.parseInt(CommandTestUtil.DATE_1_VALID.split("-")[0]))));
-    }
-
-    @Test
-    public void equals_sameDeadline_expectedTrue() {
-        assertTrue(new Deadline(CommandTestUtil.DEADLINE_JSON_COMPLETE).equals(
-                new Deadline(CommandTestUtil.DEADLINE_JSON_COMPLETE)));
-    }
-
-    @Test
-    public void equals_differentDeadline_expectedFalse() {
-        assertFalse(new Deadline(CommandTestUtil.DEADLINE_JSON_COMPLETE).equals(
-                new Deadline(CommandTestUtil.DEADLINE_JSON_READY)));
-    }
-
-    @Test
-    public void equals_sameDateDifferentStatus_expectedFalse() {
-        Deadline d1 = new Deadline(CommandTestUtil.DATE_1_VALID
-                + CommandTestUtil.PROPERTY_SEPARATOR_PREFIX + CommandTestUtil.DEADLINE_STATUS_COMPLETE);
-        Deadline d2 = new Deadline(CommandTestUtil.DATE_1_VALID
-                + CommandTestUtil.PROPERTY_SEPARATOR_PREFIX + CommandTestUtil.DEADLINE_STATUS_READY);
-        assertFalse(d1.equals(d2));
-    }
-
-    @Test
-    public void equals_differentDateSameStatus_expectedFalse() {
-        Deadline d1 = new Deadline(CommandTestUtil.DATE_2_VALID
-                + CommandTestUtil.PROPERTY_SEPARATOR_PREFIX + CommandTestUtil.DEADLINE_STATUS_READY);
-        Deadline d2 = new Deadline(CommandTestUtil.DATE_1_VALID
-                + CommandTestUtil.PROPERTY_SEPARATOR_PREFIX + CommandTestUtil.DEADLINE_STATUS_READY);
-        assertFalse(d1.equals(d2));
-    }
-
-    @Test
-    public void toString_noDeadline_expectedBlank() {
+    public void toStringTest() {
+        // no deadline -> expected blank
         assertEquals("", new Deadline().toString());
-    }
-
-    @Test
-    public void normalConstructor_validDeadline_noParameter() {
-        try {
-            Deadline d = new Deadline();
-            d = null;
-        } catch (Exception e) {
-            fail("No exception should be thrown");
-        }
     }
 }

@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 /**
- * A handler for the {@code BrowserPanel} of the UI.
+ * A handler for the {@code BookBrowserPanel} of the UI.
  */
 public class BookBrowserPanelHandle extends NodeHandle<Node> {
 

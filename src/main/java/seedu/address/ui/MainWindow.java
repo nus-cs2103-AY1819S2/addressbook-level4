@@ -31,9 +31,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BookBrowserPanel browserPanel;
     private BookListPanel bookListPanel;
-    private ReviewListPanel reviewListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -44,13 +42,13 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private StackPane reviewListPanelPlaceholder;
-
-    @FXML
     private MenuItem helpMenuItem;
 
     @FXML
     private StackPane bookListPanelPlaceholder;
+
+    @FXML
+    private StackPane reviewListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -114,17 +112,17 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        browserPanel = new BookBrowserPanel(logic.selectedReviewProperty());
+    public void fillInnerParts() {
+        BookBrowserPanel browserPanel = new BookBrowserPanel(logic.selectedReviewProperty());
+
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         bookListPanel = new BookListPanel(logic.getFilteredBookList(), logic.selectedBookProperty(),
-                logic::setSelectedBook);
-
+            logic::setSelectedBook);
         bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
 
-        reviewListPanel = new ReviewListPanel(logic.getFilteredReviewList(), logic.selectedReviewProperty(),
-                logic::setSelectedReview);
+        ReviewListPanel reviewListPanel = new ReviewListPanel(logic.getFilteredReviewList(),
+                logic.selectedReviewProperty(), logic::setSelectedReview);
         reviewListPanelPlaceholder.getChildren().add(reviewListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -143,6 +141,7 @@ public class MainWindow extends UiPart<Stage> {
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
+
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
@@ -161,8 +160,13 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    void show() {
+    /**
+     * Set up the primary stage.
+     */
+    public void show() {
         primaryStage.show();
+        primaryStage.setMinHeight(logic.getGuiSettings().getWindowHeight());
+        primaryStage.setMinWidth(logic.getGuiSettings().getWindowHeight());
     }
 
     /**
@@ -171,7 +175,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
@@ -179,10 +183,6 @@ public class MainWindow extends UiPart<Stage> {
 
     public BookListPanel getBookListPanel() {
         return bookListPanel;
-    }
-
-    public ReviewListPanel getReviewListPanel() {
-        return reviewListPanel;
     }
 
     /**

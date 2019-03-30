@@ -10,7 +10,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
-import seedu.address.model.book.ReviewBookNameContainsExactKeywordsPredicate;
 
 /**
  * Lists the review of the book.
@@ -43,9 +42,6 @@ public class ListReviewCommand extends Command {
 
         Book selectedBook = filteredBookList.get(targetIndex.getZeroBased());
         model.setSelectedBook(selectedBook);
-        ReviewBookNameContainsExactKeywordsPredicate predicate =
-                new ReviewBookNameContainsExactKeywordsPredicate(selectedBook.getBookName());
-        model.updateFilteredReviewList(predicate);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));
 

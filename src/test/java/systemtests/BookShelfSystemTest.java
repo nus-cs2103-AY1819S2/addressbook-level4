@@ -1,16 +1,14 @@
 package systemtests;
 
-import static guitests.guihandles.BookWebViewUtil.waitUntilBrowserLoaded;
+import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.BookGuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -24,20 +22,20 @@ import org.junit.ClassRule;
 import org.junit.Ignore;
 
 import guitests.guihandles.BookBrowserPanelHandle;
-import guitests.guihandles.BookCommandBoxHandle;
 import guitests.guihandles.BookListPanelHandle;
-import guitests.guihandles.BookMainMenuHandle;
-import guitests.guihandles.BookMainWindowHandle;
+import guitests.guihandles.CommandBoxHandle;
+import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.ListBookCommand;
+import seedu.address.logic.commands.ListReviewCommand;
 import seedu.address.model.BookShelf;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalBooks;
-import seedu.address.ui.BookBrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -52,18 +50,18 @@ public abstract class BookShelfSystemTest {
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
         Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
-    private BookMainWindowHandle mainWindowHandle;
+    private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
-    private BookSystemTestSetupHelper setupHelper;
+    private SystemTestSetupHelper setupHelper;
 
     @BeforeClass
     public static void setupBeforeClass() {
-        BookSystemTestSetupHelper.initialize();
+        SystemTestSetupHelper.initialize();
     }
 
     @Before
     public void setUp() {
-        setupHelper = new BookSystemTestSetupHelper();
+        setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
@@ -90,11 +88,11 @@ public abstract class BookShelfSystemTest {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
-    public BookMainWindowHandle getMainWindowHandle() {
+    public MainWindowHandle getMainWindowHandle() {
         return mainWindowHandle;
     }
 
-    public BookCommandBoxHandle getCommandBox() {
+    public CommandBoxHandle getCommandBox() {
         return mainWindowHandle.getCommandBox();
     }
 
@@ -102,7 +100,7 @@ public abstract class BookShelfSystemTest {
         return mainWindowHandle.getBookListPanel();
     }
 
-    public BookMainMenuHandle getMainMenu() {
+    public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
 
@@ -134,7 +132,7 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
-     * Displays all books in the address book.
+     * Displays all books in the book shelf.
      */
     protected void showAllBooks() {
         executeCommand(ListBookCommand.COMMAND_WORD);
@@ -147,6 +145,14 @@ public abstract class BookShelfSystemTest {
     protected void showBooksWithName(String keyword) {
         executeCommand(ListBookCommand.COMMAND_WORD + " " + PREFIX_NAME + keyword);
         assertTrue(getModel().getFilteredBookList().size() < getModel().getBookShelf().getBookList().size());
+    }
+
+    /**
+     * Selects the book at {@code index} of the displayed list.
+     */
+    protected void selectBook(Index index) {
+        executeCommand(ListReviewCommand.COMMAND_WORD + " " + index.getOneBased());
+        assertEquals(index.getZeroBased(), getBookListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -171,7 +177,7 @@ public abstract class BookShelfSystemTest {
     }
 
     /**
-     * Calls {@code BrowserPanelHandle}, {@code BookListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * Calls {@code BookBrowserPanelHandle}, {@code BookListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
     private void rememberStates() {
@@ -188,39 +194,30 @@ public abstract class BookShelfSystemTest {
      * @see BookBrowserPanelHandle#isUrlChanged()
      */
     @Ignore
-    protected void assertSelectedCardDeselected() {
-        assertEquals(BookBrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+    protected void assertSelectedBookCardDeselected() {
         assertFalse(getBookListPanel().isAnyCardSelected());
     }
 
     /**
-     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * Asserts that the browser's url is changed to display the details of the book in the book list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BookBrowserPanelHandle#isUrlChanged()
      * @see BookListPanelHandle#isSelectedBookCardChanged()
      */
     @Ignore
-    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
+    protected void assertSelectedBookCardChanged(Index expectedSelectedCardIndex) {
         getBookListPanel().navigateToCard(getBookListPanel().getSelectedCardIndex());
         String selectedCardName = getBookListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl;
-        try {
-            expectedUrl = new URL(BookBrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
-        } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.", mue);
-        }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getBookListPanel().getSelectedCardIndex());
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * Asserts that the browser's url and the selected card in the book list panel remain unchanged.
      * @see BookBrowserPanelHandle#isUrlChanged()
      * @see BookListPanelHandle#isSelectedBookCardChanged()
      */
-    protected void assertSelectedCardUnchanged() {
-        assertFalse(getBrowserPanel().isUrlChanged());
+    protected void assertSelectedBookCardUnchanged() {
         assertFalse(getBookListPanel().isSelectedBookCardChanged());
     }
 

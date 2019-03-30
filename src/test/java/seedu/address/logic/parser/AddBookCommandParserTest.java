@@ -17,7 +17,7 @@ import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_INTERESTING;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TEXTBOOK;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_CS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_INTERESTING;
@@ -80,7 +80,7 @@ public class AddBookCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddBookCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + AUTHOR_DESC_CS + RATING_DESC_CS,
+        assertParseFailure(parser, VALID_BOOKNAME_CS + AUTHOR_DESC_CS + RATING_DESC_CS,
                 expectedMessage);
 
         // missing author prefix
@@ -92,7 +92,7 @@ public class AddBookCommandParserTest {
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_AUTHOR_CS + VALID_RATING_CS,
+        assertParseFailure(parser, VALID_BOOKNAME_CS + VALID_AUTHOR_CS + VALID_RATING_CS,
                 expectedMessage);
     }
 

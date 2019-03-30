@@ -24,7 +24,7 @@ public class AddReviewCommand extends Command {
     public static final String PLACE_HOLDER_FOR_TEST_BOOK = "1";
     public static final int MAX_REVIEWMESSAGE_LENGTH = 350;
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review to a certain book. \n "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a review to a certain book. \n"
             + "Parameters: "
             + PREFIX_NAME + "BOOK NAME "
             + PREFIX_REVIEWTITLE + "REVIEW TITLE "

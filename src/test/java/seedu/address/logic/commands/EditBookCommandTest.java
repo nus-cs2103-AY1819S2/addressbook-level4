@@ -119,7 +119,7 @@ public class EditBookCommandTest {
     public void execute_duplicateBookFilteredList_failure() {
         showBookAtIndex(model, INDEX_FIRST_BOOK);
 
-        // edit book in filtered list into a duplicate in address book
+        // edit book in filtered list into a duplicate in book shelf
         Book bookInList = model.getBookShelf().getBookList().get(INDEX_SECOND_BOOK.getZeroBased());
         EditBookCommand editCommand = new EditBookCommand(INDEX_FIRST_BOOK,
                 new EditBookDescriptorBuilder(bookInList).build());
@@ -138,13 +138,13 @@ public class EditBookCommandTest {
 
     /**
      * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of address book
+     * but smaller than size of book shelf
      */
     @Test
     public void execute_invalidBookIndexFilteredList_failure() {
         showBookAtIndex(model, INDEX_FIRST_BOOK);
         Index outOfBoundIndex = INDEX_SECOND_BOOK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of book shelf list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getBookShelf().getBookList().size());
 
         EditBookCommand editCommand = new EditBookCommand(outOfBoundIndex,
@@ -166,7 +166,7 @@ public class EditBookCommandTest {
         // edit -> first book edited
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered book list to show all books
+        // undo -> reverts book shelf back to previous state and filtered book list to show all books
         expectedModel.undoBookShelf();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -181,10 +181,10 @@ public class EditBookCommandTest {
         EditBookDescriptor descriptor = new EditBookDescriptorBuilder().withBookName(VALID_BOOKNAME_CS).build();
         EditBookCommand editCommand = new EditBookCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> book shelf state not added into model
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single book shelf state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -211,7 +211,7 @@ public class EditBookCommandTest {
         // edit -> edits second book in unfiltered book list / first book in filtered book list
         editCommand.execute(model, commandHistory);
 
-        // undo -> reverts addressbook back to previous state and filtered book list to show all books
+        // undo -> reverts book shelf back to previous state and filtered book list to show all books
         expectedModel.undoBookShelf();
         assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 

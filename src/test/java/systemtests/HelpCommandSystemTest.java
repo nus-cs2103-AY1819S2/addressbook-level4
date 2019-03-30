@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.BookGuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
-import guitests.guihandles.BookHelpWindowHandle;
+import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.DeleteBookCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListBookCommand;
@@ -81,17 +81,17 @@ public class HelpCommandSystemTest extends BookShelfSystemTest {
         getMainWindowHandle().focus();
         executeCommand(HelpCommand.COMMAND_WORD);
 
-        assertEquals(1, guiRobot.getNumberOfWindowsShown(BookHelpWindowHandle.HELP_WINDOW_TITLE));
+        assertEquals(1, guiRobot.getNumberOfWindowsShown(HelpWindowHandle.HELP_WINDOW_TITLE));
     }
 
     /**
      * Asserts that the help window is open, and closes it after checking.
      */
     private void assertHelpWindowOpen() {
-        assertTrue(ERROR_MESSAGE, BookHelpWindowHandle.isWindowPresent());
+        assertTrue(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
         guiRobot.pauseForHuman();
 
-        new BookHelpWindowHandle(guiRobot.getStage(BookHelpWindowHandle.HELP_WINDOW_TITLE)).close();
+        new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
         getMainWindowHandle().focus();
     }
 
@@ -99,7 +99,7 @@ public class HelpCommandSystemTest extends BookShelfSystemTest {
      * Asserts that the help window isn't open.
      */
     private void assertHelpWindowNotOpen() {
-        assertFalse(ERROR_MESSAGE, BookHelpWindowHandle.isWindowPresent());
+        assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
     }
 
 }

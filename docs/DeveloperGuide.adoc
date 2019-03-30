@@ -383,6 +383,7 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 // end::score[]
 
 === Import/Export feature
+[discrete]
 ==== Current Implementation
 The Import and Export feature is facilitated by the Logic and model components, together
 with the addition of 2 new classes inside the csvmanager package defined under
@@ -414,8 +415,7 @@ API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
 
 
 [discrete]
-==== Example Usage
-===== Import/Export feature
+===== Example Usage
 1. User wants to export folders `Human Anatomy` and `Nervous System`.
 Suppose that these two folders are indicated by the index 1 and 2 respectively.
 The user types ``export 1 2``
@@ -457,29 +457,26 @@ added to the `filteredFoldersList` variable.
 
 NOTE: Both Imported and Exported files have to be placed in the project root directory.
 
-
-
-
 ==== CSV file structure
 Example of a common cardfolder csv file +
 
 Blood.csv
 
-    Question,Answer,Options,Hints
-    If patient has raised WBC count, raised platelet and raised Hb count, he is likely to have _____.,myeloproliferative neoplasm, ,friends,
-    For _____, besides systemic chemo, treatment includes chemo injections into scrotum and CSF.,acute lymphoblastic leukemia, ,colleagues,friends,
-    Commonly used anti-fibrinolytic drug is _____, which prevent activation of plasminogen to plasmin,tranexamic acid, ,neighbours,
-    -penia means too _____,few, ,family,
-    -philia means too,many, ,classmates,
-    -cytosis means too,many, ,friends,
-    Myelodysplasia often regresses into what blood disorder?,Acute Leukaemia, ,colleagues,friends,
-    Patients with Acute lymphoblastic leukaemia with philadelphia chromosome cytogenic changes will require what special treatment?,Imatinib, ,neighbours,
-    Burkitt lymphoma is associated with what virus?,EBV, ,family,
-    _____% of circulating neutrophils are in marginating pool, hence not counted in full blood count,50, ,family,
+image::Blood.csv.png[width="800"]
+
 
 * The first line of any file contains the headers for each card.
 Headers have to be present in the csv file for import.
-*
+
+* Each row of the csv file represents a single flashcard.
+
+* Options header can take more than one value or none.
+
+* Hints header can take either 0 or 1 value.
+
+==== Design Considerations
+
+
 
 === Test Session feature
 ==== Current Implementation

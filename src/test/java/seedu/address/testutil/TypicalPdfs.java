@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_COMPLETE;
-import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_DESC_READY;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_COMPLETE;
+import static seedu.address.logic.commands.CommandTestUtil.DEADLINE_JSON_READY;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -62,57 +62,57 @@ public class TypicalPdfs {
 
     //Duplicates - Pdfs that have the same name but in a different location
     private static final Path sample_pdf_1_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
-                    "Duplicates", "CS2103T_PDF++_UG_Intro.pdf.pdf");
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
+                    "Duplicates", "CS2103T_PDF++_UG_Intro.pdf");
     private static final Path sample_pdf_2_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "CS2103T_Week9_Integration Approaches.pdf");
     private static final Path sample_pdf_3_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "CS3230_Lecture9_GreedyAlgorithm.pdf");
     private static final Path sample_pdf_4_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "CS2103T_Lecture3.pdf");
     private static final Path sample_pdf_5_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "CS2103_Schedule_AY1819S2.pdf");
     private static final Path sample_pdf_6_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "GitCheatSheet.pdf");
     private static final Path sample_pdf_7_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "Markdown-Cheatsheet.pdf");
     private static final Path sample_pdf_8_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "CS2101_UG and DG Peer Review.pdf");
     private static final Path sample_pdf_9_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "CS2101_Product Demo strategies1.pdf");
     private static final Path sample_pdf_10_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "CS2103T_sample PPP.pdf");
     private static final Path sample_pdf_11_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "CS2101_Writing User Guides.pdf");
     private static final Path sample_invalidPdf_1_duplicate_path =
-            Paths.get("test", "data", "JsonAdaptedPdfTest",
+            Paths.get("src", "test", "data", "JsonAdaptedPdfTest",
                     "Duplicates", "invalidPdf_1.pdf");
 
     //Originals
     public static final Pdf SAMPLE_PDF_1 = new PdfBuilder().withName(sample_pdf_1_path.toFile().getName())
             .withDirectory(sample_pdf_1_path.toAbsolutePath().getParent().toString())
             .withSize(Long.toString(sample_pdf_1_path.toFile().length()))
-            .withDeadline(DEADLINE_DESC_READY).build();
+            .withDeadline(DEADLINE_JSON_READY).build();
     public static final Pdf SAMPLE_PDF_2 = new PdfBuilder().withName(sample_pdf_2_path.toFile().getName())
             .withDirectory(sample_pdf_2_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_2_path.toFile().length()))
-            .withDeadline(DEADLINE_DESC_READY).build();
+            .withDeadline(DEADLINE_JSON_READY).build();
     public static final Pdf SAMPLE_PDF_3 = new PdfBuilder().withName(sample_pdf_3_path.toFile().getName())
             .withDirectory(sample_pdf_3_path.toAbsolutePath().getParent().toString())
             .withTags("CS3230", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_3_path.toFile().length()))
-            .withDeadline(DEADLINE_DESC_READY).build();
+            .withDeadline(DEADLINE_JSON_READY).build();
     public static final Pdf SAMPLE_PDF_4 = new PdfBuilder().withName(sample_pdf_4_path.toFile().getName())
             .withDirectory(sample_pdf_4_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w3")
@@ -152,69 +152,75 @@ public class TypicalPdfs {
     public static final Pdf SAMPLE_EDITEDPDF = new PdfBuilder().withName(sample_EditedPdf_1_path.toFile().getName())
             .withDirectory(sample_invalidPdf_1_path.toAbsolutePath().getParent().toString())
             .withTags("invalid", "pdf")
-            .withDeadline(DEADLINE_DESC_COMPLETE)
+            .withDeadline(DEADLINE_JSON_COMPLETE)
             .withSize(Long.toString(sample_invalidPdf_1_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_WITH_DEADLINE = new PdfBuilder(SAMPLE_PDF_1)
-            .withDeadline(DEADLINE_DESC_COMPLETE).build();
+            .withDeadline(DEADLINE_JSON_COMPLETE).build();
 
     //Duplicates
     public static final Pdf SAMPLE_PDF_1_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_1_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_1_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_1_duplicate_path.toAbsolutePath().getParent().toString())
             .withSize(Long.toString(sample_pdf_1_duplicate_path.toFile().length())).build();
+
+
+
     public static final Pdf SAMPLE_PDF_2_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_2_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_2_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_2_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_2_duplicate_path.toFile().length())).build();
+
+
+
     public static final Pdf SAMPLE_PDF_3_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_3_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_3_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_3_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("CS3230", "lecture", "w9")
             .withSize(Long.toString(sample_pdf_3_duplicate_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_4_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_4_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_4_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_4_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "lecture", "w3")
             .withSize(Long.toString(sample_pdf_4_duplicate_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_5_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_5_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_5_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_5_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103", "schedule")
             .withSize(Long.toString(sample_pdf_5_duplicate_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_6_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_6_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_6_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_6_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("Git", "cheatsheet")
             .withSize(Long.toString(sample_pdf_6_duplicate_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_7_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_7_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_7_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_7_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("markdown", "cheatsheet")
             .withSize(Long.toString(sample_pdf_7_duplicate_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_8_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_8_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_8_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_8_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("moduleH", "tutorial", "w7")
             .withSize(Long.toString(sample_pdf_8_duplicate_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_9_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_9_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_9_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_9_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("CS2101", "review")
             .withSize(Long.toString(sample_pdf_9_duplicate_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_10_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_10_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_10_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_10_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("CS2103T", "PPP")
             .withSize(Long.toString(sample_pdf_10_duplicate_path.toFile().length())).build();
     public static final Pdf SAMPLE_PDF_11_DUPLICATE = new PdfBuilder()
             .withName(sample_pdf_11_duplicate_path.toFile().getName())
-            .withDirectory(sample_pdf_11_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_pdf_11_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("CS2101", "writing", "UG")
             .withSize(Long.toString(sample_pdf_11_duplicate_path.toFile().length())).build();
     public static final Pdf SAMPLE_INVALIDPDF_1_DUPLICATE = new PdfBuilder()
             .withName(sample_invalidPdf_1_duplicate_path.toFile().getName())
-            .withDirectory(sample_invalidPdf_1_duplicate_path.toAbsolutePath().toString())
+            .withDirectory(sample_invalidPdf_1_duplicate_path.toAbsolutePath().getParent().toString())
             .withTags("invalid", "pdf")
             .withSize(Long.toString(sample_invalidPdf_1_duplicate_path.toFile().length())).build();
 

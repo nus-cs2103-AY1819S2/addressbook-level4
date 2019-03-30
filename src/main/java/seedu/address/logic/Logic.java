@@ -30,7 +30,7 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#getPdfBook()
      */
-    ReadOnlyPdfBook getAddressBook();
+    ReadOnlyPdfBook getPdfBook();
 
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Pdf> getFilteredPersonList();
@@ -44,7 +44,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file value.
      */
-    Path getAddressBookFilePath();
+    Path getPdfBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

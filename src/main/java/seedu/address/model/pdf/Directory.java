@@ -1,6 +1,7 @@
 package seedu.address.model.pdf;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,7 +28,7 @@ public class Directory {
      */
     public Directory(String directory) {
         requireNonNull(directory);
-        //checkArgument(isValidDirectory(directory), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidDirectory(directory), MESSAGE_CONSTRAINTS);
         value = Paths.get(directory);
     }
 
@@ -46,7 +47,10 @@ public class Directory {
 
     @Override
     public String toString() {
-        return value.toString();
+        return new StringBuilder()
+                .append("Directory: ")
+                .append(value.toString())
+                .append("\n").toString();
     }
 
     @Override

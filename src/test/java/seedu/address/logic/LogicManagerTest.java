@@ -50,9 +50,9 @@ public class LogicManagerTest {
 
     @Before
     public void setUp() throws Exception {
-        JsonPdfBookStorage addressBookStorage = new JsonPdfBookStorage(temporaryFolder.newFile().toPath());
+        JsonPdfBookStorage pdfBookStorage = new JsonPdfBookStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(pdfBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -183,7 +183,7 @@ public class LogicManagerTest {
         }
 
         @Override
-        public void savePdfBook(ReadOnlyPdfBook addressBook, Path filePath) throws IOException {
+        public void savePdfBook(ReadOnlyPdfBook pdfBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }

@@ -297,7 +297,6 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PDF, DESC_2)));
 
         // different descriptor -> returns false
-
         assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PDF, DESC_1)));
     }
 

@@ -33,7 +33,7 @@ public class Size {
 
     @Override
     public String toString() {
-        return value;
+        return new StringBuilder().append("Size: ").append(value).append("\n").toString();
     }
 
     @Override

@@ -122,9 +122,11 @@ public class StringUtilTest {
         assertFalse(StringUtil.containsPartialWordIgnoreCase("", "abc")); // Boundary case
         assertFalse(StringUtil.containsPartialWordIgnoreCase("    ", "123"));
 
-        // Matches a partial word only
-        assertFalse(
+        // Matches a partial word
+        assertTrue(
             StringUtil.containsPartialWordIgnoreCase("aaa bbb ccc", "bb")); // Sentence word bigger than query word
+
+        // Does not match partial word
         assertFalse(
             StringUtil.containsPartialWordIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
 

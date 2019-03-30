@@ -10,7 +10,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeadlineCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.pdf.Deadline;
-import seedu.address.model.pdf.DeadlineStatus;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -29,7 +28,7 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
                 ArgumentTokenizer.tokenize(args, PREFIX_DEADLINE_NEW, PREFIX_DEADLINE_DONE, PREFIX_DEADLINE_REMOVE);
 
         Index index;
-        Deadline deadline = null;
+        Deadline deadline = new Deadline();
 
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -37,18 +36,26 @@ public class DeadlineCommandParser implements Parser<DeadlineCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeadlineCommand.MESSAGE_USAGE), pe);
         }
 
-        if (argMultimap.getValue(PREFIX_DEADLINE_NEW).isPresent()) {
-            deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE_NEW).get(), DeadlineStatus.READY);
-            return new DeadlineCommand(index, deadline);
-        } else if (argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent()) {
-            System.out.println(argMultimap.getValue(PREFIX_DEADLINE_DONE).get());
-            return new DeadlineCommand(index, deadline, DeadlineStatus.COMPLETE);
-        } else if (argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent()) {
-            System.out.println(argMultimap.getValue(PREFIX_DEADLINE_REMOVE).get());
-            return new DeadlineCommand(index, deadline, DeadlineStatus.REMOVE);
-        } else {
-            throw new ParseException("Missing Prefix(s)");
+        //If both Remove & Done are present or none of the prefixes are present.
+        if ((argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent()
+                && argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent())
+                || (!argMultimap.getValue(PREFIX_DEADLINE_NEW).isPresent()
+                && !argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent()
+                && !argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent())) {
+
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeadlineCommand.MESSAGE_USAGE));
         }
 
+        if (argMultimap.getValue(PREFIX_DEADLINE_NEW).isPresent()) {
+            deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_DEADLINE_NEW).get());
+        }
+
+        if (argMultimap.getValue(PREFIX_DEADLINE_DONE).isPresent()) {
+            deadline = Deadline.setDone(deadline);
+        } else if (argMultimap.getValue(PREFIX_DEADLINE_REMOVE).isPresent()) {
+            deadline = Deadline.setRemove(deadline);
+        }
+
+        return new DeadlineCommand(index, deadline);
     }
 }

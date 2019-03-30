@@ -13,10 +13,10 @@ public class Name implements Comparable<Name> {
             "Names should only contain alphanumeric characters, it should ends with .pdf";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * File Name Restrictions (Currently Following Windows OS Restrictions)
      */
-    public static final String VALIDATION_REGEX = ".*\\.pdf";
+    public static final String TO_MATCH_VALIDATION_REGEX =
+            "^(?!^(PRN|AUX|CLOCK\\$|NUL|CON|COM\\d|LPT\\d|\\..*)(\\..+)?$)[^\\x00-\\x1f\\\\?*:\\\";|/]+pdf+$";
 
     private final String fullName;
 
@@ -35,7 +35,7 @@ public class Name implements Comparable<Name> {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.matches(TO_MATCH_VALIDATION_REGEX);
     }
 
     public String getFullName() {
@@ -44,7 +44,11 @@ public class Name implements Comparable<Name> {
 
     @Override
     public String toString() {
-        return fullName;
+        return new StringBuilder()
+                .append("Name: ")
+                .append(fullName)
+                .append("\n")
+                .toString();
     }
 
     @Override

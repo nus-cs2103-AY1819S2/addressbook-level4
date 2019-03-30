@@ -26,6 +26,6 @@ public class EncryptCommandParserTest {
         // no index and no field specified
         assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
 
-        assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + DEADLINE_DESC_READY, MESSAGE_INVALID_FORMAT);*/
+        assertParseFailure(parser, "1 " + NAME_DESC_1_VALID + DEADLINE_JSON_READY, MESSAGE_INVALID_FORMAT);*/
     }
 }

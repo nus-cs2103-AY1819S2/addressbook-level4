@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.model.pdf.Deadline;
 import seedu.address.model.pdf.Directory;
 import seedu.address.model.pdf.Name;
@@ -16,10 +19,12 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PdfBuilder {
 
-    public static final String DEFAULT_NAME = "2103T Lecture Notes.pdf";
-    public static final String DEFAULT_DIRECTORY = "C:\\Users\\CS2103";
-    public static final String DEFAULT_SIZE = "10";
-    public static final String DEFAULT_DEADLINE = "2019-05-30/READY";
+    private static final File DEFAULT_FILE = Paths.get(
+            "src", "test", "data", "JsonAdaptedPdfTest", "CS2103T_Lecture3.pdf").toFile();
+    private static final String DEFAULT_NAME = DEFAULT_FILE.getName();
+    private static final String DEFAULT_DIRECTORY = DEFAULT_FILE.getParent();
+    private static final String DEFAULT_SIZE = Long.toString(DEFAULT_FILE.length());
+    private static final String DEFAULT_DEADLINE = CommandTestUtil.DEADLINE_JSON_READY;
 
     private Name name;
     private Directory directory;

@@ -71,7 +71,7 @@ public class TestApp extends MainApp {
     /**
      * Returns a defensive copy of the address book data stored inside the storage file.
      */
-    public PdfBook readStorageAddressBook() {
+    public PdfBook readStoragePdfBook() {
         try {
             return new PdfBook(storage.readPdfBook().get());
         } catch (DataConversionException dce) {

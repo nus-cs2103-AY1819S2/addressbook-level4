@@ -167,7 +167,9 @@ public class Task {
                 .append(" Start Time: ")
                 .append(getStartTime())
                 .append(" End Time: ")
-                .append(getEndTime());
+                .append(getEndTime())
+                .append(" Priority: ")
+                .append(getPriority());
         return builder.toString();
     }
 

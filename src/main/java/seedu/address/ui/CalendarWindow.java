@@ -28,6 +28,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.task.Task;
 
 /**
@@ -48,6 +49,7 @@ public class CalendarWindow extends UiPart<Stage> {
     private DatePicker datePicker;
 
     private DateTimeFormatter format;
+    private ReadOnlyAddressBook readOnlyTaskList;
     private HashMap<LocalDate, Integer> markedDates;
 
     @FXML
@@ -64,6 +66,7 @@ public class CalendarWindow extends UiPart<Stage> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        this.readOnlyTaskList = logic.getAddressBook();
 
         markedDates = new HashMap<>();
         for (Task t : logic.getAddressBook().getTaskList()) {
@@ -82,6 +85,9 @@ public class CalendarWindow extends UiPart<Stage> {
                 markedDates.put(t.getEndDate().getDate(), t.getPriority().getPriorityLevel());
             }
         }
+        readOnlyTaskList.addListener((observable -> {
+                    System.out.println("test");
+                }));
 
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanel.setForCalender();

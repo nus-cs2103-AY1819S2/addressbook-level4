@@ -39,6 +39,7 @@ public enum  Priority {
     public static Priority returnPriority(String type) {
         return Priority.valueOf(type.toUpperCase());
     }
+
     @Override
     public String toString() {
         return getPriorityType();

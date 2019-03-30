@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_CLASH;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
 import static seedu.address.commons.core.Messages.MESSAGE_TIME_CLASH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
@@ -39,7 +40,6 @@ public class TaskAddCommand extends Command {
 
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "An exact same task is already found in the records";
 
     private final Task toAdd;
 

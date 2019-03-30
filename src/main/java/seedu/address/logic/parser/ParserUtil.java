@@ -213,7 +213,7 @@ public class ParserUtil {
         if(!Priority.isValidPriority(trimmedPriority)) {
             throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
         }
-        return Priority.LOW;
+        return Priority.returnPriority(trimmedPriority);
     }
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.

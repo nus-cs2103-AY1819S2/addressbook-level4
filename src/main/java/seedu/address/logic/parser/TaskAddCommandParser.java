@@ -34,7 +34,7 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
                         PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_PRIORITY);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE, PREFIX_STARTTIME,
-                PREFIX_ENDTIME, PREFIX_PRIORITY) || !argMultimap.getPreamble().isEmpty()) {
+                PREFIX_ENDTIME) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TaskAddCommand.MESSAGE_USAGE));
         }
 

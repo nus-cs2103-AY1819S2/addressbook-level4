@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -30,7 +31,6 @@ import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
@@ -43,7 +43,6 @@ import seedu.address.storage.CsvLessonsStorage;
 import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.LessonBuilder;
 
 public class LogicManagerTest {
     @Rule
@@ -328,14 +327,14 @@ public class LogicManagerTest {
 
     @Test
     public void testManagementInputOutput() {
-        Lesson validLesson = new LessonBuilder().withNoOptionalHeaders().build();
         String command = AddLessonCommand.COMMAND_WORD + " "
                 + PREFIX_LESSON_NAME + DEFAULT_NAME + " "
                 + PREFIX_CORE_QUESTION + DEFAULT_CORE_HEADER_1 + " "
                 + PREFIX_CORE_ANSWER + DEFAULT_CORE_HEADER_2;
 
         try {
-            logic.execute(command);
+            CommandResult commandResult = logic.execute(command);
+            assertNotNull(commandResult);
         } catch (CommandException | ParseException e) {
             // Parsing and execution of AddLessonCommand should not fail due to
             // CommandException and ParseException given it is the correct format.

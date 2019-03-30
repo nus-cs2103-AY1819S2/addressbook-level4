@@ -1,6 +1,5 @@
 package seedu.address.logic.commands.management;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +21,6 @@ import seedu.address.model.card.Card;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
-import seedu.address.testutil.LessonBuilder;
 import seedu.address.testutil.TypicalLessons;
 
 /**
@@ -46,15 +44,6 @@ public class ListCardsCommandTest {
     @Test
     public void execute_listCards() throws Exception {
         ManagementModel modelStub = new MgtModelStubWithCards();
-        ListCardsCommand listCardsCommand = new ListCardsCommand();
-        String expectedOutput = listCardsCommand.buildList(
-                LessonBuilder.DEFAULT_CORE_HEADERS,
-                LessonBuilder.DEFAULT_OPT_HEADERS,
-                LessonBuilder.DEFAULT_CARDS);
-
-        String feedback = new ListCardsCommand().buildList(LessonBuilder.DEFAULT_CORE_HEADERS,
-                LessonBuilder.DEFAULT_OPT_HEADERS, LessonBuilder.DEFAULT_CARDS);
-
 
         // attempt to list all cards when there are cards -> list all cards
         CommandResult commandResult = new ListCardsCommand().execute(modelStub, commandHistory);
@@ -96,11 +85,6 @@ public class ListCardsCommandTest {
 
         // null -> returns false
         assertNotEquals(listCardsCommand, null);
-    }
-
-    @Test
-    public void isSaveRequired_isTrue() {
-        assertFalse(new ListCardsCommand().isSaveRequired());
     }
 
     private class MgtModelStubWithNoCards extends ManagementModelStub {

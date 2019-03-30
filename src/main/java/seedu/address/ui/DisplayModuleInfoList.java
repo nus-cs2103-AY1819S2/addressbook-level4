@@ -19,7 +19,6 @@ import seedu.address.model.moduleinfo.ModuleInfo;
 public class DisplayModuleInfoList extends UiPart<Region> {
     private static final String FXML = "DisplayModuleInfoList.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private PanelHandler handler;
 
     @FXML
     private ListView<ModuleInfo> moduleinfolistview;

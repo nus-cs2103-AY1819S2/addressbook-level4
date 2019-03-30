@@ -41,7 +41,7 @@ public class Node {
     }
 
     /**
-     * Add Child ...
+     * Add Child to the current Node
      */
     public void addChild(Node child) {
         child.setParent(this);
@@ -66,7 +66,7 @@ public class Node {
     public String checkChildren(ArrayList<String> modules) {
         if (isHead()) {
             getChildList().get(HEAD_CHILD_INDEX).checkChildren(modules);
-        } else if (nodeValue.equals("OR")) {
+        } else if ("OR".equals(nodeValue)) {
             for (int i = 0; i < getChildList().size(); i++) {
                 Node currNode = getChildList().get(i);
 
@@ -83,7 +83,7 @@ public class Node {
                     return "Unable to find modules for OR";
                 }
             }
-        } else if (nodeValue.equals("AND")) {
+        } else if ("AND".equals(nodeValue)) {
             for (int i = 0; i < getChildList().size(); i++) {
                 Node currNode = getChildList().get(i);
 

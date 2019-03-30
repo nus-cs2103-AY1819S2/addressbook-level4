@@ -11,11 +11,9 @@ import seedu.address.logic.Logic;
  */
 public class PanelHandler {
     private HashMap<String, Node> panels = new HashMap<>();
-    private Logic logic;
 
     public PanelHandler(Logic logic) {
         super();
-        this.logic = logic;
 
         //Initialize the panels hashmap
         panels.put("displaymod", new DisplayModuleInfoList(logic.getDisplayList(), logic.selectedModuleInfoProperty(),

@@ -84,10 +84,10 @@ public class DisplayModuleInfo extends UiPart<Region> {
 
         if (!pesudoHead.isHead() && !pesudoHead.isModule()) {
             String operation = pesudoHead.getValue();
-            if (operation.equals("OR")) {
+            if ("OR".equals(operation)) {
                 operation = "One of :";
             }
-            if (operation.equals("AND")) {
+            if ("AND".equals(operation)) {
                 operation = "All of :";
             }
             TreeItem<String> operator = new TreeItem<>(operation);

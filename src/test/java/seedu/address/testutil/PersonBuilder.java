@@ -9,7 +9,11 @@ import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.description.Description;
 import seedu.address.model.nextofkin.NextOfKin;
 import seedu.address.model.nextofkin.NextOfKinRelation;
-import seedu.address.model.patient.*;
+import seedu.address.model.patient.DrugAllergy;
+import seedu.address.model.patient.Nric;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Sex;
+import seedu.address.model.patient.Teeth;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -34,6 +38,8 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_DRUG_ALLERGY = "NIL";
+    public static final String DEFAULT_DESC = "Just another patient.";
 
     private Name name;
     private Nric nric;
@@ -57,6 +63,11 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        drugAllergy = new DrugAllergy(DEFAULT_DRUG_ALLERGY);
+        description = new Description(DEFAULT_DESC);
+
+        nextOfKin = new NextOfKinBuilder().build();
+
         tags = new HashSet<>();
         tags.add(new TeethTag(TemplateTags.ADULT));
         tags.add(new StatusTag(TemplateTags.HEALTHY));
@@ -141,10 +152,36 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code DrugAllergy} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDrugAllergy(String drugAllergy) {
+        this.drugAllergy = new DrugAllergy(drugAllergy);
+        return this;
+    }
 
+    /**
+     * Sets the {@code Description} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDescription(String description) {
+        this.description = new Description(description);
+        return this;
+    }
 
+    /**
+     * Sets the {@code NextOfKin} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNextOfKin(NextOfKin kin) {
+        this.nextOfKin = kin;
+        return this;
+    }
+
+    /**
+     * Builds a new Person based on the given parameters.
+     */
     public Person build() {
-        return new Patient(name, phone, email, address, tags, nric, dateOfBirth, records, teeth, sex);
+        return new Patient(name, phone, email, address, tags, nric, dateOfBirth, records, teeth, sex, drugAllergy,
+            nextOfKin, description);
     }
 
     /**

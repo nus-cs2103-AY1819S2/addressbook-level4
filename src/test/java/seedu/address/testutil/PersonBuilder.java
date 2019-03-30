@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.datetime.DateOfBirth;
-import seedu.address.model.patient.Nric;
-import seedu.address.model.patient.Patient;
-import seedu.address.model.patient.Sex;
-import seedu.address.model.patient.Teeth;
+import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKin;
+import seedu.address.model.nextofkin.NextOfKinRelation;
+import seedu.address.model.patient.*;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -45,6 +45,9 @@ public class PersonBuilder {
     private Set<Tag> tags;
     private List<Record> records;
     private Teeth teeth;
+    private NextOfKin nextOfKin;
+    private DrugAllergy drugAllergy;
+    private Description description;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -138,8 +141,71 @@ public class PersonBuilder {
         return this;
     }
 
+
+
     public Person build() {
         return new Patient(name, phone, email, address, tags, nric, dateOfBirth, records, teeth, sex);
+    }
+
+    /**
+     * A utility class to help with building NextOfKin objects.
+     */
+    public class NextOfKinBuilder {
+        private static final String DEFAULT_KIN_NAME = "Benny Pauline";
+        private static final String DEFAULT_KIN_RELATION = "Father";
+        private static final String DEFAULT_KIN_PHONE = "95121347";
+        private static final String DEFAULT_KIN_ADDRESS = "123, Jurong West Ave 6, #08-111";
+        private static final String DEFAULT_KIN_EMAIL = "No email specified";
+
+        private Name kinName;
+        private NextOfKinRelation kinRelation;
+        private Phone kinPhone;
+        private Address kinAddress;
+        private Email kinEmail;
+
+        public NextOfKinBuilder() {
+            this.kinName = new Name(DEFAULT_KIN_NAME);
+            this.kinRelation = new NextOfKinRelation(DEFAULT_KIN_RELATION);
+            this.kinPhone = new Phone(DEFAULT_KIN_PHONE);
+            this.kinAddress = new Address(DEFAULT_KIN_ADDRESS);
+            this.kinEmail = new Email(DEFAULT_KIN_EMAIL);
+        }
+
+        /**
+         * Sets the {@code Name} of the {@code NextOfKin} that we are building.
+         */
+        public NextOfKinBuilder withKinName(String kinName) {
+            this.kinName = new Name(kinName);
+            return this;
+        }
+
+        /**
+         * Sets the {@code NextOfKinRelation} of the {@code NextOfKin} that we are building.
+         */
+        public NextOfKinBuilder withKinRelation(String kinRelation) {
+            this.kinRelation = new NextOfKinRelation(kinRelation);
+            return this;
+        }
+
+        /**
+         * Sets the {@code Phone} of the {@code NextOfKin} that we are building.
+         */
+        public NextOfKinBuilder withKinPhone(String kinPhone) {
+            this.kinPhone = new Phone(kinPhone);
+            return this;
+        }
+
+        /**
+         * Sets the {@code Address} of the {@code NextOfKin} that we are building.
+         */
+        public NextOfKinBuilder withKinAddress(String kinAddress) {
+            this.kinAddress = new Address(kinAddress);
+            return this;
+        }
+
+        public NextOfKin build() {
+            return new NextOfKin(kinName, kinPhone, kinEmail, kinAddress, null, kinRelation);
+        }
     }
 
 }

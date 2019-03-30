@@ -53,7 +53,7 @@ public class LabelCommandParserTest {
 
         // missing index without fileName
         assertParseFailure(parser, "f/", expectedMessage);
-        
+
 
     }
 

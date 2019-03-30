@@ -24,81 +24,56 @@ import seedu.address.model.medicine.Medicine;
 public class PdfWrapper {
 
     private final Index index;
-    private final FileName fileName;
+    private String fileName;
     private final Model model;
-    private final PDFont pdfFont;
 
     private PDPage page = new PDPage();
 
     public PdfWrapper(Index targetIndex, FileName fileName, Model model) {
         this.index = targetIndex;
-        this.fileName = fileName;
+        this.fileName = fileName.toString();
         this.model = model;
-
-        this.pdfFont = PDType1Font.HELVETICA_BOLD;
     }
 
     /**
      * Label the selected medicine information onto a pdf file.
+     *
      * @throws CommandException If there is an error printing the information of the medicine onto a pdf file.
      */
     public void label() throws CommandException {
-        try {
-            String fileName = ("./PDF/" + this.fileName.toString() + ".pdf").replaceAll("\\s+", "");
 
-            requireNonNull(model);
-            Medicine medicineToPrint = getSpecificMedicine(model);
-            model.setSelectedMedicine(medicineToPrint);
+        parseFileName();
+        requireNonNull(model);
+        Medicine medicineToPrint = getSpecificMedicine(model);
+        model.setSelectedMedicine(medicineToPrint);
+        String textNextLine = getMedicineInformationToString(medicineToPrint);
 
-            String textNextLine = getMedicineInformationToString(medicineToPrint);
+        writeToPdf(page, textNextLine);
 
-            PDDocument doc = new PDDocument();
+    }
 
-            List<String> contents = initialisePDF(textNextLine, doc);
-
-            writeToPdf(contents, doc, page);
-
-            doc.save(fileName);
-        } catch (IOException ie) {
-            ie.printStackTrace();
-        }
+    private void parseFileName() {
+        this.fileName = ("./PDF/" + this.fileName + ".pdf").replaceAll("\\s+", "");
     }
 
     /**
-     * @param contents The dissected contents of text that is going to be written to the pdf file.
-     * @param doc The current document that the string of text will be written on.
      * @param page The current page that the content will be written on.
      */
-    private void writeToPdf(List<String> contents, PDDocument doc, PDPage page) {
-        PDRectangle mediaBox = page.getMediaBox();
-        try (PDPageContentStream stream = new PDPageContentStream(doc, page)) {
-            stream.beginText();
-            stream.setFont(pdfFont, 12);
-            stream.newLineAtOffset(mediaBox.getLowerLeftX() + 72, mediaBox.getUpperRightY() - 72);
-            for (String line : contents) {
-                stream.showText(line);
-                stream.newLineAtOffset(0, -1.5f * 25);
-            }
-            stream.endText();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * @param textNextLine The string of text that is going to be written to the pdf file.
-     * @param doc The current document that the string of text will be written on.
-     * @return The list of string that will be written on the pdf file.
-     */
-    private List<String> initialisePDF(String textNextLine, PDDocument doc) {
-        List<String> lines = new ArrayList<>();
-        try (doc) {
+    private void writeToPdf(PDPage page, String textNextLine) {
+        try (PDDocument doc = new PDDocument()) {
             doc.addPage(page);
+
+            PDFont font = PDType1Font.HELVETICA_BOLD;
+            float fontSize = 25;
+            float leading = 1.5f * fontSize;
 
             PDRectangle mediaBox = page.getMediaBox();
             float margin = 72;
             float width = mediaBox.getWidth() - 2 * margin;
+            float startX = mediaBox.getLowerLeftX() + margin;
+            float startY = mediaBox.getUpperRightY() - margin;
 
+            List<String> lines = new ArrayList<String>();
             for (String text : textNextLine.split("\n")) {
                 int lastSpace = -1;
                 while (text.length() > 0) {
@@ -107,8 +82,7 @@ public class PdfWrapper {
                         spaceIndex = text.length();
                     }
                     String subString = text.substring(0, spaceIndex);
-                    float FONT_SIZE = 25 * 1.5f;
-                    float size = FONT_SIZE * pdfFont.getStringWidth(subString) / 1000;
+                    float size = fontSize * font.getStringWidth(subString) / 1000;
                     if (size > width) {
                         if (lastSpace < 0) {
                             lastSpace = spaceIndex;
@@ -125,10 +99,22 @@ public class PdfWrapper {
                     }
                 }
             }
+
+            try (PDPageContentStream contents = new PDPageContentStream(doc, page)) {
+                contents.beginText();
+                contents.setFont(font, 12);
+                contents.newLineAtOffset(startX, startY);
+                for (String line : lines) {
+                    contents.showText(line);
+                    contents.newLineAtOffset(0, -leading);
+                }
+                contents.endText();
+            }
+
+            doc.save(fileName);
         } catch (IOException ie) {
             ie.printStackTrace();
         }
-        return lines;
     }
 
     /**

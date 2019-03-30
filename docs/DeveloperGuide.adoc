@@ -415,13 +415,12 @@ API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
 
 [discrete]
 ==== Example Usage
-===== Export Command
+===== Import/Export feature
 1. User wants to export folders `Human Anatomy` and `Nervous System`.
 Suppose that these two folders are indicated by the index 1 and 2 respectively.
 The user types ``export 1 2``
 
 2. The Export command parser extracts the indices, parses the indices into a `ExportCommand` object.
-
     Draw export command object diagram with set<CardFolderExport> and CsvFile file
 
 3. Logic unit executes the command. The execute command calls `Model#exportCardFolders` method.
@@ -433,14 +432,16 @@ The user types ``export 1 2``
 4. Model checks that all card folders specified by user exists inside the list of card folders.
    Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
 
-5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file. File exported will be created in the project root directory.
+5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file.
+    File exported will be created in the project root directory.
+    File will be named after the name of the cardfolder.
+    i.e `Human Anatomy.csv` and `Nervous System.csv`
 
     Sequence diagram
 
 
-===== Import Command
-1. User wants to import `Blood.csv` file.
-`Blood.csv` file contains flashcards represented in csv file format.
+6. User wants to import `Human Anatomy.csv` file.
+`Human Anatomy.csv` file contains flashcards represented in csv file format.
 User types `import Blood.csv` command
 
 2. Import command parser extracts file name and wraps file into a `CsvFile` object and
@@ -453,6 +454,32 @@ The execute method makes a call to `Model#importCardFolder` method.
 File imported will be serialized into a `CardFolder` object and
 added to the `filteredFoldersList` variable.
 
+
+NOTE: Both Imported and Exported files have to be placed in the project root directory.
+
+
+
+
+==== CSV file structure
+Example of a common cardfolder csv file +
+
+Blood.csv
+
+    Question,Answer,Options,Hints
+    If patient has raised WBC count, raised platelet and raised Hb count, he is likely to have _____.,myeloproliferative neoplasm, ,friends,
+    For _____, besides systemic chemo, treatment includes chemo injections into scrotum and CSF.,acute lymphoblastic leukemia, ,colleagues,friends,
+    Commonly used anti-fibrinolytic drug is _____, which prevent activation of plasminogen to plasmin,tranexamic acid, ,neighbours,
+    -penia means too _____,few, ,family,
+    -philia means too,many, ,classmates,
+    -cytosis means too,many, ,friends,
+    Myelodysplasia often regresses into what blood disorder?,Acute Leukaemia, ,colleagues,friends,
+    Patients with Acute lymphoblastic leukaemia with philadelphia chromosome cytogenic changes will require what special treatment?,Imatinib, ,neighbours,
+    Burkitt lymphoma is associated with what virus?,EBV, ,family,
+    _____% of circulating neutrophils are in marginating pool, hence not counted in full blood count,50, ,family,
+
+* The first line of any file contains the headers for each card.
+Headers have to be present in the csv file for import.
+*
 
 === Test Session feature
 ==== Current Implementation

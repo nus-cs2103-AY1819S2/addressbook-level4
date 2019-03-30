@@ -123,10 +123,10 @@ public class ParserUtil {
     public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
         String trimmedDescription = description.trim();
-        if (!Name.isValidName(description)) {
+        if (!Name.isValidName(trimmedDescription)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new Description(description);
+        return new Description(trimmedDescription);
     }
     /**
      * Parses a {@code String email} into an {@code Email}.

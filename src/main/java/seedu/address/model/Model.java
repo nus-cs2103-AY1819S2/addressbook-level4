@@ -9,6 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.prescription.Prescription;
 
 
 /**
@@ -88,11 +89,25 @@ public interface Model {
     void addMedHist(MedicalHistory medicalHistory);
 
     /**
+     * Adds the given prescription.
+     * {@code prescription} must not already exist in the address book.
+     */
+    void addPrescription(Prescription prescription);
+
+    /**
+     * Returns true if a prescription with the same identity as {@code prescription} exists in the address book.
+     */
+    boolean hasPrescription(Prescription prescription);
+
+
+    /**
      * Replaces the given patient {@code target} with {@code editedPatient}.
      * {@code target} must exist in the address book.
      * The patient identity of {@code editedPatient} must not be the same
      * as another existing patient in the address book.
      */
+
+
     void setPatient(Patient target, Patient editedPatient);
 
     /** Returns an unmodifiable view of the filtered patient list */

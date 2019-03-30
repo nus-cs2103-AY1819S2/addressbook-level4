@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.prescription.Prescription;
 import seedu.address.testutil.PatientBuilder;
 
 public class AddPatientCommandTest {
@@ -163,6 +164,17 @@ public class AddPatientCommandTest {
         // Needed to be implemented later
         @Override
         public void addMedHist(MedicalHistory medicalHistory) {
+        }
+
+        // Needed to be implemented later
+        @Override
+        public boolean hasPrescription(Prescription prescription) {
+            return false;
+        }
+
+        // Needed to be implemented later
+        @Override
+        public void addPrescription(Prescription prescription) {
         }
 
         @Override

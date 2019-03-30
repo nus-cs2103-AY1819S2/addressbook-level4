@@ -26,6 +26,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
+import seedu.address.model.prescription.Prescription;
 import seedu.address.testutil.DoctorBuilder;
 
 //import javax.print.Doc;
@@ -158,6 +159,17 @@ public class AddDoctorCommandTest {
         @Override
         public void addMedHist(MedicalHistory medicalHistory) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        // Needed to be implemented later
+        @Override
+        public boolean hasPrescription(Prescription prescription) {
+            return false;
+        }
+
+        // Needed to be implemented later
+        @Override
+        public void addPrescription(Prescription prescription) {
         }
 
         @Override

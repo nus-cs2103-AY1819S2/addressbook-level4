@@ -14,6 +14,8 @@ import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
+import seedu.address.model.prescription.Prescription;
+import seedu.address.model.prescription.UniquePrescriptionList;
 
 /**
  * Wraps all data at the address-book level
@@ -24,6 +26,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniquePatientList patients;
     private final UniqueDoctorList doctors;
     private final UniqueMedHistList medHists;
+    private final UniquePrescriptionList prescriptions;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -37,6 +40,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         patients = new UniquePatientList();
         doctors = new UniqueDoctorList();
         medHists = new UniqueMedHistList();
+        prescriptions = new UniquePrescriptionList();
     }
 
     public AddressBook() {
@@ -199,6 +203,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         medHists.remove(key);
         indicateModified();
     }
+    //// prescription-level operations
+
+    /**
+     * Returns true if a prescription with the same identity as {@code prescription} exists in the address book.
+     */
+    public boolean hasPrescription(Prescription prescription) {
+        requireNonNull(prescription);
+        return prescriptions.contains(prescription);
+    }
+
+    /**
+     * Adds a prescription to the address book.
+     * The prescription must not already exist in the address book.
+     */
+    public void addPrescription(Prescription prescription) {
+        prescriptions.addPrescription(prescription);
+        indicateModified();
+    }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
@@ -247,6 +269,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Doctor> getDoctorList() {
         return doctors.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Prescription> getPrescriptionList() {
+        return prescriptions.asUnmodifiableObservableList();
     }
 
 

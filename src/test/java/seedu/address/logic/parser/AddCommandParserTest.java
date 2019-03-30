@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_ILLEGAL_OPTION_CANNOT_BE_SAME_AS_ANSWER;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_1;
 import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_2;
@@ -7,7 +8,10 @@ import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_OPTION_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_OPTION_SAME_AS_ANSWER_1;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.OPTION_DESC_SAMPLE_2;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_1;
@@ -25,6 +29,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Option;
 import seedu.address.model.card.Question;
 import seedu.address.model.hint.Hint;
 import seedu.address.testutil.CardBuilder;
@@ -88,8 +93,16 @@ public class AddCommandParserTest {
         assertParseFailure(parser, QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2 + INVALID_HINT_DESC
                 + VALID_HINT_FRIEND, Hint.MESSAGE_CONSTRAINTS);
 
+        // invalid option
+        assertParseFailure(parser, QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2 + INVALID_OPTION_DESC
+                + OPTION_DESC_SAMPLE_2, Option.MESSAGE_CONSTRAINTS);
+
         // two invalid values, only first invalid value reported
         assertParseFailure(parser, INVALID_QUESTION_DESC + ANSWER_DESC_SAMPLE_2, Question.MESSAGE_CONSTRAINTS);
+
+        // same answer and option
+        assertParseFailure(parser, QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_1
+                + INVALID_OPTION_SAME_AS_ANSWER_1, MESSAGE_ILLEGAL_OPTION_CANNOT_BE_SAME_AS_ANSWER);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + QUESTION_DESC_SAMPLE_2 + ANSWER_DESC_SAMPLE_2

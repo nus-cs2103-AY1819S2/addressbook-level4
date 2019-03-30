@@ -56,8 +56,9 @@ public class CommandTestUtil {
 
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION; // empty string not allowed for questions
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER; // empty string not allowed for answers
-
-    public static final String INVALID_HINT_DESC = " " + PREFIX_HINT + "hubby*"; // '*' not allowed in tags
+    public static final String INVALID_OPTION_DESC = " " + PREFIX_OPTION; // empty string not allowed for options
+    public static final String INVALID_OPTION_SAME_AS_ANSWER_1 = " " + PREFIX_OPTION + VALID_ANSWER_1;
+    public static final String INVALID_HINT_DESC = " " + PREFIX_HINT + "hubby*"; // '*' not allowed in hints
     public static final String INVALID_FOLDER_DESC = " " + PREFIX_FOLDERNAME;
     public static final String INVALID_FILENAME_DESC = " " + PREFIX_FILENAME;
 

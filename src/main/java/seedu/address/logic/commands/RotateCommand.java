@@ -60,6 +60,7 @@ public class RotateCommand extends Command {
         currentEdit.updateTempImage(editedBuffer);
 
         if (this.isNewCommand) {
+            System.out.println("enters new command");
             this.isNewCommand = false;
             currentEdit.addCommand(this);
             currentEdit.displayTempImage();
@@ -67,5 +68,9 @@ public class RotateCommand extends Command {
 
         return new CommandResult(Messages.MESSAGE_ROTATE_SUCCESS);
 
+    }
+    @Override
+    public String toString() {
+        return "Rotate " + degree;
     }
 }

@@ -38,7 +38,6 @@ public class Image {
     private String fileType;
     private List<Command> commandHistory;
     private int index;
-    private boolean undone;
 
     /**
      * Every field must be present and not null.
@@ -68,7 +67,6 @@ public class Image {
             this.height = new Height(String.valueOf(buffer.getHeight()));
             commandHistory = new ArrayList<>();
             index = 0;
-            undone = false;
 
         } catch (Exception e) {
             System.out.println(e.toString());
@@ -107,21 +105,24 @@ public class Image {
 
     public List<Command> getCommandHistory() { return commandHistory; }
 
+    public List<Command> getSubHistory() { return commandHistory.subList(0, index); }
+
     /**
      * Adds a new transformation command into commandHistory
      * if Undo command was last called command, remove all edits after previous undo.
      * @param command command to be added
      */
     public void addHistory(Command command) {
-        if (undone) {
-            for (int i = index + 1; i < commandHistory.size(); i++) {
-                commandHistory.remove(i);
-            }
-            undone = false;
+        if (index < commandHistory.size()) {
+            commandHistory = commandHistory.subList(0, index);
         }
         commandHistory.add(command);
         index++;
     }
+
+    public void setBufferedImage(BufferedImage buffer) { this.buffer = buffer; }
+
+    public Command getCommand() { return commandHistory.get(index); }
 
     public int getIndex() { return index; }
 
@@ -135,7 +136,8 @@ public class Image {
 
     public boolean canUndo() { return index > 0; }
 
-    public boolean canRedo() { return index < commandHistory.size() + 1; }
+    public boolean canRedo() { return index < commandHistory.size(); }
+
 
 
     /**

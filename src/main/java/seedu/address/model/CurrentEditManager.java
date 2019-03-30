@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.List;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
@@ -18,13 +19,7 @@ import com.sksamuel.scrimage.nio.JpegWriter;
 import seedu.address.Notifier;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;
-import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
 
 /**
  * Represents the in-memory model of the current image being edited on.
@@ -32,6 +27,8 @@ import org.apache.commons.io.FileUtils;
 public class CurrentEditManager implements CurrentEdit {
     private Image originalImage;
     private Image tempImage;
+    private List<Command> tempList;
+    private int tempIndex;
 
     /* @@author thamsimun */
     public CurrentEditManager() {
@@ -86,8 +83,12 @@ public class CurrentEditManager implements CurrentEdit {
      * Update tempImage instance of temp_img.png located in temp folder.
      */
     public void updateTempImage(com.sksamuel.scrimage.Image image) {
+        tempList = tempImage.getCommandHistory();
+        tempIndex = tempImage.getIndex();
         image.output(tempImage.getUrl(), new JpegWriter(100, true));
         tempImage = new Image(TEMP_FILE);
+        tempImage.setIndex(tempIndex);
+        tempImage.setHistory(tempList);
     }
 
     /* @@author kayheen */
@@ -95,6 +96,10 @@ public class CurrentEditManager implements CurrentEdit {
      * Update tempImage instance of temp_img.png located in temp folder.
      */
     public void updateTempImage(BufferedImage bufferedimage) {
+        tempList = tempImage.getCommandHistory();
+        System.out.println(tempList);
+        tempIndex = tempImage.getIndex();
+        System.out.println(tempIndex);
         try {
             File outputFile = new File(TEMP_FILENAME);
             File directory = new File(TEMP_FILEPATH);
@@ -105,6 +110,8 @@ public class CurrentEditManager implements CurrentEdit {
             System.out.println(e.toString());
         }
         tempImage = new Image(TEMP_FILE);
+        tempImage.setHistory(tempList);
+        tempImage.setIndex(tempIndex);
     }
 
     /**
@@ -123,23 +130,34 @@ public class CurrentEditManager implements CurrentEdit {
         tempImage.addHistory(command);
     }
 
+    public List<Command> getTempSubHistory() { return tempImage.getSubHistory(); }
+
     /**
      *
      */
     public void replaceTempWithOriginal() {
-        List<Command> tempList = tempImage.getCommandHistory();
-        int index = tempImage.getIndex();
+        //List<Command> tempList = tempImage.getCommandHistory();
+        //int index = tempImage.getIndex();
         try {
             File newTemp = new File(originalImage.getUrl());
-            File directory = new File(TEMP_FILEPATH);
-            FileUtils.copyFileToDirectory(newTemp, directory, false);
-            tempImage = originalImage;
-            tempImage.setHistory(tempList);
-            tempImage.setIndex(index);
+            File directory = new File(tempImage.getUrl());
+            FileUtils.copyFile(newTemp, directory, false);
+            BufferedImage tempBuffer = originalImage.getBufferedImage();
+            tempImage.setBufferedImage(tempBuffer);
+            //tempImage.setHistory(tempList);
+            //tempImage.setIndex(index);
         }
         catch (IOException e) {
             System.out.println(e.toString());
         }
+    }
+
+    public boolean canUndoTemp() {
+        return tempImage.canUndo();
+    }
+
+    public boolean canRedoTemp() {
+        return tempImage.canRedo();
     }
 
     /**

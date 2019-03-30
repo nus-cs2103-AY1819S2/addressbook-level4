@@ -222,13 +222,16 @@ You can make use of the index number to view specific patient records as well.
 [[deletepat, Delete patient]]
 ==== Patient Management - deleting patient `deletepat`
 
-Delete a patient record into quickdocs by providing his or her NRIC.
+When a patient is no longer visiting your clinic (i.e. moved residency), you can choose to remove their details from QuickDocs.
 
 Format: `deletepat r/NRIC` +
+Alias: `dp`
 
-Example: `deletepat r/S9237161A`
+Example: `deletepat r/S7338031I`
 
-[[plist, List patients]]
+image::ug-diagrams/pat/lp_index.png[width="600" align="center"]
+
+This will delete the patient with the NRIC you have specified.
 
 {nbsp} +
 
@@ -567,7 +570,7 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 * *<<addpat>>* : `addpat` +
 * *<<editpat>>* : `editpat` +
 * *<<listpat>>* : `listpat` +
-* *<<deletepat>> : `deletepat`
+* *<<deletepat>>* : `deletepat`
 
 *Consultation Management* +
 

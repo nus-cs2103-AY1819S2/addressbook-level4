@@ -43,11 +43,11 @@ public class PatientManagerTest {
         Dob dob = new Dob("1993-03-03");
         ArrayList<Tag> tagList = new ArrayList<Tag>();
         Patient patient1 = new Patient(name, nric, email, address, contact, gender, dob, tagList);
-        Assert.assertTrue(patientManager.duplicatePatient(patient1));
+        Assert.assertTrue(patientManager.isDuplicatePatient(patient1));
 
         Nric nric2 = new Nric("S9123456B");
         Patient patient2 = new Patient(name, nric2, email, address, contact, gender, dob, tagList);
-        assertFalse(patientManager.duplicatePatient(patient2));
+        assertFalse(patientManager.isDuplicatePatient(patient2));
     }
 
     @Test

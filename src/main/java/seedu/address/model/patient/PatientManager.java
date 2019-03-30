@@ -25,7 +25,7 @@ public class PatientManager {
     /**
      * Checks whether current patient to add have an conflict Nric entry
      */
-    public boolean duplicatePatient(Patient patient) {
+    public boolean isDuplicatePatient(Patient patient) {
         for (int i = 0; i < patientList.size(); i++) {
             if (patientList.get(i).getNric().equals(patient.getNric())) {
                 return true;
@@ -223,7 +223,7 @@ public class PatientManager {
         return null;
     }
 
-    public Optional<Patient> getPatientWithNric(Nric nric) {
+    public Optional<Patient> getPatientByNric(Nric nric) {
         for (Patient patient : patientList) {
             if (patient.getNric().equals(nric)) {
                 return Optional.of(patient);

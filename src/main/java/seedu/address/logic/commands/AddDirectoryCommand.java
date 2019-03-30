@@ -14,7 +14,7 @@ import seedu.address.model.Model;
  */
 public class AddDirectoryCommand extends Command {
 
-    public static final String COMMAND_WORD = "addDirec";
+    public static final String COMMAND_WORD = "adddirec";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new directory to the directory specified. "
             + "Parameters: "

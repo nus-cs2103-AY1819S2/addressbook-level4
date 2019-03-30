@@ -38,8 +38,8 @@ import seedu.address.model.patient.PatientManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.RecordManager;
 import seedu.address.model.record.Statistics;
+import seedu.address.model.record.StatisticsManager;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderManager;
 import seedu.address.model.tag.Tag;
@@ -66,7 +66,7 @@ public class ModelManager implements Model {
     private final ConsultationManager consultationManager;
     private final AppointmentManager appointmentManager;
     private final ReminderManager reminderManager;
-    private final RecordManager recordManager;
+    private final StatisticsManager statisticsManager;
 
 
     /**
@@ -87,7 +87,7 @@ public class ModelManager implements Model {
         this.consultationManager = new ConsultationManager();
         this.appointmentManager = new AppointmentManager();
         this.reminderManager = new ReminderManager();
-        this.recordManager = new RecordManager();
+        this.statisticsManager = new StatisticsManager();
 
         quickDocs = new QuickDocs();
 
@@ -109,13 +109,13 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        this.medicineManager = new MedicineManager();
+        this.medicineManager = quickDocs.getMedicineManager();
         //this.patientManager = new PatientManager(addressBook.getPatients());
         this.patientManager = quickDocs.getPatientManager();
         this.consultationManager = quickDocs.getConsultationManager();
         this.appointmentManager = quickDocs.getAppointmentManager();
         this.reminderManager = quickDocs.getReminderManager();
-        this.recordManager = new RecordManager();
+        this.statisticsManager = quickDocs.getStatisticsManager();
 
 
         iniQuickDocs();
@@ -209,16 +209,19 @@ public class ModelManager implements Model {
     @Override
     public void addMedicine(String medicineName, String[] path, BigDecimal price) {
         medicineManager.addMedicine(medicineName, path, price);
+        quickDocs.indicateModification(true);
     }
 
     @Override
     public void addMedicine(String medicineName, int quantity, String[] path, BigDecimal price) {
         medicineManager.addMedicine(medicineName, quantity, path, price);
+        quickDocs.indicateModification(true);
     }
 
     @Override
     public void addDirectory(String directoryName, String[] path) {
         medicineManager.addDirectory(directoryName, path);
+        quickDocs.indicateModification(true);
     }
 
     @Override
@@ -234,11 +237,13 @@ public class ModelManager implements Model {
     @Override
     public void purchaseMedicine(String[] path, int quantity) {
         medicineManager.purchaseMedicine(path, quantity);
+        quickDocs.indicateModification(true);
     }
 
     @Override
     public void purchaseMedicine(String medicineName, int quantity) {
         medicineManager.purchaseMedicine(medicineName, quantity);
+        quickDocs.indicateModification(true);
     }
 
     @Override
@@ -304,26 +309,6 @@ public class ModelManager implements Model {
     }
 
     //=========== Undo/Redo =================================================================================
-
-    @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
-    }
-
-    @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-    }
-
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-    }
 
     @Override
     public void commitAddressBook() {
@@ -416,7 +401,7 @@ public class ModelManager implements Model {
 
     // for adding
     public boolean duplicatePatient(Patient patient) {
-        return this.patientManager.duplicatePatient(patient);
+        return this.patientManager.isDuplicatePatient(patient);
     }
 
     /**
@@ -473,6 +458,10 @@ public class ModelManager implements Model {
         return this.patientManager.getPatientByNric(nric);
     }
 
+    public Optional<Patient> getPatientByNric(Nric nric) {
+        return this.patientManager.getPatientByNric(nric);
+    }
+
     public int getIndexByNric(Nric nric) {
         return this.patientManager.getIndexByNric(nric); }
 
@@ -490,10 +479,6 @@ public class ModelManager implements Model {
 
     public void createConsultation(Patient patient) {
         this.consultationManager.createConsultation(patient);
-    }
-
-    public Optional<Patient> getPatientWithNric(Nric nric) {
-        return this.patientManager.getPatientWithNric(nric);
     }
 
     public void diagnosePatient(Diagnosis diagnosis) {
@@ -533,8 +518,8 @@ public class ModelManager implements Model {
     }
 
     //==========Appointment module===========================================================================
-    public boolean duplicateApp(Appointment app) {
-        return appointmentManager.duplicateApp(app);
+    public boolean hasTimeConflicts(Appointment app) {
+        return appointmentManager.hasTimeConflicts(app);
     }
 
     /**
@@ -544,13 +529,21 @@ public class ModelManager implements Model {
      */
     public void addApp(Appointment app) {
         appointmentManager.addAppointment(app);
-        Reminder remToAdd = new Reminder(app);
+        Reminder remToAdd = createRemFromApp(app);
         addRem((remToAdd));
         quickDocs.indicateModification(true);
     }
 
-    public String listApp() {
-        return appointmentManager.list();
+    public String listApp(LocalDate start, LocalDate end) {
+        return appointmentManager.listAppointments(start, end);
+    }
+
+    public String listApp(Patient patient) {
+        return appointmentManager.listAppointments(patient);
+    }
+
+    public String freeApp(LocalDate start, LocalDate end) {
+        return appointmentManager.listFreeSlots(start, end);
     }
 
     public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
@@ -573,7 +566,7 @@ public class ModelManager implements Model {
 
     //==========Reminder module==============================================================================
     public boolean duplicateRem(Reminder rem) {
-        return reminderManager.duplicateReminder(rem);
+        return reminderManager.hasDuplicateReminder(rem);
     }
 
     /**
@@ -583,7 +576,7 @@ public class ModelManager implements Model {
      */
     public void addRem(Reminder rem) {
         reminderManager.addReminder(rem);
-        //quickDocs.indicateModification(true);
+        quickDocs.indicateModification(true);
     }
 
     public String listRem() {
@@ -592,6 +585,10 @@ public class ModelManager implements Model {
 
     public Optional<Reminder> getReminder(Appointment appointment) {
         return reminderManager.getReminder(appointment);
+    }
+
+    private Reminder createRemFromApp(Appointment app) {
+        return new Reminder(app.createTitle(), app.getComment(), app.getDate(), app.getStart(), app.getEnd());
     }
 
     /**
@@ -606,14 +603,19 @@ public class ModelManager implements Model {
 
     //==========Record module================================================================================
     public Statistics getStatistics(YearMonth from, YearMonth to) {
-        return recordManager.getStatistics(from, to);
+        return statisticsManager.getStatistics(from, to);
     }
 
+    /**
+     * Adds a {@code Record} converted to {@code Statistics} to QuickDocs
+     */
     public void addRecord(Record record, Clock clock) {
-        recordManager.record(record, clock);
+        statisticsManager.record(record, clock);
+        quickDocs.indicateModification(true);
     }
 
     public void setConsultationFee(BigDecimal fee) {
-        recordManager.setConsultationFee(fee);
+        statisticsManager.setConsultationFee(fee);
+        quickDocs.indicateModification(true);
     }
 }

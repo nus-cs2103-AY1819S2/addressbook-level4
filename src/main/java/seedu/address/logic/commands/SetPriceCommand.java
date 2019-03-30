@@ -5,7 +5,7 @@ package seedu.address.logic.commands;
  */
 public abstract class SetPriceCommand extends Command {
 
-    public static final String COMMAND_WORD = "price";
+    public static final String COMMAND_WORD = "setprice";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set the price for a specific medicine "
             + "given by the path/name. "

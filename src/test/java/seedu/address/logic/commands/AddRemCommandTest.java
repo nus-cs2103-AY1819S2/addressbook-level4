@@ -2,12 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
+import static seedu.address.testutil.TypicalReminders.REM_A;
+import static seedu.address.testutil.TypicalReminders.REM_B;
+import static seedu.address.testutil.TypicalReminders.REM_E;
+import static seedu.address.testutil.TypicalReminders.getTypicalRemindersQuickDocs;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -17,79 +17,45 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.QuickDocs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.reminder.Reminder;
 
 public class AddRemCommandTest {
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private Model model = new ModelManager(new AddressBook(), new UserPrefs());
+
+    private QuickDocs quickDocs = getTypicalRemindersQuickDocs();
+    private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
-
-    @Before
-    public void init() {
-        String title = "Refill Medicine ABC";
-        LocalDate date = LocalDate.parse("2019-05-22");
-        LocalTime start = LocalTime.parse("13:00");
-        LocalTime end = LocalTime.parse("14:00");
-        String comment = "This is a comment";
-        Reminder toAdd = new Reminder(title, comment, date, start, end);
-
-        model.addRem(toAdd);
-    }
 
     @Test
     public void executeValidAddReminder() throws Exception {
-        String title = "Refill Medicine XYZ";
-        LocalDate date = LocalDate.parse("2019-05-22");
-        LocalTime start = LocalTime.parse("13:00");
-        LocalTime end = LocalTime.parse("14:00");
-        String comment = "This is a comment";
-        Reminder toAdd = new Reminder(title, comment, date, start, end);
-
-        CommandResult commandResult = new AddRemCommand(toAdd).execute(model, commandHistory);
+        CommandResult commandResult = new AddRemCommand(REM_E).execute(model, commandHistory);
 
         StringBuilder sb = new StringBuilder();
         sb.append("Reminder added:\n")
-                .append(toAdd.toString() + "\n");
+                .append(REM_E.toString() + "\n");
 
         Assert.assertEquals(sb.toString(), commandResult.getFeedbackToUser());
-
     }
 
     @Test
     public void executeDuplicateAddReminder() throws Exception {
-        String title = "Refill Medicine ABC";
-        LocalDate date = LocalDate.parse("2019-05-22");
-        LocalTime start = LocalTime.parse("13:00");
-        LocalTime end = LocalTime.parse("14:00");
-        String comment = "This is a comment";
-        Reminder toAdd = new Reminder(title, comment, date, start, end);
-
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddRemCommand.MESSAGE_DUPLICATE_REM);
-        new AddRemCommand(toAdd).execute(model, commandHistory);
+        new AddRemCommand(REM_A).execute(model, commandHistory);
     }
 
     @Test
     public void equals() {
-        String titleA = "Refill Medicine ABC";
-        String titleB = "Refill Medicine XYZ";
-        LocalDate date = LocalDate.parse("2019-05-22");
-        LocalTime start = LocalTime.parse("13:00");
-        LocalTime end = LocalTime.parse("14:00");
-        String comment = "This is a comment";
-
-        AddRemCommand addRemA = new AddRemCommand(new Reminder(titleA, comment, date, start, end));
-        AddRemCommand addRemB = new AddRemCommand(new Reminder(titleB, comment, date, start, end));
+        AddRemCommand addRemA = new AddRemCommand(REM_A);
 
         // same object -> returns true
         assertTrue(addRemA.equals(addRemA));
 
         // same values -> returns true
-        AddRemCommand addRemACopy = new AddRemCommand(new Reminder(titleA, comment, date, start, end));
-        assertTrue(addRemA.equals(addRemACopy));
+        AddRemCommand addRemB = new AddRemCommand(REM_A);
+        assertTrue(addRemA.equals(addRemB));
 
         // different types -> returns false
         assertFalse(addRemA.equals(1));
@@ -98,6 +64,7 @@ public class AddRemCommandTest {
         assertFalse(addRemA.equals(null));
 
         // different reminder -> returns false
+        addRemB = new AddRemCommand(REM_B);
         assertFalse(addRemA.equals(addRemB));
     }
 }

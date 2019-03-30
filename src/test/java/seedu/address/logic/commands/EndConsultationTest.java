@@ -73,7 +73,7 @@ public class EndConsultationTest {
         EndConsultationCommand command = new EndConsultationCommand();
 
         ArrayList<Prescription> prescriptions = new ArrayList<>();
-        Medicine med1 = new Medicine("migrane medicine", 1);
+        Medicine med1 = new Medicine("migrane_medicine", 1);
         med1.setPrice(BigDecimal.valueOf(20.00));
         prescriptions.add(new Prescription(med1, 1));
         modelManager.prescribeMedicine(prescriptions);
@@ -91,7 +91,7 @@ public class EndConsultationTest {
         symptoms.add(new Symptom("constant headache"));
         modelManager.diagnosePatient(new Diagnosis(assessment, symptoms));
         ArrayList<Prescription> prescriptions = new ArrayList<>();
-        Medicine med1 = new Medicine("migrane medicine", 1);
+        Medicine med1 = new Medicine("migrane_medicine", 1);
         med1.setPrice(BigDecimal.valueOf(20.00));
         prescriptions.add(new Prescription(med1, 1));
         modelManager.prescribeMedicine(prescriptions);

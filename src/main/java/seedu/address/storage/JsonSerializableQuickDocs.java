@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +16,8 @@ import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.ConsultationManager;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
+import seedu.address.model.record.MonthStatistics;
+import seedu.address.model.record.StatisticsManager;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderManager;
 
@@ -23,18 +26,34 @@ import seedu.address.model.reminder.ReminderManager;
  */
 public class JsonSerializableQuickDocs {
 
-    private static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s)";
-    private static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
-    private static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s)";
+    public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s)";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
+    public static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s)";
 
     private final List<JsonAdaptedPatient> patientList = new ArrayList<>();
     private final List<JsonAdaptedConsultation> consultationList = new ArrayList<>();
     private final List<JsonAdaptedAppointment> appointmentList = new ArrayList<>();
     private final List<JsonAdaptedReminder> reminderList = new ArrayList<>();
+    private final List<JsonAdaptedMedicine> medicineList = new ArrayList<>();
+    private final List<JsonAdaptedMonthStatistics> monthStatisticsList = new ArrayList<>();
+    private BigDecimal consultationFee = StatisticsManager.DEFAULT_CONSULTATION_FEE;
 
     @JsonCreator
-    public JsonSerializableQuickDocs(@JsonProperty("patientList") List<JsonAdaptedPatient> patients) {
+    public JsonSerializableQuickDocs(@JsonProperty("patientList") List<JsonAdaptedPatient> patients,
+                                     @JsonProperty("consultationList") List<JsonAdaptedConsultation> consultations,
+                                     @JsonProperty("appointmentList") List<JsonAdaptedAppointment> appointments,
+                                     @JsonProperty("reminderList") List<JsonAdaptedReminder> reminders,
+                                     @JsonProperty("medicineList") List<JsonAdaptedMedicine> medicines,
+                                     @JsonProperty("monthStatisticsList")
+                                                 List<JsonAdaptedMonthStatistics> monthStatisticsList,
+                                     @JsonProperty("consultationFee") BigDecimal consultationFee) {
         this.patientList.addAll(patients);
+        this.consultationList.addAll(consultations);
+        this.appointmentList.addAll(appointments);
+        this.reminderList.addAll(reminders);
+        this.medicineList.addAll(medicines);
+        this.monthStatisticsList.addAll(monthStatisticsList);
+        this.consultationFee = consultationFee;
     }
 
     /**
@@ -49,6 +68,11 @@ public class JsonSerializableQuickDocs {
                 .stream().map(JsonAdaptedAppointment::new).collect(Collectors.toList()));
         reminderList.addAll(source.getReminderManager().getReminderList()
                 .stream().map(JsonAdaptedReminder::new).collect(Collectors.toList()));
+        medicineList.addAll(source.getMedicineManager().getListOfMedicine()
+                .stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
+        monthStatisticsList.addAll(source.getStatisticsManager().getMonthStatisticsList()
+                .stream().map(JsonAdaptedMonthStatistics::new).collect(Collectors.toList()));
+        consultationFee = source.getStatisticsManager().getConsultationFee();
     }
 
     /**
@@ -65,7 +89,7 @@ public class JsonSerializableQuickDocs {
             Patient patient = jsonAdaptedPatient.toModelType();
 
             // handle duplicates
-            if (patientManager.duplicatePatient(patient)) {
+            if (patientManager.isDuplicatePatient(patient)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PATIENT);
             }
             patientManager.addPatient(patient);
@@ -82,7 +106,7 @@ public class JsonSerializableQuickDocs {
         for (JsonAdaptedAppointment jsonAdaptedAppointment : appointmentList) {
             Appointment appointment = jsonAdaptedAppointment.toModelType();
 
-            if (appointmentManager.duplicateApp(appointment)) {
+            if (appointmentManager.hasDuplicateAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
             appointmentManager.addAppointment(appointment);
@@ -92,11 +116,18 @@ public class JsonSerializableQuickDocs {
         for (JsonAdaptedReminder jsonAdaptedReminder : reminderList) {
             Reminder reminder = jsonAdaptedReminder.toModelType();
 
-            if (reminderManager.duplicateReminder(reminder)) {
+            if (reminderManager.hasDuplicateReminder(reminder)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_REMINDER);
             }
             reminderManager.addReminder(reminder);
         }
+
+        StatisticsManager statisticsManager = quickDocs.getStatisticsManager();
+        for (JsonAdaptedMonthStatistics jsonAdaptedMonthStatistics : monthStatisticsList) {
+            MonthStatistics monthStatistics = jsonAdaptedMonthStatistics.toModelType();
+            statisticsManager.addMonthStatistics(monthStatistics);
+        }
+        statisticsManager.setConsultationFee(this.consultationFee);
 
         return quickDocs;
     }

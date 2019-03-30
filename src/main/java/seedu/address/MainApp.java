@@ -30,7 +30,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
 import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonQuickDocsStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.QuickDocsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -45,7 +47,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 2, 1, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -70,7 +72,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+
+        QuickDocsStorage quickDocsStorage = new JsonQuickDocsStorage(userPrefs.getQuickDocsFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, quickDocsStorage);
 
         initLogging(config);
 

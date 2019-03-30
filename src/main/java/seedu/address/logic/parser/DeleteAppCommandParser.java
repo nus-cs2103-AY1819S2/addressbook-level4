@@ -10,7 +10,7 @@ import seedu.address.logic.commands.DeleteAppCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new DeleteAppCommand object
  */
 public class DeleteAppCommandParser implements Parser<DeleteAppCommand> {
     public static final Prefix PREFIX_DATE = new Prefix("d/");

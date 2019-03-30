@@ -1,5 +1,6 @@
 package seedu.address.model.moduleinfo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -11,9 +12,17 @@ import seedu.address.commons.util.StringUtil;
 public class CodeContainsKeywordsPredicate implements Predicate<ModuleInfo> {
 
     private final List<String> keywords;
+    private final List<String> default_keywords = new ArrayList<>();
+
 
     public CodeContainsKeywordsPredicate(List<String> keywords) {
-        this.keywords = keywords;
+        if (keywords == null) {
+            default_keywords.add("CS1010");
+            default_keywords.add("CS2103T");
+            this.keywords = default_keywords;
+        } else {
+            this.keywords = keywords;
+        }
     }
 
     @Override

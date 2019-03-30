@@ -172,4 +172,24 @@ public interface Model {
      * @param predicate
      */
     void updateDisplayList(Predicate<ModuleInfo> predicate);
+
+    /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @return Observable list of ModuleInf
+     */
+    ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty();
+
+    /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @return ModuleInfo
+     */
+    ModuleInfo getSelectedModuleInfo();
+
+    /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @param moduleInfo
+     */
+    void setSelectedModuleInfo(ModuleInfo moduleInfo);
+
+
 }

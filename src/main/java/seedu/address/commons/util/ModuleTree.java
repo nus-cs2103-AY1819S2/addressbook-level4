@@ -28,6 +28,11 @@ public class ModuleTree {
         return this.headNode;
     }
 
+    /**
+     * Checks against the list of module taken with the prerequisite of the module
+     * @param modules
+     * @return ArrayList of Modules that is missing
+     */
     public String checkPrerequisites(ArrayList<String> modules) {
         return headNode.checkChildren(modules);
     }

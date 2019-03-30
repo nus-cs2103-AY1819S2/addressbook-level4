@@ -27,11 +27,11 @@ public class ModuleInfo {
         this.department = new ModuleInfoDepartment(department);
         this.prerequisites = new ModuleInfoPrerequisites(code, prerequisites);
 
-        System.out.println("Module:" + code + " has been created");
+        //System.out.println("Module:" + code + " has been created");
 
         this.prerequisites.generatePrerequisiteTree();
 
-        System.out.println("generated Tree for: " + code);
+        //System.out.println("generated Tree for: " + code);
     }
 
     // ================ Object String Methods ==============================
@@ -97,6 +97,8 @@ public class ModuleInfo {
     public ModuleInfoWorkload getModuleInfoWorkload() {
         return this.workload;
     }
+
+    public ModuleInfoPrerequisites getModuleInfoPrerequisite() { return this.prerequisites; }
 
     /**
      * Returns true if both persons have the same identity and data fields.

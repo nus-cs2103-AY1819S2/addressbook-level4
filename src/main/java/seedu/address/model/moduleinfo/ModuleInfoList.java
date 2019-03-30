@@ -28,7 +28,7 @@ public class ModuleInfoList {
      */
     public void addModuleInfo(ModuleInfo module) {
         this.moduleInfoList.add(module);
-        System.out.println("new module added:" + module.getCodeString());
+        //System.out.println("new module added:" + module.getCodeString());
     }
 
     /**

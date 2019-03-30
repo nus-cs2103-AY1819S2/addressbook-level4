@@ -1,6 +1,6 @@
 package seedu.address.model.moduleinfo;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,15 +29,19 @@ public class ModuleInfoPrerequisites {
 
     private ModuleTree tree;
     private String prerequisitesString;
+    private String code;
 
     public ModuleInfoPrerequisites(String code, String prereq) {
         this.tree = new ModuleTree(code);
         this.prerequisitesString = prereq;
+        this.code = code;
     }
 
     public String toString() {
         return prerequisitesString;
     }
+
+    public ModuleTree getModuleTree() { return this.tree; }
 
     /**
      * generates PreRequisite Tree for this particular module
@@ -47,6 +51,9 @@ public class ModuleInfoPrerequisites {
             if (prerequisitesString.matches(PREREQUISITE_REGEX)) {
                 String[] prerequisiteArray = prerequisiteSplitter(prerequisitesString);
                 Node tempHead = treeGenerator(prerequisiteArray);
+                if (tempHead.getValue().equals("")) {
+                    Node newHead = tempHead.getChildList().get(0);
+                }
                 this.tree.addTree(tempHead);
             }
         }
@@ -58,20 +65,21 @@ public class ModuleInfoPrerequisites {
     public String[] prerequisiteSplitter(String prerequisitesString) {
         String temp = prerequisitesStringCleaner(prerequisitesString);
         String[] array = temp.split(SPLITTER_REGEX);
+        ArrayList<String> list = new ArrayList<>();
 
-        int index = 0;
         for (int i = 0; i < array.length; i++) {
-            if (!array[i].equals("") || !array[i].equals(" ")) {
-                array[i].trim();
-                array[index++] = array[i];
+            array[i] = array[i].trim();
+            if (array[i].matches(PREREQUISITE_REGEX) || array[i].matches(OPERATION_REGEX)) {
+                list.add(array[i]);
             }
         }
-        return Arrays.copyOf(array, index);
+        String[] test = list.toArray(new String[list.size()]);
+        return test;
     }
 
 
     /**
-     *
+     * Removes any non-module Regex or non-operation regex
      * @param prerequisitesString
      * @return
      */
@@ -88,7 +96,7 @@ public class ModuleInfoPrerequisites {
     }
 
     /**
-     *
+     * Creates a full Tree without the main head of the prerequisite Tree
      * @param array
      * @return
      */
@@ -96,12 +104,10 @@ public class ModuleInfoPrerequisites {
         int i = 0;
         Node currNode;
         Node nextNode;
-        Node headNode = new Node(false, false, "-");
+        Node headNode = new Node(false, false, "Requires: ");
         Node prevNode = null;
-
         while (i < array.length) {
             String currPrereq = array[i].trim();
-
             if (currPrereq.matches(NEXTPARENT_REGEX)) {
                 currNode = createMinorTree(currPrereq);
                 if (prevNode == null && i + 1 >= array.length) {
@@ -128,13 +134,14 @@ public class ModuleInfoPrerequisites {
 
             if (currPrereq.matches(PREREQUISITE_REGEX) && !currPrereq.matches(NEXTPARENT_REGEX)) {
                 currNode = createMinorTree(currPrereq);
-                if (array.length - i >= 2 && (array[i + 1].trim().equals("and") || array[i + 1].trim().equals("or"))) {
+
+                if (array.length - i >= 2 && array[i + 1].matches(OPERATION_REGEX)) {
                     String nextnode = array[i + 1].trim();
-                    if (nextnode.equals("and")) {
+                    if (nextnode.equals("and") || nextnode.equals("plus")) {
                         headNode = new Node(false, false, AND_REGEX);
                         headNode.addChild(currNode);
                     }
-                    if (nextnode.equals("or")) {
+                    if (nextnode.equals("or") || nextnode.equals("/") || nextnode.equals(",")) {
                         headNode = new Node(false, false, OR_REGEX);
                         headNode.addChild(currNode);
                     }
@@ -173,12 +180,11 @@ public class ModuleInfoPrerequisites {
             i++;
 
         }
-        System.out.println(headNode.getValue());
         return headNode;
     }
 
     /**
-     *
+     * Creates a branch of the main prerequisite Tree
      * @param sequence
      * @return
      */
@@ -209,6 +215,4 @@ public class ModuleInfoPrerequisites {
 
         return pesudoHead;
     }
-
-
 }

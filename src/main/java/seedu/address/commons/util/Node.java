@@ -114,6 +114,7 @@ public class Node {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Node// instanceof handles nulls
-                && nodeValue.equals(((Node) other).nodeValue)); // state check
+                && nodeValue.equals(((Node) other).nodeValue)) // state check
+                && childList.size() == ((Node) other).childList.size();
     }
 }

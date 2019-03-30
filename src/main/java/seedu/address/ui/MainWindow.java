@@ -4,10 +4,12 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -31,7 +33,8 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private UiPart<Region> commandPanel;
+    private PanelHandler commandPanelHandler;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -67,6 +70,8 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
+        commandPanelHandler = new PanelHandler(logic);
     }
 
     public Stage getPrimaryStage() {
@@ -111,8 +116,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedPersonProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        commandPanel = new BrowserPanel(logic.selectedPersonProperty());
+        browserPlaceholder.getChildren().add(commandPanel.getRoot());
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
@@ -173,6 +178,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Changes the Panel being displayed at the BrowerPanel StackPane
+     * @param commandText
+     */
+    public void changePanel(String commandText) {
+        String[] cmdArray = commandText.split(" ");
+        String command = cmdArray[0];
+        browserPlaceholder.getChildren().remove(0);
+        Node newPanel = commandPanelHandler.getCommandPanel(command);
+        if (newPanel == null) {
+            newPanel = (new BrowserPanel(logic.selectedPersonProperty())).getRoot();
+        }
+        browserPlaceholder.getChildren().add(0, newPanel);
+    }
+
+    /**
      * Executes the command and returns the result.
      *
      * @see seedu.address.logic.Logic#execute(String)
@@ -182,6 +202,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            changePanel(commandText);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

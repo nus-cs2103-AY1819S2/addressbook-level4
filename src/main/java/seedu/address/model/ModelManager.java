@@ -17,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.course.Course;
+import seedu.address.model.moduleinfo.CodeContainsKeywordsPredicate;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.person.Person;
@@ -41,6 +42,7 @@ public class ModelManager implements Model {
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
     private final ObservableList<ModuleInfo> allModules;
     private final FilteredList<ModuleInfo> displayList;
+    private final SimpleObjectProperty<ModuleInfo> selectedModuleInfo = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -59,6 +61,7 @@ public class ModelManager implements Model {
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
         this.allModules = allModules.getObservableList();
         this.displayList = new FilteredList<>(this.allModules);
+        this.updateDisplayList(new CodeContainsKeywordsPredicate(null));
     }
 
     public ModelManager() {
@@ -244,6 +247,22 @@ public class ModelManager implements Model {
         requireAllNonNull(predicate);
         displayList.setPredicate(predicate);
     }
+
+    @Override
+    public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() { return selectedModuleInfo; }
+
+    @Override
+    public ModuleInfo getSelectedModuleInfo() { return selectedModuleInfo.getValue(); }
+
+    @Override
+    public void setSelectedModuleInfo(ModuleInfo moduleInfo) {
+        if (moduleInfo != null && !displayList.contains(moduleInfo)) {
+            throw new PersonNotFoundException();
+        }
+        selectedModuleInfo.setValue(moduleInfo);
+    }
+
+
 
 
     /**

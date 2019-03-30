@@ -17,19 +17,20 @@ import seedu.address.model.moduleinfo.ModuleInfo;
  * Panel containing the list of ModuleInfo.
  */
 public class DisplayModuleInfoList extends UiPart<Region> {
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "DisplayModuleInfoList.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private PanelHandler handler;
 
     @FXML
-    private ListView<ModuleInfo> moduleInfoListView;
+    private ListView<ModuleInfo> moduleinfolistview;
 
     public DisplayModuleInfoList(ObservableList<ModuleInfo> moduleInfoList,
                                  ObservableValue<ModuleInfo> selectedModuleInfo,
                                  Consumer<ModuleInfo> onSelectedModuleInfoChange) {
         super(FXML);
-        moduleInfoListView.setItems(moduleInfoList);
-        moduleInfoListView.setCellFactory(listView -> new ModuleInfoListViewCell());
-        moduleInfoListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        moduleinfolistview.setItems(moduleInfoList);
+        moduleinfolistview.setCellFactory(listView -> new ModuleInfoListViewCell());
+        moduleinfolistview.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in ModuleInfo list panel changed to : '" + newValue + "'");
             onSelectedModuleInfoChange.accept(newValue);
         });
@@ -37,23 +38,22 @@ public class DisplayModuleInfoList extends UiPart<Region> {
         selectedModuleInfo.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected ModuleInfo changed to: " + newValue);
 
-            if (Objects.equals(moduleInfoListView.getSelectionModel().getSelectedItems(), newValue)) {
+            if (Objects.equals(moduleinfolistview.getSelectionModel().getSelectedItems(), newValue)) {
                 return;
             }
 
             if (newValue == null) {
-                moduleInfoListView.getSelectionModel().clearSelection();
+                moduleinfolistview.getSelectionModel().clearSelection();
             } else {
-                int index = moduleInfoListView.getItems().indexOf(newValue);
-                moduleInfoListView.scrollTo(index);
-                moduleInfoListView.getSelectionModel().clearAndSelect(index);
+                int index = moduleinfolistview.getItems().indexOf(newValue);
+                moduleinfolistview.scrollTo(index);
+                moduleinfolistview.getSelectionModel().clearAndSelect(index);
             }
         });
     }
 
-
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code ModuleInfo} using a {@code ModuleInfoDisplay}.
      */
     class ModuleInfoListViewCell extends ListCell<ModuleInfo> {
         @Override

@@ -384,26 +384,43 @@ For example, 2 correct attempts and 4 total attempts becomes 0.5. When instantia
 
 === Import/Export feature
 ==== Current Implementation
-The Import and Export feature is facilitated by the addition of 3 new classes inside the csvmanager package defined under storage component.
+The Import and Export feature is facilitated by the Logic and model components, together
+with the addition of 2 new classes inside the csvmanager package defined under
+the storage component.
+
+[discrete]
+===== Logic
+Similar to how the current commands are implemented, the two new commands, the logic unit now accepts two
+new commands, `ImportCommand` and `ExportCommand`.
+
+[discrete]
+===== Model
+The model component supports the addition of a new object variable `CsvManager`, that carries out the read and
+write logic of cards to files.
+
+Additionally, model implements two new methods, `Model#importCardFolders` and `Model#exportCardFolders`.
+These two methods further call the CsvManager API to read and write card folders.
+
+Model also implements `Model#setTestCsvPath` and the `Model#getDefaultPath` which are only used during testing.
 
 [discrete]
 ===== csvmanager package:
 * CsvManager - Main class responsible for the writing and reading of .csv files during the import and export of files
-* CsvCardFolder - Wrapper class for a folder name input by user
 * CsvFile - Wrapper class for file name input by user
+* CsvCommands interface - API for import/export method in CsvManager
 
-The main logic for the import / export command is carried out inside the CsvManager class specified by it's API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
+The main logic for the import / export command is carried out inside the CsvManager class specified by it's
+API `CsvManager#writeFoldersToCsv` and `CsvManager#readFoldersToCsv`.
 
-CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFolders` and `Model#ImportCardFolders` method
 
 [discrete]
 ==== Example Usage
+===== Export Command
+1. User wants to export folders `Human Anatomy` and `Nervous System`.
+Suppose that these two folders are indicated by the index 1 and 2 respectively.
+The user types ``export 1 2``
 
-1. User wants to export folders `Human Anatomy` and `Nervous System`. User inputs the following folders and the csvFile specified that he wants to export the folders to.
-
-    picture of command box with user inputs
-
-2. Export command parser extracts prefixes and parses the corresponding folders into the CsvCardFolder and CsvFile objects. Returns an ExportCommand to be executed.
+2. The Export command parser extracts the indices, parses the indices into a `ExportCommand` object.
 
     Draw export command object diagram with set<CardFolderExport> and CsvFile file
 
@@ -413,11 +430,29 @@ CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFol
     arrow up
     Contains the list of card folders present in the model
 
-4. Model checks that all card folders specified by user exists inside the list of card folders. Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
+4. Model checks that all card folders specified by user exists inside the list of card folders.
+   Throws `CardFolderNotFound` Exception if user specified card folder does not exist in the application.
 
-5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file. File exported will be created in the root directory.
+5. `CsvManager` is called to carry out the main logic of writing the cardfolders to file. File exported will be created in the project root directory.
 
     Sequence diagram
+
+
+===== Import Command
+1. User wants to import `Blood.csv` file.
+`Blood.csv` file contains flashcards represented in csv file format.
+User types `import Blood.csv` command
+
+2. Import command parser extracts file name and wraps file into a `CsvFile` object and
+    parses the CsvFile into an Import Command object.
+
+3. Logic unit executes the import command.
+The execute method makes a call to `Model#importCardFolder` method.
+
+4. CsvManager is called to carry out the main logic of reading cardfolders to file.
+File imported will be serialized into a `CardFolder` object and
+added to the `filteredFoldersList` variable.
+
 
 === Test Session feature
 ==== Current Implementation

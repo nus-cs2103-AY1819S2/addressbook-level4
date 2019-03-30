@@ -57,17 +57,6 @@ public class CloseLessonCommand extends ManagementCommand {
     }
 
     /**
-     * When a lesson is closed, it may have been edited while it was open. Hence, there is
-     * a need to save it to disk.
-     *
-     * @return true given that a save to disk is required.
-     */
-    @Override
-    public boolean isSaveRequired() {
-        return true;
-    }
-
-    /**
      * Returns true if {@code other} is the same object or if it is also an {@link CloseLessonCommand}.
      * All {@link CloseLessonCommand} objects are the same.
      *

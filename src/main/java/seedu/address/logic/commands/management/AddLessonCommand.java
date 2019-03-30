@@ -80,16 +80,6 @@ public class AddLessonCommand extends ManagementCommand {
     }
 
     /**
-     * When a lesson is closed, it needs to be saved to the hard disk.
-     *
-     * @return true given that a save to disk is required.
-     */
-    @Override
-    public boolean isSaveRequired() {
-        return true;
-    }
-
-    /**
      * Returns true if {@code other} is the same object or if it is also an {@link AddLessonCommand}
      * attempting to add the same lesson.
      *

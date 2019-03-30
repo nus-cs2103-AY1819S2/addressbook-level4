@@ -92,16 +92,6 @@ public class AddCardCommand extends ManagementCommand {
     }
 
     /**
-     * When a card is added, the lesson needs to be saved to the hard disk.
-     *
-     * @return true given that a save to disk is required.
-     */
-    @Override
-    public boolean isSaveRequired() {
-        return true;
-    }
-
-    /**
      * Returns true if {@code other} is the same object or if it is also an {@link AddCardCommand}
      * attempting to add the same card.
      *

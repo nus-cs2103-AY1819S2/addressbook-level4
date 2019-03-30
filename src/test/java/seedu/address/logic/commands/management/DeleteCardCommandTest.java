@@ -97,11 +97,6 @@ public class DeleteCardCommandTest {
         assertNotEquals(deleteCardCommand1, deleteCardCommand2);
     }
 
-    @Test
-    public void isSaveRequired_isTrue() {
-        assertTrue(new DeleteCardCommand(toDeleteIndex1).isSaveRequired());
-    }
-
     /**
      * A ManagementModel stub which always accept the card being added and can always delete a card if
      * it exists.

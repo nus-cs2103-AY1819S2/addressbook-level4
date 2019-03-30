@@ -95,12 +95,6 @@ public class AddLessonCommandTest {
         assertNotEquals(addLessonDefCommand, addLessonPropCommand);
     }
 
-    @Test
-    public void isSaveRequired_isTrue() {
-        assertTrue(new AddLessonCommand(
-                TypicalLessons.LESSON_DEFAULT).isSaveRequired());
-    }
-
     /**
      * A ManagementModel stub which always accept the lesson being added.
      */

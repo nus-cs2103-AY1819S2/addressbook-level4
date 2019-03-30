@@ -76,17 +76,6 @@ public class DeleteCardCommand extends ManagementCommand {
     }
 
     /**
-     * When a card is deleted, the updated list of {@link Lesson} objects needs
-     * to be saved to the hard disk.
-     *
-     * @return true given that a save to disk is required.
-     */
-    @Override
-    public boolean isSaveRequired() {
-        return true;
-    }
-
-    /**
      * Returns true if {@code other} is the same object or if it is also an {@link DeleteCardCommand}
      * attempting to delete the same card.
      *

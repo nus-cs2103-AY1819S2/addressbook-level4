@@ -48,6 +48,11 @@ public class LessonListPanel extends UiPart<Region> {
         });*/
     }
 
+    /**
+     * Updates the lesson list in GUI.
+     *
+     * @param lessons the list of lessons from {@code ManagementModel}
+     */
     public void updateLessonList(List<Lesson> lessons) {
         lessonListView.setItems(FXCollections.observableList(lessons));
         lessonListView.setCellFactory(listView -> new LessonListViewCell());

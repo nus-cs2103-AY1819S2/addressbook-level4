@@ -98,11 +98,6 @@ public class DeleteLessonCommandTest {
         assertNotEquals(deleteLessonCommand1, deleteLessonCommand2);
     }
 
-    @Test
-    public void isSaveRequired_isTrue() {
-        assertTrue(new DeleteLessonCommand(toDeleteIndex1).isSaveRequired());
-    }
-
     /**
      * A ManagementModel stub which always accept the lesson being added and can always delete a lesson if
      * it exists.

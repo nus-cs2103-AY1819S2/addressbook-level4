@@ -78,17 +78,6 @@ public class DeleteLessonCommand extends ManagementCommand {
     }
 
     /**
-     * When a lesson is deleted, the updated list of {@link Lesson} objects needs
-     * to be saved to the hard disk.
-     *
-     * @return true given that a save to disk is required.
-     */
-    @Override
-    public boolean isSaveRequired() {
-        return true;
-    }
-
-    /**
      * Returns true if {@code other} is the same object or if it is also an {@link DeleteLessonCommand}
      * attempting to delete the same lesson.
      *

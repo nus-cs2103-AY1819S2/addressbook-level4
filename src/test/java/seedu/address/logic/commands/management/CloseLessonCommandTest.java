@@ -94,11 +94,6 @@ public class CloseLessonCommandTest {
         assertNotEquals(closeLessonCommand, null);
     }
 
-    @Test
-    public void isSaveRequired_isTrue() {
-        assertTrue(new CloseLessonCommand().isSaveRequired());
-    }
-
     /**
      * A ManagementModel stub for testing closeLesson command.
      */

@@ -200,5 +200,7 @@ public class CurrentEditManager implements CurrentEdit {
         return name;
     }
 
-
+    public boolean tempImageExist() {
+        return tempImage == null;
+    }
 }

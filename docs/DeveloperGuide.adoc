@@ -181,16 +181,19 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FomoFotoParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `CurrentEdit` (e.g. rotating an image).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below are the Sequence Diagrams for interactions within the `Logic` component for the `execute("import C:\User\Pictures\image.png")` and `execute("rotate 90")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeletePersonSdForLogic.png[width="800"]
+.Interactions Inside the Logic Component for the `import C:\User\Pictures\image.png` Command
+image::LogicImportSd.png[width="800"]
+
+.Interactions Inside the Logic Component for the `rotate 90` Command
+image::LogicRotateSd.png[width="800"]
 
 [[Design-Model]]
 === Model component
@@ -216,14 +219,13 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width="800"]
+image::StorageArchitectureDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+The `assets` and `temp` folders form the storage component of FomoFoto:
 
-The `Storage` component,
-
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+*  The `assets` folder stores images that the user imported while the `temp` folder stores the image that the program is currently editing on.
+* The `Album` class contains methods to save and retrieve images from the `assets` folder.
+* The `CurrentEdit` class contains methods to overwrite and retrieve the image that the program is currently editing on.
 
 [[Design-Commons]]
 === Common classes
@@ -302,34 +304,58 @@ The filter mechanism is facilitated by https://github.com/sksamuel/scrimage [`sc
 
 The filter feature mainly consists of:
 
-* `contrastCommand`: Applies the specified contrast ratio value on the targetted image
-* `brightnessCommand`: Applies the specified brightness ratio value on the targetted image
-* `black/whiteCommand`: Transforms colored targetted image to a black and white image
+* `ContrastCommand`: Applies a contrast ratio value on the targetted image. The contrast ratio value is preset to 1.1 if a specified ratio value is not given by the user.  A value above 1 (e.g 1.3) increases the contrast of the image while a positive value below 1 (e.g 0.5) decreases the contrast of the image.
+* `BrightnessCommand`: Applies a brightness ratio value on the targetted image. The brightness ratio value is preset to 1.1 if a specified ratio value is not given by the user. A value above 1 (e.g 1.3) increases the brightness of the image while a positive value below 1 (e.g 0.5) decreases the brightness of the image.
+* `BlackWhiteCommand`: Transforms targetted image to a black and white image through a threshold value. The brightness ratio value is preset to 127 if a specified ratio value is not given by the user. Pixels on the image lighter than the threshold value becomes white and pixels darker than the threshold value becomes black.
 
 The following describes main operations and processes contained in the classes above.
 
 ==== ContrastCommand:
 
-This command calls for an adjustment of contrast on a targetted image and adds this specific command called by the user to `Image`'s `List<EditCommands>` which saves the editing history of the targetted image.
+This command calls for an adjustment of contrast on a targetted image. After adjusting the contrast, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
-Given below is an example usage scenario and how the command should behave at each step.
+Given below is an example usage scenario and how the command should behave at each step. [This applies to the other image filter commands as well.]
 
-Step 1. When the users run the application and open an image to edit, a new `Image` object is created which stores the filename of the image,  history of edits [`List<EditCommand>`] and the image's metadata. This `Image` object will be set as the `currentImage` in `Model` for editing.
+Step 1. When the user runs an `open` command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits [`List<Command>`] and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
 
 Step 2. When the user enters the command (e.g. `contrast 0.3`), the entered command is parsed and the command will be executed.
 
-Step 3. During execution, the `execute` method in the `contrastCommand` class calls for the methods `Model#applyContrast()` and `Model#displayImage()`.
+[NOTE]
+If an invalid command is provided, a reminder of how to use the command will be given to the user and no command will be run.
 
-Step 4. Calling `Model#applyContrast()` creates a `BufferedOpFilter` object in the external library [`scrimage`] named `contrastFilter` which is applied on the image with the filepath: "src/main/resources/temp/" + `currentImage#getFileName()`
+Step 3. During execution, the `execute` method in the `contrastCommand` class invokes `currentEdit#getTempImage()` to get the `tempImage` from `currentEdit`.
 
-Step 5. Calling `Model#displayImage` updates the user interface and the user interface will now display the image with the filepath: "src/main/resources/temp/" + `currentImage#getFileName()`
+Step 4. Upon retrieving the `tempImage`, the `execute` method creates a `ContrastFilter` instance provided by the external libary [`scrimage`] which takes in a double-valued contrast ratio value. This `ContrastFilter` will then be applied on the image retrieved from the filepath: "src/main/resources/temp/" + `tempImage#getURL()`.
+
+Step 5. After applying the `ContrastFilter` on the targetted image, `currentEdit#updateTempImage()` is invoked to save the newly edited image and replace the previous one in the filepath: "src/main/resources/temp/" + `tempImage#getURL()`.
+
+Step 6. The `execute` method then checks if the boolean `isNewCommand` is true. If it is `true`, it indicates that the command is a new contrast command called directly from the user and not through an `undo/redo` command which triggers Step 7 in the line below. Otherwise, the command's execution ends in this step.
+
+Step 7. `isNewCommand` is set to `false` to signal that this command is not a new contrast command if it is executed again through the undo/redo function.
+`currentEdit#addCommand(this)` is invoked to add this command to the `List<Command> in `tempImage` for the undo/redo function and `currentEdit#displayTempImage()` is used to display the edited image on the graphical user interface.
 
 ===== Design Considerations
 
  - Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
 
 .Sequence Diagram for Contrast Command
-image::ContrastCommandSequenceDiagram.png[width="740"]
+image::ContrastCommandSequenceDiagram.png[width="800"]
+
+==== BrightnessCommand:
+This command calls for an adjustment of brightness on a targetted image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+
+Refer to the example usage scenario and design considerations in <<ContrastCommand>>.
+
+.Sequence Diagram for Brightness Command
+image::BrightnessCommandSequenceDiagram.png[width="800"]
+
+==== BlackWhiteCommand:
+This command calls for a transformation of a targetted image to a black and white image. After applying the black and white transformation, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+
+Refer to the example usage scenario and design considerations in <<ContrastCommand>>.
+
+.Sequence Diagram for BlackWhite Command
+image::BlackWhiteCommandSequenceDiagram.png[width="800"]
 
 
 === Image Manipulation

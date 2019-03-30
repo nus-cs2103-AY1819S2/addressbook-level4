@@ -37,8 +37,7 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         bookings = new BookingList();
         customers = new UniqueCustomerList();
         serviceTypes = new ServiceTypeList();
@@ -286,4 +285,5 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
     public int hashCode() {
         return customers.hashCode();
     }
+
 }

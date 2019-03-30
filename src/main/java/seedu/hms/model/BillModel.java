@@ -10,7 +10,7 @@ import seedu.hms.model.booking.ServiceType;
 /**
  * The API of the Model component.
  */
-public interface BookingModel extends Model {
+public interface BillModel extends Model {
 
     /**
      * Selected booking in the filtered booking list.

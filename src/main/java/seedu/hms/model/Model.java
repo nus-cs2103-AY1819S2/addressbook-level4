@@ -83,4 +83,5 @@ public interface Model {
      * Saves the current hms book state for undo/redo.
      */
     void commitHotelManagementSystem();
+
 }

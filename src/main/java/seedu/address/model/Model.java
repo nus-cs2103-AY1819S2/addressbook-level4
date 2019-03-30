@@ -4,17 +4,17 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.beans.Observable;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
-import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.storage.csvmanager.CsvFile;
+import seedu.address.storage.csvmanager.exceptions.CsvManagerNotInitialized;
 
 /**
  * The API of the Model component.
@@ -92,12 +92,20 @@ public interface Model extends Observable {
      */
     void setCard(Card target, Card editedCard);
 
-    // TODO: Implement hasFolder and setFolder
+    /**
+     * Removes the selected card, if any.
+     */
+    void removeSelectedCard();
 
     /**
-     * Returns true if a card folder with the same identity as {@code cardFolder} exists.
+     * Returns true if a {@code CardFolder} with the same identity as {@code cardFolder} exists.
      */
     boolean hasFolder(CardFolder cardFolder);
+
+    /**
+     * Returns true if a{@code CardFolder} with the same name as {@code folderName} exists.
+     */
+    boolean hasFolderWithName(String name);
 
     /**
      * Deletes the folder at the given index.
@@ -112,17 +120,23 @@ public interface Model extends Observable {
     void addFolder(CardFolder cardFolder);
 
     /**
+     * Renames the folder at the given index to the string passed.
+     * {@code newName} must not be the name of an existing folder.
+     */
+    void renameFolder(int index, String newName);
+
+    /**
      * Gets the index of the current active {@code CardFolder}.
      */
     int getActiveCardFolderIndex();
 
     /**
-     * Sets the index of the current active {@code CardFolder}.
+     * Enters the folder at the specified {@code index}.
      */
-    void setActiveCardFolderIndex(int newIndex);
+    void enterFolder(int index);
 
     /**
-     * Sets the Model back to the home directory, outside of any cardfolder.
+     * Sets the Model back to the home directory, outside of any {@code CardFolder}.
      */
     void exitFoldersToHome();
 
@@ -189,14 +203,9 @@ public interface Model extends Observable {
     void setSelectedCard(Card card);
 
     /**
-     * Checks whether list of card folder names specified is found inside model
-     */
-    List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders);
-
-    /**
      * Enters a test session using the specified card folder index.
      */
-    void testCardFolder(int cardFolderToTestIndex);
+    void testCardFolder();
 
     /**
      * Sets the current card in the test session.
@@ -250,9 +259,20 @@ public interface Model extends Observable {
      */
     boolean checkIfCardAlreadyAnswered();
 
-    void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException;
 
-    void importCardFolders(CsvFile csvFile) throws IOException;
+    void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized;
+
+    void importCardFolders(CsvFile csvFile) throws IOException, CommandException;
+
+    boolean inReportDisplay();
+
+    void enterReportDisplay();
+
+    void exitReportDisplay();
+
+    void setTestCsvPath() throws IOException;
+
+    String getDefaultPath();
 
 
 }

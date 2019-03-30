@@ -33,11 +33,6 @@ public class StorageManager implements Storage {
 
     // ================ UserPrefs methods ==============================
 
-
-    public Path getUserPrefsFilePath() {
-        return userPrefsStorage.getUserPrefsFilePath();
-    }
-
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
         return userPrefsStorage.readUserPrefs();
@@ -52,19 +47,19 @@ public class StorageManager implements Storage {
     // ================ CardFolder methods ==============================
 
     @Override
-    public Path getcardFolderFilesPath() {
-        // TODO: Remove hardcoding. Note that this method is only used for tests.
-        return cardFolderStorageList.get(0).getcardFolderFilesPath();
-    }
-
-    @Override
-    public List<ReadOnlyCardFolder> readCardFolders() throws DataConversionException, IOException {
-        List<ReadOnlyCardFolder> cardFolders = new ArrayList<>();
+    public void readCardFolders(List<ReadOnlyCardFolder> readFolders) throws Exception {
+        Exception exception = null;
         for (CardFolderStorage cardFolderStorage : cardFolderStorageList) {
-            Optional<ReadOnlyCardFolder> cardFolder = readCardFolder(cardFolderStorage);
-            cardFolder.ifPresent(cardFolders::add);
+            try {
+                Optional<ReadOnlyCardFolder> cardFolder = readCardFolder(cardFolderStorage);
+                cardFolder.ifPresent(readFolders::add);
+            } catch (DataConversionException | IOException e) {
+                exception = e;
+            }
         }
-        return cardFolders;
+        if (exception != null) {
+            throw exception;
+        }
     }
 
     /**
@@ -82,7 +77,7 @@ public class StorageManager implements Storage {
      */
     @Override
     public void saveCardFolder(ReadOnlyCardFolder cardFolder, int index) throws IOException {
-        // TODO: Handle IOOB exception
+        assert index < cardFolderStorageList.size();
         Path filePath = cardFolderStorageList.get(index).getcardFolderFilesPath();
         logger.fine("Attempting to write to data file: " + filePath);
         cardFolderStorageList.get(index).saveCardFolder(cardFolder, filePath);
@@ -92,18 +87,27 @@ public class StorageManager implements Storage {
     public void saveCardFolders(List<ReadOnlyCardFolder> cardFolders, Path path) throws IOException {
         cardFolderStorageList.clear();
         // Clear directory before saving
+        clearDirectory(path);
+
+        for (ReadOnlyCardFolder cardFolder : cardFolders) {
+            Path filePath = path.resolve(cardFolder.getFolderName() + Storage.FILE_FORMAT);
+            CardFolderStorage cardFolderStorage = new JsonCardFolderStorage(filePath);
+            cardFolderStorageList.add(cardFolderStorage);
+            cardFolderStorage.saveCardFolder(cardFolder);
+        }
+    }
+
+    /**
+     * Deletes every file at the specified {@code path}
+     * If {@code path} is a file, only the file will be deleted. If {@code path} is a folder, all files inside
+     * the folder (but not the folder itself) will be deleted.
+     */
+    private void clearDirectory(Path path) throws IOException {
         List<Path> pathsToDelete = Files.walk(path)
                 .filter(Files::isRegularFile)
                 .collect(Collectors.toList());
         for (Path pathToDelete : pathsToDelete) {
             Files.deleteIfExists(pathToDelete);
-        }
-        for (ReadOnlyCardFolder cardFolder : cardFolders) {
-            // TODO: Address hardcoding and add check for orphaned folders
-            Path filePath = path.resolve(cardFolder.getFolderName() + ".json");
-            CardFolderStorage cardFolderStorage = new JsonCardFolderStorage(filePath);
-            cardFolderStorageList.add(cardFolderStorage);
-            cardFolderStorage.saveCardFolder(cardFolder);
         }
     }
 }

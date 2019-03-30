@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private FolderListPanel folderListPanel;
     private CardListPanel cardListPanel;
+    private ReportDisplay reportDisplay;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private CardMainScreen cardMainScreen;
@@ -207,9 +208,29 @@ public class MainWindow extends UiPart<Stage> {
         fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
     }
 
+    /**
+     * Refreshes the side panel to display all folders.
+     */
     private void handleExitFolder() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
         folderListPanel.refreshContent();
+    }
+
+    /**
+     * Refreshes the side panel to display updated information of all folders.
+     */
+    private void handleEditFolder() {
+        folderListPanel.refreshContent();
+    }
+
+    private void handleReport() {
+        reportDisplay = new ReportDisplay(logic.getCardFolder());
+        Region reportRegion = (reportDisplay).getRoot();
+        fullScreenPlaceholder.getChildren().add(reportRegion);
+    }
+
+    private void handleEndReport() {
+        fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
     }
 
 
@@ -261,11 +282,20 @@ public class MainWindow extends UiPart<Stage> {
             case EXITED_FOLDER:
                 handleExitFolder();
                 break;
+            case EDITED_FOLDER:
+                handleEditFolder();
+                break;
             case START_TEST_SESSION:
                 handleStartTestSession(commandResult.getTestSessionCard());
                 break;
             case END_TEST_SESSION:
                 handleEndTestSession();
+                break;
+            case ENTERED_REPORT:
+                handleReport();
+                break;
+            case EXITED_REPORT:
+                handleEndReport();
                 break;
             case SHOW_NEXT_CARD:
                 handleNextCardTestSession(commandResult.getTestSessionCard());

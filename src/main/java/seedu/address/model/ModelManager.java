@@ -10,9 +10,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ReadOnlyProperty;
@@ -23,13 +23,16 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.InvalidationListenerManager;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.exceptions.CardNotFoundException;
-import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.storage.csvmanager.CsvManager;
+import seedu.address.storage.csvmanager.exceptions.CsvManagerNotInitialized;
 
 /**
  * Represents the in-memory model of the card folder data.
@@ -55,12 +58,23 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private ObservableList<Card> currentTestedCardFolder;
     private int currentTestedCardIndex;
-    private boolean insideTestSession = false;
-    private boolean cardAlreadyAnswered = false;
+    private boolean isInsideTestSession = false;
+    private boolean isCardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
 
+    // Report display related
+    private boolean inReportDisplay = false;
+
     // Export related
-    private CsvManager csvManager = new CsvManager();
+    private CsvManager csvManager;
+    {
+        try {
+            csvManager = new CsvManager();
+        } catch (IOException e) {
+            csvManager = null;
+            logger.warning("Unable to carry out import and export of card folders");
+        }
+    }
 
     /**
      * Initializes a ModelManager with the given cardFolders and userPrefs.
@@ -182,13 +196,14 @@ public class ModelManager implements Model {
     public boolean hasFolder(CardFolder cardFolder) {
         requireNonNull(cardFolder);
 
-        for (VersionedCardFolder versionedCardFolder : filteredFolders) {
-            if (versionedCardFolder.hasSameFolderName(cardFolder)) {
-                return true;
-            }
-        }
+        return hasFolderWithName(cardFolder.getFolderName());
+    }
 
-        return false;
+    @Override
+    public boolean hasFolderWithName(String name) {
+        requireNonNull(name);
+
+        return folders.stream().anyMatch(folder -> folder.getFolderName().equals(name));
     }
 
     @Override
@@ -209,7 +224,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void renameFolder(int index, String newName) {
+        CardFolder toRename = folders.get(index);
+        toRename.rename(newName);
+        indicateModified();
+    }
+
+    @Override
+    public void enterFolder(int newIndex) {
+        inFolder = true;
+        activeCardFolderIndex = newIndex;
+    }
+
+    @Override
     public void exitFoldersToHome() {
+        removeSelectedCard();
         inFolder = false;
     }
 
@@ -231,12 +260,6 @@ public class ModelManager implements Model {
     @Override
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
-    }
-
-    @Override
-    public void setActiveCardFolderIndex(int newIndex) {
-        inFolder = true;
-        activeCardFolderIndex = newIndex;
     }
 
     /**
@@ -320,11 +343,28 @@ public class ModelManager implements Model {
         versionedCardFolder.commit();
     }
 
+    //=========== Report Displayed =======================================================================
+    @Override
+    public boolean inReportDisplay() {
+        return inReportDisplay;
+    }
+
+    @Override
+    public void enterReportDisplay() {
+        inReportDisplay = true;
+    }
+
+    @Override
+    public void exitReportDisplay() {
+        inReportDisplay = false;
+    }
+
+
+
     //=========== Test Session ===========================================================================
 
     @Override
-    public void testCardFolder(int cardFolderToTestIndex) {
-        setActiveCardFolderIndex(cardFolderToTestIndex);
+    public void testCardFolder() {
         currentTestedCardFolder = getActiveCardFolder().getCardList();
         if (currentTestedCardFolder.isEmpty()) {
             throw new EmptyCardFolderException();
@@ -335,7 +375,7 @@ public class ModelManager implements Model {
         currentTestedCardIndex = 0;
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
-        insideTestSession = true;
+        isInsideTestSession = true;
         numAnsweredCorrectly = 0;
     }
 
@@ -357,12 +397,11 @@ public class ModelManager implements Model {
         getActiveVersionedCardFolder()
                 .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
         getActiveVersionedCardFolder().commit();
-        insideTestSession = false;
+        isInsideTestSession = false;
         setCardAsNotAnswered();
         numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
         currentTestedCardFolder = null;
-        exitFoldersToHome();
     }
 
     @Override
@@ -389,21 +428,21 @@ public class ModelManager implements Model {
 
     @Override
     public void setCardAsAnswered() {
-        cardAlreadyAnswered = true;
+        isCardAlreadyAnswered = true;
     }
 
     private void setCardAsNotAnswered() {
-        cardAlreadyAnswered = false;
+        isCardAlreadyAnswered = false;
     }
 
     @Override
     public boolean checkIfCardAlreadyAnswered() {
-        return cardAlreadyAnswered;
+        return isCardAlreadyAnswered;
     }
 
     @Override
     public boolean checkIfInsideTestSession() {
-        return insideTestSession;
+        return isInsideTestSession;
     }
 
     @Override
@@ -436,6 +475,11 @@ public class ModelManager implements Model {
             throw new CardNotFoundException();
         }
         selectedCard.setValue(card);
+    }
+
+    @Override
+    public void removeSelectedCard() {
+        selectedCard.setValue(null);
     }
 
     /**
@@ -484,44 +528,56 @@ public class ModelManager implements Model {
         return filteredFolders.equals(other.filteredFolders)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
-                && Objects.equals(selectedCard.get(), other.selectedCard.get());
+                && Objects.equals(selectedCard.get(), other.selectedCard.get())
+                && isInsideTestSession == other.isInsideTestSession
+                && currentTestedCardIndex == other.currentTestedCardIndex
+                && isCardAlreadyAnswered == other.isCardAlreadyAnswered
+                && activeCardFolderIndex == other.activeCardFolderIndex
+                && inFolder == other.inFolder;
     }
+
 
 
     //=========== Export / Import card folders ========================================================================
     @Override
-    public void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException {
-        List<ReadOnlyCardFolder> cardFolderObject = returnValidCardFolders(cardFolderExports);
-        csvManager.writeFoldersToCsv(cardFolderObject, csvFile);
-    }
-
-    @Override
-    public void importCardFolders(CsvFile csvFile) throws IOException {
-
-    }
-
-    @Override
-    public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolders) {
-        List<ReadOnlyCardFolder> returnCardFolder = new ArrayList<>();
-        for (CardFolderExport cardFolderExport : cardFolders) {
-            addCardFolder(cardFolderExport, returnCardFolder);
+    public void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized {
+        if (csvManager == null) {
+            throw new CsvManagerNotInitialized(Messages.MESSAGE_CSV_MANAGER_NOT_INITIALIZED);
         }
-        return returnCardFolder;
+        List<ReadOnlyCardFolder> cardFolders = returnValidCardFolders(cardFolderExports);
+        csvManager.writeFoldersToCsv(cardFolders);
     }
 
+    @Override
+    public void importCardFolders(CsvFile csvFile) throws IOException, CommandException {
+        CardFolder cardFolder = csvManager.readFoldersToCsv(csvFile);
+        addFolder(cardFolder);
+    }
+
+    @Override
+    public void setTestCsvPath() throws IOException {
+        csvManager.setTestDefaultPath();
+    }
+
+    @Override
+    public String getDefaultPath() {
+        return csvManager.getDefaultPath();
+    }
 
     /**
-     * Private method to check if name of card folder to export matches name of ReadOnlyCardFolder in model.
-     * Throws card Folder not found exception if card folder cannot be found.
+     * returns the corresponding {@code List<ReadOnlyCardFolder>} from the list of integer indexes
      */
-    private void addCardFolder(CardFolderExport cardFolderExport, List<ReadOnlyCardFolder> returnCardFolders) {
-        String exportFolderName = cardFolderExport.folderName;
-        for (ReadOnlyCardFolder readOnlyCardFolder : filteredFolders) {
-            if (readOnlyCardFolder.getFolderName().equals(exportFolderName)) {
-                returnCardFolders.add(readOnlyCardFolder);
-                return;
+    private List<ReadOnlyCardFolder> returnValidCardFolders(List<Integer> cardFolderExports) {
+        List<ReadOnlyCardFolder> readOnlyCardFolders = new ArrayList<>();
+        List<Index> indexList = cardFolderExports.stream().map(Index::fromOneBased).collect(Collectors.toList());
+        for (Index index : indexList) {
+            try {
+                ReadOnlyCardFolder cardFolder = filteredFolders.get(index.getZeroBased());
+                readOnlyCardFolders.add(cardFolder);
+            } catch (IndexOutOfBoundsException e) {
+                throw new CardFolderNotFoundException(index.displayIndex());
             }
         }
-        throw new CardFolderNotFoundException(cardFolderExport.folderName);
+        return readOnlyCardFolders;
     }
 }

@@ -21,7 +21,7 @@ public class NextCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (!model.checkIfInsideTestSession()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
         if (!model.checkIfCardAlreadyAnswered()) {
             throw new CommandException(Messages.MESSAGE_INVALID_NEXT_COMMAND);

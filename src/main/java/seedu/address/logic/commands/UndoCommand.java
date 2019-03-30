@@ -23,7 +23,7 @@ public class UndoCommand extends Command {
 
         // TODO: Make Undo work outside of folder
         if (!model.isInFolder()) {
-            throw new CommandException(Messages.MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER);
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
 
         if (!model.canUndoActiveCardFolder()) {

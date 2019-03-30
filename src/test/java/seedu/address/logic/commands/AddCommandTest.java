@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -31,7 +30,6 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.VersionedCardFolder;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
-import seedu.address.storage.csvmanager.CardFolderExport;
 import seedu.address.storage.csvmanager.CsvFile;
 import seedu.address.testutil.CardBuilder;
 
@@ -152,7 +150,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void testCardFolder(int cardFolderToTestIndex) {
+        public void testCardFolder() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -181,12 +179,6 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-
-        @Override
-        public List<ReadOnlyCardFolder> returnValidCardFolders(Set<CardFolderExport> cardFolers) {
-            throw new AssertionError("This method should not be called.");
-        }
-
         public boolean markAttemptedAnswer(Answer attemptedAnswer) {
             throw new AssertionError("This method should not be called.");
         }
@@ -206,13 +198,37 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        public void exportCardFolders(List<Integer> cardFolderExports) throws IOException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        public boolean inReportDisplay() {
+            throw new AssertionError("This method should not be called.");
+        };
+
         @Override
-        public void exportCardFolders(Set<CardFolderExport> cardFolderExports, CsvFile csvFile) throws IOException {
+        public void enterReportDisplay() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+        @Override
+        public void exitReportDisplay() {
+            throw new AssertionError("This method should not be called.");
+        };
+
+
+        @Override
+        public void importCardFolders(CsvFile csvFile) throws IOException {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void importCardFolders(CsvFile csvFile) throws IOException {
+        public void setTestCsvPath() throws IOException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public String getDefaultPath() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -232,8 +248,18 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeSelectedCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasFolder(CardFolder cardFolder) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasFolderWithName(String name) {
+            return false;
         }
 
         @Override
@@ -247,12 +273,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void renameFolder(int index, String newName) {
+
+        }
+
+        @Override
         public int getActiveCardFolderIndex() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setActiveCardFolderIndex(int newIndex) {
+        public void enterFolder(int newIndex) {
             throw new AssertionError("This method should not be called.");
         }
 

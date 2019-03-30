@@ -10,9 +10,4 @@
   </padding>
   <ListView VBox.vgrow="ALWAYS" fx:id="folderListView"/>
 
-  <!--<FlowPane VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-    fx:id="folderListPanel">
-
-  </FlowPane>-->
-
 </VBox>

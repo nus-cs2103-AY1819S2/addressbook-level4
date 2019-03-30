@@ -117,7 +117,7 @@ public interface Model {
      */
     void commitChart();
 
-    SimpleBooleanProperty chartDisplayed;
+    ReadOnlyProperty<Boolean> chartDisplayedProperty();
 
     /**
      * Set when chart needs to be displayed.

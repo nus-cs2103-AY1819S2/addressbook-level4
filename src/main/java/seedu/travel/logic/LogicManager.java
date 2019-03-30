@@ -109,6 +109,10 @@ public class LogicManager implements Logic {
         model.setSelectedPlace(place);
     }
 
+    public ReadOnlyProperty<Boolean> chartDisplayedProperty() {
+        return model.chartDisplayedProperty();
+    }
+
     @Override
     public void setChartDisplayed(boolean isDisplayed) {
         model.setChartDisplayed(isDisplayed);

@@ -1,32 +1,41 @@
 package seedu.travel.ui;
 
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.travel.commons.core.LogsCenter;
 import seedu.travel.model.place.Place;
+
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 /**
  * Panel containing the list of places.
  */
-public class PlaceListPanel extends UiPart<Region> {
-    private static final String FXML = "PlaceListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PlaceListPanel.class);
+public class RightParentPanel extends UiPart<Region> {
+    private static final String FXML = "RightParentPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(RightParentPanel.class);
+
+    private ListView<Place> placeListView; // not in use
 
     @FXML
-    private ListView<Place> placeListView;
+    private VBox displayListPanelPlaceholder;
 
-    public PlaceListPanel(ObservableList<Place> placeList, ObservableValue<Place> selectedPlace,
-                          Consumer<Place> onSelectedPlaceChange) {
+    private DisplayListPanel displayListPanel;
+
+    public RightParentPanel(ObservableList<Place> placeList, ObservableValue<Place> selectedPlace,
+                            Consumer<Place> onSelectedPlaceChange, ReadOnlyProperty<Boolean> chartDisplayed) {
         super(FXML);
+
+        /*
         placeListView.setItems(placeList);
         placeListView.setCellFactory(listView -> new PlaceListViewCell());
         placeListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -50,6 +59,22 @@ public class PlaceListPanel extends UiPart<Region> {
                 placeListView.getSelectionModel().clearAndSelect(index);
             }
         });
+
+        */
+
+
+        chartDisplayed.addListener((observable, oldValue, newValue) -> {
+            // display the chart
+            logger.info("old Value"+oldValue+"New value "+newValue);
+            if (true) {
+                // pass through
+                logger.info("SimpleBooleanValue Changed");
+                displayListPanel = new DisplayListPanel(placeList, selectedPlace, onSelectedPlaceChange);
+                displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+            }
+        });
+
+
     }
 
     /**

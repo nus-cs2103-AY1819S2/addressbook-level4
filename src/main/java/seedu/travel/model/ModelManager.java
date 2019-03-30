@@ -175,6 +175,11 @@ public class ModelManager implements Model {
         this.chartDisplayed.setValue(chartDisplayed);
     }
 
+    @Override
+    public SimpleBooleanProperty chartDisplayedProperty() {
+        return chartDisplayed;
+    }
+
     //=========== Selected place ===========================================================================
 
     @Override

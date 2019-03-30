@@ -72,7 +72,7 @@ public interface Logic {
      */
     void setSelectedPlace(Place place);
 
-    SimpleBooleanProperty chartDisplayed;
+    ReadOnlyProperty<Boolean> chartDisplayedProperty();
 
     /**
      * Set when chart needs to be displayed.

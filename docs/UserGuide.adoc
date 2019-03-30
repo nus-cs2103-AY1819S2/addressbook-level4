@@ -441,6 +441,13 @@ Returns any activity having names `HTML`, `CSS`, or `Javascript`
 Shows a list of all activities in the activity list. +
 Format: `activityList`
 
+****
+* If the status of some activities have changed from `ONGOING` to `COMPLETED`, the
+`activityList` command will automatically update the status of these activities.
+****
+
+image::ActivityListCommand.png[width="790"]
+
 ==== Selecting an activity : `activitySelect`
 
 Selects the activity identified by the index number used in the displayed activity list. +

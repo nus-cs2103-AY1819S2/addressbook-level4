@@ -78,7 +78,6 @@ public class Patient extends Person {
         this.drugAllergy = drugAllergy;
         this.nextOfKin = kin;
         this.patientDesc = describe;
-        updateTags();
     }
 
     /**

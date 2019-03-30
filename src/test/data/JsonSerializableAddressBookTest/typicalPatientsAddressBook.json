@@ -49,5 +49,12 @@
     "phone" : "94824421",
     "address" : "4th street",
     "tagged" : [ ]
+  } ],
+  "medicalHistories" : [ {
+    "name" : "John Doe",
+    "writeUp" : "Fever"
+  }, {
+    "name" : "Amy Doe",
+    "writeUp" : "Sneeze"
   } ]
 }

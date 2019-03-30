@@ -3,10 +3,10 @@ package seedu.address.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MAX_GRADE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXPECTED_MAX_GRADE_CS1010;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalModuleTaken.CS2103T;
+import static seedu.address.testutil.TypicalModuleTaken.getTypicalGradTrak;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,20 +21,20 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.exceptions.DuplicateModuleTakenException;
+import seedu.address.testutil.ModuleTakenBuilder;
 
 public class AddressBookTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final AddressBook addressBook = new AddressBook();
+    private final GradTrak addressBook = new GradTrak();
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getModulesTakenList());
     }
 
     @Test
@@ -45,56 +45,56 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withValidReadOnlyAddressBook_replacesData() {
-        AddressBook newData = getTypicalAddressBook();
+        GradTrak newData = getTypicalGradTrak();
         addressBook.resetData(newData);
         assertEquals(newData, addressBook);
     }
 
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE)
-                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_BOB)
+        // Two modulesTaken with the same identity fields
+        ModuleTaken editedAlice = new ModuleTakenBuilder(CS2103T)
+                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS1010)
                 .withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        List<ModuleTaken> newModuleTakens = Arrays.asList(CS2103T, editedAlice);
+        GradTrakStub newData = new GradTrakStub(newModuleTakens);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateModuleTakenException.class);
         addressBook.resetData(newData);
     }
 
     @Test
     public void hasPerson_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        addressBook.hasModuleTaken(null);
     }
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(addressBook.hasModuleTaken(CS2103T));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        addressBook.addModuleTaken(CS2103T);
+        assertTrue(addressBook.hasModuleTaken(CS2103T));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE)
-                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_BOB)
+        addressBook.addModuleTaken(CS2103T);
+        ModuleTaken editedAlice = new ModuleTakenBuilder(CS2103T)
+                .withExpectedMaxGrade(VALID_EXPECTED_MAX_GRADE_CS1010)
                 .withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasModuleTaken(editedAlice));
     }
 
     @Test
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        addressBook.getModulesTakenList().remove(0);
     }
 
     @Test
@@ -102,7 +102,7 @@ public class AddressBookTest {
         SimpleIntegerProperty counter = new SimpleIntegerProperty();
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         addressBook.addListener(listener);
-        addressBook.addPerson(ALICE);
+        addressBook.addModuleTaken(CS2103T);
         assertEquals(1, counter.get());
     }
 
@@ -112,23 +112,28 @@ public class AddressBookTest {
         InvalidationListener listener = observable -> counter.set(counter.get() + 1);
         addressBook.addListener(listener);
         addressBook.removeListener(listener);
-        addressBook.addPerson(ALICE);
+        addressBook.addModuleTaken(CS2103T);
         assertEquals(0, counter.get());
     }
 
     /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyGradTrak whose modulesTaken list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+    private static class GradTrakStub implements ReadOnlyGradTrak {
+        private final ObservableList<ModuleTaken> modulesTaken = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        GradTrakStub(Collection<ModuleTaken> modulesTaken) {
+            this.modulesTaken.setAll(modulesTaken);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<ModuleTaken> getModulesTakenList() {
+            return modulesTaken;
+        }
+
+        @Override
+        public ObservableList<SemLimit> getSemesterLimitList() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
@@ -141,5 +146,4 @@ public class AddressBookTest {
             throw new AssertionError("This method should not be called.");
         }
     }
-
 }

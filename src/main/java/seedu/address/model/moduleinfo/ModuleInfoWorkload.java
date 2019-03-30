@@ -17,7 +17,7 @@ public class ModuleInfoWorkload {
     public final Integer tutorial;
     public final Integer lab;
     public final Integer project;
-    public final Integer preperation;
+    public final Integer preparation;
 
     public ModuleInfoWorkload(String moduleInfoWorkload) {
         this.workload = moduleInfoWorkload;
@@ -26,7 +26,7 @@ public class ModuleInfoWorkload {
             this.tutorial = 0;
             this.lab = 0;
             this.project = 0;
-            this.preperation = 0;
+            this.preparation = 0;
         } else {
             String[] attribute = splitWorkload(moduleInfoWorkload);
 
@@ -34,7 +34,7 @@ public class ModuleInfoWorkload {
             this.tutorial = Integer.valueOf(attribute[1]);
             this.lab = Integer.valueOf(attribute[2]);
             this.project = Integer.valueOf(attribute[3]);
-            this.preperation = Integer.valueOf(attribute[4]);
+            this.preparation = Integer.valueOf(attribute[4]);
         }
 
     }
@@ -64,11 +64,11 @@ public class ModuleInfoWorkload {
     }
 
     public int getPreparationWorkload() {
-        return preperation;
+        return preparation;
     }
 
     public int getTotalWorkload() {
-        return lecture + tutorial + lab + project + preperation;
+        return lecture + tutorial + lab + project + preparation;
     }
 
     /**
@@ -89,11 +89,11 @@ public class ModuleInfoWorkload {
                 && tutorial == ((ModuleInfoWorkload) other).tutorial
                 && lab == ((ModuleInfoWorkload) other).lab
                 && project == ((ModuleInfoWorkload) other).project
-                && preperation == ((ModuleInfoWorkload) other).preperation); // state check
+                && preparation == ((ModuleInfoWorkload) other).preparation); // state check
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lecture, tutorial, lab, project, preperation);
+        return Objects.hash(lecture, tutorial, lab, project, preparation);
     }
 }

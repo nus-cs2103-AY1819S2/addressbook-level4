@@ -5,10 +5,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Grade;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Semester;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.Hour;
+import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,22 +28,23 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code moduleTaken}'s details
      */
-    public EditPersonDescriptorBuilder(Person person) {
+    public EditPersonDescriptorBuilder(ModuleTaken moduleTaken) {
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(person.getModuleInfo());
-        descriptor.setSemester(person.getSemester());
-        descriptor.setExpectedMinGrade(person.getExpectedMinGrade());
-        descriptor.setExpectedMaxGrade(person.getExpectedMaxGrade());
-        descriptor.setTags(person.getTags());
+        descriptor.setModuleInfoCode(moduleTaken.getModuleInfoCode());
+        descriptor.setSemester(moduleTaken.getSemester());
+        descriptor.setExpectedMinGrade(moduleTaken.getExpectedMinGrade());
+        descriptor.setExpectedMaxGrade(moduleTaken.getExpectedMaxGrade());
+        descriptor.setLectureHour(moduleTaken.getLectureHour());
+        descriptor.setTags(moduleTaken.getTags());
     }
 
     /**
      * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withName(String name) {
-        descriptor.setName(new Name(name));
+        descriptor.setModuleInfoCode(new ModuleInfoCode(name));
         return this;
     }
 
@@ -67,6 +69,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withExpectedMaxGrade(String expectedMaxGrade) {
         descriptor.setExpectedMaxGrade(Grade.valueOf(expectedMaxGrade));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Hour} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withLectureHour(String lectureHour) {
+        descriptor.setLectureHour(new Hour(lectureHour));
         return this;
     }
 

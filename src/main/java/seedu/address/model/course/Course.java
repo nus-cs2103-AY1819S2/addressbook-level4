@@ -1,48 +1,31 @@
 package seedu.address.model.course;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.model.module.Module;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
  *  Represents course of the user that is enrolled in
  */
 public class Course {
 
-    private CourseName courseName;
-    private CourseDescription courseDescription;
-    private List<CourseRequirement> courseRequirements;
+    public static final String MESSAGE_REQ_COMPLETED = "All course requirements have been completed.";
+
+    private final CourseName courseName;
+    private final CourseDescription courseDescription;
+    private final List<CourseRequirement> courseRequirements;
 
     public Course(CourseName courseName, CourseDescription courseDescription,
                   CourseRequirement... courseRequirements) {
+        requireAllNonNull(courseName, courseDescription, courseRequirements);
         this.courseName = courseName;
         this.courseDescription = courseDescription;
         this.courseRequirements = Arrays.asList(courseRequirements);
-    }
-
-    /**
-     * Checks for modulesTaken against requirements to find requirement not satisfied
-     * @param modulesTaken
-     * @return list of requirements satisfied
-     */
-    public List<CourseRequirement> satisfiedRequirements(List<Module> modulesTaken) {
-        return courseRequirements.stream()
-                                 .filter(x -> x.isFulfilled(modulesTaken))
-                                 .collect(Collectors.toList());
-    }
-
-
-    /**
-     * Checks for modulesTaken against requirements to find requirement not satisfied
-     * @param modulesTaken
-     * @return list of requirements not satisfied
-     */
-    public List<CourseRequirement> unsatisfiedRequirements(List<Module> modulesTaken) {
-        return courseRequirements.stream()
-                .filter(x -> !x.isFulfilled(modulesTaken))
-                .collect(Collectors.toList());
     }
 
     public CourseName getCourseName() {
@@ -57,7 +40,52 @@ public class Course {
         return courseRequirements;
     }
 
-    public static Course getCourseByName(CourseName name) {
-        return new Course(name, new CourseDescription("TODO"), null);
+    /**
+     * Returns a list of req types satisfied by the given module code.
+     * @param moduleInfoCode The module code.
+     * @return A list of req types.
+     */
+    public List<CourseReqType> getCourseReqTypeOf(ModuleInfoCode moduleInfoCode) {
+        List<CourseReqType> reqTypeList = new ArrayList<>();
+
+        for (CourseRequirement courseReq : courseRequirements) {
+            if (courseReq.canFulfill(moduleInfoCode)) {
+                reqTypeList.add(courseReq.getType());
+            }
+        }
+        Collections.sort(reqTypeList); // sort according to enum ordering
+
+        return reqTypeList;
     }
+
+    /**
+     * Checks if the list of module codes satisfy the given req type.
+     * @param reqType The req type to be checked against.
+     * @param passedModuleList The list of module codes passed.
+     * @return
+     */
+    public boolean isReqFulfilled(CourseReqType reqType, List<ModuleInfoCode> passedModuleList) {
+        for (CourseRequirement courseReq : courseRequirements) {
+            if (courseReq.getType().equals(reqType)) {
+                return courseReq.isFulfilled(passedModuleList);
+            }
+        }
+        return false; // should not reach here
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Course)) {
+            return false;
+        }
+
+        Course other = (Course) obj;
+        //TODO: Will implement this properly in the future
+        return this.courseName.equals(other.courseName);
+    }
+
 }

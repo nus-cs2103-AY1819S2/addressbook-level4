@@ -9,7 +9,7 @@ import seedu.address.commons.util.InvalidationListenerManager;
 
 /**
  * Wraps all data at the Module Info List level
- * Duplicates are not allowed (by  comparison)
+ * Duplicates are not allowed (by comparison)
  */
 public class ModuleInfoList {
 
@@ -62,5 +62,18 @@ public class ModuleInfoList {
     public ObservableList<ModuleInfo> getObservableList() {
         ObservableList<ModuleInfo> observableList = FXCollections.observableArrayList(moduleInfoList);
         return observableList;
+    }
+
+    /**
+     * Returns an ObservableList of all ModuleInfoCodes.
+     * @return an ObservableList.
+     */
+    public ObservableList<ModuleInfoCode> getObservableCodeList() {
+        ArrayList<ModuleInfoCode> codeList = new ArrayList<>();
+        for (ModuleInfo moduleInfo : moduleInfoList) {
+            codeList.add(moduleInfo.getModuleInfoCode());
+        }
+
+        return FXCollections.observableArrayList(codeList);
     }
 }

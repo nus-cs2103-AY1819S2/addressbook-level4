@@ -355,12 +355,89 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::CourseRequirement[]
+=== Adding/Removing/Checking Courses and Course Requirement Feature
 
-_{Explain here how the data encryption feature will be implemented}_
+==== Current Implementation
+Users are able to add and remove and the course requirements and also check if that they have satisfied course requirements
+from the list of modules that they have completed.
 
-// end::dataencryption[]
+Similar to the implementation of the display modules feature, when the application is
+launched, a JSON file containing pre-existing information on courses (either default or pre-defined by users) and their respective course requirement
+will loaded as `Course` and `CourseRequirement` Objects (`Course` contains multiple `CourseRequirement` objects) and stored in an `ObservableList` inside of `ModelManager`.
+
+In the ModelManager, we also store an instance of `ActiveCourse` which extends from Course. Only
+one `Course` can be active since it represents the Course the user is currently
+undertaking when using the Graduation Tracker. However, we allow for different multiple Course object to
+allow extension of different courses not in the default implementation.
+
+The core of the feature is the `CourseRequirement` feature; we use Java 9's `Predicate` to check against a `List<Module>`
+to see whether the user fulfilled the `CourseRequirement` as well as `Function<List<Module>, String>` classes to identify the parts of `CourseRequirement` not satisfied.
+Currently, there are two subclasses that extends `CourseRequirement`; `ContainsAll` and `ContainsAtLeast`. Given a list of regular expression,
+`ContainsAll` ensure that there is at least 1 module taken by the user has module code that matches regex the list whereas on
+the other hand `ContainsAtLeast` checks that at a minimum number of modules have
+module code that fits the list. For now, users can only create `CourseRequirement` of the form
+`ContainsAll`, `ContainsAtLeast` as well as combining them by using `or` and `and` functions defined in `CourseRequirement`.
+
+
+==== Design Considerations
+===== Aspect: Type of CourseRequirement Users can add/define
+* **Alternative 1 (current choice): User can only create and combine limited types of requirements
+and check based on regex of module code**
+** Pros: Safer to implement since we are restricting scope to only checking of strings
+** Con: Unless sufficiently many types that can be combined,
+there might be requirements that are difficult to set properly.
+* ** Alternative 2: Allowing user to check on any attributes of the Module that they have taken**
+** Pros: Increased flexibility allows for more powerful expressions and increased usability for users side
+** Cons: More code required; one more class for one additional attribute user can check
+
+===== Aspect: ContainsAll/ContainsAtLeast isFulfilled() implementation
+* **Alternative 1 (current choice): Check for regex matching of strings**
+** Pros: Easier to implement in the storage stage since each regex string defines the predicate
+** Cons: User might find it hard to isolate the correct regex to achieve the desired expression
+
+* **Alternative 2: Stores module and check for set-containment against a set of ModuleInfo**
+** Pros: Type-safe and can use pre-defined equality in 'ModuleInfo' class
+** Cons: Modules can change frequently and be outdated quite quickly; might cause problem for
+older CourseRequirement defined by user. Also alot of dependency issues in Storage and other areas
+//end::CourseRequirement[]
+
+//tag::recommend[]
+=== Module recommendation feature
+==== Current implementation
+The module recommendation feature generates a list of module codes representing the modules which the user is recommended to take,
+based on the user's module plan and course requirements. The entire list is printed on the GUI upon
+entering the `rec` command.
+
+Whenever the `rec` command is called, a `RecModuleManager` is created which generates a `RecModulePredicate` and
+a `RecModuleComparator` given the user's `Course` and `ModulePlan`. This ensures that the recommendation list is updated
+according to any changes in `Course` and `ModulePlan`.
+
+The `RecModulePredicate` is applied to a `FilteredList` of `ModuleInfoCode` stored in `ModelManager`, to remove modules which
+the user is ineligible to take or does not contribute to the `CourseRequirement`.
+This `FilteredList` is wrapped in a `SortedList` which accepts the `RecModuleComparator`, sorting the list in
+decreasing priority of the `CourseReqType` satisfied by the module.
+If a module satisfies more than one `CourseReqType`, the one with the highest priority is selected.
+The order of priority is determined by the enum ordering in `CourseReqType`: Core, TE (covers TE/PE/FA), GE, UE.
+Modules with equal priority are sorted lexicographically, considering the fact that lower-level modules should usually be taken first.
+
+Within each test by the `RecModulePredicate`, a module is checked for the `CourseReqType`(s) it satisfies.
+The `CourseReqType` with highest priority, which has yet to be fully completed, is then selected.
+A mapping of `ModuleInfoCode` to this `CourseReqType` is put into a `HashMap` stored in `RecModuleManager`.
+Subsequently, within each comparison by the `RecModuleComparator`, the `CourseReqType` satisfied by the two modules are
+retrieved from the `HashMap` and compared.
+
+==== Design considerations
+===== Aspect:
+
+
+
+
+
+
+
+
+
 
 === Logging
 
@@ -593,7 +670,7 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [TIP]
 Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
+. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all modulesTaken in the list.
 +
 ****
 * Hints
@@ -696,10 +773,10 @@ image::getting-started-ui-status-after.png[width="500"]
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
 ** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the courseReqCredits of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the courseReqCredits of persons whenever there are new changes to the addressbook.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the courseReqCredits of modulesTaken when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the courseReqCredits of modulesTaken whenever there are new changes to the addressbook.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total courseReqCredits of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total courseReqCredits of persons status bar.
+** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total courseReqCredits of modulesTaken status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
 ****
 
@@ -877,7 +954,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |student |delete a module |remove modules that I am not taking
 
-|`* * *` |student |find a module by name |locate details of modules without having to go through the entire list
+|`* * *` |student |find a module by code, semester, grade or finished status |locate details of modules without having to go through the entire list
 
 |`* *` |student |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -886,6 +963,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |student |add my modules in future semesters |plan ahead
 
 |`* *` |student |know my CAP |pull up my CAP
+
+|`* *` |student |see a recommended list of modules I can take in order of priority |fulfil the graduation requirements on time
 
 |`*` |student with many modules |sort module by name |locate a module easily
 |=======================================================================
@@ -1039,7 +1118,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 modulesTaken without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -1096,9 +1175,9 @@ _{ more test cases ... }_
 
 === Deleting a person
 
-. Deleting a person while all persons are listed
+. Deleting a person while all modulesTaken are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all modulesTaken using the `list` command. Multiple modulesTaken in the list.
 .. Test case: `delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +

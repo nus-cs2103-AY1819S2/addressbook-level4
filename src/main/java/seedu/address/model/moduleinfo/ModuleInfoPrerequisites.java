@@ -26,7 +26,6 @@ public class ModuleInfoPrerequisites {
     public static final String OR_REGEX = "OR";
     public static final String AND_REGEX = "AND";
     public static final String NOREQUIREMENT_MESSAGE = "No prerequisites needed";
-
     private ModuleTree tree;
     private String prerequisitesString;
 

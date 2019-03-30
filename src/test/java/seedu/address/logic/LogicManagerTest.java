@@ -1,9 +1,16 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
+import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
+import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
+import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
+import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 
@@ -15,6 +22,7 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.management.AddLessonCommand;
 import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
@@ -298,4 +306,21 @@ public class LogicManagerTest {
         }
     }
 
+    @Test
+    public void testManagementInputOutput() {
+        String command = AddLessonCommand.COMMAND_WORD + " "
+                + PREFIX_LESSON_NAME + DEFAULT_NAME + " "
+                + PREFIX_CORE_QUESTION + DEFAULT_CORE_HEADER_1 + " "
+                + PREFIX_CORE_ANSWER + DEFAULT_CORE_HEADER_2;
+
+        try {
+            CommandResult commandResult = logic.execute(command);
+            assertNotNull(commandResult);
+        } catch (CommandException | ParseException e) {
+            // Parsing and execution of AddLessonCommand should not fail due to
+            // CommandException and ParseException given it is the correct format.
+            throw new AssertionError("Parsing and execution of "
+                    + "AddLessonCommand.COMMAND_WORD should succeed.", e);
+        }
+    }
 }

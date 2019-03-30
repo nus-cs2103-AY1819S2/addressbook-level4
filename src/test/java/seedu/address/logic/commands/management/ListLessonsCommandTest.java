@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.management.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.management.ListLessonsCommand.MESSAGE_NO_LESSONS;
 import static seedu.address.logic.commands.management.ManagementCommand.MESSAGE_EXPECTED_MODEL;
@@ -23,7 +24,7 @@ import seedu.address.testutil.TypicalLessonList;
 /**
  * Contains tests for ListCommand.
  */
-public class ListLessonListCommandTest {
+public class ListLessonsCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -65,6 +66,13 @@ public class ListLessonListCommandTest {
     public void equals() {
         ListLessonsCommand listLessonCommand = new ListLessonsCommand();
 
+        // same object -> returns true
+        assertEquals(listLessonCommand, listLessonCommand);
+
+        // all ListLessonsCommand objects are the same -> returns true
+        ListLessonsCommand listLessonCommand2 = new ListLessonsCommand();
+        assertEquals(listLessonCommand, listLessonCommand2);
+
         // different types -> returns false
         assertNotEquals(listLessonCommand, 1);
 
@@ -74,7 +82,7 @@ public class ListLessonListCommandTest {
 
     private class MgtModelStubWithNoLessons extends ManagementModelStub {
         @Override
-        public List<Lesson> getLessonList() {
+        public List<Lesson> getLessons() {
             return new ArrayList<>();
         }
     }
@@ -82,7 +90,7 @@ public class ListLessonListCommandTest {
 
     private class MgtModelStubWithLessons extends ManagementModelStub {
         @Override
-        public List<Lesson> getLessonList() {
+        public List<Lesson> getLessons() {
             return TypicalLessonList.getTypicalLessonList();
         }
     }

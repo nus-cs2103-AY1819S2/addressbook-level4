@@ -68,7 +68,6 @@ public class JsonQuickDocsStorageTest {
 
     @Test
     public void readAndSaveQuickDocs_allInOrder_success() throws Exception {
-        //QuickDocs original = readQuickDocs("tempQuickDocs.json").get();
         Path filePath = TEST_DATA_FOLDER.resolve("TempQuickDocs.json");
         QuickDocs original = getTypicalPatientQuickDocs();
         JsonQuickDocsStorage jsonQuickDocsStorage = new JsonQuickDocsStorage(filePath);

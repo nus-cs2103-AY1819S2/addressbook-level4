@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -39,10 +40,8 @@ public class LogicManager implements Logic {
         history = new CommandHistory();
         commandParser = new CommandParser();
 
-        // Set cardFolderModified to true whenever the models' card folder is modified.
-        for (ReadOnlyCardFolder cardFolder : model.getCardFolders()) {
-            cardFolder.addListener(observable -> cardFolderModified = true);
-        }
+        // Add listeners to all card folders and the model
+        addCardFolderListeners(model);
 
         // Set modelModified whenever the models' card folders are modified
         model.addListener(observable -> modelModified = true);
@@ -74,14 +73,16 @@ public class LogicManager implements Logic {
         if (modelModified) {
             logger.info("model is modified, saving to file");
             try {
-                storage.saveCardFolders(model.getCardFolders(), model.getcardFolderFilesPath());
+                List<ReadOnlyCardFolder> cardFolders = model.getCardFolders();
+                Path path = model.getcardFolderFilesPath();
+
+                storage.saveCardFolders(cardFolders, path);
             } catch (IOException ioe) {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
+
             // re-register listeners to all card folders
-            for (ReadOnlyCardFolder cardFolder : model.getCardFolders()) {
-                cardFolder.addListener(observable -> cardFolderModified = true);
-            }
+            addCardFolderListeners(model);
         }
 
         return commandResult;
@@ -130,5 +131,15 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedCard(Card card) {
         model.setSelectedCard(card);
+    }
+
+    /**
+     * Adds listeners to all {@code CardFolders} in {@code model}
+     */
+    private void addCardFolderListeners(Model model) {
+        // Set cardFolderModified to true whenever the models' card folder is modified.
+        for (ReadOnlyCardFolder cardFolder : model.getCardFolders()) {
+            cardFolder.addListener(observable -> cardFolderModified = true);
+        }
     }
 }

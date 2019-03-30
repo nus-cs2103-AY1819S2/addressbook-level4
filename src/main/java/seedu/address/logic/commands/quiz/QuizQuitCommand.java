@@ -1,13 +1,11 @@
 package seedu.address.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.quiz.QuizCommand.requireQuizModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.modelmanager.Model;
@@ -17,7 +15,7 @@ import seedu.address.model.quiz.Quiz;
 /**
  * Force quits quiz session while it is still ongoing
  */
-public class QuizQuitCommand implements Command {
+public class QuizQuitCommand extends QuizCommand {
     public static final String COMMAND_WORD = "\\quit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Force quits this session, "

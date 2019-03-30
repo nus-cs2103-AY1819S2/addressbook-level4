@@ -12,7 +12,7 @@ import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
 
 /**
- * Execute User answer
+ * Processes user answer
  */
 public class QuizAnswerCommand extends QuizCommand {
     public static final String COMMAND_WORD = "answer";
@@ -30,14 +30,6 @@ public class QuizAnswerCommand extends QuizCommand {
     }
 
     @Override
-    /**
-     * Executes the command and returns the result message.
-     *
-     * @param model {@link QuizModel} which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If the {@link Model} passed in is not a {@link QuizModel}
-     */
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         QuizModel quizModel = requireQuizModel(model);

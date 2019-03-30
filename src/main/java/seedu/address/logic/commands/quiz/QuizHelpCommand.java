@@ -1,14 +1,13 @@
 package seedu.address.logic.commands.quiz;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.modelmanager.Model;
 
 /**
- * Format full help instructions for every command for display.
+ * Formats full help instructions for every command for display.
  */
-public class QuizHelpCommand implements Command {
+public class QuizHelpCommand extends QuizCommand {
 
     public static final String COMMAND_WORD = "\\help";
 

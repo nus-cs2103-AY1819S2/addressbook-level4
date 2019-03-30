@@ -117,7 +117,7 @@ public class RootLayoutController {
     @FXML
     public void checkInput(KeyEvent event) {
         if (event.getCode() == KeyCode.SPACE) {
-            inputFeedback.setText("space entered");
+            //inputFeedback.setText("space entered");
         }
     }
 

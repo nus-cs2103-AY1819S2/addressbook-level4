@@ -26,6 +26,8 @@ import seedu.hms.logic.commands.HistoryCommand;
 import seedu.hms.logic.commands.ListCustomerCommand;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.logic.parser.exceptions.ParseException;
+import seedu.hms.model.BillManager;
+import seedu.hms.model.BillModel;
 import seedu.hms.model.BookingManager;
 import seedu.hms.model.BookingModel;
 import seedu.hms.model.CustomerManager;
@@ -53,6 +55,7 @@ public class LogicManagerTest {
 
     private CustomerModel customerModel = new CustomerManager();
     private BookingModel bookingModel = new BookingManager();
+    private BillModel billModel = new BillManager();
     private ReservationModel reservationModel = new ReservationManager();
     private Logic logic;
 
@@ -62,7 +65,7 @@ public class LogicManagerTest {
             new JsonHotelManagementSystemStorage(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(hotelManagementSystemStorage, userPrefsStorage);
-        logic = new LogicManager(customerModel, bookingModel, reservationModel, storage);
+        logic = new LogicManager(customerModel, bookingModel, reservationModel, billModel, storage);
     }
 
     @Test
@@ -93,7 +96,7 @@ public class LogicManagerTest {
             new JsonHotelManagementSystemIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(hotelManagementSystemStorage, userPrefsStorage);
-        logic = new LogicManager(customerModel, bookingModel, reservationModel, storage);
+        logic = new LogicManager(customerModel, bookingModel, reservationModel, billModel, storage);
 
         // Execute add command
 

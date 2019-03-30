@@ -63,12 +63,14 @@ public class MemberFindCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         FindCriteriaContainsKeywordPredicate predicate = preparePredicate(" ");
         MemberFindCommand command = new MemberFindCommand(predicate);
-        if (predicate.toString().equalsIgnoreCase("name"))
+        if (predicate.toString().equalsIgnoreCase("name")) {
             expectedModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(predicate
                     .getFindKeywords())));
-        else if (predicate.toString().equalsIgnoreCase("matricnum"))
+        }
+        else if (predicate.toString().equalsIgnoreCase("matricnum")) {
             expectedModel.updateFilteredPersonList(new MatricNumberContainsKeywordsPredicate(Arrays.asList(predicate
                     .getFindKeywords())));
+        }
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
@@ -78,12 +80,14 @@ public class MemberFindCommandTest {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
         FindCriteriaContainsKeywordPredicate predicate = preparePredicate("Kurz Elle Kunz");
         MemberFindCommand command = new MemberFindCommand(predicate);
-        if (predicate.toString().equalsIgnoreCase("name"))
+        if (predicate.toString().equalsIgnoreCase("name")) {
             expectedModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(predicate
                     .getFindKeywords())));
-        else if (predicate.toString().equalsIgnoreCase("matricnum"))
+        }
+        else if (predicate.toString().equalsIgnoreCase("matricnum")) {
             expectedModel.updateFilteredPersonList(new MatricNumberContainsKeywordsPredicate(Arrays.asList(predicate
                     .getFindKeywords())));
+        }
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }

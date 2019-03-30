@@ -12,17 +12,19 @@ import seedu.address.model.person.MatricNumberContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all members in Club Manager whose name and/or matric number contain any of the argument keywords.
+ * Keyword matching is case insensitive and partial matching is available.
  */
 public class MemberFindCommand extends MemberCommand {
 
     public static final String COMMAND_WORD = "memberFind";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all members whose info contain any of "
-            + "the specified keyword (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all members whose specified criteria "
+            + "contain any of the specified keyword (case-insensitive) and displays them as a list with index "
+            + "numbers.\n"
             + "Parameters: CRITERIA KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + "name alice bob charlie";
+            + "Example: " + COMMAND_WORD + "name alice bob charlie"
+            + "Example: " + COMMAND_WORD + "matricnum A012";
 
     private final FindCriteriaContainsKeywordPredicate predicate;
     private final NameContainsKeywordsPredicate namePredicate;
@@ -38,10 +40,12 @@ public class MemberFindCommand extends MemberCommand {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
-        if (predicate.toString().equalsIgnoreCase("name"))
+        if (predicate.toString().equalsIgnoreCase("name")) {
             model.updateFilteredPersonList(namePredicate);
-        else if (predicate.toString().equalsIgnoreCase("matricnum"))
+        }
+        else if (predicate.toString().equalsIgnoreCase("matricnum")) {
             model.updateFilteredPersonList(matricNumPredicate);
+        }
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }

@@ -9,6 +9,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_DISPLAYED_INDEX = "The index provided is invalid";
     public static final String MESSAGE_CARDS_LISTED_OVERVIEW = "%1$d cards listed!";
+    public static final String MESSAGE_DECKS_LISTED_OVERVIEW = "%1$d decks listed!";
     public static final String MESSAGE_INVALID_DECK_DISPLAYED_INDEX = "The index provided is invalid";
     public static final String MESSAGE_EDIT_DECK_SUCCESS = "Edited Deck: %1$s";
     public static final String MESSAGE_DECK_NOT_EDITED = "Index of Deck to edit and Name to edit to must be provided.";

@@ -1,10 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_CLASH;
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_TASK;
+import static seedu.address.commons.core.Messages.MESSAGE_TIME_CLASH;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ENDTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTDATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STARTTIME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +20,8 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
 
@@ -30,16 +36,17 @@ public class TaskEditCommand extends Command {
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TITLE + "NAME] "
-            + "[" + PREFIX_STARTDATE + "PHONE] "
-            + "[" + PREFIX_ENDDATE + "EMAIL] "
+            + "[" + PREFIX_TITLE + "TITLE] "
+            + "[" + PREFIX_STARTDATE + "START DATE] "
+            + "[" + PREFIX_ENDDATE + "END DATE] "
+            + "[" + PREFIX_STARTTIME + "START TIME] "
+            + "[" + PREFIX_ENDTIME + "END TIME] "
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TITLE + "Follow up process for John Doe "
             + PREFIX_ENDDATE + "25-12-2020";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;
@@ -68,12 +75,20 @@ public class TaskEditCommand extends Command {
         Task taskToEdit = lastShownList.get(index.getZeroBased());
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
+        if (editedTask.hasDateClash()) {
+            throw new CommandException(MESSAGE_DATE_CLASH);
+        }
+
+        if (editedTask.hasTimeClash()) {
+            throw new CommandException(MESSAGE_TIME_CLASH);
+        }
+
         if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
         model.setTask(taskToEdit, editedTask);
-        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        //model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask.getTitle()));
     }
@@ -88,8 +103,12 @@ public class TaskEditCommand extends Command {
         Title updatedTitle = editTaskDescriptor.getTitle().orElse(taskToEdit.getTitle());
         DateCustom updatedStartDate = editTaskDescriptor.getStartDate().orElse(taskToEdit.getStartDate());
         DateCustom updatedEndDate = editTaskDescriptor.getEndDate().orElse(taskToEdit.getEndDate());
+        TimeCustom updatedStartTime = editTaskDescriptor.getStartTime().orElse(taskToEdit.getStartTime());
+        TimeCustom updatedEndTime = editTaskDescriptor.getEndTime().orElse(taskToEdit.getEndTime());
+        Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
 
-        return new Task(updatedTitle, updatedStartDate, updatedEndDate);
+        return new Task(updatedTitle, updatedStartDate, updatedEndDate, updatedStartTime,
+                updatedEndTime, updatedPriority);
     }
 
     @Override
@@ -118,6 +137,9 @@ public class TaskEditCommand extends Command {
         private Title title;
         private DateCustom startDate;
         private DateCustom endDate;
+        private TimeCustom startTime;
+        private TimeCustom endTime;
+        private Priority priority;
 
         public EditTaskDescriptor() {}
 
@@ -129,14 +151,21 @@ public class TaskEditCommand extends Command {
             setTitle(toCopy.title);
             setStartDate(toCopy.startDate);
             setEndDate(toCopy.endDate);
+            setStartTime(toCopy.startTime);
+            setEndTime(toCopy.endTime);
+            setPriority(toCopy.priority);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, startDate, endDate);
+            return CollectionUtil.isAnyNonNull(title, startDate, endDate, startTime, endTime, priority);
         }
+
+        /**
+         * Returns true if the start date and end dates clash
+         */
 
         public void setTitle(Title title) {
             this.title = title;
@@ -160,6 +189,30 @@ public class TaskEditCommand extends Command {
 
         public Optional<DateCustom> getEndDate() {
             return Optional.ofNullable(endDate);
+        }
+
+        public void setStartTime(TimeCustom startTime) {
+            this.startTime = startTime;
+        }
+
+        public Optional<TimeCustom> getStartTime() {
+            return Optional.ofNullable(startTime);
+        }
+
+        public void setEndTime(TimeCustom endTime) {
+            this.endTime = endTime;
+        }
+
+        public Optional<TimeCustom> getEndTime() {
+            return Optional.ofNullable(endTime);
+        }
+
+        public Optional<Priority> getPriority() {
+            return Optional.ofNullable(priority);
+        }
+
+        public void setPriority(Priority priority) {
+            this.priority = priority;
         }
 
         @Override

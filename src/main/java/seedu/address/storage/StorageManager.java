@@ -74,4 +74,15 @@ public class StorageManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    @Override
+    public void saveAsPdf(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAsPdf(addressBook, addressBookStorage.getAddressBookFilePath());
+    }
+
+    @Override
+    public void saveAsPdf(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        addressBookStorage.saveAsPdf(addressBook, filePath);
+    }
+
 }

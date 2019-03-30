@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import seedu.address.logic.commands.AddCommand;
@@ -32,6 +33,7 @@ public class PersonUtil {
         if (person instanceof Patient) {
             StringBuilder sb = new StringBuilder();
             sb.append(PREFIX_NAME + person.getName().fullName + " ");
+            sb.append(PREFIX_SEX + ((Patient) person).getSex().getSex() + " ");
             sb.append(PREFIX_NRIC + ((Patient) person).getNric().getNric() + " ");
             sb.append(PREFIX_YEAR + ((Patient) person).getDateOfBirth().getRawFormat() + " ");
             sb.append(PREFIX_PHONE + person.getPhone().value + " ");

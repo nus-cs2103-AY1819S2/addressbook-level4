@@ -10,7 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.record.Record;
 import seedu.address.model.task.Task;
+import seedu.address.ui.MainWindow;
 
 /**
  * API of the Logic component
@@ -37,6 +39,9 @@ public interface Logic {
 
     /** Returns an unmodifiable view of the filtered list of tasks */
     ObservableList<Task> getFilteredTaskList();
+
+    /** Returns an unmodifiable view of the filtered list of tasks */
+    ObservableList<Record> getFilteredRecordList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -73,6 +78,12 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Sets the main window associated with this logic.
+     * @param mainWindow the associated main window.
+     */
+    void setMainWindow(MainWindow mainWindow);
 
     boolean checkNoCopy();
 }

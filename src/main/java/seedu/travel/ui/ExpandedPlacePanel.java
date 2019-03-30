@@ -45,10 +45,10 @@ public class ExpandedPlacePanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ExpandedPlacePanel(Place place, int displayedIndex) {
+    public ExpandedPlacePanel(Place place) {
         super(FXML);
         this.place = place;
-        id.setText(displayedIndex + ". ");
+        id.setText(". ");
         name.setText(place.getName().fullName);
         countryCode.setText(place.getCountryCode().code);
         // dateVisited.setText(place.getDateVisited().date);

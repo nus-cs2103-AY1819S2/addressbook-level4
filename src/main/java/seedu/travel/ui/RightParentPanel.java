@@ -35,42 +35,19 @@ public class RightParentPanel extends UiPart<Region> {
                             Consumer<Place> onSelectedPlaceChange, ReadOnlyProperty<Boolean> chartDisplayed) {
         super(FXML);
 
-        /*
-        placeListView.setItems(placeList);
-        placeListView.setCellFactory(listView -> new PlaceListViewCell());
-        placeListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in place list panel changed to : '" + newValue + "'");
-            onSelectedPlaceChange.accept(newValue);
-        });
-        selectedPlace.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected place changed to: " + newValue);
-
-            // Don't modify selection if we are already selecting the selected place,
-            // otherwise we would have an infinite loop.
-            if (Objects.equals(placeListView.getSelectionModel().getSelectedItem(), newValue)) {
-                return;
-            }
-
-            if (newValue == null) {
-                placeListView.getSelectionModel().clearSelection();
-            } else {
-                int index = placeListView.getItems().indexOf(newValue);
-                placeListView.scrollTo(index);
-                placeListView.getSelectionModel().clearAndSelect(index);
-            }
-        });
-
-        */
-
 
         chartDisplayed.addListener((observable, oldValue, newValue) -> {
             // display the chart
             logger.info("old Value"+oldValue+"New value "+newValue);
-            if (true) {
+            if (newValue) {
                 // pass through
                 logger.info("SimpleBooleanValue Changed");
                 displayListPanel = new DisplayListPanel(placeList, selectedPlace, onSelectedPlaceChange);
                 displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+            } else {
+
+                ExpandedPlacePanel expandedPlacePanel = new ExpandedPlacePanel(selectedPlace.getValue());
+                displayListPanelPlaceholder.getChildren().add(expandedPlacePanel.getRoot());
             }
         });
 

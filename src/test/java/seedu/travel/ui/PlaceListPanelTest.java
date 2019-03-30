@@ -17,6 +17,8 @@ import guitests.guihandles.PlaceListPanelHandle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.travel.logic.Logic;
+import seedu.travel.logic.LogicManager;
 import seedu.travel.model.place.Address;
 import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.DateVisited;
@@ -99,6 +101,7 @@ public class PlaceListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code PlaceListPanel}.
      */
     private void initUi(ObservableList<Place> backingList) {
+
         PlaceListPanel placeListPanel =
                 new PlaceListPanel(backingList, selectedPlace, selectedPlace::set);
         uiPartRule.setUiPart(placeListPanel);

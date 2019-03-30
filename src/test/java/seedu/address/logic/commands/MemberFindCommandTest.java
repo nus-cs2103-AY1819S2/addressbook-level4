@@ -35,7 +35,7 @@ public class MemberFindCommandTest {
     public void equals() {
         FindCriteriaContainsKeywordPredicate firstPredicate =
                 new FindCriteriaContainsKeywordPredicate(Collections.singletonList("first").toString());
-       FindCriteriaContainsKeywordPredicate secondPredicate =
+        FindCriteriaContainsKeywordPredicate secondPredicate =
                 new FindCriteriaContainsKeywordPredicate(Collections.singletonList("second").toString());
 
         MemberFindCommand findFirstCommand = new MemberFindCommand(firstPredicate);

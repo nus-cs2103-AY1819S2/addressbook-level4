@@ -11,8 +11,8 @@ public class FindCriteriaContainsKeywordPredicate implements Predicate<String> {
     private final String[] keywords = {"name", "matricnum"};
 
     public FindCriteriaContainsKeywordPredicate(String criteria) {
-        this.criteria = criteria.split("\\s+",2)[0];
-        this.findKeywords = criteria.split("\\s+",2)[1].split("\\s+");
+        this.criteria = criteria.split("\\s+", 2)[0];
+        this.findKeywords = criteria.split("\\s+", 2)[1].split("\\s+");
     }
 
     @Override
@@ -31,12 +31,14 @@ public class FindCriteriaContainsKeywordPredicate implements Predicate<String> {
                 || (other instanceof FindCriteriaContainsKeywordPredicate // instanceof handles nulls
                 && criteria.equals(((FindCriteriaContainsKeywordPredicate) other).criteria)); // state check
     }
+
     @Override
     public String toString() {
         return criteria;
     }
 
-    public String[] getFindKeywords(){
-        return findKeywords;}
+    public String[] getFindKeywords() {
+        return findKeywords;
+    }
 
 }

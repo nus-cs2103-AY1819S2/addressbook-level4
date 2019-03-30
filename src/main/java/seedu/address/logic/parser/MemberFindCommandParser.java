@@ -19,11 +19,12 @@ public class MemberFindCommandParser implements Parser<MemberFindCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the MemberFindCommand
      * and returns an MemberFindCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform to the expected format
      */
     public MemberFindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        String[] criteria = trimmedArgs.split("\\s+",2);
+        String[] criteria = trimmedArgs.split("\\s+", 2);
 
         if (trimmedArgs.isEmpty() || criteria.length < 2) {
             throw new ParseException(

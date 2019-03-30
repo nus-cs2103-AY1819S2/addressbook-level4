@@ -231,6 +231,7 @@ Examples:
 `change ..` +
 The first command enters the second folder in the folder list on the <<homedirectory, home directory>>. The second command then returns you back to the home directory by exiting the folder.
 
+
 //tag::folderoperations[]
 === Folder Operations
 Commands listed in this section affect the application and not a single folder.
@@ -412,11 +413,33 @@ This command is only considered valid if a card question and answer is currently
 There is no backtracking in the current session so there is no `prev` command.
 
 [[EndCommand]]
-==== End the current test or report session : `end`
+==== End the current test session : `end`
 
-Quits the current test or report session.
+Quits the current test session.
 
 Format: `end`
+
+//tag::reportoperations[]
+=== Report Operations
+After testing, you can track your scoring performance against previous attempts using our report feature.
+
+==== Display a folder score report for user : `report`
+
+Displays a full-screen folder score report for the user. The report comprises a graph showing the last 10 folder scores, the latest score change, and a list of cards
+and their individual scores. A folder score is the percentage of cards (in a folder) answered correctly in a test session.
+
+Format: `report`
+
+[Note]
+There must be at least two test attempts for a graph to be drawn.
+
+==== End the current report session : `end`
+
+Quits the current report session.
+
+Format: `end`
+
+//end::reportoperations[]
 
 === Global Operations
 The commands shown in this section are applicable regardless of whether the user is inside a folder or at the home directory.

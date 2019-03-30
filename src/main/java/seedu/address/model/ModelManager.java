@@ -37,7 +37,6 @@ public class ModelManager implements Model {
     private final VersionedGradTrak versionedAddressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<ModuleTaken> filteredModuleTakens;
-    private final FilteredList<SemLimit> semesterLimitList;
     private final SimpleObjectProperty<ModuleTaken> selectedPerson = new SimpleObjectProperty<>();
 
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
@@ -53,7 +52,7 @@ public class ModelManager implements Model {
      */
     public ModelManager(ReadOnlyGradTrak addressBook, ReadOnlyUserPrefs userPrefs, ModuleInfoList allModules) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(addressBook, userPrefs, allModules);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
@@ -61,7 +60,6 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModuleTakens = new FilteredList<>(versionedAddressBook.getModulesTakenList());
         filteredModuleTakens.addListener(this::ensureSelectedPersonIsValid);
-        semesterLimitList = new FilteredList<>(versionedAddressBook.getSemesterLimitList());
 
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
         this.allModules = allModules.getObservableList();
@@ -191,7 +189,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<SemLimit> getSemLimitList() {
-        return semesterLimitList;
+        return versionedAddressBook.getSemesterLimitList();
     }
 
     @Override

@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MAX_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MIN_LECTURE_HOUR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.SemLimit;
-import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 
 /**
@@ -69,11 +68,11 @@ public class SetSemLimitCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_SEMESTER_LIMIT);
         }
 
+        System.out.println(index.getZeroBased());
         SemLimit semLimitToEdit = lastShownList.get(index.getZeroBased());
         SemLimit editedSemLimit = createEditedLimit(semLimitToEdit, editSemLimitDescriptor);
 
         model.setSemesterLimit(index.getZeroBased(), editedSemLimit);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_LIMIT_SUCCESS, editedSemLimit));
     }
@@ -86,17 +85,35 @@ public class SetSemLimitCommand extends Command {
                                                   EditSemLimitDescriptor editSemLimitDescriptor) {
         assert semLimitToEdit != null;
 
-        Grade updatedMinGrade = editSemLimitDescriptor
-                .getMinGrade().orElse(semLimitToEdit.getMinGrade());
-        Grade updatedMaxGrade = editSemLimitDescriptor
-                .getMaxGrade().orElse(semLimitToEdit.getMaxGrade());
+        CapAverage updatedMinCap = editSemLimitDescriptor
+                .getMinCap().orElse(semLimitToEdit.getMinCap());
+        CapAverage updatedMaxCap = editSemLimitDescriptor
+                .getMaxCap().orElse(semLimitToEdit.getMaxCap());
         Hour updatedMinLectureHour = editSemLimitDescriptor
                 .getMinLectureHour().orElse(semLimitToEdit.getMinLectureHour());
         Hour updatedMaxLectureHour = editSemLimitDescriptor
                 .getMaxLectureHour().orElse(semLimitToEdit.getMaxLectureHour());
+        Hour updatedMinTutorialHour = editSemLimitDescriptor
+                .getMinTutorialHour().orElse(semLimitToEdit.getMinTutorialHour());
+        Hour updatedMaxTutorialHour = editSemLimitDescriptor
+                .getMaxTutorialHour().orElse(semLimitToEdit.getMaxTutorialHour());
+        Hour updatedMinLabHour = editSemLimitDescriptor
+                .getMinLabHour().orElse(semLimitToEdit.getMinLabHour());
+        Hour updatedMaxLabHour = editSemLimitDescriptor
+                .getMaxLabHour().orElse(semLimitToEdit.getMaxLabHour());
+        Hour updatedMinProjectHour = editSemLimitDescriptor
+                .getMinProjectHour().orElse(semLimitToEdit.getMinProjectHour());
+        Hour updatedMaxProjectHour = editSemLimitDescriptor
+                .getMaxProjectHour().orElse(semLimitToEdit.getMaxProjectHour());
+        Hour updatedMinPreparationHour = editSemLimitDescriptor
+                .getMinPreparationHour().orElse(semLimitToEdit.getMinPreparationHour());
+        Hour updatedMaxPreparationHour = editSemLimitDescriptor
+                .getMaxPreparationHour().orElse(semLimitToEdit.getMaxPreparationHour());
 
-        return new SemLimit(updatedMinGrade, updatedMaxGrade,
-                updatedMinLectureHour, updatedMaxLectureHour);
+        return new SemLimit(updatedMinCap, updatedMaxCap,
+                updatedMinLectureHour, updatedMaxLectureHour, updatedMinTutorialHour, updatedMaxTutorialHour,
+                updatedMinLabHour, updatedMaxLabHour, updatedMinProjectHour, updatedMaxProjectHour,
+                updatedMinPreparationHour, updatedMaxPreparationHour);
     }
 
     @Override
@@ -122,10 +139,18 @@ public class SetSemLimitCommand extends Command {
      * corresponding field value of the limit.
      */
     public static class EditSemLimitDescriptor {
-        private Grade minGrade;
-        private Grade maxGrade;
+        private CapAverage minCap;
+        private CapAverage maxCap;
         private Hour minLectureHour;
         private Hour maxLectureHour;
+        private Hour minTutorialHour;
+        private Hour maxTutorialHour;
+        private Hour minLabHour;
+        private Hour maxLabHour;
+        private Hour minProjectHour;
+        private Hour maxProjectHour;
+        private Hour minPreparationHour;
+        private Hour maxPreparationHour;
 
         public EditSemLimitDescriptor() {}
 
@@ -133,36 +158,44 @@ public class SetSemLimitCommand extends Command {
          * Copy constructor.
          */
         public EditSemLimitDescriptor(EditSemLimitDescriptor toCopy) {
-            setMinGrade(toCopy.minGrade);
-            setMaxGrade(toCopy.maxGrade);
+            setMinCap(toCopy.minCap);
+            setMaxCap(toCopy.maxCap);
             setMinLectureHour(toCopy.minLectureHour);
             setMaxLectureHour(toCopy.maxLectureHour);
+            setMinTutorialHour(toCopy.minTutorialHour);
+            setMaxTutorialHour(toCopy.maxTutorialHour);
+            setMinLabHour(toCopy.minLabHour);
+            setMaxLabHour(toCopy.maxLabHour);
+            setMinProjectHour(toCopy.minProjectHour);
+            setMaxProjectHour(toCopy.maxProjectHour);
+            setMinPreparationHour(toCopy.minPreparationHour);
+            setMaxPreparationHour(toCopy.maxPreparationHour);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(minGrade, maxGrade, minLectureHour, maxLectureHour);
+            return CollectionUtil.isAnyNonNull(minCap, maxCap, minLectureHour, maxLectureHour);
         }
 
-        public void setMinGrade(Grade minGrade) {
-            this.minGrade = minGrade;
+        public void setMinCap(CapAverage minCap) {
+            this.minCap = minCap;
         }
 
-        public Optional<Grade> getMinGrade() {
-            return Optional.ofNullable(minGrade);
+        public Optional<CapAverage> getMinCap() {
+            return Optional.ofNullable(minCap);
         }
 
-        public void setMaxGrade(Grade maxGrade) {
-            this.maxGrade = maxGrade;
+        public void setMaxCap(CapAverage maxCap) {
+            this.maxCap = maxCap;
         }
 
-        public Optional<Grade> getMaxGrade() {
-            return Optional.ofNullable(maxGrade);
+        public Optional<CapAverage> getMaxCap() {
+            return Optional.ofNullable(maxCap);
         }
 
-        public void setMinLectureHour(Hour minlectureHour) {
+        public void setMinLectureHour(Hour minLectureHour) {
             this.minLectureHour = minLectureHour;
         }
 
@@ -170,12 +203,76 @@ public class SetSemLimitCommand extends Command {
             return Optional.ofNullable(minLectureHour);
         }
 
-        public void setMaxLectureHour(Hour maxlectureHour) {
+        public void setMaxLectureHour(Hour maxLectureHour) {
             this.maxLectureHour = maxLectureHour;
         }
 
         public Optional<Hour> getMaxLectureHour() {
             return Optional.ofNullable(maxLectureHour);
+        }
+
+        public void setMinTutorialHour(Hour minTutorialHour) {
+            this.minTutorialHour = minTutorialHour;
+        }
+
+        public Optional<Hour> getMinTutorialHour() {
+            return Optional.ofNullable(minTutorialHour);
+        }
+
+        public void setMaxTutorialHour(Hour maxTutorialHour) {
+            this.maxTutorialHour = maxTutorialHour;
+        }
+
+        public Optional<Hour> getMaxTutorialHour() {
+            return Optional.ofNullable(maxTutorialHour);
+        }
+
+        public void setMinLabHour(Hour minLabHour) {
+            this.minLabHour = minLabHour;
+        }
+
+        public Optional<Hour> getMinLabHour() {
+            return Optional.ofNullable(minLabHour);
+        }
+
+        public void setMaxLabHour(Hour maxLabHour) {
+            this.maxLabHour = maxLabHour;
+        }
+
+        public Optional<Hour> getMaxLabHour() {
+            return Optional.ofNullable(maxLabHour);
+        }
+
+        public void setMinProjectHour(Hour minProjectHour) {
+            this.minProjectHour = minProjectHour;
+        }
+
+        public Optional<Hour> getMinProjectHour() {
+            return Optional.ofNullable(minProjectHour);
+        }
+
+        public void setMaxProjectHour(Hour maxProjectHour) {
+            this.maxProjectHour = maxProjectHour;
+        }
+
+        public Optional<Hour> getMaxProjectHour() {
+            return Optional.ofNullable(maxProjectHour);
+        }
+
+        public void setMinPreparationHour(Hour minPreparationHour) {
+            this.minPreparationHour = minPreparationHour;
+        }
+
+        public Optional<Hour> getMinPreparationHour() {
+            return Optional.ofNullable(minPreparationHour);
+        }
+
+        public void setMaxPreparationHour(Hour maxPreparationHour) {
+            this.maxPreparationHour = maxPreparationHour;
+        }
+
+        public Optional<Hour> getMaxPreparationHour() {
+            return Optional.ofNullable(maxPreparationHour);
         }
 
         @Override
@@ -193,10 +290,18 @@ public class SetSemLimitCommand extends Command {
             // state check
             EditSemLimitDescriptor e = (EditSemLimitDescriptor) other;
 
-            return getMinGrade().equals(e.getMinGrade())
-                    && getMaxGrade().equals(e.getMaxGrade())
+            return getMinCap().equals(e.getMinCap())
+                    && getMaxCap().equals(e.getMaxCap())
                     && getMinLectureHour().equals(e.getMinLectureHour())
-                    && getMaxLectureHour().equals(e.getMaxLectureHour());
+                    && getMaxLectureHour().equals(e.getMaxLectureHour())
+                    && getMinTutorialHour().equals(e.getMinTutorialHour())
+                    && getMaxTutorialHour().equals(e.getMaxTutorialHour())
+                    && getMinLabHour().equals(e.getMinLabHour())
+                    && getMaxLabHour().equals(e.getMaxLabHour())
+                    && getMinProjectHour().equals(e.getMinProjectHour())
+                    && getMaxProjectHour().equals(e.getMaxProjectHour())
+                    && getMinPreparationHour().equals(e.getMinPreparationHour())
+                    && getMaxPreparationHour().equals(e.getMaxPreparationHour());
         }
     }
 }

@@ -18,6 +18,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.GradTrak;
+import seedu.address.model.SemLimit;
+import seedu.address.model.moduletaken.CapAverage;
+import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 
@@ -80,6 +83,37 @@ public class TypicalModuleTaken {
             .withExpectedMaxGrade("A")
             .withLectureHour("0").build();
 
+    public static final SemLimit Y1S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+    public static final SemLimit Y1S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+    public static final SemLimit Y2S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+    public static final SemLimit Y2S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+    public static final SemLimit Y3S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+    public static final SemLimit Y3S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+    public static final SemLimit Y4S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+    public static final SemLimit Y4S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+    public static final SemLimit Y5S1 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+    public static final SemLimit Y5S2 = new SemLimit(new CapAverage(1), new CapAverage(5), new Hour("4"),
+            new Hour("8"), new Hour("2"), new Hour("5"), new Hour("2"), new Hour("5"),
+            new Hour("2"), new Hour("5"), new Hour("6"), new Hour("10"));
+
     // Manually added - ModuleTaken's details found in {@code CommandTestUtil}
     public static final ModuleTaken DEFAULT_MODULE_CS2103T = new ModuleTakenBuilder()
             .withModuleInfoCode(VALID_MODULE_INFO_CODE_CS2103T)
@@ -113,6 +147,9 @@ public class TypicalModuleTaken {
         for (ModuleTaken moduleTaken : getTypicalModulesTaken()) {
             ab.addModuleTaken(moduleTaken);
         }
+        for (SemLimit semLimit : getTypicalSemesterLimits()) {
+            ab.addSemesterLimit(semLimit);
+        }
         ab.setCurrentSemester(Semester.Y1S1);
 
         return ab;
@@ -120,5 +157,9 @@ public class TypicalModuleTaken {
 
     public static List<ModuleTaken> getTypicalModulesTaken() {
         return new ArrayList<>(Arrays.asList(CS2103T, CS2101, CS1010S, CS1010X, MA1521, LSM1301, GER1000));
+    }
+
+    public static List<SemLimit> getTypicalSemesterLimits() {
+        return new ArrayList<>(Arrays.asList(Y1S1, Y1S2, Y2S1, Y2S2, Y3S1, Y3S2, Y4S1, Y4S2, Y5S1, Y5S2));
     }
 }

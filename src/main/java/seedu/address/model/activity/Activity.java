@@ -188,7 +188,7 @@ public class Activity implements Comparable<Activity> {
         if (this.getStatus().equals(other.getStatus())) {
             return this.getDateTime().compareTo(other.getDateTime());
         }
-        if (ActivityStatus.isCompleted(other.getStatus())) {
+        if (other.getStatus().isCompleted()) {
             return -1;
             //this activity is ongoing while the other is completed, this activity will come first in the list
         }

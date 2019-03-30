@@ -10,9 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
-
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -51,7 +51,7 @@ public class MergeCommand extends Command {
 
     public MergeCommand(Index... args) {
         this.targetIndexes = new ArrayList<>();
-        for (Index i : args){
+        for (Index i : args) {
             targetIndexes.add(i);
         }
     }
@@ -61,7 +61,7 @@ public class MergeCommand extends Command {
         requireNonNull(model);
         List<Pdf> lastShownList = model.getFilteredPdfList();
 
-        if (targetIndexes.stream().anyMatch(index -> index.getZeroBased() >= lastShownList.size())){
+        if (targetIndexes.stream().anyMatch(index -> index.getZeroBased() >= lastShownList.size())) {
             throw new CommandException(Messages.MESSAGE_INVALID_PDF_DISPLAYED_INDEX);
         }
 
@@ -71,26 +71,26 @@ public class MergeCommand extends Command {
             pdfsToMerge.add(Paths.get(pdf.getDirectory().getDirectory(), pdf.getName().getFullName()).toFile());
         });
 
-        PDFMergerUtility PDFmerger = new PDFMergerUtility();
-        String mergedPdfDirectory = lastShownList.get(targetIndexes.get(FIRST_INDEX).
-                getZeroBased()).getDirectory().getDirectory();
+        PDFMergerUtility pdfMerger = new PDFMergerUtility();
+        String mergedPdfDirectory = lastShownList.get(targetIndexes.get(FIRST_INDEX)
+                .getZeroBased()).getDirectory().getDirectory();
         String mergedPdfName = "merged" + hashCode();
         //Check that no duplicate file name (how on earth would it happen though)
-        while (Paths.get(mergedPdfDirectory, mergedPdfName).toAbsolutePath().toFile().exists()){
+        while (Paths.get(mergedPdfDirectory, mergedPdfName).toAbsolutePath().toFile().exists()) {
             //Just throwing zeros at the back of the name until it is unique
             mergedPdfName += FIRST_INDEX;
         }
         mergedPdfName += PDF_SUFFIX;
-        PDFmerger.setDestinationFileName(new File(mergedPdfDirectory, mergedPdfName).toString());
+        pdfMerger.setDestinationFileName(new File(mergedPdfDirectory, mergedPdfName).toString());
 
         try {
             ArrayList<PDDocument> pdfSources = new ArrayList<>();
             for (File file : pdfsToMerge) {
                 pdfSources.add(PDDocument.load(file));
-                PDFmerger.addSource(file);
+                pdfMerger.addSource(file);
             }
 
-            PDFmerger.mergeDocuments(org.apache.pdfbox.io.MemoryUsageSetting.setupMainMemoryOnly());
+            pdfMerger.mergeDocuments(org.apache.pdfbox.io.MemoryUsageSetting.setupMainMemoryOnly());
             for (PDDocument doc :pdfSources) {
                 doc.close();
             }

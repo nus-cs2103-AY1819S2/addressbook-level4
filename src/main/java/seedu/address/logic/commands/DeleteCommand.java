@@ -3,12 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;

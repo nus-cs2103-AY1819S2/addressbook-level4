@@ -1,12 +1,10 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MergeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.ArrayList;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new MergeCommand object
@@ -22,7 +20,7 @@ public class MergeCommandParser implements Parser<MergeCommand> {
         try {
             String[] parseArgs = args.trim().split("\\s+");
             Index[] indices = new Index[parseArgs.length];
-            for (int i = 0; i < parseArgs.length; i++){
+            for (int i = 0; i < parseArgs.length; i++) {
                 indices[i] = ParserUtil.parseIndex(parseArgs[i]);
             }
             return new MergeCommand(indices);

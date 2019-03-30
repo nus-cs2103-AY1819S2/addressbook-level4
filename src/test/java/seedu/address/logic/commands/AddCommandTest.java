@@ -192,6 +192,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean markAttemptedMcqAnswer(int answerIndex) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setCardAsAnswered() {
             throw new AssertionError("This method should not be called.");
         }

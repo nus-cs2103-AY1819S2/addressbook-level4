@@ -20,30 +20,49 @@ By: `W09-4`      Since: `Feb 2019`      Licence: `MIT`
 
 QuickDocs is an all in one solution where doctors can have greater control in facilitating patient consultations, organizing appointments, and monitoring financial and inventory records in private clinics.
 
+Let us explore how QuickDocs can facilitate and expedite clinical operations in your neighbourhood clinic.
+
 == Quick Start
 
-image::Ui.png[width="790"]
+//image::Ui.png[width="790"]
 
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the jar file and put it into a directory you desire.
+.  Download the jar file and put it into a folder you desire.
 .  Type a command into the command box and press enter to execute it.
 [NOTE]
 For the full list of commands, you can head to <<Command Summary>>
 .  Click on the buttons if you want to use the GUI to perform the actions instead.
 
+=== Interacting with QuickDocs
+
+image::ug-diagrams/ui_explanation.png[width="600" align="center"]
+
+.   This is the *command input* box , this is where you can type and execute the various commands
+QuickDocs possesses to perform clinical operations
+.   If you make mistakes and enter an invalid command, instructions on how you can rectify your commands
+will be shown in this *input feedback* box
+.   After the execution of your command, you can view the results on this *display* area
+.   You can view your upcoming appointments for the day, or urgent reminders that you made earlier in the
+*reminders and appointments* panel
+.   During a consultation session, QuickDocs will also indicate that an *ongoing consultation* session is happening
+
+
 [[Legends]]
-== Notation
+== Notation used
+
+Here are some notations used in this user guide:
+
 [TIP]
-This is a tip. Useful information will be written here.
+This is a tip. Useful information pertaining to the features will be written here.
 [NOTE]
-This is a note. Information that further explains a feature will be written here. +
+This is a note. Additional information that further explains a feature will be written here. +
 
 `command` This is a user input to the application. It is formatted with a gray background. Example: `help`
 
 [[Features]]
 == Features
-*Command Format* +
+*QuickDoc's Command Format* +
 
 `command VALUE prefix/VALUE [OPTIONAL_VALUE] ...`
 
@@ -53,28 +72,155 @@ This is a note. Information that further explains a feature will be written here
 * Optional values can be placed after the command, and can be added multiple times after the command, value and prefix, depending on the command.
 
 [TIP]
-Some commands have an alias, which can be used to execute the same command e.g. `statistics` can be replaced by `stats`.
+All commands have aliases, which can be used to execute the same command with fewer keystrokes e.g. `statistics` can be replaced by `stats`.
+
+{nbsp} +
 
 [[help,Help]]
 === Viewing help : `help`
 
 Format: `help`
 
+{nbsp} +
+
 === Patient Management
 [[padd, Add patient]]
-==== Adding patient: `addpat` or `ap`
-Add a patient into QuickDocs’ patient records. The order of input does not matter. +
 
-Tags can be added to a patient record for ease of searching. +
+{nbsp} +
 
-Format: `addpatient n/NAME r/NRIC e/EMAIL a/ADDRESS g/GENDER d/DOB  c/CONTACT  t/[tag]...`
+[[addpat, Add patient]]
+==== Adding patient: `addpat`
 
-Examples:
+You can register new patients and start storing their records in QuickDocs using the `addpat` command.
+
+Patient details that can be stored include: name, NRIC, email, address, gender, date of birth, contact number.
+
+[TIP]
+You can add a tag to a patient to indicate his or her long term illnesses. You can add multiple tags to the patient to ease searching. +
+
+
+*Format:* `addpat n/NAME r/NRIC e/EMAIL a/ADDRESS g/GENDER d/DATE OF BIRTH c/CONTACT  [t/tag]...` +
+*Alias:* `ap`
+
+[TIP]
+The order of input does not matter as long as they are all captured. +
+
+*Examples:*
 
 * `addpat n/Gary Goh r/S7332803I g/M d/1973-04-01 a/20 Upper Changi Road c/92347654 e/ggoh@gmail.com t/highbloodpressure t/diabetes`
 * `addpat n/Chan Mei Hua r/S8865281I d/1998-05-09 g/F c/92341221 a/2 Simei Street e/cmh@gmail.com`
 
-==== Patient Management - deleting patient `deletepat` or `dp`
+*Results:*
+
+image::ug-diagrams/pat/ap_after.png[width="600" align="center"]
+
+After entering the command, you can view the added patient record on the display.
+
+
+{nbsp} +
+
+[[editpat, Edit patient]]
+==== Editing patient `editpat`
+
+If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command.
+
+All the fields in the record can be edited, including the tags.
+
+[NOTE]
+The tags entered during an edit patient command will override all the tags a patient record currently possess.
+
+*Alias:* `ep` +
+*Format:* `editpat NRIC [n/NAME] [a/Address] [r/NRIC] …` +
+you can view the prefixes for each of the fields at the `addpat` section.
+
+*Example:* +
+
+`editpat S7332803I n/Gary Doh e/gdoh@gmail.com`  +
+
+image::ug-diagrams/pat/ep_before.png[width="600" align="center"]
+
+This changes the email and name of the patient with NRIC: S7332803I to Gary Doh and gdoh@gmail.com respectively.
+
+image::ug-diagrams/pat/ep_after.png[width="600" align="center"]
+
+You will also be able to see the changes made to the patient record in the display after the command is entered.
+
+image::ug-diagrams/pat/ep_conflict.png[width="600" align="center"]
+
+Since every citizen, permanent residents or foreigners in Singapore have their unique NRIC / FIN numbers, duplicate NRIC are not
+allowed in QuickDocs. When you edit a patient's NRIC/FIN, if there is an existing patient with that NRIC, the current edit
+will not be executed. You will also be notified of the detection of duplicated NRIC entries through the input feedback box.
+
+//[NOTE]
+//The index (4, 21 is retrieved from the `plist` command. See: <<plist>>.
+
+{nbsp} +
+
+[[listpat, List patients]]
+==== List patient details : `listpat`
+
+To view a patient's detail, you can use the `listpat` command. You can search and filter patient records
+by their names, NRIC and even their tags.
+
+Suppose you are unsure of the patient's NRIC to start a command, you can always turn to `listpat` to help narrow down your search.
+`listpat` can present all patient records that matches a search sequence you entered. For example, you can enter `r/S92` and the list command
+will present all patient records with NRIC starting with S92.
+
+You can then display a single patient's record by calling `listpat` with the full name or nric.
+
+[NOTE]
+Each patient record stored within QuickDocs have a record number, known as an *INDEX*. The
+Index can also be used to narrow down patient searches to a single record.
+
+*Format:* `plist [PREFIX / KEYWORD] …` +
+*Alias:* `lp`
+
+*Examples:*
+
+`listpat` +
+
+image::ug-diagrams/pat/lp_noargs.png[width="600" align="center"]
+
+If no keywords are entered, `listpat` will simply display the first 50 patients record stored.
+
+`listpat n/P` +
+
+image::ug-diagrams/pat/lp_name_after.png[width="600" align="center"]
+
+QuickDocs will list all patients whose name starts with P, this is very useful in searching for
+the specific NRIC or index of a patient you are interested in.
+
+`listpat r/S92` +
+
+image::ug-diagrams/pat/lp_nric_after.png[width="600" align="center"]
+
+You can now view all the patient detail entries whose nric starts with S92.
+
+image::ug-diagrams/pat/lp_nric_specific.png[width="600" align="center"]
+
+and then proceed to narrow down the search using the specific patient's nric.
+
+`listpat t/diabetes` +
+
+image::ug-diagrams/pat/lp_tag_after.png[width="600" align="center"]
+
+By specifying the tag to be diabetes, you can list all diabetic patients.
+
+`listpat 5`
+
+image::ug-diagrams/pat/lp_indexes.png[width="600" align="center"]
+
+Did you notice that when QuickDocs display multiple patient records during filtering, each record starts with
+a number? This is the index of the patient record.
+
+image::ug-diagrams/pat/lp_index.png[width="600" align="center"]
+
+You can make use of the index number to view specific patient records as well.
+
+{nbsp} +
+
+[[deletepat, Delete patient]]
+==== Patient Management - deleting patient `deletepat`
 
 Delete a patient record into quickdocs by providing his or her NRIC.
 
@@ -83,34 +229,8 @@ Format: `deletepat r/NRIC` +
 Example: `deletepat r/S9237161A`
 
 [[plist, List patients]]
-==== List patient details : `listpat` or `lp`
-Lists patients details, which can be filtered using name, NRIC and tags. +
-Format: `plist [PREFIX / KEYWORD] …`
 
-Examples:
-
-* `listpat` +
-   List up to 50 patient detail entries (name, nric, gender and date of birth).
-* `listpat n/a` +
-   List all the patient detail entries whose name starts with a.
-* `listpat r/S91` +
-   List all the patient detail entries whose nric starts with S91.
-* `listpat t/diabetes` +
-   List all diabetic patients.
-
-[[pedit, Edit patient]]
-==== Editing patient `editpat` or `ep`
-
-Edits a patient detail +
-Format: `editpat INDEX [n/NAME] [a/Address] …`
-
-Example: +
-
-* `editpat 21 [n/Tan Ah Kow] [p/92256711] [e/tanahkow@gmail.com]` +
-* `editpat 4 [p/90691717] [g/Female]` +
-
-[NOTE]
-The index is retrieved from the last `plist` command. See: <<plist>>.
+{nbsp} +
 
 === Consultation Management
 [[consult, Start consultation]]
@@ -444,9 +564,10 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 
 *Patient Management* +
 
-* *<<padd>>* : `padd` +
-* *<<pedit>>* : `pedit` +
-* *<<plist>>* : `plist` +
+* *<<addpat>>* : `addpat` +
+* *<<editpat>>* : `editpat` +
+* *<<listpat>>* : `listpat` +
+* *<<deletepat>> : `deletepat`
 
 *Consultation Management* +
 

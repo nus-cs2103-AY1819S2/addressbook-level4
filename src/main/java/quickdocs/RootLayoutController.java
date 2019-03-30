@@ -4,6 +4,7 @@ import java.util.List;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -78,7 +79,8 @@ public class RootLayoutController {
 
                 // handling exit
                 if (result.isExit()) {
-                    primaryStage.close();
+                    //primaryStage.close();
+                    handleExit();
                 }
 
                 // consultation session handling
@@ -212,5 +214,9 @@ public class RootLayoutController {
                 && checkConsultation.contains("ended")) {
             currentSession.setText("");
         }
+    }
+
+    public void handleExit() {
+        primaryStage.close();
     }
 }

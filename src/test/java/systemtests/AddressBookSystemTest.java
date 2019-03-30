@@ -40,7 +40,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.AutoCompleteTextField;
-import seedu.address.ui.CommandBox;
 import seedu.address.ui.InfoPanel;
 
 /**

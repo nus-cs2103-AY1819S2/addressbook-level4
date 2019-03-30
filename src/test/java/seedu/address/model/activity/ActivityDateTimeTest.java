@@ -61,8 +61,8 @@ public class ActivityDateTimeTest {
 
     @Test
     public void isPast() {
-        assertTrue(ActivityDateTime.isPast(t1));
-        assertFalse(ActivityDateTime.isPast(t5));
+        assertTrue(t1.isPast());
+        assertFalse(t5.isPast());
     }
 
 

@@ -416,7 +416,20 @@ Edits the date of the first activity to be 13 Feb 2019.
 * `activityEdit 2 t/` +
 Clears all existing tags of the second activity.
 
-==== Finding activities by name: `activityFind`
+==== Filtering activities by date: `activityFilter`
+
+Filters the activities that is the given number of days away from today (inclusive)
+and displays them as a list with index numbers.
+Format: `activityFilter CONDITION NUMBEROFDAYS`
+
+****
+* The filter condition must be specified. `+` is to filter future activities and `-` is to filter activities.
+* `NUMBEROFDAYS` refers to the range of days from the current date.
+* `NUMBEROFDAYS` *must be a postive integer* `1 2 3`
+****
+
+
+==== Finding activities by criteria: `activityFind`
 
 Finds all activities whose attribute contain any of the specified keywords
 (case-insensitive) and displays them as a list with index numbers. +
@@ -529,7 +542,9 @@ e.g. `activityDeleteMember 1 A1234567N`
 * *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … ` +
 e.g. `activityEdit 1 d/13022019`
 * *Find an activity* : `activityFind [a/] [n/] [de/] [l/] KEYWORD [MORE_KEYWORDS]` +
-e.g. `activityFind Workshop`
+e.g. `activityFind n/ Workshop`
+* *Filtering activities* : `activityFilter CONDITION NUMBEROFDAYS` +
+e.g. `activityFilter + 30`
 * *List all the activities* : `activityList`
 * *Select an activity* : `activitySelect ACTIVITY_INDEX` +
 e.g. `activitySelect 2`

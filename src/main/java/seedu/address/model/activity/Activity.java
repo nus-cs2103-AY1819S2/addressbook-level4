@@ -90,7 +90,7 @@ public class Activity implements Comparable<Activity> {
     }
 
     public ActivityStatus getCurrentStatus() {
-        return new ActivityStatus(ActivityDateTime.isPast(dateTime));
+        return new ActivityStatus(dateTime.isPast());
     }
 
     public void setInCharge(Person person) {
@@ -105,7 +105,7 @@ public class Activity implements Comparable<Activity> {
      * Returns a activity status based on the ActivityDateTime input
      */
     private ActivityStatus setStatus(ActivityDateTime dateTime) {
-        return new ActivityStatus(ActivityDateTime.isPast(dateTime));
+        return new ActivityStatus(dateTime.isPast());
     }
 
     /**

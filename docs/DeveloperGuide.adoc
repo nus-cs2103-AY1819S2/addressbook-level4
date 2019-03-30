@@ -347,7 +347,7 @@ image::MemberExportCommand_LogicComponentSequenceDiagram.png[width="800"]
 === Activity List Feature
 
 One basic feature of `ClubManager` is to display and manage either a list of all the activities or some particular
-activities that the club has. `activityAdd` , `activityList` , `activityFind` and
+activities that the club has. `activityAdd` , `activityList` , `activityFilter` , `activityFind` and
 `activityDelete` commands contribute to this feature.
 
 ==== Current Implementation

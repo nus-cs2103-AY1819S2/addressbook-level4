@@ -30,8 +30,7 @@ public class ActivityContainsKeywordsPredicate implements Predicate<Activity> {
         return other == this // short circuit if same object
                 || (other instanceof seedu.address.model.activity.ActivityContainsKeywordsPredicate
                 // instanceof handles nulls
-                && keywords.equals(((ActivityContainsKeywordsPredicate) other)
-                .keywords)); // state check
+                && keywords.equals(((ActivityContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

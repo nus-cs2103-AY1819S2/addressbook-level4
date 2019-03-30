@@ -8,8 +8,8 @@ public class ActivityStatusTest {
 
     private static final ActivityDateTime t1 = new ActivityDateTime("23/03/2019 1200");
     private static final ActivityDateTime t2 = new ActivityDateTime("12/03/2020 1200");
-    private static final ActivityStatus s1 = new ActivityStatus(ActivityDateTime.isPast(t1));
-    private static final ActivityStatus s2 = new ActivityStatus(ActivityDateTime.isPast(t2));
+    private static final ActivityStatus s1 = new ActivityStatus(t1.isPast());
+    private static final ActivityStatus s2 = new ActivityStatus(t2.isPast());
 
     @Test
     public void isCompleted() {

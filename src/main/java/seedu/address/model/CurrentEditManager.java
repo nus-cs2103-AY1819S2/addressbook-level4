@@ -130,7 +130,7 @@ public class CurrentEditManager implements CurrentEdit {
      * Creates originalImage instance of {@code image} located in temp_folder.
      */
     public void setOriginalImage(Image image) {
-        this.originalImage = new Image(TEMP_FILEPATH + image.getName().toString());
+        this.originalImage = new Image(TEMP_FILEPATH + "ori_img.png");
     }
 
     public void displayTempImage() {
@@ -150,7 +150,7 @@ public class CurrentEditManager implements CurrentEdit {
         //List<Command> tempList = tempImage.getCommandHistory();
         //int index = tempImage.getIndex();
         try {
-            File newTemp = new File(originalImage.getUrl());
+            File newTemp = new File(TEMP_FILEPATH + "ori_img.png");
             File directory = new File(tempImage.getUrl());
             FileUtils.copyFile(newTemp, directory, false);
             BufferedImage tempBuffer = originalImage.getBufferedImage();

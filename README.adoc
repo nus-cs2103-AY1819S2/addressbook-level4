@@ -13,9 +13,42 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Flash Card application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* Know-It-All is targeted at medical students in NUS (or any student!) as their studies requires a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
-* You can manage your flash cards, test yourself, and even has a convenient way to share flash cards with your fellow classmates! What are you waiting for? Download Know-It-All today!
+Having a hard time memorizing two hundred pages worth of lecture notes? Cant' recall the difference between the Adenosine
+Triphosphate and Adenosine Diphosphate? The fact is, memory work is hard. We understand your troubles.
+
+Introducing... Know-It-All!
+
+Know-It-All is targeted at medical students (in fact, any student) as their studies requires a considerable amount of
+memory work, and deals with content that is suitable for bite-sized flashcard format.
+
+You can manage your flash cards, test yourself, and even share flashcards with your fellow classmates!
+What are you waiting for? Download Know-It-All today!
+
+Know-It-All comes with both a GUI (Graphical User Interface) and a CLI (Command Line Interface), for maximum control.
+We want to give you control over your own learning process.
+
+Know-It-All uses _innovative_ teaching methods to ensure our users love the learning process, combined with scientifically proven techniques
+ such as _spaced-repetition_ to drive their performance ahead of everyone.
+
+Compiled by a fleet of education experts, Know-It-All has been used by over a dozen students who have seen improvements
+in their results. Here are some things our users and fans had to say about us:
+
+
+[quote, Lim Wei Jie, Medical Student]
+Saved my life. A Know-It-All a day, keeps the doctor away.
+
+[quote, I.M. Wong, Singapore Business Journal]
+Anki should be shaking in their boots right now.
+
+[quote, C. Bee,Singapore Business Satisfaction Review]
+At last, a new high in BS - has been achieved.
+
+
+Know-It-All has earned the following awards:
+
+ifndef::env-github[]
+image:images/award1.png[width="300"] image:images/award2.png[width="300"]
+endif::[]
 
 == Site Map
 

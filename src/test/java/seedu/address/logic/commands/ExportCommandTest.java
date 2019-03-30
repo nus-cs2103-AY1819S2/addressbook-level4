@@ -108,7 +108,7 @@ public class ExportCommandTest {
             while (iterator.hasNext()) {
                 Medicine current = (Medicine) iterator.next();
                 List<Batch> listOfBatchesExpiringSoon = current.getFilteredBatch(
-                        model.getWarningPanelPredicateAccessor().getBatchExpiringPredicate());
+                        model.getWarningPanelPredicateAccessor().getBatchExpiryPredicate());
                 if (current.getBatches().size() == 0) {
                     continue;
                 }

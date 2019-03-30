@@ -161,7 +161,7 @@ public class CsvWrapper {
      * It returns an empty list of the input medicine does not have any batches that is expiring soon.
      */
     private List<Batch> getListOfBatchExpiringSoon(Medicine medicine) {
-        return medicine.getFilteredBatch(model.getWarningPanelPredicateAccessor().getBatchExpiringPredicate());
+        return medicine.getFilteredBatch(model.getWarningPanelPredicateAccessor().getBatchExpiryPredicate());
     }
 
     private boolean isMedicineLowQuantity(Medicine medicine, List lowQuantityMedicineList) {

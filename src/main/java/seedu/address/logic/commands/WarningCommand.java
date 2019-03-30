@@ -71,7 +71,8 @@ public class WarningCommand extends Command {
     private CommandResult showCurrentThresholds(WarningPanelPredicateAccessor predicateAccessor) {
         return new CommandResult(
                 String.format(Messages.MESSAGE_SHOW_CURRENT_THRESHOLDS,
-                        predicateAccessor.getExpiryThreshold(), predicateAccessor.getLowStockThreshold()));
+                        predicateAccessor.getExpiryThreshold().getNumericValue(),
+                        predicateAccessor.getLowStockThreshold().getNumericValue()));
     }
 
     /**
@@ -82,14 +83,14 @@ public class WarningCommand extends Command {
      */
     private CommandResult changeThreshold(Model model, WarningPanelPredicateAccessor predicateAccessor) {
         if (predicate instanceof MedicineExpiryThresholdPredicate) {
-            int threshold = ((MedicineExpiryThresholdPredicate) predicate).getThreshold();
+            int threshold = ((MedicineExpiryThresholdPredicate) predicate).getThreshold().getNumericValue();
 
             predicateAccessor.setMedicineExpiringThreshold(threshold);
             predicateAccessor.setBatchExpiringThreshold(threshold);
-            model.updateFilteredExpiringMedicineList(predicateAccessor.getMedicineExpiringPredicate());
+            model.updateFilteredExpiringMedicineList(predicateAccessor.getMedicineExpiryPredicate());
 
         } else if (predicate instanceof MedicineLowStockThresholdPredicate) {
-            int threshold = ((MedicineLowStockThresholdPredicate) predicate).getThreshold();
+            int threshold = ((MedicineLowStockThresholdPredicate) predicate).getThreshold().getNumericValue();
 
             predicateAccessor.setMedicineLowStockThreshold(threshold);
             model.updateFilteredLowStockMedicineList(predicateAccessor.getMedicineLowStockPredicate());

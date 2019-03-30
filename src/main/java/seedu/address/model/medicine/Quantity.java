@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Quantity {
 
     public static final int MAX_QUANTITY = 1000000000;
-    public static final String MESSAGE_CONSTRAINTS = "Quantity should only contain numbers. Max Quantity "
+    public static final int MIN_QUANTITY = 0;
+    public static final String MESSAGE_CONSTRAINTS = "Quantity should only contain positive numbers. Max Quantity "
             + MAX_QUANTITY;
     public static final String VALIDATION_REGEX = "\\d+";
     public final String value;
@@ -31,7 +32,9 @@ public class Quantity {
      */
     public static boolean isValidQuantity(String test) {
         try {
-            return Integer.parseInt(test) <= MAX_QUANTITY && test.matches(VALIDATION_REGEX);
+            return Integer.parseInt(test) <= MAX_QUANTITY
+                    && Integer.parseInt(test) >= MIN_QUANTITY
+                    && test.matches(VALIDATION_REGEX);
         } catch (NumberFormatException e) {
             return false;
         }

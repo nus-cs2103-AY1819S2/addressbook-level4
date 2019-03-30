@@ -45,12 +45,12 @@ public class WarningCard extends UiPart<Region> {
         switch (listType) {
         case EXPIRY:
             FilteredList<Batch> filteredBatch = medicine
-                    .getFilteredBatch(warningPanelPredicateAccessor.getBatchExpiringPredicate());
+                    .getFilteredBatch(warningPanelPredicateAccessor.getBatchExpiryPredicate());
             field.setText(getFormattedBatch(filteredBatch));
             break;
 
         case LOW_STOCK:
-            field.setText("Qty: " + medicine.getTotalQuantity().value);
+            field.setText(String.format("Qty: %s\n", medicine.getTotalQuantity().value));
             break;
 
         default:
@@ -61,12 +61,14 @@ public class WarningCard extends UiPart<Region> {
     }
 
     private String getFormattedBatch(FilteredList<Batch> filteredBatch) {
-        ArrayList<String> formatted = new ArrayList<>();
+        String formatted = "";
         for (Batch batch: filteredBatch) {
-            formatted.add(batch.getBatchNumber().toString() + " [Exp: " + batch.getExpiry().toString() + "]");
+            formatted += String.format("%s [Exp: %s]\n",
+                    batch.getBatchNumber().toString(),
+                    batch.getExpiry().toString());
         }
 
-        return String.join("\n", formatted);
+        return formatted;
     }
 
     /**

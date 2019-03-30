@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import seedu.address.model.threshold.Threshold;
 
 /**
- * Tests that number of days from {@code Batch}'s {@code Expiry} to today is less than the threshold given.
+ * Tests if {@code Batch} has expired or is expiring soon based on its {@code Expiry} and given threshold.
  */
 public class BatchExpiryThresholdPredicate implements Predicate<Batch> {
     private final Threshold threshold;

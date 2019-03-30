@@ -50,7 +50,7 @@ public class ModelManager implements Model {
 
         warningPanelPredicateAccessor = new WarningPanelPredicateAccessor();
         medicinesExpiring = new FilteredList<>(versionedInventory.getMedicineList());
-        updateFilteredExpiringMedicineList(warningPanelPredicateAccessor.getMedicineExpiringPredicate());
+        updateFilteredExpiringMedicineList(warningPanelPredicateAccessor.getMedicineExpiryPredicate());
         medicinesLowStock = new FilteredList<>(versionedInventory.getMedicineList());
         updateFilteredLowStockMedicineList(warningPanelPredicateAccessor.getMedicineLowStockPredicate());
     }

@@ -14,8 +14,8 @@ import seedu.address.model.threshold.Threshold;
  * Accessor to all predicates used in the warning panel for filtration.
  */
 public class WarningPanelPredicateAccessor {
-    private BatchExpiryThresholdPredicate batchExpiringPredicate;
-    private MedicineExpiryThresholdPredicate medicineExpiringPredicate;
+    private BatchExpiryThresholdPredicate batchExpiryPredicate;
+    private MedicineExpiryThresholdPredicate medicineExpiryPredicate;
     private MedicineLowStockThresholdPredicate medicineLowStockPredicate;
 
 
@@ -24,33 +24,33 @@ public class WarningPanelPredicateAccessor {
     }
 
 
-    public Predicate<Batch> getBatchExpiringPredicate() {
-        return this.batchExpiringPredicate;
+    public Predicate<Batch> getBatchExpiryPredicate() {
+        return this.batchExpiryPredicate;
     }
 
-    public Predicate<Medicine> getMedicineExpiringPredicate() {
-        return this.medicineExpiringPredicate;
+    public Predicate<Medicine> getMedicineExpiryPredicate() {
+        return this.medicineExpiryPredicate;
     }
 
     public Predicate<Medicine> getMedicineLowStockPredicate() {
         return this.medicineLowStockPredicate;
     }
 
-    public int getExpiryThreshold() {
-        return medicineExpiringPredicate.getThreshold();
+    public Threshold getExpiryThreshold() {
+        return medicineExpiryPredicate.getThreshold();
     }
 
-    public int getLowStockThreshold() {
+    public Threshold getLowStockThreshold() {
         return medicineLowStockPredicate.getThreshold();
     }
 
     public void setBatchExpiringThreshold(int threshold) {
-        this.batchExpiringPredicate = new BatchExpiryThresholdPredicate(
+        this.batchExpiryPredicate = new BatchExpiryThresholdPredicate(
             new Threshold(Integer.valueOf(threshold)));
     }
 
     public void setMedicineExpiringThreshold(int threshold) {
-        this.medicineExpiringPredicate = new MedicineExpiryThresholdPredicate(
+        this.medicineExpiryPredicate = new MedicineExpiryThresholdPredicate(
             new Threshold(Integer.valueOf(threshold)));
     }
 
@@ -60,8 +60,8 @@ public class WarningPanelPredicateAccessor {
     }
 
     private void setDefaultPredicates() {
-        this.batchExpiringPredicate = new BatchExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
-        this.medicineExpiringPredicate = new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
+        this.batchExpiryPredicate = new BatchExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
+        this.medicineExpiryPredicate = new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
         this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(Model.DEFAULT_LOW_STOCK_THRESHOLD);
     }
 }

@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents the quantity of a Medicine in the inventory.
- * Guarantees: immutable; is valid as declared in {@link #isValidQuantity(String)}
+ * Represents the threshold of a Medicine or Batch predicate.
+ * Guarantees: immutable; is valid as declared in {@link #isValidThreshold(String)}
  */
 public class Threshold {
     public static final int MIN_THRESHOLD = 0;
@@ -21,7 +21,7 @@ public class Threshold {
      */
     public Threshold(String threshold) {
         requireNonNull(threshold);
-        checkArgument(isValidQuantity(threshold), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidThreshold(threshold), MESSAGE_CONSTRAINTS);
         this.value = threshold;
     }
 
@@ -32,14 +32,14 @@ public class Threshold {
      */
     public Threshold(Integer threshold) {
         requireNonNull(threshold.toString());
-        checkArgument(isValidQuantity(threshold.toString()), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidThreshold(threshold.toString()), MESSAGE_CONSTRAINTS);
         this.value = threshold.toString();
     }
 
     /**
      * Returns true if a given string is a valid quantity.
      */
-    public static boolean isValidQuantity(String test) {
+    public static boolean isValidThreshold(String test) {
         try {
             return Integer.parseInt(test) >= MIN_THRESHOLD && test.matches(VALIDATION_REGEX);
         } catch (NumberFormatException e) {
@@ -48,7 +48,7 @@ public class Threshold {
     }
 
     /**
-     * Returns quantity as an int
+     * Returns threshold as an int
      */
     public int getNumericValue() {
         return Integer.parseInt(value);

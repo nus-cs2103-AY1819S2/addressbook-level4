@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -24,6 +28,8 @@ public class TestSession extends UiPart<Region> {
     @FXML
     private Label testCardAnswer;
     @FXML
+    private Label testCardOptions;
+    @FXML
     private Label testMessage;
 
     public TestSession() {
@@ -42,8 +48,15 @@ public class TestSession extends UiPart<Region> {
     public void displayCard(Card cardToTest) {
         testSessionPage.getChildren().clear();
         testCardQuestion.setText(cardToTest.getQuestion().fullQuestion);
+        testCardOptions.setText("");
+        if (!cardToTest.getOptions().isEmpty()) {
+            List<String> completeOptions = constructOptionList(cardToTest);
+            for (int i = 1; i <= completeOptions.size(); i++) {
+                testCardOptions.setText(testCardOptions.getText() + i + ") " + completeOptions.get(i - 1) + "\n");
+            }
+        }
         testCardAnswer.setText("Correct answer:\n" + cardToTest.getAnswer().fullAnswer);
-        testSessionPage.getChildren().add(testCardQuestion);
+        testSessionPage.getChildren().addAll(testCardQuestion, testCardOptions);
     }
 
     /**
@@ -63,5 +76,18 @@ public class TestSession extends UiPart<Region> {
         testMessage.setText(MESSAGE_WRONG_ANSWER);
         testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
     }
-}
 
+    /**
+     * Constructs a randomized list of options, inclusive of the answer, for MCQ cards.
+     * @param card card to be tested.
+     * @return randomized list of options.
+     */
+    private List<String> constructOptionList(Card card) {
+        assert !card.getOptions().isEmpty();
+        List<String> result = new ArrayList<>();
+        card.getOptions().forEach(option -> result.add(option.optionValue));
+        result.add(card.getAnswer().fullAnswer);
+        Collections.shuffle(result);
+        return result;
+    }
+}

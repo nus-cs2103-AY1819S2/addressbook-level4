@@ -206,7 +206,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, nric, dateOfBirth, phone, email, address, tags, sex);
+            return CollectionUtil.isAnyNonNull(name, nric, dateOfBirth, phone, email, address, tags, sex,
+                nextOfKinName, nextOfKinPhone, nextOfKinRelation, nextOfKinAddress);
         }
 
         public void setName(Name name) {

@@ -75,12 +75,9 @@ public class BattleManager implements Battle {
 
         Coordinates enemyAttack = enemyPlayer.enemyShootAt();
 
-        if (enemyPlayer.addToTargetHistory(enemyAttack)) {
-            AttackResult res = performAttack(enemyPlayer, humanPlayer, enemyAttack);
-            // update the enemy with it's result
-        }
-
-        return null;
+        AttackResult res = performAttack(enemyPlayer, humanPlayer, enemyAttack);
+        // update the enemy with it's result
+        return res;
     }
 
     /**

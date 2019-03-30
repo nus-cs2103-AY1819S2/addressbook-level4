@@ -88,7 +88,7 @@ public class LogicManagerTest {
         StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
-        // Execute add command
+        // Execute addDeck command
         String addCommand = AddDeckCommand.COMMAND_WORD + VALID_DECK_NAME_A_ARGS;
         Deck expectedDeck = new DeckBuilder(VALID_DECK_A).build();
         ModelManager expectedModel = new ModelManager();

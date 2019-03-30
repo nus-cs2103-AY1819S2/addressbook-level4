@@ -133,10 +133,16 @@ public abstract class TopDeckSystemTest {
         assertEquals(getModel().getTopDeck().getDeckList().size(), getModel().getFilteredList().size());
     }
 
-    /**
-     * Displays all decks with any parts of their names matching {@code keyword} (case-insensitive).
-     * TODO: uncomment when FindDeckCommand is implemented
-     */
+
+
+    //    /**
+    //     * Selects the person at {@code index} of the displayed list.
+    //     */
+    //    protected void selectPerson(Index index) {
+    //        executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+    //        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+    //    }
+
     /**
     protected void showDecksWithQuestion(String keyword) {
         executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);

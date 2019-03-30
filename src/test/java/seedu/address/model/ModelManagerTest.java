@@ -185,7 +185,7 @@ public class ModelManagerTest {
         assertEquals(ADDITION, modelManager.getSelectedItem());
     }
 
-    //TODO add delete deck functionality
+    //TODO addDeck delete deck functionality
 //    @Test
 //    public void deleteDeck_deckIsSelectedAndSecondDeckInFilteredDeckList_firstDeckSelected() {
 //        modelManager.addDeck(DECK_A);
@@ -206,7 +206,7 @@ public class ModelManagerTest {
 //        assertEquals(updatedAddition, modelManager.getSelectedItem());
 //    }
 
-    //TODO add setDeck
+    //TODO addDeck setDeck
 //    @Test
 //    public void setDeck_deckIsSelected_selectedDeckUpdated() {
 //        modelManager.addDeck(DECK_A);

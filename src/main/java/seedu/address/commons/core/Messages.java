@@ -14,7 +14,7 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_TASK = "An exact same task is already found in the records";
     public static final String MESSAGE_DATE_CLASH = "The task's start date should not be after its end date";
     public static final String MESSAGE_TIME_CLASH = "The tasks start time should not be before its end time if"
-                                                 + " its' start Date is the same as its end Date.";
+                                                 + " its' start date is the same as its end date.";
     public static final String MESSAGE_INVALID_FILE_TYPE = "Invalid file type!";
     public static final String MESSAGE_ONLY_GO_TO_MODE_COMMANDS = "This command can only be used in patient mode "
                                                                 + "to return to patient mode, use the back command";

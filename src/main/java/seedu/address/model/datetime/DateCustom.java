@@ -13,8 +13,8 @@ import java.time.format.DateTimeFormatter;
 public class DateCustom implements DateBuilder {
 
     public static final String MESSAGE_CONSTRAINTS = "Date given should be a valid date "
-                                                                + "and should be in the format dd-mm-yyyy\n"
-                                                                + "Example date: 31-04-2019";
+                                                    + "and should be in the format dd-mm-yyyy\n"
+                                                    + "Example date: 31-04-2019";
 
     public static final String MESSAGE_CONSTRAINTS_START_DATE = "Start Date should be a valid date "
                                                                + "and should be in the format dd-mm-yyyy\n"

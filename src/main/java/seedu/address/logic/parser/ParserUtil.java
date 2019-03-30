@@ -241,6 +241,7 @@ public class ParserUtil {
         }
         return Priority.returnPriority(trimmedPriority);
     }
+
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */

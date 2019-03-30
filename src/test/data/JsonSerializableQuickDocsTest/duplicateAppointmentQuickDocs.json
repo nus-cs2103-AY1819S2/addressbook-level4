@@ -74,5 +74,6 @@
     "comment" : "Weekly Checkup"
   } ],
   "reminderList" : [ ],
-  "medicineList" : [ ]
+  "medicineList" : [ ],
+  "monthStatisticsList" : []
 }

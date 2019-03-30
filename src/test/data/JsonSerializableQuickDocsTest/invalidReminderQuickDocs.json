@@ -9,5 +9,6 @@
     "start" : "12:00",
     "end" : "24:00"
   } ],
-  "medicineList" : [ ]
+  "medicineList" : [ ],
+  "monthStatisticsList" : []
 }

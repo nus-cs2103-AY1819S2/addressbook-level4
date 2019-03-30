@@ -38,5 +38,6 @@
   "consultationList" : [ ],
   "appointmentList" : [ ],
   "reminderList" : [ ],
-  "medicineList" : [ ]
+  "medicineList" : [ ],
+  "monthStatisticsList" : []
 }

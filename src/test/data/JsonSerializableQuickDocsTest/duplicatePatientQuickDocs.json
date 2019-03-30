@@ -31,6 +31,7 @@
       "contact": "93333333",
       "gender": "M",
       "dob": "1980-03-03",
+
       "tagList": [
         "Highbloodpressure"
       ]
@@ -51,5 +52,15 @@
   "appointmentList" : [ ],
   "reminderList" : [ ],
   "medicineList" : [ ],
-  "monthStatisticsList" : []
+  "rootDirectory" : {
+    "name" : "root",
+    "threshold" : {
+      "value" : 30
+    },
+    "listOfMedicineNames" : [ ],
+    "listOfDirectories" : [ ]
+  },
+  "monthStatisticsList" : [ ],
+  "consultationFee" : 30.0
 }
+

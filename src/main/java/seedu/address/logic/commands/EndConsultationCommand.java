@@ -9,7 +9,6 @@ import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.Prescription;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.record.ConsultationRecord;
-
 /**
  * End the current consultation session and store the details
  */
@@ -40,6 +39,7 @@ public class EndConsultationCommand extends Command {
 
         for (Prescription prescription : currentConsultation.getPrescriptions()) {
             prescription.getMedicine().subtractQuantity(prescription.getQuantity());
+            model.reminderForMedicine(prescription.getMedicine());
         }
         ConsultationRecord record = new ConsultationRecord(currentConsultation.getPrescriptions(),
                 currentConsultation.getDiagnosis());

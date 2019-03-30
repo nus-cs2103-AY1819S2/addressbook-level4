@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,9 @@ import seedu.address.model.appointment.Appointment;
 import seedu.address.model.appointment.AppointmentManager;
 import seedu.address.model.consultation.Consultation;
 import seedu.address.model.consultation.ConsultationManager;
+import seedu.address.model.medicine.Directory;
+import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineManager;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
 import seedu.address.model.record.MonthStatistics;
@@ -29,12 +33,16 @@ public class JsonSerializableQuickDocs {
     public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s)";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
     public static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s)";
+    public static final String MESSGAE_DUPLICATE_MEDICINE = "Medicine list contains medicines with same name.";
+    public static final String MESSAGE_NONEXISTING_MEDICINE =
+            "A Directory contains a medicine not found in the list of medicines.";
 
     private final List<JsonAdaptedPatient> patientList = new ArrayList<>();
     private final List<JsonAdaptedConsultation> consultationList = new ArrayList<>();
     private final List<JsonAdaptedAppointment> appointmentList = new ArrayList<>();
     private final List<JsonAdaptedReminder> reminderList = new ArrayList<>();
     private final List<JsonAdaptedMedicine> medicineList = new ArrayList<>();
+    private JsonAdaptedDirectory rootDirectory;
     private final List<JsonAdaptedMonthStatistics> monthStatisticsList = new ArrayList<>();
     private BigDecimal consultationFee = StatisticsManager.DEFAULT_CONSULTATION_FEE;
 
@@ -44,6 +52,7 @@ public class JsonSerializableQuickDocs {
                                      @JsonProperty("appointmentList") List<JsonAdaptedAppointment> appointments,
                                      @JsonProperty("reminderList") List<JsonAdaptedReminder> reminders,
                                      @JsonProperty("medicineList") List<JsonAdaptedMedicine> medicines,
+                                     @JsonProperty("rootDirectory") JsonAdaptedDirectory rootDirectory,
                                      @JsonProperty("monthStatisticsList")
                                                  List<JsonAdaptedMonthStatistics> monthStatisticsList,
                                      @JsonProperty("consultationFee") BigDecimal consultationFee) {
@@ -52,6 +61,7 @@ public class JsonSerializableQuickDocs {
         this.appointmentList.addAll(appointments);
         this.reminderList.addAll(reminders);
         this.medicineList.addAll(medicines);
+        this.rootDirectory = rootDirectory;
         this.monthStatisticsList.addAll(monthStatisticsList);
         this.consultationFee = consultationFee;
     }
@@ -70,6 +80,7 @@ public class JsonSerializableQuickDocs {
                 .stream().map(JsonAdaptedReminder::new).collect(Collectors.toList()));
         medicineList.addAll(source.getMedicineManager().getListOfMedicine()
                 .stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
+        rootDirectory = new JsonAdaptedDirectory(source.getMedicineManager().getRoot());
         monthStatisticsList.addAll(source.getStatisticsManager().getMonthStatisticsList()
                 .stream().map(JsonAdaptedMonthStatistics::new).collect(Collectors.toList()));
         consultationFee = source.getStatisticsManager().getConsultationFee();
@@ -122,6 +133,25 @@ public class JsonSerializableQuickDocs {
             reminderManager.addReminder(reminder);
         }
 
+        MedicineManager medicineManager = quickDocs.getMedicineManager();
+        ArrayList<Medicine> listOfMedicine = new ArrayList<>();
+        listOfMedicine.addAll(medicineList
+                .stream()
+                .map((JsonAdaptedMedicine::toModelType))
+                .collect(Collectors.toList()));
+        HashMap<String, Medicine> medicineHashMap = new HashMap<>();
+        for (Medicine medicine : listOfMedicine) {
+            String medicineName = medicine.name;
+            if (medicineHashMap.containsKey(medicineName)) {
+                throw new IllegalValueException(MESSGAE_DUPLICATE_MEDICINE);
+            } else {
+                medicineHashMap.put(medicineName, medicine);
+            }
+        }
+        Directory modelTypeRoot = toModelTypeDirectory(medicineHashMap, rootDirectory);
+        medicineManager.setRoot(modelTypeRoot);
+        medicineManager.setListOfMedicine(listOfMedicine);
+
         StatisticsManager statisticsManager = quickDocs.getStatisticsManager();
         for (JsonAdaptedMonthStatistics jsonAdaptedMonthStatistics : monthStatisticsList) {
             MonthStatistics monthStatistics = jsonAdaptedMonthStatistics.toModelType();
@@ -132,4 +162,30 @@ public class JsonSerializableQuickDocs {
         return quickDocs;
     }
 
+    /**
+     * Convert a {@link JsonAdaptedDirectory} to a Directory using information from medicineHashMap
+     * @param map A hashmap of medicine name mapping to medicine
+     * @param jsonDirectory the JsonAdaptedDirectory to convert from
+     * @return The converted directory
+     * @throws IllegalValueException if a directory contains medicine not from map
+     */
+    private Directory toModelTypeDirectory(HashMap<String, Medicine> map, JsonAdaptedDirectory jsonDirectory)
+            throws IllegalValueException {
+        Directory directory = new Directory(jsonDirectory.getName());
+        if (jsonDirectory.getThreshold().isPresent()) {
+            directory.setThreshold(jsonDirectory.getThreshold().get());
+        }
+        ArrayList<String> medicineNames = jsonDirectory.getListOfMedicineNames();
+        for (String medicineName : medicineNames) {
+            if (!map.containsKey(medicineName)) {
+                throw new IllegalValueException(MESSAGE_NONEXISTING_MEDICINE);
+            }
+            directory.addMedicine(map.get(medicineName));
+        }
+        ArrayList<JsonAdaptedDirectory> jsonAdaptedDirectories = jsonDirectory.getListOfDirectories();
+        for (JsonAdaptedDirectory jsonAdaptedDirectory : jsonAdaptedDirectories) {
+            directory.addDirectory(toModelTypeDirectory(map, jsonAdaptedDirectory));
+        }
+        return directory;
+    }
 }

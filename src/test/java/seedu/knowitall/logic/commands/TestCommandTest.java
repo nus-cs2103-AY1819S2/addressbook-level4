@@ -35,7 +35,7 @@ public class TestCommandTest {
 
     @Test
     public void execute_invalidTestCommandNotInFolder_fail() {
-        model.exitFoldersToHome();
+        model.exitFolderToHome();
         TestCommand testCommand = new TestCommand();
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         assertCommandFailure(testCommand, model, commandHistory, expectedMessage);

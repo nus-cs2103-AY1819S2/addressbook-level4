@@ -138,8 +138,11 @@ public interface Model extends Observable {
     /**
      * Sets the Model back to the home directory, outside of any {@code CardFolder}.
      */
-    void exitFoldersToHome();
+    void exitFolderToHome();
 
+    /**
+     * Returns true if the Model is in an active {@code CardFolder}.
+     */
     boolean isInFolder();
 
     /** Returns an unmodifiable view of the filtered card list */

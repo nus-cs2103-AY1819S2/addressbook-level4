@@ -225,21 +225,21 @@ public class ModelManager implements Model {
 
     @Override
     public void renameFolder(int index, String newName) {
-        CardFolder toRename = folders.get(index);
-        toRename.rename(newName);
+        CardFolder folderToRename = folders.get(index);
+        folderToRename.rename(newName);
         indicateModified();
     }
 
     @Override
-    public void enterFolder(int newIndex) {
+    public void enterFolder(int index) {
         inFolder = true;
-        activeCardFolderIndex = newIndex;
+        activeCardFolderIndex = index;
     }
 
     @Override
-    public void exitFoldersToHome() {
-        removeSelectedCard();
+    public void exitFolderToHome() {
         inFolder = false;
+        removeSelectedCard();
     }
 
     @Override

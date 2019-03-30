@@ -95,24 +95,15 @@ public class CardSrsData {
 
     @Override
     public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof CardSrsData)) {
+            return false;
+        }
+
         CardSrsData other = (CardSrsData) obj;
-
-        if (this.hashCode != other.getHashCode()) {
-            return false;
-        }
-        if (this.numOfAttempts != other.getNumOfAttempts()) {
-            return false;
-        }
-        if (this.streak != other.getStreak()) {
-            return false;
-        }
-        if (this.srsDueDate != other.getSrsDueDate()) {
-            return false;
-        }
-        if (this.isDifficult != other.isDifficult()) {
-            return false;
-        }
-
-        return true;
+        return other.hashCode() == this.hashCode();
     }
 }

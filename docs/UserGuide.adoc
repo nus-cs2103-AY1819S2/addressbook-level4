@@ -23,11 +23,12 @@ BrainTrain is an open-source spaced repetition flashcard application which makes
 
 BrainTrain is also a *portable* and *easy-to-navigate* desktop program. It is an *offline* application which you can use anywhere, even in places with limited or no Internet availability. It can be navigated and used via *easy-to-use* commands through the Command Line Interface (CLI). The CLI is supplemented by a minimalistic Graphical User Interface (GUI) which provides *helpful but non-distracting visual aid*. Together, the CLI and GUI provides an *effective and straightforward* way for you to use BrainTrain.
 
-Start using BrainTrain today! To get started, read <<Quick Start>> for installation and setup instructions.
+Start using BrainTrain today! To get started, read [<<Quick Start>>] for installation and setup instructions.
 
 {empty} +
 
 == Quick Start
+To begin using BrainTrain, follow the following set of instructions: +
 
 . Ensure that Java version `9` or later is installed on your Computer. You can download it link:https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here].
 . Download the latest `braintrain.jar` file link:{repoURL}/releases[here].
@@ -39,8 +40,9 @@ Start using BrainTrain today! To get started, read <<Quick Start>> for installat
 [#img-firstlook]
 image::UiFirstLook.png[width="790"]
 
-. Type the command `help` in the command box at the top and press kbd:[Enter] to display usage information on BrainTrain commands.
-. Read <<Features>> to find out more about BrainTrain commands.
+. Type the command <<help, `help`>> in the command box and press kbd:[Enter] to find out how to use BrainTrain commands.
+
+To learn more about BrainTrain commands, carry on to [<<Features>>].
 
 {empty} +
 
@@ -51,49 +53,45 @@ image::UiFirstLook.png[width="790"]
 *Command Format*
 
 * Words in `UPPER_CASE` are parameter values which you need to specify in order for the commands to work. For example,
-for `deleteCard INDEX`, `INDEX` is a parameter you have to specify. Typing `deleteCard 1` will inform the application
-that you intend to delete the lesson at index 1.
-* Parameters with trailing `...` can be specified as many times as you want. For example, for
-`addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...`, you can only specify as many `CORE`
-values as you need to. On the other hand, you can only specify exactly 1 `QUESTION CORE` value.
-* Parameters in `[ ]` brackets are optional. For example, for `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...`,
-it is necessary to specify at least 2 `CORE` values, but you can optionally specify more `CORE` values. Additionally,
-`OPTIONAL` values are completely optional and you can specify either 0 or as many `OPTIONAL` values as you need to.
-* Parameters can be in any order. For example, for `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...`, you can use the
+for `deleteCard INDEX`, `INDEX` is a parameter you have to specify.
+* Parameters with trailing `...` can be specified multiple times. For example, for the `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]...` command, you can specify as many `CORE` values as you need to. On the other hand, you can only specify exactly 1 `QUESTION CORE` value.
+* Parameters in `[ ]` brackets are optional. For example, for the `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...` command, you have to specify at least 2 `CORE` values, but you can optionally specify more than 2 `CORE` values or 0 or more `OPTIONAL` values.
+* Parameters can be entered in any order. For example, for `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...`, you can use the
 command as such `addCard o/Country Code c/Country c/Capital`.
 ====
 {empty} +
 
 === Management Mode
 
+[[help]]
 ==== Viewing help: `help`
 
 Displays usage information on all commands. +
 Format: `help`
 
 [TIP]
-You can press kbd:[F1] to display usage information on all commands.
+Alternatively, press kbd:[F1] to display usage information on all commands.
 
 [[start]]
-==== Starting quiz session: `start`
+==== Starting a quiz session: `start`
 
-Switches to Quiz Mode and starts a new quiz session. +
+Starts a new quiz session. +
+Format: `start n/NAME [c/COUNT] m/MODE`
+
+Usage rules:
+
+* You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session. If no `COUNT` is specified, by default 10 cards are tested.
+* You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The three available modes are `LEARN`, `PREVIEW` and `REVIEW`.
 
 [NOTE]
 ====
 Flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
 ====
-Format: `start n/NAME [c/COUNT] m/MODE`
-
-Usage rules:
-
-* The count field is optional. It represents the number of cards the user wants in the session. By default, it sets to be 10.
-* The number of cards should be at least 1. The start command will fail with count to be 0.
-* The mode field only supports three mode: `learn, preview and review`.
 
 Examples:
 
-* `start n/02-03-LEARN c/15 m/LEARN`
+* `start n/Capitals of the world m/LEARN`
+* `start n/Operating System c/20 m/PREVIEW`
 
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
@@ -107,17 +105,13 @@ Format: `addLesson n/NAME q/QUESTION CORE a/ANSWER CORE [c/CORE]... [o/OPTIONAL]
 
 Usage rules:
 
-* The lesson must contain a name.
-* The lesson must contain a `QUESTION CORE` and `ANSWER CORE`. The `QUESTION CORE` and `ANSWER CORE` are `CORE` headers which describe the question and answer `CORE` values of flashcards added to this lesson.
-** For example, a lesson for memorising capitals of countries would have the `QUESTION CORE` set as "Country" and `ANSWER_CORE` set as "Capital".
-* The lesson can have additional `CORE` headers which can be set as the `QUESTION CORE` and `ANSWER CORE` when necessary.
-** Following the previous example, an additional `CORE` header could be "Language", so that you could use the same lesson for memorising languages of countries.
-* Flash cards added to the lesson must have corresponding `QUESTION CORE`, `ANSWER CORE` and `CORE` values.
-* The lesson can optionally have `OPTIONAL` values. A possible `OPTIONAL` value could be "Hint".
-* Flash cards added to the lesson need not have corresponding `OPTIONAL` values.
-
-[TIP]
-`OPTIONAL` values are displayed during quiz mode when you enter <<hint, `\hint`>>.
+* You must specify `QUESTION CORE` and `ANSWER CORE`. `QUESTION CORE` and `ANSWER CORE` sets the `CORE` headers describing the question and answer `CORE` values of flashcards added to this lesson.
+** For example, a lesson for memorising the capitals of countries will have the `QUESTION CORE` set as "Country" and `ANSWER_CORE` set as "Capital".
+* You can optionally specify 0 or more additional `CORE` headers (e.g. "Language"), which can be set as the `QUESTION CORE` and `ANSWER CORE` by using the command `editLesson`.
+* You can only add flashcards which have `QUESTION CORE`, `ANSWER CORE` and `CORE` values which correspond to the lesson's `CORE` headers.
+* You can optionally specify 0 or more `OPTIONAL` values (e.g. "Hint").
+** Flash cards added to the lesson *need not* have corresponding `OPTIONAL` values.
+** `OPTIONAL` values are displayed during quiz mode when you enter <<hint, `\hint`>>.
 
 Examples:
 
@@ -127,13 +121,18 @@ Examples:
 
 ==== Deleting a lesson: `deleteLesson`
 
-Deletes a lesson. +
+Deletes a lesson by referencing its index in the numbered lesson list. +
 Format: `deleteLesson INDEX`
 
 Usage rules:
 
-* Deletes the lesson at the specified `INDEX` of the numbered lesson list.
 * To view the list, enter the command <<listLessons, `listLessons`>>.
+* You must specify the `INDEX` of the lesson in the numbered lesson list.
+
+[NOTE]
+====
+You have to open a lesson before you can use the following commands: <<listCards, `listCards`>>, <<addCard, `addCard`>> and <<deleteCard, `deleteCard`>> commands.
+====
 
 Examples:
 
@@ -143,57 +142,78 @@ Deletes the second lesson in the numbered list displayed by `listLessons`.
 [[openLesson]]
 ==== Opening a lesson: `openLesson`
 
-Opens a lesson for editing. +
+Opens a lesson from the numbered lesson list so you can edit the lesson and its flash cards.+
 Format: `openLesson INDEX`
 
 Usage rules:
 
-* Opens the lesson at the specified `INDEX` of the numbered lesson list.
-* To view the list, enter the command <<listLessons, `listLessons`>>.
+* To view the lesson list, enter the command <<listLessons, `listLessons`>>.
+* You must specify the `INDEX` of the lesson in the numbered lesson list.
 
 Examples:
 
 * `openLesson 1` +
-Opens the first lesson in the numbered list displayed by `listLessons`.
+Opens the first lesson in the numbered list.
 
 ==== Closing a lesson: `closeLesson`
 
-Closes and saves the opened lesson. To open a lesson, enter the command <<listLessons, `listLessons`>>. +
+Closes and saves changes made to the opened lesson. +
 Format: `closeLesson`
+
+Usage rule: +
+To open a lesson, enter the command <<openLesson, `openLessons`>>.
+
+[NOTE]
+====
+Changes made to the opened lesson through the commands: <<addCard, `addCard`>> and <<deleteCard, `deleteCard`>>, are only saved when you close the lesson.
+====
 
 [[listCards]]
 ==== Listing all flashcards: `listCards`
 
-Displays a numbered list of all flashcards in the opened lesson. To open a lesson, enter the command <<listLessons, `listLessons`>>. +
+Displays a numbered list of all flashcards in the opened lesson.  +
 Format: `listCards`
 
+Usage rule: +
+To open a lesson, enter the command <<openLesson, `openLesson`>>.
+
+[[addCard]]
 ==== Adding a flashcard: `addCard`
-Adds a flashcard to the opened lesson. To open a lesson, enter the command <<listLessons, `listLessons`>>. +
+Adds a flashcard to the opened lesson. +
 Format: `addCard c/CORE c/CORE [c/CORE]... [o/OPTIONAL]...`
 
 Usage rules:
 
-* The hint field is optional. When added, it is displayed during Quiz mode when <<hint, `\hint`>> is entered.
+* To open a lesson, enter the command <<openLesson, `openLesson`>>.
+* You must specify at least 2 `CORE` values. This is because a flashcard needs at least 2 values to be testable.
+* You can optionally specify 0 or more additional `CORE` values.
+* You can optionally specify 0 or more `OPTIONAL` values.
+
+[[NOTE]]
+====
+You can only add flashcards to the opened lesson if the flashcards have `CORE` values which corresponds to the lesson's `CORE` headers.
+====
 
 Examples:
 
 * `addCard c/Stapes is the smallest bone in the body c/True`
 * `addCard c/Australia c/Canberra c/English o/Starts with C`
 
+[[deleteCard]]
 ==== Deleting a flashcard: `deleteCard`
 
-Deletes a flashcard from the opened lesson. To open a lesson, enter the command <<listLessons, `listLessons`>>. +
+Deletes a flashcard by referencing its index in the numbered flashcard list. +
 Format: `deleteCard INDEX`
 
 Usage rules:
 
-* Deletes the flashcard at the specified `INDEX` of the numbered card list.
 * To view the list, enter the command <<listCards, `listCards`>>.
+* Deletes the flashcard at the specified `INDEX` of the numbered flashcard list.
 
 Examples:
 
 * `deleteCard 2` +
-Deletes the 2nd flashcard.
+Deletes the second flashcard.
 
 ==== Importing user profile : `importUser`
 Imports the selected `.csv` file and loads the current progress of the user. +

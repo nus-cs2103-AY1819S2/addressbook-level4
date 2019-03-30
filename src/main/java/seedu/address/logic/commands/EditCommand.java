@@ -93,7 +93,8 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Card} with the details of {@code cardToEdit}
      * edited with {@code editCardDescriptor}.
      */
-    private static Card createEditedCard(Card cardToEdit, EditCardDescriptor editCardDescriptor) {
+    private static Card createEditedCard(Card cardToEdit, EditCardDescriptor editCardDescriptor)
+            throws CommandException {
         assert cardToEdit != null;
 
         Question updatedQuestion = editCardDescriptor.getQuestion().orElse(cardToEdit.getQuestion());
@@ -102,6 +103,12 @@ public class EditCommand extends Command {
         Score originalScore = cardToEdit.getScore();
         Set<Option> updatedOptions = editCardDescriptor.getOptions().orElse(cardToEdit.getOptions());
         Set<Hint> updatedHints = editCardDescriptor.getHints().orElse(cardToEdit.getHints());
+        // Check if options list contains answer in the edit command
+        for (Option option : updatedOptions) {
+            if (option.optionValue.equalsIgnoreCase(updatedAnswer.fullAnswer)) {
+                throw new CommandException(Messages.MESSAGE_ILLEGAL_OPTION_CANNOT_BE_SAME_AS_ANSWER);
+            }
+        }
 
         return new Card(updatedQuestion, updatedAnswer, originalScore, updatedOptions, updatedHints);
     }

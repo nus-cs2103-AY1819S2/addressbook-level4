@@ -12,6 +12,7 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKinRelation;
 import seedu.address.model.patient.DrugAllergy;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
@@ -32,6 +33,7 @@ public class JsonAdaptedPersonTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_DRUG_ALLERGY = "$%$";
     private static final String INVALID_DESC = "    ";
+    private static final String INVALID_KIN_RELATION = "!Mother$";
 
     private static final String VALID_NAME = BENSON.getName().toString();
     private static final String VALID_NRIC = ((Patient) BENSON).getNric().getNric();
@@ -44,6 +46,11 @@ public class JsonAdaptedPersonTest {
     private static final String VALID_DESC = ((Patient) BENSON).getPatientDesc().toString();
     private static final String VALID_TEETH = ((Patient) BENSON).getTeeth().getRawFormat();
     private static final JsonAdaptedNextOfKin VALID_KIN = new JsonAdaptedNextOfKin(((Patient) BENSON).getNextOfKin());
+    private static final String VALID_KIN_NAME = ((Patient) BENSON).getNextOfKin().getName().toString();
+    private static final String VALID_KIN_RELATION = ((Patient) BENSON).getNextOfKin().getKinRelation().toString();
+    private static final String VALID_KIN_EMAIL = ((Patient) BENSON).getNextOfKin().getEmail().toString();
+    private static final String VALID_KIN_PHONE = ((Patient) BENSON).getNextOfKin().getPhone().toString();
+    private static final String VALID_KIN_ADDRESS = ((Patient) BENSON).getNextOfKin().getAddress().toString();
 
     private static final List<JsonAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
             .map(JsonAdaptedTag::new)
@@ -231,6 +238,106 @@ public class JsonAdaptedPersonTest {
                 VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
                 VALID_TAGS, VALID_RECORDS, VALID_KIN, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidKinName_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_SEX, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
+                VALID_TAGS, VALID_RECORDS,
+                new JsonAdaptedNextOfKin(INVALID_NAME, VALID_KIN_RELATION,
+                    VALID_KIN_EMAIL, VALID_KIN_PHONE, VALID_KIN_ADDRESS), VALID_DESC);
+        String expectedMessage = Name.MESSAGE_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullKinName_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_SEX, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
+                VALID_TAGS, VALID_RECORDS,
+                new JsonAdaptedNextOfKin(null, VALID_KIN_RELATION,
+                    VALID_KIN_EMAIL, VALID_KIN_PHONE, VALID_KIN_ADDRESS), VALID_DESC);
+        String expectedMessage =
+            String.format(JsonAdaptedNextOfKin.MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidKinRelation_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_SEX, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
+                VALID_TAGS, VALID_RECORDS,
+                new JsonAdaptedNextOfKin(VALID_KIN_NAME, INVALID_KIN_RELATION,
+                    VALID_KIN_EMAIL, VALID_KIN_PHONE, VALID_KIN_ADDRESS), VALID_DESC);
+        String expectedMessage = NextOfKinRelation.MESSAGE_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullKinRelation_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_SEX, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
+                VALID_TAGS, VALID_RECORDS,
+                new JsonAdaptedNextOfKin(VALID_KIN_NAME, null,
+                    VALID_KIN_EMAIL, VALID_KIN_PHONE, VALID_KIN_ADDRESS), VALID_DESC);
+        String expectedMessage =
+            String.format(JsonAdaptedNextOfKin.MISSING_FIELD_MESSAGE_FORMAT, NextOfKinRelation.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidKinPhone_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_SEX, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
+                VALID_TAGS, VALID_RECORDS,
+                new JsonAdaptedNextOfKin(VALID_KIN_NAME, VALID_KIN_RELATION,
+                    VALID_KIN_EMAIL, INVALID_PHONE, VALID_KIN_ADDRESS), VALID_DESC);
+        String expectedMessage = Phone.MESSAGE_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullKinPhone_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_SEX, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
+                VALID_TAGS, VALID_RECORDS,
+                new JsonAdaptedNextOfKin(VALID_KIN_NAME, VALID_KIN_RELATION,
+                    VALID_KIN_EMAIL, null, VALID_KIN_ADDRESS), VALID_DESC);
+        String expectedMessage =
+            String.format(JsonAdaptedNextOfKin.MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_invalidKinAddress_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_SEX, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
+                VALID_TAGS, VALID_RECORDS,
+                new JsonAdaptedNextOfKin(VALID_KIN_NAME, VALID_KIN_RELATION,
+                    VALID_KIN_EMAIL, VALID_KIN_PHONE, INVALID_ADDRESS), VALID_DESC);
+        String expectedMessage = Address.MESSAGE_CONSTRAINTS;
+        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    }
+
+    @Test
+    public void toModelType_nullKinAddress_throwsIllegalValueException() {
+        JsonAdaptedPerson person =
+            new JsonAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_DOB, VALID_SEX, VALID_PHONE, VALID_EMAIL,
+                VALID_ADDRESS, VALID_DRUG_ALLERGY, VALID_TEETH,
+                VALID_TAGS, VALID_RECORDS,
+                new JsonAdaptedNextOfKin(VALID_KIN_NAME, VALID_KIN_RELATION,
+                    VALID_KIN_EMAIL, VALID_KIN_PHONE, null), VALID_DESC);
+        String expectedMessage =
+            String.format(JsonAdaptedNextOfKin.MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
 

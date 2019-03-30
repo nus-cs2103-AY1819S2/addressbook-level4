@@ -66,8 +66,7 @@ public class MemberFindCommandTest {
         if (predicate.toString().equalsIgnoreCase("name")) {
             expectedModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(predicate
                     .getFindKeywords())));
-        }
-        else if (predicate.toString().equalsIgnoreCase("matricnum")) {
+        } else if (predicate.toString().equalsIgnoreCase("matricnum")) {
             expectedModel.updateFilteredPersonList(new MatricNumberContainsKeywordsPredicate(Arrays.asList(predicate
                     .getFindKeywords())));
         }
@@ -83,8 +82,7 @@ public class MemberFindCommandTest {
         if (predicate.toString().equalsIgnoreCase("name")) {
             expectedModel.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(predicate
                     .getFindKeywords())));
-        }
-        else if (predicate.toString().equalsIgnoreCase("matricnum")) {
+        } else if (predicate.toString().equalsIgnoreCase("matricnum")) {
             expectedModel.updateFilteredPersonList(new MatricNumberContainsKeywordsPredicate(Arrays.asList(predicate
                     .getFindKeywords())));
         }

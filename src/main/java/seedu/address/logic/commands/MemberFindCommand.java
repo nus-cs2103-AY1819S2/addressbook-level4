@@ -42,8 +42,7 @@ public class MemberFindCommand extends MemberCommand {
 
         if (predicate.toString().equalsIgnoreCase("name")) {
             model.updateFilteredPersonList(namePredicate);
-        }
-        else if (predicate.toString().equalsIgnoreCase("matricnum")) {
+        } else if (predicate.toString().equalsIgnoreCase("matricnum")) {
             model.updateFilteredPersonList(matricNumPredicate);
         }
         return new CommandResult(

@@ -15,6 +15,8 @@ public interface CurrentEdit {
 
     void saveAsOriginal(Image image);
 
+    void overwriteOriginal(String name);
+
     void saveIntoTempFolder(String filename, Image image);
 
     Image getTempImage();

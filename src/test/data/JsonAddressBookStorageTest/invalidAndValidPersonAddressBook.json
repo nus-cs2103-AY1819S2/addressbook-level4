@@ -1,14 +1,23 @@
 {
   "persons": [ {
     "name": "Valid Person",
+    "matricNumber": "A6565123B",
     "phone": "9482424",
     "email": "hans@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "gender" : "male",
+    "yearOfStudy" : "year 1",
+    "major" : "computing",
+    "tagged" : [ "swimming", "running" ]
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
     "email": "hans@example.com",
-    "address": "4th street"
+    "address": "4th street",
+    "gender" : "male",
+    "yearOfStudy" : "year 1",
+    "major" : "computing",
+    "tagged" : [ "swimming", "running" ]
   } ],
   "activities": []
 }

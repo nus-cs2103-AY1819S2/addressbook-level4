@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import java.util.function.Predicate;
 
 /**
@@ -11,6 +12,8 @@ public class FindCriteriaContainsKeywordPredicate implements Predicate<String> {
     private final String[] keywords = {"name", "matricnum"};
 
     public FindCriteriaContainsKeywordPredicate(String criteria) {
+        requireNonNull(criteria);
+        requireNonNull(criteria.split("\\s+", 2)[1]);
         this.criteria = criteria.split("\\s+", 2)[0];
         this.findKeywords = criteria.split("\\s+", 2)[1].split("\\s+");
     }
@@ -18,7 +21,7 @@ public class FindCriteriaContainsKeywordPredicate implements Predicate<String> {
     @Override
     public boolean test(String criteria) {
         for (int i = 0; i < keywords.length; i++) {
-            if (criteria == keywords[i]) {
+            if (criteria.equalsIgnoreCase(keywords[i])) {
                 return true;
             }
         }

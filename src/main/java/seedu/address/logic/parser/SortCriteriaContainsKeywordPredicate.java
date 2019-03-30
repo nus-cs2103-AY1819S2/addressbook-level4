@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import java.util.function.Predicate;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Tests that a criteria given matches the list of available sorting criteria.
  */
@@ -15,6 +17,7 @@ public class SortCriteriaContainsKeywordPredicate implements Predicate<String> {
 
     @Override
     public boolean test(String criteria) {
+        requireNonNull(criteria);
         for (int i = 0; i < keywords.length; i++) {
             if (criteria == keywords[i]) {
                 return true;

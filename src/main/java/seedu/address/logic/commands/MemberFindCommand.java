@@ -31,6 +31,7 @@ public class MemberFindCommand extends MemberCommand {
     private final MatricNumberContainsKeywordsPredicate matricNumPredicate;
 
     public MemberFindCommand(FindCriteriaContainsKeywordPredicate predicate) {
+        requireNonNull(predicate);
         this.predicate = predicate;
         this.namePredicate = new NameContainsKeywordsPredicate(Arrays.asList(predicate.getFindKeywords()));
         this.matricNumPredicate = new MatricNumberContainsKeywordsPredicate(Arrays.asList(predicate.getFindKeywords()));

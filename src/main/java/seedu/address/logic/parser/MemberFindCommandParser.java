@@ -19,13 +19,11 @@ public class MemberFindCommandParser implements Parser<MemberFindCommand> {
      */
     public MemberFindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        String[] criteria = trimmedArgs.split("\\s+", 2);
 
-        if (trimmedArgs.isEmpty() || criteria.length < 2) {
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberFindCommand.MESSAGE_USAGE));
         }
-
 
         return new MemberFindCommand(new FindCriteriaContainsKeywordPredicate(trimmedArgs));
 

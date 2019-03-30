@@ -56,7 +56,6 @@ public class StringUtil {
         requireNonNull(word);
 
         String preppedWord = word.trim();
-        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
 
         final int length = word.length();
         if (length == 0) {

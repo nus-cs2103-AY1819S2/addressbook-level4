@@ -127,8 +127,8 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        lessonListPanel = new LessonListPanel(logic.getLessons());
-        lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());
+        /*lessonListPanel = new LessonListPanel(logic.getLessons());
+        lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());*/
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -224,9 +224,9 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.isLessonListChanged()) {
+            /*if (commandResult.isLessonListChanged()) {
                 lessonListPanel.updateLessonList(logic.getLessons());
-            }
+            }*/
 
             return commandResult;
         } catch (CommandException | ParseException e) {

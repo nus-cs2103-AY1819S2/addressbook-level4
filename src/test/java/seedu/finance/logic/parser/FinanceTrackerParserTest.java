@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.finance.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.finance.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.finance.logic.parser.CliSyntax.FLAG_NAME;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
@@ -31,6 +32,7 @@ import seedu.finance.logic.commands.RedoCommand;
 import seedu.finance.logic.commands.ReverseCommand;
 import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.logic.commands.SelectCommand;
+import seedu.finance.logic.commands.SortCommand;
 import seedu.finance.logic.commands.SpendCommand;
 import seedu.finance.logic.commands.SummaryCommand;
 import seedu.finance.logic.commands.UndoCommand;
@@ -257,7 +259,7 @@ public class FinanceTrackerParserTest {
     public void parseCommand_search() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(
-                SearchCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
+                SearchCommand.COMMAND_WORD + " -name " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
@@ -265,7 +267,7 @@ public class FinanceTrackerParserTest {
     public void parseCommand_searchAlias() throws Exception {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         SearchCommand command = (SearchCommand) parser.parseCommand(
-                SearchCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
+                SearchCommand.COMMAND_ALIAS + " -name " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new SearchCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
@@ -273,6 +275,13 @@ public class FinanceTrackerParserTest {
     @Test
     public void parseCommand_summary() throws Exception {
         assertTrue(parser.parseCommand(SummaryCommand.COMMAND_WORD) instanceof SummaryCommand);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        SortCommand command = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + " " + FLAG_NAME);
+        assertEquals(new SortCommand(new RecordNameComparator()), command);
     }
 
     @Test

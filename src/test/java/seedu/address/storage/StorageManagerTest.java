@@ -2,7 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
@@ -10,6 +13,7 @@ import java.time.Instant;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
@@ -22,10 +26,16 @@ import seedu.address.testutil.TypicalLessonList;
 public class StorageManagerTest {
     private static final Path NO_VALID_FILES_FOLDER = Paths.get("src", "test", "data",
         "CsvLessonListStorageTest", "noValidFiles");
-    private static final Path SANDBOX_FOLDER = Paths.get("src", "test", "data", "sandbox");
+    private static final Path READ_ONLY_TEST_FOLDER = Paths.get("src", "test", "data",
+        "StorageManagerTest", "readOnlyFile");
+    private static final Path EMPTY_TEST_FOLDER = Paths.get("src", "test", "data", "StorageManagerTest",
+        "emptyFolder");
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private StorageManager storageManager;
 
@@ -109,5 +119,33 @@ public class StorageManagerTest {
     public void getUserFilePath() {
         CsvUserStorage expected = new CsvUserStorage(getTempFilePath("data\\user"));
         assertEquals(expected.getUserFilePath(), storageManager.getUserFilePath());
+    }
+
+    @Test
+    public void deleteLesson_validFile_successfulDelete () throws IOException {
+        storageManager.setLessonListFolderPath(EMPTY_TEST_FOLDER);
+        LessonList lessonList = new LessonList();
+        lessonList.addLesson(TypicalLessonList.LESSON_DEFAULT);
+        storageManager.saveLessonList(lessonList);
+        storageManager.deleteLesson(TypicalLessonList.LESSON_DEFAULT.getName());
+        assertEquals(0, Files.list(EMPTY_TEST_FOLDER).count());
+    }
+
+    @Test
+    public void deleteLesson_missingFile_throwsNoSuchFileException () throws IOException {
+        storageManager.setLessonListFolderPath(EMPTY_TEST_FOLDER);
+        thrown.expect(NoSuchFileException.class);
+        storageManager.deleteLesson(TypicalLessonList.LESSON_DEFAULT.getName());
+    }
+
+    @Test
+    public void deleteLesson_readOnlyFile_throwsIoException () throws IOException {
+        storageManager.setLessonListFolderPath(READ_ONLY_TEST_FOLDER);
+        Files.walk(READ_ONLY_TEST_FOLDER).forEach(path -> {
+            File f = new File(path.toString());
+            f.setReadOnly();
+        });
+        thrown.expect(IOException.class);
+        storageManager.deleteLesson(TypicalLessonList.LESSON_DEFAULT.getName());
     }
 }

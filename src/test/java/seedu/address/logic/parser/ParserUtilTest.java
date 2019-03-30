@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.address.testutil.TypicalIndices.INDEX_FIRST_LESSON;
-import static seedu.address.testutil.TypicalIndices.INDEX_SECOND_LESSON;
+import static seedu.address.testutil.TypicalIndices.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndices.INDEX_SECOND;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -32,10 +32,10 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertEquals(INDEX_FIRST_LESSON, ParserUtil.parseIndex("1"));
+        assertEquals(INDEX_FIRST, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertEquals(INDEX_SECOND_LESSON, ParserUtil.parseIndex("  2  "));
+        assertEquals(INDEX_SECOND, ParserUtil.parseIndex("  2  "));
     }
 
     @Test

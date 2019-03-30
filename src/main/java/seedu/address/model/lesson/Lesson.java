@@ -369,6 +369,10 @@ public class Lesson {
         }
     }
 
+    public void deleteCard(int index) {
+        cards.remove(index);
+    }
+
     /**
      * @return the list of {@link Card} objects in this lesson
      */

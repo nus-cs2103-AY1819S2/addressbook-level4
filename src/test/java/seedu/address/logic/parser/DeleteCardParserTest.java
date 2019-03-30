@@ -7,21 +7,21 @@ import static seedu.address.testutil.TypicalIndices.INDEX_FIRST;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.management.OpenLessonCommand;
+import seedu.address.logic.commands.management.DeleteCardCommand;
 
-public class OpenLessonParserTest {
+public class DeleteCardParserTest {
 
-    private OpenLessonParser parser = new OpenLessonParser();
+    private DeleteCardParser parser = new DeleteCardParser();
 
     @Test
-    public void parse_validArgs_returnsOpenCommand() {
+    public void parse_validArgs_returnsDeleteCommand() {
         assertParseSuccess(parser, "" + INDEX_FIRST.getOneBased(),
-                new OpenLessonCommand(INDEX_FIRST));
+                new DeleteCardCommand(INDEX_FIRST));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenLessonCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE));
     }
 }

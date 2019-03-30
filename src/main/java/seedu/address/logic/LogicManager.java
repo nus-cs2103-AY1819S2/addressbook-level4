@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -12,6 +13,7 @@ import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
@@ -21,7 +23,6 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Storage storageManager;
@@ -58,6 +59,10 @@ public class LogicManager implements Logic {
             if (getMode() == Mode.MANAGEMENT) {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
+
+                if (commandResult.isLessonListChanged()) {
+                    storageManager.saveLessons(managementModel.getLessonList());
+                }
             } else {
                 command = quizModeParser.parse(commandText);
                 commandResult = command.execute(quizModel, history);
@@ -81,6 +86,11 @@ public class LogicManager implements Logic {
     @Override
     public Mode getMode() {
         return quizModel.isQuizDone() ? Mode.MANAGEMENT : Mode.QUIZ;
+    }
+
+    @Override
+    public List<Lesson> getLessons() {
+        return managementModel.getLessons();
     }
 
     @Override

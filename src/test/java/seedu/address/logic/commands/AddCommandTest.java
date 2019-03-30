@@ -250,6 +250,16 @@ public class AddCommandTest {
         public void setSelectedModuleInfo (ModuleInfo moduleInfo) {
             throw new AssertionError("This method should not be called");
         }
+
+        @Override
+        public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty () {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ModuleInfo getSelectedModuleInfo() {
+            throw new AssertionError("This method should not be called");
+        }
     }
 
     /**

@@ -25,7 +25,6 @@ import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BookBuilder;
 
@@ -121,18 +120,15 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public void setBookShelfFilePath(Path addressBookFilePath) {
+        public void setBookShelfFilePath(Path bookShelfFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-        @Override
         public void addBook(Book book) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public void addReview(Review review) {
             throw new AssertionError("This method should not be called.");
@@ -149,22 +145,12 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public boolean hasBook(Book book) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean hasReview(Review review) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -179,17 +165,7 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void setBook(Book target, Book editedBook) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -200,11 +176,6 @@ public class AddBookCommandTest {
 
         @Override
         public ObservableList<Review> getFilteredReviewList() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -244,11 +215,6 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Person> selectedPersonProperty() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public ReadOnlyProperty<Book> selectedBookProperty() {
             throw new AssertionError("This method should not be called.");
         }
@@ -259,23 +225,12 @@ public class AddBookCommandTest {
         }
 
         @Override
-        public Person getSelectedPerson() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Book getSelectedBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public Review getSelectedReview() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-
-        @Override
-        public void setSelectedPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 

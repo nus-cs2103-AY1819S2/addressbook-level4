@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
-import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -16,7 +15,6 @@ import seedu.address.model.tag.Tag;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Book> PREDICATE_SHOW_ALL_BOOKS = unused -> true;
     Predicate<Review> PREDICATE_SHOW_ALL_REVIEWS = unused -> true;
 
@@ -48,20 +46,15 @@ public interface Model {
     /**
      * Sets the user prefs' book shelf file path.
      */
-    void setBookShelfFilePath(Path addressBookFilePath);
+    void setBookShelfFilePath(Path bookShelfFilePath);
 
     /**
-     * Replaces book shelf data with the data in {@code addressBook}.
+     * Replaces book shelf data with the data in {@code bookShelf}.
      */
-    void setBookShelf(ReadOnlyBookShelf addressBook);
+    void setBookShelf(ReadOnlyBookShelf bookShelf);
 
     /** Returns the BookShelf */
     ReadOnlyBookShelf getBookShelf();
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the book shelf.
-     */
-    boolean hasPerson(Person person);
 
     /**
      * Returns true if a book with the same identity as {@code book} exists in the book shelf.
@@ -72,12 +65,6 @@ public interface Model {
      * Returns true if a book with the same identity as {@code book} exists in the book shelf.
      */
     boolean hasReview(Review review);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the book shelf.
-     */
-    void deletePerson(Person target);
 
     /**
      * Deletes the given book.
@@ -92,12 +79,6 @@ public interface Model {
     void deleteReview(Review target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the book shelf.
-     */
-    void addPerson(Person person);
-
-    /**
      * Adds the given book.
      * {@code book} must not already exist in the book shelf.
      */
@@ -110,33 +91,17 @@ public interface Model {
     void addReview(Review review);
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the book shelf.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the book shelf.
-     */
-    void setPerson(Person target, Person editedPerson);
-
-    /**
      * Replaces the given book {@code target} with {@code editedBook}.
      * {@code target} must exist in the book shelf.
      * The book identity of {@code editedBook} must not be the same as another existing book in the book shelf.
      */
     void setBook(Book target, Book editedBook);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList();
-
     /** Returns an unmodifiable view of the filtered book list */
     ObservableList<Book> getFilteredBookList();
 
     /** Returns an unmodifiable view of the filtered book list */
     ObservableList<Review> getFilteredReviewList();
-
-    /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
      * Updates the filter of the filtered book list to filter by the given {@code predicate}.
@@ -176,12 +141,6 @@ public interface Model {
     void commitBookShelf();
 
     /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
-
-    /**
      * Selected book in the filtered book list.
      * null if no book is selected.
      */
@@ -194,35 +153,24 @@ public interface Model {
     ReadOnlyProperty<Review> selectedReviewProperty();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
-     */
-    Person getSelectedPerson();
-
-    /**
-     * Returns the selected book in the filtered person list.
+     * Returns the selected book in the filtered book list.
      * null if no book is selected.
      */
     Book getSelectedBook();
 
     /**
-     * Returns the selected person in the filtered person list.
-     * null if no person is selected.
+     * Returns the selected review in the filtered review list.
+     * null if no review is selected.
      */
     Review getSelectedReview();
 
     /**
-     * Sets the selected person in the filtered person list.
-     */
-    void setSelectedPerson(Person person);
-
-    /**
-     * Sets the selected book in the filtered person list.
+     * Sets the selected book in the filtered book list.
      */
     void setSelectedBook(Book book);
 
     /**
-     * Sets the selected book in the filtered person list.
+     * Sets the selected book in the filtered review list.
      */
     void setSelectedReview(Review review);
 

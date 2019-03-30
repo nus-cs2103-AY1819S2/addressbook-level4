@@ -77,10 +77,10 @@ public class EditBookCommandParserTest {
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INVALID_NAME_DESC, BookName.MESSAGE_CONSTRAINTS); // invalid name
         assertParseFailure(parser, "1" + INVALID_AUTHOR_DESC, Author.MESSAGE_CONSTRAINTS); // invalid author
-        assertParseFailure(parser, "1" + INVALID_RATING_DESC, Rating.MESSAGE_CONSTRAINTS); // invalid email
+        assertParseFailure(parser, "1" + INVALID_RATING_DESC, Rating.MESSAGE_CONSTRAINTS); // invalid rating
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
-        // invalid author followed by valid email
+        // invalid author followed by valid rating
         assertParseFailure(parser, "1" + INVALID_AUTHOR_DESC + RATING_DESC_ALICE, Author.MESSAGE_CONSTRAINTS);
 
         // valid author followed by invalid author. The test case for invalid author followed by valid author
@@ -139,7 +139,7 @@ public class EditBookCommandParserTest {
         expectedCommand = new EditBookCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // email
+        // rating
         userInput = targetIndex.getOneBased() + RATING_DESC_ALICE;
         descriptor = new EditBookDescriptorBuilder().withRating(VALID_RATING_ALICE).build();
         expectedCommand = new EditBookCommand(targetIndex, descriptor);

@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.address.model.book.Review;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ * Provides a handle for {@code BookListPanel} containing the list of {@code BookCard}.
  */
 public class ReviewListPanelHandle extends NodeHandle<ListView<Review>> {
     public static final String REVIEW_LIST_VIEW_ID = "#reviewListView";
@@ -23,7 +23,7 @@ public class ReviewListPanelHandle extends NodeHandle<ListView<Review>> {
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code BookCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
@@ -91,7 +91,7 @@ public class ReviewListPanelHandle extends NodeHandle<ListView<Review>> {
     }
 
     /**
-     * Selects the {@code PersonCard} at {@code index} in the list.
+     * Selects the {@code BookCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
@@ -136,7 +136,7 @@ public class ReviewListPanelHandle extends NodeHandle<ListView<Review>> {
     }
 
     /**
-     * Returns true if the selected {@code PersonCard} is different from the value remembered by the most recent
+     * Returns true if the selected {@code BookCard} is different from the value remembered by the most recent
      * {@code rememberSelectedPersonCard()} call.
      */
     public boolean isSelectedReviewCardChanged() {

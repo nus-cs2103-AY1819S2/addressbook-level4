@@ -5,29 +5,31 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_CS;
+import static seedu.address.logic.commands.CommandTestUtil.AUTHOR_DESC_LIFE;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_AUTHOR_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_BOOKNAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_RATING_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_CS;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_LIFE;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_TEST;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_CS;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.RATING_DESC_LIFE;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FANTASY;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_TEXTBOOK;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_TEST;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_TEXTBOOK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_BOOKS;
 import static seedu.address.testutil.TypicalBooks.CS;
-import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_PRIDE;
+import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_LIFE;
+import static seedu.address.testutil.TypicalBooks.SECRETLIFE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BOOK;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -44,8 +46,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.BookBuilder;
 import seedu.address.testutil.BookUtil;
 
-@Ignore
-public class EditBookCommandSystemTest extends AddressBookSystemTest {
+public class EditBookCommandSystemTest extends BookShelfSystemTest {
 
     @Test
     public void edit() {
@@ -76,7 +77,7 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit a book with new values same as existing values -> edited */
         command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
                 + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
-                + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
+                + TAG_DESC_FANTASY + TAG_DESC_TEXTBOOK;
         assertCommandSuccess(command, index, CS);
 
         /* Case: edit a book with new values same as another book's values but with different name -> edited */
@@ -85,18 +86,8 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(getModel().getFilteredBookList().get(index.getZeroBased()), CS);
         command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_ALICE
                 + AUTHOR_DESC_CS + RATING_DESC_CS
-                + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
+                + TAG_DESC_FANTASY + TAG_DESC_TEXTBOOK;
         editedBook = new BookBuilder(CS).withBookName(VALID_BOOKNAME_ALICE).build();
-        assertCommandSuccess(command, index, editedBook);
-
-        /* Case: edit a book with new values same as another book's values but with different author and rating
-         * -> edited
-         */
-        index = INDEX_SECOND_BOOK;
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_CS
-                + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
-                + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
-        editedBook = new BookBuilder(CS).withAuthor(VALID_AUTHOR_ALICE).withRating(VALID_RATING_ALICE).build();
         assertCommandSuccess(command, index, editedBook);
 
         /* Case: clear tags -> cleared */
@@ -108,19 +99,19 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
 
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
-        /* Case: filtered book list, edit index within bounds of address book and book list -> edited */
-        showBooksWithName(KEYWORD_MATCHING_PRIDE);
+        /* Case: filtered book list, edit index within bounds of book shelf and book list -> edited */
+        showBooksWithName(KEYWORD_MATCHING_LIFE);
         index = INDEX_FIRST_BOOK;
         assertTrue(index.getZeroBased() < getModel().getFilteredBookList().size());
-        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_CS;
+        command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_TEST;
         bookToEdit = getModel().getFilteredBookList().get(index.getZeroBased());
-        editedBook = new BookBuilder(bookToEdit).withBookName(VALID_BOOKNAME_CS).build();
+        editedBook = new BookBuilder(bookToEdit).withBookName(VALID_BOOKNAME_TEST).build();
         assertCommandSuccess(command, index, editedBook);
 
-        /* Case: filtered book list, edit index within bounds of address book but out of bounds of book list
+        /* Case: filtered book list, edit index within bounds of book shelf but out of bounds of book list
          * -> rejected
          */
-        showBooksWithName(KEYWORD_MATCHING_PRIDE);
+        showBooksWithName(KEYWORD_MATCHING_LIFE);
         int invalidIndex = getModel().getBookShelf().getBookList().size();
         assertCommandFailure(EditBookCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_CS,
                 Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
@@ -136,7 +127,7 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
         selectBook(index);
         command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
         + NAME_DESC_ALICE + AUTHOR_DESC_ALICE + RATING_DESC_ALICE
-                + TAG_DESC_FRIEND;
+                + TAG_DESC_FANTASY;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new book's name
         assertCommandSuccess(command, index, ALI, index);
@@ -185,31 +176,31 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
                 Tag.MESSAGE_CONSTRAINTS);
 
         /* Case: edit a book with new values same as another book's values -> rejected */
-        executeCommand(BookUtil.getAddBookCommand(CS));
-        assertTrue(getModel().getBookShelf().getBookList().contains(CS));
+        executeCommand(BookUtil.getAddBookCommand(SECRETLIFE));
+        assertTrue(getModel().getBookShelf().getBookList().contains(SECRETLIFE));
         index = INDEX_FIRST_BOOK;
         assertFalse(getModel().getFilteredBookList().get(index.getZeroBased()).equals(CS));
         command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
-                + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
+                + NAME_DESC_LIFE + AUTHOR_DESC_LIFE + RATING_DESC_LIFE;
         assertCommandFailure(command, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: edit a book with new values same as another book's values but with different tags -> rejected */
         command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_CS
+                + NAME_DESC_LIFE + AUTHOR_DESC_LIFE + RATING_DESC_LIFE
                 + TAG_DESC_TEXTBOOK;
         assertCommandFailure(command, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: edit a book with new values same as another book's values but with different author -> rejected */
         command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_CS + AUTHOR_DESC_ALICE + RATING_DESC_CS
-                + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
+                + NAME_DESC_LIFE + AUTHOR_DESC_ALICE + RATING_DESC_LIFE
+                + TAG_DESC_FANTASY + TAG_DESC_TEXTBOOK;
         assertCommandFailure(command, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
 
         /* Case: edit a book with new values same as another book's values but with different rating -> rejected */
         command = EditBookCommand.COMMAND_WORD + " " + index.getOneBased()
-                + NAME_DESC_CS + AUTHOR_DESC_CS + RATING_DESC_ALICE
-                + TAG_DESC_FRIEND + TAG_DESC_TEXTBOOK;
+                + NAME_DESC_LIFE + AUTHOR_DESC_LIFE + RATING_DESC_ALICE
+                + TAG_DESC_FANTASY
+                + TAG_DESC_TEXTBOOK;
         assertCommandFailure(command, EditBookCommand.MESSAGE_DUPLICATE_BOOK);
     }
 
@@ -232,13 +223,13 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
      * @see EditBookCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Book editedBook,
-            Index expectedSelectedCardIndex) {
+            Index expectedSelectedBookCardIndex) {
         Model expectedModel = getModel();
         expectedModel.setBook(expectedModel.getFilteredBookList().get(toEdit.getZeroBased()), editedBook);
         expectedModel.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
 
         assertCommandSuccess(command, expectedModel,
-                String.format(EditBookCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook), expectedSelectedCardIndex);
+                String.format(EditBookCommand.MESSAGE_EDIT_BOOK_SUCCESS, editedBook), expectedSelectedBookCardIndex);
     }
 
     /**
@@ -255,24 +246,24 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
      * 3. Asserts that the browser url and selected card update accordingly depending on the card at
-     * {@code expectedSelectedCardIndex}.<br>
+     * {@code expectedSelectedBookCardIndex}.<br>
      * 4. Asserts that the status bar's sync status changes.<br>
      * 5. Asserts that the command box has the default style class.<br>
      * Verifications 1 and 2 are performed by
      * {@code BookShelfSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see BookShelfSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see BookShelfSystemTest#assertSelectedCardChanged(Index)
+     * @see BookShelfSystemTest#assertSelectedBookCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) {
+            Index expectedSelectedBookCardIndex) {
         executeCommand(command);
         expectedModel.updateFilteredBookList(PREDICATE_SHOW_ALL_BOOKS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
-        if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
+        if (expectedSelectedBookCardIndex != null) {
+            assertSelectedBookCardChanged(expectedSelectedBookCardIndex);
         } else {
-            assertSelectedCardUnchanged();
+            assertSelectedBookCardUnchanged();
         }
         assertStatusBarUnchangedExceptSyncStatus();
     }
@@ -292,7 +283,7 @@ public class EditBookCommandSystemTest extends AddressBookSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

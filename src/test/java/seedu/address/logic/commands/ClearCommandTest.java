@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
 
 import org.junit.Test;
 
@@ -16,7 +16,7 @@ public class ClearCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyBookShelf_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
         expectedModel.commitBookShelf();
@@ -25,9 +25,9 @@ public class ClearCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    public void execute_nonEmptyBookShelf_success() {
+        Model model = new ModelManager(getTypicalBookShelf(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalBookShelf(), new UserPrefs());
         expectedModel.setBookShelf(new BookShelf());
         expectedModel.commitBookShelf();
 

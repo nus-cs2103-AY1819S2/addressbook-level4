@@ -9,7 +9,7 @@ import javafx.scene.control.ListView;
 import seedu.address.model.book.Book;
 
 /**
- * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
+ * Provides a handle for {@code BookListPanel} containing the list of {@code BookCard}.
  */
 public class BookListPanelHandle extends NodeHandle<ListView<Book>> {
     public static final String BOOK_LIST_VIEW_ID = "#bookListView";
@@ -23,7 +23,7 @@ public class BookListPanelHandle extends NodeHandle<ListView<Book>> {
     }
 
     /**
-     * Returns a handle to the selected {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code BookCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
@@ -32,7 +32,7 @@ public class BookListPanelHandle extends NodeHandle<ListView<Book>> {
         List<Book> selectedBookList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedBookList.size() != 1) {
-            throw new AssertionError("Person list size expected 1.");
+            throw new AssertionError("Book list size expected 1.");
         }
 
         return getAllCardNodes().stream()
@@ -63,11 +63,11 @@ public class BookListPanelHandle extends NodeHandle<ListView<Book>> {
     }
 
     /**
-     * Navigates the listview to display {@code person}.
+     * Navigates the listview to display {@code book}.
      */
     public void navigateToCard(Book book) {
         if (!getRootNode().getItems().contains(book)) {
-            throw new IllegalArgumentException("Person does not exist.");
+            throw new IllegalArgumentException("Book does not exist.");
         }
 
         guiRobot.interact(() -> {
@@ -91,14 +91,14 @@ public class BookListPanelHandle extends NodeHandle<ListView<Book>> {
     }
 
     /**
-     * Selects the {@code PersonCard} at {@code index} in the list.
+     * Selects the {@code BookCard} at {@code index} in the list.
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * Returns the book card handle of a book associated with the {@code index} in the list.
      * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public BookCardHandle getBookCardHandle(int index) {
@@ -136,8 +136,8 @@ public class BookListPanelHandle extends NodeHandle<ListView<Book>> {
     }
 
     /**
-     * Returns true if the selected {@code PersonCard} is different from the value remembered by the most recent
-     * {@code rememberSelectedPersonCard()} call.
+     * Returns true if the selected {@code BookCard} is different from the value remembered by the most recent
+     * {@code rememberSelectedBookCard()} call.
      */
     public boolean isSelectedBookCardChanged() {
         List<Book> selectedItems = getRootNode().getSelectionModel().getSelectedItems();

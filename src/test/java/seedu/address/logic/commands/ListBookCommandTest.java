@@ -59,13 +59,13 @@ public class ListBookCommandTest {
         // null -> returns false
         assertFalse(listFirstCommand.equals(null));
 
-        // different person -> returns false
+        // different book -> returns false
         assertFalse(listFirstCommand.equals(listSecondCommand));
     }
 
     @Test
     public void execute_zeroKeywords() {
-        String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 6);
+        String expectedMessage = String.format(MESSAGE_BOOKS_LISTED_OVERVIEW, 8);
         List<String> names = new ArrayList<String>();
         List<String> authors = new ArrayList<String>();
         List<String> tags = new ArrayList<String>();

@@ -10,7 +10,6 @@ import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalBooks.KEYWORD_MATCHING_LIFE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -21,8 +20,7 @@ import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.book.Book;
 
-@Ignore
-public class DeleteBookCommandSystemTest extends AddressBookSystemTest {
+public class DeleteBookCommandSystemTest extends BookShelfSystemTest {
 
     private static final String MESSAGE_INVALID_DELETE_COMMAND_FORMAT =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteBookCommand.MESSAGE_USAGE);
@@ -77,7 +75,6 @@ public class DeleteBookCommandSystemTest extends AddressBookSystemTest {
         /* --------------------- Performing delete operation while a book card is selected ------------------------ */
 
         /* Case: delete the selected book -> book list panel selects the book before the deleted book */
-        /*
         showAllBooks();
         expectedModel = getModel();
         Index selectedIndex = getLastIndex(expectedModel);
@@ -157,7 +154,7 @@ public class DeleteBookCommandSystemTest extends AddressBookSystemTest {
      * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
      * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      * @see DeleteBookCommandSystemTest#assertCommandSuccess(String, Model, String)
-     * @see BookShelfSystemTest#assertSelectedCardChanged(Index)
+     * @see BookShelfSystemTest#assertSelectedBookCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
@@ -165,9 +162,9 @@ public class DeleteBookCommandSystemTest extends AddressBookSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
         if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
+            assertSelectedBookCardChanged(expectedSelectedCardIndex);
         } else {
-            assertSelectedCardUnchanged();
+            assertSelectedBookCardUnchanged();
         }
 
         assertCommandBoxShowsDefaultStyle();
@@ -189,7 +186,7 @@ public class DeleteBookCommandSystemTest extends AddressBookSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+        assertSelectedBookCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }

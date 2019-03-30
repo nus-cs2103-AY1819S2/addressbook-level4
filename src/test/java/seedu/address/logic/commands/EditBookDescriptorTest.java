@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ALI;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DESC_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_AUTHOR_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_BOOKNAME_CS;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_RATING_CS;
@@ -32,7 +32,7 @@ public class EditBookDescriptorTest {
         assertFalse(DESC_ALI.equals(5));
 
         // different values -> returns false
-        assertFalse(DESC_ALI.equals(DESC_BOB));
+        assertFalse(DESC_ALI.equals(DESC_CS));
 
         // different name -> returns false
         EditBookDescriptor editedAlice = new EditBookDescriptorBuilder(DESC_ALI)

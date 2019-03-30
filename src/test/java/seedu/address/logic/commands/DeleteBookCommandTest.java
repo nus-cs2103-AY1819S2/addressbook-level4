@@ -76,7 +76,7 @@ public class DeleteBookCommandTest {
         showBookAtIndex(model, INDEX_FIRST_BOOK);
 
         Index outOfBoundIndex = INDEX_SECOND_BOOK;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of book shelf list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getBookShelf().getBookList().size());
 
         DeleteBookCommand deleteCommand = new DeleteBookCommand(outOfBoundIndex);
@@ -109,10 +109,10 @@ public class DeleteBookCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredBookList().size() + 1);
         DeleteBookCommand deleteCommand = new DeleteBookCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> book shelf state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single book shelf state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }

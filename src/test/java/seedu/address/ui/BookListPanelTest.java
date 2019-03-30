@@ -4,8 +4,8 @@ import static java.time.Duration.ofMillis;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.TypicalBooks.getTypicalBooks;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_BOOK;
-import static seedu.address.ui.testutil.BookGuiTestAssert.assertCardDisplaysBook;
-import static seedu.address.ui.testutil.BookGuiTestAssert.assertCardEquals;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysBook;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Collections;
 
@@ -44,7 +44,7 @@ public class BookListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void selection_modelSelectedPersonChanged_selectionChanges() {
+    public void selection_modelSelectedBookChanged_selectionChanges() {
         initUi(TYPICAL_BOOKS);
         Book secondBook = TYPICAL_BOOKS.get(INDEX_SECOND_BOOK.getZeroBased());
         guiRobot.interact(() -> selectedBook.set(secondBook));
@@ -56,7 +56,7 @@ public class BookListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of books in {@code BookListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -66,7 +66,7 @@ public class BookListPanelTest extends GuiUnitTest {
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+        }, "Creation and deletion of book cards exceeded time limit");
     }
 
     /**

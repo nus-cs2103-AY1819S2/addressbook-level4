@@ -40,7 +40,9 @@ public class ListReviewCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_BOOK_DISPLAYED_INDEX);
         }
 
-        model.setSelectedBook(filteredBookList.get(targetIndex.getZeroBased()));
+        Book selectedBook = filteredBookList.get(targetIndex.getZeroBased());
+        model.setSelectedBook(selectedBook);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex.getOneBased()));
 
     }

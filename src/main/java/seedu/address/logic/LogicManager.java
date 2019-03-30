@@ -17,7 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.book.Book;
 import seedu.address.model.book.Review;
-import seedu.address.model.person.Person;
+import seedu.address.model.book.ReviewBookNameContainsExactKeywordsPredicate;
 import seedu.address.storage.Storage;
 
 /**
@@ -69,18 +69,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyBookShelf getAddressBook() {
-        return model.getBookShelf();
-    }
-
-    @Override
     public ReadOnlyBookShelf getBookShelf() {
         return model.getBookShelf();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
     }
 
     @Override
@@ -99,11 +89,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getBookShelfFilePath();
-    }
-
-    @Override
     public Path getBookShelfFilePath() {
         return model.getBookShelfFilePath();
     }
@@ -119,11 +104,6 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Person> selectedPersonProperty() {
-        return model.selectedPersonProperty();
-    }
-
-    @Override
     public ReadOnlyProperty<Book> selectedBookProperty() {
         return model.selectedBookProperty();
     }
@@ -134,13 +114,13 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void setSelectedPerson(Person person) {
-        model.setSelectedPerson(person);
-    }
-
-    @Override
     public void setSelectedBook(Book book) {
-        model.setSelectedBook(book);
+        if (book != null) {
+            model.setSelectedBook(book);
+            ReviewBookNameContainsExactKeywordsPredicate predicate =
+                    new ReviewBookNameContainsExactKeywordsPredicate(book.getBookName());
+            model.updateFilteredReviewList(predicate);
+        }
     }
 
     @Override

@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.BookShelf;
 import seedu.address.model.ReadOnlyBookShelf;
 import seedu.address.model.book.Book;
+import seedu.address.model.book.Review;
 
 /**
  * An Immutable BookShelf that is serializable to JSON format.
@@ -22,13 +23,16 @@ class JsonSerializableBookShelf {
     public static final String MESSAGE_DUPLICATE_BOOK = "Book list contains duplicate book(s).";
 
     private final List<JsonAdaptedBook> books = new ArrayList<>();
+    private final List<JsonAdaptedReview> reviews = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableBookShelf} with the given books.
      */
     @JsonCreator
-    public JsonSerializableBookShelf(@JsonProperty("books") List<JsonAdaptedBook> books) {
+    public JsonSerializableBookShelf(@JsonProperty("books") List<JsonAdaptedBook> books,
+            @JsonProperty("reviews") List<JsonAdaptedReview> reviews) {
         this.books.addAll(books);
+        this.reviews.addAll(reviews);
     }
 
     /**
@@ -38,6 +42,7 @@ class JsonSerializableBookShelf {
      */
     public JsonSerializableBookShelf(ReadOnlyBookShelf source) {
         books.addAll(source.getBookList().stream().map(JsonAdaptedBook::new).collect(Collectors.toList()));
+        reviews.addAll(source.getReviewList().stream().map(JsonAdaptedReview::new).collect(Collectors.toList()));
     }
 
     /**
@@ -53,6 +58,13 @@ class JsonSerializableBookShelf {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_BOOK);
             }
             bookShelf.addBook(book);
+        }
+        for (JsonAdaptedReview jsonAdaptedReview : reviews) {
+            Review review = jsonAdaptedReview.toModelType();
+            if (bookShelf.hasReview(review)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_BOOK);
+            }
+            bookShelf.addReview(review);
         }
         return bookShelf;
     }

@@ -80,7 +80,6 @@ public class Book {
         return reviews.stream().collect(Collectors.toSet());
     }
 
-
     /**
      * Returns true if both books of the same book name.
      * This defines a weaker notion of equality between two books.
@@ -126,7 +125,7 @@ public class Book {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getBookName())
-                .append(" author: ")
+                .append(" Author: ")
                 .append(getAuthor())
                 .append(" Rating: ")
                 .append(getRating())

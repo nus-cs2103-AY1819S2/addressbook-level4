@@ -78,14 +78,6 @@ public class BookBuilder {
     }
 
     /**
-     * Sets the {@code Review} of the {@code Book} that we are building.
-     */
-    public BookBuilder withReview(HashSet<Review> reviews) {
-        this.reviews = reviews;
-        return this;
-    }
-
-    /**
      * Builds a book.
      */
     public Book build() {

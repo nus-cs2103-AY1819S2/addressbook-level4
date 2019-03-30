@@ -204,8 +204,8 @@ public class QuizTest {
     @Test
     public void end() {
         List<List<Integer>> expected = new ArrayList<>();
-        expected.add(Arrays.asList(0, 1, 1));
-        expected.add(Arrays.asList(1, 1, 0));
+        expected.add(Arrays.asList(0, 1, 1, 0));
+        expected.add(Arrays.asList(1, 1, 0, 0));
 
         // quiz just started
         Quiz quiz = new Quiz(VALID_QUIZCARD, QuizMode.LEARN);
@@ -256,8 +256,8 @@ public class QuizTest {
     @Test
     public void completeFlow() {
         List<List<Integer>> expected = new ArrayList<>();
-        expected.add(Arrays.asList(0, 2, 2));
-        expected.add(Arrays.asList(1, 2, 1));
+        expected.add(Arrays.asList(0, 2, 2, 0));
+        expected.add(Arrays.asList(1, 2, 1, 0));
 
         final QuizCard card1 = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
         final QuizCard card2 = new QuizCard("Hungary", "Budapest");

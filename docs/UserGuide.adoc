@@ -31,7 +31,7 @@ started. Enjoy!
 .  Copy the file to the folder you want to use as the home folder for your ClubManager.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::UiUpdate.png[width="790"]
+image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -320,7 +320,15 @@ image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
 === Activity Management Features
 
 ==== Adding an activity : `activityAdd`
-Adds a new activity to the activity list
+Adds a new activity to the activity list+
+[width="100%",cols="30%,<50%, <50%",options="header",]
+|=======================================================================
+|Information of Activity| Definition | Example
+|`ActivityName`| ACTIVITYNAME refers to the name of the activity.
+
+ Only alphabets are accepted. | Sentosa Outing
+|
+|=======================================================================
 Format: `activityAdd n/ACTIVITYNAME d/DATETIME l/LOCATION [de/DESCRIPTION] [ic/INCHARGEMATRIC] ...`
 
 ****

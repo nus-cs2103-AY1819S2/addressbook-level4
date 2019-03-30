@@ -418,22 +418,26 @@ Clears all existing tags of the second activity.
 
 ==== Finding activities by name: `activityFind`
 
-Finds activities whose names contain any of the given keywords. +
-Format: `activityFind KEYWORD [MORE_KEYWORDS]`
+Finds all activities whose attribute contain any of the specified keywords
+(case-insensitive) and displays them as a list with index numbers. +
+Format: `activityFind [a/] [n/] [de/] [l/] KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `workshop` will match `Workshop`
 * The order of the keywords does not matter. e.g. `Talk Seminar` will match `Seminar Talk`
-* Only the name is searched.
+* The search parameter is determined by the prefix. `a/` is to search all descriptive fields (ActivityName,
+ActivityLocation, ActivityDescription); `n/` searches for match in ActivityName; `l/` searches for match in
+ActivityLocation; `de/` searches for matches in ActivityDescription.
+* There can be one and only one prefix.
 * Only full words will be matched e.g. `CS` will not match `CSS`
 * Activities matching at least one keyword will be returned (i.e. `OR` search). e.g. `HTML workshop` will return `HTML camp`, `CSS workshop`
 ****
 
 Examples:
 
-* `activityFind Workshop` +
-Returns `HTML workshop` and `CSS workshop`
-* `find HTML CSS Javascript` +
+* `activityFind l/ Hall` +
+Returns activities with location `University Hall` and `Eusoff Hall`
+* `activityFind n/ HTML CSS Javascript` +
 Returns any activity having names `HTML`, `CSS`, or `Javascript`
 
 ==== Listing all activities : `activityList`
@@ -524,7 +528,7 @@ e.g. `activityDelete 1`
 e.g. `activityDeleteMember 1 A1234567N`
 * *Edit an activity* : `activityEdit ACTIVITY_INDEX [n/ACTIVITY_NAME] [d/DATE] [t/TAG] … ` +
 e.g. `activityEdit 1 d/13022019`
-* *Find an activity* : `activityFind KEYWORD [MORE_KEYWORDS]` +
+* *Find an activity* : `activityFind [a/] [n/] [de/] [l/] KEYWORD [MORE_KEYWORDS]` +
 e.g. `activityFind Workshop`
 * *List all the activities* : `activityList`
 * *Select an activity* : `activitySelect ACTIVITY_INDEX` +

@@ -39,7 +39,7 @@ public class ReminderCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         title.setText(reminder.getTitle());
         date.setText(reminder.getDate().toString());
-        time.setText(reminder.getStartTime().toString());
+        time.setText(reminder.getStart().toString());
         comment.setText(reminder.getComment());
     }
 

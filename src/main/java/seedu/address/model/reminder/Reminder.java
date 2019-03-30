@@ -4,45 +4,42 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;
 
-import seedu.address.model.appointment.Appointment;
+import seedu.address.model.Slot;
 
 /**
  * Represents a Reminder created in quickdocs.
  */
-public class Reminder {
+public class Reminder extends Slot {
     private String title;
     private String comment;
-    private LocalDate date;
-    private LocalTime startTime;
-    private LocalTime endTime;
 
     public Reminder() {
+        super();
     }
 
-    public Reminder(String title, String comment, LocalDate date, LocalTime startTime, LocalTime endTime) {
+    public Reminder(String title, LocalDate date, LocalTime start) {
+        super(date, start, null);
+        this.title = title;
+        this.comment = "";
+    }
+
+    public Reminder(String title, String comment, LocalDate date, LocalTime start) {
+        super(date, start, null);
         this.title = title;
         this.comment = comment;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
     }
 
-    public Reminder(Appointment app) {
-        this.title = createTitle(app);
-        this.comment = app.getComment();
-        this.date = app.getDate();
-        this.startTime = app.getStartTime();
-        this.endTime = app.getEndTime();
+    public Reminder(String title, LocalDate date, LocalTime start, LocalTime end) {
+        super(date, start, end);
+        this.title = title;
+        this.comment = "";
     }
 
-    /**
-     * Returns a {@code String} title given an {@code Appointment}
-     */
-    public static String createTitle(Appointment app) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Appointment with ")
-                .append(app.getPatient().getName());
-        return sb.toString();
+    public Reminder(String title, String comment, LocalDate date, LocalTime start, LocalTime end) {
+        super(date, start, end);
+        this.title = title;
+        this.comment = comment;
+
     }
 
     public String getTitle() {
@@ -51,18 +48,6 @@ public class Reminder {
 
     public String getComment() {
         return comment;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public LocalTime getEndTime() {
-        return endTime;
     }
 
     /**
@@ -80,30 +65,29 @@ public class Reminder {
         }
 
         Reminder otherReminder = (Reminder) other;
-        return otherReminder.getTitle().equals(getTitle())
-                && otherReminder.getDate().equals(getDate())
-                && otherReminder.getStartTime().equals(getStartTime());
+        return super.equals(other)
+                && otherReminder.getTitle().equals(getTitle());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, date, startTime, endTime);
+        return Objects.hash(title, super.hashCode());
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getTitle() + ":\n")
+        builder.append(getTitle()).append(":\n")
                 .append("Date: ")
-                .append(getDate() + "\n")
+                .append(getDate()).append("\n")
                 .append("Start Time: ")
-                .append(getStartTime() + "\n");
-        if (endTime != null) {
-            builder.append("End Time: ").append(getEndTime() + "\n");
+                .append(getStart()).append("\n");
+        if (getEnd() != null) {
+            builder.append("End Time: ").append(getEnd()).append("\n");
         }
         if (comment != null) {
-            builder.append("Comments: ").append(getComment() + "\n");
+            builder.append("Comments: ").append(getComment()).append("\n");
         }
         return builder.toString();
     }

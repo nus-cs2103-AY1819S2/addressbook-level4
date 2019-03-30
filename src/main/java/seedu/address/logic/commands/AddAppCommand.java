@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_DATE;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_END;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_NRIC;
 import static seedu.address.logic.parser.AddAppCommandParser.PREFIX_START;
+import static seedu.address.model.appointment.AppointmentManager.CLOSING_HOUR;
+import static seedu.address.model.appointment.AppointmentManager.OPENING_HOUR;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,7 +26,7 @@ import seedu.address.model.patient.Patient;
 public class AddAppCommand extends Command {
 
     public static final String COMMAND_WORD = "addapp";
-    //public static final String COMMAND_ALIAS = "a";
+    public static final String COMMAND_ALIAS = "aa";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an appointment to quickdocs. "
             + "Parameters: "
@@ -41,8 +43,12 @@ public class AddAppCommand extends Command {
             + PREFIX_COMMENT + "<any comments>\n";
 
     public static final String MESSAGE_SUCCESS = "Appointment added:\n%1$s\n";
-    public static final String MESSAGE_DUPLICATE_APP = "The time slot has already been taken";
+    public static final String MESSAGE_CONFLICTING_APP = "There are clashes in the time slot chosen."
+            + " Please use 'appfree' to find free slots.";
     public static final String MESSAGE_PATIENT_NOT_FOUND = "No patient with the given nric found";
+    public static final String MESSAGE_START_EQUALS_END = "Appointment start time and end time should not be the same.";
+    public static final String MESSAGE_START_AFTER_END = "Appointment start time should not be after end time.";
+    public static final String MESSAGE_NON_OFFICE_HOURS = "Appointment timing is outside of office hours.";
 
     private final Nric nric;
     private final LocalDate date;
@@ -65,14 +71,27 @@ public class AddAppCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        Optional<Patient> patientToAdd = model.getPatientWithNric(nric);
+        Optional<Patient> patientToAdd = model.getPatientByNric(nric);
         if (!patientToAdd.isPresent()) {
             throw new CommandException(MESSAGE_PATIENT_NOT_FOUND);
         }
 
+        if (start.isBefore(OPENING_HOUR) || start.isAfter(CLOSING_HOUR)
+                || end.isBefore(OPENING_HOUR) || end.isAfter(CLOSING_HOUR)) {
+            throw new CommandException(MESSAGE_NON_OFFICE_HOURS);
+        }
+
+        if (start.equals(end)) {
+            throw new CommandException(MESSAGE_START_EQUALS_END);
+        }
+
+        if (start.isAfter(end)) {
+            throw new CommandException(MESSAGE_START_AFTER_END);
+        }
+
         Appointment appToAdd = new Appointment(patientToAdd.get(), date, start, end, comment);
-        if (model.duplicateApp(appToAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_APP);
+        if (model.hasTimeConflicts(appToAdd)) {
+            throw new CommandException(MESSAGE_CONFLICTING_APP);
         }
 
         model.addApp(appToAdd);

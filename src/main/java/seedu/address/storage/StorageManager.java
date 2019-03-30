@@ -21,15 +21,16 @@ public class StorageManager implements Storage {
     private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
-    private JsonQuickDocsStorage quickDocsStorage;
+    private QuickDocsStorage quickDocsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage,
+                          QuickDocsStorage quickDocsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
 
-        this.quickDocsStorage = new JsonQuickDocsStorage();
+        this.quickDocsStorage = quickDocsStorage;
     }
 
     // ================ UserPrefs methods ==============================

@@ -20,6 +20,7 @@ import seedu.address.model.appointment.Appointment;
 public class DeleteAppCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteapp";
+    public static final String COMMAND_ALIAS = "da";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes an appointment in quickdocs. "
             + "Parameters: "

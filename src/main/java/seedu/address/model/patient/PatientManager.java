@@ -223,7 +223,7 @@ public class PatientManager {
         return null;
     }
 
-    public Optional<Patient> getPatientWithNric(Nric nric) {
+    public Optional<Patient> getPatientByNric(Nric nric) {
         for (Patient patient : patientList) {
             if (patient.getNric().equals(nric)) {
                 return Optional.of(patient);

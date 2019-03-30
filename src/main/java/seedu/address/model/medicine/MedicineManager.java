@@ -119,5 +119,4 @@ public class MedicineManager {
     public ArrayList<Medicine> getListOfMedicine() {
         return listOfMedicine;
     }
-
 }

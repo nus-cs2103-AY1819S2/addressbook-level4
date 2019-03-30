@@ -311,26 +311,6 @@ public class ModelManager implements Model {
     //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean canUndoAddressBook() {
-        return versionedAddressBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoAddressBook() {
-        return versionedAddressBook.canRedo();
-    }
-
-    @Override
-    public void undoAddressBook() {
-        versionedAddressBook.undo();
-    }
-
-    @Override
-    public void redoAddressBook() {
-        versionedAddressBook.redo();
-    }
-
-    @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
@@ -478,6 +458,10 @@ public class ModelManager implements Model {
         return this.patientManager.getPatientByNric(nric);
     }
 
+    public Optional<Patient> getPatientByNric(Nric nric) {
+        return this.patientManager.getPatientByNric(nric);
+    }
+
     public int getIndexByNric(Nric nric) {
         return this.patientManager.getIndexByNric(nric); }
 
@@ -495,10 +479,6 @@ public class ModelManager implements Model {
 
     public void createConsultation(Patient patient) {
         this.consultationManager.createConsultation(patient);
-    }
-
-    public Optional<Patient> getPatientWithNric(Nric nric) {
-        return this.patientManager.getPatientWithNric(nric);
     }
 
     public void diagnosePatient(Diagnosis diagnosis) {
@@ -538,8 +518,8 @@ public class ModelManager implements Model {
     }
 
     //==========Appointment module===========================================================================
-    public boolean duplicateApp(Appointment app) {
-        return appointmentManager.duplicateApp(app);
+    public boolean hasTimeConflicts(Appointment app) {
+        return appointmentManager.hasTimeConflicts(app);
     }
 
     /**
@@ -549,17 +529,21 @@ public class ModelManager implements Model {
      */
     public void addApp(Appointment app) {
         appointmentManager.addAppointment(app);
-        Reminder remToAdd = new Reminder(app);
+        Reminder remToAdd = createRemFromApp(app);
         addRem((remToAdd));
         quickDocs.indicateModification(true);
     }
 
     public String listApp(LocalDate start, LocalDate end) {
-        return appointmentManager.list(start, end);
+        return appointmentManager.listAppointments(start, end);
     }
 
     public String listApp(Patient patient) {
-        return appointmentManager.list(patient);
+        return appointmentManager.listAppointments(patient);
+    }
+
+    public String freeApp(LocalDate start, LocalDate end) {
+        return appointmentManager.listFreeSlots(start, end);
     }
 
     public Optional<Appointment> getAppointment(LocalDate date, LocalTime start) {
@@ -582,7 +566,7 @@ public class ModelManager implements Model {
 
     //==========Reminder module==============================================================================
     public boolean duplicateRem(Reminder rem) {
-        return reminderManager.duplicateReminder(rem);
+        return reminderManager.hasDuplicateReminder(rem);
     }
 
     /**
@@ -601,6 +585,10 @@ public class ModelManager implements Model {
 
     public Optional<Reminder> getReminder(Appointment appointment) {
         return reminderManager.getReminder(appointment);
+    }
+
+    private Reminder createRemFromApp(Appointment app) {
+        return new Reminder(app.createTitle(), app.getComment(), app.getDate(), app.getStart(), app.getEnd());
     }
 
     /**

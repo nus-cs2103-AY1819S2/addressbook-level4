@@ -20,6 +20,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MergeCommand;
 import seedu.address.logic.commands.MoveCommand;
 import seedu.address.logic.commands.OpenCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -62,11 +63,20 @@ public class PdfBookParser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
+        case DeadlineCommand.COMMAND_WORD:
+            return new DeadlineCommandParser().parse(arguments);
+
+        case DecryptCommand.COMMAND_WORD:
+            return new DecryptCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case EncryptCommand.COMMAND_WORD:
+            return new EncryptCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -83,17 +93,17 @@ public class PdfBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case TagCommand.COMMAND_WORD:
-            return new TagCommandParser().parse(arguments);
-
-        case DeadlineCommand.COMMAND_WORD:
-            return new DeadlineCommandParser().parse(arguments);
-
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case MergeCommand.COMMAND_WORD:
+            return new MergeCommandParser().parse(arguments);
+
         case MoveCommand.COMMAND_WORD:
             return new MoveCommandParser().parse(arguments);
+
+        case OpenCommand.COMMAND_WORD:
+            return new OpenCommandParser().parse(arguments);
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
@@ -104,17 +114,11 @@ public class PdfBookParser {
         case SortCommand.COMMAND_WORD:
             return new SortCommandParser().parse(arguments);
 
+        case TagCommand.COMMAND_WORD:
+            return new TagCommandParser().parse(arguments);
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-
-        case OpenCommand.COMMAND_WORD:
-            return new OpenCommandParser().parse(arguments);
-
-        case EncryptCommand.COMMAND_WORD:
-            return new EncryptCommandParser().parse(arguments);
-
-        case DecryptCommand.COMMAND_WORD:
-            return new DecryptCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

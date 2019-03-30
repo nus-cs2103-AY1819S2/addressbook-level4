@@ -21,7 +21,7 @@ public class QuizAnswerCommand extends QuizCommand {
     public static final String MESSAGE_WRONG_ONCE = "Your answer %1$s is wrong, "
             + "you have one more chance to answer it.\n";
     public static final String MESSAGE_WRONG = "Your answer is %1$s but the correct answer is %2$s.\n";
-    public static final String MESSAGE_COMPLETE = "You have completed all the questions in this quiz.\n";
+    public static final String MESSAGE_SUCCESS = "You have completed all the questions in this quiz.\n";
 
     private String answer;
     public QuizAnswerCommand(String answer) {
@@ -57,7 +57,7 @@ public class QuizAnswerCommand extends QuizCommand {
 
             // set the display to blank for management mode display
             quizModel.setDisplayFormatter(null);
-            return new CommandResult(MESSAGE_COMPLETE, true, false, false);
+            return new CommandResult(MESSAGE_SUCCESS, true, false, false);
         }
 
         boolean result = quizModel.updateTotalAttemptsAndStreak(card.getIndex(), answer);
@@ -74,7 +74,7 @@ public class QuizAnswerCommand extends QuizCommand {
 
                 // set the display to blank for management mode display
                 quizModel.setDisplayFormatter(null);
-                sb.append(MESSAGE_COMPLETE);
+                sb.append(MESSAGE_SUCCESS);
             }
 
         } else {

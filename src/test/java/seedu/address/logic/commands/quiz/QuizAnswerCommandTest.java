@@ -110,7 +110,7 @@ public class QuizAnswerCommandTest {
         quizAnswerCommand = new QuizAnswerCommand(answer);
         expectedModel.end();
 
-        CommandResult commandResult = new CommandResult(QuizAnswerCommand.MESSAGE_COMPLETE, true, false, false);
+        CommandResult commandResult = new CommandResult(QuizAnswerCommand.MESSAGE_SUCCESS, true, false, false);
 
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             commandResult, expectedModel);
@@ -195,7 +195,7 @@ public class QuizAnswerCommandTest {
         expectedModel.updateTotalAttemptsAndStreak(1, "Japan");
         expectedModel.end();
 
-        expectedMessage = MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_COMPLETE;
+        expectedMessage = MESSAGE_CORRECT + QuizAnswerCommand.MESSAGE_SUCCESS;
 
         QuizCommandTestUtil.assertCommandSuccess(quizAnswerCommand, actualModel, commandHistory,
             expectedMessage, expectedModel);

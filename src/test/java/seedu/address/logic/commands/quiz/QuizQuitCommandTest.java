@@ -42,7 +42,7 @@ public class QuizQuitCommandTest {
     public void execute_quitsWithoutAttemptingQuestion_success() {
         expectedModel.getNextCard();
         expectedModel.end();
-        String expectedMessage = String.format(QuizQuitCommand.MESSAGE_COMPLETE, 0);
+        String expectedMessage = String.format(QuizQuitCommand.MESSAGE_SUCCESS, 0);
 
         actualModel.getNextCard();
         assertCommandSuccess(new QuizQuitCommand(), actualModel, commandHistory,
@@ -57,7 +57,7 @@ public class QuizQuitCommandTest {
         expectedModel.getNextCard();
         expectedModel.updateTotalAttemptsAndStreak(0, "wrong answer");
         expectedModel.end();
-        String expectedMessage = String.format(QuizQuitCommand.MESSAGE_COMPLETE, 0);
+        String expectedMessage = String.format(QuizQuitCommand.MESSAGE_SUCCESS, 0);
 
         actualModel.getNextCard();
         actualModel.getNextCard();
@@ -77,7 +77,7 @@ public class QuizQuitCommandTest {
         expectedModel.updateTotalAttemptsAndStreak(0, "wrong answer");
         expectedModel.updateTotalAttemptsAndStreak(0, "Brussels");
         expectedModel.end();
-        String expectedMessage = String.format(QuizQuitCommand.MESSAGE_COMPLETE, 1);
+        String expectedMessage = String.format(QuizQuitCommand.MESSAGE_SUCCESS, 1);
 
         actualModel.getNextCard();
         actualModel.getNextCard();

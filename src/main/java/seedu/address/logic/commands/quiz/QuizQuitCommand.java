@@ -13,16 +13,16 @@ import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.quiz.Quiz;
 
 /**
- * Force quits quiz session while it is still ongoing
+ * Force quits quiz while it is still ongoing
  */
 public class QuizQuitCommand extends QuizCommand {
     public static final String COMMAND_WORD = "\\quit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Force quits this session, "
-        + "only progress of attempted questions will still be saved.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Force quits this quiz, "
+        + "only progress of attempted questions will be saved.\n"
         + "Example: " + COMMAND_WORD + "\n";
 
-    public static final String MESSAGE_COMPLETE = "You have tried %1$s question(s) in this quiz.\n";
+    public static final String MESSAGE_SUCCESS = "You attempted %1$s question(s) and your progress has been saved.\n";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
@@ -38,12 +38,12 @@ public class QuizQuitCommand extends QuizCommand {
         // set the display to blank for management mode display
         quizModel.setDisplayFormatter(null);
 
-        return new CommandResult(String.format(MESSAGE_COMPLETE, nonZeroAttemptsResult.size()), true, false, false);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, nonZeroAttemptsResult.size()), true, false, false);
     }
 
     /**
      * Filters attempts with non zero streak from endResult.
-     * @param endResult all attempts from quiz session {@link Quiz#end()}
+     * @param endResult all attempts from quiz {@link Quiz#end()}
      * @return attempts with streak more than 0
      */
     private List<List<Integer>> nonZeroStreakResult(List<List<Integer>> endResult) {

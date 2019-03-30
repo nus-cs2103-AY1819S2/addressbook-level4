@@ -114,7 +114,7 @@ public class LogicManagerTest {
         expectedModel.getNextCard();
         expectedModel.updateTotalAttemptsAndStreak(0, "Brussels");
         expectedModel.updateUserProfile(expectedModel.end());
-        CommandResult expected = new CommandResult(String.format(QuizQuitCommand.MESSAGE_COMPLETE, 1));
+        CommandResult expected = new CommandResult(String.format(QuizQuitCommand.MESSAGE_SUCCESS, 1));
 
         quizModel.getNextCard();
         quizModel.getNextCard();
@@ -131,7 +131,7 @@ public class LogicManagerTest {
 
         expectedModel.getNextCard();
 
-        CommandResult expected = new CommandResult(String.format(QuizStatusCommand.MESSAGE_RESULT,
+        CommandResult expected = new CommandResult(String.format(QuizStatusCommand.MESSAGE_SUCCESS,
             expectedModel.getQuizTotalAttempts(), expectedModel.getQuizTotalCorrectQuestions(),
             expectedModel.getCurrentProgress()));
 

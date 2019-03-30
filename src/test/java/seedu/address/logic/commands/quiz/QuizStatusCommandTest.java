@@ -42,7 +42,7 @@ public class QuizStatusCommandTest {
         actualModel.getNextCard();
         expectedModel.getNextCard();
 
-        String expected = String.format(QuizStatusCommand.MESSAGE_RESULT, actualModel.getQuizTotalAttempts(),
+        String expected = String.format(QuizStatusCommand.MESSAGE_SUCCESS, actualModel.getQuizTotalAttempts(),
             actualModel.getQuizTotalCorrectQuestions(), actualModel.getCurrentProgress());
         assertCommandSuccess(new QuizStatusCommand(), actualModel, commandHistory, expected, expectedModel);
     }

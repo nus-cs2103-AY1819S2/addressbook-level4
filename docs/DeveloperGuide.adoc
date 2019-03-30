@@ -147,12 +147,10 @@ image::LogicClassDiagram.png[width="800"]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `import C:\Users\XXX\Desktop\Pictures`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenarios where the user issues the command `import C:\Users\XXX\Desktop\Pictures` and `rotate 90`.
 
 .Component interactions for `import C:\Users\XXX\Desktop\Pictures` command
 image::SDforImportcommand.png[width="800"]
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `rotate 90`.
 
 .Component interactions for `rotate 90` command 
 image::SDforRotatecommand.png[width="800"]

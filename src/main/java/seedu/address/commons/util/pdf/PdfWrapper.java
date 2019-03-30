@@ -3,6 +3,10 @@ package seedu.address.commons.util.pdf;
 import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -22,11 +26,12 @@ import seedu.address.model.medicine.Medicine;
  * A PdfWrapper class to complement the label command.
  */
 public class PdfWrapper {
-
+    public static final String FILE_OPS_ERROR_MESSAGE = "Could not export data to pdf file: ";
+    private static final String DEFAULT_LABEL_FOLDER_NAME = "PDF";
+    private static final Path DEFAULT_LABEL_FOLDER_PATH = Paths.get(DEFAULT_LABEL_FOLDER_NAME);
     private final Index index;
     private String fileName;
     private final Model model;
-
     private PDPage page = new PDPage();
 
     public PdfWrapper(Index targetIndex, FileName fileName, Model model) {
@@ -41,7 +46,7 @@ public class PdfWrapper {
      * @throws CommandException If there is an error printing the information of the medicine onto a pdf file.
      */
     public void label() throws CommandException {
-
+        createIfLabelDirectoryMissing();
         parseFileName();
         requireNonNull(model);
         Medicine medicineToPrint = getSpecificMedicine(model);
@@ -52,8 +57,22 @@ public class PdfWrapper {
 
     }
 
+    /**
+     * Creates the export directory if export directory where exported data are stored.
+     * @throws CommandException if there are errors creating the export directory.
+     */
+    private void createIfLabelDirectoryMissing() throws CommandException {
+        if (Files.isDirectory(DEFAULT_LABEL_FOLDER_PATH) == false) {
+            try {
+                Files.createDirectory(DEFAULT_LABEL_FOLDER_PATH);
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+    }
+
     private void parseFileName() {
-        this.fileName = ("./PDF/" + this.fileName + ".pdf").replaceAll("\\s+", "");
+        this.fileName = Paths.get(DEFAULT_LABEL_FOLDER_NAME, fileName + ".pdf").toString().replaceAll("\\s+", "");
     }
 
     /**

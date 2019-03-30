@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 import java.io.File;
 import java.io.IOException;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
@@ -27,6 +29,8 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.medicine.Medicine;
 
 public class LabelCommandTest {
+    private static final String DEFAULT_LABEL_FOLDER_NAME = "PDF";
+    private static final Path DEFAULT_LABEL_FOLDER_PATH = Paths.get(DEFAULT_LABEL_FOLDER_NAME);
 
     private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
@@ -39,7 +43,8 @@ public class LabelCommandTest {
 
         LabelCommand labelCommand = new LabelCommand(INDEX_FIRST_MEDICINE, new FileName(DEFAULT_FILENAME));
         labelCommand.execute(model, commandHistory);
-        File printedFile = new File("./PDF/" + "to_print.pdf");
+        File printedFile = new File(Paths.get(DEFAULT_LABEL_FOLDER_NAME, fileName + ".pdf")
+                .toString().replaceAll("\\s+", ""));
         String actualMessage = readFromPdf(printedFile);
         String information = getMedicineInformationToString(medicineToLabel);
 
@@ -57,7 +62,8 @@ public class LabelCommandTest {
 
         LabelCommand labelCommand = new LabelCommand(INDEX_SECOND_MEDICINE, new FileName("secondMedicine"));
         labelCommand.execute(model, commandHistory);
-        File printedFile = new File("./PDF/" + "secondMedicine.pdf");
+        File printedFile = new File(Paths.get(DEFAULT_LABEL_FOLDER_NAME, "secondMedicine" + ".pdf")
+                .toString().replaceAll("\\s+", ""));
         String actualMessage = readFromPdf(printedFile);
         String information = getMedicineInformationToString(medicineToLabel);
 

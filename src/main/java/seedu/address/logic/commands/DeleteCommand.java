@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -72,9 +73,6 @@ public class DeleteCommand extends Command {
         if (deleteType == DeleteType.Hard) {
             File dFile = Paths.get(pdfToDelete.getDirectory().getDirectory(),
                     pdfToDelete.getName().getFullName()).toFile();
-
-            //Force close the File by renaming
-            dFile.renameTo(dFile);
 
             if (!dFile.delete()) {
                 throw new CommandException(MESSAGE_DELETE_HARD_FAIL);

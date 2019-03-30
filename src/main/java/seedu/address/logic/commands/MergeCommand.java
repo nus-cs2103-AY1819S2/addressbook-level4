@@ -106,7 +106,7 @@ public class MergeCommand extends Command {
         File mergedFile = Paths.get(mergedPdfDirectory, mergedPdfName).toAbsolutePath().toFile();
         Pdf mergedPdf = new Pdf(
                 new Name(mergedFile.getName()),
-                new Directory(mergedFile.getPath()),
+                new Directory(mergedFile.getParent()),
                 new Size(String.valueOf(mergedFile.length())),
                 new HashSet<>());
 

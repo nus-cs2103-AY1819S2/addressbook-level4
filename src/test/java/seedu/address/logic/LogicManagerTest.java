@@ -19,6 +19,7 @@ import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
+import seedu.address.logic.commands.quiz.QuizQuitCommand;
 import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -67,7 +68,7 @@ public class LogicManagerTest {
         quizExpected = new Quiz(SESSION_DEFAULT_2.generateSession(), SESSION_DEFAULT_2.getMode());
         quizActual = new Quiz(SESSION_DEFAULT_2_ACTUAL.generateSession(), SESSION_DEFAULT_2_ACTUAL.getMode());
 
-        expectedModel = new QuizModelManager();
+        expectedModel = new QuizModelManager(new ManagementModelManager());
     }
 
     @Test
@@ -101,6 +102,26 @@ public class LogicManagerTest {
 
         assertCommandSuccess("tokyo", expected.getFeedbackToUser(), expectedModel);
         assertTrue(new QuizAnswerCommand("someanswer").execute(quizModel, history).isShowQuiz());
+    }
+
+    @Test
+    public void execute_quitCommand_success() {
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
+
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(0, "Brussels");
+        expectedModel.updateUserProfile(expectedModel.end());
+        CommandResult expected = new CommandResult(String.format(QuizQuitCommand.MESSAGE_COMPLETE, 1));
+
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.updateTotalAttemptsAndStreak(0, "Brussels");
+
+        assertCommandSuccess("\\quit", expected.getFeedbackToUser(), expectedModel);
     }
 
     @Test

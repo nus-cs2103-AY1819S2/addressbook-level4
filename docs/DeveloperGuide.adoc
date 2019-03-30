@@ -266,7 +266,29 @@ image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
 === Battleship Feature
 ==== Current Implementation
-A battleship is a basic class representing a battleship that can be placed on the map grid. The battleship must be variable in length, depending on the type of battleship.
+A battleship is a basic class representing a battleship that can be placed on the map grid. The battleship must be variable in length, depending on the type of battleship. +
+
+The following sequence diagram shows how a battleship is put on the map.
+
+.Sequence diagram of putting a battleship on the map.
+image::PutShipSequenceDiagram.png[width=800]
+
+Battleships can be tagged. You can list all the tags used by battleships that have been deployed on the map grid using the `listTags` command. The sequence diagram below shows how the tags are listed.
+
+.Sequence diagram of listing battleship tags.
+image::ListTagsSequenceDiagram.png[width=800]
+
+Battleships that have been deployed can also be listed. Battleships can be listed in four different ways:
+
+1. List all battleships.
+1. List battleships that have certain tags.
+1. List battleships of a certain type.
+1. List battleships of a certain type that have certain tags.
+
+The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
+
+.Sequence diagram of listing battleships deployed on the map.
+image::ListShipSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 ===== Aspect: How a battleship is placed on the map

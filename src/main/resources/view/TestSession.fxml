@@ -12,9 +12,9 @@
       </Label>
       <Label fx:id="testCardAnswer" styleClass="label-test-ans" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
       </Label>
-      <Label fx:id="testCardOptions" styleClass="label-test-ans" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER">
+      <Label fx:id="testCardOptions" styleClass="label-test-ans" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.halignment="CENTER">
       </Label>
-      <Label fx:id="testMessage" styleClass="label-dark" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="CENTER">
+      <Label fx:id="testMessage" styleClass="label-dark" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.halignment="CENTER">
       </Label>
    </children>
 </GridPane>

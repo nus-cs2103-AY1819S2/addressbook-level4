@@ -152,6 +152,12 @@ Format: `list`
 * This command is implicitly invoked upon entering a folder, and can be used to reset the view after search or sort.
 ====
 
+==== Report user performance for folder : `report`
+
+Displays user performance in a fullscreen for the current card folder.
+
+Format: `report`
+
 // tag::undoredo[]
 ==== Undoing previous command : `undo`
 
@@ -295,16 +301,6 @@ Enters the second folder in the folder list on the home directory.
 This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
 
 Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
-
-==== Report user performance for folder : `report`
-
-Displays user performance in a fullscreen display for the current card folder.
-
-Format: `report`
-
-[NOTE]
-To leave the report display, use the <<EndCommand, end command>>.
-
 //end::folderoperations[]
 
 === Test Operations

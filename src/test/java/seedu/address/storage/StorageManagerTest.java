@@ -28,8 +28,7 @@ public class StorageManagerTest {
         "CsvLessonListStorageTest", "noValidFiles");
     private static final Path READ_ONLY_TEST_FOLDER = Paths.get("src", "test", "data",
         "StorageManagerTest", "readOnlyFile");
-    private static final Path EMPTY_TEST_FOLDER = Paths.get("src", "test", "data", "StorageManagerTest",
-        "emptyFolder");
+    private static final Path EMPTY_TEST_FOLDER = Paths.get("src", "test", "data", "StorageManagerTest");
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
@@ -128,7 +127,8 @@ public class StorageManagerTest {
         lessonList.addLesson(TypicalLessonList.LESSON_DEFAULT);
         storageManager.saveLessonList(lessonList);
         storageManager.deleteLesson(TypicalLessonList.LESSON_DEFAULT.getName());
-        assertEquals(0, Files.list(EMPTY_TEST_FOLDER).count());
+        assertEquals(0, Files.walk(EMPTY_TEST_FOLDER, 1).filter(path ->
+            path.toString().endsWith(".csv")).count());
     }
 
     @Test

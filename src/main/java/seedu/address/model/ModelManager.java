@@ -231,9 +231,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void enterFolder(int newIndex) {
+    public void enterFolder(int index) {
         inFolder = true;
-        activeCardFolderIndex = newIndex;
+        activeCardFolderIndex = index;
     }
 
     @Override

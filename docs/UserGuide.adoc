@@ -298,9 +298,12 @@ Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
 
 ==== Report user performance for folder : `report`
 
-Displays user performance in a fullscreen for the current card folder.
+Displays user performance in a fullscreen display for the current card folder.
 
 Format: `report`
+
+[NOTE]
+To leave the report display, use the <<EndCommand, end command>>.
 
 //end::folderoperations[]
 
@@ -412,7 +415,7 @@ This command is only considered valid if a card question and answer is currently
 [NOTE]
 There is no backtracking in the current session so there is no `prev` command.
 
-
+[[EndCommand]]
 ==== End the current test or report session : `end`
 
 Quits the current test or report session.

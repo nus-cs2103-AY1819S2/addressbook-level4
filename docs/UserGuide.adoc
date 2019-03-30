@@ -329,10 +329,11 @@ Adds a new activity to the activity list+
  Only alphabets are accepted. | Sentosa Outing
 |
 |=======================================================================
-Format: `activityAdd n/ACTIVITYNAME d/DATETIME l/LOCATION [de/DESCRIPTION] [ic/INCHARGEMATRIC] ...`
+Format: `activityAdd n/ACTIVITYNAME d/DATETIME l/LOCATION [de/DESCRIPTION] ...`
 
 ****
-* The fields of description and IC Matric are optional.
+* Inputing description is optional. If no description is found, the default description
+will be "More details to be added."
 * The added activity will be displayed at the sorted position according to its time.
 ****
 

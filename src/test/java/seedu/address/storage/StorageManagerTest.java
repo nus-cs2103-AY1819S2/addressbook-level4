@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static seedu.address.testutil.TypicalCards.getTypicalCardFolder;
 
 import java.nio.file.Path;
@@ -29,7 +28,6 @@ public class StorageManagerTest {
     public void setUp() {
         JsonCardFolderStorage cardFolderStorage = new JsonCardFolderStorage(getTempFilePath("ab"));
         List<CardFolderStorage> cardFolderStorageList = new ArrayList<>();
-        // TODO: Iterate over all files in directory
         cardFolderStorageList.add(cardFolderStorage);
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(cardFolderStorageList, userPrefsStorage);
@@ -62,15 +60,17 @@ public class StorageManagerTest {
          * More extensive testing of UserPref saving/reading is done in {@link JsonCardFolderStorageTest} class.
          */
         CardFolder original = getTypicalCardFolder();
-        // TODO: Address hardcoding in the following lines
-        storageManager.saveCardFolder(original, 0);
-        ReadOnlyCardFolder retrieved = storageManager.readCardFolders().get(0);
-        assertEquals(original, new CardFolder(retrieved));
-    }
+        List<ReadOnlyCardFolder> savedFolders = new ArrayList<>();
+        savedFolders.add(original);
+        storageManager.saveCardFolders(savedFolders, testFolder.getRoot().toPath());
+        List<ReadOnlyCardFolder> readFolders = new ArrayList<>();
+        storageManager.readCardFolders(readFolders);
+        assertEquals(savedFolders, readFolders);
 
-    @Test
-    public void getcardFolderFilesPath() {
-        assertNotNull(storageManager.getcardFolderFilesPath());
+        storageManager.saveCardFolder(original, savedFolders.size() - 1);
+        readFolders.clear();
+        storageManager.readCardFolders(readFolders);
+        ReadOnlyCardFolder retrieved = readFolders.get(savedFolders.size() - 1);
+        assertEquals(original, retrieved);
     }
-
 }

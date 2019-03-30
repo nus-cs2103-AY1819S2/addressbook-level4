@@ -14,13 +14,14 @@ import seedu.address.model.UserPrefs;
  * API of the Storage component
  */
 public interface Storage {
+
+    String FILE_FORMAT = ".json";
+
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
-    Path getcardFolderFilesPath();
-
-    List<ReadOnlyCardFolder> readCardFolders() throws DataConversionException, IOException;
+    void readCardFolders(List<ReadOnlyCardFolder> readFolders) throws Exception;
 
     void saveCardFolder(ReadOnlyCardFolder cardFolder, int index) throws IOException;
 

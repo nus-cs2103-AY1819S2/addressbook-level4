@@ -244,8 +244,18 @@ public class AddCommandTest {
         }
 
         @Override
+        public void removeSelectedCard() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasFolder(CardFolder cardFolder) {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasFolderWithName(String name) {
+            return false;
         }
 
         @Override
@@ -259,12 +269,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void renameFolder(int index, String newName) {
+
+        }
+
+        @Override
         public int getActiveCardFolderIndex() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setActiveCardFolderIndex(int newIndex) {
+        public void enterFolder(int newIndex) {
             throw new AssertionError("This method should not be called.");
         }
 

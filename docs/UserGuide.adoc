@@ -436,8 +436,6 @@ NOTE: The csv file imported should follow the format below
 
 
 
-
-
 Format: `import FILENAME`
 
 ==== Export flashcards : `export`

@@ -36,7 +36,7 @@ Are you a developer who wants to learn how MediTabs is designed and implemented,
 Follow the step by step instructions below to set up MediTabs project with IntelliJ Integrated Development Environment (IDE).
 
 [NOTE]
-You are free to use any IDE which you are comfortable with but we *highly recommend* using IntelliJ. As we use IntelliJ in the development of MediTabs, the instructions to set up MediTabs will be catered for users of IntelliJ. You can download IntelliJ link: https://www.jetbrains.com/idea/download/[here]. If you are planning to use IntelliJ, both the community (free) and ultimate (paid) editions of IntelliJ can be used to set up MediTabs project.
+You are free to use any IDE which you are comfortable with but we *highly recommend* using IntelliJ. As we use IntelliJ in the development of MediTabs, the instructions to set up MediTabs will be catered for users of IntelliJ. You can download IntelliJ link:https://www.jetbrains.com/idea/download/[here]. If you are planning to use IntelliJ, both the community (free) and ultimate (paid) editions of IntelliJ can be used to set up MediTabs project.
 
 === Prerequisites
 
@@ -581,6 +581,26 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+=== Validation of File Name
+
+We are using the `seedu.address.commons.FileName` class which is created by our team for the validation of file name specified by the user. This is important for commands in MediTabs which supports the file name field.
+
+[NOTE]
+File name *does not* include file extension such as `.csv` and `.pdf`.
+
+A list of reasons why we choose to create a `FileName` class for the validation of file name:
+
+* There are currently no third party libraries available for validating file name to ensure that the file name is platform independent. In other words, there are no public methods to validate the file name specified by the user to ensure that it is supported on Windows, Linux and MacOS operating systems.
+[IMPORTANT]
+There are certain naming conventions which have to be followed on Windows operating system which are not necessary on Linux and MacOS operating systems. You can read more about the naming conventions for Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here]. You can also refer to link:https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations[this] Wikipedia article for a detailed comparison between different naming conventions for different operating systems.
+* Ensure consistency by creating a file naming convention.
+* Ensure that files created with file names specified by the user can be used on Windows, Linux and MacOS operating systems. This is important in order to avoid potential bugs involving file names as MediTabs supports Windows, Linux and MacOS operating systems hence, the user might switch between these operating systems when using MediTabs.
+
+Examples of commands in MediTabs which uses the `FileName` class to validate file name specified by the user:
+
+* `export [FILE_NAME]`
+* `label INDEX [f/FILE_NAME]`
 
 [[Implementation-Configuration]]
 === Configuration

@@ -15,7 +15,7 @@ import seedu.address.model.person.Person;
 /**
  * Exports a person identified using it's displayed index from the address book.
  */
-public class MemberExportCommand extends Command {
+public class MemberExportCommand extends MemberCommand {
 
     public static final String COMMAND_WORD = "memberExport";
 

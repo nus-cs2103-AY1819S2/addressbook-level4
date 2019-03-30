@@ -965,14 +965,14 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Sort Club Manager
+=== Use case: Sort Member's List
 
 *Main Success Scenario (MSS)*
 
-1.  Admin requests to sort the Club Manager.
-2.  Club Manager sorts the members by name alphabetically.
+1.  User requests to sort the Club Manager by a sorting criteria (e.g. name, yearOfStudy).
+2.  Club Manager sorts the members by given criteria. Thereafter, Club Manager sorts the members by name.
 3.  Club Management System shows the sorted list.
-+
+
 Use case ends.
 
 *Extensions*
@@ -981,7 +981,6 @@ Use case ends.
 * 2a. The list is empty.
 +
 Use case ends.
-
 
 * 2a. The given index is invalid.
 +

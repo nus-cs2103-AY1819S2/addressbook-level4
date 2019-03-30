@@ -10,7 +10,7 @@ import seedu.address.model.Model;
  * Creates an SortCommand to sort the member's list based on a given criteria.
  * Criteria is case-insensitive.
  */
-public class MemberSortCommand extends Command {
+public class MemberSortCommand extends MemberCommand {
     public static final String COMMAND_WORD = "memberSort";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sorts all members in the members' list based on "

@@ -14,7 +14,7 @@ import seedu.address.model.activity.Activity;
 /**
  * Deletes an activity identified using it's displayed index from the address book.
  */
-public class ActivityDeleteCommand extends Command {
+public class ActivityDeleteCommand extends ActivityCommand {
     public static final String COMMAND_WORD = "activityDelete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

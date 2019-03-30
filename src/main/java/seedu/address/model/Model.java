@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.person.MatricNumber;
 import seedu.address.model.person.Person;
 
 /**
@@ -58,10 +59,39 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
+     * Sets AddressBook mode to {@code mode}.
+     */
+    void setAddressBookMode(AppMode.Modes mode);
+
+    /**
+     * Get AddressBook mode.
+     */
+    AppMode.Modes getAddressBookMode();
+
+    /**
+     * Returns true if appMode is MEMBER.
+     */
+    boolean addressBookModeIsMember ();
+
+    /**
+     * Returns true if appMode is ACTIVITY.
+     */
+    boolean addressBookModeIsActivity ();
+
+    /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
 
+    /**
+     * Returns true if a person with the same matricNumber as {@code person} exists in the address book.
+     */
+    boolean hasMatricNumber(MatricNumber matricNumber);
+
+    /**
+     * Returns Person if a person with the same matricNumber as {@code person} exists in the address book.
+     */
+    Person getPersonWithMatricNumber(MatricNumber matricNumber);
     /**
      * Deletes the given person.
      * The person must exist in the address book.
@@ -193,5 +223,10 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedActivity(Activity activity);
+
+    /**
+     * Update entire activity list
+     */
+    void updateActivityList();
 
 }

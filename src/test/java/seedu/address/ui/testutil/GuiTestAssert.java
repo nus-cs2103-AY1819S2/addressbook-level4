@@ -52,6 +52,7 @@ public class GuiTestAssert {
     public static void assertCardDisplaysHealthWorker(HealthWorker expectedWorker, HealthWorkerCardHandle actualCard) {
         assertEquals(expectedWorker.getName().toString(), actualCard.getName());
         assertEquals(expectedWorker.getOrganization().toString(), actualCard.getOrganisation());
+        assertEquals(expectedWorker.getPhone().toString(), actualCard.getPhone());
     }
 
     /**

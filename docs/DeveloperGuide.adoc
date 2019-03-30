@@ -475,6 +475,51 @@ Headers have to be present in the csv file for import.
 * Hints header can take either 0 or 1 value.
 
 ==== Design Considerations
+====== Aspect: Which component responsible for import/export logic
+* Alternative 1: Implement read and write card folders in `StorageManager` class
+** Pros:
+*** The most intuitive solution,
+since Storage involves read and write logic
+** Cons:
+*** Model and Storage are now more coupled together.
+*** Storage has more than one responsibility now.
+Instead of managing the internal data of card folder, it now has to
+manage the read and write to csv files.
+
+
+* Alternative 2: Implement read and write card folders in `csvmanager` package class. (Current)
+** Pros:
+*** Separate responsibilities of both Storage and Model. +
+1.  Model class can focus on the representation of the in-memory card folders
+Storage +
+2. Storage class can focus on managing the internal card folder data (.json files)
+** Cons:
+*** More code to write. Storage class could possibly call the relevant API's
+to convert .json file  into .csv file
+
+
+======  Aspect: csv file design structure
+* Alternative 1: Export multiple card folders into a single file.
+** Pros:
+*** Saves user trouble of calling multiple import for files.
+Each card folder is separated by a new line.
+** Cons:
+*** Not a .csv file anymore.
+First line header would now specify cardfolder name before card headers,
+leading to unequal rows and columns
+*** Users will be unable to select specific card folders to import if multiple card folders
+have been exported into a single file.
+
+* Alternative 2: Export each card folder into a single file (Current)
+** Pros:
+*** More flexibility for users to import desired card folders,
+since 1 cardfolder = 1 csv file.
+*** Files are now correctly formatted as .csv file
+
+** Cons:
+*** Slightly more work needed to import multiple card folders. 
+
+
 
 
 

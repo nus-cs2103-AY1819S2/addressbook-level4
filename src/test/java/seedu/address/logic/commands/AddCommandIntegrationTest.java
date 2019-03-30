@@ -10,6 +10,7 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -26,7 +27,8 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalGradTrak(), new UserPrefs(), new ModuleInfoList(), new CourseList());
+        model = new ModelManager(getTypicalGradTrak(), new UserPrefs(), new ModuleInfoList(),
+                new CourseList(), new UserInfo());
     }
 
     @Test
@@ -34,7 +36,7 @@ public class AddCommandIntegrationTest {
         ModuleTaken validModuleTaken = new ModuleTakenBuilder().build();
 
         Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
-                new ModuleInfoList(), new CourseList());
+                new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.addModuleTaken(validModuleTaken);
         expectedModel.commitGradTrak();
 

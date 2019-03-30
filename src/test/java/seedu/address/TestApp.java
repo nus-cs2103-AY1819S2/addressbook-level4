@@ -13,6 +13,7 @@ import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyGradTrak;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -95,7 +96,7 @@ public class TestApp extends MainApp {
      */
     public Model getModel() {
         Model copy = new ModelManager((model.getGradTrak()), new UserPrefs(),
-                new ModuleInfoList(), new CourseList());
+                new ModuleInfoList(), new CourseList(), new UserInfo());
         ModelHelper.setFilteredList(copy, model.getFilteredModulesTakenList());
         return copy;
     }

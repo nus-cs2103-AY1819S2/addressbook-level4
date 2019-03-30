@@ -24,6 +24,7 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -37,7 +38,7 @@ import seedu.address.testutil.ModuleTakenBuilder;
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-            new ModuleInfoList(), new CourseList());
+            new ModuleInfoList(), new CourseList(), new UserInfo());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -49,7 +50,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
-                                               new ModuleInfoList(), new CourseList());
+                                               new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.setModuleTaken(model.getFilteredModulesTakenList().get(0), editedModuleTaken);
         expectedModel.commitGradTrak();
 
@@ -73,7 +74,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
-                                               new ModuleInfoList(), new CourseList());
+                                               new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.setModuleTaken(lastModuleTaken, editedModuleTaken);
         expectedModel.commitGradTrak();
 
@@ -88,7 +89,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
-                                               new ModuleInfoList(), new CourseList());
+                                               new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.commitGradTrak();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -108,7 +109,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedModuleTaken);
 
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
-                                               new ModuleInfoList(), new CourseList());
+                                               new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.setModuleTaken(model.getFilteredModulesTakenList().get(0), editedModuleTaken);
         expectedModel.commitGradTrak();
 
@@ -171,7 +172,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
-                                               new ModuleInfoList(), new CourseList());
+                                               new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.setModuleTaken(moduleTakenToEdit, editedModuleTaken);
         expectedModel.commitGradTrak();
 
@@ -215,7 +216,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedModuleTaken).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new GradTrak(model.getGradTrak()), new UserPrefs(),
-                                               new ModuleInfoList(), new CourseList());
+                                               new ModuleInfoList(), new CourseList(), new UserInfo());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         ModuleTaken moduleTakenToEdit = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());

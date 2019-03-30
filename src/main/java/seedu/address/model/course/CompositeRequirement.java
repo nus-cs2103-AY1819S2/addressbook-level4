@@ -137,4 +137,22 @@ public class CompositeRequirement implements CourseRequirement {
     public CourseReqType getCourseReqType() {
         return courseReqType;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof CompositeRequirement)) {
+            return false;
+        }
+
+        CompositeRequirement other = (CompositeRequirement) obj;
+
+        return ((this.first.equals(other.first) && this.second.equals(other.second))
+                || (this.first.equals(other.second) && this.second.equals(other.first)))
+                && this.courseReqType.equals(other.courseReqType)
+                && this.connector.equals(other.connector);
+    }
 }

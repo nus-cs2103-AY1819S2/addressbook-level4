@@ -27,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.SemLimit;
+import seedu.address.model.UserInfo;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
@@ -281,6 +282,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<CourseRequirement> getReqList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public UserInfo getUserInfo() {
             throw new AssertionError("This method should not be called");
         }
     }

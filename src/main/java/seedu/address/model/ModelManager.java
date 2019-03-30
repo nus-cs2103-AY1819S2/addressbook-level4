@@ -59,11 +59,14 @@ public class ModelManager implements Model {
     private final FilteredList<ModuleInfoCode> recModuleList;
     private final SortedList<ModuleInfoCode> recModuleListSorted;
 
+    //TODO: Interaction with user Info
+    private final UserInfo userInfo;
     /**
      * Initializes a ModelManager with the given GradTrak and userPrefs.
      */
     public ModelManager(ReadOnlyGradTrak gradTrak, UserPrefs userPrefs,
-                        ModuleInfoList allModules, CourseList allCourses) {
+                        ModuleInfoList allModules, CourseList allCourses,
+                        UserInfo userInfo) {
         super();
         requireAllNonNull(gradTrak, userPrefs, allModules);
 
@@ -85,15 +88,18 @@ public class ModelManager implements Model {
         //Get a non-modifiable list of all courses
         this.allCourses = allCourses.getObservableList();
         this.courseList = allCourses;
+
+        //Get user info file that can be modified
+        this.userInfo = userInfo;
+        //TODO: interaction for setting course in user info
         //for now default course will be Computer Science Algorithms
         this.course = SampleCourse.COMPUTER_SCIENCE_ALGORITHMS;
         this.displayCourseReqList = new FilteredList<>(
                  FXCollections.observableArrayList(this.course.getCourseRequirements()));
-        //TODO: create additional data structure to store user info
     }
 
     public ModelManager() {
-        this(new GradTrak(), new UserPrefs(), new ModuleInfoList(), new CourseList());
+        this(new GradTrak(), new UserPrefs(), new ModuleInfoList(), new CourseList(), new UserInfo());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -367,6 +373,11 @@ public class ModelManager implements Model {
         return this.displayCourseReqList;
     }
 
+    @Override
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -379,13 +390,16 @@ public class ModelManager implements Model {
         if (!(obj instanceof ModelManager)) {
             return false;
         }
-
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedGradTrak.equals(other.versionedGradTrak)
                 && userPrefs.equals(other.userPrefs)
                 && filteredModulesTaken.equals(other.filteredModulesTaken)
-                && Objects.equals(selectedModuleTaken.get(), other.selectedModuleTaken.get());
+                && Objects.equals(selectedModuleTaken.get(), other.selectedModuleTaken.get())
+                && recModuleList.equals(other.recModuleList)
+                && course.equals(other.course)
+                && displayCourseReqList.equals(other.displayCourseReqList)
+                && this.userInfo.equals(other.userInfo);
     }
 
 }

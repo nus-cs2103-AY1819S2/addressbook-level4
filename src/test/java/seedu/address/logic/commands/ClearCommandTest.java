@@ -9,6 +9,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.GradTrak;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -29,9 +30,9 @@ public class ClearCommandTest {
     @Test
     public void execute_nonEmptyAddressBook_success() {
         Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-                new ModuleInfoList(), new CourseList());
+                new ModuleInfoList(), new CourseList(), new UserInfo());
         Model expectedModel = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-                new ModuleInfoList(), new CourseList());
+                new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.setGradTrak(new GradTrak());
         expectedModel.commitGradTrak();
 

@@ -1,23 +1,45 @@
 {
   "persons": [ {
-    "name": "Alice Pauline",
+    "name" : "Alice Pauline",
     "nric" : "S1234567A",
-    "dateOfBirth" : "30-12-1990",
+    "dateOfBirth" : "11-12-1990",
     "sex" : "F",
-    "phone": "94351253",
-    "email": "alice@example.com",
-    "address": "123, Jurong West Ave 6, #08-111",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "drugAllergy" : "NIL",
     "teeth" : "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0",
-    "tagged": [ "teeth:Permanent", "status:Healthy" ]
+    "tagged" : [ "teeth:Permanent Teeth", "status:Healthy Teeth" ],
+    "records" : [ ],
+    "nextOfKin" : {
+      "kinName" : "Joshua Pauline",
+      "kinRelation" : "Father",
+      "kinEmail" : "No email specified",
+      "kinPhone" : "96969696",
+      "kinAddress" : "123, Jurong West Ave 6, #08-111"
+    },
+    "description" : "Just another patient.",
+    "index" : 0
   }, {
-    "name": "Alice Pauline",
+    "name" : "Alice Pauline",
     "nric" : "S1234567A",
-    "dateOfBirth" : "30-12-1990",
+    "dateOfBirth" : "11-12-1990",
     "sex" : "F",
-    "phone": "94351253",
-    "email": "pauline@example.com",
-    "address": "4th street",
+    "phone" : "94351253",
+    "email" : "alice@example.com",
+    "address" : "123, Jurong West Ave 6, #08-111",
+    "drugAllergy" : "NIL",
     "teeth" : "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0",
-    "tagged": [ "teeth:Permanent", "status:Healthy" ]
+    "tagged" : [ "teeth:Permanent Teeth", "status:Healthy Teeth" ],
+    "records" : [ ],
+    "nextOfKin" : {
+      "kinName" : "Joshua Pauline",
+      "kinRelation" : "Father",
+      "kinEmail" : "No email specified",
+      "kinPhone" : "96969696",
+      "kinAddress" : "123, Jurong West Ave 6, #08-111"
+    },
+    "description" : "Just another patient.",
+    "index" : 1
   } ]
 }

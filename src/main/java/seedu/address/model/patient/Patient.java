@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKin;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -35,19 +37,26 @@ public class Patient extends Person {
     private DateOfBirth dateOfBirth;
     private Teeth teeth = null;
     private List<Record> records = new ArrayList<>();
+    private NextOfKin nextOfKin;
+    private DrugAllergy drugAllergy;
+    private Description patientDesc;
 
     /**
      * Every field must be present and not null.
      * Used by add command.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, Sex sex) {
+                   DateOfBirth dateOfBirth, Sex sex, DrugAllergy drugAllergy, NextOfKin nextOfKin,
+                   Description describe) {
         super(name, phone, email, address, tags);
         requireAllNonNull(nric, dateOfBirth, sex);
         this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
+        this.nextOfKin = nextOfKin;
         buildAdultTeeth();
+        this.drugAllergy = drugAllergy;
+        this.patientDesc = describe;
         records.add(new Record());
     }
 
@@ -56,7 +65,8 @@ public class Patient extends Person {
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth, Sex sex) {
+                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth, Sex sex, DrugAllergy drugAllergy,
+                   NextOfKin kin, Description describe) {
         super(name, phone, email, address, tags);
         requireAllNonNull(nric, dateOfBirth, records, sex);
         this.sex = sex;
@@ -65,15 +75,23 @@ public class Patient extends Person {
         this.records = records;
         this.records.sort(Comparator.comparing(Record::getRecordDate));
         this.teeth = teeth;
+        this.drugAllergy = drugAllergy;
+        this.nextOfKin = kin;
+        this.patientDesc = describe;
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount, Sex sex) {
+                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount, Sex sex, DrugAllergy drugAllergy,
+                   NextOfKin kin, Description describe) {
         super(name, phone, email, address, tags, personToCopy, copyCount);
         requireAllNonNull(nric, dateOfBirth, sex);
         this.sex = sex;
+        this.drugAllergy = drugAllergy;
+        this.patientDesc = describe;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
+        this.nextOfKin = kin;
+        this.copyCount = copyCount;
         buildAdultTeeth();
         updateTags();
     }
@@ -180,13 +198,25 @@ public class Patient extends Person {
         return sex;
     }
 
+    public NextOfKin getNextOfKin() {
+        return nextOfKin;
+    }
+
+    public DrugAllergy getDrugAllergy() {
+        return drugAllergy;
+    }
+
+    public Description getPatientDesc() {
+        return patientDesc;
+    }
+
     /**
      * Return a Patient with changed tags
      * @return a new Patient instance.
      */
     public Patient copy() {
         return new Patient(this.name, this.phone, this.email, this.address, tags, this.nric, this.getDateOfBirth(),
-                this.records, this.teeth, this.sex);
+            this, copyCount++, this.sex, this.drugAllergy, this.nextOfKin, this.patientDesc);
     }
 
     /**
@@ -228,8 +258,24 @@ public class Patient extends Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append("Drug Allergy: ")
+                .append(getDrugAllergy())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+
+        //Next Of Kin fields
+        builder.append(" Next Of Kin Name: ")
+                .append(this.nextOfKin.getName())
+            .append(" Next Of Kin Relation: ")
+            .append(this.nextOfKin.getKinRelation())
+            .append(" Next Of Kin Phone: ")
+            .append(this.nextOfKin.getPhone())
+            .append(" Next Of Kin Address: ")
+            .append(this.nextOfKin.getAddress());
+
+        builder.append("Desciption: ")
+            .append("[ " + getPatientDesc() + "]");
+
         return builder.toString();
     }
 }

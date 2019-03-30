@@ -13,8 +13,8 @@ public class MedicineLowStockThresholdPredicateTest {
 
     @Test
     public void equals() {
-        Threshold firstThreshold = Model.DEFAULT_LOW_STOCK_THRESHOLD; // threshold value of 20
-        Threshold secondThreshold = new Threshold("100");
+        Threshold firstThreshold = Model.DEFAULT_LOW_STOCK_THRESHOLD; // threshold value of 10
+        Threshold secondThreshold = new Threshold("0");
 
         MedicineLowStockThresholdPredicate firstPredicate = new MedicineLowStockThresholdPredicate(firstThreshold);
         MedicineLowStockThresholdPredicate secondPredicate = new MedicineLowStockThresholdPredicate(secondThreshold);

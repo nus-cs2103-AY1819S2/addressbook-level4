@@ -3,7 +3,6 @@ package seedu.address.model.modelmanager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_LEARNT_BEFORE;
@@ -181,7 +180,7 @@ public class QuizModelManagerTest {
         assertEquals(modelManager, modelManager);
 
         // other object -> returns false
-        assertNotSame(modelManager, new Object());
+        assertNotEquals(modelManager, quiz);
 
         // different types -> returns false
         assertNotEquals(5, modelManager);

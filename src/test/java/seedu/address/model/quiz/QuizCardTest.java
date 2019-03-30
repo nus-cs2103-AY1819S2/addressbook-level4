@@ -220,22 +220,22 @@ public class QuizCardTest {
         final QuizCard cardWithIndex = new QuizCard(0, QUESTION, ANSWER, MODE);
 
         // same object
-        assertTrue(VALID_QUIZCARD.equals(VALID_QUIZCARD));
+        assertEquals(VALID_QUIZCARD, VALID_QUIZCARD);
 
         // same value
-        assertTrue(VALID_QUIZCARD_NO_OPT.equals(anotherValidQuizCard));
+        assertEquals(VALID_QUIZCARD_NO_OPT, anotherValidQuizCard);
 
         // different obj
-        assertFalse(VALID_QUIZCARD.equals(new Quiz(Arrays.asList(VALID_QUIZCARD, VALID_QUIZCARD), QuizMode.LEARN)));
+        assertNotEquals(VALID_QUIZCARD, new Quiz(Arrays.asList(VALID_QUIZCARD, VALID_QUIZCARD), QuizMode.LEARN));
 
         // different types
-        assertFalse("random things".equals(VALID_QUIZCARD));
+        assertNotEquals("random things", VALID_QUIZCARD);
 
         // different values
-        assertFalse(VALID_QUIZCARD.equals(quizCardWithAb));
+        assertNotEquals(VALID_QUIZCARD, quizCardWithAb);
 
         // same value but contains index
-        assertFalse(VALID_QUIZCARD.equals(cardWithIndex));
+        assertNotEquals(VALID_QUIZCARD, cardWithIndex);
     }
 
     @Test

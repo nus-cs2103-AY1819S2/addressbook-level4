@@ -22,4 +22,6 @@ public class Messages {
             + " displayed";
     public static final String MESSAGE_ILLEGAL_COMMAND_NOT_IN_FOLDER = "Command can only be executed in folder";
     public static final String MESSAGE_ILLEGAL_COMMAND_NOT_IN_HOME = "Command can only be executed in home directory";
+    public static final String MESSAGE_ILLEGAL_OPTION_CANNOT_BE_SAME_AS_ANSWER = "Incorrect MCQ options cannot be same"
+            + " as the correct answer";
 }

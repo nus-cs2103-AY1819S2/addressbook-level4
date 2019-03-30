@@ -1,3 +1,4 @@
+/* @@author kayheen */
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.Messages;
@@ -13,22 +14,19 @@ public class RotateCommandParser implements Parser<RotateCommand> {
      * Parses the Rotate Command.
      * @param args
      * @return a RotateCommand object
-     * @throws ParseException
+     * @throws ParseException is thrown if the value is not an integer or unspecified.
      */
     public RotateCommand parse(String args) throws ParseException {
         try {
             args = args.trim();
             String[] parsed = args.split(" ");
             String deg = parsed[0];
-            String fileName = parsed[1];
-            int degree = 0;
-            degree = Integer.parseInt(deg);
-            return new RotateCommand(degree, fileName);
+            int degree = Integer.parseInt(deg);
+            return new RotateCommand(degree);
         } catch (NumberFormatException e) {
             throw new ParseException(Messages.MESSAGE_ROTATE_DEGREE_ERROR);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(Messages.MESSAGE_FILE_NAME_UNSPECIFIED);
+            throw new ParseException(RotateCommand.MESSAGE_USAGE);
         }
-        // next version, we need to ensure that we can accept both with and without file name
     }
 }

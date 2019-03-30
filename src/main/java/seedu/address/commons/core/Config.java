@@ -15,6 +15,7 @@ public class Config {
     public static final String TEMP_FILEPATH = "src/main/resources/temp/";
     public static final String TEMP_FILENAME = "temp_img.png";
     public static final String TEMP_FILE = TEMP_FILEPATH + TEMP_FILENAME;
+    public static final int MAX_FILE_SIZE = 10000000;
 
     // Config values customizable through config file
     private Level logLevel = Level.INFO;

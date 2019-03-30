@@ -1,6 +1,8 @@
 /* @@author thamsimun */
 package seedu.address.model;
 
+import java.awt.image.BufferedImage;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;
 
@@ -13,6 +15,8 @@ public interface CurrentEdit {
 
     void saveAsOriginal(Image image);
 
+    void overwriteOriginal(String name);
+
     void saveIntoTempFolder(String filename, Image image);
 
     Image getTempImage();
@@ -20,6 +24,8 @@ public interface CurrentEdit {
     void setTempImage();
 
     void updateTempImage(com.sksamuel.scrimage.Image image);
+
+    void updateTempImage(BufferedImage image);
 
     void setOriginalImage(Image image);
 

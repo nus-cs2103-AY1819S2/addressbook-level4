@@ -1,3 +1,4 @@
+/* @@author kayheen */
 package seedu.address.logic.parser;
 
 import seedu.address.commons.core.Messages;
@@ -22,13 +23,12 @@ public class CropCommandParser implements Parser<CropCommand> {
             int yValue = Integer.parseInt(parsed[1]);
             int width = Integer.parseInt(parsed[2]);
             int height = Integer.parseInt(parsed[3]);
-            String fileName = parsed[4];
-            System.out.println(xValue + " " + yValue + " " + width + " " + height + " " + fileName);
-            return new CropCommand(xValue, yValue, width, height, fileName);
+            System.out.println(xValue + " " + yValue + " " + width + " " + height);
+            return new CropCommand(xValue, yValue, width, height);
         } catch (NumberFormatException e) {
             throw new ParseException(Messages.MESSAGE_CROP_INT_ERROR);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new ParseException(Messages.MESSAGE_CROP_INSUFFICIENT_INPUTS);
+            throw new ParseException(CropCommand.MESSAGE_USAGE);
         }
 
     }

@@ -522,7 +522,7 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedCard.get(), other.selectedCard.get())
                 && isInsideTestSession == other.isInsideTestSession
                 && currentTestedCardIndex == other.currentTestedCardIndex
-                && isCardAlreadyAnswered == other.isCardAlreadyAnswered;
+                && isCardAlreadyAnswered == other.isCardAlreadyAnswered
                 && activeCardFolderIndex == other.activeCardFolderIndex
                 && inFolder == other.inFolder;
     }

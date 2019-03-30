@@ -2,6 +2,7 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import guitests.guihandles.TablesFlowPanelHandle;
 import seedu.address.TestApp;
 
+import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.model.Model;
@@ -180,6 +182,12 @@ public abstract class RestOrRantSystemTest {
      * Deletes all tables in the restaurant.
      */
     protected void deleteAllTables() {
+        clearOccupancy();
+        executeCommand(ClearTableCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getRestOrRant().getTables().getTableList().size());
+    }
+
+    protected void clearOccupancy() {
         executeCommand(UpdateTableCommand.COMMAND_WORD + " 1 0");
         executeCommand(UpdateTableCommand.COMMAND_WORD + " 2 0");
         executeCommand(UpdateTableCommand.COMMAND_WORD + " 3 0");
@@ -188,8 +196,17 @@ public abstract class RestOrRantSystemTest {
         executeCommand(UpdateTableCommand.COMMAND_WORD + " 6 0");
         executeCommand(UpdateTableCommand.COMMAND_WORD + " 7 0");
         executeCommand(UpdateTableCommand.COMMAND_WORD + " 8 0");
-        executeCommand(ClearTableCommand.COMMAND_WORD);
-        assertEquals(0, getModel().getRestOrRant().getTables().getTableList().size());
+        assertTrue(getModel().isRestaurantEmpty());
+    }
+
+    protected void occupyTables() {
+        executeCommand(AddTableCommand.COMMAND_WORD + " 4 5 4 5 6 7 4 5");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 1 4");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 2 4");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 3 4");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 6 4");
+        executeCommand(UpdateTableCommand.COMMAND_WORD + " 8 4");
+        assertFalse(getModel().isRestaurantEmpty());
     }
 
     /**

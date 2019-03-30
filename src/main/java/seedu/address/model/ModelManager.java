@@ -196,13 +196,14 @@ public class ModelManager implements Model {
     public boolean hasFolder(CardFolder cardFolder) {
         requireNonNull(cardFolder);
 
-        for (VersionedCardFolder versionedCardFolder : filteredFolders) {
-            if (versionedCardFolder.hasSameFolderName(cardFolder)) {
-                return true;
-            }
-        }
+        return hasFolderWithName(cardFolder.getFolderName());
+    }
 
-        return false;
+    @Override
+    public boolean hasFolderWithName(String name) {
+        requireNonNull(name);
+
+        return folders.stream().anyMatch(folder -> folder.getFolderName().equals(name));
     }
 
     @Override
@@ -223,7 +224,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void renameFolder(int index, String newName) {
+        CardFolder toRename = folders.get(index);
+        toRename.rename(newName);
+        indicateModified();
+    }
+
+    @Override
+    public void enterFolder(int newIndex) {
+        inFolder = true;
+        activeCardFolderIndex = newIndex;
+    }
+
+    @Override
     public void exitFoldersToHome() {
+        removeSelectedCard();
         inFolder = false;
     }
 
@@ -245,12 +260,6 @@ public class ModelManager implements Model {
     @Override
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
-    }
-
-    @Override
-    public void setActiveCardFolderIndex(int newIndex) {
-        inFolder = true;
-        activeCardFolderIndex = newIndex;
     }
 
     /**
@@ -459,6 +468,11 @@ public class ModelManager implements Model {
         selectedCard.setValue(card);
     }
 
+    @Override
+    public void removeSelectedCard() {
+        selectedCard.setValue(null);
+    }
+
     /**
      * Ensures {@code selectedCard} is a valid card in {@code filteredCardsList}.
      */
@@ -509,6 +523,8 @@ public class ModelManager implements Model {
                 && isInsideTestSession == other.isInsideTestSession
                 && currentTestedCardIndex == other.currentTestedCardIndex
                 && isCardAlreadyAnswered == other.isCardAlreadyAnswered;
+                && activeCardFolderIndex == other.activeCardFolderIndex
+                && inFolder == other.inFolder;
     }
 
 

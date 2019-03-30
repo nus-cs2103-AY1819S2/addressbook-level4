@@ -48,7 +48,8 @@ public class TestSession extends UiPart<Region> {
         testCardQuestion.setText(cardToTest.getQuestion().fullQuestion);
         testCardOptions.setText("");
         if (cardToTest.getCardType() == Card.CardType.MCQ) {
-            List<String> completeOptions = cardToTest.getRandomizedMcqOptions();
+            cardToTest.shuffleMcqOptions();
+            List<String> completeOptions = cardToTest.getCompleteMcqOptions();
             for (int i = 1; i <= completeOptions.size(); i++) {
                 testCardOptions.setText(testCardOptions.getText() + i + ") " + completeOptions.get(i - 1) + "\n");
             }

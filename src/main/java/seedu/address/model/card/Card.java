@@ -24,6 +24,8 @@ public class Card {
         MCQ,
         SINGLE_ANSWER
     }
+    private int answerIndex;
+    private List<String> completeOptions;
 
     // Identity fields
     private final Question question;
@@ -45,6 +47,12 @@ public class Card {
         this.score = score;
         this.options.addAll(options);
         this.hints.addAll(hints);
+
+        this.completeOptions = new ArrayList<>();
+        options.forEach(option -> completeOptions.add(option.optionValue));
+        completeOptions.add(answer.fullAnswer);
+        answerIndex = completeOptions.indexOf(answer.fullAnswer) + 1;
+
         if (options.isEmpty()) {
             this.type = CardType.SINGLE_ANSWER;
         } else {
@@ -88,15 +96,23 @@ public class Card {
     }
 
     /**
-     * Returns a randomized list of options, inclusive of the answer, for MCQ cards.
+     * Returns a list of options, inclusive of the answer, for MCQ cards.
      */
-    public List<String> getRandomizedMcqOptions() {
-        assert type == CardType.MCQ;
-        List<String> result = new ArrayList<>();
-        options.forEach(option -> result.add(option.optionValue));
-        result.add(answer.fullAnswer);
-        Collections.shuffle(result);
-        return result;
+    public List<String> getCompleteMcqOptions() {
+        return completeOptions;
+    }
+
+    public int getAnswerIndex() {
+        return answerIndex;
+    }
+
+    /**
+     * Randomizes the order of completeOptions list and updates answerIndex.
+     */
+    public void shuffleMcqOptions() {
+        Collections.shuffle(completeOptions);
+        answerIndex = completeOptions.indexOf(answer.fullAnswer) + 1;
+        System.out.println(answerIndex);
     }
 
     /**
@@ -154,5 +170,4 @@ public class Card {
         getHints().forEach(builder::append);
         return builder.toString();
     }
-
 }

@@ -27,6 +27,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.task.Task;
 
 /**
@@ -40,13 +41,15 @@ public class CalendarWindow extends UiPart<Stage> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private static boolean runningCommand;
+
     private Stage primaryStage;
     private Logic logic;
 
     private TaskListPanel taskListPanel;
-    private DatePicker datePicker;
+    private static DatePicker datePicker;
 
-    private DateTimeFormatter format;
+    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private ReadOnlyAddressBook readOnlyTaskList;
     private HashMap<LocalDate, Integer> markedDates;
 
@@ -63,7 +66,6 @@ public class CalendarWindow extends UiPart<Stage> {
 
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         this.readOnlyTaskList = logic.getAddressBook();
 
         generateMarkedDates();
@@ -102,12 +104,17 @@ public class CalendarWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult;
-            commandResult = logic.execute("taskcal " + commandText);
-            this.setDate(getDateInput(commandResult.getFeedbackToUser()));
+            this.runningCommand = true;
+            if (DateCustom.isValidDate(commandText.trim())) {
+                commandText = "taskcal " + commandText;
+            }
+            CommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            runningCommand = false;
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
+            logger.info(e.getMessage());
             throw e;
         }
     }
@@ -243,8 +250,15 @@ public class CalendarWindow extends UiPart<Stage> {
         }
         this.calendarPanel.getChildren().addAll(out);
     }
-    public void setDate(String newDate) {
-        this.datePicker.setValue(LocalDate.parse(newDate, format));
+
+    /**
+     * Returns true if a command is currently being ran from CalendarWindow
+     */
+    public static boolean isRunningCommand() {
+        return runningCommand;
+    }
+    public static void setDate(String newDate) {
+        datePicker.setValue(LocalDate.parse(newDate, format));
     }
     public static String getDateInput(String input) {
         return input.substring(input.lastIndexOf(" ") + 1);

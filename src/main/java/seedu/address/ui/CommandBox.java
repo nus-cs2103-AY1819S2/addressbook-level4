@@ -32,7 +32,7 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
         if (dateOnly) {
             this.history = new CommandHistory().getHistory();
-            commandTextField.setPromptText("Enter Date here.....");
+            commandTextField.setPromptText("Enter task commands or a date here.....");
         } else {
             this.history = history;
         }

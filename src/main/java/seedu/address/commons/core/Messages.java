@@ -17,7 +17,10 @@ public class Messages {
                                                  + " its' Start Date is the same as its End Date.";
     public static final String MESSAGE_INVALID_FILE_TYPE = "Invalid file type!";
     public static final String MESSAGE_ONLY_GO_TO_MODE_COMMANDS = "This command can only be used in patient mode "
-                                                                + "return to patient mode, use the back command";
+                                                                + "to return to patient mode, use the back command";
+    public static final String MESSAGE_ONLY_TASK_OR_DATE_COMMANDS = "This command ca only be used in the Main Window"
+                                                                + " and during patient mode. Only task related commands"
+                                                                + " and date should be used here. ";
     public static final String MESSAGE_IN_GO_TO_MODE = "Please exit the goto mode using the back command first";
     public static final String MESSAGE_IN_PATIENT_MODE = "Patient list is already shown";
     public static final String MESSAGE_NOTHING_DONE = "Cancelled, nothing has been done";

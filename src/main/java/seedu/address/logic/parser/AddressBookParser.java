@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_ONLY_GO_TO_MODE_COMMANDS;
+import static seedu.address.commons.core.Messages.MESSAGE_ONLY_TASK_OR_DATE_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -40,6 +41,7 @@ import seedu.address.logic.commands.TaskcopyCommand;
 import seedu.address.logic.commands.TeethEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CalendarWindow;
 import seedu.address.ui.MainWindow;
 
 /**
@@ -70,35 +72,35 @@ public class AddressBookParser {
 
         switch (commandWord) {
         case AddCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new SelectCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new HistoryCommand();
 
         case ExitCommand.COMMAND_WORD:
@@ -108,42 +110,42 @@ public class AddressBookParser {
             return new HelpCommand();
 
         case UndoCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new RedoCommand();
 
         case GoToCommand.COMMAND_WORD:
             return new GoToCommandParser().parse(arguments);
 
         case StatsCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new StatsCommandParser().parse(arguments);
 
         case SortCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new SortCommandParser().parse(arguments);
 
         case CopyCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new CopyCommandParser().parse(arguments);
 
         case OpenCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new OpenCommandParser().parse(arguments);
 
         case SaveCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new SaveCommandParser().parse(arguments);
 
         case ImportCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new ImportCommandParser().parse(arguments);
 
         case ExportCommand.COMMAND_WORD:
-            isGotoMode();
+            checkSpecialCondition();
             return new ExportCommandParser().parse(arguments);
 
         case TaskAddCommand.COMMAND_WORD:
@@ -188,7 +190,10 @@ public class AddressBookParser {
      * Checks if the Main Window is currently in Goto Mode, feedbacks to user if
      * commands that should be ran on patient mode are ran here
      */
-    public void isGotoMode() throws ParseException {
+    public void checkSpecialCondition() throws ParseException {
+        if (CalendarWindow.isRunningCommand()) {
+            throw new ParseException(MESSAGE_ONLY_TASK_OR_DATE_COMMANDS);
+        }
         if (MainWindow.isGoToMode()) {
             throw new ParseException(MESSAGE_ONLY_GO_TO_MODE_COMMANDS);
         }

@@ -121,7 +121,9 @@ public class Task {
         } else {
             return otherTask.getTitle().equals(getTitle())
                     && otherTask.getStartDate().equals(getStartDate())
-                    && otherTask.getEndDate().equals(getEndDate());
+                    && otherTask.getEndDate().equals(getEndDate())
+                    && otherTask.getStartTime().equals(getEndTime())
+                    && otherTask.getEndTime().equals(getEndTime());
         }
     }
 

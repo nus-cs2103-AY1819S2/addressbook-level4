@@ -102,7 +102,7 @@ public class DateBase implements DateBuilder, Comparable<DateBase> {
         Calendar cal = Calendar.getInstance();
         cal.setTime(today);
         int currentDay = cal.get(Calendar.DAY_OF_MONTH);
-        int currentMonth = cal.get(Calendar.MONTH);
+        int currentMonth = cal.get(Calendar.MONTH) + 1;
         int currentYear = cal.get(Calendar.YEAR);
         String formattedDay = String.format("%02d", currentDay);
         String formattedMonth = String.format("%02d", currentMonth);

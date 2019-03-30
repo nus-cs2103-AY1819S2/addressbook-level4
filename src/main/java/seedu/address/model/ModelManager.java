@@ -52,6 +52,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredTasks = new FilteredList<>(versionedAddressBook.getTaskList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredTasks.addListener(this::ensureSelectedTaskIsValid);
     }
 
     public ModelManager() {
@@ -354,6 +355,35 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Ensures {@code selectedTask} is a valid task in {@code filteredTasks.
+     */
+    private void ensureSelectedTaskIsValid(ListChangeListener.Change<? extends Task> change) {
+        while (change.next()) {
+            if (selectedTask.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedTaskReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedTask.getValue());
+            if (wasSelectedTaskReplaced) {
+                // Update selectedTask to its new value.
+                int index = change.getRemoved().indexOf(selectedTask.getValue());
+                selectedTask.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedTaskRemoved = change.getRemoved().stream()
+                    .anyMatch(removedTask -> selectedTask.getValue().isSameTask(removedTask));
+            if (wasSelectedTaskRemoved) {
+                // Select the person that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedTask.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
     @Override
     public boolean checkNoCopy() {
         return versionedAddressBook.checkNoCopy();
@@ -376,6 +406,7 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredTasks.equals(other.filteredTasks)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

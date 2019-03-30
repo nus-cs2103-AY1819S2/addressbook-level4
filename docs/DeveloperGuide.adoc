@@ -35,6 +35,9 @@ Are you a developer who wants to learn how MediTabs is designed and implemented,
 
 Follow the step by step instructions below to set up MediTabs project with IntelliJ Integrated Development Environment (IDE).
 
+[NOTE]
+You are free to use any IDE which you are comfortable with but we *highly recommend* using IntelliJ. As we use IntelliJ in the development of MediTabs, the instructions to set up MediTabs will be catered for users of IntelliJ. You can download IntelliJ link: https://www.jetbrains.com/idea/download/[here]. If you are planning to use IntelliJ, both the community (free) and ultimate (paid) editions of IntelliJ can be used to set up MediTabs project.
+
 === Prerequisites
 
 . *JDK `9` (highly recommended) or `10`*

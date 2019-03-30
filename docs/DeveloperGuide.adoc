@@ -152,7 +152,7 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 .Component interactions for `import C:\Users\XXX\Desktop\Pictures` command
 image::SDforImportcommand.png[width="800"]
 
-.Component interactions for `rotate 90` command 
+.Component interactions for `rotate 90` command
 image::SDforRotatecommand.png[width="800"]
 
 The sections below give more details of each component.

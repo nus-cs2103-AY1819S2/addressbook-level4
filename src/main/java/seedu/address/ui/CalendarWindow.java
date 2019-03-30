@@ -262,8 +262,5 @@ public class CalendarWindow extends UiPart<Stage> {
     public static void setDate(String newDate) {
         datePicker.setValue(LocalDate.parse(newDate, format));
     }
-    public static String getDateInput(String input) {
-        return input.substring(input.lastIndexOf(" ") + 1);
-    }
 
 }

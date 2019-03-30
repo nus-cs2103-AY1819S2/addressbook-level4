@@ -586,15 +586,13 @@ If the path provided by the Model Component is invalid, the Storage component th
 
 * Step 8. The `LogicManager` terminates and returns the result of the command to the calling method.
 
-
 [[addfoldersequencediagram]] 
 .Component interactions for `addfolder f` command
 image::AddFolderSequenceDiagram.png[width="800"]
 
-.Component interactions for `change` command
-image::ChangeCommandSequenceDiagram.png[width="600"]
-
 ===== UI
+
+As folders are a layer of abstraction over the cards, there is a need for the GUI to represent this abstraction for greater clarity and ease of use.
 
 .UI behaviour when user enters folder
 image::EnterFolderGUISequenceDiagram.png[width="800"]
@@ -614,6 +612,32 @@ image::EnterFolderGUISequenceDiagram.png[width="800"]
 * **Alternative 2**: Identify a folder by its cards
 ** Pros: There can be no folders with identical cards, preventing redundancy.
 ** Cons: Two folders could have identical names as long as the cards are different.
+
+
+=== Navigating folders
+
+==== Current Implementation
+
+*Navigation State*
+
+The state of the application with regard to navigation (inside of a folder or at the home directory) affects the types of commands available to the user.
+
+* The commands that affect cards (adding a card, editing a card) are executed within folders and are known as *Card Operations*.
+* Commands that affect folders (adding a folder, deleting a folder) are only executable at the home directory and are known as *Folder Operations*.
+
+Please refer to the User Guide for the full list of commands under both categories.
+
+To keep track of navigation state, a boolean `inFolder` is maintained by the `ModelManager`. Other components may retrieve the current state with `ModelManager#isInFolder()`. This is also how the `Command` objects determines whether the command is executable in the present navigation state.
+
+*Change Command*
+
+Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
+
+
+.Component interactions for `change` command
+image::ChangeCommandSequenceDiagram.png[width="600"]
+
+==== Design Considerations
 
 //end::folders[]
 

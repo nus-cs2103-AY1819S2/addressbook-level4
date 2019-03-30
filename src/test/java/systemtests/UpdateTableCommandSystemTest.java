@@ -24,7 +24,6 @@ public class UpdateTableCommandSystemTest extends RestOrRantSystemTest {
 
     @Test
     public void update() {
-        Model model = getModel();
 
       /* ------------------------ Perform update operations on the shown unfiltered list ----------------------------- */
 

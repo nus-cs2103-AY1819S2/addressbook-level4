@@ -20,7 +20,6 @@ public class AddTableCommandSystemTest extends RestOrRantSystemTest {
 
     @Test
     public void add() {
-        Model model = getModel();
 
       /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 

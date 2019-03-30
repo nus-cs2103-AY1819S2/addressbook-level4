@@ -430,9 +430,8 @@ image::ReportDisplay.png[width="790"]
 
 Format: `report`
 
-====
+[NOTE]
 This command is only valid inside a folder.
-====
 
 [NOTE]
 There must be at least two test attempts for a graph to be drawn.

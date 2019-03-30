@@ -181,16 +181,25 @@ public class ParserUtil {
      * Parses a {@code String date} into an {@code DateCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static DateCustom parseDate(String date) throws ParseException {
+    public static DateCustom parseStartDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!DateCustom.isValidDate(date)) {
-            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS_START_DATE);
         }
-        /** Not checking if date is before today temporarily, might enable if decision changes
-        if (DateCustom.isDateBeforeToday(date)) {
-            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
-        }*/
+        return new DateCustom(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String date} into an {@code DateCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DateCustom parseEndDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!DateCustom.isValidDate(date)) {
+            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS_END_DATE);
+        }
         return new DateCustom(trimmedDate);
     }
 
@@ -198,11 +207,24 @@ public class ParserUtil {
      * Parses a {@code String time} into an {@code TimeCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static TimeCustom parseTime(String time) throws ParseException {
+    public static TimeCustom parseStartTime(String time) throws ParseException {
         requireNonNull(time);
         String trimmedTime = time.trim();
         if (!TimeCustom.isValidTime(time)) {
-            throw new ParseException(TimeCustom.MESSAGE_CONSTRAINTS);
+            throw new ParseException(TimeCustom.MESSAGE_CONSTRAINTS_START_TIME);
+        }
+        return new TimeCustom(trimmedTime);
+    }
+
+    /**
+     * Parses a {@code String time} into an {@code TimeCustom}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static TimeCustom parseEndTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!TimeCustom.isValidTime(time)) {
+            throw new ParseException(TimeCustom.MESSAGE_CONSTRAINTS_END_TIME);
         }
         return new TimeCustom(trimmedTime);
     }

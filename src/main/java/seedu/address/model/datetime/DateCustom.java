@@ -11,9 +11,18 @@ import java.time.format.DateTimeFormatter;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class DateCustom implements DateBuilder {
-    public static final String MESSAGE_CONSTRAINTS = "Date should not be before today's date, End Date should not"
-                                                   + " be before Start Date and a valid date should"
-                                                   + " be in the form of dd-mm-yyyy";
+
+    public static final String MESSAGE_CONSTRAINTS = "Date given should be a valid date "
+                                                                + "and should be in the format dd-mm-yyyy\n"
+                                                                + "Example date: 31-04-2019";
+
+    public static final String MESSAGE_CONSTRAINTS_START_DATE = "Start Date should be a valid date "
+                                                               + "and should be in the format dd-mm-yyyy\n"
+                                                               + "Example date: 31-04-2019";
+
+    public static final String MESSAGE_CONSTRAINTS_END_DATE = "End Date should be a valid date "
+                                                                + "and should be in the format dd-mm-yyyy\n"
+                                                                + "Example date: 31-04-2019";
 
     private final String storedDate;
 

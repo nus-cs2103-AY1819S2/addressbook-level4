@@ -39,10 +39,10 @@ public class TaskAddCommandParser implements Parser<TaskAddCommand> {
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
-        DateCustom startDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_STARTDATE).get());
-        DateCustom endDate = ParserUtil.parseDate(argMultimap.getValue(PREFIX_ENDDATE).get());
-        TimeCustom startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_STARTTIME).get());
-        TimeCustom endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_ENDTIME).get());
+        DateCustom startDate = ParserUtil.parseStartDate(argMultimap.getValue(PREFIX_STARTDATE).get());
+        DateCustom endDate = ParserUtil.parseEndDate(argMultimap.getValue(PREFIX_ENDDATE).get());
+        TimeCustom startTime = ParserUtil.parseStartTime(argMultimap.getValue(PREFIX_STARTTIME).get());
+        TimeCustom endTime = ParserUtil.parseEndTime(argMultimap.getValue(PREFIX_ENDTIME).get());
         Priority priority = ParserUtil.parsePriority(argMultimap.getValue(PREFIX_PRIORITY).orElse("low"));
 
         Task task = new Task(title, startDate, endDate, startTime, endTime, priority);

@@ -13,11 +13,11 @@ import java.util.Optional;
 public class MedicineManager {
 
     public static final String ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST =
-        "Medicine with the same name already exists in the storage.";
+            "Medicine with the same name already exists in the storage.";
     public static final String ERROR_MESSAGE_NO_DIRECTORY_FOUND =
-        "No directory is found at the given path.";
+            "No directory is found at the given path.";
     public static final String ERROR_MESSAGE_NO_MEDICINE_FOUND_BY_PATH =
-        "No Medicine is found at the given path.";
+            "No Medicine is found at the given path.";
     public static final String ERROR_MESSAGE_NO_MEDICINE_FOUND_BY_NAME =
             "No Medicine is found by the given name.";
 
@@ -32,8 +32,9 @@ public class MedicineManager {
     /**
      * To add a medicine into a directory. If medicine with same name already exist, add that medicine to the directory.
      * If no medicine with same name exists, add a new medicine
+     *
      * @param medicineName name of medicine
-     * @param path path the madicine to be added to
+     * @param path         path the madicine to be added to
      */
     public Medicine addMedicine(String medicineName, String[] path, BigDecimal price) {
         return (this.addMedicine(medicineName, 0, path, price));
@@ -41,12 +42,13 @@ public class MedicineManager {
 
     /**
      * To add a medicine to the storage by specifying the name of medicine, quantity of it and the path
+     *
      * @param medicineName name of medicine
-     * @param quantity quantity of medicine
-     * @param path the path to store to
+     * @param quantity     quantity of medicine
+     * @param path         the path to store to
      */
     public Medicine addMedicine(String medicineName, int quantity,
-                            String[] path, BigDecimal price) {
+                                String[] path, BigDecimal price) {
         Optional<Medicine> findMedicine = findMedicine(medicineName);
         if (findMedicine.isPresent()) {
             throw new IllegalArgumentException(ERROR_MESSAGE_MEDICINE_WITH_SAME_NAME_EXISTS_IN_LIST);
@@ -65,8 +67,9 @@ public class MedicineManager {
 
     /**
      * Add a new directory under a directory specified by the path
+     *
      * @param directoryName the name of the new directory
-     * @param path the path of the destination directory
+     * @param path          the path of the destination directory
      */
     public Directory addDirectory(String directoryName, String[] path) {
         Optional<Directory> directory = root.findDirectory(path, 0);
@@ -79,14 +82,15 @@ public class MedicineManager {
 
     /**
      * find a medicine by its name
+     *
      * @param medicineName the medicine name to search for
      * @return Optional.empty() if there is no medicine with the desired name;
-     *         Optional.of(E) if E's name matches the key
+     * Optional.of(E) if E's name matches the key
      */
     public Optional<Medicine> findMedicine(String medicineName) {
         Comparator comparator = Comparator.naturalOrder();
         return binarySearch(
-                listOfMedicine, (Medicine med)->(comparator.compare(med.name, medicineName)));
+                listOfMedicine, (Medicine med) -> (comparator.compare(med.name, medicineName)));
     }
 
     public Optional<Medicine> findMedicine(String[] path) {
@@ -99,7 +103,8 @@ public class MedicineManager {
 
     /**
      * record a purchase of medicine in the medicine storage
-     * @param path the path leading to the medicine
+     *
+     * @param path     the path leading to the medicine
      * @param quantity quantity of medicine purchased
      */
     public Medicine purchaseMedicine(String[] path, int quantity) {
@@ -113,8 +118,9 @@ public class MedicineManager {
 
     /**
      * record a purchase of medicine in the medicine storage
+     *
      * @param medicineName the name of the medicine
-     * @param quantity quantity of medicine purchased
+     * @param quantity     quantity of medicine purchased
      */
     public Medicine purchaseMedicine(String medicineName, int quantity) {
         Optional<Medicine> medicine = findMedicine(medicineName);
@@ -143,8 +149,9 @@ public class MedicineManager {
 
     /**
      * Add an existing medicine to a directory specified by path
+     *
      * @param medicine The medicine to add
-     * @param path The path specifying the directory
+     * @param path     The path specifying the directory
      */
     public void addExistingMedicineToDirectory(Medicine medicine, String[] path) {
         Optional<Directory> directory = findDirectory(path);

@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,8 @@ import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineManager;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.PatientManager;
+import seedu.address.model.record.MonthStatistics;
+import seedu.address.model.record.StatisticsManager;
 import seedu.address.model.reminder.Reminder;
 import seedu.address.model.reminder.ReminderManager;
 
@@ -40,6 +43,8 @@ public class JsonSerializableQuickDocs {
     private final List<JsonAdaptedReminder> reminderList = new ArrayList<>();
     private final List<JsonAdaptedMedicine> medicineList = new ArrayList<>();
     private JsonAdaptedDirectory rootDirectory;
+    private final List<JsonAdaptedMonthStatistics> monthStatisticsList = new ArrayList<>();
+    private BigDecimal consultationFee = StatisticsManager.DEFAULT_CONSULTATION_FEE;
 
     @JsonCreator
     public JsonSerializableQuickDocs(@JsonProperty("patientList") List<JsonAdaptedPatient> patients,
@@ -47,13 +52,18 @@ public class JsonSerializableQuickDocs {
                                      @JsonProperty("appointmentList") List<JsonAdaptedAppointment> appointments,
                                      @JsonProperty("reminderList") List<JsonAdaptedReminder> reminders,
                                      @JsonProperty("medicineList") List<JsonAdaptedMedicine> medicines,
-                                     @JsonProperty("rootDirectory") JsonAdaptedDirectory rootDirectory) {
+                                     @JsonProperty("rootDirectory") JsonAdaptedDirectory rootDirectory,
+                                     @JsonProperty("monthStatisticsList")
+                                                 List<JsonAdaptedMonthStatistics> monthStatisticsList,
+                                     @JsonProperty("consultationFee") BigDecimal consultationFee) {
         this.patientList.addAll(patients);
         this.consultationList.addAll(consultations);
         this.appointmentList.addAll(appointments);
         this.reminderList.addAll(reminders);
         this.medicineList.addAll(medicines);
         this.rootDirectory = rootDirectory;
+        this.monthStatisticsList.addAll(monthStatisticsList);
+        this.consultationFee = consultationFee;
     }
 
     /**
@@ -71,6 +81,9 @@ public class JsonSerializableQuickDocs {
         medicineList.addAll(source.getMedicineManager().getListOfMedicine()
                 .stream().map(JsonAdaptedMedicine::new).collect(Collectors.toList()));
         rootDirectory = new JsonAdaptedDirectory(source.getMedicineManager().getRoot());
+        monthStatisticsList.addAll(source.getStatisticsManager().getMonthStatisticsList()
+                .stream().map(JsonAdaptedMonthStatistics::new).collect(Collectors.toList()));
+        consultationFee = source.getStatisticsManager().getConsultationFee();
     }
 
     /**
@@ -104,7 +117,7 @@ public class JsonSerializableQuickDocs {
         for (JsonAdaptedAppointment jsonAdaptedAppointment : appointmentList) {
             Appointment appointment = jsonAdaptedAppointment.toModelType();
 
-            if (appointmentManager.duplicateApp(appointment)) {
+            if (appointmentManager.hasDuplicateAppointment(appointment)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
             appointmentManager.addAppointment(appointment);
@@ -114,7 +127,7 @@ public class JsonSerializableQuickDocs {
         for (JsonAdaptedReminder jsonAdaptedReminder : reminderList) {
             Reminder reminder = jsonAdaptedReminder.toModelType();
 
-            if (reminderManager.duplicateReminder(reminder)) {
+            if (reminderManager.hasDuplicateReminder(reminder)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_REMINDER);
             }
             reminderManager.addReminder(reminder);
@@ -138,6 +151,14 @@ public class JsonSerializableQuickDocs {
         Directory modelTypeRoot = toModelTypeDirectory(medicineHashMap, rootDirectory);
         medicineManager.setRoot(modelTypeRoot);
         medicineManager.setListOfMedicine(listOfMedicine);
+
+        StatisticsManager statisticsManager = quickDocs.getStatisticsManager();
+        for (JsonAdaptedMonthStatistics jsonAdaptedMonthStatistics : monthStatisticsList) {
+            MonthStatistics monthStatistics = jsonAdaptedMonthStatistics.toModelType();
+            statisticsManager.addMonthStatistics(monthStatistics);
+        }
+        statisticsManager.setConsultationFee(this.consultationFee);
+
         return quickDocs;
     }
 

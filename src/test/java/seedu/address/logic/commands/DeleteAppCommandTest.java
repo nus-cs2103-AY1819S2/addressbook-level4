@@ -2,13 +2,15 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalAppointments.APP_A;
+import static seedu.address.testutil.TypicalAppointments.APP_B;
+import static seedu.address.testutil.TypicalAppointments.APP_E;
+import static seedu.address.testutil.TypicalAppointments.getTypicalAppointmentsQuickDocs;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Optional;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -18,41 +20,36 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.QuickDocs;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.appointment.Appointment;
 
 public class DeleteAppCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-    private Model model = new ModelManager(new AddressBook(), new UserPrefs());
+
+    private QuickDocs quickDocs = getTypicalAppointmentsQuickDocs();
+    private Model model = new ModelManager(new AddressBook(), quickDocs, new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    @Before
-    public void init() {
-        model.initQuickDocsSampleData();
-    }
 
     @Test
     public void executeValidDeleteAppointment() throws Exception {
-        LocalDate date = LocalDate.parse("2019-03-15");
-        LocalTime start = LocalTime.parse("09:00");
-        model.initQuickDocsSampleData();
+        LocalDate date = APP_A.getDate();
+        LocalTime start = APP_A.getStart();
 
         CommandResult commandResult = new DeleteAppCommand(date, start).execute(model, commandHistory);
-        Optional<Appointment> toDelete = model.getAppointment(date, start);
 
         StringBuilder sb = new StringBuilder();
         sb.append("Appointment deleted:\n")
-                .append(toDelete.get().toString() + "\n");
+                .append(APP_A.toString() + "\n");
 
         Assert.assertEquals(sb.toString(), commandResult.getFeedbackToUser());
     }
     @Test
     public void executeInvalidDeleteAppointment() throws Exception {
-        //No such appointment with this date and start time
-        LocalDate date = LocalDate.parse("2019-10-23");
-        LocalTime start = LocalTime.parse("16:00");
-        model.initQuickDocsSampleData();
+        // No such appointment with this date and start time
+        LocalDate date = APP_E.getDate();
+        LocalTime start = APP_E.getStart();
         DeleteAppCommand deleteAppCommand = new DeleteAppCommand(date, start);
 
         thrown.expect(CommandException.class);
@@ -61,11 +58,10 @@ public class DeleteAppCommandTest {
     }
     @Test
     public void equals() {
-        LocalDate dateA = LocalDate.parse("2019-03-15");
-        LocalTime startA = LocalTime.parse("09:00");
-        LocalDate dateB = LocalDate.parse("2019-04-16");
-        LocalTime startB = LocalTime.parse("10:00");
-        model.initQuickDocsSampleData();
+        LocalDate dateA = APP_A.getDate();
+        LocalTime startA = APP_A.getStart();
+        LocalDate dateB = APP_B.getDate();
+        LocalTime startB = APP_B.getStart();
 
         DeleteAppCommand deleteAppA = new DeleteAppCommand(dateA, startA);
         DeleteAppCommand deleteAppB = new DeleteAppCommand(dateB, startB);
@@ -83,7 +79,7 @@ public class DeleteAppCommandTest {
         // null -> returns false
         assertFalse(deleteAppA.equals(null));
 
-        // different person -> returns false
+        // different value -> returns false
         assertFalse(deleteAppA.equals(deleteAppB));
     }
 }

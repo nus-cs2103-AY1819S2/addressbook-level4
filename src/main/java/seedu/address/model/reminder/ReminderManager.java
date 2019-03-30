@@ -24,7 +24,7 @@ public class ReminderManager {
         reminders.add(rem);
     }
 
-    public boolean duplicateReminder(Reminder rem) {
+    public boolean hasDuplicateReminder(Reminder rem) {
         return reminders.contains(rem);
     }
 
@@ -37,14 +37,14 @@ public class ReminderManager {
     }
 
     public Optional<Reminder> getReminder(Appointment appointment) {
-        String title = Reminder.createTitle(appointment);
+        String title = appointment.createTitle();
         LocalDate date = appointment.getDate();
-        LocalTime start = appointment.getStartTime();
+        LocalTime start = appointment.getStart();
 
         List<Reminder> filtered = reminders.stream()
                 .filter(r -> r.getTitle().equals(title))
                 .filter(r -> r.getDate().equals(date))
-                .filter(a -> a.getStartTime().equals(start))
+                .filter(a -> a.getStart().equals(start))
                 .collect(Collectors.toList());
 
         if (filtered.isEmpty()) {

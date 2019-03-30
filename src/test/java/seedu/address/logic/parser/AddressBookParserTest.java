@@ -28,6 +28,7 @@ import seedu.address.logic.commands.DiagnosePatientCommand;
 import seedu.address.logic.commands.EditPatientCommand;
 import seedu.address.logic.commands.EndConsultationCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FreeAppCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListAppCommand;
@@ -313,8 +314,40 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_listApp() throws Exception {
+        String formatString = "day";
+        String dateString = "2019-03-15";
+        String nricString = "S9234568C";
+
+        LocalDate date = LocalDate.parse(dateString);
+        Nric nric = new Nric(nricString);
+
+        String userInput = ListAppCommand.COMMAND_WORD
+                + " f/" + formatString
+                + " d/" + dateString;
+        ListAppCommand command = (ListAppCommand) parser.parseCommand(userInput);
+        assertEquals(new ListAppCommand(date, date), command);
+
+        userInput = ListAppCommand.COMMAND_WORD
+                + " r/" + nricString;
+        command = (ListAppCommand) parser.parseCommand(userInput);
+        assertEquals(new ListAppCommand(nric), command);
+
         assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD) instanceof ListAppCommand);
-        assertTrue(parser.parseCommand(ListAppCommand.COMMAND_WORD + " 3") instanceof ListAppCommand);
+    }
+
+    @Test
+    public void parseCommand_freeApp() throws Exception {
+        String formatString = "day";
+        String dateString = "2019-03-15";
+        LocalDate date = LocalDate.parse(dateString);
+
+        String userInput = FreeAppCommand.COMMAND_WORD
+                + " f/" + formatString
+                + " d/" + dateString;
+        FreeAppCommand command = (FreeAppCommand) parser.parseCommand(userInput);
+        assertEquals(new FreeAppCommand(date, date), command);
+
+        assertTrue(parser.parseCommand(FreeAppCommand.COMMAND_WORD) instanceof FreeAppCommand);
     }
 
     @Test

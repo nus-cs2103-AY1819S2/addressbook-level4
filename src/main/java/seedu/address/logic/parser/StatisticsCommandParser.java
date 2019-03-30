@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 
 import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.record.StatisticsManager;
 
 /**
  * Parses input argument and returns a StatisticsCommand
@@ -34,6 +35,11 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
         }
         YearMonth fromYearMonth = YearMonth.parse(tokens[0], MMYY_FORMATTER);
+        // check if the FROM MMYY is not before January 2019
+        if (fromYearMonth.isBefore(StatisticsManager.START_DATE)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
+        }
         YearMonth toYearMonth = fromYearMonth;
         // if there is a TO MMYY, check if it is valid
         if (tokens.length == 2) {
@@ -42,6 +48,11 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
             }
             toYearMonth = YearMonth.parse(tokens[1], MMYY_FORMATTER);
+        }
+        // check if TO MMYY is not before FROM MMYY
+        if (toYearMonth.isBefore(fromYearMonth)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsCommand.MESSAGE_USAGE));
         }
         return new StatisticsCommand(fromYearMonth, toYearMonth);
     }

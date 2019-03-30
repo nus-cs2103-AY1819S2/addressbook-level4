@@ -33,6 +33,7 @@ public class AddPatientCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
             + PREFIX_NRIC + "S9876543A "
+            + PREFIX_DOB + "1980-03-03 "
             + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
             + PREFIX_EMAIL + "johnd@example.com "
             + PREFIX_CONTACT + "92344321 "

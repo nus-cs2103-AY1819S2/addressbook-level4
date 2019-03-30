@@ -5,5 +5,5 @@ package seedu.address.model.record;
  * Ensures that subclasses can be recorded by implementing record().
  */
 public abstract class Record {
-    public abstract Statistics toStatistics(RecordManager recordManager);
+    public abstract Statistics toStatistics(StatisticsManager statisticsManager);
 }

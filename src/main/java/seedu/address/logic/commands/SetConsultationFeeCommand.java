@@ -34,7 +34,7 @@ public class SetConsultationFeeCommand extends Command {
         try {
             model.setConsultationFee(fee);
             StringBuilder sb = new StringBuilder();
-            sb.append("Consultation fee has been successfully changed to $" + Statistics.currencyFormat(fee));
+            sb.append("Consultation fee has been successfully changed to " + Statistics.currencyFormat(fee));
             sb.append("\n\n");
             return new CommandResult(sb.toString());
         } catch (Exception ex) {

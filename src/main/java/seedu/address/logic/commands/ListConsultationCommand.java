@@ -17,6 +17,13 @@ public class ListConsultationCommand extends Command {
     public static final String COMMAND_ALIAS = "lc";
     public static final String NO_RECORDS = "No past consultation records found.\n";
     public static final String INVALID_INDEX = "Index entered is invalid.\n";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": list all past consultation records of a single patient using patient's NRIC "
+            + "or details of a single consultation record through its index.\n"
+            + "Parameters: "
+            + "INDEX OR NRIC\n"
+            + "Example: " + COMMAND_WORD + " r/S9237161A\n"
+            + "or: " + COMMAND_WORD + " 10\n";
 
     private int index;
     private String nric;

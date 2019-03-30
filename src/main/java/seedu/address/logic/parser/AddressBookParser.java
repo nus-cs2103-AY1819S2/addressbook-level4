@@ -54,64 +54,64 @@ public class AddressBookParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         switch (commandWord) {
+        case ModeCommand.COMMAND_WORD:
+            return new ModeCommandParser().parse(arguments);
 
-            case ModeCommand.COMMAND_WORD:
-                return new ModeCommandParser().parse(arguments);
+        case MemberAddCommand.COMMAND_WORD:
+            return new MemberAddCommandParser().parse(arguments);
 
-            case MemberAddCommand.COMMAND_WORD:
-                return new MemberAddCommandParser().parse(arguments);
+        case MemberEditCommand.COMMAND_WORD:
+            return new MemberEditCommandParser().parse(arguments);
 
-            case MemberEditCommand.COMMAND_WORD:
-                return new MemberEditCommandParser().parse(arguments);
+        case MemberSelectCommand.COMMAND_WORD:
+            return new MemberSelectCommandParser().parse(arguments);
 
-            case MemberSelectCommand.COMMAND_WORD:
-                return new MemberSelectCommandParser().parse(arguments);
+        case MemberDeleteCommand.COMMAND_WORD:
+            return new MemberDeleteCommandParser().parse(arguments);
 
-            case MemberDeleteCommand.COMMAND_WORD:
-                return new MemberDeleteCommandParser().parse(arguments);
+        case ClearCommand.COMMAND_WORD:
+            return new ClearCommand();
 
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+        case MemberFindCommand.COMMAND_WORD:
+            return new MemberFindCommandParser().parse(arguments);
 
-            case MemberFindCommand.COMMAND_WORD:
-                return new MemberFindCommandParser().parse(arguments);
+        case MemberSortCommand.COMMAND_WORD:
+            return new MemberSortCommandParser().parse(arguments);
 
-            case MemberSortCommand.COMMAND_WORD:
-                return new MemberSortCommandParser().parse(arguments);
+        case MemberListCommand.COMMAND_WORD:
+            return new MemberListCommand();
 
-            case MemberListCommand.COMMAND_WORD:
-                return new MemberListCommand();
+        case MemberExportCommand.COMMAND_WORD:
+            return new MemberExportCommandParser().parse(arguments);
 
-            case MemberExportCommand.COMMAND_WORD:
-                return new MemberExportCommandParser().parse(arguments);
+        case ActivityAddCommand.COMMAND_WORD:
+            return new ActivityAddCommandParser().parse(arguments);
 
-            case ActivityAddCommand.COMMAND_WORD:
-                return new ActivityAddCommandParser().parse(arguments);
+        case ActivityDeleteCommand.COMMAND_WORD:
+            return new ActivityDeleteCommandParser().parse(arguments);
 
-            case ActivityDeleteCommand.COMMAND_WORD:
-                return new ActivityDeleteCommandParser().parse(arguments);
+        case ActivityListCommand.COMMAND_WORD:
+            return new ActivityListCommand();
 
-            case ActivityListCommand.COMMAND_WORD:
-                return new ActivityListCommand();
+        case HistoryCommand.COMMAND_WORD:
+            return new HistoryCommand();
 
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
-            case UndoCommand.COMMAND_WORD:
-                return new UndoCommand();
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
-            case RedoCommand.COMMAND_WORD:
-                return new RedoCommand();
-
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

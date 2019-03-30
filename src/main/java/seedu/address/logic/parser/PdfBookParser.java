@@ -45,6 +45,9 @@ public class PdfBookParser {
         case DeadlineCommand.COMMAND_WORD:
             return new DeadlineCommandParser().parse(arguments);
 
+        case DecryptCommand.COMMAND_WORD:
+            return new DecryptCommandParser().parse(arguments);
+
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
 
@@ -96,18 +99,6 @@ public class PdfBookParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
-<<<<<<< HEAD:src/main/java/seedu/address/logic/parser/AddressBookParser.java
-=======
-        case OpenCommand.COMMAND_WORD:
-            return new OpenCommandParser().parse(arguments);
-
-        case EncryptCommand.COMMAND_WORD:
-            return new EncryptCommandParser().parse(arguments);
-
-        case DecryptCommand.COMMAND_WORD:
-            return new DecryptCommandParser().parse(arguments);
-
->>>>>>> 53929a0930dec762d1553cff7578e6d65fe00dd8:src/main/java/seedu/address/logic/parser/PdfBookParser.java
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }

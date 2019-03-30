@@ -81,12 +81,17 @@ public class Patient extends Person {
     }
 
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount, Sex sex) {
+                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount, Sex sex, DrugAllergy drugAllergy,
+                   NextOfKin kin, Description describe) {
         super(name, phone, email, address, tags, personToCopy, copyCount);
         requireAllNonNull(nric, dateOfBirth, sex);
         this.sex = sex;
+        this.drugAllergy = drugAllergy;
+        this.patientDesc = describe;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
+        this.nextOfKin = kin;
+        this.copyCount = copyCount;
         buildAdultTeeth();
         updateTags();
     }
@@ -210,8 +215,9 @@ public class Patient extends Person {
      * @return a new Patient instance.
      */
     public Patient copy() {
+        System.out.println("FUCK");
         return new Patient(this.name, this.phone, this.email, this.address, tags, this.nric, this.getDateOfBirth(),
-                this.records, this.teeth, this.sex, this.drugAllergy, this.nextOfKin, this.patientDesc);
+            this, copyCount++, this.sex, this.drugAllergy, this.nextOfKin, this.patientDesc);
     }
 
     /**

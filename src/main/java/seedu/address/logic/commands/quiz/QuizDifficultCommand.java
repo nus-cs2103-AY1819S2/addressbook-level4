@@ -10,20 +10,13 @@ import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.quiz.QuizCard;
 
 /**
- * Label a card as difficult or not
+ * Labels a card as difficult or not
  */
 public class QuizDifficultCommand extends QuizCommand {
     public static final String COMMAND_WORD = "\\difficult";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Label this current question as difficult.\n";
     public static final String MESSAGE_SUCCESS = "This question is labelled as %1$s.";
-    /**
-     * Executes the command and returns the result message.
-     *
-     * @param model {@link QuizModel} which the command should operate on.
-     * @param history {@code CommandHistory} which the command should operate on.
-     * @return feedback message of the operation result for display
-     * @throws CommandException If the {@link Model} passed in is not a {@link QuizModel}
-     */
+
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

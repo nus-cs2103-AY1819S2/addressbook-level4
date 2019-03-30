@@ -87,15 +87,16 @@ public class CsvUserStorage implements UserStorage {
     /**
      *
      * @param card
-     * @return a String array with the cardData(hashcode, numAttempts, streak, srs)
+     * @return a String array with the cardData(hashcode, numAttempts, streak, srs, isDifficult)
      */
     private String[] parseCardIntoString(CardSrsData card) {
-        String[] cardArray = new String[4];
+        String[] cardArray = new String[5];
 
         cardArray[0] = Integer.toString(card.getHashCode());
         cardArray[1] = Integer.toString(card.getNumOfAttempts());
         cardArray[2] = Integer.toString(card.getStreak());
         cardArray[3] = card.getSrsDueDate().toString();
+        cardArray[4] = String.valueOf(card.isDifficult());
 
         return cardArray;
     }
@@ -110,13 +111,21 @@ public class CsvUserStorage implements UserStorage {
         int numOfAttempts;
         int streak;
         Instant srs;
+        boolean isDifficult;
 
         hashCode = Integer.parseInt(cardArray[0]);
         numOfAttempts = Integer.parseInt(cardArray[1]);
         streak = Integer.parseInt(cardArray[2]);
         srs = Instant.parse(cardArray[3]);
 
-        CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs);
+        // TODO remove this check after session uses the new constructor
+        if (cardArray.length == 5) {
+            isDifficult = cardArray[4].equals("true");
+        } else {
+            isDifficult = false;
+        }
+
+        CardSrsData card = new CardSrsData(hashCode, numOfAttempts, streak, srs, isDifficult);
 
         return card;
     }

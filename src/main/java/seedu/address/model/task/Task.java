@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.datetime.TimeCustom;
 
 
 /**
@@ -18,6 +19,9 @@ public class Task {
     // Data fields
     protected final DateCustom startDate;
     protected final DateCustom endDate;
+    protected final TimeCustom startTime;
+    protected final TimeCustom endTime;
+    protected final Priority priority;
     protected final boolean isCopy;
     protected int copyCount;
 
@@ -25,11 +29,15 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(Title title, DateCustom startDate, DateCustom endDate) {
-        requireAllNonNull(title, startDate, endDate);
+    public Task(Title title, DateCustom startDate, DateCustom endDate, TimeCustom startTime,
+                TimeCustom endTime, Priority priority) {
+        requireAllNonNull(title, startDate, endDate, startTime, endTime, priority);
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.priority = priority;
         this.isCopy = false;
         this.copyCount = 0;
     }
@@ -42,6 +50,9 @@ public class Task {
         this.title = t.getTitle();
         this.startDate = t.getStartDate();
         this.endDate = t.getEndDate();
+        this.startTime = t.startTime;
+        this.endTime = t.endTime;
+        this.priority = t.priority;
         this.isCopy = true;
         this.copyCount = 0;
     }
@@ -57,6 +68,34 @@ public class Task {
 
     public DateCustom getEndDate() {
         return endDate;
+    }
+
+    public TimeCustom getStartTime() {
+        return startTime;
+    }
+
+    public TimeCustom getEndTime() {
+        return endTime;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    /**
+     * Retuns true if the current Task has a start date that is after its end date
+     */
+    public boolean hasDateClash() {
+        return DateCustom.dateCompare(endDate.toString(), startDate.toString());
+    }
+
+    /**
+     *  Returns true if the current task has a start time that is after end time
+     *  when the task has the same dates
+     */
+    public boolean hasTimeClash() {
+        return startDate.isSameDate(endDate.toString())
+                && TimeCustom.timeCompare(startTime.toString(), endTime.toString());
     }
 
     public boolean isCopy() {
@@ -82,7 +121,9 @@ public class Task {
         } else {
             return otherTask.getTitle().equals(getTitle())
                     && otherTask.getStartDate().equals(getStartDate())
-                    && otherTask.getEndDate().equals(getEndDate());
+                    && otherTask.getEndDate().equals(getEndDate())
+                    && otherTask.getStartTime().equals(getStartTime())
+                    && otherTask.getEndTime().equals(getEndTime());
         }
     }
 
@@ -103,7 +144,9 @@ public class Task {
         Task otherTask = (Task) other;
         return otherTask.getTitle().equals(getTitle())
                 && otherTask.getStartDate().equals(getStartDate())
-                && otherTask.getEndDate().equals(getEndDate());
+                && otherTask.getEndDate().equals(getEndDate())
+                && otherTask.getStartTime().equals(getStartTime())
+                && otherTask.getEndTime().equals(getEndTime());
     }
 
     @Override
@@ -120,7 +163,13 @@ public class Task {
                 .append(" Start Date: ")
                 .append(getStartDate())
                 .append(" End Date: ")
-                .append(getEndDate());
+                .append(getEndDate())
+                .append(" Start Time: ")
+                .append(getStartTime())
+                .append(" End Time: ")
+                .append(getEndTime())
+                .append(" Priority: ")
+                .append(getPriority());
         return builder.toString();
     }
 

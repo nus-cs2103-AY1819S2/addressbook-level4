@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_ONLY_GO_TO_MODE_COMMANDS;
+import static seedu.address.commons.core.Messages.MESSAGE_ONLY_TASK_OR_DATE_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
@@ -39,6 +41,7 @@ import seedu.address.logic.commands.TaskcopyCommand;
 import seedu.address.logic.commands.TeethEditCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.CalendarWindow;
 import seedu.address.ui.MainWindow;
 
 /**
@@ -60,6 +63,7 @@ public class AddressBookParser {
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        final boolean checkBothConditions = true;
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
@@ -67,137 +71,141 @@ public class AddressBookParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
 
-        if (!MainWindow.isGoToMode()) {
-            switch (commandWord) {
-            case AddCommand.COMMAND_WORD:
-                return new AddCommandParser().parse(arguments);
+        switch (commandWord) {
+        //Commands that should not run in both GoTo mode and Calendar Window
+        case AddCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new AddCommandParser().parse(arguments);
 
-            case EditCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
+        case EditCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new EditCommandParser().parse(arguments);
 
-            case SelectCommand.COMMAND_WORD:
-                return new SelectCommandParser().parse(arguments);
+        case SelectCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new SelectCommandParser().parse(arguments);
 
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new DeleteCommandParser().parse(arguments);
 
-            case ClearCommand.COMMAND_WORD:
-                return new ClearCommand();
+        case ClearCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new ClearCommand();
 
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new FindCommandParser().parse(arguments);
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new ListCommand();
 
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
+        case HistoryCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new HistoryCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case UndoCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new UndoCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case RedoCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new RedoCommand();
 
-            case UndoCommand.COMMAND_WORD:
-                return new UndoCommand();
+        case StatsCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new StatsCommandParser().parse(arguments);
 
-            case RedoCommand.COMMAND_WORD:
-                return new RedoCommand();
+        case SortCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new SortCommandParser().parse(arguments);
 
-            case GoToCommand.COMMAND_WORD:
-                return new GoToCommandParser().parse(arguments);
+        case CopyCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new CopyCommandParser().parse(arguments);
 
-            case StatsCommand.COMMAND_WORD:
-                return new StatsCommandParser().parse(arguments);
+        case OpenCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new OpenCommandParser().parse(arguments);
 
-            case SortCommand.COMMAND_WORD:
-                return new SortCommandParser().parse(arguments);
+        case SaveCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new SaveCommandParser().parse(arguments);
 
-            case CopyCommand.COMMAND_WORD:
-                return new CopyCommandParser().parse(arguments);
+        case ImportCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new ImportCommandParser().parse(arguments);
 
-            case OpenCommand.COMMAND_WORD:
-                return new OpenCommandParser().parse(arguments);
+        case ExportCommand.COMMAND_WORD:
+            checkSpecialCondition(checkBothConditions);
+            return new ExportCommandParser().parse(arguments);
 
-            case SaveCommand.COMMAND_WORD:
-                return new SaveCommandParser().parse(arguments);
+        //Commands that should ONLY run in GoTo mode but not in Calendar Window
+        case GoToCommand.COMMAND_WORD:
+            checkSpecialCondition(!checkBothConditions);
+            return new GoToCommandParser().parse(arguments);
 
-            case ImportCommand.COMMAND_WORD:
-                return new ImportCommandParser().parse(arguments);
+        case BackCommand.COMMAND_WORD:
+            checkSpecialCondition(!checkBothConditions);
+            return new BackCommand();
 
-            case ExportCommand.COMMAND_WORD:
-                return new ExportCommandParser().parse(arguments);
+        case RecordAddCommand.COMMAND_WORD:
+            checkSpecialCondition(!checkBothConditions);
+            return new RecordAddCommandParser().parse(arguments);
 
-            case TaskAddCommand.COMMAND_WORD:
-                return new TaskAddCommandParser().parse(arguments);
+        case RecordEditCommand.COMMAND_WORD:
+            checkSpecialCondition(!checkBothConditions);
+            return new RecordEditCommandParser().parse(arguments);
 
-            case TaskCalendarCommand.COMMAND_WORD:
-                return new TaskCalendarCommandParser().parse(arguments);
+        case RecordDeleteCommand.COMMAND_WORD:
+            checkSpecialCondition(!checkBothConditions);
+            return new RecordDeleteCommandParser().parse(arguments);
 
-            case TaskEditCommand.COMMAND_WORD:
-                return new TaskEditCommandParser().parse(arguments);
+        case TeethEditCommand.COMMAND_WORD:
+            checkSpecialCondition(!checkBothConditions);
+            return new TeethEditCommandParser().parse(arguments);
 
-            case TaskDeleteCommand.COMMAND_WORD:
-                return new TaskDeleteCommandParser().parse(arguments);
+        //Commands that should run in ALL modes and popups
+        case TaskAddCommand.COMMAND_WORD:
+            return new TaskAddCommandParser().parse(arguments);
 
-            case TaskcopyCommand.COMMAND_WORD:
-                return new TaskcopyCommandParser().parse(arguments);
+        case TaskCalendarCommand.COMMAND_WORD:
+            return new TaskCalendarCommandParser().parse(arguments);
 
-            case ExitAnywayCommand.COMMAND_WORD:
-                return new ExitAnywayCommand();
+        case TaskEditCommand.COMMAND_WORD:
+            return new TaskEditCommandParser().parse(arguments);
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
-        } else {
-            switch (commandWord) {
+        case TaskDeleteCommand.COMMAND_WORD:
+            return new TaskDeleteCommandParser().parse(arguments);
 
-            case SelectCommand.COMMAND_WORD:
-                return new SelectCommandParser().parse(arguments);
+        case TaskcopyCommand.COMMAND_WORD:
+            return new TaskcopyCommandParser().parse(arguments);
 
-            case HistoryCommand.COMMAND_WORD:
-                return new HistoryCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case ExitAnywayCommand.COMMAND_WORD:
+            return new ExitAnywayCommand();
 
-            case BackCommand.COMMAND_WORD:
-                return new BackCommand();
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
 
-            case TaskAddCommand.COMMAND_WORD:
-                return new TaskAddCommandParser().parse(arguments);
-
-            case TaskEditCommand.COMMAND_WORD:
-                return new TaskEditCommandParser().parse(arguments);
-
-            case TaskDeleteCommand.COMMAND_WORD:
-                return new TaskDeleteCommandParser().parse(arguments);
-
-            case TaskcopyCommand.COMMAND_WORD:
-                return new TaskcopyCommandParser().parse(arguments);
-
-            case ExitAnywayCommand.COMMAND_WORD:
-                return new ExitAnywayCommand();
-
-            case RecordAddCommand.COMMAND_WORD:
-                return new RecordAddCommandParser().parse(arguments);
-
-            case RecordEditCommand.COMMAND_WORD:
-                return new RecordEditCommandParser().parse(arguments);
-
-            case RecordDeleteCommand.COMMAND_WORD:
-                return new RecordDeleteCommandParser().parse(arguments);
-
-            case TeethEditCommand.COMMAND_WORD:
-                return new TeethEditCommandParser().parse(arguments);
-
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
+    /**
+     * Checks if the Main Window is currently in Goto Mode or if a command is being ran from Calendar Window.
+     * Feedback given to user if commands are being ran in the wrong modes or areas of the GUI.
+     */
+    public void checkSpecialCondition(boolean checkBothConditions) throws ParseException {
+        if (CalendarWindow.isRunningCommand()) {
+            throw new ParseException(MESSAGE_ONLY_TASK_OR_DATE_COMMANDS);
+        }
+        if (MainWindow.isGoToMode() && checkBothConditions) {
+            throw new ParseException(MESSAGE_ONLY_GO_TO_MODE_COMMANDS);
         }
     }
 

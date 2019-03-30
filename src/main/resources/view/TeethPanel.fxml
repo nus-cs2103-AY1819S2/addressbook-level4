@@ -3,9 +3,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <AnchorPane fx:id="space">
+<VBox>
+<AnchorPane fx:id="space" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" VBox.vgrow="ALWAYS">
         <children></children>
-    </AnchorPane>
+</AnchorPane>
 </VBox>
 

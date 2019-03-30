@@ -7,6 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
+import seedu.address.ui.CalendarWindow;
 
 /**
  * Displays a Calendar to user, highlighting dates with tasks with the highest priority
@@ -39,6 +40,7 @@ public class TaskCalendarCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         model.updateFilteredTaskList(predicate);
+        CalendarWindow.setDate(dateInput.toString());
         if (dateInput.isToday()) {
             return new CommandResult(String.format(MESSAGE_USING_CURRENT_DATE
                     + MESSAGE_DISPLAY_CALENDAR_SUCCESS, dateInput.toString()), true);

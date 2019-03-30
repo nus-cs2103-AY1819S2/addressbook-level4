@@ -80,8 +80,10 @@ public class TeethPanel extends UiPart<Region> {
             ImageView test = new ImageView(fin);
             test.setPreserveRatio(true);
             test.setFitHeight(500);
-            stack.getChildren().add(test);
-            space.getChildren().add(stack);
+            test.setX(80);
+            test.setY(50);
+            space.getChildren().add(test);
+
         } catch (IOException e) {
             new IOException("Error opening image file");
         }

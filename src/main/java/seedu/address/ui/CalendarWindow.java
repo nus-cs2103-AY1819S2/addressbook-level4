@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -25,6 +26,9 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.datetime.DateCustom;
+import seedu.address.model.task.Task;
 
 /**
  *  Task Calendar Window. Provides a graphical interface for task viewing
@@ -34,16 +38,22 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class CalendarWindow extends UiPart<Stage> {
 
     private static final String FXML = "CalendarWindow.fxml";
+    private static DatePicker datePicker;
+    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static boolean runningCommand;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
+
+
+
 
     private Stage primaryStage;
     private Logic logic;
 
     private TaskListPanel taskListPanel;
-    private DatePicker datePicker;
 
-    private DateTimeFormatter format;
+    private ReadOnlyAddressBook readOnlyTaskList;
+    private HashMap<LocalDate, Integer> markedDates;
 
     @FXML
     private StackPane taskListPanelPlaceholder;
@@ -58,8 +68,15 @@ public class CalendarWindow extends UiPart<Stage> {
 
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        this.readOnlyTaskList = logic.getAddressBook();
 
+        generateMarkedDates();
+        this.readOnlyTaskList.addListener((observable -> {
+            generateMarkedDates();
+            LocalDate temp = datePicker.getValue();
+            datePicker.setValue(null);
+            datePicker.setValue(temp);
+        }));
         taskListPanel = new TaskListPanel(logic.getFilteredTaskList());
         taskListPanel.setForCalender();
         taskListPanel.getRoot().getStylesheets().addAll("view/Calendar.css", "view/Extensions.css");
@@ -89,12 +106,17 @@ public class CalendarWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            CommandResult commandResult;
-            commandResult = logic.execute("taskcal " + commandText);
-            this.setDate(getDateInput(commandResult.getFeedbackToUser()));
+            runningCommand = true;
+            if (DateCustom.isValidDate(commandText.trim())) {
+                commandText = "taskcal " + commandText;
+            }
+            CommandResult commandResult = logic.execute(commandText);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            runningCommand = false;
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
+            logger.info(e.getMessage());
             throw e;
         }
     }
@@ -120,6 +142,31 @@ public class CalendarWindow extends UiPart<Stage> {
     }
     public void close() {
         primaryStage.close();
+    }
+
+    /**
+     *  Generates a hashmap to store dates that should be marked with task priority
+     */
+    private void generateMarkedDates() {
+        this.markedDates = new HashMap<>();
+        for (Task t : logic.getAddressBook().getTaskList()) {
+
+            if (markedDates.containsKey(t.getStartDate().getDate())) {
+                if (t.getPriority().getPriorityLevel() > markedDates.get(t.getStartDate().getDate())) {
+                    markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
+                }
+            } else {
+                markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
+            }
+
+            if (markedDates.containsKey(t.getEndDate().getDate())) {
+                if (t.getPriority().getPriorityLevel() > markedDates.get(t.getEndDate().getDate())) {
+                    markedDates.put(t.getEndDate().getDate(), t.getPriority().getPriorityLevel());
+                }
+            } else {
+                markedDates.put(t.getEndDate().getDate(), t.getPriority().getPriorityLevel());
+            }
+        }
     }
 
     /**
@@ -151,8 +198,23 @@ public class CalendarWindow extends UiPart<Stage> {
                             label.setStyle("-fx-font-weight: bold; -fx-border-color: transparent");
                             label.setFont(Font.font("Helvetica", 15));
 
-                            if (item.getDayOfMonth() == 3 || item.getDayOfMonth() == 19) {
-                                circle.setFill(Color.web("#FF0000"));
+                            if (markedDates.containsKey(item)) {
+                                switch (markedDates.get(item)) {
+                                case 3:
+                                    circle.setFill(Color.web("#FF0000"));
+                                    break;
+
+                                case 2:
+                                    circle.setFill(Color.web("#FF9A00"));
+                                    break;
+
+                                case 1:
+                                    circle.setFill(Color.web("#FFE600"));
+                                    break;
+
+                                default:
+                                    circle.setFill(Color.GREEN);
+                                }
                             } else {
                                 circle.setFill(Color.TRANSPARENT);
                             }
@@ -190,11 +252,15 @@ public class CalendarWindow extends UiPart<Stage> {
         }
         this.calendarPanel.getChildren().addAll(out);
     }
-    public void setDate(String newDate) {
-        this.datePicker.setValue(LocalDate.parse(newDate, format));
+
+    /**
+     * Returns true if a command is currently being ran from CalendarWindow
+     */
+    public static boolean isRunningCommand() {
+        return runningCommand;
     }
-    public static String getDateInput(String input) {
-        return input.substring(input.lastIndexOf(" ") + 1);
+    public static void setDate(String newDate) {
+        datePicker.setValue(LocalDate.parse(newDate, format));
     }
 
 }

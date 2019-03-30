@@ -544,7 +544,7 @@ To allow users to operate on multiple `CardFolders`, the following notable metho
 * `ModelManager#getActiveCardFolderIndex()` - Gets the index of the current active `CardFolder`
 * `ModelManager#enterFolder(int index)` - Specifies the active `CardFolder` for operations to be performed on via the index in `ModelManager`’s list and sets the boolean `inFolder` to `true` to denote that user is inside a folder.
 * `ModelManager#exitFolderToHome()` - Sets the boolean `inFolder` to `false` to indicate that the user is at the home directory.
-* `ModelManager#renameFolder(int index, String newName)` - Renames the folder at the specified index in the `ModelManager's` list to the new name.   
+* `ModelManager#renameFolder(int index, String newName)` - Renames the folder at the specified index in the `ModelManager's` list to the new name.
 * `ModelManager#isInFolder()` - Returns true if the `ModelManager` is currently inside a folder.
 
 ===== Storage
@@ -586,7 +586,7 @@ If the path provided by the Model Component is invalid, the Storage component th
 
 * Step 8. The `LogicManager` terminates and returns the result of the command to the calling method.
 
-[[addfoldersequencediagram]] 
+[[addfoldersequencediagram]]
 .Component interactions for an `addfolder` command
 image::AddFolderSequenceDiagram.png[width="800"]
 
@@ -642,7 +642,7 @@ image::EnterFolderGUISequenceDiagram.png[width="800"]
 ** Cons: Harder to retrieve folder name from the file as it requires parsing the path, more prone to data corruption as file name could be modified when application is running.
 * **Alternative 2 (current choice)**: Let file name be independent of folder name, which is stored inside the storage file itself
 ** Pros: Easier to implement and avoids dependency on existing storage files after application starts.
-** Cons: When saving folders from Model, it is difficult to match folders with existing storage files. Hence, rather than saving the modified folder, it is more feasible to clear the directory and save all folders. This is computationally expensive and may not be scalable beyond a certain size. 
+** Cons: When saving folders from Model, it is difficult to match folders with existing storage files. Hence, rather than saving the modified folder, it is more feasible to clear the directory and save all folders. This is computationally expensive and may not be scalable beyond a certain size.
 
 ===== Aspect: What folders to generate in the event corrupted storage files are encountered
 * **Alternative 1**: Display a sample folder
@@ -672,7 +672,7 @@ To keep track of navigation state, a boolean `inFolder` is maintained by the `Mo
 
 ===== Change Command
 
-Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component. 
+Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
 
 The change command has the following formats:
 

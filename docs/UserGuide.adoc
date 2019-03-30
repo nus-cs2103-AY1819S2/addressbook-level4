@@ -199,69 +199,80 @@ along with their index which can be used to display actual consultation details.
 
 
 === Medicine Management
-[[addMed, Add medicine]]
-==== Add medicine into storage: `addMed`
+[[adddirec, Add directory]]
+==== Add new directory into storage: `adddirec`
 
-Add a new medicine under directory specified by the path. +
+Add a new directory under the directory specified by the path. +
 
-Format: `addMed PATH MEDICINE_NAME [QUANTITY]`
+[[addmed, Add medicine]]
+==== Add medicine into storage: `addmed`
+
+Add a new medicine under directory specified by the path or to add an existing medicine under directory specified. +
+
+Format: `addmed PATH MEDICINE_NAME q/QUANTITY p/PRICE` for new medicine
+        `addmed PATH MEDICINE_NAME` for existing medicine
 
 Example:
 
-* `addMed root\TCM healroot 50` +
-Add a new medicine with name "healroot" and quantity 50 at directory root\TCM
+* `addmed root\TCM healroot q/50 p/3.14` +
+Add a new medicine with name "healroot" with quantity 50 and price $3.14 at directory root\TCM
 
-[[viewMed, View medicines]]
-==== View medicine storage: `viewMed`
+* `addmed root\TCM healroot` +
+Assume a medicine named healroot already exists in the storage, place it under directory root\TCM
+
+[[listmed, List medicines]]
+==== View medicine storage: `listmed`
 
 View the specific information about the directory or medicine specified by the path +
 
-Format: `medstorage PATH`
+Format: `listmed PATH`
 
 Example:
 
-* `medstorage root\TCM` +
+* `listmed root\TCM` +
 Shows the sub-directories and medicines stored under the directory root\TCM
 
-[[setalert, Set alert threshold for medicine]]
-==== Setting notification for low stock: `setalert`
+[[alarm, Set alert threshold for medicine]]
+==== Setting notification for low stock: `alarm`
 
-An automatic notification will pop up when the storage of any medicine fall below the specific alert value set by the user
+If the path specified corresponds to a medicine, set the alarm level for that specific medicine.
 
-Format: `setalert MEDICINE AMOUNT`
+If the path soecified corresponds to a directory, set the alarm level for all medicine under that directory and all its sub-directories.
+
+An automatic notification will pop up when the storage of any medicine fall below the alert value of that medicine set by the user.
+
+Format: `alarm PATH AMOUNT`
 
 Example:
 
-* `setalert panadol 50` +
+* `alarm root\fever\panadol 50` +
 Sets the alert level of panadol storage to 50. A notification will appear when amount of panadol falls below 50.
 
-[[buyMed, Buying a medicine, adding it to inventory count]]
-==== Recording purchases of medicine: `buyMed`
+* `alarm root\fever 50` +
+Sets the alart level of every medicine under root\fever to 50. SO do all medicines under its subdirectories and subdirectories of subdirectories and so on.
 
-Adds the purchase of medicine into the medicine inventory, and updates the inventory accordingly. +
+[[buymed, Buying a medicine, adding it to inventory count]]
+==== Recording purchases of medicine: `buymed`
+
+Records the purchase of medicine into the medicine inventory, and updates the inventory accordingly. +
 
 Format: +
-`buyMed MEDICINE_NAME AMOUNT COST` +
+`buyMed MEDICINE_NAME AMOUNT UNIT_COST` +
 
 or
 
-`buyMed PATH_OF_MEDICINE AMOUNT COST`
+`buyMed PATH_OF_MEDICINE AMOUNT UNIT_COST`
 
 Example:
 
-* `buyMed panadol 10 400` +
-* `buyMed root\panadol 10 400` +
+* `buymed panadol 10 4.3` +
+Purchases 10 units of panadol at a unit price of $4.3.
+
+* `buymed root\fever\panadol 10 4.3` +
+Purchases 10 units of panadol under directory root\fever at a unit price of $4.3.
 
 [NOTE]
 The first input after the command name can either be the name of the medicine itself `MEDICINE_NAME` or path of the medicine `PATH_OF_MEDICINE`.
-
-[[purchaserecord, View the purchase record of a medicine]]
-==== View past record of medicine purchase: `purchaserecord`
-View the past record of medicine purchase +
-
-Format: purchaseRecord MEDICINE_NAME+
-
-Example: `purchaseRecord panadol`
 
 ==== View the detailed information about any medicine: [coming in V2.0]
 Using external APIs, the users could view more detailed information about any medicine.

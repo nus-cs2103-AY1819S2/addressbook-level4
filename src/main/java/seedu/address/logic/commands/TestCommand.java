@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 
 /**
- * Test a card folder identified using it's displayed index from the card folder list.
+ * Enters a test session using the current card folder.
  */
 public class TestCommand extends Command {
 

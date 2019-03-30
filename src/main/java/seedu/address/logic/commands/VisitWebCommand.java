@@ -20,9 +20,13 @@ public class VisitWebCommand extends Command {
     public static final String COMMAND_WORD = "visitWeb";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Visits a restaurant website identified using it's displayed index from the food diary.\n"
+            + ": Visits a restaurant website identified using it's displayed index from the food diary\n"
+            + "or you can simply type any url to display it on our browser!"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: URL (must be a valid URL)\n"
+            + "Example: " + COMMAND_WORD + " 1"
+            + "Example: " + COMMAND_WORD + " www.jollibee.com.ph";
+
 
     public static final String MESSAGE_VISIT_RESTAURANT_SUCCESS = "Displaying Website of Restaurant: %1$s";
     public static final String MESSAGE_VISIT_WEBLINK = "Displaying website : %1$s";

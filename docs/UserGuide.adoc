@@ -322,6 +322,7 @@ This command is only considered valid when inside the folder to be tested and is
 ====
 * Only questions and hints are presented and users are required to either input an attempt or enter the command to
 reveal the answer.
+* For MCQ cards, the ordering of options will be randomized each time the card is tested.
 * Internally, flashcards in a folder are queued to be displayed one by one in the order of lowest existing score to highest existing score.
 * The next card will only be presented when the next command is carried out.
 ====
@@ -354,6 +355,8 @@ shows if it is correct or wrong.
 ====
 * Answering a flashcard will increase the total number of attempts. If the answer is correct, the action will also increase the number of correct attempt.
 * Answer matching is case insensitive.
+* To answer MCQ cards, enter the number of option that you think is correct, rather than the option itself. +
+E.g. `ans 1` rather than `ans myanswer`
 ====
 
 If the answer has been submitted successfully and it is wrong, you will see the following page (see Figure 2).

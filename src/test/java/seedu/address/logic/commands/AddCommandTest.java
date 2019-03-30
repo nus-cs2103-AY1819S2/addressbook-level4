@@ -284,7 +284,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void exitFoldersToHome() {
+        public void exitFolderToHome() {
             throw new AssertionError("This method should not be called.");
         }
 

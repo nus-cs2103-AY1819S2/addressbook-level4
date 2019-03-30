@@ -138,7 +138,7 @@ public interface Model extends Observable {
     /**
      * Sets the Model back to the home directory, outside of any {@code CardFolder}.
      */
-    void exitFoldersToHome();
+    void exitFolderToHome();
 
     boolean isInFolder();
 

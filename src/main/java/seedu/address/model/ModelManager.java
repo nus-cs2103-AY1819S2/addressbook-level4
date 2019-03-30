@@ -225,8 +225,8 @@ public class ModelManager implements Model {
 
     @Override
     public void renameFolder(int index, String newName) {
-        CardFolder toRename = folders.get(index);
-        toRename.rename(newName);
+        CardFolder folderToRename = folders.get(index);
+        folderToRename.rename(newName);
         indicateModified();
     }
 
@@ -237,9 +237,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void exitFoldersToHome() {
-        removeSelectedCard();
+    public void exitFolderToHome() {
         inFolder = false;
+        removeSelectedCard();
     }
 
     @Override

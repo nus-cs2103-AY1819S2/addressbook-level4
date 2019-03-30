@@ -84,7 +84,7 @@ public class ChangeCommand extends Command {
         if (!model.isInFolder()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
-        model.exitFoldersToHome();
+        model.exitFolderToHome();
         return new CommandResult(MESSAGE_EXIT_FOLDER_SUCCESS, CommandResult.Type.EXITED_FOLDER);
     }
 

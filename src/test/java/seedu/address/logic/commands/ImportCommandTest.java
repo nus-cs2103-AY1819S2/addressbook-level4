@@ -51,8 +51,8 @@ public class ImportCommandTest {
     public ImportCommandTest() throws IOException {
         model.setTestCsvPath();
         expectedModel.setTestCsvPath();
-        model.exitFoldersToHome();
-        expectedModel.exitFoldersToHome();
+        model.exitFolderToHome();
+        expectedModel.exitFolderToHome();
     }
 
     @Before

@@ -38,7 +38,7 @@ public class ExportCommandTest {
 
     @Before
     public void setUp() {
-        model.exitFoldersToHome();
+        model.exitFolderToHome();
     }
 
 

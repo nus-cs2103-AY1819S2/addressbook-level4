@@ -8,10 +8,9 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.logic.commands.WarningCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
-import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
 import seedu.address.model.threshold.Threshold;
 
 /**
@@ -39,13 +38,11 @@ public class WarningCommandParser implements Parser<WarningCommand> {
 
         if (optionalExpiryThreshold.isPresent()) {
             Threshold threshold = ParserUtil.parseThreshold(optionalExpiryThreshold.get());
-            predicate = new MedicineExpiryThresholdPredicate(threshold);
-        } else if (optionalLowStockThreshold.isPresent()) {
+            return new WarningCommand(WarningPanelPredicateType.EXPIRY, threshold);
+        } else {
             Threshold threshold = ParserUtil.parseThreshold(optionalLowStockThreshold.get());
-            predicate = new MedicineLowStockThresholdPredicate(threshold);
+            return new WarningCommand(WarningPanelPredicateType.LOW_STOCK, threshold);
         }
-
-        return new WarningCommand(predicate);
     }
 
     /**

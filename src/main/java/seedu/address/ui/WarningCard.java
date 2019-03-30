@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import seedu.address.commons.util.warning.WarningPanelListType;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.Medicine;
@@ -35,7 +35,7 @@ public class WarningCard extends UiPart<Region> {
     private Text field;
 
     public WarningCard(Medicine medicine, int displayedIndex,
-                       WarningPanelListType listType,
+                       WarningPanelPredicateType listType,
                        WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
         super(FXML);
         this.medicine = medicine;

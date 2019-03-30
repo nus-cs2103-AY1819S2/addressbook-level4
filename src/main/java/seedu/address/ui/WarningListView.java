@@ -9,7 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.warning.WarningPanelListType;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
 
@@ -23,11 +23,11 @@ public class WarningListView extends UiPart<Region> {
     @FXML
     private ListView<Medicine> warningListView;
 
-    private final WarningPanelListType listType;
+    private final WarningPanelPredicateType listType;
     private final WarningPanelPredicateAccessor warningPanelPredicateAccessor;
 
     public WarningListView(ObservableList<Medicine> medicineList,
-                           WarningPanelListType listType,
+                           WarningPanelPredicateType listType,
                            WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
         super(FXML);
 

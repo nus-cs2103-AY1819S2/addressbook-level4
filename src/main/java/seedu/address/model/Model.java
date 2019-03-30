@@ -6,19 +6,24 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.WarningPanelSettings;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.threshold.Threshold;
+import seedu.address.ui.WarningPanel;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** Default {@code Threshold} used for expiry */
-    Threshold DEFAULT_EXPIRY_THRESHOLD = new Threshold("10");
+    Threshold DEFAULT_EXPIRY_THRESHOLD = new Threshold(Integer
+            .toString(WarningPanelSettings.DEFAULT_EXPIRY_THRESHOLD_VALUE));
 
     /** Default {@code Threshold} used for low stock */
-    Threshold DEFAULT_LOW_STOCK_THRESHOLD = new Threshold("20");
+    Threshold DEFAULT_LOW_STOCK_THRESHOLD = new Threshold(Integer
+            .toString(WarningPanelSettings.DEFAULT_LOW_STOCK_THRESHOLD_VALUE));
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;
@@ -42,6 +47,16 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Returns the user prefs' WarningPanel settings.
+     */
+    WarningPanelSettings getWarningPanelSettings();
+
+    /**
+     * Sets the user prefs' GUI settings.
+     */
+    void setWarningPanelSettings(WarningPanelSettings warningPanelSettings);
 
     /**
      * Returns the user prefs' inventory file path.
@@ -156,4 +171,14 @@ public interface Model {
      * Sets the selected medicine in the filtered medicine list.
      */
     void setSelectedMedicine(Medicine medicine);
+
+    /**
+     * Changes threshold used in warning panel list.
+     */
+    void changeWarningPanelListThreshold(WarningPanelPredicateType type, Threshold threshold);
+
+    /**
+     * Returns current threshold used in warning panel, based on type requested.
+     */
+    Threshold getWarningPanelThreshold(WarningPanelPredicateType type);
 }

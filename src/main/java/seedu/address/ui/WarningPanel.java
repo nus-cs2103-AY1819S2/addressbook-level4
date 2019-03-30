@@ -8,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.warning.WarningPanelListType;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
 
@@ -42,13 +42,13 @@ public class WarningPanel extends UiPart<Region> {
         expiringListTitle.getStyleClass().add("label-warning-panel");
         warningVBox.getChildren().addAll(expiringListTitle,
                 new WarningListView(expiringMedicineList,
-                WarningPanelListType.EXPIRY, warningPanelPredicateAccessor).getRoot());
+                WarningPanelPredicateType.EXPIRY, warningPanelPredicateAccessor).getRoot());
 
         Label lowQuantityListTitle = new Label(String.format("%-40s", "Low in Stock")); //right-pad title
         lowQuantityListTitle.getStyleClass().add("label-warning-panel");
         warningVBox.getChildren().addAll(lowQuantityListTitle,
                 new WarningListView(lowQuantityMedicineList,
-                WarningPanelListType.LOW_STOCK, warningPanelPredicateAccessor).getRoot());
+                WarningPanelPredicateType.LOW_STOCK, warningPanelPredicateAccessor).getRoot());
 
     }
 

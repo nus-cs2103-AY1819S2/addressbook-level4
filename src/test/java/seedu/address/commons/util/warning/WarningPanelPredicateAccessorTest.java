@@ -17,7 +17,7 @@ public class WarningPanelPredicateAccessorTest {
     public void equals() {
         WarningPanelPredicateAccessor firstAccessor = new WarningPanelPredicateAccessor();
         WarningPanelPredicateAccessor secondAccessor = new WarningPanelPredicateAccessor();
-        secondAccessor.setBatchExpiringThreshold(0);
+        secondAccessor.updateBatchExpiringThreshold(0);
 
         // same object -> returns true
         assertTrue(firstAccessor.equals(firstAccessor));
@@ -96,7 +96,7 @@ public class WarningPanelPredicateAccessorTest {
         assertFalse(accessor.getBatchExpiryPredicate().equals(otherPredicate));
 
         // set new threshold
-        accessor.setBatchExpiringThreshold(otherThreshold.getNumericValue());
+        accessor.updateBatchExpiringThreshold(otherThreshold.getNumericValue());
 
         // same predicate -> returns true
         assertTrue(accessor.getBatchExpiryPredicate().equals(otherPredicate));
@@ -122,7 +122,7 @@ public class WarningPanelPredicateAccessorTest {
         assertFalse(accessor.getMedicineExpiryPredicate().equals(otherPredicate));
 
         // set new threshold
-        accessor.setMedicineExpiringThreshold(otherThreshold.getNumericValue());
+        accessor.updateMedicineExpiringThreshold(otherThreshold.getNumericValue());
 
         // same predicate -> returns true
         assertTrue(accessor.getMedicineExpiryPredicate().equals(otherPredicate));
@@ -148,7 +148,7 @@ public class WarningPanelPredicateAccessorTest {
         assertFalse(accessor.getMedicineLowStockPredicate().equals(otherPredicate));
 
         // set new threshold
-        accessor.setMedicineLowStockThreshold(otherThreshold.getNumericValue());
+        accessor.updateMedicineLowStockThreshold(otherThreshold.getNumericValue());
 
         // same predicate -> returns true
         assertTrue(accessor.getMedicineLowStockPredicate().equals(otherPredicate));

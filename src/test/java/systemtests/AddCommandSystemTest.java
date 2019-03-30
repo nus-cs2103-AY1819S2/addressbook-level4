@@ -1,40 +1,40 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_1;
-import static seedu.address.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_2;
-import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.HINT_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_1;
-import static seedu.address.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ANSWER_2;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_QUESTION_2;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_HINT;
-import static seedu.address.testutil.TypicalCards.ALICE;
-import static seedu.address.testutil.TypicalCards.CARD_1;
-import static seedu.address.testutil.TypicalCards.CARD_2;
-import static seedu.address.testutil.TypicalCards.CARL;
-import static seedu.address.testutil.TypicalCards.HOON;
-import static seedu.address.testutil.TypicalCards.IDA;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.knowitall.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_1;
+import static seedu.knowitall.logic.commands.CommandTestUtil.ANSWER_DESC_SAMPLE_2;
+import static seedu.knowitall.logic.commands.CommandTestUtil.HINT_DESC_FRIEND;
+import static seedu.knowitall.logic.commands.CommandTestUtil.HINT_DESC_HUSBAND;
+import static seedu.knowitall.logic.commands.CommandTestUtil.INVALID_ANSWER_DESC;
+import static seedu.knowitall.logic.commands.CommandTestUtil.INVALID_HINT_DESC;
+import static seedu.knowitall.logic.commands.CommandTestUtil.INVALID_QUESTION_DESC;
+import static seedu.knowitall.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_1;
+import static seedu.knowitall.logic.commands.CommandTestUtil.QUESTION_DESC_SAMPLE_2;
+import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_ANSWER_2;
+import static seedu.knowitall.logic.commands.CommandTestUtil.VALID_QUESTION_2;
+import static seedu.knowitall.logic.parser.CliSyntax.PREFIX_HINT;
+import static seedu.knowitall.testutil.TypicalCards.ALICE;
+import static seedu.knowitall.testutil.TypicalCards.CARD_1;
+import static seedu.knowitall.testutil.TypicalCards.CARD_2;
+import static seedu.knowitall.testutil.TypicalCards.CARL;
+import static seedu.knowitall.testutil.TypicalCards.HOON;
+import static seedu.knowitall.testutil.TypicalCards.IDA;
+import static seedu.knowitall.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.card.Answer;
-import seedu.address.model.card.Card;
-import seedu.address.model.card.Question;
-import seedu.address.model.hint.Hint;
-import seedu.address.testutil.CardBuilder;
-import seedu.address.testutil.CardUtil;
+import seedu.knowitall.commons.core.Messages;
+import seedu.knowitall.commons.core.index.Index;
+import seedu.knowitall.logic.commands.AddCommand;
+import seedu.knowitall.logic.commands.RedoCommand;
+import seedu.knowitall.logic.commands.UndoCommand;
+import seedu.knowitall.model.Model;
+import seedu.knowitall.model.card.Answer;
+import seedu.knowitall.model.card.Card;
+import seedu.knowitall.model.card.Question;
+import seedu.knowitall.model.hint.Hint;
+import seedu.knowitall.testutil.CardBuilder;
+import seedu.knowitall.testutil.CardUtil;
 
 public class AddCommandSystemTest extends CardFolderSystemTest {
 

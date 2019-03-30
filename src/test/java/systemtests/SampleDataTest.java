@@ -1,6 +1,6 @@
 package systemtests;
 
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.knowitall.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,10 +8,10 @@ import java.nio.file.Path;
 
 import org.junit.Test;
 
-import seedu.address.model.CardFolder;
-import seedu.address.model.card.Card;
-import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.knowitall.model.CardFolder;
+import seedu.knowitall.model.card.Card;
+import seedu.knowitall.model.util.SampleDataUtil;
+import seedu.knowitall.testutil.TestUtil;
 
 public class SampleDataTest extends CardFolderSystemTest {
     /**

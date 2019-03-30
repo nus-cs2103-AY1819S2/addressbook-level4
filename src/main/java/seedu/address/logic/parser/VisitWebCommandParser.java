@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.VisitWebCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.restaurant.Weblink;
 
 /**
  * Parses input arguments and creates a new VisitWebCommand object
@@ -20,6 +21,15 @@ public class VisitWebCommandParser implements Parser<VisitWebCommand> {
         try {
             Index index = ParserUtil.parseIndex(args);
             return new VisitWebCommand(index);
+        } catch (ParseException pe) {
+            return parseUrl(args);
+        }
+    }
+
+    private VisitWebCommand parseUrl(String args) throws ParseException {
+        try {
+            Weblink weblink = ParserUtil.parseWeblink(args);
+            return new VisitWebCommand(weblink);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, VisitWebCommand.MESSAGE_USAGE), pe);

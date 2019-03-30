@@ -15,6 +15,14 @@ import seedu.address.model.hint.Hint;
  */
 public class Card {
 
+    /**
+     * {@code CardType} representing the type of Card question.
+     */
+    public enum CardType {
+        MCQ,
+        SINGLE_ANSWER
+    }
+
     // Identity fields
     private final Question question;
     private final Answer answer;
@@ -23,6 +31,7 @@ public class Card {
     private final Score score;
     private final Set<Option> options = new HashSet<>();
     private final Set<Hint> hints = new HashSet<>();
+    private CardType type;
 
     /**
      * Every field must be present and not null.
@@ -34,6 +43,11 @@ public class Card {
         this.score = score;
         this.options.addAll(options);
         this.hints.addAll(hints);
+        if (options.isEmpty()) {
+            this.type = CardType.SINGLE_ANSWER;
+        } else {
+            this.type = CardType.MCQ;
+        }
     }
 
     public Question getQuestion() {
@@ -62,6 +76,13 @@ public class Card {
      */
     public Set<Option> getOptions() {
         return Collections.unmodifiableSet(options);
+    }
+
+    /**
+     * Returns the assigned {@code CardType} of this Card.
+     */
+    public CardType getCardType() {
+        return this.type;
     }
 
     /**

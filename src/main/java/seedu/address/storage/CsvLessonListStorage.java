@@ -226,8 +226,9 @@ public class CsvLessonListStorage implements LessonListStorage {
 
         List<Path> paths = getFilePathsInFolder(folderPath);
 
-        if(paths == null)
+        if (paths == null) {
             return Optional.empty();
+        }
 
         LessonList lessonList = new LessonList();
         for (Path filePath : paths) {

@@ -15,7 +15,7 @@ import seedu.address.model.task.Task;
 /**
  * Copy a temporary person to the address book.
  */
-public class TaskcopyCommand extends Command {
+public class TaskCopyCommand extends Command {
 
     public static final String COMMAND_WORD = "taskcopy";
 
@@ -30,9 +30,9 @@ public class TaskcopyCommand extends Command {
     private final int numOfCopies;
 
     /**
-     * Creates an TaskcopyCommand to add the specified {@code Person}
+     * Creates an TaskCopyCommand to add the specified {@code Person}
      */
-    public TaskcopyCommand(Index index, int numOfCopies) {
+    public TaskCopyCommand(Index index, int numOfCopies) {
         requireNonNull(index);
         this.index = index;
         this.numOfCopies = numOfCopies;
@@ -64,7 +64,7 @@ public class TaskcopyCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskcopyCommand // instanceof handles nulls
-                && index.equals(((TaskcopyCommand) other).index));
+                || (other instanceof TaskCopyCommand // instanceof handles nulls
+                && index.equals(((TaskCopyCommand) other).index));
     }
 }

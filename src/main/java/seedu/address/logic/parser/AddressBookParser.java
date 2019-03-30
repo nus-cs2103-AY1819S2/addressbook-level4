@@ -6,31 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CopyCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.ExitAnywayCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ImportCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.OpenCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SaveCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.commands.StatsCommand;
-import seedu.address.logic.commands.TaskAddCommand;
-import seedu.address.logic.commands.TaskDeleteCommand;
-import seedu.address.logic.commands.TaskEditCommand;
-import seedu.address.logic.commands.TaskcopyCommand;
-import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.TaskCopyCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -125,8 +102,8 @@ public class AddressBookParser {
         case TaskDeleteCommand.COMMAND_WORD:
             return new TaskDeleteCommandParser().parse(arguments);
 
-        case TaskcopyCommand.COMMAND_WORD:
-            return new TaskcopyCommandParser().parse(arguments);
+        case TaskCopyCommand.COMMAND_WORD:
+            return new TaskCopyCommandParser().parse(arguments);
 
         case ExitAnywayCommand.COMMAND_WORD:
             return new ExitAnywayCommand();

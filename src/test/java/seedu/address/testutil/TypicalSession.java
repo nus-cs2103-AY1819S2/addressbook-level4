@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import static seedu.address.testutil.TypicalCards.CARD_JAPAN;
-import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
+import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
 
 import java.time.Duration;
 import java.time.Instant;

@@ -187,7 +187,7 @@ public class PersonBuilder {
     /**
      * A utility class to help with building NextOfKin objects.
      */
-    public class NextOfKinBuilder {
+    public static class NextOfKinBuilder {
         private static final String DEFAULT_KIN_NAME = "Benny Pauline";
         private static final String DEFAULT_KIN_RELATION = "Father";
         private static final String DEFAULT_KIN_PHONE = "95121347";

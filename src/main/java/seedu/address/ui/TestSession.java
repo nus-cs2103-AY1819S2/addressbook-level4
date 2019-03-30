@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXML;
@@ -49,8 +47,8 @@ public class TestSession extends UiPart<Region> {
         testSessionPage.getChildren().clear();
         testCardQuestion.setText(cardToTest.getQuestion().fullQuestion);
         testCardOptions.setText("");
-        if (!cardToTest.getOptions().isEmpty()) {
-            List<String> completeOptions = constructOptionList(cardToTest);
+        if (cardToTest.getCardType() == Card.CardType.MCQ) {
+            List<String> completeOptions = cardToTest.getRandomizedMcqOptions();
             for (int i = 1; i <= completeOptions.size(); i++) {
                 testCardOptions.setText(testCardOptions.getText() + i + ") " + completeOptions.get(i - 1) + "\n");
             }
@@ -75,19 +73,5 @@ public class TestSession extends UiPart<Region> {
         testSessionPage.setStyle("-fx-background-color: #ED553B;");
         testMessage.setText(MESSAGE_WRONG_ANSWER);
         testSessionPage.getChildren().addAll(testCardAnswer, testMessage);
-    }
-
-    /**
-     * Constructs a randomized list of options, inclusive of the answer, for MCQ cards.
-     * @param card card to be tested.
-     * @return randomized list of options.
-     */
-    private List<String> constructOptionList(Card card) {
-        assert !card.getOptions().isEmpty();
-        List<String> result = new ArrayList<>();
-        card.getOptions().forEach(option -> result.add(option.optionValue));
-        result.add(card.getAnswer().fullAnswer);
-        Collections.shuffle(result);
-        return result;
     }
 }

@@ -266,12 +266,26 @@ public class AddCommandTest {
         }
 
         @Override
+
+        public void setSelectedModuleInfo (ModuleInfo moduleInfo) {
+            throw new AssertionError("This method should not be called");
+        }
+
         public ObservableList<ModuleInfoCode> getRecModuleListSorted() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
+        public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
+            throw new AssertionError("This methdo should not be called");
+        }
+
         public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ModuleInfo getSelectedModuleInfo() {
             throw new AssertionError("This method should not be called");
         }
 

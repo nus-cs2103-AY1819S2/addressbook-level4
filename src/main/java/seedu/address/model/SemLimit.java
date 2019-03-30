@@ -4,7 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 
 /**
@@ -14,29 +14,47 @@ import seedu.address.model.moduletaken.Hour;
 public class SemLimit {
 
     // Data fields
-    private final Grade minGrade;
-    private final Grade maxGrade;
+    private final CapAverage minCap;
+    private final CapAverage maxCap;
     private final Hour minLectureHour;
     private final Hour maxLectureHour;
+    private final Hour minTutorialHour;
+    private final Hour maxTutorialHour;
+    private final Hour minLabHour;
+    private final Hour maxLabHour;
+    private final Hour minProjectHour;
+    private final Hour maxProjectHour;
+    private final Hour minPreparationHour;
+    private final Hour maxPreparationHour;
 
     /**
      * Every field must be present and not null.
      */
-    public SemLimit(Grade minGrade, Grade maxGrade, Hour minLectureHour,
-                       Hour maxLectureHour) {
-        requireAllNonNull(minGrade, maxGrade, minLectureHour, maxLectureHour);
-        this.minGrade = minGrade;
-        this.maxGrade = minGrade;
+    public SemLimit(CapAverage minCap, CapAverage maxCap, Hour minLectureHour, Hour maxLectureHour,
+                    Hour minTutorialHour, Hour maxTutorialHour, Hour minLabHour, Hour maxLabHour,
+                    Hour minProjectHour, Hour maxProjectHour, Hour minPreparationHour, Hour maxPreparationHour) {
+        requireAllNonNull(minCap, maxCap, minLectureHour, maxLectureHour, minTutorialHour, maxTutorialHour,
+                minLabHour, maxLabHour, minProjectHour, maxProjectHour, maxPreparationHour);
+        this.minCap = minCap;
+        this.maxCap = maxCap;
         this.minLectureHour = minLectureHour;
         this.maxLectureHour = maxLectureHour;
+        this.minTutorialHour = minTutorialHour;
+        this.maxTutorialHour = maxTutorialHour;
+        this.minLabHour = minLabHour;
+        this.maxLabHour = maxLabHour;
+        this.minProjectHour = minProjectHour;
+        this.maxProjectHour = maxProjectHour;
+        this.minPreparationHour = minPreparationHour;
+        this.maxPreparationHour = maxPreparationHour;
     }
 
-    public Grade getMinGrade() {
-        return minGrade;
+    public CapAverage getMinCap() {
+        return minCap;
     }
 
-    public Grade getMaxGrade() {
-        return maxGrade;
+    public CapAverage getMaxCap() {
+        return maxCap;
     }
 
     public Hour getMinLectureHour() {
@@ -45,6 +63,38 @@ public class SemLimit {
 
     public Hour getMaxLectureHour() {
         return maxLectureHour;
+    }
+
+    public Hour getMinTutorialHour() {
+        return minTutorialHour;
+    }
+
+    public Hour getMaxTutorialHour() {
+        return maxTutorialHour;
+    }
+
+    public Hour getMinLabHour() {
+        return minLabHour;
+    }
+
+    public Hour getMaxLabHour() {
+        return maxLabHour;
+    }
+
+    public Hour getMinProjectHour() {
+        return minProjectHour;
+    }
+
+    public Hour getMaxProjectHour() {
+        return maxProjectHour;
+    }
+
+    public Hour getMinPreparationHour() {
+        return minPreparationHour;
+    }
+
+    public Hour getMaxPreparationHour() {
+        return maxPreparationHour;
     }
 
     /**
@@ -61,29 +111,53 @@ public class SemLimit {
         }
 
         SemLimit otherSemLimit = (SemLimit) other;
-        return otherSemLimit.getMinGrade().equals(getMinGrade())
-                && otherSemLimit.getMaxGrade().equals(getMaxGrade())
+        return otherSemLimit.getMinCap().equals(getMinCap())
+                && otherSemLimit.getMaxCap().equals(getMaxCap())
                 && otherSemLimit.getMinLectureHour().equals(getMinLectureHour())
-                && otherSemLimit.getMaxLectureHour().equals(getMaxLectureHour());
+                && otherSemLimit.getMaxLectureHour().equals(getMaxLectureHour())
+                && otherSemLimit.getMinTutorialHour().equals(getMinTutorialHour())
+                && otherSemLimit.getMaxTutorialHour().equals(getMaxTutorialHour())
+                && otherSemLimit.getMinLabHour().equals(getMinLabHour())
+                && otherSemLimit.getMaxLabHour().equals(getMaxLabHour())
+                && otherSemLimit.getMinProjectHour().equals(getMinProjectHour())
+                && otherSemLimit.getMaxProjectHour().equals(getMaxProjectHour())
+                && otherSemLimit.getMinPreparationHour().equals(getMinPreparationHour())
+                && otherSemLimit.getMaxPreparationHour().equals(getMaxPreparationHour());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(minGrade, maxGrade, minLectureHour, maxLectureHour);
+        return Objects.hash(minCap, maxCap, minLectureHour, maxLectureHour);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Min Grade: ")
-                .append(getMinGrade())
-                .append(" Max Grade: ")
-                .append(getMaxGrade())
+        builder.append(" Min CAP: ")
+                .append(getMinCap())
+                .append(" Max CAP: ")
+                .append(getMaxCap())
                 .append(" Min Lecture Hour: ")
                 .append(getMinLectureHour())
                 .append(" Max Lecture Hour: ")
-                .append(getMaxLectureHour());
+                .append(getMaxLectureHour())
+                .append(" Min Tutorial Hour: ")
+                .append(getMinTutorialHour())
+                .append(" Max Tutorial Hour: ")
+                .append(getMaxTutorialHour())
+                .append(" Min Lab Hour: ")
+                .append(getMinLabHour())
+                .append(" Max Lab Hour: ")
+                .append(getMaxLabHour())
+                .append(" Min Project Hour: ")
+                .append(getMinProjectHour())
+                .append(" Max Project Hour: ")
+                .append(getMaxProjectHour())
+                .append(" Min Preparation Hour: ")
+                .append(getMinPreparationHour())
+                .append(" Max Preparation Hour: ")
+                .append(getMaxPreparationHour());
         return builder.toString();
     }
 }

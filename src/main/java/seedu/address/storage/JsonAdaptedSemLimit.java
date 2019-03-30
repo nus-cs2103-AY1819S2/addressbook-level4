@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.SemLimit;
-import seedu.address.model.moduletaken.Grade;
+import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Hour;
 
 /**
@@ -37,10 +37,18 @@ public class JsonAdaptedSemLimit {
      * Converts a give {@code SemLimit} into this class for Jackson use.
      */
     public JsonAdaptedSemLimit(SemLimit semLimit) {
-        this.minGrade = semLimit.getMinGrade().name();
-        this.maxGrade = semLimit.getMaxGrade().name();
+        this.minGrade = semLimit.getMinCap().toString();
+        this.maxGrade = semLimit.getMaxCap().toString();
         this.minLectureHour = semLimit.getMinLectureHour().toString();
         this.maxLectureHour = semLimit.getMaxLectureHour().toString();
+    }
+
+    public String getMinGrade() {
+        return minGrade;
+    }
+
+    public String getMaxGrade() {
+        return maxGrade;
     }
 
     /**
@@ -66,8 +74,9 @@ public class JsonAdaptedSemLimit {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "maxLectureHour"));
         }
-        return new SemLimit(Grade.getGrade(minGrade), Grade.getGrade(maxGrade),
-                            new Hour(minLectureHour), new Hour(maxLectureHour));
+        return new SemLimit(new CapAverage(0.0), new CapAverage(0.0), new Hour(minLectureHour),
+                new Hour(maxLectureHour), new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"),
+                new Hour("0"), new Hour("0"), new Hour("0"));
 
     }
 }

@@ -26,6 +26,8 @@ import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
 import seedu.address.model.course.CourseRequirement;
+import seedu.address.model.moduleinfo.CodeContainsKeywordsPredicate;
+
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -45,13 +47,14 @@ public class ModelManager implements Model {
     private final VersionedGradTrak versionedGradTrak;
     private final UserPrefs userPrefs;
     private final FilteredList<ModuleTaken> filteredModulesTaken;
-    private final FilteredList<SemLimit> semesterLimitList;
     private final SimpleObjectProperty<ModuleTaken> selectedModuleTaken = new SimpleObjectProperty<>();
 
     //Model Information List for Model Manager to have Module Info List and list to be printed for displaymod
     private final ObservableList<ModuleInfo> allModules;
     private final FilteredList<ModuleInfo> displayList;
+    private final SimpleObjectProperty<ModuleInfo> selectedModuleInfo = new SimpleObjectProperty<>();
     private final ModuleInfoList moduleInfoList;
+
 
     private final ObservableList<Course> allCourses;
     private final CourseList courseList;
@@ -69,7 +72,7 @@ public class ModelManager implements Model {
                         ModuleInfoList allModules, CourseList allCourses,
                         UserInfo userInfo) {
         super();
-        requireAllNonNull(gradTrak, userPrefs);
+        requireAllNonNull(gradTrak, userPrefs, allModules);
 
         logger.fine("Initializing with Gradtrak: " + gradTrak + " and user prefs " + userPrefs);
 
@@ -77,11 +80,12 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredModulesTaken = new FilteredList<>(versionedGradTrak.getModulesTakenList());
         filteredModulesTaken.addListener(this::ensureSelectedModuleTakenIsValid);
-        semesterLimitList = new FilteredList<>(versionedGradTrak.getSemesterLimitList());
 
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
         this.allModules = allModules.getObservableList();
         this.displayList = new FilteredList<>(this.allModules);
+        this.updateDisplayList(new CodeContainsKeywordsPredicate(null));
+
         this.moduleInfoList = allModules;
 
         this.recModuleList = new FilteredList<>(allModules.getObservableCodeList());
@@ -229,7 +233,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<SemLimit> getSemLimitList() {
-        return semesterLimitList;
+        return versionedGradTrak.getSemesterLimitList();
     }
 
     @Override
@@ -314,6 +318,29 @@ public class ModelManager implements Model {
         displayList.setPredicate(predicate);
     }
 
+
+    @Override
+    public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
+        return selectedModuleInfo;
+    }
+
+    @Override
+    public ModuleInfo getSelectedModuleInfo() {
+        return selectedModuleInfo.getValue();
+    }
+
+    @Override
+    public void setSelectedModuleInfo(ModuleInfo moduleInfo) {
+        if (moduleInfo != null && !displayList.contains(moduleInfo)) {
+            //temp solution TODO: HERE!!!
+            throw new ModuleTakenNotFoundException();
+        }
+        selectedModuleInfo.setValue(moduleInfo);
+    }
+
+
+
+
     //=========== Module recommendation ===========================================================================
     @Override
     public ObservableList<ModuleInfoCode> getRecModuleListSorted() {
@@ -328,6 +355,7 @@ public class ModelManager implements Model {
 
         return recModuleManager.getCodeToReqMap();
     }
+
 
     /**
      * Ensures {@code selectedModuleTaken} is a valid moduleTaken in {@code filteredModulesTaken}.

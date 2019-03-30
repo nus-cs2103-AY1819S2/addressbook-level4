@@ -8,7 +8,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
+import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
@@ -68,5 +70,27 @@ public interface Logic {
      *
      * @see seedu.address.model.Model#setSelectedModuleTaken(ModuleTaken)
      */
+
     void setSelectedPerson(ModuleTaken moduleTaken);
+
+    /**
+     * Sets the selected person in the filtered person list.
+     *
+     * @see Model#selectedModuleInfoProperty()
+     */
+    ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty();
+
+    /**
+     * Sets the selected person in the filtered person list.
+     *
+     * @see seedu.address.model.Model#setSelectedModuleInfo(ModuleInfo)
+     */
+    void setSelectedModuleInfo(ModuleInfo moduleInfo);
+
+    /**
+     * Gets the filtered list based on the search
+     *
+     * @see Model#getDisplayList()
+     */
+    ObservableList<ModuleInfo> getDisplayList();
 }

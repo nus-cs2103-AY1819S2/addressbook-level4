@@ -68,12 +68,21 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
+     * Replaces the contents of the Semester Limit list with {@code semLimits}.
+     */
+    public void setSemesterLimits(List<SemLimit> semLimits) {
+        this.semesterLimitList.setSemesterLimits(semLimits);
+        indicateModified();
+    }
+
+    /**
      * Resets the existing data of this {@code GradTrak} with {@code newData}.
      */
     public void resetData(ReadOnlyGradTrak newData) {
         requireNonNull(newData);
 
         setModulesTaken(newData.getModulesTakenList());
+        setSemesterLimits(newData.getSemesterLimitList());
     }
 
     //// moduleTaken-level operations
@@ -106,6 +115,25 @@ public class GradTrak implements ReadOnlyGradTrak {
         requireNonNull(editedModuleTaken);
 
         modulesTaken.setPerson(target, editedModuleTaken);
+        indicateModified();
+    }
+
+    /**
+     * Adds  all the semester limits in the list to the SemesterLimitList.
+     */
+    public void addSemesterLimitList(ObservableList<SemLimit> s) {
+        for (int i = 0; i < s.size(); i++) {
+            this.semesterLimitList.add(s.get(i));
+        }
+        indicateModified();
+    }
+
+    /**
+     * Adds a moduleTaken to the address book.
+     * The moduleTaken must not already exist in the address book.
+     */
+    public void addSemesterLimit(SemLimit s) {
+        semesterLimitList.add(s);
         indicateModified();
     }
 

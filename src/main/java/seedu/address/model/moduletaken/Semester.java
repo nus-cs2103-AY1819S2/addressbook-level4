@@ -5,17 +5,17 @@ package seedu.address.model.moduletaken;
  */
 public enum Semester {
 
-    Y1S1(0, 1, 1, "Y1S1"),
-    Y1S2(1, 1, 2, "Y1S2"),
-    Y2S1(2, 2, 1, "Y2S1"),
-    Y2S2(3, 2, 2, "Y2S2"),
-    Y3S1(4, 3, 1, "Y3S1"),
-    Y3S2(5, 3, 2, "Y3S2"),
-    Y4S1(6, 4, 1, "Y4S1"),
-    Y4S2(7, 4, 2, "Y4S2"),
-    Y5S1(8, 5, 1, "Y5S1"),
-    Y5S2(9, 5, 2, "Y5S2"),
-    GRAD(10, 6, 1, "GRAD");
+    Y1S1(1, 1, 1, "Y1S1"),
+    Y1S2(2, 1, 2, "Y1S2"),
+    Y2S1(3, 2, 1, "Y2S1"),
+    Y2S2(4, 2, 2, "Y2S2"),
+    Y3S1(5, 3, 1, "Y3S1"),
+    Y3S2(6, 3, 2, "Y3S2"),
+    Y4S1(7, 4, 1, "Y4S1"),
+    Y4S2(8, 4, 2, "Y4S2"),
+    Y5S1(9, 5, 1, "Y5S1"),
+    Y5S2(10, 5, 2, "Y5S2"),
+    GRAD(11, 6, 1, "GRAD");
 
     public static final String MESSAGE_CONSTRAINTS = "Semester is Y{1-5}S{1-2}";
     private final int index;

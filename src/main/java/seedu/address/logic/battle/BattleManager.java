@@ -8,6 +8,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.battleship.Battleship;
 import seedu.address.model.cell.Cell;
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.player.Enemy;
 import seedu.address.model.player.Player;
 
 /**
@@ -23,24 +24,24 @@ public class BattleManager implements Battle {
     /**
      * The enemy player
      */
-    private Player aiPlayer;
+    private Enemy enemyPlayer;
 
-    public BattleManager(Player humanPlayer, Player aiPlayer) {
+    public BattleManager(Player humanPlayer, Enemy enemyPlayer) {
         requireNonNull(humanPlayer);
-        requireNonNull(aiPlayer);
+        requireNonNull(enemyPlayer);
         this.humanPlayer = humanPlayer;
-        this.aiPlayer = aiPlayer;
+        this.enemyPlayer = enemyPlayer;
     }
 
     @Override
     public void beginGame() {
-        return;
+        enemyPlayer.prepEnemy();
     }
 
     @Override
     public AttackResult humanPerformAttack(Coordinates coord) {
         requireNonNull(coord);
-        return performAttack(humanPlayer, aiPlayer, coord);
+        return performAttack(humanPlayer, enemyPlayer, coord);
     }
 
     /**
@@ -49,9 +50,9 @@ public class BattleManager implements Battle {
     private AttackResult performAttack(Player attacker, Player target, Coordinates coord) {
         logger.info(String.format(AttackResult.ATTACK, attacker.getName(), coord, target.getName()));
         try {
-            Cell cell = target.getMapGrid().getCell(coord);
-            if (cell.receiveAttack()) {
+            if (target.getMapGrid().attackCell(coord)) {
                 // we hit a ship
+                Cell cell = target.getMapGrid().getCell(coord);
                 Battleship hitShip = cell.getBattleship().get();
                 if (hitShip.isDestroyed()) {
                     return new AttackDestroyedShip(attacker, target, coord, hitShip);
@@ -72,6 +73,13 @@ public class BattleManager implements Battle {
     public AttackResult takeComputerTurn() {
         // AI takes its turn
 
+        Coordinates enemyAttack = enemyPlayer.enemyShootAt();
+
+        if (enemyPlayer.addToTargetHistory(enemyAttack)) {
+            AttackResult res = performAttack(enemyPlayer, humanPlayer, enemyAttack);
+            // update the enemy with it's result
+        }
+
         return null;
     }
 
@@ -87,7 +95,7 @@ public class BattleManager implements Battle {
      * Returns the computer player.
      */
     @Override
-    public Player getEnemyPlayer() {
-        return aiPlayer;
+    public Enemy getEnemyPlayer() {
+        return enemyPlayer;
     }
 }

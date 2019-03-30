@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import org.junit.jupiter.api.Test;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ListReviewCommand;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;

@@ -12,6 +12,7 @@ import seedu.address.logic.commands.quiz.QuizDifficultCommand;
 import seedu.address.logic.commands.quiz.QuizHelpCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.testutil.Assert;
 
 /**
  * Parse user input in QuizMode
@@ -45,5 +46,17 @@ public class QuizModeParserTest {
         thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_UNKNOWN_COMMAND);
         parser.parse("\\unknownCommand");
+    }
+
+    @Test
+    public void parse_differentUnknownCommand_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () ->
+            parser.parse("\\unknownCommand\\"));
+
+        Assert.assertThrows(ParseException.class, () ->
+            parser.parse("\\unknown command with space\\"));
+
+        Assert.assertThrows(ParseException.class, () ->
+            parser.parse("\\endsWithSpace        "));
     }
 }

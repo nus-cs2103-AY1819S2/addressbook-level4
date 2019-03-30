@@ -22,6 +22,6 @@ public class ListCommandParser implements Parser<ListCommand> {
             return new ListRequestCommand();
         }
 
-        throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_UAGE));
+        throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
     }
 }

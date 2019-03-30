@@ -22,8 +22,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.description.Description;
 import seedu.address.model.nextofkin.NextOfKin;
 import seedu.address.model.nextofkin.NextOfKinRelation;
+import seedu.address.model.patient.DrugAllergy;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Sex;
@@ -173,6 +175,8 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private DrugAllergy drugAllergy;
+        private Description description;
 
         //For Next Of Kin
         private Name nextOfKinName;
@@ -206,8 +210,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, nric, dateOfBirth, phone, email, address, tags, sex,
-                nextOfKinName, nextOfKinPhone, nextOfKinRelation, nextOfKinAddress);
+            return CollectionUtil.isAnyNonNull(name, nric, dateOfBirth, phone, email, address, tags, sex, drugAllergy,
+                nextOfKinName, nextOfKinPhone, nextOfKinRelation, nextOfKinAddress, description);
         }
 
         public void setName(Name name) {
@@ -264,6 +268,22 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setDrugAllergy(DrugAllergy drugAllergy) {
+            this.drugAllergy = drugAllergy;
+        }
+
+        public Optional<DrugAllergy> getDrugAllergy() {
+            return Optional.ofNullable(drugAllergy);
+        }
+
+        public void setDescription(Description description) {
+            this.description = description;
+        }
+
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
         }
 
         /* Setters for NextOfKin */

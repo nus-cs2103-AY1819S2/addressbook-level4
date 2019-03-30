@@ -41,16 +41,4 @@ public interface LessonListStorage {
      * @see #saveLessonList(LessonList)
      */
     int saveLessonList(LessonList lessonList, Path filePath);
-
-    /**
-     * @param cleanup Whether lessons not in memory are also removed.
-     * @see #saveLessonList(LessonList)
-     */
-
-    int saveLessonList(LessonList lessonList, boolean cleanup);
-
-    /**
-     * @see #saveLessonList(LessonList, boolean)
-     */
-    int saveLessonList(LessonList lessonList, Path filePath, boolean cleanup);
 }

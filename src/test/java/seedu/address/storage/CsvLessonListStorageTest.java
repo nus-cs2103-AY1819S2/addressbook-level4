@@ -206,5 +206,4 @@ public class CsvLessonListStorageTest {
         thrown.expect(NullPointerException.class);
         saveLessonList(testFolder.newFolder().toPath(), null);
     }
-
 }

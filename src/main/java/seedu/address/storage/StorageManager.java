@@ -78,16 +78,6 @@ public class StorageManager implements Storage {
         return lessonListStorage.saveLessonList(lessonList, filePath);
     }
 
-    @Override
-    public int saveLessonList(LessonList lessonList, boolean cleanup) {
-        return lessonListStorage.saveLessonList(lessonList, cleanup);
-    }
-
-    @Override
-    public int saveLessonList(LessonList lessonList, Path filePath, boolean cleanup) {
-        return lessonListStorage.saveLessonList(lessonList, filePath, cleanup);
-    }
-
     // ================ User methods ==============================
 
     @Override

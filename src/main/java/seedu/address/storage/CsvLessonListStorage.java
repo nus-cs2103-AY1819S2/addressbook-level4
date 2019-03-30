@@ -214,16 +214,6 @@ public class CsvLessonListStorage implements LessonListStorage {
     public Optional<LessonList> readLessonList(Path folderPath) {
         requireNonNull(folderPath);
 
-        /*
-        List<Path> paths = new ArrayList<>();
-        try {
-            Files.walk(folderPath, 1).filter(path ->
-                    path.toString().endsWith(".csv")).forEach(paths::add);
-        } catch (IOException e) {
-            return Optional.empty();
-        }
-        */
-
         List<Path> paths = getFilePathsInFolder(folderPath);
 
         if (paths == null) {
@@ -240,21 +230,11 @@ public class CsvLessonListStorage implements LessonListStorage {
 
     @Override
     public int saveLessonList(LessonList lessonList) {
-        return saveLessonList(lessonList, folderPath, true);
+        return saveLessonList(lessonList, folderPath);
     }
 
     @Override
     public int saveLessonList(LessonList lessonList, Path folderPath) {
-        return saveLessonList(lessonList, folderPath, true);
-    }
-
-    @Override
-    public int saveLessonList(LessonList lessonList, boolean cleanup) {
-        return saveLessonList(lessonList, folderPath, cleanup);
-    }
-
-    @Override
-    public int saveLessonList(LessonList lessonList, Path filePath, boolean cleanup) {
         requireNonNull(lessonList);
         requireNonNull(folderPath);
 

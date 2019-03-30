@@ -207,10 +207,14 @@ public class ParserUtil {
         return new TimeCustom(trimmedTime);
     }
 
+    /**
+     * Parses a {@code String priority} into an {@code Priority}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
     public static Priority parsePriority(String priority) throws ParseException {
         requireNonNull(priority);
         String trimmedPriority = priority.trim().toLowerCase();
-        if(!Priority.isValidPriority(trimmedPriority)) {
+        if (!Priority.isValidPriority(trimmedPriority)) {
             throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
         }
         return Priority.returnPriority(trimmedPriority);

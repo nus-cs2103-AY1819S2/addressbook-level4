@@ -265,7 +265,7 @@ public class ModelManager implements Model {
 
 
     /**
-     * Ensures {@code selectedTask} is a valid task in {@code filteredTasks.
+     * Ensures {@code selectedTask} is a valid task in {@code filteredTasks}.
      */
     private void ensureSelectedTaskIsValid(ListChangeListener.Change<? extends Task> change) {
         while (change.next()) {

@@ -1,24 +1,31 @@
 package seedu.address.model.task;
 
-public enum  Priority {
+/**
+ *  Represents a Task's priority in the addressbook
+ *  Gurantees: immutable as it is implemented as an enum; is valid as declared in {@link #isValidPriority(String)}
+ */
+public enum Priority {
     HIGH("high", 3),
     MED("med", 2),
     LOW("low", 1),
-    COMPLETED("completed",0);
-
-    private final String priorityType;
-    private final int priorityLevel;
-
+    COMPLETED("completed", 0);
 
     public static final String MESSAGE_CONSTRAINTS =
             "Priority can either be high, med or low in any case but with the exact same spelling. "
                     + "The default priority level for a task will be low if you do not specify a priority";
+
+    private final String priorityType;
+    private final int priorityLevel;
+
 
     Priority(String priorityType, int priorityLevel) {
         this.priorityType = priorityType;
         this.priorityLevel = priorityLevel;
     }
 
+    /**
+     * Returns true if a given string is a valid priority.
+     */
     public static boolean isValidPriority(String test) {
         for (Priority p : Priority.values()) {
             if (test.equals(p.getPriorityType())) {

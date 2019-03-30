@@ -2,11 +2,9 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -137,6 +135,9 @@ public class CalendarWindow extends UiPart<Stage> {
         primaryStage.close();
     }
 
+    /**
+     *  Generates a hashmap to store dates that should be marked with task priority
+     */
     private void generateMarkedDates() {
         this.markedDates = new HashMap<>();
         for (Task t : logic.getAddressBook().getTaskList()) {
@@ -145,8 +146,7 @@ public class CalendarWindow extends UiPart<Stage> {
                 if (t.getPriority().getPriorityLevel() > markedDates.get(t.getStartDate().getDate())) {
                     markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
                 }
-            }
-            else {
+            } else {
                 markedDates.put(t.getStartDate().getDate(), t.getPriority().getPriorityLevel());
             }
 
@@ -206,8 +206,7 @@ public class CalendarWindow extends UiPart<Stage> {
                                 default:
                                     circle.setFill(Color.GREEN);
                                 }
-                            }
-                            else {
+                            } else {
                                 circle.setFill(Color.TRANSPARENT);
                             }
                             if (item.getDayOfWeek().getValue() == 7 || item.getDayOfWeek().getValue() == 6) {

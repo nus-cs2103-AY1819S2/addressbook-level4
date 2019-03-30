@@ -29,7 +29,8 @@ public class Task {
     /**
      * Every field must be present and not null.
      */
-    public Task(Title title, DateCustom startDate, DateCustom endDate, TimeCustom startTime, TimeCustom endTime, Priority priority) {
+    public Task(Title title, DateCustom startDate, DateCustom endDate, TimeCustom startTime,
+                TimeCustom endTime, Priority priority) {
         requireAllNonNull(title, startDate, endDate, startTime, endTime, priority);
         this.title = title;
         this.startDate = startDate;

@@ -6,6 +6,11 @@
 **/
 @import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
 
+.menu-bar .label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Light";
+}
+
 /* For the command box input and result */
 #commandTextField, #resultDisplay {
     -fx-font-family: "Inconsolata";
@@ -36,7 +41,7 @@
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
-    -fx-font-size: 13px;
+    -fx-font-size: 14px;
     -fx-text-fill: #010504;
 }
 
@@ -68,13 +73,6 @@ span.command {
     font-family: "Segoe UI";
     font-size: 11pt;
     padding: 10px 20px 10px 20px;
-}
-
-/* For the healthWorkerListPanel */
-.health_worker_label {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 11pt;
-    -fx-text-fill: #010504;
 }
 
 /* For the pink rounded border around specialisations */

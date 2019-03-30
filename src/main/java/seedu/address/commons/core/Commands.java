@@ -35,7 +35,6 @@ public class Commands {
     public static final String SELECT = "select";
     public static final String DELETE = "delete";
     public static final String CLEAR = "clr";
-    public static final String EXPLAIN = "explain";
     public static final String HISTORY = "history";
     public static final String STATISTICS = "statistics";
     public static final String HELP = "help";
@@ -45,7 +44,7 @@ public class Commands {
         return Arrays.asList(ADD, ADD_HEALTH_WORKER, ADD_HEALTH_WORKER_MODE, ADD_REQUEST, ADD_REQUEST_MODE, EDIT,
                 EDIT_HEALTH_WORKER, EDIT_HEALTH_WORKER_MODE, EDIT_REQUEST, EDIT_REQUEST_MODE, LIST,
                 LIST_ALL_HEALTHWORKER, LIST_ALL_HEALTHWORKER_MODE, LIST_ALL_REQUEST, LIST_ALL_REQUEST_MODE,
-                ASSIGN, ASSIGN_REQUEST, COMPLETE, FILTER, FIND_REQUEST, SELECT, DELETE, CLEAR, EXPLAIN, HISTORY,
-                STATISTICS, HELP, EXIT);
+                ASSIGN, ASSIGN_REQUEST, COMPLETE, FILTER, FIND_REQUEST, SELECT, DELETE, CLEAR, HISTORY, STATISTICS,
+                HELP, EXIT);
     }
 }

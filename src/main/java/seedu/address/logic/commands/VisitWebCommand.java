@@ -42,7 +42,7 @@ public class VisitWebCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-
+        assert(targetIndex != null || weblink != null);
         if (targetIndex != null) {
             requireNonNull(model);
 
@@ -54,10 +54,9 @@ public class VisitWebCommand extends Command {
 
             model.setSelectedRestaurant(filteredRestaurantList.get(targetIndex.getZeroBased()));
             return new CommandResult(String.format(MESSAGE_VISIT_RESTAURANT_SUCCESS, targetIndex.getOneBased()));
-        } else if (weblink != null){
-            return new CommandResult(String.format(MESSAGE_VISIT_WEBLINK, weblink.value), weblink);
         } else {
-            throw new CommandException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            // if params of visitWeb command is a Weblink, pass weblink to CommandResult
+            return new CommandResult(String.format(MESSAGE_VISIT_WEBLINK, weblink.value), weblink);
         }
     }
 

@@ -15,6 +15,7 @@ public class VisitWebCommandParser implements Parser<VisitWebCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the VisitWebCommand
      * and returns an VisitWebCommand object for execution.
+     * Expects an index
      * @throws ParseException if the user input does not conform the expected format
      */
     public VisitWebCommand parse(String args) throws ParseException {
@@ -26,6 +27,12 @@ public class VisitWebCommandParser implements Parser<VisitWebCommand> {
         }
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the VisitWebCommand
+     * and returns an VisitWebCommand object for execution.
+     * Expects a weblink
+     * @throws ParseException if the user input does not conform the expected format
+     */
     private VisitWebCommand parseUrl(String args) throws ParseException {
         try {
             Weblink weblink = ParserUtil.parseWeblink(args);

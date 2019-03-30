@@ -23,6 +23,13 @@ import seedu.address.testutil.TestUtil;
 public class CsvUtilTest {
     public static final String[] TEST_STRINGS = new String[]{"ab", "bc", "cd", "de"};
 
+    private static final Path INVALID_FILE = Paths.get("src", "test", "data", "CsvUtilTest",
+        "empty.bmp");
+    private static final Path TEST_FILE = Paths.get("src", "test", "data", "CsvUtilTest",
+        "test.csv");
+    private static final Path READ_ONLY_FILE = Paths.get("src", "test", "data", "CsvUtilTest",
+        "test-readonly.csv");
+
     @Test
     public void readCsvFile_nullPath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> {
@@ -49,20 +56,15 @@ public class CsvUtilTest {
 
     @Test
     public void readCsvFile_invalidFile() throws IOException {
-        Path path = Paths.get("src/test/data/empty.bmp");
+        Path path = INVALID_FILE;
         assertEquals(null, CsvUtil.readCsvFile(path));
     }
 
     @Test
     public void readCsvFile() throws IOException {
-        Path path = Paths.get("src/test/data/test.csv");
+        Path path = TEST_FILE;
         List<String[]> data = CsvUtil.readCsvFile(path);
         String[] testData = TEST_STRINGS;
-
-        //Extra handling of test data for UTF-8 BOM
-        if (testData[0].startsWith("\uFEFF")) {
-            testData[0] = testData[0].substring(1);
-        }
 
         for (int i = 0; i < testData.length; i++) {
             String value = testData[i];
@@ -91,8 +93,8 @@ public class CsvUtilTest {
     }
 
     @Test
-    public void writeCsvFile_invalidFile() throws IOException {
-        Path path = Paths.get("src/test/data/test-readonly.csv");
+    public void writeCsvFile_invalidFile() {
+        Path path = READ_ONLY_FILE;
         File file = path.toFile();
         file.setReadOnly();
         List<String[]> data = Arrays.asList(TEST_STRINGS, TEST_STRINGS, TEST_STRINGS);

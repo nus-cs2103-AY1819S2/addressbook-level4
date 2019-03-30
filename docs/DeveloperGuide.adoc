@@ -535,7 +535,7 @@ Folders in the application are achieved via enhancements from the AddressBook im
 ===== Model
 Previously, an instance of `ModelManager` contains only a single `VersionedCardFolder`, holding the current and previous state of the `CardFolder`. To support multiple folders, `ModelManager` now holds an `ObservableList` of `CardFolders`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
 
-image::ModelManagerUpdateDiagram.png[width="800"]
+image::ModelEnhancementDiagram.png[width="800"]
 
 To allow users to operate on multiple `CardFolders`, the following notable methods were also introduced:
 
@@ -547,7 +547,7 @@ To allow users to operate on multiple `CardFolders`, the following notable metho
 ===== Storage
 Similarly, the `StorageManager` needs to represent each `CardFolder` separately. In the same manner as in the Model component, we introduce a list of `JsonCardFolderStorages`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
 
-image::StorageManagerUpdateDiagram.png[width="800"]
+image::StorageEnhancementDiagram.png[width="800"]
 
 Notable new methods:
 
@@ -559,6 +559,11 @@ The logic component propagates changes in a `CardFolder` to the Storage componen
 
 The same principle was applied to propagate changes in `CardFolders` (e.g. adding a new folder) to Storage. Model is now an `Observable`, and changes to a Model’s CardFolders will inform the LogicManager, which in turn invokes the `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` method.
 
+image::AddFolderSequenceDiagram.png[width="800"]
+
+image::ChangeCommandSequenceDiagram.png[width="600"]
+
+image::EnterFolderGUISequenceDiagram.png[width="800"]
 ==== Design Considerations
 ===== Aspect: How multiple folders are represented
 * **Alternative 1 (current choice)**: List of structures representing individual folders

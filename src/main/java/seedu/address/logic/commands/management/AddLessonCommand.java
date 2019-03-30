@@ -76,7 +76,7 @@ public class AddLessonCommand extends ManagementCommand {
         ManagementModel mgtModel = requireManagementModel(model);
 
         mgtModel.addLesson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 
     /**

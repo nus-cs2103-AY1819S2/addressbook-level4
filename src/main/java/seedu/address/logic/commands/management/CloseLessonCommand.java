@@ -50,7 +50,7 @@ public class CloseLessonCommand extends ManagementCommand {
 
         try {
             String lessonName = mgtModel.closeLesson();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName), true);
         } catch (NullPointerException e) {
             throw new CommandException(Messages.MESSAGE_NO_OPENED_LESSON, e);
         }

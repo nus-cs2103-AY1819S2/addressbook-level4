@@ -38,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private MainPanel mainPanel;
     private HelpWindow helpWindow;
-    private PersonListPanel personListPanel;
+    private LessonListPanel lessonListPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -56,7 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private VBox sidePanel;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane lessonListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -127,10 +127,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
-            logic::setSelectedPerson);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        
+        lessonListPanel = new LessonListPanel(logic.getLessons());
+        lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -223,6 +222,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isLessonListChanged()) {
+                lessonListPanel.updateLessonList(logic.getLessons());
             }
 
             return commandResult;

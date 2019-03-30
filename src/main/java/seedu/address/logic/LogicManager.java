@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
@@ -86,6 +88,11 @@ public class LogicManager implements Logic {
     @Override
     public Mode getMode() {
         return quizModel.isQuizDone() ? Mode.MANAGEMENT : Mode.QUIZ;
+    }
+
+    @Override
+    public List<Lesson> getLessons() {
+        return managementModel.getLessons();
     }
 
     @Override

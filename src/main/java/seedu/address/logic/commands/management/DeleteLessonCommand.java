@@ -70,7 +70,7 @@ public class DeleteLessonCommand extends ManagementCommand {
         try {
             String lessonName = mgtModel.getLesson(toDeleteIndex).getName();
             mgtModel.deleteLesson(toDeleteIndex);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, lessonName), true);
         } catch (IllegalArgumentException e) {
             throw new CommandException(String.format(MESSAGE_INVALID_INDEX,
                     targetIndex.getOneBased()), e);

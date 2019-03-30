@@ -18,9 +18,9 @@ ifdef::env-github[]
 endif::[]
 
 {nbsp} +
-Having a hard time memorizing _two hundred pages_ worth of lecture notes? 
+Having a hard time memorizing _two hundred pages_ worth of lecture notes?
 
-Can't recall the difference between the "ATP" and "ADP"? Or remember the name of the "leg bone"? 
+Can't recall the difference between the "ATP" and "ADP"? Or remember the name of the "leg bone"?
 
 The fact is, _memory work is hard_. *And we understand.*
 
@@ -52,7 +52,7 @@ Anki should be shaking in their boots right now. ⭐⭐⭐⭐⭐
 At last, a new high in BS - has been achieved.
 
 {nbsp} +
-What are you waiting for? Download *_Know-It-All_* today! 
+What are you waiting for? Download *_Know-It-All_* today!
 
 {nbsp} +
 *_Know-It-All_* is proud to present the following _awards_:

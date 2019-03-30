@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -23,18 +22,6 @@ public class QuizDifficultCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
     private ManagementModelManager managementModelManager;
-    private Quiz quizActual;
-    private Quiz quizExpected;
-    private QuizModelManager actualModel;
-    private QuizModelManager expectedModel;
-
-
-    @Before
-    public void setUp() {
-        quizExpected = new Quiz(SESSION_DEFAULT_2.generateSession(), SESSION_DEFAULT_2.getMode());
-        quizActual = new Quiz(SESSION_DEFAULT_2_ACTUAL.generateSession(), SESSION_DEFAULT_2_ACTUAL.getMode());
-        managementModelManager = new ManagementModelManager();
-    }
 
     @Test
     public void execute_wrongModel_throwsCommandException() {
@@ -45,9 +32,13 @@ public class QuizDifficultCommandTest {
 
     @Test
     public void execute_valid_success() {
-        expectedModel = new QuizModelManager(managementModelManager);
+        QuizModelManager expectedModel = new QuizModelManager(managementModelManager);
         ManagementModelManager actualMgmtManager = new ManagementModelManager();
-        actualModel = new QuizModelManager(actualMgmtManager);
+        QuizModelManager actualModel = new QuizModelManager(actualMgmtManager);
+
+        Quiz quizExpected = new Quiz(SESSION_DEFAULT_2.generateSession(), SESSION_DEFAULT_2.getMode());
+        Quiz quizActual = new Quiz(SESSION_DEFAULT_2_ACTUAL.generateSession(), SESSION_DEFAULT_2_ACTUAL.getMode());
+        managementModelManager = new ManagementModelManager();
 
         expectedModel.init(quizExpected, SESSION_DEFAULT_2);
         actualModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);

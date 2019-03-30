@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.quiz;
 
+import static org.junit.Assert.assertEquals;
+import static seedu.address.logic.commands.quiz.QuizCommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
 import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 
@@ -43,8 +45,9 @@ public class QuizQuitCommandTest {
         String expectedMessage = String.format(QuizQuitCommand.MESSAGE_COMPLETE, 0);
 
         actualModel.getNextCard();
-        QuizCommandTestUtil.assertCommandSuccess(new QuizQuitCommand(), actualModel, commandHistory,
+        assertCommandSuccess(new QuizQuitCommand(), actualModel, commandHistory,
             expectedMessage, expectedModel);
+        assertEquals(expectedModel, actualModel);
     }
 
     @Test
@@ -60,8 +63,9 @@ public class QuizQuitCommandTest {
         actualModel.getNextCard();
         actualModel.getNextCard();
         actualModel.updateTotalAttemptsAndStreak(0, "wrong answer");
-        QuizCommandTestUtil.assertCommandSuccess(new QuizQuitCommand(), actualModel, commandHistory,
+        assertCommandSuccess(new QuizQuitCommand(), actualModel, commandHistory,
             expectedMessage, expectedModel);
+        assertEquals(expectedModel, actualModel);
     }
 
     @Test
@@ -81,8 +85,9 @@ public class QuizQuitCommandTest {
         actualModel.updateTotalAttemptsAndStreak(0, "wrong answer");
         actualModel.updateTotalAttemptsAndStreak(0, "wrong answer");
         actualModel.updateTotalAttemptsAndStreak(0, "Brussels");
-        QuizCommandTestUtil.assertCommandSuccess(new QuizQuitCommand(), actualModel, commandHistory,
+        assertCommandSuccess(new QuizQuitCommand(), actualModel, commandHistory,
             expectedMessage, expectedModel);
+        assertEquals(expectedModel, actualModel);
     }
 
 

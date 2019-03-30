@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import seedu.address.model.card.Card;
+import seedu.knowitall.model.card.Card;
 
 /**
  * Provides a handle to a card card in the card list panel.

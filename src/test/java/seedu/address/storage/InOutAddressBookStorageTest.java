@@ -78,10 +78,6 @@ public class InOutAddressBookStorageTest {
         AddressBook original = getTypicalAddressBook();
         InOutAddressBookStorage inOutAddressBookStorage = new InOutAddressBookStorage(filePath);
 
-        Path tempPath = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
-        Path tempFile = tempPath.resolve("tempAB.json");
-        inOutAddressBookStorage.saveAddressBook(original, tempFile);
-
         // Save in new file and read back
         inOutAddressBookStorage.saveAddressBook(original, filePath);
         ReadOnlyAddressBook readBack = inOutAddressBookStorage.readAddressBook(filePath).get();

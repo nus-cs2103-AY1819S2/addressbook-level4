@@ -8,8 +8,6 @@ import javafx.collections.ObservableList;
 import seedu.hms.logic.CommandHistory;
 import seedu.hms.logic.commands.exceptions.CommandException;
 import seedu.hms.model.BillModel;
-import seedu.hms.model.BookingModel;
-import seedu.hms.model.Model;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;
 import seedu.hms.model.booking.BookingWithTypePredicate;
@@ -34,8 +32,8 @@ public class GenerateBillForBookingCommand extends BillCommand {
 
 
     public GenerateBillForBookingCommand(BookingContainsPayerPredicate bookingContainsPayerPredicate,
-                               BookingWithTypePredicate bookingWithTypePredicate,
-                               BookingWithinTimePredicate bookingWithinTimePredicate) {
+                                         BookingWithTypePredicate bookingWithTypePredicate,
+                                         BookingWithinTimePredicate bookingWithinTimePredicate) {
 
         this.bookingPredicate = (bookingTested) -> bookingContainsPayerPredicate.test(bookingTested)
             && bookingWithTypePredicate.test(bookingTested)

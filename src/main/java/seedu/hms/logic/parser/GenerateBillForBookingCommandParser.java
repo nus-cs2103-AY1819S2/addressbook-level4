@@ -6,7 +6,6 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
 import seedu.hms.logic.commands.FindBookingCommand;
-
 import seedu.hms.logic.commands.GenerateBillForBookingCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.booking.BookingContainsPayerPredicate;

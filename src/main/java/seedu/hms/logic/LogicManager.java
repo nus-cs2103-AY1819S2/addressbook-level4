@@ -8,7 +8,6 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
-import seedu.hms.logic.commands.BillCommand;
 import seedu.hms.logic.commands.BookingCommand;
 import seedu.hms.logic.commands.Command;
 import seedu.hms.logic.commands.CommandResult;
@@ -46,7 +45,7 @@ public class LogicManager implements Logic {
     private boolean hotelManagementSystemModified;
 
     public LogicManager(CustomerModel customerModel, BookingModel bookingModel, ReservationModel reservationModel,
-                       BillModel billModel, Storage storage) {
+                        BillModel billModel, Storage storage) {
         this.customerModel = customerModel;
         this.bookingModel = bookingModel;
         this.billModel = billModel;
@@ -78,7 +77,7 @@ public class LogicManager implements Logic {
             } else if (command instanceof BookingCommand) {
                 commandResult = command.execute(bookingModel, history);
             }
-                commandResult = command.execute(billModel, history);
+            commandResult = command.execute(billModel, history);
 
         } finally {
             history.add(commandText);

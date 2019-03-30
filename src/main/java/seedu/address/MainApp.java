@@ -71,7 +71,7 @@ public class MainApp extends Application {
         initLogging(config);
 
         managementModel = initModelManager(userPrefs, lessonList, user);
-        quizModel = initQuizModelManager();
+        quizModel = initQuizModelManager(managementModel);
 
         logic = new LogicManager(managementModel, quizModel, storage);
 
@@ -87,9 +87,10 @@ public class MainApp extends Application {
 
     /**
      * Returns an empty {@code QuizModelManager}.
+     * @param managementModel
      */
-    private QuizModelManager initQuizModelManager() {
-        return new QuizModelManager();
+    private QuizModelManager initQuizModelManager(ManagementModel managementModel) {
+        return new QuizModelManager(managementModel);
     }
 
     private void initLogging(Config config) {

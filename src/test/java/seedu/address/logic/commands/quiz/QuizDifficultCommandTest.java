@@ -1,11 +1,9 @@
 package seedu.address.logic.commands.quiz;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
+import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 
-import java.util.Arrays;
-import java.util.List;
-
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,26 +14,14 @@ import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.Model;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
-import seedu.address.model.quiz.QuizCard;
-import seedu.address.model.quiz.QuizMode;
 import seedu.address.testutil.Assert;
 
 public class QuizDifficultCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private QuizModelManager quizModel = new QuizModelManager();
     private CommandHistory commandHistory = new CommandHistory();
-    private Quiz quiz;
-
-
-    @Before
-    public void setUp() {
-        final QuizCard quizCardJapan = new QuizCard("Japan", "Tokyo", Arrays.asList("JP", "Asia"));
-        final QuizCard quizCardHungary = new QuizCard("Hungary", "Budapest");
-        final List<QuizCard> validQuizCard = Arrays.asList(quizCardJapan, quizCardHungary);
-        quiz = new Quiz(validQuizCard, QuizMode.LEARN);
-    }
+    private ManagementModelManager managementModelManager;
 
     @Test
     public void execute_wrongModel_throwsCommandException() {
@@ -46,22 +32,30 @@ public class QuizDifficultCommandTest {
 
     @Test
     public void execute_valid_success() {
-        QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(quiz);
+        QuizModelManager expectedModel = new QuizModelManager(managementModelManager);
+        ManagementModelManager actualMgmtManager = new ManagementModelManager();
+        QuizModelManager actualModel = new QuizModelManager(actualMgmtManager);
+
+        Quiz quizExpected = new Quiz(SESSION_DEFAULT_2.generateSession(), SESSION_DEFAULT_2.getMode());
+        Quiz quizActual = new Quiz(SESSION_DEFAULT_2_ACTUAL.generateSession(), SESSION_DEFAULT_2_ACTUAL.getMode());
+        managementModelManager = new ManagementModelManager();
+
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        actualModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
+
         expectedModel.getNextCard();
         expectedModel.toggleIsCardDifficult(0);
         String expectedMessage = String.format(QuizDifficultCommand.MESSAGE_SUCCESS, "difficult");
 
-        quizModel.init(quiz);
-        quizModel.getNextCard();
-        QuizCommandTestUtil.assertCommandSuccess(new QuizDifficultCommand(), quizModel, commandHistory,
+        actualModel.getNextCard();
+        QuizCommandTestUtil.assertCommandSuccess(new QuizDifficultCommand(), actualModel, commandHistory,
             expectedMessage, expectedModel);
 
         expectedModel.toggleIsCardDifficult(0);
         expectedMessage = String.format(QuizDifficultCommand.MESSAGE_SUCCESS, "not difficult");
 
-        QuizCommandTestUtil.assertCommandSuccess(new QuizDifficultCommand(), quizModel, commandHistory,
+        QuizCommandTestUtil.assertCommandSuccess(new QuizDifficultCommand(), actualModel, commandHistory,
             expectedMessage, expectedModel);
-        assertEquals(expectedModel, quizModel);
+        assertEquals(expectedModel, actualModel);
     }
 }

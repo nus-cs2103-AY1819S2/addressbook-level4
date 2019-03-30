@@ -16,6 +16,8 @@ public class QuizCardTest {
 
     private static final String QUESTION = "Japan";
     private static final String ANSWER = "Tokyo";
+    private static final String QUESTION_HEADER = "Country";
+    private static final String ANSWER_HEADER = "Capital";
     private static final QuizMode MODE = QuizMode.PREVIEW;
 
     private static final List<String> FIELDS_OPTIONALS = Arrays.asList("JP", "Asia");
@@ -24,6 +26,12 @@ public class QuizCardTest {
     private static final QuizCard VALID_QUIZCARD_NO_OPT = new QuizCard(QUESTION, ANSWER);
     private static final QuizCard VALID_QUIZCARD = new QuizCard(QUESTION, ANSWER, FIELDS_OPTIONALS);
     private static final QuizCard VALID_QUIZCARD_INDEX = new QuizCard(1, QUESTION, ANSWER, QuizMode.PREVIEW);
+    private static final QuizCard VALID_QUIZCARD_HEADER = new QuizCard(QUESTION, ANSWER, FIELDS_OPTIONALS,
+        QUESTION_HEADER, ANSWER_HEADER);
+    private static final QuizCard VALID_QUIZCARD_HEADER_NO_OPT = new QuizCard(QUESTION, ANSWER,
+        QUESTION_HEADER, ANSWER_HEADER);
+    private static final QuizCard VALID_QUIZCARD_HEADER_INDEX = new QuizCard(1, QUESTION, ANSWER, QuizMode.PREVIEW,
+        QUESTION_HEADER, ANSWER_HEADER);
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -47,6 +55,9 @@ public class QuizCardTest {
 
         Assert.assertThrows(NullPointerException.class, () ->
             new QuizCard(0, QUESTION, null, MODE));
+
+        Assert.assertThrows(NullPointerException.class, () ->
+            new QuizCard(QUESTION, ANSWER, FIELDS_OPTIONALS, QUESTION_HEADER, null));
     }
 
     @Test
@@ -83,6 +94,9 @@ public class QuizCardTest {
         Assert.assertThrows(IllegalArgumentException.class, () ->
             new QuizCard(2, invalidQn, ANSWER, MODE));
 
+        Assert.assertThrows(IllegalArgumentException.class, () ->
+            new QuizCard(2, invalidQn, ANSWER, MODE, QUESTION_HEADER, ANSWER_HEADER));
+
     }
 
     @Test
@@ -92,6 +106,8 @@ public class QuizCardTest {
         assertEquals(QUESTION, VALID_QUIZCARD_NO_OPT.getQuestion());
 
         assertEquals(QUESTION, VALID_QUIZCARD_INDEX.getQuestion());
+
+        assertEquals(QUESTION, VALID_QUIZCARD_HEADER_INDEX.getQuestion());
     }
 
     @Test
@@ -133,6 +149,18 @@ public class QuizCardTest {
     @Test
     public void getQuizMode() {
         assertEquals(MODE, VALID_QUIZCARD_INDEX.getQuizMode());
+    }
+
+    @Test
+    public void getQuestionHeader() {
+        assertEquals(QUESTION_HEADER, VALID_QUIZCARD_HEADER.getQuestionHeader());
+
+        assertEquals(QUESTION_HEADER, VALID_QUIZCARD_HEADER_NO_OPT.getQuestionHeader());
+    }
+
+    @Test
+    public void getAnswerHeader() {
+        assertEquals(ANSWER_HEADER, VALID_QUIZCARD_HEADER.getAnswerHeader());
     }
 
     @Test
@@ -192,22 +220,22 @@ public class QuizCardTest {
         final QuizCard cardWithIndex = new QuizCard(0, QUESTION, ANSWER, MODE);
 
         // same object
-        assertTrue(VALID_QUIZCARD.equals(VALID_QUIZCARD));
+        assertEquals(VALID_QUIZCARD, VALID_QUIZCARD);
 
         // same value
-        assertTrue(VALID_QUIZCARD_NO_OPT.equals(anotherValidQuizCard));
+        assertEquals(VALID_QUIZCARD_NO_OPT, anotherValidQuizCard);
 
         // different obj
-        assertFalse(VALID_QUIZCARD.equals(new Quiz(Arrays.asList(VALID_QUIZCARD, VALID_QUIZCARD), QuizMode.LEARN)));
+        assertNotEquals(VALID_QUIZCARD, new Quiz(Arrays.asList(VALID_QUIZCARD, VALID_QUIZCARD), QuizMode.LEARN));
 
         // different types
-        assertFalse("random things".equals(VALID_QUIZCARD));
+        assertNotEquals("random things", VALID_QUIZCARD);
 
         // different values
-        assertFalse(VALID_QUIZCARD.equals(quizCardWithAb));
+        assertNotEquals(VALID_QUIZCARD, quizCardWithAb);
 
         // same value but contains index
-        assertFalse(VALID_QUIZCARD.equals(cardWithIndex));
+        assertNotEquals(VALID_QUIZCARD, cardWithIndex);
     }
 
     @Test

@@ -40,6 +40,10 @@ public class QuickDocs {
     public ReminderManager getReminderManager() {
         return reminderManager;
     }
+    
+    public void setReminderManager(ReminderManager reminderManager) {
+        this.reminderManager = reminderManager;
+    }
 
     public StatisticsManager getStatisticsManager() {
         return statisticsManager;

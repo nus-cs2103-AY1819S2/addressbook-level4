@@ -172,7 +172,9 @@ public class JsonSerializableQuickDocs {
     private Directory toModelTypeDirectory(HashMap<String, Medicine> map, JsonAdaptedDirectory jsonDirectory)
             throws IllegalValueException {
         Directory directory = new Directory(jsonDirectory.getName());
-        directory.setThreshold(jsonDirectory.getThreshold().get());
+        if (jsonDirectory.getThreshold().isPresent()) {
+            directory.setThreshold(jsonDirectory.getThreshold().get());
+        }
         ArrayList<String> medicineNames = jsonDirectory.getListOfMedicineNames();
         for (String medicineName : medicineNames) {
             if (!map.containsKey(medicineName)) {

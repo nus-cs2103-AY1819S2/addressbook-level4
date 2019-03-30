@@ -132,5 +132,14 @@
   } ],
   "reminderList" : [ ],
   "medicineList" : [ ],
-  "monthStatisticsList" : []
+  "rootDirectory" : {
+    "name" : "root",
+    "threshold" : {
+      "value" : 30
+    },
+    "listOfMedicineNames" : [ ],
+    "listOfDirectories" : [ ]
+  },
+  "monthStatisticsList" : [ ],
+  "consultationFee" : 30.0
 }

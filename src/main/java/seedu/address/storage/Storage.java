@@ -32,4 +32,6 @@ public interface Storage extends UserPrefsStorage, LessonListStorage, UserStorag
     @Override
     void saveUser(User user);
 
+    void deleteLesson(String lessonName) throws IOException;
+
 }

@@ -17,10 +17,12 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.CardSrsData;
 import seedu.address.model.user.User;
+import seedu.address.testutil.TypicalLessonList;
 
 public class StorageManagerTest {
     private static final Path NO_VALID_FILES_FOLDER = Paths.get("src", "test", "data",
         "CsvLessonListStorageTest", "noValidFiles");
+    private static final Path SANDBOX_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();

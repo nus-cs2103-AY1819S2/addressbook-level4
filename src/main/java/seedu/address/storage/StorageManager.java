@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 
@@ -11,7 +12,7 @@ import seedu.address.model.lesson.LessonList;
 import seedu.address.model.user.User;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Lesson and user data in local storage.
  */
 public class StorageManager implements Storage {
 
@@ -27,6 +28,11 @@ public class StorageManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
         this.lessonListStorage = lessonListStorage;
         this.userStorage = userStorage;
+    }
+
+    private void deleteLessonFile(String lessonName) throws IOException {
+        Path lessonPath = getLessonListFolderPath().resolve(lessonName + ".csv");
+        Files.delete(lessonPath);
     }
 
     // ================ UserPrefs methods ==============================
@@ -78,6 +84,10 @@ public class StorageManager implements Storage {
         return lessonListStorage.saveLessonList(lessonList, filePath);
     }
 
+    @Override
+    public void deleteLesson(String lessonName) throws IOException {
+        deleteLessonFile(lessonName);
+    }
     // ================ User methods ==============================
 
     @Override

@@ -14,14 +14,10 @@ import seedu.address.model.threshold.Threshold;
  * The API of the Model component.
  */
 public interface Model {
-    /**
-     * Default {@code Threshold} used for expiry.
-     */
+    /** Default {@code Threshold} used for expiry */
     Threshold DEFAULT_EXPIRY_THRESHOLD = new Threshold("10");
 
-    /**
-     * Default {@code Threshold} used for low stock.
-     */
+    /** Default {@code Threshold} used for low stock */
     Threshold DEFAULT_LOW_STOCK_THRESHOLD = new Threshold("10");
 
     /** {@code Predicate} that always evaluate to true */
@@ -99,7 +95,7 @@ public interface Model {
     ObservableList<Medicine> getExpiringMedicinesList();
 
     /** Returns an unmodifiable view of the filtered medicine list for low stock warning */
-    ObservableList<Medicine> getLowQuantityMedicinesList();
+    ObservableList<Medicine> getLowStockMedicinesList();
 
     /**
      * Updates the filter of the filtered medicine list to filter by the given {@code predicate}.

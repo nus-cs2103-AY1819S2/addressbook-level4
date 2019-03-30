@@ -146,7 +146,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Medicine> getLowQuantityMedicinesList() {
+    public ObservableList<Medicine> getLowStockMedicinesList() {
         return medicinesLowStock;
     }
 
@@ -265,7 +265,10 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedInventory.equals(other.versionedInventory)
                 && userPrefs.equals(other.userPrefs)
+                && warningPanelPredicateAccessor.equals(other.warningPanelPredicateAccessor)
                 && filteredMedicines.equals(other.filteredMedicines)
+                && medicinesExpiring.equals(other.medicinesExpiring)
+                && medicinesLowStock.equals(other.medicinesLowStock)
                 && Objects.equals(selectedMedicine.get(), other.selectedMedicine.get());
     }
 

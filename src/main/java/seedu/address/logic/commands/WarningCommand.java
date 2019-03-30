@@ -12,6 +12,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
 import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
+import seedu.address.model.threshold.Threshold;
 
 
 /**
@@ -83,17 +84,15 @@ public class WarningCommand extends Command {
      */
     private CommandResult changeThreshold(Model model, WarningPanelPredicateAccessor predicateAccessor) {
         if (predicate instanceof MedicineExpiryThresholdPredicate) {
-            int threshold = ((MedicineExpiryThresholdPredicate) predicate).getThreshold().getNumericValue();
-
-            predicateAccessor.setMedicineExpiringThreshold(threshold);
-            predicateAccessor.setBatchExpiringThreshold(threshold);
-            model.updateFilteredExpiringMedicineList(predicateAccessor.getMedicineExpiryPredicate());
+            Threshold threshold = ((MedicineExpiryThresholdPredicate) predicate).getThreshold();
+            model.updateFilteredExpiringMedicineList(new MedicineExpiryThresholdPredicate(threshold));
+            predicateAccessor.setMedicineExpiringThreshold(threshold.getNumericValue());
+            predicateAccessor.setBatchExpiringThreshold(threshold.getNumericValue());
 
         } else if (predicate instanceof MedicineLowStockThresholdPredicate) {
-            int threshold = ((MedicineLowStockThresholdPredicate) predicate).getThreshold().getNumericValue();
-
-            predicateAccessor.setMedicineLowStockThreshold(threshold);
-            model.updateFilteredLowStockMedicineList(predicateAccessor.getMedicineLowStockPredicate());
+            Threshold threshold = ((MedicineLowStockThresholdPredicate) predicate).getThreshold();
+            model.updateFilteredLowStockMedicineList(new MedicineLowStockThresholdPredicate(threshold));
+            predicateAccessor.setMedicineLowStockThreshold(threshold.getNumericValue());
         }
 
         return showCurrentThresholds(predicateAccessor);
@@ -103,6 +102,7 @@ public class WarningCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WarningCommand // instanceof handles nulls
-                && predicate.equals(((WarningCommand) other).predicate));
+                && predicate.equals(((WarningCommand) other).predicate)
+                && showThreshold == ((WarningCommand) other).showThreshold);
     }
 }

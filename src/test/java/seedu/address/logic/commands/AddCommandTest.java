@@ -169,7 +169,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public ObservableList<Medicine> getLowQuantityMedicinesList() {
+        public ObservableList<Medicine> getLowStockMedicinesList() {
             throw new AssertionError("This method should not be called.");
         }
 

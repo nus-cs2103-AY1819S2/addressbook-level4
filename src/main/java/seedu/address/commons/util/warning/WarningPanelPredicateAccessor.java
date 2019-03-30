@@ -64,5 +64,24 @@ public class WarningPanelPredicateAccessor {
         this.medicineExpiryPredicate = new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD);
         this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(Model.DEFAULT_LOW_STOCK_THRESHOLD);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof WarningPanelPredicateAccessor)) {
+            return false;
+        }
+
+        // state check
+        WarningPanelPredicateAccessor other = (WarningPanelPredicateAccessor) obj;
+        return medicineExpiryPredicate.equals(other.medicineExpiryPredicate)
+                && batchExpiryPredicate.equals(other.batchExpiryPredicate)
+                && medicineLowStockPredicate.equals(other.medicineLowStockPredicate);
+    }
 }
 

@@ -57,9 +57,9 @@ public class CsvWrapper {
     public void export() throws CommandException {
         try {
             List<Medicine> currentGuiList = model.getFilteredMedicineList();
-            List<Medicine> lowQuantityMedicineList = model.getLowQuantityMedicinesList();
+            List<Medicine> lowStockMedicinesList = model.getLowStockMedicinesList();
             createCsvFile(csvFileName);
-            writeDataToCsv(currentGuiList, lowQuantityMedicineList);
+            writeDataToCsv(currentGuiList, lowStockMedicinesList);
         } catch (CommandException ce) {
             doCleanUp();
             throw ce;

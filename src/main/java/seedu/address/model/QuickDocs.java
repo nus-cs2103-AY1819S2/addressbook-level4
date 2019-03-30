@@ -41,9 +41,9 @@ public class QuickDocs {
         return reminderManager;
     }
 
-    //public void setReminderManager(ReminderManager reminderManager) {
-        //this.reminderManager = reminderManager;
-    //}
+    public void setReminderManager(ReminderManager reminderManager) {
+        this.reminderManager = reminderManager;
+    }
 
     public StatisticsManager getStatisticsManager() {
         return statisticsManager;
@@ -52,6 +52,7 @@ public class QuickDocs {
     public void setStatisticsManager(StatisticsManager statisticsManager) {
         this.statisticsManager = statisticsManager;
     }
+
     // indicate modification of quickdocs data
     public boolean isModified() {
         return isModified;

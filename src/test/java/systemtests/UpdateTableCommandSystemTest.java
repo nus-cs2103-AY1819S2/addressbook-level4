@@ -1,18 +1,14 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODE;
 import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
-import static seedu.address.testutil.TypicalRestOrRant.getTypicalRestOrRant;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.table.Table;
 import seedu.address.model.table.TableStatus;
-import seedu.address.testutil.RestOrRantUtil;
 import seedu.address.testutil.TableBuilder;
 
 public class UpdateTableCommandSystemTest extends RestOrRantSystemTest {

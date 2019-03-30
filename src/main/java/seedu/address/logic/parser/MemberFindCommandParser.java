@@ -2,11 +2,14 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import seedu.address.logic.commands.MemberFindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+
 
 /**
  * Parses input arguments and creates a new MemberFindCommand object
@@ -20,14 +23,15 @@ public class MemberFindCommandParser implements Parser<MemberFindCommand> {
      */
     public MemberFindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        String[] criteria = trimmedArgs.split("\\s+",2);
+
+        if (trimmedArgs.isEmpty() || criteria.length < 2) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MemberFindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        return new MemberFindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        return new MemberFindCommand(new FindCriteriaContainsKeywordPredicate(trimmedArgs));
+
     }
-
 }

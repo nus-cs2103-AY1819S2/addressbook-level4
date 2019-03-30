@@ -6,7 +6,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
-
+import java.lang.String;
 /**
  * Helper functions for handling strings.
  */
@@ -36,6 +36,27 @@ public class StringUtil {
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    public static boolean containsIgnoreCase(String sentence, String word) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+
+        final int length = word.length();
+        if (length == 0)
+            return true;
+        String preppedSentence = sentence;
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+
+        for (int i = 0; i < wordsInPreppedSentence.length; i++ ){
+            for (int j = wordsInPreppedSentence[i].length() - length; j >= 0; j--)
+                if (wordsInPreppedSentence[i].regionMatches(true, j, word, 0, length))
+                    return true;
+            }
+        return false;
     }
 
     /**

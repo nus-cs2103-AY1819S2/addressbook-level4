@@ -38,18 +38,20 @@ import seedu.address.model.task.Task;
 public class CalendarWindow extends UiPart<Stage> {
 
     private static final String FXML = "CalendarWindow.fxml";
+    private static DatePicker datePicker;
+    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private static boolean runningCommand;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
-    private static boolean runningCommand;
+
+
 
     private Stage primaryStage;
     private Logic logic;
 
     private TaskListPanel taskListPanel;
-    private static DatePicker datePicker;
 
-    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private ReadOnlyAddressBook readOnlyTaskList;
     private HashMap<LocalDate, Integer> markedDates;
 

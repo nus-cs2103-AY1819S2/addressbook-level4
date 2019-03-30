@@ -20,8 +20,9 @@ import seedu.address.logic.parser.FindCriteriaContainsKeywordPredicate;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.MatricNumberContainsKeywordsPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+
 
 /**
  * Contains integration tests (interaction with the Model) for {@code MemberFindCommand}.

@@ -1,14 +1,6 @@
 package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE1;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE2;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE3;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE4;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE5;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE6;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE7;
-import static seedu.address.testutil.TypicalRestOrRant.TABLE8;
 
 import java.util.ArrayList;
 
@@ -16,11 +8,8 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalRestOrRant;
 
 public class ClearTableCommandSystemTest extends RestOrRantSystemTest {
-
-    public static final String VALID_UNOCCUPIED_TABLE_STATUS = "0/4";
 
     @Test
     public void clear() {

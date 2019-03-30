@@ -17,6 +17,7 @@ public class BeginCommand extends Command {
     public static final String COMMAND_ALIAS1 = "start";
     public static final String MESSAGE_USAGE = COMMAND_WORD
         + ": Finishes placing ships and starts the game..\n";
+    public static final String MESSAGE_BEGIN_SUCCESS = "Game has started";
 
     public BeginCommand() {
         setPermissibleStates(EnumSet.of(BattleState.PLAYER_PUT_SHIP));
@@ -29,6 +30,6 @@ public class BeginCommand extends Command {
         model.setBattleState(BattleState.ENEMY_PUT_SHIP);
         model.getEnemyPlayer().prepEnemy();
         model.setBattleState(BattleState.PLAYER_ATTACK);
-        return new CommandResult("Game has started");
+        return new CommandResult(MESSAGE_BEGIN_SUCCESS);
     }
 }

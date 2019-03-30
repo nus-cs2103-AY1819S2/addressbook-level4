@@ -37,6 +37,10 @@ public class SelectCommand extends Command {
 
         List<Card> filteredCardList = model.getFilteredCards();
 
+        if (!model.isInFolder()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
+        }
+
         if (targetIndex.getZeroBased() >= filteredCardList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }

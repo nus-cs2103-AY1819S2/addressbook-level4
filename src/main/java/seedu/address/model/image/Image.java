@@ -40,35 +40,15 @@ public class Image {
      */
     public Image(String url) {
         requireAllNonNull(url);
+        File file = new File(url);
+        this.url = url;
+        this.fileType = FilenameUtils.getExtension(url);
+        this.size = new Size(String.valueOf(file.length()));
+        this.name = new Name(file.getName());
+        this.width = new Width(String.valueOf(buffer.getWidth()));
+        this.height = new Height(String.valueOf(buffer.getHeight()));
         try {
-            File file = new File(url);
-//<<<<<<< HEAD
-//            buffer = ImageIO.read(file);
-//            this.size = new Size(String.valueOf(file.length()));
-//
-//            try {
-//                ImageInputStream iis = ImageIO.createImageInputStream(file);
-//
-//                Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(iis);
-//
-//                int readTime = 0;
-//                while (readTime < 1 && imageReaders.hasNext()) {
-//                    ImageReader reader = imageReaders.next();
-//                    fileType = reader.getFormatName().toLowerCase();
-//                    readTime++;
-//                }
-//            } catch (IOException e) {
-//                System.out.println(e.toString());
-//            }
-//=======
             this.buffer = ImageIO.read(file);
-            this.fileType = FilenameUtils.getExtension(url);
-            this.size = new Size(String.valueOf(file.length()));
-
-            this.url = url;
-            this.name = new Name(file.getName());
-            this.width = new Width(String.valueOf(buffer.getWidth()));
-            this.height = new Height(String.valueOf(buffer.getHeight()));
             this.metadata = ImageMetadataReader.readMetadata(file);
         } catch (Exception e) {
             System.out.println(e.toString());

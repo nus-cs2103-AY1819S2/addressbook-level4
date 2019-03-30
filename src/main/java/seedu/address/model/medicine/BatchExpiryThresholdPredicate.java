@@ -18,7 +18,7 @@ public class BatchExpiryThresholdPredicate implements Predicate<Batch> {
 
     @Override
     public boolean test(Batch batch) {
-        return calculateDaysToExpiry(batch) < threshold.getNumericValue();
+        return calculateDaysToExpiry(batch) <= threshold.getNumericValue();
     }
 
     @Override
@@ -28,8 +28,8 @@ public class BatchExpiryThresholdPredicate implements Predicate<Batch> {
                 && threshold.equals(((BatchExpiryThresholdPredicate) other).threshold)); // state check
     }
 
-    public int getThreshold() {
-        return threshold.getNumericValue();
+    public Threshold getThreshold() {
+        return threshold;
     }
 
     /**

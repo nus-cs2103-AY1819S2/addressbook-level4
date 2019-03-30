@@ -19,7 +19,7 @@ public class MedicineExpiryThresholdPredicate implements Predicate<Medicine> {
     @Override
     public boolean test(Medicine medicine) {
         return medicine.getNextExpiry().getExpiryDate() != null
-                && calculateDaysToExpiry(medicine) < threshold.getNumericValue();
+                && calculateDaysToExpiry(medicine) <= threshold.getNumericValue();
     }
 
     @Override

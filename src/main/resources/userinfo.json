@@ -1,7 +1,7 @@
 {
   "course" : {
-    "name" : "Computer Science Algorithms",
-    "description" : "To be completed",
+    "name" : "Computer Science Artificial Intelligence",
+    "description" : "To be added",
     "requirements" : [ {
       "type" : "PrimitiveReq",
       "requirementName" : "University Level Requirements",
@@ -28,24 +28,24 @@
         "type" : "CompositeReq",
         "first" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "Complete 3 Area Primary from Algorithms",
-          "requirementDescription" : "Pass 3 Area Primary from Algorithms",
+          "requirementName" : "Complete 3 Area Primary from AI",
+          "requirementDescription" : "Pass 3 Area Primary from AI",
           "requirementType" : "TE",
           "condition" : {
-            "conditionName" : "Pass 3 Area Primary",
+            "conditionName" : "Pass 3 Area Primary in AI",
             "minToSatisfy" : "3",
-            "regexes" : [ "CS3230", "CS3236", "CS4231", "CS4232", "CS4234" ]
+            "regexes" : [ "CS3243", "CS3244", "CS4243", "CS4244", "CS4246", "CS4248" ]
           }
         },
         "second" : {
           "type" : "PrimitiveReq",
-          "requirementName" : "At least 1 from level 4 in Algorithms",
+          "requirementName" : "At least 1 from level 4 in AI",
           "requirementDescription" : "Pass at least 1 level 4 from primaries",
           "requirementType" : "TE",
           "condition" : {
             "conditionName" : "Pass at least 1 level 4 Primary",
             "minToSatisfy" : "1",
-            "regexes" : [ "CS4231", "CS4232", "CS4234" ]
+            "regexes" : [ "CS4243", "CS4244", "CS4246", "CS4248" ]
           }
         },
         "courseReqType" : "TE",
@@ -81,48 +81,6 @@
       "courseReqType" : "TE",
       "logicalConnector" : "AND"
     }, {
-      "type" : "CompositeReq",
-      "first" : {
-        "type" : "CompositeReq",
-        "first" : {
-          "type" : "PrimitiveReq",
-          "requirementName" : "Complete ATAP - Advanced Technology Attachment Program",
-          "requirementDescription" : "Complete 6 month internship thru ATAP",
-          "requirementType" : "CORE",
-          "condition" : {
-            "conditionName" : "Complete CP3880",
-            "minToSatisfy" : "1",
-            "regexes" : [ "CS3880" ]
-          }
-        },
-        "second" : {
-          "type" : "PrimitiveReq",
-          "requirementName" : "Complete 2 3 - months internships",
-          "requirementDescription" : "Complete two 3-month internships",
-          "requirementType" : "CORE",
-          "condition" : {
-            "conditionName" : "Complete CP3200, CP3202 or CP3107",
-            "minToSatisfy" : "2",
-            "regexes" : [ "CP3200", "CP3202|CP3107" ]
-          }
-        },
-        "courseReqType" : "CORE",
-        "logicalConnector" : "OR"
-      },
-      "second" : {
-        "type" : "PrimitiveReq",
-        "requirementName" : "Complete IS4010",
-        "requirementDescription" : "Compelte IS4010",
-        "requirementType" : "CORE",
-        "condition" : {
-          "conditionName" : "Complete IS4010",
-          "minToSatisfy" : "1",
-          "regexes" : [ "IS4010" ]
-        }
-      },
-      "courseReqType" : "CORE",
-      "logicalConnector" : "AND"
-    }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Science Requirements",
       "requirementDescription" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
@@ -131,16 +89,6 @@
         "conditionName" : "Complete MA1521, MA1101R, ST2334 and one other science mod",
         "minToSatisfy" : "4",
         "regexes" : [ "MA1521", "ST2334", "MA1101R", "(MA|ST|PC|LSM|CM|FST)[1-9][0-9]{3}[A-Z]?" ]
-      }
-    }, {
-      "type" : "PrimitiveReq",
-      "requirementName" : "Complete at least 40 modules",
-      "requirementDescription" : "At least 40 modules needed to graduate.",
-      "requirementType" : "UE",
-      "condition" : {
-        "conditionName" : "Complete any 40 modules",
-        "minToSatisfy" : "40",
-        "regexes" : [ "[A-Z]{2,3}[0-9]{4}[A-Z]?" ]
       }
     } ]
   },

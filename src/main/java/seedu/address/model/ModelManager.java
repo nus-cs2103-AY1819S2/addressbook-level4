@@ -109,6 +109,7 @@ public class ModelManager implements Model {
     public void setCourse(CourseName courseName) {
         requireNonNull(courseName);
         course = courseList.getCourse(courseName);
+        userInfo.setCourse(course);
     }
 
     @Override

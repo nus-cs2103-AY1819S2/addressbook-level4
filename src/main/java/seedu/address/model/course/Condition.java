@@ -3,6 +3,7 @@ package seedu.address.model.course;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -11,7 +12,7 @@ import java.util.stream.Stream;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
- * Represents aspect of a CourseRequirement
+ * Represents satisfiable condition of a CourseRequirement
  */
 public class Condition {
 
@@ -98,7 +99,7 @@ public class Condition {
                 .distinct().count() >= minToSatisfy;
     }
 
-    /**
+    /**d
      * Returns true if the module code of module matches at least one of the regex in regex list
      * @param moduleInfoCode a module code to check against regex list
      * @return true if at least module code of module matches at least one of the regex in regex list
@@ -123,17 +124,17 @@ public class Condition {
      * @param moduleInfoCodes a list of module codes to unsatisfied modules
      * @return a formatted String of regexes that are not fulfilled by any of the module codes
      */
-    public String getUnsatisfied(List<ModuleInfoCode> moduleInfoCodes) {
+    public List<String> getUnsatisfied(List<ModuleInfoCode> moduleInfoCodes) {
+        List<String> unsatisfiedRegexes = new ArrayList<>();
         if (isSatisfied(moduleInfoCodes)) {
-            return conditionName + " is satisfied";
+            //return empty list if it is satisfied
+            return unsatisfiedRegexes;
         }
-        StringBuilder formattedString = new StringBuilder();
-        formattedString.append(conditionName + " has unsatisfied:");
         regexes.stream()
             .filter(regex -> moduleInfoCodes.stream()
-                    .noneMatch(moduleInfoCode -> moduleInfoCode.toString().matches(regex)))
-            .forEach(regex -> formattedString.append("\n regex"));
-        return formattedString.toString();
+            .noneMatch(moduleInfoCode -> moduleInfoCode.toString().matches(regex)))
+            .forEach(regex -> unsatisfiedRegexes.add(regex));
+        return unsatisfiedRegexes;
     }
 
     public String getConditionName() {
@@ -153,7 +154,7 @@ public class Condition {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof Condition) || obj == null) {
+        if (!(obj instanceof Condition)) {
             return false;
         }
         Condition other = (Condition) obj;

@@ -54,7 +54,7 @@ public interface CourseRequirement {
      * @param moduleInfoCodes module codes to check the aspects of course requirements unfulfilled
      * @return a formatted string in the form
      */
-    String getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes);
+    List<String> getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes);
 
     /**
      * Returns a composite CourseRequirement whose boolean methods returns

@@ -93,22 +93,15 @@ public class CompositeRequirement implements CourseRequirement {
                     second.getFulfilledPercentage(moduleInfoCode));
         case AND:
         default:
-            //TODO:
-            return 0;
+            return (first.getFulfilledPercentage(moduleInfoCode) + second.getFulfilledPercentage(moduleInfoCode)) / 2.0;
         }
     }
 
     @Override
-    public String getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes) {
-        switch(connector) {
-        case AND:
-            return "(" + first.getUnfulfilled(moduleInfoCodes) + ") AND ("
-                    + second.getUnfulfilled(moduleInfoCodes) + ")";
-        case OR:
-        default:
-            return "(" + first.getUnfulfilled(moduleInfoCodes) + ") OR ("
-                    + second.getUnfulfilled(moduleInfoCodes) + ")";
-        }
+    public List<String> getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes) {
+        List<String> unfulfilledRegexes = first.getUnfulfilled(moduleInfoCodes);
+        unfulfilledRegexes.addAll(second.getUnfulfilled(moduleInfoCodes));
+        return unfulfilledRegexes;
     }
 
     @Override

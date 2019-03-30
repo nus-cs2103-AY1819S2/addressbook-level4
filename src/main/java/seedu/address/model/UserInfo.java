@@ -43,14 +43,17 @@ public class UserInfo implements Observable {
 
     public void setCourse(Course course) {
         this.course = course;
+        indicateModified();
     }
 
     public void setCurrentSemester(Semester currentSemester) {
         this.currentSemester = currentSemester;
+        indicateModified();
     }
 
     public void setSemLimit(SemLimit semLimit) {
         this.semLimit = semLimit;
+        indicateModified();
     }
 
     public Course getCourse() {

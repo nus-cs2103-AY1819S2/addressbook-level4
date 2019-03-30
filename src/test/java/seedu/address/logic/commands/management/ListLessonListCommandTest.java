@@ -18,7 +18,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
-import seedu.address.testutil.TypicalLessons;
+import seedu.address.testutil.TypicalLessonList;
 
 /**
  * Contains tests for ListCommand.
@@ -42,7 +42,7 @@ public class ListLessonListCommandTest {
     public void execute_listLessons() {
         ManagementModel modelStub = new MgtModelStubWithLessons();
         ListLessonsCommand listLessonsCommand = new ListLessonsCommand();
-        String expectedOutput = listLessonsCommand.buildList(TypicalLessons.getTypicalLessons());
+        String expectedOutput = listLessonsCommand.buildList(TypicalLessonList.getTypicalLessonList());
 
         // attempt to list all lessons when there are lessons -> list all lessons
         assertCommandSuccess(new ListLessonsCommand(), modelStub, commandHistory,
@@ -83,7 +83,7 @@ public class ListLessonListCommandTest {
     private class MgtModelStubWithLessons extends ManagementModelStub {
         @Override
         public List<Lesson> getLessonList() {
-            return TypicalLessons.getTypicalLessons();
+            return TypicalLessonList.getTypicalLessonList();
         }
     }
 }

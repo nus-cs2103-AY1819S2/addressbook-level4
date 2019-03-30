@@ -2,7 +2,7 @@ package seedu.address.logic.commands.management;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static seedu.address.testutil.TypicalLessons.LESSON_DEFAULT;
+import static seedu.address.testutil.TypicalLessonList.LESSON_DEFAULT;
 
 import java.util.Collections;
 
@@ -107,7 +107,7 @@ public class ManagementCommandsIntegrationTest {
         assertEquals(String.format(AddLessonCommand.MESSAGE_SUCCESS, validLesson),
                 commandResult.getFeedbackToUser());
 
-        // lesson added successfully -> lesson in lessons
+        // lesson added successfully -> lesson in lessonList
         assertEquals(Collections.singletonList(validLesson), model.getLessonList());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
 

@@ -16,16 +16,16 @@ import seedu.address.model.user.User;
 public class StorageManager implements Storage {
 
     private UserPrefsStorage userPrefsStorage;
-    private LessonsStorage lessonsStorage;
+    private LessonListStorage lessonListStorage;
     private UserStorage userStorage;
 
 
     public StorageManager(UserPrefsStorage userPrefsStorage,
-                          LessonsStorage lessonsStorage,
+                          LessonListStorage lessonListStorage,
                           UserStorage userStorage) {
         super();
         this.userPrefsStorage = userPrefsStorage;
-        this.lessonsStorage = lessonsStorage;
+        this.lessonListStorage = lessonListStorage;
         this.userStorage = userStorage;
     }
 
@@ -49,33 +49,43 @@ public class StorageManager implements Storage {
     // ================ LessonList methods ==============================
 
     @Override
-    public Path getLessonsFolderPath() {
-        return lessonsStorage.getLessonsFolderPath();
+    public Path getLessonListFolderPath() {
+        return lessonListStorage.getLessonListFolderPath();
     }
 
     @Override
-    public void setLessonsFolderPath(Path folderPath) {
-        lessonsStorage.setLessonsFolderPath(folderPath);
+    public void setLessonListFolderPath(Path folderPath) {
+        lessonListStorage.setLessonListFolderPath(folderPath);
     }
 
     @Override
-    public Optional<LessonList> readLessons() {
-        return lessonsStorage.readLessons();
+    public Optional<LessonList> readLessonList() {
+        return lessonListStorage.readLessonList();
     }
 
     @Override
-    public Optional<LessonList> readLessons(Path filePath) {
-        return lessonsStorage.readLessons(filePath);
+    public Optional<LessonList> readLessonList(Path filePath) {
+        return lessonListStorage.readLessonList(filePath);
     }
 
     @Override
-    public int saveLessons(LessonList lessonList) {
-        return lessonsStorage.saveLessons(lessonList);
+    public int saveLessonList(LessonList lessonList) {
+        return lessonListStorage.saveLessonList(lessonList);
     }
 
     @Override
-    public int saveLessons(LessonList lessonList, Path filePath) {
-        return lessonsStorage.saveLessons(lessonList, filePath);
+    public int saveLessonList(LessonList lessonList, Path filePath) {
+        return lessonListStorage.saveLessonList(lessonList, filePath);
+    }
+
+    @Override
+    public int saveLessonList(LessonList lessonList, boolean cleanup) {
+        return lessonListStorage.saveLessonList(lessonList, cleanup);
+    }
+
+    @Override
+    public int saveLessonList(LessonList lessonList, Path filePath, boolean cleanup) {
+        return lessonListStorage.saveLessonList(lessonList, filePath, cleanup);
     }
 
     // ================ User methods ==============================

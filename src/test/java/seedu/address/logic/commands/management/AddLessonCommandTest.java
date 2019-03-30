@@ -19,7 +19,7 @@ import seedu.address.model.lesson.Lesson;
 import seedu.address.model.modelmanager.ManagementModelStub;
 import seedu.address.model.modelmanager.QuizModelStub;
 import seedu.address.testutil.LessonBuilder;
-import seedu.address.testutil.TypicalLessons;
+import seedu.address.testutil.TypicalLessonList;
 
 /**
  * Unit tests for the {@link AddLessonCommand}.
@@ -72,8 +72,8 @@ public class AddLessonCommandTest {
 
     @Test
     public void equals() {
-        Lesson lessonDefault = new LessonBuilder(TypicalLessons.LESSON_DEFAULT).build();
-        Lesson lessonTrueFalse = new LessonBuilder(TypicalLessons.LESSON_TRUE_FALSE).build();
+        Lesson lessonDefault = new LessonBuilder(TypicalLessonList.LESSON_DEFAULT).build();
+        Lesson lessonTrueFalse = new LessonBuilder(TypicalLessonList.LESSON_TRUE_FALSE).build();
         AddLessonCommand addLessonDefCommand = new AddLessonCommand(lessonDefault);
         AddLessonCommand addLessonPropCommand = new AddLessonCommand(lessonTrueFalse);
 

@@ -31,7 +31,7 @@ import seedu.address.model.quiz.Quiz;
 import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
-import seedu.address.storage.CsvLessonsStorage;
+import seedu.address.storage.CsvLessonListStorage;
 import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -51,9 +51,9 @@ public class LogicManagerTest {
     @Before
     public void setUp() throws Exception {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
-        CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(temporaryFolder.newFile().toPath());
+        CsvLessonListStorage lessonListStorage = new CsvLessonListStorage(temporaryFolder.newFile().toPath());
         CsvUserStorage userStorage = new CsvUserStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
+        StorageManager storage = new StorageManager(userPrefsStorage, lessonListStorage, userStorage);
         logic = new LogicManager(managementModel, quizModel, storage);
     }
 

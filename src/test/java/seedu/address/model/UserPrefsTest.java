@@ -39,7 +39,7 @@ public class UserPrefsTest {
         assertFalse(userPrefs.equals(5));
 
         // different values -> returns false
-        userPrefDiff.setLessonsFolderPath(Paths.get("test_different"));
+        userPrefDiff.setLessonListFolderPath(Paths.get("test_different"));
         assertFalse(userPref.equals(userPrefDiff));
     }
 
@@ -64,8 +64,8 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setLessonsFolderPath_nullLessonsFolderPath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class, () -> userPref.setLessonsFolderPath(null));
+    public void setLessonListFolderPath_nullLessonListFolderPath_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> userPref.setLessonListFolderPath(null));
     }
 
     @Test

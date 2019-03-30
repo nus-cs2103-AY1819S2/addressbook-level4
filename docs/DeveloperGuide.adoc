@@ -152,7 +152,6 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::SDforDeletePerson.png[width="800"]
 
 The sections below give more details of each component.
-
 [[Design-Ui]]
 === UI component
 

@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-import static seedu.address.commons.core.Config.TEMP_FILE;
+import static seedu.address.commons.core.Config.ORIGINAL_FILENAME;
 import static seedu.address.commons.core.Config.TEMP_FILENAME;
 import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 
@@ -19,11 +19,14 @@ import seedu.address.Notifier;
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;
 
-
 /**
  * Represents the in-memory model of the current image being edited on.
  */
 public class CurrentEditManager implements CurrentEdit {
+
+    // Directory to copy imported images to.
+    private final File directoryTo = new File("src/main/resources/temp");
+
     private Image originalImage;
     private Image tempImage;
     private String originalImageName;
@@ -32,6 +35,33 @@ public class CurrentEditManager implements CurrentEdit {
     public CurrentEditManager() {
         this.originalImage = null;
         this.tempImage = null;
+        this.originalImageName = null;
+    }
+
+    /**
+     * Opens an image in FomoFoto.
+     * This method makes two copies of the original image in temp folder.
+     *
+     * @param image Image to be edited.
+     */
+    public void openImage(Image image) {
+        this.originalImageName = image.getName().getFullName();
+        try {
+            FileUtils.cleanDirectory(new File(TEMP_FILEPATH));
+            File file = new File(image.getUrl());
+            FileUtils.copyFileToDirectory(file, directoryTo);
+            File currentFile = new File(TEMP_FILEPATH + this.originalImageName);
+            File tempFile = new File(TEMP_FILENAME);
+            FileUtils.moveFile(currentFile, tempFile);
+            FileUtils.copyFileToDirectory(file, directoryTo);
+            File originalFile = new File(ORIGINAL_FILENAME);
+            FileUtils.moveFile(currentFile, originalFile);
+
+            this.originalImage = new Image(originalFile.getAbsolutePath());
+            this.tempImage = new Image(tempFile.getAbsolutePath());
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -48,17 +78,8 @@ public class CurrentEditManager implements CurrentEdit {
      */
     public void saveAsOriginal(Image image) {
         saveIntoTempFolder("ori_img.png", image);
-        originalImageName = image.getName().toString();
+        this.originalImageName = image.getName().getFullName();
         setOriginalImage(image);
-    }
-
-    /**
-     * Overwrites ori_img.png with tempImage. Sets originalImageName as {@code name}.
-     */
-    public void overwriteOriginal(String name) {
-        saveIntoTempFolder("ori_img.png", tempImage);
-        originalImageName = name;
-        setOriginalImage(tempImage);
     }
 
     /**
@@ -84,7 +105,7 @@ public class CurrentEditManager implements CurrentEdit {
      * Creates tempImage instance of temp_img.png located in temp folder.
      */
     public void setTempImage() {
-        Image image = new Image(TEMP_FILE);
+        Image image = new Image(TEMP_FILENAME);
         this.tempImage = image;
     }
 
@@ -95,7 +116,7 @@ public class CurrentEditManager implements CurrentEdit {
      */
     public void updateTempImage(com.sksamuel.scrimage.Image image) {
         image.output(tempImage.getUrl(), new JpegWriter(100, true));
-        tempImage = new Image(TEMP_FILE);
+        tempImage = new Image(TEMP_FILENAME);
     }
 
     /* @@author kayheen */
@@ -113,14 +134,14 @@ public class CurrentEditManager implements CurrentEdit {
         } catch (IOException e) {
             System.out.println(e.toString());
         }
-        tempImage = new Image(TEMP_FILE);
+        tempImage = new Image(TEMP_FILENAME);
     }
 
     /**
      * Creates originalImage instance of {@code image} located in temp_folder.
      */
     public void setOriginalImage(Image image) {
-        this.originalImage = new Image(TEMP_FILEPATH + image.getName().toString());
+        this.originalImage = new Image(TEMP_FILENAME);
     }
 
     public void displayTempImage() {
@@ -128,9 +149,6 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     public void addCommand(Command command) {
-    }
-
-    public void replaceTempWithOriginal() {
     }
 
     /**
@@ -142,12 +160,21 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /**
+     * Overwrites ori_img.png with tempImage. Sets originalImageName as {@code name}.
+     */
+    public void overwriteOriginal(String name) {
+        saveIntoTempFolder("ori_img.png", tempImage);
+        this.originalImageName = name;
+        this.originalImage = new Image(TEMP_FILENAME);
+    }
+
+    /**
      * Saves tempImage to assetsFolder as {@code name} or original name if not specified.
      */
     public String saveToAssets(String name) {
         try {
             if (name.isEmpty()) {
-                name = originalImageName;
+                name = this.originalImageName;
             }
             File outputFile = new File(name);
             File saveDirectory = new File(ASSETS_FILEPATH);

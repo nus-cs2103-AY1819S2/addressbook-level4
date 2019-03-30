@@ -11,11 +11,11 @@ import seedu.address.model.image.Image;
  */
 public interface CurrentEdit {
 
-    void saveAsTemp(Image image);
-
-    void saveAsOriginal(Image image);
-
-    void overwriteOriginal(String name);
+//    void saveAsTemp(Image image);
+//
+//    void saveAsOriginal(Image image);
+//
+//    void overwriteOriginal(String name);
 
     void saveIntoTempFolder(String filename, Image image);
 
@@ -33,11 +33,13 @@ public interface CurrentEdit {
 
     void addCommand(Command command);
 
-    void replaceTempWithOriginal();
+//    void replaceTempWithOriginal();
 
     String[] getFileNames();
 
     String saveToAssets(String name);
 
     void updateExif();
+
+    void openImage(Image image);
 }

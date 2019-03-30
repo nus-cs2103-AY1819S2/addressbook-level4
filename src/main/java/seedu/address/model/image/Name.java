@@ -6,7 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Image's name in FomoFoto's Album.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * A Name comprises of three fields: A fully qualified name, the base name and the file extension.
+ * Guarantees: immutable; is valid as declared in {@link #isValidExtension(String)}
  */
 public class Name {
 
@@ -18,42 +19,54 @@ public class Name {
      */
     public static final String VALIDATION_REGEX = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp|tiff|tif))$)";
 
-    public final String name;
+    public final String baseName;
+    public final String extName;
+    public final String fullName;
 
     /**
      * Constructs a {@code Name}.
      *
-     * @param name A valid name.
+     * @param baseName A valid base name.
+     * @param extName  A valid extension.
+     * @param fullName  A valid extension.
      */
-    public Name(String name) {
-        requireNonNull(name);
-        checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        this.name = name;
+    public Name(String baseName, String extName, String fullName) {
+        requireNonNull(baseName);
+        requireNonNull(extName);
+        requireNonNull(fullName);
+        checkArgument(isValidExtension(fullName), MESSAGE_CONSTRAINTS);
+        this.baseName = baseName;
+        this.extName = extName;
+        this.fullName = fullName;
     }
 
     /**
      * Returns true if a given string is a valid name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidExtension(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String getBaseName() {
+        return baseName;
+    }
 
-    @Override
-    public String toString() {
-        return name;
+    public String getExtName() {
+        return extName;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Name // instanceof handles nulls
-                && name.equals(((Name) other).name)); // state check
+    public String toString() {
+        return baseName + "." + extName;
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return this.toString().hashCode();
     }
 
 }

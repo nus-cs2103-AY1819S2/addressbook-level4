@@ -48,7 +48,7 @@ public class ImageCard extends UiPart<Region> {
         } catch (MalformedURLException e) {
             System.out.println(e.toString());
         }
-        name.setText("\uD83D\uDDBC " + image.getName().name);
+        name.setText("\uD83D\uDDBC " + image.getName().getFullName());
         height.setText("Height: " + image.getHeight().value + " px");
         width.setText("Width: " + image.getWidth().value + " px");
         size.setText("Size: " + image.getSize().value + " bytes");

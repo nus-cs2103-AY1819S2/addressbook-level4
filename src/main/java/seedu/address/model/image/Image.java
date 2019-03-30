@@ -41,18 +41,19 @@ public class Image {
     public Image(String url) {
         requireAllNonNull(url);
         File file = new File(url);
-        this.url = url;
-        this.fileType = FilenameUtils.getExtension(url);
-        this.size = new Size(String.valueOf(file.length()));
-        this.name = new Name(file.getName());
-        this.width = new Width(String.valueOf(buffer.getWidth()));
-        this.height = new Height(String.valueOf(buffer.getHeight()));
         try {
             this.buffer = ImageIO.read(file);
             this.metadata = ImageMetadataReader.readMetadata(file);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+        this.url = url;
+        this.fileType = FilenameUtils.getExtension(url);
+        this.size = new Size(String.valueOf(file.length()));
+        this.name = new Name(FilenameUtils.getBaseName(url),
+                FilenameUtils.getExtension(url), FilenameUtils.getName(url));
+        this.width = new Width(String.valueOf(buffer.getWidth()));
+        this.height = new Height(String.valueOf(buffer.getHeight()));
         System.out.println(this.toString());
     }
 

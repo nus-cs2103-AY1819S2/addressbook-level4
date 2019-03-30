@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
-import static seedu.address.commons.core.Config.TEMP_FILE;
 import static seedu.address.commons.core.Config.TEMP_FILENAME;
 import static seedu.address.commons.core.Config.TEMP_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -145,7 +144,7 @@ public class ModelManager implements Model {
      */
     @Override
     public void displayTempImage() {
-        Notifier.firePropertyChangeListener("import", null, TEMP_FILE);
+        Notifier.firePropertyChangeListener("import", null, TEMP_FILEPATH);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -322,7 +321,7 @@ public class ModelManager implements Model {
                 name = originalName;
             }
             File outputFile = new File(name);
-            File latestImage = new File(TEMP_FILE);
+            File latestImage = new File(TEMP_FILEPATH);
             File saveDirectory = new File(ASSETS_FILEPATH);
             System.out.println("Should not be called");
             latestImage.renameTo(outputFile);

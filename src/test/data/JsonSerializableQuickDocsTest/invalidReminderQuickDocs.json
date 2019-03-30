@@ -1,0 +1,13 @@
+{
+  "patientList" : [ ],
+  "consultationList" : [ ],
+  "appointmentList" : [ ],
+  "reminderList" : [ {
+    "title" : "Appointment with Peter Tan",
+    "comment" : "Weekly Checkup",
+    "date" : "2019-10-33",
+    "start" : "12:00",
+    "end" : "24:00"
+  } ],
+  "medicineList" : [ ]
+}

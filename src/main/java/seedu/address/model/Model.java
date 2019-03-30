@@ -120,26 +120,6 @@ public interface Model {
     void updateFilteredPersonList(Predicate<Person> predicate);
 
     /**
-     * Returns true if the model has previous address book states to restore.
-     */
-    boolean canUndoAddressBook();
-
-    /**
-     * Returns true if the model has undone address book states to restore.
-     */
-    boolean canRedoAddressBook();
-
-    /**
-     * Restores the model's address book to its previous state.
-     */
-    void undoAddressBook();
-
-    /**
-     * Restores the model's address book to its previously undone state.
-     */
-    void redoAddressBook();
-
-    /**
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
@@ -213,6 +193,8 @@ public interface Model {
 
     Patient getPatientByNric(String nric);
 
+    Optional<Patient> getPatientByNric(Nric nric);
+
     int getIndexByNric(Nric nric);
 
     void deletePatientByNric(String nric);
@@ -220,8 +202,6 @@ public interface Model {
     //==========Consultation methods=====================
 
     void createConsultation(Patient patient);
-
-    Optional<Patient> getPatientWithNric(Nric nric);
 
     void diagnosePatient(Diagnosis diagnosis);
 
@@ -240,13 +220,15 @@ public interface Model {
     Consultation listConsultation(int index);
 
     //===========Appointment module operations========================
-    boolean duplicateApp(Appointment app);
+    boolean hasTimeConflicts(Appointment app);
 
     void addApp(Appointment app);
 
     String listApp(LocalDate start, LocalDate end);
 
     String listApp(Patient patient);
+
+    String freeApp(LocalDate start, LocalDate end);
 
     Optional<Appointment> getAppointment(LocalDate date, LocalTime start);
 

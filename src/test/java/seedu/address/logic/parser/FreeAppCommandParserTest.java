@@ -3,9 +3,8 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.logic.parser.ListAppCommandParser.PREFIX_DATE;
-import static seedu.address.logic.parser.ListAppCommandParser.PREFIX_FORMAT;
-import static seedu.address.logic.parser.ListAppCommandParser.PREFIX_NRIC;
+import static seedu.address.logic.parser.FreeAppCommandParser.PREFIX_DATE;
+import static seedu.address.logic.parser.FreeAppCommandParser.PREFIX_FORMAT;
 import static seedu.address.logic.parser.ParserUtil.FORMAT_DAY;
 import static seedu.address.logic.parser.ParserUtil.FORMAT_MONTH;
 import static seedu.address.logic.parser.ParserUtil.FORMAT_WEEK;
@@ -14,58 +13,37 @@ import java.time.LocalDate;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.ListAppCommand;
-import seedu.address.model.patient.Nric;
+import seedu.address.logic.commands.FreeAppCommand;
 
-public class ListAppCommandParserTest {
-    private ListAppCommandParser parser = new ListAppCommandParser();
+public class FreeAppCommandParserTest {
+    private FreeAppCommandParser parser = new FreeAppCommandParser();
 
     private String formatStringDay = FORMAT_DAY;
     private String formatStringWeek = FORMAT_WEEK;
     private String formatStringMonth = FORMAT_MONTH;
-    private String nricString = "S9234568C";
     private String dateString = "2019-10-23";
 
-    private Nric nric = new Nric(nricString);
     private LocalDate date = LocalDate.parse(dateString);
 
     @Test
     public void parse_noFieldsPresent_success() {
-        assertParseSuccess(parser, "", new ListAppCommand());
+        assertParseSuccess(parser, "", new FreeAppCommand());
     }
 
     @Test
-    public void parse_allRequiredFieldsPresent_success() {
+    public void parse_allFieldsPresent_success() {
         // whitespace only preamble
-        // list appointments by given search range
+        // list free appointment slots by given search range
         assertParseSuccess(parser,
                 "              "
                         + PREFIX_FORMAT + formatStringDay + " "
                         + PREFIX_DATE + dateString,
-                new ListAppCommand(date, date));
-
-        // list appointments for given patient's nric
-        assertParseSuccess(parser,
-                "              "
-                        + PREFIX_NRIC + nricString,
-                new ListAppCommand(nric));
-    }
-
-    @Test
-    public void parse_allPrefixPresent_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListAppCommand.MESSAGE_USAGE);
-
-        // all prefixes included
-        assertParseFailure(parser,
-                PREFIX_FORMAT + formatStringDay + " "
-                        + PREFIX_DATE + dateString + " "
-                        + PREFIX_NRIC + nricString,
-                expectedMessage);
+                new FreeAppCommand(date, date));
     }
 
     @Test
     public void parse_compulsoryPrefixMissing_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListAppCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FreeAppCommand.MESSAGE_USAGE);
 
         // missing format prefix
         assertParseFailure(parser,
@@ -83,10 +61,6 @@ public class ListAppCommandParserTest {
         assertParseFailure(parser,
                 formatStringMonth + " "
                         + dateString,
-                expectedMessage);
-
-        // missing nric prefix
-        assertParseFailure(parser, nricString,
                 expectedMessage);
     }
 
@@ -112,7 +86,7 @@ public class ListAppCommandParserTest {
                 "              "
                         + PREFIX_FORMAT + formatStringDay + " "
                         + PREFIX_DATE + dateString,
-                new ListAppCommand(start, end));
+                new FreeAppCommand(start, end));
 
         // format == week
         start = LocalDate.parse("2019-10-21");
@@ -121,7 +95,7 @@ public class ListAppCommandParserTest {
                 "              "
                         + PREFIX_FORMAT + formatStringWeek + " "
                         + PREFIX_DATE + dateString,
-                new ListAppCommand(start, end));
+                new FreeAppCommand(start, end));
 
         // format == week
         start = LocalDate.parse("2019-10-01");
@@ -130,6 +104,6 @@ public class ListAppCommandParserTest {
                 "              "
                         + PREFIX_FORMAT + formatStringMonth + " "
                         + PREFIX_DATE + dateString,
-                new ListAppCommand(start, end));
+                new FreeAppCommand(start, end));
     }
 }

@@ -146,6 +146,7 @@ public class Card {
         Card otherCard = (Card) other;
         return otherCard.getQuestion().equals(getQuestion())
                 && otherCard.getAnswer().equals(getAnswer())
+                && otherCard.getOptions().equals(getOptions())
                 && otherCard.getScore().equals(getScore())
                 && otherCard.getHints().equals(getHints());
     }

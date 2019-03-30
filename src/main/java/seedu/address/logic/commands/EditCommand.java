@@ -120,6 +120,10 @@ public class EditCommand extends Command {
             Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
             Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
             Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+            DrugAllergy updatedDrugAllergy =
+                editPersonDescriptor.getDrugAllergy().orElse(((Patient) personToEdit).getDrugAllergy());
+            Description updatedDesc =
+                editPersonDescriptor.getDescription().orElse(((Patient) personToEdit).getPatientDesc());
 
             //NextOfKin Attributes
             NextOfKin kin = ((Patient) personToEdit).getNextOfKin();
@@ -137,8 +141,9 @@ public class EditCommand extends Command {
             }
 
             return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, null, updatedNric,
-                    updatedDob, updatedSex, new NextOfKin(updatedKinName, updatedKinPhone, updatedKinEmail,
-                updatedKinAddress, null, updatedKinRelation));
+                updatedDob, updatedSex, updatedDrugAllergy,
+                new NextOfKin(updatedKinName, updatedKinPhone, updatedKinEmail, updatedKinAddress, null,
+                    updatedKinRelation), updatedDesc);
         } else {
             throw new PersonIsNotPatient();
         }

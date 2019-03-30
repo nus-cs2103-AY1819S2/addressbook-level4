@@ -51,6 +51,8 @@ public class CommandTestUtil {
             + "wonderful people and animals.";
     public static final String VALID_REVIEWMESSAGE_CS = "It provides a great introduction to computer science. "
             + "The legendary SICP reminded me of the the Bible in many respects.";
+    public static final String VALID_DATE = "2019/03/16 18:20:00";
+    public static final String VALID_ALTERNATIVE_DATE = "2019/03/26 18:20:00";
 
     public static final String NAME_DESC_ALICE = " " + PREFIX_NAME + VALID_BOOKNAME_ALICE;
     public static final String NAME_DESC_CS = " " + PREFIX_NAME + VALID_BOOKNAME_CS;

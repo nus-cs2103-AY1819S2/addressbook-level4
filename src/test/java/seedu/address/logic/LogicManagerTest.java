@@ -11,10 +11,8 @@ import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_1;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_CORE_HEADER_2;
 import static seedu.address.testutil.LessonBuilder.DEFAULT_NAME;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2;
+import static seedu.address.testutil.TypicalSession.SESSION_DEFAULT_2_ACTUAL;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -29,20 +27,25 @@ import seedu.address.logic.commands.management.ExitCommand;
 import seedu.address.logic.commands.management.HelpCommand;
 import seedu.address.logic.commands.management.HistoryCommand;
 import seedu.address.logic.commands.quiz.QuizAnswerCommand;
+import seedu.address.logic.commands.quiz.QuizQuitCommand;
+import seedu.address.logic.commands.quiz.QuizStartCommand;
 import seedu.address.logic.commands.quiz.QuizStatusCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
-import seedu.address.model.quiz.QuizCard;
 import seedu.address.model.quiz.QuizMode;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
+import seedu.address.model.user.User;
 import seedu.address.storage.CsvLessonsStorage;
 import seedu.address.storage.CsvUserStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.LessonBuilder;
 
 public class LogicManagerTest {
     @Rule
@@ -51,18 +54,29 @@ public class LogicManagerTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
 
-    private ManagementModel managementModel = new ManagementModelManager();
-    private QuizModel quizModel = new QuizModelManager();
+    private StorageManager storage;
+    private ManagementModel managementModel;
+    private QuizModel quizModel;
     private CommandHistory history = new CommandHistory();
     private Logic logic;
+    private QuizModelManager expectedModel;
+    private Quiz quizExpected;
+    private Quiz quizActual;
 
     @Before
     public void setUp() throws Exception {
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         CsvLessonsStorage lessonsStorage = new CsvLessonsStorage(temporaryFolder.newFile().toPath());
         CsvUserStorage userStorage = new CsvUserStorage(temporaryFolder.newFile().toPath());
-        StorageManager storage = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
+        storage = new StorageManager(userPrefsStorage, lessonsStorage, userStorage);
+        managementModel = new ManagementModelManager();
+        quizModel = new QuizModelManager(managementModel);
         logic = new LogicManager(managementModel, quizModel, storage);
+
+        quizExpected = new Quiz(SESSION_DEFAULT_2.generateSession(), SESSION_DEFAULT_2.getMode());
+        quizActual = new Quiz(SESSION_DEFAULT_2_ACTUAL.generateSession(), SESSION_DEFAULT_2_ACTUAL.getMode());
+
+        expectedModel = new QuizModelManager(new ManagementModelManager());
     }
 
     @Test
@@ -72,85 +86,66 @@ public class LogicManagerTest {
         assertHistoryCorrect(invalidCommand);
     }
 
-    /*@Test
+    @Test
     public void execute_startCommand_success() {
-        // TODO change to session
-        // this hardcoded values matched QuizStartCommand
-        // when session is implemented then this will change to session instead
-        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
-        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
-        final QuizCard card4 = new QuizCard("中国", "北京");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
-        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
+        LessonList lessonList = new LessonList();
+        lessonList.addLesson(new LessonBuilder().build());
+        ManagementModelManager expectedMgmtMgr = new ManagementModelManager(new UserPrefs(), lessonList, new User());
+        managementModel = new ManagementModelManager(new UserPrefs(), lessonList, new User());
+        logic = new LogicManager(managementModel, quizModel, storage);
 
-        QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(quiz);
-        QuizCard expectedCard = expectedModel.getNextCard();
-        CommandResult expected = new CommandResult(String.format(QuizStartCommand.MESSAGE_QUESTION_ANSWER,
-            expectedCard.getQuestion(), expectedCard.getAnswer()));
-
-        assertCommandSuccess(QuizStartCommand.COMMAND_WORD, expected.getFeedbackToUser(), expectedModel);
-    }*/
+        assertCommandSuccess(QuizStartCommand.COMMAND_WORD + " n/02-03-LEARN c/2 m/LEARN", "", expectedMgmtMgr);
+    }
 
     @Test
-    public void execute_quizCommand_success() {
-        final String answer = "Budapest";
-        // TODO change to session
-        // this hardcoded values matched QuizStartCommand
-        // when session is implemented then this will change to session instead
-        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
-        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
-        final QuizCard card4 = new QuizCard("中国", "北京");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
-        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
+    public void execute_quizCommand_success() throws CommandException {
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
-        QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(quiz);
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         CommandResult expected = new CommandResult("");
 
-        quizModel.init(new Quiz(quizCards, QuizMode.LEARN));
         quizModel.getNextCard();
 
-        assertCommandSuccess(answer, expected.getFeedbackToUser(), expectedModel);
+        assertCommandSuccess("tokyo", expected.getFeedbackToUser(), expectedModel);
+        assertTrue(new QuizAnswerCommand("someanswer").execute(quizModel, history).isShowQuiz());
     }
 
     @Test
-    public void execute_quizStatusCommand_success() throws Exception {
-        // TODO change to session
-        // this hardcoded values matched StartCommand
-        // when session is implemented then this will change to session instead
-        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
-        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
-        final QuizCard card4 = new QuizCard("中国", "北京");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
-        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
+    public void execute_quitCommand_success() {
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
-        QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(quiz);
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.getNextCard();
+        expectedModel.updateTotalAttemptsAndStreak(0, "Brussels");
+        expectedModel.updateUserProfile(expectedModel.end());
+        CommandResult expected = new CommandResult(String.format(QuizQuitCommand.MESSAGE_SUCCESS, 1));
+
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.updateTotalAttemptsAndStreak(0, "Brussels");
+
+        assertCommandSuccess("\\quit", expected.getFeedbackToUser(), expectedModel);
+    }
+
+    @Test
+    public void execute_quizStatusCommand_success() {
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
+
         expectedModel.getNextCard();
 
-        CommandResult expected = new CommandResult(String.format(QuizStatusCommand.MESSAGE_RESULT,
+        CommandResult expected = new CommandResult(String.format(QuizStatusCommand.MESSAGE_SUCCESS,
             expectedModel.getQuizTotalAttempts(), expectedModel.getQuizTotalCorrectQuestions(),
             expectedModel.getCurrentProgress()));
 
-        quizModel.init(new Quiz(quizCards, QuizMode.LEARN));
         quizModel.getNextCard();
 
         assertCommandSuccess("\\status", expected.getFeedbackToUser(), expectedModel);
-
-        quizModel.getNextCard();
-        quizModel.getNextCard();
-        quizModel.getNextCard();
-        quizModel.getNextCard();
-        quizModel.getNextCard();
-
-        assertTrue(new QuizAnswerCommand("someanswer").execute(quizModel, history).isShowQuiz());
-
     }
 
     @Test
@@ -164,55 +159,41 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getMode() {
-        // TODO change to session
-        // this hardcoded values matched StartCommand
-        // when session is implemented then this will change to session instead
-        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
-        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
-        final QuizCard card4 = new QuizCard("中国", "北京");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
-        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
+    public void getMode() throws CommandException {
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
-        QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(quiz);
         expectedModel.getNextCard();
         expectedModel.getNextCard();
         expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary", "answer", "Budapest",
             QuizMode.PREVIEW));
 
-        // before quiz starts
-        assertEquals(LogicManager.Mode.MANAGEMENT, logic.getMode());
-
-        quizModel.init(new Quiz(quizCards, QuizMode.LEARN));
         quizModel.getNextCard();
 
         // after quiz started
         assertCommandSuccess("", "", expectedModel);
         assertEquals(LogicManager.Mode.QUIZ, logic.getMode());
+
+        // after quiz ended
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        quizModel.getNextCard();
+        new QuizAnswerCommand("japan").execute(quizModel, history);
+
+        assertEquals(LogicManager.Mode.MANAGEMENT, logic.getMode());
     }
 
     @Test
     public void getDisplayFormatter() {
-        // TODO change to session
-        // this hardcoded values matched StartCommand
-        // when session is implemented then this will change to session instead
-        final QuizCard card1 = new QuizCard("Japan", "Tokyo");
-        final QuizCard card2 = new QuizCard("Hungary", "Budapest");
-        final QuizCard card3 = new QuizCard("Christmas Island", "The Settlement");
-        final QuizCard card4 = new QuizCard("中国", "北京");
-        final List<QuizCard> quizCards = new ArrayList<>(Arrays.asList(card1, card2, card3, card4));
-        final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
+        expectedModel.init(quizExpected, SESSION_DEFAULT_2);
+        quizModel.init(quizActual, SESSION_DEFAULT_2_ACTUAL);
 
-        QuizModelManager expectedModel = new QuizModelManager();
-        expectedModel.init(quiz);
         expectedModel.getNextCard();
         expectedModel.getNextCard();
-        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Hungary", "answer", "Budapest",
+        expectedModel.setDisplayFormatter(new QuizUiDisplayFormatter("question", "Japan", "answer", "Tokyo",
             QuizMode.PREVIEW));
 
-        quizModel.init(new Quiz(quizCards, QuizMode.LEARN));
         quizModel.getNextCard();
 
         assertCommandSuccess("", "", expectedModel);

@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -67,11 +66,15 @@ public class LogicManager implements Logic {
             } else {
                 command = quizModeParser.parse(commandText);
                 commandResult = command.execute(quizModel, history);
+
+                if (quizModel.isQuizDone()) {
+                    storageManager.saveUser(managementModel.getUser());
+                }
             }
 
             if (command instanceof QuizStartCommand) {
                 QuizStartCommand quizStartCommand = (QuizStartCommand) command;
-                commandResult = quizStartCommand.executeActual(quizModel, managementModel, history);
+                commandResult = quizStartCommand.executeActual(quizModel, history);
             }
         } finally {
             history.add(commandText);

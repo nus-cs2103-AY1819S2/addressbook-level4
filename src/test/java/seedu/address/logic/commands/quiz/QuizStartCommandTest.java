@@ -14,8 +14,6 @@ import org.junit.Test;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.lesson.Lesson;
-import seedu.address.model.modelmanager.ManagementModel;
-import seedu.address.model.modelmanager.ManagementModelManager;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.modelmanager.QuizModelManager;
 import seedu.address.model.quiz.Quiz;
@@ -60,19 +58,17 @@ public class QuizStartCommandTest {
         final Quiz quiz = new Quiz(quizCards, QuizMode.LEARN);
 
         QuizModelManager expectedModel = new QuizModelManager();
-        ManagementModel expectedManagementModel = new ManagementModelManager();
-        expectedModel.initWithSession(quiz, session, expectedManagementModel);
+        expectedModel.init(quiz, session);
         expectedModel.getNextCard();
         CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,
-                expectedManagementModel, commandHistory);
+            commandHistory);
 
         QuizModel actualModel = new QuizModelManager();
-        ManagementModelManager actualManagementModel = new ManagementModelManager();
         QuizStartCommand quizStartCommand = new QuizStartCommand(session);
         assertEquals(quizStartCommand.getSession(), session);
 
         CommandHistory expectedCommandHistory = new CommandHistory(commandHistory);
-        CommandResult result = quizStartCommand.executeActual(actualModel, actualManagementModel, commandHistory);
+        CommandResult result = quizStartCommand.executeActual(actualModel, commandHistory);
         assertEquals(expectedCommandResult, result);
         assertEquals(expectedCommandHistory, commandHistory);
 
@@ -91,19 +87,17 @@ public class QuizStartCommandTest {
         final Quiz quiz = new Quiz(quizCards, QuizMode.REVIEW);
 
         QuizModelManager expectedModel = new QuizModelManager();
-        ManagementModelManager expectedManagementModel = new ManagementModelManager();
-        expectedModel.initWithSession(quiz, session, expectedManagementModel);
+        expectedModel.init(quiz, session);
         expectedModel.getNextCard();
         CommandResult expectedCommandResult = new QuizStartCommand(session).executeActual(expectedModel,
-            expectedManagementModel, commandHistory);
+            commandHistory);
 
         QuizModel actualModel = new QuizModelManager();
-        ManagementModelManager actualManagementModel = new ManagementModelManager();
         QuizStartCommand quizStartCommand = new QuizStartCommand(session);
         assertEquals(quizStartCommand.getSession(), session);
 
         CommandHistory expectedCommandHistory = new CommandHistory(commandHistory);
-        CommandResult result = quizStartCommand.executeActual(actualModel, actualManagementModel, commandHistory);
+        CommandResult result = quizStartCommand.executeActual(actualModel, commandHistory);
         assertEquals(expectedCommandResult, result);
         assertEquals(expectedCommandHistory, commandHistory);
     }

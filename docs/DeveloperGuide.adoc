@@ -33,6 +33,8 @@ Are you a developer who wants to learn how MediTabs is designed and implemented,
 
 == Setting up
 
+Follow the step by step instructions below to set up MediTabs project with IntelliJ Integrated Development Environment (IDE).
+
 === Prerequisites
 
 . *JDK `9` (highly recommended) or `10`*

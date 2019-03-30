@@ -87,7 +87,7 @@ public class Coordinates {
      * @param alphabet String of alphabet
      * @return integer offset from 'a', zero-based
      */
-    private int convertAlphabetToNumber(String alphabet) {
+    public int convertAlphabetToNumber(String alphabet) {
         char alphabetChar = alphabet.charAt(0);
         return (int) alphabetChar - 'a' + 1;
     }

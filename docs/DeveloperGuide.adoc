@@ -559,6 +559,18 @@ Step 9. Below is the final state of `ModelManager`:
 
 image::card_dg_diagrams/card_fig_8.png[width="800", caption="Figure 8"]
 
+==== Design Considerations
+
+===== Aspect: How CRUD operation should work
+* **Alternative 1 (current choice):** Recreate the CardViews after each operation
+** Pros: Leverages on the current implementation of `VersionTopDeck` making it easier to
+implement.
+** Cons: Constantly creating `CardsView` even with a small change.
+* **Alternative 2:** CardView updates itself base on the chosen deck.
+** Pros: Only has to update the pointer to the current Deck.
+** Cons: As `CardsView.activeDeck` can only reference to one deck only, the current Undo/Redo feature
+will have to be changed to store the previous commands and the object changed.
+
 // end::card[]
 
 // tag::dataencryption[]

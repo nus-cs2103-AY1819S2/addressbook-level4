@@ -13,41 +13,52 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-Having a hard time memorizing two hundred pages worth of lecture notes? Cant' recall the difference between the Adenosine
-Triphosphate and Adenosine Diphosphate? The fact is, memory work is hard. We understand your troubles.
+ifdef::env-github[]
+:imagesdir: https://raw.githubusercontent.com/dlqs/main/refactorMisc/docs/images
+endif::[]
 
-Introducing... Know-It-All!
+{nbsp} +
+Having a hard time memorizing _two hundred pages_ worth of lecture notes? 
 
-Know-It-All is targeted at medical students (in fact, any student) as their studies requires a considerable amount of
+Can't recall the difference between the "ATP" and "ADP"? Or remember the name of the "leg bone"? 
+
+The fact is, _memory work is hard_. *And we understand.*
+
+Introducing... *_Know-It-All_*!
+
+*_Know-It-All_* is targeted at medical students (in fact, any students) as their studies requires a considerable amount of
 memory work, and deals with content that is suitable for bite-sized flashcard format.
 
-You can manage your flash cards, test yourself, and even share flashcards with your fellow classmates!
-What are you waiting for? Download Know-It-All today!
+*_Know-It-All_* lets you:
 
-Know-It-All comes with both a GUI (Graphical User Interface) and a CLI (Command Line Interface), for maximum control.
-We want to give you control over your own learning process.
+ * manage your flash cards, test yourself, and even share flashcards with others
+ * view your cards through the GUI (Graphical User Interface)
+ * have maximum control through the CLI (Command Line Interface)
 
-Know-It-All uses _innovative_ teaching methods to ensure our users love the learning process, combined with scientifically proven techniques
- such as _spaced-repetition_ to drive their performance ahead of everyone.
+*_Know-It-All_* uses _innovative_ teaching methods to ensure our users love the learning process, combined with scientifically proven techniques such as _spaced-repetition_ to drive their performance ahead of the curve.
 
-Compiled by a fleet of education experts, Know-It-All has been used by over a dozen students who have seen improvements
-in their results. Here are some things our users and fans had to say about us:
+Compiled by a fleet of genuises, *_Know-It-All_* has been used by literally over a dozen students who have seen improvements in their results. Here are some raving reviews:
 
+{nbsp} +
+[quote, anonymous medical student]
+Saved my life. Now I know the difference between the leg bone and the thigh bone!
 
-[quote, Lim Wei Jie, Medical Student]
-Saved my life. A Know-It-All a day, keeps the doctor away.
+{nbsp} +
+[quote, The Singapore Flashcard Journal]
+Anki should be shaking in their boots right now. ⭐⭐⭐⭐⭐
 
-[quote, I.M. Wong, Singapore Business Journal]
-Anki should be shaking in their boots right now.
-
-[quote, C. Bee,Singapore Business Satisfaction Review]
+{nbsp} +
+[quote, Singapore Business Satisfaction Review]
 At last, a new high in BS - has been achieved.
 
+{nbsp} +
+What are you waiting for? Download *_Know-It-All_* today! 
 
-Know-It-All has earned the following awards:
+{nbsp} +
+*_Know-It-All_* is proud to present the following _awards_:
 
-ifndef::env-github[]
-image:images/award1.png[width="300"] image:images/award2.png[width="300"]
+ifdef::env-github[]
+image:award1.png[width="200"] {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}image:award2.png[width="200"]
 endif::[]
 
 == Site Map

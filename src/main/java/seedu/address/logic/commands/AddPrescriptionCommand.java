@@ -34,11 +34,11 @@ public class AddPrescriptionCommand extends Command {
         this.prescriptionToAdd = prescriptionToAdd;
     }
 
-
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if(model.hasPrescription(prescriptionToAdd)) {
+        if (model.hasPrescription(prescriptionToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
         }
         model.addPrescription(prescriptionToAdd);

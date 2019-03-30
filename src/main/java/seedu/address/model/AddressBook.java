@@ -208,7 +208,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Returns true if a prescription with the same identity as {@code prescription} exists in the address book.
      */
-    public  boolean hasPrescription(Prescription prescription) {
+    public boolean hasPrescription(Prescription prescription) {
         requireNonNull(prescription);
         return prescriptions.contains(prescription);
     }

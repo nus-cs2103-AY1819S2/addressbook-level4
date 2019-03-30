@@ -63,7 +63,7 @@ public class UndoCommand extends Command {
         }
         current.displayTempImage();
 
-        return new CommandResult(MESSAGE_SUCCESS + current.getTempImage().getIndex() + current.getTempImage().getCommandHistory().size());
+        return new CommandResult(MESSAGE_SUCCESS);
 
 
     }

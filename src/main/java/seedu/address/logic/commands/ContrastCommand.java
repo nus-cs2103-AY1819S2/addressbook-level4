@@ -67,6 +67,6 @@ public class ContrastCommand extends Command {
             currentEdit.addCommand(this);
             currentEdit.displayTempImage();
         }
-        return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS + currentEdit.getTempImage().getIndex());
+        return new CommandResult(Messages.MESSAGE_CONTRAST_SUCCESS);
     }
 }

@@ -21,6 +21,7 @@ import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
+
 import seedu.address.logic.commands.Command;
 
 /**

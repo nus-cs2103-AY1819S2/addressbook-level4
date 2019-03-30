@@ -68,6 +68,11 @@ public class ModelManager implements Model {
         this(new MapGrid(), new UserPrefs());
     }
 
+    public ModelManager(BattleManager batMan) {
+        this();
+        this.batMan = batMan;
+    }
+
     //=========== MapGrid ================================================================================
     @Override
     public MapGrid getHumanMapGrid() {

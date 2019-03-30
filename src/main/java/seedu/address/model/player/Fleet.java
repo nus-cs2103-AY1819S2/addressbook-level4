@@ -182,7 +182,7 @@ public class Fleet {
     /**
      * Checks if all the battleships in a deployed fleet are destroyed.
      */
-    public boolean allDestroyed() {
+    public boolean isAllDestroyed() {
         boolean isAllDestroyed = true;
 
         for (FleetEntry fleetEntry : this.getDeployedFleet()) {

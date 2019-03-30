@@ -17,6 +17,20 @@ endif::[]
 
 By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
+== Introduction
+
+Welcome to the _MediTabs Developer Guide_. You can find step by step instructions on how to set up MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the development process of MediTabs such as its design and implementation. Interested? You can jump to <<Setting Up>> to get started. Enjoy!
+
+=== What is MediTabs
+
+MediTabs is a desktop application, developed using Java, for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock, expiring soon or have expired.
+
+MediTabs supports Windows, Linux and MacOS operating systems.
+
+=== Who is this guide for?
+
+Are you a developer who wants to learn how MediTabs is designed and implemented, contribute to the development of MediTabs or modify MediTabs for your needs? If so, this guide provides information that will not only help you better understand the inner workings of MediTabs but also the various classes provided which you can use when modifying MediTabs.
+
 == Setting up
 
 === Prerequisites

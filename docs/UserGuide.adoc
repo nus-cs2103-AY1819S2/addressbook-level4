@@ -22,7 +22,7 @@ Welcome to the _MediTabs User Guide_. You can find step by step instructions on 
 
 === What is MediTabs?
 
-MediTabs is a desktop application for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock and which medicines are expiring soon.
+MediTabs is a desktop application for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock, expiring soon or have expired.
 
 MediTabs supports Windows, Linux and MacOS operating systems.
 

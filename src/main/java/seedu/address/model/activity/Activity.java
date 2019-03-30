@@ -123,6 +123,20 @@ public class Activity implements Comparable<Activity> {
     }
 
     /**
+     * Returns an updated activity with new Status
+     */
+    public Activity updateActivity() {
+        ActivityName name = this.getName();
+        ActivityDateTime dateTime = this.getDateTime();
+        ActivityLocation location = this.getLocation();
+        ActivityDescription description = this.getDescription();
+        Optional<Person> inCharge = this.getInCharge();
+        Map<Person, Boolean> attendance = this.getAttendance();
+        return new Activity(name, dateTime, location, description, inCharge, attendance);
+    }
+
+
+    /**
      * Returns true if both persons have the same identity and data fields.
      * This defines a stronger notion of equality between two persons.
      */

@@ -189,6 +189,25 @@ public interface Model {
     void updateDisplayList(Predicate<ModuleInfo> predicate);
 
     /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @return Observable list of ModuleInf
+     */
+    ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty();
+
+    /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @return ModuleInfo
+     */
+    ModuleInfo getSelectedModuleInfo();
+
+    /**
+     * Updates the filtered list based on the predicate provided by user input
+     * @param moduleInfo
+     */
+    void setSelectedModuleInfo(ModuleInfo moduleInfo);
+
+
+    /**
      * Returns an unmodifiable view of the recommended module list.
      */
     ObservableList<ModuleInfoCode> getRecModuleListSorted();
@@ -208,4 +227,9 @@ public interface Model {
      * Returns an unmodifiable view of the filtered course requirement list
      */
     ObservableList<CourseRequirement> getReqList();
+
+    /**
+     * Returns a copy of the user info
+     */
+    UserInfo getUserInfo();
 }

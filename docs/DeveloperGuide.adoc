@@ -242,7 +242,7 @@ The purpose of having ModuleInfoList is not only for temporary use; it also serv
 is unable to find the location of the JSON file containing all of the module information, a blank ModuleInfoList is handed to the
 ModelManager.
 
-image::ObservableList.png[width="800"]
+image::ObservableList.png[width="200"]
 
 This is done as `ObservableList<>` comes with a `FilteredList<>` feature: which wraps an ObservableList and filters the contents
 based on `predicates`.

@@ -25,4 +25,5 @@ public class CourseDescription {
     public String toString() {
         return courseDescription;
     }
+
 }

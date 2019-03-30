@@ -15,8 +15,10 @@ import seedu.address.logic.parser.GradTrakParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
+import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.storage.Storage;
+import seedu.address.storage.UserInfoStorage;
 
 /**
  * The main LogicManager of the app.
@@ -27,24 +29,29 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
+    private final UserInfoStorage userInfoStorage;
     private final CommandHistory history;
     private final GradTrakParser gradTrakParser;
-    private boolean addressBookModified;
+    private boolean gradTrakModified;
+    private boolean userInfoModified;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, UserInfoStorage userInfoStorage) {
         this.model = model;
         this.storage = storage;
+        this.userInfoStorage = userInfoStorage;
         history = new CommandHistory();
         gradTrakParser = new GradTrakParser();
 
-        // Set addressBookModified to true whenever the models' address book is modified.
-        model.getGradTrak().addListener(observable -> addressBookModified = true);
+        // Set gradTrakModified to true whenever the model's gradTrak is modified.
+        model.getGradTrak().addListener(observable -> gradTrakModified = true);
+        model.getUserInfo().addListener(observable -> userInfoModified = true);
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        addressBookModified = false;
+        gradTrakModified = false;
+        userInfoModified = false;
 
         CommandResult commandResult;
         try {
@@ -54,8 +61,16 @@ public class LogicManager implements Logic {
             history.add(commandText);
         }
 
-        if (addressBookModified) {
-            logger.info("Address book modified, saving to file.");
+        if (userInfoModified) {
+            logger.info("userInfo modified, saving to file.");
+            try {
+                userInfoStorage.saveUserInfo(model.getUserInfo());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+        if (gradTrakModified) {
+            logger.info("GradTrak modified, saving to file.");
             try {
                 storage.saveGradTrak(model.getGradTrak());
             } catch (IOException ioe) {
@@ -104,5 +119,20 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(ModuleTaken moduleTaken) {
         model.setSelectedModuleTaken(moduleTaken);
+    }
+
+    @Override
+    public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
+        return model.selectedModuleInfoProperty();
+    }
+
+    @Override
+    public void setSelectedModuleInfo(ModuleInfo moduleInfo) {
+        model.setSelectedModuleInfo(moduleInfo);
+    }
+
+    @Override
+    public ObservableList<ModuleInfo> getDisplayList() {
+        return model.getDisplayList();
     }
 }

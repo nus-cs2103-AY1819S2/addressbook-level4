@@ -159,9 +159,10 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
         ModuleInfoList moduleInfoList = new ModuleInfoList();
         CourseList courseList = new CourseList();
+        UserInfo userInfo = new UserInfo();
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs, moduleInfoList, courseList);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, moduleInfoList, courseList);
+        modelManager = new ModelManager(addressBook, userPrefs, moduleInfoList, courseList, userInfo);
+        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs, moduleInfoList, courseList, userInfo);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -175,12 +176,13 @@ public class ModelManagerTest {
 
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs,
-                moduleInfoList, courseList)));
+                moduleInfoList, courseList, userInfo)));
 
         // different filteredList -> returns false
         String[] keywords = CS2103T.getModuleInfoCode().toString().split("\\s+");
         modelManager.updateFilteredModulesTakenList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs, moduleInfoList, courseList)));
+        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs,
+                moduleInfoList, courseList, userInfo)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredModulesTakenList(PREDICATE_SHOW_ALL_PERSONS);
@@ -189,6 +191,6 @@ public class ModelManagerTest {
         UserPrefs differentUserPrefs = new UserPrefs();
         differentUserPrefs.setGradTrakFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs,
-                moduleInfoList, courseList)));
+                moduleInfoList, courseList, userInfo)));
     }
 }

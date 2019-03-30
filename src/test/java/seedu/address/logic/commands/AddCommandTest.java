@@ -27,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.SemLimit;
+import seedu.address.model.UserInfo;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
@@ -265,12 +266,26 @@ public class AddCommandTest {
         }
 
         @Override
+
+        public void setSelectedModuleInfo (ModuleInfo moduleInfo) {
+            throw new AssertionError("This method should not be called");
+        }
+
         public ObservableList<ModuleInfoCode> getRecModuleListSorted() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
+        public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
+            throw new AssertionError("This methdo should not be called");
+        }
+
         public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ModuleInfo getSelectedModuleInfo() {
             throw new AssertionError("This method should not be called");
         }
 
@@ -281,6 +296,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<CourseRequirement> getReqList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public UserInfo getUserInfo() {
             throw new AssertionError("This method should not be called");
         }
     }

@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.util.SampleCourse;
 
 /**
  *  Represents course of the user that is enrolled in
@@ -39,10 +38,6 @@ public class Course {
 
     public List<CourseRequirement> getCourseRequirements() {
         return courseRequirements;
-    }
-
-    public static Course getCourseByName(CourseName name) {
-        return SampleCourse.COMPUTER_SCIENCE_ALGORITHMS;
     }
 
     /**
@@ -77,4 +72,20 @@ public class Course {
         }
         return false; // should not reach here
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Course)) {
+            return false;
+        }
+
+        Course other = (Course) obj;
+        //TODO: Will implement this properly in the future
+        return this.courseName.equals(other.courseName);
+    }
+
 }

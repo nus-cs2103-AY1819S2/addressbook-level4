@@ -17,6 +17,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.UserInfo;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.moduleinfo.ModuleInfoList;
@@ -29,7 +30,7 @@ import seedu.address.model.moduletaken.ModuleTaken;
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalGradTrak(), new UserPrefs(),
-            new ModuleInfoList(), new CourseList());
+            new ModuleInfoList(), new CourseList(), new UserInfo());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -40,7 +41,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, moduleTakenToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
-                new ModuleInfoList(), new CourseList());
+                new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.deleteModuleTaken(moduleTakenToDelete);
         expectedModel.commitGradTrak();
 
@@ -66,7 +67,7 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, moduleTakenToDelete);
 
         Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
-                new ModuleInfoList(), new CourseList());
+                new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.deleteModuleTaken(moduleTakenToDelete);
         expectedModel.commitGradTrak();
         showNoPerson(expectedModel);
@@ -93,7 +94,7 @@ public class DeleteCommandTest {
         ModuleTaken moduleTakenToDelete = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
-                new ModuleInfoList(), new CourseList());
+                new ModuleInfoList(), new CourseList(), new UserInfo());
         expectedModel.deleteModuleTaken(moduleTakenToDelete);
         expectedModel.commitGradTrak();
 
@@ -134,7 +135,7 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         Model expectedModel = new ModelManager(model.getGradTrak(), new UserPrefs(),
-                new ModuleInfoList(), new CourseList());
+                new ModuleInfoList(), new CourseList(), new UserInfo());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         ModuleTaken moduleTakenToDelete = model.getFilteredModulesTakenList().get(INDEX_FIRST_PERSON.getZeroBased());

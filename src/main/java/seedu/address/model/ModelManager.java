@@ -58,8 +58,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private ObservableList<Card> currentTestedCardFolder;
     private int currentTestedCardIndex;
-    private boolean insideTestSession = false;
-    private boolean cardAlreadyAnswered = false;
+    private boolean isInsideTestSession = false;
+    private boolean isCardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
 
     // Report display related
@@ -196,13 +196,14 @@ public class ModelManager implements Model {
     public boolean hasFolder(CardFolder cardFolder) {
         requireNonNull(cardFolder);
 
-        for (VersionedCardFolder versionedCardFolder : filteredFolders) {
-            if (versionedCardFolder.hasSameFolderName(cardFolder)) {
-                return true;
-            }
-        }
+        return hasFolderWithName(cardFolder.getFolderName());
+    }
 
-        return false;
+    @Override
+    public boolean hasFolderWithName(String name) {
+        requireNonNull(name);
+
+        return folders.stream().anyMatch(folder -> folder.getFolderName().equals(name));
     }
 
     @Override
@@ -223,7 +224,21 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void renameFolder(int index, String newName) {
+        CardFolder toRename = folders.get(index);
+        toRename.rename(newName);
+        indicateModified();
+    }
+
+    @Override
+    public void enterFolder(int newIndex) {
+        inFolder = true;
+        activeCardFolderIndex = newIndex;
+    }
+
+    @Override
     public void exitFoldersToHome() {
+        removeSelectedCard();
         inFolder = false;
     }
 
@@ -245,12 +260,6 @@ public class ModelManager implements Model {
     @Override
     public int getActiveCardFolderIndex() {
         return activeCardFolderIndex;
-    }
-
-    @Override
-    public void setActiveCardFolderIndex(int newIndex) {
-        inFolder = true;
-        activeCardFolderIndex = newIndex;
     }
 
     /**
@@ -366,7 +375,7 @@ public class ModelManager implements Model {
         currentTestedCardIndex = 0;
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
-        insideTestSession = true;
+        isInsideTestSession = true;
         numAnsweredCorrectly = 0;
     }
 
@@ -388,7 +397,7 @@ public class ModelManager implements Model {
         getActiveVersionedCardFolder()
                 .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
         getActiveVersionedCardFolder().commit();
-        insideTestSession = false;
+        isInsideTestSession = false;
         setCardAsNotAnswered();
         numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
@@ -410,21 +419,21 @@ public class ModelManager implements Model {
 
     @Override
     public void setCardAsAnswered() {
-        cardAlreadyAnswered = true;
+        isCardAlreadyAnswered = true;
     }
 
     private void setCardAsNotAnswered() {
-        cardAlreadyAnswered = false;
+        isCardAlreadyAnswered = false;
     }
 
     @Override
     public boolean checkIfCardAlreadyAnswered() {
-        return cardAlreadyAnswered;
+        return isCardAlreadyAnswered;
     }
 
     @Override
     public boolean checkIfInsideTestSession() {
-        return insideTestSession;
+        return isInsideTestSession;
     }
 
     @Override
@@ -457,6 +466,11 @@ public class ModelManager implements Model {
             throw new CardNotFoundException();
         }
         selectedCard.setValue(card);
+    }
+
+    @Override
+    public void removeSelectedCard() {
+        selectedCard.setValue(null);
     }
 
     /**
@@ -505,7 +519,12 @@ public class ModelManager implements Model {
         return filteredFolders.equals(other.filteredFolders)
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
-                && Objects.equals(selectedCard.get(), other.selectedCard.get());
+                && Objects.equals(selectedCard.get(), other.selectedCard.get())
+                && isInsideTestSession == other.isInsideTestSession
+                && currentTestedCardIndex == other.currentTestedCardIndex
+                && isCardAlreadyAnswered == other.isCardAlreadyAnswered
+                && activeCardFolderIndex == other.activeCardFolderIndex
+                && inFolder == other.inFolder;
     }
 
 

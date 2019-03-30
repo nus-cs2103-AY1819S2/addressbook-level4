@@ -58,8 +58,8 @@ public class AnswerCommandTest {
     public void execute_correctAnswerAttempt_markCorrect() {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
                 CommandResult.Type.ANSWER_CORRECT);
-        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        expectedModel.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         model.testCardFolder();
         expectedModel.testCardFolder();
 
@@ -80,8 +80,8 @@ public class AnswerCommandTest {
     public void execute_wrongAnswerAttempt_markWrong() {
         CommandResult expectedCommandResult = new CommandResult(AnswerCommand.MESSAGE_ANSWER_SUCCESS,
                 CommandResult.Type.ANSWER_WRONG);
-        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
-        expectedModel.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        expectedModel.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         model.testCardFolder();
         expectedModel.testCardFolder();
 
@@ -108,7 +108,7 @@ public class AnswerCommandTest {
     @Test
     public void execute_invalidAnswerAfterAnsweredAttempt_fail() {
         String expectedMessage = String.format(MESSAGE_INVALID_ANSWER_COMMAND);
-        model.setActiveCardFolderIndex(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
         model.testCardFolder();
 
         Card testedCard = model.getCurrentTestedCard();

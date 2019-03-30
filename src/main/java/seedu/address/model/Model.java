@@ -92,12 +92,20 @@ public interface Model extends Observable {
      */
     void setCard(Card target, Card editedCard);
 
-    // TODO: Implement hasFolder and setFolder
+    /**
+     * Removes the selected card, if any.
+     */
+    void removeSelectedCard();
 
     /**
-     * Returns true if a card folder with the same identity as {@code cardFolder} exists.
+     * Returns true if a {@code CardFolder} with the same identity as {@code cardFolder} exists.
      */
     boolean hasFolder(CardFolder cardFolder);
+
+    /**
+     * Returns true if a{@code CardFolder} with the same name as {@code folderName} exists.
+     */
+    boolean hasFolderWithName(String name);
 
     /**
      * Deletes the folder at the given index.
@@ -112,17 +120,23 @@ public interface Model extends Observable {
     void addFolder(CardFolder cardFolder);
 
     /**
+     * Renames the folder at the given index to the string passed.
+     * {@code newName} must not be the name of an existing folder.
+     */
+    void renameFolder(int index, String newName);
+
+    /**
      * Gets the index of the current active {@code CardFolder}.
      */
     int getActiveCardFolderIndex();
 
     /**
-     * Sets the index of the current active {@code CardFolder}.
+     * Enters the folder at the specified {@code index}.
      */
-    void setActiveCardFolderIndex(int newIndex);
+    void enterFolder(int index);
 
     /**
-     * Sets the Model back to the home directory, outside of any cardfolder.
+     * Sets the Model back to the home directory, outside of any {@code CardFolder}.
      */
     void exitFoldersToHome();
 

@@ -15,6 +15,8 @@ import seedu.address.model.prescription.exceptions.PrescriptionNotFoundException
  */
 public class UniquePrescriptionList implements Iterable<Prescription> {
     private final ObservableList<Prescription> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Prescription> internalUnmodifiableList =
+            FXCollections.unmodifiableObservableList(internalList);
 
 
     /**
@@ -57,6 +59,13 @@ public class UniquePrescriptionList implements Iterable<Prescription> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Prescription> asUnmodifiableObservableList() {
+        return internalUnmodifiableList;
     }
 
 }

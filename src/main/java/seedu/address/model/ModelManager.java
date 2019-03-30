@@ -19,6 +19,7 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 import seedu.address.model.person.exceptions.PatientNotFoundException;
+import seedu.address.model.prescription.Prescription;
 
 
 /**
@@ -130,6 +131,18 @@ public class ModelManager implements Model {
     public void addDoctor(Doctor doctor) {
         versionedAddressBook.addDoctor(doctor);
         updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
+    }
+
+    @Override
+    public boolean hasPrescription(Prescription prescription) {
+        requireNonNull(prescription);
+        return versionedAddressBook.hasPrescription(prescription);
+    }
+
+    @Override
+    public void addPrescription(Prescription prescription) {
+        versionedAddressBook.addPrescription(prescription);
+        // updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
     }
 
     // Needed to be implemented later

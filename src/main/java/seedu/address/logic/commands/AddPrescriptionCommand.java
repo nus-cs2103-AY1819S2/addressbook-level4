@@ -22,6 +22,7 @@ public class AddPrescriptionCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESCRIPTION + "one dose of amoxicillin and two doses of cephalexin";
     public static final String MESSAGE_SUCCESS = "New prescription added: %1$s";
+    public static final String MESSAGE_DUPLICATE_PRESCRIPTION = "This prescription already exists in the address book";
 
     private final Prescription prescriptionToAdd;
 
@@ -35,7 +36,15 @@ public class AddPrescriptionCommand extends Command {
 
 
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        return null;
+        requireNonNull(model);
+
+        if(model.hasPrescription(prescriptionToAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PRESCRIPTION);
+        }
+        model.addPrescription(prescriptionToAdd);
+        model.commitAddressBook();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, prescriptionToAdd));
+
     }
 
 

@@ -29,6 +29,8 @@ public class CsvUtilTest {
         "test.csv");
     private static final Path READ_ONLY_FILE = Paths.get("src", "test", "data", "CsvUtilTest",
         "test-readonly.csv");
+    private static final Path BOM_EMPTY_FILE = Paths.get("src", "test", "data", "CsvUtilTest",
+        "test-bomempty.csv");
 
     @Test
     public void readCsvFile_nullPath_throwsNullPointerException() {
@@ -57,6 +59,12 @@ public class CsvUtilTest {
     @Test
     public void readCsvFile_invalidFile() throws IOException {
         Path path = INVALID_FILE;
+        assertEquals(null, CsvUtil.readCsvFile(path));
+    }
+
+    @Test
+    public void readCsvFile_emptyBomFile() throws IOException {
+        Path path = BOM_EMPTY_FILE;
         assertEquals(null, CsvUtil.readCsvFile(path));
     }
 

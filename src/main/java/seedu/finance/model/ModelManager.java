@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.finance.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -136,6 +137,13 @@ public class ModelManager implements Model {
     @Override
     public void reverseFilteredRecordList() {
         versionedFinanceTracker.reverseRecordList();
+    }
+
+    @Override
+    public void sortFilteredRecordList(Comparator<Record> comparator) {
+        requireNonNull(comparator);
+        versionedFinanceTracker.sortRecordList(comparator);
+
     }
 
     //=========== Filtered Record List Accessors =============================================================

@@ -10,7 +10,7 @@ import seedu.finance.model.record.CategoryContainsKeywordsPredicate;
 import seedu.finance.model.record.NameContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new SearchCommand object
  */
 public class SearchCommandParser implements Parser<SearchCommand> {
 

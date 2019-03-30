@@ -74,30 +74,11 @@ public class CardSrsData {
             return true;
         }
 
-        // instanceof handles nulls
-        if (!(obj instanceof User)) {
+        if (!(obj instanceof CardSrsData)) {
             return false;
         }
 
-        // state check
-        User other = (User) obj;
+        CardSrsData other = (CardSrsData) obj;
         return other.hashCode() == this.hashCode();
-
-        /*CardSrsData other = (CardSrsData) obj;
-
-        if (this.hashCode != other.getHashCode()) {
-            return false;
-        }
-        if (this.numOfAttempts != other.getNumOfAttempts()) {
-            return false;
-        }
-        if (this.streak != other.getStreak()) {
-            return false;
-        }
-        if (this.srsDueDate != other.getSrsDueDate()) {
-            return false;
-        }
-
-        return true;*/
     }
 }

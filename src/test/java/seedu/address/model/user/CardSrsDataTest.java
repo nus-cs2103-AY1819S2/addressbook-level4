@@ -10,7 +10,6 @@ import org.junit.Test;
 
 public class CardSrsDataTest {
 
-    //private Instant seconds = Instant.ofEpochMilli(10);     //for testing purposes
     private Instant date = Instant.now();
     private CardSrsData testCardData = new CardSrsData(1, 1, 1, date);
     private CardSrsData expectedCardData = new CardSrsData(1, 1, 1, date);
@@ -56,21 +55,20 @@ public class CardSrsDataTest {
     }
     @Test
     public void equalsTest() {
-        User user = new User();
+        CardSrsData card = new CardSrsData(1, 1, 1, date);
+        CardSrsData cardCopy = new CardSrsData(1, 1, 1, date);
 
-        // same value -> returns true
-        User userCopy = new User();
-
-        assertTrue(user.equals(userCopy));
+        assertFalse(card.equals(cardCopy));
 
         // same object -> returns true
-        assertTrue(user.equals(user));
+        assertTrue(card.equals(card));
 
         // null -> returns false
-        assertFalse(user == null);
+        assertFalse(card == null);
 
         // different types -> returns false
-        assertFalse(user.equals(5));
+        assertFalse(card.equals(5));
+
         /*
         CardSrsData card1 = new CardSrsData(1, 1, 1, date);
         CardSrsData card2 = new CardSrsData(1, 1, 1, date);
@@ -84,7 +82,7 @@ public class CardSrsDataTest {
         assertFalse("Srs date is not the same", card6.equals(card1));
         assertFalse ("Card number of attempts is not the same", card5.equals(card1));
         assertFalse ("Card number of attempts is not the same", card4.equals(card1));
-        assertFalse("Card hashcode is not the same", card3.equals(card1));
-*/
+        assertFalse("Card hashcode is not the same", card3.equals(card1));*/
+
     }
 }

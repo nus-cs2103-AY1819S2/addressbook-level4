@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
+import seedu.finance.commons.core.LogsCenter;
 import seedu.finance.commons.util.InvalidationListenerManager;
 import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Amount;
@@ -19,6 +21,7 @@ import seedu.finance.model.record.UniqueRecordList;
  * Duplicates are not allowed (by .isSameRecord comparison)
  */
 public class FinanceTracker implements ReadOnlyFinanceTracker {
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final UniqueRecordList records;
     private final Budget budget;
@@ -54,6 +57,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void setRecords(List<Record> records) {
         this.records.setRecords(records);
+        budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 
@@ -83,6 +87,8 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void addRecord(Record r) {
         records.add(r);
+        budget.updateBudget(this.records.asUnmodifiableObservableList());
+        logger.info("Current Budget: " + budget.getCurrentBudget());
         indicateModified();
     }
 
@@ -96,6 +102,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
         requireNonNull(editedRecord);
 
         records.setRecord(target, editedRecord);
+        budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 
@@ -105,6 +112,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      */
     public void removeRecord(Record key) {
         records.remove(key);
+        budget.updateBudget(this.records.asUnmodifiableObservableList());
         indicateModified();
     }
 
@@ -122,7 +130,7 @@ public class FinanceTracker implements ReadOnlyFinanceTracker {
      * The budget must not already exist in the finance tracker.
      */
     public void addBudget(Budget budget) {
-        this.budget.set(budget.valueProperty().get());
+        this.budget.set(budget.getTotalBudget(), budget.getCurrentBudget());
         indicateModified();
     }
 

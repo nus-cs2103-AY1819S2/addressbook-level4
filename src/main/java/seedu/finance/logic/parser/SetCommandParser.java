@@ -28,7 +28,7 @@ public class SetCommandParser implements Parser<SetCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetCommand.MESSAGE_USAGE));
         }
 
-        Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
+        String amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get()).toString();
 
         return new SetCommand(amount);
     }

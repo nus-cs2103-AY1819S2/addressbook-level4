@@ -9,23 +9,28 @@ import seedu.finance.model.record.Amount;
 
 
 public class JsonAdaptedBudget {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Record's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Budget's %s field is missing!";
 
-    private final String budget;
+    private final String totalBudget;
+
+    private final String currentBudget;
 
     /**
      * Constructs a {@code JsonAdaptedBudget} with the given record details.
      */
     @JsonCreator
-    public JsonAdaptedBudget(@JsonProperty("budget") String budget) {
-        this.budget = budget;
+    public JsonAdaptedBudget(@JsonProperty("totalBudget") String totalBudget,
+                             @JsonProperty("currentBudget") String currentBudget) {
+        this.totalBudget = totalBudget;
+        this.currentBudget = currentBudget;
         }
 
     /**
      * Converts a given {@code Budget} into this class for Jackson use.
      */
     public JsonAdaptedBudget(Budget source) {
-        budget = source.toString();
+        currentBudget = Double.toString(source.getCurrentBudget());
+        totalBudget = Double.toString(source.getTotalBudget());
     }
 
     /**
@@ -34,16 +39,16 @@ public class JsonAdaptedBudget {
      * @throws IllegalValueException if there were any data constraints violated in the adapted record.
      */
     public Budget toModelType() throws IllegalValueException {
-        if (budget == null) {
+        if (currentBudget == null || totalBudget == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Amount.class.getSimpleName()));
         }
-        if (!Amount.isValidAmount(budget)) {
-            throw new IllegalValueException(Amount.MESSAGE_CONSTRAINTS);
+        try {
+            Double currBudget = Double.parseDouble(currentBudget);
+            Double totBudget = Double.parseDouble(totalBudget);
+            return new Budget(totBudget, currBudget);
+        } catch (NumberFormatException nfe) {
+            throw new IllegalValueException(String.format(Amount.MESSAGE_CONSTRAINTS));
         }
-
-        final Amount modelBudget = new Amount(budget);
-
-        return new Budget(modelBudget);
     }
 
 }

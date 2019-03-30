@@ -156,6 +156,12 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    @FXML
+    public void handleChangeBudget() {
+        logger.info("Budget Info: " + logic.getBudget().getCurrentBudget());
+        browserPanel.updateBudget(logic.getBudget());
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -197,6 +203,9 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isSwitchTheme()) {
                 handleSwitchTheme(commandResult.getThemeToChange());
+            }
+            if (commandResult.isChangeBudget()) {
+                handleChangeBudget();
             }
             return commandResult;
         } catch (CommandException | ParseException e) {

@@ -84,7 +84,8 @@ public class EditCommand extends Command {
         model.setRecord(recordToEdit, editedRecord);
         model.updateFilteredRecordList(PREDICATE_SHOW_ALL_RECORD);
         model.commitFinanceTracker();
-        return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord));
+        return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS, editedRecord),
+                true, false, false);
     }
 
     /**

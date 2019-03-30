@@ -25,12 +25,12 @@ public class SetCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Budget Set: %1$s";
     public static final String MESSAGE_DUPLICATE_BUDGET = "A budget has already been set.";
 
-    private final Amount amount;
+    private final String amount;
 
     /**
      * Creates a SetCommand to set the specificed {@code Amount} as budget
      */
-    public SetCommand(Amount amount) {
+    public SetCommand(String amount) {
         requireNonNull(amount);
 
         this.amount = amount;
@@ -43,10 +43,10 @@ public class SetCommand extends Command {
         if (model.hasBudget()) {
             throw new CommandException(MESSAGE_DUPLICATE_BUDGET);
         }
-
-        model.addBudget(new Budget(amount));
+        Budget budget = new Budget(Double.parseDouble(amount));
+        model.addBudget(budget);
         model.commitFinanceTracker();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, amount));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, amount), true, false, false);
     }
 
     @Override

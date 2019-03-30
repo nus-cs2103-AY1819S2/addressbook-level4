@@ -1,50 +1,71 @@
 package seedu.finance.model.budget;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-
-import seedu.finance.model.record.Amount;
+import javafx.collections.ObservableList;
+import seedu.finance.model.record.Record;
 
 /**
  * Represents the Budget for the particular instance of the Finance Tracker
  */
 public class Budget {
 
-    private final ObjectProperty<Amount> value = new SimpleObjectProperty<>();
+    private double totalBudget;
+
+    private double currentBudget;
 
     /**
      * Constructs a {@code Budget} with no initial value.
      */
     public Budget() {
-        value.set(null);
+        totalBudget = 0;
+        currentBudget = 0;
     }
 
-    public Budget(Amount amount) {
-        value.set(amount);
+    public Budget(double initialBudget) {
+        this.totalBudget = initialBudget;
+        this.currentBudget = initialBudget;
+    }
+
+    public Budget(double totalBudget, double currentBudget) {
+        this.totalBudget = totalBudget;
+        this.currentBudget = currentBudget;
     }
 
     /**
      * Called to set the budget Amount value wrapped in a ObjectProperty.
      *
-     * @param amount amount to be set as budget
+     * @param totalBudget
+     * @param currentBudget
      */
-    public void set(Amount amount) {
-        value.set(amount);
+    public void set(double totalBudget, double currentBudget) {
+        this.totalBudget = totalBudget;
+        this.currentBudget = currentBudget;
+    }
+
+    public void updateBudget(ObservableList<Record> records) {
+        if (totalBudget == 0) {
+            return;
+        }
+        currentBudget = totalBudget;
+        records.forEach(record -> currentBudget -= Double.parseDouble(record.getAmount().toString()));
+        if (currentBudget < 0) {
+            currentBudget = 0;
+        }
     }
 
     public boolean isSet() {
-        return !(value.getValue() == null);
+        return !(totalBudget == 0);
     }
 
-    public final ObjectProperty<Amount> valueProperty() {
-        return value;
+    public double getTotalBudget() {
+        return totalBudget;
+    }
+
+    public double getCurrentBudget() {
+        return currentBudget;
     }
 
     @Override
     public String toString() {
-        if (value.getValue() == null) {
-            return "0";
-        }
-        return value.getValue().toString();
+        return currentBudget + "/" + totalBudget;
     }
 }

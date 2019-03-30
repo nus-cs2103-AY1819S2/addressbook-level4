@@ -122,7 +122,7 @@ public class Task {
             return otherTask.getTitle().equals(getTitle())
                     && otherTask.getStartDate().equals(getStartDate())
                     && otherTask.getEndDate().equals(getEndDate())
-                    && otherTask.getStartTime().equals(getEndTime())
+                    && otherTask.getStartTime().equals(getStartTime())
                     && otherTask.getEndTime().equals(getEndTime());
         }
     }
@@ -145,7 +145,7 @@ public class Task {
         return otherTask.getTitle().equals(getTitle())
                 && otherTask.getStartDate().equals(getStartDate())
                 && otherTask.getEndDate().equals(getEndDate())
-                && otherTask.getStartTime().equals(getEndTime())
+                && otherTask.getStartTime().equals(getStartTime())
                 && otherTask.getEndTime().equals(getEndTime());
     }
 

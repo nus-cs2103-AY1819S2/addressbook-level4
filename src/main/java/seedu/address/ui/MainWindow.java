@@ -208,8 +208,18 @@ public class MainWindow extends UiPart<Stage> {
         fullScreenPlaceholder.getChildren().add(cardMainScreen.getRoot());
     }
 
+    /**
+     * Refreshes the side panel to display all folders.
+     */
     private void handleExitFolder() {
         fullScreenPlaceholder.getChildren().remove(fullScreenPlaceholder.getChildren().size() - 1);
+        folderListPanel.refreshContent();
+    }
+
+    /**
+     * Refreshes the side panel to display updated information of all folders.
+     */
+    private void handleEditFolder() {
         folderListPanel.refreshContent();
     }
 
@@ -271,6 +281,9 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case EXITED_FOLDER:
                 handleExitFolder();
+                break;
+            case EDITED_FOLDER:
+                handleEditFolder();
                 break;
             case START_TEST_SESSION:
                 handleStartTestSession(commandResult.getTestSessionCard());

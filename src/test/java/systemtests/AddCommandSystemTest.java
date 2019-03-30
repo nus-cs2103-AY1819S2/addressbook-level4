@@ -108,7 +108,7 @@ public class AddCommandSystemTest extends CardFolderSystemTest {
         // Problem with this test due to comparison implementation for Card -> to be fixed
         // toAdd = new CardBuilder(HOON).withAnswer(VALID_ANSWER_BOB).build();
         // command = CardUtil.getAddCommand(toAdd);
-        // assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_CARD);
+        // assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_FOLDER);
 
         /* Case: add a duplicate card except with different hints -> rejected */
         command = CardUtil.getAddCommand(HOON) + " " + PREFIX_HINT.getPrefix() + "friends";

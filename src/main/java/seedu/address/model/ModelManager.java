@@ -17,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.exceptions.ActivityNotFoundException;
+import seedu.address.model.person.MatricNumber;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -126,6 +127,17 @@ public class ModelManager implements Model {
         return versionedAddressBook.hasPerson(person);
     }
 
+    @Override
+    public boolean hasMatricNumber(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        return versionedAddressBook.hasMatricNumber(matricNumber);
+    }
+
+    @Override
+    public Person getPersonWithMatricNumber(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        return versionedAddressBook.getPersonWithMatricNumber(matricNumber);
+    }
     @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);

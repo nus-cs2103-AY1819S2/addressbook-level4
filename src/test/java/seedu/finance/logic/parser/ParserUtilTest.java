@@ -23,12 +23,12 @@ import seedu.finance.testutil.Assert;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_AMOUNT = "1";
+    private static final String INVALID_AMOUNT = "$1";
     private static final String INVALID_DATE = "1/30/5999";
     private static final String INVALID_CATEGORY = "#friend";
 
     private static final String VALID_NAME = "Rachel Walker";
-    private static final String VALID_AMOUNT = "$123";
+    private static final String VALID_AMOUNT = "123";
     private static final String VALID_DATE = "12/02/2009";
     private static final String VALID_CATEGORY_1 = "friend";
     private static final String VALID_CATEGORY_2 = "neighbour";

@@ -28,6 +28,7 @@ import seedu.finance.logic.commands.HistoryCommand;
 import seedu.finance.logic.commands.IncreaseCommand;
 import seedu.finance.logic.commands.ListCommand;
 import seedu.finance.logic.commands.RedoCommand;
+import seedu.finance.logic.commands.ReverseCommand;
 import seedu.finance.logic.commands.SearchCommand;
 import seedu.finance.logic.commands.SelectCommand;
 import seedu.finance.logic.commands.SpendCommand;
@@ -64,7 +65,7 @@ public class FinanceTrackerParserTest {
 
     @Test
     public void parseCommand_allocate() throws Exception {
-        assertTrue((parser.parseCommand(AllocateCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "$123.00 "
+        assertTrue((parser.parseCommand(AllocateCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123.00 "
                 + PREFIX_CATEGORY + "Friends") instanceof AllocateCommand));
     }
 
@@ -185,7 +186,7 @@ public class FinanceTrackerParserTest {
 
     @Test
     public void parseCommand_increase() throws Exception {
-        assertTrue((parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "$123")
+        assertTrue((parser.parseCommand(IncreaseCommand.COMMAND_WORD + " " + PREFIX_AMOUNT + "123")
                 instanceof IncreaseCommand));
     }
 
@@ -205,6 +206,18 @@ public class FinanceTrackerParserTest {
     public void parseCommand_listAlias2() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS2) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_ALIAS2 + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_reverse() throws Exception {
+        assertTrue(parser.parseCommand(ReverseCommand.COMMAND_WORD) instanceof ReverseCommand);
+        assertTrue(parser.parseCommand(ReverseCommand.COMMAND_WORD + " 3") instanceof ReverseCommand);
+    }
+
+    @Test
+    public void parseCommand_reverseAlias() throws Exception {
+        assertTrue(parser.parseCommand(ReverseCommand.COMMAND_ALIAS) instanceof ReverseCommand);
+        assertTrue(parser.parseCommand(ReverseCommand.COMMAND_ALIAS + " 3") instanceof ReverseCommand);
     }
 
     @Test

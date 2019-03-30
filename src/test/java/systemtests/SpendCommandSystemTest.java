@@ -77,7 +77,7 @@ public class SpendCommandSystemTest extends FinanceTrackerSystemTest {
         /* Case: add a record with all fields same as another record in the finance tracker except amount and date
          * -> added
          */
-        toSpend = new RecordBuilder(AMY).withAmount("$999").withDate("01/01/2001").build();
+        toSpend = new RecordBuilder(AMY).withAmount("999").withDate("01/01/2001").build();
         command = RecordUtil.getSpendCommand(toSpend);
         assertCommandSuccess(command, toSpend);
 

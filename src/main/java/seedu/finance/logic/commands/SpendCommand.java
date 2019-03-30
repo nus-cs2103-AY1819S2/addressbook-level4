@@ -28,7 +28,7 @@ public class SpendCommand extends Command {
             + "[" + PREFIX_CATEGORY + "CATEGORY]...\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "John Doe "
-            + PREFIX_AMOUNT + "$123.23 "
+            + PREFIX_AMOUNT + "123.23 "
             + PREFIX_DATE + "12/02/2002 "
             + PREFIX_CATEGORY + "Food ";
 

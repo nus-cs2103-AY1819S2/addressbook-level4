@@ -17,7 +17,7 @@ import seedu.finance.model.util.SampleDataUtil;
 public class RecordBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_AMOUNT = "$12";
+    public static final String DEFAULT_AMOUNT = "12";
     public static final String DEFAULT_DATE = "12/12/2019";
     public static final String DEFAULT_DESCRIPTION = "";
 

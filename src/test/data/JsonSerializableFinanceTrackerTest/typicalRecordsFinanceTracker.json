@@ -2,43 +2,43 @@
   "_comment": "FinanceTracker saves file which contains the same Record values as in TypicalRecords#getTypicalFinanceTracker()",
   "records" : [ {
     "name" : "Apple",
-    "amount" : "$1.00",
+    "amount" : "1.00",
     "date" : "12/02/2017",
     "description": "",
     "tagged" : [ "groceries" ]
   }, {
     "name" : "Banana Donut",
-    "amount" : "$2.50",
+    "amount" : "2.50",
     "date" : "12/02/2015",
     "description": "",
     "tagged" : [ "food" ]
   }, {
     "name" : "Cap",
-    "amount" : "$15.00",
+    "amount" : "15.00",
     "date" : "12/05/2017",
     "description": "",
     "tagged" : [ ]
   }, {
     "name" : "Chocolate Donut",
-    "amount" : "$0.90",
+    "amount" : "0.90",
     "date" : "12/02/2007",
     "description": "",
     "tagged" : [ "food" ]
   }, {
     "name" : "Earrings",
-    "amount" : "$12.99",
+    "amount" : "12.99",
     "date" : "12/12/2017",
     "description": "",
     "tagged" : [ ]
   }, {
     "name" : "Fruits",
-    "amount" : "$20.00",
+    "amount" : "20.00",
     "date" : "02/02/2017",
     "description": "",
     "tagged" : [ ]
   }, {
     "name" : "Gift",
-    "amount" : "$24.90",
+    "amount" : "24.90",
     "date" : "12/02/2027",
     "description": "",
     "tagged" : [ ]

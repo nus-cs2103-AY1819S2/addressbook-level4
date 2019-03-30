@@ -29,7 +29,7 @@ public class AllocateCommandTest {
 
     @Test
     public void execute() {
-        final Amount amount = new Amount("$123.00");
+        final Amount amount = new Amount("123.00");
         final Category category = new Category("Food");
 
         assertCommandFailure(new AllocateCommand(amount, category), model,
@@ -43,7 +43,7 @@ public class AllocateCommandTest {
                 new Category(VALID_CATEGORY_FRIEND));
 
         // same values -> returns true
-        AllocateCommand commandWithSameValues = new AllocateCommand(new Amount ("$312.00"),
+        AllocateCommand commandWithSameValues = new AllocateCommand(new Amount ("312.00"),
                 new Category("friend"));
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -54,7 +54,7 @@ public class AllocateCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new IncreaseCommand(new Amount ("$312.00"))));
+        assertFalse(standardCommand.equals(new IncreaseCommand(new Amount ("312.00"))));
 
         // different amount -> returns false
         assertFalse(standardCommand.equals(new AllocateCommand(new Amount(VALID_AMOUNT_BOB),

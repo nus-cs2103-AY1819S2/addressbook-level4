@@ -170,6 +170,11 @@ public class SpendCommandTest {
         }
 
         @Override
+        public void reverseFilteredRecordList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Record> getFilteredRecordList() {
             throw new AssertionError("This method should not be called.");
         }

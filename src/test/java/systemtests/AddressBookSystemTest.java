@@ -39,6 +39,7 @@ import seedu.address.commons.core.index.Index;
 //import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
+import seedu.address.ui.AutoCompleteTextField;
 import seedu.address.ui.CommandBox;
 import seedu.address.ui.InfoPanel;
 
@@ -52,7 +53,7 @@ public abstract class AddressBookSystemTest {
 
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
-            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+            Arrays.asList("text-input", "text-field", AutoCompleteTextField.ERROR_STYLE_CLASS);
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;

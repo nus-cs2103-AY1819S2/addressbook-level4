@@ -6,11 +6,11 @@ package seedu.address.commons.core;
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format!";
+    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
     public static final String MESSAGE_INVALID_PATH = "Invalid path given.";
-    public static final String MESSAGE_INVALID_TYPE = "File is not a valid type.";
+    public static final String MESSAGE_INVALID_TYPE = "File is not a valid type or is hidden.";
     public static final String MESSAGE_DUPLICATE_FILE = "Duplicate file name exists in assets folder.";
     public static final String MESSAGE_FILE_NOT_FOUND = "File does not exist. "
             + "Use listfiles to view existing files.";
@@ -27,6 +27,10 @@ public class Messages {
     public static final String MESSAGE_CROP_INT_ERROR = "Values keyed in are not all integers. E.g: crop 0 0 200 200";
     public static final String MESSAGE_CROP_SUCCESS = "Cropped successfully.";
     public static final String MESSAGE_DID_NOT_OPEN = "Did not open any image to edit on.";
+    public static final String MESSAGE_UNABLE_TO_SAVE = "Unable to save. Please open an image before saving. \n%1$s";
+    public static final String MESSAGE_RESIZE_SUCCESS = "Resized successfully.";
+    public static final String MESSAGE_RESIZE_VALUE_ERROR = "Values keyed in are not positive integers. "
+            + "E.g: resize 200 200";
 
 
 }

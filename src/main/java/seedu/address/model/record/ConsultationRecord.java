@@ -19,8 +19,8 @@ public class ConsultationRecord extends Record {
         this.diagnosis = diagnosis;
     }
     @Override
-    public Statistics toStatistics(RecordManager recordManager) {
-        BigDecimal consultationFee = recordManager.getConsultationFee();
+    public Statistics toStatistics(StatisticsManager statisticsManager) {
+        BigDecimal consultationFee = statisticsManager.getConsultationFee();
         BigDecimal prescriptionFee = BigDecimal.ZERO;
         HashMap<String, Integer> medicinesCount = new HashMap<>();
 

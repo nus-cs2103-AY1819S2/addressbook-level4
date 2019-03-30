@@ -3,7 +3,6 @@ package seedu.address.model.record;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +16,7 @@ import seedu.address.model.consultation.Symptom;
 import seedu.address.model.medicine.Medicine;
 
 class StatisticsTest {
-    private RecordManager recordManager;
+    private StatisticsManager statisticsManager;
     private Statistics stats;
     private Record record1;
     private Record record2;
@@ -27,7 +26,7 @@ class StatisticsTest {
      */
     @BeforeEach
     public void init() {
-        recordManager = new RecordManager();
+        statisticsManager = new StatisticsManager();
         Medicine medicine = new Medicine("test");
         Prescription prescription = new Prescription(medicine, 1);
         ArrayList<Prescription> prescriptions = new ArrayList<>();
@@ -47,16 +46,7 @@ class StatisticsTest {
 
     @Test
     void merge() {
-        Statistics testStats = record1.toStatistics(recordManager).merge(record2.toStatistics(recordManager));
-        Assert.assertEquals(testStats, stats);
-    }
-
-    @Test
-    void fromRecordList() {
-        List<Record> recordList = new ArrayList<>();
-        recordList.add(record1);
-        recordList.add(record2);
-        Statistics testStats = Statistics.fromRecordList(recordList, recordManager);
+        Statistics testStats = record1.toStatistics(statisticsManager).merge(record2.toStatistics(statisticsManager));
         Assert.assertEquals(testStats, stats);
     }
 
@@ -74,10 +64,10 @@ class StatisticsTest {
                 .append("\n")
                 .append("Revenue: ")
                 .append(Statistics.currencyFormat(BigDecimal.valueOf(30.00)))
-                .append("\n\n")
+                .append("\n")
                 .append("Expenditure: ")
                 .append(Statistics.currencyFormat(BigDecimal.valueOf(10.00)))
-                .append("\n\n")
+                .append("\n")
                 .append("Profit: ")
                 .append(Statistics.currencyFormat(BigDecimal.valueOf(20.00)))
                 .append("\n\n");

@@ -12,8 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.medicine.Medicine;
 
-class RecordManagerTest {
-    private final RecordManager recordManager = new RecordManager();
+class StatisticsManagerTest {
+    private final StatisticsManager statisticsManager = new StatisticsManager();
     private Record record1;
     private Clock clock;
 
@@ -26,15 +26,14 @@ class RecordManagerTest {
 
     @Test
     void record() {
-        recordManager.record(record1, clock);
-        Assert.assertEquals(recordManager.getTotalNoOfRecords(), 1);
+        statisticsManager.record(record1, clock);
     }
 
     @Test
     void getStatistics() {
         Statistics stats = new Statistics(0, BigDecimal.ZERO, BigDecimal.valueOf(10.00));
-        recordManager.record(record1, clock);
-        Statistics testStats = recordManager.getStatistics(YearMonth.of(2019, 1), YearMonth.of(2019, 1));
+        statisticsManager.record(record1, clock);
+        Statistics testStats = statisticsManager.getStatistics(YearMonth.of(2019, 1), YearMonth.of(2019, 1));
         Assert.assertEquals(testStats, stats);
     }
 }

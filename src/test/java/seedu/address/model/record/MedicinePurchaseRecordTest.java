@@ -11,11 +11,11 @@ class MedicinePurchaseRecordTest {
 
     @Test
     void toStatistics() {
-        RecordManager recordManager = new RecordManager();
+        StatisticsManager statisticsManager = new StatisticsManager();
         Medicine medicine = new Medicine("test");
         medicine.setPrice(BigDecimal.valueOf(11.10));
         Statistics stats = new Statistics(0, BigDecimal.ZERO, BigDecimal.valueOf(44.40));
         MedicinePurchaseRecord mpr = new MedicinePurchaseRecord(medicine, 4);
-        Assert.assertEquals(mpr.toStatistics(recordManager), stats);
+        Assert.assertEquals(mpr.toStatistics(statisticsManager), stats);
     }
 }

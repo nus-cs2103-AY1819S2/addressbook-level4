@@ -27,14 +27,13 @@ image::Ui.png[width="790"]
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the jar file and put it into a directory you desire.
-//.  Launch the application and set a password
 .  Type a command into the command box and press enter to execute it.
 [NOTE]
 For the full list of commands, you can head to <<Command Summary>>
 .  Click on the buttons if you want to use the GUI to perform the actions instead.
 
 [[Legends]]
-== Legends
+== Notation
 [TIP]
 This is a tip. Useful information will be written here.
 [NOTE]
@@ -405,7 +404,7 @@ Examples:
 
 * `statistics 0119` +
 View the statistics for January 2019. +
-* `stats finances 0119 0219` +
+* `stats 0119 0219` +
 View the statistics from January 2019 to February 2019. +
 
 [[setconsultfee, Set consultation fee]]
@@ -478,5 +477,5 @@ This is the summary of all the possible commands for QuickDocs. For detailed exp
 
 *Administration and Statistics* +
 
-* *<<statistics>>* : `statistics` +
-* *<<setconsultfee>>* : `setconsultfee` +
+* *<<statistics>>* : `statistics` or `stats` +
+* *<<setconsultfee>>* : `setconsultfee` or `setfee` +

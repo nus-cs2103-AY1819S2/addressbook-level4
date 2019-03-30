@@ -38,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private MainPanel mainPanel;
     private HelpWindow helpWindow;
-    private LessonListPanel lessonListPanel;
+    //private LessonListPanel lessonListPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -55,8 +55,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox sidePanel;
 
-    @FXML
-    private StackPane lessonListPanelPlaceholder;
+    //@FXML
+    //private StackPane lessonListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;

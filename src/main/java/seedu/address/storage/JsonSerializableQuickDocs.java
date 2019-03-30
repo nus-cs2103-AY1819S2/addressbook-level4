@@ -30,11 +30,11 @@ import seedu.address.model.reminder.ReminderManager;
  */
 public class JsonSerializableQuickDocs {
 
-    private static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s)";
-    private static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
-    private static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s)";
-    private static final String MESSGAE_DUPLICATE_MEDICINE = "Medicine list contains medicines with same name.";
-    private static final String MESSAGE_NONEXISTING_MEDICINE =
+    public static final String MESSAGE_DUPLICATE_PATIENT = "Patients list contains duplicate patient(s)";
+    public static final String MESSAGE_DUPLICATE_APPOINTMENT = "Appointment list contains duplicate appointment(s)";
+    public static final String MESSAGE_DUPLICATE_REMINDER = "Reminder list contains duplicate reminder(s)";
+    public static final String MESSGAE_DUPLICATE_MEDICINE = "Medicine list contains medicines with same name.";
+    public static final String MESSAGE_NONEXISTING_MEDICINE =
             "A Directory contains a medicine not found in the list of medicines.";
 
     private final List<JsonAdaptedPatient> patientList = new ArrayList<>();

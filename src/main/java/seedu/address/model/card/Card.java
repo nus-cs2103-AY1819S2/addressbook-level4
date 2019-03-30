@@ -2,8 +2,10 @@ package seedu.address.model.card;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -83,6 +85,18 @@ public class Card {
      */
     public CardType getCardType() {
         return this.type;
+    }
+
+    /**
+     * Returns a randomized list of options, inclusive of the answer, for MCQ cards.
+     */
+    public List<String> getRandomizedMcqOptions() {
+        assert type == CardType.MCQ;
+        List<String> result = new ArrayList<>();
+        options.forEach(option -> result.add(option.optionValue));
+        result.add(answer.fullAnswer);
+        Collections.shuffle(result);
+        return result;
     }
 
     /**

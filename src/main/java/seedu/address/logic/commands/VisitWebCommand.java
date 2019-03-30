@@ -10,6 +10,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.restaurant.Restaurant;
+import seedu.address.model.restaurant.Weblink;
 
 /**
  * Visits a restaurant website identified using it's displayed index from the food diary.
@@ -26,9 +27,16 @@ public class VisitWebCommand extends Command {
     public static final String MESSAGE_SELECT_RESTAURANT_SUCCESS = "Visited Website of Restaurant: %1$s";
 
     private final Index targetIndex;
+    private final Weblink weblink;
 
     public VisitWebCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        this.weblink = null;
+    }
+
+    public VisitWebCommand(Weblink weblink) {
+        this.targetIndex = null;
+        this.weblink = weblink;
     }
 
     @Override

@@ -80,7 +80,7 @@ public class CurrentEditManager implements CurrentEdit {
      */
     public void updateTempImage(com.sksamuel.scrimage.Image image) {
         image.output(tempImage.getUrl(), new JpegWriter(100, true));
-
+        tempImage = new Image(TEMP_FILE);
     }
 
     //kayheen use this!!

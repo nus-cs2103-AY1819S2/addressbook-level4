@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.SemLimit;
 import seedu.address.model.moduletaken.CapAverage;
-import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Hour;
 
 /**

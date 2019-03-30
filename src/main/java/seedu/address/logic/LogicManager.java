@@ -122,12 +122,17 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() { return model.selectedModuleInfoProperty(); }
+    public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
+        return model.selectedModuleInfoProperty();
+    }
 
     @Override
-    public void setSelectedModuleInfo(ModuleInfo moduleInfo) { model.setSelectedModuleInfo(moduleInfo); }
+    public void setSelectedModuleInfo(ModuleInfo moduleInfo) {
+        model.setSelectedModuleInfo(moduleInfo);
+    }
 
     @Override
-    public ObservableList<ModuleInfo> getDisplayList() { return model.getDisplayList(); }
-
+    public ObservableList<ModuleInfo> getDisplayList() {
+        return model.getDisplayList();
+    }
 }

@@ -7,7 +7,6 @@ import javafx.beans.Observable;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.course.Course;
 import seedu.address.model.moduletaken.CapAverage;
-import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.util.SampleCourse;

@@ -319,10 +319,14 @@ public class ModelManager implements Model {
 
 
     @Override
-    public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() { return selectedModuleInfo; }
+    public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
+        return selectedModuleInfo;
+    }
 
     @Override
-    public ModuleInfo getSelectedModuleInfo() { return selectedModuleInfo.getValue(); }
+    public ModuleInfo getSelectedModuleInfo() {
+        return selectedModuleInfo.getValue();
+    }
 
     @Override
     public void setSelectedModuleInfo(ModuleInfo moduleInfo) {

@@ -12,14 +12,14 @@ import seedu.address.commons.util.StringUtil;
 public class CodeContainsKeywordsPredicate implements Predicate<ModuleInfo> {
 
     private final List<String> keywords;
-    private final List<String> default_keywords = new ArrayList<>();
+    private final List<String> defaultKeywords = new ArrayList<>();
 
 
     public CodeContainsKeywordsPredicate(List<String> keywords) {
         if (keywords == null) {
-            default_keywords.add("CS1010");
-            default_keywords.add("CS2103T");
-            this.keywords = default_keywords;
+            defaultKeywords.add("CS1010");
+            defaultKeywords.add("CS2103T");
+            this.keywords = defaultKeywords;
         } else {
             this.keywords = keywords;
         }

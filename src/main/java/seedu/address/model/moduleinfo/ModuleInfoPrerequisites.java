@@ -38,7 +38,9 @@ public class ModuleInfoPrerequisites {
         return prerequisitesString;
     }
 
-    public ModuleTree getModuleTree() { return this.tree; }
+    public ModuleTree getModuleTree() {
+        return this.tree;
+    }
 
     /**
      * generates PreRequisite Tree for this particular module

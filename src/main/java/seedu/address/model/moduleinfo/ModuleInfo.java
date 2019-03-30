@@ -98,7 +98,9 @@ public class ModuleInfo {
         return this.workload;
     }
 
-    public ModuleInfoPrerequisites getModuleInfoPrerequisite() { return this.prerequisites; }
+    public ModuleInfoPrerequisites getModuleInfoPrerequisite() {
+        return this.prerequisites;
+    }
 
     /**
      * Returns true if both persons have the same identity and data fields.

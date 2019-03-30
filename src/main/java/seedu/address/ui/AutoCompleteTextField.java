@@ -37,26 +37,23 @@ public class AutoCompleteTextField extends TextField {
 
             // calls #setStyleToDefault() whenever there is a change to the text of the command box.
             setStyleToDefault();
-            if (getText().length() == 0) {
-                autocompleteBox.hide();
-            } else {
-                if (suggestions.size() > 0) {
-                    Iterator iterator = suggestions.iterator();
-                    LinkedList<String> searchResult = new LinkedList<>();
-                    while (iterator.hasNext()) {
-                        String suggestion = iterator.next().toString();
-                        if (suggestion.startsWith(getText())) {
-                            searchResult.add(suggestion);
-                        }
-                    }
 
-                    showSuggestions(searchResult);
-                    if (!autocompleteBox.isShowing()) {
-                        autocompleteBox.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
+            if (getText().length() != 0 && suggestions.size() > 0) {
+                Iterator iterator = suggestions.iterator();
+                LinkedList<String> searchResult = new LinkedList<>();
+                while (iterator.hasNext()) {
+                    String suggestion = iterator.next().toString();
+                    if (suggestion.startsWith(getText())) {
+                        searchResult.add(suggestion);
                     }
-                } else {
-                    autocompleteBox.hide();
                 }
+
+                buildContextMenu(searchResult);
+                if (!autocompleteBox.isShowing()) {
+                    autocompleteBox.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
+                }
+            } else {
+                autocompleteBox.hide();
             }
         });
 
@@ -81,7 +78,7 @@ public class AutoCompleteTextField extends TextField {
      * Populate the entry set with the given search results. Display is limited to 10 entries, for performance.
      * @param searchResult The set of matching strings.
      */
-    private void showSuggestions(List<String> searchResult) {
+    private void buildContextMenu(List<String> searchResult) {
         List<CustomMenuItem> menuItems = new LinkedList<>();
 
         // Only show max 10 entries in the autocompletion box
@@ -89,12 +86,13 @@ public class AutoCompleteTextField extends TextField {
         int count = Math.min(searchResult.size(), maxEntries);
         for (int i = 0; i < count; i++) {
             final String result = searchResult.get(i);
-            Label entryLabel = new Label(result);
-            CustomMenuItem item = new CustomMenuItem(entryLabel, true);
+            Label label = new Label(result);
+            CustomMenuItem item = new CustomMenuItem(label, true);
             item.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     setText(result);
+                    positionCaret(result.length());
                     autocompleteBox.hide();
                 }
             });

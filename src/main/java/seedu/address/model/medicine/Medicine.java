@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -14,7 +13,6 @@ import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.address.model.tag.Tag;
 
 /**
@@ -96,35 +94,6 @@ public class Medicine {
         return otherMedicine != null
                 && otherMedicine.getName().equals(getName())
                 && (otherMedicine.getCompany().equals(getCompany()));
-    }
-
-    /**
-     * Returns a String array containing the information of the various variables of the medicine.
-     * This method is mainly used to support the export command to export the current list in the GUI to
-     * a csv file.
-     * @return A string array containing the medicine information.
-     */
-    public String[] toStringArray() {
-        final StringBuilder builder = new StringBuilder();
-        String delimiter = "|";
-        String[] result;
-        builder.append(getName())
-                .append(delimiter)
-                .append(getTotalQuantity())
-                .append(delimiter)
-                .append(getNextExpiry())
-                .append(delimiter)
-                .append(getCompany())
-                .append(delimiter);
-        Iterator iterator = getTags().iterator();
-        while (iterator.hasNext()) {
-            Tag current = (Tag) iterator.next();
-            String formattedCurrentTagString = current.toStringUpperCase();
-            builder.append(formattedCurrentTagString);
-            builder.append(' ');
-        }
-        result = builder.toString().split("\\|");
-        return result;
     }
 
     /**

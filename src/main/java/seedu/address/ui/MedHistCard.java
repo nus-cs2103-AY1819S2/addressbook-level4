@@ -24,15 +24,15 @@ public class MedHistCard extends UiPart<Region> {
     private HBox cardPane;
     @FXML
     private Label name;
-    //@FXML
-    //private Label id;
+    @FXML
+    private Label id;
     @FXML
     private Label writeUp;
 
     public MedHistCard(MedicalHistory medHist, int displayedIndex) {
         super(FXML);
         this.medHist = medHist;
-        //id.setText(displayedIndex + ". ");
+        id.setText(displayedIndex + ". ");
         name.setText(medHist.getName().fullName);
         writeUp.setText(medHist.getWriteUp().value);
     }
@@ -51,7 +51,7 @@ public class MedHistCard extends UiPart<Region> {
 
         // state check
         MedHistCard card = (MedHistCard) other;
-        return /*id.getText().equals(card.id.getText())&& */name.equals(card.name) && writeUp.equals(card.writeUp);
+        return id.getText().equals(card.id.getText())&& name.equals(card.name) && writeUp.equals(card.writeUp);
     }
 
 }

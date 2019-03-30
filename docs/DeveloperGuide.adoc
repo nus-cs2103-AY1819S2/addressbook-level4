@@ -540,9 +540,12 @@ image::ModelEnhancementDiagram.png[width="800"]
 To allow users to operate on multiple `CardFolders`, the following notable methods were also introduced:
 
 * `ModelManager#addFolder(CardFolder cardfolder)` - Adds a specified cardfolder to the `ModelManager`’s list
-* `ModelManager#deleteFolder(int index)` - Deletes the `CardFolder` at the specified index in the `ModelManager`’s list
+* `ModelManager#deleteFolder(int index)` - Deletes the `CardFolder` at the specified index in the `ModelManager's` list
 * `ModelManager#getActiveCardFolderIndex()` - Gets the index of the current active `CardFolder`
-* `ModelManager#setActiveCardFolderIndex()` - Specifies the active `CardFolder` for operations to be performed on via the index in `ModelManager`’s list
+* `ModelManager#enterFolder()` - Specifies the active `CardFolder` for operations to be performed on via the index in `ModelManager`’s list and sets the boolean `inFolder` to `true` to denote that user is inside a folder.
+* `ModelManager#exitFolderToHome()` - Sets the boolean `inFolder` to `false` to indicate that the user is at the home directory.
+* `ModelManager#renameFolder(int index, String newName)` - Renames the folder at the specified index in the `ModelManager's` list to the new name.   
+* `ModelManager#isInFolder()` - Returns true if the `ModelManager` is currently inside a folder.
 
 ===== Storage
 Similarly, the `StorageManager` needs to represent each `CardFolder` separately. In the same manner as in the Model component, we introduce a list of `JsonCardFolderStorages`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
@@ -552,17 +555,49 @@ image::StorageEnhancementDiagram.png[width="800"]
 Notable new methods:
 
 * `StorageManager#readCardFolders()` - Reads in all `CardFolders` from all `CardFolderStorage` objects in the list.
-* `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` - Saves all `CardFolder`s provided in the argument.
+* `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` - Saves all `CardFolders` provided in the argument to the user's data directory.
 
 ===== Logic
-The logic component propagates changes in a `CardFolder` to the Storage component. With listeners, it is informed when a `CardFolder` is modified (e.g. a new card is added) so that it can invoke the appropriate Storage methods.
+The existing implementation of the Logic component propagates changes in a Model's `CardFolder` to the Storage component. With listeners, it is informed when a `CardFolder` is modified (e.g. a new card is added) so that it can invoke the appropriate Storage methods.
 
-The same principle was applied to propagate changes in `CardFolders` (e.g. adding a new folder) to Storage. Model is now an `Observable`, and changes to a Model’s CardFolders will inform the LogicManager, which in turn invokes the `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` method.
+The same principle was applied to propagate changes regarding `CardFolders` themselves (and not their stored cards) to Storage: e.g. adding a new folder. Model is now an `Observable`, and changes to a Model’s `CardFolders` will inform the `LogicManager`, which in turn invokes the `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` method.
 
+To illustrate how the Model, Storage and Logic components interact, below is a walkthrough of a typical usage scenario of the `addfolder` command. <<addfoldersequencediagram>> is a sequence diagram that summarises the example:
+
+* Step 1. The `addfolder` command is executed. We assume that the user has passed in a valid folder name. For example, `addfolder f`.
+
+* Step 2. As with every command, the command parser reads the input and generates the relevant `Command` object, in this case an `AddFolderCommand`. The object is returned to the `LogicManager`.
+
+* Step 3. The `LogicManager` executes the `AddFolderCommand`, storing the result and then transferring control to the Model component with the `ModelManager#addFolder()` method.
+
+* Step 4. The `ModelManager` creates a `VersionedCardFolder` to represent the newly created folder, storing a reference to its currently empty list of cards. Before returning control to the Logic component, `ModelManager#indicateModified()` is invoked to notify listeners in the `LogicManager` that the list of `CardFolders` have changed.
+
+* Step 5. The Logic component takes over control and checks if the `ModelManager` is modified. In the case of `addfolder` the object is indeed modified (as a result of Step 4) and thus the component proceeds to save the Model's `CardFolders` to Storage.
+
+* Step 6. Before handing over control to Storage, the `LogicManager` obtains the information to save and where to perform the save to with `ModelManager#getCardFolders()` and `ModelManager#getCardFoldersFilesPath()` respectively. It then passes these objects as parameters when it calls `StorageManager#saveCardFolders()`.
+
+* Step 7. The Storage component receives control, with the `StorageManager` clearing the directory at the specified path and creating `JsonCardFolderStorage` objects with path names equivalent to the names of the folders it has received. It then proceeds to invoke `JsonCardFolderStorage#saveCardFolder()` on all the `JsonCardFolderStorage` to save all the folders before returning to the `LogicManager`.
+
+* Step 8. The `LogicManager` terminates and returns the result of the command to the calling method.
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitCardFolder()`, so the card folder state will not be saved into the `cardFolderStateList`.
+
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial card folder state, then there are no previous card folder states to restore. The `undo` command uses `Model#canUndoCardFolder()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+
+[[addfoldersequencediagram]] 
+.Component interactions for `addfolder f` command
 image::AddFolderSequenceDiagram.png[width="800"]
 
+.Component interactions for `change` command
 image::ChangeCommandSequenceDiagram.png[width="600"]
 
+===== UI
+
+.UI behaviour when user enters folder
 image::EnterFolderGUISequenceDiagram.png[width="800"]
 ==== Design Considerations
 ===== Aspect: How multiple folders are represented

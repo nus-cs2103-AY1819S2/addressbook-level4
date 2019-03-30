@@ -70,7 +70,20 @@ public class CardSrsData {
 
     @Override
     public boolean equals(Object obj) {
-        CardSrsData other = (CardSrsData) obj;
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof User)) {
+            return false;
+        }
+
+        // state check
+        User other = (User) obj;
+        return other.hashCode() == this.hashCode();
+
+        /*CardSrsData other = (CardSrsData) obj;
 
         if (this.hashCode != other.getHashCode()) {
             return false;
@@ -85,6 +98,6 @@ public class CardSrsData {
             return false;
         }
 
-        return true;
+        return true;*/
     }
 }

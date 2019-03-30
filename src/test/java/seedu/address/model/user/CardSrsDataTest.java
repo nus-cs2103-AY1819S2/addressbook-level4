@@ -10,19 +10,19 @@ import org.junit.Test;
 
 public class CardSrsDataTest {
 
+    //private Instant seconds = Instant.ofEpochMilli(10);     //for testing purposes
     private Instant date = Instant.now();
     private CardSrsData testCardData = new CardSrsData(1, 1, 1, date);
     private CardSrsData expectedCardData = new CardSrsData(1, 1, 1, date);
     private CardSrsData card = new CardSrsData(1, 1, 1, date);
     private int outCardInt;
-    private String outCardString;
 
     @Test
     public void setAndGetCardTest() {
         card.setCard(testCardData.getHashCode(), testCardData);
         CardSrsData outCard = card.getCard(1);
 
-        assertEquals(expectedCardData, outCard);
+        assertEquals(testCardData, outCard);
     }
 
     @Test
@@ -51,16 +51,40 @@ public class CardSrsDataTest {
 
     @Test
     public void getSrsDueDateTest() {
-        outCardString = testCardData.getSrsDueDate().toString();
+        String outCardString = testCardData.getSrsDueDate().toString();
         assertEquals(expectedCardData.getSrsDueDate().toString(), outCardString);
     }
     @Test
     public void equalsTest() {
+        User user = new User();
+
+        // same value -> returns true
+        User userCopy = new User();
+
+        assertTrue(user.equals(userCopy));
+
+        // same object -> returns true
+        assertTrue(user.equals(user));
+
+        // null -> returns false
+        assertFalse(user == null);
+
+        // different types -> returns false
+        assertFalse(user.equals(5));
+        /*
         CardSrsData card1 = new CardSrsData(1, 1, 1, date);
         CardSrsData card2 = new CardSrsData(1, 1, 1, date);
-        CardSrsData card3 = new CardSrsData(20, 20, 20, date);
+        CardSrsData card3 = new CardSrsData(20, 1, 20, date);
+        CardSrsData card4 = new CardSrsData(1, 20, 1, date);
+        CardSrsData card5 = new CardSrsData(1, 1, 20, date);
+        CardSrsData card6 = new CardSrsData(1, 1, 1, seconds);
+
 
         assertTrue("Card is the same", card1.equals(card2));
-        assertFalse("Card is not the same", card3.equals(card1));
+        assertFalse("Srs date is not the same", card6.equals(card1));
+        assertFalse ("Card number of attempts is not the same", card5.equals(card1));
+        assertFalse ("Card number of attempts is not the same", card4.equals(card1));
+        assertFalse("Card hashcode is not the same", card3.equals(card1));
+*/
     }
 }

@@ -24,7 +24,7 @@ class JsonAdaptedTag {
      */
     @JsonCreator
     public JsonAdaptedTag(String tagName) {
-        String[] sb = tagName.split(":");
+        String[] sb = tagName.split(JsonAdaptedConstants.DIVIDER);
         if (sb.length == 2) {
             type = sb[0];
             this.tagName = sb[1];
@@ -49,7 +49,7 @@ class JsonAdaptedTag {
 
     @JsonValue
     public String getTagName() {
-        return type + ":" + tagName;
+        return type + JsonAdaptedConstants.DIVIDER + tagName;
     }
 
     /**

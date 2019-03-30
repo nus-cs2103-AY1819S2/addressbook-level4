@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.patient;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -9,9 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Sex {
 
-
     public static final String MESSAGE_CONSTRAINTS =
-        "Sex should only be either M or F";
+        "Indicating patient's sex is compulsory, Sex should only be either M or F";
     public static final String VALIDATION_REGEX = "^[M,F]$";
     public final String value;
 
@@ -33,8 +32,7 @@ public class Sex {
         return test.matches(VALIDATION_REGEX);
     }
 
-    @Override
-    public String toString() {
+    public String getSex() {
         return value;
     }
 
@@ -48,6 +46,11 @@ public class Sex {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "(" + value + ")";
     }
 
 }

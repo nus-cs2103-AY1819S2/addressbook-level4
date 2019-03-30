@@ -19,7 +19,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.record.Record;
 import seedu.address.model.task.Task;
+import seedu.address.ui.MainWindow;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -33,6 +35,8 @@ public class ModelManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Task> selectedTask = new SimpleObjectProperty<>();
+
+    private FilteredList<Record> filteredRecords;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -48,6 +52,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredTasks = new FilteredList<>(versionedAddressBook.getTaskList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredTasks.addListener(this::ensureSelectedTaskIsValid);
     }
 
     public ModelManager() {
@@ -142,7 +147,6 @@ public class ModelManager implements Model {
     @Override
     public void deleteTask(Task task) {
         versionedAddressBook.removeTask(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override
@@ -150,6 +154,69 @@ public class ModelManager implements Model {
         versionedAddressBook.setTask(task, editedTask);
     }
 
+    // For records manipulation methods.
+
+    /**
+     * Returns true if a record with the same identity as {@code record} exists in the address book.
+     *
+     * @param record the record to be checked whether exist.
+     */
+    @Override
+    public boolean hasRecord(Record record) {
+        requireAllNonNull(record);
+        return versionedAddressBook.hasRecord(record);
+    }
+
+    /**
+     * Adds the given record.
+     * {@code record} must not already exist in the address book.
+     *
+     * @param record the record to be added.
+     */
+    @Override
+    public void addRecord(Record record) {
+        if (MainWindow.getRecordPatient() != null) {
+            versionedAddressBook.addRecord(record);
+        }
+    }
+
+    /**
+     * Deletes the given record.
+     * The record must exist in the address book.
+     *
+     * @param record the record to be deleted.
+     */
+    @Override
+    public void deleteRecord(Record record) {
+        if (MainWindow.getRecordPatient() != null) {
+            versionedAddressBook.removeRecord(record);
+        }
+    }
+
+    /**
+     * Replaces the given record {@code target} with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     *
+     * @param target the target to be replaced.
+     * @param editedRecord the one which is edited.
+     */
+    @Override
+    public void setRecord(Record target, Record editedRecord) {
+        versionedAddressBook.setRecord(target, editedRecord);
+    }
+
+    /**
+     * Update tags based on teeth data.
+     *
+     * @param target the patient to update tags.
+     */
+    @Override
+    public void updateTags(Patient target) {
+        Patient editedTarget = target.copy();
+        versionedAddressBook.setPerson(target, editedTarget);
+        MainWindow.setRecordPatient(editedTarget);
+    }
 
     //=========== Filtered Person List Accessors =============================================================
 
@@ -194,6 +261,51 @@ public class ModelManager implements Model {
     public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
+    }
+
+
+    /**
+     * Ensures {@code selectedTask} is a valid task in {@code filteredTasks}.
+     */
+    private void ensureSelectedTaskIsValid(ListChangeListener.Change<? extends Task> change) {
+        while (change.next()) {
+            if (selectedTask.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedTaskReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedTask.getValue());
+            if (wasSelectedTaskReplaced) {
+                // Update selectedTask to its new value.
+                int index = change.getRemoved().indexOf(selectedTask.getValue());
+                selectedTask.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedTaskRemoved = change.getRemoved().stream()
+                    .anyMatch(removedTask -> selectedTask.getValue().isSameTask(removedTask));
+            if (wasSelectedTaskRemoved) {
+                // Select the task that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedTask.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
+    //=========== Filtered Record List Accessors ============================================================
+
+    /**
+     * Returns an unmodifiable view of the filtered record list
+     */
+    @Override
+    public ObservableList<Record> getFilteredRecordList() {
+        if (MainWindow.getRecordPatient() != null) {
+            versionedAddressBook.setRecords(MainWindow.getRecordPatient().getRecords());
+            filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
+            return filteredRecords;
+        }
+        return null;
     }
 
     //=========== Undo/Redo =================================================================================
@@ -294,6 +406,7 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredTasks.equals(other.filteredTasks)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

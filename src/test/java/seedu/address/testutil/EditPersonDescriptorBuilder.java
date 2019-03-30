@@ -8,6 +8,7 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.patient.Sex;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -40,6 +41,7 @@ public class EditPersonDescriptorBuilder {
             descriptor.setName(person.getName());
             descriptor.setNric(((Patient) person).getNric());
             descriptor.setDateOfBirth(((Patient) person).getDateOfBirth());
+            descriptor.setSex(((Patient) person).getSex());
             descriptor.setPhone(person.getPhone());
             descriptor.setEmail(person.getEmail());
             descriptor.setAddress(person.getAddress());
@@ -70,6 +72,14 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder withDob(String dob) {
         descriptor.setDateOfBirth(new DateOfBirth(dob));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Sex} of the {@code EditPersonDescriptor} that we are building.
+     */
+    public EditPersonDescriptorBuilder withSex(String sex) {
+        descriptor.setSex(new Sex(sex));
         return this;
     }
 

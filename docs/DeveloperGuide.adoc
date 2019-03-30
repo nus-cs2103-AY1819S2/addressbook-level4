@@ -420,54 +420,64 @@ CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFol
     Sequence diagram
 
 === Test Session feature
-==== Current Implementation
+==== Overall Current Implementation
 This feature mainly involves `UI`, `Logic` and `Model` components.
 
 [discrete]
 ===== Model:
-The following variables in `ModelManager` are introduced to keep track of the current state in a test session. The related methods are exposed in the `Model` interface.
+There are 4 main variables in `ModelManager` introduced to keep track of the current state in a test
+session. The related methods are exposed in the `Model` interface.
 
-* `insideTestSession`
-** A boolean variable to indicate if user is running a test session.
-** Related methods:
-*** `Model#checkIfInsideTestSession()`
+* `currentTestedCardFolder`
+** The current card folder (stored as an ObservableList of cards) that the user is running a test session on.
+** Set to null if user is not inside a test session
 
 * `currentTestedCard`
-** The current card the user is seeing in the test session.
+** The current card the user is seeing in the test session, obtained from `currentTestedCardFolder` using
+`currentTestedCardIndex`.
 ** Set to null if user is not inside a test session
 ** Related methods:
 *** `Model#setCurrentTestedCard()`
 *** `Model#getCurrentTestedCard()`
 
+* `isInsideTestSession`
+** A boolean variable to indicate if user is running a test session.
+** Related methods:
+*** `Model#checkIfInsideTestSession()`
 
-* `cardAlreadyAnswered`
+* `isCardAlreadyAnswered`
 ** A boolean variable to indicate if the user has already execute a valid answer command for the current card.
 ** Related methods:
-*** `Model#setCardAsAlreadyAnswered()`
+*** `Model#setCardAsAnswered()`
+*** `Model#setCardAsNotAnswered()`
+*** `Model#checkIfCardAlreadyAnswered()`
 
 ==== Test / End Command
 
 [discrete]
 ===== Model
-The main logic for  `test` and `end` command is carried out inside the ModelManager with the following methods:
+The main logic for  `test` and `end` command is carried out inside `ModelManager`,
+updating the 4 variables introduced earlier that are used to track the state of a test session accordingly,
+with the following methods:
 
-* `#testCardFolder()` - begins a test session on the card folder specified (or the current card folder - to be
-implemented) and updates the three variables introduced earlier that are used to track the state of a test session
-accordingly.
-** `insideTestSession` is set to true.
-** `Model#setCurrentTestedCard()` is invoked to set `currentTestedCard` to the first card in the folder.
+* `#testCardFolder()` - begins a test session on the current card folder user is in.
+** `currentTestedCardFolder` is set to the current folder the user is in.
+** `Model#setCurrentTestedCard()` is invoked to set `currentTestedCard` to the first card in the folder as `currentTestedCardIndex` is set to 0.
+** `isInsideTestSession` is set to true.
+** `isCardAlreadyAnswered`` is by default false.
 
-* `#endTestSession()` - ends the current test session and updates the three variables accordingly.
-** `insideTestSession` is set to false.
+* `#endTestSession()` - ends the current test session.
+** `currentTestedCardFolder` is set to null.
 ** `Model#setCurrentTestedCard()` is invoked to set `currentTestedCard` to null.
-** `cardAlreadyAnswered` is reset to false.
+** `isInsideTestSession` is set to false.
+** `isCardAlreadyAnswered` is reset to false.
 
 They are exposed in the `model` interface as `Model#testCardFolder()` and `Model#endTestSession()`.
 
 [discrete]
 ===== UI
 To update the change in the `UI` to reflect that the user is a test session (app goes to full screen with question of
-the current presented), the following methods are introduced.
+the current card presented), the following methods are introduced.
 
 * `MainWindow#handleStartTestSession` - creates a new `testSession` page and bring it forward in front of the
 current `cardMainScreen` page.

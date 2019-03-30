@@ -47,6 +47,7 @@ public class RightParentPanel extends UiPart<Region> {
             } else {
 
                 ExpandedPlacePanel expandedPlacePanel = new ExpandedPlacePanel(selectedPlace.getValue());
+                displayListPanelPlaceholder.getChildren().removeAll();
                 displayListPanelPlaceholder.getChildren().add(expandedPlacePanel.getRoot());
             }
         });

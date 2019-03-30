@@ -56,11 +56,10 @@ public class GenerateBillForBookingCommand extends BillCommand {
         return new CommandResult(String.format(MESSAGE_GENERATE_BILL_SUCCESS, amount));
     }
 
-
-//    @Override
-//    public boolean equals(Object other) {
-//        return other == this // short circuit if same object
-//            || (other instanceof GenerateBillCommand // instanceof handles nulls
-//            && targetIndex.equals(((GenerateBillCommand) other).targetIndex)); // state check
-//    }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+            || (other instanceof GenerateBillForBookingCommand // instanceof handles nulls
+            && bookingPredicate.equals(((GenerateBillForBookingCommand) other).bookingPredicate)); // state check
+    }
 }

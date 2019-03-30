@@ -1,13 +1,15 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
+import seedu.address.model.image.Image;
+
 
 /**
  * Reverts the {@code model}'s address book to its previously undone state.
@@ -18,6 +20,7 @@ public class RedoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Redo success!";
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
 
+    /*
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Album album,
                                  Model model, CommandHistory history) throws CommandException {
@@ -29,6 +32,30 @@ public class RedoCommand extends Command {
 
         model.redoAddressBook();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(MESSAGE_SUCCESS);
+    }*/
+
+    @Override
+    public CommandResult execute(CurrentEdit currentEdit, Album album,
+                                 Model model, CommandHistory history) throws CommandException {
+        requireNonNull(currentEdit);
+        Image initialImage = currentEdit.getTempImage();
+        if (initialImage == null) {
+            throw new CommandException(Messages.MESSAGE_DID_NOT_OPEN);
+        }
+
+
+        if (!currentEdit.canRedoTemp()) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
+
+        Command command = currentEdit.getTempImage().getCommand();
+        command.execute(currentEdit, album, model, history);
+        currentEdit.getTempImage().setRedo();
+
+        currentEdit.displayTempImage();
+
+
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

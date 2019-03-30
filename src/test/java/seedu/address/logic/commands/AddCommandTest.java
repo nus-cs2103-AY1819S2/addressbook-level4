@@ -17,7 +17,9 @@ import org.junit.rules.ExpectedException;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.WarningPanelSettings;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Inventory;
@@ -25,6 +27,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.MedicineBuilder;
 
 public class AddCommandTest {
@@ -112,6 +115,17 @@ public class AddCommandTest {
         public void setGuiSettings(GuiSettings guiSettings) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public WarningPanelSettings getWarningPanelSettings() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setWarningPanelSettings(WarningPanelSettings warningPanelSettings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public Path getInventoryFilePath() {
@@ -225,6 +239,16 @@ public class AddCommandTest {
 
         @Override
         public void setSelectedMedicine(Medicine medicine) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void changeWarningPanelListThreshold(WarningPanelPredicateType type, Threshold threshold) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Threshold getWarningPanelThreshold(WarningPanelPredicateType type) {
             throw new AssertionError("This method should not be called.");
         }
     }

@@ -19,6 +19,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.WarningPanelSettings;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
@@ -29,6 +30,7 @@ import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
 import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.InventoryBuilder;
 import seedu.address.testutil.MedicineBuilder;
+import seedu.address.ui.WarningPanel;
 
 public class ModelManagerTest {
     @Rule
@@ -40,6 +42,7 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new WarningPanelSettings(), modelManager.getWarningPanelSettings());
         assertEquals(new Inventory(), new Inventory(modelManager.getInventory()));
         assertEquals(null, modelManager.getSelectedMedicine());
         assertEquals(new WarningPanelPredicateAccessor(), modelManager.getWarningPanelPredicateAccessor());
@@ -76,6 +79,19 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void setWarningPanelSettings_nullWarningPanelSettings_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.setWarningPanelSettings(null);
+    }
+
+    @Test
+    public void setWarningPanelSettings_validWarningPanelSettings_setsGuiSettings() {
+        WarningPanelSettings warningPanelSettings = new WarningPanelSettings(1, 2);
+        modelManager.setWarningPanelSettings(warningPanelSettings);
+        assertEquals(warningPanelSettings, modelManager.getWarningPanelSettings());
     }
 
     @Test
@@ -217,7 +233,7 @@ public class ModelManagerTest {
         modelManager.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
 
         // different filteredExpiringMedicineList -> returns false
-        Threshold threshold = new Threshold("730"); // two years
+        Threshold threshold = new Threshold("365"); // one year
         modelManager.updateFilteredExpiringMedicineList(new MedicineExpiryThresholdPredicate(threshold));
         assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
 

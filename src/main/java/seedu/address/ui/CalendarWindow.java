@@ -106,7 +106,7 @@ public class CalendarWindow extends UiPart<Stage> {
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
-            this.runningCommand = true;
+            runningCommand = true;
             if (DateCustom.isValidDate(commandText.trim())) {
                 commandText = "taskcal " + commandText;
             }

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Task Calender" minWidth="800" minHeight="500" maxHeight="500" onCloseRequest="#handleExit">
+         title="Task Calender" minWidth="1000" minHeight="500" maxHeight="500" onCloseRequest="#handleExit">
     <icons>
         <Image url="@/images/tooth.png"/>
     </icons>
@@ -23,7 +23,7 @@
                     <StackPane fx:id="taskListPanelPlaceholder" minWidth="550"/>
                 </StackPane>
                 <VBox>
-                <StackPane fx:id="calendarPanel" VBox.vgrow="ALWAYS" >
+                <StackPane fx:id="calendarPanel" VBox.vgrow="NEVER" SplitPane.resizableWithParent="true" styleClass="pane-with-border" >
                     <padding>
                         <Insets top="5" right="10" bottom="5" left="10"/>
                     </padding>

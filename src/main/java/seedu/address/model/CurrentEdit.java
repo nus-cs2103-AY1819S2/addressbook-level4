@@ -2,6 +2,7 @@
 package seedu.address.model;
 
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.model.image.Image;
@@ -10,12 +11,6 @@ import seedu.address.model.image.Image;
  * The API of the CurrentEdit component.
  */
 public interface CurrentEdit {
-
-//    void saveAsTemp(Image image);
-//
-//    void saveAsOriginal(Image image);
-//
-//    void overwriteOriginal(String name);
 
     void saveIntoTempFolder(String filename, Image image);
 
@@ -33,7 +28,13 @@ public interface CurrentEdit {
 
     void addCommand(Command command);
 
-//    void replaceTempWithOriginal();
+    void replaceTempWithOriginal();
+
+    boolean canUndoTemp();
+
+    boolean canRedoTemp();
+
+    List<Command> getTempSubHistory();
 
     String[] getFileNames();
 

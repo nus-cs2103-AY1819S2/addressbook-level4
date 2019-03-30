@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.imageio.ImageIO;
 
@@ -17,6 +16,8 @@ import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
+
+import seedu.address.logic.commands.Command;
 
 /**
  * Represents an Image in FomoFoto.
@@ -34,6 +35,8 @@ public class Image {
     private String url;
     private String fileType;
     private Metadata metadata;
+    private List<Command> commandHistory;
+    private int index;
 
     /**
      * Every field must be present and not null.
@@ -44,6 +47,7 @@ public class Image {
         try {
             this.buffer = ImageIO.read(file);
             this.metadata = ImageMetadataReader.readMetadata(file);
+            buffer = ImageIO.read(file);
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -54,6 +58,8 @@ public class Image {
                 FilenameUtils.getExtension(url), FilenameUtils.getName(url));
         this.width = new Width(String.valueOf(buffer.getWidth()));
         this.height = new Height(String.valueOf(buffer.getHeight()));
+        commandHistory = new ArrayList<>();
+        index = 0;
         System.out.println(this.toString());
     }
 
@@ -85,35 +91,64 @@ public class Image {
         return size;
     }
 
-    public Metadata getMetadata() {
-        return metadata;
+    public List<Command> getCommandHistory() {
+        return commandHistory;
+    }
+
+    public List<Command> getSubHistory() {
+        return commandHistory.subList(0, index);
     }
 
     /**
-     * Returns true if both images have the same identity and data fields.
-     * This defines a stronger notion of equality between two images.
+     * Adds a new transformation command into commandHistory
+     * if Undo command was last called command, remove all edits after previous undo.
+     *
+     * @param command command to be added
      */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
+    public void addHistory(Command command) {
+        if (index < commandHistory.size()) {
+            commandHistory = commandHistory.subList(0, index);
         }
-
-        if (!(other instanceof Image)) {
-            return false;
-        }
-
-        Image otherImage = (Image) other;
-        return otherImage.getName().equals(getName())
-                && otherImage.getWidth().equals(getWidth())
-                && otherImage.getHeight().equals(getHeight());
+        commandHistory.add(command);
+        index++;
     }
 
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, width, height);
+    public void setBufferedImage(BufferedImage buffer) {
+        this.buffer = buffer;
     }
+
+    public Command getCommand() {
+        return commandHistory.get(index);
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setHistory(List history) {
+        this.commandHistory = history;
+    }
+
+    public void setUndo() {
+        index--;
+    }
+
+    public void setRedo() {
+        index++;
+    }
+
+    public boolean canUndo() {
+        return index > 0;
+    }
+
+    public boolean canRedo() {
+        return index < commandHistory.size();
+    }
+
 
     /**
      * A basic representation of the Image's fields.

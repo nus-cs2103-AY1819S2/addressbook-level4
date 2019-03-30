@@ -215,7 +215,6 @@ public class Patient extends Person {
      * @return a new Patient instance.
      */
     public Patient copy() {
-        System.out.println("FUCK");
         return new Patient(this.name, this.phone, this.email, this.address, tags, this.nric, this.getDateOfBirth(),
             this, copyCount++, this.sex, this.drugAllergy, this.nextOfKin, this.patientDesc);
     }

@@ -17,12 +17,12 @@ public interface Model {
     /**
      * Default {@code Threshold} used for expiry.
      */
-    Threshold DEFAULT_EXPIRY_THRESHOLD = new Threshold(Integer.valueOf(10));
+    Threshold DEFAULT_EXPIRY_THRESHOLD = new Threshold("10");
 
     /**
      * Default {@code Threshold} used for low stock.
      */
-    Threshold DEFAULT_LOW_STOCK_THRESHOLD = new Threshold(Integer.valueOf(20));
+    Threshold DEFAULT_LOW_STOCK_THRESHOLD = new Threshold("10");
 
     /** {@code Predicate} that always evaluate to true */
     Predicate<Medicine> PREDICATE_SHOW_ALL_MEDICINES = unused -> true;

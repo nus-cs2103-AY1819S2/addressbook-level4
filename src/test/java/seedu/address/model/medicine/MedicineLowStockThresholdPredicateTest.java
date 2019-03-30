@@ -14,7 +14,7 @@ public class MedicineLowStockThresholdPredicateTest {
     @Test
     public void equals() {
         Threshold firstThreshold = Model.DEFAULT_LOW_STOCK_THRESHOLD; // threshold value of 20
-        Threshold secondThreshold = new Threshold(10);
+        Threshold secondThreshold = new Threshold("100");
 
         MedicineLowStockThresholdPredicate firstPredicate = new MedicineLowStockThresholdPredicate(firstThreshold);
         MedicineLowStockThresholdPredicate secondPredicate = new MedicineLowStockThresholdPredicate(secondThreshold);
@@ -47,11 +47,11 @@ public class MedicineLowStockThresholdPredicateTest {
         MedicineLowStockThresholdPredicate predicate;
 
         // Minimum threshold
-        predicate = new MedicineLowStockThresholdPredicate(new Threshold(Threshold.MIN_THRESHOLD));
+        predicate = new MedicineLowStockThresholdPredicate(new Threshold(Integer.toString(Threshold.MIN_THRESHOLD)));
         assertTrue(predicate.test(new MedicineBuilder().withQuantity(Integer.toString(Quantity.MIN_QUANTITY)).build()));
 
         // Threshold for maximum Medicine quantity
-        predicate = new MedicineLowStockThresholdPredicate(new Threshold(Quantity.MAX_QUANTITY));
+        predicate = new MedicineLowStockThresholdPredicate(new Threshold(Integer.toString(Quantity.MAX_QUANTITY)));
         assertTrue(predicate.test(new MedicineBuilder().withQuantity(Integer.toString(Quantity.MIN_QUANTITY)).build()));
         assertTrue(predicate.test(new MedicineBuilder().withQuantity(Integer.toString(Quantity.MAX_QUANTITY)).build()));
         assertTrue(predicate.test(new MedicineBuilder().withQuantity(Model.DEFAULT_LOW_STOCK_THRESHOLD.value).build()));
@@ -70,7 +70,7 @@ public class MedicineLowStockThresholdPredicateTest {
         MedicineLowStockThresholdPredicate predicate;
 
         // Minimum threshold
-        predicate = new MedicineLowStockThresholdPredicate(new Threshold(Threshold.MIN_THRESHOLD));
+        predicate = new MedicineLowStockThresholdPredicate(new Threshold(Integer.toString(Threshold.MIN_THRESHOLD)));
         assertFalse(predicate.test(new MedicineBuilder()
                 .withQuantity(Integer.toString(Quantity.MIN_QUANTITY + 1)).build()));
         assertFalse(predicate.test(new MedicineBuilder()
@@ -79,7 +79,7 @@ public class MedicineLowStockThresholdPredicateTest {
                 .withQuantity(Integer.toString(Quantity.MAX_QUANTITY)).build()));
 
         // Greatest threshold for maximum Medicine quantity
-        predicate = new MedicineLowStockThresholdPredicate(new Threshold(Quantity.MAX_QUANTITY - 1));
+        predicate = new MedicineLowStockThresholdPredicate(new Threshold(Integer.toString(Quantity.MAX_QUANTITY - 1)));
         assertFalse(predicate.test(new MedicineBuilder()
                 .withQuantity(Integer.toString(Quantity.MAX_QUANTITY)).build()));
 

@@ -46,17 +46,17 @@ public class WarningPanelPredicateAccessor {
 
     public void setBatchExpiringThreshold(int threshold) {
         this.batchExpiryPredicate = new BatchExpiryThresholdPredicate(
-            new Threshold(Integer.valueOf(threshold)));
+            new Threshold(Integer.toString(threshold)));
     }
 
     public void setMedicineExpiringThreshold(int threshold) {
         this.medicineExpiryPredicate = new MedicineExpiryThresholdPredicate(
-            new Threshold(Integer.valueOf(threshold)));
+            new Threshold(Integer.toString(threshold)));
     }
 
     public void setMedicineLowStockThreshold(int threshold) {
         this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(
-            new Threshold(Integer.valueOf(threshold)));
+            new Threshold(Integer.toString(threshold)));
     }
 
     private void setDefaultPredicates() {

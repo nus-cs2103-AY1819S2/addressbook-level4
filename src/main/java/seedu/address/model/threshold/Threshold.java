@@ -26,17 +26,6 @@ public class Threshold {
     }
 
     /**
-     * Constructs a {@code Threshold}.
-     *
-     * @param threshold A valid threshold.
-     */
-    public Threshold(Integer threshold) {
-        requireNonNull(threshold.toString());
-        checkArgument(isValidThreshold(threshold.toString()), MESSAGE_CONSTRAINTS);
-        this.value = threshold.toString();
-    }
-
-    /**
      * Returns true if a given string is a valid quantity.
      */
     public static boolean isValidThreshold(String test) {

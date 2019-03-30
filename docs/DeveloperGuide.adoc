@@ -517,7 +517,7 @@ since 1 cardfolder = 1 csv file.
 *** Files are now correctly formatted as .csv file
 
 ** Cons:
-*** Slightly more work needed to import multiple card folders. 
+*** Slightly more work needed to import multiple card folders.
 
 
 
@@ -1367,6 +1367,7 @@ Use case resumes from step 1.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 cards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The user interface should be intuitive enough even for medical students to use the app.
 
 _{More to be added}_
 

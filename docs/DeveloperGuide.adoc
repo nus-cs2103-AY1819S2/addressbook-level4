@@ -303,9 +303,9 @@ The filter mechanism is facilitated by https://github.com/sksamuel/scrimage [`sc
 
 The filter feature mainly consists of:
 
-* `contrastCommand`: Applies a contrast ratio value on the targetted image. The contrast ratio value is preset to 1.1 if a specified ratio value is not given by the user.  A value above 1 (e.g 1.3) increases the contrast of the image while a positive value below 1 (e.g 0.5) decreases the contrast of the image. 
-* `brightnessCommand`: Applies a brightness ratio value on the targetted image. The brightness ratio value is preset to 1.1 if a specified ratio value is not given by the user. A value above 1 (e.g 1.3) increases the brightness of the image while a positive value below 1 (e.g 0.5) decreases the brightness of the image.
-* `black/whiteCommand`: Transforms targetted image to a black and white image through a threshold value. The brightness ratio value is preset to 127 if a specified ratio value is not given by the user. Pixels on the image lighter than the threshold value becomes white and pixels darker than the threshold value becomes black.
+* `ContrastCommand`: Applies a contrast ratio value on the targetted image. The contrast ratio value is preset to 1.1 if a specified ratio value is not given by the user.  A value above 1 (e.g 1.3) increases the contrast of the image while a positive value below 1 (e.g 0.5) decreases the contrast of the image. 
+* `BrightnessCommand`: Applies a brightness ratio value on the targetted image. The brightness ratio value is preset to 1.1 if a specified ratio value is not given by the user. A value above 1 (e.g 1.3) increases the brightness of the image while a positive value below 1 (e.g 0.5) decreases the brightness of the image.
+* `BlackWhiteCommand`: Transforms targetted image to a black and white image through a threshold value. The brightness ratio value is preset to 127 if a specified ratio value is not given by the user. Pixels on the image lighter than the threshold value becomes white and pixels darker than the threshold value becomes black.
 
 The following describes main operations and processes contained in the classes above.
 
@@ -313,7 +313,7 @@ The following describes main operations and processes contained in the classes a
 
 This command calls for an adjustment of contrast on a targetted image. After adjusting the contrast, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
-Given below is an example usage scenario and how the command should behave at each step.
+Given below is an example usage scenario and how the command should behave at each step. [This applies to the other image filter commands as well.]
 
 Step 1. When the user runs an `open` command to edit an image, it invokes a method which creates an instance of an `Image` that stores the filepath of the image, its history of edits [`List<Command>`] and its metadata. This `Image` object is saved under the variable name `tempImage` in `currentEdit` for editing.
 
@@ -339,6 +339,22 @@ Step 7. `isNewCommand` is set to `false` to signal that this command is not a ne
 
 .Sequence Diagram for Contrast Command
 image::ContrastCommandSequenceDiagram.png[width="800"]
+
+==== BrightnessCommand:
+This command calls for an adjustment of brightness on a targetted image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+
+Refer to the example usage scenario and design considerations in <<ContrastCommand>>.
+
+.Sequence Diagram for Brightness Command
+image::BrightnessCommandSequenceDiagram.png[width="800"]
+
+==== BlackWhiteCommand:
+This command calls for a transformation of a targetted image to a black and white image. After applying the black and white transformation, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
+
+Refer to the example usage scenario and design considerations in <<ContrastCommand>>.
+
+.Sequence Diagram for BlackWhite Command
+image::BlackWhiteCommandSequenceDiagram.png[width="800"]
 
 
 === Image Manipulation

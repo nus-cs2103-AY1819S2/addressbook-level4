@@ -89,7 +89,7 @@ public class TaskEditCommand extends Command {
         }
 
         model.setTask(taskToEdit, editedTask);
-        model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
+        //model.updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask.getTitle()));
     }

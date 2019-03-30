@@ -22,6 +22,14 @@ public class SemesterLimitList implements Iterable<SemLimit> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
+     * Adds a SemLimit to the list.
+     */
+    public void add(SemLimit toAdd) {
+        requireNonNull(toAdd);
+        internalList.add(toAdd);
+    }
+
+    /**
      * Replaces the original semLimit in the list with {@code editedSemLimit}.
      */
     public void setSemesterLimit(int index, SemLimit editedSemesterLimit) {

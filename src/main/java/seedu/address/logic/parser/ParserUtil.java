@@ -11,6 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.Semester;
@@ -98,10 +99,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String lectureHour} into an {@code Hour}.
+     * Parses a {@code String hour} into an {@code Hour}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code lectureHour} is invalid.
+     * @throws ParseException if the given {@code Hour} is invalid.
      */
     public static Hour parseHour(String hour) throws ParseException {
         requireNonNull(hour);
@@ -110,6 +111,21 @@ public class ParserUtil {
             throw new ParseException(Hour.MESSAGE_CONSTRAINTS);
         }
         return new Hour(trimmedHour);
+    }
+
+    /**
+     * Parses a {@code String cap} into an {@code CapAverage}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code CapAverage} is invalid.
+     */
+    public static CapAverage parseCap(String cap) throws ParseException {
+        requireNonNull(cap);
+        String trimmedCap = cap.trim();
+        if (!CapAverage.isValidCapAverage(trimmedCap)) {
+            throw new ParseException(CapAverage.MESSAGE_CONSTRAINTS);
+        }
+        return new CapAverage(Double.parseDouble(trimmedCap));
     }
 
     /**

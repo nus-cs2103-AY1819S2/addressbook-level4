@@ -146,6 +146,7 @@ Edits the name of the 2nd place to be `Raffles Hotel` and clears all existing ta
 
 The `search` command helps you to search for places whose names contain any of the given keywords. +
 
+Shortcut: `f` +
 Format: `search KEYWORD [MORE_KEYWORDS]`
 
 ****

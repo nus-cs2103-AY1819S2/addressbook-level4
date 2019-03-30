@@ -3,12 +3,11 @@ package seedu.address.model.book;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.parser.SortBookCommandParser;
 import seedu.address.model.book.exceptions.BookNotFoundException;
 import seedu.address.model.book.exceptions.DuplicateBookException;
 
@@ -100,45 +99,176 @@ public class UniqueBookList implements Iterable<Book> {
     }
 
     /**
-     * Sort the books with {@code type} in {@code order}.
-     * @param type sorting type
-     * @param order order of sorting
+     * sort the books in book card in order
+     * @param types need to be sort
+     * @param mainOrder for all types
+     * @param subOrder if mainOrder is not specify and subOrder will replace mainOrder
      */
-    public void sortBooks(String type, String order) throws Exception {
-        requireAllNonNull(type, order);
-        type = type.toUpperCase();
-        order = order.toUpperCase();
+    public void sortBooks(List<String> types, String mainOrder, Map<String, String> subOrder) {
+        requireAllNonNull(types);
 
-        switch (type) {
-        case "AUTHOR":
-            if (order.equals("ASC")) {
-                internalList.sort(Comparator.comparing(a -> a.getAuthor().toString().toLowerCase()));
-            } else if (order.equals("DES")) {
-                internalList.sort((a, b)
-                    -> b.getAuthor().toString().toLowerCase().compareTo(a.getAuthor().toString().toLowerCase()));
-            }
-            break;
+        Comparator<Book> bookComparator = (b1, b2) -> {
+            Iterator<String> iterator = types.iterator();
+            String firstOrder = iterator.next().toLowerCase();
+            int result;
 
-        case "NAME":
-            if (order.equals("ASC")) {
-                internalList.sort(Comparator.comparing(a -> a.getBookName().toString().toLowerCase()));
-            } else if (order.equals("DES")) {
-                internalList.sort((a, b)
-                    -> b.getBookName().toString().toLowerCase().compareTo(a.getBookName().toString().toLowerCase()));
-            }
-            break;
+            if (firstOrder.equals(SortBookCommandParser.AUTHOR)) {
 
-        case "RATING":
-            if (order.equals("ASC")) {
-                FXCollections.sort(internalList, Comparator.comparingInt(a -> Integer.valueOf(a.getRating().value)));
-            } else if (order.equals("DES")) {
-                FXCollections.sort(internalList, (a, b)
-                    -> Integer.valueOf(b.getRating().value) - Integer.valueOf(a.getRating().value));
+                result = sortAuthor(b1, b2, subOrder, mainOrder, firstOrder);
+
+                if (result != 0 || !iterator.hasNext()) {
+                    return result;
+                }
+
+                String secondOrder = iterator.next().toLowerCase();
+
+                if (secondOrder.equals(SortBookCommandParser.BOOKNAME)) {
+
+                    result = sortBookName(b1, b2, subOrder, mainOrder, secondOrder);
+
+                    if (result != 0 || !iterator.hasNext()) {
+                        return result;
+                    }
+
+                    return sortRating(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+
+                } else {
+
+                    result = sortRating(b1, b2, subOrder, mainOrder, secondOrder);
+
+                    if (result != 0 || !iterator.hasNext()) {
+                        return result;
+                    }
+
+                    return sortBookName(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+
+                }
+            } else if(firstOrder.equals(SortBookCommandParser.BOOKNAME)) {
+
+                result = sortBookName(b1, b2, subOrder, mainOrder, firstOrder);
+
+                if (result != 0 || !iterator.hasNext()) {
+                    return result;
+                }
+
+                String secondOrder = iterator.next().toLowerCase();
+
+                if (secondOrder.equals(SortBookCommandParser.AUTHOR)) {
+
+                    result = sortAuthor(b1, b2, subOrder, mainOrder, secondOrder);
+
+                    if (result != 0 || !iterator.hasNext()) {
+                        return result;
+                    }
+
+                    return sortRating(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+
+                } else {
+
+                    result = sortRating(b1, b2, subOrder, mainOrder, secondOrder);
+
+                    if (result != 0 || !iterator.hasNext()) {
+                        return result;
+                    }
+
+                    return sortAuthor(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+                }
+
+            } else {
+
+                result = sortRating(b1, b2, subOrder, mainOrder, firstOrder);
+
+                if (result != 0 || !iterator.hasNext()) {
+                    return result;
+                }
+
+                String secondOrder = iterator.next().toLowerCase();
+
+                if (secondOrder.equals(SortBookCommandParser.AUTHOR)) {
+
+                    result = sortAuthor(b1, b2, subOrder, mainOrder, secondOrder);
+
+                    if (result != 0 || !iterator.hasNext()) {
+                        return result;
+                    }
+
+                    return sortBookName(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+
+                } else {
+
+                    result = sortBookName(b1, b2, subOrder, mainOrder, secondOrder);
+
+                    if (result != 0 || !iterator.hasNext()) {
+                        return result;
+                    }
+
+                    return sortAuthor(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+                }
             }
-            break;
-        default:
-            throw new Exception("Unknown sorting type");
+        };
+
+        internalList.sort(bookComparator.reversed());
+    }
+
+
+    private int sortAuthor(Book b1, Book b2,
+                            Map<String, String> subOrders,
+                            String order,String currentOrder) {
+
+        if (order == null) {
+            order = subOrders.getOrDefault(currentOrder, SortBookCommandParser.ASCENDING);
         }
+
+        if (order.equals(SortBookCommandParser.ASCENDING)) {
+            return compareAuthor(b1, b2);
+        } else {
+            return compareAuthor(b2, b1);
+        }
+    }
+
+    private int sortBookName(Book b1, Book b2,
+                           Map<String, String> subOrders,
+                           String order,String currentOrder) {
+
+        if (order == null) {
+            order = subOrders.getOrDefault(currentOrder, SortBookCommandParser.ASCENDING);
+        }
+
+        if (order.equals(SortBookCommandParser.ASCENDING)) {
+            return compareBookName(b1, b2);
+        } else {
+            return compareBookName(b2, b1);
+        }
+    }
+
+    private int sortRating(Book b1, Book b2,
+                             Map<String, String> subOrders,
+                             String order,String currentOrder) {
+
+        if (order == null) {
+            order = subOrders.getOrDefault(currentOrder, SortBookCommandParser.ASCENDING);
+        }
+
+        if (order.equals(SortBookCommandParser.ASCENDING)) {
+            return compareRating(b1, b2);
+        } else {
+            return compareRating(b2, b1);
+        }
+    }
+
+    private int compareAuthor(Book b1, Book b2) {
+
+        return b1.getAuthor().fullName.compareTo(b2.getAuthor().fullName);
+    }
+
+    private int compareBookName(Book b1, Book b2) {
+
+        return b1.getBookName().fullName.compareTo(b2.getBookName().fullName);
+    }
+
+    private int compareRating(Book b1, Book b2) {
+
+        return Integer.valueOf(b1.getRating().value) - Integer.valueOf(b2.getRating().value);
     }
 
     /**

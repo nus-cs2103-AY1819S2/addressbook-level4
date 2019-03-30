@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -145,10 +147,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortBook(String type, String order) {
-        versionedBookShelf.sort(type, order);
+    public void sortBook(List<String> types, String mainOrder,  Map<String, String> subOrder) {
+        versionedBookShelf.sort(types, mainOrder, subOrder);
     }
-
 
     //=========== Filtered Book List Accessors =============================================================
 

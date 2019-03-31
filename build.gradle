@@ -79,7 +79,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'braintrain.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }

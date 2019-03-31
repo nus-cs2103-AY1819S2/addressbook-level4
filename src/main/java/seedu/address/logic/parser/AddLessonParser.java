@@ -1,13 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_CORE_HEADER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_ANSWER;
+import static seedu.address.logic.parser.Syntax.PREFIX_CORE_QUESTION;
 import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_NAME;
-import static seedu.address.logic.parser.Syntax.PREFIX_LESSON_OPT_HEADER;
-import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_CORE;
-import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_CORE_SIZE;
-import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_NAME;
-import static seedu.address.model.lesson.Lesson.EXCEPTION_INVALID_OPT;
+import static seedu.address.logic.parser.Syntax.PREFIX_OPTIONAL;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -28,37 +26,24 @@ public class AddLessonParser implements Parser<AddLessonCommand> {
      */
     public AddLessonCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_LESSON_NAME,
-                        PREFIX_LESSON_CORE_HEADER, PREFIX_LESSON_OPT_HEADER);
+                ArgumentTokenizer.tokenize(args, PREFIX_LESSON_NAME, PREFIX_CORE_QUESTION,
+                        PREFIX_CORE_ANSWER, PREFIX_CORE, PREFIX_OPTIONAL);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_LESSON_NAME, PREFIX_LESSON_CORE_HEADER)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(
+                argMultimap, PREFIX_LESSON_NAME, PREFIX_CORE_QUESTION, PREFIX_CORE_ANSWER)
+                || !argMultimap.getPreamble().isEmpty()
+                || argMultimap.getAllValues(PREFIX_CORE_QUESTION).size() != 1
+                || argMultimap.getAllValues(PREFIX_CORE_ANSWER).size() != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddLessonCommand.MESSAGE_USAGE));
         }
 
         String name = argMultimap.getValue(PREFIX_LESSON_NAME).get();
-        ArrayList<String> coreHeaders = new ArrayList<>();
-        ArrayList<String> optHeaders = new ArrayList<>();
-        coreHeaders.addAll(argMultimap.getAllValues(PREFIX_LESSON_CORE_HEADER));
-        optHeaders.addAll(argMultimap.getAllValues(PREFIX_LESSON_OPT_HEADER));
-
-        Lesson lesson = null;
-
-        try {
-            lesson = new Lesson(name, coreHeaders, optHeaders);
-            // Throws IllegalArgumentException if less than 2 core headers are specified
-        } catch (IllegalArgumentException e) {
-            String message = e.getMessage();
-            if (message.equals(EXCEPTION_INVALID_CORE_SIZE) || message.equals(EXCEPTION_INVALID_CORE)
-                    || message.equals(EXCEPTION_INVALID_NAME) || message.equals(EXCEPTION_INVALID_OPT)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddLessonCommand.MESSAGE_USAGE));
-            } else {
-                throw e;
-            }
-        }
-
+        ArrayList<String> coreHeaders = new ArrayList<>(argMultimap.getAllValues(PREFIX_CORE_QUESTION));
+        coreHeaders.addAll(argMultimap.getAllValues(PREFIX_CORE_ANSWER));
+        coreHeaders.addAll(argMultimap.getAllValues(PREFIX_CORE));
+        ArrayList<String> optHeaders = new ArrayList<>(argMultimap.getAllValues(PREFIX_OPTIONAL));
+        Lesson lesson = new Lesson(name, coreHeaders, optHeaders);
         return new AddLessonCommand(lesson);
     }
 

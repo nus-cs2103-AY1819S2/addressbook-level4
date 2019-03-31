@@ -17,8 +17,25 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
+    /**
+     * If lesson is changed, update UI and save to disk.
+     */
+    private final boolean isLessonListChanged;
+
     /** The application should exit. */
     private final boolean exit;
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
+     * and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = false;
+        this.showHelp = false;
+        this.exit = false;
+        this.isLessonListChanged = false;
+    }
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -28,14 +45,15 @@ public class CommandResult {
         this.showQuiz = showQuiz;
         this.showHelp = showHelp;
         this.exit = exit;
+        this.isLessonListChanged = false;
     }
 
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
-     */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false, false);
+    public CommandResult (String feedbackToUser, boolean isLessonChanged) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = false;
+        this.showHelp = false;
+        this.exit = false;
+        this.isLessonListChanged = isLessonChanged;
     }
 
     public String getFeedbackToUser() {
@@ -52,6 +70,13 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    /**
+     * If lesson is changed, update UI and save to disk.
+     */
+    public boolean isLessonListChanged() {
+        return isLessonListChanged;
     }
 
     @Override
@@ -75,5 +100,4 @@ public class CommandResult {
     public int hashCode() {
         return Objects.hash(feedbackToUser, showHelp, exit);
     }
-
 }

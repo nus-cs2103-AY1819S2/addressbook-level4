@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private MainPanel mainPanel;
     private HelpWindow helpWindow;
+    //private LessonListPanel lessonListPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -54,8 +55,8 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private VBox sidePanel;
 
-    @FXML
-    private StackPane personListPanelPlaceholder;
+    //@FXML
+    //private StackPane lessonListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -126,6 +127,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        /*lessonListPanel = new LessonListPanel(logic.getLessons());
+        lessonListPanelPlaceholder.getChildren().add(lessonListPanel.getRoot());*/
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -219,6 +223,10 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
+
+            /*if (commandResult.isLessonListChanged()) {
+                lessonListPanel.updateLessonList(logic.getLessons());
+            }*/
 
             return commandResult;
         } catch (CommandException | ParseException e) {

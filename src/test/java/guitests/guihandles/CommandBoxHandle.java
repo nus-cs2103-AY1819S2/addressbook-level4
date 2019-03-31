@@ -29,6 +29,7 @@ public class CommandBoxHandle extends NodeHandle<AutoCompleteTextField> {
     public void run(String command) {
         click();
         guiRobot.interact(() -> getRootNode().setText(command));
+        guiRobot.interact(() -> getRootNode().positionCaret(getInput().length()));
         guiRobot.pauseForHuman();
 
         guiRobot.type(KeyCode.ENTER);

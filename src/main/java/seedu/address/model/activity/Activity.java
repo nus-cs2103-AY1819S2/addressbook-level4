@@ -106,6 +106,10 @@ public class Activity implements Comparable<Activity> {
         }
     }
 
+    public boolean hasPersonInAttendance(Person person) {
+        return attendance.containsKey(person);
+    }
+
     public void setInCharge(Person person) {
         this.inCharge = person;
     }

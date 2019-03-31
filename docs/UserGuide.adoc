@@ -64,7 +64,7 @@ Format: `help`
 === Adding a person: `add`
 
 Adds a candidate to Recruit Me +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [skill/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [skill/TAG]... [position/TAG]...`
 
 [TIP]
 A candidate can have any number of skill tags (including 0)
@@ -72,7 +72,7 @@ A candidate can have any number of skill tags (including 0)
 Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe skill/statistics e/betsycrowe@example.com a/Newgate Prison p/1234567 skill/knitting`
+* `add n/Betsy Crowe skill/statistics e/betsycrowe@example.com a/Newgate Prison p/1234567 skill/Java position/UIDeveloper`
 
 === Listing all persons : `list`
 
@@ -82,7 +82,7 @@ Format: `list`
 === Editing a person : `edit`
 
 Edits an existing candidate in Recruit Me. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [skill/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [skill/TAG]... [position/TAG]...`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...

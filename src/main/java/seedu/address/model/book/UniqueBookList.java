@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.*;
+import java.util.function.BiFunction;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -114,7 +115,7 @@ public class UniqueBookList implements Iterable<Book> {
 
             if (firstOrder.equals(SortBookCommandParser.AUTHOR)) {
 
-                result = sortAuthor(b1, b2, subOrder, mainOrder, firstOrder);
+                result = sort(b1, b2, subOrder, mainOrder, firstOrder, this::compareAuthor);
 
                 if (result != 0 || !iterator.hasNext()) {
                     return result;
@@ -124,28 +125,28 @@ public class UniqueBookList implements Iterable<Book> {
 
                 if (secondOrder.equals(SortBookCommandParser.BOOKNAME)) {
 
-                    result = sortBookName(b1, b2, subOrder, mainOrder, secondOrder);
+                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareBookName);
 
                     if (result != 0 || !iterator.hasNext()) {
                         return result;
                     }
 
-                    return sortRating(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareRating);
 
                 } else {
 
-                    result = sortRating(b1, b2, subOrder, mainOrder, secondOrder);
+                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareRating);
 
                     if (result != 0 || !iterator.hasNext()) {
                         return result;
                     }
 
-                    return sortBookName(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(),this::compareBookName);
 
                 }
             } else if(firstOrder.equals(SortBookCommandParser.BOOKNAME)) {
 
-                result = sortBookName(b1, b2, subOrder, mainOrder, firstOrder);
+                result = sort(b1, b2, subOrder, mainOrder, firstOrder, this::compareBookName);
 
                 if (result != 0 || !iterator.hasNext()) {
                     return result;
@@ -155,28 +156,28 @@ public class UniqueBookList implements Iterable<Book> {
 
                 if (secondOrder.equals(SortBookCommandParser.AUTHOR)) {
 
-                    result = sortAuthor(b1, b2, subOrder, mainOrder, secondOrder);
+                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareAuthor);
 
                     if (result != 0 || !iterator.hasNext()) {
                         return result;
                     }
 
-                    return sortRating(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(),this::compareRating);
 
                 } else {
 
-                    result = sortRating(b1, b2, subOrder, mainOrder, secondOrder);
+                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareRating);
 
                     if (result != 0 || !iterator.hasNext()) {
                         return result;
                     }
 
-                    return sortAuthor(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareAuthor);
                 }
 
             } else {
 
-                result = sortRating(b1, b2, subOrder, mainOrder, firstOrder);
+                result = sort(b1, b2, subOrder, mainOrder, firstOrder, this::compareRating);
 
                 if (result != 0 || !iterator.hasNext()) {
                     return result;
@@ -186,23 +187,23 @@ public class UniqueBookList implements Iterable<Book> {
 
                 if (secondOrder.equals(SortBookCommandParser.AUTHOR)) {
 
-                    result = sortAuthor(b1, b2, subOrder, mainOrder, secondOrder);
+                    result = sort(b1, b2, subOrder, mainOrder, secondOrder,this::compareAuthor);
 
                     if (result != 0 || !iterator.hasNext()) {
                         return result;
                     }
 
-                    return sortBookName(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareBookName);
 
                 } else {
 
-                    result = sortBookName(b1, b2, subOrder, mainOrder, secondOrder);
+                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareBookName);
 
                     if (result != 0 || !iterator.hasNext()) {
                         return result;
                     }
 
-                    return sortAuthor(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase());
+                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareAuthor);
                 }
             }
         };
@@ -210,49 +211,18 @@ public class UniqueBookList implements Iterable<Book> {
         internalList.sort(bookComparator.reversed());
     }
 
-
-    private int sortAuthor(Book b1, Book b2,
-                            Map<String, String> subOrders,
-                            String order,String currentOrder) {
-
+    private int sort(Book b1, Book b2,
+                     Map<String, String> subOrders,
+                     String order,String currentOrder,
+                     BiFunction<Book,Book,Integer> compare) {
         if (order == null) {
             order = subOrders.getOrDefault(currentOrder, SortBookCommandParser.ASCENDING);
         }
 
         if (order.equals(SortBookCommandParser.ASCENDING)) {
-            return compareAuthor(b1, b2);
+            return compare.apply(b1, b2);
         } else {
-            return compareAuthor(b2, b1);
-        }
-    }
-
-    private int sortBookName(Book b1, Book b2,
-                           Map<String, String> subOrders,
-                           String order,String currentOrder) {
-
-        if (order == null) {
-            order = subOrders.getOrDefault(currentOrder, SortBookCommandParser.ASCENDING);
-        }
-
-        if (order.equals(SortBookCommandParser.ASCENDING)) {
-            return compareBookName(b1, b2);
-        } else {
-            return compareBookName(b2, b1);
-        }
-    }
-
-    private int sortRating(Book b1, Book b2,
-                             Map<String, String> subOrders,
-                             String order,String currentOrder) {
-
-        if (order == null) {
-            order = subOrders.getOrDefault(currentOrder, SortBookCommandParser.ASCENDING);
-        }
-
-        if (order.equals(SortBookCommandParser.ASCENDING)) {
-            return compareRating(b1, b2);
-        } else {
-            return compareRating(b2, b1);
+            return compare.apply(b2, b1);
         }
     }
 

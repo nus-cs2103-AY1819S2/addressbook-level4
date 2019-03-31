@@ -28,6 +28,8 @@ import seedu.address.storage.Storage;
 public class LogicManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
+    private final static String CHECK_LOGS_MESSAGE = "\nPlease check the logs for more information.";
+
     private final Storage storageManager;
     private final ManagementModel managementModel;
     private final QuizModel quizModel;
@@ -73,7 +75,7 @@ public class LogicManager implements Logic {
                     int unsavedCount = totalLessonCount - savedCount;
                     if (savedCount < totalLessonCount) {
                         commandResult = new CommandResult("Failed to save " + unsavedCount + "/"
-                            + totalLessonCount + " lessons. Please check the logs for more information.");
+                            + totalLessonCount + " lessons." + CHECK_LOGS_MESSAGE);
                     }
                     break;
                 case LOAD:
@@ -81,15 +83,16 @@ public class LogicManager implements Logic {
                     if (lessonListOptional.isPresent()) {
                         managementModel.setLessonList(lessonListOptional.get());
                     } else {
-                        commandResult = new CommandResult("FAILED TO READ");
+                        commandResult = new CommandResult("Failed to load lessons. Please check " +
+                            "the logs for more information." + CHECK_LOGS_MESSAGE);
                     }
                     break;
                 case DELETE:
                     try {
                         storageManager.deleteLesson(commandResult.getDeleteLessonName());
                     } catch (IOException e) {
-                        commandResult = new CommandResult("FAILED TO DELETE LESSON "
-                                + commandResult.getDeleteLessonName());
+                        commandResult = new CommandResult("Failed to delete lesson: \" "
+                                + commandResult.getDeleteLessonName() + "\"." + CHECK_LOGS_MESSAGE);
                     }
                     break;
                 default:

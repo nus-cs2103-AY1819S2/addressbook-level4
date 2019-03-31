@@ -405,6 +405,26 @@ When typing fields that include medicine name, a list of suggested medicine name
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows to select from the generated list of suggestions.
 ====
 
+=== Integration Addon Support `[coming in v2.0]`
+
+You can download and install integration addons created for MediTabs such as addons which allows MediTabs to integrate with different third party services which your clinic might currently be using. +
+Format: `install an/NAME_OF_ADDON`
+
+[NOTE]
+Only integration addons that have been verified by our team can be downloaded and installed in MediTabs. This is to ensure that the addons downloaded and installed in MediTabs are secure and have no malicious code. This is to ensure the security which MediTabs provides would not be compromise as security is an important factor due to the increasing threat with regards to cybersecurity.
+
+Benefits of integration addon support are as follows:
+
+* Provides greater flexibility as your clinic might have different third party services which you might want to integrate with to allow for easier transition between services.
+* Allows you to customise MediTabs with features that your clinic requires without any unnecessary features which might not be relevant to your clinic's workflow.
+
+An example of an integration addon which would be supported by MediTabs:
+
+* Singapore's Health Science Authority (HSA) - To integrate the Singapore HSA's medical database with MediTabs which allows easy retrieval of important information such as when a medicine is requested to be recalled by the HSA.
+
+[NOTE]
+This feature could be further expanded to support medical databases of different countries.
+
 === Saving the data
 
 Inventory data is saved in the hard disk automatically after any command that changes the data. +

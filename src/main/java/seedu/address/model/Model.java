@@ -2,8 +2,6 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -219,11 +217,6 @@ public interface Model {
     HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList();
 
     /**
-     * Updates filtered list of requirements based on predicate provided by user input
-     */
-    void updateReqList(BiPredicate<CourseRequirement, List<ModuleInfoCode>> predicate);
-
-    /**
      * Returns an unmodifiable view of the filtered course requirement list
      */
     ObservableList<CourseRequirement> getReqList();
@@ -232,4 +225,9 @@ public interface Model {
      * Returns a copy of the user info
      */
     UserInfo getUserInfo();
+
+    /**
+     * Returns an unmodifiable view of the moduleInfoCode list in GradTrak
+     */
+    ObservableList<ModuleInfoCode> getModuleInfoCodeList();
 }

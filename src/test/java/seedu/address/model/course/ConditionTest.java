@@ -54,31 +54,30 @@ public class ConditionTest {
 
     @Test
     public void equal() {
-
-        Condition ULR = TypicalCondition.ULR;
-        assertEquals(ULR, ULR);
+        Condition ulr = TypicalCondition.ULR;
+        assertEquals(TypicalCondition.ULR, ulr);
         //not equals null
-        assertNotEquals(null, ULR);
+        assertNotEquals(null, ulr);
         //not equals other type
-        assertNotEquals(ULR, 0);
+        assertNotEquals(ulr, 0);
 
         //not equals when different name
-        Condition modifiedULR = new ConditionBuilder().withConditionName("ULR").build();
-        assertNotEquals(modifiedULR, ULR);
+        Condition modifiedUlr = new ConditionBuilder().withConditionName("ULR").build();
+        assertNotEquals(modifiedUlr, ulr);
 
         //not equals when different min
-        modifiedULR = new ConditionBuilder().withMin(2).build();
-        assertNotEquals(modifiedULR, ULR);
+        modifiedUlr = new ConditionBuilder().withMin(2).build();
+        assertNotEquals(modifiedUlr, ulr);
 
         //alternate constructor for Condition
-        modifiedULR = new Condition("UNIVERSITY LEVEL REQUIREMENT", ConditionBuilder.DEFAULT_REGEXES);
-        assertEquals(modifiedULR, ULR);
+        modifiedUlr = new Condition("UNIVERSITY LEVEL REQUIREMENT", ConditionBuilder.DEFAULT_REGEXES);
+        assertEquals(modifiedUlr, ulr);
 
         //different regex order
         String[] regexes = {"GEQ1000", "GES[0-9]{4}[A-Z]?", "GET[0-9]{4}[A-Z]?", "GEH[0-9]{4}[A-Z]?",
             "GER1000"};
-        modifiedULR = new Condition(5, ConditionBuilder.DEFAULT_CONDITION_NAME,regexes);
-        assertNotEquals(modifiedULR, ULR);
+        modifiedUlr = new Condition(5, ConditionBuilder.DEFAULT_CONDITION_NAME, regexes);
+        assertNotEquals(modifiedUlr, ulr);
 
     }
 }

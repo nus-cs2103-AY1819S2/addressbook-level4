@@ -18,6 +18,15 @@ public class JsonAdaptedSemLimit {
     private final String maxGrade;
     private final String minLectureHour;
     private final String maxLectureHour;
+    private final String minTutorialHour;
+    private final String maxTutorialHour;
+    private final String minLabHour;
+    private final String maxLabHour;
+    private final String minProjectHour;
+    private final String maxProjectHour;
+    private final String minPreparationHour;
+    private final String maxPreparationHour;
+
 
     /**
      * Constructs a {@code JsonAdaptedSemLimit} with the given details.
@@ -26,11 +35,27 @@ public class JsonAdaptedSemLimit {
     public JsonAdaptedSemLimit(@JsonProperty("minGrade") String minGrade,
                                @JsonProperty("maxGrade") String maxGrade,
                                @JsonProperty("minLectureHour") String minLectureHour,
-                               @JsonProperty("maxLectureHour") String maxLectureHour) {
+                               @JsonProperty("maxLectureHour") String maxLectureHour,
+                               @JsonProperty("minTutorialHour") String minTutorialHour,
+                               @JsonProperty("maxTutorialHour") String maxTutorialHour,
+                               @JsonProperty("minLabHour") String minLabHour,
+                               @JsonProperty("maxLabHour") String maxLabHour,
+                               @JsonProperty("minProjectHour") String minProjectHour,
+                               @JsonProperty("maxProjectHour") String maxProjectHour,
+                               @JsonProperty("minPreparationHour") String minPreparationHour,
+                               @JsonProperty("maxPreparationHour") String maxPreparationHour) {
         this.minGrade = minGrade;
         this.maxGrade = maxGrade;
         this.minLectureHour = minLectureHour;
         this.maxLectureHour = maxLectureHour;
+        this.minTutorialHour = minTutorialHour;
+        this.maxTutorialHour = maxTutorialHour;
+        this.minLabHour = minLabHour;
+        this.maxLabHour = maxLabHour;
+        this.minProjectHour = minProjectHour;
+        this.maxProjectHour = maxProjectHour;
+        this.minPreparationHour = minPreparationHour;
+        this.maxPreparationHour = maxPreparationHour;
     }
 
     /**
@@ -41,6 +66,14 @@ public class JsonAdaptedSemLimit {
         this.maxGrade = semLimit.getMaxCap().toString();
         this.minLectureHour = semLimit.getMinLectureHour().toString();
         this.maxLectureHour = semLimit.getMaxLectureHour().toString();
+        this.minTutorialHour = semLimit.getMinTutorialHour().toString();
+        this.maxTutorialHour = semLimit.getMaxTutorialHour().toString();
+        this.minLabHour = semLimit.getMinLabHour().toString();
+        this.maxLabHour = semLimit.getMaxLabHour().toString();
+        this.minProjectHour = semLimit.getMinProjectHour().toString();
+        this.maxProjectHour = semLimit.getMaxProjectHour().toString();
+        this.minPreparationHour = semLimit.getMinPreparationHour().toString();
+        this.maxPreparationHour = semLimit.getMaxPreparationHour().toString();
     }
 
     public String getMinGrade() {
@@ -74,9 +107,42 @@ public class JsonAdaptedSemLimit {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     "maxLectureHour"));
         }
+
+        if (minTutorialHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "minTutorialHour"));
+        }
+
+        if (maxTutorialHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "maxTutorialHour"));
+        }
+
+        if (minLabHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "minLabHour"));
+        }
+
+        if (maxLabHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "maxLabHour"));
+        }
+
+        if (minProjectHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "minProjectHour"));
+        }
+
+        if (maxProjectHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "maxProjectHour"));
+        }
+
+        if (minPreparationHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "minPreparationHour"));
+        }
+
+        if (maxPreparationHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "maxPreparationHour"));
+        }
         return new SemLimit(new CapAverage(0.0), new CapAverage(0.0), new Hour(minLectureHour),
-                new Hour(maxLectureHour), new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"),
-                new Hour("0"), new Hour("0"), new Hour("0"));
+                new Hour(maxLectureHour), new Hour(minTutorialHour), new Hour(maxTutorialHour),
+                new Hour(minLabHour), new Hour(maxLabHour), new Hour(minProjectHour),
+                new Hour(maxProjectHour), new Hour(minPreparationHour), new Hour(maxPreparationHour));
 
     }
 }

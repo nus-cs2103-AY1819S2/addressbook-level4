@@ -9,8 +9,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -290,17 +288,17 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateReqList(BiPredicate<CourseRequirement, List<ModuleInfoCode>> predicate) {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
         public ObservableList<CourseRequirement> getReqList() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
         public UserInfo getUserInfo() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<ModuleInfoCode> getModuleInfoCodeList() {
             throw new AssertionError("This method should not be called");
         }
     }

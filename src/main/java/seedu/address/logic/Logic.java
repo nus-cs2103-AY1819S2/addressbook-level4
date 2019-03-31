@@ -10,7 +10,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
+import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
 
 /**
@@ -93,4 +95,12 @@ public interface Logic {
      * @see Model#getDisplayList()
      */
     ObservableList<ModuleInfo> getDisplayList();
+
+    ObservableList<CourseRequirement> getReqList();
+
+    /**
+     * Returns a moduleInfoCodeList
+     */
+    ObservableList<ModuleInfoCode> getModuleInfoCodeList();
+
 }

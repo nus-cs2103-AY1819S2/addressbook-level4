@@ -10,7 +10,7 @@ public class ConditionBuilder {
     public static final String DEFAULT_CONDITION_NAME = "UNIVERSITY LEVEL REQUIREMENT";
     public static final int DEFAULT_MIN_TO_SATISFY = 5;
     public static final String[] DEFAULT_REGEXES = {"GES[0-9]{4}[A-Z]?", "GET[0-9]{4}[A-Z]?", "GEH[0-9]{4}[A-Z]?",
-            "GER1000", "GEQ1000"};
+        "GER1000", "GEQ1000"};
 
     private String conditionName;
     private int minToSatisfy;

@@ -27,9 +27,9 @@ public class UserInfo implements Observable {
     public UserInfo() {
         course = SampleCourse.COMPUTER_SCIENCE_ALGORITHMS;
         currentSemester = Semester.valueOf("Y1S1");
-        semLimit = new SemLimit(new CapAverage(0.0), new CapAverage(0.0), new Hour("0"), new Hour("0"), new Hour("0"),
-                new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"),
-                new Hour("0"));
+        semLimit = new SemLimit(new CapAverage(0.0), new CapAverage(0.0),
+                new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"),
+                new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"), new Hour("0"));
     }
 
     /**

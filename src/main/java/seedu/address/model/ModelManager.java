@@ -5,9 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -34,7 +32,6 @@ import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.ModuleTakenNotFoundException;
-import seedu.address.model.util.SampleCourse;
 
 /**
  * Represents the in-memory model of the GradTrak data.
@@ -58,7 +55,7 @@ public class ModelManager implements Model {
 
     private final ObservableList<Course> allCourses;
     private final CourseList courseList;
-    private final FilteredList<CourseRequirement> displayCourseReqList;
+    private final ObservableList<CourseRequirement> displayCourseReqList;
 
     private final FilteredList<ModuleInfoCode> recModuleList;
     private final SortedList<ModuleInfoCode> recModuleListSorted;
@@ -99,9 +96,9 @@ public class ModelManager implements Model {
         this.userInfo = userInfo;
         //TODO: interaction for setting course in user info
         //for now default course will be Computer Science Algorithms
-        this.course = SampleCourse.COMPUTER_SCIENCE_ALGORITHMS;
+        this.course = userInfo.getCourse();
         this.displayCourseReqList = new FilteredList<>(
-                 FXCollections.observableArrayList(this.course.getCourseRequirements()));
+                FXCollections.observableArrayList(this.course.getCourseRequirements()));
     }
 
     public ModelManager() {
@@ -389,17 +386,6 @@ public class ModelManager implements Model {
     }
     //=========== Display completed requirement =======================================================================
     @Override
-    public void updateReqList(BiPredicate<CourseRequirement, List<ModuleInfoCode>> predicate) {
-        requireNonNull(predicate);
-        List<ModuleInfoCode> list = versionedGradTrak
-                .getModulesTakenList()
-                .stream()
-                .map(ModuleTaken::getModuleInfoCode)
-                .collect(Collectors.toList());
-        displayCourseReqList.setPredicate(courseRequirement -> predicate.test(courseRequirement, list));
-    }
-
-    @Override
     public ObservableList<CourseRequirement> getReqList() {
         return this.displayCourseReqList;
     }
@@ -409,6 +395,14 @@ public class ModelManager implements Model {
         return userInfo;
     }
 
+    @Override
+    public ObservableList<ModuleInfoCode> getModuleInfoCodeList() {
+        return FXCollections.observableArrayList(
+                versionedGradTrak.getModulesTakenList()
+                        .stream()
+                        .map(ModuleTaken::getModuleInfoCode)
+                        .collect(Collectors.toList()));
+    }
 
     @Override
     public boolean equals(Object obj) {

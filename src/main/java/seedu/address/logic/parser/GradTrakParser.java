@@ -106,7 +106,7 @@ public class GradTrakParser {
             return new DisplaymodCommandParser().parse(arguments);
 
         case DisplayreqCommand.COMMAND_WORD:
-            return new DisplayreqCommandParser().parse(arguments);
+            return new DisplayreqCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

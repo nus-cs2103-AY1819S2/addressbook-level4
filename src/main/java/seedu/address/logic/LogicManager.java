@@ -15,7 +15,9 @@ import seedu.address.logic.parser.GradTrakParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
+import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.storage.Storage;
 import seedu.address.storage.UserInfoStorage;
@@ -135,4 +137,16 @@ public class LogicManager implements Logic {
     public ObservableList<ModuleInfo> getDisplayList() {
         return model.getDisplayList();
     }
+
+    @Override
+    public ObservableList<CourseRequirement> getReqList() {
+        return model.getReqList();
+    }
+
+    @Override
+    public ObservableList<ModuleInfoCode> getModuleInfoCodeList() {
+        return model.getModuleInfoCodeList();
+    }
+
+
 }

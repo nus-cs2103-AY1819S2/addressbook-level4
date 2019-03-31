@@ -39,6 +39,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    //private MedHistBrowserPanel medHistBrowserPanel;
     private PatientListPanel patientListPanel;
     private MedHistListPanel medHistListPanel;
     private ResultDisplay resultDisplay;
@@ -123,6 +124,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.selectedPatientProperty());
+        //medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList(), logic.selectedPatientProperty(),

@@ -964,19 +964,17 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting a patient
 
-. Deleting a person while all persons are listed
+. Deleting a patient while all patients are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all patients using the `list` command. Multiple patients should be displayed in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete y` (where y is a negative number), `delete z` (where z is not an integer) +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Deleting a dental record
 
@@ -987,7 +985,7 @@ _{ more test cases ... }_
    Expected: First dental record is deleted from the list. Details of the deleted dental record is shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `recorddelete 0` +
    Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect recorddelete commands to try: `recorddelete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
+.. Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
    Expected: Similar to previous.
 
 === Saving data

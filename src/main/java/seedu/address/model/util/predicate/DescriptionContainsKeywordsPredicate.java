@@ -27,7 +27,8 @@ public class DescriptionContainsKeywordsPredicate extends ContainsKeywordsPredic
 
         } else if (isIgnoreCase && !isAnd) {
             return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getPatientDesc().toString(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(patient.getPatientDesc()
+                    .toString(), keyword));
 
         } else if (!isIgnoreCase && isAnd) {
             return keywords.stream()

@@ -206,6 +206,63 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_sexParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "sex", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(4, "f", "sex", true, false, Arrays.asList(ALICE, CARL, ELLE, FIONA));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "f", "sex", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(7, "m F", "sex", true, false,
+            Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "m F", "sex", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, people found
+        execute_parameterPredicate_test(4, "m F", "sex", false, false, Arrays.asList(ALICE, CARL, ELLE, FIONA));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "m F", "sex", false, true, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_drugAllergyParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "drug", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(3, "nil", "drug", true, false, Arrays.asList(ALICE, ELLE, FIONA));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "nil", "drug", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(2, "panadol penicilin", "drug", true, false,
+            Arrays.asList(BENSON, DANIEL));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(0, "panadol penicilin", "drug", true, true, Collections.emptyList());
+        //Multiple keywords, case sensitive, or condition, people found
+        execute_parameterPredicate_test(1, "panadol Penicilin", "drug", false, false, Arrays.asList(DANIEL));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "panadol penicilin", "drug", false, true, Collections.emptyList());
+    }
+
+    @Test
+    public void execute_descParameter() throws ParseException {
+        //No user input
+        execute_parameterPredicate_test(0, " ", "desc", true, false, Collections.emptyList());
+        //Single keyword, ignore case, person found.
+        execute_parameterPredicate_test(1, "surgery", "desc", true, false, Arrays.asList(FIONA));
+        //Single keyword, case sensitive, no one found.
+        execute_parameterPredicate_test(0, "SuRGery", "desc", false, false, Collections.emptyList());
+        //Multiple keywords, ignore case, or condition, multiple people found
+        execute_parameterPredicate_test(2, "different surgery", "desc", true, false,
+            Arrays.asList(DANIEL, FIONA));
+        //Multiple keywords, ignore case, and condition, no one found
+        execute_parameterPredicate_test(1, "tEEth surgery", "desc", true, true, Arrays.asList(FIONA));
+        //Multiple keywords, case sensitive, or condition, people found
+        execute_parameterPredicate_test(1, "tEEth surgery", "desc", false, false, Arrays.asList(FIONA));
+        //Multiple keywords, case sensitive, and condition, no one found
+        execute_parameterPredicate_test(0, "tEEth surgery", "desc", false, true, Collections.emptyList());
+    }
+
+    @Test
     public void execute_multiParameter_namePhone() throws ParseException {
         //different parameters, two expected people
         execute_multipleParameterPredicate_test(2, "alice 95352563", "name phone", true, false,
@@ -306,7 +363,8 @@ public class FindCommandTest {
                 isIgnoreCase, isAnd);
 
         case "drug":
-            return new DrugAllergyContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);
+            return new DrugAllergyContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
 
         case "sex":
             return new SexContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);

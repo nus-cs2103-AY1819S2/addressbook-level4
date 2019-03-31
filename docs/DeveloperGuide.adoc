@@ -848,6 +848,20 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Viewing the statistics
+
+To test the `stats` feature. We will perform a before and after check to see if the statistical data of a simple behaviour is captured. In this case, we will perform an attack with a miss result.
+
+1. Initialize a 8x8 map using `init 8`.
+2. Run the `stats` command and observe the results
+.. Test case : `stats`  (before) +
+   Expected: All fields are 0
+3. Now attack ....
+.. Test case : `stats` (after) +
+    Expected: ......
+    
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files

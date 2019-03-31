@@ -81,15 +81,10 @@ public class LogicManager implements Logic {
      * keeps track of specific commands for statistics (eg. attack).
      */
     public void addToStatistics (String commandText) {
-        // check if it is AttackCommand
-        //System.out.println("Commandtext is : " + commandText);
         String commandKeyword = commandText.split(" ")[0]; // Take first word
-        //System.out.println("Command keyword is : " + commandKeyword);
         if (commandKeyword.equals("attack")) {
             int numMovesLeft = statistics.minusMove();
             statistics.addAttack();
-            // System.out.println("Moves Left: " + numMovesLeft);
-            // System.out.println("Stats Moves Left: " + statistics.getMovesLeft());
         }
     }
 

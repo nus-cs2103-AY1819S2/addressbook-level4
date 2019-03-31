@@ -313,18 +313,24 @@ Examples:
 
 * `list` +
 `label 2` +
-Outputs label PDF file for 2nd medicine in the list with default file name `to_print`.
+This will allow you to select the 2nd medicine in the inventory and output the information to a default file named `to_print`.
 +
-image::label2_example.png[width="790"]
+image::label2_taken.png[width="790"]
++
+- A confirmation message will be shown to indicate to you that it have been successfully labeled.
++
+* You can open the file in the PDF folder with your preferred PDF reader to print the medicine information.
++
+image::label2.png[width="790"]
 +
 * `find Simvastatin` +
 `label 1 f/Simvastatin` +
-Outputs label PDF file for 1st medicine in the results of the `find` command with file name `Simvastatin`.
+Similar to the example above, the 1st medicine information will be output to a file name `Simvastatin`.
 +
-image::label1_example.png[width="790"]
+image::label1.png[width="790"]
 +
 [WARNING]
-The `label` command will overwrite the `to_print` file every time it is used. Hence, do print the required file first before using the `label` command again. This extends to all other existing file names.
+The `label` command will overwrite the `to_print` file every time it is used without specifying a file name. Hence, do print the required file first before using the `label` command again. This extends to all other existing file names.
 
 === Listing entered commands : `history`
 

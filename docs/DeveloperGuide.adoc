@@ -183,7 +183,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses either the `ManagementModeParser` or `QuizModeParser` class to parse the user command.
 ..  If `ManagementParser` is used to parse the user command:
-...  This results in a `Command` object which is executed by the `LogicManager`.
+...  This results in a `ManagementCommand` object which is executed by the `LogicManager`.
 ...  The command execution can affect the `Model` (e.g. adding a person).
 ..  If `QuizModeParser` is used to parse the user command:
 ...  This results in a `QuizCommand` object which is executed by the `LogicManager`.
@@ -217,7 +217,7 @@ The `Model`,
 .Structure of the QuizModel Component
 image::QuizModelClassDiagram.png[width="500"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/quiz/QuizModel.java[`QuizModel.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/modelmanager/QuizModel.java[`QuizModel.java`]
 
 The `QuizModel`,
 
@@ -250,7 +250,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::datastorage[]
-=== Data Storage Feature
+=== Data storage seature
 The data storage feature manages the saving of data, such as lessons and user progress, to disk for the application. This lets the user keep their progress between usage sessions.
 
 ==== Current Implementation
@@ -270,7 +270,7 @@ NOTE: These functions are automatically performed on opening/closing the Session
 
 
 // tag::csvstorage[]
-=== CSV Storage Feature
+=== CSV storage feature
 ==== Current Implementation
 The lesson CSV storage feature implements the following functions:
 
@@ -353,18 +353,12 @@ Quiz feature allows users to enter quiz related commands and answer.
 ==== Current Implementation
 The quiz feature implements the following commands and processes answer:
 
-* `\quit` - Quits a quiz session.
+* `Answer [*]` - Enters any character without escape character \ is treated as an answer.
+* `\difficult` - Labels current question in quiz as difficult or not.
 * `\help` - Lists all commands in quiz and inputs the program will accept.
 * `\hint` - Reveals additional information to help user to solve the question.
+* `\quit` - Quits a quiz and save attempted progress.
 * `\status` - Lists current status and lesson progress of user.
-* `Answer [*]` - Enters any character without escape character \ is treated as an answer.
-
-==== \status
-The `\status` feature list the total attempts you have attempted, total number of question you
-have gotten correct in this session and which question you are currently on.
-
-.Sequence diagram for status feature
-image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
 ==== Answer [*]
 The `Answer [*]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
@@ -376,11 +370,26 @@ answers a question:
 .Sequence diagram for answer feature
 image::QuizAnswerCommandSequenceDiagram.png[width="800"]
 
+==== \quit
+The `\quit` will force quit the current quiz and save the attempted question to file. Once quit,
+it will return back to the `ManagementMode`.
+
+.Sequence diagram for quit feature
+image::QuizQuitCommandSequenceDiagram.png[width="800"]
+
+==== \status
+The `\status` feature list the total attempts you have attempted, total number of question you
+have gotten correct in this quiz and which question you are currently on.
+
+.Sequence diagram for status feature
+image::QuizStatusCommandSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How Quiz executes
 * **Alternative 1 (current choice):** Run quiz in a different mode
-** Pros: Answer can be anything excluding word starting with a backslash `\` (e.g. `\help`)
+** Pros: Answer can be anything excluding word starting with a backslash `\` (e.g. `\help`) and
+have a better UX experience without having to type additional command as answer.
 ** Cons: Tedious to implement
 * **Alternative 2:** Run quiz in the same mode as the rest of the management commands
 ** Pros: Easier to implement compared to alternative 1
@@ -414,16 +423,16 @@ We use asciidoc for writing documentation.
 [NOTE]
 We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
-=== Editing Documentation
+=== Editing documentation
 
 See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
-=== Publishing Documentation
+=== Publishing documentation
 
 See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
 
-=== Converting Documentation to PDF format
+=== Converting documentation to pdf format
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
@@ -438,7 +447,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 
 [[Docs-SiteWideDocSettings]]
-=== Site-wide Documentation Settings
+=== Site-wide documentation settings
 
 The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
 
@@ -468,7 +477,7 @@ This will render the SE-EDU navigation bar at the top of the page, and add some 
 |===
 
 [[Docs-PerFileDocSettings]]
-=== Per-file Documentation Settings
+=== Per-file documentation settings
 
 Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
 
@@ -496,7 +505,7 @@ _{asterisk} Official SE-EDU projects only_
 
 |===
 
-=== Site Template
+=== Site template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
 You can modify them to change some properties of the site's design.
@@ -514,7 +523,7 @@ The SE-EDU team does not provide support for modified template files.
 [[Testing]]
 == Testing
 
-=== Running Tests
+=== Running tests
 
 There are three ways to run tests.
 
@@ -555,30 +564,30 @@ e.g. `seedu.address.storage.StorageManagerTest`
 e.g. `seedu.address.logic.LogicManagerTest`
 
 
-=== Troubleshooting Testing
+=== Troubleshooting testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
 
-== Dev Ops
+== Dev ops
 
-=== Build Automation
+=== Build automation
 
 See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
-=== Continuous Integration
+=== Continuous integration
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Coverage Reporting
+=== Coverage reporting
 
 We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
 
-=== Documentation Previews
+=== Documentation previews
 When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
-=== Making a Release
+=== Making a release
 
 Here are the steps to create a new release.
 
@@ -587,7 +596,7 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Managing Dependencies
+=== Managing dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
@@ -597,7 +606,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 
 [[GetStartedProgramming]]
 [appendix]
-== Suggested Programming Tasks to Get Started
+== Suggested programming tasks to get started
 
 Suggested path for new programmers:
 
@@ -874,7 +883,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
-== Product Scope
+== Product scope
 
 *Target user profile*:
 
@@ -892,7 +901,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Value proposition*: Flashcard integrated with <<srs,SRS>> that assists in memorization
 
 [appendix]
-== User Stories
+== User stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -1084,7 +1093,7 @@ Use case resumes at step 3.
 
 
 [appendix]
-== Non Functional Requirements
+== Non functional requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 lessons without a noticeable sluggishness in performance for typical usage.
@@ -1098,6 +1107,9 @@ _{More to be added}_
 [[lesson]] Lesson::
 A labelled set of <<question,questions>>.
 
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
 [[question]] Question::
 A set of values, where one value is given as a prompt to the user, and another value is used as the correct answer for that given question. Other values may be shown to supplement the question.
 
@@ -1106,10 +1118,6 @@ User’s current learning progress
 
 [[srs]] Spaced Repetition System (SRS)::
 The technique of gradually delaying or accelerating the testing of content based on the user’s success.
-
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
 
 [appendix]
 == Instructions for Manual Testing

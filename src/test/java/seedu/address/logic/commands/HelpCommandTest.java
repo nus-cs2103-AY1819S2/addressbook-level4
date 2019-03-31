@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -16,13 +15,12 @@ public class HelpCommandTest {
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
     private CurrentEdit currentEdit = new CurrentEditManager();
-    private Album album = new Album();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_help_success() {
         CommandResult expectedCommandResult = new CommandResult(SHOWING_HELP_MESSAGE, true, false);
         assertCommandSuccess(new HelpCommand(), model, commandHistory, expectedCommandResult, expectedModel,
-            currentEdit, album);
+            currentEdit);
     }
 }

@@ -21,7 +21,6 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -50,10 +49,9 @@ public class AddCommandTest {
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         CurrentEdit currentEdit = new CurrentEditManager();
-        Album album = new Album();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(currentEdit, album, modelStub,
+        CommandResult commandResult = new AddCommand(validPerson).execute(currentEdit, modelStub,
             commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.getFeedbackToUser());
@@ -67,11 +65,10 @@ public class AddCommandTest {
         AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
         CurrentEdit currentEdit = new CurrentEditManager();
-        Album album = new Album();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(currentEdit, album, modelStub, commandHistory);
+        addCommand.execute(currentEdit, modelStub, commandHistory);
     }
 
     @Test

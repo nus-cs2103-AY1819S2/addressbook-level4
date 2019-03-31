@@ -16,7 +16,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -79,10 +78,10 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
                                             CommandResult expectedCommandResult, Model expectedModel,
-                                            CurrentEdit currentEdit, Album album) {
+                                            CurrentEdit currentEdit) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute(currentEdit, album, actualModel, actualCommandHistory);
+            CommandResult result = command.execute(currentEdit, actualModel, actualCommandHistory);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -93,14 +92,14 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandHistory, CommandResult, Model,
-     * CurrentEdit, Album)}
+     * CurrentEdit)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, Model expectedModel, CurrentEdit currentEdit, Album album) {
+            String expectedMessage, Model expectedModel, CurrentEdit currentEdit) {
         CommandResult expectedCommandResult = new CommandResult(expectedMessage);
         assertCommandSuccess(command, actualModel, actualCommandHistory, expectedCommandResult, expectedModel,
-            currentEdit, album);
+            currentEdit);
     }
 
     /**
@@ -111,7 +110,7 @@ public class CommandTestUtil {
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
-            String expectedMessage, CurrentEdit currentEdit, Album album) {
+            String expectedMessage, CurrentEdit currentEdit) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
@@ -121,7 +120,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
-            command.execute(currentEdit, album, actualModel, actualCommandHistory);
+            command.execute(currentEdit, actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());

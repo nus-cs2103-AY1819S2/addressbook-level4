@@ -10,7 +10,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -22,7 +21,6 @@ public class RedoCommandTest {
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CurrentEdit currentEdit = new CurrentEditManager();
-    private Album album = new Album();
     private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
@@ -44,14 +42,14 @@ public class RedoCommandTest {
         // multiple redoable states in model
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel,
-            currentEdit, album);
+            currentEdit);
 
         // single redoable state in model
         expectedModel.redoAddressBook();
         assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel,
-            currentEdit, album);
+            currentEdit);
 
         // no redoable state in model
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE, currentEdit, album);
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE, currentEdit);
     }
 }

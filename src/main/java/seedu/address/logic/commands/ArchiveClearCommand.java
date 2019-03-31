@@ -33,4 +33,9 @@ public class ArchiveClearCommand extends Command {
     public boolean requiresArchiveList() {
         return true;
     }
+
+    @Override
+    public boolean requiresPinList() {
+        return false;
+    }
 }

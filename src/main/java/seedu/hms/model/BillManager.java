@@ -52,7 +52,6 @@ public class BillManager implements BillModel {
         filteredReservations = new FilteredList<>(versionedHotelManagementSystem.getReservationList());
         roomTypeList = new FilteredList<>(versionedHotelManagementSystem.getRoomTypeList());
         filteredReservations.addListener(this::ensureSelectedReservationIsValid);
-
     }
 
     public BillManager() {

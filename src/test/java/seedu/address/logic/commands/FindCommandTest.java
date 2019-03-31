@@ -30,11 +30,18 @@ import seedu.address.model.person.Person;
 import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.DrugAllergyContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinAddressContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinNameContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinPhoneContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinRelationContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.MultipleContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NricContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.SexContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -296,6 +303,32 @@ public class FindCommandTest {
 
         case "dob":
             return new DateOfBirthContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "drug":
+            return new DrugAllergyContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);
+
+        case "sex":
+            return new SexContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")), isIgnoreCase, isAnd);
+
+        case "desc":
+            return new DescriptionContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "kinN":
+            return new KinNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "kinR":
+            return new KinRelationContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "kinP":
+            return new KinPhoneContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
+                isIgnoreCase, isAnd);
+
+        case "kinA":
+            return new KinAddressContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")),
                 isIgnoreCase, isAnd);
 
         default:

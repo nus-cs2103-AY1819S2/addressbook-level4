@@ -42,6 +42,13 @@ public class SortCommandTest {
         execute_sortPatientParameter("email", false, Arrays.asList(ALICE, GEORGE, DANIEL, CARL, BENSON, FIONA, ELLE));
         execute_sortPatientParameter("nric", false, Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
         execute_sortPatientParameter("dob", false, Arrays.asList(ALICE, BENSON, GEORGE, ELLE, FIONA, CARL, DANIEL));
+        execute_sortPatientParameter("sex", false, Arrays.asList(ALICE, ELLE, FIONA, CARL, BENSON, GEORGE, DANIEL));
+        execute_sortPatientParameter("desc", false, Arrays.asList(FIONA, ALICE, ELLE, BENSON, CARL, DANIEL, GEORGE));
+        execute_sortPatientParameter("drug", false, Arrays.asList(FIONA, ALICE, ELLE, BENSON, DANIEL, CARL, GEORGE));
+        execute_sortPatientParameter("kinN", false, Arrays.asList(CARL, DANIEL, BENSON, ELLE, ALICE, FIONA, GEORGE));
+        execute_sortPatientParameter("kinR", false, Arrays.asList(CARL, ALICE, ELLE, FIONA, DANIEL, BENSON, GEORGE));
+        execute_sortPatientParameter("kinP", false, Arrays.asList(FIONA, DANIEL, CARL, ELLE, GEORGE, ALICE, BENSON));
+        execute_sortPatientParameter("kinA", false, Arrays.asList(DANIEL, ALICE, GEORGE, BENSON, ELLE, FIONA, CARL));
     }
 
     @Test
@@ -52,6 +59,13 @@ public class SortCommandTest {
         execute_sortPatientParameter("email", true, Arrays.asList(ELLE, FIONA, BENSON, CARL, DANIEL, GEORGE, ALICE));
         execute_sortPatientParameter("nric", true, Arrays.asList(GEORGE, FIONA, ELLE, DANIEL, CARL, BENSON, ALICE));
         execute_sortPatientParameter("dob", true, Arrays.asList(DANIEL, CARL, FIONA, ELLE, GEORGE, BENSON, ALICE));
+        execute_sortPatientParameter("sex", true, Arrays.asList(DANIEL, GEORGE, BENSON, CARL, FIONA, ELLE, ALICE));
+        execute_sortPatientParameter("desc", true, Arrays.asList(GEORGE, DANIEL, CARL, BENSON, ELLE, ALICE, FIONA));
+        execute_sortPatientParameter("drug", true, Arrays.asList(GEORGE, CARL, DANIEL, BENSON, ELLE, ALICE, FIONA));
+        execute_sortPatientParameter("kinN", true, Arrays.asList(GEORGE, FIONA, ALICE, ELLE, BENSON, DANIEL, CARL));
+        execute_sortPatientParameter("kinR", true, Arrays.asList(GEORGE, BENSON, DANIEL, FIONA, ELLE, ALICE, CARL));
+        execute_sortPatientParameter("kinP", true, Arrays.asList(BENSON, ALICE, GEORGE, ELLE, CARL, DANIEL, FIONA));
+        execute_sortPatientParameter("kinA", true, Arrays.asList(CARL, FIONA, ELLE, BENSON, GEORGE, ALICE, DANIEL));
     }
 
     /**

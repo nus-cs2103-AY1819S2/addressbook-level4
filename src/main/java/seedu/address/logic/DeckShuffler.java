@@ -1,6 +1,5 @@
 package seedu.address.logic;
 
-
 import java.util.Collections;
 import java.util.Iterator;
 

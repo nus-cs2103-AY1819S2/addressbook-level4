@@ -19,9 +19,9 @@ public class StudyPanel extends UiPart<Region> {
 
     private static final String FXML = "StudyPanel.fxml";
     private static final PseudoClass ANSWER = PseudoClass.getPseudoClass("answer");
+    private static final String YOUR_ANSWER_LABEL = "Your answer: ";
 
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
-    private static final String YOUR_ANSWER_LABEL = "Your answer: ";
 
     @FXML
     private HBox studyPane;

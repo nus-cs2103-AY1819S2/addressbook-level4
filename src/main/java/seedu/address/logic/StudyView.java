@@ -18,7 +18,6 @@ import seedu.address.model.deck.Deck;
  */
 public class StudyView implements ViewState {
     private final Model model;
-    public final List<Card> listOfCards;
     private final Deck activeDeck;
     private Card currentCard;
     private final SimpleObjectProperty<StudyState> currentStudyState = new SimpleObjectProperty<>();
@@ -26,8 +25,13 @@ public class StudyView implements ViewState {
     private final SimpleObjectProperty<String> userAnswer = new SimpleObjectProperty<>();
     private DeckShuffler deckShuffler;
 
+    public final List<Card> listOfCards;
+
+    /**
+     * The type of possible states that the study view can have.
+     */
     public enum StudyState {
-        QUESTION, ANSWER;
+        QUESTION, ANSWER
     }
 
     public StudyView(Model model, Deck deck) {
@@ -95,13 +99,15 @@ public class StudyView implements ViewState {
      * Updates the text shown in the UI.
      */
     public void updateTextShown() {
-        String text =  (getCurrentStudyState() == StudyState.QUESTION)
+        String text = (getCurrentStudyState() == StudyState.QUESTION)
                 ? currentCard.getQuestion()
                 : currentCard.getAnswer();
         textShown.setValue(text);
     }
 
-
+    /**
+     * Returns the current textShown
+     */
     public ReadOnlyProperty<String> textShownProperty() {
         updateTextShown();
         return textShown;
@@ -109,6 +115,9 @@ public class StudyView implements ViewState {
 
     //=========== User Answer ================================================================================
 
+    /**
+     * Returns the user's answer
+     */
     public ReadOnlyProperty<String> userAnswerProperty() {
         return userAnswer;
     }

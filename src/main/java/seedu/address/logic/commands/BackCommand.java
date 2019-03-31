@@ -18,8 +18,8 @@ public class BackCommand extends Command {
 
     private static final String MESSAGE_CLOSE_DECK_SUCCESS = "Closed deck";
 
+    @Override
     public CommandResult execute(Model model, CommandHistory history) {
-
         requireNonNull(model);
 
         model.goToDecksView();

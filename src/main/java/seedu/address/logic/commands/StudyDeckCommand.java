@@ -39,8 +39,8 @@ public class StudyDeckCommand extends Command {
         this.targetDeck = targetDeck;
     }
 
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-
         requireNonNull(model);
 
         if (targetIndex != null) {

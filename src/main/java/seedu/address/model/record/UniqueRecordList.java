@@ -35,8 +35,7 @@ public class UniqueRecordList implements Iterable<Record> {
      */
     public boolean contains(Record toCheck) {
         requireNonNull(toCheck);
-        return false;
-        // return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -45,9 +44,6 @@ public class UniqueRecordList implements Iterable<Record> {
      */
     public void add(Record toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateRecordException();
-        }
         internalList.add(0, toAdd);
     }
 

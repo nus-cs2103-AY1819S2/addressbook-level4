@@ -70,6 +70,16 @@ public class PatientComparator {
         }
     };
 
+    /**
+     *  Comparator to sort via Sex.
+     */
+    private static Comparator<Patient> compPatientSex = new Comparator<Patient>() {
+        @Override
+        public int compare(Patient p1, Patient p2) {
+            return p1.getSex().getSex().compareTo(p2.getSex().getSex());
+        }
+    };
+
     public static Comparator<Patient> getPatientComparator(String parameterType) throws ParseException {
         Comparator<Patient> paComp;
         switch (parameterType.trim()) {
@@ -99,6 +109,7 @@ public class PatientComparator {
             break;
 
         case "sex":
+            paComp = compPatientSex;
             break;
 
         case "drug":

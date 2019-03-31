@@ -15,6 +15,7 @@ public class Config {
     public static final String TEMP_FILEPATH = "src/main/resources/temp/";
     public static final String TEMP_FILENAME = "src/main/resources/temp/temp_img.png";
     public static final String ORIGINAL_FILENAME = "src/main/resources/temp/ori_img.png";
+    public static final String SAMPLE_IMPORT = "src/test/imageTest";
     public static final int MAX_FILE_SIZE = 10000000;
 
     // Config values customizable through config file

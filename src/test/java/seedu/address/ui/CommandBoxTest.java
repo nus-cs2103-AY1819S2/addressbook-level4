@@ -57,7 +57,6 @@ public class CommandBoxTest extends GuiUnitTest {
         // verify that style is changed correctly even after multiple consecutive failed commands
         // seems like there is some problem coz need to enter twice to reset the text
         // assertBehaviorForSuccessfulCommand();
-        
         assertBehaviorForFailedCommand();
         assertBehaviorForFailedCommand();
     }

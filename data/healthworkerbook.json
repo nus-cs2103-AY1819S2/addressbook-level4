@@ -1,11 +1,5 @@
 {
   "healthWorkers" : [ {
-    "name" : "Angie",
-    "phone" : "94358253",
-    "nric" : "S8312942G",
-    "organization" : "NUH",
-    "skills" : "PHYSIOTHERAPY "
-  }, {
     "name" : "Betty Meier",
     "phone" : "98761232",
     "nric" : "S8312942G",

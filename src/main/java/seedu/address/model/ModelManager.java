@@ -153,7 +153,31 @@ public class ModelManager implements Model {
     }
 
     //=========== Undo/Redo =================================================================================
+    // @author Jing1324
     // TODO: Modify to do redo/undo for HealthWorkerBook. Suggestion: Use a state to maintain previous type of op.
+
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
+
+    @Override
+    public boolean canRedo() {
+        return true;
+    }
+
+    @Override
+    public void undo() {
+
+    }
+
+    @Override
+    public void redo() {
+
+    }
+
+
+
 
     //=========== Selected Person ===========================================================================
 

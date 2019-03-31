@@ -176,4 +176,24 @@ public interface Model {
     void setRequest(Request target, Request editedRequest);
 
     void commitRequestBook();
+
+    /**
+     * Returns true if the model has previous address book states to restore.
+     */
+    boolean canUndo();
+
+    /**
+     * Returns true if the model has undone address book states to restore.
+     */
+    boolean canRedo();
+
+    /**
+     * Restores the model's address book to its previous state.
+     */
+    void undo();
+
+    /**
+     * Restores the model's address book to its previously undone state.
+     */
+    void redo();
 }

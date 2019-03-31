@@ -61,6 +61,7 @@ image::UserGuide_Components.png[width="1000"]
 * You may refer to <<Commands Summary>> for a list of all possible commands.
 
 *Result Display*
+
 * The result of the command will be displayed in the Result Display.
 * If commands are entered incorrectly, error messages will be shown here.
 

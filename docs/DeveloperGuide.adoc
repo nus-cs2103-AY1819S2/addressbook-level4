@@ -458,13 +458,9 @@ otherwise.
 ===== Model
 The main logic for  `test` and `end` command is carried out in `ModelManager` with the following methods:
 
-* `#testCardFolder()` - begins a test session on the current card folder user is in and implicitly sorts the cards in
- it.
-* `#endTestSession()` - ends the current test session.
-** `currentTestedCardFolder` is set to null.
-** `ModelManager#setCurrentTestedCard(null)` is invoked to set `currentTestedCard` to null.
-** `inTestSession` is set to false.
-** `ModelManager#setCardAsNotAnswered()` is invoked.
+* `ModelManager#testCardFolder()` - begins a test session on the current card folder user is in and implicitly sorts
+the cards in it.
+* `ModelManager#endTestSession()` - ends the current test session.
 
 [discrete]
 ===== UI
@@ -490,14 +486,14 @@ Step 2. As with every command, the command parser reads the input and generates 
 this case a `TestCommand`. The object is returned to the `LogicManager`.
 
 Step 3. The `LogicManager` executes the `TestCommand`, storing the result and then transferring control to the
-Model component, with `ModelManager#isInFolder()` and `Model#isInTestSession()` to check that user is inside a
+Model component, with `ModelManager#isInFolder()` and `ModelManager#isInTestSession()` to check that user is inside a
 folder and is not already in a test session. (This is omitted from <<testcommandsequencediagram>> for simplicity.)
 
 [NOTE]
 If the user is not inside a folder or is already in a test session, this `test` command would be rendered
 invalid. Step 4 would not proceed and an error message is displayed.
 
-Step 4. After both checks have passed, `ModelManager#testCardFolder()` method is invoked, which does the following.
+Step 4. After both checks have passed, `ModelManager#testCardFolder()` method is invoked, which does the following:
 
 1. `currentTestedCardFolder` is set to the current folder the user is in, by invoking `getCardList()` from the active
 `VersionedCardFolder` in `folders`.
@@ -524,7 +520,9 @@ Step 7. `r` is returned to `LogicManager` which then terminates and returns `r` 
 .Component interactions for a `test` command
 image::TestCommandSequenceDiagram.png[width="800"]
 
-Step 8. The caller method here is `MainWindow`. Control is now transferred over to the UI component.
+{empty} +
+
+Step 8. The caller method here is `MainWindow`. Control is now transferred to the UI component.
 
 Step 9. `MainWindow` sees that `CommandResult` object `r` has the type `START_TEST_SESSION`. It invokes
 `MainWindow#handleStartTestSession()` to display the `currentTestedCard` question and hints to the user.
@@ -535,19 +533,32 @@ Step 9. `MainWindow` sees that `CommandResult` object `r` has the type `START_TE
 [discrete]
 ===== Example Usage of end command
 
-6. When the user executes the command `end`
+Step 1. User is currently in a test session and executes the command `end`.
 
-    picture of command box with the end command
+Step 2. An `EndCommand` object is created and `LogicManager` executes the `EndCommand`, storing the result and then
+transferring control to the Model component, with `ModelManager#isInTestSession()` to
+check that user is indeed in a test session.
 
-* The `logic` unit checks if the user is already in a test session using `Model#checkIfInsideTestSession()`, which if
- not, this `end` command would be rendered invalid.
+[NOTE]
+If the user is not in a test session, Step 3 would not proceed.
 
-7. The `end` command calls Model#endTestSession().
+Step 3. `ModelManager#endTestSession()` method is invoked, which does the following:
 
-8. `end` command will then construct a `CommandResult` class with `isEndTestSession` parameter set to true. `CommandResult`
-will then invoke `MainWindow#handleEndTestSession()` in the `UI` component.
+1. `currentTestedCardFolder` is set to null.
+2. `ModelManager#setCurrentTestedCard(null)` is invoked to set `currentTestedCard` to null.
+3. `inTestSession` is set to false.
+4. `ModelManager#setCardAsNotAnswered()` is invoked.
 
-    insert sequence diagram for end command
+Step 4. As control is now transferred back to the logic unit, `EndCommand` creates a `CommandResult` object, `r` with
+the type `END_TEST_SESSION`.
+
+Step 5. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method, MainWindow.
+Control is now transferred to the UI component.
+
+Step 6. `MainWindow` sees that `CommandResult` object `r` has the type `END_TEST_SESSION`. It invokes
+`MainWindow#handleEndTestSession()` to delete the current `testSession` page, presenting `cardMainScreen` page at the
+back to the user.
+
 
 ==== Answer Command
 

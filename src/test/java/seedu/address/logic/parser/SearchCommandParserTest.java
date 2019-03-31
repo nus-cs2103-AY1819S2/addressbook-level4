@@ -6,7 +6,6 @@ import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.GENDER_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.JOBSAPPLY_DESC_ENGINEER;
-import static seedu.address.logic.commands.CommandTestUtil.KNOWNPROGLANG_DESC_JAVA;
 import static seedu.address.logic.commands.CommandTestUtil.MAJOR_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NRIC_DESC_AMY;
@@ -18,7 +17,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GENDER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_JOBSAPPLY_ENGINEER;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_KNOWNPROGLANG_JAVA;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MAJOR_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
@@ -34,9 +32,7 @@ import java.util.HashSet;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.SearchCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 public class SearchCommandParserTest {
 
@@ -69,8 +65,8 @@ public class SearchCommandParserTest {
         // test other fields
         SearchCommand.PredicatePersonDescriptor descriptorOtherFields = new SearchCommand.PredicatePersonDescriptor();
         descriptorOtherFields.setPastJobs(new HashSet<>(Arrays.asList(VALID_PASTJOB_PROFESSSOR.split("\\s+"))));
-        descriptorOtherFields.setJobsApply(new HashSet<>
-            (Arrays.asList(VALID_JOBSAPPLY_ENGINEER.split("\\s+"))));
+        descriptorOtherFields.setJobsApply(new HashSet<>(
+            Arrays.asList(VALID_JOBSAPPLY_ENGINEER.split("\\s+"))));
         expectedSearchCommand = new SearchCommand(descriptorOtherFields);
         assertParseSuccess(parser, PASTJOB_DESC_PROFESSOR
             + JOBSAPPLY_DESC_ENGINEER, expectedSearchCommand);

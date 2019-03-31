@@ -84,8 +84,7 @@ public class SearchCommandTest {
      */
     private SearchCommand.PredicatePersonDescriptor preparePredicatePersonDescriptor(String userInput) {
         SearchCommand.PredicatePersonDescriptor descriptor = new SearchCommand.PredicatePersonDescriptor();
-        descriptor.setName
-            (new HashSet<>(Arrays.asList(userInput.split("\\s+"))));
+        descriptor.setName(new HashSet<>(Arrays.asList(userInput.split("\\s+"))));
         return descriptor;
     }
 }

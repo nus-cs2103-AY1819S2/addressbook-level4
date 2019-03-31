@@ -45,6 +45,7 @@ public class SaveCommand extends Command {
         }
         album.saveToAssets(image, toName);
         currentEdit.overwriteOriginal(toName);
+        model.refreshAlbum();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toName));
     }

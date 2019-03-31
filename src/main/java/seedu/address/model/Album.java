@@ -65,6 +65,13 @@ public class Album {
 
     /* @@author itszp*/
     /**
+     * Returns file path to assets folder
+     */
+    public String getAssetsFilePath() {
+        return assetsFilePath;
+    }
+
+    /**
      * Retrieves a list of all filenames in assets folder. Returns the list as String[].
      */
     public String[] getFileNames() {

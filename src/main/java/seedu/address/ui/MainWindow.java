@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
@@ -32,7 +33,9 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    //private MedHistBrowserPanel medHistBrowserPanel;
     private PatientListPanel patientListPanel;
+    private MedHistListPanel medHistListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -47,6 +50,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane patientListPanelPlaceholder;
+
+    @FXML
+    private StackPane medHistListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -112,11 +118,16 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(logic.selectedPatientProperty());
+        //medHistBrowserPanel = new MedHistBrowserPanel(logic.selectedMedHistProperty());
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
         patientListPanel = new PatientListPanel(logic.getFilteredPatientList(), logic.selectedPatientProperty(),
                 logic::setSelectedPatient);
         patientListPanelPlaceholder.getChildren().add(patientListPanel.getRoot());
+
+        medHistListPanel = new MedHistListPanel(logic.getFilteredMedHistList(), logic.selectedMedHistProperty(),
+                logic::setSelectedMedHist);
+        medHistListPanelPlaceholder.getChildren().add(medHistListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -170,6 +181,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public PatientListPanel getPatientListPanel() {
         return patientListPanel;
+    }
+
+    public MedHistListPanel getMedHistListPanel() {
+        return medHistListPanel;
     }
 
     /**

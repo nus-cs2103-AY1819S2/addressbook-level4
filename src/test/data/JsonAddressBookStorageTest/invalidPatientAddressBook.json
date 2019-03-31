@@ -5,5 +5,12 @@
     "age": "24",
     "phone": "94824241",
     "address": "4th street"
+  } ],
+  "medicalHistories" : [ {
+    "name" : "John Doe",
+    "writeUp" : "Fever"
+  }, {
+    "name" : "Amy Doe",
+    "writeUp" : "Sneeze"
   } ]
 }

@@ -155,15 +155,24 @@ public class AddPatientCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        // Needed to be implemented later
         @Override
         public boolean hasMedHist(MedicalHistory medicalHistory) {
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
-        // Needed to be implemented later
         @Override
         public void addMedHist(MedicalHistory medicalHistory) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteMedHist(MedicalHistory target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setMedHist(MedicalHistory target, MedicalHistory editedMedHist) {
+            throw new AssertionError("This method should not be called.");
         }
 
         // Needed to be implemented later
@@ -172,7 +181,6 @@ public class AddPatientCommandTest {
             return false;
         }
 
-        // Needed to be implemented later
         @Override
         public void addPrescription(Prescription prescription) {
         }
@@ -193,7 +201,32 @@ public class AddPatientCommandTest {
         }
 
         @Override
+        public ObservableList<MedicalHistory> getFilteredMedHistList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void updateFilteredDoctorList(Predicate<Doctor> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredMedHistList(Predicate<MedicalHistory> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<MedicalHistory> selectedMedHistProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public MedicalHistory getSelectedMedHist() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setSelectedMedHist(MedicalHistory medHist) {
             throw new AssertionError("This method should not be called.");
         }
 

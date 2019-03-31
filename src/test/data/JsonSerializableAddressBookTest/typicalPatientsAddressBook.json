@@ -49,5 +49,6 @@
     "phone" : "94824421",
     "address" : "4th street",
     "tagged" : [ ]
-  } ]
+  } ],
+  "medicalHistories" : [ ]
 }

@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.WarningPanelSettings;
 import seedu.address.model.Inventory;
 import seedu.address.model.ReadOnlyInventory;
 import seedu.address.model.UserPrefs;
@@ -44,6 +45,7 @@ public class StorageManagerTest {
          */
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(new GuiSettings(300, 600, 4, 6));
+        original.setWarningPanelSettings(new WarningPanelSettings(300, 600));
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);

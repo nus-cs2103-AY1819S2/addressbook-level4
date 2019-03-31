@@ -42,7 +42,7 @@ public class Expiry implements Comparable<Expiry> {
         return test.matches(VALIDATION_REGEX) || test.equals("-");
     }
 
-    private LocalDate parseRawDate(String expiry) {
+    private static LocalDate parseRawDate(String expiry) {
         return LocalDate.parse(expiry, DateTimeFormatter.ofPattern("d/M/yyyy"));
     }
 

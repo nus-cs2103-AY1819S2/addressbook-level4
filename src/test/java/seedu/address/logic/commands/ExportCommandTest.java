@@ -106,12 +106,12 @@ public class ExportCommandTest {
             }
             assertArrayEquals(expectedData, actualData);
             List<Medicine> currentGuiList = model.getFilteredMedicineList();
-            List<Medicine> lowQuantityMedicineList = model.getLowQuantityMedicinesList();
+            List<Medicine> lowQuantityMedicineList = model.getLowStockMedicinesList();
             Iterator iterator = currentGuiList.listIterator();
             while (iterator.hasNext()) {
                 Medicine current = (Medicine) iterator.next();
                 List<Batch> listOfBatchesExpiringSoon = current.getFilteredBatch(
-                        model.getWarningPanelPredicateAccessor().getBatchExpiringPredicate());
+                        model.getWarningPanelPredicateAccessor().getBatchExpiryPredicate());
                 if (current.getBatches().size() == 0) {
                     continue;
                 }

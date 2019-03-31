@@ -217,7 +217,7 @@ The `Model`,
 .Structure of the QuizModel Component
 image::QuizModelClassDiagram.png[width="500"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/quiz/QuizModel.java[`QuizModel.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/modelmanager/QuizModel.java[`QuizModel.java`]
 
 The `QuizModel`,
 

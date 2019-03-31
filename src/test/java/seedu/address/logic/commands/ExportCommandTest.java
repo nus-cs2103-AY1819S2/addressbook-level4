@@ -95,6 +95,15 @@ public class ExportCommandTest {
         String expectedMessage = String.format(ExportCommand.MESSAGE_SUCCESS, fileNameWithoutFileExtension);
 
         assertCommandSuccess(exportCommand, model, commandHistory, expectedMessage, model);
+        compareActualAndExpectedData(filePath);
+    }
+
+    /**
+     * Compares actual and expected data for the exported Csvfile.
+     * @param filePath The actual csv file to be compared with the expected data.
+     * @throws IOException If the reading of the data from the exported Csv file encounters an exception.
+     */
+    private void compareActualAndExpectedData(File filePath) throws IOException {
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
             String[] expectedData;
             String[] actualData;

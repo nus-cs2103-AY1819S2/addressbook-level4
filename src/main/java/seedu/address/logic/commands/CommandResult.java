@@ -9,6 +9,16 @@ import java.util.Objects;
  */
 public class CommandResult {
 
+    /**
+     * Enum for all possible storage request types.
+     */
+    public enum UpdateStorage {
+        NONE,
+        SAVE,
+        LOAD,
+        DELETE
+    }
+
     private final String feedbackToUser;
 
     /** Quiz UI should be shown to the user. */
@@ -20,10 +30,13 @@ public class CommandResult {
     /**
      * If lesson is changed, update UI and save to disk.
      */
-    private final boolean isLessonListChanged;
+    //private final boolean updateStorage;
+
+    private final UpdateStorage updateStorage;
 
     /** The application should exit. */
     private final boolean exit;
+
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
@@ -34,7 +47,7 @@ public class CommandResult {
         this.showQuiz = false;
         this.showHelp = false;
         this.exit = false;
-        this.isLessonListChanged = false;
+        this.updateStorage = UpdateStorage.NONE;
     }
 
     /**
@@ -45,15 +58,35 @@ public class CommandResult {
         this.showQuiz = showQuiz;
         this.showHelp = showHelp;
         this.exit = exit;
-        this.isLessonListChanged = false;
+        this.updateStorage = UpdateStorage.NONE;
     }
 
-    public CommandResult (String feedbackToUser, boolean isLessonChanged) {
+    //TODO: Remove when refactored
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields.
+     * @param feedbackToUser
+     * @param updateStorage
+     */
+    public CommandResult (String feedbackToUser, boolean updateStorage) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showQuiz = false;
         this.showHelp = false;
         this.exit = false;
-        this.isLessonListChanged = isLessonChanged;
+
+        if (updateStorage) {
+            this.updateStorage = UpdateStorage.SAVE;
+        } else {
+            this.updateStorage = UpdateStorage.NONE;
+        }
+    }
+
+    public CommandResult (String feedbackToUser, UpdateStorage type) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = false;
+        this.showHelp = false;
+        this.exit = false;
+        this.updateStorage = type;
     }
 
     public String getFeedbackToUser() {
@@ -75,8 +108,12 @@ public class CommandResult {
     /**
      * If lesson is changed, update UI and save to disk.
      */
-    public boolean isLessonListChanged() {
-        return isLessonListChanged;
+    //public boolean isUpdateStorage() {
+    //    return updateStorage;
+    //}
+
+    public UpdateStorage getUpdateStorageType() {
+        return updateStorage;
     }
 
     @Override

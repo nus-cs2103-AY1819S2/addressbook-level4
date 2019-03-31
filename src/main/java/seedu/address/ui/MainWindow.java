@@ -224,7 +224,7 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            /*if (commandResult.isLessonListChanged()) {
+            /*if (commandResult.isUpdateStorage()) {
                 lessonListPanel.updateLessonList(logic.getLessons());
             }*/
 

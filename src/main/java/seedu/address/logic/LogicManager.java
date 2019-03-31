@@ -60,9 +60,22 @@ public class LogicManager implements Logic {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
 
-                if (commandResult.isLessonListChanged()) {
+                switch (commandResult.getUpdateStorageType()) {
+                case NONE:
+                    break;
+                case LOAD:
+                    break;
+                case SAVE:
                     storageManager.saveLessonList(managementModel.getLessonList());
+                    break;
+                case DELETE:
+                    break;
+                default:
+                    break;
                 }
+                //if (commandResult.isUpdateStorage()) {
+                //    storageManager.saveLessonList(managementModel.getLessonList());
+                //}
             } else {
                 command = quizModeParser.parse(commandText);
                 commandResult = command.execute(quizModel, history);

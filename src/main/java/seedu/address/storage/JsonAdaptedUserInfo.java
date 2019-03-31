@@ -18,7 +18,7 @@ public class JsonAdaptedUserInfo {
 
     private final JsonAdaptedCourse course;
     private final String currentSemester;
-    private final JsonAdaptedSemLimit semLimit;
+    private final JsonAdaptedSemesterLimits semLimit;
 
     /**
      * Constructs a {@code JsonAdaptedUserInfo} with given details
@@ -26,7 +26,7 @@ public class JsonAdaptedUserInfo {
     @JsonCreator
     public JsonAdaptedUserInfo(@JsonProperty("course") JsonAdaptedCourse course,
                                @JsonProperty("currentSemester") String currentSemester,
-                               @JsonProperty("semLimit") JsonAdaptedSemLimit semLimit) {
+                               @JsonProperty("semLimit") JsonAdaptedSemesterLimits semLimit) {
         this.course = course;
         this.currentSemester = currentSemester;
         this.semLimit = semLimit;
@@ -38,7 +38,7 @@ public class JsonAdaptedUserInfo {
     public JsonAdaptedUserInfo(UserInfo userInfo) {
         this.course = new JsonAdaptedCourse(userInfo.getCourse());
         this.currentSemester = userInfo.getCurrentSemester().toString();
-        this.semLimit = new JsonAdaptedSemLimit(userInfo.getSemLimit());
+        this.semLimit = new JsonAdaptedSemesterLimits(userInfo.getSemLimit());
     }
     /**
      * Converts this Jackson-friendly adapted object into model's {@code UserInfo} object

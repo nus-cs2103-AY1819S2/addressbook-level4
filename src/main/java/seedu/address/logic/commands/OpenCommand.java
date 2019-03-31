@@ -2,7 +2,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.core.Messages.MESSAGE_FILE_NOT_FOUND;
 
 import java.io.File;

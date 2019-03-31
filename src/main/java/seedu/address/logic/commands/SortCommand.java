@@ -24,9 +24,9 @@ public abstract class SortCommand<T> extends Command {
 
     public static final String MESSAGE_SUCCESS = "List has been sorted by %1$s!";
 
-    public final Comparator<T> attrCompare;
-    private final String paraType;
-    private final boolean isReverse;
+    protected final Comparator<T> attrCompare;
+    protected final String paraType;
+    protected final boolean isReverse;
 
     public SortCommand(Comparator<T> chosenCompare, String paraType, boolean sortOrder) {
         requireNonNull(chosenCompare);

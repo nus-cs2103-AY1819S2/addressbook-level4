@@ -430,7 +430,7 @@ public class BillManager implements BillModel {
         double totalAmount = 0.0;
         for (Reservation reservation : reservationObservableList) {
             RoomType roomType = reservation.getRoom();
-            DateRange dateRange = reservation.getDates();
+        //    DateRange dateRange = reservation.getDates();
             int daysBooked = 5;
             double ratePerHour = roomType.getRatePerDay();
             double amount = daysBooked * ratePerHour;

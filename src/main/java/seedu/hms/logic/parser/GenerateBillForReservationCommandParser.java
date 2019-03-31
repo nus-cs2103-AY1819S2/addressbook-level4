@@ -5,16 +5,14 @@ import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_TIMING;
 
 import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.commands.GenerateBillForReservationCommand;
 import seedu.hms.logic.parser.exceptions.ParseException;
 import seedu.hms.model.reservation.ReservationContainsPayerPredicate;
-import seedu.hms.model.reservation.ReservationWithTypePredicate;
 import seedu.hms.model.reservation.ReservationWithDatePredicate;
+import seedu.hms.model.reservation.ReservationWithTypePredicate;
 import seedu.hms.model.util.DateRange;
-import seedu.hms.model.util.TimeRange;
 
 /**
  * Parses input arguments and creates a new AddCustomerCommand object
@@ -32,7 +30,8 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
                 PREFIX_ROOM, PREFIX_DATES);
 
         if (!argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindReservationCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                FindReservationCommand.MESSAGE_USAGE));
         }
 
         ReservationContainsPayerPredicate reservationContainsPayerPredicate;
@@ -40,7 +39,8 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
             reservationContainsPayerPredicate = new ReservationContainsPayerPredicate(
                 ParserUtil.parseIdNum(argMultimap.getValue(PREFIX_IDENTIFICATION_NUMBER).get()).toString());
         } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindReservationCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                FindReservationCommand.MESSAGE_USAGE));
         }
 
         ReservationWithTypePredicate reservationWithTypePredicate;

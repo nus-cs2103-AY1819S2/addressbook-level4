@@ -19,7 +19,6 @@ import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.booking.exceptions.BookingNotFoundException;
 import seedu.hms.model.booking.exceptions.ServiceTypeNotFoundException;
-import seedu.hms.model.util.TimeRange;
 
 /**
  * Represents the in-memory model of the hms book data.

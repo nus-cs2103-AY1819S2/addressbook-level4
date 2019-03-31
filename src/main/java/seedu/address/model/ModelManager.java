@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -252,6 +254,11 @@ public class ModelManager implements Model {
     public String generateAnalytics() {
         Analytics analytics = new Analytics(getFilteredPersonList());
         return analytics.generate();
+    }
+
+    @Override
+    public void setBlockOutDates(List<Calendar> blockOutDates) {
+        versionedAddressBook.setBlockOutDates(blockOutDates);
     }
 
     @Override

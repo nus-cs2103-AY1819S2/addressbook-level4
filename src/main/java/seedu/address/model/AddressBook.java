@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -65,6 +66,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void setInterviews(Interviews interviews) {
         this.interviews.setInterviews(interviews);
+    }
+
+    public void setBlockOutDates(List<Calendar> blockOutDates) {
+        this.interviews.setBlockOutDates(blockOutDates);
     }
 
     /**

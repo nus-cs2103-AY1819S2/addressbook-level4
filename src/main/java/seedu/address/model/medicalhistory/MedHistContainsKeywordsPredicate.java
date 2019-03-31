@@ -1,10 +1,9 @@
 package seedu.address.model.medicalhistory;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.model.person.Person;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Tests that a {@code MedicalHistory}'s {@code Name} matches any of the keywords given.

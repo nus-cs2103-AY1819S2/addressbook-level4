@@ -203,5 +203,4 @@ public class PatientComparator {
 
         return paComp;
     }
-    //TODO: Implement reverse sorting
 }

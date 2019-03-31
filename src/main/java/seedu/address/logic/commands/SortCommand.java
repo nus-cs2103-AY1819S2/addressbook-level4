@@ -44,13 +44,6 @@ public abstract class SortCommand<T> extends Command {
 
     @Override
     public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
-    /*{
-        //TODO Implement sorting for records
-        model.sortAddressBook(this.attrCompare, this.isReverse);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, paraType));
-    }*/
 
     @Override
     public boolean equals(Object other) {

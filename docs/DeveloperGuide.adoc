@@ -309,7 +309,7 @@ Step 4. `CurrentEdit#updateExIF(Image)` is called to updates the information of 
 Step 5. `CurrenEdit#displayTempImage()` displays the opened image on the GUI.
 
 
-The following sequence diagram shows how the open command works:
+The following sequence diagram shows how the `open` command works:
 
 <to be added>
 
@@ -344,13 +344,13 @@ Step 3. The String array is displayed on the GUI.
 
 
 
-The following sequence diagram shows how the listfiles command works:
+The following sequence diagram shows how the `listfiles` command works:
 
 <to be added>
 
 ==== Design Considerations
 
-`listfiles` command was created allow users to know what files are stored in `assets` folder so that they can call `open` using the right file names.
+`listfiles` command was created to allow users to know what files are stored in `assets` folder so that they can call `open` using the right file names.
 
 === Image Filters
 ==== Current Implementation
@@ -598,11 +598,18 @@ Step 7. `Album#populateAlbum()` updates the list of image in `Album` class to en
 Step 8.`Album#refreshAlbum()` is called to update the Information Panel on the GUI. 
 
 
-The following sequence diagram shows how the save command works:
+The following sequence diagram shows how the `save` command works:
 
 <to be added>
 
 ==== Design Considerations
+* *Alternative 1*: User must input a string to name the the new image.
+** Pros: Name of the new image is clear to the user.
+** Cons: Tedious for user to type in a name each time save is performed.
+
+* *Alternative 2 (current choice)* : User can choose to input a string to name the new image or overwrite the opened image.
+** Pros: Convenient for user to save quickly without having to type a new name everytime.
+** Cons: User may unintentionally overwrite the opened image.
 
 === Logging
 

@@ -13,7 +13,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -30,7 +29,6 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final CurrentEdit currentEdit;
-    private final Album album;
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
@@ -39,7 +37,6 @@ public class LogicManager implements Logic {
         this.model = model;
         this.storage = storage;
         this.currentEdit = currentEdit;
-        this.album = Album.getInstance();
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
 
@@ -55,7 +52,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            commandResult = command.execute(currentEdit, album, model, history);
+            commandResult = command.execute(currentEdit, model, history);
         } finally {
             history.add(commandText);
         }

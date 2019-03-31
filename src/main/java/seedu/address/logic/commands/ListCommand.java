@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
@@ -19,7 +18,7 @@ public class ListCommand extends Command {
 
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
+    public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);

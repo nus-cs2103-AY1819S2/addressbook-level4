@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -20,7 +19,6 @@ public class ClearCommandTest {
 
     private CommandHistory commandHistory = new CommandHistory();
     private CurrentEdit currentEdit = new CurrentEditManager();
-    private Album album = new Album();
 
     @Test
     public void execute_emptyAddressBook_success() {
@@ -29,7 +27,7 @@ public class ClearCommandTest {
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel,
-            currentEdit, album);
+            currentEdit);
     }
 
     @Test
@@ -40,7 +38,7 @@ public class ClearCommandTest {
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new ClearCommand(), model, commandHistory, ClearCommand.MESSAGE_SUCCESS, expectedModel,
-            currentEdit, album);
+            currentEdit);
     }
 
 }

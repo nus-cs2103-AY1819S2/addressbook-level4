@@ -126,7 +126,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
      * @return True if image file name exist, false otherwise.
      */
     public boolean duplicateFile(Image image) {
-        return (new File(ASSETS_FILEPATH + image.getName().name).exists()) ? true : false;
+        return (new File(ASSETS_FILEPATH + image.getName().toString()).exists()) ? true : false;
     }
 
     /**

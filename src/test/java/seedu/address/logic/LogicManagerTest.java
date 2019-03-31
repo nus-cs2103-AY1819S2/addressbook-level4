@@ -24,7 +24,6 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -49,7 +48,6 @@ public class LogicManagerTest {
 
     private Model model = new ModelManager();
     private CurrentEdit currentEdit = new CurrentEditManager();
-    private Album album = new Album();
     private Logic logic;
 
     @Before

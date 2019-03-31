@@ -1,23 +1,18 @@
 /* @@author Carrein */
 package seedu.address.model.image;
 
-import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
+
+import org.apache.commons.io.FilenameUtils;
 
 import com.drew.imaging.ImageMetadataReader;
-import com.drew.imaging.ImageProcessingException;
 import com.drew.metadata.Directory;
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Tag;
@@ -25,18 +20,21 @@ import com.drew.metadata.Tag;
 import seedu.address.logic.commands.Command;
 
 /**
- * Represents an Image in FomoFoto
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents an Image in FomoFoto.
  */
 public class Image {
 
-    // Data fields
+    /**
+     * Data fields.
+     */
     private Name name;
     private Height height;
     private Width width;
+    private Size size;
     private BufferedImage buffer;
     private String url;
     private String fileType;
+    private Metadata metadata;
     private List<Command> commandHistory;
     private int index;
 
@@ -45,39 +43,24 @@ public class Image {
      */
     public Image(String url) {
         requireAllNonNull(url);
+        File file = new File(url);
         try {
-            File file = new File(url);
+            this.buffer = ImageIO.read(file);
+            this.metadata = ImageMetadataReader.readMetadata(file);
             buffer = ImageIO.read(file);
-            try {
-                ImageInputStream iis = ImageIO.createImageInputStream(file);
-
-                Iterator<ImageReader> imageReaders = ImageIO.getImageReaders(iis);
-
-                int readTime = 0;
-                while (readTime < 1 && imageReaders.hasNext()) {
-                    ImageReader reader = imageReaders.next();
-                    fileType = reader.getFormatName().toLowerCase();
-                    readTime++;
-                }
-            } catch (IOException e) {
-                System.out.println(e.toString());
-            }
-            this.url = url;
-            this.name = new Name(file.getName());
-            this.width = new Width(String.valueOf(buffer.getWidth()));
-            this.height = new Height(String.valueOf(buffer.getHeight()));
-            commandHistory = new ArrayList<>();
-            index = 0;
-
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-    }
-
-    public Image(Name name, Height height, Width width) {
-        this.name = name;
-        this.height = height;
-        this.width = width;
+        this.url = url;
+        this.fileType = FilenameUtils.getExtension(url);
+        this.size = new Size(String.valueOf(file.length()));
+        this.name = new Name(FilenameUtils.getBaseName(url),
+                FilenameUtils.getExtension(url), FilenameUtils.getName(url));
+        this.width = new Width(String.valueOf(buffer.getWidth()));
+        this.height = new Height(String.valueOf(buffer.getHeight()));
+        commandHistory = new ArrayList<>();
+        index = 0;
+        System.out.println(this.toString());
     }
 
     public Height getHeight() {
@@ -104,13 +87,22 @@ public class Image {
         return fileType;
     }
 
-    public List<Command> getCommandHistory() { return commandHistory; }
+    public Size getSize() {
+        return size;
+    }
 
-    public List<Command> getSubHistory() { return commandHistory.subList(0, index); }
+    public List<Command> getCommandHistory() {
+        return commandHistory;
+    }
+
+    public List<Command> getSubHistory() {
+        return commandHistory.subList(0, index);
+    }
 
     /**
      * Adds a new transformation command into commandHistory
      * if Undo command was last called command, remove all edits after previous undo.
+     *
      * @param command command to be added
      */
     public void addHistory(Command command) {
@@ -121,87 +113,82 @@ public class Image {
         index++;
     }
 
-    public void setBufferedImage(BufferedImage buffer) { this.buffer = buffer; }
+    public void setBufferedImage(BufferedImage buffer) {
+        this.buffer = buffer;
+    }
 
-    public Command getCommand() { return commandHistory.get(index); }
+    public Command getCommand() {
+        return commandHistory.get(index);
+    }
 
-    public int getIndex() { return index; }
+    public int getIndex() {
+        return index;
+    }
 
-    public void setIndex(int index) { this.index = index; }
+    public void setIndex(int index) {
+        this.index = index;
+    }
 
-    public void setHistory(List history) { this.commandHistory = history; }
+    public void setHistory(List history) {
+        this.commandHistory = history;
+    }
 
-    public void setUndo() { index--; }
+    public void setUndo() {
+        index--;
+    }
 
-    public void setRedo() { index++; }
+    public void setRedo() {
+        index++;
+    }
 
-    public boolean canUndo() { return index > 0; }
+    public boolean canUndo() {
+        return index > 0;
+    }
 
-    public boolean canRedo() { return index < commandHistory.size(); }
-
+    public boolean canRedo() {
+        return index < commandHistory.size();
+    }
 
 
     /**
-     * Returns true if both images have the same name.
-     * This defines a weaker notion of equality between two images.
+     * A basic representation of the Image's fields.
+     * EG:
+     * Name: sample.png
+     * Height: 1600
+     * Width: 1600
+     *
+     * @return the fields of the image.
      */
-    public boolean isSameImage(Image otherImage) {
-        if (otherImage == this) {
-            return true;
-        }
-
-        return otherImage != null
-                && otherImage.getName().equals(getName());
-    }
-
-    /**
-     * Returns true if both images have the same identity and data fields.
-     * This defines a stronger notion of equality between two images.
-     */
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        if (!(other instanceof Image)) {
-            return false;
-        }
-
-        Image otherImage = (Image) other;
-        return otherImage.getName().equals(getName())
-                && otherImage.getWidth().equals(getWidth())
-                && otherImage.getHeight().equals(getHeight());
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, width, height);
-    }
-
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Name: ")
+        builder.append("====================")
+                .append("\nName: ")
                 .append(getName())
-                .append(" Height: ")
+                .append("\nHeight: ")
                 .append(getHeight())
-                .append(" Width: ")
-                .append(getWidth());
+                .append("\nWidth: ")
+                .append(getWidth())
+                .append("\nFormat: ")
+                .append(getFileType())
+                .append("\nURL: ")
+                .append(getUrl())
+                .append("\n====================");
         return builder.toString();
     }
 
     /**
-     * Prints the metadata for any given image.
+     * Returns metadata for image in an ArrayList of Strings.
+     *
+     * @return list of meta data tags.
      */
-    public void printMetadata() throws IOException, ImageProcessingException {
-        Metadata metadata = ImageMetadataReader.readMetadata(new File(ASSETS_FILEPATH + this.name));
+    public List<String> getMetadataList() {
+        List<String> tempList = new ArrayList<>();
         for (Directory directory : metadata.getDirectories()) {
             for (Tag tag : directory.getTags()) {
-                System.out.println(tag);
+                tempList.add(tag.toString());
             }
         }
+        return tempList;
     }
 }

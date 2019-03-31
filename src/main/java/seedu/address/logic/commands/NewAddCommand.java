@@ -90,3 +90,4 @@ public class NewAddCommand extends Command {
                 && toAdd.equals(((NewAddCommand) other).toAdd));
     }
 }
+

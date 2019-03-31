@@ -8,7 +8,7 @@ public class Tenant extends Person {
     //private final Remark remark;
     ///private final Property property;
 
-    public Tenant(Name name, Phone phone, Email email) {
-        super(name, phone, email);
+    public Tenant(Name name, Phone phone, Email email, Remark remark) {
+        super(name, phone, email, remark);
     }
 }

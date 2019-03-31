@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CUSTOMER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_RENTALPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SELLINGPRICE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -21,6 +22,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Landlord;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.Seller;
 import seedu.address.model.person.Tenant;
 import seedu.address.model.property.Price;
@@ -40,9 +42,9 @@ public class AddCommandParser implements Parser<AddCommand> {
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CUSTOMER, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                        PREFIX_ADDRESS, PREFIX_SELLINGPRICE, PREFIX_RENTALPRICE, PREFIX_TAG);
+                        PREFIX_REMARK, PREFIX_ADDRESS, PREFIX_SELLINGPRICE, PREFIX_RENTALPRICE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CUSTOMER, PREFIX_EMAIL, PREFIX_PHONE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CUSTOMER, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_REMARK)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
@@ -52,17 +54,18 @@ public class AddCommandParser implements Parser<AddCommand> {
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Remark remark = ParserUtil.parseRemark(argMultimap.getValue(PREFIX_REMARK).get());
 
         switch (customer) {
             case "buyer":
-                Buyer buyer = new Buyer(name, phone, email);
+                Buyer buyer = new Buyer(name, phone, email, remark);
                 return new AddCommand(buyer);
             case "seller":
                 if (argMultimap.getValue(PREFIX_SELLINGPRICE).isPresent()
                         && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
                     Price sellingPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_SELLINGPRICE).get());
                     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-                    Seller seller = new Seller(name, phone, email, new Property("sell", address,
+                    Seller seller = new Seller(name, phone, email, remark, new Property("sell", address,
                             sellingPrice, tagList));
                     return new AddCommand(seller);
                 } else {
@@ -73,14 +76,14 @@ public class AddCommandParser implements Parser<AddCommand> {
                         && argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
                     Price rentalPrice = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_RENTALPRICE).get());
                     Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-                    Landlord landlord = new Landlord(name, phone, email, new Property("rent", address,
+                    Landlord landlord = new Landlord(name, phone, email, remark, new Property("rent", address,
                             rentalPrice, tagList));
                     return new AddCommand(landlord);
                 } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
             case "tenant":
-                Tenant tenant = new Tenant(name, phone, email);
+                Tenant tenant = new Tenant(name, phone, email, remark);
                 return new AddCommand(tenant);
             default:
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

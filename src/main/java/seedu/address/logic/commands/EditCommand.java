@@ -21,10 +21,17 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Buyer;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Landlord;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
+import seedu.address.model.person.Seller;
+import seedu.address.model.person.Tenant;
+import seedu.address.model.property.Price;
+import seedu.address.model.property.Property;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -85,18 +92,7 @@ public class EditCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
-        model.commitArchiveBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
-    }
-
-    @Override
-    public boolean requiresMainList() {
-        return true;
-    }
-
-    @Override
-    public boolean requiresArchiveList() {
-        return false;
     }
 
     /**
@@ -109,10 +105,44 @@ public class EditCommand extends Command {
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Remark updatedRemark = editPersonDescriptor.getRemark().orElse(personToEdit.getRemark());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        if (personToEdit instanceof Buyer) {
+            return new Buyer(updatedName, updatedPhone, updatedEmail, updatedRemark);
+        }
+
+        if (personToEdit instanceof Seller) {
+            final Seller referenceSeller = (Seller) personToEdit;
+            Address updatedAddress = editPersonDescriptor.getAddress().orElse(referenceSeller.getAddress());
+            Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(referenceSeller.getTags());
+            Price updatedSellingPrice = editPersonDescriptor.getSellingPrice().orElse(referenceSeller.getSellingPrice());
+            return new Seller(updatedName, updatedPhone, updatedEmail, updatedRemark,
+                    new Property("selling", updatedAddress, updatedSellingPrice, updatedTags));
+        }
+
+        if (personToEdit instanceof Landlord) {
+            final Landlord referenceLandlord = (Landlord) personToEdit;
+            Address updatedAddress = editPersonDescriptor.getAddress().orElse(referenceLandlord.getAddress());
+            Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(referenceLandlord.getTags());
+            Price updatedRentalPrice = editPersonDescriptor.getRentalPrice().orElse(referenceLandlord.getRentalPrice());
+            return new Landlord(updatedName, updatedPhone, updatedEmail, updatedRemark,
+                    new Property("rental", updatedAddress, updatedRentalPrice, updatedTags));
+        }
+
+        if (personToEdit instanceof Tenant) {
+            return new Tenant(updatedName, updatedPhone, updatedEmail, updatedRemark);
+        }
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedRemark);
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 
     @Override
@@ -143,6 +173,9 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private Price sellingPrice;
+        private Price rentalPrice;
+        private Remark remark;
 
         public EditPersonDescriptor() {}
 
@@ -156,13 +189,16 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setSellingPrice(toCopy.sellingPrice);
+            setRentalPrice(toCopy.rentalPrice);
+            setRemark(toCopy.remark);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags, sellingPrice, rentalPrice, remark);
         }
 
         public void setName(Name name) {
@@ -195,6 +231,30 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setSellingPrice(Price price) {
+            this.sellingPrice = price;
+        }
+
+        public Optional<Price> getSellingPrice() {
+            return Optional.ofNullable(sellingPrice);
+        }
+
+        public void setRentalPrice(Price price) {
+            this.rentalPrice = price;
+        }
+
+        public Optional<Price> getRentalPrice() {
+            return Optional.ofNullable(rentalPrice);
+        }
+
+        public void setRemark(Remark remark) {
+            this.remark = remark;
+        }
+
+        public Optional<Remark> getRemark() {
+            return Optional.ofNullable(remark);
         }
 
         /**
@@ -231,9 +291,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
-                    && getEmail().equals(e.getEmail())
-                    && getAddress().equals(e.getAddress())
-                    && getTags().equals(e.getTags());
+                    && getEmail().equals(e.getEmail());
         }
     }
 }

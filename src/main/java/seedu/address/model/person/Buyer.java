@@ -9,7 +9,7 @@ public class Buyer extends Person {
     //private final Remark remark;
     //private final Property property;
 
-    public Buyer(Name name, Phone phone, Email email) {
-        super(name, phone, email);
+    public Buyer(Name name, Phone phone, Email email, Remark remark) {
+        super(name, phone, email, remark);
     }
 }

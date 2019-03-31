@@ -5,7 +5,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Buyer;
+import seedu.address.model.person.Landlord;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Seller;
+import seedu.address.model.person.Tenant;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -27,6 +31,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
+    private Label customer;
+    @FXML
     private Label name;
     @FXML
     private Label id;
@@ -37,7 +43,13 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label remark;
+    @FXML
     private FlowPane tags;
+    @FXML
+    private Label sellingPrice;
+    @FXML
+    private Label rentalPrice;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -45,9 +57,24 @@ public class PersonCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
+        remark.setText(person.getRemark().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        if (person instanceof Buyer) { customer.setText("buyer"); }
+        if (person instanceof Seller) {
+            final Seller seller = (Seller) person;
+            customer.setText("seller");
+            address.setText(seller.getAddress().value);
+            sellingPrice.setText(seller.getSellingPrice().toString());
+            seller.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        }
+        if (person instanceof Landlord) {
+            final Landlord landlord = (Landlord) person;
+            customer.setText("landlord");
+            address.setText(landlord.getAddress().value);
+            rentalPrice.setText(landlord.getRentalPrice().toString());
+            landlord.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        }
+        if (person instanceof Tenant) { customer.setText("tenant"); }
     }
 
     @Override

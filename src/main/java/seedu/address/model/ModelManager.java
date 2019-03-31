@@ -138,7 +138,6 @@ public class ModelManager implements Model {
         updateFilteredDoctorList(PREDICATE_SHOW_ALL_DOCTORS);
     }
 
-
     @Override
     public boolean hasPrescription(Prescription prescription) {
         requireNonNull(prescription);

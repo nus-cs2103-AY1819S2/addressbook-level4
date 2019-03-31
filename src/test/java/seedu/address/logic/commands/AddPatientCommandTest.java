@@ -181,7 +181,6 @@ public class AddPatientCommandTest {
             return false;
         }
 
-        // Needed to be implemented later
         @Override
         public void addPrescription(Prescription prescription) {
         }

@@ -14,7 +14,7 @@ import org.apache.commons.io.FileUtils;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.ImportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Album;
+//import seedu.address.model.Album;
 import seedu.address.model.image.Image;
 
 /**
@@ -26,7 +26,7 @@ public class ImportCommandParser implements Parser<ImportCommand> {
     private final File directory = new File(ASSETS_FILEPATH);
 
     // Album to copy imported images to.
-    private final Album album = Album.getInstance();
+//    private final Album album = Album.getInstance();
 
     /**
      * Parses the given {@code String} of arguments in the context
@@ -55,8 +55,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                         Image image = new Image(path);
                         if (!duplicateFile(image)) {
                             try {
-                                // Add each image to Album.
-                                album.addImage(image);
+//                                // Add each image to Album.
+//                                album.addImage(image);
 
                                 File file = new File(path);
                                 FileUtils.copyFileToDirectory(file, directory);
@@ -74,8 +74,8 @@ public class ImportCommandParser implements Parser<ImportCommand> {
                     Image image = new Image(args);
                     if (!duplicateFile(image)) {
                         try {
-                            // Add each image to Album.
-                            album.addImage(image);
+//                            // Add each image to Album.
+//                            album.addImage(image);
 
                             File file = new File(args);
                             FileUtils.copyFileToDirectory(file, directory);

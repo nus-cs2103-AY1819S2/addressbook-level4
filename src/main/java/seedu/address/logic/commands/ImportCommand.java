@@ -4,6 +4,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
@@ -23,6 +24,7 @@ public class ImportCommand extends Command {
             "Directory successfully imported (Note: Invalid file types, hidden files and duplicates are skipped).";
 
     private final boolean isDirectory;
+    private final Album album = Album.getInstance();
 
     /**
      * Creates an ImportCommand to add the specified {@code Image}
@@ -35,6 +37,7 @@ public class ImportCommand extends Command {
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
         requireNonNull(model);
+        album.populateAlbum();
         model.refreshAlbum();
         String returnString = isDirectory ? MESSAGE_DIR_SUCCESS : MESSAGE_SUCCESS;
         return new CommandResult(String.format(returnString));

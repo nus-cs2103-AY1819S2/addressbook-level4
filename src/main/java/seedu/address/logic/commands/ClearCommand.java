@@ -7,6 +7,7 @@ import java.io.File;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
@@ -17,7 +18,7 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Address book has been cleared!";
-
+    private final Album album = Album.getInstance();
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
@@ -26,6 +27,8 @@ public class ClearCommand extends Command {
         model.commitAddressBook();
         File dir = new File(ASSETS_FILEPATH);
         model.clearAssetFolder(dir);
+        album.populateAlbum();
+        model.refreshAlbum();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

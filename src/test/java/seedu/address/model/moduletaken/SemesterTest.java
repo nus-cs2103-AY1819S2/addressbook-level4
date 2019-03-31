@@ -32,7 +32,7 @@ public class SemesterTest {
         assertFalse(Semester.isValidSemesterForTakingModules("Y3S4"));
         assertFalse(Semester.isValidSemesterForTakingModules("Y6S2"));
         assertFalse(Semester.isValidSemesterForTakingModules("Y1"));
-        assertFalse(Semester.isValidSemester("GRAD"));
+        assertFalse(Semester.isValidSemesterForTakingModules("GRAD"));
 
         // valid semester numbers
         assertTrue(Semester.isValidSemesterForTakingModules("Y2S1"));

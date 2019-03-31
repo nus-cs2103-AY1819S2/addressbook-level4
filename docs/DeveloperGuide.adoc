@@ -1025,11 +1025,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |open a photo stored in the application for editing |
 
-|`* * ` |user |list the names of the photos stored in the application |know what photos are currently stored inside
+|`* *` |user |list the names of the photos stored in the application |know what photos are currently stored inside
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases

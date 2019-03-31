@@ -27,7 +27,6 @@ import seedu.address.model.SemLimit;
 import seedu.address.model.UserInfo;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
-import seedu.address.model.course.CourseReqType;
 import seedu.address.model.course.RequirementStatus;
 
 import seedu.address.model.moduleinfo.ModuleInfo;

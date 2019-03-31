@@ -17,6 +17,7 @@ public class Weblink {
     public static final String NO_WEBLINK_STRING = "No weblink added";
     public static final String INVALID_URL_MESSAGE = "%1$s is not found. Please enter a correct weblink";
     public static final String HTTPS_PREFIX = "https://";
+    private static final String FILE_PREFIX = "file:/";
     private static final String SPECIAL_CHARACTERS = "!#$%&'*+/=?`{|}~^.-";
     public static final String MESSAGE_CONSTRAINTS = "Weblinks should be of the format https://local-part.domain "
             + "and adhere to the following constraints:\n"
@@ -84,10 +85,23 @@ public class Weblink {
      * @return String that has https:// prepended to url string
      */
     public static String prependHttps(String url) {
-        if (!url.contains(Weblink.HTTPS_PREFIX) && !url.equals(Weblink.NO_WEBLINK_STRING)) {
-            url = Weblink.HTTPS_PREFIX.concat(url);
+        // if Weblink is not added for user, return url
+        if (url.equals(Weblink.NO_WEBLINK_STRING)) {
+            return url;
         }
-        return url;
+
+        // if url is a local path, return url
+        if (url.startsWith(Weblink.FILE_PREFIX)) {
+            return url;
+        }
+
+        // if url already starts with https prefix, return url
+        if (url.startsWith(Weblink.HTTPS_PREFIX)) {
+            return url ;
+        }
+
+        // return url with https prefix prepended to it
+        return Weblink.HTTPS_PREFIX.concat(url);
     }
 
     @Override

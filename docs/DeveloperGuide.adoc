@@ -334,8 +334,8 @@ To allow users to manage Cards, the following methods are available via the `Mod
 ==== Example Usage
 
 1. User is in the `Organs` folder and wants to add a new card, with question 'What is the largest organ?' and answer 'Skin'. This is done by typing `add q/What is the largest organ? a/Skin`.
-
-    picture of command box with user inputs
++
+image:CardImplementationAddExample.png[width="800"]
 
     * Upon execution, the `AddCommand` checks if the card to be added is already present in the current folder. If so, an exception is thrown.
 
@@ -343,9 +343,22 @@ To allow users to manage Cards, the following methods are available via the `Mod
 
 3. The new card will then be added to the active `VersionedCardFolder`.
 
-    picture of main window with updated card thumbnail list
+4. If the user is not inside a folder, or if the card to add already exists inside the current folder, the `addCommand` will throw a `CommandException`.
 
-    sequence diagram showing how add command works
+The following sequence diagram demonstrates how `AddCommand` works.
+
+image:AddCommandSequenceDiagram.png[width="800"]
+
+==== Design Considerations
+
+===== Aspect: How to represent options for MCQ cards
+
+* **Alternative 1 (current choice):** Maintain a set of `Option` objects to represent incorrect options, separate from the `Answer` field of each `Card`.
+** Pros: Simple to implement, easy to convert the card type between MCQ and Single-answer, requires the least amount of implementation changes to `Card`.
+** Cons: Single-answer cards still have to maintain an empty `Option` set.
+* **Alternative 2:** Maintain 2 separate subclasses of `Card`, one for Single-answer and another for MCQ.
+** Pros: More correct implementation.
+** Cons: Harder to implement.
 
 
 // tag::score[]

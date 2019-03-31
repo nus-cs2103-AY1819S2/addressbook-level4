@@ -22,6 +22,7 @@ FomoFoto is a image processing software suite written in Java. This application 
 
 
 == Quick Start
+Follow the steps below to set up your computer to run FomoFoto.
 
 .  Ensure you have Java version 9 or later installed in your Computer.
 .  Download the latest FomoFoto.jar here.
@@ -92,13 +93,14 @@ image::cropSuccess.PNG[width="918"]
 
 [[Features]]
 == Features
+This section describes all the commands available in FomoFoto and includes examples on how to use them.
 
 ====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `import FILEPATH`, `FILEPATH` is a parameter which can be used as `import desktop/photoalbum/image1`.
 * Items in square brackets are optional e.g `brightness [BRIGHTNESS_RATIO]` can be used as `brightness or as `brightness 0.9`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+
 ====
 
 === Black and White Filter : `bw`
@@ -224,7 +226,7 @@ Example:
 
 === Resize an image : `resize`
 
-Resize the photo to a given width and height provided by the user. +
+Resizes the photo to a given width and height provided by the user. +
 Format: `resize WIDTH HEIGHT`
 
 Example:
@@ -233,7 +235,7 @@ Example:
 
 === Save image : `save`
 
-Apply and save your edits. +
+Applies and saves your edits. +
 Format: `save` or `save FILENAME`
 
 Example:
@@ -242,7 +244,7 @@ Example:
 
 === Undo edit steps : `undo`
 
-Go back to the previous state of the image. +
+Goes back to the previous state of the image. +
 Format: `undo`
 
 [NOTE]
@@ -263,6 +265,7 @@ Examples:
 
 
 == Command Summary
+Below is a quick summary of all the commands available in FomoFoto.
 
 * *Black/White* `bw [THRESHOLD_VALUE]` +
 e.g. `bw 127` +

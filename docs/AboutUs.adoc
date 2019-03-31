@@ -25,7 +25,7 @@ image::randytqw.png[width="150", align="left"]
 {empty}[https://github.com/randytqw[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Integration, Image State Management (undo, redo)
+Responsibilities: Integration, Image State Management (Undo, Redo)
 
 '''
 
@@ -34,7 +34,7 @@ image::itszp.png[width="150", align="left"]
 {empty}[https://github.com/itszp[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Code quality, Import/Export
+Responsibilities: Code Quality, Image and Directory Navigation (Open, Save, ListFiles)
 
 '''
 

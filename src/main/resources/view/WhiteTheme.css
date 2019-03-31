@@ -92,13 +92,14 @@ span.command {
     -fx-font-size: 12pt;
 }
 
-
+/* reduces the darkness of the default border style around each cell */
 .list-cell {
     -fx-border-color: #D0D0D0;
     -fx-border-style: solid;
     -fx-border-width: 0.25;
 }
 
+/* adds a light blue color for selected cells */
 .list-cell:filled:selected {
     -fx-background-color: #c7ecee;
 }
@@ -109,6 +110,19 @@ span.command {
     -fx-border-style: none;
     -fx-border-width: 0;
 }
+
+.alertDialog:header *.header-panel *.label{
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14pt;
+    -fx-font-style: italic;
+    -fx-fill: #292929;
+}
+
+.alertDialog > *.label.content{
+   -fx-font-family: "Segoe UI";
+   -fx-font-size: 12pt;
+}
+
 
 /* removes unwanted horizontal scroll bar */
 .list-view .scroll-bar:horizontal .increment-arrow,

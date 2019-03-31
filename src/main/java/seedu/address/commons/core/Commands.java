@@ -37,6 +37,8 @@ public class Commands {
     public static final String CLEAR = "clr";
     public static final String HISTORY = "history";
     public static final String STATISTICS = "statistics";
+    public static final String SET_REMINDER = "setreminder";
+    public static final String SET_REMINDER_FULL = "setreminder t/05:00 m/call patient John Doe for his appointment";
     public static final String HELP = "help";
     public static final String EXIT = "exit";
 
@@ -45,6 +47,6 @@ public class Commands {
                 EDIT_HEALTH_WORKER, EDIT_HEALTH_WORKER_MODE, EDIT_REQUEST, EDIT_REQUEST_MODE, LIST,
                 LIST_ALL_HEALTHWORKER, LIST_ALL_HEALTHWORKER_MODE, LIST_ALL_REQUEST, LIST_ALL_REQUEST_MODE,
                 ASSIGN, ASSIGN_REQUEST, COMPLETE, FILTER, FIND_REQUEST, SELECT, DELETE, CLEAR, HISTORY, STATISTICS,
-                HELP, EXIT);
+                SET_REMINDER, SET_REMINDER_FULL, HELP, EXIT);
     }
 }

@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -17,6 +18,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.InvalidCommandModeException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AppMode;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -55,6 +57,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane resultDisplayPlaceholder;
+
+    @FXML
+    private Label modeLabel;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -134,6 +139,8 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand, logic.getHistory());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        setModeLabel(logic.getAddressBook().getCurrMode());
     }
 
     /**
@@ -168,9 +175,27 @@ public class MainWindow extends UiPart<Stage> {
         logic.callAllListFn();
         if (isModeChangeToMember()) {
             leftListPanelPlaceholder.getChildren().set(0, personListPanel.getRoot());
+            setModeLabel(AppMode.Modes.MEMBER);
         }
         if (isModeChangeToActivity()) {
             leftListPanelPlaceholder.getChildren().set(0, activityListPanel.getRoot());
+            setModeLabel(AppMode.Modes.ACTIVITY);
+        }
+    }
+
+    @FXML
+    private void setModeLabel(AppMode.Modes mode) {
+        switch(mode) {
+            case MEMBER:
+                modeLabel.setText("Mode : MEMBER");
+                modeLabel.getStyleClass().remove("labelMode-Activity");
+                modeLabel.getStyleClass().add("labelMode-Member");
+                break;
+            case ACTIVITY:
+                modeLabel.setText("Mode : ACTIVITY");
+                modeLabel.getStyleClass().remove("labelMode-Member");
+                modeLabel.getStyleClass().add("labelMode-Activity");
+                break;
         }
     }
 

@@ -26,7 +26,7 @@ public class ContrastCommand extends Command {
         + "If ratio is not given, default contrast ratio will be 1.1\n"
         + "Parameters: [CONTRAST RATIO (double)] "
         + "Example: " + COMMAND_WORD
-        + "Example2: " + COMMAND_WORD;
+        + "Example2: " + COMMAND_WORD + "1.3";
 
     private OptionalDouble contrastValue;
     private boolean isNewCommand;

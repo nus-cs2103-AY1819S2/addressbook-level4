@@ -14,9 +14,9 @@ public class Commands {
     public static final String ADD_HEALTH_WORKER_MODE = "add 1 n/Daenerys Targaryen i/S8974421C p/98765432 "
             + "o/SGH s/GENERAL_PRACTICE s/ORTHOPAEDIC";
     public static final String ADD_REQUEST = "add request n/John Doe i/S8974421C p/98765432 "
-            + "a/123 Brick Road, #01-01 dt/01-01-2019 14:50 c/Diabetic c/Physiotherapy";
+            + "a/123 Brick Road, #01-01 dt/01-01-2019 14:50:00 c/Diabetic c/Physiotherapy";
     public static final String ADD_REQUEST_MODE = "add 2 n/John Doe i/S8974421C p/98765432 "
-            + "a/123 Brick Road, #01-01 dt/01-01-2019 14:50 c/Diabetic c/Physiotherapy";
+            + "a/123 Brick Road, #01-01 dt/01-01-2019 14:50:00 c/Diabetic c/Physiotherapy";
     public static final String EDIT = "edit";
     public static final String EDIT_HEALTH_WORKER = "edit healthworker n/Daenerys Targaryen";
     public static final String EDIT_HEALTH_WORKER_MODE = "edit 1 n/Daenerys Targaryen";

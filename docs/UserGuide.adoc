@@ -19,8 +19,6 @@ By: `Team W9-02 (Health Hub)`      Since: `Jan 2019`      Licence: `MIT`
 
 == Introduction
 
-image::work_in_progress.png[width="800"]
-
 HealthHub connects home care patients to qualified health care professionals seamlessly.
 
 HealthHub is a desktop application which allows health administrative staff to add, manage and close requests from
@@ -30,7 +28,7 @@ other health care services such as the changing of tubing. +
 HealthHub provides a *Graphical User Interface* for administrative staff of health organizations and hospitals to manage requests
 from all potential home stay patients, and is also *optimized for those who prefer to work with a Command Line Interface* (CLI). +
 
-Let's get you started with how to install and use HealthHub!
+First, let's get you started with how to install and use HealthHub!
 
 == Notation
 
@@ -70,11 +68,28 @@ adds a patient named `John Doe` to the application.
 
 .  Refer to <<Features>> for a detailed explanation of each command.
 
-== What's new in v1.2
+== v1.2 Release Notes
 
-* `add healthworker` command: Adds a `Healthworker` to the application.
-* `add request` command: Creates a new `Request` for the hospital management to attend to.
-* `assign request` command: Assigns a `Request` to a `Healthworker`, to attend to the request.
+* `add healthworker` command: Adds a health worker to the application.
+* `add request` command: Registers a new request for the hospital management to attend to.
+* `assign request` command: Assigns an open request to an available health worker.
+
+== v1.3 Release Notes
+
+Added shorthand parameters for the different commands. For example,
+
+* `add healthworker/h/1` command: Adds a health worker to the application.
+* `add request/r/2` command: Registers a new request for the hospital management to attend to.
+* `filter healthworker/h/1` command: Filters a healthworker by the individual's name, phone, organisation or
+specialisation.
+
+Other modified or extension commands include:
+
+* `setreminder` command: Sets a reminder with a customised message for the hospital admin.
+* `undo/redo` command: Undo a previous action or redo everything.
+
+== v1.4 Release Notes
+
 
 [[Features]]
 == Features
@@ -402,17 +417,34 @@ Using the `history` command, you can view the previous commands entered in
 the application in chronological order, allowing you to identify the order in
  which commands are keyed in previously.
 
-Format: `history`
+Format: `history` +
+Example output:
+
+image::history_command.png[]
 
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+
 === Selecting a request to view it : `sr`
 Using the select command, you can select a particular request for you to view it's details in full.
 
 Format: `sr`
+
+=== Setting a reminder for yourself: `setreminder`
+If you wish to contact a patient on the day of his appointment to remind him that a health worker will be visting his
+home, you can set a reminder on the application, with a customised message that you can include.
+
+The app will set a reminder to alert you when the time has come.
+
+Format: `setreminder t/<hh:mm:ss> m/<customised_message>` +
+
+In the scenario below, a reminder has been set to go off at 6:00AM with the customised message to
+"to call patient John Doe for his appointment".
+
+image::reminder_command.png[]
 
 === Exiting the program : `exit`
 
@@ -429,7 +461,7 @@ the application, removing the need to save manually. +
 
 Changes to the data in the application are also saved that any command that
 modifies application parameters, making sure that minimal data is lost should
- any unforeseen circumstances happen.
+any unforeseen circumstances happen.
 
 == FAQ
 
@@ -448,3 +480,7 @@ modifies application parameters, making sure that minimal data is lost should
 * *Delete* : `delete <type> <index>`
 * *Assign* : `assign <patient_index> <health_worker_index>`
 * *History* : `history`
+* *Set Reminder*: `setreminder`
+* *Statistics*: `statistics`
+* *Undo*: `undo`
+* *Redo*: `redo`

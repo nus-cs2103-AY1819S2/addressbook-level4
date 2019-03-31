@@ -100,12 +100,13 @@ public class InfoPanel extends UiPart<Region> {
         String name = request.getName().toString();
         String nric = request.getNric().toString();
         String phone = request.getPhone().toString();
-        String street = request.getAddress().toStreetNameOnly();
+        String address = request.getAddress().toString();
         String conditions = request.getConditions().stream().map(Condition::toString).collect(
                 Collectors.joining(", "));
         String healthStaff = request.getHealthStaff();
         String date = request.getRequestDate().getFormattedDate();
         String status = request.getRequestStatus().toString();
+        String street = request.getAddress().toStreetNameOnly();
         String url = constructMapUrl(street);
 
         //logger.info(street);
@@ -117,7 +118,7 @@ public class InfoPanel extends UiPart<Region> {
         htmlBuilder.append("<i class=\"fas fa-user\"></i> Request Patient: " + name + "</br>");
         htmlBuilder.append("<i class=\"fas fa-id-card\"></i> Patient NRIC: " + nric + "</br>");
         htmlBuilder.append("<i class=\"fas fa-phone\"></i> Patient Contact: " + phone + "</br>");
-        htmlBuilder.append("<i class=\"fas fa-map-marker-alt\"></i> Patient Address: " + street + "</br>");
+        htmlBuilder.append("<i class=\"fas fa-map-marker-alt\"></i> Patient Address: " + address + "</br>");
         htmlBuilder.append("<i class=\"fas fa-notes-medical\"></i> Patient Conditions: " + conditions + "</br>");
         if (request.getHealthStaff() != null) { // show staff name
             htmlBuilder.append("<i class=\"fas fa-user-nurse\"></i> Assigned Staff: " + healthStaff + "</br>");
@@ -153,7 +154,7 @@ public class InfoPanel extends UiPart<Region> {
         urlBuilder.append("https://gothere.sg/maps/staticmap?center=%22");
         urlBuilder.append(address + "%22&zoom=16&size=400x200&markers=%22");
         urlBuilder.append(address + "%22,orange&sensor=false");
-        //logger.info(urlBuilder.toString());
+        logger.info(urlBuilder.toString());
         return urlBuilder.toString();
     }
 

@@ -421,6 +421,7 @@ CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFol
 
 //tag::testsession[]
 === Test Session feature
+
 ==== Overall Current Implementation
 This big feature mainly involves `UI`, `Logic` and `Model` components.
 
@@ -452,10 +453,32 @@ session.
 *** `ModelManager#isCardAlreadyAnswered()` - returns true if the current card has already been answered and false
 otherwise.
 
+===== Overall Design Considerations
+
+===== Aspect: Usage of a `currentTestedCard` on top of `currentTestedCardIndex`
+
+* **Alternative 1 (current choice)**: Introduction of another variable, `currentTestedCard`, to store the card.
+** Pros: More reader friendly. Save time from accessing the list to get card at that index.
+** Cons: Extra space used.
+
+* **Alternative 2**: No introduction of `currentTestedCard` as using the `currentTestedCardIndex` suffices. Every time a
+card is needed, can reference it using `currentTestedCardFolder.getIndex(currentTestedCardIndex)`.
+** Pros: No need to store an extra variable, use less space.
+** Cons: Not so reader friendly. Need to keep going to the list to get that index, which may take a long time if the list is long. Potentially lead to possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
+
+Evaluation of the 2 alternatives:
+We went with alternative 1 since not a large amount of memory is taken up with just an extra variable. As there will
+be a number of references to the `currentTestedCard`, it will be better to store them somewhere. Abiding by the Law
+of Demeter, `currentTestedCard` object will not be interacting with `currentTestedCardFolder`,  limiting its
+knowledge of that object.
+
+
 ==== Test / End Command
 
+===== Current Implementation
+
 [discrete]
-===== Model
+====== Model
 The main logic for  `test` and `end` command is carried out in `ModelManager` with the following methods:
 
 * `ModelManager#testCardFolder()` - begins a test session on the current card folder user is in and implicitly sorts
@@ -463,7 +486,7 @@ the cards in it.
 * `ModelManager#endTestSession()` - ends the current test session.
 
 [discrete]
-===== UI
+====== UI
 To update the change in the `UI` to reflect that the user is a test session (app goes to full screen with question of
 the current card presented), the following methods are introduced.
 
@@ -473,7 +496,7 @@ current `cardMainScreen` page.
  is now presented to the user.
 
 [discrete]
-===== Example Usage of test command
+====== Example Usage of test command
 
 To illustrate how the `UI`, `Model` and `Logic` components interact, below is a walkthrough of a typical usage scenario of
 the test command.
@@ -531,7 +554,7 @@ Step 9. `MainWindow` sees that `CommandResult` object `r` has the type `START_TE
 
 
 [discrete]
-===== Example Usage of end command
+====== Example Usage of end command
 
 Step 1. User is currently in a test session and executes the command `end`.
 
@@ -557,7 +580,28 @@ Control is now transferred to the UI component.
 
 Step 6. `MainWindow` sees that `CommandResult` object `r` has the type `END_TEST_SESSION`. It invokes
 `MainWindow#handleEndTestSession()` to delete the current `testSession` page, presenting `cardMainScreen` page at the
-back to the user.
+back (the screen the user was seeing before entering the test session) to the user.
+
+
+===== Design Considerations
+===== Aspect: Way to execute a test/end command
+
+* **Alternative 1 (current choice)**: `test` is executed when inside a folder. The user doesn’t have to specify the
+folder index and `test` would just immediately display the first card in the this current folder.
+** Pros: The most logical way of carrying out a test session is where user is in the folder that he or she wants to be tested on. Lesser dependency on entering and exiting folder methods.
+** Cons: Requires the extra step of entering the folder before it can actually test the folder. User may actually see the questions before the test session.
+
+* **Alternative 2**: `test` is executed when outside a folder, in the home directory. `test` command would require a
+folder index, e.g `test 1` to test the first folder. Implementation of getting the card from the folder would rely on
+enter folder command as well.
+** Pros: Fast way to enter test session from home directory
+** Cons: Not logical for test to be called from home directory which should only allow folder operations. Test will
+then have to implicitly enter the folder to get access to the cards in it in order to display them, creating a dependency between test and enter folder command.
+Similar issue will arise for the end test session command where user will need to implicitly exit the folder.
+
+Evaluation of the two alternatives:
+Overall, alternative 1 is a better choice following the Single Level of Abstraction Principle(SLAP) where a function should not mix different levels of abstractions. We can then better achieve higher cohesion and lower coupling.
+Also, user being able to see the questions before the test session is not a big issue since the answer will not be shown unless user selects the card.
 
 
 ==== Answer Command
@@ -569,7 +613,8 @@ To facilitate the marking of attempted answer, `#markAttemptedAnswer()` method i
 [NOTE]
 Comparison is not case-sensitive
 
-Similar to other test session methods, this is exposed in the model interface as `Model#markAttemptedAnswer()`.
+
+
 
 //end::testsession[]
 

@@ -115,6 +115,7 @@ public class CalendarWindow extends UiPart<Stage> {
             runningCommand = false;
             return commandResult;
         } catch (CommandException | ParseException e) {
+            runningCommand = false;
             logger.info("Invalid command: " + commandText);
             logger.info(e.getMessage());
             throw e;

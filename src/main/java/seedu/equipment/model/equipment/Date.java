@@ -25,12 +25,12 @@ public class Date implements Comparable<Date> {
     /**
      * Constructs an {@code Date}.
      *
-     * @param email A valid email equipment.
+     * @param date A valid date equipment.
      */
-    public Date(String email) {
-        requireNonNull(email);
-        AppUtil.checkArgument(isValidDate(email), MESSAGE_CONSTRAINTS);
-        value = email;
+    public Date(String date) {
+        requireNonNull(date);
+        AppUtil.checkArgument(isValidDate(date), MESSAGE_CONSTRAINTS);
+        value = date;
     }
 
     /**

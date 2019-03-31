@@ -37,19 +37,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String date} into a {@code String}.
-     * Leading and trailing whitespaces will be trimmed.
-     */
-    public static String parseDate(String date) throws ParseException {
-        requireNonNull(date);
-        String trimmedDate = date.trim();
-        if (date.equals(" ")) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
-        }
-        return trimmedDate;
-    }
-
-    /**
      * Parses a {@code String assignee} into a {@code String}.
      * Leading and trailing whitespaces will be trimmed.
      */
@@ -108,18 +95,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Date}.
+     * Parses a {@code String date} into an {@code Date}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code email} is invalid.
+     * @throws ParseException if the given {@code date} is invalid.
      */
-    public static Date parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Date.isValidDate(trimmedEmail)) {
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
-        return new Date(trimmedEmail);
+        return new Date(trimmedDate);
     }
 
     /**

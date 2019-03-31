@@ -38,7 +38,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Name name = ParserUtil.parseName(argMultimap.getValue(CliSyntax.PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(CliSyntax.PREFIX_PHONE).get());
-        Date date = ParserUtil.parseEmail(argMultimap.getValue(CliSyntax.PREFIX_PM).get());
+        Date date = ParserUtil.parseDate(argMultimap.getValue(CliSyntax.PREFIX_PM).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(CliSyntax.PREFIX_ADDRESS).get());
         SerialNumber serialNumber = ParserUtil.parseSerialNumber(argMultimap.getValue(
                 CliSyntax.PREFIX_SERIALNUMBER).get());

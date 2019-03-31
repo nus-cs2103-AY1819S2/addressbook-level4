@@ -31,7 +31,7 @@ public class TestCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
 
-        if (model.checkIfInsideTestSession()) {
+        if (model.isInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION);
         }
 

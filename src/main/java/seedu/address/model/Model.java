@@ -222,7 +222,7 @@ public interface Model extends Observable {
      * Returns true if user is in a test session
      * false user is not.
      */
-    boolean checkIfInsideTestSession();
+    boolean isInsideTestSession();
 
     /**
      * End the current test session.
@@ -251,7 +251,7 @@ public interface Model extends Observable {
      * Returns true if the answer has already been input for that card
      * false if otherwise
      */
-    boolean checkIfCardAlreadyAnswered();
+    boolean isCardAlreadyAnswered();
 
 
     void exportCardFolders(List<Integer> cardFolderExports) throws IOException, CsvManagerNotInitialized;

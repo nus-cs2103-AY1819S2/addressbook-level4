@@ -427,12 +427,12 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean checkIfCardAlreadyAnswered() {
+    public boolean isCardAlreadyAnswered() {
         return cardAlreadyAnswered;
     }
 
     @Override
-    public boolean checkIfInsideTestSession() {
+    public boolean isInsideTestSession() {
         return insideTestSession;
     }
 

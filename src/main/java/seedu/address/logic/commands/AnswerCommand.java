@@ -37,10 +37,10 @@ public class AnswerCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        if (!model.checkIfInsideTestSession()) {
+        if (!model.isInsideTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
-        if (model.checkIfCardAlreadyAnswered()) {
+        if (model.isCardAlreadyAnswered()) {
             throw new CommandException(Messages.MESSAGE_INVALID_ANSWER_COMMAND);
         }
         model.setCardAsAnswered();

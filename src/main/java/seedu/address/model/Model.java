@@ -107,9 +107,9 @@ public interface Model {
     void archivePerson(Person target);
 
     /**
-    * Unarchives the given person.
-    * The person must exist in the archive book.
-    */
+     * Unarchives the given person.
+     * The person must exist in the archive book.
+     */
     void unarchivePerson(Person target);
 
     /**

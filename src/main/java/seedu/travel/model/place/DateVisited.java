@@ -20,9 +20,8 @@ public class DateVisited {
     public static final String MESSAGE_INCORRECT_FORMAT = "Date visited must follow the DD/MM/YYYY format";
     public static final String MESSAGE_FUTURE_DATE_ADDED = "Date visited must be a present or past date after 1900";
     public static final Integer YEAR_MINIMUM = 1900;
-    public static final Integer YEAR_INDEX = 6;
-    public final String date;
-    public final String year;
+    private final String date;
+    private final String year;
 
     /**
     * Constructs a {@code DateVisited}.
@@ -33,8 +32,22 @@ public class DateVisited {
         requireNonNull(strDateVisited);
         checkArgument(isCorrectDateFormat(strDateVisited), MESSAGE_INCORRECT_FORMAT);
         checkArgument(isValidDateVisited(strDateVisited), MESSAGE_FUTURE_DATE_ADDED);
-        date = strDateVisited;
-        year = date.substring(YEAR_INDEX);
+        this.date = strDateVisited;
+        this.year = date.substring(date.length() - 4);
+    }
+
+    /**
+     * Returns the date
+     */
+    public String getDate() {
+        return date;
+    }
+
+    /**
+     * Returns the year
+     */
+    public String getYear() {
+        return year;
     }
 
     /**

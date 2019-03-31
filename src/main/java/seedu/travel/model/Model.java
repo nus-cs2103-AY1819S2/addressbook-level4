@@ -1,15 +1,12 @@
 package seedu.travel.model;
 
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.travel.commons.core.GuiSettings;
-import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.Place;
-import seedu.travel.model.place.Rating;
 
 /**
  * The API of the Model component.
@@ -74,7 +71,7 @@ public interface Model {
     void addPlace(Place place);
 
     /**
-     * Replaces the given place {@code target} with {@code editedPlace}.
+     * Replaces the given place {@code target} with {@code editedPl ace}.
      * {@code target} must exist in the TravelBuddy.
      * The place identity of {@code editedPlace} must not be the same as another existing place in the TravelBuddy.
      */
@@ -88,16 +85,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPlaceList(Predicate<Place> predicate);
-
-    /**
-     * Generates the country chart.
-     */
-    Map<CountryCode, Integer> generateChartCountry();
-
-    /**
-     * Generates the rating chart.
-     */
-    Map<Rating, Integer> generateChartRating();
 
     /**
      * Returns true if the model has previous TravelBuddy states to restore.
@@ -123,6 +110,18 @@ public interface Model {
      * Saves the current TravelBuddy state for undo/redo.
      */
     void commitTravelBuddy();
+
+    /**
+     * Saves the current Chart state.
+     */
+    void commitChart();
+
+    ReadOnlyProperty<Boolean> chartDisplayedProperty();
+
+    /**
+     * Set when chart needs to be displayed.
+     */
+    void setChartDisplayed(boolean chartDisplayed);
 
     /**
      * Selected place in the filtered place list.

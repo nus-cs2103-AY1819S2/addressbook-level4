@@ -19,7 +19,7 @@ public class YearContainsKeywordsPredicate implements Predicate<Place> {
     @Override
     public boolean test(Place place) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsYear(place.getDateVisited().year, keyword));
+                .anyMatch(keyword -> StringUtil.containsYear(place.getDateVisited().getYear(), keyword));
     }
 
     @Override

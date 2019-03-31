@@ -14,7 +14,6 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.travel.logic.commands.DeleteCommand;
 import seedu.travel.logic.commands.HelpCommand;
 import seedu.travel.logic.commands.SelectCommand;
-import seedu.travel.ui.BrowserPanel;
 import seedu.travel.ui.StatusBarFooter;
 
 /**
@@ -43,9 +42,9 @@ public class HelpCommandSystemTest extends TravelBuddySystemTest {
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        getBrowserPanel().click();
-        getMainMenu().openHelpWindowUsingAccelerator();
-        assertHelpWindowNotOpen();
+        //getBrowserPanel().click();
+        //getMainMenu().openHelpWindowUsingAccelerator();
+        //assertHelpWindowNotOpen();
 
         //use menu button
         getMainMenu().openHelpWindowUsingMenu();
@@ -64,7 +63,7 @@ public class HelpCommandSystemTest extends TravelBuddySystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
+        //assertNotEquals(BrowserPanel.DEFAULT_PAGE, getBrowserPanel().getLoadedUrl());
         assertListMatching(getPlaceListPanel(), getModel().getFilteredPlaceList());
 
         // assert that the status bar too is updated correctly while the help window is open

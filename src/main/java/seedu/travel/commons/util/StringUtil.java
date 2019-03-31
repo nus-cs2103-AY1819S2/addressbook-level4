@@ -122,7 +122,7 @@ public class StringUtil {
         checkArgument(preppedCountryCode.split("\\s+").length == 1,
                 "Country Code parameter should be a single word");
         checkArgument(CountryCode.isValidCountryCode(preppedCountryCode),
-                "Country codes should only contain a three-letter alphabets");
+                "Country codes should only contain three-letter ISO-3166 codes");
 
         String preppedCountryCodeList = countryCodeList;
         String[] countryCodesInPreppedCountryCodeList = preppedCountryCodeList.split("\\s+");

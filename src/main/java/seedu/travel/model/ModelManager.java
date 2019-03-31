@@ -4,21 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.travel.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.travel.commons.core.GuiSettings;
 import seedu.travel.commons.core.LogsCenter;
-import seedu.travel.model.place.CountryCode;
 import seedu.travel.model.place.Place;
-import seedu.travel.model.place.Rating;
 import seedu.travel.model.place.exceptions.PlaceNotFoundException;
 
 /**
@@ -31,6 +29,7 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Place> filteredPlaces;
     private final SimpleObjectProperty<Place> selectedPlace = new SimpleObjectProperty<>();
+    private final SimpleBooleanProperty chartDisplayed = new SimpleBooleanProperty(false);
 
     /**
      * Initializes a ModelManager with the given travelBuddy and userPrefs.
@@ -139,16 +138,6 @@ public class ModelManager implements Model {
         filteredPlaces.setPredicate(predicate);
     }
 
-    @Override
-    public Map<CountryCode, Integer> generateChartCountry() {
-        return versionedTravelBuddy.generateCountryChart();
-    }
-
-    @Override
-    public Map<Rating, Integer> generateChartRating() {
-        return versionedTravelBuddy.generateRatingChart();
-    }
-
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -174,6 +163,21 @@ public class ModelManager implements Model {
     @Override
     public void commitTravelBuddy() {
         versionedTravelBuddy.commit();
+    }
+
+    @Override
+    public void commitChart() {
+        versionedTravelBuddy.commitChart();
+    }
+
+    @Override
+    public void setChartDisplayed(boolean chartDisplayed) {
+        this.chartDisplayed.setValue(chartDisplayed);
+    }
+
+    @Override
+    public SimpleBooleanProperty chartDisplayedProperty() {
+        return chartDisplayed;
     }
 
     //=========== Selected place ===========================================================================

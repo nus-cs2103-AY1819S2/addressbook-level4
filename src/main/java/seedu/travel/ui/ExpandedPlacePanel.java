@@ -10,9 +10,9 @@ import seedu.travel.model.place.Place;
 /**
  * An UI component that displays information of a {@code Place}.
  */
-public class PlaceCard extends UiPart<Region> {
+public class ExpandedPlacePanel extends UiPart<Region> {
 
-    private static final String FXML = "PlaceListCard.fxml";
+    private static final String FXML = "ExpandedPlacePanel.fxml";
     private static final String[] TAG_COLOR_STYLES =
         { "teal", "red", "yellow", "blue", "orange", "brown", "green", "salmon", "black", "grey" };
 
@@ -45,13 +45,13 @@ public class PlaceCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PlaceCard(Place place, int displayedIndex) {
+    public ExpandedPlacePanel(Place place) {
         super(FXML);
         this.place = place;
-        id.setText(displayedIndex + ". ");
+        id.setText(". ");
         name.setText(place.getName().fullName);
         countryCode.setText(place.getCountryCode().code);
-        dateVisited.setText(place.getDateVisited().getDate());
+        // dateVisited.setText(place.getDateVisited().date);
         rating.setText(place.getRating().value);
         address.setText(place.getAddress().value);
         description.setText(place.getDescription().value);
@@ -86,12 +86,12 @@ public class PlaceCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PlaceCard)) {
+        if (!(other instanceof ExpandedPlacePanel)) {
             return false;
         }
 
         // state check
-        PlaceCard card = (PlaceCard) other;
+        ExpandedPlacePanel card = (ExpandedPlacePanel) other;
         return id.getText().equals(card.id.getText())
                 && place.equals(card.place);
     }

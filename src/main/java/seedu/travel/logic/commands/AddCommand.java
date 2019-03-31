@@ -3,6 +3,7 @@ package seedu.travel.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_COUNTRY_CODE;
+import static seedu.travel.logic.parser.CliSyntax.PREFIX_DATE_VISITED;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.travel.logic.parser.CliSyntax.PREFIX_RATING;
@@ -24,6 +25,7 @@ public class AddCommand extends Command {
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_COUNTRY_CODE + "COUNTRY CODE "
+            + PREFIX_DATE_VISITED + "DATE VISITED "
             + PREFIX_RATING + "RATING "
             + PREFIX_DESCRIPTION + "DESCRIPTION "
             + PREFIX_ADDRESS + "ADDRESS "
@@ -31,6 +33,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_NAME + "National University of Singapore "
             + PREFIX_COUNTRY_CODE + "SGP "
+            + PREFIX_DATE_VISITED + "10/10/2017"
             + PREFIX_RATING + "4 "
             + PREFIX_DESCRIPTION
             + "The National University of Singapore is an autonomous research university in Singapore. "

@@ -188,6 +188,11 @@ public class MainWindow extends UiPart<Stage> {
                 analytics.show(commandResult.getAnalytics());
             }
 
+            if (commandResult.isSuccessfulInterviews()) {
+                InterviewsWindow interviews = new InterviewsWindow();
+                interviews.show(commandResult.getInterviews());
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }

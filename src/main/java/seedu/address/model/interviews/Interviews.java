@@ -82,18 +82,19 @@ public class Interviews {
     @Override
     public String toString() {
         PriorityQueue<Calendar> calendarPriorityQueue = new PriorityQueue<>(interviewsHashMap.keySet());
-        StringBuilder stringBuilder = new StringBuilder();
+        String result = "";
         while (!calendarPriorityQueue.isEmpty()) {
             Calendar currentCalendar = calendarPriorityQueue.poll();
             List<Person> currentPersonList = interviewsHashMap.get(currentCalendar);
-            stringBuilder.append(currentCalendar.get(Calendar.DATE) + "/" + (currentCalendar.get(Calendar.MONTH)+1)
-                    + ": ");
+            result += currentCalendar.get(Calendar.DATE) + "/" + (currentCalendar.get(Calendar.MONTH)+1)
+                    + "/" + currentCalendar.get(Calendar.YEAR) + ": ";
             for (Person person : currentPersonList) {
-                stringBuilder.append(person.getName() + " ");
+                result += person.getName() + ", ";
             }
-            stringBuilder.append("\n");
+            result = result.substring(0, result.length() - 2);
+            result += "\n\n";
         }
-        return stringBuilder.toString().trim();
+        return result.trim();
     }
 
     protected HashMap<Calendar, List<Person>> getInterviewsHashMap() {

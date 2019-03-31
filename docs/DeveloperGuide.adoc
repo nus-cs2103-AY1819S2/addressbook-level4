@@ -490,9 +490,9 @@ the cards in it.
 To update the change in the `UI` to reflect that the user is a test session (app goes to full screen with question of
 the current card presented), the following methods are introduced.
 
-* `MainWindow#handleStartTestSession` - creates a new `testSession` page and bring it forward in front of the
-current `cardMainScreen` page.
-* `MainWindow#handleEndTestSession` - deletes the current `testSession` page and the `cardMainScreen` page at the back
+* `MainWindow#handleStartTestSession()` - creates a new `TestSession` page and bring it forward in front of the
+current `CardMainScreen` page.
+* `MainWindow#handleEndTestSession()` - deletes the current `TestSession` page and the `CardMainScreen` page at the back
  is now presented to the user.
 
 [discrete]
@@ -605,15 +605,92 @@ Also, user being able to see the questions before the test session is not a big 
 
 
 ==== Answer Command
+===== Current Implementation
 
 [discrete]
 ===== Model
+To facilitate the marking of attempted answer, we introduce the following method in `ModelManager`.
 
-To facilitate the marking of attempted answer, `#markAttemptedAnswer()` method is introduced in `ModelManager` which compares the attempted answer and the correct answer obtained from the current card.
+`ModelManager#markAttemptedAnswer(Answer attemptedAnswer)` - returns true if attemptedAnswer is correct and
+false if attemptedAnswer is wrong. It compares the attempted answer and the correct answer obtained from the current
+card.
+
 [NOTE]
 Comparison is not case-sensitive
 
+[discrete]
+===== Logic
+To facilitate the update of score after marking the card, we introduce the following method in `AnswerCommand`.
 
+`AnswerCommand#createScoredCard(Card cardToMark, boolean markCorrect)` - creates a new card with the updated
+score.
+
+[discrete]
+====== UI
+To update the change in the `UI` to show the user the result of the marked answer, whether it is correct or wrong, the following methods are introduced.
+
+* `MainWindow#handleCorrectAnswer()` - invokes `TestSession#handleCorrectAnswer()`
+* `MainWindow#handleWrongAnswer()` - invokes `TestSession#handleWrongAnswer()`
+* `TestSession#handleCorrectAnswer()` - updates current `TestSession` page to green colour background with correct
+answer and correct answer description
+* `TestSession#handleWrongAnswer()` - updates current `TestSession` page to red colour background with correct answer
+and wrong answer description
+
+[discrete]
+====== Example Usage of answer command
+
+To illustrate how the components interact, below is a walkthrough of a typical usage scenario of the answer command.
+<<answercommandsequencediagram>> is a sequence diagram that summarises `Model` and `Logic` interactions, namely steps 1
+to 7.
+
+Step 1. User is in a test session and wants to answer the question on the card currently presented by executing a `ans
+ four`.
+
+Step 2. An `AnswerCommand` object is created and `LogicManager` executes the `AnswerCommand`, storing the result and
+then transferring control to the Model component, with `ModelManager#isInTestSession()` and
+`ModelManager#isCardAlreadyAnswered()` to check that user is indeed in a test session and has not attempted an answer
+ already. (This is omitted from <<answercommandsequencediagram>> for simplicity.)
+
+[NOTE]
+If the user is not in a test session or already attempted an answer for the current card, this answer command would be
+rendered invalid. Step 3 would not proceed and an error message is displayed.
+
+Step 4. After both checks have passed, `ModelManager#setCardAsAnswered()` is invoked.
+
+Step 5. ModelManager now marks the attempted answer by invoking `ModelManager#markAttemptedAnswer(attemptedAnswer)`.
+
+Step 6. After knowing the result of the attempt, the `Logic` unit creates a new card exactly the same as the current
+card but with the updated score and replaced the current one by invoking `AnswerCommand#createScoredCard(Card
+cardToMark, boolean markCorrect)` followed by `model#setCard(cardToMark, scoredCard)`.
+
+Step 7. To complete the update in the change in score, model#updateFilteredCard(PREDICATE_SHOW_ALL_CARDS) and
+model#commitActiveCardFolder() are invoked.
+
+    To elaborate further?
+
+Step 6. `AnswerCommand` now creates a `CommandResult` object, `r` with either type `ANSWER_CORRECT` or `ANSWER_WRONG`
+ depending on the outcome of the attempt.
+
+Step 7. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method.
+
+[[answercommandsequencediagram]]
+.Component interactions for a answer command
+image::AnswerCommandSequenceDiagram.png[width="800"]
+
+{empty} +
+
+Step 8. The caller method here is `MainWindow`. Control is now transferred to the UI component.
+
+Step 9. If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_CORRECT`, it invokes
+`MainWindow#handleCorrectAnswer()` to display the correct attempt `TestSession` page to the user.
+If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_WRONG`, it invokes
+`MainWindow#handleWrongAnswer()` to display the wrong attempt `TestSession` page to the user.
+
+    insert sequence diagram for UI for answer command?
+
+
+==== Next Command
+===== Current Implementation
 
 
 //end::testsession[]

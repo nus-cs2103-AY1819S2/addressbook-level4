@@ -27,7 +27,7 @@ import seedu.address.model.person.MatricNumber;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-public class MemberAddCommandTest {
+public class    MemberAddCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 

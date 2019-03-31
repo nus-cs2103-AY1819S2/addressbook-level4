@@ -228,10 +228,4 @@ public interface Model {
      * Update entire activity list
      */
     void updateActivityList();
-    /**
-     * Sets the selected activity in the filtered activity list.
-     * Returns the filtered activity, for export
-     */
-    Activity generateExportedActivity(Activity activity);
-
 }

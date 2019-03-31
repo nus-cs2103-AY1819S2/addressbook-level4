@@ -4,7 +4,7 @@
 :toc-title:
 :toc-placement: preamble
 :sectnums:
-:imagesDir: images/ug-diagrams
+:imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -112,7 +112,7 @@ The order of input does not matter as long as they are all captured. +
 
 *Results:*
 
-image::pat/ap_after.png[width="600" align="center"]
+image::ap_after.png[width="600" align="center"]
 
 After entering the command, you can view the added patient record on the display.
 
@@ -136,15 +136,15 @@ you can view the prefixes for each of the fields at the `addpat` section.
 
 `editpat S7332803I n/Gary Doh e/gdoh@gmail.com`  +
 
-image::pat/ep_before.png[width="600" align="center"]
+image::ep_before.png[width="600" align="center"]
 
 This changes the email and name of the patient with NRIC: S7332803I to Gary Doh and gdoh@gmail.com respectively.
 
-image::pat/ep_after.png[width="600" align="center"]
+image::ep_after.png[width="600" align="center"]
 
 You will also be able to see the changes made to the patient record in the display after the command is entered.
 
-image::pat/ep_conflict.png[width="600" align="center"]
+image::ep_conflict.png[width="600" align="center"]
 
 Since every citizen, permanent residents or foreigners in Singapore have their unique NRIC / FIN numbers, duplicate NRIC are not
 allowed in QuickDocs. When you edit a patient's NRIC/FIN, if there is an existing patient with that NRIC, the current edit
@@ -178,41 +178,41 @@ Index can also be used to narrow down patient searches to a single record.
 
 `listpat` +
 
-image::pat/lp_noargs.png[width="600" align="center"]
+image::lp_noargs.png[width="600" align="center"]
 
 If no keywords are entered, `listpat` will simply display the first 50 patients record stored.
 
 `listpat n/P` +
 
-image::pat/lp_name_after.png[width="600" align="center"]
+image::lp_name_after.png[width="600" align="center"]
 
 QuickDocs will list all patients whose name starts with P, this is very useful in searching for
 the specific NRIC or index of a patient you are interested in.
 
 `listpat r/S92` +
 
-image::pat/lp_nric_after.png[width="600" align="center"]
+image::lp_nric_after.png[width="600" align="center"]
 
 You can now view all the patient detail entries whose nric starts with S92.
 
-image::pat/lp_nric_specific.png[width="600" align="center"]
+image::lp_nric_specific.png[width="600" align="center"]
 
 and then proceed to narrow down the search using the specific patient's nric.
 
 `listpat t/diabetes` +
 
-image::pat/lp_tag_after.png[width="600" align="center"]
+image::lp_tag_after.png[width="600" align="center"]
 
 By specifying the tag to be diabetes, you can list all diabetic patients.
 
 `listpat 5`
 
-image::pat/lp_indexes.png[width="600" align="center"]
+image::lp_indexes.png[width="600" align="center"]
 
 Did you notice that when QuickDocs display multiple patient records during filtering, each record starts with
 a number? This is the index of the patient record.
 
-image::pat/lp_index.png[width="600" align="center"]
+image::lp_index.png[width="600" align="center"]
 
 You can make use of the index number to view specific patient records as well.
 
@@ -228,7 +228,7 @@ Alias: `dp`
 
 Example: `deletepat r/S7338031I`
 
-image::pat/lp_index.png[width="600" align="center"]
+image::dp_after.png[width="600" align="center"]
 
 This will delete the patient with the NRIC you have specified.
 

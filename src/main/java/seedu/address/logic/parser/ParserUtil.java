@@ -203,7 +203,7 @@ public class ParserUtil {
             throw new ParseException(Weblink.MESSAGE_CONSTRAINTS);
         }
         if (!Weblink.isValidWeblinkUrl(trimmedWeblink)) {
-            throw new ParseException(Weblink.INVALID_URL_MESSAGE);
+            throw new ParseException(String.format(Weblink.INVALID_URL_MESSAGE, trimmedWeblink));
         }
         return new Weblink(trimmedWeblink);
     }

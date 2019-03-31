@@ -302,7 +302,7 @@ Step 1. The user executes `open sample.png`.
 
 Step 2. `Album#checkFileExist(String)` is called to check if the file specified by the `String` exist in `assets` folder. If it exists, `Album#retrieveImage(String)` is called to create an `Image` object from the specified file. Otherwise, `CommandException` is thrown.
 
-Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of `Image`, named `temp_img.png` and `ori_img.png`, in `temp` folder. These copies are then instantiated as `tempImage` and `originalImage`.  
+Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of `Image`, named `temp_img.png` and `ori_img.png`, in `temp` folder. These copies are then instantiated as `tempImage` and `originalImage`.
 
 Step 4. `CurrentEdit#updateExIF(Image)` is called to updates the information of the opened image in the GUI.
 
@@ -585,17 +585,17 @@ Step 1. The user executes `save`.
 
 Step 2. `CurrentEdit#tempImageExist()` checks if an image was previously opened. If no `open` was called previously, `CommandException` is thrown.
 
-Step 3. `CurrentEdit#getTempImage()` retrieves the `tempImage` from `CurrentEdit`. 
+Step 3. `CurrentEdit#getTempImage()` retrieves the `tempImage` from `CurrentEdit`.
 
 Step 4. If user did not input a `String` after `save` previously, `CurrentEdit#getOriginalName()` will retrieve the `originalImageName` from `CurrentEdit`. Otherwise, `Album#checkFileExist(String)` will be called to check if a file name is similar to `String`. If it is a duplicate, `CommandException` will be thrown.
 
-Step 5. `Album#saveToAssets(Image, String)` takes in the previously retrieved `Image` and `String` to create a new image file in `assets` folder. 
+Step 5. `Album#saveToAssets(Image, String)` takes in the previously retrieved `Image` and `String` to create a new image file in `assets` folder.
 
 Step 6. `CurrentEdit#overwriteOriginal(String)` is called to update the files in `temp` folder and their respective instances in `CurrentEdit`.
 
-Step 7. `Album#populateAlbum()` updates the list of image in `Album` class to ensure it reflects all the files in `assets` folder. 
+Step 7. `Album#populateAlbum()` updates the list of image in `Album` class to ensure it reflects all the files in `assets` folder.
 
-Step 8.`Album#refreshAlbum()` is called to update the Information Panel on the GUI. 
+Step 8.`Album#refreshAlbum()` is called to update the Information Panel on the GUI.
 
 
 The following sequence diagram shows how the `save` command works:

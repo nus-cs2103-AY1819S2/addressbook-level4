@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
+import seedu.address.commons.core.Commands;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ListHealthWorkerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -65,6 +66,15 @@ public class CommandBoxTest extends GuiUnitTest {
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
         guiRobot.push(KeyCode.A);
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
+    }
+
+    @Test
+    public void commandBox_checkAutoComplete() {
+        assertAutoCompletion("s", Commands.SELECT);
+        assertAutoCompletion("add 1", Commands.ADD_HEALTH_WORKER_MODE);
+        assertAutoCompletion("add r", Commands.ADD_REQUEST);
+        assertAutoCompletion("hi", Commands.HISTORY);
+        assertAutoCompletion("f", Commands.FILTER);
     }
 
     /**
@@ -157,5 +167,10 @@ public class CommandBoxTest extends GuiUnitTest {
     private void assertInputHistory(KeyCode keycode, String expectedCommand) {
         guiRobot.push(keycode);
         assertEquals(expectedCommand, commandBoxHandle.getInput());
+    }
+
+    private void assertAutoCompletion(String prefix, String expected) {
+        commandBoxHandle.selectFromAutoComplete(prefix);
+        assertEquals(expected, commandBoxHandle.getInput());
     }
 }

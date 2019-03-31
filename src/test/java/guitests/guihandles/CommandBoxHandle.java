@@ -29,9 +29,25 @@ public class CommandBoxHandle extends NodeHandle<AutoCompleteTextField> {
     public void run(String command) {
         click();
         guiRobot.interact(() -> getRootNode().setText(command));
-        guiRobot.interact(() -> getRootNode().positionCaret(getInput().length()));
         guiRobot.pauseForHuman();
+        guiRobot.type(KeyCode.ENTER);
+    }
 
+
+    /**
+     * Enters the given prefix and selects from the autocompletion context menu.
+     */
+    public void selectFromAutoComplete(String prefix) {
+        click();
+        guiRobot.interact(() -> getRootNode().setText(prefix));
+        guiRobot.interact(() -> getRootNode().positionCaret(getInput().length()));
+        // to ensure that the selection does not get stuck
+        for (int i = 0; i < getInput().length(); i++) {
+            guiRobot.type(KeyCode.BACK_SPACE);
+        }
+        guiRobot.interact(() -> getRootNode().setText(prefix));
+        guiRobot.pauseForHuman();
+        guiRobot.type(KeyCode.DOWN);
         guiRobot.type(KeyCode.ENTER);
     }
 

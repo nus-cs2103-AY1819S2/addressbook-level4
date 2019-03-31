@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
@@ -58,6 +60,7 @@ public class AutoCompleteTextField extends TextField {
         });
 
     }
+
 
     /**
      * Sets the command box style to use the default style.

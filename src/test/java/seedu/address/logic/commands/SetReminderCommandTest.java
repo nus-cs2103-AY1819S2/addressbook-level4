@@ -25,10 +25,10 @@ public class SetReminderCommandTest {
 
     @Test
     public void execute_setReminder() {
-        SetReminderCommand command = new SetReminderCommand("00:00:05", "for testing purposes");
+        SetReminderCommand command = new SetReminderCommand("00:00:01", "for testing purposes");
 
         try {
-            Date duration = SetReminderCommand.FORMATTER.parse("00:00:05");
+            Date duration = SetReminderCommand.FORMATTER.parse("00:00:01");
 
             Calendar c1 = Calendar.getInstance();
             Calendar c2 = SetReminderCommand.dateToCalendar(duration);

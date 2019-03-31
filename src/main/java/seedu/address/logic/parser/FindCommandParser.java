@@ -27,6 +27,10 @@ import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DescriptionContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DrugAllergyContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.EmailContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinAddressContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinNameContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinPhoneContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.KinRelationContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.MultipleContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NricContainsKeywordsPredicate;
@@ -142,6 +146,18 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         case "desc/":
             return new DescriptionContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
+
+        case "nokn/":
+            return new KinNameContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
+
+        case "nokr/":
+            return new KinRelationContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
+
+        case "nokp/":
+            return new KinPhoneContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
+
+        case "noka/":
+            return new KinAddressContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
 
         default:
             throw new ParseException("");

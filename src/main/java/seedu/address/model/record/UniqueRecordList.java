@@ -45,7 +45,7 @@ public class UniqueRecordList implements Iterable<Record> {
     public void add(Record toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateTaskException();
+            throw new DuplicateRecordException();
         }
         internalList.add(0, toAdd);
     }

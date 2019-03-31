@@ -266,7 +266,17 @@ image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
 === Battleship Feature
 ==== Current Implementation
-A battleship is a basic class representing a battleship that can be placed on the map grid. The battleship must be variable in length, depending on the type of battleship. +
+A battleship is a basic class representing a battleship that can be placed on the map grid. The length of the battleship varies, depending on the type of battleship. There are three types of battleships: +
+
+1. Cruiser of length 2.
+1. Destroyer of length 3.
+1. Aircraft carrier of length 5.
+
+The number of battleship types that a user can deploy on the map depends on the size of the map. It is given by the formula:
+
+1. Number of cruisers = `mapSize` - 5.
+1. Number of destroyers = (`mapSize` + 2) / 5.
+1. Number of aircraft carriers = 1.
 
 [NOTE]
 The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
@@ -296,7 +306,7 @@ Battleships that have been deployed can also be listed. Battleships can be liste
 The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
 
 .Sequence diagram of listing battleships deployed on the map.
-image::ListShipSequenceDiagram.png[]
+image::ListShipSequenceDiagram.png[width=1499][height=2249]
 
 ==== Design Considerations
 ===== Aspect: How a battleship is placed on the map

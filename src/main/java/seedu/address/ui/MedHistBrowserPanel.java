@@ -15,6 +15,9 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.medicalhistory.MedicalHistory;
 
+/**
+ * The Medical History Browser Panel of the App.
+ */
 public class MedHistBrowserPanel extends UiPart<Region> {
     public static final URL DEFAULT_PAGE =
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));

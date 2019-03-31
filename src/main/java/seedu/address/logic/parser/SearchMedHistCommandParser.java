@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
-import java.util.Arrays;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.util.Arrays;
 
 import seedu.address.logic.commands.SearchMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;

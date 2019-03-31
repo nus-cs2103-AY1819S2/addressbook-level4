@@ -42,14 +42,14 @@ public class SetLimitCommandParser implements Parser<SetSemLimitCommand> {
 
         Index index;
         String rawSemester = argMultimap.getPreamble();
-        boolean isValidSemester = Semester.isValidSemester(rawSemester);
+        boolean isValidSemester = Semester.isValidSemesterForTakingModules(rawSemester);
         if (!isValidSemester) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SetSemLimitCommand.MESSAGE_USAGE));
         }
 
-        int oneBasedIndex = Semester.valueOf(rawSemester).getIndex();
-        index = ParserUtil.parseIndex(String.valueOf(oneBasedIndex));
+        int zeroBasedIndex = Semester.valueOf(rawSemester).getIndex();
+        index = ParserUtil.parseIndex(String.valueOf(++zeroBasedIndex));
 
         EditSemLimitDescriptor editSemLimitDescriptor = new EditSemLimitDescriptor();
         if (argMultimap.getValue(PREFIX_MIN_CAP).isPresent()) {

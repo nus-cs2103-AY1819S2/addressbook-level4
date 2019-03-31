@@ -13,6 +13,7 @@ import seedu.address.model.GradTrak;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.SemLimit;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 
 /**
  * An Immutable GradTrak that is serializable to JSON format.
@@ -24,15 +25,18 @@ class JsonSerializableGradTrak {
 
     private final List<JsonAdaptedModuleTaken> modulesTaken = new ArrayList<>();
     private final List<JsonAdaptedSemesterLimits> semesterLimitList = new ArrayList<>();
+    private final int currentSemesterIndex;
 
     /**
      * Constructs a {@code JsonSerializableGradTrak} with the given modulesTaken.
      */
     @JsonCreator
     public JsonSerializableGradTrak(@JsonProperty("modulesTaken") List<JsonAdaptedModuleTaken> modulesTaken,
-                            @JsonProperty("semesterLimitList") List<JsonAdaptedSemesterLimits> semesterLimitList) {
+                            @JsonProperty("semesterLimitList") List<JsonAdaptedSemesterLimits> semesterLimitList,
+                            @JsonProperty("currentSemesterIndex") int currentSemesterIndex) {
         this.modulesTaken.addAll(modulesTaken);
         this.semesterLimitList.addAll(semesterLimitList);
+        this.currentSemesterIndex = currentSemesterIndex;
     }
 
     /**
@@ -47,6 +51,7 @@ class JsonSerializableGradTrak {
         semesterLimitList.addAll(source.getSemesterLimitList()
                 .stream().map(JsonAdaptedSemesterLimits::new)
                 .collect(Collectors.toList()));
+        currentSemesterIndex = source.getCurrentSemester().getIndex();
     }
 
     /**
@@ -67,6 +72,7 @@ class JsonSerializableGradTrak {
             SemLimit semLimit = jsonAdaptedSemesterLimits.toModelType();
             gradTrak.addSemesterLimit(semLimit);
         }
+        gradTrak.setCurrentSemester(Semester.getSemesterByZeroIndex(currentSemesterIndex));
         return gradTrak;
     }
 

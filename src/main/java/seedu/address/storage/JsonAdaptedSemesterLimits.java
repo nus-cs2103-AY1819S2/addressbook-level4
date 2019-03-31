@@ -58,7 +58,7 @@ public class JsonAdaptedSemesterLimits {
     }
 
     /**
-     * Converts a given {@code ModuleTaken} into this class for Jackson use.
+     * Converts a given {@code SemLimit} into this class for Jackson use.
      */
     public JsonAdaptedSemesterLimits(SemLimit source) {
         minCap = source.getMinCap().getCapLimit();

@@ -106,7 +106,7 @@ class JsonAdaptedModuleTaken {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Semester.class.getSimpleName()));
         }
-        if (!Semester.isValidSemester(semester)) {
+        if (!Semester.isValidSemesterForTakingModules(semester)) {
             throw new IllegalValueException(Semester.MESSAGE_CONSTRAINTS);
         }
         final Semester modelSemester = Semester.valueOf(semester);

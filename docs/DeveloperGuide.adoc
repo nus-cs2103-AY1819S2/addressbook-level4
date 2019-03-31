@@ -645,19 +645,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | user | see the number of actions I made |keep track of my play style
 
+|`* * *` | user | see the number of successful attacks I made |keep track of how well I am doing in the game
+
 |`* * *` | user | see where my battleships are on the map |have a visual representation of the game
 
 |`* * *` | user | list my battleships |know the status of my fleet
 
 |`* * *` | player | end my turn |the enemy can start its turn
 
-|`* * *` |player |delete a person |remove entries that I no longer need
-
-|`* * *` |player |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |player |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |player with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_
@@ -855,12 +850,10 @@ To test the `stats` feature. We will perform a before and after check to see if 
 1. Initialize a 8x8 map using `init 8`.
 2. Run the `stats` command and observe the results
 .. Test case : `stats`  (before) +
-   Expected: All fields are 0
-3. Now attack ....
+   Expected: All fields are 0.
+3. Now input `attack c1` to simulate an attack on the enemy map.
 .. Test case : `stats` (after) +
-    Expected: ......
-    
-
+    Expected: Number of attacks : 1, Number of Misses : 1
 
 === Saving data
 

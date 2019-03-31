@@ -18,12 +18,12 @@ public class ListFilesCommand extends Command {
     public static final String COMMAND_WORD = "listfiles";
     public static final String MESSAGE_LIST_FILES_HEADER = "Files in assets folder: %1$s";
     public static final String MESSAGE_SUCCESS = "Listed all files in assets folder.";
+    private Album album = Album.getInstance();
 
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
         requireNonNull(currentEdit);
-        Album album = Album.getInstance();
         String[] fileNames = album.getFileNames();
         return new CommandResult(String.format(MESSAGE_LIST_FILES_HEADER, Arrays.toString(fileNames)
                 + "\n" + MESSAGE_SUCCESS));

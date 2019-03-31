@@ -20,6 +20,7 @@ public class SaveCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Image saved as: %1$s";
 
     private String toName;
+    private Album album = Album.getInstance();
 
     /**
      * Creates an SaveCommand to add the specified {@code name}
@@ -32,8 +33,6 @@ public class SaveCommand extends Command {
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) throws CommandException {
         requireNonNull(currentEdit);
 
-        Album album = Album.getInstance();
-
         if (currentEdit.getTempImage() == null) {
             throw new CommandException(MESSAGE_UNABLE_TO_SAVE);
         }
@@ -45,6 +44,7 @@ public class SaveCommand extends Command {
         }
         album.saveToAssets(image, toName);
         currentEdit.overwriteOriginal(toName);
+        album.populateAlbum();
         model.refreshAlbum();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toName));

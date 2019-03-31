@@ -355,25 +355,25 @@ Step 2. Put the ships accordingly...
 
 Step 3. Input `stats` into the command-line and press enter to obtain the current statistical data.
 
+image::inputStatsCommandSS.png[width=250]
 ! Note, there should not be any valid data at the moment as the game as not started.
 ! Include Screenshot explaining pop-up window and lack of data
 
+image::StatsWindowSS.png[width=400]
 Step 4. Now proceed with the game and perform an attack ....
 
 Step 5. Invoke the `stats` command again to view the updated statistics
 
-!Include diagram on updated stats
+image::StatsWindowUpdatedSS.png[width=400]
 
-The following activity diagram summarizes what happens when a User executes a successful Attack Command with a successful hit.
+The following sequence diagram summarizes what happens when a User invokes the `stats` command.
 
-!Include diagram for this scenario
+image::StatsSequenceDiagram.png[width=800]
 
 ==== Output Statistical Data
-Besides the pop-up window, the data is also captured in the command-line result box
+Besides the pop-up window, the data is also captured in the command-line result box.
 
-!Include diagram
-
-
+image::StatsCommandBox.png[width=400]
 
 ==== Design Considerations
 * **Alternative 1 (current choice):** Statistics will have an initialise method that with a set of default configuration that are used by any Statistics Variant.

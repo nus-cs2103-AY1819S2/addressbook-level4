@@ -77,7 +77,7 @@ public class ParserUtil {
     public static Semester parseSemester(String semester) throws ParseException {
         requireNonNull(semester);
         String trimmedSemester = semester.trim();
-        if (!Semester.isValidSemester(trimmedSemester)) {
+        if (!Semester.isValidSemesterForTakingModules(trimmedSemester)) {
             throw new ParseException(Semester.MESSAGE_CONSTRAINTS);
         }
         return Semester.valueOf(trimmedSemester);

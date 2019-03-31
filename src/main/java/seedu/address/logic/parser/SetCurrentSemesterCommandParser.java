@@ -23,9 +23,7 @@ public class SetCurrentSemesterCommandParser implements Parser<SetCurrentSemeste
 
         Semester semester;
         String rawSemester = argMultimap.getPreamble();
-        boolean isGrad = rawSemester.equals(Semester.GRAD.toString());
-        boolean isValidSemester = Semester.isValidSemester(rawSemester);
-        if (!isGrad && !isValidSemester) {
+        if (!Semester.isValidSemester(rawSemester)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     SetCurrentSemesterCommand.MESSAGE_USAGE));
         }

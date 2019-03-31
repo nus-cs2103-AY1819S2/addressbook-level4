@@ -37,9 +37,9 @@ public class LimitChecker {
             //TODO get credits info from module info
             ModuleInfoCredits modCredits = new ModuleInfoCredits(4);
 
-            minMaxCapAveragesPerSem[modulesTaken.get(mod).getSemester().getIndex() - 1][0].addWeightedGrade(
+            minMaxCapAveragesPerSem[modulesTaken.get(mod).getSemester().getIndex()][0].addWeightedGrade(
                     modulesTaken.get(mod).getExpectedMinGrade().getGradePoint(), modCredits);
-            minMaxCapAveragesPerSem[modulesTaken.get(mod).getSemester().getIndex() - 1][1].addWeightedGrade(
+            minMaxCapAveragesPerSem[modulesTaken.get(mod).getSemester().getIndex()][1].addWeightedGrade(
                     modulesTaken.get(mod).getExpectedMaxGrade().getGradePoint(), modCredits);
 
             cumulativeMinCap.addWeightedGrade(
@@ -50,15 +50,15 @@ public class LimitChecker {
             if (modulesTaken.get(mod).getSemester().getIndex() < currentSemester.getIndex()) {
                 currentCap.addWeightedGrade(modulesTaken.get(mod).getExpectedMinGrade().getGradePoint(), modCredits);
             }
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][0] +=
+            semesterSums[modulesTaken.get(mod).getSemester().getIndex()][0] +=
                     modulesTaken.get(mod).getLectureHour().getHour();
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][1] +=
+            semesterSums[modulesTaken.get(mod).getSemester().getIndex()][1] +=
                     modulesTaken.get(mod).getLectureHour().getHour();
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][2] +=
+            semesterSums[modulesTaken.get(mod).getSemester().getIndex()][2] +=
                     modulesTaken.get(mod).getLectureHour().getHour();
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][3] +=
+            semesterSums[modulesTaken.get(mod).getSemester().getIndex()][3] +=
                     modulesTaken.get(mod).getLectureHour().getHour();
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][4] +=
+            semesterSums[modulesTaken.get(mod).getSemester().getIndex()][4] +=
                     modulesTaken.get(mod).getLectureHour().getHour();
         }
         double[] cumulativeMinCurrentMaxCap = new double[3];

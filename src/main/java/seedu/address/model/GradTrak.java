@@ -83,6 +83,7 @@ public class GradTrak implements ReadOnlyGradTrak {
 
         setModulesTaken(newData.getModulesTakenList());
         setSemesterLimits(newData.getSemesterLimitList());
+        setCurrentSemester(newData.getCurrentSemester());
     }
 
     //// moduleTaken-level operations

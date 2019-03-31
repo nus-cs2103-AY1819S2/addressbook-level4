@@ -22,6 +22,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.DuplicateModuleTakenException;
 import seedu.address.testutil.ModuleTakenBuilder;
 
@@ -133,6 +134,11 @@ public class AddressBookTest {
 
         @Override
         public ObservableList<SemLimit> getSemesterLimitList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Semester getCurrentSemester() {
             throw new AssertionError("This method should not be called.");
         }
 

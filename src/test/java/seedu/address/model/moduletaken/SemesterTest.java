@@ -23,19 +23,19 @@ public class SemesterTest {
     @Test
     public void isValidSemester() {
         // null semester number
-        Assert.assertThrows(NullPointerException.class, () -> Semester.isValidSemester(null));
+        Assert.assertThrows(NullPointerException.class, () -> Semester.isValidSemesterForTakingModules(null));
 
         // invalid semester numbers
-        assertFalse(Semester.isValidSemester("")); // empty string
-        assertFalse(Semester.isValidSemester(" ")); // spaces only
-        assertFalse(Semester.isValidSemester("S2")); // less than 3 numbers
-        assertFalse(Semester.isValidSemester("Y3S4")); // non-numeric
-        assertFalse(Semester.isValidSemester("Y6S2")); // alphabets within digits
-        assertFalse(Semester.isValidSemester("Y1")); // spaces within digits
+        assertFalse(Semester.isValidSemesterForTakingModules("")); // empty string
+        assertFalse(Semester.isValidSemesterForTakingModules(" ")); // spaces only
+        assertFalse(Semester.isValidSemesterForTakingModules("S2")); // less than 3 numbers
+        assertFalse(Semester.isValidSemesterForTakingModules("Y3S4")); // non-numeric
+        assertFalse(Semester.isValidSemesterForTakingModules("Y6S2")); // alphabets within digits
+        assertFalse(Semester.isValidSemesterForTakingModules("Y1")); // spaces within digits
 
         // valid semester numbers
-        assertTrue(Semester.isValidSemester("Y2S1")); // exactly 3 numbers
-        assertTrue(Semester.isValidSemester("Y1S1"));
-        assertTrue(Semester.isValidSemester("Y4S2")); // long semester numbers
+        assertTrue(Semester.isValidSemesterForTakingModules("Y2S1")); // exactly 3 numbers
+        assertTrue(Semester.isValidSemesterForTakingModules("Y1S1"));
+        assertTrue(Semester.isValidSemesterForTakingModules("Y4S2")); // long semester numbers
     }
 }

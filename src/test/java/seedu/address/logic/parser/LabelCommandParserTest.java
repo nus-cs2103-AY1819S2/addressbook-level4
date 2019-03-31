@@ -5,7 +5,6 @@ import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;

@@ -23,6 +23,9 @@ public class CommandResult {
     /** The application will update budget **/
     private boolean changeBudget;
 
+    /** The application will update category budget **/
+    private boolean changeCategoryBudget;
+
     private String themeToChange;
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -55,6 +58,12 @@ public class CommandResult {
         this(feedbackToUser, false, false, false);
     }
 
+    public CommandResult(String feedbackToUser, boolean changeCategoryBudget) {
+        this(feedbackToUser, false, false, false);
+        this.changeBudget = false;
+
+    }
+
     public String getThemeToChange() {
         return themeToChange;
     }
@@ -77,6 +86,14 @@ public class CommandResult {
 
     public boolean isChangeBudget() {
         return changeBudget;
+    }
+
+    public boolean isChangeCategoryBudget() {
+        return changeCategoryBudget;
+    }
+
+    public void changeCategoryBudget() {
+        this.changeCategoryBudget = true;
     }
 
     @Override

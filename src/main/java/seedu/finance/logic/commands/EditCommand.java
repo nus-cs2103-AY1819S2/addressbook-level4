@@ -7,11 +7,8 @@ import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.finance.model.Model.PREDICATE_SHOW_ALL_RECORD;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.finance.commons.core.Messages;
 import seedu.finance.commons.core.index.Index;
@@ -99,9 +96,9 @@ public class EditCommand extends Command {
         Amount updatedAmount = editRecordDescriptor.getAmount().orElse(recordToEdit.getAmount());
         Date updatedDate = editRecordDescriptor.getDate().orElse(recordToEdit.getDate());
         Description updatedDescription = recordToEdit.getDescription();
-        Set<Category> updatedCategories = editRecordDescriptor.getCategories().orElse(recordToEdit.getCategories());
+        Category updatedCategory = editRecordDescriptor.getCategory().orElse(recordToEdit.getCategory());
 
-        return new Record(updatedName, updatedAmount, updatedDate, updatedDescription, updatedCategories);
+        return new Record(updatedName, updatedAmount, updatedDate, updatedDescription, updatedCategory);
     }
 
     @Override
@@ -130,7 +127,7 @@ public class EditCommand extends Command {
         private Name name;
         private Amount amount;
         private Date date;
-        private Set<Category> categories;
+        private Category category;
 
         public EditRecordDescriptor() {}
 
@@ -142,14 +139,14 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setAmount(toCopy.amount);
             setDate(toCopy.date);
-            setCategories(toCopy.categories);
+            setCategory(toCopy.category);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, amount, date, categories);
+            return CollectionUtil.isAnyNonNull(name, amount, date, category);
         }
 
         public void setName(Name name) {
@@ -181,8 +178,8 @@ public class EditCommand extends Command {
          * Sets {@code categories} to this object's {@code categories}.
          * A defensive copy of {@code categories} is used internally.
          */
-        public void setCategories(Set<Category> categories) {
-            this.categories = (categories != null) ? new HashSet<>(categories) : null;
+        public void setCategory(Category category) {
+            this.category = (category != null) ? category : null;
         }
 
         /**
@@ -190,8 +187,8 @@ public class EditCommand extends Command {
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code categories} is null.
          */
-        public Optional<Set<Category>> getCategories() {
-            return (categories != null) ? Optional.of(Collections.unmodifiableSet(categories)) : Optional.empty();
+        public Optional<Category> getCategory() {
+            return (category != null) ? Optional.of(category) : Optional.empty();
         }
 
         @Override
@@ -212,7 +209,7 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getAmount().equals(e.getAmount())
                     && getDate().equals(e.getDate())
-                    && getCategories().equals(e.getCategories());
+                    && getCategory().equals(e.getCategory());
         }
     }
 }

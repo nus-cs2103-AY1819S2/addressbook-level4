@@ -8,9 +8,10 @@ import seedu.finance.model.record.Record;
  */
 public class Budget {
 
-    private double totalBudget;
+    protected double totalBudget;
+    protected double currentBudget;
+    protected double currentSpendings;
 
-    private double currentBudget;
 
     /**
      * Constructs a {@code Budget} with no initial value.
@@ -18,16 +19,25 @@ public class Budget {
     public Budget() {
         totalBudget = 0;
         currentBudget = 0;
+        currentSpendings = 0;
     }
 
     public Budget(double initialBudget) {
         this.totalBudget = initialBudget;
         this.currentBudget = initialBudget;
+        this.currentSpendings = 0;
     }
 
     public Budget(double totalBudget, double currentBudget) {
         this.totalBudget = totalBudget;
         this.currentBudget = currentBudget;
+        this.currentSpendings = totalBudget - currentBudget;
+    }
+
+    public Budget(Budget budget) {
+        this.totalBudget = budget.getTotalBudget();
+        this.currentBudget = budget.getCurrentBudget();
+        this.currentSpendings = budget.getCurrentSpendings();
     }
 
     /**
@@ -39,17 +49,47 @@ public class Budget {
     public void set(double totalBudget, double currentBudget) {
         this.totalBudget = totalBudget;
         this.currentBudget = currentBudget;
+        this.currentSpendings = totalBudget - currentBudget;
     }
 
+    /**
+     * Method to update budget
+     * @param records the records in Finance Tracker
+     */
     public void updateBudget(ObservableList<Record> records) {
         if (totalBudget == 0) {
             return;
         }
         currentBudget = totalBudget;
+        currentSpendings = 0;
         records.forEach(record -> currentBudget -= Double.parseDouble(record.getAmount().toString()));
+        records.forEach(record -> currentSpendings += Double.parseDouble(record.getAmount().toString()));
+
         if (currentBudget < 0) {
             currentBudget = 0;
         }
+    }
+
+    /**
+     * Method to add spendings of record
+     * @param record the record to be added
+     * @return true if currentSpendings is within totalBudget
+     */
+    public boolean addRecord(Record record) {
+        Double spending = record.getAmount().getValue();
+        this.currentSpendings += spending;
+        this.currentBudget -= spending;
+        return this.currentSpendings <= totalBudget;
+    }
+
+    /**
+     * Method to remove spendings of record
+     * @param record the record to be removed
+     */
+    public void removeRecord(Record record) {
+        Double spending = record.getAmount().getValue();
+        this.currentSpendings -= spending;
+        this.currentBudget += spending;
     }
 
     public boolean isSet() {
@@ -64,8 +104,26 @@ public class Budget {
         return currentBudget;
     }
 
+    public double getCurrentSpendings() {
+        return currentSpendings;
+    }
+
+    /**
+     * Method to reset spendings to 0
+     */
+    public void clearSpendings() {
+        this.currentSpendings = 0;
+        this.currentBudget = totalBudget;
+    }
+
     @Override
     public String toString() {
         return currentBudget + "/" + totalBudget;
+    }
+
+    @Override
+    public boolean equals(Object budget) {
+        Budget otherBudget = (Budget) budget;
+        return this.totalBudget == otherBudget.totalBudget;
     }
 }

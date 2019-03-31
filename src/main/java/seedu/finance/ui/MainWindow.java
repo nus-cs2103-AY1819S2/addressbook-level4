@@ -156,6 +156,9 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Handles and udpates the budget to show on UI
+     */
     @FXML
     public void handleChangeBudget() {
         logger.info("Budget Info: " + logic.getBudget().getCurrentBudget());

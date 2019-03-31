@@ -6,7 +6,6 @@ import static seedu.finance.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.finance.logic.parser.CliSyntax.PREFIX_NAME;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.finance.logic.commands.SpendCommand;
@@ -41,9 +40,9 @@ public class SpendCommandParser implements Parser<SpendCommand> {
         Amount amount = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Description description = new Description("");
-        Set<Category> categoryList = ParserUtil.parseCategories(argMultimap.getAllValues(PREFIX_CATEGORY));
+        Category category = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get());
 
-        Record record = new Record(name, amount, date, description, categoryList);
+        Record record = new Record(name, amount, date, description, category);
 
         return new SpendCommand(record);
     }

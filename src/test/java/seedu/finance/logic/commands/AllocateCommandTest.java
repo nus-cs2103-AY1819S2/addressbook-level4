@@ -2,22 +2,21 @@ package seedu.finance.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import static seedu.finance.logic.commands.AllocateCommand.MESSAGE_ARGUMENTS;
+import static seedu.finance.logic.commands.AllocateCommand.MESSAGE_SUCCESS;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_AMY;
-import static seedu.finance.logic.commands.CommandTestUtil.VALID_AMOUNT_BOB;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_FRIEND;
 import static seedu.finance.logic.commands.CommandTestUtil.VALID_CATEGORY_HUSBAND;
-import static seedu.finance.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.finance.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.finance.testutil.TypicalRecords.getTypicalFinanceTracker;
 
 import org.junit.Test;
 
 import seedu.finance.logic.CommandHistory;
+import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.Model;
 import seedu.finance.model.ModelManager;
 import seedu.finance.model.UserPrefs;
-import seedu.finance.model.category.Category;
+import seedu.finance.model.budget.CategoryBudget;
 import seedu.finance.model.record.Amount;
 
 /**
@@ -26,26 +25,33 @@ import seedu.finance.model.record.Amount;
 public class AllocateCommandTest {
 
     private Model model = new ModelManager(getTypicalFinanceTracker(), new UserPrefs());
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute() {
-        final Amount amount = new Amount("123.00");
-        final Category category = new Category("Food");
+    public void execute_addCategoryBudget_success() {
+        final CategoryBudget categoryBudget = new CategoryBudget(VALID_CATEGORY_FRIEND,
+                Double.parseDouble(VALID_AMOUNT_AMY));
 
-        assertCommandFailure(new AllocateCommand(amount, category), model,
-                new CommandHistory(), String.format(MESSAGE_ARGUMENTS, amount, category));
+        AllocateCommand allocateCommand = new AllocateCommand(categoryBudget);
+        String expectedMessage = String.format(MESSAGE_SUCCESS, VALID_CATEGORY_FRIEND);
+        Model expectedModel = new ModelManager(new FinanceTracker(model.getFinanceTracker()), new UserPrefs());
+        expectedModel.addCategoryBudget(categoryBudget);
+
+        expectedModel.commitFinanceTracker();
+        assertCommandSuccess(allocateCommand, model, commandHistory, expectedMessage, expectedModel);
     }
 
     @Test
     public void equals() {
+        final CategoryBudget catBudget = new CategoryBudget(VALID_CATEGORY_FRIEND,
+                Double.parseDouble(VALID_AMOUNT_AMY));
 
-        final AllocateCommand standardCommand = new AllocateCommand(new Amount(VALID_AMOUNT_AMY),
-                new Category(VALID_CATEGORY_FRIEND));
+        final AllocateCommand standardCommand = new AllocateCommand(catBudget);
 
-        // same values -> returns true
-        AllocateCommand commandWithSameValues = new AllocateCommand(new Amount ("312.00"),
-                new Category("friend"));
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        // same category (case-insensitive) -> returns true
+        AllocateCommand commandWithSameCategory = new AllocateCommand(new CategoryBudget(
+                "fRieND", Double.parseDouble("100.14")));
+        assertTrue(standardCommand.equals(commandWithSameCategory));
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
@@ -56,13 +62,10 @@ public class AllocateCommandTest {
         // different types -> returns false
         assertFalse(standardCommand.equals(new IncreaseCommand(new Amount ("312.00"))));
 
-        // different amount -> returns false
-        assertFalse(standardCommand.equals(new AllocateCommand(new Amount(VALID_AMOUNT_BOB),
-                new Category(VALID_CATEGORY_FRIEND))));
-
         // different category -> returns false
-        assertFalse(standardCommand.equals(new AllocateCommand(new Amount(VALID_AMOUNT_AMY),
-                new Category(VALID_CATEGORY_HUSBAND))));
+        assertFalse(standardCommand.equals(new AllocateCommand(new CategoryBudget(VALID_CATEGORY_HUSBAND,
+                Double.parseDouble(VALID_AMOUNT_AMY)))));
+
 
     }
 }

@@ -28,7 +28,6 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.RecordListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-
 import seedu.finance.TestApp;
 import seedu.finance.commons.core.index.Index;
 import seedu.finance.logic.commands.ClearCommand;

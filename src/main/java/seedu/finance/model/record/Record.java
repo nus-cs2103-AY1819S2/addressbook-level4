@@ -2,10 +2,7 @@ package seedu.finance.model.record;
 
 import static seedu.finance.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.finance.model.category.Category;
 
@@ -22,19 +19,19 @@ public class Record {
     private final Amount amount;
     private final Date date;
     private final Description description;
-    private final Set<Category> categories = new HashSet<>();
+    private final Category category;
 
     /**
      * Every field must be present and not null.
      */
     public Record(Name name, Amount amount, Date date,
-                  Description description, Set<Category> categories) {
-        requireAllNonNull(name, amount, date, categories);
+                  Description description, Category category) {
+        requireAllNonNull(name, amount, date, category);
         this.name = name;
         this.amount = amount;
         this.date = date;
         this.description = description;
-        this.categories.addAll(categories);
+        this.category = category;
     }
 
     public Name getName() {
@@ -53,12 +50,8 @@ public class Record {
         return description;
     }
 
-    /**
-     * Returns an immutable category set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Category> getCategories() {
-        return Collections.unmodifiableSet(categories);
+    public Category getCategory() {
+        return category;
     }
 
     /**
@@ -94,27 +87,27 @@ public class Record {
                 && otherRecord.getAmount().equals(getAmount())
                 && otherRecord.getDate().equals(getDate())
                 && otherRecord.getDescription().equals(getDescription())
-                && otherRecord.getCategories().equals(getCategories());
+                && otherRecord.getCategory().equals(getCategory());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, amount, date, description, categories);
+        return Objects.hash(name, amount, date, description, category);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Amount: ")
+                .append(" Amount: $")
                 .append(getAmount())
                 .append(" Date: ")
                 .append(getDate())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" Categories: ");
-        getCategories().forEach(builder::append);
+                .append(" Category: ")
+                .append(getClass());
         return builder.toString();
     }
 

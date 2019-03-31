@@ -7,7 +7,6 @@ import seedu.finance.logic.CommandHistory;
 import seedu.finance.logic.commands.exceptions.CommandException;
 import seedu.finance.model.Model;
 import seedu.finance.model.budget.Budget;
-import seedu.finance.model.record.Amount;
 
 /**
  * Sets a budget in the finance tracker.

@@ -15,6 +15,7 @@ import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.moduletaken.Workload;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -29,6 +30,10 @@ class JsonAdaptedModuleTaken {
     private final String expectedMinGrade;
     private final String expectedMaxGrade;
     private final String lectureHour;
+    private final String tutorialHour;
+    private final String labHour;
+    private final String projectHour;
+    private final String preparationHour;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -40,12 +45,20 @@ class JsonAdaptedModuleTaken {
                                   @JsonProperty("expectedMinGrade") String expectedMinGrade,
                                   @JsonProperty("expectedMaxGrade") String expectedMaxGrade,
                                   @JsonProperty("lectureHour") String lectureHour,
+                                  @JsonProperty("tutorialHour") String tutorialHour,
+                                  @JsonProperty("labHour") String labHour,
+                                  @JsonProperty("projectHour") String projectHour,
+                                  @JsonProperty("preparationHour") String preparationHour,
                                   @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.moduleInfoCode = moduleInfoCode;
         this.semester = semester;
         this.expectedMinGrade = expectedMinGrade;
         this.expectedMaxGrade = expectedMaxGrade;
         this.lectureHour = lectureHour;
+        this.tutorialHour = tutorialHour;
+        this.labHour = labHour;
+        this.projectHour = projectHour;
+        this.preparationHour = preparationHour;
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -60,6 +73,10 @@ class JsonAdaptedModuleTaken {
         expectedMinGrade = source.getExpectedMinGrade().name();
         expectedMaxGrade = source.getExpectedMaxGrade().name();
         lectureHour = source.getLectureHour().toString();
+        tutorialHour = source.getTutorialHour().toString();
+        labHour = source.getLabHour().toString();
+        projectHour = source.getProjectHour().toString();
+        preparationHour = source.getPreparationHour().toString();
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -118,9 +135,44 @@ class JsonAdaptedModuleTaken {
         }
         final Hour modelLectureHour = new Hour(lectureHour);
 
+        if (tutorialHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Hour.class.getSimpleName()));
+        }
+        if (!Hour.isValidHour(tutorialHour)) {
+            throw new IllegalValueException(Hour.MESSAGE_CONSTRAINTS);
+        }
+        final Hour modelTutorialHour = new Hour(tutorialHour);
+
+        if (labHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Hour.class.getSimpleName()));
+        }
+        if (!Hour.isValidHour(labHour)) {
+            throw new IllegalValueException(Hour.MESSAGE_CONSTRAINTS);
+        }
+        final Hour modelLabHour = new Hour(labHour);
+
+        if (projectHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Hour.class.getSimpleName()));
+        }
+        if (!Hour.isValidHour(projectHour)) {
+            throw new IllegalValueException(Hour.MESSAGE_CONSTRAINTS);
+        }
+        final Hour modelProjectHour = new Hour(projectHour);
+
+        if (preparationHour == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Hour.class.getSimpleName()));
+        }
+        if (!Hour.isValidHour(preparationHour)) {
+            throw new IllegalValueException(Hour.MESSAGE_CONSTRAINTS);
+        }
+        final Hour modelPreparationHour = new Hour(preparationHour);
+
+        final Workload modelWorkload = new Workload(modelLectureHour, modelTutorialHour, modelLabHour,
+                modelProjectHour, modelPreparationHour);
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new ModuleTaken(modelName, modelSemester, modelExpectedMinGrade,
-                modelExpectedMaxGrade, modelLectureHour, modelTags);
+                modelExpectedMaxGrade, modelWorkload, modelTags);
     }
 
 }

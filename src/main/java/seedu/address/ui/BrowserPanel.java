@@ -43,7 +43,7 @@ public class BrowserPanel extends UiPart<Region> {
                 loadDefaultPage();
                 return;
             }
-            loadModuleTakenPage(newValue);
+            loadPersonPage(newValue);
         });
 
         loadDefaultPage();
@@ -51,10 +51,6 @@ public class BrowserPanel extends UiPart<Region> {
 
     private void loadPersonPage(ModuleTaken moduleTaken) {
         loadPage(SEARCH_PAGE_URL + moduleTaken.getModuleInfoCode().toString());
-    }
-
-    private void loadModuleTakenPage(ModuleTaken moduleTaken) {
-        loadContent(moduleTaken.toString());
     }
 
     public void loadPage(String url) {

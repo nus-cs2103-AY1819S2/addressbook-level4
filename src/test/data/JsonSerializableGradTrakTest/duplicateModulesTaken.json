@@ -4,14 +4,22 @@
     "semester" : "Y3S2",
     "expectedMinGrade" : "D",
     "expectedMaxGrade" : "A",
-    "lectureHour" : "0",
+    "lectureHour" : "2",
+    "tutorialHour" : "0",
+    "labHour" : "1",
+    "projectHour" : "0",
+    "preparationHour" : "1",
     "tagged": [ "friends" ]
   }, {
     "moduleInfoCode": "CS2103T",
     "semester" : "Y3S2",
     "expectedMinGrade" : "C",
     "expectedMaxGrade" : "B",
-    "lectureHour" : "1"
+    "lectureHour" : "3",
+    "tutorialHour" : "0",
+    "labHour" : "0",
+    "projectHour" : "1",
+    "preparationHour" : "2"
   } ],
   "semesterLimitList" : [ {
     "minCap" : 1.0,

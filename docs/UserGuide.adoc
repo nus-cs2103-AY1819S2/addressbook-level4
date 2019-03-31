@@ -49,10 +49,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/fantasy`, `t/fantasy t/textbook` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
 * While book names, review title and review content can contain any kinds of characters, tag and author names should only contain alpha-numeric characters.
-* Book name and author name should not exceed 50 characters.
-* Review title should not exceed 70 characters.
-* Review content should not exceed 350 characters.
-* Tags should not exceed 20 characters.
+* Book name and author name should not exceed 50 characters (space included).
+* Review title should not exceed 70 characters (space included).
+* Review content should not exceed 350 characters (space included).
+* Tags should not exceed 20 characters (space included).
 ====
 
 === Viewing help : `help`

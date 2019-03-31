@@ -162,6 +162,11 @@ public interface Model {
     ObservableList<Record> getFilteredRecordList();
 
     /**
+     * Updates the filtered records list.
+     */
+    void updateFilteredRecordList(Predicate<Record> predicate);
+
+    /**
      * Returns true if a record with the same identity as {@code record} exists in the address book.
      */
     boolean hasRecord(Record record);

@@ -268,6 +268,12 @@ image::InitialiseMapCommandSequenceDiagram.png[width=800]
 ==== Current Implementation
 A battleship is a basic class representing a battleship that can be placed on the map grid. The battleship must be variable in length, depending on the type of battleship. +
 
+[NOTE]
+The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
+
+.The coordinates of the `put` command refer to the coordinates of the battleship head.
+image:BattleshipHeadExample2.png[width=800]
+
 The following sequence diagram shows how a battleship is put on the map.
 
 .Sequence diagram of putting a battleship on the map.

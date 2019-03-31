@@ -311,7 +311,9 @@ public class ModelManager implements Model {
     public ObservableList<Record> getFilteredRecordList() {
         if (MainWindow.getRecordPatient() != null) {
             versionedAddressBook.setRecords(MainWindow.getRecordPatient().getRecords());
-            filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
+            if (filteredRecords == null) {
+                filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
+            }
             return filteredRecords;
         }
         return null;

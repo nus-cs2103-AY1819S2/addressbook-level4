@@ -42,7 +42,6 @@ public class RecordDeleteCommand extends Command {
 
         Record recordToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteRecord(recordToDelete);
-        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_RECORD_SUCCESS, recordToDelete.getRecord()));
     }
 

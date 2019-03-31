@@ -19,6 +19,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Record> PREDICATE_SHOW_ALL_RECORDS = unused -> true;
+    /** {@code Predicate} that always evaluate to true */
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -99,6 +101,11 @@ public interface Model {
     void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse);
 
     /**
+     * Sorts the records within address book according to the given comparator
+     */
+    void sortRecordsBook(Comparator<Record> recordComparator, boolean isReverse);
+
+    /**
      * Returns true if the model has previous address book states to restore.
      * Selected person in the filtered person list.
      * null if no person is selected.
@@ -155,6 +162,11 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered record list */
     ObservableList<Record> getFilteredRecordList();
+
+    /**
+     * Updates the filtered records list.
+     */
+    void updateFilteredRecordList(Predicate<Record> predicate);
 
     /**
      * Returns true if a record with the same identity as {@code record} exists in the address book.

@@ -64,7 +64,6 @@ public class RecordEditCommand extends Command {
         }
 
         model.setRecord(recordToEdit, editedRecord);
-        model.commitAddressBook();
 
         return new CommandResult(String.format(MESSAGE_EDIT_RECORD_SUCCESS));
     }

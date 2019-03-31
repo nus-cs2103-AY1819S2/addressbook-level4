@@ -58,8 +58,7 @@ public class TeethEditCommand extends Command {
 
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.setSelectedPerson(null);
-        model.setSelectedPerson(personToEdit);
-        model.commitAddressBook();
+        model.setSelectedPerson(MainWindow.getRecordPatient());
 
         return new CommandResult(String.format(MESSAGE_EDIT_TOOTH_SUCCESS));
     }

@@ -18,6 +18,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKin;
+import seedu.address.model.nextofkin.NextOfKinRelation;
+import seedu.address.model.patient.DrugAllergy;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Sex;
@@ -90,7 +94,12 @@ public class PersonListPanelTest extends GuiUnitTest {
             Phone phone = new Phone("000");
             Email email = new Email("a@aa");
             Address address = new Address("a");
-            Person person = new Patient(name, phone, email, address, Collections.emptySet(), nric, dob, sex);
+            DrugAllergy drugAllergy = new DrugAllergy("NIL");
+            Description description = new Description("desc");
+            NextOfKin kin = new NextOfKin(new Name(i + "b"), new Phone("111"), new Email("b@bb"), new Address("c"),
+                null, new NextOfKinRelation("Mom"));
+            Person person = new Patient(name, phone, email, address, Collections.emptySet(), nric, dob, sex,
+                drugAllergy, kin, description);
             backingList.add(person);
         }
         return backingList;

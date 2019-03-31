@@ -26,6 +26,8 @@ public class RecordAddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New record added to %1$s";
 
+    public static final String MESSAGE_DUPLICATE_RECORD = "Record already exists, but is still added to %1$s!";
+
     public static final String MESSAGE_ERROR = "Please specify the patient using the goto command first";
 
     private final Patient toAdd;
@@ -41,15 +43,30 @@ public class RecordAddCommand extends Command {
         this.description = description;
     }
 
+    /**
+     * Executes the command.
+     * Note that duplicate records still get added. But a duplicate message is shown to user.
+     * @param model {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return the {@code CommandResult} of the command call.
+     * @throws CommandException the error message when the method is called in non-GoTo mode.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (MainWindow.isGoToMode() && toAdd != null) {
             requireNonNull(model);
 
             Record record = new Record(description);
+            boolean isDuplicate = model.hasRecord(record);
+
             model.addRecord(record);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
+            if (isDuplicate) {
+                return new CommandResult(String.format(MESSAGE_DUPLICATE_RECORD, toAdd.getName()));
+            } else {
+                return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
+            }
+
         } else {
             throw new CommandException(MESSAGE_ERROR);
         }

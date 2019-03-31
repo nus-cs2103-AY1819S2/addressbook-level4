@@ -22,6 +22,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKin;
+import seedu.address.model.nextofkin.NextOfKinRelation;
+import seedu.address.model.patient.DrugAllergy;
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.patient.Sex;
@@ -116,9 +120,30 @@ public class EditCommand extends Command {
             Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
             Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
             Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+            DrugAllergy updatedDrugAllergy =
+                editPersonDescriptor.getDrugAllergy().orElse(((Patient) personToEdit).getDrugAllergy());
+            Description updatedDesc =
+                editPersonDescriptor.getDescription().orElse(((Patient) personToEdit).getPatientDesc());
+
+            //NextOfKin Attributes
+            NextOfKin kin = ((Patient) personToEdit).getNextOfKin();
+
+            Name updatedKinName = editPersonDescriptor.getNextOfKinName().orElse(kin.getName());
+            NextOfKinRelation updatedKinRelation =
+                editPersonDescriptor.getNextOfKinRelation().orElse(kin.getKinRelation());
+            Phone updatedKinPhone = editPersonDescriptor.getNextOfKinPhone().orElse(kin.getPhone());
+            Email updatedKinEmail = kin.getEmail();
+            Address updatedKinAddress;
+            if (editPersonDescriptor.getSameAddr()) {
+                updatedKinAddress = updatedAddress;
+            } else {
+                updatedKinAddress = editPersonDescriptor.getNextOfKinAddress().orElse(kin.getAddress());
+            }
 
             return new Patient(updatedName, updatedPhone, updatedEmail, updatedAddress, null, updatedNric,
-                    updatedDob, updatedSex);
+                updatedDob, updatedSex, updatedDrugAllergy,
+                new NextOfKin(updatedKinName, updatedKinPhone, updatedKinEmail, updatedKinAddress, null,
+                    updatedKinRelation), updatedDesc);
         } else {
             throw new PersonIsNotPatient();
         }
@@ -155,6 +180,15 @@ public class EditCommand extends Command {
         private Email email;
         private Address address;
         private Set<Tag> tags;
+        private DrugAllergy drugAllergy;
+        private Description description;
+
+        //For Next Of Kin
+        private Name nextOfKinName;
+        private NextOfKinRelation nextOfKinRelation;
+        private Phone nextOfKinPhone;
+        private Address nextOfKinAddress;
+        private boolean isSameAddr = false;
 
         public EditPersonDescriptor() {}
 
@@ -171,13 +205,18 @@ public class EditCommand extends Command {
             setEmail(toCopy.email);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setNextOfKinName(toCopy.nextOfKinName);
+            setNextOfKinRelation(toCopy.nextOfKinRelation);
+            setNextOfKinPhone(toCopy.nextOfKinPhone);
+            setNextOfKinAddress(toCopy.nextOfKinAddress);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, nric, dateOfBirth, phone, email, address, tags, sex);
+            return CollectionUtil.isAnyNonNull(name, nric, dateOfBirth, phone, email, address, tags, sex, drugAllergy,
+                nextOfKinName, nextOfKinPhone, nextOfKinRelation, nextOfKinAddress, description);
         }
 
         public void setName(Name name) {
@@ -234,6 +273,63 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
+        }
+
+        public void setDrugAllergy(DrugAllergy drugAllergy) {
+            this.drugAllergy = drugAllergy;
+        }
+
+        public Optional<DrugAllergy> getDrugAllergy() {
+            return Optional.ofNullable(drugAllergy);
+        }
+
+        public void setDescription(Description description) {
+            this.description = description;
+        }
+
+        public Optional<Description> getDescription() {
+            return Optional.ofNullable(description);
+        }
+
+        /* Setters for NextOfKin */
+        public void setNextOfKinName(Name nextOfKinName) {
+            this.nextOfKinName = nextOfKinName;
+        }
+
+        public Optional<Name> getNextOfKinName() {
+            return Optional.ofNullable(nextOfKinName);
+        }
+
+        public void setNextOfKinRelation(NextOfKinRelation nextOfKinRel) {
+            this.nextOfKinRelation = nextOfKinRel;
+        }
+
+        public Optional<NextOfKinRelation> getNextOfKinRelation() {
+            return Optional.ofNullable(nextOfKinRelation);
+        }
+
+        public void setNextOfKinPhone(Phone nextOfKinPhone) {
+            this.nextOfKinPhone = nextOfKinPhone;
+        }
+
+        public Optional<Phone> getNextOfKinPhone() {
+            return Optional.ofNullable(nextOfKinPhone);
+        }
+
+        public void setNextOfKinAddress(Address nextOfKinAddress) {
+            this.nextOfKinAddress = nextOfKinAddress;
+        }
+
+        public Optional<Address> getNextOfKinAddress() {
+            return Optional.ofNullable(nextOfKinAddress);
+        }
+
+        public void setSameAddr() {
+            isSameAddr = true;
+        }
+
+        public boolean getSameAddr() {
+            return isSameAddr;
         }
 
         /**

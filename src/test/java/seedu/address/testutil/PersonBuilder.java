@@ -1,11 +1,17 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Arrays;
 
-import seedu.address.model.person.*;
+
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Education;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Gpa;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.SkillsTag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -46,7 +52,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
-        education  = personToCopy.getEducation();
+        education = personToCopy.getEducation();
         gpa = personToCopy.getGpa();
         address = personToCopy.getAddress();
         tags = new HashSet<>(personToCopy.getTags());
@@ -92,17 +98,25 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Education} of the {@code Person} that we are building.
+     */
     public PersonBuilder withEducation(String education) {
         this.education = new Education(education);
         return this;
     }
 
-    public PersonBuilder withGPA(String gpa) {
+    /**
+     * Sets the {@code GPA} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withGpa(String gpa) {
         this.gpa = new Gpa(gpa);
         return this;
     }
 
-
+    /**
+     * {@code Person} that we are building.
+     */
     public Person build() {
         return new Person(name, phone, email, education, gpa, address, tags);
     }

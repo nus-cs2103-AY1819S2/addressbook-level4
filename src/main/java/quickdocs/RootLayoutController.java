@@ -78,7 +78,8 @@ public class RootLayoutController {
 
                 // handling exit
                 if (result.isExit()) {
-                    primaryStage.close();
+                    //primaryStage.close();
+                    handleExit();
                 }
 
                 // consultation session handling
@@ -117,7 +118,7 @@ public class RootLayoutController {
     @FXML
     public void checkInput(KeyEvent event) {
         if (event.getCode() == KeyCode.SPACE) {
-            inputFeedback.setText("space entered");
+            //inputFeedback.setText("space entered");
         }
     }
 
@@ -212,5 +213,9 @@ public class RootLayoutController {
                 && checkConsultation.contains("ended")) {
             currentSession.setText("");
         }
+    }
+
+    public void handleExit() {
+        primaryStage.close();
     }
 }

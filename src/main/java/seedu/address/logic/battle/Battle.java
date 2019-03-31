@@ -1,6 +1,7 @@
 package seedu.address.logic.battle;
 
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.player.Enemy;
 import seedu.address.model.player.Player;
 
 /**
@@ -27,13 +28,11 @@ public interface Battle {
 
     /**
      * Returns the human player.
-     * TODO: Replace Player with a more specific class, e.g. HumanPlayer
      */
     Player getHumanPlayer();
 
     /**
      * Returns the computer player.
-     * TODO: Replace Player with a more specific class, e.g. EnemyPlayer
      */
-    Player getEnemyPlayer();
+    Enemy getEnemyPlayer();
 }

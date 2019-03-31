@@ -764,6 +764,19 @@ to the user.
 .Component interactions for a `next` command
 image::NextCommandSequenceDiagram.png[width="800"]
 
+===== Design Considerations
+====== Aspect: Behavior of next command executed on the last card
+
+* **Alternative 1 (current choice)**:  A `next` command will be equivalent to an `end` command
+** Pros: More convenient and user-friendly. It is common sense to end the test session for the user.
+** Cons: By right, it is not correct since next command is just to show the next card.
+
+* **Alternative 2**: A `next` command will throw an exception
+** Pros: Most correct way to do it since there is no next card to display.
+** Cons: User may not understand. It is not user-friendly as user has to keep track of which card it is at to prevent the exception thrown.
+
+Evaluation of the two alternatives:
+With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
 
 //end::testsession[]
 

@@ -20,7 +20,7 @@ public class NextCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!model.isInsideTestSession()) {
+        if (!model.isInTestSession()) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN);
         }
         if (!model.isCardAlreadyAnswered()) {

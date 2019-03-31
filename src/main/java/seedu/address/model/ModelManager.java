@@ -58,7 +58,7 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private ObservableList<Card> currentTestedCardFolder;
     private int currentTestedCardIndex;
-    private boolean insideTestSession = false;
+    private boolean inTestSession = false;
     private boolean cardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
 
@@ -375,7 +375,7 @@ public class ModelManager implements Model {
         currentTestedCardIndex = 0;
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
-        insideTestSession = true;
+        inTestSession = true;
         numAnsweredCorrectly = 0;
     }
 
@@ -397,7 +397,7 @@ public class ModelManager implements Model {
         getActiveVersionedCardFolder()
                 .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
         getActiveVersionedCardFolder().commit();
-        insideTestSession = false;
+        inTestSession = false;
         setCardAsNotAnswered();
         numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
@@ -432,8 +432,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean isInsideTestSession() {
-        return insideTestSession;
+    public boolean isInTestSession() {
+        return inTestSession;
     }
 
     @Override
@@ -520,7 +520,7 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get())
-                && insideTestSession == other.insideTestSession
+                && inTestSession == other.inTestSession
                 && currentTestedCardIndex == other.currentTestedCardIndex
                 && cardAlreadyAnswered == other.cardAlreadyAnswered
                 && activeCardFolderIndex == other.activeCardFolderIndex

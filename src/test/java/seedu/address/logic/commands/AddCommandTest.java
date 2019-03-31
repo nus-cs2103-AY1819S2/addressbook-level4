@@ -165,7 +165,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean isInsideTestSession() {
+        public boolean isInTestSession() {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -222,7 +222,7 @@ public interface Model extends Observable {
      * Returns true if user is in a test session
      * false user is not.
      */
-    boolean isInsideTestSession();
+    boolean isInTestSession();
 
     /**
      * End the current test session.

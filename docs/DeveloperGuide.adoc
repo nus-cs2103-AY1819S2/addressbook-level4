@@ -13,7 +13,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S2-W14-2/main
+:repoURL: https://github.com/CS2103-AY1819S2-W14-2/main/tree/master
 
 By: `W14-2`      Since: `Feb 2019`      Licence: `MIT`
 
@@ -206,21 +206,32 @@ image::LogicRotateSd.png[width="800"]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width="800"]
+image::ModelComponents.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/CurrentEdit.java[`CurrentEdit.java`], link:{repoURL}/src/main/java/seedu/address/model/Album.java[`Album.java`]
 
-The `Model`,
+The Model component consists of `Album` class and `CurrentEdit` class.
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+`Album` Class:
 
+* stores imported images as a list of images.
+* contains methods to access `assets` folder.
+
+
+`CurrentEdit` Class:
+
+* stores an `Image` instance in `tempImage` and `originalImage` when an image is opened.
+* creates a copy of the opened image and the current edited image in `temp` folder.
+* `tempImage` is updated each time a command to edit the image is called. (e.g. `RotateCommand`, `ContrastCommand`)
+* stores a list of commands that the user input after an image is opened.
+* contains methods to access `temp` folder.
+
+////
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
+////
 
 [[Design-Storage]]
 === Storage component
@@ -228,9 +239,10 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageArchitectureDiagram.png[width="800"]
 
-The `assets` and `temp` folders form the storage component of FomoFoto:
+The `assets` and `temp` folders form the storage component of FomoFoto.
 
-*  The `assets` folder stores images that the user imported while the `temp` folder stores the image that the program is currently editing on.
+*  The `assets` folder stores images that the user imported
+* The `temp` folder stores the image that the program is currently editing on.
 * The `Album` class contains methods to save and retrieve images from the `assets` folder.
 * The `CurrentEdit` class contains methods to overwrite and retrieve the image that the program is currently editing on.
 
@@ -1057,11 +1069,10 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |open a photo stored in the application for editing |
 
-|`* * ` |user |list the names of the photos stored in the application |know what photos are currently stored inside
+|`* *` |user |list the names of the photos stored in the application |know what photos are currently stored inside
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases

@@ -28,6 +28,22 @@ public class Node {
         return isModule;
     }
 
+    /**
+     * Checks if a particular node has a parent Node
+     * @return boolean value if it has a parent or not
+     */
+    public boolean hasParent() {
+        if (parent == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean isDummy() {
+        return (getValue().equals(" "));
+    }
+
     public void setHead(boolean b) {
         this.head = b;
     }
@@ -63,51 +79,46 @@ public class Node {
     /**
      * Method to check for nodes matching
      */
-    public String checkChildren(ArrayList<String> modules) {
-        if (isHead()) {
-            getChildList().get(HEAD_CHILD_INDEX).checkChildren(modules);
+    public void checkChildren(ArrayList<String> modules, ArrayList<String> missingModules) {
+
+        if (isHead() || "Requires:".equals(getValue())) {
+            getChildList().get(HEAD_CHILD_INDEX).checkChildren(modules, missingModules);
         } else if ("OR".equals(nodeValue)) {
             for (int i = 0; i < getChildList().size(); i++) {
                 Node currNode = getChildList().get(i);
 
                 if (!currNode.isModule() && (currNode.getValue().equals("OR") || currNode.getValue().equals("AND"))) {
-                    currNode.checkChildren(modules);
+                    currNode.checkChildren(modules, missingModules);
                 } else {
                     for (int j = 0; j < modules.size(); j++) {
-                        if (modules.get(i).equals(currNode.getValue())) {
-                            return "satisfied";
+                        if (modules.get(j).equals(currNode.getValue()) && currNode.isModule()) {
+                            return;
                         }
                     }
                 }
-                if (i == getChildList().size() - 1) {
-                    return "Unable to find modules for OR";
+                if (i == getChildList().size() - 1 && currNode.isModule()) {
+                    //gives the last value of the OR list
+                    missingModules.add(currNode.getValue());
                 }
             }
         } else if ("AND".equals(nodeValue)) {
             for (int i = 0; i < getChildList().size(); i++) {
                 Node currNode = getChildList().get(i);
-
                 if (!currNode.isModule() && (currNode.getValue().equals("OR") || currNode.getValue().equals("AND"))) {
-                    currNode.checkChildren(modules);
+                    currNode.checkChildren(modules, missingModules);
                 } else {
+
                     for (int j = 0; j < modules.size(); j++) {
-                        if (modules.get(i).equals(currNode.getValue())) {
+                        if (modules.get(j).equals(currNode.getValue())) {
                             break;
                         }
-
-                        if (j == modules.size() - 1) {
-                            return "unable to find match for:" + currNode.getValue();
+                        if (j == modules.size() - 1 && currNode.isModule()) {
+                            missingModules.add(currNode.getValue() );
                         }
                     }
                 }
-                if (i == getChildList().size() - 1) {
-                    return "satisfied";
-                }
             }
-        } else {
-            return "Error";
         }
-        return "Error";
     }
 
     @Override

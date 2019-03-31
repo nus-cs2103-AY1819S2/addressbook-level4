@@ -11,6 +11,7 @@ import seedu.address.commons.util.Node;
  * Represents a moduleInfo's Prerequisites
  */
 public class ModuleInfoPrerequisites {
+    public static final String ENDOFLINE_REGEX = ".*?or\\b|.*?and\\b";
     public static final String MODULECODE_REGEX = "[A-Z]{2,3}\\d{4}[A-Z]{0,3}|equivalent";
     public static final String NEXTPARENT_REGEX = "or\\s[A-Z]{2,3}\\d{4}[A-Z]{0,3}|and\\s[A-Z]{2,3}\\d{4}[A-Z]{0,3}";
     public static final String PREREQUISITE_REGEX = ".*?\\b[A-Z]{2,3}\\d{4}[A-Z]{0,3}\\b.*?";
@@ -28,10 +29,12 @@ public class ModuleInfoPrerequisites {
     public static final String NOREQUIREMENT_MESSAGE = "No prerequisites needed";
     private ModuleTree tree;
     private String prerequisitesString;
+    private String code;
 
     public ModuleInfoPrerequisites(String code, String prereq) {
         this.tree = new ModuleTree(code);
         this.prerequisitesString = prereq;
+        this.code = code;
     }
 
     public String toString() {
@@ -101,7 +104,7 @@ public class ModuleInfoPrerequisites {
         int i = 0;
         Node currNode;
         Node nextNode;
-        Node headNode = new Node(false, false, "Requires: ");
+        Node headNode = new Node(false, false, " ");
         Node prevNode = null;
         while (i < array.length) {
             String currPrereq = array[i].trim();
@@ -131,27 +134,46 @@ public class ModuleInfoPrerequisites {
 
             if (currPrereq.matches(PREREQUISITE_REGEX) && !currPrereq.matches(NEXTPARENT_REGEX)) {
                 currNode = createMinorTree(currPrereq);
-
                 if (array.length - i >= 2 && array[i + 1].matches(OPERATION_REGEX)) {
                     String nextnode = array[i + 1].trim();
+                    Node tempHead = new Node (false, false, " ");
                     if ("and".equals(nextnode) || "plus".equals(nextnode)) {
-                        headNode = new Node(false, false, AND_REGEX);
-                        headNode.addChild(currNode);
+                        tempHead = new Node(false, false, AND_REGEX);
+                        tempHead.addChild(currNode);
                     }
                     if ("or".equals(nextnode) || "/".equals(nextnode) || ",".equals(nextnode)) {
-                        headNode = new Node(false, false, OR_REGEX);
-                        headNode.addChild(currNode);
+                        tempHead = new Node(false, false, OR_REGEX);
+                        tempHead.addChild(currNode);
                     }
                     i++;
 
                     nextnode = array[i + 1];
-                    if (headNode != null) {
-                        nextNode = createMinorTree(nextnode);
-                        headNode.addChild(nextNode);
-                        i++;
-                        prevNode = headNode;
-                    }
+                    nextNode = createMinorTree(nextnode);
+                    tempHead.addChild(nextNode);
+                    i++;
 
+                    if ( headNode.isDummy()) {
+                        headNode = tempHead;
+
+                    } else if (headNode.getValue().equals(tempHead.getValue())) {
+                        for (Node child : tempHead.getChildList()) {
+                            headNode.addChild(child);
+                        }
+                    } else {
+                        tempHead.addChild(headNode);
+                        headNode = tempHead;
+                    }
+                    prevNode = headNode;
+
+                } else if (i + 1 < array.length && array[i].matches(ENDOFLINE_REGEX)) {
+                    nextNode = createMinorTree(array[i + 1]);
+                    currNode.addChild(nextNode);
+                    prevNode = currNode;
+                    i++;
+
+                    if (i + 1 >= array.length) {
+                        headNode.addChild(currNode);
+                    }
                 } else if (i + 1 >= array.length) {
                     headNode.addChild(currNode);
                     prevNode = currNode;
@@ -167,15 +189,18 @@ public class ModuleInfoPrerequisites {
                     currNode = new Node(false, false, OR_REGEX);
                 }
 
-                if (headNode == null || !currNode.getValue().equals(headNode.getValue())) {
-                    if (headNode != null) {
+                if (headNode.isDummy() || !currNode.getValue().equals(headNode.getValue())) {
+                    if (!headNode.isDummy()) {
                         currNode.addChild(headNode);
                     }
                     headNode = currNode;
                 }
+
+                if (prevNode != null && !prevNode.hasParent()) {
+                    currNode.addChild(prevNode);
+                }
             }
             i++;
-
         }
         return headNode;
     }
@@ -194,7 +219,7 @@ public class ModuleInfoPrerequisites {
         while (matcher.find()) {
             String operation = matcher.group();
 
-            if (operation.equals("or") || operation.equals(",") || operation.equals("/")) {
+            if ("or".equals(operation) || ",".equals(operation) || "/".equals(operation)) {
                 pesudoHead = new Node(false, false, OR_REGEX);
             } else {
                 pesudoHead = new Node(false, false, AND_REGEX);

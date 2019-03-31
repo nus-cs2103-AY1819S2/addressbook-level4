@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import org.junit.Before;

@@ -978,6 +978,18 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Deleting a dental record
+
+. Deleting a record while all dental records of a patient are listed
+
+.. Prerequisites: List all dental records of a patient using the `goto x` command (x refers to the index of the patient to be tested). Multiple dental records should be displayed in the list.
+.. Test case: `recorddelete 1` +
+   Expected: First dental record is deleted from the list. Details of the deleted dental record is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `recorddelete 0` +
+   Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect recorddelete commands to try: `recorddelete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
+   Expected: Similar to previous.
+
 === Saving data
 
 . Dealing with missing/corrupted data files

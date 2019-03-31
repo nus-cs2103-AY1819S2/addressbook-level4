@@ -16,21 +16,6 @@ public class ArchiveListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all persons in archive";
 
     @Override
-    public boolean requiresMainList() {
-        return false;
-    }
-
-    @Override
-    public boolean requiresArchiveList() {
-        return false;
-    }
-
-    @Override
-    public boolean requiresPinList() {
-        return false;
-    }
-
-    @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -44,6 +29,11 @@ public class ArchiveListCommand extends Command {
 
     @Override
     public boolean requiresArchiveList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresPinList() {
         return false;
     }
 }

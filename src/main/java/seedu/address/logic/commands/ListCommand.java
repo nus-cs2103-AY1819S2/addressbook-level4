@@ -34,16 +34,6 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public boolean requiresMainList() {
-        return false;
-    }
-
-    @Override
-    public boolean requiresArchiveList() {
-        return false;
-    }
-
-    @Override
     public boolean requiresPinList() {
         return false;
     }

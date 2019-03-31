@@ -3,6 +3,8 @@ package seedu.address.model.record;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -95,6 +97,13 @@ public class UniqueRecordList implements Iterable<Record> {
      */
     public ObservableList<Record> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
+    }
+
+    /**
+     * Sorts the internal list according to desired comparator
+     */
+    public void sortStoredList(Comparator<Record> compRecord, boolean isReverse) {
+        Collections.sort(this.internalList, compRecord);
     }
 
     @Override

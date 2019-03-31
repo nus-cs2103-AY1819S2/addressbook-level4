@@ -120,9 +120,16 @@ public enum Grade {
     }
 
     /**
-     * Returns if this gradepoint is no more than another gradepoint.
+     * Returns true if this grade is no greater than another grade, false otherwise.
      */
     public boolean isLowerOrEqualTo(Grade limit) {
+        if (isPassingGrade() != limit.isPassingGrade()) { // only one of them is passing
+            return limit.isPassingGrade();
+        }
+        if ((this == A_PLUS) != (limit == A_PLUS)) { // only one of them is A+
+            return limit == A_PLUS;
+        }
+
         return this.gradePoint <= limit.gradePoint;
     }
 

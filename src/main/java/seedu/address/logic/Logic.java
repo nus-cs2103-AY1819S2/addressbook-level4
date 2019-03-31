@@ -12,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.recmodule.RecModule;
 
 /**
  * API of the Logic component
@@ -93,4 +94,10 @@ public interface Logic {
      * @see Model#getDisplayList()
      */
     ObservableList<ModuleInfo> getDisplayList();
+
+    /**
+     * Gets the {@code SortedList} of {@code RecModule}.
+     * @see Model#getRecModuleListSorted()
+     */
+    ObservableList<RecModule> getRecModuleListSorted();
 }

@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.recmodule.RecModule;
 import seedu.address.storage.Storage;
 import seedu.address.storage.UserInfoStorage;
 
@@ -134,5 +135,10 @@ public class LogicManager implements Logic {
     @Override
     public ObservableList<ModuleInfo> getDisplayList() {
         return model.getDisplayList();
+    }
+
+    @Override
+    public ObservableList<RecModule> getRecModuleListSorted() {
+        return model.getRecModuleListSorted();
     }
 }

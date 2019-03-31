@@ -87,6 +87,11 @@ public interface Model {
     void deleteMedHist(MedicalHistory target);
 
     /**
+     * Returns true if a patient with the same identity as {@code patient} exists in the address book.
+     */
+    boolean hasAppointment(Appointment appointment);
+
+    /**
      * Adds the appointment.
      * {@code appointment} must not be a duplicate
      */

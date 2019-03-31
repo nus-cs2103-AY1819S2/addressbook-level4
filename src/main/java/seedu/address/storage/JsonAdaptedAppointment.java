@@ -10,14 +10,13 @@ import seedu.address.model.appointment.Appointment;
  * Jackson-friendly version of {@link Appointment}.
  */
 class JsonAdaptedAppointment {
-
     private final int patientId;
     private final int doctorId;
     private final String dateOfAppt;
     private final String timeOfAppt;
 
     /**
-     * Constructs a {@code JsonAdaptedAppointment} with the given {@code appointmentName}.
+     * Constructs a {@code JsonAdaptedAppointment} with the given {@code appointment}.
      */
     @JsonCreator
     public JsonAdaptedAppointment(@JsonProperty("patientId") int patientId,

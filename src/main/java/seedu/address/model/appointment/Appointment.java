@@ -1,6 +1,6 @@
 package seedu.address.model.appointment;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
 
@@ -25,8 +25,10 @@ public class Appointment {
      * @param timeOfAppt A valid appointment time in the future
      */
     public Appointment(int patientId, int doctorId, String dateOfAppt, String timeOfAppt) {
-        requireNonNull(dateOfAppt);
-        requireNonNull(timeOfAppt);
+        /**
+         * Every field must be present and not null.
+         */
+        requireAllNonNull(dateOfAppt, timeOfAppt);
         //checkArgument(isValidAppointment(appointment), MESSAGE_CONSTRAINTS);
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -43,7 +45,13 @@ public class Appointment {
 
     @Override
     public String toString() {
-        return dateOfAppt;
+        String str = "";
+        str += "Appointment - ";
+        str += "Patient ID: " + patientId;
+        str += " Doctor ID: " + doctorId;
+        str += " Date: " + dateOfAppt;
+        str += " Time: " + timeOfAppt;
+        return str;
     }
 
     public int getPatientId() {
@@ -62,39 +70,38 @@ public class Appointment {
         return timeOfAppt;
     }
 
+    boolean isSameAppointment(Appointment that) {
+        return this.equals(that);
+    }
+
     @Override
     public boolean equals(Object o) {
-        boolean equal = true;
         if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         Appointment that = (Appointment) o;
 
-
         if (this.doctorId != that.doctorId) {
-            equal = false;
-            return equal;
+            return false;
         }
 
         if (this.patientId != that.patientId) {
-            equal = false;
-            return equal;
+            return false;
         }
 
         if (!this.dateOfAppt.equals(that.dateOfAppt)) {
-            equal = false;
-            return equal;
+            return false;
         }
 
         if (!this.timeOfAppt.equals(that.timeOfAppt)) {
-            equal = false;
-            return equal;
+            return false;
         }
 
-        return equal;
+        return true;
     }
 
     @Override

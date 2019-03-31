@@ -152,6 +152,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public boolean hasAppointment(Appointment appointment) {
+        requireNonNull(appointment);
+        return versionedAddressBook.hasAppointment(appointment);
+    }
+
+    @Override
     public void addAppointment(Appointment appointment) {
         versionedAddressBook.addAppointment(appointment);
     }

@@ -93,7 +93,8 @@ public class SearchCommand extends Command {
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
-
+    
+    @Override
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {

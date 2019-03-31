@@ -48,52 +48,52 @@ public class SearchCommandParser implements Parser<SearchCommand> {
 
         PredicatePersonDescriptor predicatePersonDescriptor = new PredicatePersonDescriptor();
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            predicatePersonDescriptor.setName(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+")))));
+            predicatePersonDescriptor.setName(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_NAME).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            predicatePersonDescriptor.setPhone(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_PHONE).get().split("\\s+")))));
+            predicatePersonDescriptor.setPhone(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_PHONE).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            predicatePersonDescriptor.setEmail(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+")))));
+            predicatePersonDescriptor.setEmail(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_EMAIL).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_RACE).isPresent()) {
-            predicatePersonDescriptor.setRace(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_RACE).get().split("\\s+")))));
+            predicatePersonDescriptor.setRace(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_RACE).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            predicatePersonDescriptor.setAddress(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_ADDRESS).get().split("\\s+")))));
+            predicatePersonDescriptor.setAddress(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_ADDRESS).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_SCHOOL).isPresent()) {
-            predicatePersonDescriptor.setSchool(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_SCHOOL).get().split("\\s+")))));
+            predicatePersonDescriptor.setSchool(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_SCHOOL).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_MAJOR).isPresent()) {
-            predicatePersonDescriptor.setMajor(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_MAJOR).get().split("\\s+")))));
+            predicatePersonDescriptor.setMajor(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_MAJOR).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_GENDER).isPresent()) {
-            predicatePersonDescriptor.setGender(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_GENDER).get().split("\\s+")))));
+            predicatePersonDescriptor.setGender(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_GENDER).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_NRIC).isPresent()) {
-            predicatePersonDescriptor.setNric(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_NRIC).get().split("\\s+")))));
+            predicatePersonDescriptor.setNric(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_NRIC).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_PASTJOB).isPresent()) {
-            predicatePersonDescriptor.setPastJobs(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_PASTJOB).get().split("\\s+")))));
+            predicatePersonDescriptor.setPastJobs(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_PASTJOB).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_JOBSAPPLY).isPresent()) {
-            predicatePersonDescriptor.setJobsApply(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_JOBSAPPLY).get().split("\\s+")))));
+            predicatePersonDescriptor.setJobsApply(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_JOBSAPPLY).get().split("\\s+")))));
         }
         if (argMultimap.getValue(PREFIX_KNOWNPROGLANG).isPresent()) {
-            predicatePersonDescriptor.setKnownProgLangs(new HashSet<>(
-                (Arrays.asList(argMultimap.getValue(PREFIX_KNOWNPROGLANG).get().split("\\s+")))));
+            predicatePersonDescriptor.setKnownProgLangs(new HashSet<>((
+                Arrays.asList(argMultimap.getValue(PREFIX_KNOWNPROGLANG).get().split("\\s+")))));
         }
 
         return new SearchCommand(predicatePersonDescriptor);

@@ -38,7 +38,7 @@ public class Person {
     }
 
     public Person(Name name, Phone phone, Email email) {
-        requireAllNonNull(name, phone, email);
+        requireAllNonNull(name);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -62,14 +62,12 @@ public class Person {
     }
 
     public Price getSellingPrice() {
-        return new Price("0");
+        return new Price("1");
     }
 
     public Price getRentalPrice() {
-        return new Price("0");
+        return new Price("1");
     }
-
-
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}

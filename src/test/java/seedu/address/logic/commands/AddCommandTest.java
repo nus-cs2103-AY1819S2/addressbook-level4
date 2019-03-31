@@ -29,7 +29,7 @@ import seedu.address.model.UserInfo;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
-import seedu.address.model.course.CourseRequirement;
+import seedu.address.model.course.RequirementStatus;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -283,14 +283,15 @@ public class AddCommandTest {
         }
 
         @Override
-        public ModuleInfo getSelectedModuleInfo() {
+        public ObservableList<RequirementStatus> getRequirementStatusList() {
             throw new AssertionError("This method should not be called");
         }
 
         @Override
-        public ObservableList<CourseRequirement> getReqList() {
+        public ModuleInfo getSelectedModuleInfo() {
             throw new AssertionError("This method should not be called");
         }
+
 
         @Override
         public UserInfo getUserInfo() {

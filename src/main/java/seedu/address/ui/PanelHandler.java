@@ -13,18 +13,22 @@ import seedu.address.logic.commands.DisplayreqCommand;
  */
 public class PanelHandler {
     private HashMap<String, Node> panels = new HashMap<>();
-
+    private Logic logic;
     public PanelHandler(Logic logic) {
         super();
+        this.logic = logic;
         //Initialize the panels hashmap
         panels.put(DisplaymodCommand.COMMAND_WORD, new DisplayModuleInfoList(logic.getDisplayList(),
                 logic.selectedModuleInfoProperty(),
                 logic::setSelectedModuleInfo).getRoot());
         panels.put(DisplayreqCommand.COMMAND_WORD,
-                new DisplayReqList(logic.getReqList(), logic.getModuleInfoCodeList()).getRoot());
+                new DisplayRequirementStatusList(logic.getRequirementStatusList()).getRoot());
     }
 
     public Node getCommandPanel(String command) {
+        if (command.equals(DisplayreqCommand.COMMAND_WORD)) {
+            return new DisplayRequirementStatusList(logic.getRequirementStatusList()).getRoot();
+        }
         return panels.get(command);
     }
 

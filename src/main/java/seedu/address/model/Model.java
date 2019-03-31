@@ -10,7 +10,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
-import seedu.address.model.course.CourseRequirement;
+import seedu.address.model.course.RequirementStatus;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -219,7 +219,7 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the filtered course requirement list
      */
-    ObservableList<CourseRequirement> getReqList();
+    ObservableList<RequirementStatus> getRequirementStatusList();
 
     /**
      * Returns a copy of the user info

@@ -23,7 +23,8 @@ import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
-import seedu.address.model.course.CourseRequirement;
+import seedu.address.model.course.RequirementStatus;
+import seedu.address.model.course.RequirementStatusList;
 import seedu.address.model.moduleinfo.CodeContainsKeywordsPredicate;
 
 import seedu.address.model.moduleinfo.ModuleInfo;
@@ -55,7 +56,7 @@ public class ModelManager implements Model {
 
     private final ObservableList<Course> allCourses;
     private final CourseList courseList;
-    private final ObservableList<CourseRequirement> displayCourseReqList;
+    private final RequirementStatusList requirementStatusList;
 
     private final FilteredList<ModuleInfoCode> recModuleList;
     private final SortedList<ModuleInfoCode> recModuleListSorted;
@@ -97,8 +98,12 @@ public class ModelManager implements Model {
         //TODO: interaction for setting course in user info
         //for now default course will be Computer Science Algorithms
         this.course = userInfo.getCourse();
-        this.displayCourseReqList = new FilteredList<>(
-                FXCollections.observableArrayList(this.course.getCourseRequirements()));
+        this.requirementStatusList = new RequirementStatusList();
+        requirementStatusList.updateCourseRequirements(course,
+                versionedGradTrak.getModulesTakenList()
+                        .stream()
+                        .map(ModuleTaken::getModuleInfoCode)
+                        .collect(Collectors.toList()), allModules.getObservableList());
     }
 
     public ModelManager() {
@@ -377,8 +382,13 @@ public class ModelManager implements Model {
     }
     //=========== Display completed requirement =======================================================================
     @Override
-    public ObservableList<CourseRequirement> getReqList() {
-        return this.displayCourseReqList;
+    public ObservableList<RequirementStatus> getRequirementStatusList() {
+        requirementStatusList.updateModuleInfoCodes(
+                versionedGradTrak.getModulesTakenList()
+                        .stream()
+                        .map(ModuleTaken::getModuleInfoCode)
+                        .collect(Collectors.toList()));
+        return this.requirementStatusList.getRequirementStatusList();
     }
 
     @Override
@@ -414,7 +424,7 @@ public class ModelManager implements Model {
                 && Objects.equals(selectedModuleTaken.get(), other.selectedModuleTaken.get())
                 && recModuleList.equals(other.recModuleList)
                 && course.equals(other.course)
-                && displayCourseReqList.equals(other.displayCourseReqList)
+                && requirementStatusList.equals(other.requirementStatusList)
                 && this.userInfo.equals(other.userInfo);
     }
 

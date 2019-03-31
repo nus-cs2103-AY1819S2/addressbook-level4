@@ -27,16 +27,16 @@ public class CommandResult {
     /** Help information should be shown to the user. */
     private final boolean showHelp;
 
-    /**
-     * If lesson is changed, update UI and save to disk.
-     */
-    //private final boolean updateStorage;
-
     private final UpdateStorage updateStorage;
+
+    /**
+     *  Name of lesson to be deleted. This would've been done in another way for CS2103T but
+     *  sadly there isn't time to rewrite logic.
+     */
+    private final String deleteLessonName;
 
     /** The application should exit. */
     private final boolean exit;
-
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
@@ -48,6 +48,7 @@ public class CommandResult {
         this.showHelp = false;
         this.exit = false;
         this.updateStorage = UpdateStorage.NONE;
+        this.deleteLessonName = null;
     }
 
     /**
@@ -59,26 +60,7 @@ public class CommandResult {
         this.showHelp = showHelp;
         this.exit = exit;
         this.updateStorage = UpdateStorage.NONE;
-    }
-
-    //TODO: Remove when refactored
-
-    /**
-     * Constructs a {@code CommandResult} with the specified fields.
-     * @param feedbackToUser
-     * @param updateStorage
-     */
-    public CommandResult (String feedbackToUser, boolean updateStorage) {
-        this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showQuiz = false;
-        this.showHelp = false;
-        this.exit = false;
-
-        if (updateStorage) {
-            this.updateStorage = UpdateStorage.SAVE;
-        } else {
-            this.updateStorage = UpdateStorage.NONE;
-        }
+        this.deleteLessonName = null;
     }
 
     public CommandResult (String feedbackToUser, UpdateStorage type) {
@@ -87,6 +69,16 @@ public class CommandResult {
         this.showHelp = false;
         this.exit = false;
         this.updateStorage = type;
+        this.deleteLessonName = null;
+    }
+
+    public CommandResult (String feedbackToUser, String deleteLessonName) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showQuiz = false;
+        this.showHelp = false;
+        this.exit = false;
+        this.updateStorage = UpdateStorage.DELETE;
+        this.deleteLessonName = deleteLessonName;
     }
 
     public String getFeedbackToUser() {
@@ -105,15 +97,12 @@ public class CommandResult {
         return exit;
     }
 
-    /**
-     * If lesson is changed, update UI and save to disk.
-     */
-    //public boolean isUpdateStorage() {
-    //    return updateStorage;
-    //}
-
     public UpdateStorage getUpdateStorageType() {
         return updateStorage;
+    }
+
+    public String getDeleteLessonName() {
+        return deleteLessonName;
     }
 
     @Override

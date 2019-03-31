@@ -85,6 +85,11 @@ public interface ManagementModel extends Model {
     LessonList getLessonList();
 
     /**
+     * Updates the {@link LessonList} object with a new copy.
+     */
+    void setLessonList(LessonList lessonList);
+
+    /**
      * @return a {@link List} of {@link Lesson} objects in {@link LessonList}.
      */
     List<Lesson> getLessons();

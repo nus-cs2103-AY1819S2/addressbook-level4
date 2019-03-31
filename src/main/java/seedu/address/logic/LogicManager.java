@@ -1,6 +1,8 @@
 package seedu.address.logic;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -14,6 +16,7 @@ import seedu.address.logic.parser.ManagementModeParser;
 import seedu.address.logic.parser.QuizModeParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.QuizModel;
 import seedu.address.model.quiz.QuizUiDisplayFormatter;
@@ -60,22 +63,37 @@ public class LogicManager implements Logic {
                 command = managementModeParser.parse(commandText);
                 commandResult = command.execute(managementModel, history);
 
+                // I'm so sorry for this eyesore.
                 switch (commandResult.getUpdateStorageType()) {
                 case NONE:
                     break;
-                case LOAD:
-                    break;
                 case SAVE:
-                    storageManager.saveLessonList(managementModel.getLessonList());
+                    int savedCount = storageManager.saveLessonList(managementModel.getLessonList());
+                    int totalLessonCount = managementModel.getLessonList().getLessons().size();
+                    int difference = totalLessonCount - savedCount;
+                    if (savedCount < totalLessonCount) {
+                        commandResult = new CommandResult("Failed to save " + savedCount + "/"
+                            + totalLessonCount + " lessons. Please check the logs for more information.");
+                    }
+                    break;
+                case LOAD:
+                    Optional<LessonList> lessonListOptional = storageManager.readLessonList();
+                    if (lessonListOptional.isPresent()) {
+                        managementModel.setLessonList(lessonListOptional.get());
+                    } else {
+                        commandResult = new CommandResult("FAILED TO READ");
+                    }
                     break;
                 case DELETE:
+                    try {
+                        storageManager.deleteLesson(commandResult.getDeleteLessonName());
+                    } catch (IOException e) {
+                        commandResult = new CommandResult("FAILED TO DELETE LESSON "
+                                + commandResult.getDeleteLessonName());
+                    }
                     break;
                 default:
-                    break;
                 }
-                //if (commandResult.isUpdateStorage()) {
-                //    storageManager.saveLessonList(managementModel.getLessonList());
-                //}
             } else {
                 command = quizModeParser.parse(commandText);
                 commandResult = command.execute(quizModel, history);

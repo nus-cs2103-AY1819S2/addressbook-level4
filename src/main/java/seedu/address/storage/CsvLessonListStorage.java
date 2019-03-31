@@ -247,7 +247,7 @@ public class CsvLessonListStorage implements LessonListStorage {
                 saveLessonToFile(lesson, folderPath);
                 saveCount++;
             } catch (IOException e) {
-                logger.warning(lesson.getName() + " failed to save; IOException occurred");
+                logger.warning("Lesson: \"" + lesson.getName() + "\" failed to save; IOException occurred");
             }
         }
         return saveCount;

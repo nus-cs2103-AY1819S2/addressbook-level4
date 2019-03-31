@@ -99,6 +99,9 @@ public class CardsView implements ListViewState {
         }
     }
 
+    /**
+     * Updates the filtered list in CardsView.
+     */
     public void updateFilteredList(Predicate<Card> predicate) {
         requireNonNull(predicate);
         filteredCards.setPredicate(predicate);

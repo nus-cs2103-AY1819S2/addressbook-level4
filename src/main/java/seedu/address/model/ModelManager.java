@@ -284,7 +284,7 @@ public class ModelManager implements Model {
 
         if (card instanceof Card && isAtCardsView()) {
             CardsView cardsView = (CardsView) viewState;
-            cardsView.selectedCard.set((Card)card);
+            cardsView.selectedCard.set((Card) card);
         } else if (card instanceof Deck && isAtDecksView()) {
             //TODO: Deck has to set its selection
         } else if (card != null) {

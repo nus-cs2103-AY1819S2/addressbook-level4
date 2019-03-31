@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.CardsView;
-import seedu.address.logic.ViewState;
 import seedu.address.logic.commands.AddCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Card;

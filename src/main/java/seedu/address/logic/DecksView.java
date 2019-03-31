@@ -30,9 +30,9 @@ import seedu.address.model.deck.Deck;
 public class DecksView implements ListViewState {
 
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
-    private Model model;
-
     public final FilteredList<Deck> filteredDecks;
+
+    private Model model;
 
     public DecksView(Model model, FilteredList<Deck> deckList) {
         this.model = model;
@@ -89,6 +89,9 @@ public class DecksView implements ListViewState {
         }
     }
 
+    /**
+     * Updates the filtered list in DecksView.
+     */
     public void updateFilteredList(Predicate<Deck> predicate) {
         requireNonNull(predicate);
         filteredDecks.setPredicate(predicate);

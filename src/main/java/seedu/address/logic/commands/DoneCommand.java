@@ -6,7 +6,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
- * Selects a deck identified using its displayed index.
+ * Signals the end of the study session.
  */
 public class DoneCommand extends Command {
 
@@ -18,8 +18,8 @@ public class DoneCommand extends Command {
 
     private static final String MESSAGE_CLOSE_DECK_SUCCESS = "Done studying";
 
+    @Override
     public CommandResult execute(Model model, CommandHistory history) {
-
         requireNonNull(model);
         model.goToDecksView();
         return new UpdatePanelCommandResult(String.format(MESSAGE_CLOSE_DECK_SUCCESS));

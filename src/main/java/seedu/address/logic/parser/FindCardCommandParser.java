@@ -2,28 +2,27 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import seedu.address.logic.CardsView;
-import seedu.address.logic.ViewState;
-import seedu.address.logic.commands.FindCardCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
-
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.logic.CardsView;
+import seedu.address.logic.commands.FindCardCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.deck.QuestionContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCardCommand object
  */
 public class FindCardCommandParser implements Parser<FindCardCommand> {
 
+    private static final String IN_BETWEEN_QUOTES_REGEX = "\"([^\"]*)\"";
+
     private CardsView cardsView;
 
     public FindCardCommandParser(CardsView cardsView) {
         this.cardsView = cardsView;
     }
-
-    private final String IN_BETWEEN_QUOTES_REGEX = "\"([^\"]*)\"";
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCardCommand
@@ -38,8 +37,8 @@ public class FindCardCommandParser implements Parser<FindCardCommand> {
         }
 
         ArrayList<String> questionKeywords = new ArrayList<>();
-        Pattern p = Pattern.compile( IN_BETWEEN_QUOTES_REGEX );
-        Matcher m = p.matcher( trimmedArgs );
+        Pattern p = Pattern.compile(IN_BETWEEN_QUOTES_REGEX);
+        Matcher m = p.matcher(trimmedArgs);
         while (m.find()) {
             questionKeywords.add(m.group(1));
         }

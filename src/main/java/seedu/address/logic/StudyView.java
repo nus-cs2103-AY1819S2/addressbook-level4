@@ -4,9 +4,8 @@ import java.util.List;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.EditCardCommand;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.GenerateQuestionCommand;
 import seedu.address.logic.commands.ShowAnswerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -14,17 +13,20 @@ import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
 
+/**
+ * ViewState of the Application during a Study session.
+ */
 public class StudyView implements ViewState {
     private final Model model;
     public final List<Card> listOfCards;
     private final Deck activeDeck;
     private Card currentCard;
-    private final SimpleObjectProperty<studyState> currentStudyState = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<StudyState> currentStudyState = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> userAnswer = new SimpleObjectProperty<>();
     private DeckShuffler deckShuffler;
 
-    public enum studyState {
+    public enum StudyState {
         QUESTION, ANSWER;
     }
 
@@ -32,7 +34,7 @@ public class StudyView implements ViewState {
         this.model = model;
         this.activeDeck = deck;
         listOfCards = deck.getCards().internalList;
-        setCurrentStudyState(studyState.QUESTION);
+        setCurrentStudyState(StudyState.QUESTION);
         this.deckShuffler = new DeckShuffler(activeDeck);
         generateCard();
     }
@@ -44,8 +46,8 @@ public class StudyView implements ViewState {
             case DoneCommand.COMMAND_WORD:
                 return new DoneCommand();
             default:
-                if (getCurrentStudyState() == studyState.QUESTION) {
-                    return new ShowAnswerCommand(commandWord+arguments);
+                if (getCurrentStudyState() == StudyState.QUESTION) {
+                    return new ShowAnswerCommand(commandWord + arguments);
                 } else {
                     return new GenerateQuestionCommand();
                 }
@@ -58,11 +60,16 @@ public class StudyView implements ViewState {
 
     //=========== Current Card ================================================================================
 
-
+    /**
+     * Sets the current card to be studied.
+     */
     public void setCurrentCard(Card card) {
         currentCard = card;
     }
 
+    /**
+     * Generates the next card to be studied.
+     */
     public void generateCard() {
         setCurrentCard(deckShuffler.generateCard());
         updateTextShown();
@@ -70,22 +77,25 @@ public class StudyView implements ViewState {
 
     //=========== Study States ================================================================================
 
-    public ReadOnlyProperty<studyState> studyStateProperty() {
+    public ReadOnlyProperty<StudyState> studyStateProperty() {
         return currentStudyState;
     }
 
-    public void setCurrentStudyState(studyState state) {
+    public void setCurrentStudyState(StudyState state) {
         currentStudyState.setValue(state);
     }
 
-    public studyState getCurrentStudyState() {
+    public StudyState getCurrentStudyState() {
         return currentStudyState.getValue();
     }
 
     //=========== TextShown ================================================================================
 
+    /**
+     * Updates the text shown in the UI.
+     */
     public void updateTextShown() {
-        String text =  (getCurrentStudyState() == studyState.QUESTION)
+        String text =  (getCurrentStudyState() == StudyState.QUESTION)
                 ? currentCard.getQuestion()
                 : currentCard.getAnswer();
         textShown.setValue(text);

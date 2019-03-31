@@ -371,6 +371,14 @@ Export the details of the 2nd person in the address book.
 `memberExport 1` +
 Export the details of the 1st member in the results of the `find` command.
 
+[NOTE]
+====
+The exported file will be stored in the same directory where ClubManager is installed in.
+
+File name with the following format:
+YYYYMMDD_HHMMSS_xxxxx_NameOfPerson.txt
+====
+
 === Activity Management Features
 
 ==== Adding an activity : `activityAdd`

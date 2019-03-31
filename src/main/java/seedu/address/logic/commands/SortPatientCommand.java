@@ -13,27 +13,10 @@ import seedu.address.model.patient.Patient;
 /**
  * Sorts data in accordance to the given parameter
  */
-public class SortPatientCommand extends Command {
-
-    public static final String COMMAND_WORD = "sort";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-        + " : Sorts the displayed list of patients OR a patient's records according to the desired parameter.\n"
-        + "Parameters: [record] PARAMETER \n"
-        + "Example 1: " + COMMAND_WORD + " name\n"
-        + "Example 2: " + COMMAND_WORD + " record procedure\n";
-
-    public static final String MESSAGE_SUCCESS = "List has been sorted by %1$s!";
-
-    public final Comparator<Patient> attrCompare;
-    private final String paraType;
-    private final boolean isReverse;
+public class SortPatientCommand extends SortCommand<Patient> {
 
     public SortPatientCommand(Comparator<Patient> chosenCompare, String paraType, boolean sortOrder) {
-        requireNonNull(chosenCompare);
-        this.attrCompare = chosenCompare;
-        this.paraType = paraType;
-        this.isReverse = sortOrder;
+        super(chosenCompare, paraType, sortOrder);
     }
 
     /**
@@ -45,7 +28,6 @@ public class SortPatientCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        //TODO Implement sorting for records
         model.sortAddressBook(this.attrCompare, this.isReverse);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();

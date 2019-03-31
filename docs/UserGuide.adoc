@@ -36,7 +36,7 @@ For the full list of commands, you can head to <<Command Summary>>
 
 === Interacting with QuickDocs
 
-image::ui_explanation.png[width="600" align="center"]
+image::ug-diagrams/ui_explanation.png[width="600" align="center"]
 
 .   This is the *command input* box , this is where you can type and execute the various commands
 QuickDocs possesses to perform clinical operations

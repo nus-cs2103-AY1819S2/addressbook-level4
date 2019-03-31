@@ -84,7 +84,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         Prefix[] prefixArr = new Prefix[] {PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS,
-            PREFIX_NRIC, PREFIX_YEAR};
+            PREFIX_NRIC, PREFIX_YEAR, PREFIX_SEX, PREFIX_DRUG_ALLERGY, PREFIX_NOKN, PREFIX_NOKR,
+            PREFIX_NOKP, PREFIX_NOKA, PREFIX_DESC};
 
         String[] keywords = new String[1];
         ContainsKeywordsPredicate predicate;

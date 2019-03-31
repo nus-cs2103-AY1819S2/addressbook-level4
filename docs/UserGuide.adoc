@@ -48,8 +48,8 @@ will be shown in this *input feedback* box
 .   During a consultation session, QuickDocs will also indicate that an *ongoing consultation* session is happening
 
 
-[[Legends]]
-== Notation used
+[[Notation]]
+== Notations used
 
 Here are some notations used in this user guide:
 
@@ -68,7 +68,7 @@ This is a note. Additional information that further explains a feature will be w
 
 //* Commands are in lowercase, you can view all of them using the help command.
 * Values are the user input, which the user intend to store or manipulate data with.
-* Prefix are used to complement certain commands such as adding or editing of records.
+* Prefixes are used to complement certain commands such as adding or editing of records.
 * Optional values can be placed after the command, and can be added multiple times after the command, value and prefix, depending on the command.
 
 [TIP]
@@ -668,33 +668,58 @@ Sends an auto-generated email reminder to patients regarding an approaching appo
 [[statistics, View statistics]]
 ==== Viewing statistics: `statistics`
 
-Views the statistics of the clinic. +
+You are able to view the statistics of the clinic for a specific month, or between a range of months. +
+This command will show you 5 things in order: +
+
+. Number of consultations +
+. Most common medicines prescribed +
+. Most common symptoms diagnosed +
+. Revenue +
+. Expenditure +
+. Profit +
+
+- - -
 
 Format: `statistics FROM_MONTHYEAR [TO_MONTHYEAR]` +
+
 Alias: `stats` +
 
-* Views the statistics of the clinic for the given date range.  +
-* If `TO_MONTHYEAR` is not specified, it will be defaulted to be equal to `FROM_MONTHYEAR`. +
+[NOTE]
+If `TO_MONTHYEAR` is not specified, it will be defaulted to be equal to `FROM_MONTHYEAR`. +
+
+- - -
 
 Examples:
 
 * `statistics 0119` +
 View the statistics for January 2019. +
+- - -
 * `stats 0119 0219` +
 View the statistics from January 2019 to February 2019. +
+
+{nbsp} +
 
 [[setconsultfee, Set consultation fee]]
 ==== Setting consultation fee: `setconsultfee`
 Sets the consultation fee to the specified amount. +
 
-Format: `setconsultfee AMOUNT`
+- - -
+
+Format: `setconsultfee AMOUNT` +
+
+Alias: `setfee`
+
+- - -
 
 Examples: +
 
 * `setconsultfee 30` +
 Sets the consultation fee to $30.00. +
+- - -
 * `setconsultfee $32.50` +
 Sets the consultation fee to $32.50. +
+
+{nbsp} +
 
 ==== Generate medical certificate: [coming in V2.0]
 

@@ -496,7 +496,7 @@ MediTabs uses the following file naming convention when file name field is used 
 Format: `Start with an alphabet or number followed by alphabets, numbers, underscore or hyphen`
 
 [NOTE]
-File name *does not* include file extension such as `.csv` and `.pdf`. You do not have to include file extension when specifying the file name field such as in `export [File_NAME]`. MediTabs will handle the file name extension for you.
+File name *does not* include file extension such as `.csv` and `.pdf`. You do not have to include file extension when specifying the file name field such as in `export [FILE_NAME]`. MediTabs will handle the file name extension for you.
 
 Examples of correct and incorrect file names:
 |===

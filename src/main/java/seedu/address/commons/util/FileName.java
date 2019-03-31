@@ -28,9 +28,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class FileName {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "File Names (without including file format) should only start with alphanumeric characters following "
-                    + "which can contain alphanumeric characters "
-                    + "or \"_\" or \"-\" (without quotation marks) and it should not be blank";
+            "File Name (without including file extension) must start with an alphabet or number followed by "
+                    + "alphabets, numbers, underscore or hyphen. It must not be a reserved word. "
+                    + "You can refer to the User Guide for more details.";
 
     /*
      * The characters of the file name must not contain any whitespace
@@ -70,7 +70,7 @@ public class FileName {
      */
     public static boolean isValidFileName(String fileNameToCheck) {
         requireNonNull(fileNameToCheck);
-        if (fileNameToCheck.isEmpty() || fileNameToCheck.matches(RESERVED_NAMES_REGEX)) {
+        if (fileNameToCheck.isEmpty() || fileNameToCheck.toUpperCase().matches(RESERVED_NAMES_REGEX)) {
             return false;
         }
         return fileNameToCheck.matches(VALIDATION_REGEX);

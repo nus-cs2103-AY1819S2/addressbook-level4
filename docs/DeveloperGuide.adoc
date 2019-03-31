@@ -620,20 +620,20 @@ A full list of reserved names implemented in `FileName` class which are not allo
 [WARNING]
 The specified file name *must not* be an empty string or `null`. If the specified file name is an empty string, the specified file name will be declared as invalid. If the specified file name is `null`, a `NullPointerException` will be thrown.
 
-==== How to integrate it into your project or code?
+==== How to integrate it into new commands in MediTabs?
 
-If you are a developer looking to integrate `FileName` class into your project or code, we have provided a code snippet which provides you with an example of how to take advantage of the validation of file names provided by `FileName#isValidFileName(String fileNameToCheck)` operation.
+If you are a developer looking to add new features to MediTabs which involves the creation of files, we recommend integrating the existing `FileName` class. This can easily be done by making use of `FileName#isValidFileName(String fileNameToCheck)` operation.
 
-For example purposes, the code snippet shown below is a modified version of `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)` operation used in MediTabs for your reference:
+You may wish to refer to the code snippet shown below, which is a modified version of the `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)` operation used in MediTabs. The code snippet demonstrates how `FileName#isValidFileName(String fileNameToCheck)` operation can be used for easier reference.
 
 [source,java]
 ----
 public static FileName parseFileName(String fileName) throws ParseException {
-        if (!FileName.isValidFileName(fileName)) { # <1>
-            throw new ParseException(FileName.MESSAGE_CONSTRAINTS); # <2>
-        }
-        return new FileName(fileName); # <3>
+    if (!FileName.isValidFileName(fileName)) { # <1>
+        throw new ParseException(FileName.MESSAGE_CONSTRAINTS); # <2>
     }
+    return new FileName(fileName); # <3>
+}
 ----
 <1> Validate the specified file name using the `FileName#isValidFileName(String fileNameToCheck)` operation.
 <2> If the specified file name is invalid, a `ParseException` is thrown.

@@ -11,16 +11,16 @@ public class Title {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Titles should only contain alphanumeric characters, spaces and"
-                    + "the following special characters: \"\", @, !, ?, ., -,"
+                    + "the following special characters: \"\", ', @, !, ?, ., -,"
                     + "and it should not be blank.";
 
     //alphanumeric characters with spaces and certain special characters
-    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9 \"@!?.-]+$";
+    public static final String VALIDATION_REGEX = "^[a-zA-Z0-9 \"'@!?.-]+$";
 
     public final String title;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Title}.
      *
      * @param title A valid title
      */

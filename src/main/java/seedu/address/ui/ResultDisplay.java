@@ -51,23 +51,29 @@ public class ResultDisplay extends UiPart<Region> {
      * @return text line by line with format header
      */
     private Pair<String, String>[] parseText(String input) {
-        String[] lines = input.split("\n");
+        String[] lines = input.split("\n", 0);
         Pair<String, String>[] result = new Pair[lines.length];
         int i = 0;
         for (String line : lines) {
             String header = parseHeader(line);
             if (header != null) {
                 line = line.replaceFirst(header, "");
+            }
+            if (i != result.length - 1) {
                 line = line + "\n";
             }
+
             result[i++] = new Pair(line, header);
         }
         return result;
     }
-
+    /**
+     * Parses header
+     */
     private String parseHeader(String input) {
-        if (input.charAt(0) == '\\' || input.charAt(0) != '!') { return null; }
+        if (input.charAt(0) == '\\' || input.charAt(0) != '!') {
+            return null;
+        }
         return input.substring(0, 2);
     }
-
 }

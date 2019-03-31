@@ -17,8 +17,17 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should back. */
+    private boolean back;
+
     /** Stat information should be shown to the user. */
     private boolean showStat;
+
+    /** The application should show record panel. */
+    private boolean showRecord;
+
+    /** The application should show a task calendar popup */
+    private boolean showCalendar;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -41,9 +50,15 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code showStat},
      * and other fields set to their default value.
      */
-    public CommandResult(String feedbackToUser, boolean showStat) {
+    public CommandResult(String feedbackToUser, boolean showRecord, boolean showStat, boolean back) {
         this(feedbackToUser, false, false);
         this.showStat = showStat;
+        this.showRecord = showRecord;
+        this.back = back;
+    }
+    public CommandResult(String feedbackToUser, boolean showCalendar) {
+        this(feedbackToUser, false, false);
+        this.showCalendar = showCalendar;
     }
 
     public String getFeedbackToUser() {
@@ -58,8 +73,20 @@ public class CommandResult {
         return showStat;
     }
 
+    public boolean isShowRecord() {
+        return showRecord;
+    }
+
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isBack() {
+        return back;
+    }
+
+    public boolean isShowCalendar() {
+        return showCalendar;
     }
 
     @Override

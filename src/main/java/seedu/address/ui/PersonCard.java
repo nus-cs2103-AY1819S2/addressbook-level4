@@ -33,6 +33,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label name;
     @FXML
+    private Label sex;
+    @FXML
     private Label nric;
     @FXML
     private Label dateOfBirth;
@@ -50,7 +52,7 @@ public class PersonCard extends UiPart<Region> {
         if (person instanceof Patient) {
             this.person = person;
             id.setText(displayedIndex + ". ");
-            name.setText(person.getName().fullName);
+            name.setText(person.getName().fullName + " " + ((Patient) person).getSex().toString());
             nric.setText(((Patient) person).getNric().toString());
             dateOfBirth.setText(((Patient) person).getDateOfBirth().getDate());
             phone.setText(person.getPhone().value);
@@ -58,7 +60,6 @@ public class PersonCard extends UiPart<Region> {
             email.setText(person.getEmail().value);
             person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         } else {
-            System.out.println(person.getName());
             throw new PersonIsNotPatient();
         }
     }

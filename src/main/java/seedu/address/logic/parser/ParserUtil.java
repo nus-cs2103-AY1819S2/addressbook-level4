@@ -15,12 +15,18 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.DateOfBirth;
+import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKinRelation;
+import seedu.address.model.patient.DrugAllergy;
 import seedu.address.model.patient.Nric;
+import seedu.address.model.patient.Sex;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.Priority;
 import seedu.address.model.task.Title;
 import seedu.address.storage.ParsedInOut;
 
@@ -57,6 +63,21 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
+    }
+
+    /**
+     * Parses a {@code String sex} into a {@code Sex}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code sex} is invalid.
+     */
+    public static Sex parseSex(String sex) throws ParseException {
+        requireNonNull(sex);
+        String trimmedSex = sex.trim();
+        if (!Sex.isValidSex(trimmedSex)) {
+            throw new ParseException(Sex.MESSAGE_CONSTRAINTS);
+        }
+        return new Sex(trimmedSex);
     }
 
     /**
@@ -118,7 +139,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String dob} into an {@code Dob}.
+     * Parses a {@code String dob} into an {@code DateOfBirth}.
      * Leading and trailing whitespaces will be trimmed.
      */
     public static DateOfBirth parseDob(String dob) throws ParseException {
@@ -128,6 +149,32 @@ public class ParserUtil {
             throw new ParseException(DateOfBirth.MESSAGE_CONSTRAINTS);
         }
         return new DateOfBirth(trimmedDob);
+    }
+
+    /**
+     * Parses a {@code String drug} into a {@code DrugAllergy}
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static DrugAllergy parseDrugAllergy(String drug) throws ParseException {
+        requireNonNull(drug);
+        String trimmedDrug = drug.trim();
+        if (!DrugAllergy.isValidDrugAllergy(trimmedDrug)) {
+            throw new ParseException(DrugAllergy.MESSAGE_CONSTRAINTS);
+        }
+        return new DrugAllergy(trimmedDrug);
+    }
+
+    /**
+     * Parses a {@code String relation} into an {@code NextOfKinRelation}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static NextOfKinRelation parseRelation(String relation) throws ParseException {
+        requireNonNull(relation);
+        String trimmedRelation = relation.trim();
+        if (!NextOfKinRelation.isValidNextOfKinRelation(relation)) {
+            throw new ParseException(NextOfKinRelation.MESSAGE_CONSTRAINTS);
+        }
+        return new NextOfKinRelation(trimmedRelation);
     }
 
     /**
@@ -162,36 +209,44 @@ public class ParserUtil {
      * Parses a {@code String date} into an {@code DateCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static DateCustom parseStartDate(String date) throws ParseException {
+    public static DateCustom parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!DateCustom.isValidDate(date)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
         }
+        /** Not checking if date is before today temporarily, might enable if decision changes
         if (DateCustom.isDateBeforeToday(date)) {
             throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
-        }
+        }*/
         return new DateCustom(trimmedDate);
     }
 
     /**
-     * Parses a {@code String date} into an {@code DateCustom}.
+     * Parses a {@code String time} into an {@code TimeCustom}.
      * Leading and trailing whitespaces will be trimmed.
      */
-    public static DateCustom parseEndDate(String endDate, String startDate) throws ParseException {
-        requireNonNull(startDate);
-        requireNonNull(endDate);
-        String trimmedStartDate = startDate.trim();
-        String trimmedEndDate = endDate.trim();
-        if (!DateCustom.isValidDate(trimmedEndDate)) {
-            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
+    public static TimeCustom parseTime(String time) throws ParseException {
+        requireNonNull(time);
+        String trimmedTime = time.trim();
+        if (!TimeCustom.isValidTime(time)) {
+            throw new ParseException(TimeCustom.MESSAGE_CONSTRAINTS);
         }
-        if (DateCustom.isEndDateBeforeStartDate(DateCustom.getFormat(), trimmedStartDate, trimmedEndDate)) {
-            throw new ParseException(DateCustom.MESSAGE_CONSTRAINTS);
-        }
-        return new DateCustom(trimmedEndDate);
+        return new TimeCustom(trimmedTime);
     }
 
+    /**
+     * Parses a {@code String priority} into an {@code Priority}.
+     * Leading and trailing whitespaces will be trimmed.
+     */
+    public static Priority parsePriority(String priority) throws ParseException {
+        requireNonNull(priority);
+        String trimmedPriority = priority.trim().toLowerCase();
+        if (!Priority.isValidPriority(trimmedPriority)) {
+            throw new ParseException(Priority.MESSAGE_CONSTRAINTS);
+        }
+        return Priority.returnPriority(trimmedPriority);
+    }
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
@@ -205,54 +260,76 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String file}.
-     *
+     * Parses a {@code String filePath} into a {@code ParsedIO}.
      * @throws ParseException if the given {@code file} is invalid.
      */
-    public static File parseOpenSave(String filePath) throws ParseException {
+    public static ParsedInOut parseOpenSave(String filePath) throws ParseException {
         requireNonNull(filePath);
         filePath = filePath.trim();
-        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)$";
-
-        if (!filePath.matches(validationRegex)) {
-            throw new ParseException("File name is invalid");
-        }
-
         String newPath = "data\\";
-
         File file = new File(newPath.concat(filePath));
 
-        return file;
+        final String jsonRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json)$";
+        final String pdfRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(pdf)$";
+
+        if (filePath.matches(jsonRegex)) {
+            return new ParsedInOut(file, "json");
+        } else {
+            if (filePath.matches(pdfRegex)) {
+                return new ParsedInOut(file, "pdf");
+            } else {
+                throw new ParseException("Input file type is not a .json or .pdf.");
+            }
+        }
     }
 
     /**
-     * Parses a {@code String file} and {@code Index} into a {@code ParsedIO}.
-     *
+     * Parses a {@code String input} into a {@code ParsedIO}.
      * @throws ParseException if the given {@code file} is invalid.
      */
     public static ParsedInOut parseImportExport(String input) throws ParseException {
         requireNonNull(input);
         input = input.trim();
-        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?$";
+        String newPath = "data\\";
+        String filepath = "";
+        String fileType = "";
+
+        final String validationRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s?([0-9,-]*)?$";
+        final String allRegex = "^([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s(all)$";
 
         if (!input.matches(validationRegex)) {
-            throw new ParseException("File name is invalid or no index given");
+            if (input.matches(allRegex)) {
+                final Pattern splitRegex = Pattern.compile("^([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s(all)$");
+                Matcher splitMatcher = splitRegex.matcher(input);
+
+                if (splitMatcher.find()) {
+                    filepath = splitMatcher.group(1).concat(".");
+                    filepath = filepath.concat(splitMatcher.group(2));
+                    filepath = newPath.concat(filepath);
+                    fileType = splitMatcher.group(2);
+                    return new ParsedInOut(new File(filepath), fileType);
+                } else {
+                    // This shouldn't be possible after validationRegex
+                    throw new ParseException("Input file type is not a .json or .pdf.");
+                }
+            } else {
+                throw new ParseException("Input file type is not a .json or .pdf.");
+            }
         }
 
-        String newPath = "data\\";
-        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(txt|xml|json)+\\s?([0-9,-]*)?");
+        final Pattern splitRegex = Pattern.compile("([\\w-\\\\\\s.\\(\\)]+)+\\.(json|pdf)+\\s?([0-9,-]*)?");
         Matcher splitMatcher = splitRegex.matcher(input);
-        String filepath = "";
         String indexRange = "";
 
         if (splitMatcher.find()) {
             filepath = splitMatcher.group(1).concat(".");
             filepath = filepath.concat(splitMatcher.group(2));
             filepath = newPath.concat(filepath);
+            fileType = splitMatcher.group(2);
             indexRange = splitMatcher.group(3);
         } else {
             // This shouldn't be possible after validationRegex
-            throw new ParseException("File name is invalid or no index given");
+            throw new ParseException("Input file type is not a .json or .pdf.");
         }
 
         HashSet<Integer> parsedIndex = new HashSet<>();
@@ -277,7 +354,7 @@ public class ParserUtil {
             }
         }
 
-        return new ParsedInOut(new File(filepath), parsedIndex);
+        return new ParsedInOut(new File(filepath), fileType, parsedIndex);
     }
 
     /**
@@ -318,5 +395,21 @@ public class ParserUtil {
         }
 
         throw new ParseException("Wrong number of arguments");
+    }
+
+    /**
+     * Parses a {@code String desc} into a {@code Description}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code desc} is invalid.
+     */
+    public static Description parseDesc(String desc) throws ParseException {
+        requireNonNull(desc);
+        String trimmedDesc = desc.trim();
+        if (!Description.isValidDescription(trimmedDesc)) {
+            throw new ParseException(Description.MESSAGE_CONSTRAINTS);
+        } else {
+            return new Description(trimmedDesc);
+        }
     }
 }

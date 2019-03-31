@@ -58,6 +58,7 @@ public class AddCommand extends Command {
         model.addPerson(toAdd);
         model.commitAddressBook();
         model.commitArchiveBook();
+        model.commitPinBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
@@ -68,6 +69,11 @@ public class AddCommand extends Command {
 
     @Override
     public boolean requiresArchiveList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresPinList() {
         return false;
     }
 

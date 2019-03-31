@@ -27,4 +27,9 @@ public class ExitCommand extends Command {
         return false;
     }
 
+    @Override
+    public boolean requiresPinList() {
+        return false;
+    }
+
 }

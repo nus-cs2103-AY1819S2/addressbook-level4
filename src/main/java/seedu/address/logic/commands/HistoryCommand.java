@@ -40,4 +40,8 @@ public class HistoryCommand extends Command {
         return false;
     }
 
+    @Override
+    public boolean requiresPinList() {
+        return false;
+    }
 }

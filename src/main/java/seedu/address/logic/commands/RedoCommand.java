@@ -26,6 +26,7 @@ public class RedoCommand extends Command {
 
         model.redoAddressBook();
         model.redoArchiveBook();
+        model.redoPinBook();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -37,6 +38,11 @@ public class RedoCommand extends Command {
 
     @Override
     public boolean requiresArchiveList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresPinList() {
         return false;
     }
 }

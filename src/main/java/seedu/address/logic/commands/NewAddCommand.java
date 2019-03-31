@@ -79,9 +79,15 @@ public class NewAddCommand extends Command {
     }
 
     @Override
+    public boolean requiresPinList() {
+        return false;
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof NewAddCommand // instanceof handles nulls
                 && toAdd.equals(((NewAddCommand) other).toAdd));
     }
 }
+

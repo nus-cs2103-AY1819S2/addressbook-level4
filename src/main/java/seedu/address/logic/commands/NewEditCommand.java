@@ -104,6 +104,11 @@ public class NewEditCommand extends Command {
         return false;
     }
 
+    @Override
+    public boolean requiresPinList() {
+        return false;
+    }
+
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.

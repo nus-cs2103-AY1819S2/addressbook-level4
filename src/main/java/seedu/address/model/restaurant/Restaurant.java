@@ -42,8 +42,8 @@ public class Restaurant {
      * Constructor for Restaurant class without Reviews and Categories
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Postal postal, Set<Tag> tags, Weblink weblink,
-                      OpeningHours openingHours) {
+    public Restaurant(Name name, Phone phone, Email email, Address address, Postal postal,
+                      Set<Tag> tags, Weblink weblink, OpeningHours openingHours) {
         requireAllNonNull(name, phone, email, address, tags, weblink, openingHours, postal);
         this.name = name;
         this.phone = phone;
@@ -77,8 +77,8 @@ public class Restaurant {
     /**
      * Create new restaurant with Categories and Reviews.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Postal postal, Set<Tag> tags, Weblink weblink,
-                      OpeningHours openingHours, Category categories, List<Review> reviews) {
+    public Restaurant(Name name, Phone phone, Email email, Address address, Postal postal, Set<Tag> tags,
+                      Weblink weblink, OpeningHours openingHours, Category categories, List<Review> reviews) {
         requireAllNonNull(name, phone, email, address, tags, postal);
         this.name = name;
         this.phone = phone;

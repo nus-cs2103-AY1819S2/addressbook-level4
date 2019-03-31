@@ -107,7 +107,8 @@ public interface Model {
 
 
     /**
-     * Updates the filter of the filtered restaurant list to filter by the given {@code predicate} and sorts by the given (@code comparator}.
+     * Updates the filter of the filtered restaurant list to filter
+     * by the given {@code predicate} and sorts by the given (@code comparator}.
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRestaurantListAndSort(Predicate<Restaurant> predicate, Comparator<Restaurant> sortBy);

@@ -39,7 +39,7 @@ public class SampleDataUtil {
                     getReviewList("I love the chicken here! Great service too!",
                             "5.0", "2019-03-04T13:32:20.323")),
             new Restaurant(new Name("Bangkok Jam"), new Phone("65272758"), new Email("bangkokjam@example.com"),
-                    new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),new Postal("018956"),
+                    new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"), new Postal("018956"),
                     getTagSet("Farewell"), new Weblink("https://bangkokjam.com.sg"),
                     new OpeningHours("1100 to 2200"), getCategories("Thai", "Fast Casual"),
                     getReviewList("Love the ambience. Food can be better though.",

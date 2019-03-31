@@ -77,7 +77,7 @@ public class DeleteReviewCommand extends Command {
 
         return new Restaurant(restaurantSelected.getName(), restaurantSelected.getPhone(),
                 restaurantSelected.getEmail(),
-                restaurantSelected.getAddress(), restaurantSelected.getTags(),
+                restaurantSelected.getAddress(), restaurantSelected.getPostal(), restaurantSelected.getTags(),
                 restaurantSelected.getWeblink(), restaurantSelected.getOpeningHours(),
                 restaurantSelected.getCategories(), editedReviews);
     }

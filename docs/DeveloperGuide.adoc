@@ -183,7 +183,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses either the `ManagementModeParser` or `QuizModeParser` class to parse the user command.
 ..  If `ManagementParser` is used to parse the user command:
-...  This results in a `Command` object which is executed by the `LogicManager`.
+...  This results in a `ManagementCommand` object which is executed by the `LogicManager`.
 ...  The command execution can affect the `Model` (e.g. adding a person).
 ..  If `QuizModeParser` is used to parse the user command:
 ...  This results in a `QuizCommand` object which is executed by the `LogicManager`.
@@ -352,18 +352,12 @@ Quiz feature allows users to enter quiz related commands and answer.
 ==== Current Implementation
 The quiz feature implements the following commands and processes answer:
 
-* `\quit` - Quits a quiz session.
+* `Answer [*]` - Enters any character without escape character \ is treated as an answer.
+* `\difficult` - Labels current question in quiz as difficult or not.
 * `\help` - Lists all commands in quiz and inputs the program will accept.
 * `\hint` - Reveals additional information to help user to solve the question.
+* `\quit` - Quits a quiz and save attempted progress.
 * `\status` - Lists current status and lesson progress of user.
-* `Answer [*]` - Enters any character without escape character \ is treated as an answer.
-
-==== \status
-The `\status` feature list the total attempts you have attempted, total number of question you
-have gotten correct in this session and which question you are currently on.
-
-.Sequence diagram for status feature
-image::QuizStatusCommandSequenceDiagram.png[width="800"]
 
 ==== Answer [*]
 The `Answer [*]` feature is facilitated by `QuizAnswerCommand`. The command takes in user input
@@ -375,11 +369,26 @@ answers a question:
 .Sequence diagram for answer feature
 image::QuizAnswerCommandSequenceDiagram.png[width="800"]
 
+==== \quit
+The `\quit` will force quit the current quiz and save the attempted question to file. Once quit,
+it will return back to the `ManagementMode`.
+
+.Sequence diagram for quit feature
+image::QuizQuitCommandSequenceDiagram.png[width="800"]
+
+==== \status
+The `\status` feature list the total attempts you have attempted, total number of question you
+have gotten correct in this quiz and which question you are currently on.
+
+.Sequence diagram for status feature
+image::QuizStatusCommandSequenceDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How Quiz executes
 * **Alternative 1 (current choice):** Run quiz in a different mode
-** Pros: Answer can be anything excluding word starting with a backslash `\` (e.g. `\help`)
+** Pros: Answer can be anything excluding word starting with a backslash `\` (e.g. `\help`) and
+have a better UX experience without having to type additional command as answer.
 ** Cons: Tedious to implement
 * **Alternative 2:** Run quiz in the same mode as the rest of the management commands
 ** Pros: Easier to implement compared to alternative 1
@@ -1097,6 +1106,9 @@ _{More to be added}_
 [[lesson]] Lesson::
 A labelled set of <<question,questions>>.
 
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
 [[question]] Question::
 A set of values, where one value is given as a prompt to the user, and another value is used as the correct answer for that given question. Other values may be shown to supplement the question.
 
@@ -1105,13 +1117,6 @@ User’s current learning progress
 
 [[srs]] Spaced Repetition System (SRS)::
 The technique of gradually delaying or accelerating the testing of content based on the user’s success.
-
-[[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
-
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 
 [appendix]
 == Product Survey

@@ -171,6 +171,21 @@ public class CurrentEditManager implements CurrentEdit {
         return tempImage.canRedo();
     }
 
+    public void setUndoTemp() {
+        tempImage.setUndo();
+    }
+
+    public void setRedoTemp() {
+        tempImage.setRedo();
+    }
+
+    public Command getCommandTemp() {
+        return tempImage.getCommand();
+    }
+
+    public List<Command> getSubHistoryTemp() {
+        return tempImage.getSubHistory();
+    }
     /**
      * Retrieves a list of all filenames in assets folder. Returns the list as String[].
      */

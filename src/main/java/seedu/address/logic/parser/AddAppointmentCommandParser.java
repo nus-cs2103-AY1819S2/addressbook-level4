@@ -4,9 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.stream.Stream;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddAppointmentCommand;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.appointment.Appointment;
 
@@ -22,23 +20,24 @@ public class AddAppointmentCommandParser implements Parser<AddAppointmentCommand
      */
     @Override
     public AddAppointmentCommand parse(String args) throws ParseException {
-        Prefix remark = new Prefix("r/");
+        Prefix patientId = new Prefix("pid/");
+        Prefix doctorId = new Prefix("did/");
+        Prefix dateOfAppt = new Prefix("d/");
+        Prefix timeOfAppt = new Prefix("t/");
 
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, remark);
+                ArgumentTokenizer.tokenize(args, patientId, doctorId, dateOfAppt, timeOfAppt);
 
-        if (!arePrefixesPresent(argMultimap, remark)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        if (!arePrefixesPresent(argMultimap, patientId, doctorId, dateOfAppt, timeOfAppt)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "see add-appt usage"));
         }
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE), pe);
-        }
+        Appointment appointment = new Appointment(Integer.parseInt(argMultimap.getValue(patientId).get()),
+                Integer.parseInt(argMultimap.getValue(doctorId).get()),
+                argMultimap.getValue(dateOfAppt).get(),
+                argMultimap.getValue(timeOfAppt).get());
 
-        return new AddAppointmentCommand(index, new Appointment(argMultimap.getValue(remark).get()));
+        return new AddAppointmentCommand(appointment);
     }
 
     /**

@@ -6,6 +6,7 @@ import java.util.function.Predicate;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
@@ -84,6 +85,12 @@ public interface Model {
      * The medHist must exist in the address book.
      */
     void deleteMedHist(MedicalHistory target);
+
+    /**
+     * Adds the appointment.
+     * {@code appointment} must not be a duplicate
+     */
+    void addAppointment(Appointment appointment);
 
     /**
      * Adds the given patient.

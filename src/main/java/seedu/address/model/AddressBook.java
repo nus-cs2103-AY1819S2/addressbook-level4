@@ -2,12 +2,14 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 
+import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
 import seedu.address.model.medicalhistory.UniqueMedHistList;
 import seedu.address.model.person.Doctor;
@@ -16,6 +18,7 @@ import seedu.address.model.person.UniqueDoctorList;
 import seedu.address.model.person.UniquePatientList;
 import seedu.address.model.prescription.Prescription;
 import seedu.address.model.prescription.UniquePrescriptionList;
+
 
 /**
  * Wraps all data at the address-book level
@@ -28,6 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     private final UniqueMedHistList medHists;
     private final UniquePrescriptionList prescriptions;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
+    private final List<Appointment> appointments;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -41,6 +45,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         doctors = new UniqueDoctorList();
         medHists = new UniqueMedHistList();
         prescriptions = new UniquePrescriptionList();
+        appointments = new ArrayList<Appointment>();
     }
 
     public AddressBook() {
@@ -140,6 +145,20 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         patients.setPatient(target, editedPatient);
         indicateModified();
+    }
+
+    /**
+     * Adds an appointment.
+     * The appointment must not already exist.
+     */
+    public void addAppointment(Appointment appointment) {
+        appointments.add(appointment);
+        indicateModified();
+    }
+
+    @Override
+    public List<Appointment> getAppointments() {
+        return appointments;
     }
 
     /**

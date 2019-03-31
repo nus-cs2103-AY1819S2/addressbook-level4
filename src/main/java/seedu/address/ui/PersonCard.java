@@ -52,7 +52,7 @@ public class PersonCard extends UiPart<Region> {
 
         StringBuilder sb = new StringBuilder();
         person.getAppointments().forEach(appointment -> {
-            sb.append(appointment.value);
+            sb.append(appointment.getTimeOfAppt());
             sb.append(", ");
         });
         addAppointment.setText(sb.toString());

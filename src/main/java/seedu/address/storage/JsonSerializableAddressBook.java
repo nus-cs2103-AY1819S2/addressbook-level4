@@ -21,13 +21,13 @@ import seedu.address.model.person.Patient;
 class JsonSerializableAddressBook {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Patients list contains duplicate patient(s).";
-
     public static final String MESSAGE_DUPLICATE_MEDHIST =
             "Medical history list contains duplicate medical history(s).";
 
     private final List<JsonAdaptedPatient> patients = new ArrayList<>();
-
     private final List<JsonAdaptedMedicalHistory> medicalHistories = new ArrayList<>();
+    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedAppointment> appointments = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given patients.
@@ -35,9 +35,12 @@ class JsonSerializableAddressBook {
     @JsonCreator
     public JsonSerializableAddressBook(@JsonProperty("patients") List<JsonAdaptedPatient> patients,
                                        @JsonProperty("medicalHistories")
-                                       List<JsonAdaptedMedicalHistory> medicalHistories) {
+                                               List<JsonAdaptedMedicalHistory> medicalHistories,
+                                        @JsonProperty("appointments") List<JsonAdaptedAppointment> appointments) {
         this.patients.addAll(patients);
         this.medicalHistories.addAll(medicalHistories);
+        this.appointments.addAll(appointments);
+        //this.medicalHistories.addAll(medicalHistories);
     }
 
     /**
@@ -47,7 +50,11 @@ class JsonSerializableAddressBook {
      */
     public JsonSerializableAddressBook(ReadOnlyAddressBook source) {
         patients.addAll(source.getPatientList().stream().map(JsonAdaptedPatient::new).collect(Collectors.toList()));
+
         medicalHistories.addAll(source.getMedHistList().stream().map(JsonAdaptedMedicalHistory::new)
+                .collect(Collectors.toList()));
+
+        appointments.addAll(source.getAppointments().stream().map(JsonAdaptedAppointment::new)
                 .collect(Collectors.toList()));
     }
 

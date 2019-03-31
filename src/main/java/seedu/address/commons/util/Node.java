@@ -113,7 +113,7 @@ public class Node {
                             break;
                         }
                         if (j == modules.size() - 1 && currNode.isModule()) {
-                            missingModules.add(currNode.getValue() );
+                            missingModules.add(currNode.getValue());
                         }
                     }
                 }

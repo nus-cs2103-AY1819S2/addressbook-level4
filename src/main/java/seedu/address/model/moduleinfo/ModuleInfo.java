@@ -1,7 +1,5 @@
 package seedu.address.model.moduleinfo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 /**

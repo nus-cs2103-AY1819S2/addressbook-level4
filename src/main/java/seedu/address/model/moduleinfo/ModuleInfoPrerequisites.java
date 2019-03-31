@@ -152,7 +152,7 @@ public class ModuleInfoPrerequisites {
                     tempHead.addChild(nextNode);
                     i++;
 
-                    if ( headNode.isDummy()) {
+                    if (headNode.isDummy()) {
                         headNode = tempHead;
 
                     } else if (headNode.getValue().equals(tempHead.getValue())) {

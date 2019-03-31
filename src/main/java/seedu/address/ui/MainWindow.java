@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     private ArchiveListPanel archiveListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private PinListPanel pinListPanel;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -48,6 +49,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane personListPanelPlaceholder;
+
+    @FXML
+    private StackPane pinListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -121,6 +125,10 @@ public class MainWindow extends UiPart<Stage> {
         personListPanelPlaceholder.getChildren().add(archiveListPanel.getRoot());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
+        pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPersonProperty(),
+                logic::setSelectedPerson);
+        pinListPanelPlaceholder.getChildren().add(pinListPanel.getRoot());
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -173,6 +181,9 @@ public class MainWindow extends UiPart<Stage> {
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+    public PinListPanel getPinListPanel() {
+        return pinListPanel;
     }
 
     public ArchiveListPanel getArchiveListPanel() {

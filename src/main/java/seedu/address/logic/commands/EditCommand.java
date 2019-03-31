@@ -92,7 +92,24 @@ public class EditCommand extends Command {
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
+        model.commitArchiveBook();
+        model.commitPinBook();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresPinList() {
+        return false;
     }
 
     /**
@@ -133,16 +150,6 @@ public class EditCommand extends Command {
             return new Tenant(updatedName, updatedPhone, updatedEmail, updatedRemark);
         }
         return new Person(updatedName, updatedPhone, updatedEmail, updatedRemark);
-    }
-
-    @Override
-    public boolean requiresMainList() {
-        return true;
-    }
-
-    @Override
-    public boolean requiresArchiveList() {
-        return false;
     }
 
     @Override

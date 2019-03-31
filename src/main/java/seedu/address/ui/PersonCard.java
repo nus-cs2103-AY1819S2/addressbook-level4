@@ -59,22 +59,6 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         remark.setText(person.getRemark().value);
         email.setText(person.getEmail().value);
-        if (person instanceof Buyer) { customer.setText("buyer"); }
-        if (person instanceof Seller) {
-            final Seller seller = (Seller) person;
-            customer.setText("seller");
-            address.setText(seller.getAddress().value);
-            sellingPrice.setText(seller.getSellingPrice().toString());
-            seller.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        }
-        if (person instanceof Landlord) {
-            final Landlord landlord = (Landlord) person;
-            customer.setText("landlord");
-            address.setText(landlord.getAddress().value);
-            rentalPrice.setText(landlord.getRentalPrice().toString());
-            landlord.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        }
-        if (person instanceof Tenant) { customer.setText("tenant"); }
     }
 
     @Override

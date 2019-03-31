@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ArchiveBook;
+import seedu.address.model.PinBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveBook;
+import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Buyer;
 import seedu.address.model.person.Email;
@@ -64,6 +66,21 @@ public class SampleDataUtil {
         };
     }
 
+    public static Person[] getSamplePinnedPersons() {
+        return new Person[] {
+            new Buyer(new Name("Philip Fu"), new Phone("83070005"), new Email("philipfu@example.com"),
+                new Remark("I am a pinned buyer")),
+            new Seller(new Name("Irwin King"), new Phone("83070006"), new Email("irwinking@example.com"),
+                new Remark("I am a pinned seller"), new Property("selling",
+                new Address("Blk 504 Clementi Road, #04-04"), new Price("600000"),
+                getTagSet("MRT", "4Room"))),
+            new Landlord(new Name("Jimmy Lee"), new Phone("83070007"), new Email("jimmylee@example.com"),
+                new Remark("I am a pinned landlord"), new Property("rental",
+                new Address("Blk 505 Clementi Road, #05-05"), new Price("2500"),
+                getTagSet("MRT", "4Room")))
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
@@ -76,6 +93,14 @@ public class SampleDataUtil {
         ArchiveBook sampleAb = new ArchiveBook();
         for (Person sampleArchivedPerson : getSampleArchivedPersons()) {
             sampleAb.addPerson(sampleArchivedPerson);
+        }
+        return sampleAb;
+    }
+
+    public static ReadOnlyPinBook getSamplePinBook() {
+        PinBook sampleAb = new PinBook();
+        for (Person samplePinnedPerson : getSamplePinnedPersons()) {
+            sampleAb.addPerson(samplePinnedPerson);
         }
         return sampleAb;
     }

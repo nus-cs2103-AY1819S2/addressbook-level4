@@ -44,16 +44,22 @@ public class ArchiveCommand extends Command {
         model.archivePerson(personToArchive);
         model.commitAddressBook();
         model.commitArchiveBook();
+        model.commitPinBook();
         return new CommandResult(String.format(MESSAGE_ARCHIVE_PERSON_SUCCESS, personToArchive));
     }
 
     @Override
     public boolean requiresMainList() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean requiresArchiveList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresPinList() {
         return false;
     }
 

@@ -430,13 +430,20 @@ retrieved from the `HashMap` and compared.
 ==== Design considerations
 ===== Aspect:
 
+// tag::Semester CAP and Workload Limits[]
+=== Semester CAP and workload management feature
 
+==== Current Implementation
+Users are able to set their preferred minimum and maximum CAP limits for each semester. They are also able to set the minimum and maximum workload limits for each semester in terms of the number of hours per week in terms of lectures, tutorials, labs, projects, and preparation.
 
+The current stored semester limits will be loaded from the GradTrak.json file into a list of `SemLimit` Objects for each semester on app startup.
+If the user has not set any limits, the json file will contain a list with default limit values.
 
+Users able to set the expected minimum and maximum grade for each module they take, as well as the number of workload hours.
+The `EditCommand` is used to set the grades and workload expected using an single argument for each variable.
 
-
-
-
+Users can check if their expected grades and workload per semester falls within their preferred limits.
+A class `LimitChecker` handles the computation of CAP and total workload of the semesters and generates a table in HTML with the information computed.
 
 
 === Logging

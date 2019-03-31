@@ -74,15 +74,15 @@ public class CommandTestUtil {
     public static final String REVIEWMESSAGE_DESC_ALICE = " " + PREFIX_REVIEW + VALID_REVIEWMESSAGE_ALICE;
     public static final String REVIEWMESSAGE_DESC_CS = " " + PREFIX_REVIEW + VALID_REVIEWMESSAGE_CS;
 
-    public static final String TOO_LONG_STR = "This string is too long that it will not be accepted by some attributes. "
+    public static final String TOO_LONG_STR = "This string is too long that it will not be accepted by some commands. "
             + "For example, the book name cannot be such long.";
-    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + TOO_LONG_STR; // book name should not be too long.
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + TOO_LONG_STR; // book name shouldn't be too long.
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String INVALID_BOOKNAME_DESC = " " + PREFIX_NAME + TOO_LONG_STR; // '&' not allowed in names
     public static final String INVALID_AUTHOR_DESC = " " + PREFIX_AUTHOR + "J.K"; // '.' not allowed in authors
     public static final String INVALID_RATING_DESC = " " + PREFIX_RATING + "11"; // rating should be [1,10]
-    public static final String INVALID_REVIEWTITLE_DESC = " " + PREFIX_RATING + TOO_LONG_STR; // '%' not allowed in reviews
+    public static final String INVALID_REVIEWTITLE_DESC = " " + PREFIX_RATING + TOO_LONG_STR; // title too long
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

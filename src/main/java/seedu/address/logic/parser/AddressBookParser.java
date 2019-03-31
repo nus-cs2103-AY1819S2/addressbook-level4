@@ -117,10 +117,6 @@ public class AddressBookParser {
             checkSpecialCondition(checkBothConditions);
             return new StatsCommandParser().parse(arguments);
 
-        case SortCommand.COMMAND_WORD:
-            checkSpecialCondition(checkBothConditions);
-            return new SortCommandParser().parse(arguments);
-
         case CopyCommand.COMMAND_WORD:
             checkSpecialCondition(checkBothConditions);
             return new CopyCommandParser().parse(arguments);
@@ -140,6 +136,13 @@ public class AddressBookParser {
         case ExportCommand.COMMAND_WORD:
             checkSpecialCondition(checkBothConditions);
             return new ExportCommandParser().parse(arguments);
+
+        //Commands that run in both GoTo mode and Patient mode but not in Calendar Window
+        case SortCommand.COMMAND_WORD:
+            if (CalendarWindow.isRunningCommand()) {
+                throw new ParseException(MESSAGE_ONLY_TASK_OR_DATE_COMMANDS);
+            }
+            return new SortCommandParser().parse(arguments);
 
         //Commands that should ONLY run in GoTo mode but not in Calendar Window
         case GoToCommand.COMMAND_WORD:

@@ -9,7 +9,7 @@ import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
- * Compares two ModuleInfoCodes based on CourseReqType and lexicographical order.
+ * Compares two {@code ModuleInfoCode} based on {@code CourseReqType} and lexicographical order.
  */
 public class RecModuleComparator implements Comparator<ModuleInfoCode> {
 

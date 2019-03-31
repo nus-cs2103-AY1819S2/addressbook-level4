@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javafx.scene.Node;
 
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.RecCommand;
 
 /**
  * Handles which panels to display when the command changes
@@ -15,7 +16,7 @@ public class PanelHandler {
     public PanelHandler(Logic logic) {
         super();
 
-        //Initialize the panels hashmap
+        //Initialize the panel's hashmap
         panels.put("displaymod", new DisplayModuleInfoList(logic.getDisplayList(), logic.selectedModuleInfoProperty(),
                 logic::setSelectedModuleInfo).getRoot());
     }

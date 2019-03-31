@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 /**
- * Tests that a module matches all description given.
+ * Tests that a {@code ModuleTaken} matches all description given.
  */
 public class FindModulePredicate implements Predicate<ModuleTaken> {
 

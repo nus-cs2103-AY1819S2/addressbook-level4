@@ -12,14 +12,14 @@ import seedu.address.model.course.CourseReqType;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 
 /**
- * Lists modules that the user is recommended to take based on completed modules and course requirements.
+ * Lists modules that the user is recommended to take based on passed modules and course requirements.
  */
 public class RecCommand extends Command {
 
     public static final String COMMAND_WORD = "rec";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":Recommends a list of modules that can be taken "
-            + "based on completed modules and course requirements.";
+            + "based on passed modules and course requirements.";
 
     public static final String MESSAGE_REC = "Recommended modules found";
 
@@ -36,10 +36,11 @@ public class RecCommand extends Command {
     }
 
     /**
-     * Returns a String representing a list of module codes and the req types satisfied.
-     * @param sortedList The List of ModuleInfoCode.
-     * @param codeToReqMap The HashMap of ModuleInfoCode to CourseReqType.
-     * @return a String.
+     * Generates a {@code String} representing a {@code List}
+     * of {@code ModuleInfoCode} and {@code CourseReqType} satisfied.
+     * @param sortedList The {@code List} of {@code ModuleInfoCode}.
+     * @param codeToReqMap The {@code HashMap} of {@code ModuleInfoCode} to {@code CourseReqType}.
+     * @return The {@code String} stated above.
      */
     private static String generateResultString(ObservableList<ModuleInfoCode> sortedList,
                                                HashMap<ModuleInfoCode, CourseReqType> codeToReqMap) {

@@ -12,16 +12,16 @@ import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Semester;
 
 /**
- * Finds module(s) in the module plan matching all given module code,
- * semester, grade or finished status (case-insensitive).
+ * Finds {@code ModuleTaken} in {@code GradTrak} matching all given {@code ModuleInfoCode},
+ * {@code Semester}, {@code Grade} or finished status (case-insensitive).
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds module(s) matching all given parameters.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds modules matching all given parameters.\n"
             + "Parameters: [c/MODULE_CODE] [s/SEMESTER] [g/GRADE] [f/IS_FINISHED]\n"
-            + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A";
+            + "Example: " + COMMAND_WORD + " s/y1s1 c/cs g/A f/y";
 
     private final FindModuleDescriptor descriptor;
 
@@ -49,7 +49,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Stores details for finding a module in the module plan.
+     * Stores details for finding a {@code ModuleTaken} in {@code GradTrak}.
      * There must be at least one filled field.
      */
     public static class FindModuleDescriptor {

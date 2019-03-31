@@ -176,6 +176,8 @@ public interface Model {
      */
     void setSelectedModuleTaken(ModuleTaken moduleTaken);
 
+    ObservableList<ModuleInfo> getAllModules();
+
     /**
      * Returns an Observable list of all module information from storage
      * @return Observable list of ModuleInfo based on predicate set
@@ -213,8 +215,8 @@ public interface Model {
     ObservableList<ModuleInfoCode> getRecModuleListSorted();
 
     /**
-     * Updates the recommended module list by creating a new RecModuleManager,
-     * and returns a HashMap of ModuleInfoCode to CourseReqType.
+     * Updates the recommended module list by creating a new {@code RecModuleManager},
+     * and returns a {@code HashMap} of {@code ModuleInfoCode} to {@code CourseReqType}.
      */
     HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList();
 

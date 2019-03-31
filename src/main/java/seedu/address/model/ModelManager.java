@@ -307,6 +307,11 @@ public class ModelManager implements Model {
 
     //=========== Module Info List ===========================================================================
     @Override
+    public ObservableList<ModuleInfo> getAllModules() {
+        return allModules;
+    }
+
+    @Override
     public ObservableList<ModuleInfo> getDisplayList() {
         return this.displayList;
     }

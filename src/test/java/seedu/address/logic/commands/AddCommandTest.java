@@ -29,6 +29,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.record.Record;
 import seedu.address.model.task.Task;
 
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
 
 
@@ -210,6 +211,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Task> getFilteredTaskList() {
             throw new AssertionError("This method should not be called.");
         }
@@ -226,7 +232,12 @@ public class AddCommandTest {
 
         @Override
         public void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse) {
-            throw new AssertionError("This method should not be called");
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortRecordsBook(Comparator<Record> recordComparator, boolean isReverse) {
+            throw new AssertionError("This method should not be called.");
         }
 
         public void updateFilteredTaskList(Predicate<Task> predicate) {

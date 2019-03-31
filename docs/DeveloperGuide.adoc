@@ -377,7 +377,7 @@ image::inputStatsCommandSS.png[width=250]
 ! Note, there should not be any valid data at the moment as the game as not started.
 ! Include Screenshot explaining pop-up window and lack of data
 
-image::StatsWindowSS.png[width=400]
+image::StatsWindowSS.png[width=600]
 Step 4. Now proceed with the game and perform an attack ....
 
 Step 5. Invoke the `stats` command again to view the updated statistics
@@ -394,8 +394,8 @@ Besides the pop-up window, the data is also captured in the command-line result 
 image::StatsCommandBox.PNG[width=400]
 
 ==== Design Considerations
-* **Alternative 1 (current choice):** Statistics will have an initialise method that with a set of default configuration that are used by any Statistics Variant.
-** Pros: The underlying variables and values in `Statistics` is better protected from modification.
+* **Alternative 1 (current choice):** Statistics class will have an initialise method that with a set of default configuration that are used by any Statistics Variant.
+** Pros: The underlying variables and values in Statistics is better protected from modification.
 ** Cons: It does not accommodate changes in default settings.
 * **Alternative 2:** Statistics is stored entirely within StatsCommands
 ** Pros: Easy to code and less lines of code.

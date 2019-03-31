@@ -45,4 +45,6 @@ public interface CurrentEdit {
     void openImage(Image image);
 
     void clearTemp();
+
+    boolean tempImageExist();
 }

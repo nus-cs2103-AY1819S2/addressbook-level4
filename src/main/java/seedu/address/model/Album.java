@@ -70,7 +70,7 @@ public class Album {
      *
      * @param args string of file name.
      */
-    public boolean checkFileExists(String args) {
+    public boolean checkFileExist(String args) {
         File file = new File(assetsFilePath + args);
         return (file.isFile());
     }

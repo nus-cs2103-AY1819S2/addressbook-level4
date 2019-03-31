@@ -42,7 +42,7 @@ public class OpenCommand extends Command {
         requireNonNull(currentEdit);
         Image toOpen;
 
-        if (album.checkFileExists(fileName)) {
+        if (album.checkFileExist(fileName)) {
             toOpen = album.retrieveImage(fileName);
         } else {
             throw new CommandException(MESSAGE_FILE_NOT_FOUND);

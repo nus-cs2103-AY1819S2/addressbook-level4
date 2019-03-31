@@ -17,8 +17,10 @@ import seedu.finance.commons.events.ShowGraphRequestEvent;
  */
 public class GraphPanel extends UiPart<Region> {
     //Not sure about the page urls, KIV most likely have to edit again
-    public static final String DEFAULT_PAGE = "main/docs/GraphPage.html";
-    public static final String SEARCH_PAGE_URL = "main/docs/GraphPage.html";
+    //Want to link to GraphPage.html which is currently under main/docs
+    public static final String DEFAULT_PAGE = "https://geezlouisee.github.io/web/index.html?";
+    public static final String SEARCH_PAGE_URL =
+            "https://geezlouisee.github.io/web/index.html?";
 
     private static final String FXML = "BrowserPanel.fxml";
 

@@ -15,6 +15,7 @@ import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.OpeningHours;
 import seedu.address.model.restaurant.Phone;
+import seedu.address.model.restaurant.Postal;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Category;
@@ -34,6 +35,7 @@ class JsonAdaptedRestaurant {
     private final String phone;
     private final String email;
     private final String address;
+    private final String postal;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private final List<JsonAdaptedReview> reviewed = new ArrayList<>();
     private final String weblink;
@@ -47,6 +49,7 @@ class JsonAdaptedRestaurant {
     @JsonCreator
     public JsonAdaptedRestaurant(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
             @JsonProperty("email") String email, @JsonProperty("address") String address,
+            @JsonProperty("postal") String postal,
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
             @JsonProperty("cuisine") String cuisine,
             @JsonProperty("occasion") String occasion,
@@ -58,6 +61,7 @@ class JsonAdaptedRestaurant {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.postal = postal;
         this.cuisine = cuisine;
         this.occasion = occasion;
         this.weblink = weblink;
@@ -78,6 +82,7 @@ class JsonAdaptedRestaurant {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        postal = source.getPostal().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -149,6 +154,14 @@ class JsonAdaptedRestaurant {
         }
         final Address modelAddress = new Address(address);
 
+        if (postal == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Postal.class.getSimpleName()));
+        }
+        if (!Postal.isValidPostal(postal)) {
+            throw new IllegalValueException(Postal.MESSAGE_CONSTRAINTS);
+        }
+        final Postal modelPostal = new Postal(postal);
+
         final Cuisine modelCuisine;
         if (cuisine == null) {
             modelCuisine = null;
@@ -190,7 +203,7 @@ class JsonAdaptedRestaurant {
 
         final ArrayList<Review> modelReviews = new ArrayList<>(restaurantReviews);
 
-        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelWeblink,
+        return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelPostal, modelTags, modelWeblink,
                 modelOpeningHours, new Category(modelCuisine, modelOccasion), modelReviews);
     }
 

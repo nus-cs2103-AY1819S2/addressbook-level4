@@ -1,14 +1,20 @@
 package seedu.address.ui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.ModuleTree;
 import seedu.address.commons.util.Node;
 import seedu.address.model.moduleinfo.ModuleInfo;
+import seedu.address.model.moduleinfo.ModuleInfoWorkload;
 
 /**
  * An UI component that displays information of a {@code ModuleInfo}.
@@ -36,9 +42,9 @@ public class DisplayModuleInfo extends UiPart<Region> {
     @FXML
     private Label moduleinfoprerequisites;
     @FXML
-    private Label moduleinfoworkload;
-    @FXML
     private TreeView prerequisitetree;
+    @FXML
+    private TableView workloadtable;
 
     public DisplayModuleInfo(ModuleInfo module, int displayedIndex) {
         super(FXML);
@@ -49,10 +55,33 @@ public class DisplayModuleInfo extends UiPart<Region> {
         moduleinfodepartment.setText(moduleInfo.getDepartmentString());
         moduleinfocredits.setText(moduleInfo.getCreditString());
         moduleinfodescription.setText(moduleInfo.getDescriptionString());
-        moduleinfoprerequisites.setText(moduleInfo.getPrerequisitesString());
-        moduleinfoworkload.setText(moduleInfo.getWorkloadString());
+        //moduleinfoprerequisites.setText(moduleInfo.getPrerequisitesString());
+        //moduleinfoworkload.setText(moduleInfo.getWorkloadString());
         prerequisitetree.setRoot(generateTreeview());
         prerequisitetree.setShowRoot(false);
+        generateWorkloadTableView();
+    }
+
+    /**
+     * Creates Table for ModuleInfo Workload
+     */
+    public void generateWorkloadTableView() {
+        ObservableList<ModuleInfoWorkload> list = FXCollections.observableArrayList();
+        list.add(moduleInfo.getModuleInfoWorkload());
+        workloadtable.setItems(list);
+
+        TableColumn<ModuleInfoWorkload, Integer> lecture = new TableColumn("Lecture");
+        lecture.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("lecture"));
+        TableColumn<ModuleInfoWorkload, Integer> tutorial = new TableColumn("Tutorial");
+        tutorial.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("tutorial"));
+        TableColumn<ModuleInfoWorkload, Integer> lab = new TableColumn("Lab");
+        lab.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("lab"));
+        TableColumn<ModuleInfoWorkload, Integer> project = new TableColumn("Project");
+        project.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("project"));
+        TableColumn<ModuleInfoWorkload, Integer> preparation = new TableColumn("Preparation");
+        preparation.setCellValueFactory(new PropertyValueFactory<ModuleInfoWorkload, Integer>("preparation"));
+
+        workloadtable.getColumns().addAll(lecture, tutorial, lab, project, preparation);
     }
 
     /**
@@ -65,8 +94,10 @@ public class DisplayModuleInfo extends UiPart<Region> {
         ModuleTree moduleTree = moduleInfo.getModuleInfoPrerequisite().getModuleTree();
         TreeItem<String> codeNode = new TreeItem<String>(moduleTree.getModuleCode());
         root.getChildren().add(codeNode);
-        Node pesudoHead = moduleTree.getHead().getChildList().get(0);
-        createMinorTree(pesudoHead, codeNode);
+        if (!moduleTree.getHead().getChildList().isEmpty()) {
+            Node pesudoHead = moduleTree.getHead().getChildList().get(0);
+            createMinorTree(pesudoHead, codeNode);
+        }
         return root;
     }
 

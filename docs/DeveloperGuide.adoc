@@ -985,7 +985,7 @@ _{ more test cases ... }_
    Expected: The patient list GUI is replaced by the record list GUI. Displays dental records of patient specified by index. The window size may not be optimum. Use the command: `back` to revert to the patient list.
 .. Test case: `back` +
    Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
-   
+
 . Switching of UI elements when `back` command is run
 
 .. Prerequisites: Run the `goto 1` command. GUI displays dental record list.

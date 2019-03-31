@@ -622,9 +622,9 @@ The specified file name *must not* be an empty string or `null`. If the specifie
 
 ==== How to integrate it into new commands in MediTabs?
 
-If you are a developer looking to add new features to MediTabs which involves the creation of files, we recommend integrating the existing `FileName` class. This can easily be done by making use of `FileName#isValidFileName(String fileNameToCheck)``. 
+If you are a developer looking to add new features to MediTabs which involves the creation of files, we recommend integrating the existing `FileName` class. This can easily be done by making use of `FileName#isValidFileName(String fileNameToCheck)`.
 
-You may wish to refer to the code snippet shown below, which is a modified version of the `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)`` operation used in MediTabs. The code snippet demonstrates how `FileName#isValidFileName(String fileNameToCheck)` can be used.
+You may wish to refer to the code snippet shown below, which is a modified version of the `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)` operation used in MediTabs. The code snippet demonstrates how `FileName#isValidFileName(String fileNameToCheck)` can be used.
 
 [source,java]
 ----

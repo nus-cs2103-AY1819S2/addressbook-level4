@@ -68,6 +68,5 @@ public class GenerateBillForReservationCommand extends BillCommand {
         return other == this // short circuit if same object
             || (other instanceof GenerateBillForReservationCommand // instanceof handles nulls
             && reservationPredicate.equals(((GenerateBillForReservationCommand) other).reservationPredicate));
-            // state check
     }
 }

@@ -118,7 +118,11 @@ public class CsvManager implements CsvCommands {
     /**
      * checks whether the headers of the imported file conforms to the specifications of the Card headers
      */
-    private boolean checkCorrectHeaders(String header) {
+    private boolean checkCorrectHeaders(String header) throws CommandException {
+        if (header == null) {
+            throw new CommandException(Messages.MESSAGE_EMPTY_CSV_FILE);
+        }
+
         String[] cardHeaders = CARD_HEADERS.split(",");
         String[] fileHeaders = header.split(",");
 

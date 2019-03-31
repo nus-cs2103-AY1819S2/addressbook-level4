@@ -10,7 +10,6 @@ import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.SortPatientCommand;
 import seedu.address.logic.comparators.PatientComparator;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.MainWindow;
 
 public class SortCommandParserTest {
 

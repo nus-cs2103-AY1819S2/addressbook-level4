@@ -238,12 +238,21 @@ public class ModelManager implements Model {
     //=========== Sorting Methods ===========================================================================
 
     /**
-     * Sorts the address book according to the given comparator
+     * Sorts the patients within address book according to the given comparator
      */
     @Override
     public void sortAddressBook(Comparator<Patient> compPa, boolean isReverse) {
         requireNonNull(compPa);
         versionedAddressBook.sortPatients(compPa, isReverse);
+    }
+
+    /**
+     * Sorts the records within address book according to the given comparator
+     */
+    @Override
+    public void sortRecordsBook(Comparator<Record> compRec, boolean isReverse) {
+        requireNonNull(compRec);
+        versionedAddressBook.sortRecords(compRec, isReverse);
     }
 
     //=========== Filtered Task List Accessors =============================================================

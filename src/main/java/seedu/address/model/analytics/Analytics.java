@@ -1,5 +1,6 @@
 package seedu.address.model.analytics;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -57,8 +58,9 @@ public class Analytics {
     /**
      * Return mean grade data
      * */
-    public Float generateMeanGradeData() {
-        return meanGrade();
+    public String generateMeanGradeData() {
+        DecimalFormat df = new DecimalFormat("#.00");
+        return df.format(meanGrade());
     }
 
     /**

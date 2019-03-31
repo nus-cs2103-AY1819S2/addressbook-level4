@@ -28,9 +28,7 @@ public class UndoCommandTest {
         // set up of models' undo/redo history
         deleteFirstPerson(model);
         deleteFirstPerson(model);
-        deleteFirstPerson(model);
 
-        deleteFirstPerson(expectedModel);
         deleteFirstPerson(expectedModel);
         deleteFirstPerson(expectedModel);
     }

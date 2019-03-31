@@ -27,7 +27,7 @@ public class PinCommand extends Command {
 
     public static final String MESSAGE_PIN_PERSON_SUCCESS = "Pinned Person: %1$s";
     public static final String MESSAGE_PIN_PERSON_ALREADY = "Person %1$s is already in the pin list\n";
-    public static final String MESSAGE_PINLIST_FULL = "Unable to pin person: %1$s. \n"
+    public static final String MESSAGE_PIN_LIST_FULL = "Unable to pin person: %1$s. \n"
             + "The pin list contains up to 5 people\n";
     public static final int MAX_SIZE = 5;
 
@@ -49,7 +49,7 @@ public class PinCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } else if (lastShownPinList.size() >= MAX_SIZE) {
-            return new CommandResult(String.format(MESSAGE_PINLIST_FULL, personToPin));
+            return new CommandResult(String.format(MESSAGE_PIN_LIST_FULL, personToPin));
         } else if (lastShownPinList.contains(personToPin)) {
             return new CommandResult(String.format(MESSAGE_PIN_PERSON_ALREADY, personToPin));
         } else {

@@ -16,7 +16,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class PinBook implements ReadOnlyPinBook {
 
-    private final UniquePersonList persons;
+    private final UniquePersonList pinnedPersons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     /*
@@ -27,7 +27,7 @@ public class PinBook implements ReadOnlyPinBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
+        pinnedPersons = new UniquePersonList();
     }
 
     public PinBook() {}
@@ -47,7 +47,7 @@ public class PinBook implements ReadOnlyPinBook {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+        this.pinnedPersons.setPersons(persons);
         indicateModified();
     }
 
@@ -67,7 +67,7 @@ public class PinBook implements ReadOnlyPinBook {
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
-        return persons.contains(person);
+        return pinnedPersons.contains(person);
     }
 
     /**
@@ -75,7 +75,7 @@ public class PinBook implements ReadOnlyPinBook {
      * The person must not already exist in the pin book.
      */
     public void addPerson(Person p) {
-        persons.add(p);
+        pinnedPersons.add(p);
         indicateModified();
     }
 
@@ -87,7 +87,7 @@ public class PinBook implements ReadOnlyPinBook {
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
-        persons.setPerson(target, editedPerson);
+        pinnedPersons.setPerson(target, editedPerson);
         indicateModified();
     }
 
@@ -96,7 +96,7 @@ public class PinBook implements ReadOnlyPinBook {
      * {@code key} must exist in the pin book.
      */
     public void removePerson(Person key) {
-        persons.remove(key);
+        pinnedPersons.remove(key);
         indicateModified();
     }
 
@@ -121,25 +121,25 @@ public class PinBook implements ReadOnlyPinBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return pinnedPersons.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return pinnedPersons.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PinBook // instanceof handles nulls
-                && persons.equals(((PinBook) other).persons));
+                && pinnedPersons.equals(((PinBook) other).pinnedPersons));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return pinnedPersons.hashCode();
     }
 }
 

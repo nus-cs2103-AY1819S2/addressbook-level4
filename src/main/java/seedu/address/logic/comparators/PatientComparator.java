@@ -80,6 +80,16 @@ public class PatientComparator {
         }
     };
 
+    /**
+     *  Comparator to sort via Drug Allergy.
+     */
+    private static Comparator<Patient> compPatientDrug = new Comparator<Patient>() {
+        @Override
+        public int compare(Patient p1, Patient p2) {
+            return p1.getDrugAllergy().toString().compareTo(p2.getDrugAllergy().toString());
+        }
+    };
+
     public static Comparator<Patient> getPatientComparator(String parameterType) throws ParseException {
         Comparator<Patient> paComp;
         switch (parameterType.trim()) {
@@ -113,6 +123,7 @@ public class PatientComparator {
             break;
 
         case "drug":
+            paComp = compPatientDrug;
             break;
 
         case "desc":

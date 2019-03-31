@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -20,6 +21,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
+import seedu.address.model.person.predicate.PredicateManager;
+
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -59,9 +62,9 @@ public class SearchCommandTest {
     @Test
     public void execute_zeroKeywords_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        SearchCommand command = new SearchCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor(" ");
+        SearchCommand command = new SearchCommand(descriptor);
+        expectedModel.updateFilteredPersonList(new PredicateManager().translatePredicateDescriptor(descriptor));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
@@ -69,9 +72,9 @@ public class SearchCommandTest {
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
-        SearchCommand command = new SearchCommand(predicate);
-        expectedModel.updateFilteredPersonList(predicate);
+        SearchCommand.PredicatePersonDescriptor descriptor = preparePredicatePersonDescriptor("Kurz Elle Kunz");
+        SearchCommand command = new SearchCommand(descriptor);
+        expectedModel.updateFilteredPersonList(new PredicateManager().translatePredicateDescriptor(descriptor));
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
@@ -79,7 +82,10 @@ public class SearchCommandTest {
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private SearchCommand.PredicatePersonDescriptor preparePredicatePersonDescriptor(String userInput) {
+        SearchCommand.PredicatePersonDescriptor descriptor = new SearchCommand.PredicatePersonDescriptor();
+        descriptor.setName
+            (new HashSet<>(Arrays.asList(userInput.split("\\s+"))));
+        return descriptor;
     }
 }

@@ -9,8 +9,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Medicine;
 
 /**

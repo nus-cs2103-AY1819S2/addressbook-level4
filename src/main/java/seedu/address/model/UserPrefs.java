@@ -54,7 +54,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         return warningPanelSettings;
     }
 
-    public void setWarningPanelSettings(WarningPanelSettings warningPanelSettings){
+    public void setWarningPanelSettings(WarningPanelSettings warningPanelSettings) {
         requireNonNull(warningPanelSettings);
         this.warningPanelSettings = warningPanelSettings;
     }

@@ -2,12 +2,11 @@ package seedu.address.model.medicine;
 
 import seedu.address.commons.core.LogsCenter;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Logger;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents the expiry date of a batch Medicine in the inventory.
@@ -21,8 +20,6 @@ public class Expiry implements Comparable<Expiry> {
     public static final String VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((20)\\d\\d)";
 
     private final LocalDate expiryDate;
-
-    private static final Logger logger = LogsCenter.getLogger(Expiry.class);
 
     /**
      * Constructs an {@code Expiry}.

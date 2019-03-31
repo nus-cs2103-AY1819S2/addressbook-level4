@@ -11,7 +11,6 @@ import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Medicine;
 import seedu.address.model.threshold.Threshold;
-import seedu.address.ui.WarningPanel;
 
 /**
  * The API of the Model component.

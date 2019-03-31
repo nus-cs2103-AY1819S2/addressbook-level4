@@ -8,8 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.Medicine;
 

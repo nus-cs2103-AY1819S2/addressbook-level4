@@ -1,6 +1,5 @@
 package seedu.address.commons.core;
 
-import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -58,7 +57,7 @@ public class WarningPanelSettings implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Expiry Threshold Value : " + expiryThresholdValue + "\n");
-        sb.append("Low Stock Threshold Value : " + lowStockThresholdValue );
+        sb.append("Low Stock Threshold Value : " + lowStockThresholdValue);
         return sb.toString();
     }
 }

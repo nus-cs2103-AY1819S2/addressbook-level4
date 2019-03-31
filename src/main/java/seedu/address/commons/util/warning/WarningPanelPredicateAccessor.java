@@ -2,7 +2,6 @@ package seedu.address.commons.util.warning;
 
 import java.util.function.Predicate;
 
-import seedu.address.commons.core.WarningPanelSettings;
 import seedu.address.model.Model;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.BatchExpiryThresholdPredicate;
@@ -44,16 +43,28 @@ public class WarningPanelPredicateAccessor {
         return medicineLowStockPredicate.getThreshold();
     }
 
+    /**
+     * Updates {@code Batch}'s expiration threshold.
+     * @param threshold
+     */
     public void updateBatchExpiringThreshold(int threshold) {
         this.batchExpiryPredicate = new BatchExpiryThresholdPredicate(
             new Threshold(Integer.toString(threshold)));
     }
 
+    /**
+     * Updates {@code Medicine}'s expiration threshold.
+     * @param threshold
+     */
     public void updateMedicineExpiringThreshold(int threshold) {
         this.medicineExpiryPredicate = new MedicineExpiryThresholdPredicate(
             new Threshold(Integer.toString(threshold)));
     }
 
+    /**
+     * Updates {@code Medicine}'s low stock threshold.
+     * @param threshold
+     */
     public void updateMedicineLowStockThreshold(int threshold) {
         this.medicineLowStockPredicate = new MedicineLowStockThresholdPredicate(
             new Threshold(Integer.toString(threshold)));

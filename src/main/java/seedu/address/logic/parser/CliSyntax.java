@@ -18,5 +18,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_REVIEW_ENTRY = new Prefix("re/");
     public static final Prefix PREFIX_REVIEW_RATING = new Prefix("rr/");
     public static final Prefix PREFIX_INDEX = new Prefix("i/");
+    public static final Prefix PREFIX_POSTAL = new Prefix("po/");
 
 }

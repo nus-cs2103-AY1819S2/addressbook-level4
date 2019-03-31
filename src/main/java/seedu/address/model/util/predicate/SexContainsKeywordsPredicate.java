@@ -5,7 +5,9 @@ import java.util.List;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.patient.Patient;
 
-
+/**
+ * Tests that a {@code Patient}'s {@code Sex} matches any of the keywords given.
+ */
 public class SexContainsKeywordsPredicate extends ContainsKeywordsPredicate<Patient> {
 
     public SexContainsKeywordsPredicate(List<String> keywords) {

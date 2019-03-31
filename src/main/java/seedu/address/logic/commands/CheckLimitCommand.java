@@ -17,7 +17,7 @@ public class CheckLimitCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.checkLimit();
+        System.out.println(model.checkLimit());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

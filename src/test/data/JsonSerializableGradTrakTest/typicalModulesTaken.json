@@ -6,6 +6,10 @@
     "expectedMinGrade" : "F",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
+    "tutorialHour" : "0",
+    "labHour" : "0",
+    "projectHour" : "0",
+    "preparationHour" : "0",
     "tagged" : [ "friends" ]
   }, {
     "moduleInfoCode" : "CS2101",
@@ -13,6 +17,10 @@
     "expectedMinGrade" : "D",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
+    "tutorialHour" : "0",
+    "labHour" : "0",
+    "projectHour" : "0",
+    "preparationHour" : "0",
     "tagged" : [ "owesMoney", "friends" ]
   }, {
     "moduleInfoCode" : "CS1010S",
@@ -20,6 +28,10 @@
     "expectedMinGrade" : "D",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
+    "tutorialHour" : "0",
+    "labHour" : "0",
+    "projectHour" : "0",
+    "preparationHour" : "0",
     "tagged" : [ ]
   }, {
     "moduleInfoCode" : "CS1010X",
@@ -27,6 +39,10 @@
     "expectedMinGrade" : "F",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
+    "tutorialHour" : "0",
+    "labHour" : "0",
+    "projectHour" : "0",
+    "preparationHour" : "0",
     "tagged" : [ "friends" ]
   }, {
     "moduleInfoCode" : "MA1521",
@@ -34,6 +50,10 @@
     "expectedMinGrade" : "C",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
+    "tutorialHour" : "0",
+    "labHour" : "0",
+    "projectHour" : "0",
+    "preparationHour" : "0",
     "tagged" : [ ]
   }, {
     "moduleInfoCode" : "LSM1301",
@@ -41,6 +61,10 @@
     "expectedMinGrade" : "D",
     "expectedMaxGrade" : "A",
     "lectureHour" : "0",
+    "tutorialHour" : "0",
+    "labHour" : "0",
+    "projectHour" : "0",
+    "preparationHour" : "0",
     "tagged" : [ ]
   }, {
     "moduleInfoCode" : "GER1000",
@@ -48,6 +72,10 @@
     "expectedMinGrade" : "C",
     "expectedMaxGrade" : "B",
     "lectureHour" : "0",
+    "tutorialHour" : "0",
+    "labHour" : "0",
+    "projectHour" : "0",
+    "preparationHour" : "0",
     "tagged" : [ ]
   } ],
   "semesterLimitList" : [ {

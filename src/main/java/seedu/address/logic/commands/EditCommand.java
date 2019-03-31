@@ -30,6 +30,7 @@ import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.moduletaken.Workload;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -116,10 +117,20 @@ public class EditCommand extends Command {
                 .getExpectedMaxGrade().orElse(moduleTakenToEdit.getExpectedMaxGrade());
         Hour updatedLectureHour = editPersonDescriptor
                 .getLectureHour().orElse(moduleTakenToEdit.getLectureHour());
+        Hour updatedTutorialHour = editPersonDescriptor
+                .getTutorialHour().orElse(moduleTakenToEdit.getTutorialHour());
+        Hour updatedLabHour = editPersonDescriptor
+                .getLabHour().orElse(moduleTakenToEdit.getLabHour());
+        Hour updatedProjectHour = editPersonDescriptor
+                .getProjectHour().orElse(moduleTakenToEdit.getProjectHour());
+        Hour updatedPreparationHour = editPersonDescriptor
+                .getPreparationHour().orElse(moduleTakenToEdit.getPreparationHour());
+        Workload updatedWorkload = new Workload(updatedLectureHour, updatedTutorialHour, updatedLabHour,
+                updatedProjectHour, updatedPreparationHour);
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(moduleTakenToEdit.getTags());
 
         return new ModuleTaken(updatedName, updatedSemester, updatedExpectedMinGrade, updatedExpectedMaxGrade,
-                updatedLectureHour, updatedTags);
+                updatedWorkload, updatedTags);
     }
 
     @Override
@@ -150,6 +161,10 @@ public class EditCommand extends Command {
         private Grade expectedMinGrade;
         private Grade expectedMaxGrade;
         private Hour lectureHour;
+        private Hour tutorialHour;
+        private Hour labHour;
+        private Hour projectHour;
+        private Hour preparationHour;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -164,6 +179,10 @@ public class EditCommand extends Command {
             setExpectedMinGrade(toCopy.expectedMinGrade);
             setExpectedMaxGrade(toCopy.expectedMaxGrade);
             setLectureHour(toCopy.lectureHour);
+            setTutorialHour(toCopy.tutorialHour);
+            setLabHour(toCopy.labHour);
+            setProjectHour(toCopy.projectHour);
+            setPreparationHour(toCopy.preparationHour);
             setTags(toCopy.tags);
         }
 
@@ -214,6 +233,38 @@ public class EditCommand extends Command {
             return Optional.ofNullable(lectureHour);
         }
 
+        public void setTutorialHour(Hour tutorialHour) {
+            this.tutorialHour = tutorialHour;
+        }
+
+        public Optional<Hour> getTutorialHour() {
+            return Optional.ofNullable(tutorialHour);
+        }
+
+        public void setLabHour(Hour labHour) {
+            this.labHour = labHour;
+        }
+
+        public Optional<Hour> getLabHour() {
+            return Optional.ofNullable(labHour);
+        }
+
+        public void setProjectHour(Hour projectHour) {
+            this.projectHour = projectHour;
+        }
+
+        public Optional<Hour> getProjectHour() {
+            return Optional.ofNullable(projectHour);
+        }
+
+        public void setPreparationHour(Hour preparationHour) {
+            this.preparationHour = preparationHour;
+        }
+
+        public Optional<Hour> getPreparationHour() {
+            return Optional.ofNullable(preparationHour);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -251,6 +302,10 @@ public class EditCommand extends Command {
                     && getExpectedMinGrade().equals(e.getExpectedMinGrade())
                     && getExpectedMaxGrade().equals(e.getExpectedMaxGrade())
                     && getLectureHour().equals(e.getLectureHour())
+                    && getTutorialHour().equals(e.getTutorialHour())
+                    && getLabHour().equals(e.getLabHour())
+                    && getProjectHour().equals(e.getProjectHour())
+                    && getPreparationHour().equals(e.getPreparationHour())
                     && getTags().equals(e.getTags());
         }
     }

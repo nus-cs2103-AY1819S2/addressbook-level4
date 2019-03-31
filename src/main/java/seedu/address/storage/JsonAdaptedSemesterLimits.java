@@ -28,7 +28,7 @@ public class JsonAdaptedSemesterLimits {
     private final double maxPreparationHour;
 
     /**
-     * Constructs a {@code JsonAdaptedSemLimit} with the given SemLimit details from JSON file.
+     * Constructs a {@code JsonAdaptedSemesterLimits} with the given SemLimit details from JSON file.
      */
     @JsonCreator
     public JsonAdaptedSemesterLimits(@JsonProperty("MinCap") double minCap,

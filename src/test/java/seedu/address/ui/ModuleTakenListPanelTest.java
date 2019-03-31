@@ -22,6 +22,7 @@ import seedu.address.model.moduletaken.Grade;
 import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.moduletaken.Workload;
 
 public class ModuleTakenListPanelTest extends GuiUnitTest {
     private static final ObservableList<ModuleTaken> TYPICAL_MODULE_TAKENS =
@@ -84,8 +85,13 @@ public class ModuleTakenListPanelTest extends GuiUnitTest {
             Grade expectedMinGrade = Grade.getGrade("D");
             Grade expectedMaxGrade = Grade.getGrade("A");
             Hour lectureHour = new Hour("3");
+            Hour tutorialHour = new Hour("3");
+            Hour labHour = new Hour("3");
+            Hour projectHour = new Hour("3");
+            Hour preparationHour = new Hour("3");
+            Workload workload = new Workload(lectureHour, tutorialHour, labHour, projectHour, preparationHour);
             ModuleTaken moduleTaken = new ModuleTaken(moduleInfoCode, semester,
-                    expectedMinGrade, expectedMaxGrade, lectureHour, Collections.emptySet());
+                    expectedMinGrade, expectedMaxGrade, workload, Collections.emptySet());
             backingList.add(moduleTaken);
         }
         return backingList;

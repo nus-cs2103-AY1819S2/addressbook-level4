@@ -55,13 +55,17 @@ public class CapAverage {
     }
 
     /**
-     * Returns true if a given string is a valid hour number.
+     * Returns true if a given string is a valid cap average.
      */
     public static boolean isValidCapAverage(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
     public double getCapLimit() {
+        if (weightedGrades.isEmpty()) {
+            return 0;
+        }
+
         double sum = 0;
         double sumCredits = 0;
         for (int i = 0; i < weightedGrades.size(); i++) {

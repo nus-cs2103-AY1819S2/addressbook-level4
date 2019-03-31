@@ -70,6 +70,34 @@ public enum Semester {
         }
     }
 
+    public static Semester getSemesterByZeroIndex(int zeroIndex) {
+        switch (zeroIndex) {
+        case 0:
+            return Y1S1;
+        case 1:
+            return Y1S2;
+        case 2:
+            return Y2S1;
+        case 3:
+            return Y2S2;
+        case 4:
+            return Y3S1;
+        case 5:
+            return Y3S2;
+        case 6:
+            return Y4S1;
+        case 7:
+            return Y4S2;
+        case 8:
+            return Y5S1;
+        case 9:
+            return Y5S2;
+        case 10:
+        default:
+            return GRAD;
+        }
+    }
+
     /**
      * Returns if a given string is a valid semester.
      */

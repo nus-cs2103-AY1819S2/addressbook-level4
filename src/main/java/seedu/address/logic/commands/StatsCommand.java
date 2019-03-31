@@ -33,17 +33,17 @@ public class StatsCommand extends Command {
         String hitCount = "Successful Hit : " + playerStats.getHitCount();
         String missCount = "Misses : " + playerStats.getMissCount();
         String shipsDestroyed = "Enemy Ships Destroyed : " + playerStats.getEnemyShipsDestroyed();
-        // To add :
-        // Accuracy
-        // Your own number of ships left
+        String accuracy  = "Accuracy : " + playerStats.getAccuracy();
 
+        // Group data together in a list
         outputStatistics.add(movesLeft);
         outputStatistics.add(attacksMade);
         outputStatistics.add(hitCount);
         outputStatistics.add(missCount);
         outputStatistics.add(shipsDestroyed);
+        outputStatistics.add(accuracy);
 
-        new StatisticView(new Stage(), playerStats.generateData()).show(); // to input parameters
+        new StatisticView(new Stage(), playerStats.generateData()).show();
 
         // to change command message into log?
 

@@ -29,11 +29,11 @@ import seedu.address.model.deck.Deck;
  */
 public class DecksView implements ListViewState {
 
+    public final FilteredList<Deck> filteredDecks;
+
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
 
     private Model model;
-
-    public final FilteredList<Deck> filteredDecks;
 
     public DecksView(Model model, FilteredList<Deck> deckList) {
         this.model = model;

@@ -17,6 +17,7 @@ import seedu.address.model.deck.Deck;
  * ViewState of the Application during a Study session.
  */
 public class StudyView implements ViewState {
+    public final List<Card> listOfCards;
     private final Model model;
     private final Deck activeDeck;
     private Card currentCard;
@@ -24,8 +25,6 @@ public class StudyView implements ViewState {
     private final SimpleObjectProperty<String> textShown = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<String> userAnswer = new SimpleObjectProperty<>();
     private DeckShuffler deckShuffler;
-
-    public final List<Card> listOfCards;
 
     /**
      * The type of possible states that the study view can have.

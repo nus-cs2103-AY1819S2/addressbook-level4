@@ -2,12 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.patient.Patient;
 import seedu.address.ui.MainWindow;
-
-import java.util.ArrayList;
 
 /**
  * Clears the record list of the specified patient.

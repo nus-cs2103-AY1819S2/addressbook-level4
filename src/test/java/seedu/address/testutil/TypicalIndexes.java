@@ -19,4 +19,6 @@ public class TypicalIndexes {
     public static final Coordinates COORDINATES_J1 = new Coordinates("j1");
 
     public static final Coordinates COORDINATES_LAST_CELL = new Coordinates("j10");
+
+    public static final Coordinates INVALID_COORDINATE = new Coordinates(99, 99);
 }

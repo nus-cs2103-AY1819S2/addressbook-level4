@@ -1,6 +1,7 @@
 package seedu.address.logic.battle;
 
 import seedu.address.model.cell.Coordinates;
+import seedu.address.model.cell.Status;
 import seedu.address.model.player.Player;
 
 /**
@@ -45,6 +46,10 @@ public abstract class AttackResult {
      * (guess they never miss, huh?)
      */
     public abstract boolean isHit();
+
+    public Status getStatus() {
+        return attacker.getMapGrid().getCell(coords).getStatus();
+    }
 
     /**
      * Returns a String representation of the attack result.

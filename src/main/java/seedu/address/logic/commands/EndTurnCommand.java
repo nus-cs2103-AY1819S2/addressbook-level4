@@ -26,8 +26,11 @@ public class EndTurnCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         // assert canExecuteIn(model.getBattleState());
+        model.setBattleState(BattleState.ENEMY_ATTACK);
         AttackResult res = model.getBattle().takeComputerTurn();
+        model.getEnemyPlayer().receiveStatus(res.getStatus());
         model.updateUi();
+        model.setBattleState(BattleState.PLAYER_ATTACK);
         return new CommandResult(res.toString() + "\nYour turn.");
     }
 }

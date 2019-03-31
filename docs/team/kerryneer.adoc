@@ -30,18 +30,16 @@ needs to be done to permit only certain commands and ban others.
 * *Other contributions*:
 
 ** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from __% to __% (Pull requests https://github
-.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
+*** Wrote additional tests for existing features to increase coverage from __% to __% (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/74[#74])
 
 ** Documentation:
 *** Updated user guide by adding QuickStart section, new features, remove unnecessary features and modify existing
-commands for milestone v1.2 (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/60[#60], https://github
-.com/cs2103-ay1819s2-w10-4/main/pull/59[#59], https://github.com/cs2103-ay1819s2-w10-4/main/pull/80[#80],
+commands for milestone v1.2 (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/60[#60], https://github.com/cs2103-ay1819s2-w10-4/main/pull/59[#59], https://github.com/cs2103-ay1819s2-w10-4/main/pull/80[#80],
 https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106])
 *** Update developer guide from an addressbook to a flashcard context (Configurations to do before writing code,
 Product scope and Non-Functional Requirements etc), update its class diagrams and sequence diagrams, and added
-implementation for test session
-(Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/80[#80], https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106])
+implementation for test session (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/80[#80],
+https://github.com/cs2103-ay1819s2-w10-4/main/pull/106[#106])
 *** Update About Us page (Pull requests https://github.com/cs2103-ay1819s2-w10-4/main/pull/6[#6])
 
 ** Community:

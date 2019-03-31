@@ -24,11 +24,11 @@ public class FindReservationCommand extends ReservationCommand {
     public static final String COMMAND_ALIAS = "fr";
     public static final String COMMAND_WORD = "find-reservation";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all reservations which is paid by the selected "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all reservations belonging to the selected "
         + "customer\n"
         + "Parameters: CUSTOMER_IDENTIFICATION_NUMBER\n"
         + "Example: " + COMMAND_WORD + " "
-        + "[" + PREFIX_IDENTIFICATION_NUMBER + "1234567] "
+        + PREFIX_IDENTIFICATION_NUMBER + "1234567"
         + "[" + PREFIX_ROOM + "SINGLE ROOM] "
         + "[" + PREFIX_DATES + "12/12/2019 - 14/12/2019]";
 

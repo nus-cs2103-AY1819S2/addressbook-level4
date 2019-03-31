@@ -268,24 +268,6 @@ public class BookingManager implements BookingModel {
         filteredBookings.setPredicate(predicate);
     }
 
-    /**
-     * Generates bill for all bookings for the specific customer
-     *
-     * @param bookingObservableList
-     * @return
-     */
-    public double generateBill(ObservableList<Booking> bookingObservableList) {
-        double totalAmount = 0.0;
-        for (Booking booking : bookingObservableList) {
-            ServiceType serviceType = booking.getService();
-            TimeRange timeRange = booking.getTiming();
-            int hoursBooked = timeRange.numOfHours();
-            double ratePerHour = serviceType.getRatePerHour();
-            double amount = hoursBooked * ratePerHour;
-            totalAmount = totalAmount + amount;
-        }
-        return totalAmount;
-    }
 }
 
 

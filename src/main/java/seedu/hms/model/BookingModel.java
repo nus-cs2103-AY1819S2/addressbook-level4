@@ -94,9 +94,4 @@ public interface BookingModel extends Model {
      */
     void setClearBooking(ReadOnlyHotelManagementSystem hotelManagementSystem);
 
-    /**
-     * Generates bill of the specific customer identified
-     */
-    double generateBill(ObservableList<Booking> bookingObservableList);
-
 }

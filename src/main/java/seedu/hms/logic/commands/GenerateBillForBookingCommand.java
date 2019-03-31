@@ -18,12 +18,13 @@ import seedu.hms.model.booking.BookingWithinTimePredicate;
  */
 public class GenerateBillForBookingCommand extends BillCommand {
 
-    public static final String COMMAND_ALIAS = "gb";
-    public static final String COMMAND_WORD = "generate-bill";
+    public static final String COMMAND_ALIAS = "gb-b";
+    public static final String COMMAND_WORD = "generatebill-booking";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Generates bill for the customer identified by the index number used in the displayed customer list.\n"
-        + "Parameters: INDEX (must be a positive integer)\n"
+        + ": Generates reservation bill for the customer identified by the identification number used in the displayed "
+        + "customer list.\n"
+        + "Parameters: IDENTIFICATION NO\n"
         + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_GENERATE_BILL_SUCCESS = "Bill: %1$s";
@@ -50,7 +51,7 @@ public class GenerateBillForBookingCommand extends BillCommand {
         model.updateFilteredBookingList(bookingPredicate);
         ObservableList<Booking> bookingObservableList = model.getFilteredBookingList();
 
-        double amount = model.generateBill(bookingObservableList);
+        double amount = model.generateBillForBooking(bookingObservableList);
 
 
         return new CommandResult(String.format(MESSAGE_GENERATE_BILL_SUCCESS, amount));

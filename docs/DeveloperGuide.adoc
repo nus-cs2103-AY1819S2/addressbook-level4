@@ -126,26 +126,23 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-CurrentEdit,*`CurrentEdit`*>>: Holds the image that the App is currently editing in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-* <<Design-Model,*`Model`*>>: Holds the data of images in the App in memory.
+* <<Design-Album,*`Album`*>>: Stores the pool of images that has been imported into the App.
 
-Each of the first three components do the following:
+The first four components:
 
-*  Defines its _API_ in an `interface` with the same name as the Component.
-*  Exposes its functionality using a `{Component Name}Manager` class.
-*  For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
-
-The `Model` component consists of two components:
-
-*  `CurrentEdit` which holds the image that the App is currently editing in-memory.
-*  `Album` which stores the pool of images that has been imported into the App.
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -167,16 +164,14 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `ImagePanel`, `InitPanel`, `InformationPanel` and `ImageCard`.
-All of these components inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Utilizes the `Notifier` class which implements Java's `propertyChangeListener` to propagate changes.
-* Components are registered as listeners as will update with modified data when triggered.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 [[Design-Logic]]
 === Logic component
@@ -259,79 +254,59 @@ This section describes some noteworthy details on how certain features are imple
 The Import Command allow users to import a file of image format into FomoFoto for editing.
 
 ==== Current implementation
-The implementation of the import feature is largely similar to that of linux's `cp` command, with the exception the output path is fixed.
+The implementation of the import feature is largely similar to that of linux's `cp` command, with the exception the output path is fixed. It is facilitated by he `ModelManager` and `ImportCommandParser` and contains the follow operation:
 
-The command allows for users to pass in directory paths as well. All valid images in the directory will be copied over,
-but the traversal is not recursive i.e. folders in that directory will not be searched.
-
-It is facilitated by `Model`, `Album` and `ImportCommandParser` and contains the follow operation:
-
- * `Model#refreshAlbum()` - Fires the ~propertyChangeListener~ to update the information panel.
+ * `Model#displayImage(Image)` - Retrives the image from `assets` folder by `Image` name field.
  * `ImportCommandParser#parse(String)` - Takes in an absolute path and copies the image to `assets` directory.
- * `Album#populateAlbum()` - Calls on the `Album` class to update the list of image based on photos in `assets` folder.
 
 Example usage scenario:
 
  1. User launches application and enters `import C:\Users\images\sample.png`
  2. `ImportCommandParser` takes in arguments and performs validation on given path. Image is copied to `assets` folder if the path is valid.
- 3. `Album` adds this image to its list of imported image.
- 3. `Model` calls the `Notifier` class which fires a notifier to any listeners registered to it.
- 4. `InformationPanel` updates to reflect the imported image.
+ 3. `Model` display the imported image to UI by calling the `Notifier` class which calls on the display panel listening to the notifier.
+ 4. `ImagePanel` updates to reflect the imported image.
 
 image::ImportSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 
-* The command does not traverse inner directories.
-** This design consideration was made to prevent excessive number of images being added to the program.
-** This design consideration also mitigates cyclic graphs such as symbolic or hard links.
+* *Alternative 1 (current choice)*: Import images with absolute path.
+** Pros: Easy and clement implementation.
+** Cons: Limited to single image import.
 
-=== Tab feature
-The Tab command allow users to cycle through tabs in `informationPanel` without using the mouse.
+* *Alternative 2* : Open images within a directory.
+** Pros: Can import many images without repeating the command.
+** Cons: Can result in errors in too mny images or images are of alternative formats.
 
-==== Current implementation
-The implementation of the tab command is largely for convenience reasons and calls a single method.
-
-It is facilitated by `Model` and contains the follow operation:
-
- * `Model#switchTab()` - Fires the `propertyChangeListener` to switch tabs in `informationPanel`.
-
-Example usage scenario:
-
- 1. User launches application and enters `tab`
- 3. `Model` calls the `Notifier` class which fires a notifier to any listeners registered to it.
- 4. `InformationPanel` updates to switch to the next available tab.
-
-image::TabSequenceDiagram.png[width=800]
-
-==== Design Considerations
-
-* The command cycle tabs in a single fashion.
-** This design consideration means that users cannot indicate which tab they would like to switch to.
-** A potential feature could include a command argument i.e. `tab 2` which would open the second tab of `informationPanel`.
 
 === Open Feature
 
 The open command allows users to open a previously imported image for image-editing.
 
 ==== Current Implementation
-The open function is facilitated by the ModelManager and contains the following operations:
+The open function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
 
-* `Model#setCurrentImage(Image)` - Sets the `currentImage` to the opened image.
+* `Album#checkFileExist(String)` - Checks if file name specified by the `String` exists in assets folder.
 
-* `Model#createTempImage(Image)` - Creates a new temporary image inside the directory: "src/main/resources/temp/"
+* `Album#retrieveImage(String)` - Return an `Image` specified by the `String` in assets folder.
 
-* `Model#displayImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/"
+* `CurrentEdit#openImage(Image)` - Creates two copies of the opened image in `temp` folder. The duplicated images are instantiated as `tempImage` and `originalImage`.
 
-Given below is an example usage scenario and how the open mechanism behaves at each step.
+* `CurrentEdit#updateExIF(Image)` - Updates the Exif data of the image.
 
-Step 1. The user executes `open sample1.png` and the open function checks whether the image exists in the directory: "src/main/resources/assets".
+* `CurrenEdit#displayTempImage()` - Displays the temporary image stored in directory: "src/main/resources/temp/".
 
-Step 2. The open function retrieves the image before it calls `Model#setCurrentImage(Image)` to store a new `Image` instance of the retrieved image into `currentImage`. Subsequent edits will be done on `currentImage`.
+Given below is an example usage scenario and how the `open` mechanism behaves at each step.
 
-Step 3. `Model#createTempImage(Image)` creates a copy of `currentImage` as a temporary image file "temp_img" and stores it in directory: "src/main/resources/temp/".
+Step 1. The user executes `open sample.png`.
 
-Step 4. `Model#displayImage()` displays "temp_img" on Graphical User Interface.
+Step 2. `Album#checkFileExist(String)` is called to check if the file specified by the `String` exist in `assets` folder. If it exists, `Album#retrieveImage(String)` is called to create an `Image` object from the specified file. Otherwise, `CommandException` is thrown.
+
+Step 3. The `Image` is passed to `CurrentEdit#openImage(Image)` to create two copies of `Image`, named `temp_img.png` and `ori_img.png`, in `temp` folder. These copies are then instantiated as `tempImage` and `originalImage`.  
+
+Step 4. `CurrentEdit#updateExIF(Image)` is called to updates the information of the opened image in the GUI.
+
+Step 5. `CurrenEdit#displayTempImage()` displays the opened image on the GUI.
 
 
 The following sequence diagram shows how the open command works:
@@ -340,8 +315,42 @@ The following sequence diagram shows how the open command works:
 
 ==== Design Considerations
 
-Open command must be called before the user can edit the image. The command initialises `currentImage`, which all edits will be applied on. Users are unable to edit other images unless the open command is called again.
+* *Alternative 1 (current choice)*: User can only open and edit one image at a time.
+** Pros: Easy to implement. `temp` folder only stores one original image and one temporary image. Clear to users that edits are done to the only opened image.
+** Cons: User is unable to open other images while editing.
 
+* *Alternative 2* : User can open and edit multiple images.
+** Pros: Users are able to edit multiple images simultaneously.
+** Cons: Open has to distunguish whether user is opening an image from `assets` folder or `temp` folder. Requires many duplicates with different names. This may be confusing for the user.
+
+
+=== List Files Feature
+
+The `listfiles` command displays a list of all the files in `assets` folder.
+
+==== Current Implementation
+The listfiles function is facilitated by `Album`. It uses the following operations:
+
+* `Album#getFileNames()` - Returns a list of all the files in `assets` folder.
+
+
+Given below is an example usage scenario and how the `listfiles` mechanism behaves at each step.
+
+Step 1. The user executes `listfiles`.
+
+Step 2. `Album#getFileNames()` accesses `assets` folder and returns all the file names in a String array.
+
+Step 3. The String array is displayed on the GUI.
+
+
+
+The following sequence diagram shows how the listfiles command works:
+
+<to be added>
+
+==== Design Considerations
+
+`listfiles` command was created allow users to know what files are stored in `assets` folder so that they can call `open` using the right file names.
 
 === Image Filters
 ==== Current Implementation
@@ -544,6 +553,56 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+=== Save Feature
+
+The `save` command applies the edits to the current edit image and saves it into `assets` folder.
+
+==== Current Implementation
+The save function is facilitated by `Album` and `CurrentEdit`. It uses the following operations:
+
+* `CurrentEdit#tempImageExist()` - Returns true `tempImage` in `CurrentEdit` is null. `tempImage` is null only if `open` command was never called.
+
+* `CurrentEdit#getTempImage()` - Returns the latest edited image stored in `tempImage` in `CurrentEdit`.
+
+* `CurrentEdit#getOriginalName()` - Returns original name of opened image.
+
+* `CurrentEdit#overwriteOriginal(String)` - Replaces `ori_img.png` with `temp_img.png' in `temp` folder. Updates `originalImage` to `tempImage` and `originalImageName` to `String` in `CurrentEdit`.
+
+* `Album#checkFileExist(String)` - Checks if file name specified by the `String` exists in assets folder.
+
+* `Album#saveToAssets(Image, String)` - Saves the `Image` as `String` into `assets` folder.
+
+* `Album#populateAlbum()` - Updates list of images in `Album` class.
+
+* `Album#refreshAlbum()` - Updates and displays the latest images in `assets` folder on the GUI.
+
+
+
+Given below is an example usage scenario and how the `save` mechanism behaves at each step.
+
+Step 1. The user executes `save`.
+
+Step 2. `CurrentEdit#tempImageExist()` checks if an image was previously opened. If no `open` was called previously, `CommandException` is thrown.
+
+Step 3. `CurrentEdit#getTempImage()` retrieves the `tempImage` from `CurrentEdit`. 
+
+Step 4. If user did not input a `String` after `save` previously, `CurrentEdit#getOriginalName()` will retrieve the `originalImageName` from `CurrentEdit`. Otherwise, `Album#checkFileExist(String)` will be called to check if a file name is similar to `String`. If it is a duplicate, `CommandException` will be thrown.
+
+Step 5. `Album#saveToAssets(Image, String)` takes in the previously retrieved `Image` and `String` to create a new image file in `assets` folder. 
+
+Step 6. `CurrentEdit#overwriteOriginal(String)` is called to update the files in `temp` folder and their respective instances in `CurrentEdit`.
+
+Step 7. `Album#populateAlbum()` updates the list of image in `Album` class to ensure it reflects all the files in `assets` folder. 
+
+Step 8.`Album#refreshAlbum()` is called to update the Information Panel on the GUI. 
+
+
+The following sequence diagram shows how the save command works:
+
+<to be added>
+
+==== Design Considerations
 
 === Logging
 

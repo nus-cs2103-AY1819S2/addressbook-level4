@@ -1,6 +1,7 @@
 package seedu.address.model.activity;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ public class ActivityStatusTest {
 
     @Test
     public void isCompleted() {
-        assertEquals(ActivityStatus.Status.COMPLETED, s1.status);
-        assertEquals(ActivityStatus.Status.ONGOING, s2.status);
+        assertTrue(s1.isCompleted());
+        assertFalse(s2.isCompleted());
     }
 }

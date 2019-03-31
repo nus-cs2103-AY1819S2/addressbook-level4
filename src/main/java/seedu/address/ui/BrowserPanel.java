@@ -58,13 +58,12 @@ public class BrowserPanel extends UiPart<Region> {
         if (restaurant.getWeblink().value.equalsIgnoreCase(Weblink.NO_WEBLINK_STRING)) {
             loadPage(SEARCH_PAGE_URL + restaurant.getName().fullName);
         } else {
-            String url = Weblink.prependHttps(restaurant.getWeblink().value);
-            loadPage(url);
+            loadPage(restaurant.getWeblink().value);
         }
     }
 
     public void loadPage(String url) {
-        Platform.runLater(() -> browser.getEngine().load(url));
+        Platform.runLater(() -> browser.getEngine().load(Weblink.prependHttps(url)));
     }
 
     /**

@@ -158,12 +158,13 @@ public class ModelManager implements Model {
 
     @Override
     public boolean canUndo() {
-        return true;
+
+        return versionedHealthWorkerBook.canUndo() || versionedRequestBook.canUndo();
     }
 
     @Override
     public boolean canRedo() {
-        return true;
+        return versionedHealthWorkerBook.canRedo() || versionedRequestBook.canRedo();
     }
 
     @Override

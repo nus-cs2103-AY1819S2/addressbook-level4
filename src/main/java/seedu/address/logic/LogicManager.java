@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
@@ -26,9 +27,9 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
+    private static final String CHECK_LOGS_MESSAGE = "\nPlease check the logs for more information.";
 
-    private final static String CHECK_LOGS_MESSAGE = "\nPlease check the logs for more information.";
+    private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Storage storageManager;
     private final ManagementModel managementModel;
@@ -73,8 +74,8 @@ public class LogicManager implements Logic {
                     int savedCount = storageManager.saveLessonList(managementModel.getLessonList());
                     int totalLessonCount = managementModel.getLessons().size();
                     if (savedCount < totalLessonCount) {
-                        commandResult = new CommandResult("Failed to save some lessons." +
-                            CHECK_LOGS_MESSAGE);
+                        commandResult = new CommandResult("Failed to save some lessons."
+                            + CHECK_LOGS_MESSAGE);
                     }
                     break;
                 case LOAD:
@@ -82,8 +83,8 @@ public class LogicManager implements Logic {
                     if (lessonListOptional.isPresent()) {
                         managementModel.setLessonList(lessonListOptional.get());
                     } else {
-                        commandResult = new CommandResult("Failed to load lessons. Please check " +
-                            "the logs for more information." + CHECK_LOGS_MESSAGE);
+                        commandResult = new CommandResult("Failed to load lessons. Please check "
+                            + "the logs for more information." + CHECK_LOGS_MESSAGE);
                     }
                     break;
                 case DELETE:

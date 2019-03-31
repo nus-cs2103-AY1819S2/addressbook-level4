@@ -271,6 +271,8 @@ A battleship is a basic class representing a battleship that can be placed on th
 [NOTE]
 The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
 
+image:BattleshipHeadExample.png[width=800]
+
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
 image:BattleshipHeadExample2.png[width=800]
 

@@ -88,6 +88,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setTasks(newData.getTaskList());
+        setRecords(newData.getRecordList());
     }
     //// task-level operations
 
@@ -198,8 +199,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
+
+        setRecords(((Patient) editedPerson).getRecords());
         indicateModified();
     }
 

@@ -67,26 +67,26 @@ public interface Model {
     /**
      * Returns true if a card with the same identity as {@code card} exists in the deck.
      */
-    boolean hasCard(Card card);
+    boolean hasCard(Card card, Deck deck);
 
     /**
      * Deletes the given card.
      * The card must exist in the deck.
      */
-    void deleteCard(Card target);
+    void deleteCard(Card target, Deck deck);
 
     /**
      * Adds the given card.
      * {@code card} must not already exist in the deck.
      */
-    void addCard(Card card);
+    void addCard(Card card, Deck deck);
 
     /**
      * Replaces the given card {@code target} with {@code editedCard}.
      * {@code target} must exist in the deck.
      * The card identity of {@code editedCard} must not be the same as another existing card in the deck.
      */
-    void setCard(Card target, Card editedCard);
+    void setCard(Card target, Card editedCard, Deck deck);
 
     /** Returns an unmodifiable view of the filtered list */
     ObservableList<ListItem> getFilteredList();
@@ -141,9 +141,13 @@ public interface Model {
 
     /**
      * Adds a new deck in the filtered deck list.
-     * @param deck
      */
     void addDeck(Deck deck);
+
+    /**
+     * Returns the target deck.
+     */
+    Deck getDeck(Deck target);
 
     /**
      * Deletes the given deck.
@@ -168,7 +172,6 @@ public interface Model {
 
     /**
      * Changes view state to show a single card at a time
-     * @param deck
      */
     void studyDeck(Deck deck);
 
@@ -176,7 +179,13 @@ public interface Model {
 
     boolean isAtDecksView();
 
+    /**
+     * Returns true is the current ViewState is at CardsView.
+     */
     boolean isAtCardsView();
 
+    /**
+     * Returns the current ViewState.
+     */
     ViewState getViewState();
 }

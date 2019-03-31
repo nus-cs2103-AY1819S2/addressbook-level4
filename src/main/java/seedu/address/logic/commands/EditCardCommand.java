@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_CARDS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,10 +16,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CardsView;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.ListItem;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Card;
+import seedu.address.model.deck.Deck;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -74,25 +73,25 @@ public class EditCardCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         List<Card> lastShownList = cardsView.getFilteredList();
+        Deck activeDeck = cardsView.getActiveDeck();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_DISPLAYED_INDEX);
         }
 
         if (editCardDescriptor.isPresent()) {
-            Card cardToEdit = (Card) lastShownList.get(index.getZeroBased());
+            Card cardToEdit = lastShownList.get(index.getZeroBased());
             Card editedCard = createEditedCard(cardToEdit, editCardDescriptor.get());
 
-            if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard)) {
+            if (!cardToEdit.isSameCard(editedCard) && model.hasCard(editedCard, activeDeck)) {
                 throw new CommandException(MESSAGE_DUPLICATE_CARD);
             }
 
-            model.setCard(cardToEdit, editedCard);
-            cardsView.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+            model.setCard(cardToEdit, editedCard, activeDeck);
             model.commitTopDeck();
-            return new CommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
+            return new UpdatePanelCommandResult(String.format(MESSAGE_EDIT_CARD_SUCCESS, editedCard));
         } else {
-            Card cardToEdit = (Card) lastShownList.get(index.getZeroBased());
+            Card cardToEdit = lastShownList.get(index.getZeroBased());
             String question = cardToEdit.getQuestion();
             String answer = cardToEdit.getAnswer();
             Set<Tag> tags = cardToEdit.getTags();

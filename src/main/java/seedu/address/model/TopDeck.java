@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 
@@ -82,11 +83,14 @@ public class TopDeck implements ReadOnlyTopDeck {
     }
 
     //// card operations
+
     /**
      * Adds a card to TopDeck
      * The card should not already exist in the {@code deck} activeDeck.
      */
-    public void addCard(Card card, Deck activeDeck) throws DuplicateCardException, DeckNotFoundException {
+    public Deck addCard(Card card, Deck activeDeck) throws DuplicateCardException, DeckNotFoundException {
+        requireAllNonNull(card, activeDeck);
+
         if (!decks.contains(activeDeck)) {
             throw new DeckNotFoundException();
         }
@@ -95,18 +99,20 @@ public class TopDeck implements ReadOnlyTopDeck {
             throw new DuplicateCardException();
         }
 
-        activeDeck.addCard(card);
-
-        decks.setDeck(activeDeck, activeDeck);
+        Deck editedDeck = new Deck(activeDeck);
+        editedDeck.addCard(card);
+        decks.setDeck(activeDeck, editedDeck);
 
         indicateModified();
+
+        return editedDeck;
     }
 
     /**
      * Deletes a card in TopDeck
      * The {@code Card} target should exist in the {@code deck} activeDeck.
      */
-    public void deleteCard(Card target, Deck activeDeck) throws DeckNotFoundException, CardNotFoundException {
+    public Deck deleteCard(Card target, Deck activeDeck) throws DeckNotFoundException, CardNotFoundException {
         if (!decks.contains(activeDeck)) {
             throw new DeckNotFoundException();
         }
@@ -115,18 +121,20 @@ public class TopDeck implements ReadOnlyTopDeck {
             throw new CardNotFoundException();
         }
 
-        activeDeck.removeCard(target);
-
-        decks.setDeck(activeDeck, activeDeck);
+        Deck editedDeck = new Deck(activeDeck);
+        editedDeck.removeCard(target);
+        decks.setDeck(activeDeck, editedDeck);
 
         indicateModified();
+
+        return editedDeck;
     }
 
     /**
      * Sets a card in TopDeck
      * The {@code Card} target should exist in the {@code deck} activeDeck.
      */
-    public void setCard(Card target, Card newCard, Deck activeDeck) throws DeckNotFoundException,
+    public Deck setCard(Card target, Card newCard, Deck activeDeck) throws DeckNotFoundException,
         CardNotFoundException {
         if (!decks.contains(activeDeck)) {
             throw new DeckNotFoundException();
@@ -136,15 +144,25 @@ public class TopDeck implements ReadOnlyTopDeck {
             throw new CardNotFoundException();
         }
 
-        activeDeck.removeCard(target);
-        activeDeck.addCard(newCard);
+        Deck editedDeck = new Deck(activeDeck);
+        editedDeck.setCard(target, newCard);
 
-        decks.setDeck(activeDeck, activeDeck);
+        decks.setDeck(activeDeck, editedDeck);
 
         indicateModified();
+
+        return editedDeck;
     }
 
     //// deck operations
+
+    /**
+     * Returns the deck in TopDeck that has the same identifier as {@code target}.
+     * The deck must already be in TopDeck.
+     */
+    public Deck getDeck(Deck target) {
+        return decks.getDeck(target);
+    }
 
     /**
      * Adds a deck to the TopDeck.

@@ -20,8 +20,8 @@ public class QuestionContainsKeywordsPredicate implements Predicate<Card> {
     public boolean test(Card card) {
         return keywords.stream()
             .anyMatch(keyword ->
-                StringUtil.containsKeywordsInQuestionIgnoreCase(card.getQuestion(), keyword) ||
-                    TagUtil.containsWordInTags(card.getTags(), keyword));
+                StringUtil.containsKeywordsInQuestionIgnoreCase(card.getQuestion(), keyword)
+                    || TagUtil.containsWordInTags(card.getTags(), keyword));
     }
 
     @Override

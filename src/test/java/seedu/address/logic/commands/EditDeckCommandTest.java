@@ -12,6 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_CARD_LIST;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_JOHN;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.assertUpdateCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showDeckAtIndex;
 import static seedu.address.testutil.TypicalDecks.getTypicalTopDeck;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
@@ -172,12 +173,12 @@ public class EditDeckCommandTest {
 
         // undo -> reverts TopDeck back to previous state and filtered deck list to show all decks
         expectedModel.undoTopDeck();
-        assertCommandSuccess(new UndoCommand(decksView), model, commandHistory,
+        assertUpdateCommandSuccess(new UndoCommand(decksView), model, commandHistory,
                 UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first deck edited again
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(decksView), model, commandHistory,
+        assertUpdateCommandSuccess(new RedoCommand(decksView), model, commandHistory,
                 RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -223,13 +224,13 @@ public class EditDeckCommandTest {
 
         // undo -> reverts TopDeck back to previous state and filtered deck list to show all decks
         expectedModel.undoTopDeck();
-        assertCommandSuccess(new UndoCommand(decksView), model, commandHistory,
+        assertUpdateCommandSuccess(new UndoCommand(decksView), model, commandHistory,
                 UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         assertNotEquals(decksView.getFilteredList().get(INDEX_FIRST_DECK.getZeroBased()), deckToEdit);
         // redo -> edits same second deck in unfiltered deck list
         expectedModel.redoTopDeck();
-        assertCommandSuccess(new RedoCommand(decksView), model, commandHistory,
+        assertUpdateCommandSuccess(new RedoCommand(decksView), model, commandHistory,
                 RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 

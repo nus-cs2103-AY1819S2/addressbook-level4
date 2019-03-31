@@ -150,23 +150,22 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card card) {
+        public boolean hasCard(Card card, Deck deck) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void addCard(Card card) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-
-        @Override
-        public void deleteCard(Card target) {
+        public void addCard(Card card, Deck deck) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setCard(Card target, Card editedCard) {
+        public void deleteCard(Card target, Deck deck) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setCard(Card target, Card editedCard, Deck deck) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -217,6 +216,11 @@ public class AddCardCommandTest {
 
         @Override
         public void setSelectedItem(ListItem item) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Deck getDeck(Deck target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -293,7 +297,7 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card card) {
+        public boolean hasCard(Card card, Deck deck) {
             requireNonNull(card);
             return this.card.isSameCard(card);
         }
@@ -306,13 +310,13 @@ public class AddCardCommandTest {
         final ArrayList<Card> cardsAdded = new ArrayList<>();
 
         @Override
-        public boolean hasCard(Card card) {
+        public boolean hasCard(Card card, Deck deck) {
             requireNonNull(card);
             return cardsAdded.stream().anyMatch(card::isSameCard);
         }
 
         @Override
-        public void addCard(Card card) {
+        public void addCard(Card card, Deck deck) {
             requireNonNull(card);
             cardsAdded.add(card);
         }

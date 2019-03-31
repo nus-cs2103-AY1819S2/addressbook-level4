@@ -336,61 +336,6 @@ The first contains the words which will be shown, whether question or answer.
 
 // end::studysessions[]
 
-
-=== Card Management
-==== Data Structure Implementation
-
-A Card consists of a question, an answer and the respective tags associated with it.
-Card's are deemed as equal if they have the same question to prevent the user from
-creating same question twice or to have 2 different answer for the same question.
-Within the Model, `Card` is encapsulated by the following data structure:
-
-* `Model`
-* `VersionedTopDeck`
-* `TopDeck`
-* `UniqueDeckList`
-* `Deck`
-* `UniqueCardList`
-* `Card`
-
-The Create, Read, Update and Delete(CRUD) operation will trickle down the encapsulations
-and be executed in `UniqueCardList`. One of the repercussion of having this data structure
-is the need to find the respective deck that the user wants to edit the `UniqueCardList` from.
-Currently, this is done by passing the activeDeck in the `CardView` object in
-model into `UniqueDeckList` to find the deck that we want to edit.
-
-==== Current Implementation
-
-Card Management is currently facilitated by `Deck` which implements the following operations:
-
-* hasCard(Card card)
-* addCard(Card card)
-* removeCard(Card target)
-* editCard(Card newCard)
-* selectCard(Card toSelect)
-
-The CRUD operations are exposed in the Model interface as `Model#addCard(Card card)`,
-`Model#deleteCard(Card toDelete)` and `Model#setCard(Card newCard)`. For each card operation,
-there are 2 main updates that need to be done. The first update will be on the model
-and the second will be on the `ViewState`.
-
-Given below is an example usage scenario and how the addCard(Card) mechanism behaves at each step:
-
-1. The user starts up the application and is in the `DecksView`. The user then
-executes the `select 1` command to select the first deck. This should change the
-`ViewState` in the `ModelManager` from `DeckView` to `CardView`. For more information, refer to
-Deck's feature.
-
-2. The user executes `add q/question a/answer` to add the new card into the current deck.
-The `add` command is parsed and calls `Model#addCard(Card card)`.
-
-3. `Model#addCard(Card card)` first checks if the current state is a
-CardsView. Following, it will pass the current activeDeck and the card to
-be added into `VersionedTopDeck.addCard(Card card, Deck ActiveDeck)`. This will search for the
-currently active deck, add the card into the deck and replace it with the current deck.
-
-4. Once that is done, the filteredItems list is being updated to reflect the change.
-
 === Deck Management
 ==== Data Structure Implementation
 
@@ -516,6 +461,118 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
+
+// tag::card[]
+=== Card Management
+==== Data Structure
+
+A Card consists of a question, an answer and the respective tags associated with it.
+Card's are deemed as equal if they have the same question to prevent the user from
+creating same question twice or to have 2 different answer for the same question.
+Cards are stored inside a `Deck` as a list of unique cards.
+The Create, Read, Update and Delete (CRUD) operation of a card in a chosen `Deck` is thus a modification of
+the chosen `Deck`.
+
+In order to facilitate the CRUD operations, `CardsView` contains `activeDeck` which is a reference to the
+current deck that we are modifying.
+
+[NOTE]
+Before any Card related operation can be executed, `ViewState` in ModelManager has to be of type `CardsView`.
+For more information refer to the section on ViewState management.
+
+==== Current Implementation
+
+Card Management is currently facilitated by `Model` which implements the following operations:
+
+* hasCard(Card card, Deck deck)
+* addCard(Card card, Deck deck)
+* removeCard(Card target, Deck deck)
+* editCard(Card newCard, Deck deck)
+
+The CRUD operations are exposed in the Model interface as `Model#addCard(Card card, Deck deck)`,
+`Model#deleteCard(Card target, Deck deck)` and `Model#setCard(Card target, Card newCard, Deck deck)`. For each operation,
+there are 2 objects that need to be updated namely, `VersionedTopDeck` and `CardsView`.
+
+Each CRUD operation can be broken down into the following steps:
+
+1. Find the chosen deck using `CardsView.activeDeck` and create a new deck from it.
+2. Execute `VersionedTopDeck#addCard(Card newCard, Deck deck)` or
+`VersionedTopDeck#removeCard(Card target, Deck deck)` or
+`VersionedTopDeck#setCard(Card target, Card editedCard, Deck deck)` using `CardsView.activeDeck`.
+3. Update the `CardsView` with the new editedDeck.
+4. Update the UI to reflect the new CardsView.
+
+Given below is an example usage scenario and how the CRUD operation works and how it
+interacts with Undo/Redo:
+
+Step 1. The user starts up the application and is in the `DecksView`. The user then
+executes the `open 1` command to open the first deck(D1 in the figure). This should change the
+`ViewState` in the `ModelManager` from `DeckView` to `CardsView` and causes
+`CardsView.activeDeck` to point to the first deck as per figure 1. For more information, refer to
+Deck's feature.
+
+image::card_dg_diagrams/card_diag_1.png[width="800", caption="Figure 1"]
+
+Step 2. The user executes `add q/question a/answer` to add the new card into the current deck.
+The `add` command is parsed and calls `Model#addCard(Card card, Deck deck)`.
+`VersionedTopDeck(Card newCard, Deck deck)` is then called. D3 which is a copy
+of D1 is created and the new card is added to D3. `VersionedTopDeck` is then updated
+as per figure 2 by calling `UniqueDeckList.setDeck(Deck target, Deck editedDeck)`.
+
+[NOTE]
+All other CRUD operations works the same except for the model call. Instead of
+`Model#addCard(Card card, Deck deck)`, `Model#deleteCard(Card target, Deck deck)` or
+`Model#setCard(Card target, Card newCard, Deck deck)` is called instead.
+
+image::card_dg_diagrams/card_diag_2.png[width="800", caption="Figure 2"]
+
+Step 3. Next, the CardsView is updated creating a new `CardsView` that points to D3
+as in figure 3.
+
+image::card_dg_diagrams/card_diag_3.png[width="800", caption="Figure 3"]
+
+Step 4. Once that is done, the `ModelManager.filteredItems` list and the UI is being updated to
+reflect the change.
+
+Step 5. Now the user executes `undo`. This results in the the CurrentStatePointer to point
+to the previous TopDeck as per figure 4.
+
+image::card_dg_diagrams/card_diag_4.png[width="800", caption="Figure 4"]
+
+Step 6. Using D3, the application will get D1 in the TopDeck that is pointed to by CurrentStatePointer.
+A new CardsView(CardsView3) is then created and points to D1 as per figure 5. The application
+then updates `ModelManager.filteredItems` and the UI is being updated.
+
+image::card_dg_diagrams/card_diag_5.png[width="800", caption="Figure 5"]
+
+Step 7. Now, the user executes redo. This results in the the CurrentStatePointer to point
+to the next TopDeck as per figure 6.
+
+image::card_dg_diagrams/card_diag_6.png[width="800", caption="Figure 6"]
+
+Step 8. Using D1, the application will get D3 in the TopDeck that is pointed to by CurrentStatePointer.
+   A new CardsView(CardsView4) is then created and points to D3 as per figure 7. The application
+   then updates `ModelManager.filteredItems` and the UI is being updated.
+
+image::card_dg_diagrams/card_diag_7.png[width="800", caption="Figure 7"]
+
+Step 9. Below is the final state of `ModelManager`:
+
+image::card_dg_diagrams/card_diag_8.png[width="800", caption="Figure 8"]
+
+==== Design Considerations
+
+===== Aspect: How CRUD operation should work
+* **Alternative 1 (current choice):** Recreate the CardViews after each operation
+** Pros: Leverages on the current implementation of `VersionTopDeck` making it easier to
+implement.
+** Cons: Constantly creating `CardsView` even with a small change.
+* **Alternative 2:** CardView updates itself base on the chosen deck.
+** Pros: Only has to update the pointer to the current Deck.
+** Cons: As `CardsView.activeDeck` can only reference to one deck only, the current Undo/Redo feature
+will have to be changed to store the previous commands and the object changed.
+
+// end::card[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

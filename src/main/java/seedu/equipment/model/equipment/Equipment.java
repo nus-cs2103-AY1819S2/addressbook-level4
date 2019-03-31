@@ -88,16 +88,22 @@ public class Equipment {
     public double[] getCoordiantes() {
         double[] coordiantes = new double[2];
         try {
-            GeoApiContext context = new GeoApiContext.Builder()
-                    .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
-                    .build();
-            GeocodingResult[] results = GeocodingApi.geocode(context,
-                    this.getAddress().toString()).await();
-            if (results.length > 0) {
-                coordiantes[0] = results[0].geometry.location.lng;
-                coordiantes[1] = results[0].geometry.location.lat;
+            if (address.isHasCoordinate()) {
+                coordiantes[0] = address.longitude;
+                coordiantes[1] = address.latitude;
             } else {
-                coordiantes = null;
+                GeoApiContext context = new GeoApiContext.Builder()
+                        .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")
+                        .build();
+                GeocodingResult[] results = GeocodingApi.geocode(context,
+                        this.getAddress().toString()).await();
+                if (results.length > 0) {
+                    coordiantes[0] = results[0].geometry.location.lng;
+                    coordiantes[1] = results[0].geometry.location.lat;
+                    address.setCoordinates(results[0].geometry.location.lat, results[0].geometry.location.lng);
+                } else {
+                    coordiantes = null;
+                }
             }
         } catch (ApiException e) {
             System.err.println(e.getMessage());

@@ -99,6 +99,11 @@ public interface Model {
     void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse);
 
     /**
+     * Sorts the records within address book according to the given comparator
+     */
+    void sortRecordsBook(Comparator<Record> recordComparator, boolean isReverse);
+
+    /**
      * Returns true if the model has previous address book states to restore.
      * Selected person in the filtered person list.
      * null if no person is selected.

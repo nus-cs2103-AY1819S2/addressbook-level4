@@ -13,9 +13,53 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Flash Card application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* Know-It-All is targeted at medical students in NUS (or any student!) as their studies requires a considerable amount of memory work, and deals with content that is suitable for the bite-sized flashcard format.
-* You can manage your flash cards, test yourself, and even has a convenient way to share flash cards with your fellow classmates! What are you waiting for? Download Know-It-All today!
+ifdef::env-github[]
+:imagesdir: https://raw.githubusercontent.com/dlqs/main/refactorMisc/docs/images
+endif::[]
+
+{nbsp} +
+Having a hard time memorizing _two hundred pages_ worth of lecture notes?
+
+Can't recall the difference between the "ATP" and "ADP"? Or remember the name of the "leg bone"?
+
+The fact is, _memory work is hard_. *And we understand.*
+
+Introducing... *_Know-It-All_*!
+
+*_Know-It-All_* is targeted at medical students (in fact, any students) as their studies requires a considerable amount of
+memory work, and deals with content that is suitable for bite-sized flashcard format.
+
+*_Know-It-All_* lets you:
+
+ * manage your flash cards, test yourself, and even share flashcards with others
+ * view your cards through the GUI (Graphical User Interface)
+ * have maximum control through the CLI (Command Line Interface)
+
+*_Know-It-All_* uses _innovative_ teaching methods to ensure our users love the learning process, combined with scientifically proven techniques such as _spaced-repetition_ to drive their performance ahead of the curve.
+
+Compiled by a fleet of genuises, *_Know-It-All_* has been used by literally over a dozen students who have seen improvements in their results. Here are some raving reviews:
+
+{nbsp} +
+[quote, anonymous medical student]
+Saved my life. Now I know the difference between the leg bone and the thigh bone!
+
+{nbsp} +
+[quote, The Singapore Flashcard Journal]
+Anki should be shaking in their boots right now. ⭐⭐⭐⭐⭐
+
+{nbsp} +
+[quote, Singapore Business Satisfaction Review]
+At last, a new high in BS - has been achieved.
+
+{nbsp} +
+What are you waiting for? Download *_Know-It-All_* today!
+
+{nbsp} +
+*_Know-It-All_* is proud to present the following _awards_:
+
+ifdef::env-github[]
+image:award1.png[width="200"] {nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}{nbsp}image:award2.png[width="200"]
+endif::[]
 
 == Site Map
 

@@ -48,14 +48,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
+. Open link:{repoURL}/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow.java`] and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
 .. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
-. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/address/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
+. Repeat this for the test folder as well (e.g. check link:{repoURL}/src/test/java/seedu/knowitall/ui/HelpWindowTest.java[`HelpWindowTest.java`] for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run the `seedu.knowitall.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -119,7 +119,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/knowitall/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -162,11 +162,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/knowitall/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `CardListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/knowitall/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -181,7 +181,7 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/knowitall/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `CardFolderParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -200,7 +200,7 @@ image::DeleteCardSdForLogic.png[width="800"]
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/knowitall/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -220,7 +220,7 @@ image:ModelClassBetterOopDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/knowitall/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -230,7 +230,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.knowitall.commons` package.
 
 == Implementation
 
@@ -791,32 +791,89 @@ Folders in the application are achieved via enhancements from the AddressBook im
 ===== Model
 Previously, an instance of `ModelManager` contains only a single `VersionedCardFolder`, holding the current and previous state of the `CardFolder`. To support multiple folders, `ModelManager` now holds an `ObservableList` of `CardFolders`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
 
-image::ModelManagerUpdateDiagram.png[width="800"]
+image::ModelEnhancementDiagram.png[width="800"]
 
 To allow users to operate on multiple `CardFolders`, the following notable methods were also introduced:
 
 * `ModelManager#addFolder(CardFolder cardfolder)` - Adds a specified cardfolder to the `ModelManager`’s list
-* `ModelManager#deleteFolder(int index)` - Deletes the `CardFolder` at the specified index in the `ModelManager`’s list
+* `ModelManager#deleteFolder(int index)` - Deletes the `CardFolder` at the specified index in the `ModelManager's` list
 * `ModelManager#getActiveCardFolderIndex()` - Gets the index of the current active `CardFolder`
-* `ModelManager#setActiveCardFolderIndex()` - Specifies the active `CardFolder` for operations to be performed on via the index in `ModelManager`’s list
+* `ModelManager#enterFolder(int index)` - Specifies the active `CardFolder` for operations to be performed on via the index in `ModelManager`’s list and sets the boolean `inFolder` to `true` to denote that user is inside a folder.
+* `ModelManager#exitFolderToHome()` - Sets the boolean `inFolder` to `false` to indicate that the user is at the home directory.
+* `ModelManager#renameFolder(int index, String newName)` - Renames the folder at the specified index in the `ModelManager's` list to the new name.
+* `ModelManager#isInFolder()` - Returns true if the `ModelManager` is currently inside a folder.
 
 ===== Storage
 Similarly, the `StorageManager` needs to represent each `CardFolder` separately. In the same manner as in the Model component, we introduce a list of `JsonCardFolderStorages`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
 
-image::StorageManagerUpdateDiagram.png[width="800"]
+image::StorageEnhancementDiagram.png[width="800"]
 
 Notable new methods:
 
 * `StorageManager#readCardFolders()` - Reads in all `CardFolders` from all `CardFolderStorage` objects in the list.
-* `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` - Saves all `CardFolder`s provided in the argument.
+* `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` - Saves all `CardFolders` provided in the argument to the user's data directory.
 
 ===== Logic
-The logic component propagates changes in a `CardFolder` to the Storage component. With listeners, it is informed when a `CardFolder` is modified (e.g. a new card is added) so that it can invoke the appropriate Storage methods.
+The existing implementation of the Logic component propagates changes in a Model's `CardFolder` to the Storage component. With listeners, it is informed when a `CardFolder` is modified (e.g. a new card is added) so that it can invoke the appropriate Storage methods.
 
-The same principle was applied to propagate changes in `CardFolders` (e.g. adding a new folder) to Storage. Model is now an `Observable`, and changes to a Model’s CardFolders will inform the LogicManager, which in turn invokes the `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` method.
+The same principle was applied to propagate changes regarding `CardFolders` themselves (and not their stored cards) to Storage: e.g. adding a new folder. Model is now an `Observable`, and changes to a Model’s `CardFolders` will inform the `LogicManager`, which in turn invokes `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)`.
+
+To illustrate how the Model, Storage and Logic components interact, below is a walkthrough of a typical usage scenario of the `addfolder` command. <<addfoldersequencediagram>> is a sequence diagram that summarises the example:
+
+* Step 1. The `addfolder` command is executed. For example, `addfolder f`.
+
+* Step 2. As with every command, the command parser reads the input and generates the relevant `Command` object, in this case an `AddFolderCommand`. The object is returned to the `LogicManager`.
+
+[NOTE]
+If the input is invalid (e.g. user did not provide a folder name), Step 2 would not proceed and an error message is displayed. The Model and Storage components will not be modified.
+
+* Step 3. The `LogicManager` executes the `AddFolderCommand`, storing the result and then transferring control to the Model component with the `ModelManager#addFolder()` method.
+
+* Step 4. The `ModelManager` creates a `VersionedCardFolder` to represent the newly created folder, storing a reference to its currently empty list of cards. Before returning control to the Logic component, `ModelManager#indicateModified()` is invoked to notify listeners in the `LogicManager` that the list of `CardFolders` have changed.
+
+* Step 5. The Logic component takes over control and checks if the `ModelManager` is modified. In the case of `addfolder` the object is indeed modified (as a result of Step 4) and thus the component proceeds to save the Model's `CardFolders` to Storage.
+
+* Step 6. Before handing over control to Storage, the `LogicManager` obtains the information to save and the path to save to with `ModelManager#getCardFolders()` and `ModelManager#getCardFoldersFilesPath()` respectively. It then passes these objects as parameters when it calls `StorageManager#saveCardFolders()`.
+
+* Step 7. The Storage component receives control, with the `StorageManager` clearing the directory at the specified path and creating `JsonCardFolderStorage` objects with path names equivalent to the names of the folders it has received. It then proceeds to invoke `JsonCardFolderStorage#saveCardFolder()` on all the `JsonCardFolderStorage` to save all the folders before returning to the `LogicManager`.
+
+[NOTE]
+If the path provided by the Model Component is invalid, the Storage component throws an exception and an error message is displayed. The changes made to Model are not saved and the command does not execute successfully.
+
+* Step 8. The `LogicManager` terminates and returns the result of the command to the calling method.
+
+[[addfoldersequencediagram]]
+.Component interactions for an `addfolder` command
+image::AddFolderSequenceDiagram.png[width="800"]
+
+===== UI
+
+As folders are a layer of abstraction over the cards, there is a need for the GUI to represent this abstraction for greater clarity and ease of use for the user. This is done by introducing the `FolderListPanel` class, which displays a list of all folders that the user has.
+
+The `fullScreenPlaceholder:StackPane` object houses the content in the main window of our application. Depending on whether the user is in the home directory or within a folder, different UI objects are placed within `fullScreenPlaceholder`.
+
+* When the user is in the home directory, `fullScreenPlaceholder` holds a `FolderListPanel` to display all the folders in a list inside the main window.
+
+* When the user is within a folder, `fullScreenPlaceholder` holds a `CardMainScreen` object, which is composed of a `CardListPanel` and `BrowserPanel`. These represent the list of cards on the scrolling sidebar, as well as the card viewer on the right. The content within the `CardMainScreen` depends on the particular folder the user has navigated into, as different folders hold different cards.
+
+To better understand how the UI is updated, below is a walkthrough of what happens when the user enters a folder. Refer to the sequence diagram in <<enterfoldersequencediagram>> for a visual representation:
+
+* Step 1. The Logic component informs the UI component that the user has entered a folder. The UI component responds by invoking `MainWindow#handleEnterFolder()`.
+
+* Step 2. UI retrieves the list of cards belonging to the entered folder from the `LogicManager`.
+
+* Step 3. A new `CardListPanel` is created with the information obtained in Step 2.
+
+* Step 4. The new `CardListPanel` from Step 3, together with the existing `BrowserPanel`, are used to create a new `CardMainScreen` object.
+
+* Step 5. The content held by `fullScreenPlaceholder` is replaced with the newly generated `CardMainScreen`.
+
+[[enterfoldersequencediagram]]
+.UI behaviour when user enters folder
+image::EnterFolderGUISequenceDiagram.png[width="800"]
 
 ==== Design Considerations
-===== Aspect: How multiple folders are represented
+===== Aspect: How multiple folders are represented in Model
 * **Alternative 1 (current choice)**: List of structures representing individual folders
 ** Pros: Scalable and better follows OOP principles.
 ** Cons: Hard to implement, alters fundamental architecture of components.
@@ -825,12 +882,75 @@ The same principle was applied to propagate changes in `CardFolders` (e.g. addin
 ** Cons: Not scalable, will be computationally expensive to perform folder operations when there are many cards and/or folders.
 
 ===== Aspect: Folder identification
-* **Alternative 1 (current choice)**: Use a unique folder name
+* **Alternative 1**: Use a unique folder name
 ** Pros: Easier to implement.
-** Cons: Have to use a separate test for comparing folders across time (which necessarily have to compare cards).
+** Cons: The undo/redo feature would not be compatible with this approach, as checking equality between different versions of a folder across time necessarily requires the comparison of cards.
 * **Alternative 2**: Identify a folder by its cards
 ** Pros: There can be no folders with identical cards, preventing redundancy.
-** Cons: Two folders could have identical names as long as the cards are different.
+** Cons: Two folders could have identical names as long as the cards are different, which is potentially confusing.
+* **Alternative 3 (current choice)**: Mixed approach, use Alternative 1 for comparing different folders and Alternative 2 for comparing the same folder across time
+** Pros: Reaps the benefits of both approaches without the disadvantages.
+** Cons: Difficult to implement and for future developers to grasp the difference between the two types of comparisons.
+
+===== Aspect: Storage file name and folder name
+* **Alternative 1**: Let folder name be the file name of the storage file
+** Pros: Less ambiguity as to how file name is related to folder name, able to find storage file path with folder name.
+** Cons: Harder to retrieve folder name from the file as it requires parsing the path, more prone to data corruption as file name could be modified when application is running.
+* **Alternative 2 (current choice)**: Let file name be independent of folder name, which is stored inside the storage file itself
+** Pros: Easier to implement and avoids dependency on existing storage files after application starts.
+** Cons: When saving folders from Model, it is difficult to match folders with existing storage files. Hence, rather than saving the modified folder, it is more feasible to clear the directory and save all folders. This is computationally expensive and may not be scalable beyond a certain size.
+
+===== Aspect: What folders to generate in the event corrupted storage files are encountered
+* **Alternative 1**: Display a sample folder
+** Pros: Easy to implement, guaranteed that application will not be empty with no folders displayed.
+** Cons: Non-corrupted folders will not be displayed and will potentially be overwritten.
+* **Alternative 2**: Display non-corrupted folders
+** Pros: Non-corrupted data is preserved.
+** Cons: If all data is corrupted, an empty application is presented to the user.
+* **Alternative 3 (current choice)**: Mixed approach, display all non-corrupted folders unless all data is corrupted, in which case display sample folder
+** Pros: Has the advantages but not the disadvantages of Alternatives 1 and 2.
+** Cons: Challenging to implement.
+
+=== Navigating folders
+
+==== Current Implementation
+
+===== Navigation State
+
+The state of the application with regard to navigation (i.e. whether a user is inside of a folder or at the home directory) affects the types of commands available to the user.
+
+* The commands that affect cards (e.g. adding a card, editing a card) are executed within folders and are known as *Card Operations*.
+* Commands that affect folders (e.g. adding a folder, deleting a folder) are only executable at the home directory and are known as *Folder Operations*.
+
+Please refer to the User Guide for the full list of commands under both categories.
+
+To keep track of navigation state, a boolean `inFolder` is maintained by the `ModelManager`. Other components may retrieve the current state with `ModelManager#isInFolder()`. This is also how the `Command` objects determines whether the command is executable in the present navigation state.
+
+===== Change Command
+
+Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
+
+The change command has the following formats:
+
+1. `change ..` - Returns the user to the home directory. This command can only be executed when the user is inside a folder.
+2. `change FOLDER_INDEX` - Enters the folder specified by `FOLDER_INDEX`. This command can only be executed from the home directory, when the user is not in any folder.
+
+When a `change` command is executed, the Logic component parses the command and creates a `ChangeCommand` object. If the command is of the first format, `ChangeCommand()` is invoked without any arguments and the boolean `isExitingFolder` is set to `true`. If the command is of the second format, the overloaded constructor `ChangeCommand(FOLDER_INDEX)` is instead called and `isExitingFolder` is set to `false`.
+
+`ChangeCommand#execute()` is then invoked. The value of `isExitingFolder` will determine the corresponding methods in `ModelManager` that are called (`exitFoldersToHome()` or `enterFolder()`). The sequence diagram in <<changecommandsequencediagram>> illustrates this conditional choice and the interactions involved with each option.
+
+[[changecommandsequencediagram]]
+.Component interactions for `change` command
+image::ChangeCommandSequenceDiagram.png[width="600"]
+
+==== Design Considerations
+===== Aspect: Command format to enter and exit folders
+* **Alternative 1 (current choice)**: Use variations of the same command (e.g. `change ..` and `change INDEX` )
+** Pros: More intuitive and akin to other Command Line applications.
+** Cons: Harder to implement as the logic for parsing the command is different from that of existing commands.
+* **Alternative 2**: Use distinct commands (e.g. `home` and `enter INDEX`)
+** Pros: Commands would function similar to other commands in the application.
+** Cons: Harder for the user to get acquainted with as there are two separate commands with logically similar functionality; introduces redundancy.
 
 //end::folders[]
 
@@ -992,14 +1112,14 @@ We have two types of tests:
 
 .  *GUI Tests* - These are tests involving the GUI. They include,
 .. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.knowitall.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.knowitall.commons.StringUtilTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.knowitall.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.knowitall.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -1029,7 +1149,7 @@ When a pull request has changes to asciidoc files, you can use https://www.netli
 
 Here are the steps to create a new release.
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/knowitall/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
@@ -1069,10 +1189,10 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/CardFolderParser.java[`CardFolderParser`] is responsible for analyzing command words.
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/knowitall/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/knowitall/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/CardFolderParser.java[`CardFolderParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
@@ -1090,12 +1210,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/CardFolder.java[`CardFolder`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/knowitall/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting hints?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/CardFolder.java[`CardFolder`] and link:{repoURL}/src/main/java/seedu/address/model/card/Card.java[`Card`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/CardFolder.java[`CardFolder`] allows you to update a card, and link:{repoURL}/src/main/java/seedu/address/model/card/Card.java[`Card`] allows you to update the hints.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`] and link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`] allows you to update a card, and link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`] allows you to update the hints.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/CardFolder.java[`CardFolder`]. Loop through each card, and remove the `tag` from each card.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `CardFolder#removeTag(Tag)`.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/knowitall/model/CardFolder.java[`CardFolder`]. Loop through each card, and remove the `tag` from each card.
+** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/knowitall/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/knowitall/model/ModelManager.java[`ModelManager`] should call `CardFolder#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
 ****
@@ -1120,7 +1240,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 ****
 * Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/CardCard.java[the `CardCard` constructor] (`new Label(tag.hintName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
+** The tag labels are created inside link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[the `CardCard` constructor] (`new Label(tag.hintName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
 ** Use the .css attribute `-fx-background-color` to add a color.
 ** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
 * Solution
@@ -1129,7 +1249,7 @@ image::getting-started-ui-tag-after.png[width="300"]
 *** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that hints retain their colors even if the hash code algorithm changes.
 ****
 
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
+. Modify link:{repoURL}/src/main/java/seedu/knowitall/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/knowitall/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
 +
 **Before**
 +
@@ -1141,11 +1261,11 @@ image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
+** link:{repoURL}/src/main/java/seedu/knowitall/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/knowitall/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/knowitall/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
+** Refer to link:{repoURL}/src/main/java/seedu/knowitall/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
 * Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
+** Modify link:{repoURL}/src/main/java/seedu/knowitall/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:{repoURL}/src/main/java/seedu/knowitall/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
 ** You can write two different kinds of tests to ensure that the functionality works:
 *** The unit tests for `ResultDisplay` can be modified to include verification of the color.
 *** The system tests link:{repoURL}/src/test/java/systemtests/CardFolderSystemTest.java[`CardFolderSystemTest#assertCommandBoxShowsDefaultStyle() and CardFolderSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
@@ -1153,7 +1273,7 @@ image::getting-started-ui-result-after.png[width="200"]
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the card folder.
+. Modify the link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the card folder.
 +
 **Before**
 +
@@ -1166,10 +1286,10 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 * Hints
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the card folder is updated.
+** link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the card folder is updated.
 * Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of cards when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleCardFolderChangedEvent(CardFolderChangedEvent)`] to update the number of cards whenever there are new changes to the addressbook.
+** Modify the constructor of link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of cards when the application just started.
+** Use link:{repoURL}/src/main/java/seedu/knowitall/ui/StatusBarFooter.java[`StatusBarFooter#handleCardFolderChangedEvent(CardFolderChangedEvent)`] to update the number of cards whenever there are new changes to the knowitall.
 ** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
 ** For system tests, modify link:{repoURL}/src/test/java/systemtests/CardFolderSystemTest.java[`CardFolderSystemTest`] to also verify the new total number of cards status bar.
 ** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
@@ -1187,8 +1307,8 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/CardFolderStorage.java[`CardFolderStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonCardFolderStorage.java[`JsonCardFolderStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/knowitall/storage/CardFolderStorage.java[`CardFolderStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/knowitall/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/knowitall/storage/JsonCardFolderStorage.java[`JsonCardFolderStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -1218,13 +1338,13 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/CardFolderParser.java[`CardFolderParser`] to accept a `RemarkCommand`.
+. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/knowitall/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
+. Modify link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
 . Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/CardFolderParserTest.java[`CardFolderParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
+. Add new test method to link:{repoURL}/src/test/java/seedu/knowitall/logic/parser/CardFolderParserTest.java[`CardFolderParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
@@ -1233,33 +1353,33 @@ Let's teach the application to parse arguments that our `remark` command will ac
 
 . Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
 . Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/CardFolderParser.java[`CardFolderParser`] to use the newly implemented `RemarkCommandParser`.
+. Modify link:{repoURL}/src/main/java/seedu/knowitall/logic/parser/CardFolderParser.java[`CardFolderParser`] to use the newly implemented `RemarkCommandParser`.
 
 **Tests:**
 
 . Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
 . Add `RemarkCommandParserTest` that tests different boundary values
 for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/CardFolderParserTest.java[`CardFolderParserTest`] to test that the correct command is generated according to the user input.
+. Modify link:{repoURL}/src/test/java/seedu/knowitall/logic/parser/CardFolderParserTest.java[`CardFolderParserTest`] to test that the correct command is generated according to the user input.
 
 ===== [Step 3] Ui: Add a placeholder for remark in `CardCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/CardCard.java[`CardCard`] s to display a remark for each card later.
+Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`] s to display a remark for each card later.
 
 **Main:**
 
 . Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/CardListThumbnail.fxml[`CardListThumbnail.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/CardCard.java[`CardCard`] to tie the variable to the actual label.
+. Add FXML annotation in link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`] to tie the variable to the actual label.
 
 **Tests:**
 
 . Modify link:{repoURL}/src/test/java/guitests/guihandles/CardCardHandle.java[`CardCardHandle`] so that future tests can read the contents of the remark label.
 
 ===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/card/Card.java[`Card`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
+We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/card/Address.java[`Address`], remove the regex and change the questions accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/knowitall/model/card/Address.java[`Address`], remove the regex and change the questions accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -1267,16 +1387,16 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
 ===== [Step 5] Model: Modify `Card` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/card/Card.java[`Card`].
+Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`].
 
 **Main:**
 
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/card/Card.java[`Card`].
+. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`].
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the card will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/cardfolder.json` so that the application will load the sample data when you launch it.)
+. Modify link:{repoURL}/src/main/java/seedu/knowitall/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `data/cardfolder.json` so that the application will load the sample data when you launch it.)
 
 ===== [Step 6] Storage: Add `Remark` field to `JsonAdaptedCard` class
-We now have `Remark` s for `Card` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/JsonAdaptedCard.java[`JsonAdaptedCard`] to include a `Remark` field so that it will be saved.
+We now have `Remark` s for `Card` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/knowitall/storage/JsonAdaptedCard.java[`JsonAdaptedCard`] to include a `Remark` field so that it will be saved.
 
 **Main:**
 
@@ -1287,23 +1407,23 @@ We now have `Remark` s for `Card` s, but they will be gone when we exit the appl
 . Fix `invalidAndValidCardCardFolder.json`, `typicalCardsCardFolder.json`, `validCardFolder.json` etc., such that the JSON tests will not fail due to a missing `remark` field.
 
 ===== [Step 6b] Test: Add withRemark() for `CardBuilder`
-Since `Card` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/CardBuilder.java[`CardBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/card/Card.java[`Card`].
+Since `Card` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/knowitall/testutil/CardBuilder.java[`CardBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/knowitall/model/card/Card.java[`Card`].
 
 **Tests:**
 
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/CardBuilder.java[`CardBuilder`]. This method will create a new `Remark` for the card that it is currently building.
-. Try and use the method on any sample `Card` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalCards.java[`TypicalCards`].
+. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/knowitall/testutil/CardBuilder.java[`CardBuilder`]. This method will create a new `Remark` for the card that it is currently building.
+. Try and use the method on any sample `Card` in link:{repoURL}/src/test/java/seedu/knowitall/testutil/TypicalCards.java[`TypicalCards`].
 
 ===== [Step 7] Ui: Connect `Remark` field to `CardCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/CardCard.java[`CardCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
+Our remark label in link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
 
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/CardCard.java[`CardCard`]'s constructor to bind the `Remark` field to the `Card` 's remark.
+. Modify link:{repoURL}/src/main/java/seedu/knowitall/ui/CardCard.java[`CardCard`]'s constructor to bind the `Remark` field to the `Card` 's remark.
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysCard(...)`] so that it will compare the now-functioning remark label.
+. Modify link:{repoURL}/src/test/java/seedu/knowitall/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysCard(...)`] so that it will compare the now-functioning remark label.
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.

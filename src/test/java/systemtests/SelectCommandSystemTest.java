@@ -1,22 +1,22 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_CARD_SUCCESS;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.knowitall.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.knowitall.logic.commands.SelectCommand.MESSAGE_SELECT_CARD_SUCCESS;
+import static seedu.knowitall.testutil.TestUtil.getLastIndex;
+import static seedu.knowitall.testutil.TestUtil.getMidIndex;
+import static seedu.knowitall.testutil.TypicalCards.KEYWORD_MATCHING_MEIER;
+import static seedu.knowitall.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
+import seedu.knowitall.commons.core.index.Index;
+import seedu.knowitall.logic.commands.RedoCommand;
+import seedu.knowitall.logic.commands.SelectCommand;
+import seedu.knowitall.logic.commands.UndoCommand;
+import seedu.knowitall.model.Model;
 
 public class SelectCommandSystemTest extends CardFolderSystemTest {
     @Test

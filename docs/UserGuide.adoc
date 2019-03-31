@@ -527,6 +527,5 @@ Within a folder, user can search for flashcards inside the current folder using 
 |`export FOLDER_INDEX FILENAME` | Creates a json file containing the flashcards from the specified folder, which can later be imported.
 |`help` | Brings up help information.
 |`exit` | Exits the application.
-
-=======================================================================
+|=======================================================================
 //end::glossarycmdsummary[]

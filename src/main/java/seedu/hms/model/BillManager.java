@@ -52,7 +52,6 @@ public class BillManager implements BillModel {
         filteredReservations = new FilteredList<>(versionedHotelManagementSystem.getReservationList());
         roomTypeList = new FilteredList<>(versionedHotelManagementSystem.getRoomTypeList());
         filteredReservations.addListener(this::ensureSelectedReservationIsValid);
-        
     }
 
     public BillManager() {
@@ -133,15 +132,7 @@ public class BillManager implements BillModel {
     public ObservableList<Booking> getFilteredBookingList() {
         return filteredBookings;
     }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code ServiceType} backed by the internal list of
-     * {@code versionedHotelManagementSystem}
-     */
-    public ObservableList<ServiceType> getServiceTypeList() {
-        return serviceTypeList;
-    }
-
+    
     //=========== Undo/Redo =================================================================================
 
     @Override

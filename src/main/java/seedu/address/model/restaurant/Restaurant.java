@@ -33,6 +33,7 @@ public class Restaurant {
     private final Weblink weblink;
     private final List<Review> reviews = new ArrayList<>();
     private final OpeningHours openingHours;
+    private final Postal postal;
 
     // Category fields
     private final Category categories;
@@ -41,9 +42,9 @@ public class Restaurant {
      * Constructor for Restaurant class without Reviews and Categories
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
+    public Restaurant(Name name, Phone phone, Email email, Address address, Postal postal, Set<Tag> tags, Weblink weblink,
                       OpeningHours openingHours) {
-        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
+        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours, postal);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -52,15 +53,16 @@ public class Restaurant {
         this.weblink = weblink;
         this.openingHours = openingHours;
         this.categories = Category.empty();
+        this.postal = postal;
     }
 
     /**
      * Constructor for Restaurant without Reviews but with Optional Cuisine field.
      * Every field must be present and not null.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+    public Restaurant(Name name, Phone phone, Email email, Address address, Postal postal, Set<Tag> tags,
                       Weblink weblink, OpeningHours openingHours, Optional<Cuisine> cuisine) {
-        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
+        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours, postal);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -69,14 +71,15 @@ public class Restaurant {
         this.weblink = weblink;
         this.openingHours = openingHours;
         this.categories = new Category(cuisine.isPresent() ? cuisine.get() : null, null);
+        this.postal = postal;
     }
 
     /**
      * Create new restaurant with Categories and Reviews.
      */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,
+    public Restaurant(Name name, Phone phone, Email email, Address address, Postal postal, Set<Tag> tags, Weblink weblink,
                       OpeningHours openingHours, Category categories, List<Review> reviews) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, phone, email, address, tags, postal);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -90,6 +93,7 @@ public class Restaurant {
         } else {
             this.categories = categories;
         }
+        this.postal = postal;
     }
 
     /**
@@ -107,6 +111,7 @@ public class Restaurant {
         this.categories = category;
         this.weblink = restaurant.weblink;
         this.openingHours = restaurant.openingHours;
+        this.postal = restaurant.postal;
     }
 
     public Name getName() {
@@ -143,6 +148,10 @@ public class Restaurant {
 
     public Category getCategories() {
         return categories;
+    }
+
+    public Postal getPostal() {
+        return postal;
     }
 
     /**

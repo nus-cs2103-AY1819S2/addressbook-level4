@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.FoodDiaryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.PostalDataSet;
 import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.restaurant.Restaurant;
 import seedu.address.storage.Storage;
@@ -70,6 +71,8 @@ public class LogicManager implements Logic {
     public ReadOnlyFoodDiary getFoodDiary() {
         return model.getFoodDiary();
     }
+
+
 
     @Override
     public ObservableList<Restaurant> getFilteredRestaurantList() {

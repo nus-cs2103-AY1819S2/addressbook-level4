@@ -183,7 +183,7 @@ public class Enemy extends Player {
                 preppedShips.remove(0);
                 markAsOccupied(x, y, shipSize, useOrientation);
             } catch (ArrayIndexOutOfBoundsException e) {
-                //log the error later from putship
+                //TODO log the error later from putship
             }
         }
 
@@ -265,7 +265,7 @@ public class Enemy extends Player {
     /**
      * receives status of an attacked cell from Battle manager
      */
-    private void receiveStatus(Status latestStatusInfo) {
+    public void receiveStatus(Status latestStatusInfo) {
         //lastCoordAttacked in a1 format
         lastAttackStatus = latestStatusInfo;
         updateWatchlist(lastCoordAttacked);

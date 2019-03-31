@@ -39,8 +39,12 @@ public class SetReminderCommandTest {
 
             assertCommandSuccess(command, model, history, String.format(SetReminderCommand.MESSAGE_REMINDER_SUCCESS,
                     SetReminderCommand.DISPLAY_FORMATTER.format(cTotal.getTime())), expectedModel);
+            Thread.sleep(1000);
         } catch (ParseException parseException) {
             // do nth as the test will fail if parse fails
+        } catch (InterruptedException e) {
+            // sleep for one second when showing the alert dialog during testing mode
+            e.printStackTrace();
         }
     }
 

@@ -13,11 +13,11 @@ public class ModuleInfoWorkload {
             "No work load information provided";
     public static final String VALIDATION_REGEX = "\\d{1,2}-\\d{1,2}-\\d{1,2}-\\d{1,2}-\\d{1,2}";
     public final String workload;
-    public final Integer lecture;
-    public final Integer tutorial;
-    public final Integer lab;
-    public final Integer project;
-    public final Integer preparation;
+    public final int lecture;
+    public final int tutorial;
+    public final int lab;
+    public final int project;
+    public final int preparation;
 
     public ModuleInfoWorkload(String moduleInfoWorkload) {
         this.workload = moduleInfoWorkload;
@@ -47,27 +47,27 @@ public class ModuleInfoWorkload {
         return workload;
     }
 
-    public int getLectureWorkload() {
+    public int getLecture() {
         return lecture;
     }
 
-    public int getTutorialWorkload() {
+    public int getTutorial() {
         return tutorial;
     }
 
-    public int getLabWorkload() {
+    public int getLab() {
         return lab;
     }
 
-    public int getProjectWorkload() {
+    public int getProject() {
         return project;
     }
 
-    public int getPreparationWorkload() {
+    public int getPreparation() {
         return preparation;
     }
 
-    public int getTotalWorkload() {
+    public int getTotal() {
         return lecture + tutorial + lab + project + preparation;
     }
 

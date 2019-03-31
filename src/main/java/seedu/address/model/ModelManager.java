@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiPredicate;
@@ -24,7 +23,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
-import seedu.address.model.course.CourseReqType;
 import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.CodeContainsKeywordsPredicate;
 
@@ -34,6 +32,8 @@ import seedu.address.model.moduleinfo.ModuleInfoList;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.ModuleTakenNotFoundException;
+import seedu.address.model.recmodule.RecModule;
+import seedu.address.model.recmodule.RecModuleManager;
 import seedu.address.model.util.SampleCourse;
 
 /**
@@ -53,15 +53,13 @@ public class ModelManager implements Model {
     private final ObservableList<ModuleInfo> allModules;
     private final FilteredList<ModuleInfo> displayList;
     private final SimpleObjectProperty<ModuleInfo> selectedModuleInfo = new SimpleObjectProperty<>();
-    private final ModuleInfoList moduleInfoList;
-
 
     private final ObservableList<Course> allCourses;
     private final CourseList courseList;
     private final FilteredList<CourseRequirement> displayCourseReqList;
 
-    private final FilteredList<ModuleInfoCode> recModuleList;
-    private final SortedList<ModuleInfoCode> recModuleListSorted;
+    private final FilteredList<RecModule> recModuleList;
+    private final SortedList<RecModule> recModuleListSorted;
 
     //TODO: Interaction with user Info
     private final UserInfo userInfo;
@@ -69,10 +67,10 @@ public class ModelManager implements Model {
      * Initializes a ModelManager with the given GradTrak and userPrefs.
      */
     public ModelManager(ReadOnlyGradTrak gradTrak, UserPrefs userPrefs,
-                        ModuleInfoList allModules, CourseList allCourses,
+                        ModuleInfoList moduleInfoList, CourseList allCourses,
                         UserInfo userInfo) {
         super();
-        requireAllNonNull(gradTrak, userPrefs, allModules);
+        requireAllNonNull(gradTrak, userPrefs, moduleInfoList);
 
         logger.fine("Initializing with Gradtrak: " + gradTrak + " and user prefs " + userPrefs);
 
@@ -82,13 +80,12 @@ public class ModelManager implements Model {
         filteredModulesTaken.addListener(this::ensureSelectedModuleTakenIsValid);
 
         //Get an non Modifiable List of all modules and use a filtered list based on that to search for modules
-        this.allModules = allModules.getObservableList();
+        this.allModules = moduleInfoList.getObservableList();
         this.displayList = new FilteredList<>(this.allModules);
-        this.updateDisplayList(new CodeContainsKeywordsPredicate(null));
+        updateDisplayList(new CodeContainsKeywordsPredicate(null));
 
-        this.moduleInfoList = allModules;
-
-        this.recModuleList = new FilteredList<>(allModules.getObservableCodeList());
+        // Initialise list of RecModule
+        this.recModuleList = new FilteredList<>(RecModuleManager.getObservableRecModuleList(allModules));
         this.recModuleListSorted = new SortedList<>(recModuleList);
 
         //Get a non-modifiable list of all courses
@@ -297,6 +294,7 @@ public class ModelManager implements Model {
     }
 
     //=========== Module Info List ===========================================================================
+
     @Override
     public ObservableList<ModuleInfo> getDisplayList() {
         return this.displayList;
@@ -307,7 +305,6 @@ public class ModelManager implements Model {
         requireNonNull(predicate);
         displayList.setPredicate(predicate);
     }
-
 
     @Override
     public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
@@ -328,24 +325,18 @@ public class ModelManager implements Model {
         selectedModuleInfo.setValue(moduleInfo);
     }
 
-
-
-
     //=========== Module recommendation ===========================================================================
     @Override
-    public ObservableList<ModuleInfoCode> getRecModuleListSorted() {
+    public ObservableList<RecModule> getRecModuleListSorted() {
         return recModuleListSorted;
     }
 
     @Override
-    public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
+    public void updateRecModuleList() {
         RecModuleManager recModuleManager = new RecModuleManager(course, versionedGradTrak);
         recModuleList.setPredicate(recModuleManager.getRecModulePredicate());
         recModuleListSorted.setComparator(recModuleManager.getRecModuleComparator());
-
-        return recModuleManager.getCodeToReqMap();
     }
-
 
     /**
      * Ensures {@code selectedModuleTaken} is a valid moduleTaken in {@code filteredModulesTaken}.
@@ -399,7 +390,6 @@ public class ModelManager implements Model {
         return userInfo;
     }
 
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -422,5 +412,4 @@ public class ModelManager implements Model {
                 && displayCourseReqList.equals(other.displayCourseReqList)
                 && this.userInfo.equals(other.userInfo);
     }
-
 }

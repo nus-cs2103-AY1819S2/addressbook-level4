@@ -167,7 +167,7 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Returns a List of ModuleInfoCode representing passed ModuleTaken.
+     * Returns a {@code List} of {@code ModuleInfoCode} representing passed {@code ModuleTaken}.
      */
     public List<ModuleInfoCode> getPassedModuleList() {
         List<ModuleInfoCode> codeList = new ArrayList<>();
@@ -182,14 +182,15 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Returns true if the module represented by the given ModuleInfoCode has been passed.
+     * Returns true if the module represented by the given {@code ModuleInfoCode} has been passed.
      */
     public boolean hasPassedModule(ModuleInfoCode moduleInfoCode) {
         return getPassedModuleList().contains(moduleInfoCode);
     }
 
     /**
-     * Returns true if modulesTaken contains an unfinished ModuleTaken represented by the given ModuleInfoCode.
+     * Returns true if {@code modulesTaken} contains an unfinished {@code ModuleTaken}
+     * represented by the given {@code ModuleInfoCode}.
      */
     public boolean hasUnfinishedModule(ModuleInfoCode moduleInfoCode) {
         requireNonNull(moduleInfoCode);

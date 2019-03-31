@@ -70,9 +70,9 @@ public class LogicManager implements Logic {
                 case SAVE:
                     int savedCount = storageManager.saveLessonList(managementModel.getLessonList());
                     int totalLessonCount = managementModel.getLessonList().getLessons().size();
-                    int difference = totalLessonCount - savedCount;
+                    int unsavedCount = totalLessonCount - savedCount;
                     if (savedCount < totalLessonCount) {
-                        commandResult = new CommandResult("Failed to save " + savedCount + "/"
+                        commandResult = new CommandResult("Failed to save " + unsavedCount + "/"
                             + totalLessonCount + " lessons. Please check the logs for more information.");
                     }
                     break;

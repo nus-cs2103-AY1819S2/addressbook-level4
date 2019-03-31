@@ -148,7 +148,7 @@ image::LogicClassDiagram.png[width="800"]
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `padd ...` (values are not added for brevity).
 
-.Component interactions for `padd ...` command
+.Component interactions for `addpat ...` command
 image::SDforAddPatient.png[width="800"]
 
 The sections below give more details of each component.
@@ -741,7 +741,7 @@ We have two types of tests:
 .. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.address.model.PersonTest`
 ..  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
 e.g. `seedu.address.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
@@ -779,14 +779,6 @@ Here are the steps to create a new release.
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
-
-=== Managing Dependencies
-
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
-
-[loweralpha]
-. Include those libraries in the repo (this bloats the repo size)
-. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
 == Product Scope
@@ -1145,9 +1137,9 @@ Use case resumes at step 9.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 patients and their consultation records without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Response time for commands should be below 3 seconds so that consultations can be expedited
+.  Response time for commands should be below 3 seconds so that clinical operations can be expedited
 .  Commands should be easy to pick up for novice users, and convenient for expert users.
 .  Data stored can be easily transferred to another device installed with Quickdocs for operation continuation.
 .  Data stored, especially patient records and particulars, need to be encrypted to prevent unauthorised access and misuse.
@@ -1169,40 +1161,61 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Adding patient records
 
-. Initial launch
+. Add a new patient record
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Prerequisites: patient to be added must not have the same NRIC as an existing patient's NRIC, the
+`listpat` command can be used to check if there are conflicting NRIC
+.. Test case 1: `addpat n/Mohd Hamiru Bin Hamza r/S9876543C a/1 Tampines Street e/mhbh@gmail.com c/92344321 g/M d/1998-07-06` +
+   Expected: Patient with name "Mohd Hamiru Bin Hamza" with NRIC S9876542C added
+.. Test case 2: `add n/Nurul Huda Binte Hamza r/S9876543C a/3 Tampines Street e/nhbh@gmail.com c/93124432 g/F d/1998-11-02 `
+   Expected: Patient will not be added, an error message will be shown to indicate that a patient with the same NRIC existed in the records
+.. Other incorrect `addpat` commands to try: `addpat` with missing parameters such as gender and date of birth, `addpat` with name containing of symbols,
+`addpat` with invalid NRIC values (8 numbers or invalid last letters).
 
-. Saving window preferences
+=== Editing patient records
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Edit the fields of an existing patient record
 
-_{ more test cases ... }_
+.. Prerequisites: use the `listpat` command to check for existing patients to be edited, or simply add one using `addpat`
+if there isn't any. You need at least 2 patients to perform this manual test.
+.. Test case1: `editPat EXISTING_NRIC n/Peter Tan g/M d/1990-09-01`
+   Expected: selected patient will have his or her name changed to "Peter Tan", gender changed to "M" and date of birth changed
+   to 1990-09-01.
+.. Test case2: `editPat EXISTING_NRIC n/Perry Tan r/ANOTHER_EXISTING_NRIC`
+   Expected: An error message will be shown to indicate that the edit to the current patient will cause it to have a conflicting NRIC
+   with another patient's NRIC
+.. Test case 3: `editPat EXISTING_NRIC`
+   Expected: An error message will be shown to indicate that there is nothing to edit for the current selected patient
+.. Other incorrect `editpat` commands to try: name with numbers, `editpat` with a non existent NRIC, `editPat` without an NRIC (without prefix)
 
-=== Deleting a person
+=== Starting a consultation
 
-. Deleting a person while all persons are listed
+. Start a consultation for a registered patient
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Prerequisites: Existing patients must already be stored in QuickDocs, use `listpat` to check for both existing and non existing
+   patients' NRIC
+.. Test case 1: `consult r/EXISTING_NRIC`
+   Expected: A message to indicate the start of the consultation session will be shown at the main display. A label will be displayed
+   at the bottom right, displaying the message along with the patient's NRIC as well.
+.. Test case 2: After test case 1, enter `consult r/ANOTHER_EXISTING_NRIC`
+   Expected: An error message will be shown to alert you that there is already an ongoing consultation session.
+.. Test case 3: exit QuickDocs, and then enter `consult r/NON_EXISTING_NRIC`
+   Expected: since there are no patients with the NRIC, an error message will be shown to indicate that the consultation session cannot start
+   for a non-existing patient
 
-_{ more test cases ... }_
+=== Ending a consultation
 
-=== Saving data
+. End a consultation session after providing the prescription and diagnosis. A consultation session can only end after
+  both the diagnosis and prescription have been recorded.
 
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Prerequisites: consultation session must already been started for a patient, medicine to be assigned for prescription is already
+   stored in QuickDocs
+.. Test case 1: after starting a consultation, `endconsult` immediately
+   Expected: Error message will be shown to alert you that a diagnosis have not been provided.
+.. Test case 2: add the diagnosis and then `endconsult` after test case 1
+   Expected: Error message will be shown to alert you that a prescription have not been given to end the consultation session.
+.. Test case 3: add the prescription and then `endconsult` after test case 2
+   Expected: A message indicating that the current consultation session have ended. The ongoing session label at the bottom right
+   of QuickDocs is also removed.

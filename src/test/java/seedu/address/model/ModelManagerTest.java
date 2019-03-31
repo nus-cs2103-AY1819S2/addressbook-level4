@@ -14,7 +14,6 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -123,7 +122,6 @@ public class ModelManagerTest {
         assertEquals(ALICE, modelManager.getSelectedPerson());
     }
 
-    @Ignore //TODO: Need to update
     @Test
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addPerson(ALICE);

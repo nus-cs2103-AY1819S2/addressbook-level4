@@ -33,6 +33,7 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private ArchiveListPanel archiveListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private PinListPanel pinListPanel;
@@ -120,6 +121,8 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
+        archiveListPanel = new ArchiveListPanel(logic.getFilteredArchivedPersonList());
+        personListPanelPlaceholder.getChildren().add(archiveListPanel.getRoot());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         pinListPanel = new PinListPanel(logic.getFilteredPinList(), logic.selectedPersonProperty(),
@@ -183,6 +186,10 @@ public class MainWindow extends UiPart<Stage> {
         return pinListPanel;
     }
 
+    public ArchiveListPanel getArchiveListPanel() {
+        return archiveListPanel;
+    }
+
     /**
      * Executes the command and returns the result.
      *
@@ -200,6 +207,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isSwapList()) {
+                personListPanelPlaceholder.getChildren().get(0).toFront();
             }
 
             return commandResult;

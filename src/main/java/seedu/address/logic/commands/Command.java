@@ -24,5 +24,4 @@ public abstract class Command {
     public abstract boolean requiresArchiveList();
 
     public abstract boolean requiresPinList();
-
 }

@@ -52,7 +52,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
-        filteredArchivedPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredArchivedPersons = new FilteredList<>(versionedArchiveBook.getPersonList());
         filteredArchivedPersons.addListener(this::ensureSelectedPersonIsValid);
         filteredPinnedPersons = new FilteredList<>(versionedPinBook.getPersonList());
         filteredPinnedPersons.addListener(this::ensureSelectedPersonIsValid);
@@ -171,6 +171,7 @@ public class ModelManager implements Model {
     public void archivePerson(Person target) {
         versionedArchiveBook.addPerson(target);
         versionedAddressBook.removePerson(target);
+        updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -227,7 +228,7 @@ public class ModelManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Archived Person List Accessors ===================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
@@ -397,6 +398,7 @@ public class ModelManager implements Model {
                 && versionedPinBook.equals(other.versionedPinBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredArchivedPersons.equals(other.filteredArchivedPersons)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

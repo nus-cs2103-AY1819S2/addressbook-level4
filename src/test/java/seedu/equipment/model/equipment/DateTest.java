@@ -22,24 +22,24 @@ public class DateTest {
 
     @Test
     public void isValidDate() {
-        // null email
+        // null date
         Assert.assertThrows(NullPointerException.class, () -> Date.isValidDate(null));
 
-        // blank email
+        // blank date
         assertFalse(Date.isValidDate("")); // empty string
 
-        // invalid email
+        // invalid date
         assertFalse(Date.isValidDate("^")); // only non-alphanumeric characters
         assertFalse(Date.isValidDate("22/09/2019")); // contains non-alphanumeric characters
 
-        // valid email --> not whhat we auctally want
+        // valid date --> not whhat we auctally want
         assertTrue(Date.isValidDate("peter jack")); // alphabets only
         assertTrue(Date.isValidDate("12345")); // numbers only
         assertTrue(Date.isValidDate("peter the 2nd")); // alphanumeric characters
         assertTrue(Date.isValidDate("Capital Tan")); // with capital letters
         assertTrue(Date.isValidDate("David Roger Jackson Ray Jr 2nd")); // long names
 
-        // valid email --> in proper date format
+        // valid date --> in proper date format
         assertTrue(Date.isValidDate("22 April 2019")); // no ambiguousness in dates
     }
 }

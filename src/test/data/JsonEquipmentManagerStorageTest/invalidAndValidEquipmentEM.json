@@ -2,13 +2,13 @@
   "persons": [ {
     "name": "Valid Person",
     "phone": "9482424",
-    "email": "23 April 2019",
+    "date": "23 April 2019",
     "serial number": "A008866X",
     "address": "4th street"
   }, {
     "name": "Person With Invalid Phone Field",
     "phone": "948asdf2424",
-    "email": "23 April 2019",
+    "date": "23 April 2019",
     "serial number": "A008866X",
     "address": "4th street"
   } ]

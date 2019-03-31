@@ -28,13 +28,13 @@ public class SortCommand extends Command {
             + "Parameters: sort [FIELD]... \n"
             + "Example 1: " + COMMAND_WORD + " name\n"
             + "Example 2: " + COMMAND_WORD + " address\n"
-            + "Example 3: " + COMMAND_WORD + " email\n"
+            + "Example 3: " + COMMAND_WORD + " date\n"
             + "Example 4: " + COMMAND_WORD + " phone\n";
 
     public static final String MESSAGE_SUCCESS = "Sorted by specified field";
     public static final String DEFAULT_SORT_PARAMETER = "equipment";
     public static final String ADDRESS_SORT_PARAMETER = "address";
-    public static final String EMAIL_SORT_PARAMETER = "email";
+    public static final String DATE_SORT_PARAMETER = "date";
     public static final String PHONE_SORT_PARAMETER = "phone";
     private final String sortParameter;
 
@@ -69,7 +69,7 @@ public class SortCommand extends Command {
             };
             commandResult = String.format(MESSAGE_SUCCESS, size, DEFAULT_SORT_PARAMETER);
             break;
-        case EMAIL_SORT_PARAMETER:
+        case DATE_SORT_PARAMETER:
             equipmentComparator = (firstEquipment, secondEquipment) -> {
                 Date firstDate = firstEquipment.getDate();
                 Date secondDate = secondEquipment.getDate();

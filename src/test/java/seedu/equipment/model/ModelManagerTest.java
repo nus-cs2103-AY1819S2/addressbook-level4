@@ -3,7 +3,7 @@ package seedu.equipment.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.equipment.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
@@ -147,7 +147,7 @@ public class ModelManagerTest {
     public void setPerson_personIsSelected_selectedPersonUpdated() {
         modelManager.addEquipment(ANCHORVALECC);
         modelManager.setSelectedEquipment(ANCHORVALECC);
-        Equipment updatedAlice = new EquipmentBuilder(ANCHORVALECC).withEmail(VALID_EMAIL_BOB).build();
+        Equipment updatedAlice = new EquipmentBuilder(ANCHORVALECC).withDate(VALID_DATE_BOB).build();
         modelManager.setEquipment(ANCHORVALECC, updatedAlice);
         assertEquals(updatedAlice, modelManager.getSelectedEquipment());
     }

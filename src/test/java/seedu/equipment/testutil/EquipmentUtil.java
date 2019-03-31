@@ -49,7 +49,7 @@ public class EquipmentUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.name).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
-        descriptor.getDate().ifPresent(email -> sb.append(PREFIX_PM).append(email.value).append(" "));
+        descriptor.getDate().ifPresent(date -> sb.append(PREFIX_PM).append(date.value).append(" "));
         descriptor.getAddress().ifPresent(address -> sb.append(PREFIX_ADDRESS).append(address.value).append(" "));
         descriptor.getSerialNumber().ifPresent(serialNumber -> sb.append(PREFIX_SERIALNUMBER)
                 .append(serialNumber.serialNumber).append(" "));

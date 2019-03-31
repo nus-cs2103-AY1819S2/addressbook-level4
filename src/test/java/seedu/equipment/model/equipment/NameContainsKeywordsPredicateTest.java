@@ -67,9 +67,9 @@ public class NameContainsKeywordsPredicateTest {
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new EquipmentBuilder().withName("Alice Bob").build()));
 
-        // Keywords match phone, email and equipment, but does not match name
+        // Keywords match phone, date and equipment, but does not match name
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("12345", "alice@gmail.com", "Main", "Street"));
         assertFalse(predicate.test(new EquipmentBuilder().withName("Alice").withPhone("12345")
-                .withEmail("22 April 2019").withAddress("Main Street").build()));
+                .withDate("22 April 2019").withAddress("Main Street").build()));
     }
 }

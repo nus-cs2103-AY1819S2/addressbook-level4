@@ -90,14 +90,14 @@ If it is your first time reading this, then good job on opening the User Guide!
 
 === Adding an equipment: `add-e`
 Adds an equipment to the Equipment Manager +
-Format: `add-e n/CLIENT_NAME p/CLIENT_PHONE_NUMBER e/CLIENT_EMAIL a/CLIENT_ADDRESS s/SERIAL_NUMBER [t/TAG]`
+Format: `add-e n/CLIENT_NAME p/CLIENT_PHONE_NUMBER pm/PM_DATE a/CLIENT_ADDRESS s/SERIAL_NUMBER [t/TAG]`
 
 [TIP]
 An equipment can any number of tags (including 0).
 
 Example:
 
-* `add n/Clementi CC p/98765432 e/clementic@gmail.com a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
+* `add n/Clementi CC p/98765432 pm/10 May 2019 a/220 Clementi Ave 4, Singapore 129880 s/A008844L t/west`
 
 === Creating a new worklist: `add-w`
 Create a worklist in the Equipment Manager by giving the worklist an ID +
@@ -124,7 +124,7 @@ Example:
 
 === Editing an equipment: `edit-e`
 Edits an existing equipment in the _Equipment Manager_. +
-Format: `edit INDEX [n/CLENT_NAME] [p/CLENT_PHONE] [e/CLENT_EMAIL] [a/CLENT_ADDRESS] [s/SERIAL_NUMBER] [t/TAG]…​`
+Format: `edit INDEX [n/CLENT_NAME] [p/CLIENT_PHONE] [pm/PM_DATE] [a/CLIENT_ADDRESS] [s/SERIAL_NUMBER] [t/TAG]…​`
 
 * Edits the equipment at the specified INDEX. The index refers to the index number shown in the displayed equipment list. The index must be a positive integer 1, 2, 3, …​
 * At least one of the optional fields must be provided.

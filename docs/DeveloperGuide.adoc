@@ -377,7 +377,7 @@ image::inputStatsCommandSS.png[width=250]
 ! Note, there should not be any valid data at the moment as the game as not started.
 ! Include Screenshot explaining pop-up window and lack of data
 
-image::StatsWindowSS.png[width=400]
+image::StatsWindowSS.png[width=600]
 Step 4. Now proceed with the game and perform an attack ....
 
 Step 5. Invoke the `stats` command again to view the updated statistics
@@ -394,8 +394,8 @@ Besides the pop-up window, the data is also captured in the command-line result 
 image::StatsCommandBox.PNG[width=400]
 
 ==== Design Considerations
-* **Alternative 1 (current choice):** Statistics will have an initialise method that with a set of default configuration that are used by any Statistics Variant.
-** Pros: The underlying variables and values in `Statistics` is better protected from modification.
+* **Alternative 1 (current choice):** Statistics class will have an initialise method that with a set of default configuration that are used by any Statistics Variant.
+** Pros: The underlying variables and values in Statistics is better protected from modification.
 ** Cons: It does not accommodate changes in default settings.
 * **Alternative 2:** Statistics is stored entirely within StatsCommands
 ** Pros: Easy to code and less lines of code.
@@ -645,19 +645,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | user | see the number of actions I made |keep track of my play style
 
+|`* * *` | user | see the number of successful attacks I made |keep track of how well I am doing in the game
+
 |`* * *` | user | see where my battleships are on the map |have a visual representation of the game
 
 |`* * *` | user | list my battleships |know the status of my fleet
 
 |`* * *` | player | end my turn |the enemy can start its turn
 
-|`* * *` |player |delete a person |remove entries that I no longer need
-
-|`* * *` |player |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |player |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |player with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_
@@ -847,6 +842,18 @@ _{ more test cases ... }_
    Expected: No battleship is put down on the map. Error details shown in the status message. Map remains the same.
 
 _{ more test cases ... }_
+
+=== Viewing the statistics
+
+To test the `stats` feature. We will perform a before and after check to see if the statistical data of a simple behaviour is captured. In this case, we will perform an attack with a miss result.
+
+1. Initialize a 8x8 map using `init 8`.
+2. Run the `stats` command and observe the results
+.. Test case : `stats`  (before) +
+   Expected: All fields are 0.
+3. Now input `attack c1` to simulate an attack on the enemy map.
+.. Test case : `stats` (after) +
+    Expected: Number of attacks : 1, Number of Misses : 1
 
 === Saving data
 

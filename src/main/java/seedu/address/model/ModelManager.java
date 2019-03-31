@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -22,7 +21,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseList;
 import seedu.address.model.course.CourseName;
-import seedu.address.model.course.CourseReqType;
 import seedu.address.model.course.RequirementStatus;
 import seedu.address.model.course.RequirementStatusList;
 import seedu.address.model.moduleinfo.CodeContainsKeywordsPredicate;
@@ -35,7 +33,6 @@ import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.ModuleTakenNotFoundException;
 import seedu.address.model.recmodule.RecModule;
 import seedu.address.model.recmodule.RecModuleManager;
-import seedu.address.model.util.SampleCourse;
 
 /**
  * Represents the in-memory model of the GradTrak data.
@@ -103,7 +100,7 @@ public class ModelManager implements Model {
                 versionedGradTrak.getModulesTakenList()
                         .stream()
                         .map(ModuleTaken::getModuleInfoCode)
-                        .collect(Collectors.toList()), allModules.getObservableList());
+                        .collect(Collectors.toList()), allModules);
     }
 
     public ModelManager() {

@@ -40,7 +40,7 @@ public class RequirementStatusCard extends UiPart<Region> {
         this.requirementStatus = requirementStatus;
         this.courseRequirementName.setText(requirementStatus.getCourseRequirement().getCourseReqName());
         this.courseRequirementDescription.setText(requirementStatus.getCourseRequirement().getCourseReqDesc());
-        this.courseReqType.setText(requirementStatus.getCourseRequirement().getType().toPrintedString());
+        this.courseReqType.setText(requirementStatus.getCourseRequirement().getType().toString());
         if (requirementStatus.isFulfilled()) {
             this.courseReqIsFulfilled.setText(IS_FULFILLED);
         } else {

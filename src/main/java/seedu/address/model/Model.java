@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.HashMap;
 
 import java.util.function.Predicate;
 
@@ -10,9 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
-import seedu.address.model.course.CourseReqType;
 import seedu.address.model.course.RequirementStatus;
-import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;

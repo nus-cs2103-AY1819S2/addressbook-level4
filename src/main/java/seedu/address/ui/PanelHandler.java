@@ -24,7 +24,6 @@ public class PanelHandler {
                 logic::setSelectedModuleInfo).getRoot());
         panels.put(DisplayreqCommand.COMMAND_WORD,
                 new DisplayRequirementStatusList(logic.getRequirementStatusList()).getRoot());
-     
         panels.put(RecCommand.COMMAND_WORD, new DisplayRecModuleList(logic.getRecModuleListSorted()).getRoot());
     }
 

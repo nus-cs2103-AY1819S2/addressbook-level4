@@ -66,9 +66,7 @@ public class SampleDataUtil {
 
     public static MedicalHistory[] getSampleMedHists() {
         return new MedicalHistory[] {
-                new MedicalHistory(null, null, new Name("Alex Yeoh"), new WriteUp("Fever")),
-                new MedicalHistory(null, null, new Name("Bernice Yu"), new WriteUp("Cough")),
-                new MedicalHistory(null, null, new Name("Charlotte Oliveiro"), new WriteUp("Sneeze"))
+            new MedicalHistory(null, null, new Name("Alex Yeoh"), new WriteUp("Fever"))
         };
     }
 

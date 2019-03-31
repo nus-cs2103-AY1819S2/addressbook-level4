@@ -51,7 +51,7 @@ public class MedHistCard extends UiPart<Region> {
 
         // state check
         MedHistCard card = (MedHistCard) other;
-        return id.getText().equals(card.id.getText())&& name.equals(card.name) && writeUp.equals(card.writeUp);
+        return id.getText().equals(card.id.getText()) && name.equals(card.name) && writeUp.equals(card.writeUp);
     }
 
 }

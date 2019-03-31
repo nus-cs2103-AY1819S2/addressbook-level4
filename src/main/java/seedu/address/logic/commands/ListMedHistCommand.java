@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDHISTS;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_MEDHISTS;
 
 /**
  * Lists all medical histories in the docX record to the user.

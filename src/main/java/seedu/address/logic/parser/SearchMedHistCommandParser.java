@@ -2,11 +2,11 @@ package seedu.address.logic.parser;
 
 import java.util.Arrays;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.SearchMedHistCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.medicalhistory.MedHistContainsKeywordsPredicate;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new SearchMedHistCommand object

@@ -14,7 +14,7 @@ import seedu.address.model.medicalhistory.MedicalHistory;
 /**
  * Deletes a patient identified using it's displayed index from the address book.
  */
-public class DeleteMedHistCommand extends Command{
+public class DeleteMedHistCommand extends Command {
 
     public static final String COMMAND_WORD = "delete-med-hist";
 

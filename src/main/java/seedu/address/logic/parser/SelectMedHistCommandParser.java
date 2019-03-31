@@ -9,7 +9,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Parses input arguments and creates a new SelectMedHistCommand object
  */
-public class SelectMedHistCommandParser implements Parser<SelectMedHistCommand>{
+public class SelectMedHistCommandParser implements Parser<SelectMedHistCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the SelectMedHistCommand
      * and returns an SelectMedHistCommand object for execution.

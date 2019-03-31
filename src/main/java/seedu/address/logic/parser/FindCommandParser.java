@@ -17,11 +17,14 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.util.predicate.AddressContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.ContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.DateOfBirthContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.DescriptionContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.DrugAllergyContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.EmailContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.MultipleContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NameContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.NricContainsKeywordsPredicate;
 import seedu.address.model.util.predicate.PhoneContainsKeywordsPredicate;
+import seedu.address.model.util.predicate.SexContainsKeywordsPredicate;
 
 
 /**
@@ -121,6 +124,15 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         case "dob/":
             return new DateOfBirthContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
+
+        case "sex/":
+            return new SexContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
+
+        case "da/":
+            return new DrugAllergyContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
+
+        case "desc/":
+            return new DescriptionContainsKeywordsPredicate(keywords, isIgnorecase, isAnd);
 
         default:
             throw new ParseException("");

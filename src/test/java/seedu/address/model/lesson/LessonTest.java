@@ -70,10 +70,13 @@ public class LessonTest {
         assertTrue(LESSON_DEFAULT.equals(LESSON_DEFAULT));
 
         // Different object -> returns false
-        assertFalse(LESSON_DEFAULT.equals(LESSON_TRUE_FALSE));
+        // newLesson is LESSON_TRUE_FALSE without LESSON_TRUE_FALSE's optional headers
+        Lesson newLesson = new Lesson(LESSON_TRUE_FALSE.getName(),
+                LESSON_TRUE_FALSE.getCoreHeaderSize(), LESSON_TRUE_FALSE.getCoreHeaders());
+        assertFalse(LESSON_TRUE_FALSE.equals(newLesson));
 
         // Same cores and optionals -> returns true
-        Lesson newLesson = new LessonBuilder(LESSON_DEFAULT).build();
+        newLesson = new LessonBuilder(LESSON_DEFAULT).build();
         newLesson.setName("Different name");
         assertTrue(LESSON_DEFAULT.equals(newLesson)); // Should be considered equivalent
     }
@@ -135,6 +138,14 @@ public class LessonTest {
     }
 
     @Test
+    public void setOptionalHeadersToNull() {
+        Lesson newLesson = new LessonBuilder(LESSON_DEFAULT).build();
+        // attempt to set optional headers to null -> nothing happens
+        newLesson.setOptionalHeaders(null);
+        assertEquals(newLesson.getOptionalHeaders().size(), 0);
+    }
+
+    @Test
     public void addCards() {
         Lesson newLesson = new LessonBuilder(LESSON_DEFAULT)
                 .withCards(new CardBuilder().build(), new CardBuilder(CARD_DOG).build())
@@ -150,6 +161,17 @@ public class LessonTest {
 
         newLesson = new LessonBuilder(LESSON_TRUE_FALSE).build();
         newLesson.addCard(List.of(CARD_DOG_CORE1, CARD_DOG_CORE2));
+    }
+
+
+    @Test
+    public void deleteCards() {
+        Lesson newLesson = new LessonBuilder(LESSON_DEFAULT)
+                .withCards(new CardBuilder().build(), new CardBuilder(CARD_DOG).build())
+                .build();
+        assertEquals(newLesson.getCardCount(), 2);
+        newLesson.deleteCard(0);
+        assertEquals(newLesson.getCardCount(), 1);
     }
 
     @Test

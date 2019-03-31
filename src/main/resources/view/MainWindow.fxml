@@ -49,7 +49,7 @@
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="sidePanel" minWidth="340" prefWidth="340"
                 SplitPane.resizableWithParent="false">
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            <StackPane fx:id="lessonListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
           <StackPane fx:id="mainPanelPlaceholder" >

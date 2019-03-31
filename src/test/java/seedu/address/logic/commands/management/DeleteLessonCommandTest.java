@@ -33,6 +33,8 @@ public class DeleteLessonCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private CommandHistory commandHistory = new CommandHistory();
+    private Index toDeleteIndex1 = Index.fromZeroBased(0);
+    private Index toDeleteIndex2 = Index.fromZeroBased(1);
 
     @Test
     public void execute_lessonDeletedByModel_deleteSuccessful() throws Exception {
@@ -75,8 +77,6 @@ public class DeleteLessonCommandTest {
 
     @Test
     public void equals() {
-        Index toDeleteIndex1 = Index.fromZeroBased(0);
-        Index toDeleteIndex2 = Index.fromZeroBased(1);
         DeleteLessonCommand deleteLessonCommand1 = new DeleteLessonCommand(toDeleteIndex1);
         DeleteLessonCommand deleteLessonCommand2 = new DeleteLessonCommand(toDeleteIndex2);
 
@@ -119,7 +119,7 @@ public class DeleteLessonCommandTest {
         }
 
         @Override
-        public List<Lesson> getLessonList() {
+        public List<Lesson> getLessons() {
             return lessons;
         }
 

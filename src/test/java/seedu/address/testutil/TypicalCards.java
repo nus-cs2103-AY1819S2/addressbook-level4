@@ -7,7 +7,7 @@ import java.util.List;
 import seedu.address.model.card.Card;
 
 /**
- * A utility class containing a list of {@code Card} objects used for {@code Card} testing.
+ * A utility class containing a list of {@code Card} objects used for testing.
  */
 public class TypicalCards {
     public static final Card CARD_BELGIUM = new CardBuilder().build();

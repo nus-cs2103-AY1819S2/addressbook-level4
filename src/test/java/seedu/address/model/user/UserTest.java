@@ -14,7 +14,6 @@ public class UserTest {
     private Instant date = Instant.now();
     private final CardSrsData testCardData = new CardSrsData(1, 1, 1, date);
     private final CardSrsData testCardData2 = new CardSrsData(20, 20, 20, date);
-    private final HashMap<Integer, CardSrsData> testHashMap = new HashMap<>();
 
     @Test
     public void addCardTest() {
@@ -48,8 +47,10 @@ public class UserTest {
     public void getCardsTest() {
         HashMap<Integer, CardSrsData> expectedOutput = new HashMap<>();
         expectedOutput.put(1, testCardData);
-        testHashMap.put(testCardData.getHashCode(), testCardData);
-        assertEquals(testHashMap, expectedOutput);
+        expectedOutput.put(20, testCardData2);
+        user.setCard(testCardData);
+        user.setCard(testCardData2);
+        assertEquals(user.getCards(), expectedOutput);
     }
 
     @Test
@@ -63,6 +64,8 @@ public class UserTest {
 
         assertTrue("User is the same", user1.equals(user2));
         assertFalse("User is not the same", user3.equals(user1));
+        assertTrue("User is the same", user1.equals(user1));
+        assertFalse("Compare with different objects", user.equals(testCardData));
 
     }
 }

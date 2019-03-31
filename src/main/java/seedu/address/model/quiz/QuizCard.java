@@ -80,7 +80,7 @@ public class QuizCard {
     }
 
     public QuizCard(String question, String answer, List<String> opt, String questionHeader, String answerHeader) {
-        requireAllNonNull(question, answer, opt);
+        requireAllNonNull(question, answer, opt, questionHeader, answerHeader);
         checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
 
         this.question = question;
@@ -96,7 +96,7 @@ public class QuizCard {
 
     public QuizCard(int index, String question, String answer, QuizMode quizMode,
                     String questionHeader, String answerHeader) {
-        requireAllNonNull(index, question, answer, quizMode);
+        requireAllNonNull(index, question, answer, quizMode, questionHeader, answerHeader);
         checkArgument(!question.trim().isEmpty() && !answer.isEmpty(), MESSAGE_CONSTRAINTS);
 
         this.index = index;

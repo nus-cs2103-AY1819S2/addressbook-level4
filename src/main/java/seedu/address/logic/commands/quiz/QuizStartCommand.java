@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.logic.commands.management.ManagementCommand;
 import seedu.address.model.lesson.Lesson;
+import seedu.address.model.lesson.LessonList;
 import seedu.address.model.modelmanager.ManagementModel;
 import seedu.address.model.modelmanager.Model;
 
@@ -60,7 +61,7 @@ public class QuizStartCommand extends ManagementCommand {
     public CommandResult executeActual(QuizModel model, CommandHistory history) {
         List<QuizCard> quizCards = session.generateSession();
         Quiz quiz = new Quiz(quizCards, session.getMode());
-        model.initWithSession(quiz, session);
+        model.init(quiz, session);
         QuizCard card = model.getNextCard();
         if (card.getQuizMode() == QuizMode.PREVIEW) {
             model.setDisplayFormatter(new QuizUiDisplayFormatter(
@@ -92,11 +93,12 @@ public class QuizStartCommand extends ManagementCommand {
             throw new CommandException(MESSAGE_EXPECTED_MODEL);
         }
         ManagementModel mgtModel = (ManagementModel) model;
-        List<Lesson> lessonList = mgtModel.getLessonList();
+        LessonList lessonList = mgtModel.getLessonList();
+        List<Lesson> lessons = lessonList.getLessons();
         boolean lessonExist = false;
         Lesson lesson = mgtModel.getLesson(0);
-        for (int i = 0; i < lessonList.size(); i++) {
-            if (lessonList.get(i).getName().equals(this.session.getName())) {
+        for (int i = 0; i < lessons.size(); i++) {
+            if (lessons.get(i).getName().equals(this.session.getName())) {
                 lesson = mgtModel.getLesson(i);
                 lessonExist = true;
                 break;

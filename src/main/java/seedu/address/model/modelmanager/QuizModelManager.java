@@ -86,13 +86,7 @@ public class QuizModelManager implements QuizModel {
     //=========== Quiz ==================================================================================
 
     @Override
-    public void init(Quiz quiz) {
-        requireAllNonNull(quiz);
-        this.quiz = quiz;
-    }
-
-    @Override
-    public void initWithSession(Quiz quiz, Session session) {
+    public void init(Quiz quiz, Session session) {
         requireAllNonNull(quiz, session);
         this.quiz = quiz;
         this.session = session;
@@ -162,7 +156,7 @@ public class QuizModelManager implements QuizModel {
     public QuizUiDisplayFormatter getDisplayFormatter() {
         return formatter;
     }
-
+    // TODO include session and mgmt model as well
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

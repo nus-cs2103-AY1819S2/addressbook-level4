@@ -47,16 +47,9 @@ public class QuizModelStub implements QuizModel {
     }
 
     /**
-     * Sets the {@code Quiz} information.
-     */
-    public void init(Quiz quiz) {
-        throw new AssertionError("This method should not be called.");
-    }
-
-    /**
      * Sets the {@code Quiz} and {@code Session} information.
      */
-    public void initWithSession(Quiz quiz, Session session) {
+    public void init(Quiz quiz, Session session) {
         throw new AssertionError("This method should not be called.");
     }
 

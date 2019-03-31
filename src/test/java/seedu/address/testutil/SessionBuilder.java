@@ -62,6 +62,14 @@ public class SessionBuilder {
     }
 
     /**
+     * Sets the {@code Sessionn}'s srsCards.
+     */
+    public SessionBuilder withSrsCards(List<SrsCard> srsCards) {
+        this.srsCards = srsCards;
+        return this;
+    }
+
+    /**
      * Builds and returns a session.
      * @return a session
      */

@@ -11,7 +11,7 @@ import java.util.List;
 import seedu.address.model.lesson.Lesson;
 
 /**
- * A utility class containing a list of {@code Card} objects used for {@code Card} testing.
+ * A utility class containing a list of {@link Lesson} objects used for testing.
  */
 public class TypicalLessons {
     public static final Lesson LESSON_DEFAULT = new LessonBuilder().build();

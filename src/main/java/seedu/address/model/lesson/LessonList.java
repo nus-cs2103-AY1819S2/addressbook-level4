@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.model.card.Card;
+
 /**
  * Represents a list of {@link Lesson} objects. It has helper functions to assist with the management
  * of {@link Lesson} objects.
@@ -77,7 +79,7 @@ public class LessonList {
      */
     public void deleteLesson(int index) {
         try {
-            if (openedLessonIndex == index) {
+            if (openedLesson != null && openedLessonIndex == index) {
                 closeLesson();
             }
 
@@ -109,6 +111,51 @@ public class LessonList {
     }
 
     /**
+     * Returns all {@code Card} objects in the {@link #openedLesson}.
+     *
+     * @return all {@code Card} objects in the {@link #openedLesson}; null if there are none
+     */
+    public List<Card> getOpenedLessonCards() {
+        return openedLesson.getCards();
+    }
+
+    /**
+     * @return the list of core headers
+     */
+    public List<String> getOpenedLessonCoreHeaders() {
+        return openedLesson.getCoreHeaders();
+    }
+
+    /**
+     * @return the list of optional headers
+     */
+    public List<String> getOpenedLessonOptionalHeaders() {
+        return openedLesson.getOptionalHeaders();
+    }
+
+    /**
+     * Adds a card to the opened lesson.
+     *
+     * @param card card to be added to the opened lesson
+     */
+    public void addCardToOpenedLesson(Card card) {
+        openedLesson.addCard(card);
+    }
+
+    /**
+     * Deletes the card at the specified index from the opened lesson.
+     *
+     * @param index the index of the card to be deleted from the opened lesson
+     */
+    public void deleteCardFromOpenedLesson(int index) {
+        try {
+            openedLesson.deleteCard(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(EXCEPTION_INVALID_INDEX + index);
+        }
+    }
+
+    /**
      * Sets {@link #openedLesson} to the lesson at the specified index.
      * All lesson-editing-related commands will apply to this lesson.
      *
@@ -133,6 +180,7 @@ public class LessonList {
         String lessonName = openedLesson.getName();
         setLesson(openedLessonIndex, openedLesson); // Save
         openedLesson = null;
+        openedLessonIndex = -1;
         return lessonName;
     }
 

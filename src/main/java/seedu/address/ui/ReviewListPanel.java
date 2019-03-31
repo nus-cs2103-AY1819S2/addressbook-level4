@@ -30,8 +30,7 @@ public class ReviewListPanel extends UiPart<Region> {
             logger.fine("Selected review changed to: " + newValue);
 
             if (newValue == null) {
-                // TODO: Need to remove? Because reviewListView won't be selected
-                reviewListView.getSelectionModel().clearSelection();
+                reviewListView.setItems(null);
             } else {
                 ObservableList<Review> reviewList = FXCollections.observableArrayList();
                 reviewList.addAll(newValue.getReviews());

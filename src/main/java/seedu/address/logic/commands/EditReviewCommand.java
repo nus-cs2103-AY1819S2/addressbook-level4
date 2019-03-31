@@ -41,6 +41,7 @@ public class EditReviewCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_RESTAURANT = "This review already exists for this restaurant.";
 
+
     private final Index index;
     private final EditReviewDescriptor editReviewDescriptor;
 
@@ -63,6 +64,12 @@ public class EditReviewCommand extends Command {
 
         if (selectedRestaurant == null) {
             throw new CommandException(Messages.MESSAGE_NO_RESTAURANT_SELECTED);
+        }
+        if (selectedRestaurant.getReviews().size() == 0) {
+            throw new CommandException(Messages.MESSAGE_NO_REVIEWS);
+        }
+        if (selectedRestaurant.getReviews().size() > index.getOneBased()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_REVIEW_INDEX);
         }
 
         Restaurant restaurantWithEditedReview = createRestaurantWithEditedReview(selectedRestaurant,

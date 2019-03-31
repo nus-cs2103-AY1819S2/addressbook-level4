@@ -11,17 +11,17 @@ import seedu.address.model.PostalData;
  */
 class JsonAdaptedPostalData {
 
-    private final String postal;
-    private final String x;
-    private final String y;
+    private final int postal;
+    private final double x;
+    private final double y;
 
 
     /**
      * Constructs a {@code JsonAdaptedPostalData} with the given postal code details.
      */
     @JsonCreator
-    public JsonAdaptedPostalData(@JsonProperty("postal") String postal, @JsonProperty("x") String x,
-                                 @JsonProperty("y") String y) {
+    public JsonAdaptedPostalData(@JsonProperty("postal") int postal, @JsonProperty("x") double x,
+                                 @JsonProperty("y") double y) {
 
         this.postal = postal;
         this.x = x;

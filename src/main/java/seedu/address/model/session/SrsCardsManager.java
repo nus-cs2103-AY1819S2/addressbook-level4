@@ -37,7 +37,57 @@ public class SrsCardsManager {
     }
 
     /**
+     * Show the cards in lesson in order for PREVIEW or DIFFICULT mode.
+     */
+    public List<SrsCard> preview() {
+        List<Card> cards = lesson.getCards();
+        List<SrsCard> srsCards = new ArrayList<>();
+        for (int i = 0; i < cards.size(); i++) {
+            Card currentCard = cards.get(i);
+            srsCards.add(new SrsCard(currentCard,
+                    new CardSrsData(currentCard.hashCode(),
+                            0, 0, Instant.now(), false), lesson));
+        }
+        return srsCards;
+    }
+
+    /**
+     * Shows the cards in lesson only labelled as difficult.
+     */
+    public List<SrsCard> previewDifficult() {
+        List<Card> cards = lesson.getCards();
+        List<SrsCard> srsCards = new ArrayList<>();
+        for (int i = 0; i < cards.size(); i++) {
+            Card currentCard = cards.get(i);
+            int currentHashcode = currentCard.hashCode();
+            if (cardData.containsKey(currentHashcode) && cardData.get(currentHashcode).isDifficult()) {
+                srsCards.add(new SrsCard(currentCard, cardData.get(currentHashcode), lesson));
+            }
+        }
+        return srsCards;
+    }
+
+    /**
+     * Generate a list of new cards for LEARN mode.
+     */
+    public List<SrsCard> learn() {
+        List<Card> cards = lesson.getCards();
+        List<SrsCard> srsCards = new ArrayList<>();
+        for (int i = 0; i < cards.size(); i++) {
+            Card currentCard = cards.get(i);
+            int currentHashcode = currentCard.hashCode();
+            if (!cardData.containsKey(currentHashcode)) {
+                srsCards.add(new SrsCard(currentCard,
+                        new CardSrsData(currentCard.hashCode(),
+                                0, 0, Instant.now(), false), lesson));
+            }
+        }
+        return srsCards;
+    }
+
+    /**
      * Sorts all cards in this lesson based on their srsDueDate.
+     * Generate cards for review mode based on srs value.
      */
     public List<SrsCard> sort() {
         List<Card> cards = lesson.getCards();
@@ -47,7 +97,7 @@ public class SrsCardsManager {
             Card currentCard = cards.get(i);
             if (!cardData.containsKey(currentCard.hashCode())) {
                 srsCard = new SrsCard(currentCard, new CardSrsData(currentCard.hashCode(),
-                        0, 0, Instant.now()) , lesson);
+                        0, 0, Instant.now(), false) , lesson);
             } else {
                 srsCard = new SrsCard(currentCard, cardData.get(currentCard.hashCode()), lesson);
             }
@@ -96,6 +146,12 @@ public class SrsCardsManager {
             int currentHashCode = srsCards.get(i).getHashcode();
             int currentNumOfAttempts = srsCards.get(i).getNumOfAttempts() + quizInformation.get(i).get(1);
             int currentStreak = srsCards.get(i).getStreak() + quizInformation.get(i).get(2);
+            boolean isDifficult;
+            if (quizInformation.get(i).get(3) == 1) {
+                isDifficult = true;
+            } else {
+                isDifficult = false;
+            }
 
             int currentLevel = memoryBoxes.get(srsCards.get(i));
             if (quizInformation.get(i).get(1).equals(quizInformation.get(i).get(2)) && currentLevel != 5) {
@@ -118,7 +174,7 @@ public class SrsCardsManager {
             }
 
             updatedCardData.add(new CardSrsData(currentHashCode, currentNumOfAttempts, currentStreak,
-                    updatedSrsDueDate));
+                    updatedSrsDueDate, isDifficult));
         }
         return updatedCardData;
     }

@@ -79,13 +79,18 @@ Format: `start n/NAME [c/COUNT] m/MODE`
 
 Usage rules:
 
-* The count field is optional. It represents the number of cards the user wants in the session. By default, it sets to be 10.
+* The name field is used to choose lesson.
+* The count field is optional. It represents the number of cards the user wants in the session. By default, it sets to be 1.
 * The number of cards should be at least 1. The start command will fail with count to be 0.
-* The mode field only supports three mode: `learn, preview and review`.
+* The mode field only supports four mode: `learn, preview, review and difficult`.
+. LEARN:
+. PREVIEW:
+. REVIEW:
+. DIFFICULT:
 
 Examples:
 
-* `start n/02-03-LEARN c/15 m/LEARN`
+* `start n/country-capitals c/15 m/LEARN`
 
 [[listLessons]]
 ==== Listing all lessons: `listLessons`
@@ -324,7 +329,7 @@ If the file is saved without UTF-8 encoding, the data may have already been save
 === Management Mode
 * *View help*: `help`
 * *Start a quiz session*: `start n/NAME [c/COUNT] m/MODE` +
-e.g. `start n/02-03-LEARN c/15 m/LEARN`
+e.g. `start n/country-capitals c/15 m/LEARN`
 * *List all lessons*: `listLessons`
 * *Add a lesson*: `addLesson n/NAME c/CORE…​ [o/OPTIONAL]…​` +
 e.g. `addLesson n/MedicineTrivia c/Proposition c/TrueOrFalse`

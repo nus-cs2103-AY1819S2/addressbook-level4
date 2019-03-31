@@ -33,7 +33,7 @@ public class StatsCommand extends Command {
         String hitCount = "Successful Hit : " + playerStats.getHitCount();
         String missCount = "Misses : " + playerStats.getMissCount();
         String shipsDestroyed = "Enemy Ships Destroyed : " + playerStats.getEnemyShipsDestroyed();
-        String accuracy  = "Accuracy : " + playerStats.getAccuracy();
+        String accuracy = "Accuracy : " + playerStats.getAccuracy();
 
         // Group data together in a list
         outputStatistics.add(movesLeft);
@@ -44,10 +44,7 @@ public class StatsCommand extends Command {
         outputStatistics.add(accuracy);
 
         new StatisticView(new Stage(), playerStats.generateData()).show();
-
-        // to change command message into log?
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));
     }
 
 }

@@ -333,7 +333,47 @@ image::ListShipSequenceDiagram.png[width=800]
 
 === Statistics Feature
 ==== Current Implementation
-The Statistics Class is an abstract class that can be extended to accommodate a Player and an Enemy. It is initialized with the main components upon the start of the application and is subsequently passed down as a parameter to the respective events for tracking.
+The `stats` feature allows users to view their current gameplay information. This information will be displayed in a pop-up window and will include: Number of Attacks Made, Number of Successful Hits, Number of Misses, Number of Enemy Ships Destroyed and Accuracy of Shots made.
+This feature stems from a central abstract class that is extended to for a player. It is initialized with the main components upon the start of the application and is subsequently passed down as a parameter to the relevant methods which will invoke the corresponding updating methods to the statistical information.
+
+The following operations are invoked upon the calling of the `stats` command.
+
+** `getAttacksMade()` - Returns the number of attacks made by the User
+** `getMovesLeft()` - Returns the remaining number of moves left for the User
+** `getHitCount()` - Returns the number of successful hit on enemy ships
+** `getMissCount()` Returns the number of misses made
+** `getEnemyShipsDestroyed()` Returns the number of Enemy Ships Destroyed by the player
+** `getAccuracy()` Returns the current Hit-Miss Ratio of the User based on the game so far
+
+Given below is an example usage scenario and how the `stats` command behaves at each step.
+
+Step 1. The User initializes the game with the `init 8` which will create a 8x8 map.
+
+! The Map can be initialized to any valid size (This is just a sample scenario)
+
+Step 2. Put the ships accordingly...
+
+Step 3. Input `stats` into the command-line and press enter to obtain the current statistical data.
+
+! Note, there should not be any valid data at the moment as the game as not started.
+! Include Screenshot explaining pop-up window and lack of data
+
+Step 4. Now proceed with the game and perform an attack ....
+
+Step 5. Invoke the `stats` command again to view the updated statistics
+
+!Include diagram on updated stats
+
+The following activity diagram summarizes what happens when a User executes a successful Attack Command with a successful hit.
+
+!Include diagram for this scenario
+
+==== Output Statistical Data
+Besides the pop-up window, the data is also captured in the command-line result box
+
+!Include diagram
+
+
 
 ==== Design Considerations
 * **Alternative 1 (current choice):** Statistics will have an initialise method that with a set of default configuration that are used by any Statistics Variant.

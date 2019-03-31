@@ -110,6 +110,9 @@ public abstract class Statistics {
      * returns the hit-miss percentage of the user.
      */
     public double getAccuracy() {
+        if (hitCount == 0 && missCount == 0) {
+            return 0;
+        }
         return (double) hitCount / (double) (hitCount + missCount);
     }
 

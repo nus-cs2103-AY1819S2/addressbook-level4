@@ -561,7 +561,7 @@ Given below is an example usage scenario and what the user will see in the GUI.
 
 Step 1. The user launches the application and sees the GUI with no places.
 
-image::AddCommandStep1Empty.png[width="800"]
+image::AddCommandStep1.png[width="800"]
 
 Step 2. The user enters the full add command `add n/NUS Computing cc/SGP dv/10/10/2017 r/3 d/My School a/13 Computing Drive,
 117417 t/faculty` to add the place to TravelBuddy and presses enter. TravelBuddy will start executing the steps mentioned in Figure 10.

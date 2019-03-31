@@ -221,7 +221,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * @see EditCommandSystemTest#assertCommandSuccess(String, Index, Person, Index)
      */
     private void assertCommandSuccess(String command, Index toEdit, Person editedPerson) {
-        assertCommandSuccess(command, toEdit, editedPerson, null);  //
+        assertCommandSuccess(command, toEdit, editedPerson, null);
     }
 
     /**
@@ -265,9 +265,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
-        executeCommand(command);  // problem here
+        executeCommand(command);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);  //
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
         if (expectedSelectedCardIndex != null) {
             assertSelectedCardChanged(expectedSelectedCardIndex);

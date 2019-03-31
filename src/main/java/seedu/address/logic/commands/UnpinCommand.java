@@ -35,7 +35,6 @@ public class UnpinCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> lastShownPinList = model.getFilteredPinnedPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownPinList.size()) {

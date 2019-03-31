@@ -97,17 +97,18 @@ public class InfoPanel extends UiPart<Region> {
      */
     public String generateHtml(Request request) {
 
-        String url = constructMapUrl(request.getAddress().toString());
         String name = request.getName().toString();
         String nric = request.getNric().toString();
         String phone = request.getPhone().toString();
-        String address = request.getAddress().toString();
+        String street = request.getAddress().toStreetNameOnly();
         String conditions = request.getConditions().stream().map(Condition::toString).collect(
                 Collectors.joining(", "));
         String healthStaff = request.getHealthStaff();
         String date = request.getRequestDate().getFormattedDate();
         String status = request.getRequestStatus().toString();
+        String url = constructMapUrl(street);
 
+        //logger.info(street);
         StringBuilder htmlBuilder = new StringBuilder();
         htmlBuilder.append("<!DOCTYPE html><html><head>");
         htmlBuilder.append("<link href=\"" + STYLESHEET + "\"" + " rel=\"stylesheet\"/>");
@@ -116,7 +117,7 @@ public class InfoPanel extends UiPart<Region> {
         htmlBuilder.append("<i class=\"fas fa-user\"></i> Request Patient: " + name + "</br>");
         htmlBuilder.append("<i class=\"fas fa-id-card\"></i> Patient NRIC: " + nric + "</br>");
         htmlBuilder.append("<i class=\"fas fa-phone\"></i> Patient Contact: " + phone + "</br>");
-        htmlBuilder.append("<i class=\"fas fa-map-marker-alt\"></i> Patient Address: " + address + "</br>");
+        htmlBuilder.append("<i class=\"fas fa-map-marker-alt\"></i> Patient Address: " + street + "</br>");
         htmlBuilder.append("<i class=\"fas fa-notes-medical\"></i> Patient Conditions: " + conditions + "</br>");
         if (request.getHealthStaff() != null) { // show staff name
             htmlBuilder.append("<i class=\"fas fa-user-nurse\"></i> Assigned Staff: " + healthStaff + "</br>");
@@ -147,13 +148,11 @@ public class InfoPanel extends UiPart<Region> {
      * @return a url string to access the map
      */
     private String constructMapUrl(String address) {
-
-        String street = address.substring(0, address.indexOf(","));
-        street = street.replaceAll("\\s", "%20");
         StringBuilder urlBuilder = new StringBuilder();
+        address = address.replaceAll("\\s", "%20");
         urlBuilder.append("https://gothere.sg/maps/staticmap?center=%22");
-        urlBuilder.append(street + "%22&zoom=16&size=400x200&markers=%22");
-        urlBuilder.append(street + "%22,orange&sensor=false");
+        urlBuilder.append(address + "%22&zoom=16&size=400x200&markers=%22");
+        urlBuilder.append(address + "%22,orange&sensor=false");
         //logger.info(urlBuilder.toString());
         return urlBuilder.toString();
     }

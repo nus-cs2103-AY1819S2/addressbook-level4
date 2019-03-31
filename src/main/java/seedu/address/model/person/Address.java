@@ -37,6 +37,23 @@ public class Address {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * Extracts the street name from the address value, without the unit number.
+     * @return street A street only address.
+     */
+    public String toStreetNameOnly() {
+
+        // The address is either in the following formats:
+        // 123, ABC Road, #01-01 or
+        // 123 ABC Road, #01-01 or
+        // 123, ABC, Road, #01-01
+        String street = value.substring(0, value.indexOf("#"));
+        if (value.indexOf(",") != -1) {
+            street = street.replaceAll(",", "");
+        }
+        return street;
+    }
+
     @Override
     public String toString() {
         return value;

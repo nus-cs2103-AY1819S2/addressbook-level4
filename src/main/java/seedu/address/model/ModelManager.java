@@ -323,6 +323,15 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Activity generateExportedActivity(Activity activity) {
+        if (activity != null && !filteredActivities.contains(activity)) {
+            throw new ActivityNotFoundException();
+        }
+        setSelectedActivity(activity);
+        return selectedActivity.get(); // this function returns an activity
+    }
+
+    @Override
     public void setSelectedActivity(Activity activity) {
         if (activity != null && !filteredActivities.contains(activity)) {
             throw new ActivityNotFoundException();

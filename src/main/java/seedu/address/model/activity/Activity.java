@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 
 /**
@@ -91,6 +92,18 @@ public class Activity implements Comparable<Activity> {
 
     public ActivityStatus getCurrentStatus() {
         return new ActivityStatus(ActivityDateTime.isPast(dateTime));
+    }
+
+    public void addMemberToActivity(Person person) {
+        attendance.put(person, false);
+    }
+
+    public void removeMemberFromActivity(Person person) throws PersonNotFoundException {
+        if (!attendance.containsKey(person)) {
+            throw new PersonNotFoundException();
+        } else {
+            attendance.remove(person);
+        }
     }
 
     public void setInCharge(Person person) {

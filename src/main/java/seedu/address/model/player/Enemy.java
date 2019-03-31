@@ -148,9 +148,9 @@ public class Enemy extends Player {
         int y = Character.getNumericValue(xyCoord.charAt(1));
 
         if (useOrientation.isHorizontal()) { //rectify X coord of head, Y doesn't matter (all Y will work)
-            x = justifyCoord(x, 5);
-        } else {
             y = justifyCoord(y, 5);
+        } else {
+            x = justifyCoord(x, 5);
         }
         Name currentBattleshipName = new Name("enemyAircraftCarrier");
         Battleship currentBattleship = new Battleship(currentBattleshipName);

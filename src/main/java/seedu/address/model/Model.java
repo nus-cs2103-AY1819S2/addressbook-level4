@@ -1,8 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
-import java.util.List;
-import java.util.function.BiPredicate;
+
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -10,7 +9,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
-import seedu.address.model.course.CourseRequirement;
+import seedu.address.model.course.RequirementStatus;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -217,17 +216,17 @@ public interface Model {
     void updateRecModuleList();
 
     /**
-     * Updates filtered list of requirements based on predicate provided by user input
-     */
-    void updateReqList(BiPredicate<CourseRequirement, List<ModuleInfoCode>> predicate);
-
-    /**
      * Returns an unmodifiable view of the filtered course requirement list
      */
-    ObservableList<CourseRequirement> getReqList();
+    ObservableList<RequirementStatus> getRequirementStatusList();
 
     /**
      * Returns a copy of the user info.
      */
     UserInfo getUserInfo();
+
+    /**
+     * Returns an unmodifiable view of the moduleInfoCode list in GradTrak
+     */
+    ObservableList<ModuleInfoCode> getModuleInfoCodeList();
 }

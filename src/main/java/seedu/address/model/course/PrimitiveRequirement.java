@@ -62,7 +62,7 @@ public class PrimitiveRequirement implements CourseRequirement {
     }
 
     @Override
-    public String getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes) {
+    public List<String> getUnfulfilled(List<ModuleInfoCode> moduleInfoCodes) {
         return condition.getUnsatisfied(moduleInfoCodes);
     }
 

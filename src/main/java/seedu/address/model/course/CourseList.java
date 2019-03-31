@@ -5,7 +5,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.util.SampleCourse;
 
 /**
@@ -14,7 +13,6 @@ import seedu.address.model.util.SampleCourse;
  */
 public class CourseList {
     private final List<Course> courseList;
-    private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
     {
         courseList = new ArrayList<>();

@@ -8,8 +8,6 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -29,7 +27,8 @@ import seedu.address.model.SemLimit;
 import seedu.address.model.UserInfo;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
-import seedu.address.model.course.CourseRequirement;
+import seedu.address.model.course.RequirementStatus;
+
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
@@ -284,22 +283,23 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<RequirementStatus> getRequirementStatusList() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public ModuleInfo getSelectedModuleInfo() {
             throw new AssertionError("This method should not be called");
         }
 
-        @Override
-        public void updateReqList(BiPredicate<CourseRequirement, List<ModuleInfoCode>> predicate) {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public ObservableList<CourseRequirement> getReqList() {
-            throw new AssertionError("This method should not be called");
-        }
 
         @Override
         public UserInfo getUserInfo() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<ModuleInfoCode> getModuleInfoCodeList() {
             throw new AssertionError("This method should not be called");
         }
     }

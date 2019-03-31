@@ -135,7 +135,7 @@
     }, {
       "type" : "PrimitiveReq",
       "requirementName" : "Complete at least 40 modules",
-      "requirementDescription" : "At least 40 modules needed to graduate.",
+      "requirementDescription" : "At least 40 modules needed to graduate!",
       "requirementType" : "UE",
       "condition" : {
         "conditionName" : "Complete any 40 modules",
@@ -146,9 +146,17 @@
   },
   "currentSemester" : "Y1S1",
   "semLimit" : {
-    "minGrade" : "F",
-    "maxGrade" : "F",
+    "minGrade" : "0.0",
+    "maxGrade" : "0.0",
     "minLectureHour" : "0.0",
-    "maxLectureHour" : "0.0"
+    "maxLectureHour" : "0.0",
+    "minTutorialHour" : "0.0",
+    "maxTutorialHour" : "0.0",
+    "minLabHour" : "0.0",
+    "maxLabHour" : "0.0",
+    "minProjectHour" : "0.0",
+    "maxProjectHour" : "0.0",
+    "minPreparationHour" : "0.0",
+    "maxPreparationHour" : "0.0"
   }
 }

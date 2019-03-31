@@ -1,8 +1,13 @@
 package seedu.address.model.course;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import org.junit.Test;
 
 import seedu.address.testutil.Assert;
+import seedu.address.testutil.ConditionBuilder;
+import seedu.address.testutil.TypicalCondition;
 
 public class ConditionTest {
 
@@ -47,5 +52,32 @@ public class ConditionTest {
                 new String[0]));
     }
 
+    @Test
+    public void equal() {
+        Condition ulr = TypicalCondition.ULR;
+        assertEquals(TypicalCondition.ULR, ulr);
+        //not equals null
+        assertNotEquals(null, ulr);
+        //not equals other type
+        assertNotEquals(ulr, 0);
 
+        //not equals when different name
+        Condition modifiedUlr = new ConditionBuilder().withConditionName("ULR").build();
+        assertNotEquals(modifiedUlr, ulr);
+
+        //not equals when different min
+        modifiedUlr = new ConditionBuilder().withMin(2).build();
+        assertNotEquals(modifiedUlr, ulr);
+
+        //alternate constructor for Condition
+        modifiedUlr = new Condition("UNIVERSITY LEVEL REQUIREMENT", ConditionBuilder.DEFAULT_REGEXES);
+        assertEquals(modifiedUlr, ulr);
+
+        //different regex order
+        String[] regexes = {"GEQ1000", "GES[0-9]{4}[A-Z]?", "GET[0-9]{4}[A-Z]?", "GEH[0-9]{4}[A-Z]?",
+            "GER1000"};
+        modifiedUlr = new Condition(5, ConditionBuilder.DEFAULT_CONDITION_NAME, regexes);
+        assertNotEquals(modifiedUlr, ulr);
+
+    }
 }

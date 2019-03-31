@@ -367,50 +367,53 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::CourseRequirement[]
-=== Adding/Removing/Checking Courses and Course Requirement Feature
+=== Checking whether Course Requirement is fulfilled Feature
 
 ==== Current Implementation
-Users are able to add and remove and the course requirements and also check if that they have satisfied course requirements
-from the list of modules that they have completed.
-
-Similar to the implementation of the display modules feature, when the application is
+Users are able to check whether they have satisfied course requirements thru a function `displayreq`.
+Similar to the implementation of the feature related to `displaymod`, when the application is
 launched, a JSON file containing pre-existing information on courses (either default or pre-defined by users) and their respective course requirement
-will loaded as `Course` and `CourseRequirement` Objects (`Course` contains multiple `CourseRequirement` objects) and stored in an `ObservableList` inside of `ModelManager`.
+will loaded as `Course` objects and `CourseRequirement` interface (`Course` contains multiple `CourseRequirement` interface implementees)
+and stored in an `CourseList` inside of `ModelManager`. While the app does not support adding or removing courses and course requirements,
+users can still define their own course or course requirements by modifying the JSON file.
 
-In the ModelManager, we also store an instance of `ActiveCourse` which extends from Course. Only
-one `Course` can be active since it represents the Course the user is currently
-undertaking when using the Graduation Tracker. However, we allow for different multiple Course object to
-allow extension of different courses not in the default implementation.
+We employ the "Composite" design pattern for this class as there are desirable boolean binary operations such as
+"and", "or", that we would like to apply on two different requirements and we would want to regard the "simple" CourseRequirement,
+(one that can be achieved without "and", "or") and a more complicated one (one that can only be achieved with "and", "or") to be the same.
+As such the logical choice would be to make `CourseRequirement` an interface and its implementation is restricted to
+the `PrimitiveRequirement` and `CompositeRequirement` classes.
 
-The core of the feature is the `CourseRequirement` feature; we use Java 9's `Predicate` to check against a `List<Module>`
-to see whether the user fulfilled the `CourseRequirement` as well as `Function<List<Module>, String>` classes to identify the parts of `CourseRequirement` not satisfied.
-Currently, there are two subclasses that extends `CourseRequirement`; `ContainsAll` and `ContainsAtLeast`. Given a list of regular expression,
-`ContainsAll` ensure that there is at least 1 module taken by the user has module code that matches regex the list whereas on
-the other hand `ContainsAtLeast` checks that at a minimum number of modules have
-module code that fits the list. For now, users can only create `CourseRequirement` of the form
-`ContainsAll`, `ContainsAtLeast` as well as combining them by using `or` and `and` functions defined in `CourseRequirement`.
+As the name suggests,
+`CompositeRequirement` is made up of two other `CourseRequirements`, a `LogicalConnector` class (which is used to represent
+logical conjunctions and disjunctions). On the other hand, a `PrimitiveRequirement` is a standalone `CourseRequirement` implementation
+that contains a `Condition` class, which is really a helper class that is used to check whether a list of `ModuleInfoCode` can satisfy the `CourseRequirement`.
+The `Condition` class has several attributes to decide whether the `PrimitiveRequirement` is fulfilled, namely a list of Regular Expression,
+and an integer `minToSatisfy`, we will further elaborate the details below.
 
+There currently 3 ways that information on `CourseRequirement` is revealed to the user, they are:
+
+* `isFulfilled()` -- a method that accepts a list of ModuleInfoCode and returns a boolean to indicate whether the list of
+moduleInfoCode can satisfy the requirement. For `PrimitiveRequirement`, if the number of distinct `ModuleInfoCode` satisfies the list of Regular Expression pre-defined in
+`Condition` class exceeds `minToSatisfy`, we define the `PrimitiveRequirement` to be satisfied.
+Similarly, for `CompositeRequirement`, it depends on the `LogicalConnector`; if we have "and", then both `CourseRequirement` must be satisfied
+in order for `CompositeRequirement` to be satisfied and likewise for "or".
+* `percentageFulfilled()` -- a method that also accepts a list of ModuleInfoCode returns a `double` value on the percentage of completion of the
+`CourseRequirement`. For `PrimitiveRequirement` this will be the proportion of distinct modules that satisfy at least one of the regular expression
+divided by `minToSatisfy`. For `CompositeRequirement`, a `LogicalConnector` of "or" wil result in the max of the two requirements.
+
+* `getUnfulfilled()` -- a method that accepts a list of ModuleInfoCode and returns a list of Strings that has regular expressions of the module code
+that can be used to satisfy the CourseRequirement.
 
 ==== Design Considerations
-===== Aspect: Type of CourseRequirement Users can add/define
-* **Alternative 1 (current choice): User can only create and combine limited types of requirements
+===== Aspect: Type of CourseRequirement that can be defined
+* **Alternative 1 (current choice): Only create and combine limited types of requirements
 and check based on regex of module code**
 ** Pros: Safer to implement since we are restricting scope to only checking of strings
-** Con: Unless sufficiently many types that can be combined,
-there might be requirements that are difficult to set properly.
-* ** Alternative 2: Allowing user to check on any attributes of the Module that they have taken**
+** Con: There could be 'corner cases' that we left out; actual NUS CourseRequirement that we cannot represent by
+merely checking the module code.
+* ** Alternative 2: Checking other attributes of the module taken**
 ** Pros: Increased flexibility allows for more powerful expressions and increased usability for users side
-** Cons: More code required; one more class for one additional attribute user can check
-
-===== Aspect: ContainsAll/ContainsAtLeast isFulfilled() implementation
-* **Alternative 1 (current choice): Check for regex matching of strings**
-** Pros: Easier to implement in the storage stage since each regex string defines the predicate
-** Cons: User might find it hard to isolate the correct regex to achieve the desired expression
-
-* **Alternative 2: Stores module and check for set-containment against a set of ModuleInfo**
-** Pros: Type-safe and can use pre-defined equality in 'ModuleInfo' class
-** Cons: Modules can change frequently and be outdated quite quickly; might cause problem for
-older CourseRequirement defined by user. Also alot of dependency issues in Storage and other areas
+** Cons: More coding required; a few classes for each additional attribute we want to check.
 //end::CourseRequirement[]
 
 //tag::recommend[]

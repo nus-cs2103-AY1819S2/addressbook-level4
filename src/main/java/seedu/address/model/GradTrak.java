@@ -42,7 +42,7 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Creates an GradTrak using the Persons in the {@code toBeCopied}
+     * Creates an GradTrak using the ModulesTaken in the {@code toBeCopied}
      */
     public GradTrak(ReadOnlyGradTrak toBeCopied) {
         this();
@@ -59,8 +59,8 @@ public class GradTrak implements ReadOnlyGradTrak {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the moduleTaken list with {@code moduleTakens}.
-     * {@code moduleTakens} must not contain duplicate moduleTakens.
+     * Replaces the contents of the moduleTaken list with {@code ModuleTaken}.
+     * {@code ModuleTaken} must not contain duplicate modulesTaken.
      */
     public void setModulesTaken(List<ModuleTaken> modulesTaken) {
         this.modulesTaken.setPersons(modulesTaken);
@@ -89,7 +89,8 @@ public class GradTrak implements ReadOnlyGradTrak {
     //// moduleTaken-level operations
 
     /**
-     * Returns true if a moduleTaken with the same identity as {@code moduleTaken} exists in the address book.
+     * Returns true if a moduleTaken with the same identity as {@code ModuleTaken} exists in the
+     * GradTrak.
      */
     public boolean hasModuleTaken(ModuleTaken moduleTaken) {
         requireNonNull(moduleTaken);
@@ -97,8 +98,8 @@ public class GradTrak implements ReadOnlyGradTrak {
     }
 
     /**
-     * Adds a moduleTaken to the address book.
-     * The moduleTaken must not already exist in the address book.
+     * Adds a moduleTaken to GradTrak.
+     * The moduleTaken must not already exist in the GradTrak.
      */
     public void addModuleTaken(ModuleTaken p) {
         modulesTaken.add(p);

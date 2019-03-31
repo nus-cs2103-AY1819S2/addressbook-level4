@@ -98,6 +98,9 @@ public class Activity implements Comparable<Activity> {
         attendance.put(person, false);
     }
 
+    /**
+     * Removes member from attendance list
+     * */
     public void removeMemberFromActivity(Person person) throws PersonNotFoundException {
         if (!attendance.containsKey(person)) {
             throw new PersonNotFoundException();

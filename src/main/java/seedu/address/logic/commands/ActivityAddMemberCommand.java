@@ -47,7 +47,7 @@ public class ActivityAddMemberCommand extends ActivityCommand {
 
         model.setSelectedActivity(filteredActivityList.get(targetIndex.getZeroBased()));
         Activity selectedActivity = model.getSelectedActivity();
-        if(model.hasMatricNumber(targetMatric)){
+        if (model.hasMatricNumber(targetMatric)) {
             selectedActivity.addMemberToActivity(model.getPersonWithMatricNumber(targetMatric));
         }
         return new CommandResult(String.format(MESSAGE_ACTIVITY_ADD_MEMBER_SUCCESS, targetIndex.getOneBased()));

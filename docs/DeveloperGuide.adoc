@@ -409,15 +409,18 @@ The undo/redo mechanism is facilitated by `Image`. It contains a list of command
 * `Image#addHistory()` -- Saves the current edit command into commandHistory list and increments index.
 * `Image#setUndo()` -- Decreases index by 1.
 * `Image#setRedo()` -- Increases index by 1.
-* `Image#getHistory()` -- Returns commandHistory sublist using index to track which commands should be included.
+* `Image#getHistory()` -- Returns commandHistory as List.
+* `Image#getSubHistory()` -- Returns commandHistory sublist using index to track which commands should be included.
+* `Image#canUndo()` -- Returns true if index > 0.
+* `Image#canRedo()` -- Returns true if index < CommandHistory.size().
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `CurrentEdit` interface as `CurrentEdit#addCommand()`, `CurrentEdit#setUndoTemp()`, `CurrentEdit#setRedoTemp()`, `CurrentEdit#getHistoryTemp()`, `CurrentEdit#getSubHistoryTemp()`, `CurrentEdit#canUndoTemp()` and `CurrentEdit#canRedoTemp()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-image::UndoSeqTEMP.png[width="800"]
+image::UndoSeqTEMP.PNG[width="800"]
 
-Step 1. The user opens an image. The `Image` will be initialized with a commandHistory list containing a null command, and the index pointing to that command.
+Step 1. The user opens an image. The `Image` will be initialized with an empty commandHistory List.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
@@ -425,37 +428,34 @@ Step 2. The user executes a series of transformations on the image. These transf
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `Model#replaceTempImage()` which will replace the edited image in temp folder with the original image. It will then call `setUndo()` to set the index in `Image` and retrieve the list with `getHistory`. Using the list, it will apply the commands onto the original image till it reaches the command just before the previous transformation.
-
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+Step 3. The user wants to undo the previous transformation by using the `undo` command. It will call `CurrentEdit#replaceTempWithOriginal()` which will replace the edited image in temp folder with the original image. It will then call `CurrentEdit#setUndoTemp()` to set the index in `tempImage` to the required index and retrieve the list with `CurrentEdit#getHistoryTemp()`. Using the list, it will apply the commands onto the original image till it reaches the command just before the set index.
+
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. After executing Undo, it will set a flag in `Image` to true. When the user executes another transformation, if the flag is set to true, it will delete all commands in the list at indexes greater than current index before adding the current command into the commandHistory
-and setting flag back false.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+Step 4. After executing Undo, `index` will be less than size of commandHistory. If redo is not executed before a new command is added, all commands in the list after `index` will be deleted.
 
 For redo, it will call `setRedo` and retrieve that command to apply it on the current image.
 
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
 [NOTE]
-If the `Image#index` is 0, pointing to the initial photo, then there are no previous commands to restore. The `undo` command uses `Model#getImage()#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `Image#index` is 0, pointing to the initial photo, then there are no previous commands to restore. The `undo` command uses `CurrentEdit#canUndoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `CurrentEdit#setRedoTemp()`, which shifts the `index` once to the right, pointing to the previously undone command, and executes that command to perform the transformation.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `index` is at index `commandHistory.size()`, pointing to the latest image state, then there are no undone transformation to restore. The `redo` command uses `CurrentEdit#canRedoTemp()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 5. The user executes `saves`, which calls `CurrentEdit#saveToAssets()`. This replaces the original image with the temp image since a name is not specified. When this happens, the user can no longer call `undo` as there is no original image to work on. The command history is also cleared.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -1020,25 +1020,53 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Editing an image
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User imports an image
+2.  User opens the image
+3.  User specifies transformations using the CLI
+4.  FomoFoto shows a preview of the transformations
+5.  User can decide to save the image or not
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The image cannot be opened. FomoFoto shows an error message.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. User is unsatisfied by transformation. User can undo the transformation.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Editing an image
+
+*MSS*
+
+1.  User imports an image
+2.  User opens the image
+3.  User specifies transformations using the CLI
+4.  FomoFoto shows a preview of the transformations
+5.  User can decide to save the image or not
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The image cannot be opened. FomoFoto shows an error message.
++
+Use case ends.
+
+* 3a. User is unsatisfied by transformation. User can undo the transformation.
 +
 [none]
 ** 3a1. AddressBook shows an error message.

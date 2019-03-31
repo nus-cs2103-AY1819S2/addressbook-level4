@@ -103,7 +103,11 @@ public class UniqueRecordList implements Iterable<Record> {
      * Sorts the internal list according to desired comparator
      */
     public void sortStoredList(Comparator<Record> compRecord, boolean isReverse) {
-        Collections.sort(this.internalList, compRecord);
+        if (!isReverse) {
+            Collections.sort(this.internalList, compRecord);
+        } else {
+            Collections.sort(this.internalList, Collections.reverseOrder(compRecord));
+        }
     }
 
     @Override

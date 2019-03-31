@@ -265,7 +265,7 @@ Examples:
 
 
 == Command Summary
-Below is a quick summary of all the commands available in FomoFoto. 
+Below is a quick summary of all the commands available in FomoFoto.
 
 * *Black/White* `bw [THRESHOLD_VALUE]` +
 e.g. `bw 127` +

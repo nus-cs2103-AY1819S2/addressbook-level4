@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.equipment.commons.util.AppUtil;
 
 /**
- * Represents a Equipment's email in the equipment book.
+ * Represents a Equipment's due date in the equipment book.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date implements Comparable<Date> {
@@ -34,7 +34,7 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Returns if a given string is a valid email.
+     * Returns if a given string is a valid date.
      */
     public static boolean isValidDate(String test) {
         return test.matches(VALIDATION_REGEX);

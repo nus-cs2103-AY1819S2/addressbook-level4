@@ -3,7 +3,7 @@ package seedu.equipment.model.equipment;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.equipment.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.equipment.logic.commands.CommandTestUtil.VALID_DATE_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.equipment.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 //import static seedu.equipment.logic.commands.CommandTestUtil.VALID_SERIAL_NUMBER_AMY;
@@ -42,17 +42,17 @@ public class EquipmentTest {
         assertFalse(ANCHORVALECC.isSameEquipment(editedAlice));
 
         // same serial number, same name, different attributes -> return true
-        editedAlice = new EquipmentBuilder(ANCHORVALECC).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+        editedAlice = new EquipmentBuilder(ANCHORVALECC).withDate(VALID_DATE_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ANCHORVALECC.isSameEquipment(editedAlice));
 
-        // same serial number, same email, different attributes -> return true
+        // same serial number, same date, different attributes -> return true
         editedAlice = new EquipmentBuilder(ANCHORVALECC).withName(VALID_NAME_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ANCHORVALECC.isSameEquipment(editedAlice));
 
         // same serial number, same equipment, different attributes -> return true
-        editedAlice = new EquipmentBuilder(ANCHORVALECC).withName(VALID_NAME_BOB).withEmail(VALID_EMAIL_BOB)
+        editedAlice = new EquipmentBuilder(ANCHORVALECC).withName(VALID_NAME_BOB).withDate(VALID_DATE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ANCHORVALECC.isSameEquipment(editedAlice));
     }
@@ -83,8 +83,8 @@ public class EquipmentTest {
         editedAlice = new EquipmentBuilder(ANCHORVALECC).withPhone(VALID_PHONE_BOB).build();
         assertFalse(ANCHORVALECC.equals(editedAlice));
 
-        // different email -> returns false
-        editedAlice = new EquipmentBuilder(ANCHORVALECC).withEmail(VALID_EMAIL_BOB).build();
+        // different date -> returns false
+        editedAlice = new EquipmentBuilder(ANCHORVALECC).withDate(VALID_DATE_BOB).build();
         assertFalse(ANCHORVALECC.equals(editedAlice));
 
         // different equipment -> returns false

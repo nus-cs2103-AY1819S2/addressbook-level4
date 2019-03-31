@@ -37,7 +37,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_NAME + "NAME] "
             + "[" + CliSyntax.PREFIX_PHONE + "PHONE] "
-            + "[" + CliSyntax.PREFIX_PM + "EMAIL] "
+            + "[" + CliSyntax.PREFIX_PM + "DATE] "
             + "[" + CliSyntax.PREFIX_ADDRESS + "ADDRESS] "
             + "[" + CliSyntax.PREFIX_SERIALNUMBER + "SERIAL NUMBER] "
             + "[" + CliSyntax.PREFIX_TAG + "TAG]...\n"

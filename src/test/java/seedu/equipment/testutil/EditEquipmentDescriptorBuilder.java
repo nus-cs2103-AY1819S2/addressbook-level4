@@ -60,8 +60,8 @@ public class EditEquipmentDescriptorBuilder {
     /**
      * Sets the {@code Date} of the {@code EditEquipmentDescriptor} that we are building.
      */
-    public EditEquipmentDescriptorBuilder withEmail(String email) {
-        descriptor.setDate(new Date(email));
+    public EditEquipmentDescriptorBuilder withDate(String date) {
+        descriptor.setDate(new Date(date));
         return this;
     }
 

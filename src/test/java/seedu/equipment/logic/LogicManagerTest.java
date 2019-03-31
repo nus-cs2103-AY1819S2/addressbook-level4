@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static seedu.equipment.commons.core.Messages.MESSAGE_INVALID_EQUIPMENT_DISPLAYED_INDEX;
 import static seedu.equipment.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.equipment.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.equipment.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.equipment.logic.commands.CommandTestUtil.DATE_DESC_AMY;
 import static seedu.equipment.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.equipment.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.equipment.logic.commands.CommandTestUtil.SERIAL_NUMBER_DESC_AMY;
@@ -88,7 +88,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+        String addCommand = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DATE_DESC_AMY
                 + ADDRESS_DESC_AMY + SERIAL_NUMBER_DESC_AMY;
         Equipment expectedEquipment = new EquipmentBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();

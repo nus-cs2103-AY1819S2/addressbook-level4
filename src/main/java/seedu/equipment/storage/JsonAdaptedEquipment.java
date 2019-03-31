@@ -27,7 +27,7 @@ class JsonAdaptedEquipment {
 
     private final String name;
     private final String phone;
-    private final String email;
+    private final String date;
     private final String address;
     private final String serialNumber;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
@@ -37,12 +37,12 @@ class JsonAdaptedEquipment {
      */
     @JsonCreator
     public JsonAdaptedEquipment(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                                @JsonProperty("email") String email, @JsonProperty("equipment") String address,
+                                @JsonProperty("date") String date, @JsonProperty("equipment") String address,
                                 @JsonProperty("serial number") String serialNumber,
                                 @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.phone = phone;
-        this.email = email;
+        this.date = date;
         this.address = address;
         this.serialNumber = serialNumber;
         if (tagged != null) {
@@ -56,7 +56,7 @@ class JsonAdaptedEquipment {
     public JsonAdaptedEquipment(Equipment source) {
         name = source.getName().name;
         phone = source.getPhone().value;
-        email = source.getDate().value;
+        date = source.getDate().value;
         address = source.getAddress().value;
         serialNumber = source.getSerialNumber().serialNumber;
         tagged.addAll(source.getTags().stream()
@@ -91,13 +91,13 @@ class JsonAdaptedEquipment {
         }
         final Phone modelPhone = new Phone(phone);
 
-        if (email == null) {
+        if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Date.isValidDate(email)) {
+        if (!Date.isValidDate(date)) {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        final Date modelDate = new Date(email);
+        final Date modelDate = new Date(date);
 
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));

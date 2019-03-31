@@ -19,7 +19,7 @@ public class EquipmentBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_PHONE = "85355255";
-    public static final String DEFAULT_EMAIL = "22 April 2019";
+    public static final String DEFAULT_DATE = "22 April 2019";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFAULT_SERIALNUMBER = "A008842X";
 
@@ -33,7 +33,7 @@ public class EquipmentBuilder {
     public EquipmentBuilder() {
         name = new Name(DEFAULT_NAME);
         phone = new Phone(DEFAULT_PHONE);
-        date = new Date(DEFAULT_EMAIL);
+        date = new Date(DEFAULT_DATE);
         address = new Address(DEFAULT_ADDRESS);
         serialNumber = new SerialNumber(DEFAULT_SERIALNUMBER);
         tags = new HashSet<>();
@@ -86,8 +86,8 @@ public class EquipmentBuilder {
     /**
      * Sets the {@code Date} of the {@code Equipment} that we are building.
      */
-    public EquipmentBuilder withEmail(String email) {
-        this.date = new Date(email);
+    public EquipmentBuilder withDate(String date) {
+        this.date = new Date(date);
         return this;
     }
 

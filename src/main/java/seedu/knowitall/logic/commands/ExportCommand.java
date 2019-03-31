@@ -19,9 +19,9 @@ public class ExportCommand extends Command {
     public static final String COMMAND_WORD = "export";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": exports single or multiple card folders into"
-            + "their respective .csv files."
+            + " their respective .csv files.\n"
             + "Parameters: INDEX (Index specifies the card folder index to export) \n"
-            + "Can specify more than one card folder index to export"
+            + "Can specify more than one card folder index to export\n"
             + "Example: " + COMMAND_WORD + "1 3 5 7";
 
     public static final String MESSAGE_SUCCESS = "Successfully exported card folders";

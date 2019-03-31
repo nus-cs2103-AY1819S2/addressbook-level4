@@ -59,6 +59,40 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === General Features
 
+==== Get / Set the mode of ClubManager: `mode`
+
+ClubManager operates in 2 modes. This function allows user to check the mode and change the mode +
+[width="100%",cols="25%,55%, <20%",options="header",]
+|=======================================================================
+|Mode| Definition | Example of allowed commands
+|`member`| Member Management Mode
+
+This mode allows the user to manage members in ClubManager
+ | memberAdd,
+ |`activity`| Activity Management Mode
+
+ This mode allows the user to manage members in ClubManager
+  | activityAdd, activityEdit, activitySelect
+|=======================================================================
+
+*Format:*
+
+* `mode [MODE_CHOICE]`
+
+[NOTE]
+====
+If MODE_CHOICE is left blank, returns current mode
+====
+
+*Examples:*
+
+* `mode`
+Returns current management mode of ClubManager
+* `mode activity`
+Changes current management mode of ClubManager to Activity
+* `mode member`
+Changes current management mode of ClubManager to Member
+
 ==== Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -316,6 +350,26 @@ image::MemberSortCommand_sortby_name.png[width="790"]
 Sorts the list by year of study.
 
 image::MemberSortCommand_sortby_yearofstudy.png[width="790"]
+
+==== Exporting details of a member : `memberExport`
+
+Export the details of the member identified by the index number used in the displayed member list. +
+Format: `memberExport INDEX`
+
+****
+* Exports the details of member at the specified `INDEX`.
+* The index refers to the index number shown in the displayed member list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`memberExport 2` +
+Export the details of the 2nd person in the address book.
+* `find Betsy` +
+`memberExport 1` +
+Export the details of the 1st member in the results of the `find` command.
 
 === Activity Management Features
 

@@ -419,12 +419,11 @@ CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFol
 
     Sequence diagram
 
+//tag::testsession[]
 === Test Session feature
 ==== Overall Current Implementation
-This feature mainly involves `UI`, `Logic` and `Model` components.
+This big feature mainly involves `UI`, `Logic` and `Model` components.
 
-[discrete]
-===== Model:
 There are 4 main variables in `ModelManager` introduced to keep track of the current state in a test
 session. The related methods are exposed in the `Model` interface.
 
@@ -437,40 +436,35 @@ session. The related methods are exposed in the `Model` interface.
 `currentTestedCardIndex`.
 ** Set to null if user is not inside a test session
 ** Related methods:
-*** `Model#setCurrentTestedCard()`
-*** `Model#getCurrentTestedCard()`
+*** `ModelManager#setCurrentTestedCard(Card card)` - set `currentTestedCard` to the card specified.
+*** `ModelManager#getCurrentTestedCard()` - returns the `currentTestedCard`.
 
-* `isInsideTestSession`
+* `inTestSession`
 ** A boolean variable to indicate if user is running a test session.
 ** Related methods:
-*** `Model#checkIfInsideTestSession()`
+*** `ModelManager#isInTestSession()` - returns true if user is in a test session and false otherwise.
 
-* `isCardAlreadyAnswered`
+* `cardAlreadyAnswered`
 ** A boolean variable to indicate if the user has already execute a valid answer command for the current card.
 ** Related methods:
-*** `Model#setCardAsAnswered()`
-*** `Model#setCardAsNotAnswered()`
-*** `Model#checkIfCardAlreadyAnswered()`
+*** `ModelManager#setCardAsAnswered()` - set `cardAlreadyAnswered` to true.
+*** `ModelManager#setCardAsNotAnswered()` - set `cardAlreadyAnswered` to false.
+*** `ModelManager#isCardAlreadyAnswered()` - returns true if the current card has already been answered and false
+otherwise.
 
 ==== Test / End Command
 
 [discrete]
 ===== Model
-The main logic for  `test` and `end` command is carried out inside `ModelManager`,
-updating the 4 variables introduced earlier that are used to track the state of a test session accordingly,
-with the following methods:
+The main logic for  `test` and `end` command is carried out in `ModelManager` with the following methods:
 
-* `#testCardFolder()` - begins a test session on the current card folder user is in.
-** `currentTestedCardFolder` is set to the current folder the user is in.
-** `Model#setCurrentTestedCard()` is invoked to set `currentTestedCard` to the first card in the folder as `currentTestedCardIndex` is set to 0.
-** `isInsideTestSession` is set to true.
-** `isCardAlreadyAnswered`` is by default false.
-
+* `#testCardFolder()` - begins a test session on the current card folder user is in and implicitly sorts the cards in
+ it.
 * `#endTestSession()` - ends the current test session.
 ** `currentTestedCardFolder` is set to null.
-** `Model#setCurrentTestedCard()` is invoked to set `currentTestedCard` to null.
-** `isInsideTestSession` is set to false.
-** `isCardAlreadyAnswered` is reset to false.
+** `ModelManager#setCurrentTestedCard(null)` is invoked to set `currentTestedCard` to null.
+** `inTestSession` is set to false.
+** `ModelManager#setCardAsNotAnswered()` is invoked.
 
 They are exposed in the `model` interface as `Model#testCardFolder()` and `Model#endTestSession()`.
 
@@ -486,29 +480,57 @@ current `cardMainScreen` page.
 
 
 [discrete]
-===== Example Usage
+===== Example Usage of test command
 
-1. User is in the home directory and wants to enter a test session on the first folder by executing the command `test 1`.
+Step 1. User is inside a folder and wants to begin a test session on the current folder by executing the command
+`test`.
 
-    picture of command box with user inputs
+Step 2. As with every command, the command parser reads the input and generates the relevant `Command` object, in
+this case a `TestCommand`. The object is returned to the `LogicManager`.
 
-    * First, the `logic` unit checks if this is a valid folder index. If it is not, an exception is thrown.
-    * Second, the `logic` unit also checks if the user is already in a test session using
-    `Model#checkIfInsideTestSession()`. If true, this `test` command would be rendered invalid and an
-    exception is thrown.
+Step 3.The `LogicManager` executes the `TestCommand`, storing the result and then transferring control to the
+Model component, with `ModelManager#isInFolder()` and `Model#isInTestSession()` to check that user is inside a
+folder and is not already in a test session. (This is not illustrated in the sequence diagram)
 
-2. The application enters this folder by setting `ActiveCardFolderIndex` to this current index.
+[NOTE]
+If the user is not inside a folder or is already in a test session, this `test` command would be rendered
+invalid. Step 4 would not proceed and an error message is displayed.
 
-3. The `test` command calls `Model#testCardFolder()` method.
+Step 4. After both checks have passed, `ModelManager#testCardFolder()` method is invoked, which does the following
+1. `currentTestedCardFolder` is set to the current folder the user is in, by invoking `getCardList()` from the active
+`VersionedCardFolder` in `folders`.
 
-4. The `currentTestedCard` will then be passed to `CommandResult` which checks that `testSessionCard` is not null.
+[NOTE]
+If this folder is empty such that there is no card to present to the user, an `EmptyCardFolderException` is thrown,
+to be caught in `TestCommand`, which then throws a `CommandException` to display an error message.
 
-    draw commandResult object diagram
+2. The cards in this folder is sorted in ascending scores by invoking `sortFilteredCard(comparator)`, so that
+lowest score cards will be presented first to the user in a test session.
+3. `ModelManager#setCurrentTestedCard(currentTestedCardIndex)` is then invoked to set `currentTestedCard` to the first
+card in the folder as `currentTestedCardIndex` is set to 0.
+4. `inTestSession` is set to true.
+5. No change to `cardAlreadyAnswered` as it is by default false.
 
-5. `CommandResult` invokes `MainWindow#handleStartTestSession()` in the `UI` component to display the
-`currentTestedCard` question and hints to the user.
+Step 5. For `TestCommand` to obtain the first card to present in the test session, `ModelManager#getCurrentTestedCard` is
+invoked and the `Card`, `c`, is returned.
 
-    insert sequence diagram for test command
+Step 6. With control now transferred back to the logic unit, `TestCommand` creates a `CommandResult` object, `r` with the type `START_TEST_SESSION`, and
+set `testSessionCard` in `CommandResult` to `c` obtained in Step 5.
+
+Step 7. `r` is returned to `LogicManager` which then terminates and returns `r` to the calling method.
+
+    insert sequence diagram for logic and model interaction for test command
+
+Step 8. The caller method here is `MainWindow`. Control is now transferred over to the UI component.
+
+Step 9. As MainWindow sees `CommandResult` object `r` with the type `START_TEST_SESSION` and invokes
+`MainWindow#handleStartTestSession()` to display the `currentTestedCard` question and hints to the user.
+
+    insert sequence diagram for UI for test command?
+
+
+[discrete]
+===== Example Usage of end command
 
 6. When the user executes the command `end`
 
@@ -534,6 +556,8 @@ To facilitate the marking of attempted answer, `#markAttemptedAnswer()` method i
 Comparison is not case-sensitive
 
 Similar to other test session methods, this is exposed in the model interface as `Model#markAttemptedAnswer()`.
+
+//end::testsession[]
 
 //tag::folders[]
 === Folders

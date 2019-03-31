@@ -41,7 +41,7 @@ public class SortCommandTest {
         execute_sortPatientParameter("address", false, Arrays.asList(DANIEL, ALICE, BENSON, GEORGE, FIONA, ELLE, CARL));
         execute_sortPatientParameter("email", false, Arrays.asList(ALICE, GEORGE, DANIEL, CARL, BENSON, FIONA, ELLE));
         execute_sortPatientParameter("nric", false, Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-        execute_sortPatientParameter("dob", false, Arrays.asList(FIONA, ALICE, CARL, GEORGE, ELLE, BENSON, DANIEL));
+        execute_sortPatientParameter("dob", false, Arrays.asList(ALICE, BENSON, GEORGE, ELLE, FIONA, CARL, DANIEL));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class SortCommandTest {
         execute_sortPatientParameter("address", true, Arrays.asList(CARL, ELLE, FIONA, GEORGE, BENSON, ALICE, DANIEL));
         execute_sortPatientParameter("email", true, Arrays.asList(ELLE, FIONA, BENSON, CARL, DANIEL, GEORGE, ALICE));
         execute_sortPatientParameter("nric", true, Arrays.asList(GEORGE, FIONA, ELLE, DANIEL, CARL, BENSON, ALICE));
-        execute_sortPatientParameter("dob", true, Arrays.asList(DANIEL, BENSON, ELLE, GEORGE, CARL, ALICE, FIONA));
+        execute_sortPatientParameter("dob", true, Arrays.asList(DANIEL, CARL, FIONA, ELLE, GEORGE, BENSON, ALICE));
     }
 
     /**

@@ -29,12 +29,10 @@ public class ModuleInfoPrerequisites {
     public static final String NOREQUIREMENT_MESSAGE = "No prerequisites needed";
     private ModuleTree tree;
     private String prerequisitesString;
-    private String code;
 
     public ModuleInfoPrerequisites(String code, String prereq) {
         this.tree = new ModuleTree(code);
         this.prerequisitesString = prereq;
-        this.code = code;
     }
 
     public String toString() {

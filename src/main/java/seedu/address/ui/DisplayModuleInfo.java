@@ -66,7 +66,6 @@ public class DisplayModuleInfo extends UiPart<Region> {
      * Creates Table for ModuleInfo Workload
      */
     public void generateWorkloadTableView() {
-        TableView<ModuleInfoWorkload> table = new TableView<>();
         ObservableList<ModuleInfoWorkload> list = FXCollections.observableArrayList();
         list.add(moduleInfo.getModuleInfoWorkload());
         workloadtable.setItems(list);

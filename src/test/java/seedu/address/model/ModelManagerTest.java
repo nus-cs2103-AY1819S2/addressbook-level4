@@ -9,14 +9,14 @@ import static seedu.address.testutil.TypicalMedicines.GABAPENTIN;
 import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
 import static seedu.address.testutil.TypicalMedicines.PARACETAMOL;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.WarningPanelSettings;

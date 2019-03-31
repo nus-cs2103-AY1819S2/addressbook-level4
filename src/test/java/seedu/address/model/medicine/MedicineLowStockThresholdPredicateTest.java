@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.testutil.MedicineBuilder;
 import seedu.address.model.Model;
 import seedu.address.model.threshold.Threshold;
+import seedu.address.testutil.MedicineBuilder;
 
 public class MedicineLowStockThresholdPredicateTest {
 

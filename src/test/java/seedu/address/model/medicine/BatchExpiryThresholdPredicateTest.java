@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
 
-import seedu.address.model.threshold.Threshold;
 import seedu.address.model.Model;
+import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.BatchBuilder;
 
 public class BatchExpiryThresholdPredicateTest {

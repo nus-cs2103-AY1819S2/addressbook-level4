@@ -42,8 +42,8 @@ public class WarningCommandTest {
 
     @Test
     public void constructor_nullThreshold_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class,
-            () -> new WarningCommand(WarningPanelPredicateType.EXPIRY, null));
+        Assert.assertThrows(NullPointerException.class, () -> new WarningCommand(
+                WarningPanelPredicateType.EXPIRY, null));
     }
 
     @Test

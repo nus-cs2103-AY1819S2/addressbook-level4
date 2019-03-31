@@ -22,6 +22,8 @@ public interface CurrentEdit {
 
     void updateTempImage(BufferedImage image);
 
+    void overwriteOriginal(String name);
+
     void setOriginalImage(Image image);
 
     void displayTempImage();
@@ -36,9 +38,7 @@ public interface CurrentEdit {
 
     List<Command> getTempSubHistory();
 
-    String[] getFileNames();
-
-    String saveToAssets(String name);
+    String getOriginalImageName();
 
     void updateExif();
 

@@ -1510,6 +1510,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is `Know-It-All` and the *Actor* is the `Student`, unless specified otherwise)
 
+//tag::testsessionusecases[]
 [discrete]
 === UC01 Test flashcards
 
@@ -1531,6 +1532,8 @@ Use case ends
 [none]
 ** 3a1. Student uses the reveal command
 ** 3a2. Answer is displayed to the student
+
+//end::testsessionusecases[]
 
 [discrete]
 === UC02 Add flashcards

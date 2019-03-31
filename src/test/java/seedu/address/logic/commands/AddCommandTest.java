@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -26,6 +28,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.interviews.Interviews;
 import seedu.address.model.job.Job;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -221,6 +224,11 @@ public class AddCommandTest {
 
         @Override
         public void setMaxInterviewsADay(int maxInterviewsADay) {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void setBlockOutDates(List<Calendar> blockOutDates) {
             throw new AssertionError("This method should not be called");
         }
 

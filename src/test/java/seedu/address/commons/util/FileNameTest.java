@@ -53,6 +53,33 @@ public class FileNameTest {
         assertFalse(FileName.isValidFileName("LPT7"));
         assertFalse(FileName.isValidFileName("LPT8"));
         assertFalse(FileName.isValidFileName("LPT9"));
+        // Reserved names in lower case
+        assertFalse(FileName.isValidFileName("con"));
+        assertFalse(FileName.isValidFileName("prn"));
+        assertFalse(FileName.isValidFileName("aux"));
+        assertFalse(FileName.isValidFileName("nul"));
+        assertFalse(FileName.isValidFileName("com0"));
+        assertFalse(FileName.isValidFileName("com1"));
+        assertFalse(FileName.isValidFileName("com2"));
+        assertFalse(FileName.isValidFileName("com3"));
+        assertFalse(FileName.isValidFileName("com4"));
+        assertFalse(FileName.isValidFileName("com5"));
+        assertFalse(FileName.isValidFileName("com6"));
+        assertFalse(FileName.isValidFileName("com7"));
+        assertFalse(FileName.isValidFileName("com8"));
+        assertFalse(FileName.isValidFileName("com9"));
+        assertFalse(FileName.isValidFileName("lpt0"));
+        assertFalse(FileName.isValidFileName("lpt1"));
+        assertFalse(FileName.isValidFileName("lpt2"));
+        assertFalse(FileName.isValidFileName("lpt3"));
+        assertFalse(FileName.isValidFileName("lpt4"));
+        assertFalse(FileName.isValidFileName("lpt5"));
+        assertFalse(FileName.isValidFileName("lpt6"));
+        assertFalse(FileName.isValidFileName("lpt7"));
+        assertFalse(FileName.isValidFileName("lpt8"));
+        assertFalse(FileName.isValidFileName("lpt9"));
+        // Reserve names with a mix of lower and upper case
+        assertFalse(FileName.isValidFileName("CoM1"));
 
         // invalid file name
         assertFalse(FileName.isValidFileName("")); // empty string

@@ -28,6 +28,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.FindDeckCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
@@ -133,6 +134,13 @@ public abstract class TopDeckSystemTest {
         assertEquals(getModel().getTopDeck().getDeckList().size(), getModel().getFilteredList().size());
     }
 
+    /**
+     * Displays all decks with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showDecksWithName(String keyword) {
+        executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
+    }
 
 
     //    /**
@@ -143,12 +151,11 @@ public abstract class TopDeckSystemTest {
     //        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     //    }
 
-    /**
-    protected void showDecksWithQuestion(String keyword) {
-        executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
-    }
-     **/
+
+//    protected void showDecksWithQuestion(String keyword) {
+//        executeCommand(FindDeckCommand.COMMAND_WORD + " " + keyword);
+//        assertTrue(getModel().getFilteredList().size() < getModel().getTopDeck().getDeckList().size());
+//    }
 
     /**
      * Selects the Deck at {@code index} of the displayed list.
@@ -252,7 +259,6 @@ public abstract class TopDeckSystemTest {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
-        assertFalse(handle.isTotalPersonsStatusChanged());
     }
 
     /**

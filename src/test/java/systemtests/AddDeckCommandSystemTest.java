@@ -43,7 +43,8 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
 
         /* Case: undo adding DECK_A to the list -> Deck_A deleted */
         command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS + AddDeckCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+//        + AddDeckCommand.COMMAND_WORD;
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: redo adding DECK_A to the list -> Deck_A added again */
@@ -61,15 +62,14 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
         deleteAllDecks();
         assertCommandSuccess(DECK_A);
 
-        //TODO
-//        /* Case: add a Deck, use two name prefixes, both valid -> last prefix added */
-//        command = AddDeckCommand.COMMAND_WORD + VALID_DECK_NAME_A_ARGS + VALID_DECK_NAME_B_ARGS;
-//        assertFalse(getModel().getTopDeck().getDeckList().contains(VALID_NAME_DECK_A));
-//        assertCommandSuccess(command, toAdd);
-//        /* -------------------------- Perform add operation on the shown filtered list------------------------------ */
-//        /* Case: filters the Deck list before adding -> added */
-//        showDecksWithName(KEYWORD_MATCHING_JOHN);
-//        assertCommandSuccess(DECK_I);
+        /* Case: add a Deck, use two name prefixes, both valid -> last prefix added */
+        command = AddDeckCommand.COMMAND_WORD + VALID_DECK_NAME_A_ARGS + VALID_DECK_NAME_B_ARGS;
+        assertFalse(getModel().getTopDeck().getDeckList().contains(VALID_NAME_DECK_A));
+        assertCommandSuccess(command, toAdd);
+        /* -------------------------- Perform add operation on the shown filtered list------------------------------ */
+        /* Case: filters the Deck list before adding -> added */
+        showDecksWithName(KEYWORD_MATCHING_JOHN);
+        assertCommandSuccess(DECK_I);
 
         /* ----------------------------------- Perform invalid add operations--------------------------------------- */
 
@@ -157,3 +157,6 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
         assertStatusBarUnchanged();
     }
 }
+
+
+

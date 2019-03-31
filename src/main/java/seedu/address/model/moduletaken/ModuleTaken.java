@@ -62,6 +62,22 @@ public class ModuleTaken {
         return workload.getLectureHour();
     }
 
+    public Hour getTutorialHour() {
+        return workload.getTutorialHour();
+    }
+
+    public Hour getLabHour() {
+        return workload.getLabHour();
+    }
+
+    public Hour getProjectHour() {
+        return workload.getProjectHour();
+    }
+
+    public Hour getPreparationHour() {
+        return workload.getPreparationHour();
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -141,6 +157,14 @@ public class ModuleTaken {
                 .append(getExpectedMaxGrade())
                 .append(" Lecture Hour: ")
                 .append(getLectureHour())
+                .append(" Tutorial Hour: ")
+                .append(getTutorialHour())
+                .append(" Lab Hour: ")
+                .append(getLabHour())
+                .append(" Project Hour: ")
+                .append(getProjectHour())
+                .append(" Preparation Hour: ")
+                .append(getPreparationHour())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

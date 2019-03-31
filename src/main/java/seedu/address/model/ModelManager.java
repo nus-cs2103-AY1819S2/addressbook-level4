@@ -30,9 +30,7 @@ import seedu.address.model.moduleinfo.CodeContainsKeywordsPredicate;
 
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
-import seedu.address.model.moduleinfo.ModuleInfoCredits;
 import seedu.address.model.moduleinfo.ModuleInfoList;
-import seedu.address.model.moduletaken.CapAverage;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.moduletaken.exceptions.ModuleTakenNotFoundException;
@@ -248,76 +246,7 @@ public class ModelManager implements Model {
      */
     @Override
     public String checkLimit() {
-        //TODO
-        final int FIELDS_COUNT_PER_SEMESTER = 6;
-        final int COL_COUNT = 4;
-        Semester currentSemester = Semester.valueOf("Y2S2");
-        ObservableList<ModuleTaken> modulesTaken = getFilteredModulesTakenList();
-        CapAverage[][] capAverages = new CapAverage[10][2];
-        double[][] semesterSums = new double[10][5];
-        for (int mod = 0; mod < modulesTaken.size(); mod++) {
-            ModuleInfoCredits modCredits = new ModuleInfoCredits(4);
-            capAverages[modulesTaken.get(mod).getSemester().getIndex() - 1][0].addWeightedGrade(
-                    modulesTaken.get(mod).getExpectedMinGrade().getGradePoint(), modCredits);
-            capAverages[modulesTaken.get(mod).getSemester().getIndex() - 1][1].addWeightedGrade(
-                    modulesTaken.get(mod).getExpectedMaxGrade().getGradePoint(), modCredits);
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][0] +=
-                    modulesTaken.get(mod).getLectureHour().getHour();
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][1] +=
-                    modulesTaken.get(mod).getLectureHour().getHour();
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][2] +=
-                    modulesTaken.get(mod).getLectureHour().getHour();
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][3] +=
-                    modulesTaken.get(mod).getLectureHour().getHour();
-            semesterSums[modulesTaken.get(mod).getSemester().getIndex() - 1][4] +=
-                    modulesTaken.get(mod).getLectureHour().getHour();
-        }
-
-        ObservableList<SemLimit> semLimits = getSemLimitList();
-        double[][] limitTable = new double[getSemLimitList().size() * FIELDS_COUNT_PER_SEMESTER][COL_COUNT];
-        for (int sem = 0; sem < getSemLimitList().size(); sem++) {
-            int rowIndexOffSet = 0;
-            limitTable[rowIndexOffSet + sem][0] = semLimits.get(sem).getMinCap().getCapLimit();
-            limitTable[rowIndexOffSet + sem][1] = capAverages[sem][0].getCapLimit();
-            limitTable[rowIndexOffSet + sem][2] = capAverages[sem][1].getCapLimit();
-            limitTable[rowIndexOffSet + sem][3] = semLimits.get(sem).getMaxCap().getCapLimit();
-
-            rowIndexOffSet = getSemLimitList().size() * 1;
-            limitTable[rowIndexOffSet + sem][0] = semLimits.get(sem).getMinLectureHour().getHour();
-            limitTable[rowIndexOffSet + sem][1] = 1;
-            limitTable[rowIndexOffSet + sem][2] = 1;
-            limitTable[rowIndexOffSet + sem][3] = semLimits.get(sem).getMaxLectureHour().getHour();
-
-            rowIndexOffSet = getSemLimitList().size() * 2;
-            limitTable[rowIndexOffSet + sem][0] = semLimits.get(sem).getMinTutorialHour().getHour();
-            limitTable[rowIndexOffSet + sem][1] = 1;
-            limitTable[rowIndexOffSet + sem][2] = 1;
-            limitTable[rowIndexOffSet + sem][3] = semLimits.get(sem).getMaxTutorialHour().getHour();
-
-            rowIndexOffSet = getSemLimitList().size() * 3;
-            limitTable[rowIndexOffSet + sem][0] = semLimits.get(sem).getMinLabHour().getHour();
-            limitTable[rowIndexOffSet + sem][1] = 1;
-            limitTable[rowIndexOffSet + sem][2] = 1;
-            limitTable[rowIndexOffSet + sem][3] = semLimits.get(sem).getMaxLabHour().getHour();
-
-            rowIndexOffSet = getSemLimitList().size() * 4;
-            limitTable[rowIndexOffSet + sem][0] = semLimits.get(sem).getMinProjectHour().getHour();
-            limitTable[rowIndexOffSet + sem][1] = 1;
-            limitTable[rowIndexOffSet + sem][2] = 1;
-            limitTable[rowIndexOffSet + sem][3] = semLimits.get(sem).getMaxProjectHour().getHour();
-
-            rowIndexOffSet = getSemLimitList().size() * 5;
-            limitTable[rowIndexOffSet + sem][0] = semLimits.get(sem).getMinPreparationHour().getHour();
-            limitTable[rowIndexOffSet + sem][1] = 1;
-            limitTable[rowIndexOffSet + sem][2] = 1;
-            limitTable[rowIndexOffSet + sem][3] = semLimits.get(sem).getMaxPreparationHour().getHour();
-        }
-        //cumulatively add the min max lec tut lab proj prep doubles for all 10 semesters and their counts.
-        //divide each double by count for all semesters.
-        //calculate current cap before current sem
-        //calculate min and max final cap based on all semesters
-        //generate table in html
-        return "";
+        return LimitChecker.checkLimit(getCurrentSemester(), getSemLimitList(), getFilteredModulesTakenList());
     }
 
     //=========== Undo/Redo =================================================================================

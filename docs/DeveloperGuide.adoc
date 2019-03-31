@@ -837,19 +837,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |store, edit, and view my dental patients' teeth condition | understand and serve my dental patients'
 teeth condition better
 
+|`* * *` |user |isolate other patients' information | focus on the current patient in my clinic
+
+|`* * *` |user |view my patients' dental records | understand and keep track of my patients' teeth health history
+
+|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients during their dental sessions
+
+|`* * *` |user |delete a dental record | remove records that have become redundant or irrelevant
+
+|`* * *` |user |edit a dental record | correct or modify descriptions of dental records that I have already added
+
+|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients if they require me to
+
 |`* * *` |user |add a new task | keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
 
 |`* * *` |user |edit a task |change details of certains tasks that I have already added
 
-|`* * *` |user | encrypt the imported/exported data | ensure patient information remains confidential
+|`* * *` |user |encrypt the imported/exported data | ensure patient information remains confidential
 
-|`* * *` |user | append imported/exported data | work more flexibly with patient information
+|`* * *` |user |append imported/exported data | work more flexibly with patient information
 
-|`* * *` |user | my imported/exported data supported by multiple file types | work more flexibly with patient information
+|`* * *` |user |my imported/exported data supported by multiple file types | work more flexibly with patient information
 
-|`* * *` |user | see a statistics report on each patient's dental history | have an easier time understanding their potential problems
+|`* * *` |user |see a statistics report on each patient's dental history | have an easier time understanding their potential problems
 
 |`* * *` |user | warning to come up when I'm exiting the program if there exists duplicate entries | be reminded to
 edit them before exiting.
@@ -964,19 +976,47 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Patient and Record lists
 
-. Deleting a person while all persons are listed
+. Switching of UI elements when `goto` command is run
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all patients using the `list` command. At least one patient should be displayed in the list.
+.. Test case: `goto 1` (Patient of index 1) +
+   Expected: The patient list GUI is replaced by the record list GUI. Displays dental records of patient specified by index. The window size may not be optimum. Use the command: `back` to revert to the patient list.
+.. Test case: `back` +
+   Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
+
+. Switching of UI elements when `back` command is run
+
+.. Prerequisites: Run the `goto 1` command. GUI displays dental record list.
+.. Test case: `back` +
+   Expected: Shows the GUI with a set of sample patients. An alert box prompts for confirmation. The window size may not be optimum. Use the command: `goto 1` to revert to the dental record list.
+.. Test case: `goto` +
+   Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
+
+=== Deleting a patient
+
+. Deleting a patient while all patients are listed
+
+.. Prerequisites: List all patients using the `list` command. Multiple patients should be displayed in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete y` (where y is a negative number), `delete z` (where z is not an integer) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Deleting a dental record
+
+. Deleting a record while all dental records of a patient are listed
+
+.. Prerequisites: List all dental records of a patient using the `goto x` command (x refers to the index of the patient to be tested). Multiple dental records should be displayed in the list.
+.. Test case: `recorddelete 1` +
+   Expected: First dental record is deleted from the list. Details of the deleted dental record is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `recorddelete 0` +
+   Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect recorddelete commands to try: `recorddelete`, `record delete`, `recorddelete x` (where x is larger than the list size), `recorddelete y` (where y is a negative number), `recorddelete z` (where z is not an integer) +
+   Expected: Similar to previous.
 
 === Saving data
 

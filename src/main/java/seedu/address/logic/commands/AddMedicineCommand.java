@@ -19,6 +19,7 @@ import seedu.address.model.medicine.Medicine;
 public class AddMedicineCommand extends Command {
 
     public static final String COMMAND_WORD = "addmed";
+    public static final String COMMAND_ALIAS = "am";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a medicine to the specified directory.\n"
             + "If no quantity specified and medicine with the same name already exists in the storage, "

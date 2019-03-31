@@ -6,6 +6,7 @@ package seedu.address.logic.commands;
 public abstract class PurchaseMedicineCommand extends Command {
 
     public static final String COMMAND_WORD = "buymed";
+    public static final String COMMAND_ALIAS = "bm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Purchases an existing medicine for certain quantity with certain unit price. "

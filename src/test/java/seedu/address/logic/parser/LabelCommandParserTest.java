@@ -1,10 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
-import static seedu.address.logic.commands.LabelCommand.DEFAULT_FILENAME;
 
 
 import org.junit.Test;
@@ -21,7 +20,7 @@ public class LabelCommandParserTest {
         FileName expectedFileName = new FileName(DEFAULT_FILENAME);
         String userInput = ("1");
         Index index = new Index(0);
-        assertParseSuccess(parser, userInput, new LabelCommand(index,expectedFileName));
+        assertParseSuccess(parser, userInput, new LabelCommand(index, expectedFileName));
 
     }
 
@@ -31,7 +30,7 @@ public class LabelCommandParserTest {
         String userInput = ("1 f/newFile");
         Index index = new Index(0);
 
-        assertParseSuccess(parser, userInput, new LabelCommand(index,expectedFileName));
+        assertParseSuccess(parser, userInput, new LabelCommand(index, expectedFileName));
 
     }
 

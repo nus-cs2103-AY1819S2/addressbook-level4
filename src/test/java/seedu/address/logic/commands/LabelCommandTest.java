@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.pdfbox.text.PDFTextStripperByArea;

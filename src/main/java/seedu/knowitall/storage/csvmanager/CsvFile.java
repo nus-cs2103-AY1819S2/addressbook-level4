@@ -10,6 +10,7 @@ public class CsvFile {
             + ".csv format";
 
     public final String filename;
+    private static final String FILE_EXT_REGEX = "\\.(?=[^\\.]+$)";
 
     public CsvFile(String filename) {
         this.filename = filename;
@@ -28,7 +29,11 @@ public class CsvFile {
      * Returns true if file extension is of .csv format.
      */
     private static boolean isCorrectFileExtension(String filename) {
-        return filename.split("\\.(?=[^\\.]+$)")[1].equals("csv");
+        return filename.split(FILE_EXT_REGEX)[1].equals("csv");
+    }
+
+    private String getFileNameWithoutExt() {
+        return this.filename.split(FILE_EXT_REGEX)[0];
     }
 
     @Override

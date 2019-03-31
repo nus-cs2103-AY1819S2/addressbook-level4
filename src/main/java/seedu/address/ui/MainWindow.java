@@ -89,6 +89,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -126,7 +127,6 @@ public class MainWindow extends UiPart<Stage> {
 
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedPersonProperty(),
                 logic::setSelectedPerson);
-        
         activityListPanel = new ActivityListPanel(logic.getFilteredActivityList(), logic.selectedActivityProperty(),
                 logic::setSelectedActivity);
         leftListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
@@ -186,17 +186,19 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private void setModeLabel(AppMode.Modes mode) {
-        switch(mode) {
-            case MEMBER:
-                modeLabel.setText("Mode : MEMBER");
-                modeLabel.getStyleClass().remove("labelMode-Activity");
-                modeLabel.getStyleClass().add("labelMode-Member");
-                break;
-            case ACTIVITY:
-                modeLabel.setText("Mode : ACTIVITY");
-                modeLabel.getStyleClass().remove("labelMode-Member");
-                modeLabel.getStyleClass().add("labelMode-Activity");
-                break;
+        switch (mode) {
+        case MEMBER:
+            modeLabel.setText("Mode : MEMBER");
+            modeLabel.getStyleClass().remove("labelMode-Activity");
+            modeLabel.getStyleClass().add("labelMode-Member");
+            break;
+        case ACTIVITY:
+            modeLabel.setText("Mode : ACTIVITY");
+            modeLabel.getStyleClass().remove("labelMode-Member");
+            modeLabel.getStyleClass().add("labelMode-Activity");
+            break;
+        default:
+            break;
         }
     }
 

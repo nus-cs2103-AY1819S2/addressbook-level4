@@ -27,12 +27,6 @@ public class ReloadLessonsCommand extends ManagementCommand {
     public static final String MESSAGE_SUCCESS = "Reloaded all lessons from file";
 
     /**
-     * Creates an ReloadLessonsCommand to reload lessons.
-     */
-    public ReloadLessonsCommand() {
-    }
-
-    /**
      * Executes the command which reloads the lessons from file into memory.
      *
      * @param model the {@link ManagementModel} the command should operate on.

@@ -238,7 +238,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredExpiringMedicineList(new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD));
+        modelManager.updateFilteredExpiringMedicineList(
+                new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD));
 
         // different filteredLowStockMedicineList -> returns false
         threshold = new Threshold(Integer.toString(Quantity.MAX_QUANTITY));
@@ -246,7 +247,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredLowStockMedicineList(new MedicineLowStockThresholdPredicate(Model.DEFAULT_LOW_STOCK_THRESHOLD));
+        modelManager.updateFilteredLowStockMedicineList(
+                new MedicineLowStockThresholdPredicate(Model.DEFAULT_LOW_STOCK_THRESHOLD));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

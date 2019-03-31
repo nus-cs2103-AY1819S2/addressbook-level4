@@ -1,7 +1,21 @@
 package seedu.address.logic.commands;
 
-import org.assertj.core.error.future.Warning;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_SHOW_CURRENT_THRESHOLDS;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
+import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
+import static seedu.address.testutil.TypicalMedicines.LEVOTHYROXINE;
+import static seedu.address.testutil.TypicalMedicines.LISINOPRIL;
+import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
+
+import java.util.Arrays;
+import java.util.Collections;
+
 import org.junit.Test;
+
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -11,22 +25,6 @@ import seedu.address.model.medicine.NameContainsKeywordsPredicate;
 import seedu.address.model.medicine.Quantity;
 import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.Assert;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_SHOW_CURRENT_THRESHOLDS;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
-import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
-import static seedu.address.testutil.TypicalMedicines.LEVOTHYROXINE;
-import static seedu.address.testutil.TypicalMedicines.LISINOPRIL;
-import static seedu.address.testutil.TypicalMedicines.PREDNISONE;
-import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code WarningCommand}.

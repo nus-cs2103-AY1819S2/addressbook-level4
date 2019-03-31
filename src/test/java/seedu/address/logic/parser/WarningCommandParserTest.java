@@ -1,10 +1,5 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.logic.commands.WarningCommand;
-import seedu.address.model.Model;
-import seedu.address.model.threshold.Threshold;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXPIRY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_QUANTITY_DESC;
@@ -13,19 +8,22 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import org.junit.Test;
+
+import seedu.address.logic.commands.WarningCommand;
+import seedu.address.model.Model;
+import seedu.address.model.threshold.Threshold;
+
 public class WarningCommandParserTest {
     private WarningCommandParser parser = new WarningCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
         // Todo: command doesn't parse properly here even if the same format is used when testing manually
-//        // without additional whitespace
-//        assertParseSuccess(parser, PREFIX_QUANTITY + Model.DEFAULT_LOW_STOCK_THRESHOLD.value,
-//                new WarningCommand(WarningPanelPredicateType.LOW_STOCK, Model.DEFAULT_LOW_STOCK_THRESHOLD));
-//
-//        // whitespace only preamble
-//        assertParseSuccess(parser, PREAMBLE_WHITESPACE + PREFIX_EXPIRY + Model.DEFAULT_EXPIRY_THRESHOLD.value,
-//                new WarningCommand(WarningPanelPredicateType.EXPIRY, Model.DEFAULT_EXPIRY_THRESHOLD));
+
+        // without additional whitespace
+
+        // whitespace only preamble
 
         // case insensitive "show" option
         assertParseSuccess(parser, "SHOW", new WarningCommand(true));

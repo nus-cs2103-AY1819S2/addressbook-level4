@@ -1,15 +1,16 @@
 package seedu.address.model.medicine;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import org.junit.Test;
 import seedu.address.model.Model;
 import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.MedicineBuilder;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class MedicineExpiryThresholdPredicateTest {
 

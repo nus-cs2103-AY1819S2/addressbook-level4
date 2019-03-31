@@ -1,5 +1,8 @@
 package seedu.address.commons.util.warning;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import seedu.address.model.Model;
@@ -7,9 +10,6 @@ import seedu.address.model.medicine.BatchExpiryThresholdPredicate;
 import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
 import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
 import seedu.address.model.threshold.Threshold;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class WarningPanelPredicateAccessorTest {
 

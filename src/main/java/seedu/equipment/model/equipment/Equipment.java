@@ -89,8 +89,8 @@ public class Equipment {
         double[] coordiantes = new double[2];
         try {
             if (address.isHasCoordinate()) {
-                coordiantes[0] = address.longitude;
-                coordiantes[1] = address.latitude;
+                coordiantes[0] = address.getLongitude();
+                coordiantes[1] = address.getLatitude();
             } else {
                 GeoApiContext context = new GeoApiContext.Builder()
                         .apiKey("AIzaSyBQ5YiOpupDO8JnZqmqYTujAwP9U4R5JBA")

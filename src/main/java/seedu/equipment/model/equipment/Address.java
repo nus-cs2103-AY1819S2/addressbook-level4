@@ -19,11 +19,11 @@ public class Address implements Comparable<Address> {
 
     public final String value;
 
-    public double latitude;
+    private double latitude;
 
-    public double longitude;
+    private double longitude;
 
-    public boolean hasCoordinate;
+    private boolean hasCoordinate;
 
     /**
      * Constructs an {@code Address}.
@@ -75,6 +75,14 @@ public class Address implements Comparable<Address> {
         this.latitude = latitude;
         this.longitude = longitude;
         this.hasCoordinate = true;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
     @Override

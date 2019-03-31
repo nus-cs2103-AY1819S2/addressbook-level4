@@ -31,4 +31,18 @@ public class RecModule {
     public void setCourseReqType(CourseReqType type) {
         courseReqType = type;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (object == this) {
+            return true;
+        }
+        if (!(object instanceof RecModule)) {
+            return false;
+        }
+
+        RecModule other = (RecModule) object;
+        return moduleInfoCode.equals(other.moduleInfoCode)
+                && getCourseReqType().equals(other.getCourseReqType());
+    }
 }

@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -17,13 +16,8 @@ import seedu.hms.commons.core.GuiSettings;
 import seedu.hms.commons.core.LogsCenter;
 import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
-import seedu.hms.model.booking.exceptions.BookingNotFoundException;
-import seedu.hms.model.booking.exceptions.ServiceTypeNotFoundException;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.RoomType;
-import seedu.hms.model.reservation.exceptions.ReservationNotFoundException;
-import seedu.hms.model.reservation.exceptions.RoomTypeNotFoundException;
-import seedu.hms.model.util.DateRange;
 import seedu.hms.model.util.TimeRange;
 
 /**
@@ -139,29 +133,6 @@ public class BillManager implements BillModel {
         versionedHotelManagementSystem.setBooking(bookingIndex, editedBooking);
     }
 
-    @Override
-    public void setClearBooking(ReadOnlyHotelManagementSystem hotelManagementSystem) {
-        versionedHotelManagementSystem.resetDataBooking(hotelManagementSystem);
-    }
-
-    /*
-     * Adds a reservation
-     */
-    public void addReservation(Reservation reservation) {
-        versionedHotelManagementSystem.addReservation(reservation);
-    }
-
-    public void setReservation(int reservationIndex, Reservation editedReservation) {
-        requireNonNull(editedReservation);
-
-        versionedHotelManagementSystem.setReservation(reservationIndex, editedReservation);
-    }
-
-    @Override
-    public void setClearReservation(ReadOnlyHotelManagementSystem hotelManagementSystem) {
-        versionedHotelManagementSystem.resetDataReservation(hotelManagementSystem);
-    }
-
     //=========== Filtered Reservation List Accessors =============================================================
 
     /**
@@ -227,21 +198,6 @@ public class BillManager implements BillModel {
 
     //=========== Selected Booking ===========================================================================
 
-    public ReadOnlyProperty<Booking> selectedBookingProperty() {
-        return selectedBooking;
-    }
-
-    public Booking getSelectedBooking() {
-        return selectedBooking.getValue();
-    }
-
-    public void setSelectedBooking(Booking booking) {
-        if (booking != null && !filteredBookings.contains(booking)) {
-            throw new BookingNotFoundException();
-        }
-        selectedBooking.setValue(booking);
-    }
-
     /**
      * Ensures {@code selectedBooking} is a valid Booking in {@code filteredBookings}.
      */
@@ -272,41 +228,8 @@ public class BillManager implements BillModel {
         }
     }
 
-    //=========== Selected ServiceType ===========================================================================
-
-    public ReadOnlyProperty<ServiceType> selectedServiceTypeProperty() {
-        return selectedServiceType;
-    }
-
-    @Override
-    public ServiceType getSelectedServiceType() {
-        return selectedServiceType.getValue();
-    }
-
-    @Override
-    public void setSelectedServiceType(ServiceType serviceType) {
-        if (serviceType != null && !serviceTypeList.contains(serviceType)) {
-            throw new ServiceTypeNotFoundException();
-        }
-        selectedServiceType.setValue(serviceType);
-    }
-
     //=========== Selected Reservation ===========================================================================
 
-    public ReadOnlyProperty<Reservation> selectedReservationProperty() {
-        return selectedReservation;
-    }
-
-    public Reservation getSelectedReservation() {
-        return selectedReservation.getValue();
-    }
-
-    public void setSelectedReservation(Reservation reservation) {
-        if (reservation != null && !filteredReservations.contains(reservation)) {
-            throw new ReservationNotFoundException();
-        }
-        selectedReservation.setValue(reservation);
-    }
 
     /**
      * Ensures {@code selectedReservation} is a valid Reservation in {@code filteredReservations}.
@@ -336,25 +259,6 @@ public class BillManager implements BillModel {
                 selectedReservation.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
             }
         }
-    }
-
-    //=========== Selected ServiceType ===========================================================================
-
-    public ReadOnlyProperty<RoomType> selectedRoomTypeProperty() {
-        return selectedRoomType;
-    }
-
-    @Override
-    public RoomType getSelectedRoomType() {
-        return selectedRoomType.getValue();
-    }
-
-    @Override
-    public void setSelectedRoomType(RoomType roomType) {
-        if (roomType != null && !roomTypeList.contains(roomType)) {
-            throw new RoomTypeNotFoundException();
-        }
-        selectedRoomType.setValue(roomType);
     }
 
 
@@ -430,7 +334,6 @@ public class BillManager implements BillModel {
         double totalAmount = 0.0;
         for (Reservation reservation : reservationObservableList) {
             RoomType roomType = reservation.getRoom();
-        //    DateRange dateRange = reservation.getDates();
             int daysBooked = 5;
             double ratePerHour = roomType.getRatePerDay();
             double amount = daysBooked * ratePerHour;

@@ -10,7 +10,10 @@ import static seedu.address.logic.commands.CommandTestUtil.SORT_AUTHOR_WITHOUT_P
 import static seedu.address.logic.commands.CommandTestUtil.SORT_AUTHOR_WITH_PREFIX;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_BOOK;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Rule;
@@ -73,9 +76,11 @@ public class BookShelfParserTest {
 
     @Test
     public void parseCommand_sortBook() throws Exception {
+        List<String > sortTypes = new ArrayList<>();
+        sortTypes.add(SORT_AUTHOR_WITHOUT_PREFIX);
         SortBookCommand command = (SortBookCommand) parser.parseCommand(
             SortBookCommand.COMMAND_WORD + SORT_AUTHOR_WITH_PREFIX + ORDER_ASC_WITH_PREFIX);
-        assertEquals(new SortBookCommand(SORT_AUTHOR_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX), command);
+        assertEquals(new SortBookCommand(sortTypes, ORDER_ASC_WITHOUT_PREFIX, new HashMap<>()), command);
     }
 
     @Test

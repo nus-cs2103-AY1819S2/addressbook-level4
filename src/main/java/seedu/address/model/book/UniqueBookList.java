@@ -3,7 +3,10 @@ package seedu.address.model.book;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.function.BiFunction;
 
 import javafx.collections.FXCollections;
@@ -141,10 +144,10 @@ public class UniqueBookList implements Iterable<Book> {
                         return result;
                     }
 
-                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(),this::compareBookName);
+                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareBookName);
 
                 }
-            } else if(firstOrder.equals(SortBookCommandParser.BOOKNAME)) {
+            } else if (firstOrder.equals(SortBookCommandParser.BOOKNAME)) {
 
                 result = sort(b1, b2, subOrder, mainOrder, firstOrder, this::compareBookName);
 
@@ -162,7 +165,7 @@ public class UniqueBookList implements Iterable<Book> {
                         return result;
                     }
 
-                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(),this::compareRating);
+                    return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareRating);
 
                 } else {
 
@@ -187,7 +190,7 @@ public class UniqueBookList implements Iterable<Book> {
 
                 if (secondOrder.equals(SortBookCommandParser.AUTHOR)) {
 
-                    result = sort(b1, b2, subOrder, mainOrder, secondOrder,this::compareAuthor);
+                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareAuthor);
 
                     if (result != 0 || !iterator.hasNext()) {
                         return result;
@@ -211,10 +214,20 @@ public class UniqueBookList implements Iterable<Book> {
         internalList.sort(bookComparator.reversed());
     }
 
+    /**
+     * Compares two books with a sort types base on given bi-function
+     * @param b1 first book that going to be compare
+     * @param b2 second book that going to be compare
+     * @param subOrders hash map that contains sub order
+     * @param order main order if available
+     * @param currentOrder current order
+     * @param compare bifunction that will change base on different sort type
+     * @return -1, 0 or 1 depend one value of b1 and b2
+     */
     private int sort(Book b1, Book b2,
                      Map<String, String> subOrders,
-                     String order,String currentOrder,
-                     BiFunction<Book,Book,Integer> compare) {
+                     String order, String currentOrder,
+                     BiFunction<Book, Book, Integer> compare) {
         if (order == null) {
             order = subOrders.getOrDefault(currentOrder, SortBookCommandParser.ASCENDING);
         }

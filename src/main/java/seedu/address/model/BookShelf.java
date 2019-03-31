@@ -169,7 +169,7 @@ public class BookShelf implements ReadOnlyBookShelf {
      * @param mainOrder order that apply to all types
      * @param subOrder order that apply only to corresponding type.
      */
-    public void sort(List<String> types, String mainOrder,  Map<String, String> subOrder) {
+    public void sort(List<String> types, String mainOrder, Map<String, String> subOrder) {
         books.sortBooks(types, mainOrder, subOrder);
         indicateModified();
     }

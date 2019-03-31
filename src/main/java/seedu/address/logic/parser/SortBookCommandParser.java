@@ -1,7 +1,11 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FRISTORDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SECONDORDER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SORTTYPE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_THIRDORDER;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +39,7 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
     public SortBookCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer.tokenize(args, PREFIX_SORTTYPE,
-                PREFIX_ORDER, PREFIX_FRISTORDER,PREFIX_SECONDORDER, PREFIX_THIRDORDER);
+                PREFIX_ORDER, PREFIX_FRISTORDER, PREFIX_SECONDORDER, PREFIX_THIRDORDER);
 
         if (!argMultimap.getValue(PREFIX_SORTTYPE).isPresent()
             || !argMultimap.getPreamble().isEmpty()
@@ -69,6 +73,11 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
         return new SortBookCommand(sortTypeSet, mainOrder, subOrder);
     }
 
+    /**
+     * Check whether sub order is more than current sorting types.
+     * @param argMultimap input formatter
+     * @return true if is it valid sub order, otherwise false.
+     */
     private static Boolean isTypeAndSubOrderMatch(ArgumentMultimap argMultimap) {
         sortTypeSet = argMultimap.getAllValues(PREFIX_SORTTYPE);
 
@@ -90,23 +99,28 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
         return true;
     }
 
+    /**
+     * Checks the sort types are valid
+     * @param sortTypes list of attributes types
+     * @return true if sort types are valid, otherwise return false
+     */
     private static boolean isValidSortType(List<String> sortTypes) {
         List<String> checkDuplicates = new ArrayList<>();
         for (String type : sortTypes) {
             if ((!type.toLowerCase().equals(AUTHOR)
                 && !type.toLowerCase().equals(BOOKNAME)
                 && !type.toLowerCase().equals(RATING))
-                || checkDuplicates.contains(type)){
+                || checkDuplicates.contains(type)) {
                 return false;
             }
             checkDuplicates.add(type);
         }
         return true;
-     }
+    }
 
-     private static boolean isValidSortOrder(String order) {
-         return order == null
-             ||order.toLowerCase().equals(ASCENDING)
-             || order.toLowerCase().equals(DESCENDING);
-     }
+    private static boolean isValidSortOrder(String order) {
+        return order == null
+            || order.toLowerCase().equals(ASCENDING)
+            || order.toLowerCase().equals(DESCENDING);
+    }
 }

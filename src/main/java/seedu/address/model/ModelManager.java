@@ -147,7 +147,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void sortBook(List<String> types, String mainOrder,  Map<String, String> subOrder) {
+    public void sortBook(List<String> types, String mainOrder, Map<String, String> subOrder) {
         versionedBookShelf.sort(types, mainOrder, subOrder);
     }
 

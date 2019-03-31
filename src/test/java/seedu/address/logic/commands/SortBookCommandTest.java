@@ -9,6 +9,10 @@ import static seedu.address.logic.commands.CommandTestUtil.SORT_RATING_WITHOUT_P
 
 import static seedu.address.testutil.TypicalBooks.getTypicalBookShelf;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.junit.Test;
 
 import javafx.collections.ObservableList;
@@ -16,7 +20,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.book.Book;
-
 
 public class SortBookCommandTest {
 
@@ -26,23 +29,36 @@ public class SortBookCommandTest {
     public void execute() throws Exception {
         ObservableList<Book> bookList = model.getBookShelf().getBookList();
 
-        model.sortBook(SORT_AUTHOR_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX);
+        List<String> sortTypes = new ArrayList<>();
+
+        sortTypes.add(SORT_AUTHOR_WITHOUT_PREFIX);
+        model.sortBook(sortTypes, null, new HashMap<>());
         checkAuthor(bookList, ORDER_ASC_WITHOUT_PREFIX);
 
-        model.sortBook(SORT_AUTHOR_WITHOUT_PREFIX, ORDER_DES_WITHOUT_PREFIX);
+        sortTypes = new ArrayList<>();
+        sortTypes.add(SORT_AUTHOR_WITHOUT_PREFIX);
+        model.sortBook(sortTypes, ORDER_DES_WITHOUT_PREFIX, new HashMap<>());
         checkAuthor(bookList, ORDER_DES_WITHOUT_PREFIX);
 
-        model.sortBook(SORT_NAME_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX);
-        checkName(bookList, ORDER_ASC_WITHOUT_PREFIX);
 
-        model.sortBook(SORT_NAME_WITHOUT_PREFIX, ORDER_DES_WITHOUT_PREFIX);
-        checkName(bookList, ORDER_DES_WITHOUT_PREFIX);
+        sortTypes.add(SORT_NAME_WITHOUT_PREFIX);
+        model.sortBook(sortTypes, null, new HashMap<>());
+        checkAuthor(bookList, ORDER_ASC_WITHOUT_PREFIX);
 
-        model.sortBook(SORT_RATING_WITHOUT_PREFIX, ORDER_ASC_WITHOUT_PREFIX);
-        checkRating(bookList, ORDER_ASC_WITHOUT_PREFIX);
+        sortTypes = new ArrayList<>();
+        sortTypes.add(SORT_NAME_WITHOUT_PREFIX);
+        model.sortBook(sortTypes, ORDER_DES_WITHOUT_PREFIX, new HashMap<>());
+        checkAuthor(bookList, ORDER_DES_WITHOUT_PREFIX);
 
-        model.sortBook(SORT_RATING_WITHOUT_PREFIX, ORDER_DES_WITHOUT_PREFIX);
-        checkRating(bookList, ORDER_DES_WITHOUT_PREFIX);
+        sortTypes.add(SORT_RATING_WITHOUT_PREFIX);
+        model.sortBook(sortTypes, null, new HashMap<>());
+        checkAuthor(bookList, ORDER_ASC_WITHOUT_PREFIX);
+
+        sortTypes = new ArrayList<>();
+        sortTypes.add(SORT_RATING_WITHOUT_PREFIX);
+        model.sortBook(sortTypes, ORDER_DES_WITHOUT_PREFIX, new HashMap<>());
+        checkAuthor(bookList, ORDER_DES_WITHOUT_PREFIX);
+
     }
 
     /**

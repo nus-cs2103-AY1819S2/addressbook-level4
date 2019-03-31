@@ -3,11 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-
 import java.util.List;
 import java.util.Map;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
 
 /**
  * Sorts all books in provided order.
@@ -51,7 +51,8 @@ public class SortBookCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
             || (other instanceof SortBookCommand // instanceof handles nulls
-            && this.mainOrder.equals(((SortBookCommand) other).mainOrder)
+            && (this.mainOrder == ((SortBookCommand) other).mainOrder)
+            || this.mainOrder.equals(((SortBookCommand) other).mainOrder)
             && this.subOrders.equals(((SortBookCommand) other).subOrders)
             && this.types.equals(((SortBookCommand) other).types));
     }

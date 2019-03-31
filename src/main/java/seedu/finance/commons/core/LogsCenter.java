@@ -1,5 +1,4 @@
 package seedu.finance.commons.core;
-import seedu.finance.commons.events.BaseEvent;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -8,6 +7,8 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+
+import seedu.finance.commons.events.BaseEvent;
 
 /**
  * Configures and manages loggers and handlers, including their logging level

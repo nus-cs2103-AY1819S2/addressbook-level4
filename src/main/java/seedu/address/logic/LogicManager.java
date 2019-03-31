@@ -143,11 +143,11 @@ public class LogicManager implements Logic {
 
     @Override
     public boolean modeHasChange_isCurrModeMember() {
-        return model.getAddressBookMode().equals(AppMode.Modes.MEMBER);
+        return model.addressBookModeIsMember();
     }
 
     @Override
     public boolean modeHasChange_isCurrModeActivity() {
-        return model.getAddressBookMode().equals(AppMode.Modes.ACTIVITY);
+        return model.addressBookModeIsActivity();
     }
 }

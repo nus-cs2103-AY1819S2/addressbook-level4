@@ -4,7 +4,9 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.EligibleModulePredicate;
 import seedu.address.model.VersionedGradTrak;
 import seedu.address.model.course.Course;
@@ -16,13 +18,16 @@ import seedu.address.model.moduleinfo.ModuleInfoCode;
  */
 public class RecModulePredicate implements Predicate<RecModule> {
 
-    private Course course;
-    private VersionedGradTrak versionedGradTrak;
+    private final Course course;
+    private final VersionedGradTrak versionedGradTrak;
+    private final Logger logger;
+
 
     public RecModulePredicate(Course course, VersionedGradTrak versionedGradTrak) {
         requireAllNonNull(course, versionedGradTrak);
         this.course = course;
         this.versionedGradTrak = versionedGradTrak;
+        this.logger = LogsCenter.getLogger(getClass());
     }
 
     @Override
@@ -46,6 +51,7 @@ public class RecModulePredicate implements Predicate<RecModule> {
             if (!course.isReqFulfilled(reqType, passedModuleList)) {
                 // module can contribute towards unfulfilled requirement
                 recModule.setCourseReqType(reqType);
+                logger.fine(code.toString() + " fulfills " + reqType.name());
                 return true;
             }
         }

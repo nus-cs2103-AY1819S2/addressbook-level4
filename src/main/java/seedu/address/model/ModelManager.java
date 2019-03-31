@@ -58,8 +58,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Card> currentTestedCard = new SimpleObjectProperty<>();
     private ObservableList<Card> currentTestedCardFolder;
     private int currentTestedCardIndex;
-    private boolean isInsideTestSession = false;
-    private boolean isCardAlreadyAnswered = false;
+    private boolean insideTestSession = false;
+    private boolean cardAlreadyAnswered = false;
     private int numAnsweredCorrectly = 0;
 
     // Report display related
@@ -375,7 +375,7 @@ public class ModelManager implements Model {
         currentTestedCardIndex = 0;
         Card cardToTest = currentTestedCardFolder.get(currentTestedCardIndex);
         setCurrentTestedCard(cardToTest);
-        isInsideTestSession = true;
+        insideTestSession = true;
         numAnsweredCorrectly = 0;
     }
 
@@ -397,7 +397,7 @@ public class ModelManager implements Model {
         getActiveVersionedCardFolder()
                 .addFolderScore((double) numAnsweredCorrectly / getActiveCardFolder().getCardList().size());
         getActiveVersionedCardFolder().commit();
-        isInsideTestSession = false;
+        insideTestSession = false;
         setCardAsNotAnswered();
         numAnsweredCorrectly = 0;
         setCurrentTestedCard(null);
@@ -419,21 +419,21 @@ public class ModelManager implements Model {
 
     @Override
     public void setCardAsAnswered() {
-        isCardAlreadyAnswered = true;
+        cardAlreadyAnswered = true;
     }
 
     private void setCardAsNotAnswered() {
-        isCardAlreadyAnswered = false;
+        cardAlreadyAnswered = false;
     }
 
     @Override
     public boolean checkIfCardAlreadyAnswered() {
-        return isCardAlreadyAnswered;
+        return cardAlreadyAnswered;
     }
 
     @Override
     public boolean checkIfInsideTestSession() {
-        return isInsideTestSession;
+        return insideTestSession;
     }
 
     @Override
@@ -520,9 +520,9 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredCardsList.equals(other.filteredCardsList)
                 && Objects.equals(selectedCard.get(), other.selectedCard.get())
-                && isInsideTestSession == other.isInsideTestSession
+                && insideTestSession == other.insideTestSession
                 && currentTestedCardIndex == other.currentTestedCardIndex
-                && isCardAlreadyAnswered == other.isCardAlreadyAnswered
+                && cardAlreadyAnswered == other.cardAlreadyAnswered
                 && activeCardFolderIndex == other.activeCardFolderIndex
                 && inFolder == other.inFolder;
     }

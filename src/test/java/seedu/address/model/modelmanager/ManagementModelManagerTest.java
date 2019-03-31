@@ -138,6 +138,14 @@ public class ManagementModelManagerTest {
     }
 
     @Test
+    public void setLessonList() {
+        LessonList test = new LessonList();
+        test.addLesson(getTestLesson());
+        assertEquals(modelManager.getLessonList(), new LessonList());
+        modelManager.setLessonList(test);
+        assertEquals(test, modelManager.getLessonList());
+    }
+    @Test
     public void openLesson() {
         Lesson lesson = TypicalLessonList.LESSON_DEFAULT;
         modelManager.addLesson(lesson);

@@ -27,7 +27,9 @@ import seedu.address.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
-    private static final String CHECK_LOGS_MESSAGE = "\nPlease check the logs for more information.";
+    public static final String CHECK_LOGS_MESSAGE = "\nPlease check the logs for more information.";
+    public static final String FAIL_SAVE_LESSONS_MESSAGE = "Failed to save some lessons.";
+    public static final String FAIL_DELETE_LESSON_MESSAGE = "Failed to delete lesson: \"%1$s\".";
 
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
@@ -74,8 +76,7 @@ public class LogicManager implements Logic {
                     int savedCount = storageManager.saveLessonList(managementModel.getLessonList());
                     int totalLessonCount = managementModel.getLessons().size();
                     if (savedCount < totalLessonCount) {
-                        commandResult = new CommandResult("Failed to save some lessons."
-                            + CHECK_LOGS_MESSAGE);
+                        commandResult = new CommandResult(FAIL_SAVE_LESSONS_MESSAGE + CHECK_LOGS_MESSAGE);
                     }
                     break;
                 case LOAD:
@@ -91,8 +92,9 @@ public class LogicManager implements Logic {
                     try {
                         storageManager.deleteLesson(commandResult.getDeleteLessonName());
                     } catch (IOException e) {
-                        commandResult = new CommandResult("Failed to delete lesson: \" "
-                                + commandResult.getDeleteLessonName() + "\"." + CHECK_LOGS_MESSAGE);
+                        commandResult =
+                            new CommandResult(String.format(FAIL_DELETE_LESSON_MESSAGE,
+                                commandResult.getDeleteLessonName()) + CHECK_LOGS_MESSAGE);
                     }
                     break;
                 default:

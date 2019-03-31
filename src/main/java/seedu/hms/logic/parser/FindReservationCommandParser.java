@@ -49,7 +49,8 @@ public class FindReservationCommandParser implements Parser<FindReservationComma
         }
 
         //search in whole day if timing is not provided
-        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES).orElse("01/01/1000 - 31/12/3000"));
+        DateRange dateRange = ParserUtil.parseDates(argMultimap.getValue(PREFIX_DATES)
+            .orElse("01/01/1000 - 31/12/3000"));
         ReservationWithDatePredicate reservationWithDatePredicate = new ReservationWithDatePredicate(dateRange);
 
         return new FindReservationCommand(reservationContainsPayerPredicate,

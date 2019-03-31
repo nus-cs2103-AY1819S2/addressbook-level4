@@ -76,8 +76,7 @@ public class LogicManager implements Logic {
                 commandResult = command.execute(reservationModel, history);
             } else if (command instanceof BookingCommand) {
                 commandResult = command.execute(bookingModel, history);
-            }
-            else {
+            } else {
                 commandResult = command.execute(billModel, history);
             }
 

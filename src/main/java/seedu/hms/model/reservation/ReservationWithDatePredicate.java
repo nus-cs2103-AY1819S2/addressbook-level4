@@ -3,7 +3,6 @@ package seedu.hms.model.reservation;
 import java.util.function.Predicate;
 
 import seedu.hms.model.util.DateRange;
-import seedu.hms.model.util.DateRange;
 
 /**
  * Tests that a {@code Reservation}'s {@code T}

@@ -1,9 +1,11 @@
+/* @@author itszp */
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_SAVE;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
@@ -25,12 +27,11 @@ public class SaveCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
+    public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) throws CommandException {
         requireNonNull(currentEdit);
 
-        // Check to be shifted if possible.
         if (currentEdit.getTempImage() == null) {
-            return new CommandResult(MESSAGE_UNABLE_TO_SAVE);
+            throw new CommandException(MESSAGE_UNABLE_TO_SAVE);
         }
 
         String name = currentEdit.saveToAssets(toName);

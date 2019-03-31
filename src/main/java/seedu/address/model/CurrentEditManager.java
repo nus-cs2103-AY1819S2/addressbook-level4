@@ -42,6 +42,7 @@ public class CurrentEditManager implements CurrentEdit {
         this.originalImageName = null;
     }
 
+    /* @@author itszp */
     /**
      * Opens an image in FomoFoto.
      * This method makes two copies of the original image in temp folder.
@@ -112,6 +113,7 @@ public class CurrentEditManager implements CurrentEdit {
         Image image = new Image(TEMP_FILENAME);
         this.tempImage = image;
     }
+    /* @@author*/
 
     /* @@author thamsimun */
 
@@ -151,12 +153,14 @@ public class CurrentEditManager implements CurrentEdit {
         tempImage.setIndex(tempIndex);
     }
 
+    /* @@author itszp */
     /**
      * Creates originalImage instance of {@code image} located in temp_folder.
      */
     public void setOriginalImage(Image image) {
         this.originalImage = new Image(TEMP_FILENAME);
     }
+    /* @@author*/
 
     public void displayTempImage() {
         Notifier.firePropertyChangeListener("import", null, tempImage.getUrl());
@@ -212,6 +216,8 @@ public class CurrentEditManager implements CurrentEdit {
     public List<Command> getSubHistoryTemp() {
         return tempImage.getSubHistory();
     }
+
+    /* @@author itszp */
     /**
      * Retrieves a list of all filenames in assets folder. Returns the list as String[].
      */
@@ -248,6 +254,7 @@ public class CurrentEditManager implements CurrentEdit {
         overwriteOriginal(name);
         return name;
     }
+    /* @@author*/
 
     /* @@author Carrein */
 

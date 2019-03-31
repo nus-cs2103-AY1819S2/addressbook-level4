@@ -1,3 +1,4 @@
+/* @@author itszp */
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
@@ -24,7 +25,7 @@ public class SaveCommandParser implements Parser<SaveCommand> {
         if (args.isEmpty()) {
             return new SaveCommand(args);
         } else if (file.exists()) {
-            throw new ParseException(String.format(MESSAGE_DUPLICATE_FILE + " Try using another name."));
+            throw new ParseException(String.format(MESSAGE_DUPLICATE_FILE + "Try using another name."));
         }
         return new SaveCommand(args);
     }

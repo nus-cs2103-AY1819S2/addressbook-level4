@@ -16,6 +16,7 @@ import seedu.finance.logic.parser.FinanceTrackerParser;
 import seedu.finance.logic.parser.exceptions.ParseException;
 import seedu.finance.model.Model;
 import seedu.finance.model.ReadOnlyFinanceTracker;
+import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 import seedu.finance.storage.Storage;
@@ -69,7 +70,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ObjectProperty<Amount> getBudget() {
+    public Budget getBudget() {
         return model.getBudget();
     }
 

@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.finance.commons.core.GuiSettings;
 import seedu.finance.commons.core.LogsCenter;
+import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 import seedu.finance.model.record.exceptions.RecordNotFoundException;
@@ -128,10 +129,10 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addBudget(Amount amount) {
-        requireNonNull(amount);
+    public void addBudget(Budget budget) {
+        requireNonNull(budget);
 
-        versionedFinanceTracker.addBudget(amount);
+        versionedFinanceTracker.addBudget(budget);
     }
 
     @Override
@@ -152,7 +153,7 @@ public class ModelManager implements Model {
      * Returns the amount value of {@code budget} in an ObjectProperty wrapper
      */
     @Override
-    public ObjectProperty<Amount> getBudget() {
+    public Budget getBudget() {
         return versionedFinanceTracker.getBudget();
     }
 

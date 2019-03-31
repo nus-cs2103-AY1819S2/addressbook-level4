@@ -51,7 +51,7 @@ class JsonAdaptedRecord {
      */
     public JsonAdaptedRecord(Record source) {
         name = source.getName().fullName;
-        amount = source.getAmount().value;
+        amount = source.getAmount().toString();
         date = source.getDate().toString();
         description = source.getDescription().value;
         tagged.addAll(source.getCategories().stream()

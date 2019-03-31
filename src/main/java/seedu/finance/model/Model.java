@@ -8,6 +8,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.finance.commons.core.GuiSettings;
+import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Amount;
 import seedu.finance.model.record.Record;
 
@@ -90,7 +91,7 @@ public interface Model {
      * Sets the given amount to budget.
      * {@code budget} must not already exist in the finance tracker.
      */
-    void addBudget(Amount amount);
+    void addBudget(Budget budget);
 
     /**
      * Returns an unmodifiable view of the filtered record list in reverse order.
@@ -103,7 +104,7 @@ public interface Model {
     void sortFilteredRecordList(Comparator<Record> comparator);
 
     /** Returns the amount value of {@code budget} in a ObjectProperty wrapper */
-    ObjectProperty<Amount> getBudget();
+    Budget getBudget();
 
     /** Returns an unmodifiable view of the filtered record list */
     ObservableList<Record> getFilteredRecordList();

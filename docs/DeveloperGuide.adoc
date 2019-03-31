@@ -296,7 +296,7 @@ Battleships that have been deployed can also be listed. Battleships can be liste
 The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
 
 .Sequence diagram of listing battleships deployed on the map.
-image::ListShipSequenceDiagram.png[width=800]
+image::ListShipSequenceDiagram.png[]
 
 ==== Design Considerations
 ===== Aspect: How a battleship is placed on the map

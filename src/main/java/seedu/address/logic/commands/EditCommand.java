@@ -101,7 +101,7 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public boolean requiresPinList(){
+    public boolean requiresPinList() {
         return false;
     }
 

@@ -44,7 +44,7 @@ public class ModelManager implements Model {
         logger.fine("Initializing with address book: " + addressBook
                 + "Initializing with archive book: " + archiveBook
                 + "Initializing with pin book" + pinBook
-                + "and user prefs " + userPrefs );
+                + "and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedArchiveBook = new VersionedArchiveBook(archiveBook);

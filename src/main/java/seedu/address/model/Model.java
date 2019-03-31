@@ -107,6 +107,12 @@ public interface Model {
     void archivePerson(Person target);
 
     /**
+    * Unarchives the given person.
+    * The person must exist in the archive book.
+    */
+    void unarchivePerson(Person target);
+
+    /**
      * Pins the given person.
      * The person must exist in the address book.
      */

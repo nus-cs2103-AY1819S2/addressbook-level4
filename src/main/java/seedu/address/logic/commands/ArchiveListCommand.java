@@ -15,6 +15,20 @@ public class ArchiveListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all persons in archive";
 
+    @Override
+    public boolean requiresMainList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresPinList() {
+        return false;
+    }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {

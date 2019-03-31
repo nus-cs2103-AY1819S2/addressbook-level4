@@ -116,6 +116,10 @@ public class LogicManager implements Logic {
         return model.getFilteredPersonList();
     }
 
+    public ObservableList<Person> getFilteredArchivedPersonList() {
+        return model.getFilteredArchivedPersonList();
+    }
+
     @Override
     public ObservableList<Person> getFilteredPinList() {
         return model.getFilteredPinnedPersonList();

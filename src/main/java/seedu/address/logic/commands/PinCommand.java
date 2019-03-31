@@ -68,4 +68,19 @@ public class PinCommand extends Command {
                 || (other instanceof PinCommand // instanceof handles nulls
                 && targetIndex.equals(((PinCommand) other).targetIndex)); // state check
     }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresPinList() {
+        return true;
+    }
 }

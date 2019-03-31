@@ -15,7 +15,6 @@ import seedu.address.model.activity.Activity;
  * Selects an activity identified using it's displayed index from the address book.
  */
 public class ActivitySelectCommand extends ActivityCommand {
-
     public static final String COMMAND_WORD = "activitySelect";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD

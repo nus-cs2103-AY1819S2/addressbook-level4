@@ -3,6 +3,7 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import javafx.beans.InvalidationListener;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.person.MatricNumber;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
@@ -95,6 +97,19 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Update the status of the activities in the activity list
+     */
+    public void updateActivities() {
+        List<Activity> activityList = this.getActivityList();
+        for (Activity activity: activityList) {
+            if (!activity.getStatus().equals(activity.getCurrentStatus())) {
+                Activity updated = activity.updateActivity();
+                setActivity(activity, updated);
+            }
+        }
+    }
+
+    /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
@@ -126,6 +141,21 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(person);
     }
 
+    /**
+     * Returns true if a person with the same matricNumber as {@code person} exists in the address book.
+     */
+    public boolean hasMatricNumber(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        return persons.containsMatricNumber(matricNumber);
+    }
+
+    /**
+     * Returns the person if a person with the same matricNumber as {@code person} exists in the address book.
+     */
+    public Person getPersonWithMatricNumber(MatricNumber matricNumber) {
+        requireNonNull(matricNumber);
+        return persons.getPersonWithMatricNumber(matricNumber);
+    }
     /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
@@ -177,7 +207,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// activity-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if activity with the same identity as {@code activity} exists in the address book.
      */
     public boolean hasActivity(Activity activity) {
         requireNonNull(activity);
@@ -185,8 +215,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds an activity to the address book.
+     * The activity must not already exist in the address book.
      */
     public void addActivity(Activity a) {
         activities.add(a);
@@ -194,9 +224,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given activity {@code target} in the list with {@code editedActivity}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity in the
+     * address book.
      */
     public void setActivity(Activity target, Activity editedActivity) {
         requireNonNull(editedActivity);
@@ -242,11 +273,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+                && persons.equals(((AddressBook) other).persons)
+                && activities.equals(((AddressBook) other).activities));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return Objects.hash(persons, activities);
     }
 }

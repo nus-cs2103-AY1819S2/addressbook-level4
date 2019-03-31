@@ -1,9 +1,14 @@
 {
   "persons": [ {
     "name": "Hans Muster",
+    "matricNumber": "A1542369X",
     "phone": "9482424",
     "email": "invalid@email!3e",
-    "address": "4th street"
+    "address": "4th street",
+    "gender" : "Female",
+    "yearOfStudy" : "Year 4",
+    "major" : "Business Analytics",
+    "tagged" : [ "running" ]
   } ],
   "activities": []
 }

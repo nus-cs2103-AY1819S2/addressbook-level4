@@ -1,19 +1,16 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showRestaurantAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_RESTAURANT;
+
 import static seedu.address.testutil.TypicalRestaurants.getTypicalFoodDiary;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PostalDataSet;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.restaurant.Postal;
+
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -31,12 +28,12 @@ public class ListUnvisitedCommandTest {
         expectedModel.updateFilteredRestaurantList(Model.PREDICATE_SHOW_UNVISITED_RESTAURANTS);
 
     }
-/*
-    @Test
-    public void execute_listIsFiltered_showsEverything() {
-        showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
-        assertCommandSuccess(new ListUnvisitedCommand((new Postal("123456"))), model, commandHistory,
-                ListUnvisitedCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-*/
+    /*
+        @Test
+        public void execute_listIsFiltered_showsEverything() {
+            showRestaurantAtIndex(model, INDEX_FIRST_RESTAURANT);
+            assertCommandSuccess(new ListUnvisitedCommand((new Postal("123456"))), model, commandHistory,
+                    ListUnvisitedCommand.MESSAGE_SUCCESS, expectedModel);
+        }
+    */
 }

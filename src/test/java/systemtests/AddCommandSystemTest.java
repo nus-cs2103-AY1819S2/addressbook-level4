@@ -66,7 +66,7 @@ public class AddCommandSystemTest extends FoodDiarySystemTest {
          */
         Restaurant toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + POSTAL_DESC_AMY +"   "+ TAG_DESC_FRIEND + " "
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + POSTAL_DESC_AMY + "   " + TAG_DESC_FRIEND + " "
                 + WEBLINK_DESC_AMY + " " + OPENING_HOURS_DESC;
         assertCommandSuccess(command, toAdd);
 

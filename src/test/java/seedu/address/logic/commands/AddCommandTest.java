@@ -190,7 +190,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredRestaurantListAndSort(Predicate<Restaurant> predicate, Comparator<Restaurant> sortBy) {
+        public void updateFilteredRestaurantListAndSort(Predicate<Restaurant> predicate,
+                                                        Comparator<Restaurant> sortBy) {
             throw new AssertionError("This method should not be called.");
         }
 

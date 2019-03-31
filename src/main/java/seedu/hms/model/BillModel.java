@@ -53,5 +53,4 @@ public interface BillModel extends Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredReservationList(Predicate<Reservation> predicate);
-    
 }

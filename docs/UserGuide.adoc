@@ -141,10 +141,12 @@ Edits the rating and description address of the 1st place to be `3` and `No desc
 * `edit 2 n/Raffles Hotel t/` +
 Edits the name of the 2nd place to be `Raffles Hotel` and clears all existing tags.
 
+// tag::search[]
 === Searching places by name: `search`
 
 The `search` command helps you to search for places whose names contain any of the given keywords. +
 
+Shortcut: `f` +
 Format: `search KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -163,6 +165,26 @@ Examples:
 Returns `National Museum of Singapore` and `National University Hospital`
 * `search National Temple` +
 Returns any place having names `National` or `Temple`
+
+=== Searching places by ratings: `searchr`
+
+The `searchr` command helps you to search for places whose ratings match the specified rating from 1 to 5. +
+
+Format: `searchr INDEX [MORE_INDICES]`
+
+****
+* The search rating is from a range of 1 to 5. e.g `5` will return places with 5 star ratings.
+* Only the ratings are searched.
+****
+
+image::UIsearchratingresults.png[width="600"]
+
+Examples:
+
+* `searchr 5` +
+Returns a list of places with rating of `5`
+* `searchr 4 5` +
+Returns a list of places with ratings of `4` or `5`
 
 === Searching places by tags: `searcht`
 
@@ -186,26 +208,6 @@ Returns a list of places tagged with `temple`
 * `searcht temple school` +
 Returns a list of places tagged with `temple` or `school`
 
-=== Searching places by ratings: `searchr`
-
-The `searchr` command helps you to search for places whose ratings match the specified rating from 1 to 5. +
-
-Format: `searchr INDEX [MORE_INDICES]`
-
-****
-* The search rating is from a range of 1 to 5. e.g `5` will return places with 5 star ratings.
-* Only the ratings are searched.
-****
-
-image::UIsearchratingresults.png[width="600"]
-
-Examples:
-
-* `searchr 5` +
-Returns a list of places with rating of `5`
-* `searchr 4 5` +
-Returns a list of places with ratings of `4` or `5`
-
 === Searching places by country: `searchc`
 
 The `searchc` command helps you to search for places whose country matches the specified ISO-3166 3-letter country code. +
@@ -213,9 +215,13 @@ The `searchc` command helps you to search for places whose country matches the s
 Format: `searchc KEYWORD [MORE_KEYWORDS]`
 
 ****
+* The country code keywords for `searchc` must be valid 3-letter ISO-3166 country codes.
 * The search country is from a list of ISO-3166 country codes. e.g `JPN` will return places located in Japan.
 * Only the country is searched.
+
 ****
+
+image::UIsearchcountryresults.png[width="600"]
 
 Examples:
 
@@ -228,13 +234,17 @@ Returns a list of places located in either `Japan` or `Germany`
 
 The `searchyear` command helps you to search for places whose year of visit matches the specified year of interest.
 
-Format: `searchyear KEYWORD [MORE_KEYWORDS]`
+Format: `searchyear KEYWORD [MORE_KEYWORDS]` OR +
+`searchyear KEYWORD-KEYWORD`
 
 ****
-* The search year ranges from 1900 to the current year. e.g `2016` will return places visited in the year 2016.
-* Searches outside the range will issue a warning.
+* The search year is bounded from 1900 to the current year. e.g `2016` will return places visited in the year 2016.
+* Searches outside the bounds will issue a warning.
+* The year keywords for `searchyear` can be entered as a range. e.g `2010-2017` will return all the places visited from `2010` to `2017`
 * Only the year of visit is searched.
 ****
+
+image::UIsearchyearresults.png[width="600"]
 
 Examples:
 
@@ -242,7 +252,9 @@ Examples:
 Returns a list of places visited in the year `2017`
 * `searchyear 2016 2018` +
 Returns a list of places visited in the year `2016` or `2018`
-
+* `searchyear 2010-2017` +
+Returns a list of places visited from `2010` to `2017`
+// end::search[]
 
 === Deleting a place : `delete`
 
@@ -481,37 +493,53 @@ Please do check the file that contains the data of your TravelBuddy.
 
 == Shortcuts Cheatsheet
 
-Below is a summarized list of all the shortcuts for commands that TravelBuddy supports:
+Below is a summarized list of all the command words that TravelBuddy supports:
 
-* *Add* - shortcut `a` - `a n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...` +
-e.g. `a n/NUS Computing cc/SGP dv/10/10/2017 r/5 d/No description a/NUS School of Computing, COM1, 13 Computing
-Drive, 117417
-t/school`
+[width="100%",cols="20%,<80%"]
+|=======================================================================
 
-* *Clear* : shortcut `c`
+|*Add* |`a n/NAME cc/COUNTRY_CODE dv/DATE_VISITED r/RATING d/DESCRIPTION a/ADDRESS [t/TAG]...` +
+e.g. `a n/NUS Computing cc/SGP dv/10/10/2017 r/5 d/No description a/NUS School of Computing, COM1, 13 Computing Drive, 117417 t/school`
 
-* *Delete* : shortcut `d INDEX` +
+|*Clear* |`c`
+
+|*Delete* |`d INDEX` +
 e.g. `d 3`
 
-* *Delete Multiple* : `deletem START_INDEX END_INDEX` +
+|*Delete Multiple* |`deletem START_INDEX END_INDEX` +
 e.g. `deletem 2 5`
-<currently does not have a shortcut>
 
-* *Edit* : shortcut `e INDEX [n/NAME] [cc/COUNTRYCODE] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...` +
+|*Edit* | `e INDEX [n/NAME] [cc/COUNTRYCODE] [r/RATING] [d/DESCRIPTION] [a/ADDRESS] [t/TAG]...` +
 e.g. `e 2 n/Starbucks d/I like the coffee here`
 
-* *Search* : shortcut `s KEYWORD [MORE_KEYWORDS]` +
+|*Search* |`search KEYWORD [MORE_KEYWORDS]` +
 e.g. `s Coffee Bean Tea Leaf`
 
-* *List* : shortcut `l`
+|*Search Rating* |`searchr RATING [MORE_RATINGS]` +
+e.g. `searchr 4 5`
 
-* *Help* : shortcut `h`
+|*Search Tags* |`searcht KEYWORD [MORE_KEYWORDS]` +
+e.g. `searcht school airport`
 
-* *Select* : shortcut `s INDEX` +
-e.g.`s 2`
-* *History* : shortcut `h`
-* *Undo* : shortcut `u`
+|*Search Country* |`searchc KEYWORD [MORE_KEYWORDS]` +
+e.g. `searchc JPN CHN`
 
-* *Redo* : shortcut `r`
+|*Search Year* |`searchyear KEYWORD [MORE_KEYWORDS]` +
+e.g. `searchyear 2011 +
+e.g. `searchyear 2008-2017
 
-* *Generate* : shortcut `generate`
+|*List* |`l`
+
+|*Help* |`help`
+
+|*Select* |`s INDEX` +
+e.g. `s 2`
+
+|*History* |`h`
+
+|*Undo* |`u`
+
+|*Redo* |`r`
+
+|*Generate* |`generate`
+|=======================================================================

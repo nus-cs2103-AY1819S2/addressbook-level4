@@ -94,6 +94,16 @@ public class AddCommandTest {
     private class ModelStub implements Model {
 
         @Override
+        public void setChartDisplayed(boolean chartDisplayed) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyProperty<Boolean> chartDisplayedProperty() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
             throw new AssertionError("This method should not be called.");
         }

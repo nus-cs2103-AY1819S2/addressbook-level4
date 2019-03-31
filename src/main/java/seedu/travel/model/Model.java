@@ -71,7 +71,7 @@ public interface Model {
     void addPlace(Place place);
 
     /**
-     * Replaces the given place {@code target} with {@code editedPlace}.
+     * Replaces the given place {@code target} with {@code editedPl ace}.
      * {@code target} must exist in the TravelBuddy.
      * The place identity of {@code editedPlace} must not be the same as another existing place in the TravelBuddy.
      */
@@ -115,6 +115,13 @@ public interface Model {
      * Saves the current Chart state.
      */
     void commitChart();
+
+    ReadOnlyProperty<Boolean> chartDisplayedProperty();
+
+    /**
+     * Set when chart needs to be displayed.
+     */
+    void setChartDisplayed(boolean chartDisplayed);
 
     /**
      * Selected place in the filtered place list.

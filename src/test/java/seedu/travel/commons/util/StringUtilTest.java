@@ -349,13 +349,13 @@ public class StringUtilTest {
     @Test
     public void containsCountryCode_countryCodeLongerThanThreeLetter_throwsIllegalArgumentException() {
         assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN USA",
-                "SGXX", Optional.of("Country codes should only contain a three-letter alphabets"));
+                "SGXX", Optional.of("Country codes should only contain three-letter ISO-3166 codes"));
     }
 
     @Test
     public void containsCountryCode_countryCodeShorterThanThreeLetter_throwsIllegalArgumentException() {
         assertExceptionForCountryCodeThrown(IllegalArgumentException.class, "SGP JPN USA",
-                "SG", Optional.of("Country codes should only contain a three-letter alphabets"));
+                "SG", Optional.of("Country codes should only contain three-letter ISO-3166 codes"));
     }
 
     @Test

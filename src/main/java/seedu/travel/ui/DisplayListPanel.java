@@ -58,6 +58,18 @@ public class DisplayListPanel extends UiPart<Region> {
             }
         });
 
+
+        placeList.addListener(new ListChangeListener<Place>() {
+            @Override
+            public void onChanged(Change<? extends Place> c) {
+                ObservableList<Chart> charts = FXCollections.observableArrayList();
+                charts.add(new Chart(placeList));
+                // adds only one dummy Place to the list
+                displayListView.setItems(charts);
+                displayListView.setCellFactory(listView -> new DisplayListViewCell());
+            }
+        });
+
         // disables selection in list view
         displayListView.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
             @Override

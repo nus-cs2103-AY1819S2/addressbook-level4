@@ -5,7 +5,6 @@ import java.util.HashMap;
 import javafx.scene.Node;
 
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.RecCommand;
 
 /**
  * Handles which panels to display when the command changes

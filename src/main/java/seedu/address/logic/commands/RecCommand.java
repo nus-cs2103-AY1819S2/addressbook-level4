@@ -3,13 +3,10 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.course.Course.MESSAGE_REQ_COMPLETED;
 
-import java.util.HashMap;
-
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.course.CourseReqType;
-import seedu.address.model.moduleinfo.ModuleInfoCode;
+import seedu.address.model.recmodule.RecModule;
 
 /**
  * Lists modules that the user is recommended to take based on passed modules and course requirements.
@@ -26,28 +23,26 @@ public class RecCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        HashMap<ModuleInfoCode, CourseReqType> codeToReqMap = model.updateRecModuleList();
-
-        ObservableList<ModuleInfoCode> sortedList = model.getRecModuleListSorted();
+        model.updateRecModuleList();
+        ObservableList<RecModule> sortedList = model.getRecModuleListSorted();
         if (sortedList.isEmpty()) {
             return new CommandResult(MESSAGE_REQ_COMPLETED);
         }
-        return new CommandResult(MESSAGE_REC, generateResultString(sortedList, codeToReqMap));
+
+        return new CommandResult(MESSAGE_REC, generateResultString(sortedList));
     }
 
     /**
-     * Generates a {@code String} representing a {@code List}
-     * of {@code ModuleInfoCode} and {@code CourseReqType} satisfied.
-     * @param sortedList The {@code List} of {@code ModuleInfoCode}.
-     * @param codeToReqMap The {@code HashMap} of {@code ModuleInfoCode} to {@code CourseReqType}.
+     * Generates a {@code String} representing a {@code List} of {@code RecModule}.
+     * @param sortedList The {@code List} of {@code RecModule}.
      * @return The {@code String} stated above.
      */
-    private static String generateResultString(ObservableList<ModuleInfoCode> sortedList,
-                                               HashMap<ModuleInfoCode, CourseReqType> codeToReqMap) {
+    private static String generateResultString(ObservableList<RecModule> sortedList) {
         StringBuilder sb = new StringBuilder();
-        for (ModuleInfoCode moduleInfoCode : sortedList) {
-            sb.append(moduleInfoCode.toString())
-                    .append(" [").append(codeToReqMap.get(moduleInfoCode).name()).append("]")
+        for (RecModule recModule : sortedList) {
+            assert (recModule.getCourseReqType().isPresent());
+            sb.append(recModule.getModuleInfoCode().toString())
+                    .append(" [").append(recModule.getCourseReqType().get().name()).append("]")
                     .append("\n");
         }
 

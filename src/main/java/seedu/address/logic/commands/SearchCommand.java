@@ -75,9 +75,6 @@ public class SearchCommand extends Command {
     private final Predicate<Person> predicate;
     private final PredicatePersonDescriptor predicatePersonDescriptor;
 
-    public PredicatePersonDescriptor getPredicatePersonDescriptor() {
-        return predicatePersonDescriptor;
-    }
 
     public SearchCommand(PredicatePersonDescriptor predicatePersonDescriptor) {
         requireNonNull(predicatePersonDescriptor);
@@ -94,6 +91,7 @@ public class SearchCommand extends Command {
         return new CommandResult(
             String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
+
     public boolean equals(Object other) {
         // short circuit if same object
         if (other == this) {
@@ -109,6 +107,7 @@ public class SearchCommand extends Command {
         SearchCommand e = (SearchCommand) other;
         return predicatePersonDescriptor.equals(e.predicatePersonDescriptor);
     }
+
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
      * corresponding field value of the person.
@@ -242,36 +241,38 @@ public class SearchCommand extends Command {
             this.jobsApply = jobsApply;
         }
 
-        public Optional<Set<String>> getJobsApply() { return Optional.ofNullable(jobsApply); }
-
-
-    @Override
-    public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
+        public Optional<Set<String>> getJobsApply() {
+            return Optional.ofNullable(jobsApply);
         }
 
-        // instanceof handles nulls
-        if (!(other instanceof PredicatePersonDescriptor)) {
-            return false;
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof PredicatePersonDescriptor)) {
+                return false;
+            }
+
+            // state check
+            PredicatePersonDescriptor e = (PredicatePersonDescriptor) other;
+
+            return getName().equals(e.getName())
+                && getPhone().equals(e.getPhone())
+                && getEmail().equals(e.getEmail())
+                && getNric().equals(e.getNric())
+                && getGender().equals(e.getGender())
+                && getRace().equals(e.getRace())
+                && getAddress().equals(e.getAddress())
+                && getSchool().equals(e.getSchool())
+                && getMajor().equals(e.getMajor())
+                && getKnownProgLangs().equals(e.getKnownProgLangs())
+                && getPastJobs().equals(e.getPastJobs())
+                && getJobsApply().equals(e.getJobsApply());
         }
-
-        // state check
-        PredicatePersonDescriptor e = (PredicatePersonDescriptor) other;
-
-        return getName().equals(e.getName())
-            && getPhone().equals(e.getPhone())
-            && getEmail().equals(e.getEmail())
-            && getNric().equals(e.getNric())
-            && getGender().equals(e.getGender())
-            && getRace().equals(e.getRace())
-            && getAddress().equals(e.getAddress())
-            && getSchool().equals(e.getSchool())
-            && getMajor().equals(e.getMajor())
-            && getKnownProgLangs().equals(e.getKnownProgLangs())
-            && getPastJobs().equals(e.getPastJobs())
-            && getJobsApply().equals(e.getJobsApply());
-    }
     }
 }

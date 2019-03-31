@@ -455,7 +455,7 @@ again, with the index, to view the specific consultation session details.
 
 * `listconsult 1` +
 
-image::listconsult_index.png[width="600" align="center"]
+image::listconsult_index.png[align="center" width="600"]
 
 The consultation session detail stored in QuickDoc's first index will be shown.
 QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.
@@ -463,10 +463,37 @@ QuickDocs will display the time of the consultation, and also the diagnosis and 
 {nbsp} +
 
 === Medicine Management
-[[adddirec, Add directory]]
-==== Add new directory into storage: `adddirec`
+You can manage your medicine storage all by your wishes! QuickDocs allows you to organise your medicines in a directory format much like the folders in Windows OS! +
 
-Add a new directory under the directory specified by the path. +
+You can design and name your directories by functionalities, pricing, classifications or anything in your mind! +
+
+Initially, the medicine storage only contains one root directory named as "root" by default. All the rest is then up to you to decide!
+
+[TIP]
+Through QuickDocs, you could place the same medicine under different directories. For example, medicine paracetamol could be placed under "fever" and "headache" simultaneously. +
+[TIP]
+Following the same logic, you may not be able to store two different medicine with the same name in QuickDocs. All instances of medicine with the same name will refer to the same medicine.
+[[adddirec, Add directory]]
+==== Add new directory into storage: `adddirec` or `ad`
+
+By providing the path pointing to a specific directory, you can add a new directory under that directory. +
+
+The new directory will be an empty directory whose name is up to you to decide.
+
+[NOTE]
+The new directory's name should not contain white spaces or "\" characters.
+
+*Format:* `adddirec [PATH OF THE PARENT DIRECORY] [NAME OF NEW DIRECTORY]` +
+
+*Example:* +
+
+`adddirec root\fever oral` + 
+
+*Result:* +
+
+[[adddirec_after]]
+.Result of sample add directory command
+image::adddirec_after.png[align="center" width="600"]
 
 [[addmed, Add medicine]]
 ==== Add medicine into storage: `addmed`

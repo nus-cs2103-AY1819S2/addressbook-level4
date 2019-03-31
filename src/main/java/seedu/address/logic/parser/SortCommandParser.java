@@ -7,9 +7,12 @@ import java.util.Comparator;
 
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.SortPatientCommand;
+import seedu.address.logic.commands.SortRecordCommand;
 import seedu.address.logic.comparators.PatientComparator;
+import seedu.address.logic.comparators.RecordComparator;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.patient.Patient;
+import seedu.address.model.record.Record;
 import seedu.address.ui.MainWindow;
 
 
@@ -26,58 +29,46 @@ public class SortCommandParser implements Parser<SortCommand> {
         if (MainWindow.isGoToMode()) {
             //Record Sorting
             System.out.println("Testing");
-            Comparator<Patient> recordComparator;
-
-            recordComparator = PatientComparator.getPatientComparator(inputArr[0]);
-
-            return new SortPatientCommand(recordComparator, userInput.trim());
-
+            Comparator<Record> recordComparator;
+            try {
+                recordComparator = RecordComparator.getRecordComparator(inputArr[0]);
+                boolean isReverse = orderChecker(inputArr);
+                return new SortRecordCommand(recordComparator, inputArr[0], isReverse);
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
+            }
         } else {
             //Patient Sorting
             Comparator<Patient> userComparator;
             try {
                 userComparator = PatientComparator.getPatientComparator(inputArr[0]);
-                boolean isReverse = false;
-
-                if (inputArr.length > 2) {
-                    throw new ParseException("");
-                } else if (inputArr.length == 2) {
-                    switch (inputArr[1]) {
-
-                    case "desc":
-                        isReverse = true;
-                        break;
-                    case "asce":
-                        isReverse = false;
-                        break;
-                    default:
-                        throw new ParseException("");
-                    }
-                }
+                boolean isReverse = orderChecker(inputArr);
                 return new SortPatientCommand(userComparator, inputArr[0], isReverse);
-
             } catch (ParseException pe) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
             }
         }
+    }
 
-        /*
-        if (inputArr[0].trim().equals("record")) {
-            //TODO: Sorting for records
-            System.out.println("Record sorting");
-            try {
-                Comparator<Patient> recordComparator;
+    /**
+     * Checks if order is reverse or not.
+     */
+    private boolean orderChecker(String[] inputArr) throws ParseException {
+        if (inputArr.length > 2) {
+            throw new ParseException("");
+        } else if (inputArr.length == 2) {
+            switch (inputArr[1]) {
 
-                recordComparator = PatientComparator.getPatientComparator(inputArr[0]);
+            case "desc":
+                return true;
 
-                return new SortCommand(recordComparator, userInput.trim());
+            case "asce":
+                return false;
 
-            } catch (ParseException pe) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE), pe);
+            default:
+                throw new ParseException("");
             }
-        } else {
-
         }
-        */
+        return false;
     }
 }

@@ -38,7 +38,6 @@ public class CommandBoxTest extends GuiUnitTest {
         uiPartRule.setUiPart(commandBox);
 
         defaultStyleOfCommandBox = new ArrayList<>(commandBoxHandle.getStyleClass());
-
         errorStyleOfCommandBox = new ArrayList<>(defaultStyleOfCommandBox);
         errorStyleOfCommandBox.add(AutoCompleteTextField.ERROR_STYLE_CLASS);
     }
@@ -53,24 +52,17 @@ public class CommandBoxTest extends GuiUnitTest {
     public void commandBox_startingWithFailedCommand() {
         assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
-
-        // verify that style is changed correctly even after multiple consecutive failed commands
-        // seems like there is some problem coz need to enter twice to reset the text
-        //assertBehaviorForSuccessfulCommand();
-        assertBehaviorForFailedCommand();
-        assertBehaviorForFailedCommand();
     }
 
     /**
      * Commented out to debug
      */
-    //@Test
+    @Test
     public void commandBox_handleKeyPress() {
         commandBoxHandle.run(COMMAND_THAT_FAILS);
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
         guiRobot.push(KeyCode.ESCAPE);
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
-
         guiRobot.push(KeyCode.A);
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }

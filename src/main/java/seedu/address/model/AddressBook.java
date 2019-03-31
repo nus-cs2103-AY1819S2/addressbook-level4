@@ -2,7 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
@@ -22,21 +23,24 @@ public class AddressBook implements ReadOnlyAddressBook {
      * storage and the list persons is used as the current filtered list holder.
      */
 
-    public static boolean filterExist = false;
-    public static boolean sortingExist = false;
+    private boolean isFilterExist;
+    private boolean sortingExist;
     private UniquePersonList allPersonsStorage;
     private UniquePersonList persons;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
 
-    /*
+    /**
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
      * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */ {
+     */
+    {
         allPersonsStorage = new UniquePersonList();
         persons = new UniquePersonList();
+        isFilterExist = false;
+        sortingExist = false;
     }
 
     public AddressBook() {
@@ -93,9 +97,9 @@ public class AddressBook implements ReadOnlyAddressBook {
             allPersonsStorage.add(p);
         }
 
-        if (filterExist && !sortingExist) {
+        if (isFilterExist && !sortingExist) {
             clearFilter();
-            filterExist = false;
+            isFilterExist = false;
         } else {
             persons.add(p);
         }
@@ -143,6 +147,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * It removes all the persons in the list
+     */
     public void removeAllPerson() {
         List<Person> listToRemove = new ArrayList();
         for (Person person : persons) {
@@ -155,34 +162,59 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
-    public void filterAnd(String name, String phone, String email, String address, String[] tagList) {
+    /**
+     * Makes the filtering process according to and command
+     */
+    public void filterAnd(String name, String phone, String email, String address, String[] skillList,
+                          String[] posList, String gpa, String education) {
 
-        filterExist = true;
+        isFilterExist = true;
         List<Person> listToRemove = new ArrayList();
 
         for (Person person : persons) {
 
             boolean ifExcluded = false;
 
-            if (name != null && !person.getName().toString().toLowerCase().contains(name))
+            if (name != null && !person.getName().toString().toLowerCase().contains(name)) {
                 ifExcluded = true;
+            }
 
-            if (phone != null && !person.getPhone().toString().toLowerCase().contains(phone))
+            if (phone != null && !person.getPhone().toString().toLowerCase().contains(phone)) {
                 ifExcluded = true;
+            }
 
-            if (email != null && !person.getEmail().toString().toLowerCase().contains(email))
+            if (email != null && !person.getEmail().toString().toLowerCase().contains(email)) {
                 ifExcluded = true;
+            }
 
-            if (address != null && !person.getAddress().toString().toLowerCase().contains(address))
+            if (address != null && !person.getAddress().toString().toLowerCase().contains(address)) {
                 ifExcluded = true;
+            }
 
-            if (tagList != null) {
-                for (String skill : tagList) {
+            if (skillList != null) {
+                for (String skill : skillList) {
                     if (!person.isTagExist(skill)) {
                         ifExcluded = true;
                         break;
                     }
                 }
+            }
+
+            if (posList != null) {
+                for (String pos : posList) {
+                    if (!person.isTagExist(pos)) {
+                        ifExcluded = true;
+                        break;
+                    }
+                }
+            }
+
+            if (education != null && !person.getEducation().toString().toLowerCase().contains(education)) {
+                ifExcluded = true;
+            }
+
+            if (gpa != null && Float.parseFloat(gpa) > Float.parseFloat(person.getGpa().toString())) {
+                ifExcluded = true;
             }
 
             if (ifExcluded) {
@@ -194,34 +226,65 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
-    public void filterOr(String name, String phone, String email, String address, String[] tagList) {
+    /**
+     * Makes the filtering process according to or command
+     */
+    public void filterOr(String name, String phone, String email, String address, String[] skillList,
+                         String[] posList, String gpa, String education) {
 
-        filterExist = true;
+        isFilterExist = true;
         List<Person> listToRemove = new ArrayList();
 
         for (Person person : persons) {
 
             boolean ifIncluded = false;
 
-            if (name != null && person.getName().toString().toLowerCase().contains(name))
+            if (name != null && person.getName().toString().toLowerCase().contains(name)) {
                 ifIncluded = true;
+            }
 
-            if (phone != null && person.getPhone().toString().toLowerCase().contains(phone))
+            if (phone != null && person.getPhone().toString().toLowerCase().contains(phone)) {
                 ifIncluded = true;
+            }
 
-            if (email != null && person.getEmail().toString().toLowerCase().contains(email))
+            if (email != null && person.getEmail().toString().toLowerCase().contains(email)) {
                 ifIncluded = true;
+            }
 
-            if (address != null && person.getAddress().toString().toLowerCase().contains(address))
+            if (address != null && person.getAddress().toString().toLowerCase().contains(address)) {
                 ifIncluded = true;
+            }
 
-            if (tagList != null) {
-                for (String skill : tagList) {
+            if (skillList != null) {
+                for (String skill : skillList) {
                     if (person.isTagExist(skill)) {
                         ifIncluded = true;
                         break;
                     }
                 }
+            }
+
+            if (posList != null) {
+                for (String pos : posList) {
+                    if (person.isTagExist(pos)) {
+                        ifIncluded = true;
+                        break;
+                    }
+                }
+            }
+
+            if (education != null && person.getEducation().toString().toLowerCase().contains(education)) {
+                ifIncluded = true;
+            }
+
+            if (gpa != null) {
+                System.out.println("Gpa will be printed!");
+                System.out.println(Float.parseFloat(gpa));
+                System.out.println(Float.parseFloat(person.getGpa().toString()));
+            }
+
+            if (gpa != null && Float.parseFloat(gpa) <= Float.parseFloat(person.getGpa().toString())) {
+                ifIncluded = true;
             }
 
             if (!ifIncluded) {
@@ -233,9 +296,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         indicateModified();
     }
 
+    /**
+     * Clears the filter
+     */
     public void clearFilter() {
 
-        if (filterExist) {
+        if (isFilterExist) {
             for (Person person : allPersonsStorage) {
                 if (!persons.contains(person)) {
                     persons.add(person);
@@ -245,7 +311,35 @@ public class AddressBook implements ReadOnlyAddressBook {
             indicateModified();
         }
 
-        filterExist = false;
+        isFilterExist = false;
+    }
+
+    /**
+     * gets filter info
+     */
+    public boolean getFilterInfo() {
+        return isFilterExist;
+    }
+
+    /**
+     * sets filter info
+     */
+    public void setFilterInfo(boolean status) {
+        isFilterExist = status;
+    }
+
+    /**
+     * gets sort info
+     */
+    public boolean getSortInfo() {
+        return sortingExist;
+    }
+
+    /**
+     * sets sort info
+     */
+    public void setSortInfo(boolean status) {
+        sortingExist = status;
     }
 
     @Override

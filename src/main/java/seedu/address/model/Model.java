@@ -131,12 +131,34 @@ public interface Model {
     /**
      * Applies filtering and chooses the persons that pass all the conditions
      */
-    void filterAnd(String name, String phone, String email, String address, String[] tagList);
+    void filterAnd(String name, String phone, String email, String address, String[] skillList,
+                   String[] posList, String gpa, String education);
 
     /**
      * Applies filtering and chooses the persons that pass at least one of the conditions
      */
-    void filterOr(String name, String phone, String email, String address, String[] tagList);
+    void filterOr(String name, String phone, String email, String address, String[] skillList,
+                  String[] posList, String gpa, String education);
+
+    /**
+     * gets if filtering is active in current situation
+     */
+    boolean getFilterInfo();
+
+    /**
+     * sets the filtering situation
+     */
+    void setFilterInfo(boolean status);
+
+    /**
+     * gets if sorting is active in current situation
+     */
+    boolean getSortInfo();
+
+    /**
+     * sets the sorting situation
+     */
+    void setSortInfo(boolean status);
 
     /**
      * Selected person in the filtered person list.

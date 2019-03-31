@@ -2,7 +2,10 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.model.tag.SkillsTag;
 
@@ -17,6 +20,12 @@ public class Person {
     private final Phone phone;
     private final Email email;
 
+    // new identity fields
+    private final Education education;
+    private final Gpa gpa;
+
+    //private final Skills skills;
+
     // Data fields
     private final Address address;
     private final LinkedHashSet<SkillsTag> tags = new LinkedHashSet<>();
@@ -24,11 +33,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<SkillsTag> tags) {
+    public Person(Name name, Phone phone, Email email, Education education, Gpa gpa, Address address,
+                  Set<SkillsTag> tags) {
+
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.education = education;
+        this.gpa = gpa;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -43,6 +56,14 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Education getEducation() {
+        return education;
+    }
+
+    public Gpa getGpa() {
+        return gpa;
     }
 
     public Address getAddress() {
@@ -62,8 +83,10 @@ public class Person {
      */
     public boolean isTagExist(String tag) {
 
-        for(SkillsTag skill : tags) {
-            if(skill.tagName.toLowerCase().contains(tag)) return true;
+        for (SkillsTag skill : tags) {
+            if (skill.tagName.toLowerCase().contains(tag)) {
+                return true;
+            }
         }
 
         return false;
@@ -108,7 +131,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, education, address, tags);
     }
 
     @Override
@@ -119,6 +142,10 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Education: ")
+                .append(getEducation())
+                .append(" Gpa: ")
+                .append(getGpa())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

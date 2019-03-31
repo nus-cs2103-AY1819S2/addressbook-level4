@@ -28,8 +28,8 @@ Recruit Me is an application for keeping all your company's applicants in a conc
 Only Java 9 is supported. +
 
 +
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]

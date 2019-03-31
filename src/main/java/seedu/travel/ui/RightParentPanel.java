@@ -1,8 +1,9 @@
 package seedu.travel.ui;
 
+import java.util.function.Consumer;
+import java.util.logging.Logger;
+
 import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -12,10 +13,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.travel.commons.core.LogsCenter;
 import seedu.travel.model.place.Place;
-
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of places.
@@ -38,7 +35,7 @@ public class RightParentPanel extends UiPart<Region> {
 
         chartDisplayed.addListener((observable, oldValue, newValue) -> {
             // display the chart
-            logger.info("old Value"+oldValue+"New value "+newValue);
+            logger.info("old Value" + oldValue + "New value " + newValue);
             if (newValue) {
                 // pass through
                 logger.info("SimpleBooleanValue Changed");

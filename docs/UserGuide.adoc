@@ -29,7 +29,7 @@ FomoFoto is a image processing software suite written in Java. This application 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 .Home Page of FomoFoto
-image::Ui.png[width="790"]
+image::Ui.PNG[width="800"]
 +
 .  And you have just started up FomoFoto on your device! You can refer to <<Features>> for details of each command. If you would like a step-by-step walk through of our application, scroll down to the next section: A Walk Through.
 

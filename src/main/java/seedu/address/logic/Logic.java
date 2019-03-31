@@ -71,9 +71,9 @@ public interface Logic {
     ReadOnlyProperty<String> textShownProperty();
 
     /**
-     * Current studyState in the StudyView
+     * Current StudyState in the StudyView
      */
-    ReadOnlyProperty<StudyView.studyState> studyStateProperty();
+    ReadOnlyProperty<StudyView.StudyState> studyStateProperty();
 
     /**
      * Current userAnswer

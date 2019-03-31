@@ -1,14 +1,11 @@
 package seedu.address.logic;
 
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.deck.Card;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.UniqueCardList;
 
 /**
  * Shuffles the deck for study session.

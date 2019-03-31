@@ -30,10 +30,12 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         if (model.isAtDecksView()) {
-            ((DecksView)viewState).updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
+            DecksView decksView = (DecksView) viewState;
+            decksView.updateFilteredList(PREDICATE_SHOW_ALL_DECKS);
             return new CommandResult(MESSAGE_DECK_SUCCESS);
         } else {
-            ((CardsView)viewState).updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
+            CardsView cardsView = (CardsView) viewState;
+            cardsView.updateFilteredList(PREDICATE_SHOW_ALL_CARDS);
             return new CommandResult(MESSAGE_CARD_SUCCESS);
         }
 

@@ -17,7 +17,7 @@ public class ImportCommand extends Command {
 
 
     public static final String COMMAND_WORD = "import";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports a .json file containing "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": imports a .csv file containing "
             + "card folders information.\n"
             + "File imported must have a .csv extension.\n"
             + "Default file path if not specified will be in the root folder of this application\n"

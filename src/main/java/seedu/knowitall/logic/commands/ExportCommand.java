@@ -22,7 +22,7 @@ public class ExportCommand extends Command {
             + " their respective .csv files.\n"
             + "Parameters: INDEX (Index specifies the card folder index to export) \n"
             + "Can specify more than one card folder index to export\n"
-            + "Example: " + COMMAND_WORD + "1 3 5 7";
+            + "Example: " + COMMAND_WORD + " 1 3 5 7";
 
     public static final String MESSAGE_SUCCESS = "Successfully exported card folders";
 

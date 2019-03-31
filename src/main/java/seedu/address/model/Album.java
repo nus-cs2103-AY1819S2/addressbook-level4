@@ -1,5 +1,4 @@
 /* @@author Carrein */
-
 package seedu.address.model;
 
 import java.io.File;
@@ -9,9 +8,7 @@ import java.util.List;
 import seedu.address.model.image.Image;
 
 /**
- * Represents an album of images.
- * Uses singleton pattern to
- * ensure only a
+ * Represents an album of images. Uses singleton pattern to ensure only a
  * single instance of Album is available.
  */
 public class Album {

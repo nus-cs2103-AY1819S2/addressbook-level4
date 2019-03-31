@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_UNABLE_TO_SAVE;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
@@ -26,7 +25,7 @@ public class SaveCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
+    public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
         requireNonNull(currentEdit);
 
         // Check to be shifted if possible.

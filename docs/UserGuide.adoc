@@ -188,7 +188,7 @@ Format: `redo`
 
 [NOTE]
 ====
-Redoable commands: those commands that modify the image (`rotate`, `crop`, `brightness`, `contrast` and `bw`).
+Redoable commands: those commands that modify the image (`rotate`, `crop`, `resize`, `brightness`, `contrast` and `bw`).
 ====
 
 Examples:
@@ -213,6 +213,15 @@ Format: `rotate ANGLE`
 Example:
 
 * `rotate 90`
+
+=== Resize an image : `resize`
+
+Resize the photo to a given width and height provided by the user. +
+Format: `resize WIDTH HEIGHT`
+
+Example:
+
+* `resize 100 200`
 
 === Save image : `save`
 
@@ -277,6 +286,9 @@ e.g. `open sample.jpg` +
 
 * *Rotate* `rotate ANGLE` +
 e.g. `rotate 270` +
+
+* *Resize* `resize WIDTH HEIGHT` +
+e.g. `resize 100 200` +
 
 * *Save* `save` or `save FILENAME` +
 e.g. `save MyNewImage.png` +

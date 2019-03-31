@@ -16,7 +16,6 @@ import java.util.Collections;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -31,7 +30,6 @@ public class FindCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private CurrentEdit currentEdit = new CurrentEditManager();
-    private Album album = new Album();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -67,7 +65,7 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, currentEdit, album);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, currentEdit);
         assertEquals(Collections.emptyList(), model.getFilteredPersonList());
     }
 
@@ -77,7 +75,7 @@ public class FindCommandTest {
         NameContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
-        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, currentEdit, album);
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel, currentEdit);
         assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredPersonList());
     }
 

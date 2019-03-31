@@ -11,7 +11,6 @@ import com.sksamuel.scrimage.filter.ContrastFilter;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
@@ -43,7 +42,7 @@ public class ContrastCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history)
+    public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history)
         throws CommandException {
         seedu.address.model.image.Image initialImage = currentEdit.getTempImage();
 

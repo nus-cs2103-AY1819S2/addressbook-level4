@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Image's width in the address book.
+ * Represents a Image's width in FomoFoto's Album.
  * Guarantees: immutable; is valid as declared in {@link #isValidWidth(String)}
  */
 public class Width {

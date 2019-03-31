@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.CurrentEditManager;
 import seedu.address.model.Model;
@@ -25,13 +24,11 @@ public class AddCommandIntegrationTest {
     private Model model;
     private CommandHistory commandHistory = new CommandHistory();
     private CurrentEdit currentEdit;
-    private Album album;
 
     @Before
     public void setUp() {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         currentEdit = new CurrentEditManager();
-        album = new Album();
     }
 
     @Test
@@ -43,14 +40,14 @@ public class AddCommandIntegrationTest {
         expectedModel.commitAddressBook();
 
         assertCommandSuccess(new AddCommand(validPerson), model, commandHistory,
-                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel, currentEdit, album);
+                String.format(AddCommand.MESSAGE_SUCCESS, validPerson), expectedModel, currentEdit);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person personInList = model.getAddressBook().getPersonList().get(0);
         assertCommandFailure(new AddCommand(personInList), model, commandHistory,
-                AddCommand.MESSAGE_DUPLICATE_PERSON, currentEdit, album);
+                AddCommand.MESSAGE_DUPLICATE_PERSON, currentEdit);
     }
 
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 
@@ -20,7 +19,7 @@ public class HistoryCommand extends Command {
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album, Model model, CommandHistory history) {
+    public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
         requireNonNull(history);
         ArrayList<String> previousCommands = new ArrayList<>(history.getHistory());
 

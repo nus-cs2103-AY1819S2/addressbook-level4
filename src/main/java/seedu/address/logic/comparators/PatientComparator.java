@@ -100,6 +100,47 @@ public class PatientComparator {
         }
     };
 
+    /**
+     *  Comparator to sort via NextOfKin's Name.
+     */
+    private static Comparator<Patient> compPatientKinName = new Comparator<Patient>() {
+        @Override
+        public int compare(Patient p1, Patient p2) {
+            return p1.getNextOfKin().getName().toString().compareTo(p2.getNextOfKin().getName().toString());
+        }
+    };
+
+    /**
+     *  Comparator to sort via NextOfKin's Relation
+     */
+    private static Comparator<Patient> compPatientKinRelation = new Comparator<Patient>() {
+        @Override
+        public int compare(Patient p1, Patient p2) {
+            return p1.getNextOfKin().getKinRelation().toString()
+                .compareTo(p2.getNextOfKin().getKinRelation().toString());
+        }
+    };
+
+    /**
+     *  Comparator to sort via NextOfKin's Phone
+     */
+    private static Comparator<Patient> compPatientKinPhone = new Comparator<Patient>() {
+        @Override
+        public int compare(Patient p1, Patient p2) {
+            return p1.getNextOfKin().getPhone().toString().compareTo(p2.getNextOfKin().getPhone().toString());
+        }
+    };
+
+    /**
+     *  Comparator to sort via NextOfKin's Address.
+     */
+    private static Comparator<Patient> compPatientKinAddress = new Comparator<Patient>() {
+        @Override
+        public int compare(Patient p1, Patient p2) {
+            return p1.getNextOfKin().getAddress().toString().compareTo(p2.getNextOfKin().getAddress().toString());
+        }
+    };
+
     public static Comparator<Patient> getPatientComparator(String parameterType) throws ParseException {
         Comparator<Patient> paComp;
         switch (parameterType.trim()) {
@@ -141,15 +182,19 @@ public class PatientComparator {
             break;
 
         case "kinN":
+            paComp = compPatientKinName;
             break;
 
         case "kinR":
+            paComp = compPatientKinRelation;
             break;
 
         case "kinP":
+            paComp = compPatientKinPhone;
             break;
 
         case "kinA":
+            paComp = compPatientKinAddress;
             break;
 
         default:

@@ -24,7 +24,7 @@ public class VisitWebCommand extends Command {
             + "or you can simply type any url to display it on our browser!"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Parameters: URL (must be a valid URL)\n"
-            + "Example: " + COMMAND_WORD + " 1"
+            + "Example: " + COMMAND_WORD + " 1\n"
             + "Example: " + COMMAND_WORD + " www.jollibee.com.ph";
 
 

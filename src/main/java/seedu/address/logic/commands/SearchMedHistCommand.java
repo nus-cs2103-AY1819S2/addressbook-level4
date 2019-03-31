@@ -1,18 +1,17 @@
-/*package seedu.address.logic.commands;
+package seedu.address.logic.commands;
+
+import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.person.PatientNameContainsKeywordsPredicate;
-
-import static java.util.Objects.requireNonNull;
-*/
+import seedu.address.model.medicalhistory.MedHistContainsKeywordsPredicate;
 
 /**
  * Searches and lists all medical histories in docX record whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
-/*
+
 public class SearchMedHistCommand extends Command {
 
     public static final String COMMAND_WORD = "search-med-hist";
@@ -22,25 +21,24 @@ public class SearchMedHistCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " fever";
 
-    private final PatientNameContainsKeywordsPredicate predicate;
+    private final MedHistContainsKeywordsPredicate predicate;
 
-    public SearchPatientCommand(PatientNameContainsKeywordsPredicate predicate) {
+    public SearchMedHistCommand(MedHistContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPatientList(predicate);
+        model.updateFilteredMedHistList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PATIENTS_LISTED_OVERVIEW, model.getFilteredPatientList().size()));
+                String.format(Messages.MESSAGE_MEDHISTS_LISTED_OVERVIEW, model.getFilteredMedHistList().size()));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SearchPatientCommand // instanceof handles nulls
-                && predicate.equals(((SearchPatientCommand) other).predicate)); // state check
+                || (other instanceof SearchMedHistCommand // instanceof handles nulls
+                && predicate.equals(((SearchMedHistCommand) other).predicate)); // state check
     }
 }
-*/

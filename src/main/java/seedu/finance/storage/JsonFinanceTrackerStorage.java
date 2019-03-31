@@ -12,7 +12,9 @@ import seedu.finance.commons.exceptions.DataConversionException;
 import seedu.finance.commons.exceptions.IllegalValueException;
 import seedu.finance.commons.util.FileUtil;
 import seedu.finance.commons.util.JsonUtil;
+import seedu.finance.model.FinanceTracker;
 import seedu.finance.model.ReadOnlyFinanceTracker;
+import seedu.finance.model.util.SampleDataUtil;
 
 /**
  * A class to access FinanceTracker data stored as a json file on the hard disk.

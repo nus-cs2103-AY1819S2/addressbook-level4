@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -15,7 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.finance.MainApp;
 import seedu.finance.commons.core.LogsCenter;
-import seedu.finance.model.record.Amount;
+import seedu.finance.model.budget.Budget;
 import seedu.finance.model.record.Record;
 
 /**
@@ -35,33 +34,34 @@ public class BrowserPanel extends UiPart<Region> {
     private WebView browser;
 
     @FXML
-    private Label budget;
+    private Label totalBudget;
 
-    public BrowserPanel(ObservableValue<Record> selectedRecord, ObjectProperty<Amount> budgetData) {
+    @FXML
+    private Label currentBudget;
+
+    public BrowserPanel(ObservableValue<Record> selectedRecord, Budget budget) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         getRoot().setOnKeyPressed(Event::consume);
 
-        //this.budget.textProperty().setValue("No Budget Yet");
-        /*budgetData.addListener((observable, oldValue, newValue) -> {
-            this.budget.textProperty().setValue(newValue.toString());
-        });*/
+        updateBudget(budget);
 
         // Load record page when selected record changes.
         selectedRecord.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                loadDefaultPage();
+                //loadDefaultPage();
                 return;
             }
-            loadRecordPage(newValue);
+            //loadRecordPage(newValue);
         });
-
-        loadDefaultPage();
     }
 
-    private void loadRecordPage(Record record) {
-        loadPage(SEARCH_PAGE_URL + record.getName().fullName);
+    public void updateBudget(Budget budget) {
+        String totalBudgetString = String.format("%.2f", budget.getTotalBudget());
+        String currentBudgetString = String.format("%.2f", budget.getCurrentBudget());
+        this.totalBudget.textProperty().setValue("Total Budget: " + totalBudgetString);
+        this.currentBudget.textProperty().setValue("Current Budget: " + currentBudgetString);
     }
 
     public void loadPage(String url) {

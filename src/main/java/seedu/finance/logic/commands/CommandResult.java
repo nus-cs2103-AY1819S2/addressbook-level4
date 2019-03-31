@@ -20,6 +20,9 @@ public class CommandResult {
     /** The application will change theme **/
     private boolean changeTheme;
 
+    /** The application will update budget **/
+    private boolean changeBudget;
+
     private String themeToChange;
     /**
      * Constructs a {@code CommandResult} with the specified fields.
@@ -37,8 +40,9 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      * For changing of theme
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean changeBudget, boolean showHelp, boolean exit) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.changeBudget = changeBudget;
         this.showHelp = showHelp;
         this.exit = exit;
     }
@@ -48,7 +52,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false);
     }
 
     public String getThemeToChange() {
@@ -69,6 +73,10 @@ public class CommandResult {
 
     public boolean isSwitchTheme() {
         return changeTheme;
+    }
+
+    public boolean isChangeBudget() {
+        return changeBudget;
     }
 
     @Override

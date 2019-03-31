@@ -55,7 +55,7 @@ public class SpendCommand extends Command {
 
         model.addRecord(toSpend);
         model.commitFinanceTracker();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toSpend));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toSpend), true, false, false);
     }
 
     @Override

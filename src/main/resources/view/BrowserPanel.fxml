@@ -4,7 +4,16 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.web.WebView?>
 
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
 <StackPane xmlns:fx="http://javafx.com/fxml/1">
   <WebView fx:id="browser"/>
-  <!--<Label fx:id="budget" styleClass="cell_small_label" text="\$budget" />-->
+  <VBox alignment="CENTER" minHeight="50">
+    <padding>
+      <Insets top="5" right="5" bottom="5" left="15" />
+    </padding>
+    <Label fx:id="currentBudget" styleClass="cell_small_label" text="\$currentBudget" />
+    <Label fx:id="totalBudget" styleClass="cell_small_label" text="\$totalBudget" />
+  </VBox>
 </StackPane>

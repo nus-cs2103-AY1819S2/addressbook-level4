@@ -169,6 +169,7 @@ image::uioverview.png[width="800"]
 2. `userInput` is where the user can enter their commands
 3. should the command fail due to erroneous command input, instructions to rectify the command will be displayed on the `InputFeedback`
 4. Appointments and Reminders are displayed on the `ReminderListPanel`
+5. Current consultation sessions will be indicated on this `currentSession` label.
 
 The `UI` component uses JavaFx UI framework. RootLayout is defined in the matching `.fxml` file that are in link:{repoURL}/src/main/resources/view[src/main/resources/view] folder.
 
@@ -576,9 +577,6 @@ There is no room for arrangements of medicine.
 
 |===
 // tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
@@ -1147,7 +1145,7 @@ Use case resumes at step 9.
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 patients without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Response time for commands should be below 3 seconds so that consultations can be expedited
 .  Commands should be easy to pick up for novice users, and convenient for expert users.
@@ -1162,23 +1160,6 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

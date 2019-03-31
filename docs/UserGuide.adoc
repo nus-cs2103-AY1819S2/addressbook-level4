@@ -84,7 +84,10 @@ Format: `help`
 {nbsp} +
 
 === Patient Management
-[[padd, Add patient]]
+The Patient Management module features commands involving the registration, update, searching
+and removal of patient records in QuickDocs.
+
+Using just a few keystrokes, you can manage your patient records in a more organized and efficient manner.
 
 {nbsp} +
 
@@ -220,7 +223,7 @@ You can make use of the index number to view specific patient records as well.
 {nbsp} +
 
 [[deletepat, Delete patient]]
-==== Patient Management - deleting patient `deletepat`
+==== Deleting patient `deletepat`
 
 When a patient is no longer visiting your clinic (i.e. moved residency), you can choose to remove their details from QuickDocs.
 
@@ -236,49 +239,101 @@ This will delete the patient with the NRIC you have specified.
 {nbsp} +
 
 === Consultation Management
+
+With QuickDocs, you no longer need to navigate to different menus just to record symptoms of the patient's illness, or assigning medicine to tackle
+the patient's current condition.
+
+Using the Consultation Management module, you can now handle the prescription and diagnosis stages of each consultation session
+in one go.
+
 [[consult, Start consultation]]
-==== Start consultation: `consult` or `c`
+==== Start consultation: `consult`
 
-Start a consultation session. You will be able to add a diagnosis and prescription for the patient subsequently. +
-Format: `consult r/NRIC`
+After a patient is registered, whenever he or she visits your clinic, you can start recording the diagnosis and medicine prescribed by starting a
+consultation session on QuickDocs.
 
-Example:
+Consultation is started after the NRIC of the patient is provided, you can revisit the <<listpat>> section to help identify the NRIC
+of specific patients +
 
-* `consult r/S9737162C` +
-  Start a consultation session for patient with NRIC: S9737162C.
+*Format:* `consult r/NRIC` +
+*Alias:* `c`
+
+*Example:*
+
+* `consult r/S9876542C` +
+
+image::consult_after.png[width="600" align="center"]
+
+Once you started a consultation session for the patient, a message will be displayed on the main display area to indicate that the consultation session
+have started for the current patient. A text indicating that the consultation session have started for the particular patient will also
+appear at the bottom right corner of QuickDocs, so that you will be aware that a current consultation session is ongoing even after
+subsequent commands.
+
+{nbsp} +
 
 [[diagnose, Diagnose patient]]
-==== Diagnosing a patient: `diagnose` or `d`
+==== Diagnosing a patient: `diagnose`
 
-Record the patient's symptom and the assessment for the illness to the current consultation session. You can enter the command again to override the current existing diagnosis. +
+After the consultation session has began, you can start recording the patient's ailments. The various symptoms the patients have can be recorded down,
+along with the final assessment of the illness the patient is currently having.
 
-A minimum of one assessment and one symptom is required to record the diagnosis. +
-
-Format: `diagnose s/SYMPTOM [s/SYMPTOM] ... a/ASSESSMENT`
-
-Example:
-
-* `diagnose s/runny nose s/sore throat a/flu` +
-   Assessment of patient's illness to be flu, and the symptoms are runny nose and sore throat. +
+To complete the diagnosis, the record must have one assessment and at least one symptom.
 
 [NOTE]
 This command requires you to have a consultation session already active. See: <<consult>>.
 
+*Format:* `diagnose s/SYMPTOM [s/SYMPTOM] ... a/ASSESSMENT` +
+*Alias:* `d`
+
+*Example:*
+
+* `diagnose s/runny nose s/sore throat s/phlegmy cough a/influenza` +
+
+image::diagnose_before.png[width="600" align="center"]
+
+The order of symptoms and assessment does not matter here. You record as many symptoms per diagnosis.
+
+*Results:*
+
+image::diagnose_after.png[width="600" align="center"]
+
+After entering the command, the display will show the symptoms and assessment recorded.
+
+image::diagnose_edit_after.png[width="600" align="center"]
+
+If you made a mistake when entering the diagnosis, you can always rectify it by reentering the `diagnose` command with the correct
+symptoms and assessment. This will replace the current erroneous diagnosis with the one you have just entered.
+
+[TIP]
+Whenever you make a mistake entering a command, you can always press the UP and DOWN buttons on your keyboard to cycle through the past
+commands you have entered into QuickDocs. This allow you to easily navigate to the erroneous command you have entered, make changes and then reenter
+the command again to rectify your errors.
+
+{nbsp} +
+
 [[prescribe, Prescribe medicine]]
 ==== Prescribing a patient: `prescribe` or `p`
 
-Record the medicine prescribed to the patient and its quantity. You can re-enter the command to override current prescription. +
+After you are done recording the symptoms and assessing the illness of the patient, you can start prescribing medicine to your patient.
+
+For each medicine prescribed, the quantity must be specified. Like the <<diagnose>> command, you can always reenter the command to override
+the current prescription should there be any errors made.
 
 A minimum of one medicine and one quantity is required to record a prescription entry. The order of quantity entered corresponds to the order of the medicine entered. +
 
-Format: +
+[NOTE]
+This command requires you to have a consultation session already active. See: <<consult>>.
+
+*Format:* +
 `prescribe m/MEDICINE [m/MEDICINE] ... q/QUANTITY [q/QUANTITY]` +
 
 or
 
-`prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...`
+`prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
 
-Example:
+*Alias:* `p`
+
+*Example:*
 
 * `prescribe m/penicillin q/1 m/Afrin spray q/1 m/ibuprofen q/2` +
    Prescription now consist of 1 unit of penicillin, 1 unit of afrin spray and 2 units of ibuprofen.
@@ -286,39 +341,70 @@ Example:
 * `prescribe m/penicillin m/Afrin spray m/ibuprofen q/1 q/1 q/2` +
    Same as above example, quantity ordered based on medicine order.
 
-[NOTE]
-This command requires you to have a consultation session already active. See: <<consult>>.
+*Results:*
+
+image::prescription_after.png[width="600" align="center"]
+
+After the medicine-quantity pairings are entered, the prescription to address the patient's current condition will be displayed on the main display
+area of QuickDocs. Changes can still be made to the prescription as long as the consultation session is still ongoing.
+
+{nbsp} +
 
 [[endconsult, End consultation]]
-==== End consultation: `endconsult` or `ep`
+==== End consultation: `endconsult`
 
-End the current consultation session, no further changes to diagnosis and prescription will be permitted. +
+Once the diagnosis and prescription are finalized, you can end the consultation with a simple `endconsult` command.
+No further changes to the diagnosis and prescription details can be made after this point.+
 
 Format: `endconsult` +
+Alias: `ec`
+
+*Results:*
+
+image::endconsult.png[width="600" align="center"]
+
+Notice that the label for the ongoing consultation session is removed once this command is entered. A message to indicate
+the end of the consultation session is also shown on the main display area.
+
+{nbsp} +
 
 [[listconsult, List consultations]]
 ==== List consultation: `listconsult` or `lc`
 
-List consultation records belonging to a single patient, or display the details of
-a single consultation record through its index. +
+Whenever you want to revisit a specific consultation record, you can filter it down by the patient before narrowing it down
+to the specific session.
 
-Format: +
+You can use QuickDocs to list out all the past consultation sessions of a single patient by first specifying his or her NRIC,
+and then view the consultation details by passing in the session's index. +
+
+
+*Format:* +
 `listconsult INDEX` +
 
 or +
 
-`listconsult r/NRIC`
+`listconsult r/NRIC` +
 
-Example:
+*Alias:* `lc` +
 
-* `listconsult 33` +
-Searches for record #33, display time of the consultation, diagnosis and prescription given to the patient.
+*Examples:*
 
-* `listconsult r/S7534436H` +
-Display a list of consultation records belonging to patient with NRIC S7534436H,
-along with their index which can be used to display actual consultation details.
+* `listconsult r/S9876542C` +
 
+image::listconsult_after.png[width="600" align="center"]
 
+Display a list of consultation records belonging to patient with NRIC S9876542C.
+The index of the consultation record will be shown, and you can call `listconsult`
+again, with the index, to view the specific consultation session details.
+
+* `listconsult 1` +
+
+image::listconsult_index.png[width="600" align="center"]
+
+The consultation session detail stored in QuickDoc's first index will be shown.
+QuickDocs will display the time of the consultation, and also the diagnosis and prescription given to the patient.
+
+{nbsp} +
 
 === Medicine Management
 [[addMed, Add medicine]]

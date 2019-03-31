@@ -37,8 +37,15 @@ import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.logic.commands.TaskCalendarCommand;
 import seedu.address.logic.commands.TaskDeleteCommand;
 import seedu.address.logic.commands.TaskEditCommand;
+<<<<<<< HEAD
 import seedu.address.logic.commands.TaskCopyCommand;
 import seedu.address.logic.commands.TeethEditCommand;
+||||||| merged common ancestors
+import seedu.address.logic.commands.TaskcopyCommand;
+=======
+import seedu.address.logic.commands.TaskcopyCommand;
+import seedu.address.logic.commands.TeethEditCommand;
+>>>>>>> 65d0b783941c6ac34db4849964fec51cf0db48fc
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CalendarWindow;
@@ -181,6 +188,12 @@ public class AddressBookParser {
 
         case TaskCopyCommand.COMMAND_WORD:
             return new TaskCopyCommandParser().parse(arguments);
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
+
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

@@ -49,11 +49,11 @@ public class CustomerCard extends UiPart<Region> {
         name.setText(customer.getName().toString());
         phone.setText("Phone: " + customer.getPhone().toString());
         dob.setText(customer.getDateOfBirth().toString().equals("")
-                ? "Date of Birth: Not provided" : "Date of Birth: " + customer.getDateOfBirth().value);
+            ? "Date of Birth: Not provided" : "Date of Birth: " + customer.getDateOfBirth().value);
         identificationNo.setText("Identification no: " + customer.getIdNum().value);
         address.setText(customer.getAddress().toString().equals("")
-                ? "Address: Not provided" : "Address: " +customer.getAddress().toString());
-        email.setText("Email:" + customer.getEmail().toString());
+            ? "Address: Not provided" : "Address: " + customer.getAddress().toString());
+        email.setText("Email: " + customer.getEmail().toString());
         customer.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

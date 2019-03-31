@@ -43,4 +43,6 @@ public interface CurrentEdit {
     void updateExif();
 
     void openImage(Image image);
+
+    void clearTemp();
 }

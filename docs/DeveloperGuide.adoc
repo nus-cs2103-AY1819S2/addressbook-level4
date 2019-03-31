@@ -605,10 +605,10 @@ The following sequence diagram shows how the `save` command works:
 ==== Design Considerations
 * *Alternative 1*: User must input a string to name the the new image.
 ** Pros: Name of the new image is clear to the user.
-** Cons: Tedious for user to type in a name each time save is performed.
+** Cons: Tedious for user to type in a name each time `save` is performed.
 
 * *Alternative 2 (current choice)* : User can choose to input a string to name the new image or overwrite the opened image.
-** Pros: Convenient for user to save quickly without having to type a new name everytime.
+** Pros: Convenient for user to `save` quickly without having to type a new name everytime.
 ** Cons: User may unintentionally overwrite the opened image.
 
 === Logging

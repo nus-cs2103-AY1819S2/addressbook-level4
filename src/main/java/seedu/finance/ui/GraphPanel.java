@@ -16,9 +16,9 @@ import seedu.finance.commons.events.ShowGraphRequestEvent;
  * The Graph Panel of the App.
  */
 public class GraphPanel extends UiPart<Region> {
-    public static final String DEFAULT_PAGE = "https://cyrusguo.github.io/web/index.html?";
-    public static final String SEARCH_PAGE_URL =
-            "https://cyrusguo.github.io/web/index.html?";
+    //Not sure about the page urls, KIV most likely have to edit again
+    public static final String DEFAULT_PAGE = "main/docs/GraphPage.html";
+    public static final String SEARCH_PAGE_URL = "main/docs/GraphPage.html";
 
     private static final String FXML = "BrowserPanel.fxml";
 

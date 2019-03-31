@@ -22,7 +22,7 @@ Welcome to the _MediTabs User Guide_. You can find step by step instructions on 
 
 === What is MediTabs?
 
-MediTabs is a desktop application for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock and which medicines are expiring soon.
+MediTabs is a desktop application for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock, expiring soon or have expired.
 
 MediTabs supports Windows, Linux and MacOS operating systems.
 
@@ -61,6 +61,7 @@ image::UserGuide_Components.png[width="1000"]
 * You may refer to <<Commands Summary>> for a list of all possible commands.
 
 *Result Display*
+
 * The result of the command will be displayed in the Result Display.
 * If commands are entered incorrectly, error messages will be shown here.
 
@@ -287,7 +288,7 @@ A sample image of how the medicine inventory data in the exported CSV file is or
 image::SampleCSVFileImage.png[width="790"]
 
 [NOTE]
-From the image above, you can observe that different batches of the same medicine have their own row in the CSV file. This provides more detailed information on the quantity and expiry date for each batch of the same medicine as different batches of the same medicine can have different expiry dates and quantity. Furthermore, the CSV file also includes information such as which medicines are low in stock, which medicines are expiring soon or have expired for easier reference.
+From the image above, you can observe that different batches of the same medicine have their own row in the CSV file. This provides more detailed information on the quantity and expiry date for each batch of the same medicine as different batches of the same medicine can have different expiry dates and quantity. Furthermore, the CSV file also includes information such as which medicines are low in stock, expiring soon or have expired for easier reference.
 
 [IMPORTANT]
 You would observe that medicines without any batches are not included in the exported CSV file though they might be present in the current medicine inventory data shown in the GUI. This is by design, as our team believes that the exported CSV file should provide *useful detailed information*. Medicines without any batches would not have any useful information such as the quantity and expiry dates which are important when it comes to keeping track of your medicine inventory.
@@ -403,6 +404,26 @@ When typing fields that include medicine name, a list of suggested medicine name
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows to select from the generated list of suggestions.
 ====
+
+=== Integration Addon Support `[coming in v2.0]`
+
+You can download and install integration addons created for MediTabs such as addons which allows MediTabs to integrate with different third party services which your clinic might currently be using. +
+Format: `install an/NAME_OF_ADDON`
+
+[NOTE]
+Only integration addons that have been verified by our team can be downloaded and installed in MediTabs. This is to ensure that the addons downloaded and installed in MediTabs are secure and have no malicious code. This is to ensure the security which MediTabs provides would not be compromise as security is an important factor due to the increasing threat with regards to cybersecurity.
+
+Benefits of integration addon support are as follows:
+
+* Provides greater flexibility as your clinic might have different third party services which you might want to integrate with to allow for easier transition between services.
+* Allows you to customise MediTabs with features that your clinic requires without any unnecessary features which might not be relevant to your clinic's workflow.
+
+An example of an integration addon which would be supported by MediTabs:
+
+* Singapore's Health Science Authority (HSA) - To integrate the Singapore HSA's medical database with MediTabs which allows easy retrieval of important information such as when a medicine is requested to be recalled by the HSA.
+
+[NOTE]
+This feature could be further expanded to support medical databases of different countries.
 
 === Saving the data
 

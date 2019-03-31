@@ -5,21 +5,25 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.FindCommand.FindModuleDescriptor;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 /**
- * Tests that a module matches all description given.
+ * Tests that a {@code ModuleTaken} matches all description given.
  */
 public class FindModulePredicate implements Predicate<ModuleTaken> {
 
     private final FindModuleDescriptor findModuleDescriptor;
     private final Semester currentSemester;
+    private final Logger logger;
 
     public FindModulePredicate(FindModuleDescriptor findModuleDescriptor, Semester currentSemester) {
         requireAllNonNull(findModuleDescriptor, currentSemester);
         this.findModuleDescriptor = findModuleDescriptor;
         this.currentSemester = currentSemester;
+        this.logger = LogsCenter.getLogger(getClass());
     }
 
     @Override
@@ -48,6 +52,7 @@ public class FindModulePredicate implements Predicate<ModuleTaken> {
                 && (module.isFinished(currentSemester) != isFinished.get())) {
             return false;
         }
+        logger.fine(moduleCode.toString() + " found");
 
         return true;
     }

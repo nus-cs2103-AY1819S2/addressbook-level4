@@ -19,6 +19,7 @@ import seedu.address.model.course.RequirementStatus;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.recmodule.RecModule;
 import seedu.address.storage.Storage;
 import seedu.address.storage.UserInfoStorage;
 
@@ -148,5 +149,10 @@ public class LogicManager implements Logic {
         return model.getModuleInfoCodeList();
     }
 
+
+    @Override
+    public ObservableList<RecModule> getRecModuleListSorted() {
+        return model.getRecModuleListSorted();
+    }
 
 }

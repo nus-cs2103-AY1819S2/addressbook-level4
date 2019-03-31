@@ -8,7 +8,6 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -30,10 +29,12 @@ import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
 import seedu.address.model.course.RequirementStatus;
+
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.recmodule.RecModule;
 import seedu.address.testutil.ModuleTakenBuilder;
 
 public class AddCommandTest {
@@ -269,7 +270,7 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called");
         }
 
-        public ObservableList<ModuleInfoCode> getRecModuleListSorted() {
+        public ObservableList<RecModule> getRecModuleListSorted() {
             throw new AssertionError("This method should not be called");
         }
 
@@ -278,7 +279,7 @@ public class AddCommandTest {
             throw new AssertionError("This methdo should not be called");
         }
 
-        public HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList() {
+        public void updateRecModuleList() {
             throw new AssertionError("This method should not be called");
         }
 

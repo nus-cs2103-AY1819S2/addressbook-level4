@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.HashMap;
+
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -11,10 +12,12 @@ import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.CourseReqType;
 import seedu.address.model.course.RequirementStatus;
+import seedu.address.model.course.CourseRequirement;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
+import seedu.address.model.recmodule.RecModule;
 
 /**
  * The API of the Model component.
@@ -208,13 +211,12 @@ public interface Model {
     /**
      * Returns an unmodifiable view of the recommended module list.
      */
-    ObservableList<ModuleInfoCode> getRecModuleListSorted();
+    ObservableList<RecModule> getRecModuleListSorted();
 
     /**
-     * Updates the recommended module list by creating a new RecModuleManager,
-     * and returns a HashMap of ModuleInfoCode to CourseReqType.
+     * Updates the recommended module list by creating a new {@code RecModuleManager},
      */
-    HashMap<ModuleInfoCode, CourseReqType> updateRecModuleList();
+    void updateRecModuleList();
 
     /**
      * Returns an unmodifiable view of the filtered course requirement list
@@ -222,7 +224,7 @@ public interface Model {
     ObservableList<RequirementStatus> getRequirementStatusList();
 
     /**
-     * Returns a copy of the user info
+     * Returns a copy of the user info.
      */
     UserInfo getUserInfo();
 

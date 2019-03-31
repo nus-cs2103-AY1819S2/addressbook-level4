@@ -2,8 +2,6 @@ package seedu.address.commons.util;
 
 import java.util.ArrayList;
 
-//import seedu.address.model.moduleinfo.ModuleInfo;
-
 /**
  * A Tree Data Structure for Module Prerequisites
  */
@@ -33,8 +31,10 @@ public class ModuleTree {
      * @param modules
      * @return ArrayList of Modules that is missing
      */
-    public String checkPrerequisites(ArrayList<String> modules) {
-        return headNode.checkChildren(modules);
+    public ArrayList<String> checkPrerequisites(ArrayList<String> modules) {
+        ArrayList<String> missingModules = new ArrayList<>();
+        getHead().checkChildren(modules, missingModules);
+        return missingModules;
     }
 
 }

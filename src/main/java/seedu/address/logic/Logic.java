@@ -14,6 +14,7 @@ import seedu.address.model.course.RequirementStatus;
 import seedu.address.model.moduleinfo.ModuleInfo;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.ModuleTaken;
+import seedu.address.model.recmodule.RecModule;
 
 /**
  * API of the Logic component
@@ -103,4 +104,10 @@ public interface Logic {
      */
     ObservableList<ModuleInfoCode> getModuleInfoCodeList();
 
+
+    /**
+     * Gets the {@code SortedList} of {@code RecModule}.
+     * @see Model#getRecModuleListSorted()
+     */
+    ObservableList<RecModule> getRecModuleListSorted();
 }

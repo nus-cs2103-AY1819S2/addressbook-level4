@@ -105,31 +105,6 @@ public class BillManager implements BillModel {
         versionedHotelManagementSystem.resetData(hotelManagementSystem);
     }
 
-    public void deleteBooking(int bookingIndex) {
-        versionedHotelManagementSystem.removeBooking(bookingIndex);
-    }
-
-    public void deleteBooking(Booking b) {
-        versionedHotelManagementSystem.removeBooking(b);
-    }
-
-    public void deleteReservation(int reservationIndex) {
-        versionedHotelManagementSystem.removeReservation(reservationIndex);
-    }
-
-    /*
-     * Adds a booking
-     */
-    public void addBooking(Booking booking) {
-        versionedHotelManagementSystem.addBooking(booking);
-    }
-
-    public void setBooking(int bookingIndex, Booking editedBooking) {
-        requireNonNull(editedBooking);
-
-        versionedHotelManagementSystem.setBooking(bookingIndex, editedBooking);
-    }
-
     //=========== Filtered Reservation List Accessors =============================================================
 
     /**

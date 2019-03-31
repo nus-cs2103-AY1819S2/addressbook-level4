@@ -14,7 +14,8 @@ In-credit-ble is currently being developed by https://github.com/orgs/cs2103-ay1
 image::jeremyloye.png[width="150", align="left"]
 {empty}[https://github.com/JeremyLoye[github]]
 
-Role: Code quality, Team lead
+Role: Team Lead, Developer +
+Responsibilities: Code Quality
 
 '''
 
@@ -22,7 +23,8 @@ Role: Code quality, Team lead
 image::geezlouisee.png[width="150", align="left"]
 {empty}[http://github.com/geezlouisee[github]]
 
-Role: Deliverables and deadlines, Integration
+Role: Developer +
+Responsibilities: Deliverables and Deadlines, Integration
 
 '''
 
@@ -30,7 +32,8 @@ Role: Deliverables and deadlines, Integration
 image::eugeneyl.png[width="150", align="left"]
 {empty}[http://github.com/eugeneyl[github]]
 
-Role: Testing
+Role: Developer +
+Responsibilities: Testing
 
 '''
 
@@ -38,7 +41,8 @@ Role: Testing
 image::kjiaxuan.png[width="150", align="left"]
 {empty}[http://github.com/kjiaxuan[github]]
 
-Role: Scheduling and tracking
+Role: Developer +
+Responsibilities: Scheduling and Tracking
 
 '''
 
@@ -46,6 +50,7 @@ Role: Scheduling and tracking
 image::jackimaru96.png[width="150", align="left"]
 {empty}[http://github.com/Jackimaru96[github]]
 
-Role: Documentation
+Role: Developer +
+Responsibilities: Documentation
 
 '''

@@ -23,4 +23,14 @@ public class ClearCommand extends Command {
         model.commitArchiveBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
+    }
 }

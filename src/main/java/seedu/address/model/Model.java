@@ -89,6 +89,12 @@ public interface Model {
     void archivePerson(Person target);
 
     /**
+     * Unarchives the given person.
+     * The person must exist in the archive book.
+     */
+    void unarchivePerson(Person target);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */

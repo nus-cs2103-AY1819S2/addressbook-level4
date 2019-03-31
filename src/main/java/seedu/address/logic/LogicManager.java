@@ -24,6 +24,8 @@ import seedu.address.storage.Storage;
  */
 public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String INVALID_LIST_SHOWN_MAIN = "Invalid list displayed. Switch to main person list first!";
+    public static final String INVALID_LIST_SHOWN_ARCHIVE = "Invalid list displayed. Switch to archive list first!";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -32,12 +34,14 @@ public class LogicManager implements Logic {
     private final AddressBookParser addressBookParser;
     private boolean addressBookModified;
     private boolean archiveBookModified;
+    private boolean archiveShown;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
+        this.archiveShown = false;
 
         // Set addressBookModified to true whenever the models' address book is modified.
         model.getAddressBook().addListener(observable -> addressBookModified = true);
@@ -55,7 +59,9 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
+            checkListShown(command);
             commandResult = command.execute(model, history);
+            setArchiveShown(commandResult);
         } finally {
             history.add(commandText);
         }
@@ -97,6 +103,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Person> getFilteredArchivedPersonList() {
+        return model.getFilteredArchivedPersonList();
+    }
+
+    @Override
     public ObservableList<String> getHistory() {
         return history.getHistory();
     }
@@ -129,5 +140,20 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedPerson(Person person) {
         model.setSelectedPerson(person);
+    }
+
+    @Override
+    public void checkListShown(Command command) throws CommandException {
+        if ((command.requiresMainList()) && archiveShown) {
+            throw new CommandException(INVALID_LIST_SHOWN_MAIN);
+        }
+        if ((command.requiresArchiveList()) && !archiveShown) {
+            throw new CommandException(INVALID_LIST_SHOWN_ARCHIVE);
+        }
+    }
+
+    @Override
+    public void setArchiveShown(CommandResult commandResult) {
+        this.archiveShown = commandResult.getArchiveShown();
     }
 }

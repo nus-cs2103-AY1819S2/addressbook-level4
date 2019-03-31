@@ -19,9 +19,15 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.WarningPanelSettings;
+import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
+import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
 import seedu.address.model.medicine.NameContainsKeywordsPredicate;
+import seedu.address.model.medicine.Quantity;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
+import seedu.address.model.threshold.Threshold;
 import seedu.address.testutil.InventoryBuilder;
 import seedu.address.testutil.MedicineBuilder;
 
@@ -35,8 +41,10 @@ public class ModelManagerTest {
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
+        assertEquals(new WarningPanelSettings(), modelManager.getWarningPanelSettings());
         assertEquals(new Inventory(), new Inventory(modelManager.getInventory()));
         assertEquals(null, modelManager.getSelectedMedicine());
+        assertEquals(new WarningPanelPredicateAccessor(), modelManager.getWarningPanelPredicateAccessor());
     }
 
     @Test
@@ -70,6 +78,19 @@ public class ModelManagerTest {
         GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
+    }
+
+    @Test
+    public void setWarningPanelSettings_nullWarningPanelSettings_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.setWarningPanelSettings(null);
+    }
+
+    @Test
+    public void setWarningPanelSettings_validWarningPanelSettings_setsGuiSettings() {
+        WarningPanelSettings warningPanelSettings = new WarningPanelSettings(1, 2);
+        modelManager.setWarningPanelSettings(warningPanelSettings);
+        assertEquals(warningPanelSettings, modelManager.getWarningPanelSettings());
     }
 
     @Test
@@ -136,6 +157,36 @@ public class ModelManagerTest {
     }
 
     @Test
+    public void getExpiringMedicinesList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getExpiringMedicinesList().remove(0);
+    }
+
+    @Test
+    public void getLowStockMedicinesList_modifyList_throwsUnsupportedOperationException() {
+        thrown.expect(UnsupportedOperationException.class);
+        modelManager.getLowStockMedicinesList().remove(0);
+    }
+
+    @Test
+    public void updateFilteredMedicineList_nullPredicate_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.updateFilteredMedicineList(null);
+    }
+
+    @Test
+    public void updateFilteredExpiringMedicineList_nullPredicate_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.updateFilteredExpiringMedicineList(null);
+    }
+
+    @Test
+    public void updateFilteredLowStockMedicineList_nullPredicate_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.updateFilteredLowStockMedicineList(null);
+    }
+
+    @Test
     public void setSelectedMedicine_medicineNotInFilteredMedicineList_throwsMedicineNotFoundException() {
         thrown.expect(MedicineNotFoundException.class);
         modelManager.setSelectedMedicine(PARACETAMOL);
@@ -172,13 +223,31 @@ public class ModelManagerTest {
         // different inventory -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentInventory, userPrefs)));
 
-        // different filteredList -> returns false
+        // different filteredMedicineList -> returns false
         String[] keywords = PARACETAMOL.getName().fullName.split("\\s+");
         modelManager.updateFilteredMedicineList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
         modelManager.updateFilteredMedicineList(PREDICATE_SHOW_ALL_MEDICINES);
+
+        // different filteredExpiringMedicineList -> returns false
+        Threshold threshold = new Threshold("365"); // one year
+        modelManager.updateFilteredExpiringMedicineList(new MedicineExpiryThresholdPredicate(threshold));
+        assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredExpiringMedicineList(
+                new MedicineExpiryThresholdPredicate(Model.DEFAULT_EXPIRY_THRESHOLD));
+
+        // different filteredLowStockMedicineList -> returns false
+        threshold = new Threshold(Integer.toString(Quantity.MAX_QUANTITY));
+        modelManager.updateFilteredLowStockMedicineList(new MedicineLowStockThresholdPredicate(threshold));
+        assertFalse(modelManager.equals(new ModelManager(inventory, userPrefs)));
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredLowStockMedicineList(
+                new MedicineLowStockThresholdPredicate(Model.DEFAULT_LOW_STOCK_THRESHOLD));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

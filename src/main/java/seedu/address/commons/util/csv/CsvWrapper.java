@@ -57,9 +57,9 @@ public class CsvWrapper {
     public void export() throws CommandException {
         try {
             List<Medicine> currentGuiList = model.getFilteredMedicineList();
-            List<Medicine> lowQuantityMedicineList = model.getLowQuantityMedicinesList();
+            List<Medicine> lowStockMedicinesList = model.getLowStockMedicinesList();
             createCsvFile(csvFileName);
-            writeDataToCsv(currentGuiList, lowQuantityMedicineList);
+            writeDataToCsv(currentGuiList, lowStockMedicinesList);
         } catch (CommandException ce) {
             doCleanUp();
             throw ce;
@@ -165,7 +165,7 @@ public class CsvWrapper {
      * It returns an empty list of the input medicine does not have any batches that is expiring soon.
      */
     private List<Batch> getListOfBatchExpiringSoon(Medicine medicine) {
-        return medicine.getFilteredBatch(model.getWarningPanelPredicateAccessor().getBatchExpiringPredicate());
+        return medicine.getFilteredBatch(model.getWarningPanelPredicateAccessor().getBatchExpiryPredicate());
     }
 
     /**

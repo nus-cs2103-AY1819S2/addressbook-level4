@@ -8,8 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import seedu.address.commons.util.warning.WarningPanelListType;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Batch;
 import seedu.address.model.medicine.Medicine;
 
@@ -35,7 +35,7 @@ public class WarningCard extends UiPart<Region> {
     private Text field;
 
     public WarningCard(Medicine medicine, int displayedIndex,
-                       WarningPanelListType listType,
+                       WarningPanelPredicateType listType,
                        WarningPanelPredicateAccessor warningPanelPredicateAccessor) {
         super(FXML);
         this.medicine = medicine;
@@ -45,12 +45,12 @@ public class WarningCard extends UiPart<Region> {
         switch (listType) {
         case EXPIRY:
             FilteredList<Batch> filteredBatch = medicine
-                    .getFilteredBatch(warningPanelPredicateAccessor.getBatchExpiringPredicate());
+                    .getFilteredBatch(warningPanelPredicateAccessor.getBatchExpiryPredicate());
             field.setText(getFormattedBatch(filteredBatch));
             break;
 
         case LOW_STOCK:
-            field.setText("Qty: " + medicine.getTotalQuantity().value);
+            field.setText(String.format("Qty: %s\n", medicine.getTotalQuantity().value));
             break;
 
         default:
@@ -61,12 +61,14 @@ public class WarningCard extends UiPart<Region> {
     }
 
     private String getFormattedBatch(FilteredList<Batch> filteredBatch) {
-        ArrayList<String> formatted = new ArrayList<>();
+        String formatted = "";
         for (Batch batch: filteredBatch) {
-            formatted.add(batch.getBatchNumber().toString() + " [Exp: " + batch.getExpiry().toString() + "]");
+            formatted += String.format("%s [Exp: %s]\n",
+                    batch.getBatchNumber().toString(),
+                    batch.getExpiry().toString());
         }
 
-        return String.join("\n", formatted);
+        return formatted;
     }
 
     /**

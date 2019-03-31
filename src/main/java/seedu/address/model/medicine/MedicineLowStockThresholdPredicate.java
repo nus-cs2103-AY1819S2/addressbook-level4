@@ -16,7 +16,7 @@ public class MedicineLowStockThresholdPredicate implements Predicate<Medicine> {
 
     @Override
     public boolean test(Medicine medicine) {
-        return medicine.getTotalQuantity().getNumericValue() < threshold.getNumericValue();
+        return medicine.getTotalQuantity().getNumericValue() <= threshold.getNumericValue();
     }
 
     @Override
@@ -26,7 +26,7 @@ public class MedicineLowStockThresholdPredicate implements Predicate<Medicine> {
                 && threshold.equals(((MedicineLowStockThresholdPredicate) other).threshold)); // state check
     }
 
-    public int getThreshold() {
-        return threshold.getNumericValue();
+    public Threshold getThreshold() {
+        return threshold;
     }
 }

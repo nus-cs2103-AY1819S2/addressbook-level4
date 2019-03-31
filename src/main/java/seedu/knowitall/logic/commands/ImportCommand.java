@@ -5,6 +5,7 @@ import java.io.IOException;
 import seedu.knowitall.commons.core.Messages;
 import seedu.knowitall.logic.CommandHistory;
 import seedu.knowitall.logic.commands.exceptions.CommandException;
+import seedu.knowitall.model.DuplicateCardFolderException;
 import seedu.knowitall.model.Model;
 import seedu.knowitall.storage.csvmanager.CsvFile;
 
@@ -26,6 +27,8 @@ public class ImportCommand extends Command {
             + "in root directory";
     public static final String MESSAGE_SUCCESS = "Successfully imported: %1$s";
 
+    public static final String MESSAGE_DUPLICATE_CARD_FOLDERS = "Card folder already exists in model";
+
     private CsvFile csvFile;
 
     public ImportCommand(CsvFile csvFile) {
@@ -44,6 +47,8 @@ public class ImportCommand extends Command {
             model.importCardFolders(csvFile);
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FILE_OPS_FAILURE);
+        } catch (DuplicateCardFolderException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_CARD_FOLDERS);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, csvFile.filename));
     }

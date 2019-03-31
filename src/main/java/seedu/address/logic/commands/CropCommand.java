@@ -8,7 +8,6 @@ import org.imgscalr.Scalr;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 import seedu.address.model.image.Image;
@@ -40,7 +39,7 @@ public class CropCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album,
+    public CommandResult execute(CurrentEdit currentEdit,
                                  Model model, CommandHistory history) throws CommandException {
         Image initialImage = currentEdit.getTempImage();
         if (initialImage == null) {

@@ -55,7 +55,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            commandResult = command.execute(currentEdit, album, model, history);
+            commandResult = command.execute(currentEdit, model, history);
         } finally {
             history.add(commandText);
         }

@@ -8,7 +8,6 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Album;
 import seedu.address.model.CurrentEdit;
 import seedu.address.model.Model;
 import seedu.address.model.image.Image;
@@ -24,7 +23,7 @@ public class UndoCommand extends Command {
 
     /*
     @Override
-    public CommandResult execute(CurrentEdit currentEdit, Album album,
+    public CommandResult execute(CurrentEdit currentEdit,
                                  Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
@@ -40,7 +39,7 @@ public class UndoCommand extends Command {
     }*/
 
     @Override
-    public CommandResult execute(CurrentEdit current, Album album, Model model, CommandHistory history)
+    public CommandResult execute(CurrentEdit current, Model model, CommandHistory history)
         throws CommandException {
         requireNonNull(current);
         //AddressBookParser parser = new AddressBookParser();
@@ -58,7 +57,7 @@ public class UndoCommand extends Command {
         current.replaceTempWithOriginal();
         List<Command> tempHistory = current.getTempSubHistory();
         for (Command command :tempHistory) {
-            commandResult = command.execute(current, album, model, history);
+            commandResult = command.execute(current, model, history);
         }
         current.displayTempImage();
 

@@ -295,6 +295,9 @@ Step 3. The user executes `find n/Paracetamol ...`. The `find` command deselects
 
 // tag::exportcommand[]
 === Exporting as CSV file format
+
+This section provides you with an overview of how exporting as Comma-separated values (CSV) file format is implemented in MediTabs and the design considerations made by our team with regards to its implementation.
+
 ==== Current Implementation
 
 The exporting as CSV file format mechanism is facilitated by `CsvWrapper`.

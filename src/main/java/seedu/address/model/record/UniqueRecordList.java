@@ -31,10 +31,12 @@ public class UniqueRecordList implements Iterable<Record> {
 
     /**
      * Returns true if the list contains an equivalent Record as the given argument.
+     * At the moment, duplicates are allowed, all contains() checks return false.
      */
     public boolean contains(Record toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return false;
+        // return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**

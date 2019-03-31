@@ -99,6 +99,7 @@ public class PlaceListPanelTest extends GuiUnitTest {
      * Also shows the {@code Stage} that displays only {@code PlaceListPanel}.
      */
     private void initUi(ObservableList<Place> backingList) {
+
         PlaceListPanel placeListPanel =
                 new PlaceListPanel(backingList, selectedPlace, selectedPlace::set);
         uiPartRule.setUiPart(placeListPanel);

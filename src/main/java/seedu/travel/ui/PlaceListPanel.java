@@ -24,7 +24,7 @@ public class PlaceListPanel extends UiPart<Region> {
     private ListView<Place> placeListView;
 
     public PlaceListPanel(ObservableList<Place> placeList, ObservableValue<Place> selectedPlace,
-            Consumer<Place> onSelectedPlaceChange) {
+                          Consumer<Place> onSelectedPlaceChange) {
         super(FXML);
         placeListView.setItems(placeList);
         placeListView.setCellFactory(listView -> new PlaceListViewCell());

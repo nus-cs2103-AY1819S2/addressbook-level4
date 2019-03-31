@@ -506,29 +506,30 @@ Given below is an example usage scenario and how the CRUD operation works and ho
 interacts with Undo/Redo:
 
 Step 1. The user starts up the application and is in the `DecksView`. The user then
-executes the `open 1` command to open the first deck(D1 in the diagram). This should change the
+executes the `open 1` command to open the first deck(D1 in the figure). This should change the
 `ViewState` in the `ModelManager` from `DeckView` to `CardsView` and causes
-`CardsView.activeDeck` to point to the first deck as per diagram 1. For more information, refer to
+`CardsView.activeDeck` to point to the first deck as per figure 1. For more information, refer to
 Deck's feature.
 
-image::card_dg_diagrams/card_fig_1.png[width="800", caption="Figure 1"]
+image::card_dg_diagrams/card_diag_1.png[width="800", caption="Figure 1"]
 
 Step 2. The user executes `add q/question a/answer` to add the new card into the current deck.
 The `add` command is parsed and calls `Model#addCard(Card card, Deck deck)`.
 `VersionedTopDeck(Card newCard, Deck deck)` is then called. D3 which is a copy
 of D1 is created and the new card is added to D3. `VersionedTopDeck` is then updated
-as per diagram 2 by calling `UniqueDeckList.setDeck(Deck target, Deck editedDeck)`.
+as per figure 2 by calling `UniqueDeckList.setDeck(Deck target, Deck editedDeck)`.
 
 [NOTE]
 All other CRUD operations works the same except for the model call. Instead of
 `Model#addCard(Card card, Deck deck)`, `Model#deleteCard(Card target, Deck deck)` or
 `Model#setCard(Card target, Card newCard, Deck deck)` is called instead.
 
-image::card_dg_diagrams/card_fig_2.png[width="800", caption="Figure 2"]
+image::card_dg_diagrams/card_diag_2.png[width="800", caption="Figure 2"]
 
-Step 3. Next, the CardsView is updated creating a new `CardsView` that points to D3.
+Step 3. Next, the CardsView is updated creating a new `CardsView` that points to D3
+as in figure 3.
 
-image::card_dg_diagrams/card_fig_3.png[width="800", caption="Figure 3"]
+image::card_dg_diagrams/card_diag_3.png[width="800", caption="Figure 3"]
 
 Step 4. Once that is done, the `ModelManager.filteredItems` list and the UI is being updated to
 reflect the change.
@@ -536,28 +537,28 @@ reflect the change.
 Step 5. Now the user executes `undo`. This results in the the CurrentStatePointer to point
 to the previous TopDeck as per figure 4.
 
-image::card_dg_diagrams/card_fig_4.png[width="800", caption="Figure 4"]
+image::card_dg_diagrams/card_diag_4.png[width="800", caption="Figure 4"]
 
 Step 6. Using D3, the application will get D1 in the TopDeck that is pointed to by CurrentStatePointer.
 A new CardsView(CardsView3) is then created and points to D1 as per figure 5. The application
 then updates `ModelManager.filteredItems` and the UI is being updated.
 
-image::card_dg_diagrams/card_fig_5.png[width="800", caption="Figure 5"]
+image::card_dg_diagrams/card_diag_5.png[width="800", caption="Figure 5"]
 
 Step 7. Now, the user executes redo. This results in the the CurrentStatePointer to point
 to the next TopDeck as per figure 6.
 
-image::card_dg_diagrams/card_fig_6.png[width="800", caption="Figure 6"]
+image::card_dg_diagrams/card_diag_6.png[width="800", caption="Figure 6"]
 
 Step 8. Using D1, the application will get D3 in the TopDeck that is pointed to by CurrentStatePointer.
    A new CardsView(CardsView4) is then created and points to D3 as per figure 7. The application
    then updates `ModelManager.filteredItems` and the UI is being updated.
 
-image::card_dg_diagrams/card_fig_7.png[width="800", caption="Figure 7"]
+image::card_dg_diagrams/card_diag_7.png[width="800", caption="Figure 7"]
 
 Step 9. Below is the final state of `ModelManager`:
 
-image::card_dg_diagrams/card_fig_8.png[width="800", caption="Figure 8"]
+image::card_dg_diagrams/card_diag_8.png[width="800", caption="Figure 8"]
 
 ==== Design Considerations
 

@@ -12,7 +12,7 @@ import java.util.Locale;
  */
 public class CountryCode {
 
-    public static final String MESSAGE_CONSTRAINTS = "Country codes should only contain a three-letter alphabets";
+    public static final String MESSAGE_CONSTRAINTS = "Country codes should only contain three-letter ISO-3166 codes";
     public final String code;
 
     /**

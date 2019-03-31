@@ -219,15 +219,16 @@ public class UniqueBookList implements Iterable<Book> {
      * @param b1 first book that going to be compare
      * @param b2 second book that going to be compare
      * @param subOrders hash map that contains sub order
-     * @param order main order if available
+     * @param mainOrder main order if available
      * @param currentType current sort type
      * @param compare bifunction that will change base on different sort type
      * @return -1, 0 or 1 depend one value of b1 and b2
      */
     private int sort(Book b1, Book b2,
                      Map<String, String> subOrders,
-                     String order, String currentType,
+                     String mainOrder, String currentType,
                      BiFunction<Book, Book, Integer> compare) {
+        String order = mainOrder;
         if (order == null) {
             order = subOrders.getOrDefault(currentType, SortBookCommandParser.ASCENDING);
         }

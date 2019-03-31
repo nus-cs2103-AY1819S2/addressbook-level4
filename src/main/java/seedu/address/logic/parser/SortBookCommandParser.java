@@ -108,8 +108,8 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
         List<String> checkDuplicates = new ArrayList<>();
         for (String type : sortTypes) {
             if ((!type.toLowerCase().equals(AUTHOR)
-                && !type.toLowerCase().equals(BOOKNAME)
-                && !type.toLowerCase().equals(RATING))
+                && !type.equalsIgnoreCase(BOOKNAME)
+                && !type.equalsIgnoreCase(RATING))
                 || checkDuplicates.contains(type)) {
                 return false;
             }
@@ -120,7 +120,7 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
 
     private static boolean isValidSortOrder(String order) {
         return order == null
-            || order.toLowerCase().equals(ASCENDING)
-            || order.toLowerCase().equals(DESCENDING);
+            || order.equalsIgnoreCase(ASCENDING)
+            || order.equalsIgnoreCase(DESCENDING);
     }
 }

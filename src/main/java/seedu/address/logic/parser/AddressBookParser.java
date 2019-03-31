@@ -8,10 +8,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-<<<<<<< HEAD
-import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.TaskCopyCommand;
-=======
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.BackCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -41,10 +37,9 @@ import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.logic.commands.TaskCalendarCommand;
 import seedu.address.logic.commands.TaskDeleteCommand;
 import seedu.address.logic.commands.TaskEditCommand;
-import seedu.address.logic.commands.TaskcopyCommand;
+import seedu.address.logic.commands.TaskCopyCommand;
 import seedu.address.logic.commands.TeethEditCommand;
 import seedu.address.logic.commands.UndoCommand;
->>>>>>> 65d0b783941c6ac34db4849964fec51cf0db48fc
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CalendarWindow;
 import seedu.address.ui.MainWindow;

@@ -232,7 +232,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save all the QuickDocs data in json format into a single file and read it back.
+* can save all the QuickDocs data in json format into a single json file and read it back
+** this json file contains 6 different lists, with each list consisting of only one of the six main `JsonAdapted` Class objects.
 
 [[Design-Commons]]
 === Common classes
@@ -981,9 +982,9 @@ Use case resumes from step 2.
 +
 Use case resumes from step 4.
 [none]
-* 5a. Quickdocs displays an error message, showing clashes in timing with another appointment slot
+* 5b. Quickdocs displays an error message, showing clashes in timing with another appointment slot
 +
-Use case ends here.
+Use case resumes from step 4.
 [none]
 * 5b. Patient wants to change appointment slot timing
 [none]

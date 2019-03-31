@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Arrays;
 
 import seedu.address.model.person.*;
 import seedu.address.model.person.Gpa;
@@ -63,7 +64,7 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<SkillsTag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = SampleDataUtil.getTagSet(Arrays.asList(tags), null);
         return this;
     }
 

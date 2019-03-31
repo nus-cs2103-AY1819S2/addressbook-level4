@@ -247,7 +247,7 @@ For example, the command word `add` is "overloaded" with two capabilities:
 1. In decks view, it adds a new deck: `add DECK_NAME`
 2. In cards view, it adds a new card to a particular deck: `add q/QUESTION a/ANSWER`
 
-It is the active state in TopDeck that determines which command is called.
+It is the active state in TopDeck that resolves the actual command that is called.
 Also, TopDeck does not request information from the user that is already implicit in the state
 (e.g. the target deck in the second command).
 
@@ -265,11 +265,6 @@ States partition the functionalities that are exposed to users.
 Hence, it is natural to consider distinct views in the user interface as separate states.
 States in TopDeck correspond to the three possible views described in the user guide:
 decks view, cards view and study view.
-Each state implements a common interface `ViewState`
-and holds transient data that is relevant only while the state is active.
-
-For example, `CardsView` has a member `activeDeck`
-which holds a reference to the deck opened in decks view. that commands such as `add` operate on.
 
 The following figure illustrates the transitions between these states.
 
@@ -286,28 +281,26 @@ image::state_diagram.png[]
 ....
 ////
 
-`ModelManager` owns the sole instance of `ViewState` and is responsible for executing state transitions.
+Each state implements a common interface `ViewState`
+and holds transient data that is relevant only while the state is active.
+For example, `CardsView` has a member `activeDeck` which holds a reference to the deck opened in decks view.
+Commands in cards view such as `add` will then operate on this deck.
+
+`ModelManager` owns the sole instance of `ViewState`.
+Having only one instance of any state makes it trivial to enforce mutual exclusion.
+The `Model` is also responsible for executing state transitions.
 Each transition is exposed as a method in the `Model` API.
-
 For example, `Model#changeDeck(Deck deck)` implements the transition from decks view to cards view.
-Strictly speaking, this method can be called from any state, not just decks view.
+As state entry is handled by the constructors of each state,
+the implementation of a transition is as simple as constructing a new state object.
 
-This abstraction barrier allows `ModelManager` to enforce mutual exclusion.
-
-===== Rethinking the model
-
-Why `ViewState`?
-
+Technically, `Model#changeDeck(Deck deck)` can be called from any state, not just decks view.
+This is a consequence of the design of `Model`.
 The `Model` API is designed such that no state tracking is necessary.
-All methods are designed to work regardless of the state.
+All methods are expected to work regardless of the current state.
 We assume that if a caller is capable of providing the required arguments to a method,
 the method call is valid and expected.
-This obviates the need for state checking code in `ModelManager`.
-no runtime type checking is necessary.
-
-As a consequence, transition methods can be called from any state.
-State entry is handled by the constructors of each implementation of `ViewState`
-
+This obviates the need for state-checking code in `ModelManager`.
 
 //tag::studysessions[]
 === Study sessions

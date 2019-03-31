@@ -87,7 +87,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setWarningPanelSettings_validWarningPanelSettings_setsGuiSettings() {
+    public void setWarningPanelSettings_validWarningPanelSettings_setsWarningPanelSettings() {
         WarningPanelSettings warningPanelSettings = new WarningPanelSettings(1, 2);
         modelManager.setWarningPanelSettings(warningPanelSettings);
         assertEquals(warningPanelSettings, modelManager.getWarningPanelSettings());

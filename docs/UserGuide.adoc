@@ -236,13 +236,14 @@ Updates quantity of batch `8937v1x7` in batch records of the 1st medicine in the
 
 Manage the threshold for expiry date and low stock warnings. +
 Format: `warning [e/EXPIRY_THRESHOLD] [q/LOW_STOCK_THRESHOLD] [SHOW]` +
-If the thresholds are not set, the default threshold for expiry is 10 days, and 20 for low stock.
+If the thresholds are not set, the default threshold for expiry is 10 days, and 20 for low stock. +
+Thresholds set are saved as a user preference, and will be used when the application is launched again.
 
 ****
 * Provide only one of the optional fields.
 * `EXPIRY_THRESHOLD` should be in days before expiry date.
 * `LOW_STOCK_THRESHOLD` should be in number of stock remaining.
-* `SHOW` is case insensitive, but there should not be any whitespace in the word "show".
+* `SHOW` is case insensitive.
 ****
 
 Examples:

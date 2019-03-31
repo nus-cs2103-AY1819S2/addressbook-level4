@@ -246,6 +246,12 @@ public interface Model extends Observable {
     boolean markAttemptedAnswer(Answer attemptedAnswer);
 
     /**
+     * Returns true if the index provided matches the answerIndex of the currently tested card,
+     * false otherwise.
+     */
+    boolean markAttemptedMcqAnswer(int answerIndex);
+
+    /**
      * Set cardAlreadyAnswered variable to true to indicate current card as answered
      */
     void setCardAsAnswered();

@@ -32,7 +32,7 @@ public class CsvFile {
         return filename.split(FILE_EXT_REGEX)[1].equals("csv");
     }
 
-    private String getFileNameWithoutExt() {
+    public String getFileNameWithoutExt() {
         return this.filename.split(FILE_EXT_REGEX)[0];
     }
 

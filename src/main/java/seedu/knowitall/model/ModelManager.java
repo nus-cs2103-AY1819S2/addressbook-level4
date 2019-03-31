@@ -541,8 +541,23 @@ public class ModelManager implements Model {
 
     @Override
     public void importCardFolders(CsvFile csvFile) throws IOException, CommandException {
+        String cardFolderName = csvFile.getFileNameWithoutExt();
+
+        if (isCardFolderExists(cardFolderName)) {
+            throw new DuplicateCardFolderException();
+        }
+
         CardFolder cardFolder = csvManager.readFoldersToCsv(csvFile);
         addFolder(cardFolder);
+    }
+
+    private boolean isCardFolderExists(String cardFolderName) {
+        for (CardFolder cardFolder : folders) {
+            if (cardFolderName.equals(cardFolder.getFolderName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -563,7 +578,7 @@ public class ModelManager implements Model {
         List<Index> indexList = cardFolderExports.stream().map(Index::fromOneBased).collect(Collectors.toList());
         for (Index index : indexList) {
             try {
-                ReadOnlyCardFolder cardFolder = filteredFolders.get(index.getZeroBased());
+                ReadOnlyCardFolder cardFolder = folders.get(index.getZeroBased());
                 readOnlyCardFolders.add(cardFolder);
             } catch (IndexOutOfBoundsException e) {
                 throw new CardFolderNotFoundException(index.displayIndex());

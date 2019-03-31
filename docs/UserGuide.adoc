@@ -254,6 +254,7 @@ When a patient is no longer visiting your clinic (i.e. moved residency), you can
 *Format:* `deletepat r/NRIC` +
 
 *Alias:* `dp` +
+
 - - -
 
 *Example:* `deletepat r/S7338031I`
@@ -341,7 +342,7 @@ After entering the command, the display will show the symptoms and assessment re
 
 image::diagnose_edit_after.png[width="600" align="center"]
 
-If you made a mistake when entering the diagnosis, you can always rectify it by reentering the `diagnose` command with the correct
+If you made a mistake when entering the diagnosis, you can always rectify it by re-entering the `diagnose` command with the correct
 symptoms and assessment. This will replace the current erroneous diagnosis with the one you have just entered.
 
 [TIP]
@@ -373,7 +374,7 @@ or
 
 `prescribe m/MEDICINE q/QUANTITY [m/MEDICINE] [q/QUANTITY] ...` +
 
-*Alias:* `p`
+*Alias:* `p` +
 
 - - -
 

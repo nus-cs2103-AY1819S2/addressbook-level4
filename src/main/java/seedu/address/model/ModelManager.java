@@ -84,6 +84,7 @@ public class ModelManager implements Model {
         this.displayList = new FilteredList<>(this.allModules);
         updateDisplayList(new CodeContainsKeywordsPredicate(null));
 
+        // Initialise list of RecModule
         this.recModuleList = new FilteredList<>(RecModuleManager.getObservableRecModuleList(allModules));
         this.recModuleListSorted = new SortedList<>(recModuleList);
 
@@ -314,7 +315,6 @@ public class ModelManager implements Model {
         displayList.setPredicate(predicate);
     }
 
-
     @Override
     public ReadOnlyProperty<ModuleInfo> selectedModuleInfoProperty() {
         return selectedModuleInfo;
@@ -334,9 +334,6 @@ public class ModelManager implements Model {
         selectedModuleInfo.setValue(moduleInfo);
     }
 
-
-
-
     //=========== Module recommendation ===========================================================================
     @Override
     public ObservableList<RecModule> getRecModuleListSorted() {
@@ -349,7 +346,6 @@ public class ModelManager implements Model {
         recModuleList.setPredicate(recModuleManager.getRecModulePredicate());
         recModuleListSorted.setComparator(recModuleManager.getRecModuleComparator());
     }
-
 
     /**
      * Ensures {@code selectedModuleTaken} is a valid moduleTaken in {@code filteredModulesTaken}.
@@ -403,7 +399,6 @@ public class ModelManager implements Model {
         return userInfo;
     }
 
-
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -426,5 +421,4 @@ public class ModelManager implements Model {
                 && displayCourseReqList.equals(other.displayCourseReqList)
                 && this.userInfo.equals(other.userInfo);
     }
-
 }

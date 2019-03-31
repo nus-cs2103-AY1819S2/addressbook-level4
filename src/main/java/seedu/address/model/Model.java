@@ -227,7 +227,7 @@ public interface Model {
     ObservableList<CourseRequirement> getReqList();
 
     /**
-     * Returns a copy of the user info
+     * Returns a copy of the user info.
      */
     UserInfo getUserInfo();
 }

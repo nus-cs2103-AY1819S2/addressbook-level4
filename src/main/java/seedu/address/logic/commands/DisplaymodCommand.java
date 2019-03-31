@@ -43,7 +43,7 @@ public class DisplaymodCommand extends Command {
 
     public static final String MESSAGE_NO_MODULE = "Unable to find the Module, please check the parameters";
 
-    public static final String MESSAGE_MODULES_FOUND = "%d modules found";
+    public static final String MESSAGE_MODULES_FOUND = "Modules found: %d";
 
     private final CodeContainsKeywordsPredicate keywords;
 
@@ -59,8 +59,7 @@ public class DisplaymodCommand extends Command {
         if (model.getDisplayList().isEmpty()) {
             throw new CommandException(MESSAGE_NO_MODULE);
         }
-        return new CommandResult(String.format(MESSAGE_MODULES_FOUND, model.getDisplayList().size()),
-                generateResultString(model));
+        return new CommandResult(String.format(MESSAGE_MODULES_FOUND, model.getDisplayList().size()));
     }
 
     @Override

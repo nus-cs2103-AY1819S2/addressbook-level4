@@ -18,7 +18,7 @@ public class RecCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":Recommends a list of modules that can be taken "
             + "based on passed modules and course requirements.";
 
-    public static final String MESSAGE_REC = "Recommended modules found";
+    public static final String MESSAGE_REC = "Recommended modules found: %d";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
@@ -29,7 +29,7 @@ public class RecCommand extends Command {
             return new CommandResult(MESSAGE_REQ_COMPLETED);
         }
 
-        return new CommandResult(MESSAGE_REC, generateResultString(sortedList));
+        return new CommandResult(String.format(MESSAGE_REC, sortedList.size()));
     }
 
     /**

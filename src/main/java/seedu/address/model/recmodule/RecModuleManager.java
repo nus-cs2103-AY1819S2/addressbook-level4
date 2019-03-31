@@ -32,10 +32,16 @@ public class RecModuleManager {
         return comparator;
     }
 
+    /**
+     * Generates a List of {@code RecModule} from a List of {@code ModuleInfo}
+     * for initialisation in {@code ModelManager}.
+     * @param moduleInfoList The List of {@code ModuleInfo}.
+     * @return A List of {@code RecModule}.
+     */
     public static ObservableList<RecModule> getObservableRecModuleList(ObservableList<ModuleInfo> moduleInfoList) {
         ArrayList<RecModule> recModuleList = new ArrayList<>();
         for (ModuleInfo moduleInfo : moduleInfoList) {
-            recModuleList.add(new RecModule(moduleInfo.getModuleInfoCode()));
+            recModuleList.add(new RecModule(moduleInfo.getModuleInfoCode(), moduleInfo.getModuleInfoTitle()));
         }
 
         return FXCollections.observableArrayList(recModuleList);

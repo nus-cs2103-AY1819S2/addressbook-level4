@@ -128,9 +128,10 @@ All the fields in the record can be edited, including the tags.
 [NOTE]
 The tags entered during an edit patient command will override all the tags a patient record currently possess.
 
-*Alias:* `ep` +
-*Format:* `editpat NRIC [n/NAME] [a/Address] [r/NRIC] …` +
-you can view the prefixes for each of the fields at the `addpat` section.
+
+*Format:* `editpat NRIC [n/NAME] [a/Address] [r/NRIC] …`
+you can view the prefixes for each of the fields at the `addpat` section. +
+*Alias:* `ep` 
 
 *Example:* +
 

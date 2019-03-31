@@ -97,7 +97,7 @@ public class Weblink {
 
         // if url already starts with https prefix, return url
         if (url.startsWith(Weblink.HTTPS_PREFIX)) {
-            return url ;
+            return url;
         }
 
         // return url with https prefix prepended to it

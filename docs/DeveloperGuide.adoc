@@ -453,9 +453,9 @@ session.
 *** `ModelManager#isCardAlreadyAnswered()` - returns true if the current card has already been answered and false
 otherwise.
 
-===== Overall Design Considerations
+==== Overall Design Considerations
 
-===== Aspect: Usage of a `currentTestedCard` on top of `currentTestedCardIndex`
+===== Aspect: Usage of an extra card variable to keep track of the current card in test session
 
 * **Alternative 1 (current choice)**: Introduction of another variable, `currentTestedCard`, to store the card.
 ** Pros: More reader friendly. Save time from accessing the list to get card at that index.
@@ -464,7 +464,8 @@ otherwise.
 * **Alternative 2**: No introduction of `currentTestedCard` as using the `currentTestedCardIndex` suffices. Every time a
 card is needed, can reference it using `currentTestedCardFolder.getIndex(currentTestedCardIndex)`.
 ** Pros: No need to store an extra variable, use less space.
-** Cons: Not so reader friendly. Need to keep going to the list to get that index, which may take a long time if the list is long. Potentially lead to possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
+** Cons: Not so reader friendly. Need to keep accessing the list at that index. Potentially lead to
+possible violation of the Law of Demeter where an object should only interact with objects that are closely related to it.
 
 Evaluation of the 2 alternatives:
 We went with alternative 1 since not a large amount of memory is taken up with just an extra variable. As there will
@@ -585,7 +586,7 @@ back (the screen the user was seeing before entering the test session) to the us
 
 
 ===== Design Considerations
-===== Aspect: Way to execute a test/end command
+====== Aspect: Way to execute a test/end command
 
 * **Alternative 1 (current choice)**: `test` is executed when inside a folder. The user does not have to specify the
 folder index and `test` would just immediately display the first card in the this current folder.
@@ -693,7 +694,7 @@ If `MainWindow` sees that `CommandResult` object `r` has the type `ANSWER_WRONG`
 ==== Next Command
 ===== Current Implementation
 [discrete]
-===== Model
+====== Model
 The following method is introduced in `ModelManager` to display to the user the next card in the test session.
 
 `ModelManager#testNextCard()` - returns true if it successfully finds a next card to present in the test session and

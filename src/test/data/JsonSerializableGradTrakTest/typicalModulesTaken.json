@@ -208,5 +208,6 @@
     "maxProjectHour" : 5.0,
     "minPreparationHour" : 6.0,
     "maxPreparationHour" : 10.0
-  } ]
+  } ],
+  "currentSemesterIndex" : 0
 }

@@ -419,6 +419,180 @@ CsvManager's API’s are exposed in the model interface as  `Model#ExportCardFol
 
     Sequence diagram
 
+//tag::folders[]
+=== Folders
+==== Current Implementation
+A folder is another layer of abstraction over a `CardFolder`. Where we dealt with a single `CardFolder` in previous iterations, we now have multiple `CardFolders` that each have their own set of `Cards`. Users are able to manage each `CardFolder` independently.
+
+Folders in the application are achieved via enhancements from the AddressBook implementation. The changes span across all four components (UI, Logic, Model and Storage).
+
+===== Model
+Previously, an instance of `ModelManager` contains only a single `VersionedCardFolder`, holding the current and previous state of the `CardFolder`. To support multiple folders, `ModelManager` now holds an `ObservableList` of `CardFolders`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
+
+image::ModelEnhancementDiagram.png[width="800"]
+
+To allow users to operate on multiple `CardFolders`, the following notable methods were also introduced:
+
+* `ModelManager#addFolder(CardFolder cardfolder)` - Adds a specified cardfolder to the `ModelManager`’s list
+* `ModelManager#deleteFolder(int index)` - Deletes the `CardFolder` at the specified index in the `ModelManager's` list
+* `ModelManager#getActiveCardFolderIndex()` - Gets the index of the current active `CardFolder`
+* `ModelManager#enterFolder(int index)` - Specifies the active `CardFolder` for operations to be performed on via the index in `ModelManager`’s list and sets the boolean `inFolder` to `true` to denote that user is inside a folder.
+* `ModelManager#exitFolderToHome()` - Sets the boolean `inFolder` to `false` to indicate that the user is at the home directory.
+* `ModelManager#renameFolder(int index, String newName)` - Renames the folder at the specified index in the `ModelManager's` list to the new name.
+* `ModelManager#isInFolder()` - Returns true if the `ModelManager` is currently inside a folder.
+
+===== Storage
+Similarly, the `StorageManager` needs to represent each `CardFolder` separately. In the same manner as in the Model component, we introduce a list of `JsonCardFolderStorages`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
+
+image::StorageEnhancementDiagram.png[width="800"]
+
+Notable new methods:
+
+* `StorageManager#readCardFolders()` - Reads in all `CardFolders` from all `CardFolderStorage` objects in the list.
+* `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` - Saves all `CardFolders` provided in the argument to the user's data directory.
+
+===== Logic
+The existing implementation of the Logic component propagates changes in a Model's `CardFolder` to the Storage component. With listeners, it is informed when a `CardFolder` is modified (e.g. a new card is added) so that it can invoke the appropriate Storage methods.
+
+The same principle was applied to propagate changes regarding `CardFolders` themselves (and not their stored cards) to Storage: e.g. adding a new folder. Model is now an `Observable`, and changes to a Model’s `CardFolders` will inform the `LogicManager`, which in turn invokes `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)`.
+
+To illustrate how the Model, Storage and Logic components interact, below is a walkthrough of a typical usage scenario of the `addfolder` command. <<addfoldersequencediagram>> is a sequence diagram that summarises the example:
+
+* Step 1. The `addfolder` command is executed. For example, `addfolder f`.
+
+* Step 2. As with every command, the command parser reads the input and generates the relevant `Command` object, in this case an `AddFolderCommand`. The object is returned to the `LogicManager`.
+
+[NOTE]
+If the input is invalid (e.g. user did not provide a folder name), Step 2 would not proceed and an error message is displayed. The Model and Storage components will not be modified.
+
+* Step 3. The `LogicManager` executes the `AddFolderCommand`, storing the result and then transferring control to the Model component with the `ModelManager#addFolder()` method.
+
+* Step 4. The `ModelManager` creates a `VersionedCardFolder` to represent the newly created folder, storing a reference to its currently empty list of cards. Before returning control to the Logic component, `ModelManager#indicateModified()` is invoked to notify listeners in the `LogicManager` that the list of `CardFolders` have changed.
+
+* Step 5. The Logic component takes over control and checks if the `ModelManager` is modified. In the case of `addfolder` the object is indeed modified (as a result of Step 4) and thus the component proceeds to save the Model's `CardFolders` to Storage.
+
+* Step 6. Before handing over control to Storage, the `LogicManager` obtains the information to save and the path to save to with `ModelManager#getCardFolders()` and `ModelManager#getCardFoldersFilesPath()` respectively. It then passes these objects as parameters when it calls `StorageManager#saveCardFolders()`.
+
+* Step 7. The Storage component receives control, with the `StorageManager` clearing the directory at the specified path and creating `JsonCardFolderStorage` objects with path names equivalent to the names of the folders it has received. It then proceeds to invoke `JsonCardFolderStorage#saveCardFolder()` on all the `JsonCardFolderStorage` to save all the folders before returning to the `LogicManager`.
+
+[NOTE]
+If the path provided by the Model Component is invalid, the Storage component throws an exception and an error message is displayed. The changes made to Model are not saved and the command does not execute successfully.
+
+* Step 8. The `LogicManager` terminates and returns the result of the command to the calling method.
+
+[[addfoldersequencediagram]]
+.Component interactions for an `addfolder` command
+image::AddFolderSequenceDiagram.png[width="800"]
+
+===== UI
+
+As folders are a layer of abstraction over the cards, there is a need for the GUI to represent this abstraction for greater clarity and ease of use for the user. This is done by introducing the `FolderListPanel` class, which displays a list of all folders that the user has.
+
+The `fullScreenPlaceholder:StackPane` object houses the content in the main window of our application. Depending on whether the user is in the home directory or within a folder, different UI objects are placed within `fullScreenPlaceholder`.
+
+* When the user is in the home directory, `fullScreenPlaceholder` holds a `FolderListPanel` to display all the folders in a list inside the main window.
+
+* When the user is within a folder, `fullScreenPlaceholder` holds a `CardMainScreen` object, which is composed of a `CardListPanel` and `BrowserPanel`. These represent the list of cards on the scrolling sidebar, as well as the card viewer on the right. The content within the `CardMainScreen` depends on the particular folder the user has navigated into, as different folders hold different cards.
+
+To better understand how the UI is updated, below is a walkthrough of what happens when the user enters a folder. Refer to the sequence diagram in <<enterfoldersequencediagram>> for a visual representation:
+
+* Step 1. The Logic component informs the UI component that the user has entered a folder. The UI component responds by invoking `MainWindow#handleEnterFolder()`.
+
+* Step 2. UI retrieves the list of cards belonging to the entered folder from the `LogicManager`.
+
+* Step 3. A new `CardListPanel` is created with the information obtained in Step 2.
+
+* Step 4. The new `CardListPanel` from Step 3, together with the existing `BrowserPanel`, are used to create a new `CardMainScreen` object.
+
+* Step 5. The content held by `fullScreenPlaceholder` is replaced with the newly generated `CardMainScreen`.
+
+[[enterfoldersequencediagram]]
+.UI behaviour when user enters folder
+image::EnterFolderGUISequenceDiagram.png[width="800"]
+
+==== Design Considerations
+===== Aspect: How multiple folders are represented in Model
+* **Alternative 1 (current choice)**: List of structures representing individual folders
+** Pros: Scalable and better follows OOP principles.
+** Cons: Hard to implement, alters fundamental architecture of components.
+* **Alternative 2**: A single structure containing Cards with information on their folder membership (folder operations performed by iterating over all cards)
+** Pros: Easy to implement.
+** Cons: Not scalable, will be computationally expensive to perform folder operations when there are many cards and/or folders.
+
+===== Aspect: Folder identification
+* **Alternative 1**: Use a unique folder name
+** Pros: Easier to implement.
+** Cons: The undo/redo feature would not be compatible with this approach, as checking equality between different versions of a folder across time necessarily requires the comparison of cards.
+* **Alternative 2**: Identify a folder by its cards
+** Pros: There can be no folders with identical cards, preventing redundancy.
+** Cons: Two folders could have identical names as long as the cards are different, which is potentially confusing.
+* **Alternative 3 (current choice)**: Mixed approach, use Alternative 1 for comparing different folders and Alternative 2 for comparing the same folder across time
+** Pros: Reaps the benefits of both approaches without the disadvantages.
+** Cons: Difficult to implement and for future developers to grasp the difference between the two types of comparisons.
+
+===== Aspect: Storage file name and folder name
+* **Alternative 1**: Let folder name be the file name of the storage file
+** Pros: Less ambiguity as to how file name is related to folder name, able to find storage file path with folder name.
+** Cons: Harder to retrieve folder name from the file as it requires parsing the path, more prone to data corruption as file name could be modified when application is running.
+* **Alternative 2 (current choice)**: Let file name be independent of folder name, which is stored inside the storage file itself
+** Pros: Easier to implement and avoids dependency on existing storage files after application starts.
+** Cons: When saving folders from Model, it is difficult to match folders with existing storage files. Hence, rather than saving the modified folder, it is more feasible to clear the directory and save all folders. This is computationally expensive and may not be scalable beyond a certain size.
+
+===== Aspect: What folders to generate in the event corrupted storage files are encountered
+* **Alternative 1**: Display a sample folder
+** Pros: Easy to implement, guaranteed that application will not be empty with no folders displayed.
+** Cons: Non-corrupted folders will not be displayed and will potentially be overwritten.
+* **Alternative 2**: Display non-corrupted folders
+** Pros: Non-corrupted data is preserved.
+** Cons: If all data is corrupted, an empty application is presented to the user.
+* **Alternative 3 (current choice)**: Mixed approach, display all non-corrupted folders unless all data is corrupted, in which case display sample folder
+** Pros: Has the advantages but not the disadvantages of Alternatives 1 and 2.
+** Cons: Challenging to implement.
+
+=== Navigating folders
+
+==== Current Implementation
+
+===== Navigation State
+
+The state of the application with regard to navigation (i.e. whether a user is inside of a folder or at the home directory) affects the types of commands available to the user.
+
+* The commands that affect cards (e.g. adding a card, editing a card) are executed within folders and are known as *Card Operations*.
+* Commands that affect folders (e.g. adding a folder, deleting a folder) are only executable at the home directory and are known as *Folder Operations*.
+
+Please refer to the User Guide for the full list of commands under both categories.
+
+To keep track of navigation state, a boolean `inFolder` is maintained by the `ModelManager`. Other components may retrieve the current state with `ModelManager#isInFolder()`. This is also how the `Command` objects determines whether the command is executable in the present navigation state.
+
+===== Change Command
+
+Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
+
+The change command has the following formats:
+
+1. `change ..` - Returns the user to the home directory. This command can only be executed when the user is inside a folder.
+2. `change FOLDER_INDEX` - Enters the folder specified by `FOLDER_INDEX`. This command can only be executed from the home directory, when the user is not in any folder.
+
+When a `change` command is executed, the Logic component parses the command and creates a `ChangeCommand` object. If the command is of the first format, `ChangeCommand()` is invoked without any arguments and the boolean `isExitingFolder` is set to `true`. If the command is of the second format, the overloaded constructor `ChangeCommand(FOLDER_INDEX)` is instead called and `isExitingFolder` is set to `false`.
+
+`ChangeCommand#execute()` is then invoked. The value of `isExitingFolder` will determine the corresponding methods in `ModelManager` that are called (`exitFoldersToHome()` or `enterFolder()`). The sequence diagram in <<changecommandsequencediagram>> illustrates this conditional choice and the interactions involved with each option.
+
+[[changecommandsequencediagram]]
+.Component interactions for `change` command
+image::ChangeCommandSequenceDiagram.png[width="600"]
+
+==== Design Considerations
+===== Aspect: Command format to enter and exit folders
+* **Alternative 1 (current choice)**: Use variations of the same command (e.g. `change ..` and `change INDEX` )
+** Pros: More intuitive and akin to other Command Line applications.
+** Cons: Harder to implement as the logic for parsing the command is different from that of existing commands.
+* **Alternative 2**: Use distinct commands (e.g. `home` and `enter INDEX`)
+** Pros: Commands would function similar to other commands in the application.
+** Cons: Harder for the user to get acquainted with as there are two separate commands with logically similar functionality; introduces redundancy.
+
+//end::folders[]
+
+
 //tag::testsession[]
 === Test Session feature
 
@@ -780,179 +954,6 @@ Evaluation of the two alternatives:
 With our target audience in mind, alternative 1 is the more user friendly and intuitive way to handle this scenario.
 
 //end::testsession[]
-
-//tag::folders[]
-=== Folders
-==== Current Implementation
-A folder is another layer of abstraction over a `CardFolder`. Where we dealt with a single `CardFolder` in previous iterations, we now have multiple `CardFolders` that each have their own set of `Cards`. Users are able to manage each `CardFolder` independently.
-
-Folders in the application are achieved via enhancements from the AddressBook implementation. The changes span across all four components (UI, Logic, Model and Storage).
-
-===== Model
-Previously, an instance of `ModelManager` contains only a single `VersionedCardFolder`, holding the current and previous state of the `CardFolder`. To support multiple folders, `ModelManager` now holds an `ObservableList` of `CardFolders`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
-
-image::ModelEnhancementDiagram.png[width="800"]
-
-To allow users to operate on multiple `CardFolders`, the following notable methods were also introduced:
-
-* `ModelManager#addFolder(CardFolder cardfolder)` - Adds a specified cardfolder to the `ModelManager`’s list
-* `ModelManager#deleteFolder(int index)` - Deletes the `CardFolder` at the specified index in the `ModelManager's` list
-* `ModelManager#getActiveCardFolderIndex()` - Gets the index of the current active `CardFolder`
-* `ModelManager#enterFolder(int index)` - Specifies the active `CardFolder` for operations to be performed on via the index in `ModelManager`’s list and sets the boolean `inFolder` to `true` to denote that user is inside a folder.
-* `ModelManager#exitFolderToHome()` - Sets the boolean `inFolder` to `false` to indicate that the user is at the home directory.
-* `ModelManager#renameFolder(int index, String newName)` - Renames the folder at the specified index in the `ModelManager's` list to the new name.
-* `ModelManager#isInFolder()` - Returns true if the `ModelManager` is currently inside a folder.
-
-===== Storage
-Similarly, the `StorageManager` needs to represent each `CardFolder` separately. In the same manner as in the Model component, we introduce a list of `JsonCardFolderStorages`. The change is illustrated in the figure below, with the original implementation on the left and new implementation on the right.
-
-image::StorageEnhancementDiagram.png[width="800"]
-
-Notable new methods:
-
-* `StorageManager#readCardFolders()` - Reads in all `CardFolders` from all `CardFolderStorage` objects in the list.
-* `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)` - Saves all `CardFolders` provided in the argument to the user's data directory.
-
-===== Logic
-The existing implementation of the Logic component propagates changes in a Model's `CardFolder` to the Storage component. With listeners, it is informed when a `CardFolder` is modified (e.g. a new card is added) so that it can invoke the appropriate Storage methods.
-
-The same principle was applied to propagate changes regarding `CardFolders` themselves (and not their stored cards) to Storage: e.g. adding a new folder. Model is now an `Observable`, and changes to a Model’s `CardFolders` will inform the `LogicManager`, which in turn invokes `StorageManager#saveCardFolders(List<ReadOnlyCardFolder> cardFolders)`.
-
-To illustrate how the Model, Storage and Logic components interact, below is a walkthrough of a typical usage scenario of the `addfolder` command. <<addfoldersequencediagram>> is a sequence diagram that summarises the example:
-
-* Step 1. The `addfolder` command is executed. For example, `addfolder f`.
-
-* Step 2. As with every command, the command parser reads the input and generates the relevant `Command` object, in this case an `AddFolderCommand`. The object is returned to the `LogicManager`.
-
-[NOTE]
-If the input is invalid (e.g. user did not provide a folder name), Step 2 would not proceed and an error message is displayed. The Model and Storage components will not be modified.
-
-* Step 3. The `LogicManager` executes the `AddFolderCommand`, storing the result and then transferring control to the Model component with the `ModelManager#addFolder()` method.
-
-* Step 4. The `ModelManager` creates a `VersionedCardFolder` to represent the newly created folder, storing a reference to its currently empty list of cards. Before returning control to the Logic component, `ModelManager#indicateModified()` is invoked to notify listeners in the `LogicManager` that the list of `CardFolders` have changed.
-
-* Step 5. The Logic component takes over control and checks if the `ModelManager` is modified. In the case of `addfolder` the object is indeed modified (as a result of Step 4) and thus the component proceeds to save the Model's `CardFolders` to Storage.
-
-* Step 6. Before handing over control to Storage, the `LogicManager` obtains the information to save and the path to save to with `ModelManager#getCardFolders()` and `ModelManager#getCardFoldersFilesPath()` respectively. It then passes these objects as parameters when it calls `StorageManager#saveCardFolders()`.
-
-* Step 7. The Storage component receives control, with the `StorageManager` clearing the directory at the specified path and creating `JsonCardFolderStorage` objects with path names equivalent to the names of the folders it has received. It then proceeds to invoke `JsonCardFolderStorage#saveCardFolder()` on all the `JsonCardFolderStorage` to save all the folders before returning to the `LogicManager`.
-
-[NOTE]
-If the path provided by the Model Component is invalid, the Storage component throws an exception and an error message is displayed. The changes made to Model are not saved and the command does not execute successfully.
-
-* Step 8. The `LogicManager` terminates and returns the result of the command to the calling method.
-
-[[addfoldersequencediagram]]
-.Component interactions for an `addfolder` command
-image::AddFolderSequenceDiagram.png[width="800"]
-
-===== UI
-
-As folders are a layer of abstraction over the cards, there is a need for the GUI to represent this abstraction for greater clarity and ease of use for the user. This is done by introducing the `FolderListPanel` class, which displays a list of all folders that the user has.
-
-The `fullScreenPlaceholder:StackPane` object houses the content in the main window of our application. Depending on whether the user is in the home directory or within a folder, different UI objects are placed within `fullScreenPlaceholder`.
-
-* When the user is in the home directory, `fullScreenPlaceholder` holds a `FolderListPanel` to display all the folders in a list inside the main window.
-
-* When the user is within a folder, `fullScreenPlaceholder` holds a `CardMainScreen` object, which is composed of a `CardListPanel` and `BrowserPanel`. These represent the list of cards on the scrolling sidebar, as well as the card viewer on the right. The content within the `CardMainScreen` depends on the particular folder the user has navigated into, as different folders hold different cards.
-
-To better understand how the UI is updated, below is a walkthrough of what happens when the user enters a folder. Refer to the sequence diagram in <<enterfoldersequencediagram>> for a visual representation:
-
-* Step 1. The Logic component informs the UI component that the user has entered a folder. The UI component responds by invoking `MainWindow#handleEnterFolder()`.
-
-* Step 2. UI retrieves the list of cards belonging to the entered folder from the `LogicManager`.
-
-* Step 3. A new `CardListPanel` is created with the information obtained in Step 2.
-
-* Step 4. The new `CardListPanel` from Step 3, together with the existing `BrowserPanel`, are used to create a new `CardMainScreen` object.
-
-* Step 5. The content held by `fullScreenPlaceholder` is replaced with the newly generated `CardMainScreen`.
-
-[[enterfoldersequencediagram]]
-.UI behaviour when user enters folder
-image::EnterFolderGUISequenceDiagram.png[width="800"]
-
-==== Design Considerations
-===== Aspect: How multiple folders are represented in Model
-* **Alternative 1 (current choice)**: List of structures representing individual folders
-** Pros: Scalable and better follows OOP principles.
-** Cons: Hard to implement, alters fundamental architecture of components.
-* **Alternative 2**: A single structure containing Cards with information on their folder membership (folder operations performed by iterating over all cards)
-** Pros: Easy to implement.
-** Cons: Not scalable, will be computationally expensive to perform folder operations when there are many cards and/or folders.
-
-===== Aspect: Folder identification
-* **Alternative 1**: Use a unique folder name
-** Pros: Easier to implement.
-** Cons: The undo/redo feature would not be compatible with this approach, as checking equality between different versions of a folder across time necessarily requires the comparison of cards.
-* **Alternative 2**: Identify a folder by its cards
-** Pros: There can be no folders with identical cards, preventing redundancy.
-** Cons: Two folders could have identical names as long as the cards are different, which is potentially confusing.
-* **Alternative 3 (current choice)**: Mixed approach, use Alternative 1 for comparing different folders and Alternative 2 for comparing the same folder across time
-** Pros: Reaps the benefits of both approaches without the disadvantages.
-** Cons: Difficult to implement and for future developers to grasp the difference between the two types of comparisons.
-
-===== Aspect: Storage file name and folder name
-* **Alternative 1**: Let folder name be the file name of the storage file
-** Pros: Less ambiguity as to how file name is related to folder name, able to find storage file path with folder name.
-** Cons: Harder to retrieve folder name from the file as it requires parsing the path, more prone to data corruption as file name could be modified when application is running.
-* **Alternative 2 (current choice)**: Let file name be independent of folder name, which is stored inside the storage file itself
-** Pros: Easier to implement and avoids dependency on existing storage files after application starts.
-** Cons: When saving folders from Model, it is difficult to match folders with existing storage files. Hence, rather than saving the modified folder, it is more feasible to clear the directory and save all folders. This is computationally expensive and may not be scalable beyond a certain size.
-
-===== Aspect: What folders to generate in the event corrupted storage files are encountered
-* **Alternative 1**: Display a sample folder
-** Pros: Easy to implement, guaranteed that application will not be empty with no folders displayed.
-** Cons: Non-corrupted folders will not be displayed and will potentially be overwritten.
-* **Alternative 2**: Display non-corrupted folders
-** Pros: Non-corrupted data is preserved.
-** Cons: If all data is corrupted, an empty application is presented to the user.
-* **Alternative 3 (current choice)**: Mixed approach, display all non-corrupted folders unless all data is corrupted, in which case display sample folder
-** Pros: Has the advantages but not the disadvantages of Alternatives 1 and 2.
-** Cons: Challenging to implement.
-
-=== Navigating folders
-
-==== Current Implementation
-
-===== Navigation State
-
-The state of the application with regard to navigation (i.e. whether a user is inside of a folder or at the home directory) affects the types of commands available to the user.
-
-* The commands that affect cards (e.g. adding a card, editing a card) are executed within folders and are known as *Card Operations*.
-* Commands that affect folders (e.g. adding a folder, deleting a folder) are only executable at the home directory and are known as *Folder Operations*.
-
-Please refer to the User Guide for the full list of commands under both categories.
-
-To keep track of navigation state, a boolean `inFolder` is maintained by the `ModelManager`. Other components may retrieve the current state with `ModelManager#isInFolder()`. This is also how the `Command` objects determines whether the command is executable in the present navigation state.
-
-===== Change Command
-
-Folder navigation is achieved by the user through the use of the `change` command. As navigating folders do not actually modify folders and their cards, folder navigation does not involve the Storage Component.
-
-The change command has the following formats:
-
-1. `change ..` - Returns the user to the home directory. This command can only be executed when the user is inside a folder.
-2. `change FOLDER_INDEX` - Enters the folder specified by `FOLDER_INDEX`. This command can only be executed from the home directory, when the user is not in any folder.
-
-When a `change` command is executed, the Logic component parses the command and creates a `ChangeCommand` object. If the command is of the first format, `ChangeCommand()` is invoked without any arguments and the boolean `isExitingFolder` is set to `true`. If the command is of the second format, the overloaded constructor `ChangeCommand(FOLDER_INDEX)` is instead called and `isExitingFolder` is set to `false`.
-
-`ChangeCommand#execute()` is then invoked. The value of `isExitingFolder` will determine the corresponding methods in `ModelManager` that are called (`exitFoldersToHome()` or `enterFolder()`). The sequence diagram in <<changecommandsequencediagram>> illustrates this conditional choice and the interactions involved with each option.
-
-[[changecommandsequencediagram]]
-.Component interactions for `change` command
-image::ChangeCommandSequenceDiagram.png[width="600"]
-
-==== Design Considerations
-===== Aspect: Command format to enter and exit folders
-* **Alternative 1 (current choice)**: Use variations of the same command (e.g. `change ..` and `change INDEX` )
-** Pros: More intuitive and akin to other Command Line applications.
-** Cons: Harder to implement as the logic for parsing the command is different from that of existing commands.
-* **Alternative 2**: Use distinct commands (e.g. `home` and `enter INDEX`)
-** Pros: Commands would function similar to other commands in the application.
-** Cons: Harder for the user to get acquainted with as there are two separate commands with logically similar functionality; introduces redundancy.
-
-//end::folders[]
 
 === Logging
 

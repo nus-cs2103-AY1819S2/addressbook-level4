@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.course.RequirementStatus;
@@ -28,7 +30,9 @@ public class RequirementStatusCard extends UiPart<Region> {
     @FXML
     private Label courseReqIsFulfilled;
     @FXML
-    private Label percentageFulfilled;
+    private ProgressBar percentageFulfilledBar;
+    @FXML
+    private ProgressIndicator percentageFulfilledIndicator;
 
     public RequirementStatusCard(RequirementStatus requirementStatus,
                                  int displayedIndex) {
@@ -42,8 +46,8 @@ public class RequirementStatusCard extends UiPart<Region> {
         } else {
             this.courseReqIsFulfilled.setText(IS_NOT_FULFILLED);
         }
-        this.percentageFulfilled.setText(String.format(PERCENTAGE_DISPLAY,
-                requirementStatus.getPercentageFulfilled()));
+        this.percentageFulfilledBar.setProgress(requirementStatus.getPercentageFulfilled());
+        this.percentageFulfilledIndicator.setProgress(requirementStatus.getPercentageFulfilled());
     }
 
     @Override

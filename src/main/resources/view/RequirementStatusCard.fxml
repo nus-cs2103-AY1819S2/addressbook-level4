@@ -9,6 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 
 
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -30,7 +32,16 @@
             <Label fx:id="courseRequirementDescription" styleClass="cell_small_label" text="\$courseRequirementDescription" />
             <Label fx:id="courseReqType" styleClass="cell_small_label" text="\$courseReqType" />
             <Label fx:id="courseReqIsFulfilled" styleClass="cell_small_label" text="\$courseReqIsFulfilled" />
-            <Label fx:id="percentageFulfilled" styleClass="cell_small_label" text="\$percentageFulfilled" />
+            <ProgressBar fx:id="percentageFulfilledBar" prefWidth="500.0" progress="0.0">
+                <VBox.margin>
+                    <Insets top="3.0" />
+                </VBox.margin>
+            </ProgressBar>
+            <ProgressIndicator fx:id="percentageFulfilledIndicator" prefWidth="500.0" progress="0.0">
+                <VBox.margin>
+                    <Insets top="3.0" />
+                </VBox.margin>
+            </ProgressIndicator>
         </VBox>
     </GridPane>
 </HBox>

@@ -89,6 +89,9 @@ public class DateRange {
         return datelySlots;
     }
 
+    /**
+     * Generates the number of days the reservation was for
+     */
     public long numOfDays() {
         Date startDate = this.startDate.getTime();
         Date endDate = this.endDate.getTime();

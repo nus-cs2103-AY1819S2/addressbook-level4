@@ -1,10 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
 import java.awt.Toolkit;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,7 +13,6 @@ import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DialogPane;
-import seedu.address.MainApp;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -26,8 +23,6 @@ import seedu.address.ui.InfoPanel;
  */
 public class SetReminderCommand extends Command {
 
-    public static final URL STYLESHEET =
-            requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "WhiteTheme.css"));
     public static final String COMMAND_WORD = "setreminder";
     public static final String INVALID_TIME_FORMAT = "Reminder should only be in t/<hh:mm> m/<message> format, with "
             + "time consisting of only digits.";
@@ -38,8 +33,8 @@ public class SetReminderCommand extends Command {
 
     public static final String MESSAGE_REMINDER_SUCCESS = "Set reminder to alert at: %1$s";
 
-    private final SimpleDateFormat displayFormatter = new SimpleDateFormat("dd MMMM YYYY, hh:mm:ss a");
-    private final SimpleDateFormat formatter = new SimpleDateFormat("hh:mm:ss");
+    public static final SimpleDateFormat DISPLAY_FORMATTER = new SimpleDateFormat("dd MMMM YYYY, hh:mm:ss a");
+    public static final SimpleDateFormat FORMATTER = new SimpleDateFormat("hh:mm:ss");
     private final String time;
     private final String message;
     private final Timer timer;
@@ -55,7 +50,7 @@ public class SetReminderCommand extends Command {
         requireNonNull(model);
 
         try {
-            Date duration = formatter.parse(time);
+            Date duration = FORMATTER.parse(time);
 
             Calendar c1 = Calendar.getInstance();
             Calendar c2 = dateToCalendar(duration);
@@ -64,7 +59,7 @@ public class SetReminderCommand extends Command {
             cTotal.add(Calendar.MINUTE, c2.get(Calendar.MINUTE));
             cTotal.add(Calendar.SECOND, c2.get(Calendar.SECOND));
 
-            //System.out.println("Action scheduled to perform at: " + displayFormatter.format(cTotal.getTime()));
+            //System.out.println("Action scheduled to perform at: " + DISPLAY_FORMATTER.format(cTotal.getTime()));
 
             timer.schedule(new TimerTask() {
                 @Override
@@ -85,7 +80,7 @@ public class SetReminderCommand extends Command {
             }, cTotal.getTime());
 
             return new CommandResult(String.format(MESSAGE_REMINDER_SUCCESS,
-                    displayFormatter.format(cTotal.getTime())));
+                    DISPLAY_FORMATTER.format(cTotal.getTime())));
 
         } catch (ParseException parseException) {
             throw new CommandException("An unexpected error occurred!");
@@ -99,7 +94,7 @@ public class SetReminderCommand extends Command {
      * @param date to be converted
      * @return a Calendar instance
      */
-    private Calendar dateToCalendar(Date date) {
+    public static Calendar dateToCalendar(Date date) {
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

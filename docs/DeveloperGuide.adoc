@@ -827,7 +827,7 @@ This product aims to help real estate agents manage large amount of customer and
 * *How does it make the the user's life easier?* +
 With a proper address book app, real estate agents can quickly and conveniently search for their customers’ contact details, as well as essential property information to speed up their business process.
 
-
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -884,7 +884,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user who prefers visuals |upload and store photos of a specific property |view the property on-the-go
 |=======================================================================
+// end::userstories[]
 
+// tag::usecases[]
 [appendix]
 == Use Cases
 
@@ -1247,6 +1249,25 @@ Use case ends.
 Use case resumes at step 3.
 
 [discrete]
+=== Use case: Clear archived contact list
+
+*MSS*
+
+1. User requests to clear the archived contact list.
+2. TheRealApp requests for confirmation.
+3. User confirms the request.
+4. TheRealApp clears the entire archived contact list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User cancels the request.
++
+Use case ends.
+
+[discrete]
 === Use case: View history
 
 *MSS*
@@ -1307,6 +1328,7 @@ Use case ends.
 3. User confirms the exit.
 +
 Use case ends.
+// end::usecases[]
 
 [appendix]
 == Non Functional Requirements
@@ -1315,15 +1337,11 @@ Use case ends.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-_{More to be added}_
 
 [appendix]
 == Instructions for Manual Testing

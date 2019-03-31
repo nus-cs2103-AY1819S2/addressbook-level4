@@ -44,5 +44,4 @@ public class HistoryCommand extends Command {
     public boolean requiresPinList() {
         return false;
     }
-
 }

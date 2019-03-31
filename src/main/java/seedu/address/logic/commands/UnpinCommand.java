@@ -70,5 +70,4 @@ public class UnpinCommand extends Command {
     public boolean requiresPinList() {
         return false;
     }
-
 }

@@ -13,10 +13,10 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-TravelBuddy is a desktop Travel Guide application for travel enthusiasts to record places previously visited.
-
-With TravelBuddy, you will be able to have a record of all the places you have visited, describe and rate the
-places you have been to, and easily find them when you need it using a CLI (Command Line Interface). TravelBuddy stores all your information offline, so
+* TravelBuddy is a desktop Travel Guide application for travel enthusiasts. It has a GUI but most of the user
+interactions happen using a CLI (Command Line Interface).
+* With TravelBuddy, you will be able to have a record of all the places you have visited, describe and rate the
+places you have been to, and easily find them when you need it. TravelBuddy stores all your information offline, so
 you can access all your vital travel information even without data connection.
 
 == Site Map

@@ -8,6 +8,8 @@ import static org.junit.Assert.assertTrue;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -21,6 +23,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FoodDiary;
 import seedu.address.model.Model;
+import seedu.address.model.PostalData;
 import seedu.address.model.ReadOnlyFoodDiary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.restaurant.Restaurant;
@@ -113,10 +116,18 @@ public class AddCommandTest {
         public int getNumReviews() {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public ReadOnlyUserPrefs getUserPrefs() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Optional<PostalData> getPostalData(int postal) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
 
         @Override
         public GuiSettings getGuiSettings() {
@@ -177,6 +188,12 @@ public class AddCommandTest {
         public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void updateFilteredRestaurantListAndSort(Predicate<Restaurant> predicate, Comparator<Restaurant> sortBy) {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public boolean canUndoFoodDiary() {

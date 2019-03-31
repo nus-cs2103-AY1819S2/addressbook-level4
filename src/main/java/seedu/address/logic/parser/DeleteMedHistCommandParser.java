@@ -1,4 +1,27 @@
 package seedu.address.logic.parser;
 
-public class DeleteMedHistCommandParser {
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DeleteMedHistCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+/**
+ * Parses input arguments and creates a new DeleteMedHistCommand object
+ */
+public class DeleteMedHistCommandParser implements Parser<DeleteMedHistCommand>{
+    /**
+     * Parses the given {@code String} of arguments in the context of the DeleteMedHistCommand
+     * and returns an DeleteMedHistCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public DeleteMedHistCommand parse(String args) throws ParseException {
+        try {
+            Index index = ParserUtil.parseIndex(args);
+            return new DeleteMedHistCommand(index);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMedHistCommand.MESSAGE_USAGE), pe);
+        }
+    }
 }

@@ -25,7 +25,10 @@ public class SortRecordCommand extends SortCommand<Record> {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-
+        model.sortRecordsBook(this.attrCompare, this.isReverse);
+        model.getFilteredRecordList();
+        model.updateFilteredRecordList(Model.PREDICATE_SHOW_ALL_RECORDS);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, paraType));
     }
 

@@ -837,19 +837,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |user |store, edit, and view my dental patients' teeth condition | understand and serve my dental patients'
 teeth condition better
 
+|`* * *` |user |isolate other patients' information | focus on the current patient in my clinic
+
+|`* * *` |user |view my patients' dental records | understand and keep track of my patients' teeth health history
+
+|`* * *` |user |add a new dental record | store diagnosis and treatments of my patients during their dental sessions
+
+|`* * *` |user |delete a dental record | remove records that have become redundant or irrelevant
+
+|`* * *` |user |edit a dental record | correct or modify descriptions of dental records that I have already added
+
+|`* * *` |user |clear all dental records of a patient | protect the privacy of my patients if they require me to
+
 |`* * *` |user |add a new task | keep track of what I need to do
 
 |`* * *` |user |delete a task |remove tasks that I have already completed or no longer need to do
 
 |`* * *` |user |edit a task |change details of certains tasks that I have already added
 
-|`* * *` |user | encrypt the imported/exported data | ensure patient information remains confidential
+|`* * *` |user |encrypt the imported/exported data | ensure patient information remains confidential
 
-|`* * *` |user | append imported/exported data | work more flexibly with patient information
+|`* * *` |user |append imported/exported data | work more flexibly with patient information
 
-|`* * *` |user | my imported/exported data supported by multiple file types | work more flexibly with patient information
+|`* * *` |user |my imported/exported data supported by multiple file types | work more flexibly with patient information
 
-|`* * *` |user | see a statistics report on each patient's dental history | have an easier time understanding their potential problems
+|`* * *` |user |see a statistics report on each patient's dental history | have an easier time understanding their potential problems
 
 |`* * *` |user | warning to come up when I'm exiting the program if there exists duplicate entries | be reminded to
 edit them before exiting.

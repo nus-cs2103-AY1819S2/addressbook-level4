@@ -57,9 +57,11 @@ public class RecordAddCommand extends Command {
             requireNonNull(model);
 
             Record record = new Record(description);
+            boolean isDuplicate = model.hasRecord(record);
+
             model.addRecord(record);
 
-            if (model.hasRecord(record)) {
+            if (isDuplicate) {
                 return new CommandResult(String.format(MESSAGE_DUPLICATE_RECORD, toAdd.getName()));
             } else {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));

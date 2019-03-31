@@ -28,24 +28,22 @@ public class OpenCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Image successfully opened.";
 
     private Album album = Album.getInstance();
-    private String filePath;
+    private String fileName;
 
     /**
      * Creates an OpenCommand to add the specified {@code args}
      */
     public OpenCommand(String args) {
-        this.filePath = album.getAssetsFilePath() + args;
+        this.fileName = args;
     }
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) throws CommandException {
         requireNonNull(currentEdit);
-
-        File file = new File(filePath);
         Image toOpen;
 
-        if (file.isFile()) {
-            toOpen = new Image(filePath);
+        if (album.checkFileExists(fileName)) {
+            toOpen = album.retrieveImage(fileName);
         } else {
             throw new CommandException(MESSAGE_FILE_NOT_FOUND);
         }

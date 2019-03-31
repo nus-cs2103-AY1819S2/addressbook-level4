@@ -65,10 +65,24 @@ public class Album {
 
     /* @@author itszp*/
     /**
-     * Returns file path to assets folder
+     * Check if file exists in assets folder.
+     * Returns true if file name exists
+     *
+     * @param args string of file name.
      */
-    public String getAssetsFilePath() {
-        return assetsFilePath;
+    public boolean checkFileExists(String args) {
+        File file = new File(assetsFilePath + args);
+        return (file.isFile());
+    }
+
+    /**
+     * Uses assetsFilePath to retrieve file as specified by args.
+     * Returns an Image object.
+     *
+     * @param args string of file name.
+     */
+    public Image retrieveImage(String args) {
+        return new Image(assetsFilePath + args);
     }
 
     /**

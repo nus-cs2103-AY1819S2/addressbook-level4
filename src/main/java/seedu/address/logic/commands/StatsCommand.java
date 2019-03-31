@@ -44,7 +44,7 @@ public class StatsCommand extends Command {
         outputStatistics.add(accuracy);
 
         new StatisticView(new Stage(), playerStats.generateData()).show();
-            return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", outputStatistics)));
     }
 
 }

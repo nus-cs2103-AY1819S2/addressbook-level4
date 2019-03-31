@@ -164,14 +164,16 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `ImagePanel`, `InitPanel`, `InformationPanel` and `ImageCard`.
+All of these components inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Utilizes the `Notifier` class which implements Java's `propertyChangeListener` to propagate changes.
+* Components are registered as listeners as will update with modified data when triggered.
 
 [[Design-Logic]]
 === Logic component
@@ -242,29 +244,56 @@ This section describes some noteworthy details on how certain features are imple
 The Import Command allow users to import a file of image format into FomoFoto for editing.
 
 ==== Current implementation
-The implementation of the import feature is largely similar to that of linux's `cp` command, with the exception the output path is fixed. It is facilitated by he `ModelManager` and `ImportCommandParser` and contains the follow operation:
+The implementation of the import feature is largely similar to that of linux's `cp` command, with the exception the output path is fixed.
 
- * `Model#displayImage(Image)` - Retrives the image from `assets` folder by `Image` name field.
+The command allows for users to pass in directory paths as well. All valid images in the directory will be copied over,
+but the traversal is not recursive i.e. folders in that directory will not be searched.
+
+It is facilitated by `Model`, `Album` and `ImportCommandParser` and contains the follow operation:
+
+ * `Model#refreshAlbum()` - Fires the ~propertyChangeListener~ to update the information panel.
  * `ImportCommandParser#parse(String)` - Takes in an absolute path and copies the image to `assets` directory.
+ * `Album#populateAlbum()` - Calls on the `Album` class to update the list of image based on photos in `assets` folder.
 
 Example usage scenario:
 
  1. User launches application and enters `import C:\Users\images\sample.png`
  2. `ImportCommandParser` takes in arguments and performs validation on given path. Image is copied to `assets` folder if the path is valid.
- 3. `Model` display the imported image to UI by calling the `Notifier` class which calls on the display panel listening to the notifier.
- 4. `ImagePanel` updates to reflect the imported image.
+ 3. `Album` adds this image to its list of imported image.
+ 3. `Model` calls the `Notifier` class which fires a notifier to any listeners registered to it.
+ 4. `InformationPanel` updates to reflect the imported image.
 
 image::ImportSequenceDiagram.png[width=800]
 
 ==== Design Considerations
 
-* *Alternative 1 (current choice)*: Import images with absolute path.
-** Pros: Easy and clement implementation.
-** Cons: Limited to single image import.
+* The command does not traverse inner directories.
+** This design consideration was made to prevent excessive number of images being added to the program.
+** This design consideration also mitigates cyclic graphs such as symbolic or hard links.
 
-* *Alternative 2* : Open images within a directory.
-** Pros: Can import many images without repeating the command.
-** Cons: Can result in errors in too mny images or images are of alternative formats.
+=== Tab feature
+The Tab command allow users to cycle through tabs in `informationPanel` without using the mouse.
+
+==== Current implementation
+The implementation of the tab command is largely for convenience reasons and calls a single method.
+
+It is facilitated by `Model` and contains the follow operation:
+
+ * `Model#switchTab()` - Fires the `propertyChangeListener` to switch tabs in `informationPanel`.
+
+Example usage scenario:
+
+ 1. User launches application and enters `tab`
+ 3. `Model` calls the `Notifier` class which fires a notifier to any listeners registered to it.
+ 4. `InformationPanel` updates to switch to the next available tab.
+
+image::TabSequenceDiagram.png[width=800]
+
+==== Design Considerations
+
+* The command cycle tabs in a single fashion.
+** This design consideration means that users cannot indicate which tab they would like to switch to.
+** A potential feature could include a command argument i.e. `tab 2` which would open the second tab of `informationPanel`.
 
 === Open Feature
 

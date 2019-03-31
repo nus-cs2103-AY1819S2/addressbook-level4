@@ -238,12 +238,21 @@ public class ModelManager implements Model {
     //=========== Sorting Methods ===========================================================================
 
     /**
-     * Sorts the address book according to the given comparator
+     * Sorts the patients within address book according to the given comparator
      */
     @Override
     public void sortAddressBook(Comparator<Patient> compPa, boolean isReverse) {
         requireNonNull(compPa);
         versionedAddressBook.sortPatients(compPa, isReverse);
+    }
+
+    /**
+     * Sorts the records within address book according to the given comparator
+     */
+    @Override
+    public void sortRecordsBook(Comparator<Record> compRec, boolean isReverse) {
+        requireNonNull(compRec);
+        versionedAddressBook.sortRecords(compRec, isReverse);
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -302,10 +311,20 @@ public class ModelManager implements Model {
     public ObservableList<Record> getFilteredRecordList() {
         if (MainWindow.getRecordPatient() != null) {
             versionedAddressBook.setRecords(MainWindow.getRecordPatient().getRecords());
-            filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
+            if (filteredRecords == null) {
+                filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
+            }
             return filteredRecords;
         }
         return null;
+    }
+
+    @Override
+    public void updateFilteredRecordList(Predicate<Record> predicate) {
+        if (MainWindow.getRecordPatient() != null) {
+            requireNonNull(predicate);
+            filteredRecords.setPredicate(predicate);
+        }
     }
 
     //=========== Undo/Redo =================================================================================

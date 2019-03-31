@@ -257,6 +257,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.sortStoredList(patientComparator, isReverse);
     }
 
+    /**
+     * Method to sort the patients within the address book
+     */
+    public void sortRecords(Comparator<Record> recordComparator, boolean isReverse) {
+        records.sortStoredList(recordComparator, isReverse);
+    }
+
     @Override
     public String toString() {
         return persons.asUnmodifiableObservableList().size() + " persons";

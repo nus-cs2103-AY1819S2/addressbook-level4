@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EXPIRY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUANTITY;
 
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import seedu.address.commons.util.warning.WarningPanelPredicateType;
@@ -24,7 +23,7 @@ public class WarningCommandParser implements Parser<WarningCommand> {
      */
     public WarningCommand parse(String args) throws ParseException {
         if (isShow(args)) {
-            return new WarningCommand(args.trim());
+            return new WarningCommand(true);
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EXPIRY, PREFIX_QUANTITY);
@@ -34,7 +33,6 @@ public class WarningCommandParser implements Parser<WarningCommand> {
 
         Optional<String> optionalExpiryThreshold = argMultimap.getValue(PREFIX_EXPIRY);
         Optional<String> optionalLowStockThreshold = argMultimap.getValue(PREFIX_QUANTITY);
-        Predicate predicate = null;
 
         if (optionalExpiryThreshold.isPresent()) {
             Threshold threshold = ParserUtil.parseThreshold(optionalExpiryThreshold.get());

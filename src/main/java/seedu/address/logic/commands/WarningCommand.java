@@ -31,7 +31,9 @@ public class WarningCommand extends Command {
     private final WarningPanelPredicateType type;
     private final boolean showThreshold;
 
-
+    /**
+     * Creates a WarningCommand to change the current threshold level.
+     */
     public WarningCommand(WarningPanelPredicateType type, Threshold threshold) {
         requireNonNull(type);
         requireNonNull(threshold);
@@ -43,9 +45,9 @@ public class WarningCommand extends Command {
     /**
      * Creates a WarningCommand to show the current threshold levels.
      */
-    public WarningCommand(String show) {
-        requireNonNull(show);
-        this.showThreshold = true;
+    public WarningCommand(Boolean isShow) {
+        requireNonNull(isShow);
+        this.showThreshold = isShow;
         this.threshold = null;
         this.type = null;
     }
@@ -90,7 +92,12 @@ public class WarningCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof WarningCommand // instanceof handles nulls
-                && threshold.equals(((WarningCommand) other).threshold)
+                && (threshold == null && ((WarningCommand) other).threshold == null
+                    || (threshold != null && ((WarningCommand) other).threshold != null
+                        && threshold.equals(((WarningCommand) other).threshold)))
+                && (type == null && ((WarningCommand) other).type == null
+                    || (type != null && ((WarningCommand) other).type != null
+                        && type.equals(((WarningCommand) other).type)))
                 && showThreshold == ((WarningCommand) other).showThreshold);
     }
 }

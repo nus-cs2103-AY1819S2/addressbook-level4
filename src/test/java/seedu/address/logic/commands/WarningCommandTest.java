@@ -1,79 +1,148 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
-import static seedu.address.testutil.TypicalMedicines.LISINOPRIL;
-import static seedu.address.testutil.TypicalMedicines.PREDNISONE;
-import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
-
-import java.util.Arrays;
-import java.util.Collections;
-
+import org.assertj.core.error.future.Warning;
 import org.junit.Test;
-
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.medicine.NameContainsKeywordsPredicate;
+import seedu.address.model.medicine.Quantity;
+import seedu.address.model.threshold.Threshold;
+import seedu.address.testutil.Assert;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_MEDICINES_LISTED_OVERVIEW;
+import static seedu.address.commons.core.Messages.MESSAGE_SHOW_CURRENT_THRESHOLDS;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalMedicines.ACETAMINOPHEN;
+import static seedu.address.testutil.TypicalMedicines.IBUPROFEN;
+import static seedu.address.testutil.TypicalMedicines.LEVOTHYROXINE;
+import static seedu.address.testutil.TypicalMedicines.LISINOPRIL;
+import static seedu.address.testutil.TypicalMedicines.PREDNISONE;
+import static seedu.address.testutil.TypicalMedicines.getTypicalInventory;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code FindCommand}.
+ * Contains integration tests (interaction with the Model) for {@code WarningCommand}.
  */
-public class FindCommandTest {
+@SuppressWarnings("ALL")
+public class WarningCommandTest {
     private Model model = new ModelManager(getTypicalInventory(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalInventory(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+    public void constructor_nullWarningPanelPredicateType_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new WarningCommand(null, new Threshold("0")));
+    }
 
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
+    @Test
+    public void constructor_nullThreshold_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class,
+                () -> new WarningCommand(WarningPanelPredicateType.EXPIRY, null));
+    }
+
+    @Test
+    public void constructor_nullShowString_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new WarningCommand(null));
+    }
+
+    @Test
+    public void equals() {
+        Threshold firstThreshold = Model.DEFAULT_EXPIRY_THRESHOLD;
+        Threshold secondThreshold = Model.DEFAULT_LOW_STOCK_THRESHOLD;
+
+        WarningPanelPredicateType firstType = WarningPanelPredicateType.EXPIRY;
+        WarningPanelPredicateType secondType = WarningPanelPredicateType.LOW_STOCK;
+
+        WarningCommand warningFirstCommand = new WarningCommand(firstType, firstThreshold);
+        WarningCommand warningSecondCommand = new WarningCommand(secondType, secondThreshold);
+        WarningCommand warningThirdCommand = new WarningCommand(true);
 
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertTrue(warningFirstCommand.equals(warningFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        WarningCommand warningFirstCommandCopy = new WarningCommand(firstType, firstThreshold);
+        assertTrue(warningFirstCommand.equals(warningFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertFalse(warningFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(warningFirstCommand.equals(null));
 
-        // different medicine -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        // different command -> returns false
+        assertFalse(warningFirstCommand.equals(warningSecondCommand));
+        assertFalse(warningFirstCommand.equals(warningThirdCommand));
     }
 
     @Test
-    public void execute_zeroKeywords_noMedicineFound() {
-        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredMedicineList(predicate);
+    public void execute_show_defaultThresholds() {
+        String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
+                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(), Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
+        WarningCommand command = new WarningCommand(true);
+
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Collections.emptyList(), model.getFilteredMedicineList());
+        assertEquals(Model.DEFAULT_EXPIRY_THRESHOLD,
+                model.getWarningPanelThreshold(WarningPanelPredicateType.EXPIRY));
+        assertEquals(Model.DEFAULT_LOW_STOCK_THRESHOLD,
+                model.getWarningPanelThreshold(WarningPanelPredicateType.LOW_STOCK));
     }
 
     @Test
-    public void execute_multipleKeywords_multipleMedicinesFound() {
-        String expectedMessage = String.format(MESSAGE_MEDICINES_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Acetaminophen Lisinopril Prednisone");
-        FindCommand command = new FindCommand(predicate);
-        expectedModel.updateFilteredMedicineList(predicate);
+    public void execute_changeExpiryThreshold_zeroExpiringMedicine() {
+        String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
+                0, Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
+        Threshold threshold = new Threshold("0");
+        WarningCommand command = new WarningCommand(WarningPanelPredicateType.EXPIRY, threshold);
+        expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.EXPIRY, threshold);
+
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(ACETAMINOPHEN, LISINOPRIL, PREDNISONE), model.getFilteredMedicineList());
+        assertEquals(Collections.emptyList(), model.getExpiringMedicinesList());
+    }
+
+    @Test
+    public void execute_changeExpiryThreshold_multipleExpiringMedicines() {
+        String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
+                180, Model.DEFAULT_LOW_STOCK_THRESHOLD.getNumericValue());
+        Threshold threshold = new Threshold("180");
+        WarningCommand command = new WarningCommand(WarningPanelPredicateType.EXPIRY, threshold);
+        expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.EXPIRY, threshold);
+        expectedModel.updateFilteredMedicineList(medicine -> medicine.getNextExpiry() != null);
+
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(IBUPROFEN, LEVOTHYROXINE, LISINOPRIL), model.getExpiringMedicinesList());
+    }
+
+    @Test
+    public void execute_changeLowStockThreshold_zeroLowStockMedicines() {
+        String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
+                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(), Quantity.MAX_QUANTITY + 1);
+        Threshold threshold = new Threshold(Integer.toString(Quantity.MAX_QUANTITY + 1));
+        WarningCommand command = new WarningCommand(WarningPanelPredicateType.LOW_STOCK, threshold);
+        expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.LOW_STOCK, threshold);
+
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(model.getFilteredMedicineList(), model.getLowStockMedicinesList());
+    }
+
+    @Test
+    public void execute_changeLowStockThreshold_multipleLowStockMedicines() {
+        String expectedMessage = String.format(MESSAGE_SHOW_CURRENT_THRESHOLDS,
+                Model.DEFAULT_EXPIRY_THRESHOLD.getNumericValue(), 0);
+        Threshold threshold = new Threshold("0");
+        WarningCommand command = new WarningCommand(WarningPanelPredicateType.LOW_STOCK, threshold);
+        expectedModel.changeWarningPanelListThreshold(WarningPanelPredicateType.LOW_STOCK, threshold);
+
+        assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ACETAMINOPHEN), model.getLowStockMedicinesList());
     }
 
     /**

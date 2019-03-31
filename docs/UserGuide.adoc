@@ -130,8 +130,8 @@ The tags entered during an edit patient command will override all the tags a pat
 
 
 *Format:* `editpat NRIC [n/NAME] [a/Address] [r/NRIC] …`
-you can view the prefixes for each of the fields at the `addpat` section. +
-*Alias:* `ep` 
+you can view the prefixes for each of the fields at the <<addpat>> section. +
+*Alias:* `ep`
 
 *Example:* +
 
@@ -148,7 +148,7 @@ You will also be able to see the changes made to the patient record in the displ
 image::ep_conflict.png[width="600" align="center"]
 
 Since every citizen, permanent residents or foreigners in Singapore have their unique NRIC / FIN numbers, duplicate NRIC are not
-allowed in QuickDocs. When you edit a patient's NRIC/FIN, if there is an existing patient with that NRIC, the current edit
+allowed in QuickDocs. When you edit a patient's NRIC/FIN and there is an existing patient with that NRIC, the current edit
 will not be executed. You will also be notified of the detection of duplicated NRIC entries through the input feedback box.
 
 //[NOTE]

@@ -113,22 +113,22 @@ public class UniqueBookList implements Iterable<Book> {
 
         Comparator<Book> bookComparator = (b1, b2) -> {
             Iterator<String> iterator = types.iterator();
-            String firstOrder = iterator.next().toLowerCase();
+            String firstType = iterator.next().toLowerCase();
             int result;
 
-            if (firstOrder.equals(SortBookCommandParser.AUTHOR)) {
+            if (firstType.equals(SortBookCommandParser.AUTHOR)) {
 
-                result = sort(b1, b2, subOrder, mainOrder, firstOrder, this::compareAuthor);
+                result = sort(b1, b2, subOrder, mainOrder, firstType, this::compareAuthor);
 
                 if (result != 0 || !iterator.hasNext()) {
                     return result;
                 }
 
-                String secondOrder = iterator.next().toLowerCase();
+                String secondType = iterator.next().toLowerCase();
 
-                if (secondOrder.equals(SortBookCommandParser.BOOKNAME)) {
+                if (secondType.equals(SortBookCommandParser.BOOKNAME)) {
 
-                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareBookName);
+                    result = sort(b1, b2, subOrder, mainOrder, secondType, this::compareBookName);
 
                     if (result != 0 || !iterator.hasNext()) {
                         return result;
@@ -138,7 +138,7 @@ public class UniqueBookList implements Iterable<Book> {
 
                 } else {
 
-                    result = sort(b1, b2, subOrder, mainOrder, secondOrder, this::compareRating);
+                    result = sort(b1, b2, subOrder, mainOrder, secondType, this::compareRating);
 
                     if (result != 0 || !iterator.hasNext()) {
                         return result;
@@ -147,9 +147,9 @@ public class UniqueBookList implements Iterable<Book> {
                     return sort(b1, b2, subOrder, mainOrder, iterator.next().toLowerCase(), this::compareBookName);
 
                 }
-            } else if (firstOrder.equals(SortBookCommandParser.BOOKNAME)) {
+            } else if (firstType.equals(SortBookCommandParser.BOOKNAME)) {
 
-                result = sort(b1, b2, subOrder, mainOrder, firstOrder, this::compareBookName);
+                result = sort(b1, b2, subOrder, mainOrder, firstType, this::compareBookName);
 
                 if (result != 0 || !iterator.hasNext()) {
                     return result;
@@ -180,7 +180,7 @@ public class UniqueBookList implements Iterable<Book> {
 
             } else {
 
-                result = sort(b1, b2, subOrder, mainOrder, firstOrder, this::compareRating);
+                result = sort(b1, b2, subOrder, mainOrder, firstType, this::compareRating);
 
                 if (result != 0 || !iterator.hasNext()) {
                     return result;
@@ -211,7 +211,7 @@ public class UniqueBookList implements Iterable<Book> {
             }
         };
 
-        internalList.sort(bookComparator.reversed());
+        internalList.sort(bookComparator);
     }
 
     /**
@@ -220,16 +220,16 @@ public class UniqueBookList implements Iterable<Book> {
      * @param b2 second book that going to be compare
      * @param subOrders hash map that contains sub order
      * @param order main order if available
-     * @param currentOrder current order
+     * @param currentType current sort type
      * @param compare bifunction that will change base on different sort type
      * @return -1, 0 or 1 depend one value of b1 and b2
      */
     private int sort(Book b1, Book b2,
                      Map<String, String> subOrders,
-                     String order, String currentOrder,
+                     String order, String currentType,
                      BiFunction<Book, Book, Integer> compare) {
         if (order == null) {
-            order = subOrders.getOrDefault(currentOrder, SortBookCommandParser.ASCENDING);
+            order = subOrders.getOrDefault(currentType, SortBookCommandParser.ASCENDING);
         }
 
         if (order.equals(SortBookCommandParser.ASCENDING)) {

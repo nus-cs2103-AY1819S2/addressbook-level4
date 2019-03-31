@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import static java.util.Objects.requireNonNull;
 
-import javax.swing.plaf.synth.Region;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -10,6 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
@@ -20,7 +20,7 @@ public class MedHistBrowserPanel extends UiPart<Region>{
             requireNonNull(MainApp.class.getResource(FXML_FILE_FOLDER + "default.html"));
     public static final String SEARCH_PAGE_URL = "https://se-education.org/dummy-search-page/?name=";
 
-    private static final String FXML = "BrowserMedHistPanel.fxml";
+    private static final String FXML = "MedHistBrowserPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 

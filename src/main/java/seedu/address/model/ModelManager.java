@@ -317,6 +317,14 @@ public class ModelManager implements Model {
         return null;
     }
 
+    @Override
+    public void updateFilteredRecordList(Predicate<Record> predicate) {
+        if (MainWindow.getRecordPatient() != null) {
+            requireNonNull(predicate);
+            filteredRecords.setPredicate(predicate);
+        }
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override

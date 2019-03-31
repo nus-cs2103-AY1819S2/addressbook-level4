@@ -595,9 +595,54 @@ A list of reasons why we choose to create a `FileName` class for the validation 
 [IMPORTANT]
 There are certain naming conventions which have to be followed on Windows operating system which are not necessary on Linux and MacOS operating systems. You can read more about the naming conventions for Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here]. You can also refer to link:https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations[this] Wikipedia article for a detailed comparison between different naming conventions for different operating systems.
 * Ensure consistency by creating a file naming convention.
-* Ensure that files created with file names specified by the user can be used on Windows, Linux and MacOS operating systems. This is important in order to avoid potential bugs involving file names as MediTabs supports Windows, Linux and MacOS operating systems hence, the user might switch between these operating systems when using MediTabs.
+* Ensure that files created with file names specified by the user can be used on Windows, Linux and MacOS operating systems. This is to avoid potential bugs involving file names as MediTabs supports Windows, Linux and MacOS operating systems hence, the user might switch between these operating systems when using MediTabs.
 
-Examples of commands in MediTabs which uses the `FileName` class to validate file name specified by the user:
+==== Current Implementation
+
+The validation of file name mechanism is facilitated mainly by the `FileName#isValidFileName(String fileNameToCheck)` operation. The operation checks if the `fileNameToCheck` input is a valid file name based on the file naming convention we have created for MediTabs.
+
+The file naming convention used in MediTabs is as follows: +
+Format: `Start with an alphabet or number followed by alphabets, numbers, underscore or hyphen`
+
+[NOTE]
+In order to ensure that the validation of file name is platform independent, the validation is implemented such that it ensures that the specified file name not only follows the file naming convention used in MediTabs but also does not violate file naming conventions in any platform especially Windows which has a very strict file name conventions.
+
+[IMPORTANT]
+Based on manual testing by our team on Windows, it is discovered that `COM0` and `LPT0` are also part of the reserved names which are not allowed as file names in Windows. However, they are not reflected in the Windows documentation under the link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[naming conventions] section. In order to ensure that `FileName` class validation implementation is platform independent, we have included `COM0` and `LPT0` as reserved names when validating the specified file name.
+
+A full list of reserved names implemented in `FileName` class which are not allowed as file names is as follows:
+
+* `CON, PRN, AUX, NUL, COM0, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT0, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, and LPT9`
+
+[WARNING]
+The specified file name *must not* be an empty string or `null`. If the specified file name is an empty string, the specified file name will be declared as invalid. If the specified file name is `null`, a `NullPointerException` will be thrown.
+
+==== How to integrate it into your project or code?
+
+If you are a developer looking to integrate `FileName` class into your project or code, we have provided a code snippet which provides you with an example of how to take advantage of the validation of file names provided by `FileName#isValidFileName(String fileNameToCheck)` operation.
+
+For example purposes, the code snippet shown below is a modified version of `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)` operation used in MediTabs for your reference:
+
+[source,java]
+----
+public static FileName parseFileName(String fileName) throws ParseException {
+        if (!FileName.isValidFileName(fileName)) { # <1>
+            throw new ParseException(FileName.MESSAGE_CONSTRAINTS); # <2>
+        }
+        return new FileName(fileName); # <3>
+    }
+----
+<1> Validate the specified file name using the `FileName#isValidFileName(String fileNameToCheck)` operation.
+<2> If the specified file name is invalid, a `ParseException` is thrown.
+<3> If the specified file name is valid, a `FileName` object constructed from the specified file name is returned.
+
+[NOTE]
+In the code snippet above, we have modified the method signature from `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)` to `ParserUtil#parseFileName(String fileName)` and also its implementation for easier reference and understanding.
+
+[IMPORTANT]
+We *highly recommend* complementing the `FileName` class with Java build in classes such as link:https://docs.oracle.com/javase/9/docs/api/java/io/File.html[`java.io.File`] or link:https://docs.oracle.com/javase/9/docs/api/java/nio/file/Files.html[`java.nio.file.Files`] and handling the exceptions thrown by the methods used in those classes when creating files with the validated file names. This is to allow potential exceptions involving but not limited to permissions, security and file name being too long which are outside the scope of `FileName` class to be handled.
+
+Examples of commands in MediTabs which uses the `FileName` class to validate the specified file name:
 
 * `export [FILE_NAME]`
 * `label INDEX [f/FILE_NAME]`

@@ -27,8 +27,9 @@ public class StorageManagerTest {
     public void setUp() {
         JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonArchiveBookStorage archiveBookStorage = new JsonArchiveBookStorage(getTempFilePath("arb"));
+        JsonPinBookStorage pinBookStorage = new JsonPinBookStorage(getTempFilePath("apb"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, archiveBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(addressBookStorage, archiveBookStorage, pinBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

@@ -9,6 +9,7 @@ import static seedu.address.ui.HelpWindow.USERGUIDE_FILE_PATH;
 import java.net.URL;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
@@ -45,6 +46,7 @@ public class HelpWindowTest extends GuiUnitTest {
         assertFalse(helpWindow.isShowing());
     }
 
+    @Ignore
     @Test
     public void focus_helpWindowNotFocused_focused() throws Exception {
         // TODO: This test skip can be removed once this bug is fixed:

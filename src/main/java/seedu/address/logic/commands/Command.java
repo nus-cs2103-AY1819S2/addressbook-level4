@@ -22,4 +22,6 @@ public abstract class Command {
     public abstract boolean requiresMainList();
 
     public abstract boolean requiresArchiveList();
+
+    public abstract boolean requiresPinList();
 }

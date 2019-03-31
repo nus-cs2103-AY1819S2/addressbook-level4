@@ -964,6 +964,24 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
+=== Patient and Record lists
+
+. Switching of UI elements when `goto` command is run
+
+.. Prerequisites: List all patients using the `list` command. At least one patient should be displayed in the list.
+.. Test case: `goto 1` (Patient of index 1) +
+   Expected: The patient list GUI is replaced by the record list GUI. Displays dental records of patient specified by index. The window size may not be optimum. Use the command: `back` to revert to the patient list.
+.. Test case: `back` +
+   Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
+   
+. Switching of UI elements when `back` command is run
+
+.. Prerequisites: Run the `goto 1` command. GUI displays dental record list.
+.. Test case: `back` +
+   Expected: Shows the GUI with a set of sample patients. An alert box prompts for confirmation. The window size may not be optimum. Use the command: `goto 1` to revert to the dental record list.
+.. Test case: `goto` +
+   Expected: No GUI elements changed. Error details shown in the status message. Status bar remains the same.
+
 === Deleting a patient
 
 . Deleting a patient while all patients are listed

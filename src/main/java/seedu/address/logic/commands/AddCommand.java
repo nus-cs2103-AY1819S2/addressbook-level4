@@ -65,7 +65,18 @@ public class AddCommand extends Command {
 
         model.addPerson(toAdd);
         model.commitAddressBook();
+        model.commitArchiveBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 
     @Override

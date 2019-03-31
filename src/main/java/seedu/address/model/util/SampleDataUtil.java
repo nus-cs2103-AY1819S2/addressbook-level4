@@ -5,7 +5,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.ArchiveBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyArchiveBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -40,10 +42,32 @@ public class SampleDataUtil {
         };
     }
 
+    public static Person[] getSampleArchivedPersons() {
+        return new Person[] {
+            new Person(new Name("James Lee"), new Phone("98765432"), new Email("jameslee@example.com"),
+                    new Address("Blk 123 Clementi Road, #02-02"),
+                    getTagSet("friends")),
+            new Person(new Name("Tan Ah Beng"), new Phone("87654321"), new Email("tab@example.com"),
+                    new Address("Blk 456 Woodlands Ave 1, #10-10"),
+                    getTagSet("colleagues", "friends")),
+            new Person(new Name("Ricky Young"), new Phone("91827364"), new Email("rickyoung@example.com"),
+                    new Address("10 Ocean Drive"),
+                    getTagSet("family")),
+        };
+    }
+
     public static ReadOnlyAddressBook getSampleAddressBook() {
         AddressBook sampleAb = new AddressBook();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addPerson(samplePerson);
+        }
+        return sampleAb;
+    }
+
+    public static ReadOnlyArchiveBook getSampleArchiveBook() {
+        ArchiveBook sampleAb = new ArchiveBook();
+        for (Person sampleArchivedPerson : getSampleArchivedPersons()) {
+            sampleAb.addPerson(sampleArchivedPerson);
         }
         return sampleAb;
     }

@@ -827,7 +827,7 @@ This product aims to help real estate agents manage large amount of customer and
 * *How does it make the the user's life easier?* +
 With a proper address book app, real estate agents can quickly and conveniently search for their customers’ contact details, as well as essential property information to speed up their business process.
 
-
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -842,21 +842,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |clean user |delete a contact |remove entries that I no longer need
 
-|`* * *` |efficient user |find a contact by name |locate details of contacts without having to go through the entire list
+|`* * *` |efficient user |find a contact by using any details (e.g. name/phone/tags etc.) |locate details of contacts without having to go through the entire list
 
-|`* * *` |sloppy user |add a contact into the app without having to specify all the contact information (i.e. all fields are optional) |add a contact even if I do not have the complete contact information
+|`* * *` |sloppy user |add and edit a contact in the app without having to specify all the contact information (i.e. all fields are optional) |add and edit a contact even if I do not have the complete contact information
 
 |`* * *` |real estate agent |add property information to each contact |link my customers to the property that they buying/selling/renting
 
 |`* * *` |real estate agent |search and filter contacts by the address of their associated property |find all properties within the same area, e.g. search for "Woodlands" should return all contacts with "Woodlands" in their address
 
-|`* * *` |lazy user |search for contacts by tags |find all the contacts with the same tag(s), e.g. search for "Landed" should return all contacts with "Landed" tag
-
 |`* * *` |organised user |categorise my contacts into different groups (i.e. buyers, sellers, landlords, tenants) |keep track of my customers better
 
 |`* * *` |clean user who wants to keep contacts for later use |hide or archive contacts when I currently do not need them |retrieve them when I need them again much later
 
-|`* *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
+|`* * *` |forgetful user |pin important contacts to the top of the lists |see which contacts are the most important for me to attend to
 
 |`* *` |efficient user |display contacts sorted by specific categories |locate contacts and/or properties easily
 
@@ -874,9 +872,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user who prefers visuals |select a contact and see the address (if any) of the contact on the Google Map applet within the app |visualise the location of the property and search for directions to the location
 
-|`* *` |responsible user |password-protect the app and/or encrypt individual data |protect my contacts' personal information from access by unauthorised people
-
-|`*` |detailed user |add a remark to a contact |record more miscellaneous details about a contact
+|`*` |responsible user |password-protect the app and/or encrypt individual data |protect my contacts' personal information from access by unauthorised people
 
 |`*` |efficient user |link multiple properties for each contact |keep track of all the properties linked to a contact
 
@@ -888,11 +884,23 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user who prefers visuals |upload and store photos of a specific property |view the property on-the-go
 |=======================================================================
+// end::userstories[]
 
+// tag::usecases[]
 [appendix]
 == Use Cases
 
 (For all use cases below, the *System* is the `TheRealApp` and the *Actor* is the `User`, unless specified otherwise)
+
+[discrete]
+=== Use case: View help
+
+*MSS*
+
+1. User requests to view help.
+2. TheRealApp displays the User Guide.
++
+Use case ends.
 
 [discrete]
 === Use case: Add contact
@@ -910,6 +918,238 @@ Use case ends.
 * 1a. A field is invalid.
 [none]
 ** 1a1. The RealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Display contact list
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The contact list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Display contact list sorted in a specific category
+
+*MSS*
+
+1. User requests to list contacts sorted in a specific category.
+2. TheRealApp shows a list of contacts sorted in the requested category.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The contact list is empty.
++
+Use case ends.
+
+* 1b. The category is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Find contact
+
+*MSS*
+
+1. User requests to find a contact by entering keyword(s).
+2. TheRealApp shows a list of contacts containing the keywords(s).
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The keyword(s) is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes from step 1.
+
+[discrete]
+=== Use case: Select contact
+
+*MSS*
+
+1. User requests to select a contact.
+2. TheRealApp selects the contact and shows the information of the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given index is invalid.
+[none]
+** 1a1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Edit contact
+
+*MSS*
+
+1. User requests to edit a contact, with new information.
+2. TheRealApp edits the contact in the contact list and displays the edited contact in the displayed contact list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. A field is invalid.
+[none]
+** 1a1. The RealApp shows an error message.
++
+Use case resumes at step 1.
+* 1b. The given index is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Match contacts
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to match 2 contacts in the list.
+4. TheRealApp links the 2 contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+* 3b. The 2 contacts are not matchable.
++
+[none]
+** 3b1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Delete contact
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to delete a specific contact in the list.
+4. TheRealApp deletes the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Clear contact list
+
+*MSS*
+
+1. User requests to clear the contact list.
+2. TheRealApp requests for confirmation.
+3. User confirms the request.
+4. TheRealApp clears the entire contact list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User cancels the request.
++
+Use case ends.
+
+[discrete]
+=== Use case: Pin contact
+
+*MSS*
+
+1. User requests to list contacts.
+2. TheRealApp shows a list of contacts.
+3. User requests to pin a specific contact in the list.
+4. TheRealApp pins the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The contact list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. TheRealApp shows an error message.
++
+Use case resumes at step 3.
+
+[discrete]
+=== Use case: Unpin contact
+
+*MSS*
+
+1. User requests to unpin a specific pinned contact in the pinned list.
+2. TheRealApp unpins the contact.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The pinned list is empty.
++
+Use case ends.
+
+* 1b. The given index is invalid.
++
+[none]
+** 1b1. TheRealApp shows an error message.
 +
 Use case resumes at step 1.
 
@@ -976,262 +1216,6 @@ Use case ends.
 Use case resumes from step 1.
 
 [discrete]
-=== Use case: Clear contact list
-
-*MSS*
-
-1. User requests to clear the contact list.
-2. TheRealApp requests for confirmation.
-3. User confirms the request.
-4. TheRealApp clears the entire contact list.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Delete contact
-
-*MSS*
-
-1. User requests to list contacts.
-2. TheRealApp shows a list of contacts.
-3. User requests to delete a specific contact in the list.
-4. TheRealApp deletes the contact.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The contact list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. TheRealApp shows an error message.
-+
-Use case resumes at step 3.
-
-[discrete]
-=== Use case: Edit contact
-
-*MSS*
-
-1. User requests to edit a contact, with new information.
-2. TheRealApp edits the contact in the contact list.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. A field is invalid.
-[none]
-** 1a1. The RealApp shows an error message.
-+
-Use case resumes at step 1.
-* 1b. The given index is invalid.
-+
-[none]
-** 1b1. TheRealApp shows an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
-=== Use case: Exit app
-
-*MSS*
-
-1. User requests to exit the app.
-2. TheRealApp requests to confirm the exit.
-3. User confirms the exit.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Find contact
-
-*MSS*
-
-1. User requests to find a contact by entering keyword(s).
-2. TheRealApp shows a list of contacts containing the keywords(s).
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The keyword(s) is invalid.
-[none]
-** 1a1. The RealApp shows an error message.
-+
-Use case resumes from step 1.
-
-[discrete]
-=== Use case: View help
-
-*MSS*
-
-1. User requests to view help.
-2. TheRealApp displays the User Guide.
-+
-Use case ends.
-
-[discrete]
-=== Use case: View history
-
-*MSS*
-
-1. User requests to view the history of previous commands.
-2. TheRealApp displays a history of previous commands in reverse chronological order.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The history list is empty.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Display contact list
-
-*MSS*
-
-1. User requests to list contacts.
-2. TheRealApp shows a list of contacts.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The contact list is empty.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Match contacts
-
-*MSS*
-
-1. User requests to list contacts.
-2. TheRealApp shows a list of contacts.
-3. User requests to match 2 contacts in the list.
-4. TheRealApp links the 2 contact.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The contact list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. TheRealApp shows an error message.
-+
-Use case resumes at step 3.
-
-* 3b. The 2 contacts are not matchable.
-+
-[none]
-** 3b1. TheRealApp shows an error message.
-+
-Use case resumes at step 3.
-
-[discrete]
-=== Use case: Pin contact
-
-*MSS*
-
-1. User requests to list contacts.
-2. TheRealApp shows a list of contacts.
-3. User requests to pin a specific contact in the list.
-4. TheRealApp pins the contact.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The contact list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. TheRealApp shows an error message.
-+
-Use case resumes at step 3.
-
-[discrete]
-=== Use case: Redo
-
-*MSS*
-
-1. User requests to redo the previous undo.
-2. TheRealApp redoes the undo.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. There is no previous undo command.
-+
-Use case ends.
-
-[discrete]
-=== Use case: Select contact
-
-*MSS*
-
-1. User requests to select a contact.
-2. TheRealApp selects the contact and shows the information of the contact.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The given index is invalid.
-[none]
-** 1a1. TheRealApp shows an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
-=== Use case: Display contact list sorted in a specific category
-
-*MSS*
-
-1. User requests to list contacts sorted in a specific category.
-2. TheRealApp shows a list of contacts sorted in the requested category.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The contact list is empty.
-+
-Use case ends.
-
-* 1b. The category is invalid.
-+
-[none]
-** 1b1. TheRealApp shows an error message.
-+
-Use case resumes at step 1.
-
-[discrete]
 === Use case: Unarchive contact
 
 *MSS*
@@ -1258,6 +1242,42 @@ Use case ends.
 Use case resumes at step 3.
 
 [discrete]
+=== Use case: Clear archived contact list
+
+*MSS*
+
+1. User requests to clear the archived contact list.
+2. TheRealApp requests for confirmation.
+3. User confirms the request.
+4. TheRealApp clears the entire archived contact list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. User cancels the request.
++
+Use case ends.
+
+[discrete]
+=== Use case: View history
+
+*MSS*
+
+1. User requests to view the history of previous commands.
+2. TheRealApp displays a history of previous commands in reverse chronological order.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The history list is empty.
++
+Use case ends.
+
+[discrete]
 === Use case: Undo
 
 *MSS*
@@ -1275,28 +1295,33 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Unpin contact
+=== Use case: Redo
 
 *MSS*
 
-1. User requests to unpin a specific pinned contact in the pinned list.
-2. TheRealApp unpins the contact.
+1. User requests to redo the previous undo.
+2. TheRealApp redoes the undo.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. The pinned list is empty.
+* 1a. There is no previous undo command.
 +
 Use case ends.
 
-* 1b. The given index is invalid.
+[discrete]
+=== Use case: Exit app
+
+*MSS*
+
+1. User requests to exit the app.
+2. TheRealApp requests to confirm the exit.
+3. User confirms the exit.
 +
-[none]
-** 1b1. TheRealApp shows an error message.
-+
-Use case resumes at step 1.
+Use case ends.
+// end::usecases[]
 
 [appendix]
 == Non Functional Requirements
@@ -1305,15 +1330,11 @@ Use case resumes at step 1.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
-
-_{More to be added}_
 
 [appendix]
 == Instructions for Manual Testing

@@ -93,7 +93,7 @@ Example: `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for
 Shows a list of all contacts in the address book. +
 Format: `list`
 
-=== Displaying a sorted list of contacts by specified category : `sort`
+=== Displaying a sorted list of contacts by specified category : `sort` `[coming in v2.0]`
 
 Shows a list of all contacts in the address book, sorted according to a specified category. +
 Format: `sort CATEGORY ORDER`
@@ -113,6 +113,57 @@ Format: `sort CATEGORY ORDER`
 
 Example: `sort n increasing` +
 Displays the contact list sorted by name in forward alphabetical order.
+
+=== Finding contact(s) by keyword(s) : `find`
+
+Finds contact(s) whose information contains any of the keyword(s). +
+e.g. search by name, search by address, search by tags etc. +
+Format: `find KEYWORD [KEYWORD]...`
+
+[NOTE]
+====
+`KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
+====
+
+****
+* The search is case insensitive. e.g `hans` will match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Contacts matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+****
+
+Examples:
+
+* `find n/James` +
+Returns `James Lee` and `John James`
+* `find n/James n/Tan n/Young` +
+Returns any contact having names `James`, `Tan`, or `Young`
+* `find a/Woodlands c/Landlord` +
+Returns any contact with address `Woodlands` and customer type `Landlord`
+
+=== Selecting a contact : `select`
+
+Selects the contact identified by the index number used in the displayed contact list. +
+Format: `select INDEX`
+
+****
+* Selects the contact at the specified `INDEX` and displays all the contact and property information, as well as the address location of the associated property on the Google Maps window panel.
+* The index refers to the index number shown in the displayed contact list.
+* The index *must be a positive integer* `1, 2, 3, ...`
+****
+
+Examples:
+
+* `list` +
+`select 2` +
+Selects the 2nd contact in the address book.
+* `find James` +
+`select 1` +
+Selects the 1st contact in the results of the `find` command.
+* `sort` +
+`select 3` +
+Selects the 3rd contact in the sorted list displayed earlier.
 
 === Editing a contact : `edit`
 
@@ -147,7 +198,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [r/REMARKS]` +
 Example: `edit 2 n/James Lee p/87654321 r/`
 ** Edits the name and phone number of the 2nd contact to be `James Lee` and `87654321` respectively and clears existing remarks.
 
-=== Matching a contact to a property: `match`
+=== Matching a contact to a property: `match` `[coming in v2.0]`
 
 Matches a buyer to a seller’s property or a tenant to a landlord’s property. +
 Both buyer and seller, or both tenant and landlord, must be listed prior to matching.
@@ -161,34 +212,6 @@ Example: `match 1 8`
 Format: `match INDEX_TENANT INDEX_LANDLORD ` +
 Example: `match 3 10`
 ** Matches the tenant listed as index 3 to the property listed with the landlord as index 10.
-
-=== Finding contact(s) by keyword(s) : `find`
-
-Finds contact(s) whose information contains any of the keyword(s). +
-e.g. search by name, search by address, search by tags etc. +
-Format: `find KEYWORD [KEYWORD]...`
-
-[NOTE]
-====
-`KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
-====
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Contacts matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find n/James` +
-Returns `James Lee` and `John James`
-* `find n/James n/Tan n/Young` +
-Returns any contact having names `James`, `Tan`, or `Young`
-* `find a/Woodlands c/Landlord` +
-Returns any contact with address `Woodlands` and customer type `Landlord`
 
 === Deleting a contact : `delete`
 
@@ -213,33 +236,10 @@ Deletes the 1st contact in the results of the `find` command.
 `delete 3` +
 Deletes the 3rd contact in the sorted list displayed earlier.
 
-=== Selecting a contact : `select`
-
-Selects the contact identified by the index number used in the displayed contact list. +
-Format: `select INDEX`
-
-****
-* Selects the contact at the specified `INDEX` and loads the Google Maps location of the contact in the applet window.
-* The index refers to the index number shown in the displayed contact list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd contact in the address book.
-* `find James` +
-`select 1` +
-Selects the 1st contact in the results of the `find` command.
-* `sort` +
-`select 3` +
-Selects the 3rd contact in the sorted list displayed earlier.
-
 === Pinning a contact : `pin`
 
 Pins a contact. +
-These contacts will always be showing in a pinned list at the top of the side panel. +
+Limited to a maximum of 5 contacts, these contacts will always be showing in a pinned list at the top of the side panel. +
 Format: `pin INDEX`
 
 ****
@@ -276,6 +276,7 @@ Example:
 * `unpin 1` +
 Unpins the 1st contact in the pinned list.
 
+// tag::archivefeatures[]
 === Archiving a contact : `archive`
 
 Moves the specified contact to the archive from the normal address book. +
@@ -344,6 +345,7 @@ Moves the the 2nd contact from the archived contacts list back into the address 
 * `archivefind James` +
 `select 1` +
 Moves the 1st contact in the results of the `archivefind` command from the archive back into the address book.
+// end::archivefeatures[]
 
 === Listing entered commands : `history`
 
@@ -408,7 +410,16 @@ The `redo` command fails as there are no `undo` commands executed previously.
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
+Address book contact list must be displayed prior to clearing. +
 Format: `clear`
+
+// tag::archiveclear[]
+=== Clearing all entries : `archiveclear`
+
+Clears all entries from the archive book. +
+Archived contact list must be displayed prior to clearing. +
+Format: `archiveclear`
+// end::archiveclear[]
 
 === Exiting the app : `exit`
 
@@ -422,7 +433,7 @@ There is no need to save manually.
 
 === Displaying location on Google Maps `[coming in v2.0]`
 
-Double-clicking the contact will bring up the Google Maps location of the contact in the applet window.
+Double-clicking the contact will bring up the the address location of the associated property on the Google Maps window panel.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -439,6 +450,7 @@ User can set a password, which will be required when logging into the app.
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
+// tag::summary[]
 [[Summary]]
 == Command Summary
 
@@ -459,6 +471,7 @@ User can set a password, which will be required when logging into the app.
 *** e.g. `add c/tenant n/James Ho p/98765432 e/jamesho@example.com r/looking for 4-room apartment`
 * *Archive* : `archive INDEX`
 ** e.g. `archive 1`
+* *Archive clear* : `archiveclear`
 * *Archive list* : `archivelist`
 * *Archive search* : `archivefind KEYWORD [KEYWORD]...`
 ** `KEYWORD` List: `c/CUSTOMER_TYPE`, `n/NAME`, `p/PHONE_NUMBER`, `e/EMAIL`, `a/ADDRESS`, `rp/RENTAL_PRICE_OF_PROPERTY`, `sp/SELLING_PRICE_OF_PROPERTY`, `t/TAG`
@@ -507,4 +520,4 @@ User can set a password, which will be required when logging into the app.
 * *Undo* : `undo`
 * *Unpin* : `unpin INDEX`
 ** e.g. `unpin 1`
-
+// end::summary[]

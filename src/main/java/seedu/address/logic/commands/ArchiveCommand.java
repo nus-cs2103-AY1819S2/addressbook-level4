@@ -43,7 +43,18 @@ public class ArchiveCommand extends Command {
         Person personToArchive = lastShownList.get(targetIndex.getZeroBased());
         model.archivePerson(personToArchive);
         model.commitAddressBook();
+        model.commitArchiveBook();
         return new CommandResult(String.format(MESSAGE_ARCHIVE_PERSON_SUCCESS, personToArchive));
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return true;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 
     @Override

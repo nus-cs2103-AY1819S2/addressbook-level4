@@ -20,6 +20,16 @@ public class ListCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, false);
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 }

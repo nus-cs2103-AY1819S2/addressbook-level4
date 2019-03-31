@@ -5,10 +5,12 @@ import java.nio.file.Path;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyArchiveBook;
 import seedu.address.model.person.Person;
 
 /**
@@ -31,8 +33,18 @@ public interface Logic {
      */
     ReadOnlyAddressBook getAddressBook();
 
+    /**
+     * Returns the ArchiveBook.
+     *
+     * @see seedu.address.model.Model#getArchiveBook()
+     */
+    ReadOnlyArchiveBook getArchiveBook();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered list of archived persons */
+    ObservableList<Person> getFilteredArchivedPersonList();
 
     /**
      * Returns an unmodifiable view of the list of commands entered by the user.
@@ -44,6 +56,11 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' archive book file path.
+     */
+    Path getArchiveBookFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -69,4 +86,14 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedPerson(Person)
      */
     void setSelectedPerson(Person person);
+
+    /**
+     * Checks if the valid list is shown, else throws INVALID_LIST_SHOWN CommandException.
+     */
+    void checkListShown(Command command) throws CommandException;
+
+    /**
+     * Sets if the archive is shown or not.
+     */
+    void setArchiveShown(CommandResult commandResult);
 }

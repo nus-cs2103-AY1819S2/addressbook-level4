@@ -19,7 +19,17 @@ public class ArchiveListCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        model.updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, true);
+    }
+
+    @Override
+    public boolean requiresMainList() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresArchiveList() {
+        return false;
     }
 }

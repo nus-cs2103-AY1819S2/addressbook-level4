@@ -12,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.record.exceptions.DuplicateRecordException;
 import seedu.address.model.record.exceptions.RecordNotFoundException;
-import seedu.address.model.task.exceptions.DuplicateTaskException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
@@ -34,6 +33,7 @@ public class UniqueRecordList implements Iterable<Record> {
 
     /**
      * Returns true if the list contains an equivalent Record as the given argument.
+     * At the moment, duplicates are allowed, all contains() checks return false.
      */
     public boolean contains(Record toCheck) {
         requireNonNull(toCheck);
@@ -46,9 +46,6 @@ public class UniqueRecordList implements Iterable<Record> {
      */
     public void add(Record toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicateTaskException();
-        }
         internalList.add(0, toAdd);
     }
 

@@ -236,8 +236,9 @@ image::StorageClassDiagram.png[width="800"]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save user preferences in json format and read it back.
+* can save lesson data in csv format and read it back.
+* can save the user's SRS data in csv format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -1109,26 +1110,6 @@ The technique of gradually delaying or accelerating the testing of content based
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

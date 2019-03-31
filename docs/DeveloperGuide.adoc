@@ -266,7 +266,25 @@ image::InitialiseMapCommandSequenceDiagram.png[width=800]
 
 === Battleship Feature
 ==== Current Implementation
-A battleship is a basic class representing a battleship that can be placed on the map grid. The battleship must be variable in length, depending on the type of battleship. +
+A battleship is a basic class representing a battleship that can be placed on the map grid. The length of the battleship varies, depending on the type of battleship. There are three types of battleships: +
+
+1. Cruiser of length 2.
+1. Destroyer of length 3.
+1. Aircraft carrier of length 5.
+
+The number of battleship types that a user can deploy on the map depends on the size of the map. It is given by the formula:
+
+1. Number of cruisers = `mapSize` - 5.
+1. Number of destroyers = (`mapSize` + 2) / 5.
+1. Number of aircraft carriers = 1.
+
+[NOTE]
+The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
+
+image:BattleshipHeadExample.png[width=800]
+
+.The coordinates of the `put` command refer to the coordinates of the battleship head.
+image:BattleshipHeadExample2.png[width=800]
 
 The following sequence diagram shows how a battleship is put on the map.
 
@@ -288,7 +306,7 @@ Battleships that have been deployed can also be listed. Battleships can be liste
 The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
 
 .Sequence diagram of listing battleships deployed on the map.
-image::ListShipSequenceDiagram.png[width=800]
+image::ListShipSequenceDiagram.png[width=1499][height=2249]
 
 ==== Design Considerations
 ===== Aspect: How a battleship is placed on the map
@@ -333,7 +351,47 @@ image::ListShipSequenceDiagram.png[width=800]
 
 === Statistics Feature
 ==== Current Implementation
-The Statistics Class is an abstract class that can be extended to accommodate a Player and an Enemy. It is initialized with the main components upon the start of the application and is subsequently passed down as a parameter to the respective events for tracking.
+The `stats` feature allows users to view their current gameplay information. This information will be displayed in a pop-up window and will include: Number of Attacks Made, Number of Successful Hits, Number of Misses, Number of Enemy Ships Destroyed and Accuracy of Shots made.
+This feature stems from a central abstract class that is extended to for a player. It is initialized with the main components upon the start of the application and is subsequently passed down as a parameter to the relevant methods which will invoke the corresponding updating methods to the statistical information.
+
+The following operations are invoked upon the calling of the `stats` command.
+
+** `getAttacksMade()` - Returns the number of attacks made by the User
+** `getMovesLeft()` - Returns the remaining number of moves left for the User
+** `getHitCount()` - Returns the number of successful hit on enemy ships
+** `getMissCount()` Returns the number of misses made
+** `getEnemyShipsDestroyed()` Returns the number of Enemy Ships Destroyed by the player
+** `getAccuracy()` Returns the current Hit-Miss Ratio of the User based on the game so far
+
+Given below is an example usage scenario and how the `stats` command behaves at each step.
+
+Step 1. The User initializes the game with the `init 8` which will create a 8x8 map.
+
+! The Map can be initialized to any valid size (This is just a sample scenario)
+
+Step 2. Put the ships accordingly...
+
+Step 3. Input `stats` into the command-line and press enter to obtain the current statistical data.
+
+image::inputStatsCommandSS.png[width=250]
+! Note, there should not be any valid data at the moment as the game as not started.
+! Include Screenshot explaining pop-up window and lack of data
+
+image::StatsWindowSS.png[width=400]
+Step 4. Now proceed with the game and perform an attack ....
+
+Step 5. Invoke the `stats` command again to view the updated statistics
+
+image::StatsWindowUpdatedSS.PNG[width=400]
+
+The following sequence diagram summarizes what happens when a User invokes the `stats` command.
+
+image::StatsSequenceDiagram.PNG[width=800]
+
+==== Output Statistical Data
+Besides the pop-up window, the data is also captured in the command-line result box.
+
+image::StatsCommandBox.PNG[width=400]
 
 ==== Design Considerations
 * **Alternative 1 (current choice):** Statistics will have an initialise method that with a set of default configuration that are used by any Statistics Variant.

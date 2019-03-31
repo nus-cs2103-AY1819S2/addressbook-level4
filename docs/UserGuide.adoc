@@ -105,7 +105,15 @@ Examples:
 * `put n/Destroyer c/a1 r/vertical`
 * `put n/Aircraft Carrier c/b1 r/h` +
 
-The head of the battleship is the top-most and left-most part of the ship. _Figure 3_ shows how a battleship is put at coordinate `a5`. The head of the battleship is therefore at `a5`. +
+[NOTE]
+The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
+
+image:BattleshipHeadExample.png[width=800]
+
+.The coordinates of the `put` command refer to the coordinates of the battleship head.
+image:BattleshipHeadExample2.png[width=800]
+
+_Figure 3_ shows how a battleship is put at coordinate `a5`. The head of the battleship is therefore at `a5`. +
 
 .The `put` command will put the battleship at a5, which is the battleship's head coordinate.
 image::putshipheadexample.png[width=750]

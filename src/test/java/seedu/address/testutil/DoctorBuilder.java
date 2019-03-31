@@ -96,8 +96,8 @@ public class DoctorBuilder {
     /**
      * Sets the {@code Appointment} of the {@code Doctor} that we are building.
      */
-    public DoctorBuilder withAppointments(String ... appointments) {
-        this.appointments = SampleDataUtil.getAppointments(appointments);
+    public DoctorBuilder withAppointments() {
+        this.appointments = SampleDataUtil.getAppointments();
         return this;
     }
 

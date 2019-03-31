@@ -44,9 +44,9 @@ public class ExportUtil {
 
             Set<Tag> tagSet = person.getTags();
 
-            if(!tagSet.isEmpty()) {
+            if (!tagSet.isEmpty()) {
                 formatExport += "Tag : " + System.lineSeparator();
-                for(Tag t : tagSet) {
+                for (Tag t : tagSet) {
                     formatExport += "   " + t.toString() + System.lineSeparator();
                 }
             }

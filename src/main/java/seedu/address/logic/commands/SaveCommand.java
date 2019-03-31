@@ -1,3 +1,4 @@
+/* @@author itszp */
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
@@ -29,7 +30,6 @@ public class SaveCommand extends Command {
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) throws CommandException {
         requireNonNull(currentEdit);
 
-        // Check to be shifted if possible.
         if (currentEdit.getTempImage() == null) {
             throw new CommandException(MESSAGE_UNABLE_TO_SAVE);
         }

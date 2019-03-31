@@ -31,11 +31,9 @@ public class BillManager implements BillModel {
     private final FilteredList<Booking> filteredBookings;
     private final FilteredList<ServiceType> serviceTypeList;
     private final SimpleObjectProperty<Booking> selectedBooking = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<ServiceType> selectedServiceType = new SimpleObjectProperty<>();
     private final FilteredList<Reservation> filteredReservations;
     private final FilteredList<RoomType> roomTypeList;
     private final SimpleObjectProperty<Reservation> selectedReservation = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<RoomType> selectedRoomType = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given hotelManagementSystem and userPrefs.

@@ -463,30 +463,46 @@ will have to be changed to store the previous commands and the object changed.
 
 
 //tag::studysessions[]
-=== Study sessions
+=== Study view
 
 ==== Current implementation
 
-The third view, `studyView`, is implemented to facilitate study sessions.
+The purpose of the third view, study view, is to help users retain the knowledge
+of their flash cards.
 
-A study session is a state in the program that allows users to test their knowledge
-by presenting them with Cards in the Deck.
+This is done by consecutively presenting users with random cards from the deck.
+For each card, users are able to see the questions first, and then reveal the answers afterwards.
 
-The program alternates
-between presenting users with questions and then showing answers to these questions.
+The functionality above is facilitated by the `StudyView` class.
 
-There are two cycles in this
+**Important Variables**
 
-| Question State | Description |
-| --- | --- |
-| git status | List all new or modified files |
-| git diff | Show file differences that haven't been staged |
+This `StudyView` class two important variables:
 
+* `currentCard` - the card which is currently being shown to the user.
+
+* `studyState` - variable which stores whether the user is seeing a question or an answer.
+
+These variables are continuously being altered every time the user interacts with the program, explained in detail later.
+
+**Observable Values**
+
+Besides these variables, `StudyView` also makes extensive use of `ReadOnlyProperty` wrapper
+to store variables which the UI has to display. This wrapper is chosen as it implements the `Observable` interface.
 
 
 ==== Data structure implementation
 
-The study mechanism is facilitated by `ModelManager`.
+This section discusses how the two variables, `currentCard` and `studyState is modified.
+
+
+
+* QUESTION
+* ANSWER
+
+
+
+The study mechanism is facilitated by `StudyView`.
 
 It extends `Model` with a  `cardShown` property, stored internally as an `ReadOnlyProperty` with generic type `Card`.
 Additionally, it implements the following operations:
@@ -514,9 +530,14 @@ The `textType` property in the UI is also modified to 1 for answer.
 Step 4. User enters the difficulty rating command.
 
 
+==== UI implementation
+
+The UI listens for three things, the `studyState`, `userAnswer`, and `textShown`.
+
+
 ==== Design considerations
 
-===== Aspect: How study view is linked to the UI
+===== Aspect: How to store states within  study view
 
 * **Alternative 1 (current choice):**
 ** Pros: Easy to implement.

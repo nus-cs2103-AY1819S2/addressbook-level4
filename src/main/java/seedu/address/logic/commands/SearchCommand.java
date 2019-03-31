@@ -75,7 +75,9 @@ public class SearchCommand extends Command {
     private final Predicate<Person> predicate;
     private final PredicatePersonDescriptor predicatePersonDescriptor;
 
-
+    /**
+     * @param predicatePersonDescriptor details to predicate the person with
+     */
     public SearchCommand(PredicatePersonDescriptor predicatePersonDescriptor) {
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);

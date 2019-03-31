@@ -11,6 +11,10 @@ import seedu.address.model.person.Person;
  */
 public class PredicateManager implements Predicate<Person> {
 
+    /**
+     * @param predicatePersonDescriptor details to predicate the person with
+     * and returns a Predicate object for search command
+     */
     public Predicate translatePredicateDescriptor(PredicatePersonDescriptor predicatePersonDescriptor) {
         Predicate<Person> predicator = new PredicateManager();
         predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);

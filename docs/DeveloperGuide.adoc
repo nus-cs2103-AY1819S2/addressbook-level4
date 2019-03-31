@@ -131,7 +131,7 @@ The rest of the App consists of four components.
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-* <<Design-Model,*`CurrentEdit` and `Album` *>>: Holds the data of images in the App in memory.
+* <<Design-Model,*`Model`*>>: Holds the data of images in the App in memory.
 
 The first three components:
 * Defines its _API_ in an `interface` with the same name as the Component.
@@ -141,9 +141,9 @@ The first three components:
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-The `Model` component consists of two classes:
-*  The `CurrentEdit`class which holds the image that the App is currently editing in-memory.
-*  The `Album` class which stores the pool of images that has been imported into the App.
+The `Model` component consists of two components:
+*  `CurrentEdit` which holds the image that the App is currently editing in-memory.
+*  `Album` which stores the pool of images that has been imported into the App.
 
 [discrete]
 ==== How the architecture components interact with each other

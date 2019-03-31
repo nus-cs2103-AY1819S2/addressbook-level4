@@ -563,16 +563,41 @@ image::addmed_existing_nonExisting.png[align="center" width="600"]
 In this case, no medicine called aspirin has yet existed in the storage.
 
 [[listmed, List medicines]]
-==== View medicine storage: `listmed`
+==== List medicine storage: `listmed` or `lm`
 
-View the specific information about the directory or medicine specified by the path +
+Whenever you want to see what is inside your medicine storage, you can always use this command to view the detailed information about any directory or medicine through this command. +
 
-Format: `listmed PATH`
+- - -
 
-Example:
+*Format:* `listmed [PATH]`
 
-* `listmed root\TCM` +
-Shows the sub-directories and medicines stored under the directory root\TCM
+- - -
+
+*Example:* +
+
+`listmed root\fever`
+
+- - -
+
+*Result:* +
+
+image::listmed_after.png[align="center" width="600"]
+
+You will be able to view a detailed description of all the medicines and directories under root\fever.
+
+- - -
+
+*Example:* +
+
+`listmed root\fever\paracetamol`
+
+- - -
+
+*Result:* +
+
+image::listmed_med_after.png[align="center" width="600"]
+
+You will be displayed a detailed description of medicine paracetamol which is placed under root\fever.
 
 [[alarm, Set alert threshold for medicine]]
 ==== Setting notification for low stock: `alarm`

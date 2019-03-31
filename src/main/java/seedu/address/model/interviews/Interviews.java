@@ -86,7 +86,7 @@ public class Interviews {
         while (!calendarPriorityQueue.isEmpty()) {
             Calendar currentCalendar = calendarPriorityQueue.poll();
             List<Person> currentPersonList = interviewsHashMap.get(currentCalendar);
-            result += currentCalendar.get(Calendar.DATE) + "/" + (currentCalendar.get(Calendar.MONTH)+1)
+            result += currentCalendar.get(Calendar.DATE) + "/" + (currentCalendar.get(Calendar.MONTH) + 1)
                     + "/" + currentCalendar.get(Calendar.YEAR) + ": ";
             for (Person person : currentPersonList) {
                 result += person.getName() + ", ";
@@ -106,7 +106,7 @@ public class Interviews {
      */
     private Calendar nextAvailableday(Calendar calendar) {
         Calendar result = (Calendar) calendar.clone();
-        result.add(Calendar.DATE,1);
+        result.add(Calendar.DATE, 1);
         while ((result.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) || (
                 result.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)) {
             result.add(Calendar.DATE, 1);

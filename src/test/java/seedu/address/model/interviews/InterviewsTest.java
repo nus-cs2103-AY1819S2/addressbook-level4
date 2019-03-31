@@ -4,11 +4,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
-
 import java.util.Calendar;
 import java.util.Set;
 
-import org.junit.Rule;
 import org.junit.Test;
 
 

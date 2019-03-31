@@ -108,7 +108,9 @@ public class UniqueBookList implements Iterable<Book> {
      * @param mainOrder for all types
      * @param subOrder if mainOrder is not specify and subOrder will replace mainOrder
      */
-    public void sortBooks(List<String> types, String mainOrder, Map<String, String> subOrder) {
+    public void sortBooks(List<String> types,
+                          String mainOrder,
+                          Map<String, String> subOrder) {
         requireAllNonNull(types);
 
         Comparator<Book> bookComparator = (b1, b2) -> {

@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -27,6 +29,11 @@ public interface Model {
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     *  return PostalData of the provided postal code
+     */
+    Optional<PostalData> getPostalData(int postal);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -97,6 +104,14 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredRestaurantList(Predicate<Restaurant> predicate);
+
+
+    /**
+     * Updates the filter of the filtered restaurant list to filter by the given {@code predicate} and sorts by the given (@code comparator}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void updateFilteredRestaurantListAndSort(Predicate<Restaurant> predicate, Comparator<Restaurant> sortBy);
+
 
     /**
      *

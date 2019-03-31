@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -13,6 +15,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.restaurant.Restaurant;
@@ -27,6 +30,7 @@ public class ModelManager implements Model {
     private final VersionedFoodDiary versionedFoodDiary;
     private final UserPrefs userPrefs;
     private final FilteredList<Restaurant> filteredRestaurants;
+    private final SortedList<Restaurant> sortedRestaurants;
     private final SimpleObjectProperty<Restaurant> selectedRestaurant = new SimpleObjectProperty<>();
     private final PostalDataSet postalDataSet;
 
@@ -42,6 +46,7 @@ public class ModelManager implements Model {
         versionedFoodDiary = new VersionedFoodDiary(foodDiary);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredRestaurants = new FilteredList<>(versionedFoodDiary.getRestaurantList());
+        sortedRestaurants = new SortedList<>(filteredRestaurants);
         filteredRestaurants.addListener(this::ensureSelectedRestaurantIsValid);
         this.postalDataSet = postalDataSet;
     }
@@ -50,7 +55,10 @@ public class ModelManager implements Model {
         this(new FoodDiary(), new UserPrefs(), new PostalDataSet());
     }
 
-    //public PostalData checkPostal(int Postal);
+    @Override
+    public Optional<PostalData> getPostalData(int postal) {
+        return Optional.ofNullable(this.postalDataSet.getPostalData(postal));
+    }
 
     //=========== UserPrefs ==================================================================================
 
@@ -134,7 +142,6 @@ public class ModelManager implements Model {
     @Override
     public void setRestaurant(Restaurant target, Restaurant editedRestaurant) {
         requireAllNonNull(target, editedRestaurant);
-
         versionedFoodDiary.setRestaurant(target, editedRestaurant);
     }
 
@@ -146,13 +153,20 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Restaurant> getFilteredRestaurantList() {
-        return filteredRestaurants;
+        return sortedRestaurants;
     }
 
     @Override
     public void updateFilteredRestaurantList(Predicate<Restaurant> predicate) {
         requireNonNull(predicate);
         filteredRestaurants.setPredicate(predicate);
+    }
+
+    @Override
+    public void updateFilteredRestaurantListAndSort(Predicate<Restaurant> predicate, Comparator<Restaurant> sortBy) {
+        requireNonNull(predicate);
+        filteredRestaurants.setPredicate(predicate);
+        sortedRestaurants.setComparator(sortBy);
     }
 
     //=========== Undo/Redo =================================================================================

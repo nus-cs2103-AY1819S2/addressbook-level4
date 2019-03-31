@@ -1,14 +1,25 @@
 package seedu.address.logic.comparators;
 
+import java.util.Comparator;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.record.Record;
 
-import java.util.Comparator;
 
 /**
  * Contains comparators for each record attribute
  */
 public class RecordComparator {
+
+    /**
+     * Comparator to sort via record date.
+     */
+    private static Comparator<Record> compRecordDate = new Comparator<Record>() {
+        @Override
+        public int compare(Record r1, Record r2) {
+            return r1.getRecordDate().compareTo(r2.getRecordDate());
+        }
+    };
 
     public static Comparator<Record> getRecordComparator(String parameterType) throws ParseException {
         Comparator<Record> recComp;
@@ -16,6 +27,7 @@ public class RecordComparator {
         switch (parameterType.trim()) {
 
         case "date":
+            recComp = compRecordDate;
             break;
 
         case "desc":

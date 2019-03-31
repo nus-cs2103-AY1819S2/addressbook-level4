@@ -109,7 +109,7 @@ Format: `bw [THRESHOLD_VALUE]`
 Examples:
 
 * `bw` (threshold value preset to 127)
-* `bw 130` 
+* `bw 130`
 
 === Brightness: `brightness`
 

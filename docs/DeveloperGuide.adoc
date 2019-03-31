@@ -126,23 +126,26 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of five components.
+The rest of the App consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
-* <<Design-CurrentEdit,*`CurrentEdit`*>>: Holds the image that the App is currently editing in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-* <<Design-Album,*`Album`*>>: Stores the pool of images that has been imported into the App.
+* <<Design-Model,*`Model`*>>: Holds the data of images in the App in memory.
 
-The first four components:
+Each of the first three components do the following:
 
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+*  Defines its _API_ in an `interface` with the same name as the Component.
+*  Exposes its functionality using a `{Component Name}Manager` class.
+*  For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[width="800"]
+
+The `Model` component consists of two components:
+
+*  `CurrentEdit` which holds the image that the App is currently editing in-memory.
+*  `Album` which stores the pool of images that has been imported into the App.
 
 [discrete]
 ==== How the architecture components interact with each other

@@ -43,12 +43,20 @@ public class CommandBoxTest extends GuiUnitTest {
         errorStyleOfCommandBox.add(AutoCompleteTextField.ERROR_STYLE_CLASS);
     }
 
+    /**
+     * Tests for command box's behavior when executing a successful command,
+     * followed by a failed command.
+     */
     @Test
     public void commandBox_startingWithSuccessfulCommand() {
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
     }
 
+    /**
+     * Tests for command box's behavior when executing a failed command,
+     * followed by a successful command.
+     */
     @Test
     public void commandBox_startingWithFailedCommand() {
         assertBehaviorForFailedCommand();
@@ -56,7 +64,8 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     /**
-     * Commented out to debug
+     * Tests for key press events for failed command, in which the text does not
+     * clear.
      */
     @Test
     public void commandBox_handleKeyPress() {
@@ -68,6 +77,10 @@ public class CommandBoxTest extends GuiUnitTest {
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
 
+    /**
+     * Tests for the auto-complete functionality, and checks if the entered prefixes
+     * corresponds to the expected commands.
+     */
     @Test
     public void commandBox_checkAutoComplete() {
         assertAutoCompletion("s", Commands.SELECT);
@@ -78,9 +91,9 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     /**
-     * Commented out to debug
+     * Tests for key press events starting with UP.
      */
-    //@Test
+    @Test
     public void handleKeyPress_startingWithUp() {
         // empty history
         assertInputHistory(KeyCode.UP, "");
@@ -113,9 +126,9 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     /**
-     * Commented out to debug
+     * Tests for key press events starting with DOWN.
      */
-    //@Test
+    @Test
     public void handleKeyPress_startingWithDown() {
         // empty history
         assertInputHistory(KeyCode.DOWN, "");

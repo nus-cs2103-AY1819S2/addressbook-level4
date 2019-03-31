@@ -4,7 +4,6 @@ import static seedu.hms.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_DATES;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_IDENTIFICATION_NUMBER;
 import static seedu.hms.logic.parser.CliSyntax.PREFIX_ROOM;
-import static seedu.hms.logic.parser.CliSyntax.PREFIX_SERVICE;
 
 import seedu.hms.logic.commands.FindReservationCommand;
 import seedu.hms.logic.commands.GenerateBillForReservationCommand;
@@ -44,9 +43,9 @@ public class GenerateBillForReservationCommandParser implements Parser<GenerateB
         }
 
         ReservationWithTypePredicate reservationWithTypePredicate;
-        if (argMultimap.getValue(PREFIX_SERVICE).isPresent()) {
+        if (argMultimap.getValue(PREFIX_ROOM).isPresent()) {
             reservationWithTypePredicate = new ReservationWithTypePredicate(
-                ParserUtil.parseService(argMultimap.getValue(PREFIX_SERVICE).get()).getName());
+                ParserUtil.parseRoom(argMultimap.getValue(PREFIX_ROOM).get()).getName());
         } else {
             reservationWithTypePredicate = new ReservationWithTypePredicate("");
         }

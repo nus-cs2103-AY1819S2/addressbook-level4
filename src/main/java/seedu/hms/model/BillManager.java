@@ -18,6 +18,7 @@ import seedu.hms.model.booking.Booking;
 import seedu.hms.model.booking.ServiceType;
 import seedu.hms.model.reservation.Reservation;
 import seedu.hms.model.reservation.RoomType;
+import seedu.hms.model.util.DateRange;
 import seedu.hms.model.util.TimeRange;
 
 /**
@@ -306,7 +307,8 @@ public class BillManager implements BillModel {
         double totalAmount = 0.0;
         for (Reservation reservation : reservationObservableList) {
             RoomType roomType = reservation.getRoom();
-            int daysBooked = 5;
+            DateRange dateRange = reservation.getDates();
+            long daysBooked = dateRange.numOfDays();
             double ratePerHour = roomType.getRatePerDay();
             double amount = daysBooked * ratePerHour;
             totalAmount = totalAmount + amount;

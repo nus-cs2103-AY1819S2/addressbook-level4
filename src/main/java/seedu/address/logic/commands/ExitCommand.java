@@ -15,6 +15,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(CurrentEdit currentEdit, Model model, CommandHistory history) {
+        currentEdit.clearTemp();
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
     }
 

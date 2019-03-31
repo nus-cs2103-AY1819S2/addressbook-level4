@@ -1,11 +1,9 @@
-= John Doe - Project Portfolio
+= Addison Ho - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 4
-
----
+== PROJECT: FomoFoto
 
 == Overview
 

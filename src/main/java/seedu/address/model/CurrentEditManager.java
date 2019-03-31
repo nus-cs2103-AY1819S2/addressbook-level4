@@ -41,6 +41,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /* @@author itszp */
+
     /**
      * Opens an image in FomoFoto.
      * This method makes two copies of the original image in temp folder.
@@ -151,6 +152,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /* @@author itszp */
+
     /**
      * Creates originalImage instance of {@code image} located in temp_folder.
      */
@@ -215,6 +217,7 @@ public class CurrentEditManager implements CurrentEdit {
     }
 
     /* @@author itszp */
+
     /**
      * Overwrites ori_img.png with tempImage. Sets originalImageName as {@code name}.
      */
@@ -238,7 +241,28 @@ public class CurrentEditManager implements CurrentEdit {
         Notifier.firePropertyChangeListener("refreshDetails", null, this.tempImage);
     }
 
+    /**
+     * Helper method to clean up temp folder on application exit.
+     */
+    public void clearTemp() {
+        File dir = new File(tempFilePath);
+        for (File file : dir.listFiles()) {
+            file.delete();
+        }
+        // Create a placeholder file so git can track the folder.
+        try {
+            File placeholder = new File(tempFilePath + "README.adoc");
+            placeholder.getParentFile().mkdir();
+            placeholder.createNewFile();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+    }
+
     public boolean tempImageExist() {
         return tempImage == null;
     }
+
+    /* @@author*/
 }

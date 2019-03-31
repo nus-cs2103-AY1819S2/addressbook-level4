@@ -5,6 +5,8 @@ import static seedu.address.commons.core.Config.ASSETS_FILEPATH;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +50,16 @@ public class Album {
      * Populates album on method call with images in assets folder.
      */
     public void populateAlbum() {
+        clearAlbum();
         File folder = new File(assetsFilePath);
         for (File file : folder.listFiles()) {
-            imageList.add(new Image(file.getAbsolutePath()));
+            try {
+                if (validFormat(file.getAbsolutePath())) {
+                    imageList.add(new Image(file.getAbsolutePath()));
+                }
+            } catch (IOException e) {
+                System.out.println(e);
+            }
         }
     }
 
@@ -81,5 +90,16 @@ public class Album {
 
     public void clearAlbum() {
         imageList.clear();
+    }
+
+    /**
+     * Given a URL checks if the file is of an image type.
+     *
+     * @param url Path to a file or directory.
+     * @return True if path is valid, false otherwise.
+     */
+    public boolean validFormat(String url) throws IOException {
+        String mime = Files.probeContentType(Paths.get(url));
+        return (mime != null && mime.split("/")[0].equals("image")) ? true : false;
     }
 }

@@ -399,7 +399,7 @@ Step 7. `isNewCommand` is set to false to signal that this command is not a new 
 * Intermediate images have to be stored and edited in a temp folder first due to our `undo/redo` implementation.
 
 .Sequence Diagram for Rotate Command
-image::RotateCommandSequenceDiagram.png[width="1280"]
+image::RotateCommandSequenceDiagram.png[width="800"]
 
 ==== Crop Command
 This command allows the user to crop the targetted image by specifying the coordinates of the top left hand corner of the desired image, the width of the desired image and the height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if the any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
@@ -407,7 +407,7 @@ This command allows the user to crop the targetted image by specifying the coord
 Refer to the example usage scenario and design considerations in <<Rotate Command>>
 
 .Sequence Diagram for Crop Command
-image::CropCommandSequenceDiagram.png[width="1280"]
+image::CropCommandSequenceDiagram.png[width="800"]
 
 ==== Resize Command
 This command allows the user to resize the targetted image by specifying the width and height of the desired image. Upon receiving the inputs, the values will be checked for their validity and will throw an error if any value is not within the specified range. The command will then be added to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
@@ -415,7 +415,7 @@ This command allows the user to resize the targetted image by specifying the wid
 Refer to the example usage scenario and design considerations in <<Rotate Command>>
 
 .Sequence Diagram for Resize Command
-image::ResizeCommandSequenceDiagram.png[width="1280"]
+image::ResizeCommandSequenceDiagram.png[width="800"]
 
 // tag::undoredo[]
 === Undo/Redo feature

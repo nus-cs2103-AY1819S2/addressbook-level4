@@ -8,7 +8,6 @@ import seedu.address.model.GradTrak;
 import seedu.address.model.ReadOnlyGradTrak;
 import seedu.address.model.moduleinfo.ModuleInfoCode;
 import seedu.address.model.moduletaken.Grade;
-import seedu.address.model.moduletaken.Hour;
 import seedu.address.model.moduletaken.ModuleTaken;
 import seedu.address.model.moduletaken.Semester;
 import seedu.address.model.tag.Tag;
@@ -20,22 +19,22 @@ public class SampleDataUtil {
     public static ModuleTaken[] getSampleModulesTaken() {
         return new ModuleTaken[] {
             new ModuleTaken(new ModuleInfoCode("CS2103T"), Semester.valueOf("Y1S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"), new Hour("0"),
+                Grade.valueOf("A"),
                     getTagSet("friends")),
             new ModuleTaken(new ModuleInfoCode("CS2101"), Semester.valueOf("Y1S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"), new Hour("0"),
+                Grade.valueOf("A"),
                     getTagSet("colleagues", "friends")),
             new ModuleTaken(new ModuleInfoCode("CS1010"), Semester.valueOf("Y2S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"), new Hour("0"),
+                Grade.valueOf("A"),
                     getTagSet("neighbours")),
             new ModuleTaken(new ModuleInfoCode("LSM1301"), Semester.valueOf("Y2S2"), Grade.valueOf("C"),
-                Grade.valueOf("A"), new Hour("0"),
+                Grade.valueOf("A"),
                     getTagSet("family")),
             new ModuleTaken(new ModuleInfoCode("GER1000"), Semester.valueOf("Y2S1"), Grade.valueOf("C"),
-                Grade.valueOf("A"), new Hour("0"),
+                Grade.valueOf("A"),
                     getTagSet("classmates")),
             new ModuleTaken(new ModuleInfoCode("MA1521"), Semester.valueOf("Y2S2"), Grade.valueOf("C"),
-                Grade.valueOf("A"), new Hour("0"),
+                Grade.valueOf("A"),
                     getTagSet("colleagues"))
         };
     }

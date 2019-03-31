@@ -244,16 +244,7 @@ public class ModelManager implements Model {
      */
     @Override
     public String checkLimit() {
-        //TODO
-        //get current sem
-        //get all modules taken
-        //get all semester limits
-        //cumulatively add the min max lec tut lab proj prep doubles for all 10 semesters and their counts.
-        //divide each double by count for all semesters.
-        //calculate current cap before current sem
-        //calculate min and max final cap based on all semesters
-        //generate table in html
-        return "";
+        return LimitChecker.checkLimit(getCurrentSemester(), getSemLimitList(), getFilteredModulesTakenList());
     }
 
     //=========== Undo/Redo =================================================================================

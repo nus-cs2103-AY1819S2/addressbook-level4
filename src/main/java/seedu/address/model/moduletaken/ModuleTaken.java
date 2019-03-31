@@ -25,17 +25,32 @@ public class ModuleTaken {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null. workload information is filled based on module
      */
     public ModuleTaken(ModuleInfoCode moduleInfoCode, Semester semester, Grade expectedMinGrade, Grade expectedMaxGrade,
-                       Hour lectureHour, Set<Tag> tags) {
+                       Set<Tag> tags) {
         requireAllNonNull(moduleInfoCode, semester, expectedMinGrade, expectedMaxGrade, tags);
         this.moduleInfoCode = moduleInfoCode;
         this.semester = semester;
         this.gradeRange = new GradeRange(expectedMinGrade, expectedMaxGrade);
-        this.workload = new Workload(lectureHour, new Hour("0"),
-                new Hour("0"), new Hour("0"), new Hour("0")); //to be populated based on module info
+        this.workload = new Workload(new Hour("0"), new Hour("0"),
+                new Hour("0"), new Hour("0"), new Hour("0")); //TODO to be populated based on module info
         this.tags.addAll(tags);
+
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public ModuleTaken(ModuleInfoCode moduleInfoCode, Semester semester, Grade expectedMinGrade, Grade expectedMaxGrade,
+                       Workload workload, Set<Tag> tags) {
+        requireAllNonNull(moduleInfoCode, semester, expectedMinGrade, expectedMaxGrade, tags);
+        this.moduleInfoCode = moduleInfoCode;
+        this.semester = semester;
+        this.gradeRange = new GradeRange(expectedMinGrade, expectedMaxGrade);
+        this.workload = workload;
+        this.tags.addAll(tags);
+
     }
 
     public ModuleInfoCode getModuleInfoCode() {
@@ -60,6 +75,22 @@ public class ModuleTaken {
 
     public Hour getLectureHour() {
         return workload.getLectureHour();
+    }
+
+    public Hour getTutorialHour() {
+        return workload.getTutorialHour();
+    }
+
+    public Hour getLabHour() {
+        return workload.getLabHour();
+    }
+
+    public Hour getProjectHour() {
+        return workload.getProjectHour();
+    }
+
+    public Hour getPreparationHour() {
+        return workload.getPreparationHour();
     }
 
     /**
@@ -120,6 +151,10 @@ public class ModuleTaken {
                 && otherModuleTaken.getExpectedMinGrade().equals(getExpectedMinGrade())
                 && otherModuleTaken.getExpectedMaxGrade().equals(getExpectedMaxGrade())
                 && otherModuleTaken.getLectureHour().equals(getLectureHour())
+                && otherModuleTaken.getTutorialHour().equals(getTutorialHour())
+                && otherModuleTaken.getLabHour().equals(getLabHour())
+                && otherModuleTaken.getProjectHour().equals(getProjectHour())
+                && otherModuleTaken.getPreparationHour().equals(getPreparationHour())
                 && otherModuleTaken.getTags().equals(getTags());
     }
 
@@ -141,6 +176,14 @@ public class ModuleTaken {
                 .append(getExpectedMaxGrade())
                 .append(" Lecture Hour: ")
                 .append(getLectureHour())
+                .append(" Tutorial Hour: ")
+                .append(getTutorialHour())
+                .append(" Lab Hour: ")
+                .append(getLabHour())
+                .append(" Project Hour: ")
+                .append(getProjectHour())
+                .append(" Preparation Hour: ")
+                .append(getPreparationHour())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

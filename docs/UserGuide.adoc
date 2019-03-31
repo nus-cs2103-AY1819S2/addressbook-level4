@@ -116,7 +116,6 @@ image::ug-diagrams/pat/ap_after.png[width="600" align="center"]
 
 After entering the command, you can view the added patient record on the display.
 
-
 {nbsp} +
 
 [[editpat, Edit patient]]

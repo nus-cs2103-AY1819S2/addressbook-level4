@@ -22,7 +22,8 @@ public class KinNameContainsKeywordsPredicate extends ContainsKeywordsPredicate<
     public boolean test(Patient patient) {
         if (!isIgnoreCase && !isAnd) {
             return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordCaseSensitive(patient.getNextOfKin().getName().toString(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordCaseSensitive(patient.getNextOfKin().getName()
+                    .toString(), keyword));
 
         } else if (isIgnoreCase && !isAnd) {
             return keywords.stream()

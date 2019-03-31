@@ -1,15 +1,21 @@
 package systemtests;
 
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_RATING;
+import static seedu.address.testutil.TypicalBooks.ANOTHER_ERIKA_WORK;
 
 import org.junit.Test;
 
+import seedu.address.logic.commands.AddBookCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SummaryCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.book.Book;
 
 public class SummaryCommandSystemTest extends BookShelfSystemTest {
     private static final String command = SummaryCommand.COMMAND_WORD;
-
     @Test
     public void summary() {
         Model expectedModel = getModel();
@@ -18,7 +24,30 @@ public class SummaryCommandSystemTest extends BookShelfSystemTest {
             + "You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi)\n";
         assertCommandSuccess(command, expectedResultMessage, expectedModel);
 
+        /* Case: undo previous summary command -> rejected */
+        String undoCommand = UndoCommand.COMMAND_WORD;
+        expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(undoCommand, expectedResultMessage);
 
+        /* Case: redo previous summary command -> rejected */
+        String redoCommand = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(redoCommand, expectedResultMessage);
+
+        /* Case: get the summary of the book shelf after 1 book deleted -> summary changes */
+        Book toAdd = ANOTHER_ERIKA_WORK;
+        String addCommand = AddBookCommand.COMMAND_WORD + " " + PREFIX_NAME + toAdd.getBookName().fullName
+                + " " + PREFIX_AUTHOR + toAdd.getAuthor().fullName
+                + " " + PREFIX_RATING + toAdd.getRating().value;
+        executeCommand(addCommand);
+        expectedModel.addBook(toAdd);
+        assert(expectedModel.getBookShelf().getBookList().size() == 9);
+        expectedResultMessage = "You've read 9 books.\n"
+                + "You prefered books by Erika Leonard, as you've read: "
+                + "Fifty Shades of Grey, Fifty Shades Darker\n"
+                + "These book receive a rating of 10 from you: To Kill a Mocking Bird\n"
+                + "You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi)\n";
+        assertCommandSuccess(command, expectedResultMessage, expectedModel);
     }
 
     /**

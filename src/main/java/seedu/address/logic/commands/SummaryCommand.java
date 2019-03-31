@@ -22,7 +22,7 @@ public class SummaryCommand extends Command {
         //list out favourite authors
         List<String> lovedAuthors = model.getMostReadAuthors();
         if (!lovedAuthors.isEmpty()) {
-            feedback += "you prefered books by ";
+            feedback += "You prefered books by ";
             int authorComma = lovedAuthors.size() - 1;
             for (String authorName : lovedAuthors) {
                 feedback += authorName + ", as you've read: ";

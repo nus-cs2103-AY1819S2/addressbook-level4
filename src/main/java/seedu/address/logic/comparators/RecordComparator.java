@@ -21,6 +21,16 @@ public class RecordComparator {
         }
     };
 
+    /**
+     * Comparator to sort via description.
+     */
+    private static Comparator<Record> compRecordDesc = new Comparator<Record>() {
+        @Override
+        public int compare(Record r1, Record r2) {
+            return r1.getDescription().toString().compareTo(r2.getDescription().toString());
+        }
+    };
+
     public static Comparator<Record> getRecordComparator(String parameterType) throws ParseException {
         Comparator<Record> recComp;
 
@@ -31,6 +41,7 @@ public class RecordComparator {
             break;
 
         case "desc":
+            recComp = compRecordDesc;
             break;
 
         default:

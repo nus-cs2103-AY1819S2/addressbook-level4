@@ -501,37 +501,46 @@ Given below is an example usage scenario and how the `study` mechanism behaves a
 
 Step 1. User enter study mode using `study 1` command.
 
-A `StudyDeckCommand` is issued after reading the command words, `study INDEX`.
+A `StudyDeckCommand` is issued.
 
-Upon the execution of this command, Model's `viewState` will now hold a `StudyView` object.
+Upon the execution of this command, Model's `viewState` will now hold a `StudyView` object with 1st deck as active deck.
 
-As part of the execution of `StudyDeckCommand`, Step 2 is ran.
+As part of the execution of `StudyDeckCommand`, step 2 is ran.
 
 Step 2. Generating a question.
 
-In order to present questions to users, these are the functions called by the command:
+In order to present questions to users, these are the functions called by the `GenerateQuestionCommand()`:
 
-* `DeckSuffler#generateCard()` The `DeckShuffler` class a well-crafted algorithms (implementation explained later)
-to select a card a Card object, and passes this reference to `StudyView`.
- This modifies `currentCard` to a random Card object based on the Card generated.
+* `DeckSuffler#generateCard()` The `DeckShuffler` class has an algorithm (implementation explained later)
+to select a Card object, and passes this reference to `StudyView`.
+ * `currentCard` refers now to that card.
 
 * `currentState` is set to QUESTION.
 
-* Besides these two, `textShown` property is also modified. In this case, it will contain
-the question String of the chosen card.
+* Consequently, `textShown` property is also modified. In this case, it will contain
+the question  of the chosen card.
 
 Step 2. User executes the `[wildcard]` command to signal that he has come up with the answer.
 
-This changes the state to answer state.
-Consequently, we also change the `textShown` property to reflect this change.
+* User answer, ie whatever the user wrote, is stored as command under the statistics variable.
 
-Step 3. This command calls `Card#getAnswer()`
-This changes the `textShown` property in the UI.
-The `getState` property in the UI is also modified to Answer enum.
+Step 3. The  command generates a `ShowAnswerCommand()`
 
-Step 4. User enters the difficulty rating command.
-User answer is stored as command under the stastistics variable. Since we are mutating the app,
+The follwing are ran upon execution of the show answer command:
 
+* `currentStudyState` to ANSWER.
+* Similar to the above, we also change the `textShown` property to show user answer instead.
+
+
+Step 4. User enters the difficulty rating "command" to rate how difficult they thought it was to recall
+the answer.
+
+The following things happen:
+
+* Their answer stored under userAnswer variable, which will be displayed later.
+* This is perfect as we do not want users to revert statistics by executing undo command.
+
+* `GenerateQuestionCommand()` is executed once again. Back to Step 2.
 
 
 ==== UI implementation
@@ -540,9 +549,11 @@ The UI listens for three things: the `studyState`, `userAnswer`, and `textShown`
 
 
 The first is important because depending on whether it's question or answer, we
-modify the colours of flash cards in the UI. This variables also specifies whether or not there
-is as we currently they can't good access important websites.
+modify the colours of flash cards in the UI. This variables also specifies whether or not we need to display users'
+answers and whether or not we need to prompt them to rate the difficulty.
 
+The second is important to show the users what they answered.
+The last is important to show the contents of the flash card.
 
 
 ==== Design considerations

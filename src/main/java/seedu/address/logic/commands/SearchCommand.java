@@ -94,7 +94,7 @@ public class SearchCommand extends Command {
     public SearchCommand(PredicatePersonDescriptor predicatePersonDescriptor) {
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
-        Predicate<Person> predicator = (Predicate<Person>)this.predicatePersonDescriptor.toPredicate();
+        Predicate<Person> predicator = (Predicate<Person>) this.predicatePersonDescriptor.toPredicate();
         this.predicate = predicator;
     }
 
@@ -163,6 +163,7 @@ public class SearchCommand extends Command {
             setPastJobs(toCopy.pastJobs);
             setJobsApply(toCopy.jobsApply);
         }
+
         /**
          * Translate and returns a Predicate object for search command
          */
@@ -222,6 +223,7 @@ public class SearchCommand extends Command {
             }
             return predicator;
         }
+
         public void setName(Set<String> name) {
             this.name = name;
         }

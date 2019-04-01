@@ -38,13 +38,12 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
          * -> added
          */
         Deck toAdd = new DeckBuilder(DECK_A).withName(VALID_NAME_DECK_A).build();
-        String command = "   " + AddDeckCommand.COMMAND_WORD + "  " + PREFIX_NAME + VALID_NAME_DECK_A + "  ";
+        String command = "   " + AddDeckCommand.COMMAND_WORD + "  " + PREFIX_NAME + VALID_NAME_DECK_A;
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding DECK_A to the list -> Deck_A deleted */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-//        + AddDeckCommand.COMMAND_WORD;
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: redo adding DECK_A to the list -> Deck_A added again */
@@ -157,6 +156,4 @@ public class AddDeckCommandSystemTest extends TopDeckSystemTest {
         assertStatusBarUnchanged();
     }
 }
-
-
 

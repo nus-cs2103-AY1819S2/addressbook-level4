@@ -2,14 +2,12 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.animation.ScaleTransition;
 import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.util.Duration;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.StudyView;
 
@@ -21,9 +19,9 @@ public class StudyPanel extends UiPart<Region> {
 
     private static final String FXML = "StudyPanel.fxml";
     private static final PseudoClass ANSWER = PseudoClass.getPseudoClass("answer");
+    private static final String YOUR_ANSWER_LABEL = "Your answer: ";
 
     private final Logger logger = LogsCenter.getLogger(ListPanel.class);
-    private final String YOUR_ANSWER_LABEL = "Your answer: ";
 
     @FXML
     private HBox studyPane;
@@ -41,8 +39,7 @@ public class StudyPanel extends UiPart<Region> {
     private Label userAnswerLabel;
 
 
-    public StudyPanel(ObservableValue<String> textShown,
-                      ObservableValue<StudyView.studyState> studyState,
+    public StudyPanel(ObservableValue<String> textShown, ObservableValue<StudyView.StudyState> studyState,
                       ObservableValue<String> userAnswer) {
         super(FXML);
 
@@ -56,9 +53,9 @@ public class StudyPanel extends UiPart<Region> {
 
         studyState.addListener((observable, oldValue, newValue) -> {
             logger.info("color changed for: " + newValue);
-            card.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);
-            question.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.studyState.ANSWER);
-            userAnswerLabel.setVisible(studyState.getValue() == StudyView.studyState.ANSWER);
+            card.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
+            question.pseudoClassStateChanged(ANSWER, studyState.getValue() == StudyView.StudyState.ANSWER);
+            userAnswerLabel.setVisible(studyState.getValue() == StudyView.StudyState.ANSWER);
         });
 
         userAnswer.addListener((observable, oldValue, newValue) -> {

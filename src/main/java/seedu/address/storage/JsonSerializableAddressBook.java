@@ -45,8 +45,9 @@ class JsonSerializableAddressBook {
             throws IllegalValueException {
         this.patients.addAll(patients);
         this.doctors.addAll(doctors);
-        this.medicalHistories.addAll(medicalHistories);
         this.appointments.addAll(appointments);
+        this.medicalHistories.addAll(medicalHistories);
+        
     }
 
     /**
@@ -111,6 +112,7 @@ class JsonSerializableAddressBook {
         }
 
         */
+        
         return addressBook;
     }
 }

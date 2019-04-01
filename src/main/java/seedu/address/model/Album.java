@@ -11,20 +11,32 @@ import java.util.List;
 import seedu.address.model.image.Image;
 
 /**
- * Represents an album of images. Uses singleton pattern to ensure only a
- * single instance of Album is available.
+ * Represents an Album of Images in an ArrayList.
+ * Album manages the propertyChangeListener for updates to the UI.
+ * Uses singleton pattern to ensure only a single instance of Album is available.
  */
 public class Album {
+    // Represents the Storage path of assets folder for all raw images.
+    private static final String ASSETS_FILEPATH = "src/main/resources/assets/";
+    // Represents a singleton copy of the Album.
     private static Album instance = null;
-    private final String assetsFilePath = "src/main/resources/assets/";
+    // Represents an ArrayList of image available in assets folder.
+    private List<Image> imageList = new ArrayList<>();
 
-    private List<Image> imageList;
-
+    /**
+     * Constructor for Album.
+     * Checks if asset folder exists, creates it if it does not and populates the Album.
+     */
     public Album() {
-        imageList = new ArrayList<>();
+        assetExist();
         populateAlbum();
     }
 
+    /**
+     * Gets the current instance of Album.
+     *
+     * @return Returns the singleton Album instance.
+     */
     public static Album getInstance() {
         if (instance == null) {
             instance = new Album();
@@ -32,31 +44,40 @@ public class Album {
         return instance;
     }
 
+    /**
+     * Gets the list of images in the Album.
+     *
+     * @return A list of Image objects.
+     */
     public List<Image> getImageList() {
         return imageList;
     }
 
-    public void addImage(Image image) {
-        imageList.add(image);
-    }
-
     /**
-     * Populates album on method call with images in assets folder.
+     * Checks if an asset folder exists on Album construction.
+     * Creates a new asset folder if one does not exist.
      */
-    public void populateAlbum() {
-        clearAlbum();
-        File folder = new File(assetsFilePath);
-        for (File file : folder.listFiles()) {
-            try {
-                if (validFormat(file.getAbsolutePath())) {
-                    imageList.add(new Image(file.getAbsolutePath()));
-                }
-            } catch (IOException e) {
-                System.out.println(e);
-            }
+    public void assetExist() {
+        File assetFolder = new File(ASSETS_FILEPATH);
+        if (!assetFolder.exists()) {
+            assetFolder.mkdir();
         }
     }
 
+    /**
+     * For each image in assets folder, populate the Album with an Image object.
+     */
+    public void populateAlbum() {
+        clearAlbum();
+        File folder = new File(ASSETS_FILEPATH);
+        for (File file : folder.listFiles()) {
+            imageList.add(new Image(file.getAbsolutePath()));
+        }
+    }
+
+    /**
+     * Resets the Album to empty.
+     */
     public void clearAlbum() {
         imageList.clear();
     }

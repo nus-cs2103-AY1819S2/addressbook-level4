@@ -144,7 +144,7 @@ public class CurrentEditManager implements CurrentEdit {
             File outputFile = new File(TEMP_FILENAME);
             File directory = new File(TEMP_FILEPATH);
             ImageIO.write(bufferedimage, tempImage.getFileType(), outputFile);
-            FileUtils.copyFileToDirectory(outputFile, directory, false);
+            FileUtils.copyFileToDirectory(outputFile, directory);
             outputFile.delete();
         } catch (IOException e) {
             System.out.println(e.toString());

@@ -1495,21 +1495,29 @@ _{More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]]**Mainstream OS**: Windows, Linux, Unix, OS-X
+[[cardanswer]] **Card Answer**: The correct answer of a card.
 
-[[flashcard]]**Flashcard/Card**: An object containing a single question and answer, and optionally hints.
+[[cardhint]] **Card Hint**: The optional hint of a card.
+
+[[cardoption]] **Card Option**: An incorrect option for an MCQ card.
+
+[[cardquestion]] **Card Question**: The question of a card.
+
+[[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When the user is tested on a card, this number is automatically calculated and recorded.
+
+[[flashcard]]**Flashcard/Card**: An object containing a single question and answer, and optionally, hints. There are 2 types of cards, Single-answer and MCQ. MCQ cards feature incorrect options in addition to the card answer, while Single-answer cards do not.
 
 [[folder]] **Folder**: A collections of flashcards, grouped topically. There are no
 sub-folders.
 
-[[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
-questions displayed. The user is required to key in an answer for each question.
-
-[[cardscore]]  **Card Score**: The number of correct answers divided by the number of attempts for a single card. When the user is tested on a card, this number is automatically calculated and recorded.
-
 [[folderscore]] **Folder Score**: The average of all <<cardscore, card scores>> in a folder after a test session. This number is automatically recorded after each test session.
 
 [[homedirectory]] **Home Directory**: The home page where all the folders are listed. From here, users can enter folders to view cards.
+
+[[mainstream-os]]**Mainstream OS**: Windows, Linux, Unix, OS-X
+
+[[testsession]] **Test Session**: A session where all flashcards in a folder are queued to have their
+questions displayed. The user is required to key in an answer for each question.
 
 [appendix]
 == Instructions for Manual Testing

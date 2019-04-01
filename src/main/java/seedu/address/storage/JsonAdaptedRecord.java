@@ -1,21 +1,21 @@
 package seedu.address.storage;
 
-import static seedu.address.storage.JsonAdaptedConstants.DIVIDER;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.datetime.DateBase;
+import seedu.address.model.datetime.RecordDate;
 import seedu.address.model.description.Description;
 import seedu.address.model.person.Name;
 import seedu.address.model.record.Record;
-import seedu.address.model.record.exceptions.BadRecordFormatException;
 
 /**
  * Jackson-friendly version of {@link Record}.
  */
 class JsonAdaptedRecord {
+
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Record's %s field is missing!";
 
     private final String doctorName;
 
@@ -23,45 +23,22 @@ class JsonAdaptedRecord {
 
     private final String recordDate;
 
-    /**
-     * Constructs a {@code JsonAdaptedRecord} with the given {@code recordLine}.
-     */
     @JsonCreator
-    public JsonAdaptedRecord(String recordLine) {
-        String[] sb = recordLine.split(DIVIDER);
-
-        if (sb.length == 3) {
-            doctorName = sb[0];
-            description = sb[1];
-            recordDate = sb[2];
-        } else {
-            throw new BadRecordFormatException();
-        }
+    public JsonAdaptedRecord(@JsonProperty("doctor") String doctorName,
+                             @JsonProperty("recordDate") String recordDate,
+                             @JsonProperty("description") String description) {
+        this.doctorName = doctorName;
+        this.recordDate = recordDate;
+        this.description = description;
     }
 
     /**
-     * Converts a given {@code Record} into this class for Jackson use.
+     * Converts a given {@code Person} into this class for Jackson use.
      */
-    public JsonAdaptedRecord(Record record) {
-        String recordLine = record.toString();
-        String[] sb = recordLine.split(DIVIDER);
-
-        if (sb.length == 3) {
-            doctorName = sb[0];
-            description = sb[1];
-            recordDate = sb[2];
-        } else {
-            throw new BadRecordFormatException();
-        }
-    }
-
-    /**
-     * Formats the attributes into a text String to be stored in Json.
-     * @return the String representing the record.
-     */
-    @JsonValue
-    public String getRecordName() {
-        return doctorName + DIVIDER + description + DIVIDER + recordDate;
+    public JsonAdaptedRecord(Record source) {
+        this.doctorName = source.getDoctorName().toString();
+        this.recordDate = source.getRecordDate().getRawFormat();
+        this.description = source.getDescription().toString();
     }
 
     /**
@@ -71,15 +48,32 @@ class JsonAdaptedRecord {
      * Limitations: If there are multiple constraints violated, only the first will be reported.
      */
     public Record toModelType() throws IllegalValueException {
+
+        if (doctorName == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "doctor"));
+        }
         if (!Name.isValidName(doctorName)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        } else if (!Description.isValidDescription(description)) {
-            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
-        } else if (!DateBase.isValidDate(recordDate)) {
-            throw new IllegalValueException(DateBase.MESSAGE_CONSTRAINTS);
-        } else {
-            return new Record(doctorName, description, recordDate);
         }
+
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Description.class.getSimpleName()));
+        }
+        if (!Description.isValidDescription(description)) {
+            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+        }
+
+        if (recordDate == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                RecordDate.class.getSimpleName()));
+        }
+        if (!DateBase.isValidDate(recordDate)) {
+            System.out.println(recordDate);
+            throw new IllegalValueException(DateBase.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Record(doctorName, description, recordDate);
     }
 
 }

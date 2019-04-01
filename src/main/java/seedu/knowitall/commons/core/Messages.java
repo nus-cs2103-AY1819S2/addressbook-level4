@@ -12,8 +12,6 @@ public class Messages {
     public static final String MESSAGE_CARDS_LISTED_OVERVIEW = "%1$d cards listed!";
     public static final String MESSAGE_INVALID_COMMAND_OUTSIDE_FULLSCREEN = "This command is not valid outside a test"
             + " or report";
-    public static final String MESSAGE_INVALID_COMMAND_OUTSIDE_TEST_SESSION = "This command is valid only inside a test"
-            + " session";
     public static final String MESSAGE_INVALID_COMMAND_INSIDE_TEST_SESSION = "This command is valid only outside a test"
             + " session";
 

@@ -19,10 +19,10 @@ import seedu.address.model.image.Image;
  * Uses singleton pattern to ensure only a single instance of Album is available.
  */
 public class Album {
-    // Represents the Storage path of assets folder for all raw images.
-    private final String ASSETS_FILEPATH = "src/main/resources/assets/";
     // Represents a singleton copy of the Album.
     private static Album instance = null;
+    // Represents the Storage path of assets folder for all raw images.
+    private final String assetsFilepath = "src/main/resources/assets/";
     // Represents an ArrayList of image available in assets folder.
     private List<Image> imageList = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class Album {
      * Creates a new asset folder if one does not exist.
      */
     public void assetExist() {
-        File assetFolder = new File(ASSETS_FILEPATH);
+        File assetFolder = new File(assetsFilepath);
         if (!assetFolder.exists()) {
             assetFolder.mkdir();
         }
@@ -72,7 +72,7 @@ public class Album {
      */
     public void populateAlbum() {
         clearAlbum();
-        File folder = new File(ASSETS_FILEPATH);
+        File folder = new File(assetsFilepath);
         for (File file : folder.listFiles()) {
             imageList.add(new Image(file.getAbsolutePath()));
         }
@@ -103,7 +103,7 @@ public class Album {
      * @param args string of file name.
      */
     public boolean checkFileExist(String args) {
-        File file = new File(ASSETS_FILEPATH + args);
+        File file = new File(assetsFilepath + args);
         return (file.isFile());
     }
 
@@ -114,14 +114,14 @@ public class Album {
      * @param args string of file name.
      */
     public Image retrieveImage(String args) {
-        return new Image(ASSETS_FILEPATH + args);
+        return new Image(assetsFilepath + args);
     }
 
     /**
      * Retrieves a list of all filenames in assets folder. Returns the list as String[].
      */
     public String[] getFileNames() {
-        File file = new File(ASSETS_FILEPATH);
+        File file = new File(assetsFilepath);
         return file.list();
     }
 
@@ -131,7 +131,7 @@ public class Album {
     public void saveToAssets(Image image, String name) {
         try {
             File outputFile = new File(name);
-            File saveDirectory = new File(ASSETS_FILEPATH);
+            File saveDirectory = new File(assetsFilepath);
             ImageIO.write(image.getBufferedImage(), image.getFileType(), outputFile);
             FileUtils.copyFileToDirectory(outputFile, saveDirectory, false);
             outputFile.delete();

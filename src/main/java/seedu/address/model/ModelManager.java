@@ -52,6 +52,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
         filteredTasks = new FilteredList<>(versionedAddressBook.getTaskList());
         filteredPersons.addListener(this::ensureSelectedPersonIsValid);
+        filteredTasks.addListener(this::ensureSelectedTaskIsValid);
     }
 
     public ModelManager() {
@@ -146,7 +147,6 @@ public class ModelManager implements Model {
     @Override
     public void deleteTask(Task task) {
         versionedAddressBook.removeTask(task);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
     }
 
     @Override
@@ -193,6 +193,31 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Replaces the given record {@code target} with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     *
+     * @param target the target to be replaced.
+     * @param editedRecord the one which is edited.
+     */
+    @Override
+    public void setRecord(Record target, Record editedRecord) {
+        versionedAddressBook.setRecord(target, editedRecord);
+    }
+
+    /**
+     * Update tags based on teeth data.
+     *
+     * @param target the patient to update tags.
+     */
+    @Override
+    public void updateTags(Patient target) {
+        Patient editedTarget = target.copy();
+        versionedAddressBook.setPerson(target, editedTarget);
+        MainWindow.setRecordPatient(editedTarget);
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
@@ -213,12 +238,21 @@ public class ModelManager implements Model {
     //=========== Sorting Methods ===========================================================================
 
     /**
-     * Sorts the address book according to the given comparator
+     * Sorts the patients within address book according to the given comparator
      */
     @Override
     public void sortAddressBook(Comparator<Patient> compPa, boolean isReverse) {
         requireNonNull(compPa);
         versionedAddressBook.sortPatients(compPa, isReverse);
+    }
+
+    /**
+     * Sorts the records within address book according to the given comparator
+     */
+    @Override
+    public void sortRecordsBook(Comparator<Record> compRec, boolean isReverse) {
+        requireNonNull(compRec);
+        versionedAddressBook.sortRecords(compRec, isReverse);
     }
 
     //=========== Filtered Task List Accessors =============================================================
@@ -238,6 +272,36 @@ public class ModelManager implements Model {
         filteredTasks.setPredicate(predicate);
     }
 
+
+    /**
+     * Ensures {@code selectedTask} is a valid task in {@code filteredTasks}.
+     */
+    private void ensureSelectedTaskIsValid(ListChangeListener.Change<? extends Task> change) {
+        while (change.next()) {
+            if (selectedTask.getValue() == null) {
+                // null is always a valid selected person, so we do not need to check that it is valid anymore.
+                return;
+            }
+
+            boolean wasSelectedTaskReplaced = change.wasReplaced() && change.getAddedSize() == change.getRemovedSize()
+                    && change.getRemoved().contains(selectedTask.getValue());
+            if (wasSelectedTaskReplaced) {
+                // Update selectedTask to its new value.
+                int index = change.getRemoved().indexOf(selectedTask.getValue());
+                selectedTask.setValue(change.getAddedSubList().get(index));
+                continue;
+            }
+
+            boolean wasSelectedTaskRemoved = change.getRemoved().stream()
+                    .anyMatch(removedTask -> selectedTask.getValue().isSameTask(removedTask));
+            if (wasSelectedTaskRemoved) {
+                // Select the task that came before it in the list,
+                // or clear the selection if there is no such person.
+                selectedTask.setValue(change.getFrom() > 0 ? change.getList().get(change.getFrom() - 1) : null);
+            }
+        }
+    }
+
     //=========== Filtered Record List Accessors ============================================================
 
     /**
@@ -247,10 +311,20 @@ public class ModelManager implements Model {
     public ObservableList<Record> getFilteredRecordList() {
         if (MainWindow.getRecordPatient() != null) {
             versionedAddressBook.setRecords(MainWindow.getRecordPatient().getRecords());
-            filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
+            if (filteredRecords == null) {
+                filteredRecords = new FilteredList<>(versionedAddressBook.getRecordList());
+            }
             return filteredRecords;
         }
         return null;
+    }
+
+    @Override
+    public void updateFilteredRecordList(Predicate<Record> predicate) {
+        if (MainWindow.getRecordPatient() != null) {
+            requireNonNull(predicate);
+            filteredRecords.setPredicate(predicate);
+        }
     }
 
     //=========== Undo/Redo =================================================================================
@@ -351,6 +425,7 @@ public class ModelManager implements Model {
         return versionedAddressBook.equals(other.versionedAddressBook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredPersons.equals(other.filteredPersons)
+                && filteredTasks.equals(other.filteredTasks)
                 && Objects.equals(selectedPerson.get(), other.selectedPerson.get());
     }
 

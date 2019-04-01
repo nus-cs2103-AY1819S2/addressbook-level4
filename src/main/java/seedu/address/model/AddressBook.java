@@ -88,6 +88,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         setPersons(newData.getPersonList());
         setTasks(newData.getTaskList());
+        setRecords(newData.getRecordList());
     }
     //// task-level operations
 
@@ -118,6 +119,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void removeRecord(Record record) {
         records.remove(record);
         MainWindow.getRecordPatient().removeRecord(record);
+        indicateModified();
+    }
+
+    /**
+     * Replaces the given Record {@code target} in the list with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     */
+    public void setRecord(Record target, Record editedRecord) {
+        requireNonNull(editedRecord);
+
+        records.setRecord(target, editedRecord);
         indicateModified();
     }
 
@@ -186,8 +199,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
-
         persons.setPerson(target, editedPerson);
+
+        setRecords(((Patient) editedPerson).getRecords());
         indicateModified();
     }
 
@@ -243,6 +257,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void sortPatients(Comparator<Patient> patientComparator, boolean isReverse) {
         persons.sortStoredList(patientComparator, isReverse);
+    }
+
+    /**
+     * Method to sort the patients within the address book
+     */
+    public void sortRecords(Comparator<Record> recordComparator, boolean isReverse) {
+        records.sortStoredList(recordComparator, isReverse);
     }
 
     @Override

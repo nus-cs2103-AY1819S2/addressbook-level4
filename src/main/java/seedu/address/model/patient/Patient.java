@@ -10,6 +10,7 @@ import java.util.Set;
 
 import seedu.address.model.datetime.DateOfBirth;
 import seedu.address.model.description.Description;
+import seedu.address.model.nextofkin.NextOfKin;
 import seedu.address.model.patient.exceptions.PersonIsNotPatient;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -36,19 +37,27 @@ public class Patient extends Person {
     private DateOfBirth dateOfBirth;
     private Teeth teeth = null;
     private List<Record> records = new ArrayList<>();
+    private NextOfKin nextOfKin;
+    private DrugAllergy drugAllergy;
+    private Description patientDesc;
 
     /**
      * Every field must be present and not null.
      * Used by add command.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth) {
+                   DateOfBirth dateOfBirth, Sex sex, DrugAllergy drugAllergy, NextOfKin nextOfKin,
+                   Description describe) {
         super(name, phone, email, address, tags);
-        requireAllNonNull(nric, dateOfBirth);
+        requireAllNonNull(nric, dateOfBirth, sex);
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
+        this.nextOfKin = nextOfKin;
         buildAdultTeeth();
-        records.add(new Record(new Description("Patient is added today")));
+        this.drugAllergy = drugAllergy;
+        this.patientDesc = describe;
+        records.add(new Record());
     }
 
     /**
@@ -56,23 +65,41 @@ public class Patient extends Person {
      * Every field must be present and not null.
      */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth) {
+                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth, Sex sex, DrugAllergy drugAllergy,
+                   NextOfKin kin, Description describe) {
         super(name, phone, email, address, tags);
-        requireAllNonNull(nric, dateOfBirth, records);
+        requireAllNonNull(nric, dateOfBirth, records, sex);
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
         this.records = records;
         this.records.sort(Comparator.comparing(Record::getRecordDate));
         this.teeth = teeth;
+        this.drugAllergy = drugAllergy;
+        this.nextOfKin = kin;
+        this.patientDesc = describe;
     }
 
+    /**
+     * Used by copy().
+     * Every field must be present and not null.
+     */
     public Patient(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Nric nric,
-                   DateOfBirth dateOfBirth, Person personToCopy, int copyCount) {
-        super(name, phone, email, address, tags, personToCopy, copyCount);
-        requireAllNonNull(nric, dateOfBirth);
+                   DateOfBirth dateOfBirth, List<Record> records, Teeth teeth, Sex sex, DrugAllergy drugAllergy,
+                   NextOfKin kin, Description describe, int copyCount) {
+        super(name, phone, email, address, tags);
+        requireAllNonNull(nric, dateOfBirth, records, sex);
+        this.sex = sex;
         this.nric = nric;
         this.dateOfBirth = dateOfBirth;
-        buildAdultTeeth();
+        this.records = records;
+        this.records.sort(Comparator.comparing(Record::getRecordDate));
+        this.teeth = teeth;
+        this.drugAllergy = drugAllergy;
+        this.nextOfKin = kin;
+        this.patientDesc = describe;
+        this.copyCount = ++copyCount;
+        updateTags();
     }
 
     /**
@@ -108,6 +135,26 @@ public class Patient extends Person {
     private void addRelevantTags() {
         addTag(new TeethTag(TemplateTags.ADULT));
         addTag(new StatusTag(TemplateTags.HEALTHY));
+    }
+
+    /**
+     * Looks at the current status of the teeth,
+     * and updates the status tag of the teeth appropriately.
+     */
+    public void updateTags() {
+        boolean absent = teeth.checkFor(Teeth.ABSENT);
+        boolean problematic = teeth.checkFor(Teeth.PROBLEMATIC);
+
+        if (absent) {
+            addTag(new StatusTag(TemplateTags.ABSENTTOOTH));
+        } else if (problematic) {
+            addTag(new StatusTag(TemplateTags.STATUSTOOTH));
+        } else {
+            addTag(new StatusTag(TemplateTags.HEALTHY));
+        }
+
+        // Only one option at the moment.
+        addTag(new TeethTag(TemplateTags.ADULT));
     }
 
     /**
@@ -157,6 +204,27 @@ public class Patient extends Person {
         return sex;
     }
 
+    public NextOfKin getNextOfKin() {
+        return nextOfKin;
+    }
+
+    public DrugAllergy getDrugAllergy() {
+        return drugAllergy;
+    }
+
+    public Description getPatientDesc() {
+        return patientDesc;
+    }
+
+    /**
+     * Return a Patient with changed tags
+     * @return a new Patient instance.
+     */
+    public Patient copy() {
+        return new Patient(this.name, this.phone, this.email, this.address, this.tags, this.nric, this.dateOfBirth,
+                this.records, this.teeth, this.sex, this.drugAllergy, this.nextOfKin, this.patientDesc, this.copyCount);
+    }
+
     /**
      * Returns true if both patients has the same NRIC.
      */
@@ -185,6 +253,7 @@ public class Patient extends Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(this.sex)
                 .append(" NRIC: ")
                 .append(nric.getNric())
                 .append(" Date of Birth: ")
@@ -195,8 +264,24 @@ public class Patient extends Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append("Drug Allergy: ")
+                .append(getDrugAllergy())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
+
+        //Next Of Kin fields
+        builder.append(" Next Of Kin Name: ")
+                .append(this.nextOfKin.getName())
+            .append(" Next Of Kin Relation: ")
+            .append(this.nextOfKin.getKinRelation())
+            .append(" Next Of Kin Phone: ")
+            .append(this.nextOfKin.getPhone())
+            .append(" Next Of Kin Address: ")
+            .append(this.nextOfKin.getAddress());
+
+        builder.append("Desciption: ")
+            .append("[ " + getPatientDesc() + "]");
+
         return builder.toString();
     }
 }

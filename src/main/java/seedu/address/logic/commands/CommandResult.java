@@ -26,6 +26,9 @@ public class CommandResult {
     /** The application should show record panel. */
     private boolean showRecord;
 
+    /** The application should show a task calendar popup */
+    private boolean showCalendar;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -53,13 +56,10 @@ public class CommandResult {
         this.showRecord = showRecord;
         this.back = back;
     }
-
-    /*
-    public CommandResult(String feedbackToUser, boolean showRecord) {
+    public CommandResult(String feedbackToUser, boolean showCalendar) {
         this(feedbackToUser, false, false);
-        this.showRecord = showRecord;
+        this.showCalendar = showCalendar;
     }
-    */
 
     public String getFeedbackToUser() {
         return feedbackToUser;
@@ -83,6 +83,10 @@ public class CommandResult {
 
     public boolean isBack() {
         return back;
+    }
+
+    public boolean isShowCalendar() {
+        return showCalendar;
     }
 
     @Override

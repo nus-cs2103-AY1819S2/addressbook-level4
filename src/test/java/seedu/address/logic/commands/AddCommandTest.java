@@ -31,8 +31,6 @@ import seedu.address.model.task.Task;
 
 import seedu.address.testutil.PersonBuilder;
 
-
-
 public class AddCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
@@ -186,6 +184,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setRecord(Record target, Record editedRecord) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateTags(Patient patient) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setPerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
@@ -196,6 +204,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredRecordList(Predicate<Record> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -216,7 +229,12 @@ public class AddCommandTest {
 
         @Override
         public void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse) {
-            throw new AssertionError("This method should not be called");
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void sortRecordsBook(Comparator<Record> recordComparator, boolean isReverse) {
+            throw new AssertionError("This method should not be called.");
         }
 
         public void updateFilteredTaskList(Predicate<Task> predicate) {

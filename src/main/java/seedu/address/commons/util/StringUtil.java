@@ -31,11 +31,85 @@ public class StringUtil {
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
-        String preppedSentence = sentence;
+        String preppedSentence = sentence.trim();
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains the {@code word}.
+     *   Ignores case, but a full word match is required.
+     *   <br>examples:<pre>
+     *       containsWordCaseSensitive("ABc def", "abc") == true
+     *       containsWordCaseSensitive("ABc def", "DEF") == true
+     *       containsWordCaseSensitive("ABc def", "AB") == false //not a full word match
+     *       </pre>
+     * @param sentence cannot be null
+     * @param word cannot be null, cannot be empty, must be a single word
+     */
+    public static boolean containsWordCaseSensitive(String sentence, String word) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+
+        String preppedSentence = sentence.trim();
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+
+        return Arrays.stream(wordsInPreppedSentence)
+            .anyMatch(preppedWord::equals);
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains the {@code subStr}.
+     *  Ignores case, but substring cannot contain whitespace.
+     *   <br>examples:<pre>
+     *      containsStringIgnoreCase("ABc def", "aB") == true
+     *      containsStringIgnoreCase("ABc def", "Ef") == true
+     *      containsStringIgnoreCase("ABc def", "c de") ==  false //contains whitespace
+     *      </pre>
+     * @param sentence cannot be null
+     * @param subStr cannot be null or empty, must have no whitespaces
+     */
+    public static boolean containsStringIgnoreCase(String sentence, String subStr) {
+        requireNonNull(sentence);
+        requireNonNull(subStr);
+
+        String preppedSubString = subStr.trim().toLowerCase();
+        checkArgument(!preppedSubString.isEmpty(), "Substring parameter cannot be empty");
+        checkArgument(preppedSubString.split("\\s+").length == 1, "Substring parameter should be single word");
+
+        String preppedSentence = sentence.trim().toLowerCase();
+
+        return preppedSentence.contains(preppedSubString);
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains the {@code subStr}.
+     *  Ignores case, but substring cannot contain whitespace.
+     *   <br>examples:<pre>
+     *      containsStringCaseSensitive("ABc def", "aB") == true
+     *      containsStringCaseSensitive("ABc def", "Ef") == true
+     *      containsStringCaseSensitive("ABc def", "c de") ==  false //contains whitespace
+     *      </pre>
+     * @param sentence cannot be null
+     * @param subStr cannot be null or empty, must have no whitespaces
+     */
+    public static boolean containsStringCaseSensitive(String sentence, String subStr) {
+        requireNonNull(sentence);
+        requireNonNull(subStr);
+
+        String preppedSubString = subStr.trim();
+        checkArgument(!preppedSubString.isEmpty(), "Substring parameter cannot be empty");
+        checkArgument(preppedSubString.split("\\s+").length == 1, "Substring parameter should be single word");
+
+        String preppedSentence = sentence.trim();
+
+        return preppedSentence.contains(preppedSubString);
     }
 
     /**

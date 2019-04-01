@@ -35,23 +35,37 @@ public class SortCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void execute_sortParameters_orderDefault() throws ParseException {
-        execute_sortParameter("name", false, Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-        execute_sortParameter("phone", false, Arrays.asList(DANIEL, ALICE, ELLE, FIONA, GEORGE, CARL, BENSON));
-        execute_sortParameter("address", false, Arrays.asList(DANIEL, ALICE, BENSON, GEORGE, FIONA, ELLE, CARL));
-        execute_sortParameter("email", false, Arrays.asList(ALICE, GEORGE, DANIEL, CARL, BENSON, FIONA, ELLE));
-        execute_sortParameter("nric", false, Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
-        execute_sortParameter("dob", false, Arrays.asList(FIONA, ALICE, CARL, GEORGE, ELLE, BENSON, DANIEL));
+    public void execute_sortPatientParameters_orderDefault() throws ParseException {
+        execute_sortPatientParameter("name", false, Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        execute_sortPatientParameter("phone", false, Arrays.asList(DANIEL, ALICE, ELLE, FIONA, GEORGE, CARL, BENSON));
+        execute_sortPatientParameter("address", false, Arrays.asList(DANIEL, ALICE, BENSON, GEORGE, FIONA, ELLE, CARL));
+        execute_sortPatientParameter("email", false, Arrays.asList(ALICE, GEORGE, DANIEL, CARL, BENSON, FIONA, ELLE));
+        execute_sortPatientParameter("nric", false, Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+        execute_sortPatientParameter("dob", false, Arrays.asList(ALICE, BENSON, GEORGE, ELLE, FIONA, CARL, DANIEL));
+        execute_sortPatientParameter("sex", false, Arrays.asList(ALICE, ELLE, FIONA, CARL, BENSON, GEORGE, DANIEL));
+        execute_sortPatientParameter("desc", false, Arrays.asList(FIONA, ALICE, ELLE, BENSON, CARL, DANIEL, GEORGE));
+        execute_sortPatientParameter("drug", false, Arrays.asList(FIONA, ALICE, ELLE, BENSON, DANIEL, CARL, GEORGE));
+        execute_sortPatientParameter("kinN", false, Arrays.asList(CARL, DANIEL, BENSON, ELLE, ALICE, FIONA, GEORGE));
+        execute_sortPatientParameter("kinR", false, Arrays.asList(CARL, ALICE, ELLE, FIONA, DANIEL, BENSON, GEORGE));
+        execute_sortPatientParameter("kinP", false, Arrays.asList(FIONA, DANIEL, CARL, ELLE, GEORGE, ALICE, BENSON));
+        execute_sortPatientParameter("kinA", false, Arrays.asList(DANIEL, ALICE, GEORGE, BENSON, ELLE, FIONA, CARL));
     }
 
     @Test
-    public void execute_sortParameters_orderReverse() throws ParseException {
-        execute_sortParameter("name", true, Arrays.asList(GEORGE, FIONA, ELLE, DANIEL, CARL, BENSON, ALICE));
-        execute_sortParameter("phone", true, Arrays.asList(BENSON, CARL, GEORGE, FIONA, ELLE, ALICE, DANIEL));
-        execute_sortParameter("address", true, Arrays.asList(CARL, ELLE, FIONA, GEORGE, BENSON, ALICE, DANIEL));
-        execute_sortParameter("email", true, Arrays.asList(ELLE, FIONA, BENSON, CARL, DANIEL, GEORGE, ALICE));
-        execute_sortParameter("nric", true, Arrays.asList(GEORGE, FIONA, ELLE, DANIEL, CARL, BENSON, ALICE));
-        execute_sortParameter("dob", true, Arrays.asList(DANIEL, BENSON, ELLE, GEORGE, CARL, ALICE, FIONA));
+    public void execute_sortPatientParameters_orderReverse() throws ParseException {
+        execute_sortPatientParameter("name", true, Arrays.asList(GEORGE, FIONA, ELLE, DANIEL, CARL, BENSON, ALICE));
+        execute_sortPatientParameter("phone", true, Arrays.asList(BENSON, CARL, GEORGE, FIONA, ELLE, ALICE, DANIEL));
+        execute_sortPatientParameter("address", true, Arrays.asList(CARL, ELLE, FIONA, GEORGE, BENSON, ALICE, DANIEL));
+        execute_sortPatientParameter("email", true, Arrays.asList(ELLE, FIONA, BENSON, CARL, DANIEL, GEORGE, ALICE));
+        execute_sortPatientParameter("nric", true, Arrays.asList(GEORGE, FIONA, ELLE, DANIEL, CARL, BENSON, ALICE));
+        execute_sortPatientParameter("dob", true, Arrays.asList(DANIEL, CARL, FIONA, ELLE, GEORGE, BENSON, ALICE));
+        execute_sortPatientParameter("sex", true, Arrays.asList(DANIEL, GEORGE, BENSON, CARL, FIONA, ELLE, ALICE));
+        execute_sortPatientParameter("desc", true, Arrays.asList(GEORGE, DANIEL, CARL, BENSON, ELLE, ALICE, FIONA));
+        execute_sortPatientParameter("drug", true, Arrays.asList(GEORGE, CARL, DANIEL, BENSON, ELLE, ALICE, FIONA));
+        execute_sortPatientParameter("kinN", true, Arrays.asList(GEORGE, FIONA, ALICE, ELLE, BENSON, DANIEL, CARL));
+        execute_sortPatientParameter("kinR", true, Arrays.asList(GEORGE, BENSON, DANIEL, FIONA, ELLE, ALICE, CARL));
+        execute_sortPatientParameter("kinP", true, Arrays.asList(BENSON, ALICE, GEORGE, ELLE, CARL, DANIEL, FIONA));
+        execute_sortPatientParameter("kinA", true, Arrays.asList(CARL, FIONA, ELLE, BENSON, GEORGE, ALICE, DANIEL));
     }
 
     /**
@@ -62,11 +76,11 @@ public class SortCommandTest {
      * @param expectedList Expected Order
      * @throws ParseException
      */
-    public void execute_sortParameter (String parameter, boolean isReverse,
-                                       List<Person> expectedList) throws ParseException {
+    private void execute_sortPatientParameter(String parameter, boolean isReverse,
+                                              List<Person> expectedList) throws ParseException {
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS, parameter);
         Comparator<Patient> patientComparator = PatientComparator.getPatientComparator(parameter);
-        SortCommand command = new SortCommand(patientComparator, parameter, isReverse);
+        SortCommand command = new SortPatientCommand(patientComparator, parameter, isReverse);
         expectedModel.sortAddressBook(patientComparator, isReverse);
         expectedModel.commitAddressBook();
         assertCommandSuccess(command, model, commandHistory, expectedMessage, expectedModel);

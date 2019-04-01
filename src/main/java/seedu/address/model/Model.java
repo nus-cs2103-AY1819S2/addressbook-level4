@@ -19,6 +19,8 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     /** {@code Predicate} that always evaluate to true */
+    Predicate<Record> PREDICATE_SHOW_ALL_RECORDS = unused -> true;
+    /** {@code Predicate} that always evaluate to true */
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -99,6 +101,11 @@ public interface Model {
     void sortAddressBook(Comparator<Patient> patientComparator, boolean isReverse);
 
     /**
+     * Sorts the records within address book according to the given comparator
+     */
+    void sortRecordsBook(Comparator<Record> recordComparator, boolean isReverse);
+
+    /**
      * Returns true if the model has previous address book states to restore.
      * Selected person in the filtered person list.
      * null if no person is selected.
@@ -157,6 +164,11 @@ public interface Model {
     ObservableList<Record> getFilteredRecordList();
 
     /**
+     * Updates the filtered records list.
+     */
+    void updateFilteredRecordList(Predicate<Record> predicate);
+
+    /**
      * Returns true if a record with the same identity as {@code record} exists in the address book.
      */
     boolean hasRecord(Record record);
@@ -172,6 +184,21 @@ public interface Model {
      * The record must exist in the address book.
      */
     void deleteRecord(Record record);
+
+    /**
+     * Replaces the given record {@code target} with {@code editedRecord}.
+     * {@code target} must exist in the address book.
+     * The identity of {@code editedRecord} must not be the same as another existing record in the address book.
+     */
+    void setRecord(Record target, Record editedRecord);
+
+    //=========== Tags =================================================================================
+
+    /**
+     * Update tags based on teeth data.
+     * @param patient the patient to update tags.
+     */
+    void updateTags(Patient patient);
 
     //=========== Undo/Redo/Commit =================================================================================
 

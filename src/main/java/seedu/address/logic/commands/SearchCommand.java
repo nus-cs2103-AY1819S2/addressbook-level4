@@ -94,7 +94,7 @@ public class SearchCommand extends Command {
     public SearchCommand(PredicatePersonDescriptor predicatePersonDescriptor) {
         requireNonNull(predicatePersonDescriptor);
         this.predicatePersonDescriptor = new PredicatePersonDescriptor(predicatePersonDescriptor);
-        Predicate<Person> predicator = this.predicatePersonDescriptor.toPredicate();
+        Predicate<Person> predicator = (Predicate<Person>)this.predicatePersonDescriptor.toPredicate();
         this.predicate = predicator;
     }
 

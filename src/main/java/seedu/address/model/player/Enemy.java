@@ -285,11 +285,10 @@ public class Enemy extends Player {
     private void updateWatchlist(Coordinates lastCoordAttacked) {
         logger.info(String.format("++++++++BEFORE_UPDATE_WATCHLIST_STATUS_CHECK " + lastCoordAttacked.toString()
                 + " status: " + lastAttackStatus.toString()));
-        if (lastAttackStatus == Status.SHIPHIT) {
+        if (lastAttackStatus == Status.SHIP) { //TO-DO: FIX THE STATUS TO SHIPHIT. NOW USING SHIP CUZ IM READING OWN MAP
             int oldRow = lastCoordAttacked.getRowIndex().getZeroBased();
             int oldCol = lastCoordAttacked.getColIndex().getZeroBased();
-            Coordinates updatedCoord = new Coordinates(0, 0);
-            boolean hasCardinals = false;
+            Coordinates updatedCoord;
 
             //ADD CARDINAL DIRECTIONS TO WATCHLIST.
             //WATCHLIST COORDS IN FORM a1
@@ -297,27 +296,32 @@ public class Enemy extends Player {
             if (oldRow - 1 >= 0) {
                 //add cardinal NORTH to watchlist. ROW MINUS ONE
                 updatedCoord = new Coordinates(oldRow - 1, oldCol);
-                hasCardinals = true;
+                if (isValidCardinal(updatedCoord)) {
+                    watchlist.push(updatedCoord);
+                }
             }
             if (oldRow + 1 < mapSize) {
                 //add cardinal SOUTH to watchlist  ROW PLUS ONE
                 updatedCoord = new Coordinates(oldRow + 1, oldCol);
-                hasCardinals = true;
+                if (isValidCardinal(updatedCoord)) {
+                    watchlist.push(updatedCoord);
+                }
             }
             if (oldCol - 1 >= 0) {
                 //add cardinal WEST to watchlist   COL MINUS ONE
                 updatedCoord = new Coordinates(oldRow, oldCol - 1);
-                hasCardinals = true;
+                if (isValidCardinal(updatedCoord)) {
+                    watchlist.push(updatedCoord);
+                }
             }
             if (oldCol + 1 < mapSize) {
                 //add cardinal EAST to watchlist   COL PLUS ONE
                 updatedCoord = new Coordinates(oldRow, oldCol + 1);
-                hasCardinals = true;
+                if (isValidCardinal(updatedCoord)) {
+                    watchlist.push(updatedCoord);
+                }
+            }
 
-            }
-            if (isValidCardinal(updatedCoord) && hasCardinals) {
-                watchlist.push(updatedCoord);
-            }
             logger.info(String.format("++++++++WATCHLIST UPDATING:\n" + watchlist.toString()));
             logger.info(String.format("++++++++WATCHLIST SIZE:\n" + watchlist.size()));
 

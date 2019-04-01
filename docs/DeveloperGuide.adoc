@@ -377,7 +377,7 @@ We decided to go ahead with this implementation as we feel that from a user's po
 // end::changemode[]
 
 // tag::editseats
-=== Edit pax feature
+=== Edit Pax feature
 ==== Current Implementation
 
 The edit pax mechanism is facilitated by `UniqueTableList`. It stores the all tables currently in the system and ensures that there are no duplicated tables. Additionally, it implements the following operations:

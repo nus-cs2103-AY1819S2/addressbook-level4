@@ -12,6 +12,9 @@ import seedu.address.model.table.Table;
 import seedu.address.model.table.TableNumber;
 import seedu.address.model.table.TableStatus;
 
+/**
+ * Edits the number of seats at a table.
+ */
 public class EditSeatsCommand extends Command {
 
     public static final String COMMAND_WORD = "editSeats";

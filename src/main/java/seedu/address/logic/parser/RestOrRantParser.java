@@ -17,6 +17,7 @@ import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteFromMenuCommand;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
+import seedu.address.logic.commands.EditPaxCommand;
 import seedu.address.logic.commands.EditSeatsCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -25,7 +26,6 @@ import seedu.address.logic.commands.MenuModeCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.StatisticsModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
-import seedu.address.logic.commands.EditPaxCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 

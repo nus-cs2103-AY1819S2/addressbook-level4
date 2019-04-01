@@ -13,7 +13,7 @@ import seedu.address.logic.commands.SetCategoriesCommand;
 import seedu.address.model.restaurant.categories.Categories;
 import seedu.address.model.restaurant.categories.Cuisine;
 
-public class CategoriesCommandParserTest {
+public class SetCategoriesCommandParserTest {
 
     private static final String VALID_INDEX = "1";
     private static final String VALID_CUISINE = "Fast Food";

@@ -395,7 +395,7 @@ This command requires you to have a consultation session already active. See: <<
 
 After the medicine-quantity pairings are entered, the prescription to address the patient's current condition will be displayed on the main display area of QuickDocs. Changes can still be made to the prescription as long as the consultation session is still ongoing.
 
-.Prescribing medicines to tackle the patient's current conditions 
+.Prescribing medicines to tackle the patient's current conditions
 image::prescription_after.png[width="600" align="center"]
 
 '''

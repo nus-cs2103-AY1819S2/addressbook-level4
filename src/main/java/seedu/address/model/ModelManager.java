@@ -15,9 +15,14 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.WarningPanelSettings;
 import seedu.address.commons.util.warning.WarningPanelPredicateAccessor;
+import seedu.address.commons.util.warning.WarningPanelPredicateType;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.MedicineExpiryThresholdPredicate;
+import seedu.address.model.medicine.MedicineLowStockThresholdPredicate;
 import seedu.address.model.medicine.exceptions.MedicineNotFoundException;
+import seedu.address.model.threshold.Threshold;
 
 /**
  * Represents the in-memory model of the inventory data.
@@ -50,9 +55,8 @@ public class ModelManager implements Model {
 
         warningPanelPredicateAccessor = new WarningPanelPredicateAccessor();
         medicinesExpiring = new FilteredList<>(versionedInventory.getMedicineList());
-        updateFilteredExpiringMedicineList(warningPanelPredicateAccessor.getMedicineExpiringPredicate());
         medicinesLowStock = new FilteredList<>(versionedInventory.getMedicineList());
-        updateFilteredLowStockMedicineList(warningPanelPredicateAccessor.getMedicineLowStockPredicate());
+        configureWarningPanelLists();
     }
 
     public ModelManager() {
@@ -81,6 +85,17 @@ public class ModelManager implements Model {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public WarningPanelSettings getWarningPanelSettings() {
+        return userPrefs.getWarningPanelSettings();
+    }
+
+    @Override
+    public void setWarningPanelSettings(WarningPanelSettings warningPanelSettings) {
+        requireNonNull(warningPanelSettings);
+        userPrefs.setWarningPanelSettings(warningPanelSettings);
     }
 
     @Override
@@ -146,7 +161,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ObservableList<Medicine> getLowQuantityMedicinesList() {
+    public ObservableList<Medicine> getLowStockMedicinesList() {
         return medicinesLowStock;
     }
 
@@ -249,6 +264,59 @@ public class ModelManager implements Model {
         }
     }
 
+    //=========== Warning Panel =========================================================================
+
+    @Override
+    public void changeWarningPanelListThreshold(WarningPanelPredicateType type, Threshold threshold) {
+        int thresholdValue = threshold.getNumericValue();
+
+        if (type.equals(WarningPanelPredicateType.EXPIRY)) {
+            updateFilteredExpiringMedicineList(new MedicineExpiryThresholdPredicate(threshold));
+
+            warningPanelPredicateAccessor.updateMedicineExpiringThreshold(thresholdValue);
+            warningPanelPredicateAccessor.updateBatchExpiringThreshold(thresholdValue);
+
+            // update user prefs
+            setWarningPanelSettings(new WarningPanelSettings(
+                    thresholdValue, warningPanelPredicateAccessor.getLowStockThreshold().getNumericValue()));
+
+        } else {
+            // WarningPanelPredicateType.LOW_STOCK
+            updateFilteredLowStockMedicineList(new MedicineLowStockThresholdPredicate(threshold));
+
+            warningPanelPredicateAccessor.updateMedicineLowStockThreshold(thresholdValue);
+
+            // update user prefs
+            setWarningPanelSettings(new WarningPanelSettings(
+                    warningPanelPredicateAccessor.getExpiryThreshold().getNumericValue(), thresholdValue));
+        }
+    }
+
+    @Override
+    public Threshold getWarningPanelThreshold(WarningPanelPredicateType type) {
+        if (type.equals(WarningPanelPredicateType.EXPIRY)) {
+            return warningPanelPredicateAccessor.getExpiryThreshold();
+        } else {
+            // WarningPanelPredicateType.LOW_STOCK
+            return warningPanelPredicateAccessor.getLowStockThreshold();
+        }
+    }
+
+    /**
+     * Sets up warning panel thresholds with thresholds from userPrefs.
+     */
+    private void configureWarningPanelLists() {
+        warningPanelPredicateAccessor
+                .updateMedicineExpiringThreshold(userPrefs.getWarningPanelSettings().getExpiryThresholdValue());
+        warningPanelPredicateAccessor
+                .updateBatchExpiringThreshold(userPrefs.getWarningPanelSettings().getExpiryThresholdValue());
+        warningPanelPredicateAccessor
+                .updateMedicineLowStockThreshold(userPrefs.getWarningPanelSettings().getLowStockThresholdValue());
+
+        updateFilteredExpiringMedicineList(warningPanelPredicateAccessor.getMedicineExpiryPredicate());
+        updateFilteredLowStockMedicineList(warningPanelPredicateAccessor.getMedicineLowStockPredicate());
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -265,7 +333,10 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return versionedInventory.equals(other.versionedInventory)
                 && userPrefs.equals(other.userPrefs)
+                && warningPanelPredicateAccessor.equals(other.warningPanelPredicateAccessor)
                 && filteredMedicines.equals(other.filteredMedicines)
+                && medicinesExpiring.equals(other.medicinesExpiring)
+                && medicinesLowStock.equals(other.medicinesLowStock)
                 && Objects.equals(selectedMedicine.get(), other.selectedMedicine.get());
     }
 

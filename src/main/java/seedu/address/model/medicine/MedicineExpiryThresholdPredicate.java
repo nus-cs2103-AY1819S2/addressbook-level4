@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import seedu.address.model.threshold.Threshold;
 
 /**
- * Tests that number of days from {@code Medicine}'s {@code Expiry} to today is less than the threshold given.
+ * Tests if {@code Medicine} has expired or is expiring soon based on its {@code Expiry} and given threshold.
  */
 public class MedicineExpiryThresholdPredicate implements Predicate<Medicine> {
     private final Threshold threshold;
@@ -19,7 +19,7 @@ public class MedicineExpiryThresholdPredicate implements Predicate<Medicine> {
     @Override
     public boolean test(Medicine medicine) {
         return medicine.getNextExpiry().getExpiryDate() != null
-                && calculateDaysToExpiry(medicine) < threshold.getNumericValue();
+                && calculateDaysToExpiry(medicine) <= threshold.getNumericValue();
     }
 
     @Override
@@ -29,8 +29,8 @@ public class MedicineExpiryThresholdPredicate implements Predicate<Medicine> {
                 && threshold.equals(((MedicineExpiryThresholdPredicate) other).threshold)); // state check
     }
 
-    public int getThreshold() {
-        return threshold.getNumericValue();
+    public Threshold getThreshold() {
+        return threshold;
     }
 
     /**

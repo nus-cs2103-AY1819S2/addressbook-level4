@@ -17,7 +17,26 @@ endif::[]
 
 By: `Team T12-3`      Since: `Feb 2019`      Licence: `MIT`
 
+== Introduction
+
+Welcome to the _MediTabs Developer Guide_. You can find step by step instructions on how to set up MediTabs project on your computer and modify the project to suit your needs. You can also find out more about the development process of MediTabs such as its design and implementation. Interested? You can jump to <<Setting Up>> to get started. Enjoy!
+
+=== What is MediTabs
+
+MediTabs is a desktop application, developed using Java, for managing medicine stock taking. You can use MediTabs in your clinics to easily keep track of your medicine inventory and take note of important information such as which medicines are low in stock, expiring soon or have expired.
+
+MediTabs supports Windows, Linux and MacOS operating systems.
+
+=== Who is this guide for?
+
+Are you a developer who wants to learn how MediTabs is designed and implemented, contribute to the development of MediTabs or modify MediTabs for your needs? If so, this guide provides information that will not only help you better understand the inner workings of MediTabs but also the various classes provided which you can use when modifying MediTabs.
+
 == Setting up
+
+Follow the step by step instructions below to set up MediTabs project with IntelliJ Integrated Development Environment (IDE).
+
+[NOTE]
+You are free to use any IDE which you are comfortable with but we *highly recommend* using IntelliJ. As we use IntelliJ in the development of MediTabs, the instructions to set up MediTabs will be catered for users of IntelliJ. You can download IntelliJ link:https://www.jetbrains.com/idea/download/[here]. If you are planning to use IntelliJ, both the community (free) and ultimate (paid) editions of IntelliJ can be used to set up MediTabs project.
 
 === Prerequisites
 
@@ -223,7 +242,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Medicine Inventory data in json format and read it back.
+* can save the medicine inventory data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -276,25 +295,28 @@ Step 3. The user executes `find n/Paracetamol ...`. The `find` command deselects
 
 // tag::exportcommand[]
 === Exporting as CSV file format
+
+This section provides you with an overview of how exporting as Comma-separated values (CSV) file format is implemented in MediTabs and the design considerations made by our team with regards to its implementation.
+
 ==== Current Implementation
 
 The exporting as CSV file format mechanism is facilitated by `CsvWrapper`.
-It is build on top of the `Opencsv` Java CSV parser library, licensed under the `Apache 2 OSS License`, so that it integrates with our product. This is done by providing additional operations to support exporting the current Medicine Inventory data shown in the GUI to CSV file format.
+It is build on top of the `Opencsv` Java CSV parser library, licensed under the `Apache 2 OSS License`, so that it integrates with our product. This is done by providing additional operations to support exporting the current medicine inventory data shown in the GUI to CSV file format.
 
 There are many additonal operations added in `CsvWrapper` but we will only list the key operations which are the main drivers of the overall implementation of the feature for easier reference and understanding.
 
 The key operations are as follows:
 
-* `CsvWrapper#export()` -- Export the current Medicine Inventory data shown in the GUI to CSV file format.
+* `CsvWrapper#export()` -- Export the current medicine inventory data shown in the GUI to CSV file format.
 * `CsvWrapper#createCsvFile(String csvFileName)` -- Creates a CSV file with the file name based on the `csvFileName` input. The file is created in the default `exported` directory which is located in the same directory as our product application.
 [NOTE]
 If the default `exported` directory is not found, it will be automatically created.
-* `CsvWrapper#writeDataToCsv(List currentGuiList)` -- Writes the current Medicine Inventory data shown in the GUI to the CSV file created by the `CsvWrapper#createCsvFile(String csvFileName)` operation.
+* `CsvWrapper#writeDataToCsv(List currentGuiList)` -- Writes the current medicine inventory data shown in the GUI to the CSV file created by the `CsvWrapper#createCsvFile(String csvFileName)` operation.
 
 [NOTE]
 Out of the three key operations stated above, *only* `CsvWrapper#export()` is a _public_ operation available for use by other components. It acts as the main interface which other components use to interact with `CsvWrapper` in order to integrate exporting to CSV file format feature into their own implementation.
 
-Given below is a sequence diagram overview of how these 3 key operations behaves when the user executes the `export` command in order to export the current Medicine Inventory data shown in the GUI to CSV file format:
+Given below is a sequence diagram overview of how these 3 key operations behaves when the user executes the `export` command in order to export the current medicine inventory data shown in the GUI to CSV file format:
 
 image::ExportCommandSequenceDiagramOverview.png[width="800"]
 
@@ -306,16 +328,16 @@ Step 2: The `ExportCommand#execute()` operation initialises the `CsvWrapper` wit
 
 Step 3: The `ExportCommand#execute()` operation then calls `CsvWrapper#export()` operation which is the first key operation which implements the export to CSV file format feature.
 
-Step 4: The `CsvWrapper#export()` operation retrieves the current Medicine Inventory data shown in the GUI by calling the `Model#getFilteredMedicineList()` operation.
+Step 4: The `CsvWrapper#export()` operation retrieves the current medicine inventory data shown in the GUI by calling the `Model#getFilteredMedicineList()` operation.
 
 Step 5: After retrieving the data, the `CsvWrapper#createCsvFile(String csvFileName)` operation, which is the second key operation, is called. It creates an empty CSV file with the input file name in the default `exported` directory.
 
 [NOTE]
-If a CSV file with the input file name already exists in the `exported` directory, a `"Could not export data to csv file: {Input File Name} already exists in "exported" directory"` exception will be shown in the `CommandResult` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current Medicine Inventory data shown in the GUI would not be exported.
+If a CSV file with the input file name already exists in the `exported` directory, a `"Could not export data to csv file: {Input File Name} already exists in "exported" directory"` exception will be shown in the `CommandResult` panel of the GUI as a `CommandException` is thrown and the exporting process will stop executing. In other words, the current medicine inventory data shown in the GUI would not be exported.
 
-Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv`, which is the third key operation, is called to process the current Medicine Inventory data retrieved earlier in Step 4 and writes to the CSV file in an organised format for easier reference by the users of the exported CSV file.
+Step 6: After the empty CSV file is created, the `CsvWrapper#writeDataToCsv`, which is the third key operation, is called to process the current medicine inventory data retrieved earlier in Step 4 and writes to the CSV file in an organised format for easier reference by the users of the exported CSV file.
 
-Step 7: The current Medicine Inventory data shown in the GUI is exported successfully to CSV file format.
+Step 7: The current medicine inventory data shown in the GUI is exported successfully to CSV file format.
 
 Step 8: The `ExportCommand#execute()` operations returns a `CommandResult` which shows the current list is exported to a CSV file with the input file name.
 
@@ -327,11 +349,11 @@ image::ExportCommandActivityDiagram.png[width="800"]
 
 ===== Aspect: How exporting as CSV file format executes
 
-* **Alternative 1 (current choice):** Export the current Medicine Inventory data shown in the GUI to CSV file format.
+* **Alternative 1 (current choice):** Export the current medicine inventory data shown in the GUI to CSV file format.
 ** Pros: Easy to implement and users have a preview of the data before exporting.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual commands each adds an additional parameter to export as CSV file.
-** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered Medicine Inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
+** Pros: Users can export directly through a single command (e.g. for `filter` command when the export option is enabled, export the filtered medicine inventory data immediately without having to retrieve from `Model#getFilteredMedicineList()` operation.
 ** Cons: We must ensure that the implementation and integration of the exporting to CSV file of each individual commands are correct. Furthermore, users are not able preview the data before exporting.
 
 ===== Aspect: Data structure/Algorithm/Implementation to support the `export` command
@@ -562,6 +584,71 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+=== Validation of File Name
+
+We are using the `seedu.address.commons.FileName` class which is created by our team for the validation of file name specified by the user. This is important for commands in MediTabs which supports the file name field.
+
+[NOTE]
+File name *does not* include file extension such as `.csv` and `.pdf`.
+
+A list of reasons why we choose to create a `FileName` class for the validation of file name:
+
+* There are currently no third party libraries available for validating file name to ensure that the file name is platform independent. In other words, there are no public methods to validate the file name specified by the user to ensure that it is supported on Windows, Linux and MacOS operating systems.
+[IMPORTANT]
+There are certain naming conventions which have to be followed on Windows operating system which are not necessary on Linux and MacOS operating systems. You can read more about the naming conventions for Windows link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[here]. You can also refer to link:https://en.wikipedia.org/wiki/Filename#Comparison_of_filename_limitations[this] Wikipedia article for a detailed comparison between different naming conventions for different operating systems.
+* Ensure consistency by creating a file naming convention.
+* Ensure that files created with file names specified by the user can be used on Windows, Linux and MacOS operating systems. This is to avoid potential bugs involving file names as MediTabs supports Windows, Linux and MacOS operating systems hence, the user might switch between these operating systems when using MediTabs.
+
+==== Current Implementation
+
+The validation of file name mechanism is facilitated mainly by the `FileName#isValidFileName(String fileNameToCheck)` operation. The operation checks if the `fileNameToCheck` input is a valid file name based on the file naming convention we have created for MediTabs.
+
+The file naming convention used in MediTabs is as follows: +
+Format: `Start with an alphabet or number followed by alphabets, numbers, underscore or hyphen`
+
+[NOTE]
+In order to ensure that the validation of file name is platform independent, the validation is implemented such that it ensures that the specified file name not only follows the file naming convention used in MediTabs but also does not violate file naming conventions in any platform especially Windows which has a very strict file name conventions.
+
+[IMPORTANT]
+Based on manual testing by our team on Windows, it is discovered that `COM0` and `LPT0` are also part of the reserved names which are not allowed as file names in Windows. However, they are not reflected in the Windows documentation under the link:https://docs.microsoft.com/en-us/windows/desktop/FileIO/naming-a-file#naming-conventions[naming conventions] section. In order to ensure that `FileName` class validation implementation is platform independent, we have included `COM0` and `LPT0` as reserved names when validating the specified file name.
+
+A full list of reserved names implemented in `FileName` class which are not allowed as file names is as follows:
+
+* `CON, PRN, AUX, NUL, COM0, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT0, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, and LPT9`
+
+[WARNING]
+The specified file name *must not* be an empty string or `null`. If the specified file name is an empty string, the specified file name will be declared as invalid. If the specified file name is `null`, a `NullPointerException` will be thrown.
+
+==== How to integrate it into new commands in MediTabs?
+
+If you are a developer looking to add new features to MediTabs which involves the creation of files, we recommend integrating the existing `FileName` class. This can easily be done by making use of `FileName#isValidFileName(String fileNameToCheck)` operation.
+
+You may wish to refer to the code snippet shown below, which is a modified version of the `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)` operation used in MediTabs. The code snippet demonstrates how `FileName#isValidFileName(String fileNameToCheck)` operation can be used for easier reference.
+
+[source,java]
+----
+public static FileName parseFileName(String fileName) throws ParseException {
+    if (!FileName.isValidFileName(fileName)) { # <1>
+        throw new ParseException(FileName.MESSAGE_CONSTRAINTS); # <2>
+    }
+    return new FileName(fileName); # <3>
+}
+----
+<1> Validate the specified file name using the `FileName#isValidFileName(String fileNameToCheck)` operation.
+<2> If the specified file name is invalid, a `ParseException` is thrown.
+<3> If the specified file name is valid, a `FileName` object constructed from the specified file name is returned.
+
+[NOTE]
+In the code snippet above, we have modified the method signature from `ParserUtil#parseFileName(String fileName, boolean isEmptyFileNameAllowed)` to `ParserUtil#parseFileName(String fileName)` and also its implementation for easier reference and understanding.
+
+[IMPORTANT]
+We *highly recommend* complementing the `FileName` class with Java build in classes such as link:https://docs.oracle.com/javase/9/docs/api/java/io/File.html[`java.io.File`] or link:https://docs.oracle.com/javase/9/docs/api/java/nio/file/Files.html[`java.nio.file.Files`] and handling the exceptions thrown by the methods used in those classes when creating files with the validated file names. This is to allow potential exceptions involving but not limited to permissions, security and file name being too long which are outside the scope of `FileName` class to be handled.
+
+Examples of commands in MediTabs which uses the `FileName` class to validate the specified file name:
+
+* `export [FILE_NAME]`
+* `label INDEX [f/FILE_NAME]`
 
 [[Implementation-Configuration]]
 === Configuration

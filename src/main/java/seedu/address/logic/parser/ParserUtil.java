@@ -160,7 +160,7 @@ public class ParserUtil {
     public static Threshold parseThreshold(String threshold) throws ParseException {
         requireNonNull(threshold);
         String trimmedThreshold = threshold.trim();
-        if (!Threshold.isValidQuantity(trimmedThreshold)) {
+        if (!Threshold.isValidThreshold(trimmedThreshold)) {
             throw new ParseException(Threshold.MESSAGE_CONSTRAINTS);
         }
         return new Threshold(trimmedThreshold);

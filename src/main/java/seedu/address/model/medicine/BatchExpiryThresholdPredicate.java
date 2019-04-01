@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 import seedu.address.model.threshold.Threshold;
 
 /**
- * Tests that number of days from {@code Batch}'s {@code Expiry} to today is less than the threshold given.
+ * Tests if {@code Batch} has expired or is expiring soon based on its {@code Expiry} and given threshold.
  */
 public class BatchExpiryThresholdPredicate implements Predicate<Batch> {
     private final Threshold threshold;
@@ -18,7 +18,7 @@ public class BatchExpiryThresholdPredicate implements Predicate<Batch> {
 
     @Override
     public boolean test(Batch batch) {
-        return calculateDaysToExpiry(batch) < threshold.getNumericValue();
+        return calculateDaysToExpiry(batch) <= threshold.getNumericValue();
     }
 
     @Override
@@ -28,8 +28,8 @@ public class BatchExpiryThresholdPredicate implements Predicate<Batch> {
                 && threshold.equals(((BatchExpiryThresholdPredicate) other).threshold)); // state check
     }
 
-    public int getThreshold() {
-        return threshold.getNumericValue();
+    public Threshold getThreshold() {
+        return threshold;
     }
 
     /**

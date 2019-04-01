@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.WarningPanelSettings;
 
 /**
  * Represents User's preferences.
@@ -14,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
+    private WarningPanelSettings warningPanelSettings = new WarningPanelSettings();
     private Path inventoryFilePath = Paths.get("data" , "MediTabs.json");
 
     /**
@@ -36,6 +38,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
         setInventoryFilePath(newUserPrefs.getInventoryFilePath());
+        setWarningPanelSettings(newUserPrefs.getWarningPanelSettings());
     }
 
     public GuiSettings getGuiSettings() {
@@ -45,6 +48,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
+    }
+
+    public WarningPanelSettings getWarningPanelSettings() {
+        return warningPanelSettings;
+    }
+
+    public void setWarningPanelSettings(WarningPanelSettings warningPanelSettings) {
+        requireNonNull(warningPanelSettings);
+        this.warningPanelSettings = warningPanelSettings;
     }
 
     public Path getInventoryFilePath() {

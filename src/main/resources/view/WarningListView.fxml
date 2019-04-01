@@ -4,5 +4,5 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox id="warningVBox" fx:id="warningVBox" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
-    <ListView fx:id="warningListView" VBox.vgrow="ALWAYS" maxHeight="500" prefHeight="250" minWidth="250" maxWidth="250" prefWidth="250" />
+    <ListView fx:id="warningListView" VBox.vgrow="ALWAYS" maxHeight="500" prefHeight="260" minWidth="200" maxWidth="250" prefWidth="250" />
 </VBox>

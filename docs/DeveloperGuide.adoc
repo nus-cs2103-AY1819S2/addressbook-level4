@@ -726,6 +726,8 @@ A project often depends on third-party libraries. For example, Address Book depe
 . Require developers to download those libraries manually (this creates extra work for developers)
 
 [[GetStartedProgramming]]
+
+// tag::appendixA[]
 [appendix]
 == Product Scope
 
@@ -738,7 +740,9 @@ A project often depends on third-party libraries. For example, Address Book depe
 * is reasonably comfortable using CLI apps
 
 *Value proposition*: Manage expenses faster than a typical mouse/GUI driven app
+// end::appendixA[]
 
+// tag::appendixB[]
 [appendix]
 == User Stories
 
@@ -775,7 +779,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |IT savvy user |categorise my expenses based on the different methods of payment |automatically track my cashless expenditures as well as credit card transactions
 |=======================================================================
+// end::appendixB[]
 
+// tag::appendixC[]
 [appendix]
 == Use Cases
 
@@ -967,6 +973,7 @@ Use case ends.
 +
 Use case ends with message to let user know there are no entries in System
 
+// end::appendixC[]
 
 [appendix]
 == Non Functional Requirements

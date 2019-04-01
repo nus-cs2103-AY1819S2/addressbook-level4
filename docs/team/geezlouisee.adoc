@@ -15,11 +15,11 @@ _In-Credit-Ble_ was developed by four friends and I, from the National Universit
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *Summary* command to represent the overview of expenses in a graphical form
+** What it does: Allows the user to view an overview of all their expenditures in a single graph. Each sector represents a category and gets “filled up” according to the percentage spent of the allocated budget for that particular sector.
+** Justification: This feature improves the product significantly because a user will be able to see a quick overview of their spending in a pictorial form. This allows users to easily perceive whether their spending is within their budget for each category.
+** Highlights: This enhancement required an in-depth analysis of design alternatives. The implementation was also quite challenging as it required linking to third party libraries.
+** Credits: Usage of D3, a JavaScript library for data visualisations via HTML, SVG, and CSS.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=geezlouisee[Functional code]]
 
@@ -30,24 +30,21 @@ _In-Credit-Ble_ was developed by four friends and I, from the National Universit
 ** Enhancements to existing features:
 *** Added more colours to tags, and refactored them as categories to suit our product (https://github.com/CS2103-AY1819S2-W17-3/main/pull/20[#20], https://github.com/CS2103-AY1819S2-W17-3/main/pull/59[#59], https://github.com/CS2103-AY1819S2-W17-3/main/pull/73[#73])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103-AY1819S2-W17-3/main/pull/109[#109]
 *** Did cosmetic tweaks to the Developer Guide (https://github.com/CS2103-AY1819S2-W17-3/main/pull/4[#4], https://github.com/CS2103-AY1819S2-W17-3/main/pull/8[#8], https://github.com/CS2103-AY1819S2-W17-3/main/pull/78[#78])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#64]
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S2-W17-3/main/pull/64[#64]
 ** Tools:
-*** Integrated a third party library (d3.js) to the project (https://github.com[#104])
-*** Configured project to link properly to RepoSense (https://github.com[#70])
+*** Integrated a third party library (d3.js) to the project (https://github.com/CS2103-AY1819S2-W17-3/main/pull/104[#104])
+*** Configured project to link properly to RepoSense (https://github.com/CS2103-AY1819S2-W17-3/main/pull/70[#70])
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide, showcasing my ability to write documentation tailored for end-users of our product._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
-
-include::../UserGuide.adoc[tag=savingpatterns]
+include::../UserGuide.adoc[tag=summary]
 
 == Contributions to the Developer Guide
 
@@ -55,4 +52,14 @@ include::../UserGuide.adoc[tag=savingpatterns]
 |_Given below are sections I contributed to the Developer Guide, showcasing my ability to write technical documentation and the technical depth of my code contributions._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=summary]
+
+|===
+|_While the whole group was involved in the discussion and formulation of our Product Scope, User Stories and Use Cases, I was the one who collated it at the end, streamlined redundancies and standardised the format and grammar._
+|===
+
+include::../DeveloperGuide.adoc[tag=appendixA]
+
+include::../DeveloperGuide.adoc[tag=appendixB]
+
+include::../DeveloperGuide.adoc[tag=appendixC]

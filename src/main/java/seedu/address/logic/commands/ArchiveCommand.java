@@ -50,16 +50,11 @@ public class ArchiveCommand extends Command {
 
     @Override
     public boolean requiresMainList() {
-        return false;
-    }
-
-    @Override
-    public boolean requiresArchiveList() {
         return true;
     }
 
     @Override
-    public boolean requiresPinList() {
+    public boolean requiresArchiveList() {
         return false;
     }
 

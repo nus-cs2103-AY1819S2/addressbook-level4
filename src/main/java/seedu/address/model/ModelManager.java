@@ -105,7 +105,7 @@ public class ModelManager implements Model {
     @Override
     public void setArchiveBookFilePath(Path archiveBookFilePath) {
         requireNonNull(archiveBookFilePath);
-        userPrefs.setAddressBookFilePath(archiveBookFilePath);
+        userPrefs.setArchiveBookFilePath(archiveBookFilePath);
     }
 
     @Override
@@ -171,7 +171,6 @@ public class ModelManager implements Model {
     public void archivePerson(Person target) {
         versionedArchiveBook.addPerson(target);
         versionedAddressBook.removePerson(target);
-        updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -180,7 +179,6 @@ public class ModelManager implements Model {
         versionedAddressBook.addPerson(target);
         versionedArchiveBook.removePerson(target);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        updateFilteredArchivedPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     //=========== PinBook ====================================================================================
@@ -200,7 +198,6 @@ public class ModelManager implements Model {
         versionedPinBook.addPerson(target);
         versionedAddressBook.removePerson(target);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        //updateFilteredPinnedPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     @Override
@@ -208,7 +205,6 @@ public class ModelManager implements Model {
         versionedPinBook.removePerson(target);
         versionedAddressBook.addPerson(target);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        //updateFilteredPinnedPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -302,17 +298,6 @@ public class ModelManager implements Model {
     @Override
     public void commitArchiveBook() {
         versionedArchiveBook.commit();
-    }
-
-
-    @Override
-    public boolean canUndoPinBook() {
-        return versionedPinBook.canUndo();
-    }
-
-    @Override
-    public boolean canRedoPinBook() {
-        return versionedPinBook.canRedo();
     }
 
     @Override

@@ -21,6 +21,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.datetime.DateCustom;
 import seedu.address.model.datetime.TimeCustom;
+import seedu.address.model.patient.Patient;
+import seedu.address.model.person.Person;
+import seedu.address.model.record.LinkedPatient;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Title;
@@ -73,7 +76,7 @@ public class TaskEditCommand extends Command {
         }
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
-        Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
+        Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor, model);
 
         if (editedTask.hasDateClash()) {
             throw new CommandException(MESSAGE_DATE_CLASH);
@@ -97,8 +100,10 @@ public class TaskEditCommand extends Command {
      * Creates and returns a {@code Task} with the details of {@code taskToEdit}
      * edited with {@code editTaskDescriptor}.
      */
-    private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor) {
+    private static Task createEditedTask(Task taskToEdit, EditTaskDescriptor editTaskDescriptor, Model model) {
         assert taskToEdit != null;
+
+        List<Person> lastShownPersonList = model.getFilteredPersonList();
 
         Title updatedTitle = editTaskDescriptor.getTitle().orElse(taskToEdit.getTitle());
         DateCustom updatedStartDate = editTaskDescriptor.getStartDate().orElse(taskToEdit.getStartDate());
@@ -106,6 +111,16 @@ public class TaskEditCommand extends Command {
         TimeCustom updatedStartTime = editTaskDescriptor.getStartTime().orElse(taskToEdit.getStartTime());
         TimeCustom updatedEndTime = editTaskDescriptor.getEndTime().orElse(taskToEdit.getEndTime());
         Priority updatedPriority = editTaskDescriptor.getPriority().orElse(taskToEdit.getPriority());
+        Index targetIndex = editTaskDescriptor.g
+        if (targetIndex != null) {
+            List<Person> lastShownList = model.getFilteredPersonList();
+            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);
+            }
+            Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
+            Patient targetPatient = (Patient) targetPerson;
+            toAdd.setLinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
+        }
 
         return new Task(updatedTitle, updatedStartDate, updatedEndDate, updatedStartTime,
                 updatedEndTime, updatedPriority);
@@ -140,6 +155,7 @@ public class TaskEditCommand extends Command {
         private TimeCustom startTime;
         private TimeCustom endTime;
         private Priority priority;
+        private Index patientIndex;
 
         public EditTaskDescriptor() {}
 
@@ -154,6 +170,7 @@ public class TaskEditCommand extends Command {
             setStartTime(toCopy.startTime);
             setEndTime(toCopy.endTime);
             setPriority(toCopy.priority);
+            setPatientIndex(toCopy.patientIndex);
         }
 
         /**
@@ -213,6 +230,14 @@ public class TaskEditCommand extends Command {
 
         public void setPriority(Priority priority) {
             this.priority = priority;
+        }
+
+        public Optional<LinkedPatient> getLinkedPatient() {
+            return Optional.ofNullable(patientIndex);
+        }
+
+        public void setPatientIndex(Index index) {
+            this.patientIndex = index;
         }
 
         @Override

@@ -1,13 +1,20 @@
 package seedu.address.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Region;
 import seedu.address.model.medicine.Batch;
+import seedu.address.model.medicine.BatchNumber;
+import seedu.address.model.medicine.Expiry;
 import seedu.address.model.medicine.Medicine;
+import seedu.address.model.medicine.Quantity;
 
 /**
  * A ui for the BatchTable that is displayed in the information panel when a medicine is selected.
@@ -34,6 +41,15 @@ public class BatchTable extends UiPart<Region> {
     @FXML
     private TableView<Batch> table;
 
+    @FXML
+    private TableColumn<Batch, BatchNumber> numberColumn;
+
+    @FXML
+    private TableColumn<Batch, Quantity> quantityColumn;
+
+    @FXML
+    private TableColumn<Batch, Expiry> expiryColumn;
+
     public BatchTable(Medicine selectedMedicine) {
         super(FXML);
 
@@ -56,4 +72,27 @@ public class BatchTable extends UiPart<Region> {
         table.setItems(batches);
     }
 
+    public String getNameLabelText() {
+        return name.getText();
+    }
+
+    public String getCompanyLabelText() {
+        return company.getText();
+    }
+
+    public String getQuantityLabelText() {
+        return quantity.getText();
+    }
+
+    public String getExpiryLabelTexts() {
+        return expiry.getText();
+    }
+
+    public List<Batch> getTableData() {
+        List<Batch> data = new ArrayList<>();
+        for (Batch batch : table.getItems()) {
+            data.add(batch);
+        }
+        return data;
+    }
 }

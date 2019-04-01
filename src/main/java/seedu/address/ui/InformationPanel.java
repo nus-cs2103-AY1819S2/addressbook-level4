@@ -17,6 +17,8 @@ public class InformationPanel extends UiPart<Region> {
     private static final String FXML = "InformationPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private BatchTable batchTable;
+
     @FXML
     private StackPane informationPanel;
 
@@ -34,12 +36,18 @@ public class InformationPanel extends UiPart<Region> {
     }
 
     private void showSelectedInformation(Medicine medicine) {
-        informationPanel.getChildren().add(new BatchTable(medicine).getRoot());
+        batchTable = new BatchTable(medicine);
+        informationPanel.getChildren().add(batchTable.getRoot());
     }
 
     private void emptyInformationPanel() {
         if (informationPanel.getChildren() != null) {
             informationPanel.getChildren().clear();
+            batchTable = null;
         }
+    }
+
+    public BatchTable getBatchTable() {
+        return batchTable;
     }
 }

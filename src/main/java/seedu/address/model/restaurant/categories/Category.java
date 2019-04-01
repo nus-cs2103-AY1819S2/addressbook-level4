@@ -8,15 +8,18 @@ import java.util.Optional;
 public class Category {
     private final Optional<Cuisine> cuisine;
     private final Optional<Occasion> occasion;
+    private final Optional<PriceRange> priceRange;
 
-    public Category(Cuisine cuisine, Occasion occasion) {
+    public Category(Cuisine cuisine, Occasion occasion, PriceRange priceRange) {
         this.cuisine = Optional.ofNullable(cuisine);
         this.occasion = Optional.ofNullable(occasion);
+        this.priceRange = Optional.ofNullable(priceRange);
     }
 
-    private Category(Optional<Cuisine> cuisine, Optional<Occasion> occasion) {
+    private Category(Optional<Cuisine> cuisine, Optional<Occasion> occasion, Optional<PriceRange> priceRange) {
         this.cuisine = cuisine;
         this.occasion = occasion;
+        this.priceRange = priceRange;
     }
 
     public Optional<Cuisine> getCuisine() {
@@ -27,8 +30,10 @@ public class Category {
         return this.occasion;
     }
 
+    public Optional<PriceRange> getPriceRange() { return this.priceRange; }
+
     public static Category empty() {
-        return new Category(Optional.empty(), Optional.empty());
+        return new Category(Optional.empty(), Optional.empty(), Optional.empty());
     }
 
     /**
@@ -38,7 +43,8 @@ public class Category {
     public static Category merge(Category previous, Category updated) {
         Optional<Cuisine> mergedCuisine = updated.cuisine.or(() -> previous.cuisine);
         Optional<Occasion> mergedOccasion = updated.occasion.or(() -> previous.occasion);
-        return new Category(mergedCuisine, mergedOccasion);
+        Optional<PriceRange> mergedPriceRange = updated.priceRange.or(() -> previous.priceRange);
+        return new Category(mergedCuisine, mergedOccasion, mergedPriceRange);
     }
 
     @Override
@@ -46,7 +52,8 @@ public class Category {
         return obj == this // short circuit if same object
                 || (obj instanceof Category // instanceof handles nulls
                 && cuisine.equals(((Category) obj).cuisine))
-                && occasion.equals(((Category) obj).occasion); // state check
+                && occasion.equals(((Category) obj).occasion)
+                && priceRange.equals(((Category) obj).priceRange); // state check
     }
 
     @Override
@@ -54,7 +61,9 @@ public class Category {
         String cuisineString = cuisine.isPresent()
                 ? cuisine.map(content -> "(cuisine)" + content.toString()).get() : "";
         String occasionString = occasion.isPresent()
-                ? occasion.map(content -> "occasion" + content.toString()).get() : "";
-        return cuisineString + " " + occasionString;
+                ? occasion.map(content -> "(occasion)" + content.toString()).get() : "";
+        String priceRangeString = priceRange.isPresent()
+                ? priceRange.map(content -> "(price range)" + content.toString()).get() : "";
+        return cuisineString + " " + occasionString + " " + priceRangeString;
     }
 }

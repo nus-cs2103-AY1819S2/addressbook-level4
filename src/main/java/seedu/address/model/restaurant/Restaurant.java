@@ -55,23 +55,6 @@ public class Restaurant {
     }
 
     /**
-     * Constructor for Restaurant without Reviews but with Optional Cuisine field.
-     * Every field must be present and not null.
-     */
-    public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                      Weblink weblink, OpeningHours openingHours, Optional<Cuisine> cuisine) {
-        requireAllNonNull(name, phone, email, address, tags, weblink, openingHours);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags.addAll(tags);
-        this.weblink = weblink;
-        this.openingHours = openingHours;
-        this.categories = new Category(cuisine.isPresent() ? cuisine.get() : null, null);
-    }
-
-    /**
      * Create new restaurant with Categories and Reviews.
      */
     public Restaurant(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Weblink weblink,

@@ -42,7 +42,7 @@ public class InfoPanelTest extends GuiUnitTest {
             Thread.sleep(500);
         } while(!infoPanelHandle.isLoaded());
         String loadedContent = infoPanelHandle.getLoadedContent();
-        assertTrue(loadedContent != "");
+        assertTrue(!loadedContent.isEmpty());
 
     }
 }

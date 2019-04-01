@@ -63,11 +63,8 @@ import seedu.address.storage.StorageManager;
 import seedu.address.testutil.Assert;
 import seedu.address.testutil.HealthWorkerBuilder;
 
-//import java.nio.file.Path;
-
-//import seedu.address.logic.parser.DeleteCommandParser;
-
 public class LogicManagerTest {
+
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @Rule
@@ -93,24 +90,27 @@ public class LogicManagerTest {
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
+        long now = System.currentTimeMillis();
         String invalidCommand = "wnfookdasd";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
-        assertHistoryCorrect(invalidCommand);
+        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + invalidCommand);
     }
 
     @Test
     public void execute_commandExecutionError_throwsParseException() {
+        long now = System.currentTimeMillis();
         String deleteCommand = "delete 9";
         assertParseException(deleteCommand, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommandParser.INVALID_COMMAND_USAGE));
-        assertHistoryCorrect(deleteCommand);
+        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + deleteCommand);
     }
 
     @Test
     public void execute_validCommand_success() {
+        long now = System.currentTimeMillis();
         String listCommand = ListCommand.COMMAND_WORD + " request";
         assertCommandSuccess(listCommand, ListRequestCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(listCommand);
+        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + listCommand);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class LogicManagerTest {
             requestBookStorage, jsonHealthWorkerBookStorage);
         logic = new LogicManager(model, storage);
 
-        // Saving HealthWorker
+        // Saving Health Worker
         String addHealthWorkerCommand = AddCommand.COMMAND_WORD + " " + MODE_HEALTHWORKER + NAME_DESC_ANDY
                 + PHONE_DESC_ANDY + NRIC_DESC_ANDY + ORGANIZATION_DESC_ANDY + SKILLS_DESC_ANDY;
         HealthWorker expectedHealthWorker = new HealthWorkerBuilder(ANDY).build();
@@ -133,7 +133,8 @@ public class LogicManagerTest {
         expectedModel.commitHealthWorkerBook();
         String expectedMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
         assertCommandBehavior(CommandException.class, addHealthWorkerCommand, expectedMessage, expectedModel);
-        assertHistoryCorrect(addHealthWorkerCommand);
+        long now = System.currentTimeMillis();
+        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + addHealthWorkerCommand);
 
         // Saving Request
         String addRequestCommand = AddCommand.COMMAND_WORD + " " + MODE_REQUEST + NAME_DESC_ALICE + PHONE_DESC_ALICE
@@ -143,8 +144,11 @@ public class LogicManagerTest {
                 SampleDataUtil.getConditionSet(VALID_CONDITION_PHYSIO), new RequestStatus(VALID_STATUS_ALICE));
         expectedModel.addRequest(expectedRequest);
         expectedModel.commitRequestBook();
+        now = System.currentTimeMillis();
         assertCommandBehavior(CommandException.class, addRequestCommand, expectedMessage, expectedModel);
-        assertHistoryCorrect(addRequestCommand, HistoryCommand.COMMAND_WORD, addHealthWorkerCommand);
+        assertHistoryCorrect(LogicManager.FORMATTER.format(now) + ": " + addRequestCommand,
+                LogicManager.FORMATTER.format(now) + ": " + HistoryCommand.COMMAND_WORD,
+                LogicManager.FORMATTER.format(now) + ": " + addHealthWorkerCommand);
 
     }
 

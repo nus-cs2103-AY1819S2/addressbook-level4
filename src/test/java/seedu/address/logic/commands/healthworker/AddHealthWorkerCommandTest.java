@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import seedu.address.model.CommandType;
 import static seedu.address.testutil.TypicalHealthWorkers.ANDY;
 import static seedu.address.testutil.TypicalHealthWorkers.BETTY;
 
@@ -25,6 +24,7 @@ import seedu.address.logic.commands.AddHealthWorkerCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 //import seedu.address.model.AddressBook;
+import seedu.address.model.CommandType;
 import seedu.address.model.Model;
 //import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyHealthWorkerBook;

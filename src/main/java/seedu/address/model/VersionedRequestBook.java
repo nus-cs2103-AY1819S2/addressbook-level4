@@ -54,7 +54,7 @@ public class VersionedRequestBook extends RequestBook implements VersionedBook {
     /**
      * Restores its previously undone state.
      */
-     @Override
+    @Override
     public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();

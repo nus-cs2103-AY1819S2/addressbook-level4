@@ -174,13 +174,13 @@ public class ModelManager implements Model {
         CommandType commandType = modifyCommandHistory.getUndoCommand();
         modifyCommandHistory.undo();
         switch(commandType) {
-            case HEALTHWORKER_COMMAND:
-                versionedHealthWorkerBook.undo();
-                break;
-
-            case REQUEST_COMMAND:
-                versionedRequestBook.undo();
-                break;
+        case HEALTHWORKER_COMMAND:
+            versionedHealthWorkerBook.undo();
+            break;
+        case REQUEST_COMMAND:
+            versionedRequestBook.undo();
+            break;
+        default:
         }
     }
 
@@ -189,13 +189,14 @@ public class ModelManager implements Model {
         CommandType commandType = modifyCommandHistory.getRedoCommand();
         modifyCommandHistory.redo();
         switch (commandType) {
-             case HEALTHWORKER_COMMAND:
-                versionedHealthWorkerBook.redo();
-                break;
+        case HEALTHWORKER_COMMAND:
+            versionedHealthWorkerBook.redo();
+            break;
 
-             case REQUEST_COMMAND:
-                versionedRequestBook.redo();
-                break;
+        case REQUEST_COMMAND:
+            versionedRequestBook.redo();
+            break;
+        default:
         }
     }
 
@@ -203,13 +204,14 @@ public class ModelManager implements Model {
     public void commit(CommandType commandType) {
         modifyCommandHistory.addLatestCommand(commandType);
         switch (commandType) {
-            case HEALTHWORKER_COMMAND:
-                commitHealthWorkerBook();
-                break;
+        case HEALTHWORKER_COMMAND:
+            commitHealthWorkerBook();
+            break;
 
-            case REQUEST_COMMAND:
-                commitRequestBook();
-                break;
+        case REQUEST_COMMAND:
+            commitRequestBook();
+            break;
+        default:
         }
     }
 

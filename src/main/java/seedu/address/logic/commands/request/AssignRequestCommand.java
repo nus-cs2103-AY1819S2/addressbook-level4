@@ -23,7 +23,7 @@ import seedu.address.model.request.Request;
 /**
  * Assigns multiple requests to a HealthWorker with two way association.
  */
-public class AssignRequestCommand extends Command implements RequestCommand{
+public class AssignRequestCommand extends Command implements RequestCommand {
 
     public static final String COMMAND_WORD = "assign";
 

@@ -3,7 +3,7 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.logic.commands.Command;
+//import seedu.address.logic.commands.Command;
 
 //import seedu.address.model.BookType;
 
@@ -12,14 +12,14 @@ import seedu.address.logic.commands.Command;
  */
 public class ModifyCommandHistory {
 
-    private final int NOT_MODIFIED_YET = -1;
+    private static final int NOT_MODIFIED_YET = -1;
 
     private final List<CommandType> modifyCommandHistory;
     private int currStatePointer;
 
     public ModifyCommandHistory() {
         this.modifyCommandHistory = new ArrayList<>();
-        this.currStatePointer = NOT_MODIFIED_YET ;
+        this.currStatePointer = NOT_MODIFIED_YET;
     }
 
     private void removeStatesAfterCurrentPointer() {
@@ -27,6 +27,10 @@ public class ModifyCommandHistory {
                 this.modifyCommandHistory.size()).clear();
     }
 
+    /**
+     * Add the type of the last executed modify command into history of modify commands
+     * @param type The type of command that was last executed.
+     */
 
     public void addLatestCommand(CommandType type) {
         removeStatesAfterCurrentPointer();
@@ -44,13 +48,18 @@ public class ModifyCommandHistory {
         return this.modifyCommandHistory.get(currStatePointer + 1);
     }
 
+    /**
+     * Restores its previous state pointer.
+     */
     public void undo() {
         if (!canUndo()) {
             throw new VersionedBook.NoUndoableStateException();
         }
         this.currStatePointer--;
     }
-
+    /**
+     * Restores its previously undone state pointer.
+     */
     public void redo() {
         if (!canRedo()) {
             throw new VersionedBook.NoRedoableStateException();

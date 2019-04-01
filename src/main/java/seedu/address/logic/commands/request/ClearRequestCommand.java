@@ -14,7 +14,7 @@ import seedu.address.model.request.Request;
 /**
  * Clears the address book.
  */
-public class ClearRequestCommand extends Command implements RequestCommand{
+public class ClearRequestCommand extends Command implements RequestCommand {
 
     public static final String COMMAND_WORD = "clr";
     public static final String MESSAGE_SUCCESS = "Request book has been cleared!";

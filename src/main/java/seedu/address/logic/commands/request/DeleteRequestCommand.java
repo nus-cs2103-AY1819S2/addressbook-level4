@@ -16,7 +16,7 @@ import seedu.address.model.request.Request;
 /**
  * Deletes a request identified using it's displayed index from the request book.
  */
-public class DeleteRequestCommand extends DeleteCommand implements RequestCommand{
+public class DeleteRequestCommand extends DeleteCommand implements RequestCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the request identified "
         + "by the index number used in the displayed request list.\n"

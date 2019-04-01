@@ -244,12 +244,12 @@ class AddRequestCommandTest {
 
         @Override
         public boolean canRedo() {
-          throw new AssertionError("This method should not be called.");
-         }
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void undo() {
-         throw new AssertionError("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override

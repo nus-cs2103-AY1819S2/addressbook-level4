@@ -249,7 +249,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::initmap[]
+// tag::map[]
 === Map Feature
 ==== Current Implementation
 The map feature is facilitated by `MapGrid`.
@@ -279,6 +279,8 @@ image::InitialiseMapCommandSequenceDiagram.png[width=800]
 * **Alternative 2:** List of lists of `Cell` objects.
 ** Pros: Easier to implement from the original AB4 codebase.
 ** Cons: May have worse performance than a simpler 2D array.
+
+// end::map[]
 
 === Battleship Feature
 ==== Current Implementation

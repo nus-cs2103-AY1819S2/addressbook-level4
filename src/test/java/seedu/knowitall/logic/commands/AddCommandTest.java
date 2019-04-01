@@ -165,7 +165,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean checkIfInsideTestSession() {
+        public boolean isInTestSession() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -194,7 +194,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean checkIfCardAlreadyAnswered() {
+        public boolean isCardAlreadyAnswered() {
             throw new AssertionError("This method should not be called.");
         }
 

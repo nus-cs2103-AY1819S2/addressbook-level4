@@ -86,8 +86,11 @@ public class StorageManager implements Storage {
     @Override
     public void saveCardFolders(List<ReadOnlyCardFolder> cardFolders, Path path) throws IOException {
         cardFolderStorageList.clear();
+
         // Clear directory before saving
-        clearDirectory(path);
+        if (Files.exists(path)) {
+            clearDirectory(path);
+        }
 
         for (ReadOnlyCardFolder cardFolder : cardFolders) {
             Path filePath = path.resolve(cardFolder.getFolderName() + Storage.FILE_FORMAT);

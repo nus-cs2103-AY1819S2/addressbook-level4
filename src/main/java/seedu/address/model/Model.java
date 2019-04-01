@@ -235,4 +235,16 @@ public interface Model {
      * {@code doctor} must not already exist in docX.
      */
     void addDoctor(Doctor toAdd);
+
+    /**
+     * Selected doctor in the filtered doctor list.
+     * null if no doctor is selected.
+     */
+    ReadOnlyProperty<Doctor> selectedDoctorProperty();
+
+    /**
+     * Sets the selected doctor in the filtered doctor list.
+     */
+    void setSelectedDoctor(Doctor doctor);
+
 }

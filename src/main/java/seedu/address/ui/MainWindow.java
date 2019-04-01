@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Stage> {
     //private MedHistBrowserPanel medHistBrowserPanel;
     private PatientListPanel patientListPanel;
     private MedHistListPanel medHistListPanel;
+    private DoctorListPanel doctorListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
@@ -53,6 +54,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane medHistListPanelPlaceholder;
+
+    @FXML
+    private StackPane doctorListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -129,6 +133,13 @@ public class MainWindow extends UiPart<Stage> {
                 logic::setSelectedMedHist);
         medHistListPanelPlaceholder.getChildren().add(medHistListPanel.getRoot());
 
+        /*
+        doctorListPanel = new DoctorListPanel(logic.getFilteredDoctorList(), logic.selectedDoctorProperty(),
+                logic::setSelectedDoctor);
+        doctorListPanelPlaceholder.getChildren().add(doctorListPanel.getRoot());
+        */
+
+
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -185,6 +196,10 @@ public class MainWindow extends UiPart<Stage> {
 
     public MedHistListPanel getMedHistListPanel() {
         return medHistListPanel;
+    }
+
+    public DoctorListPanel getDoctorListPanel() {
+        return doctorListPanel;
     }
 
     /**

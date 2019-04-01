@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 import seedu.address.storage.Storage;
 
@@ -120,5 +121,19 @@ public class LogicManager implements Logic {
     @Override
     public void setSelectedMedHist(MedicalHistory medHist) {
         model.setSelectedMedHist(medHist);
+    }
+
+    public ObservableList<Doctor> getFilteredDoctorList() {
+        return model.getFilteredDoctorList();
+    }
+
+    @Override
+    public ReadOnlyProperty<Doctor> selectedDoctorProperty() {
+        return model.selectedDoctorProperty();
+    }
+
+    @Override
+    public void setSelectedDoctor(Doctor doctor) {
+        model.setSelectedDoctor(doctor);
     }
 }

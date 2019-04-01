@@ -3,6 +3,8 @@ package seedu.address.model.record;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.util.Objects;
+
 import seedu.address.model.patient.Nric;
 import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
@@ -40,6 +42,19 @@ public class LinkedPatient {
     @Override
     public String toString() {
         return fullname.fullName + " " + nric.getNric();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof LinkedPatient // instanceof handles nulls
+                && fullname.equals(((LinkedPatient) other).fullname)) // state check
+                && nric.equals(((LinkedPatient) other).nric);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullname, nric);
     }
 
 

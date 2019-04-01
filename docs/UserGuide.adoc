@@ -83,28 +83,20 @@ Usage rules:
 * You can optionally specify the `COUNT` parameter. `COUNT` sets the number of cards to be tested in the quiz session. If no `COUNT` is specified, by default 1 card is tested.
 * The name field is used to choose lesson.
 * You must specify `MODE`. `MODE` sets the testing mode of the quiz session. The three available modes are `LEARN`, `PREVIEW`, `REVIEW` and `DIFFICULT`.
+. PREVIEW: sees both question and answer in file order but not tested.
+. DIFFICULT: sees cards labelled as difficult with both question and answer but not tested.
+. REVIEW: only get tested, based on the srs value of each card.
+. LEARN: sees new cards with both the question and answer first then get tested.
 
 [NOTE]
 ====
 Flashcards are tested based on the link:https://en.wikipedia.org/wiki/Spaced_repetition[Space-Repetition technique].
 Format: `start n/NAME [c/COUNT] m/MODE`
 
-
-. LEARN:
-. PREVIEW:
-. REVIEW:
-. DIFFICULT:
-
 Examples:
 
-* `start n/country-capitals c/15 m/LEARN`
-=======
-
-Examples:
-
-* `start n/Capitals of the world m/LEARN`
-* `start n/Operating System c/20 m/PREVIEW`
->>>>>>> bf41a0f8bff90a3739d9ac4a4455f9c09eef715f
+* `start n/country-capitals m/LEARN`
+* `start n/country-capitals-asia c/20 m/PREVIEW`
 
 [[listLessons]]
 ==== Listing all lessons: `listLessons`

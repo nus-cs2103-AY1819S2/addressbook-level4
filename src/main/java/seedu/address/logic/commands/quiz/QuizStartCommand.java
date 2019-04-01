@@ -127,8 +127,14 @@ public class QuizStartCommand extends ManagementCommand {
                         srsCards);
             }
         } else if (this.session.getMode() == QuizMode.REVIEW) {
-            this.session = new Session(this.session.getName(), this.session.getCount(), this.session.getMode(),
-                    generateManager.sort());
+            List<SrsCard> srsCards = generateManager.sort();
+            if (srsCards.size() == 0) {
+                throw new CommandException("There is no card for review since all cards in current lesson"
+                        + "do not reach the due date.");
+            } else {
+                this.session = new Session(this.session.getName(), this.session.getCount(), this.session.getMode(),
+                        srsCards);
+            }
         } else if (this.session.getMode() == QuizMode.LEARN) {
             List<SrsCard> srsCards = generateManager.learn();
             if (srsCards.size() == 0) {
@@ -139,7 +145,7 @@ public class QuizStartCommand extends ManagementCommand {
             }
         }
         if (session.getCount() > session.getSrsCards().size()) {
-            session.setCount(session.getSrsCards().size() - 1);
+            session.setCount(session.getSrsCards().size());
             return new CommandResult("Not enough cards in current lesson. Set the count to the maximum"
                     + "number for you by default.");
         } else {

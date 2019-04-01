@@ -95,16 +95,17 @@ public class SrsCardsManager {
         for (int i = 0; i < cards.size(); i++) {
             SrsCard srsCard;
             Card currentCard = cards.get(i);
+            Instant currentDate = Instant.now();
             if (!cardData.containsKey(currentCard.hashCode())) {
                 srsCard = new SrsCard(currentCard, new CardSrsData(currentCard.hashCode(),
-                        0, 0, Instant.now(), false) , lesson);
+                        0, 0, currentDate, false) , lesson);
             } else {
                 srsCard = new SrsCard(currentCard, cardData.get(currentCard.hashCode()), lesson);
             }
             Instant currentSrsDueDate = srsCard.getSrsDueDate();
             int currentSize = srsCards.size();
             int update = 0;
-            if (srsCards.size() == 0) {
+            if (srsCards.size() == 0 && currentSrsDueDate.compareTo(currentDate) <= 0) {
                 srsCards.add(srsCard);
             } else {
                 for (int k = 0; k < currentSize; k++) {
@@ -114,7 +115,7 @@ public class SrsCardsManager {
                         break;
                     }
                 }
-                if (update == 0) {
+                if (update == 0 && currentSrsDueDate.compareTo(currentDate) <= 0) {
                     srsCards.add(srsCard);
                 }
             }

@@ -27,6 +27,7 @@ public class ParserUtil {
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
     /**
+     *
      * Parses a {@code String name} into a {@code String name}.
      * Leading and trailing whitespaces will be trimmed.
      */

@@ -30,15 +30,15 @@ public class SrsCardsManagerTest {
     private List<List<Integer>> quizInformation = new ArrayList<>();
     private List<SrsCard> srsCards = List.of(new SrsCardBuilder().build(),
             new SrsCardBuilder(new SrsCard(CARD_JAPAN, new CardSrsData(CARD_JAPAN.hashCode(), 1, 1,
-                    Instant.now().plus(Duration.ofHours(20))), lesson)).build(),
+                    Instant.now().plus(Duration.ofHours(20)), false), lesson)).build(),
             new SrsCardBuilder(new SrsCard(CARD_CAT, new CardSrsData(CARD_CAT.hashCode(), 1,
-                    1, Instant.now().plus(Duration.ofHours(7))), lesson)).build(),
+                    1, Instant.now().plus(Duration.ofHours(7)), false), lesson)).build(),
             new SrsCardBuilder(new SrsCard(CARD_DOG, new CardSrsData(CARD_DOG.hashCode(),
-                    1, 1, Instant.now().plus(Duration.ofHours(3))), lesson)).build(),
+                    1, 1, Instant.now().plus(Duration.ofHours(3)), false), lesson)).build(),
             new SrsCardBuilder(new SrsCard(CARD_DOGCAT, new CardSrsData(CARD_DOGCAT.hashCode(),
-                    1, 0, Instant.now().plus(Duration.ofHours((long) 0.5))), lesson)).build(),
+                    1, 0, Instant.now().plus(Duration.ofHours((long) 0.5)), false), lesson)).build(),
             new SrsCardBuilder(new SrsCard(CARD_MULTI, new CardSrsData(CARD_MULTI.hashCode(),
-                    1, 1, Instant.now().plus(Duration.ofHours(0))), lesson)).build());
+                    1, 1, Instant.now().plus(Duration.ofHours(0)), false), lesson)).build());
 
     @Test
     public void constructor_sort_throwsNullPointerException() {
@@ -92,12 +92,12 @@ public class SrsCardsManagerTest {
     @Test
     public void checkUpdate() {
         Instant currentDate = Instant.now();
-        quizInformation.add(List.of(0, 1, 1));
-        quizInformation.add(List.of(1, 1, 1));
-        quizInformation.add(List.of(2, 1, 1));
-        quizInformation.add(List.of(3, 1, 1));
-        quizInformation.add(List.of(4, 1, 0));
-        quizInformation.add(List.of(5, 1, 1));
+        quizInformation.add(List.of(0, 1, 1, 0));
+        quizInformation.add(List.of(1, 1, 1, 0));
+        quizInformation.add(List.of(2, 1, 1, 0));
+        quizInformation.add(List.of(3, 1, 1, 0));
+        quizInformation.add(List.of(4, 1, 0, 0));
+        quizInformation.add(List.of(5, 1, 1, 0));
         SrsCardsManager currentManager = new SrsCardsManager(srsCards, quizInformation, currentDate);
         List<CardSrsData> cardData = currentManager.updateCardData();
         List<CardSrsData> expected = new ArrayList<>();

@@ -29,6 +29,7 @@ import seedu.address.model.job.Job;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -163,7 +164,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateBaseFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -251,6 +252,20 @@ public class AddCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void changeFilteredPersonList(UniquePersonList list) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void revertList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public UniquePersonList getJobList(JobName name,int listNumber) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

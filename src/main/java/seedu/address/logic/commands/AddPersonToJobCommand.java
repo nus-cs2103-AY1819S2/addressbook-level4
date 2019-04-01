@@ -23,6 +23,7 @@ public class AddPersonToJobCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds person to job using Nric. "
             + "Parameters: "
+            + PREFIX_JOBNAME + "JobName "
             + PREFIX_NRIC + "NRIC "
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_JOBNAME + "Helper "

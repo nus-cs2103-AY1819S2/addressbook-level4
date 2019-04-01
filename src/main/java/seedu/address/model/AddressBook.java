@@ -115,6 +115,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Retrieves UniquePersonList from job
+     */
+    public UniquePersonList getJobPersonList(JobName jobName, int listNumber) {
+        Job job = jobs.getJob(jobName);
+        return job.getPeople(listNumber);
+    }
+
+    /**
      * Adds a person to the job.
      * The person must not already exist in the job.
      * Adds to the first list

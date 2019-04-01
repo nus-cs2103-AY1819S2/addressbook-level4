@@ -12,6 +12,7 @@ import seedu.address.model.job.Job;
 import seedu.address.model.job.JobName;
 import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  * The API of the Model component.
@@ -103,6 +104,11 @@ public interface Model {
      */
     void setPerson(Person target, Person editedPerson);
 
+    /**
+     * Returns one of the UniquePersonList in the job
+     */
+    UniquePersonList getJobList(JobName name,int listNumber);
+
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();
 
@@ -110,7 +116,15 @@ public interface Model {
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate);
+    void updateBaseFilteredPersonList(Predicate<Person> predicate);
+
+    /**
+     * Changes the filtered person list to the given {@code list}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
+    void changeFilteredPersonList(UniquePersonList list);
+
+    void revertList();
 
     /**
      * Returns true if the model has previous address book states to restore.

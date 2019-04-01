@@ -105,12 +105,19 @@ public class CommandTestUtil {
     public static final String INVALID_SORT_TYPE_WITH_PREFIX = " st/type";
     public static final String ORDER_ASC_WITH_PREFIX = " o/asc";
     public static final String ORDER_DES_WITH_PREFIX = " o/des";
+    public static final String FIRST_SUBORDER_ASC_WITH_PREFIX = " o1/asc";
+    public static final String SECOND_SUBORDER_ASC_WITH_PREFIX = " o2/asc";
+    public static final String THIRD_SUBORDER_ASC_WITH_PREFIX = " o3/asc";
+    public static final String FIRST_SUBORDER_DES_WITH_PREFIX = " o1/des";
+    public static final String SECOND_SUBORDER_DES_WITH_PREFIX = " o2/des";
+    public static final String THIRD_SUBORDER_DES_WITH_PREFIX = " o3/des";
     public static final String INVALID_ORDER_WITH_PREFIX = "o/abc";
     public static final String SORT_NAME_WITHOUT_PREFIX = "name";
     public static final String SORT_AUTHOR_WITHOUT_PREFIX = "author";
     public static final String SORT_RATING_WITHOUT_PREFIX = "rating";
     public static final String ORDER_ASC_WITHOUT_PREFIX = "asc";
     public static final String ORDER_DES_WITHOUT_PREFIX = "des";
+
     public static final String EMPTY_STR = "      ";
     public static final String SORT_EXCEPTION = "The list is not sorted correctly";
 

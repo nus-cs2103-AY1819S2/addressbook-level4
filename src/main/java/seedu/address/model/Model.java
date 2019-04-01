@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -184,7 +185,8 @@ public interface Model {
     /**
      * Sort the Book list into different order
      */
-    void sortBook(String type, String order);
+
+    void sortBook(List<String> types, String mainOrder, Map<String, String> subOrder);
 
     /**
      * Get total number of books

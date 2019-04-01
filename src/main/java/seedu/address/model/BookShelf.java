@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javafx.beans.InvalidationListener;
@@ -163,17 +164,13 @@ public class BookShelf implements ReadOnlyBookShelf {
     }
 
     /**
-     * Sort {@code books} in with {@code order}
-     * @param type
-     * @param order
-     * @throws Exception
+     * Sorts {@code books} in bookCard with {@code order}
+     * @param types sorting method
+     * @param mainOrder order that apply to all types
+     * @param subOrder order that apply only to corresponding type.
      */
-    public void sort(String type, String order) {
-        try {
-            books.sortBooks(type, order);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void sort(List<String> types, String mainOrder, Map<String, String> subOrder) {
+        books.sortBooks(types, mainOrder, subOrder);
         indicateModified();
     }
 

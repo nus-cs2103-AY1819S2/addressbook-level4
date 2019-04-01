@@ -9,6 +9,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyArchiveBook;
+import seedu.address.model.ReadOnlyPinBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
@@ -20,14 +21,16 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
     private ArchiveBookStorage archiveBookStorage;
+    private PinBookStorage pinBookStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(AddressBookStorage addressBookStorage, ArchiveBookStorage archiveBookStorage,
-                          UserPrefsStorage userPrefsStorage) {
+                          PinBookStorage pinBookStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.archiveBookStorage = archiveBookStorage;
+        this.pinBookStorage = pinBookStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -107,4 +110,32 @@ public class StorageManager implements Storage {
         archiveBookStorage.saveArchiveBook(archiveBook, filePath);
     }
 
+    // ============================= PinBook methods ==============================
+
+    @Override
+    public Path getPinBookFilePath() {
+        return pinBookStorage.getPinBookFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyPinBook> readPinBook() throws DataConversionException, IOException {
+        return readPinBook(pinBookStorage.getPinBookFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyPinBook> readPinBook(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return pinBookStorage.readPinBook(filePath);
+    }
+
+    @Override
+    public void savePinBook(ReadOnlyPinBook pinBook) throws IOException {
+        savePinBook(pinBook, pinBookStorage.getPinBookFilePath());
+    }
+
+    @Override
+    public void savePinBook(ReadOnlyPinBook pinBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        pinBookStorage.savePinBook(pinBook, filePath);
+    }
 }

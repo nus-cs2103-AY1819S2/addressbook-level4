@@ -37,19 +37,6 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Top a person on top of the list.
-     * The person must not already exist in the list.
-     */
-    public void pin(Person toTop) {
-        requireNonNull(toTop);
-
-        int index = internalList.indexOf(toTop);
-        if (index == -1) {
-            throw new PersonNotFoundException();
-        }
-    }
-
-    /**
      * Adds a person to the list.
      * The person must not already exist in the list.
      */

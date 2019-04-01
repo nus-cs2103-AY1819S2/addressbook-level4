@@ -19,7 +19,13 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model, CommandHistory history) throws CommandException;
 
+    /**
+     * Checks if the specified command requires the main persons list to be displayed.
+     */
     public abstract boolean requiresMainList();
 
+    /**
+     * Checks if the specified command requires the archived persons list to be displayed.
+     */
     public abstract boolean requiresArchiveList();
 }

@@ -54,11 +54,11 @@
             <StackPane fx:id="placeListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox fx:id="displayList" prefWidth="360">
+          <VBox fx:id="rightParentPanel" prefWidth="360">
             <padding>
               <Insets top="5" right="10" bottom="10" left="10" />
             </padding>
-            <StackPane fx:id="displayListPanelPlaceholder"/>
+            <StackPane fx:id="rightParentPanelPlaceholder"/>
           </VBox>
 
           <!--<StackPane fx:id="browserPlaceholder" prefWidth="340" >-->

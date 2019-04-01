@@ -37,8 +37,8 @@ public class VersionedTravelBuddy extends TravelBuddy {
 
     void commitChart() {
         ObservableList<Place> placeList = travelBuddyStateList.get(travelBuddyStateList.size() - 1).getPlaceList();
-        new Chart(placeList).indicateModified();
-        //indicateModified();
+        new Chart(placeList);
+        indicateModified();
     }
 
     private void removeStatesAfterCurrentPointer() {

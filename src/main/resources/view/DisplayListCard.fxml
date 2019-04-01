@@ -2,12 +2,14 @@
 
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BarChart fx:id="countryBarChart" VBox.vgrow="ALWAYS">
+      <BarChart fx:id="countryBarChart" id="chartBar" VBox.vgrow="ALWAYS">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -15,5 +17,14 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
+      <PieChart fx:id="ratingPieChart" id="chartPie"/>
+      <LineChart fx:id="yearLineChart" id="chartLine">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </LineChart>
    </children>
 </VBox>

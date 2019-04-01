@@ -11,6 +11,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.appointment.Appointment;
 import seedu.address.model.medicalhistory.MedicalHistory;
+import seedu.address.model.person.Doctor;
 import seedu.address.model.person.Patient;
 
 /**
@@ -107,4 +108,22 @@ public interface Logic {
      * @see seedu.address.model.Model#setSelectedAppointment(Appointment)
      */
     void setSelectedAppointment(Appointment appointment);
+
+    /** Returns an unmodifiable view of the filtered list of doctors */
+    ObservableList<Doctor> getFilteredDoctorList();
+
+    /**
+     * Selected doctor in the filtered doctor list.
+     * null if no doctor is selected.
+     *
+     * @see seedu.address.model.Model#selectedDoctorProperty()
+     */
+    ReadOnlyProperty<Doctor> selectedDoctorProperty();
+
+    /**
+     * Sets the selected doctor in the filtered doctor list.
+     *
+     * @see seedu.address.model.Model#setSelectedDoctor(Doctor)
+     */
+    void setSelectedDoctor(Doctor doctor);
 }

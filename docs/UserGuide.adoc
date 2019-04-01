@@ -66,7 +66,7 @@ step-by-step instructions on how to use the different commands.
 
 ==== Setting a budget: `set`
 
-This command enables you to set a fixed budget for a month/week. The command format is as follows:
+This command enables you to set a fixed budget for a month/week (Time limit to be implemented). The current budget will be modified based on the transaction records. The command format is as follows:
 
 *Format*: `set $/AMOUNT`
 
@@ -264,6 +264,14 @@ Deleted entries are not included in the summary.
 
 === Miscellaneous
 
+==== Changing FinanceTracker data storage location: `setfile`
+Want to maintain multiple users of the FinanceTracker? You can use this command to load FinanceTracker data from another file.
+The command will create a file if it does not already exist.
+
+File paths and extension should not be included in command.
+
+*Format*: `setfile f/finance`
+
 ==== Viewing help: `help`
 
 Forgotten which commands to use? You can easily find the commands you need to navigate the software
@@ -434,6 +442,7 @@ _In-Credit-Ble_  aims to support multi-currency transactions in `v2.0`.
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 | Command | Command Format | Alias | Example
+| Set data file | `setfile` | - | `setfile f/finance`
 | Help | `help` | - | -
 | Undo previous command | `undo` | `u` | -
 | Redo previously undone command | `redo` | `r` | -

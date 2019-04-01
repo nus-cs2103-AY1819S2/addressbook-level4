@@ -29,7 +29,6 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
                 PREFIX_EXPIRY);
 
         Index index;
-
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {

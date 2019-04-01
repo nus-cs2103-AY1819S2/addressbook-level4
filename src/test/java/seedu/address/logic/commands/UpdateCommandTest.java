@@ -445,7 +445,6 @@ public class UpdateCommandTest {
 
         Medicine updatedMedicine = new MedicineBuilder(medicineToUpdate)
                 .withAddedQuantity(BatchBuilder.DEFAULT_QUANTITY)
-                .withExpiry(BatchBuilder.DEFAULT_EXPIRY)
                 .withAddedBatch(defaultBatch)
                 .build();
 

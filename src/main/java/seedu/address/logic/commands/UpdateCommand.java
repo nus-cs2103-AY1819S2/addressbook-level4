@@ -108,19 +108,19 @@ public class UpdateCommand extends Command {
         Quantity quantity;
         Expiry expiry;
 
-        if (newBatchDetails.getExpiry().isPresent()) {
-            expiry = newBatchDetails.getExpiry().get();
-        } else {
-            expiry = batchToUpdate.getExpiry();
-        }
-
         if (newBatchDetails.getQuantity().isPresent()) {
             quantity = newBatchDetails.getQuantity().get();
         } else {
             quantity = batchToUpdate.getQuantity();
         }
 
-        return new Batch(newBatchDetails.getBatchNumber(), expiry, quantity);
+        if (newBatchDetails.getExpiry().isPresent()) {
+            expiry = newBatchDetails.getExpiry().get();
+        } else {
+            expiry = batchToUpdate.getExpiry();
+        }
+
+        return new Batch(newBatchDetails.getBatchNumber(), quantity, expiry);
     }
 
     /**
@@ -132,13 +132,13 @@ public class UpdateCommand extends Command {
         Quantity updatedQuantity = getNewMedicineQuantity(medicineToUpdate, batchToUpdate, updatedBatch);
         Expiry updatedExpiry = getNewMedicineExpiry(medicineToUpdate, batchToUpdate, updatedBatch, updatedBatches);
 
-        return new Medicine(medicineToUpdate.getName(), updatedQuantity, updatedExpiry, medicineToUpdate.getCompany(),
+        return new Medicine(medicineToUpdate.getName(), medicineToUpdate.getCompany(), updatedQuantity, updatedExpiry,
                 medicineToUpdate.getTags(), updatedBatches);
     }
 
     private Map<BatchNumber, Batch> getNewMedicineBatches(Medicine medicineToUpdate, Batch updatedBatch) {
         HashMap<BatchNumber, Batch> newBatches = new HashMap<>(medicineToUpdate.getBatches());
-        if (updatedBatch.hasNonZeroQuantity()) {
+        if (updatedBatch.getQuantity().getNumericValue() != 0) {
             newBatches.put(updatedBatch.getBatchNumber(), updatedBatch);
         } else {
             newBatches.remove(updatedBatch.getBatchNumber());

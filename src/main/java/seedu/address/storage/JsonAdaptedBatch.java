@@ -73,7 +73,7 @@ class JsonAdaptedBatch {
         }
         final Expiry modelExpiry = new Expiry(expiry);
 
-        return new Batch(modelBatchNumber, modelExpiry, modelQuantity);
+        return new Batch(modelBatchNumber, modelQuantity, modelExpiry);
     }
 
 }

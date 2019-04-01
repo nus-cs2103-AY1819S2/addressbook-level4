@@ -20,7 +20,7 @@ import seedu.address.model.image.Image;
  */
 public class Album {
     // Represents the Storage path of assets folder for all raw images.
-    private static final String ASSETS_FILEPATH = "src/main/resources/assets/";
+    private final String ASSETS_FILEPATH = "src/main/resources/assets/";
     // Represents a singleton copy of the Album.
     private static Album instance = null;
     // Represents an ArrayList of image available in assets folder.

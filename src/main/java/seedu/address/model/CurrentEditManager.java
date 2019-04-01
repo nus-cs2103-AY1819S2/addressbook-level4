@@ -35,6 +35,7 @@ public class CurrentEditManager implements CurrentEdit {
 
     /* @@author thamsimun */
     public CurrentEditManager() {
+        tempExist();
         this.originalImage = null;
         this.tempImage = null;
         this.originalImageName = null;
@@ -115,6 +116,7 @@ public class CurrentEditManager implements CurrentEdit {
     /* @@author*/
 
     /* @@author thamsimun */
+
     /**
      * Update tempImage instance of temp_img.png located in temp folder.
      */
@@ -249,10 +251,22 @@ public class CurrentEditManager implements CurrentEdit {
             File placeholder = new File(tempFilePath + "README.adoc");
             placeholder.getParentFile().mkdir();
             placeholder.createNewFile();
+
         } catch (IOException e) {
             System.out.println(e);
         }
 
+    }
+
+    /**
+     * Checks if an asset folder exists on Album construction.
+     * Creates a new asset folder if one does not exist.
+     */
+    public void tempExist() {
+        File tempFolder = new File(tempFilePath);
+        if (!tempFolder.exists()) {
+            tempFolder.mkdir();
+        }
     }
 
     public boolean tempImageExist() {

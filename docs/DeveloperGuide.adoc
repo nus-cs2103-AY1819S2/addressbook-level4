@@ -232,7 +232,8 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save all the QuickDocs data in json format into a single file and read it back.
+* can save all the QuickDocs data in json format into a single json file and read it back
+** this json file contains 6 different lists, with each list consisting of only one of the six main `JsonAdapted` Class objects.
 
 [[Design-Commons]]
 === Common classes
@@ -999,9 +1000,9 @@ Use case resumes from step 2.
 +
 Use case resumes from step 4.
 [none]
-* 5a. Quickdocs displays an error message, showing clashes in timing with another appointment slot
+* 5b. Quickdocs displays an error message, showing clashes in timing with another appointment slot
 +
-Use case ends here.
+Use case resumes from step 4.
 [none]
 * 5b. Patient wants to change appointment slot timing
 [none]
@@ -1187,7 +1188,7 @@ These instructions only provide a starting point for testers to work on; testers
 `listpat` command can be used to check if there are conflicting NRIC
 .. Test case 1: `addpat n/Mohd Hamiru Bin Hamza r/S9876543C a/1 Tampines Street e/mhbh@gmail.com c/92344321 g/M d/1998-07-06` +
    Expected: Patient with name "Mohd Hamiru Bin Hamza" with NRIC S9876542C added
-.. Test case 2: `add n/Nurul Huda Binte Hamza r/S9876543C a/3 Tampines Street e/nhbh@gmail.com c/93124432 g/F d/1998-11-02 `
+.. Test case 2: `add n/Nurul Huda Binte Hamza r/S9876543C a/3 Tampines Street e/nhbh@gmail.com c/93124432 g/F d/1998-11-02 ` +
    Expected: Patient will not be added, an error message will be shown to indicate that a patient with the same NRIC existed in the records
 .. Other incorrect `addpat` commands to try: `addpat` with missing parameters such as gender and date of birth, `addpat` with name containing of symbols,
 `addpat` with invalid NRIC values (8 numbers or invalid last letters).
@@ -1198,13 +1199,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: use the `listpat` command to check for existing patients to be edited, or simply add one using `addpat`
 if there isn't any. You need at least 2 patients to perform this manual test.
-.. Test case1: `editPat EXISTING_NRIC n/Peter Tan g/M d/1990-09-01`
+.. Test case1: `editPat EXISTING_NRIC n/Peter Tan g/M d/1990-09-01` +
    Expected: selected patient will have his or her name changed to "Peter Tan", gender changed to "M" and date of birth changed
    to 1990-09-01.
-.. Test case2: `editPat EXISTING_NRIC n/Perry Tan r/ANOTHER_EXISTING_NRIC`
+.. Test case2: `editPat EXISTING_NRIC n/Perry Tan r/ANOTHER_EXISTING_NRIC` +
    Expected: An error message will be shown to indicate that the edit to the current patient will cause it to have a conflicting NRIC
    with another patient's NRIC
-.. Test case 3: `editPat EXISTING_NRIC`
+.. Test case 3: `editPat EXISTING_NRIC` +
    Expected: An error message will be shown to indicate that there is nothing to edit for the current selected patient
 .. Other incorrect `editpat` commands to try: name with numbers, `editpat` with a non existent NRIC, `editPat` without an NRIC (without prefix)
 
@@ -1214,12 +1215,12 @@ if there isn't any. You need at least 2 patients to perform this manual test.
 
 .. Prerequisites: Existing patients must already be stored in QuickDocs, use `listpat` to check for both existing and non existing
    patients' NRIC
-.. Test case 1: `consult r/EXISTING_NRIC`
+.. Test case 1: `consult r/EXISTING_NRIC` +
    Expected: A message to indicate the start of the consultation session will be shown at the main display. A label will be displayed
    at the bottom right, displaying the message along with the patient's NRIC as well.
-.. Test case 2: After test case 1, enter `consult r/ANOTHER_EXISTING_NRIC`
+.. Test case 2: After test case 1, enter `consult r/ANOTHER_EXISTING_NRIC` +
    Expected: An error message will be shown to alert you that there is already an ongoing consultation session.
-.. Test case 3: exit QuickDocs, and then enter `consult r/NON_EXISTING_NRIC`
+.. Test case 3: exit QuickDocs, and then enter `consult r/NON_EXISTING_NRIC` +
    Expected: since there are no patients with the NRIC, an error message will be shown to indicate that the consultation session cannot start
    for a non-existing patient
 
@@ -1230,10 +1231,42 @@ if there isn't any. You need at least 2 patients to perform this manual test.
 
 .. Prerequisites: consultation session must already been started for a patient, medicine to be assigned for prescription is already
    stored in QuickDocs
-.. Test case 1: after starting a consultation, `endconsult` immediately
+.. Test case 1: after starting a consultation, `endconsult` immediately +
    Expected: Error message will be shown to alert you that a diagnosis have not been provided.
-.. Test case 2: add the diagnosis and then `endconsult` after test case 1
+.. Test case 2: add the diagnosis and then `endconsult` after test case 1 +
    Expected: Error message will be shown to alert you that a prescription have not been given to end the consultation session.
-.. Test case 3: add the prescription and then `endconsult` after test case 2
+.. Test case 3: add the prescription and then `endconsult` after test case 2 +
    Expected: A message indicating that the current consultation session have ended. The ongoing session label at the bottom right
    of QuickDocs is also removed.
+
+=== Adding and removing an appointment
+
+. Add an appointment for a registered patient
+
+.. Prerequisites:
+... Appointment you are adding must not have conflicting timing with other existing appointments.
+    You can use the `freeapp` command to find an available time slot for any date.
+... The patient allocated to the appointment must be registered in QuickDocs. You can use the `listpat` command to
+    search for existing patients to be allocated the new appointment.
+.. Test case 1: `addapp r/EXISTING_NRIC d/2019-10-23 s/16:00 e/17:00 c/Weekly checkup` +
+   Expected: A message to indicate that the appointment was successfully added will be shown on the main display,
+   together with the appointment details. A reminder for this appointment will also be created and you can see it in the reminder
+   sidebar on the right, if the date of the appointment is in the current week.
+.. Test case 2: After test case 1, enter `addapp r/EXISTING_NRIC d/2019-10-23 s/16:30 e/17:30 c/Weekly checkup` +
+   Expected: since this new appointment a clash in timing with the appointment added in test case 1, an error message will be shown
+   to indicate this conflict and the appointment will not be added.
+.. Test case 3: `addapp r/EXISTING_NRIC d/23-10-2019 s/16:00 e/17:00 c/Weekly checkup` +
+   Expected: Error message will be shown to alert you that the date is in the wrong format, as the correct format is YYYY-MM-DD.
+.. Other incorrect `addapp` commands to try: date without `-` between month and day, invalid start and end time (start time must be before
+   end time; appointment must be within office hours of 9am to 6pm), any missing prefixes, any missing parameters.
+
+. Delete an existing appointment
+.. Prerequisites: appointment to be deleted must already be added in QuickDocs. You can use `listapp` command to list the existing appointments
+   for a given date. We will assume that the appointment in Test case 1 for adding an appointment has been added.
+.. Test case 1: `deleteapp d/2019-10-23 s/16:00` +
+   Expected: A message to indicate that the appointment was successfully deleted will be shown on the main display.
+   The reminder created for this appointment will also be deleted. If this reminder was displayed on the reminder sidebar, it will be removed.
+.. Test case 2: `deleteapp d/2030-10-23 s/16:00` +
+   Expected: Assuming that there is no appointment on the given date and time, you will be informed through the error message shown.
+.. Other incorrect `deleteapp` commands to try: date without `-` between month and day, invalid start time (start time must be
+   within office hours of 9am to 6pm), any missing prefixes, any missing parameters.

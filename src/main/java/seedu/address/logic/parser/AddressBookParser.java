@@ -18,6 +18,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListCommandParser;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetReminderCommand;
+import seedu.address.logic.commands.StatisticsCommand;
 import seedu.address.logic.commands.request.AssignRequestCommand;
 import seedu.address.logic.commands.request.ClearRequestCommand;
 import seedu.address.logic.commands.request.CompleteRequestCommand;
@@ -29,6 +30,7 @@ import seedu.address.logic.commands.request.SelectRequestCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.request.AssignRequestCommandParser;
 import seedu.address.logic.parser.request.CompleteRequestParser;
+
 
 /**
  * Parses user input.
@@ -107,6 +109,9 @@ public class AddressBookParser {
 
         //case RedoCommand.COMMAND_WORD:
             //  return new RedoCommand();
+
+        case StatisticsCommand.COMMAND_WORD:
+            return new StatisticsCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

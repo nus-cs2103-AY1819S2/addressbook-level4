@@ -9,6 +9,8 @@ import static org.junit.Assert.assertTrue;
 //import static seedu.equipment.testutil.TypicalEquipments.BOB;
 
 import static seedu.equipment.testutil.TypicalWorkLists.LISTA;
+import static seedu.equipment.testutil.TypicalWorkLists.LISTB;
+import static seedu.equipment.testutil.TypicalWorkLists.LISTD;
 //import static seedu.equipment.testutil.TypicalWorkLists.LISTB;
 
 //import java.util.Arrays;
@@ -38,6 +40,8 @@ public class UniqueWorkListListTest {
 
     {
         listOfWorklist.add(LISTA);
+        uniqueWorkListList.add(LISTB);
+        uniqueWorkListList.add(LISTD);
     }
 
     @Test

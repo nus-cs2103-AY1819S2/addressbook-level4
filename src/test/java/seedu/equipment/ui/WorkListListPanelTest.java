@@ -18,7 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.equipment.model.WorkList;
 
-public class WorkListPanelTest extends GuiUnitTest {
+public class WorkListListPanelTest extends GuiUnitTest {
     private static final ObservableList<WorkList> TYPICAL_WORKLISTS =
             FXCollections.observableList(getTypicalWorkLists());
 

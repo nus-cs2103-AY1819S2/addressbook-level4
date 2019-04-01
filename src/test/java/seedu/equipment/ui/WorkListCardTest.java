@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import guitests.guihandles.WorkListCardHandle;
 import seedu.equipment.model.WorkList;
+import static seedu.equipment.testutil.TypicalEquipments.HWIYOHCC;
 import seedu.equipment.testutil.WorkListBuilder;
 
 public class WorkListCardTest extends GuiUnitTest {
@@ -31,6 +32,7 @@ public class WorkListCardTest extends GuiUnitTest {
     @Test
     public void equals() {
         WorkList workList = new WorkListBuilder().build();
+        workList.addEquipment(HWIYOHCC);
         WorkListCard workListCard = new WorkListCard(workList, 0);
 
         // same WorkList, same index -> returns true

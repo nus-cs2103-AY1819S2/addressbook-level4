@@ -23,19 +23,16 @@ public class WorkListListPanel extends UiPart<Region> {
     @FXML
     private ListView<WorkList> workListListView;
 
-    public WorkListListPanel(ObservableList<WorkList> workListList, ObservableValue<WorkList> selectedPerson,
+    public WorkListListPanel(ObservableList<WorkList> workListList, ObservableValue<WorkList> selectedWorkList,
                               Consumer<WorkList> onselectedWorkListChange) {
         super(FXML);
-        if (workListListView == null) {
-            System.out.println("NULL!!!!!");
-        }
         workListListView.setItems(workListList);
         workListListView.setCellFactory(listView -> new WorkListListViewCell());
         workListListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in WorkList list panel changed to : '" + newValue + "'");
             onselectedWorkListChange.accept(newValue);
         });
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        selectedWorkList.addListener((observable, oldValue, newValue) -> {
             logger.fine("Selected WorkList changed to: " + newValue);
 
             // Don't modify selection if we are already selecting the selected WorkLists,

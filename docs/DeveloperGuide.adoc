@@ -368,7 +368,7 @@ The filter feature mainly consists of:
 
 The following describes main operations and processes contained in the classes above.
 
-==== Contrast Command:
+==== Contrast Command
 
 This command calls for an adjustment of contrast on a targetted image. After adjusting the contrast, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
@@ -399,7 +399,7 @@ Step 7. `isNewCommand` is set to `false` to signal that this command is not a ne
 .Sequence Diagram for Contrast Command
 image::ContrastCommandSequenceDiagram.png[width="800"]
 
-==== Brightness Command:
+==== Brightness Command
 This command calls for an adjustment of brightness on a targetted image. After adjusting the brightness, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
 Refer to the example usage scenario and design considerations in <<Contrast Command>>
@@ -407,7 +407,7 @@ Refer to the example usage scenario and design considerations in <<Contrast Comm
 .Sequence Diagram for Brightness Command
 image::BrightnessCommandSequenceDiagram.png[width="800"]
 
-==== BlackWhite Command:
+==== BlackWhite Command
 This command calls for a transformation of a targetted image to a black and white image. After applying the black and white transformation, it adds this specific command called by the user to the `List<Commands>` belonging to `tempImage` found in `currentEdit` which saves the editing history of the targetted image.
 
 Refer to the example usage scenario and design considerations in <<Contrast Command>>

@@ -71,10 +71,6 @@ public class TaskAddCommand extends Command {
         if (toAdd.hasTimeClash()) {
             throw new CommandException(MESSAGE_TIME_CLASH);
         }
-        if (model.hasTask(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_TASK);
-        }
-
         if (targetIndex != null && targetIndex.getZeroBased() != 0) {
             List<Person> lastShownList = model.getFilteredPersonList();
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -84,6 +80,10 @@ public class TaskAddCommand extends Command {
             Patient targetPatient = (Patient) targetPerson;
             toAdd.setLinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
         }
+        if (model.hasTask(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_TASK);
+        }
+
 
         model.addTask(toAdd);
         model.commitAddressBook();

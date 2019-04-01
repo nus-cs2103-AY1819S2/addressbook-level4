@@ -47,7 +47,6 @@ class JsonSerializableAddressBook {
         this.doctors.addAll(doctors);
         this.appointments.addAll(appointments);
         this.medicalHistories.addAll(medicalHistories);
-        
     }
 
     /**
@@ -106,7 +105,6 @@ class JsonSerializableAddressBook {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_APPOINTMENT);
             }
             //System.out.println(appointment);
-            addressBook.addAppointment(appointment);
         }
         */
         return addressBook;

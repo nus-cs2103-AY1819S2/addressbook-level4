@@ -40,8 +40,8 @@ public class UniquePersonList implements Iterable<Person> {
         requireAllNonNull(nricString);
         Nric nric = new Nric(nricString);
         Person person = new Person(nric);
-        for (int i=0; i < internalList.size(); i++) {
-            if(internalList.get(i).isSamePerson(person)) {
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).isSamePerson(person)) {
                 return internalList.get(i);
             }
         }

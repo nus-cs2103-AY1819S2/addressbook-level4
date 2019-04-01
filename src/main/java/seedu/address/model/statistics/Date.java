@@ -11,8 +11,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Date {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Date should be in the format <double digit integer>.<double digit integer>.<four digit integer>,"
-                    + "it should not be blank and should be a valid date";
+            "Date is invalid. It does not exists.";
 
     /*
      * The first character of the item code must not be a whitespace,

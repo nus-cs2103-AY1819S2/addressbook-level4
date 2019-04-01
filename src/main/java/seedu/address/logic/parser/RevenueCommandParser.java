@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.RevenueCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.statistics.DailyRevenue;
+import seedu.address.model.statistics.Date;
 import seedu.address.model.statistics.Day;
 import seedu.address.model.statistics.Month;
 import seedu.address.model.statistics.Year;
@@ -18,7 +19,6 @@ import seedu.address.model.statistics.Year;
  * Parses input arguments and creates a new RevenueCommand object
  */
 public class RevenueCommandParser implements Parser<RevenueCommand> {
-
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
@@ -41,7 +41,8 @@ public class RevenueCommandParser implements Parser<RevenueCommand> {
         Year year = null;
 
         if ((!arePrefixesPresent(argMultimap, PREFIX_MONTH) && arePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_YEAR))
-                || !argMultimap.getPreamble().isEmpty()) {
+                || (!arePrefixesPresent(argMultimap, PREFIX_YEAR) && arePrefixesPresent(argMultimap, PREFIX_DAY,
+                PREFIX_MONTH)) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RevenueCommand.MESSAGE_USAGE));
 
         } else if (arePrefixesPresent(argMultimap, PREFIX_DAY, PREFIX_MONTH, PREFIX_YEAR)){
@@ -49,6 +50,15 @@ public class RevenueCommandParser implements Parser<RevenueCommand> {
             day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
             month = ParserUtil.parseMonth(argMultimap.getValue(PREFIX_MONTH).get());
             year = ParserUtil.parseYear(argMultimap.getValue(PREFIX_YEAR).get());
+
+            StringBuilder dateString = new StringBuilder();
+            dateString.append(day).append(".").append(month).append(".").append(year);
+
+            try {
+                Date date = new Date(dateString.toString());
+            } catch (IllegalArgumentException exception) {
+                throw new ParseException(String.format(Date.MESSAGE_CONSTRAINTS, RevenueCommand.MESSAGE_USAGE));
+            }
 
 
         } else if (arePrefixesPresent(argMultimap, PREFIX_YEAR, PREFIX_MONTH)) {

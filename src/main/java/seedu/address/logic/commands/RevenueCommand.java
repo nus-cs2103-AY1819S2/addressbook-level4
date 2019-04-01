@@ -36,7 +36,6 @@ public class RevenueCommand extends Command {
     public static final String MESSAGE_REVENUE = "\n$ %.2f";
 
     private final DailyRevenue dailyRevenue;
-    private Date date = null;
 
     /**
      * Creates an RevenueCommand to get revenue specified by the day, month or year.
@@ -44,13 +43,6 @@ public class RevenueCommand extends Command {
     public RevenueCommand(DailyRevenue dailyRevenue) {
         requireAllNonNull(dailyRevenue);
         this.dailyRevenue = dailyRevenue;
-        if (dailyRevenue.getDay() != null && dailyRevenue.getMonth() != null
-                && dailyRevenue.getYear() != null) {
-            StringBuilder dateString = new StringBuilder();
-            dateString.append(dailyRevenue.getDay()).append(".").append(dailyRevenue.getMonth())
-                    .append(".").append(dailyRevenue.getYear());
-            this.date = new Date(dateString.toString());
-        }
     }
 
     @Override

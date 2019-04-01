@@ -36,6 +36,7 @@ If this is not a problem for you, jump to the <<Quick Start>> to get started. If
 The following section provides a quick understanding on each of the legends used throughout the user guide.
 These legends alert reader on special information such as tips, notes and warnings. +
 
+[%autowidth]
 |===
 |Legend |Meaning
 |image:tip.png[width="40"]
@@ -73,6 +74,7 @@ The GUI for _Equipment Manager_ as shown in <<GUI>> consists of six regions:
 [1] Menu Bar {nbsp} {nbsp} {nbsp} [2] Result Panel {nbsp} {nbsp} {nbsp} [3] Google Map +
 [4] Message Box {nbsp} {nbsp} [5] Command Box {nbsp} {nbsp} [6] Status Bar
 
+[%autowidth]
 |===
 | image:exclamation.png[width="40"] |Please remember the naming convention for the different regions in GUI as they will be used to explain when explaining Equipment Manager.
 |===
@@ -89,6 +91,7 @@ Type the command in the Command Box and press kbd:[Enter] to execute it. +
 * **`delete`**`3`: deletes the 3rd contact shown in the current list
 * *`exit`*: exits the app
 
+[%autowidth]
 |===
 | image:tip.png[width="40"] |Refer to <<Features>> for details of each command.
 |===
@@ -110,8 +113,10 @@ This command opens up the User Guide in a separate window and shows all the avai
 
 Format: `help`
 
-[TIP]
-You can view help by click the `Help button on the Menu Bar.
+[%autowidth]
+|===
+| image:tip.png[width="40"] |You can view help by click the `Help button on the Menu Bar.
+|===
 
 If it is your first time reading this, then good job on opening the User Guide!
 
@@ -119,8 +124,10 @@ If it is your first time reading this, then good job on opening the User Guide!
 Adds an equipment to the Equipment Manager +
 Format: `add-e n/CLIENT_NAME p/CLIENT_PHONE_NUMBER pm/PM_DATE a/CLIENT_ADDRESS s/SERIAL_NUMBER [t/TAG]`
 
-[TIP]
-An equipment can any number of tags (including 0).
+[%autowidth]
+|===
+| image:tip.png[width="40"] |An equipment can any number of tags (including 0).
+|===
 
 Example:
 
@@ -130,8 +137,10 @@ Example:
 Create a worklist in the Equipment Manager by giving the worklist an ID +
 Format: `add-w /[worklist value] `
 
-[TIP]
-The user can enter multiple field name and values.
+[%autowidth]
+|===
+| image:tip.png[width="40"] |The user can enter multiple field name and values.
+|===
 
 Example:
 
@@ -141,8 +150,10 @@ Example:
 Adds equipment to working list in the Equipment Manager +
 Format: `put INDEX [worklist id]`
 
-[TIP]
-The user can enter multiple field name and values.
+[%autowidth]
+|===
+| image:tip.png[width="40"] |The user can enter multiple field name and values.
+|===
 
 Example:
 
@@ -238,8 +249,11 @@ The user can sort the current shown list with any valid field.
 The sort parameters are case-insensitive.
 
 By default, `sort` sorts the list by name in lexicographical order.
-[TIP]
-Equipment, client, and work list can only be sorted by address, preventive maintenance date and phone at the moment.
+
+[%autowidth]
+|===
+| image:tip.png[width="40"] |Equipment, client, and work list can only be sorted by address, preventive maintenance date and phone at the moment.
+|===
 
 Example:
 
@@ -251,9 +265,12 @@ Example:
 Filter the current shown list.
 Format: `filter /[fieldname to be filtered with] [value or value range of the field]`
 
-[TIP]
-* The user can filter the current shown list with any fields, and can filter by multiple fields.
-* Equipment, client, and worklist can all be filtered, by any fields of them.
+[%autowidth]
+|===
+| image:tip.png[width="40"]
+|The user can filter the current shown list with any fields, and can filter by multiple fields.
+|Equipment, client, and worklist can all be filtered, by any fields of them.
+|===
 
 Example:
 
@@ -303,18 +320,21 @@ Examples:
 === Listing entered commands: `history`
 Lists all the commands that you have entered in reverse chronological order.
 
-[NOTE]
-====
-Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
-====
+[%autowidth]
+|===
+| image:lightbulb.png[width="40"] |Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+|===
+
 
 === Undoing previous command: `undo`
 Restores Equipment Manager to the state before the previous undoable command was executed.
 
-[NOTE]
-====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
-====
+
+[%autowidth]
+|===
+| image:lightbulb.png[width="40"] |Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+|===
+
 
 Examples:
 

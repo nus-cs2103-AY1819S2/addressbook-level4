@@ -298,6 +298,24 @@ Enters the second folder in the folder list on the home directory.
 This feature will enable users to join multiple folders together, reducing the number of folders and grouping two topics.
 
 Format: `merge FOLDER_INDEX_1 FOLDER_INDEX_1 NEW_FOLDER_NAME`
+
+==== Import flashcards : `import`
+
+Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
+
+NOTE: The csv file imported should follow the format below
+
+
+
+Format: `import FILENAME`
+
+==== Export flashcards : `export`
+
+Creates a csv file containing the flashcards from the specified folder, which can later be imported.
+Exported card folder will be created in the project root directory.
+
+Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
+
 //end::folderoperations[]
 
 //tag::testoperations[]
@@ -458,7 +476,7 @@ Format: `end`
 //end::reportoperations[]
 
 === Global Operations
-The commands shown in this section are applicable regardless of whether the user is inside a folder or at the home directory.
+The commands shown in this section are applicable in multiple locations.
 
 ==== Search by keywords : `search`
 
@@ -466,35 +484,26 @@ At the root directory, searches for folders using keywords in folder names. With
 
 Format: `search KEYWORDS [MORE_KEYWORDS]`
 
-
-==== Import flashcards : `import`
-
-Searches for a csv file in the root project directory and parses the file to generate a flashcard folder.
-
-NOTE: The csv file imported should follow the format below
-
-
-
-Format: `import FILENAME`
-
-==== Export flashcards : `export`
-
-Creates a csv file containing the flashcards from the specified folder, which can later be imported.
-Exported card folder will be created in the project root directory.
-
-Format: `export FOLDER_INDEX FILENAME [MORE_INDEXES]`
-
-
+[NOTE]
+This command is only valid in a folder or the home directory.
 
 ==== Viewing help : `help`
 
+Opens the User Guide in a new window.
+
 Format: `help`
+
+[NOTE]
+This command is valid anywhere in the application.
 
 ==== Exiting the program : `exit`
 
 Exits the program.
 
 Format: `exit`
+
+[NOTE]
+This command is valid anywhere in the application.
 
 //tag::glossarycmdsummary[]
 == Glossary
@@ -538,7 +547,7 @@ this number is automatically calculated and recorded.
 Within a folder, user can search for flashcards inside the current folder using keywords in flashcard questions.
 |`import FILENAME` | Imports a file with the specified name.
 |`export FOLDER_INDEX FILENAME` | Creates a json file containing the flashcards from the specified folder, which can later be imported.
-|`help` | Brings up help information.
+|`help` | Opens the User Guide in a new window.
 |`exit` | Exits the application.
 |=======================================================================
 //end::glossarycmdsummary[]

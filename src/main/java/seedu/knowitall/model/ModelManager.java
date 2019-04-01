@@ -103,7 +103,7 @@ public class ModelManager implements Model {
 
         // ModelManager initialises to first card folder
         activeCardFolderIndex = 0;
-        inFolder = true;
+        inFolder = false;
     }
 
     public ModelManager(String newFolderName) {

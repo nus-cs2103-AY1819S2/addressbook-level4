@@ -18,6 +18,7 @@ import static seedu.knowitall.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 
 import java.util.Collections;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.knowitall.commons.core.Messages;
@@ -31,6 +32,7 @@ import seedu.knowitall.model.UserPrefs;
 import seedu.knowitall.model.card.Card;
 import seedu.knowitall.testutil.CardBuilder;
 import seedu.knowitall.testutil.EditCardDescriptorBuilder;
+import seedu.knowitall.testutil.TypicalIndexes;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -39,6 +41,11 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalCardFolders(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
+
+    @Before
+    public void setUp() {
+        model.enterFolder(TypicalIndexes.INDEX_FIRST_CARD_FOLDER.getZeroBased());
+    }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
@@ -50,6 +57,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(Collections.singletonList(new CardFolder(model.getActiveCardFolder())),
                 new UserPrefs());
+        expectedModel.enterFolder(model.getActiveCardFolderIndex());
         expectedModel.setCard(model.getFilteredCards().get(0), editedCard);
         expectedModel.commitActiveCardFolder();
 
@@ -73,6 +81,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(Collections.singletonList(new CardFolder(model.getActiveCardFolder())),
                 new UserPrefs());
+        expectedModel.enterFolder(model.getActiveCardFolderIndex());
         expectedModel.setCard(lastCard, editedCard);
         expectedModel.commitActiveCardFolder();
 
@@ -88,6 +97,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(Collections.singletonList(new CardFolder(model.getActiveCardFolder())),
                 new UserPrefs());
+        expectedModel.enterFolder(model.getActiveCardFolderIndex());
         expectedModel.commitActiveCardFolder();
 
         assertCommandSuccess(editCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -106,6 +116,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(Collections.singletonList(new CardFolder(model.getActiveCardFolder())),
                 new UserPrefs());
+        expectedModel.enterFolder(model.getActiveCardFolderIndex());
         expectedModel.setCard(model.getFilteredCards().get(0), editedCard);
         expectedModel.commitActiveCardFolder();
 
@@ -176,6 +187,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD, descriptor);
         Model expectedModel = new ModelManager(Collections.singletonList(new CardFolder(model.getActiveCardFolder())),
                 new UserPrefs());
+        expectedModel.enterFolder(model.getActiveCardFolderIndex());
         expectedModel.setCard(cardToEdit, editedCard);
         expectedModel.commitActiveCardFolder();
 
@@ -220,6 +232,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_CARD, descriptor);
         Model expectedModel = new ModelManager(Collections.singletonList(new CardFolder(model.getActiveCardFolder())),
                 new UserPrefs());
+        expectedModel.enterFolder(model.getActiveCardFolderIndex());
 
         showCardAtIndex(model, INDEX_SECOND_CARD);
         Card cardToEdit = model.getFilteredCards().get(INDEX_FIRST_CARD.getZeroBased());

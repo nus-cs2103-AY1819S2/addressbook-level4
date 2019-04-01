@@ -131,7 +131,7 @@ image::ap_after.png[width="600" align="center"]
 '''
 
 [[editpat, Edit patient]]
-==== Editing patient `editpat`
+==== Editing patient : `editpat`
 
 If you made a mistake when registering a patient, fret not! You can always make changes to the patient record with the `editpat` command. All the fields in the record can be edited, including the NRIC and tags.
 
@@ -717,6 +717,7 @@ This command will show you 6 items in order: +
 In order for the calculated statistics pertaining to consultation finances to be accurate, you must have already
 entered your clinic's consultation fee beforehand. See: <<setconsultfee>>. +
 
+{empty} +
 *Format:* `statistics FROM_MONTHYEAR [TO_MONTHYEAR]` +
 
 *Alias{nbsp}{nbsp}{nbsp}{nbsp}:* `stats` +
@@ -733,9 +734,9 @@ will be listed. +
 View the statistics for January 2019. +
 * `stats 0119 0419` +
 View the statistics from January 2019 to April 2019. +
-In the image below, the *display* area will return the statistics of the queried range of months.
-. The result will show the range of months that were queried, followed by the 6 items mentioned earlier in order.
-. When there are more than one most common symptom diagnosed, QuickDocs will list them all out.
+In the image below, the *display* area will return the statistics of the queried range of months. +
+1. The result will show the range of months that were queried, followed by the 6 items mentioned earlier in order.
+2. When there are more than one most common symptom diagnosed, QuickDocs will list them all out.
 
 .Result example for command `statistics 0119 0419`
 image::statistics_sample.png[width="600" align="center"]

@@ -65,7 +65,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_TEA = "Honey Milk Tea";
     public static final String VALID_CODE_CHICKEN = "W09";
     public static final String VALID_CODE_FRIES = "W12";
-    public static final String VALID_CODE_TEA  = "D01";
+    public static final String VALID_CODE_TEA = "D01";
     public static final String VALID_PRICE_CHICKEN = "4.50";
     public static final String VALID_PRICE_FRIES = "2.20";
     public static final String VALID_PRICE_TEA = "4.50";

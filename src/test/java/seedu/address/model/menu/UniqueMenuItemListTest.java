@@ -1,21 +1,22 @@
 package seedu.address.model.menu;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import seedu.address.model.menu.exceptions.DuplicateMenuItemException;
-import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
-import seedu.address.testutil.MenuItemBuilder;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalRestOrRant.CHICKEN_WINGS;
 import static seedu.address.testutil.TypicalRestOrRant.FRENCH_FRIES;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import seedu.address.model.menu.exceptions.DuplicateMenuItemException;
+import seedu.address.model.menu.exceptions.MenuItemNotFoundException;
+import seedu.address.testutil.MenuItemBuilder;
 
 public class UniqueMenuItemListTest {
     @Rule
@@ -146,7 +147,7 @@ public class UniqueMenuItemListTest {
     }
 
     @Test
-    public void remove_MenuItemDoesNotExist_throwsTableNotFoundException() {
+    public void remove_menuItemDoesNotExist_throwsMenuItemNotFoundException() {
         thrown.expect(MenuItemNotFoundException.class);
         uniqueMenuItemList.remove(CHICKEN_WINGS);
     }

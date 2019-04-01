@@ -38,7 +38,7 @@ public class MenuItemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code MenuItem} that we are building.
      */
     public MenuItemBuilder withName(String name) {
         this.name = new Name(name);
@@ -46,7 +46,7 @@ public class MenuItemBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Code} of the {@code MenuItem} that we are building.
      */
     public MenuItemBuilder withCode(String code) {
         this.code = new Code(code);
@@ -54,13 +54,16 @@ public class MenuItemBuilder {
     }
 
     /**
-     * Sets the {@code Email} of the {@code Person} that we are building.
+     * Sets the {@code Price} of the {@code MenuItem} that we are building.
      */
     public MenuItemBuilder withPrice(String price) {
         this.price = new Price(price);
         return this;
     }
 
+    /**
+     * Sets the {@code Quantity} of the {@code MenuItem} that we are building.
+     */
     public MenuItemBuilder withQuantity(String quantity) {
         this.quantity = Integer.parseInt(quantity);
         return this;

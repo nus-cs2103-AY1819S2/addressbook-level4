@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class Quiz {
 
-    public static final String MESSAGE_CONSTRAINTS = "QuizMode must only be learn/review/preview";
+    public static final String MESSAGE_CONSTRAINTS = "QuizMode must only be learn/review/preview/difficult";
 
     private List<QuizCard> currentSession;
     private List<QuizCard> generatedSession;
@@ -26,7 +26,7 @@ public class Quiz {
     private int quizTotalCorrectQuestions;
 
     /**
-     * Build constructor from session
+     * Builds constructor from session
      * @param session contains a list of question, answer and list of optional
      */
     public Quiz(List<QuizCard> session, QuizMode mode) {
@@ -46,7 +46,6 @@ public class Quiz {
 
     /**
      * Generates a list of cards based on the chosen cards given by session.
-     * R
      */
     public List<QuizCard> generate() {
         generatedSession = new ArrayList<>();
@@ -63,11 +62,11 @@ public class Quiz {
         case REVIEW:
             generateReview();
             break;
+        case DIFFICULT:
+            generatePreview();
+            break;
         default:
             break;
-        }
-        if (mode.equals(QuizMode.DIFFICULT)) {
-            generatePreview();
         }
 
         generatedCardSize = generatedSession.size();

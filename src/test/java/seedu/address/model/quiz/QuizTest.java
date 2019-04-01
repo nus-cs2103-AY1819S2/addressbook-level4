@@ -61,7 +61,6 @@ public class QuizTest {
 
         // learn
         List<QuizCard> actualLearn = new Quiz(VALID_QUIZCARD, QuizMode.LEARN).generate();
-
         assertEquals(6, actualLearn.size());
         assertEquals(expectedLearn, actualLearn);
 
@@ -74,6 +73,11 @@ public class QuizTest {
         List<QuizCard> actualPreview = new Quiz(VALID_QUIZCARD, QuizMode.PREVIEW).generate();
         assertEquals(2, actualPreview.size());
         assertEquals(expectedPreview, actualPreview);
+
+        // difficult == preview
+        List<QuizCard> actualDifficult = new Quiz(VALID_QUIZCARD, QuizMode.DIFFICULT).generate();
+        assertEquals(2, actualDifficult.size());
+        assertEquals(expectedPreview, actualDifficult);
     }
 
     @Test

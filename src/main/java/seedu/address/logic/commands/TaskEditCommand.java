@@ -104,8 +104,6 @@ public class TaskEditCommand extends Command {
             throws CommandException {
         assert taskToEdit != null;
 
-        List<Person> lastShownPersonList = model.getFilteredPersonList();
-
         Title updatedTitle = editTaskDescriptor.getTitle().orElse(taskToEdit.getTitle());
         DateCustom updatedStartDate = editTaskDescriptor.getStartDate().orElse(taskToEdit.getStartDate());
         DateCustom updatedEndDate = editTaskDescriptor.getEndDate().orElse(taskToEdit.getEndDate());
@@ -115,11 +113,12 @@ public class TaskEditCommand extends Command {
         LinkedPatient updatedLinkedPatient = taskToEdit.getLinkedPatient();
         Index targetIndex = editTaskDescriptor.getPatientIndex().orElse(null);
         if (targetIndex != null && targetIndex.getZeroBased() != 0) {
+            int actualIndex = targetIndex.getZeroBased()-1;
             List<Person> lastShownList = model.getFilteredPersonList();
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            if (actualIndex >= lastShownList.size()) {
                 throw new CommandException(LinkedPatient.MESSAGE_CONSTRAINTS);
             }
-            Person targetPerson = lastShownList.get(targetIndex.getZeroBased());
+            Person targetPerson = lastShownList.get(actualIndex);
             Patient targetPatient = (Patient) targetPerson;
             updatedLinkedPatient = new LinkedPatient(targetPatient.getName(), ((Patient) targetPerson).getNric());
         } else {
@@ -181,7 +180,7 @@ public class TaskEditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(title, startDate, endDate, startTime, endTime, priority);
+            return CollectionUtil.isAnyNonNull(title, startDate, endDate, startTime, endTime, priority, patientIndex);
         }
 
         /**

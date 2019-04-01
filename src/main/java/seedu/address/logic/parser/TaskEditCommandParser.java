@@ -29,7 +29,7 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_STARTDATE, PREFIX_ENDDATE,
-                        PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_PRIORITY);
+                        PREFIX_STARTTIME, PREFIX_ENDTIME, PREFIX_PRIORITY, PREFIX_LINKEDPATIENT);
 
         Index index;
         Index patientIndex;
@@ -68,15 +68,17 @@ public class TaskEditCommandParser implements Parser<TaskEditCommand> {
                     .get()));
         }
 
+        if (argMultimap.getValue(PREFIX_LINKEDPATIENT).isPresent()) {
+            editTaskDescriptor.setPatientIndex(ParserUtil.parseLinkedPatientIndex(argMultimap
+                    .getValue(PREFIX_LINKEDPATIENT).get()));
+        } else {
+            editTaskDescriptor.setPatientIndex(null);
+        }
+
         if (!editTaskDescriptor.isAnyFieldEdited()) {
             throw new ParseException(TaskEditCommand.MESSAGE_NOT_EDITED);
         }
 
-        if (argMultimap.getValue(PREFIX_LINKEDPATIENT).isPresent()) {
-            editTaskDescriptor.setPatientIndex(ParserUtil.parseLinkedPatientIndex(argMultimap.getValue(PREFIX_LINKEDPATIENT).get()));
-        } else {
-            editTaskDescriptor.setPatientIndex(null);
-        }
 
         return new TaskEditCommand(index, editTaskDescriptor);
     }

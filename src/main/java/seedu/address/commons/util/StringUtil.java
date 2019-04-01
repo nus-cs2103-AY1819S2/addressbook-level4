@@ -152,7 +152,7 @@ public class StringUtil {
 
         try {
             int value = Integer.parseInt(s);
-            return !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+            return value >= 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
         } catch (NumberFormatException nfe) {
             return false;
         }

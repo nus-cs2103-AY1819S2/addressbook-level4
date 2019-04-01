@@ -58,10 +58,11 @@ public class ParserUtil {
      */
     public static Index parseLinkedPatientIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
+        System.out.println("tesst");
         if (!StringUtil.isUnsignedInteger(trimmedIndex)) {
             throw new ParseException(LinkedPatient.MESSAGE_CONSTRAINTS);
         }
-        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+        return Index.fromZeroBased(Integer.parseInt(trimmedIndex));
     }
 
     /**

@@ -115,6 +115,12 @@ public class Menu implements ReadOnlyMenu {
         return Optional.empty();
     }
 
+    @Override
+    public void updateMenuItemQuantity(MenuItem menuItem, int newQuantity) {
+        menuItems.updateMenuItemQuantity(menuItem, newQuantity);
+        indicateModified();
+    }
+
     public Name getNameFromItem(MenuItem menuItem) {
         return menuItem.getName();
     }

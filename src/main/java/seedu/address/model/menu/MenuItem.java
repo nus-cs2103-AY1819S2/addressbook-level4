@@ -16,6 +16,7 @@ public class MenuItem {
 
     // Data fields
     private final Price price;
+    private int quantity;
     //    private final Address address;
     //    private final Set<Tag> tags = new HashSet<>();
     //  private int quantity; TODO: update qty method (get from beatrice)
@@ -23,11 +24,12 @@ public class MenuItem {
     /**
      * Every field must be present and not null.
      */
-    public MenuItem(Name name, Code code, Price price) {
+    public MenuItem(Name name, Code code, Price price, int quantity) {
         requireAllNonNull(name, code, price);
         this.name = name;
         this.code = code;
         this.price = price;
+        this.quantity = quantity;
     }
 
     public Name getName() {
@@ -42,17 +44,18 @@ public class MenuItem {
         return price;
     }
 
-    //    public Address getAddress() {
-    //        return address;
-    //    }
+    public int getQuantity() {
+        return quantity;
+    }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    //    public Set<Tag> getTags() {
-    //        return Collections.unmodifiableSet(tags);
-    //    }
+    public String itemQuantityOrdered() {
+        return String.valueOf(quantity);
+    }
+
+    public void updateMenuItemQuantity(int newQuantity) {
+        int currentQuantity = this.getQuantity();
+        this.quantity = currentQuantity + newQuantity;
+    }
 
     /**
      * Returns true if both menu items of the same name have both identity fields that is the same.
@@ -63,7 +66,7 @@ public class MenuItem {
             return true;
         }
 
-        return otherItem != null && otherItem.getName().equals(getName()) && (otherItem.getCode().equals(getCode()));
+        return otherItem != null && (otherItem.getCode().equals(getCode()));
     }
 
     /**
@@ -88,7 +91,7 @@ public class MenuItem {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, code, price);
+        return Objects.hash(name, code, price, quantity);
     }
 
     @Override

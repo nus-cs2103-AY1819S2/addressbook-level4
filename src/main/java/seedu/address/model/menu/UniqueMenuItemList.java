@@ -98,6 +98,17 @@ public class UniqueMenuItemList implements Iterable<MenuItem> {
         internalList.setAll(items);
     }
 
+    public void updateMenuItemQuantity(MenuItem menuItem, int newQuantity) {
+        for (int i = 0; i < internalList.size(); i++) {
+            if (internalList.get(i).equals(menuItem)) {
+                internalList.remove(i);
+                menuItem.updateMenuItemQuantity(newQuantity);
+                internalList.add(i, menuItem);
+                break;
+            }
+        }
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

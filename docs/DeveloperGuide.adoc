@@ -24,7 +24,7 @@ RestOrRant (ROR) is a restaurant management application for restaurant managers,
 
 This Developer Guide allows you as a developer to understand the implementation and design principles used in ROR. This guide serves as a reference for you to set up and further contribute to ROR’s development.
 
-This Developer Guide consists of the following sections: 
+This Developer Guide consists of the following sections:
 * <<Setting Up, Setting Up>> - Provides instructions to set up ROR in your computer
 * <<Design, Design>> - Provides an overview of the architecture and components of ROR
 * <<Implementation, Implementation>> - Provides implementation and design considerations of ROR’s core features

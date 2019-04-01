@@ -62,7 +62,7 @@ public class Enemy extends Player {
                 Coordinates createdCoord = new Coordinates(row, col);
                 allPossibleTargets.add(createdCoord);
                 allPossiblePopulateCoords.add(createdCoord);
-                if (hasPartity(row, col)) {
+                if (hasParity(row, col)) {
                     allParityTargets.add(createdCoord);
                 }
             }
@@ -148,8 +148,10 @@ public class Enemy extends Player {
             currentBattleshipHead = new Coordinates(justifiedCoord, col.getZeroBased());
         }
         Name currentBattleshipName = new Name("enemyAircraftCarrier");
-        Battleship currentBattleship = new Battleship(currentBattleshipName);
+        Battleship currentBattleship = new Battleship(currentBattleshipName, 5, 5);
+        // public Battleship(Name name, int length, int life, Set<Tag> tags) {
         //should have no error, since it is the first ship placed, and all map sizes have a max of 1 aircraft carrier
+        //AircraftCarrierBattleship x = new AircraftCarrierBattleship(currentBattleshipName);
         this.getMapGrid().putShip(currentBattleship, currentBattleshipHead, useOrientation);
         markAsOccupied(currentBattleshipHead, 5, useOrientation);
         logger.info(String.format("Placed aircraft carrier at " + currentBattleshipHead.toString()
@@ -163,7 +165,7 @@ public class Enemy extends Player {
     private void placeMultipleDestroyerAndCruiser(int numShips, String shipType, int shipSize) {
         Orientation useOrientation;
         Coordinates useCoord;
-        ArrayList<Battleship> preppedShips = generateBattleships(numShips, shipType);
+        ArrayList<Battleship> preppedShips = generateBattleships(numShips, shipType, shipSize);
 
         while (!preppedShips.isEmpty()) {
             try {
@@ -171,11 +173,11 @@ public class Enemy extends Player {
                 java.util.Collections.shuffle(allPossiblePopulateCoords, randGen2);
                 useCoord = allPossiblePopulateCoords.get(0);
                 this.getMapGrid().putShip(preppedShips.get(0), useCoord, useOrientation);
-                preppedShips.remove(0);
-                markAsOccupied(useCoord, shipSize, useOrientation);
                 logger.info(String.format("Placed " + preppedShips.get(0).getName() + "at "
                         + useCoord.toString()
                         + " orientation is " + useOrientation.toString()));
+                preppedShips.remove(0);
+                markAsOccupied(useCoord, shipSize, useOrientation);
             } catch (ArrayIndexOutOfBoundsException e) {
                 //TODO log the error later from putship
             }
@@ -189,14 +191,15 @@ public class Enemy extends Player {
      * creates list of a certain battleship type
      * to be put on map
      */
-    private ArrayList<Battleship> generateBattleships (int numShips, String battleshipType) {
-        ArrayList<Battleship> preppedShips = new ArrayList<>();
+    private ArrayList<Battleship> generateBattleships (int numShips, String battleshipType, int shipSize) {
+        ArrayList<Battleship> preppedFleet = new ArrayList<>();
         for (int i = 1; i <= numShips; i++) {
             Name currentBattleshipName = new Name("enemy" + battleshipType + i);
-            Battleship currentBattleship = new Battleship(currentBattleshipName);
-            preppedShips.add(currentBattleship);
+            Battleship currentBattleship = new Battleship(currentBattleshipName, shipSize, shipSize);
+            preppedFleet.add(currentBattleship);
         }
-        return preppedShips;
+        logger.info(String.format("GENERATED SMALLER SHIPS: " + preppedFleet.toString()));
+        return preppedFleet;
     }
     /***************************************************************
      * removes all the occupied Coords from allPossiblePopulateCoords
@@ -263,6 +266,8 @@ public class Enemy extends Player {
      */
     public void receiveStatus(Status latestStatusInfo) {
         lastAttackStatus = latestStatusInfo;
+        logger.info(String.format("LAST HIT ON: " + lastCoordAttacked.toString()
+                + " status: " + latestStatusInfo.toString()));
         updateWatchlist(lastCoordAttacked);
     }
 
@@ -272,32 +277,48 @@ public class Enemy extends Player {
      * to the watchlist
      */
     private void updateWatchlist(Coordinates lastCoordAttacked) {
-        if (lastAttackStatus == Status.SHIPHIT) {
+        if (lastAttackStatus == Status.EMPTYHIT) {
             int oldRow = lastCoordAttacked.getRowIndex().getZeroBased();
             int oldCol = lastCoordAttacked.getColIndex().getZeroBased();
+            Coordinates updatedCoord = new Coordinates(0, 0);
+            boolean hasCardinals = false;
 
             //ADD CARDINAL DIRECTIONS TO WATCHLIST.
             //WATCHLIST COORDS IN FORM a1
 
             if (oldRow - 1 >= 0) {
                 //add cardinal NORTH to watchlist. ROW MINUS ONE
-                watchlist.add(new Coordinates(oldRow - 1, oldCol));
+                updatedCoord = new Coordinates(oldRow - 1, oldCol);
+                hasCardinals = true;
             }
             if (oldRow + 1 < mapSize) {
                 //add cardinal SOUTH to watchlist  ROW PLUS ONE
-                watchlist.add(new Coordinates(oldRow + 1, oldCol));
+                updatedCoord = new Coordinates(oldRow + 1, oldCol);
+                hasCardinals = true;
             }
             if (oldCol - 1 >= 0) {
                 //add cardinal WEST to watchlist   COL MINUS ONE
-                watchlist.add(new Coordinates(oldRow, oldCol - 1));
+                updatedCoord = new Coordinates(oldRow, oldCol - 1);
+                hasCardinals = true;
             }
             if (oldCol + 1 < mapSize) {
                 //add cardinal EAST to watchlist   COL PLUS ONE
-                watchlist.add(new Coordinates(oldRow, oldCol + 1));
+                updatedCoord = new Coordinates(oldRow, oldCol + 1);
+                hasCardinals = true;
 
             }
+            if (isValidCardinal(updatedCoord) && hasCardinals) {
+                watchlist.push(updatedCoord);
+            }
+            logger.info(String.format("WATCHLIST UPDATING:\n" + watchlist.toString()));
+            logger.info(String.format("WATCHLIST SIZE:\n" + watchlist.size()));
 
         }
+
+    }
+
+    private boolean isValidCardinal(Coordinates useCoord) {
+        return allPossibleTargets.contains(useCoord) || allParityTargets.contains(useCoord);
     }
 
     /******************************************************8
@@ -314,7 +335,7 @@ public class Enemy extends Player {
      * checks that coord is made up of one odd and one even x-y coordinate pair
      * and returns true if so
      */
-    private boolean hasPartity (int row, int col) {
+    private boolean hasParity (int row, int col) {
 
         int parity = (row % 2) + (col % 2);
         return (parity == 1);

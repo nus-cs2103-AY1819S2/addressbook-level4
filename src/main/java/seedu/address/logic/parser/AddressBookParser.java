@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_CANNOT_RUN_IN_GOTO;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_ONLY_GO_TO_MODE_COMMANDS;
 import static seedu.address.commons.core.Messages.MESSAGE_ONLY_PATIENT_MODE_COMMANDS;
@@ -38,6 +39,7 @@ import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.TaskAddCommand;
 import seedu.address.logic.commands.TaskCalendarCommand;
 import seedu.address.logic.commands.TaskDeleteCommand;
+import seedu.address.logic.commands.TaskDoneCommand;
 import seedu.address.logic.commands.TaskEditCommand;
 import seedu.address.logic.commands.TaskcopyCommand;
 import seedu.address.logic.commands.TeethEditCommand;
@@ -146,6 +148,13 @@ public class AddressBookParser {
             }
             return new SortCommandParser().parse(arguments);
 
+        //Commands that runs ONLY in both Patient Mode OR Calendar Window
+            case TaskDoneCommand.COMMAND_WORD:
+                if (MainWindow.isGoToMode()) {
+                    throw new ParseException(MESSAGE_CANNOT_RUN_IN_GOTO);
+                } else {
+                    return new TaskDoneCommandParser().parse(arguments);
+                }
         //Commands that should ONLY run in GoTo mode but not in Calendar Window
         case GoToCommand.COMMAND_WORD:
             checkSpecialCondition(!checkBothConditions);

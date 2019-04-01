@@ -25,6 +25,7 @@ RestOrRant (ROR) is a restaurant management application for restaurant managers,
 This Developer Guide allows you as a developer to understand the implementation and design principles used in ROR. This guide serves as a reference for you to set up and further contribute to ROR’s development.
 
 This Developer Guide consists of the following sections:
+
 * <<Setting Up, Setting Up>> - Provides instructions to set up ROR in your computer
 * <<Design, Design>> - Provides an overview of the architecture and components of ROR
 * <<Implementation, Implementation>> - Provides implementation and design considerations of ROR’s core features
@@ -33,11 +34,15 @@ This Developer Guide consists of the following sections:
 * <<Dev Ops, Dev Ops>> - Provides tools to help build, test and release ROR
 
 To help you follow this Developer Guide better, here is the legend of the markups used throughout this document:
-* |`HelloWorld`|Code in the codebase
-* |[NOTE]|Notes that provides additional information
-* |[TIP]|Tips and tricks
-* |[WARNING]|Warnings
-* |[CODE]|Commands to input in the CLI
+
+[width="80%",cols="30%,70%"]
+|=======================================================================
+|`HelloWorld`|Code in the codebase
+| :information_source: |Notes that provides additional information
+| :bulb: |Tips and tricks
+| :warning: |Warnings
+| :computer: |Commands to input in the CLI
+|=======================================================================
 
 == Setting up
 
@@ -62,6 +67,7 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 === Setting up ROR in your computer
 
 Having satisfied the prerequisites, you can now set up ROR in your computer by following the steps below:
+
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle

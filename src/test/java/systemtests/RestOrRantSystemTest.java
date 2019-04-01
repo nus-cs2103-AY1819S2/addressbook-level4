@@ -24,7 +24,7 @@ import seedu.address.TestApp;
 
 import seedu.address.logic.commands.AddTableCommand;
 import seedu.address.logic.commands.ClearTableCommand;
-import seedu.address.logic.commands.UpdateTableCommand;
+import seedu.address.logic.commands.EditPaxCommand;
 import seedu.address.model.Model;
 import seedu.address.model.RestOrRant;
 import seedu.address.model.table.Table;
@@ -192,7 +192,7 @@ public abstract class RestOrRantSystemTest {
      */
     protected void clearOccupancy() {
         for (Table table : getModel().getRestOrRant().getTables().getTableList()) {
-            executeCommand(UpdateTableCommand.COMMAND_WORD + " " + table.getTableNumber() + " 0");
+            executeCommand(EditPaxCommand.COMMAND_WORD + " " + table.getTableNumber() + " 0");
         }
         assertTrue(getModel().isRestaurantEmpty());
     }
@@ -202,11 +202,11 @@ public abstract class RestOrRantSystemTest {
      */
     protected void occupyTables() {
         executeCommand(AddTableCommand.COMMAND_WORD + " 4 5 4 5 6 7 4 5");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 1 4");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 2 4");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 3 4");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 6 4");
-        executeCommand(UpdateTableCommand.COMMAND_WORD + " 8 4");
+        executeCommand(EditPaxCommand.COMMAND_WORD + " 1 4");
+        executeCommand(EditPaxCommand.COMMAND_WORD + " 2 4");
+        executeCommand(EditPaxCommand.COMMAND_WORD + " 3 4");
+        executeCommand(EditPaxCommand.COMMAND_WORD + " 6 4");
+        executeCommand(EditPaxCommand.COMMAND_WORD + " 8 4");
         assertFalse(getModel().isRestaurantEmpty());
     }
 

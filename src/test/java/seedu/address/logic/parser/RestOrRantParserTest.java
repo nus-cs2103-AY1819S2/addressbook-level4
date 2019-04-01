@@ -20,12 +20,12 @@ import seedu.address.logic.commands.AddToOrderCommand;
 import seedu.address.logic.commands.ClearOrderCommand;
 import seedu.address.logic.commands.ClearTableCommand;
 import seedu.address.logic.commands.DeleteFromOrderCommand;
+import seedu.address.logic.commands.EditPaxCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.RestaurantModeCommand;
 import seedu.address.logic.commands.TableModeCommand;
-import seedu.address.logic.commands.UpdateTableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.menu.Code;
 import seedu.address.model.menu.MenuItem;
@@ -85,19 +85,19 @@ public class RestOrRantParserTest {
     @Test
     public void parseCommand_updateTable() throws Exception {
         Table table = new TableBuilder().build();
-        UpdateTableCommand command = (UpdateTableCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
-                UpdateTableCommand.COMMAND_WORD + " " + table.getTableNumber().toString() + " 4");
-        assertEquals(new UpdateTableCommand(new String[]{"1", "4"}), command);
+        EditPaxCommand command = (EditPaxCommand) parser.parseCommand(Mode.RESTAURANT_MODE,
+                EditPaxCommand.COMMAND_WORD + " " + table.getTableNumber().toString() + " 4");
+        assertEquals(new EditPaxCommand(new String[]{"1", "4"}), command);
         try {
             parser.parseCommand(Mode.TABLE_MODE,
-                    UpdateTableCommand.COMMAND_WORD + " " + table.getTableNumber().toString() + " 4");
+                    EditPaxCommand.COMMAND_WORD + " " + table.getTableNumber().toString() + " 4");
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());
         }
         try {
             parser.parseCommand(Mode.MENU_MODE,
-                    UpdateTableCommand.COMMAND_WORD + " " + table.getTableNumber().toString() + " 4");
+                    EditPaxCommand.COMMAND_WORD + " " + table.getTableNumber().toString() + " 4");
             throw new AssertionError("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_INVALID_MODE, pe.getMessage());

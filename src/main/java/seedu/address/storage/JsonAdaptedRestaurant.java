@@ -20,6 +20,7 @@ import seedu.address.model.restaurant.Weblink;
 import seedu.address.model.restaurant.categories.Category;
 import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.model.restaurant.categories.Occasion;
+import seedu.address.model.restaurant.categories.PriceRange;
 import seedu.address.model.review.Review;
 import seedu.address.model.tag.Tag;
 
@@ -40,6 +41,7 @@ class JsonAdaptedRestaurant {
     private final String openingHours;
     private final String cuisine;
     private final String occasion;
+    private final String priceRange;
 
     /**
      * Constructs a {@code JsonAdaptedRestaurant} with the given restaurant details.
@@ -50,6 +52,7 @@ class JsonAdaptedRestaurant {
             @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
             @JsonProperty("cuisine") String cuisine,
             @JsonProperty("occasion") String occasion,
+            @JsonProperty("priceRange") String priceRange,
             @JsonProperty("weblink") String weblink,
             @JsonProperty("openinghours") String openingHours,
             @JsonProperty("reviewed") List<JsonAdaptedReview> reviewed) {
@@ -60,6 +63,7 @@ class JsonAdaptedRestaurant {
         this.address = address;
         this.cuisine = cuisine;
         this.occasion = occasion;
+        this.priceRange = priceRange;
         this.weblink = weblink;
         this.openingHours = openingHours;
         if (tagged != null) {
@@ -95,6 +99,12 @@ class JsonAdaptedRestaurant {
             occasion = source.getOccasion().get().value;
         } else {
             occasion = null;
+        }
+
+        if (source.getPriceRange().isPresent()) {
+            priceRange = source.getPriceRange().get().value;
+        } else {
+            priceRange = null;
         }
 
         weblink = source.getWeblink().value;
@@ -169,6 +179,16 @@ class JsonAdaptedRestaurant {
             modelOccasion = new Occasion(occasion);
         }
 
+        final PriceRange modelPriceRange;
+        if (priceRange == null) {
+            modelPriceRange = null;
+        } else {
+            if (!PriceRange.isValidPriceRange(priceRange)) {
+                throw new IllegalValueException(PriceRange.MESSAGE_CONSTRAINTS);
+            }
+            modelPriceRange = new PriceRange(priceRange);
+        }
+
         if (weblink == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Weblink.class.getSimpleName()));
         }
@@ -191,7 +211,7 @@ class JsonAdaptedRestaurant {
         final ArrayList<Review> modelReviews = new ArrayList<>(restaurantReviews);
 
         return new Restaurant(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelWeblink,
-                modelOpeningHours, new Category(modelCuisine, modelOccasion), modelReviews);
+                modelOpeningHours, new Category(modelCuisine, modelOccasion, modelPriceRange), modelReviews);
     }
 
 }

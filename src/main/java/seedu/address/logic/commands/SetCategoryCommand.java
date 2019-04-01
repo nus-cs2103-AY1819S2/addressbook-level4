@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CUISINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OCCASION;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE_RANGE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_RESTAURANTS;
 
 import java.util.List;
@@ -27,10 +28,12 @@ public class SetCategoryCommand extends Command {
             + "restaurant list.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_CUISINE + "CUISINE] "
-            + "[" + PREFIX_OCCASION + "OCCASION]\n"
+            + "[" + PREFIX_OCCASION + "OCCASION] "
+            + "[" + PREFIX_PRICE_RANGE + "PRICE_RANGE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CUISINE + "Fine Dining "
-            + PREFIX_OCCASION + "Wedding";
+            + PREFIX_OCCASION + "Wedding"
+            + PREFIX_PRICE_RANGE + "$$$$";
 
     public static final String MESSAGE_SET_CUISINE_SUCCESS = "Category Set for Restaurant: %1$s";
 

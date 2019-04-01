@@ -15,7 +15,6 @@ import seedu.address.model.restaurant.Address;
 import seedu.address.model.restaurant.Email;
 import seedu.address.model.restaurant.Name;
 import seedu.address.model.restaurant.Phone;
-import seedu.address.model.restaurant.categories.Cuisine;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedRestaurantTest {

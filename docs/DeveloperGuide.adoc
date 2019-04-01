@@ -651,7 +651,6 @@ These template files are written in a mixture of https://www.ruby-lang.org[Ruby]
 ====
 Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
-The SE-EDU team does not provide support for modified template files.
 ====
 
 [[Testing]]
@@ -732,7 +731,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, _In-Credit-Ble_ depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -745,7 +744,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 *Target user profile*:
 
 * has a need to manage a significant amount of expenses/finances
-* has a need to be more aware of their spending habits/patterns
+* has a need to be more aware of his/her spending habits/patterns
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
@@ -792,57 +791,22 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `In-Credit-Ble` and the *User* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `In-Credit-Ble` and the *User* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Setting a budget for the month
 
 *MSS*
 
-1.  User requests to set a budget for the current month
-2.  System displays current budget amount for the month
+1.  _User_ requests to set a budget for the current month
+2.  _System_ displays current budget amount for the month
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. With addition of expense entries, System updates the remaining amount in the current month's budget
-+
-Use case ends.
-
-
-[discrete]
-=== Use case: Add expense entry
-
-*MSS*
-
-1.  User requests to list entries
-2.  System shows a list of expense entries
-3.  User requests to add a specific expense entry in the list
-4.  System adds the expense entry
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. System shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Increasing budget for the month
-
-*MSS*
-
-1.  User requests to list entries
-2.  System shows a list of expense entries
-3.  User requests to increase budget for the month (can be associated with a category)
-4.  System will increase the budget for the month (that is associated with category input)
+* 2a. With addition of expense entries, _System_ updates the remaining amount in the current month's budget
 +
 Use case ends.
 
@@ -851,22 +815,56 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to list summary of budget based on category
-2.  System shows a summary of budget based on category
-3.  User requests to allocate a certain amount to a category
-4.  System allocates the user input amount to the given category
+1.  _User_ requests to list summary of budget based on category
+2.  _System_ shows a summary of budget based on category
+3.  _User_ requests to allocate a certain amount to a category
+4.  _System_ allocates the user input amount to the given category
 +
 Use case ends.
+
+[discrete]
+=== Use case: Increasing budget for the month
+
+*MSS*
+
+1.  _User_ requests to list entries
+2.  _System_ shows a list of expense entries
+3.  _User_ requests to increase budget for the month (can be associated with a category)
+4.  _System_ will increase the budget for the month (that is associated with category input)
++
+Use case ends.
+
+[discrete]
+=== Use case: Add expense entry
+
+*MSS*
+
+1.  _User_ requests to list entries
+2.  _System_ shows a list of expense entries
+3.  _User_ requests to add a specific expense entry in the list
+4.  _System_ adds the expense entry
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Some fields are missing.
++
+[none]
+** 3a1. _System_ shows an error message.
++
+Use case resumes at step 2.
 
 [discrete]
 === Use case: Editing an expense entry
 
 *MSS*
 
-1.  User requests to list expense entries
-2.  System shows a list of expense entries
-3.  User requests to edit a specific expense entry in the list
-4.  System updates the expense entry as well as the budget summary accordingly
+1.  _User_ requests to list expense entries
+2.  _System_ shows a list of expense entries
+3.  _User_ requests to edit a specific expense entry in the list
+4.  _System_ updates the expense entry as well as the budget summary accordingly
 +
 Use case ends.
 
@@ -881,7 +879,7 @@ Use case ends
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. System shows an error message.
+** 3a1. _System_ shows an error message.
 +
 Use case resumes at step 2.
 
@@ -890,10 +888,10 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to list expense entries
-2.  System shows a list of expense entries
-3.  User requests to delete a specific expense entry in the list
-4.  System deletes the entry
+1.  _User_ requests to list expense entries
+2.  _System_ shows a list of expense entries
+3.  _User_ requests to delete a specific expense entry in the list
+4.  _System_ deletes the entry
 +
 Use case ends.
 
@@ -907,7 +905,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. System shows an error message.
+** 3a1. _System_ shows an error message.
 +
 Use case resumes at step 2.
 
@@ -916,8 +914,8 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.  User requests to list history of entered commands
-2.  System shows history of commands in reverse chronological order (latest command first)
+1.  _User_ requests to list history of entered commands
+2.  _System_ shows history of commands in reverse chronological order (latest command first)
 +
 Use case ends.
 
@@ -933,8 +931,8 @@ Use case ends.
 
 *MSS*
 
-1.  User requests to undo previous command
-2.  System undo previous command and updates budget accordingly
+1.  _User_ requests to undo previous command
+2.  _System_ undo previous command and updates budget accordingly
 +
 Use case ends.
 
@@ -943,15 +941,15 @@ Use case ends.
 [none]
 * 1a. There was no previous command
 +
-Use case ends with message to let user know there is no previous command
+Use case ends with message to let _User_ know there is no previous command
 
 [discrete]
 === Use case: User wants to redo previous undone command
 
 *MSS*
 
-1.  User requests to redo previous undone command
-2.  System redo previous undone command and updates budget accordingly
+1.  _User_ requests to redo previous undone command
+2.  _System_ redo previous undone command and updates budget accordingly
 +
 Use case ends.
 
@@ -960,7 +958,7 @@ Use case ends.
 [none]
 * 1a. There was no previous undone command
 +
-Use case ends with message to let user know there is no previous undone command
+Use case ends with message to let _User_ know there is no previous undone command
 
 
 [discrete]
@@ -968,17 +966,17 @@ Use case ends with message to let user know there is no previous undone command
 
 *MSS*
 
-1. User requests to clear all entries
-2. System clears all entries and updates the budget accordingly
+1. _User_ requests to clear all entries
+2. _System_ clears all entries and updates the budget accordingly
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. There are no entries in the System
+* 1a. There are no entries in the _System_
 +
-Use case ends with message to let user know there are no entries in System
+Use case ends with message to let _User_ know there are no entries in _System_
 
 
 [appendix]
@@ -986,13 +984,10 @@ Use case ends with message to let user know there are no entries in System
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should work on both 32-bit and 64-bit environments.
-.  Should be able to hold up to 1000 expenditure people without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 expenditure records without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  The user interface should be intuitive and easy to use for people who are not IT-savvy.
 .  Responses by the system should be fast (~5 seconds).
-
-
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -1030,7 +1025,6 @@ Cons:
 * Do not have an option for reminder
 * Do not have a feature for recurrent spending
 
-
 *Money Lover: Expense Tracker & Budget Planner*
 
 Author: Finsify
@@ -1048,7 +1042,6 @@ Cons:
 * Unable to choose multiple categories for a budget
 * Unable to edit a transaction
 * Budgets are based per account
-
 
 *Seedly - Personal Finance App*
 
@@ -1073,7 +1066,7 @@ Cons:
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the application manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1089,10 +1082,9 @@ These instructions only provide a starting point for testers to work on; testers
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the application by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
 
 === Deleting a record
 
@@ -1100,13 +1092,12 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all records using the `list` command. Multiple records in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First record is deleted from the list. Details of the deleted record shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
    Expected: No record is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size), `delete three` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
 
 === Saving data
 
@@ -1114,4 +1105,4 @@ _{ more test cases ... }_
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
+

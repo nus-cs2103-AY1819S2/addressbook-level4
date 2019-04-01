@@ -29,17 +29,19 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
     private static final int FIRST = 0;
     private static final int SECOND = 1;
     private static final int THIRD = 2;
-    private static final Map<String, String> subOrder = new HashMap<>();
-    private static List<String> sortTypeSet = new ArrayList<>();
+    private static Map<String, String> subOrder;
+    private static List<String> sortTypeSet;
     /**
      * Parses the given {@code String} of arguments in the context of the SortBookCommand
      * and returns an SortBookCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortBookCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_SORTTYPE,
-                PREFIX_ORDER, PREFIX_FRISTORDER, PREFIX_SECONDORDER, PREFIX_THIRDORDER);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SORTTYPE,
+            PREFIX_ORDER, PREFIX_FRISTORDER, PREFIX_SECONDORDER, PREFIX_THIRDORDER);
+
+        subOrder = new HashMap<>();
+        sortTypeSet = new ArrayList<>();
 
         if (!argMultimap.getValue(PREFIX_SORTTYPE).isPresent()
             || !argMultimap.getPreamble().isEmpty()
@@ -64,10 +66,6 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
         String mainOrder = null;
         if (argMultimap.getValue(PREFIX_ORDER).isPresent()) {
             mainOrder = argMultimap.getValue(PREFIX_ORDER).get();
-        } else {
-            if (subOrder.size() == 0) {
-                mainOrder = ASCENDING;
-            }
         }
 
         return new SortBookCommand(sortTypeSet, mainOrder, subOrder);
@@ -79,7 +77,6 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
      * @return true if is it valid sub order, otherwise false.
      */
     private static Boolean isTypeAndSubOrderMatch(ArgumentMultimap argMultimap) {
-        sortTypeSet = argMultimap.getAllValues(PREFIX_SORTTYPE);
 
         if (argMultimap.getValue(PREFIX_FRISTORDER).isPresent()) {
             subOrder.put(sortTypeSet.get(FIRST), argMultimap.getValue(PREFIX_FRISTORDER).get());
@@ -100,14 +97,14 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
     }
 
     /**
-     * Checks the sort types are valid
+     * Checks the sort types are valid and assign to sortTypeSet if it is.
      * @param sortTypes list of attributes types
      * @return true if sort types are valid, otherwise return false
      */
     private static boolean isValidSortType(List<String> sortTypes) {
         List<String> checkDuplicates = new ArrayList<>();
         for (String type : sortTypes) {
-            if ((!type.toLowerCase().equals(AUTHOR)
+            if ((!type.equalsIgnoreCase(AUTHOR)
                 && !type.equalsIgnoreCase(BOOKNAME)
                 && !type.equalsIgnoreCase(RATING))
                 || checkDuplicates.contains(type)) {
@@ -115,6 +112,7 @@ public class SortBookCommandParser implements Parser<SortBookCommand> {
             }
             checkDuplicates.add(type);
         }
+        sortTypeSet = sortTypes;
         return true;
     }
 

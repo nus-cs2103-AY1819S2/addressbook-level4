@@ -46,7 +46,7 @@ public class SortBookCommandParserTest {
         types.add(SORT_AUTHOR_WITHOUT_PREFIX);
         assertParseSuccess(parser,
             SORT_AUTHOR_WITH_PREFIX,
-            new SortBookCommand(types, ORDER_ASC_WITHOUT_PREFIX, new HashMap<>()));
+            new SortBookCommand(types, null, new HashMap<>()));
 
         // with main order
         assertParseSuccess(parser,
@@ -57,7 +57,7 @@ public class SortBookCommandParserTest {
         types.add(SORT_NAME_WITHOUT_PREFIX);
         assertParseSuccess(parser,
             SORT_AUTHOR_WITH_PREFIX + SORT_NAME_WITH_PREFIX,
-            new SortBookCommand(types, ORDER_ASC_WITHOUT_PREFIX, new HashMap<>()));
+            new SortBookCommand(types, null, new HashMap<>()));
 
         // with sub order
         Map<String, String> map = new HashMap<>();

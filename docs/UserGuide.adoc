@@ -676,6 +676,9 @@ Sends an auto-generated email reminder to patients regarding an approaching appo
 {empty} +
 
 === Administration and Statistics
+The Administration and Statistics module feature commands that are related to any Administrative tasks such as setting
+the clinic's consultation fee, and the Statistics command to get information about your clinic recorded through the use of QuickDocs.
+
 '''
 [[setconsultfee, Set consultation fee]]
 ==== Setting consultation fee: `setconsultfee`

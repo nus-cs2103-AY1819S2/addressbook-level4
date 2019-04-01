@@ -1,6 +1,7 @@
 package seedu.address.model.menu;
 
 import static java.util.Objects.requireNonNull;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +9,6 @@ import java.util.Optional;
 import javafx.beans.InvalidationListener;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.InvalidationListenerManager;
-// methods
 
 /**
  * Wraps all data at the address-book level
@@ -16,9 +16,10 @@ import seedu.address.commons.util.InvalidationListenerManager;
  */
 public class Menu implements ReadOnlyMenu {
 
+    public static final String MESSAGE_ILLEGAL_QUANTITY = "The quantity to add should be more than 0.";
+
     private final UniqueMenuItemList menuItems;
     private final InvalidationListenerManager invalidationListenerManager = new InvalidationListenerManager();
-    public static final String MESSAGE_ILLEGAL_QUANTITY = "The quantity to add should be more than 0.";
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication

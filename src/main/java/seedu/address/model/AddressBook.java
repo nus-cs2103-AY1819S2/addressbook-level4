@@ -98,6 +98,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Adds a person to the job.
+     * The person must not already exist in the job.
+     * Adds to the first list
+     */
+    public void addPersonToJob(String nric, Job job) {
+        Person person = persons.getPerson(nric);
+        job.add(person);
+        indicateModified();
+    }
+
+    /**
      * Adds a job to the address book.
      * The job must not already exist in the address book.
      */

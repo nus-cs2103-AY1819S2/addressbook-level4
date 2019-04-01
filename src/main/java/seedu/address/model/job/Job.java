@@ -43,13 +43,21 @@ public class Job {
         return name;
     }
 
+    /**
+     * Adds a person to a job.
+     * Goes to the first list
+     */
+    public void add(Person person) {
+        personsHash.get(0).add(person);
+        personsList.get(0).add(person);
+    }
 
     /**
      * Returns an immutable  people set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public final List<Person> getPeople(int listNumber) {
-        return personsHash.get(listNumber).asUnmodifiableObservableList();
+    public final UniquePersonList getPeople(int listNumber) {
+        return personsHash.get(listNumber);
     }
 
     public final ArrayList<Name> getPeopleNames(List<Person> peopleList) {

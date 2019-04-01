@@ -148,6 +148,7 @@ public class BillCommand extends Command {
         String[] numberOfSeats = tableToBill.getTableStatus().toString().split("/");
         TableStatus updatedTableStatus = new TableStatus("0/" + numberOfSeats[1]);
         Table updatedTable = new Table(tableToBill.getTableNumber(), updatedTableStatus);
+        model.setSelectedTable(null);
         model.setTable(tableToBill, updatedTable);
     }
 

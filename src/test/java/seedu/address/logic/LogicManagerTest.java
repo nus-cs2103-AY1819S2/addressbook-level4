@@ -28,6 +28,7 @@ import seedu.address.model.menu.MenuItem;
 import seedu.address.model.menu.ReadOnlyMenu;
 import seedu.address.model.order.OrderItem;
 import seedu.address.model.order.ReadOnlyOrders;
+import seedu.address.model.statistics.Bill;
 import seedu.address.model.statistics.DailyRevenue;
 import seedu.address.model.statistics.ReadOnlyStatistics;
 import seedu.address.model.table.ReadOnlyTables;
@@ -38,6 +39,7 @@ import seedu.address.storage.JsonStatisticsStorage;
 import seedu.address.storage.JsonTablesStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.BillBuilder;
 import seedu.address.testutil.MenuItemBuilder;
 import seedu.address.testutil.OrderItemBuilder;
 import seedu.address.testutil.StatisticsBuilder;
@@ -124,12 +126,18 @@ public class LogicManagerTest {
         Table occupiedTable = new TableBuilder().withTableStatus("3/4").build();
         OrderItem expectedOrderItem = new OrderItemBuilder().build();
         MenuItem expectedMenuItem = new MenuItemBuilder().build();
-        DailyRevenue expectedDailyRevenue = new StatisticsBuilder()
+        Bill expectedBill = new BillBuilder()
                 .withDay("26")
                 .withMonth("03")
                 .withYear("2019")
                 .withTotalBill("11.97")
                 .withReceipt("Table 1\n\nW09  Chicken Wings\n $3.99   x 3\n\nTotal Bill: $ 11.97\n\n")
+                .build();
+        DailyRevenue expectedDailyRevenue = new StatisticsBuilder()
+                .withDay("26")
+                .withMonth("03")
+                .withYear("2019")
+                .withTotalDailyRevenue("11.97")
                 .build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addTable(expectedTable);
@@ -155,15 +163,20 @@ public class LogicManagerTest {
         assertHistoryCorrect(addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
                 + addToMenuCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
 
-        // Execute addDailyRevenue command
-        //        expectedModel.addDailyRevenue(expectedDailyRevenue);
-        //        expectedModel.deleteOrderItem(expectedOrderItem);
-        //        expectedModel.setSelectedTable(null);
-        //        expectedModel.setTable(occupiedTable, expectedTable);
-        //        assertCommandBehavior(CommandException.class, billCommand, expectedMessage, expectedModel);
-        //        assertHistoryCorrect(billCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
-        //                + addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addToMenuCommand + "\n"
-        //                + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
+        // Execute Bill command
+        logic.changeMode(Mode.TABLE_MODE);
+        model.setSelectedTable(expectedTable);
+        expectedModel.setSelectedTable(null);
+        model.setTable(expectedTable, occupiedTable);
+        expectedModel.setTable(occupiedTable, expectedTable);
+        expectedModel.addDailyRevenue(expectedDailyRevenue);
+        expectedModel.deleteOrderItem(expectedOrderItem);
+
+        expectedModel.setRecentBill(expectedBill);
+        assertCommandBehavior(CommandException.class, billCommand, expectedMessage, expectedModel);
+        assertHistoryCorrect(billCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n"
+                + addToOrderCommand + "\n" + HistoryCommand.COMMAND_WORD + "\n" + addToMenuCommand + "\n"
+                + HistoryCommand.COMMAND_WORD + "\n" + addTableCommand);
     }
 
     @Test

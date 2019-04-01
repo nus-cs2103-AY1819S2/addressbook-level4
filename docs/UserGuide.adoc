@@ -225,22 +225,23 @@ Edits the name of the 2nd member to be `Betsy Crower` and clears all existing ta
 
 ==== Locating members by name: `memberFind`
 
-Finds members whose names contain any of the given keywords. +
-Format: `memberFind KEYWORD [MORE_KEYWORDS]`
+Finds members whose names contain any of the given keywords under the criteria. +
+Format: `memberFind CRITERIA KEYWORD [MORE_KEYWORDS]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* members matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Only the name and/or matric number is searched. CRITERIA is only `name` or `matricnum`
+* Partial words will be matched e.g. `Han` will match `Hans`
+* members matching at least one keyword will be returned (i.e. `OR` search). e.g. `memberFind name Hans Bo` will return `Hans Gruber`, `Bo Yang` e.g. `memberFind matricnum A01` will return all members with matriculation number starting with `A01`
+* 
 ****
 
 Examples:
 
-* `memberFind John` +
+* `memberFind name John` +
 Returns `john` and `John Doe`
-* `memberFind Betsy Tim John` +
+* `memberFind name Betsy Tim John` +
 Returns any member having names `Betsy`, `Tim`, or `John`
 
 ==== Listing members : `memberList`
@@ -479,8 +480,8 @@ e.g. `memberAdd n/James Ong an/A0123456Y p/98765432 e/jamesong@example.com yos/y
 e.g. `memberDelete 3`
 * *Edit a member* : `memberEdit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `memberEdit 2 n/James Lee e/jameslee@example.com`
-* *Find a member* : `memberFind KEYWORD [MORE_KEYWORDS]` +
-e.g. `memberFind John`
+* *Find a member* : `memberFind CRITERIA KEYWORD [MORE_KEYWORDS]` +
+e.g. `memberFind name John` or `memberFind matricnum A0123456Y`
 
 * *List all members* : `list`
 * *Select a member* : `memberSelect INDEX` +

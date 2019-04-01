@@ -81,12 +81,12 @@ public class ListBookCommandSystemTest extends BookShelfSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedBookCardUnchanged();
 
-        /* Case: undo previous find command -> rejected */
+        /* Case: undo previous list command -> rejected */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: redo previous find command -> rejected */
+        /* Case: redo previous list command -> rejected */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);

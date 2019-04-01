@@ -10,13 +10,15 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Author {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Author names should only contain alphanumeric characters and spaces, and it should not be blank";
+            "Author names should only contain alphanumeric characters and spaces, should not be blank "
+            + "or longer than 50 characters";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final int MAX_LENGTH = 50;
 
     public final String fullName;
 
@@ -35,7 +37,7 @@ public class Author {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidAuthor(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return test.length() <= MAX_LENGTH && test.matches(VALIDATION_REGEX);
     }
 
 

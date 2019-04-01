@@ -48,6 +48,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/Alice in Wonderland t/fantasy` or as `n/Alice in Wonderland`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/fantasy`, `t/fantasy t/textbook` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/AUTHOR`, `a/AUTHOR n/NAME` is also acceptable.
+* While book names, review title and review content can contain any kinds of characters, tag and author names should only contain alpha-numeric characters.
+* Book name and author name should not exceed 50 characters (space included).
+* Review title should not exceed 70 characters (space included).
+* Review content should not exceed 350 characters (space included).
+* Tags should not exceed 20 characters (space included).
 ====
 
 === Viewing help : `help`
@@ -245,10 +250,17 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Generate a summary of all the books read so far. +
 Format: `summary`
 
+****
+* The summary will list out how many books you've read.
+* The summary will also list out authors appear more than once in your book shelf.
+* The summary will also list out books of the highest score.
+* The summary will also list out atgs appear more than once in your book shelf.
+****
+
 Examples:
 
 * `summary`
-An example of a summary `You have read 100 books so far. Your favourite book is Alice in Wonderland. You wrote 13 reviews for it. The tag you use most commonly is “textbook.” Your favourite author is “John Doe”, you read 11 books written by him. The book that you gave the lowest rating is “Algorithms”`
+An example of a summary `You've read 9 books. You prefered books by Erika Leonard, as you've read: Fifty Shades of Grey, Fifty Shades Darker. These book receive a rating of 10 from you: To Kill a Mocking Bird. You preferred books that you labeled as fantasy(including The Hunger Games, Life of Pi).`
 
 === Clearing all entries : `clear`
 

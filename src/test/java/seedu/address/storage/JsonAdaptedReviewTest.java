@@ -12,8 +12,10 @@ import seedu.address.model.book.ReviewTitle;
 import seedu.address.testutil.Assert;
 
 public class JsonAdaptedReviewTest {
-    private static final String INVALID_BOOKNAME = "The K&d";
-    private static final String INVALID_REVIEW_TITLE = "100%";
+    private static final String INVALID_BOOKNAME = "This string is too long that it will not be accepted by some "
+            + "attributes. For example, the book name cannot be such long.";
+    private static final String INVALID_REVIEW_TITLE = "This string is too long that it will not be accepted by some "
+            + "attributes. For example, the book name cannot be such long.";
 
     private static final String VALID_REVIEW_TITLE = CS_REVIEW.getTitle().toString();
     private static final String VALID_BOOKNAME = CS_REVIEW.getBookName().toString();

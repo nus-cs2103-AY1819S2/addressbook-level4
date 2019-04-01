@@ -21,6 +21,7 @@ import seedu.address.logic.commands.ListBookCommand;
 import seedu.address.logic.commands.ListReviewCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SortBookCommand;
+import seedu.address.logic.commands.SummaryCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -92,6 +93,9 @@ public class BookShelfParser {
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
+
+        case SummaryCommand.COMMAND_WORD:
+            return new SummaryCommand();
 
         case SortBookCommand.COMMAND_WORD:
             return new SortBookCommandParser().parse(arguments);

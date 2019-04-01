@@ -65,14 +65,7 @@ public class QuizModelManager implements QuizModel {
     public List<SrsCard> getQuizSrsCards() {
         return session.getQuizSrsCards();
     }
-    @Override
-    public String getQuestionHeader() {
-        return session.getQuestionHeader();
-    }
-    @Override
-    public String getAnswerHeader() {
-        return session.getAnswerHeader();
-    }
+
     @Override
     public void updateUserProfile(List<List<Integer>> quizInformation) {
         List<CardSrsData> cardSrsDataList = session.updateUserProfile(quizInformation);
@@ -130,6 +123,16 @@ public class QuizModelManager implements QuizModel {
     @Override
     public boolean toggleIsCardDifficult(int index) {
         return quiz.toggleIsCardDifficult(index);
+    }
+
+    @Override
+    public String getQuestionHeader() {
+        return quiz.getQuestionHeader();
+    }
+
+    @Override
+    public String getAnswerHeader() {
+        return quiz.getAnswerHeader();
     }
 
     @Override

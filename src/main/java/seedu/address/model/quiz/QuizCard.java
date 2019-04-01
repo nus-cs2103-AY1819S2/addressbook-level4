@@ -146,10 +146,14 @@ public class QuizCard {
     }
 
     public String getQuestionHeader() {
+        assert index == -1;
+
         return questionHeader;
     }
 
     public String getAnswerHeader() {
+        assert index == -1;
+
         return answerHeader;
     }
 

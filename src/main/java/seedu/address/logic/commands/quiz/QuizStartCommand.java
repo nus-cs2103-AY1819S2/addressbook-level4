@@ -63,14 +63,14 @@ public class QuizStartCommand extends ManagementCommand {
         Quiz quiz = new Quiz(quizCards, session.getMode());
         model.init(quiz, session);
         QuizCard card = model.getNextCard();
+
         if (card.getQuizMode() == QuizMode.PREVIEW) {
             model.setDisplayFormatter(new QuizUiDisplayFormatter(
-                    model.getQuestionHeader(), card.getQuestion(),
-                    model.getAnswerHeader(), card.getAnswer(), QuizMode.PREVIEW));
+                    model.getQuestionHeader(), card.getQuestion(), model.getAnswerHeader(), card.getAnswer(),
+                    QuizMode.PREVIEW));
         } else {
             model.setDisplayFormatter(new QuizUiDisplayFormatter(
-                    model.getQuestionHeader(), card.getQuestion(),
-                    model.getAnswerHeader(), QuizMode.REVIEW));
+                    model.getQuestionHeader(), card.getQuestion(), model.getAnswerHeader(), QuizMode.REVIEW));
         }
 
         return new CommandResult("", true, false, false);

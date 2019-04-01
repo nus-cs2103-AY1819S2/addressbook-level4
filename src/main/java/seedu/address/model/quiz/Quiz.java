@@ -173,6 +173,32 @@ public class Quiz {
     }
 
     /**
+     * Gets the question header if not flipped, else gets answer header
+     */
+    public String getQuestionHeader() {
+        QuizCard original = currentSession.get(currentQuizCard.getIndex());
+
+        if (original.getQuestion().equals(currentQuizCard.getQuestion())) {
+            return original.getQuestionHeader();
+        }
+
+        return original.getAnswerHeader();
+    }
+
+    /**
+     * Gets the answer header if not flipped, else gets question header
+     */
+    public String getAnswerHeader() {
+        QuizCard original = currentSession.get(currentQuizCard.getIndex());
+
+        if (original.getAnswer().equals(currentQuizCard.getAnswer())) {
+            return original.getAnswerHeader();
+        }
+
+        return original.getQuestionHeader();
+    }
+
+    /**
      * Returns the current session.
      */
     public List<QuizCard> getCurrentSession() {

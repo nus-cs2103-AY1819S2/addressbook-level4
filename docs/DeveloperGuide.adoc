@@ -11,15 +11,41 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
+:code-caption: :computer:
 :experimental:
 endif::[]
 :repoURL: https://github.com/cs2103-ay1819s2-w09-3/main
 
-By: `Team w09-3`      Since: `Jan 2019`      Licence: `MIT`
+By: `Team W09-3`      Since: `Feb 2019`      Licence: `MIT`
+
+== Introduction
+
+RestOrRant (ROR) is a restaurant management application for restaurant managers, waiters and cashiers. ROR is designed for them to perform front-end operations more conveniently and efficiently. ROR allows them to manage tables, orders, menu and statistical data using the Command Line Interface (CLI).
+
+This Developer Guide allows you as a developer to understand the implementation and design principles used in ROR. This guide serves as a reference for you to set up and further contribute to ROR’s development.
+
+This Developer Guide consists of the following sections: 
+* <<Setting Up, Setting Up>> - Provides instructions to set up ROR in your computer
+* <<Design, Design>> - Provides an overview of the architecture and components of ROR
+* <<Implementation, Implementation>> - Provides implementation and design considerations of ROR’s core features
+* <<Documentation, Documentation>> - Provides instructions to edit and publish documentation
+* <<Testing, Testing>> - Provides methods to run and troubleshoot tests
+* <<Dev Ops, Dev Ops>> - Provides tools to help build, test and release ROR
+
+To help you follow this Developer Guide better, here is the legend of the markups used throughout this document:
+* |`HelloWorld`|Code in the codebase
+* |[NOTE]|Notes that provides additional information
+* |[TIP]|Tips and tricks
+* |[WARNING]|Warnings
+* |[CODE]|Commands to input in the CLI
 
 == Setting up
 
+This section will guide you along the process of setting up ROR in your computer.
+
 === Prerequisites
+
+Before you proceed, there are two prerequisites you will need to fulfill
 
 . *JDK `9`* or later
 +
@@ -33,9 +59,9 @@ Windows developers are highly recommended to use JDK `9`.
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 
+=== Setting up ROR in your computer
 
-=== Setting up the project in your computer
-
+Having satisfied the prerequisites, you can now set up ROR in your computer by following the steps below:
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
 . Set up the correct JDK version for Gradle
@@ -54,10 +80,13 @@ This will generate all resources required by the application and tests.
 
 === Verifying the setup
 
+To make sure that your ROR is properly set up:
 . Run the `seedu.address.MainApp` and try a few commands
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
+
+You should ensure that the following configurations are done to be compatible with ROR.
 
 ==== Configuring the coding style
 
@@ -105,18 +134,20 @@ When you are ready to start coding,
 
 == Design
 
+Now that you have successfully set up ROR, you are advised to read this section in order to better understand the architecture and its components in ROR. Knowing the structure of ROR and the interactions between its components will allow you to better navigate and modify the code, giving you a headstart in contributing to ROR.
+
 [[Design-Architecture]]
 === Architecture
-
+The *_Architecture Diagram_* given below (Figure 1) explains the high-level design of ROR.
 .Architecture Diagram
 image::Architecture.png[width="600"]
-
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+Given below is a quick overview of each component.
+
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -156,12 +187,13 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
+The UI component handles the User Interface of ROR.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts such as `CommandBox`, `ResultDisplay`, `TableFlowPanel`, `MenuFlowPanel`, `OrdersListPanel`, `MenuListPanel` and `StatusBarFooter`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class, and are not used at the same time.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -173,6 +205,7 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
+The Logic component deals with the logic behind the execution of commands.
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
@@ -180,7 +213,7 @@ image::LogicClassDiagram.png[width="800"]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `RestOrRantParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -194,6 +227,7 @@ image::DeletePersonSdForLogic.png[width="800"]
 [[Design-Model]]
 === Model component
 
+The Model component keeps a model of the current state of ROR.
 .Structure of the Model Component
 image::ModelClassDiagram.png[width="800"]
 
@@ -202,18 +236,14 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the RestOrRant data.
+* exposes an unmodifiable `ObservableList<Table>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
 
+The Storage component manages the storing and retrieving of data on local files.
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
@@ -222,96 +252,16 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the RestOrRant data in json format and read it back.
+* can save the Tables, Orders, Menu and Statistics data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#updateRestOrRant()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#updateRestOrRant()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#updateRestOrRant()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#updateRestOrRant()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#updateRestOrRant()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#updateRestOrRant()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
 
 // tag::updatetable
 === Update Table feature
@@ -433,7 +383,7 @@ After the iterating through the `orderItemList`, the receipt will append the fin
 
 image::BillReceipt.png[width="300"]
 
-Now that the bill is calculated, the `BillCommand` has to store the calculated data in the `Statistics` storage. If a `DailyRevenue` with the same `Day`, `Month` and `Year` exists in the `DailyRevenueList`, the program calls `BillCommand#updateDailyRevenue()` to add the total bill to the recorded total daily revenue. On the other hand, if no matching Daily Revenue is found, the program will create a new Daily Revenue from the details o the new bill and store it in the statistics storage using `Model#addDailyRevenue`.
+Now that the bill is calculated, the `BillCommand` has to store the calculated data in the `Statistics` storage. If a `DailyRevenue` with the same `Day`, `Month` and `Year` exists in the `DailyRevenueList`, the program calls `BillCommand#updateDailyRevenue()` to add the total bill to the recorded total daily revenue. On the other hand, if no matching Daily Revenue is found, the program will create a new Daily Revenue from the details of the new bill and store it in the statistics storage using `Model#addDailyRevenue`.
 
 `BillCommand#updateStatusOfTable()` takes in the `Model` as an argument and creates a new Table with the updated `TableStatus`. This is done by calling `TableStatus#changeOccupancy(). After which, `Model#setTable()` is called to replace the current `Table` with the new `Table` that has the updated `TableStatus`.
 
@@ -458,7 +408,7 @@ To add: BillActivityDiagram.png[width="650"]
 // end::bill[]
 
 // tag::addtomenu[]
-=== `AddToMenu` feature
+=== Adding To Menu feature
 ==== Current Implementation
 
 The menu items in the menu are stored as a list. Adding a new menu item to the menu is done by adding to the existing list.
@@ -499,13 +449,6 @@ The pros outweighs the cons as despite the number of variables during runtime, i
 
 
 // end::addtomenu[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -709,7 +652,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, RestOrRant depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -742,10 +685,10 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 +
 ****
 * Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/ClearOrderCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteFromOrderCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
+** link:{repoURL}/src/main/java/seedu/address/logic/parser/RestOrRantParser.java[`RestOrRantParser`] is responsible for analyzing command words.
 * Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/RestOrRantParser.java[`RestOrRantParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
 ** Add new tests for each of the aliases that you have added.
 ** Update the user guide to document the new aliases.
 ** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
@@ -763,11 +706,11 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 +
 ****
 * Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`] API need to be updated.
 ** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`] and link:{repoURL}/src/main/java/seedu/address/model/person/Table.java[`Table`] classes can be used to add tables. link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
 * Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
+** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/RestOrRant.java[`RestOrRant`]. Loop through each person, and remove the `tag` from each person.
 ** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
@@ -851,17 +794,17 @@ image::getting-started-ui-status-after.png[width="500"]
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the tables, menu, orders and statistics to the cloud. However, the current implementation of the application constantly saves the tables, menu, orders and statistics after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupMenu(ReadOnlyMenu)`, so that the menu can be saved in a fixed temporary location.
 +
 ****
 * Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonAddressBookStorage.java[`JsonAddressBookStorage`] class.
+** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/MenuStorage.java[`MenuStorage`] interface.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/JsonMenuStorage.java[`JsonMenuStorage`] class.
 * Solution
 ** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
@@ -998,13 +941,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage the front-end operations of a restaurant (customers, orders, menu)
+* wants to easily keep track of restaurant statistics (customers, revenue, dishes’ popularity)
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: RestOrRant manages the customers, orders, menu and restaurant statistics with a speed faster than a typical mouse/GUI driven application. This allows the user to have a clear idea of the current arrangement of the customers and status of the restaurant without the need to physically check out the space. This is especially useful for busy restaurants with unorganised front-end managing systems.
 
 [appendix]
 == User Stories
@@ -1092,12 +1036,12 @@ Use case ends.
 [discrete]
 
 [discrete]
-=== Use case: Checking for available tableList
+=== Use case: Checking for available tables
 
 *MSS*
 
-1.  User enters command to list all tableList in the restaurant.
-2.  RestOrRant Program returns the status (number of customers at the table/number of seats at the table) of all tableList in the restaurant.
+1.  User enters command to list all tables in the restaurant.
+2.  RestOrRant Program returns the status (number of customers at the table/number of seats at the table) of all tables in the restaurant.
 +
 Use case ends.
 
@@ -1270,15 +1214,14 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Adding a table
 
-. Deleting a person while all persons are listed
+. Adding a table
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `addTable 1` +
+   Expected: Adds a table with table status of 0/1.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No table is added. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

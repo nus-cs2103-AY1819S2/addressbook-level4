@@ -21,8 +21,8 @@ public class GenerateCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        model.commitChart();
         model.setChartDisplayed(true);
+        model.commitTravelBuddy();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

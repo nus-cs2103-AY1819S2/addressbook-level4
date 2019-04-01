@@ -188,11 +188,13 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 `PlaceListCard`: Labels for the Display index and Place data fields (CountryCode, Rating etc.) in a VBox the left,
 Labels that display Name and actual Place data (CountryCode, Rating etc) in a VBox on the right.
 
-`BrowserPanel`: Opens on clicking the PlaceListCard, on the right of the PlaceListPanel.
-Currently (v1.2), opens up a Webview and displays a html placeholder page.
+RightParentPanel: Parent panel for both `DisplayListPanel` and `ExtendedPlacePanel`
 
-For the next release (v1.3), `BrowserPanel` will display an expanded view of
-all Place data. Photo attachments to be included here as well in future releases (beyond v1.3).
+`DisplayListPanel`: Displays the charts and bars that are called by `generate`
+
+'ExtendedPlacePanel': Display an expanded view of all Place data. Photo attachments to be included here as well in future releases (beyond v1.3).
+
+`BrowserPanel`: Opens on clicking the PlaceListCard, on the right of the PlaceListPanel. Deprecated.
 
 *All CSS code are found in DarkTheme.css and Extensions.css
 

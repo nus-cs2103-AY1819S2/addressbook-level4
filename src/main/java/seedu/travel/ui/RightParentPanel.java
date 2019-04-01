@@ -24,31 +24,54 @@ public class RightParentPanel extends UiPart<Region> {
     private ListView<Place> placeListView; // not in use
 
     @FXML
-    private VBox displayListPanelPlaceholder;
+    private VBox parentPanelPlaceholder;
 
     private DisplayListPanel displayListPanel;
 
     public RightParentPanel(ObservableList<Place> placeList, ObservableValue<Place> selectedPlace,
                             Consumer<Place> onSelectedPlaceChange, ReadOnlyProperty<Boolean> chartDisplayed) {
         super(FXML);
-
+        displayListPanel = new DisplayListPanel(placeList, onSelectedPlaceChange);
+        parentPanelPlaceholder.getChildren().setAll(displayListPanel.getRoot());
 
         chartDisplayed.addListener((observable, oldValue, newValue) -> {
             // display the chart
+
             logger.info("old Value" + oldValue + "New value " + newValue);
             if (newValue) {
                 // pass through
-                logger.info("SimpleBooleanValue Changed");
-                displayListPanel = new DisplayListPanel(placeList, selectedPlace, onSelectedPlaceChange);
-                displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+                logger.info("SimpleBooleanValue Changed ");
+                displayListPanel = new DisplayListPanel(placeList, onSelectedPlaceChange);
+                parentPanelPlaceholder.getChildren().removeAll();
+                parentPanelPlaceholder.getChildren().setAll(displayListPanel.getRoot());
             } else {
+                if (selectedPlace.getValue() == null) {
+                    ExpandedPlacePanel empty = new ExpandedPlacePanel();
+                    parentPanelPlaceholder.getChildren().removeAll();
+                    parentPanelPlaceholder.getChildren().setAll(empty.getRoot());
 
-                ExpandedPlacePanel expandedPlacePanel = new ExpandedPlacePanel(selectedPlace.getValue());
-                displayListPanelPlaceholder.getChildren().removeAll();
-                displayListPanelPlaceholder.getChildren().add(expandedPlacePanel.getRoot());
+                    return;
+                }
+                ExpandedPlacePanel updated = new ExpandedPlacePanel(selectedPlace.getValue());
+                parentPanelPlaceholder.getChildren().removeAll();
+                parentPanelPlaceholder.getChildren().setAll(updated.getRoot());
             }
         });
 
+        selectedPlace.addListener((observable, oldValue, newValue) -> {
+            if (selectedPlace.getValue() == null) {
+                ExpandedPlacePanel empty = new ExpandedPlacePanel();
+                parentPanelPlaceholder.getChildren().removeAll();
+                parentPanelPlaceholder.getChildren().setAll(empty.getRoot());
+                return;
+            }
+
+                ExpandedPlacePanel updated = new ExpandedPlacePanel(selectedPlace.getValue());
+                parentPanelPlaceholder.getChildren().removeAll();
+                parentPanelPlaceholder.getChildren().setAll(updated.getRoot());
+
+            }
+        );
 
     }
 

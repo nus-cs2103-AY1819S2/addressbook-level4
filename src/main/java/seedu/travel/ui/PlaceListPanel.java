@@ -6,9 +6,11 @@ import java.util.logging.Logger;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import seedu.travel.commons.core.LogsCenter;
 import seedu.travel.model.place.Place;
@@ -47,6 +49,14 @@ public class PlaceListPanel extends UiPart<Region> {
                 int index = placeListView.getItems().indexOf(newValue);
                 placeListView.scrollTo(index);
                 placeListView.getSelectionModel().clearAndSelect(index);
+            }
+        });
+
+        // disables selection in list view
+        placeListView.addEventFilter(MouseEvent.ANY, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                mouseEvent.consume();
             }
         });
     }

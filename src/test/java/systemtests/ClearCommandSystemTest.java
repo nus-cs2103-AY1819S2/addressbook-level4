@@ -57,6 +57,7 @@ public class ClearCommandSystemTest extends TravelBuddySystemTest {
     }
 
     /**
+     *
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code ClearCommand#MESSAGE_SUCCESS} and the model related components equal to an empty model.
      * These verifications are done by
@@ -64,9 +65,11 @@ public class ClearCommandSystemTest extends TravelBuddySystemTest {
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
      * @see TravelBuddySystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
+
     private void assertCommandSuccess(String command) {
         assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
     }
+
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String)} except that the result box displays

@@ -32,7 +32,7 @@ public class SearchCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
-        if (model.getState() != State.IN_FOLDER && model.getState() != State.IN_HOMEDIR) {
+        if (model.getState() != State.IN_FOLDER) {
             throw new CommandException(Messages.MESSAGE_INVALID_COMMAND_OUTSIDE_FOLDER);
         }
 

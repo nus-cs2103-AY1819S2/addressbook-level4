@@ -32,7 +32,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     //private BrowserPanel browserPanel;
-    private DisplayListPanel displayListPanel;
+    private RightParentPanel rightParentPanel;
     private PlaceListPanel placeListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
@@ -41,7 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     //private StackPane browserPlaceholder;
 
     @FXML
-    private StackPane displayListPanelPlaceholder;
+    private StackPane rightParentPanelPlaceholder;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -115,12 +115,12 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //browserPanel = new BrowserPanel(logic.selectedPlaceProperty());
-        //browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        // browserPanel = new BrowserPanel(logic.selectedPlaceProperty());
+        // browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
-        displayListPanel = new DisplayListPanel(logic.getFilteredPlaceList(), logic.selectedPlaceProperty(),
-                logic::setSelectedPlace);
-        displayListPanelPlaceholder.getChildren().add(displayListPanel.getRoot());
+        rightParentPanel = new RightParentPanel(logic.getFilteredPlaceList(), logic.selectedPlaceProperty(),
+                logic::setSelectedPlace, logic.chartDisplayedProperty());
+        rightParentPanelPlaceholder.getChildren().add(rightParentPanel.getRoot());
 
         placeListPanel = new PlaceListPanel(logic.getFilteredPlaceList(), logic.selectedPlaceProperty(),
                 logic::setSelectedPlace);

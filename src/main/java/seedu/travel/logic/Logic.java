@@ -69,4 +69,11 @@ public interface Logic {
      * @see seedu.travel.model.Model#setSelectedPlace(Place)
      */
     void setSelectedPlace(Place place);
+
+    ReadOnlyProperty<Boolean> chartDisplayedProperty();
+
+    /**
+     * Set when chart needs to be displayed.
+     */
+    void setChartDisplayed(boolean chartDisplayed);
 }

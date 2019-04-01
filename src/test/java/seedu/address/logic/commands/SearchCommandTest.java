@@ -23,7 +23,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.predicate.NameContainsKeywordsPredicate;
-import seedu.address.model.person.predicate.PredicateManager;
 
 
 /**
@@ -38,8 +37,8 @@ public class SearchCommandTest {
     public void equals() {
         SearchCommand.PredicatePersonDescriptor firstDescriptor = preparePredicatePersonDescriptor("first");
         SearchCommand firstCommand = new SearchCommand(firstDescriptor);
-        SearchCommand.PredicatePersonDescriptor secondDescriptor
-            = preparePredicatePersonDescriptor("second");
+        SearchCommand.PredicatePersonDescriptor secondDescriptor =
+            preparePredicatePersonDescriptor("second");
         SearchCommand secondCommand = new SearchCommand(secondDescriptor);
         NameContainsKeywordsPredicate findPredicate =
             new NameContainsKeywordsPredicate(Collections.singletonList("first"));

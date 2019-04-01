@@ -1,17 +1,13 @@
 package seedu.address.model.record;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 import java.util.Objects;
 
 import seedu.address.model.patient.Nric;
-import seedu.address.model.patient.Patient;
 import seedu.address.model.person.Name;
 
 /**
  * Represents a person linked to a task in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidLinkedPerson(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidLinkedPatient(String)}
  */
 public class LinkedPatient {
     public static final String MESSAGE_CONSTRAINTS = "Index of patient should be a positive integer and should be "

@@ -1,4 +1,4 @@
-= FoodDiary Level 4 - User Guide
+= The Food Diary - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:

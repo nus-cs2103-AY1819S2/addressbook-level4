@@ -8,6 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.exceptions.NoInternetException;
+
 /**
  * Represents a Restaurant's weblink in the food diary.
  * Guarantees: immutable; is valid as declared in {@link #isValidWeblinkString(String)}
@@ -60,7 +63,7 @@ public class Weblink {
      * Checks if a given string is a valid weblink URL, ie. HTTP response code should not be 400 and above
      * The only acceptable malformed Url is the default placeholder for no weblinks, NO_WEBLINK_STRING
      */
-    public static boolean isNotValidWeblinkUrl(String urlString) {
+    public static boolean isNotValidWeblinkUrl(String urlString) throws NoInternetException {
         try {
             urlString = Weblink.prependHttps(urlString);
             URL u = new URL(urlString);
@@ -71,7 +74,7 @@ public class Weblink {
         } catch (MalformedURLException e) {
             return !urlString.equals(NO_WEBLINK_STRING);
         } catch (IOException e) {
-            return true;
+            throw new NoInternetException(Messages.MESSAGE_NO_INTERNET);
         }
     }
 

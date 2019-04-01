@@ -60,7 +60,7 @@ class JsonAdaptedTask {
         starttime = source.getStartTime().toString();
         endtime = source.getEndTime().toString();
         priority = source.getPriority().toString();
-        if(source.getLinkedPatient() == null) {
+        if (source.getLinkedPatient() == null) {
             linkedname = null;
             linkednric = null;
         } else {

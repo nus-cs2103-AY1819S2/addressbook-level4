@@ -25,11 +25,12 @@ public class Task {
     protected final TimeCustom startTime;
     protected final TimeCustom endTime;
     protected final Priority priority;
+    protected final boolean isCopy;
+    protected int copyCount;
 
     private LinkedPatient linkedPatient;
 
-    protected final boolean isCopy;
-    protected int copyCount;
+
 
 
     /**

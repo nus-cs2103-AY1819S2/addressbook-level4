@@ -278,6 +278,8 @@ The number of battleship types that a user can deploy on the map depends on the 
 1. Number of destroyers = (`mapSize` + 2) / 5.
 1. Number of aircraft carriers = 1.
 
+The user can tag a battleship using a `t/[TAG]` parameter in the `put` command. Tagging battleships is optional.
+
 [NOTE]
 The head of a battleship refers to the top-most and left-most cell of the battleship. When coordinates are specified in the `put` command, it specifies the coordinates of the head of the battleship, as shown in the figure below.
 
@@ -285,6 +287,22 @@ image:BattleshipHeadExample.png[width=800]
 
 .The coordinates of the `put` command refer to the coordinates of the battleship head.
 image:BattleshipHeadExample2.png[width=800]
+
+The following operations are called when the `put` command is called.
+
+* `performChecks()` - performs boundary checks on the map grid to ensure that the battleship can be placed on the map.
+* `putShip()` - puts the battleship into the cell.
+* `getCell()` - gets the cell that is specified by the coordinates provided by the user.
+
+Here is an example of a given user scenario.
+
+Step 1. Initialise the map to a map of size 10.
+
+image:PutShipWalkThrough1.png[width=800]
+
+Step 2. Put the battleship on the map by specifying the name, coordinates, orientation, and tags.
+
+image:PutShipWalkThrough2.png[width=800]
 
 The following sequence diagram shows how a battleship is put on the map.
 
@@ -302,6 +320,30 @@ Battleships that have been deployed can also be listed. Battleships can be liste
 1. List battleships that have certain tags.
 1. List battleships of a certain type.
 1. List battleships of a certain type that have certain tags.
+
+Here is an example of a given user scenario. In this scenario, the user has deployed some battleships on a 10 by 10 map grid with various tags.
+
+Step 1. Initialise the map to a map of size 10.
+Step 2. Deploy battleships by specifying the name, coordinates, orientation, and tags. We will deploy the following battleships:
+
+* Cruiser at a4 vertical with tag `tag1`.
+* Cruiser at d4 vertical with tag `tag1`.
+* Cruiser at f7 horizontal with tag `tag2`.
+* Cruiser at h8 horizontal with tag `tag2`.
+* Destroyer at d4 horizontal with tag `tag1`.
+
+Step 3. List the battleships.
+
+image::ListExample1.png[width=800]
+
+Step 4. List the battleships by name. Use `cruiser`.
+
+image::ListExample2.png[width=800]
+
+Step 5. List the battleships by name and tags. Use `cruiser` with `tag1`.
+
+image::ListExample3.png[width=800]
+
 
 The following sequence diagram shows how deployed battleships are listed when the `list` command is entered into the command line.
 

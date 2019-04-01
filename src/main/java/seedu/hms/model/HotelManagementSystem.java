@@ -2,6 +2,7 @@ package seedu.hms.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javafx.beans.InvalidationListener;
@@ -149,22 +150,28 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      * {@code key} must exist in the hms book.
      */
     public void removeCustomer(Customer key) {
+        List<Booking> bookingsToRemove = new ArrayList<>();
         for (Booking b: bookings) {
             if (b.getPayer().equals(key)) {
-                this.removeBooking(b);
+                bookingsToRemove.add(b);
             }
             if (b.isCustomerInOtherUsers(key)) {
                 b.removeCustomerFromOtherUsers(key);
             }
         }
+        bookings.removeAllBookings(bookingsToRemove);
+
+        List<Reservation> reservationsToRemove = new ArrayList<>();
         for (Reservation r: reservations) {
             if (r.getPayer().equals(key)) {
-                this.removeReservation(r);
+                reservationsToRemove.add(r);
             }
             if (r.isCustomerInOtherUsers(key)) {
                 r.removeCustomerFromOtherUsers(key);
             }
         }
+        reservations.removeAllReservations(reservationsToRemove);
+
         customers.remove(key);
         indicateModified();
     }
@@ -205,6 +212,15 @@ public class HotelManagementSystem implements ReadOnlyHotelManagementSystem {
      */
     public void removeBooking(Booking b) {
         bookings.remove(b);
+        indicateModified();
+    }
+
+    /**
+     * Removes {@code booking} from this {@code HotelManagementSystem}.
+     * {@code booking} must exist in the hms book.
+     */
+    public void removeAllBookings(List<Booking> bookings) {
+        bookings.removeAll(bookings);
         indicateModified();
     }
 

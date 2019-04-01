@@ -117,6 +117,14 @@ public class BookingList implements Iterable<Booking> {
         }
     }
 
+    /**
+     * Removes {@code booking} from this {@code HotelManagementSystem}.
+     * {@code booking} must exist in the hms book.
+     */
+    public void removeAllBookings(List<Booking> bookings) {
+        internalList.removeAll(bookings);
+    }
+
     public void setBookings(BookingList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
